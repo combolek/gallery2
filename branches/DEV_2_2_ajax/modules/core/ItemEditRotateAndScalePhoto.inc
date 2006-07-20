@@ -17,6 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
  * @version $Revision$ $Date$
  * @package GalleryCore
@@ -172,12 +173,6 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
     function loadTemplate(&$template, &$form, $item, $thumbnail) {
 	$ItemEditRotateAndScalePhoto = array();
 
-	list ($ret, $ItemEditRotateAndScalePhoto['isAdmin']) =
-	    GalleryCoreApi::isUserInSiteAdminGroup();
-	if ($ret) {
-	    return array($ret, null, null);
-	}
-
 	if ($form['formName'] != 'ItemEditRotateAndScalePhoto') {
 	    /* First time around, reset the form */
 	    $form['resize']['width'] = $form['resize']['height'] = '';
@@ -207,16 +202,14 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 
 	/* Can we allow to delete the original? */
 	$mimeType = $item->getMimeType();
-	list ($ret, $toolkit) =
-	    GalleryCoreApi::getToolkitByOperation($mimeType, 'rotate');
+	list ($ret, $toolkit) = GalleryCoreApi::getToolkitByOperation($mimeType, 'rotate');
 	if ($ret) {
 	    return array($ret, null, null);
 	}
 	$ItemEditRotateAndScalePhoto['editPhoto']['noToolkitSupport'] = !isset($toolkit);
 	/* Get worst of rotate and resize */
 	if (isset($toolkit)) {
-	    list ($ret, $toolkit) =
-		GalleryCoreApi::getToolkitByOperation($mimeType, 'resize');
+	    list ($ret, $toolkit) = GalleryCoreApi::getToolkitByOperation($mimeType, 'resize');
 	    if ($ret) {
 		return array($ret, null, null);
 	    }
@@ -250,10 +243,14 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 	    return array($ret, null, null);
 	}
 
+	/* Render the HTML body */
 	$template->setVariable('ItemEditRotateAndScalePhoto', $ItemEditRotateAndScalePhoto);
-	$template->setVariable('controller', 'core.ItemEditRotateAndScalePhoto');
-	return array(null,
-		     'modules/core/templates/ItemEditRotateAndScalePhoto.tpl', 'modules_core');
+	$template->javascript('lib/yui/yahoo-min.js');
+	$template->javascript('lib/yui/dom-min.js');
+	$template->javascript('lib/yui/event-min.js');
+
+	return array(null, 'modules/core/templates/ItemEditRotateAndScalePhoto.tpl',
+	    'modules_core');
     }
 
     /**

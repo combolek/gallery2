@@ -17,9 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
  * @version $Revision$ $Date$
  * @package GalleryCore
+ * @subpackage Classes
  * @author Bharat Mediratta <bharat@menalto.com>
  */
 
@@ -216,7 +218,7 @@ class GalleryTemplateAdapter {
     }
 
     /**
-     * @see GalleryTranslator::translate()
+     * @see GalleryTranslator::translate
      */
     function text($params, &$smarty) {
 	global $gallery;
@@ -247,7 +249,7 @@ class GalleryTemplateAdapter {
      * Useful when we are trying to change a value recursively
      *
      * @param array key => value attributes
-     * @return HTML content
+     * @return string HTML content
      */
     function changeInDescendents($params, &$smarty) {
 	global $gallery;
@@ -270,14 +272,76 @@ class GalleryTemplateAdapter {
     }
 
     /**
-     * Return a transformed element name, useful when we're trying to use
-     * Javascript to access a form element.
+     * Return a transformed element name.  Useful for accessing a form element in JavaScript
      *
      * @param array key => value attributes
-     * @return HTML content
+     * @return string form variable name
      */
     function formVar($params) {
 	return GalleryUtilities::prefixFormVariable($params['var']);
+    }
+
+    /**
+     * Serialize arrays as form variables by looping over the block content for each Gallery form
+     * variable & value in the array
+     *
+     * Takes two parameters: Name & value of the form variable.  Parameter names correspond to
+     * template variable names in which the Gallery form variable & value is set each iteration
+     *
+     * eg. {g->formVars foo="form[exampleVar]" bar=$exampleArray}
+     *     <input type="hidden" name="{$foo}" value="{$bar}"/>
+     *     {/g->formVars}
+     *
+     * @param array key => value attributes
+     * @param string contents of template block
+     * @param object Smarty the smarty instance
+     * @param boolean evaluate template block again
+     * @return string content
+     */
+    function formVars($params, $content, &$smarty, &$repeat) {
+	static $save, $nameVar, $valueVar, $valueKeys, $valueValues;
+
+	$paramCount = count($params);
+	if ($paramCount != 2) {
+	    $smarty->_syntax_error("formVar requires 2 parameters, $paramCount given",
+		E_USER_ERROR, __FILE__, __LINE__);
+	    return;
+	}
+
+	if ($content === null) {
+
+	    /* First iteration */
+	    $save = $smarty->_tpl_vars;
+	    list ($nameVar, $valueVar) = array_keys($params);
+	    $valueKeys = $valueValues = array();
+	} else {
+	    $repeat = ($params[$nameVar] = array_shift($valueKeys)) !== null &&
+		($params[$valueVar] = array_shift($valueValues)) !== null;
+	}
+
+	while (is_array($params[$valueVar])) {
+	    foreach ($params[$valueVar] as $key => $value) {
+		$valueKeys[] = "$params[$nameVar][$key]";
+		$valueValues[] = $value;
+	    }
+
+	    /* Last value could be empty array */
+	    if (($params[$nameVar] = array_shift($valueKeys)) === null ||
+		($params[$valueVar] = array_shift($valueValues)) === null) {
+		    $repeat = false;
+		    break;
+	    }
+	}
+
+	if ($repeat) {
+	    $params[$nameVar] = GalleryUtilities::prefixFormVariable(
+		$params[$nameVar]);
+	    $smarty->assign($params);
+	} else {
+	    $smarty->_tpl_vars = $save;
+	}
+
+	return $content;
     }
 
     /**
@@ -490,8 +554,8 @@ class GalleryTemplateAdapter {
     }
 
     /**
-     * This takes an array and looks for view, subview, and controller to make
-     * a linkid (being used as a css classname)
+     * This takes an array and looks for view, subview, and controller to make a link id (being used
+     * as a css class)
      *
      * @param array the items to make a css class out of
      * @return string the id of the css class
@@ -526,8 +590,8 @@ class GalleryTemplateAdapter {
     }
 
     /**
-     * This removes unsafe characters from a string so they can be used as a class
-     * name or id in html and be addressed via css
+     * This removes unsafe characters from a string so they can be used as a class name or id in
+     * html and be addressed via css
      *
      * Purpose:  Removes characters from a string so that it can be used for an
      * html class name or id and be addressed via css
@@ -735,16 +799,16 @@ class GalleryTemplateAdapter {
     }
 
     /**
-     * Include a module's block into the current smarty page.  The only
-     * required param is 'type' which should be of the form <module>.<blockname>
-     * eg: "core.LoginBlock".  Any other parameters get passed on to the block itself.
+     * Include a module's block in the current Smarty page.  The only required param is 'type' which
+     * should be of the form <module>.<blockname> eg: "core.LoginBlock".  Any other parameters get
+     * passed on to the block itself
      *
      * @params array('type' => <block descriptor>, ...)
      * @param reference to Smarty
      */
     function block($params, &$smarty) {
 	list ($module, $file) = explode('.', $params['type']);
-	$class = empty($params['class']) ? '' : ' ' . $params['class'];
+	$class = empty($params['class']) ? '' : " $params[class]";
 
 	list ($ret, $pluginStatus) = GalleryCoreApi::fetchPluginStatus('module');
 	if ($ret) {
@@ -772,11 +836,11 @@ class GalleryTemplateAdapter {
     }
 
     /**
-     * Include a module's container into the current smarty page.  The only
-     * required param is 'type' which should be of the form <module>.<blockname>
-     * eg: "core.LoginBlock".  Any other parameters get passed on to the block itself.
+     * Include a module's container in the current Smarty page.  The only required param is 'type'
+     * which should be of the form <module>.<blockname> eg: "core.LoginBlock".  Any other parameters
+     * get passed on to the block itself
      *
-     * This is like block() except it wraps actual content.
+     * This is like block() except it wraps actual content
      *
      * @params array('type' => <block descriptor>, ...)
      * @param reference to Smarty

@@ -17,6 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
  * @version $Revision$ $Date$
  * @package GalleryCore
@@ -25,8 +26,7 @@
  */
 
 /**
- * This view prepares all the information the theme requires to render
- * an error page.
+ * This view prepares all the information the theme requires to render an error page
  *
  * @package GalleryCore
  * @subpackage UserInterface
@@ -38,7 +38,7 @@ class ErrorPageView extends GalleryView {
     }
 
     /**
-     * @see GalleryView::getViewType()
+     * @see GalleryView::getViewType
      */
     function getViewType() {
 	return VIEW_TYPE_ERROR;
@@ -52,10 +52,8 @@ class ErrorPageView extends GalleryView {
 
 	$ErrorPage = array();
 
-	$error = null;
-	if (isset($this->_error)) {
-	    $error = $this->_error;
-	} else {
+	$error = $this->_error;
+	if (!isset($error)) {
 	    $session =& $gallery->getSession();
 	    $error = $session->get('core.error');
 	    if ($error) {
@@ -70,7 +68,7 @@ class ErrorPageView extends GalleryView {
 	    $ErrorPage['stackTrace'] = $error->getAsHtml($isAdmin);
 	}
 
-	/* Landing page for errors.. */
+	/* Landing page for errors */
 	$errorCode = $ErrorPage['errorCode'] = $error->getErrorCode();
 	if ($errorCode & ERROR_OBSOLETE_DATA) {
 	    $ErrorPage['code']['obsoleteData'] = true;
@@ -116,12 +114,12 @@ class ErrorPageView extends GalleryView {
 
 	$template->javascript('lib/javascript/BlockToggle.js');
 	$template->setVariable('ErrorPage', $ErrorPage);
-	return array(null,
-		     array('body' => 'modules/core/templates/ErrorPage.tpl'));
+	return array(null, array('body' => 'modules/core/templates/ErrorPage.tpl'));
     }
 
     /**
      * Entry point from main.php
+     *
      * @param object GalleryStatus
      * @param mixed GalleryMain result, if available
      * @param boolean (default true) false if G2 has not initialized (can't use theme system)
@@ -136,7 +134,7 @@ class ErrorPageView extends GalleryView {
 
 	/* Return HTTP 404 status for ERROR_MISSING_OBJECT */
 	if ($error->getErrorCode() & ERROR_MISSING_OBJECT) {
-	    header('HTTP/1.0 404 Not Found');
+	    header('HTTP/1.1 404 Not Found');
 	}
 
 	/* Post Gallery::Error event */
@@ -145,6 +143,23 @@ class ErrorPageView extends GalleryView {
 	list ($ret, $data) = GalleryCoreApi::postEvent($event);
 	if ($ret) {
 	    $failsafe = true;
+	}
+
+	/*
+	 * Without the following, erroneous Ajax callback bodies replace page bodies using
+	 * JavaScript.  This way errors are displayed without additional requests.  However this
+	 * doesn't display perfectly on all browsers.  The following redirects the browser to the
+	 * error page
+	 */
+	if (GalleryUtilities::isCallback()) {
+	    $session =& $gallery->getSession();
+	    $urlGenerator =& $gallery->getUrlGenerator();
+
+	    $session->put('core.error', serialize($error));
+	    header('Content-Type: text/javascript; charset=UTF-8');
+	    print 'window.location = "' . $urlGenerator->generateUrl(
+		array('view' => 'core.ErrorPage'), array('htmlEntities' => false)) . '";';
+	    return;
 	}
 
 	if (!$failsafe) {
@@ -202,7 +217,7 @@ class ErrorPageView extends GalleryView {
 	}
 
 	if ($failsafe) {
-	    /* Some kind of catastrophic failure.  Just dump the error out to the browser. */
+	    /* Some kind of catastrophic failure.  Just dump the error out to the browser */
 	    print '<h2>Error</h2>' . $error->getAsHtml(false);
 	    if ($gallery->getDebug() == 'buffered') {
 		print '<h3>Debug Output</h3><pre>' . $gallery->getDebugBuffer() . '</pre>';

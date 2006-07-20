@@ -69,6 +69,7 @@ class ItemEditPhoto extends ItemEditPlugin {
 		if ($ret) {
 		    return array($ret, null, null, null);
 		}
+
 		foreach ($resizesTable as $resizes) {
 		    foreach ($resizes as $resize) {
 			$postFilter = $resize->getPostFilterOperations();
@@ -152,6 +153,7 @@ class ItemEditPhoto extends ItemEditPlugin {
 		if ($ret) {
 		    return array($ret, null, null, null);
 		}
+
 		$status = $module->translate('Changes saved successfully');
 	    }
 	}
@@ -182,7 +184,8 @@ class ItemEditPhoto extends ItemEditPlugin {
 			$width = $matches[1];
 			$height = empty($matches[2]) ? $width : $matches[2];
 			$form['resizes'][] = array('active' => 1,
-						   'width' => $width, 'height' => $height);
+						   'width' => $width,
+						   'height' => $height);
 		    }
 		}
 	    }
@@ -212,8 +215,7 @@ class ItemEditPhoto extends ItemEditPlugin {
 	$ItemEditPhoto = array();
 	
 	/* Check to see if we have a preferred source */
-	list ($ret, $results) =
-	    GalleryCoreApi::fetchPreferredsByItemIds(array($item->getId()));
+	list ($ret, $results) = GalleryCoreApi::fetchPreferredsByItemIds(array($item->getId()));
 	if ($ret) {
 	    return array($ret, null, null);
 	}
@@ -238,10 +240,13 @@ class ItemEditPhoto extends ItemEditPlugin {
 	    return array($ret, null, null);
 	}
 
+	/* Render the HTML body */
 	$template->setVariable('ItemEditPhoto', $ItemEditPhoto);
-	$template->setVariable('controller', 'core.ItemEditPhoto');
-	return array(null,
-		     'modules/core/templates/ItemEditPhoto.tpl', 'modules_core');
+	$template->javascript('lib/yui/yahoo-min.js');
+	$template->javascript('lib/yui/dom-min.js');
+	$template->javascript('lib/yui/event-min.js');
+
+	return array(null, 'modules/core/templates/ItemEditPhoto.tpl', 'modules_core');
     }
 
     /**

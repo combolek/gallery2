@@ -30,7 +30,6 @@
  *
  * @package GalleryCore
  * @subpackage UserInterface
- *
  */
 class ItemEditItem extends ItemEditPlugin {
 
@@ -43,10 +42,7 @@ class ItemEditItem extends ItemEditPlugin {
 	$status = null;
 	$error = array();
 	if (isset($form['action']['undo'])) {
-	    /*
-	     * Take no action and we'll be redirected back to the same page which will
-	     * reset the form.
-	     */
+	    /* Take no action and be redirected back to the same page which will reset the form */
 	} else if (isset($form['action']['save'])) {
 	    list ($ret, $rootAlbumId) =
 		GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
@@ -56,10 +52,10 @@ class ItemEditItem extends ItemEditPlugin {
 
 	    $isRootAlbum = $item->getId() == $rootAlbumId;
 
-	    /* Validate the input data. */
+	    /* Validate the input data */
 	    $platform =& $gallery->getPlatform();
 
-	    foreach(array('title','summary','keywords','description') as $key) {
+	    foreach(array('title', 'summary', 'keywords', 'description') as $key) {
 		if (!empty($form[$key])) {
 		    $form[$key] = trim($form[$key]);
 		}
@@ -86,8 +82,6 @@ class ItemEditItem extends ItemEditPlugin {
 						  $form['originationTimestampSplit']['Date_Month'],
 						  $form['originationTimestampSplit']['Date_Day'],
 						  $form['originationTimestampSplit']['Date_Year']);
-		GalleryUtilities::putRequestVariable(
-		    'form[originationTimestamp]', $newOriginationTimestamp);
 	    }
 
 	    if (!empty($form['thumbnail']['size']) &&
@@ -131,8 +125,8 @@ class ItemEditItem extends ItemEditPlugin {
 			if (isset($source)) {
 			    list ($ret, $operations, $outputMimeType) =
 				GalleryCoreApi::makeSupportedViewableOperationSequence(
-					$source->getMimeType(),
-					'thumbnail|' . $form['thumbnail']['size']);
+				    $source->getMimeType(),
+				    'thumbnail|' . $form['thumbnail']['size']);
 			    if ($ret) {
 				return array($ret, null, null, null);
 			    }
@@ -146,8 +140,7 @@ class ItemEditItem extends ItemEditPlugin {
 		if (isset($thumbnail) && $form['thumbnail']['size'] > 0) {
 		    /* Change the thumbnail */
 		    $thumbnail->setDerivativeOperations(
-			preg_replace('/((^|;)thumbnail)\|\d+/', '$1|' .
-				     $form['thumbnail']['size'],
+			preg_replace('/((^|;)thumbnail)\|\d+/', '$1|' . $form['thumbnail']['size'],
 				     $thumbnail->getDerivativeOperations()));
 
 		    if ($thumbnail->isModified()) {
@@ -282,6 +275,7 @@ class ItemEditItem extends ItemEditPlugin {
 	$platform =& $gallery->getPlatform();
 
 	if ($form['formName'] != 'ItemEditItem') {
+
 	    /* First time around, load the form with item data */
 	    $form['formName'] = 'ItemEditItem';
 
@@ -340,24 +334,23 @@ class ItemEditItem extends ItemEditPlugin {
 	    $can['createThumbnail'] = isset($operations);
 	}
 
-	$ItemEditItem = array('can' => $can,
-			      'typeName' => $item->itemTypeName());
+	$ItemEditItem = array('can' => $can, 'typeName' => $item->itemTypeName());
 
 	/* The originateTimestamp that we can get from our toolkits */
 	list ($ret, $originationTimestamp) = GalleryCoreApi::fetchOriginationTimestamp($item);
 	if ($ret) {
 	    return array($ret, null, null);
 	}
+
 	if ($originationTimestamp > 0) {
-	    $ItemEditItem['originationTimestamp'] = array(
-		'timestamp' => $originationTimestamp,
+	    $ItemEditItem['originationTimestamp'] = $originationTimestamp;
+	    $ItemEditItem['originationTimestampSplit'] = array(
 		'Time_Hour' => $platform->strftime('%H', $originationTimestamp),
 		'Time_Minute' => $platform->strftime('%M', $originationTimestamp),
 		'Time_Second' => $platform->strftime('%S', $originationTimestamp),
 		'Date_Day' => ltrim($platform->strftime('%d', $originationTimestamp), '0'),
 		'Date_Month' => $platform->strftime('%m', $originationTimestamp),
-		'Date_Year' => $platform->strftime('%Y', $originationTimestamp),
-	    );
+		'Date_Year' => $platform->strftime('%Y', $originationTimestamp));
 	}
 
 	/* The template needs to differentiate some important itemTypes */
@@ -369,10 +362,11 @@ class ItemEditItem extends ItemEditPlugin {
 
 	/* Render the HTML body */
 	$template->setVariable('ItemEditItem', $ItemEditItem);
-	$template->setVariable('controller', 'core.ItemEditItem');
+	$template->javascript('lib/yui/yahoo-min.js');
+	$template->javascript('lib/yui/dom-min.js');
+	$template->javascript('lib/yui/event-min.js');
 
-	return array(null,
-		     'modules/core/templates/ItemEditItem.tpl', 'modules_core');
+	return array(null, 'modules/core/templates/ItemEditItem.tpl', 'modules_core');
     }
 
     /**

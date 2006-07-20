@@ -17,9 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
  * @version $Revision$ $Date$
  * @package GalleryCore
+ * @subpackage Classes
  * @author Ernesto Baschny <ernst@baschny.de>
  */
 
@@ -54,7 +56,7 @@ class GallerySmarty extends Smarty {
     var $_firstGalleryStatus;
 
     /**
-     * The FILE and LINE of the last call to
+     * The FILE and LINE of the last call to ???
      *
      * @var array file number, line number
      * @access private
@@ -74,18 +76,26 @@ class GallerySmarty extends Smarty {
      * @return array object GalleryStatus the return status
      *               string the output from the template
      */
-    function fetch($_smarty_tpl_file, $_smarty_cache_id = null,
-		   $_smarty_compile_id = null, $_smarty_display = false) {
+    function fetch($_smarty_tpl_file, $_smarty_cache_id=null,
+		   $_smarty_compile_id=null, $_smarty_display=false) {
 	global $gallery;
 
 	$this->_firstGalleryStatus = null;
-
 	$this->_firstFileLine = array(__FILE__, __LINE__);
+	//$this->_smarty_vars['templateName'] = basename($_smarty_tpl_file, '.tpl');
+
+	$templateName =& GallerySmarty::getTemplateName();
+	$templateName = basename($_smarty_tpl_file, '.tpl');
+
 	/* This could change the value of _firstError: */
 	$result = parent::fetch($_smarty_tpl_file,
 				$_smarty_cache_id,
 				$_smarty_compile_id,
 				$_smarty_display);
+
+	if (!empty($this->_smarty_vars['output'])) {
+	    $result = $this->_smarty_vars['output'];
+	}
 
 	return array($this->_firstGalleryStatus, $result);
     }
@@ -108,6 +118,32 @@ class GallerySmarty extends Smarty {
 	}
     }
 
+    /**
+     * Maintain the name of the current template
+     *
+     * @see Smarty::_smarty_include
+     */
+    function _smarty_include($params) {
+	//$save = $this->_smarty_vars['templateName'];
+	//$this->_smarty_vars['templateName'] = basename($params['smarty_include_tpl_file'],
+	//    '.tpl');
 
+	$templateName =& GallerySmarty::getTemplateName();
+	$save = $templateName;
+	$templateName = basename($params['smarty_include_tpl_file'], '.tpl');
+
+	parent::_smarty_include($params);
+	//$this->_smarty_vars['templateName'] = $save;
+
+	$templateName = $save;
+    }
+
+    /**
+     * Hack until Smarty modifier signature includes &$smarty
+     */
+    function &getTemplateName() {
+	static $templateName;
+	return $templateName;
+    }
 }
 ?>

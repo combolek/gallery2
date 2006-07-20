@@ -36,9 +36,8 @@ if (GalleryUtilities::isEmbedded()) {
     list ($view, $itemId) = GalleryUtilities::getRequestVariables('view', 'itemId');
     if ($view == 'core.DownloadItem' && !empty($itemId)) {
 	/*
-	 * Our urls are immutable because they have the serial numbers embedded.
-	 * So if the browser presents us with an If-Modified-Since then it has
-	 * the latest version of the file already.
+	 * Our urls are immutable because they have the serial numbers embedded.  So if the browser
+	 * presents us with an If-Modified-Since then it has the latest version of the file already
 	 */
 	if (GalleryUtilities::getServerVar('HTTP_IF_MODIFIED_SINCE') ||
 	        (function_exists('getallheaders') && ($headers = GetAllHeaders()) &&
@@ -49,7 +48,7 @@ if (GalleryUtilities::isEmbedded()) {
 
 	/*
 	 * Fast download depends on having data.gallery.cache set, so set it now.  If for some
-	 * reason we fail, we'll reset it in init.inc (but that's ok).
+	 * reason we fail, we'll reset it in init.inc (but that's ok)
 	 */
 	$gallery->setConfig(
 	    'data.gallery.cache', $gallery->getConfig('data.gallery.base') . 'cache/');
@@ -57,7 +56,7 @@ if (GalleryUtilities::isEmbedded()) {
 	$path = GalleryDataCache::getCachePath(
 	    array('type' => 'fast-download', 'itemId' => $itemId));
 	/* We don't have a platform yet so we have to use the raw file_exists */
-	/* Disable fast-download in maintenance mode.. admins still get via core.DownloadItem */
+	/* Disable fast-download in maintenance mode.  Admins still get via core.DownloadItem */
 	if (file_exists($path) && !$gallery->getConfig('mode.maintenance')) {
 	    include($path);
 	    if (GalleryFastDownload()) {
@@ -232,10 +231,7 @@ function _GalleryMain($embedded=false) {
 
 	/* Failing that, redirect if so instructed */
 	if (empty($redirectUrl) && !empty($results['redirect'])) {
-	    /*
-	     * If we have a status, store its data in the session and attach it
-	     * to the URL.
-	     */
+	    /* If we have a status, store its data in the session and attach it to the URL */
 	    if (!empty($results['status'])) {
 		$session =& $gallery->getSession();
 		$results['redirect']['statusId'] = $session->putStatus($results['status']);
@@ -251,10 +247,9 @@ function _GalleryMain($embedded=false) {
 						      array('forceFullUrl' => true));
 	}
 
-	/* If we have a redirect url.. use it */
+	/* If we have a redirect URL use it */
 	if (!empty($redirectUrl)) {
-	    return array(null,
-			 _GalleryMain_doRedirect($redirectUrl, null, $controllerName));
+	    return array(null, _GalleryMain_doRedirect($redirectUrl, null, $controllerName));
 	}
 
 	/* Let the controller specify the next view */
@@ -334,8 +329,8 @@ function _GalleryMain($embedded=false) {
 
     if (!empty($html)) {
 	/*
-	 * TODO: If we cache all the headers and replay them here, we could send a 304 not
-	 * modified back
+	 * TODO: If we cache all the headers and replay them here, we could send a 304 not modified
+	 * back
 	 */
 	$session =& $gallery->getSession();
 	$html = $session->replaceTempSessionIdIfNecessary($html);
@@ -343,6 +338,9 @@ function _GalleryMain($embedded=false) {
 	/* Set the appropriate charset in our HTTP header */
 	if (!headers_sent()) {
 	    header('Content-Type: text/html; charset=UTF-8');
+	    if (GalleryUtilities::isCallback()) {
+		header('Content-Type: text/javascript; charset=UTF-8');
+	    }
 	}
 
 	print $html;
@@ -352,8 +350,7 @@ function _GalleryMain($embedded=false) {
 	$gallery->setCurrentView($viewName);
 
 	/*
-	 * If we render directly to the browser, we need get a session before,
-	 * or no session at all
+	 * If we render directly to the browser, we need get a session before, or no session at all
 	 */
 	if ($view->isImmediate() || $viewName == 'core.ProgressBar') {
 	    /*
@@ -371,9 +368,9 @@ function _GalleryMain($embedded=false) {
 	}
 
 	/*
-	 * If this is an immediate view, it will send its own output directly.  This is
-	 * used in the situation where we want to send back data that's not controlled by the
-	 * layout.  That's usually something that's not user-visible like a binary file.
+	 * If this is an immediate view, it will send its own output directly.  This is used in the
+	 * situation where we want to send back data that's not controlled by the layout.  That's
+	 * usually something that's not user-visible like a binary file
 	 */
 	$data = array();
 	if ($view->isImmediate()) {
@@ -398,8 +395,7 @@ function _GalleryMain($embedded=false) {
 		    $redirectUrl = $urlGenerator->generateUrl($results['redirect'],
 		    					      array('forceFullUrl' => true));
 		}
-		return array(null,
-			     _GalleryMain_doRedirect($redirectUrl, $template));
+		return array(null, _GalleryMain_doRedirect($redirectUrl, $template));
 	    }
 
 	    if (empty($results['body'])) {
@@ -439,8 +435,8 @@ function _GalleryMain($embedded=false) {
 		}
 
 		/*
-		 * Session: Find out whether we need to send a cookie & need a new session
-		 * (only if we don't have one yet)
+		 * Session: Find out whether we need to send a cookie & need a new session (only if
+		 * we don't have one yet)
 		 */
 		$session =& $gallery->getSession();
 		$ret = $session->start();
@@ -457,6 +453,9 @@ function _GalleryMain($embedded=false) {
 		    /* Set the appropriate charset in our HTTP header */
 		    if (!headers_sent()) {
 			header('Content-Type: text/html; charset=UTF-8');
+			if (GalleryUtilities::isCallback()) {
+			    header('Content-Type: text/javascript; charset=UTF-8');
+			}
 		    }
 		    print $html;
 
@@ -486,6 +485,13 @@ function _GalleryMain($embedded=false) {
 function _GalleryMain_doRedirect($redirectUrl, $template=null, $controller=null) {
     global $gallery;
 
+    /* Preserve callback request variable */
+    $callback = GalleryUtilities::getRequestVariables('callback');
+    if (!empty($callback)) {
+	$redirectUrl = GalleryUrlGenerator::appendParamsToUrl($redirectUrl,
+	    array('callback' => $callback));
+    }
+
     /* Create a valid sessionId for guests, if required */
     $session =& $gallery->getSession();
     $ret = $session->start();
@@ -496,29 +502,28 @@ function _GalleryMain_doRedirect($redirectUrl, $template=null, $controller=null)
     $session->doNotUseTempId();
 
     /*
-     * UserLogin returnUrls don't have a sessionId in the URL to replace, make sure
-     * there's a sessionId in the redirectUrl for users that don't use cookies
+     * UserLogin returnUrls don't have a sessionId in the URL to replace, make sure there's a
+     * sessionId in the redirectUrl for users that don't use cookies
      */
     if (!$session->isUsingCookies() && $session->isPersistent() &&
 	    strpos($redirectUrl, $session->getKey()) === false) {
-        $redirectUrl = GalleryUrlGenerator::appendParamsToUrl(
-         				$redirectUrl,
-         				array($session->getKey() => $session->getId()));
+        $redirectUrl = GalleryUrlGenerator::appendParamsToUrl($redirectUrl,
+	    array($session->getKey() => $session->getId()));
     }
 
     if ($gallery->getDebug() == false || $gallery->getDebug() == 'logged') {
 	/*
-	 * The URL generator makes HTML 4.01 compliant URLs using
-	 * &amp; but we don't want those in our Location: header.
+	 * The URL generator makes HTML 4.01 compliant URLs using &amp; but we don't want those in
+	 * our Location: header
 	 */
 	$redirectUrl = str_replace('&amp;', '&', $redirectUrl);
 	$redirectUrl = rtrim($redirectUrl, '&? ');
 
 	/*
-	 * IIS 3.0 - 5.0 webservers will ignore all other headers if the location header is set.
-	 * It will simply not send other headers, e.g. the set-cookie header, which is important
-	 * for us in the login and logout requests / redirects.
-	 * see: http://support.microsoft.com/kb/q176113/
+	 * IIS 3.0 - 5.0 webservers will ignore all other headers if the location header is set.  It
+	 * will simply not send other headers, e.g. the set-cookie header, which is important for us
+	 * in the login and logout requests / redirects.  See:
+	 * http://support.microsoft.com/kb/q176113/
 	 * Our solution: detect IIS version and append GALLERYSID to the Location URL if necessary
 	 */
 	if (in_array($controller, array('core.Logout', 'core.UserLogin', 'publishxp.Login'))) {
@@ -528,8 +533,8 @@ function _GalleryMain_doRedirect($redirectUrl, $template=null, $controller=null)
 		    preg_match('|^Microsoft-IIS/(\d)\.\d$|', trim($webserver), $matches) &&
 		    $matches[1] < 6) {
 		/*
-		 * It is IIS and it's a version with this bug, check if GALLERYSID is already in
-		 * the URL, else append it
+		 * It is IIS and it's a version with this bug, check if GALLERYSID is already in the
+		 * URL, else append it
 		 */
 		$session =& $gallery->getSession();
 		$sessionParamString =
@@ -546,9 +551,9 @@ function _GalleryMain_doRedirect($redirectUrl, $template=null, $controller=null)
 	$phpVm = $gallery->getPhpVm();
 	$phpVm->header("Location: $redirectUrl");
 	return array('isDone' => true);
-    } else {
-	return array('isDone' => true, 'redirectUrl' => $redirectUrl, 'template' => $template);
     }
+
+    return array('isDone' => true, 'redirectUrl' => $redirectUrl, 'template' => $template);
 }
 
 function _GalleryMain_errorHandler($error, $g2Data=null, $initOk=true) {

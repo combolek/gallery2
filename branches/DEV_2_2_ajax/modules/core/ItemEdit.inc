@@ -39,7 +39,11 @@ class ItemEditController extends GalleryController {
     function handleRequest($form) {
 	global $gallery;
 
-	list ($itemId, $editPlugin) = GalleryUtilities::getRequestVariables('itemId', 'editPlugin');
+	list ($itemId, $editPlugin, $delegate) = GalleryUtilities::getRequestVariables('itemId',
+	    'editPlugin', 'delegate');
+	if (!empty($delegate)) {
+	    $results['delegate'] = $delegate;
+	}
 
 	/* Make sure we have permission do edit this item */
 	$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.edit');
@@ -53,19 +57,26 @@ class ItemEditController extends GalleryController {
 	}
 
 	/* Check to see if we have a preferred source */
-	list ($ret, $preferredTable) =
-	    GalleryCoreApi::fetchPreferredsByItemIds(array($itemId));
+	list ($ret, $preferreds) = GalleryCoreApi::fetchPreferredsByItemIds(array($itemId));
 	if ($ret) {
 	    return array($ret, null);
 	}
-	$preferred = empty($preferredTable) ? null : array_shift($preferredTable);
+
+	$preferred = null;
+	if (!empty($preferreds)) {
+	    $preferred = array_shift($preferreds);
+	}
 
 	/* Load the thumbnail */
 	list ($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds(array($itemId));
 	if ($ret) {
 	    return array($ret, null);
 	}
-	$thumbnail = empty($thumbnails) ? null : array_shift($thumbnails);
+
+	$thumbnail = null;
+	if (!empty($thumbnails)) {
+	    $thumbnail = array_shift($thumbnails);
+	}
 
 	/* Get all the edit options */
 	list ($ret, $optionInstances) =
@@ -132,9 +143,9 @@ class ItemEditController extends GalleryController {
 					     'editPlugin' => $editPlugin,
 					     'itemId' => $itemId);
 	    } else {
-		$results['delegate']['view'] = 'core.ItemAdmin';
-		$results['delegate']['subView'] = 'core.ItemEdit';
-		$results['delegate']['editPlugin'] = $editPlugin;
+		$results['delegate'] = array('view' => 'core.ItemAdmin',
+					     'subView' => 'core.ItemEdit',
+					     'editPlugin' => $editPlugin);
 	    }
 	}
 
@@ -161,12 +172,11 @@ class ItemEditController extends GalleryController {
 	}
 	$session =& $gallery->getSession();
 
-	$redirect = array();
-	$redirect['view'] = 'core.ItemAdmin';
-	$redirect['subView'] = 'core.ItemEdit';
-	$redirect['itemId'] = $itemId;
-	$redirect['editPlugin'] = $editPlugin;
-	$redirect['statusId'] = $session->putStatus($status);
+	$redirect = array('view' => 'core.ItemAdmin',
+	    'subView' => 'core.ItemEdit',
+	    'itemId' => $itemId,
+	    'editPlugin' => $editPlugin,
+	    'statusId' => $session->putStatus($status));
 
 	$urlGenerator =& $gallery->getUrlGenerator();
 	$templateAdapter->completeProgressBar($urlGenerator->generateUrl($redirect));
@@ -213,8 +223,6 @@ class ItemEditView extends GalleryView {
 	    if ($ret) {
 		/* Ignore thumbnail errors so we can edit items with broken thumbnail */
 	    }
-	} else {
-	    $thumbnail = null;
 	}
 
 	/* Get the edit plugins that support this item type */
@@ -238,9 +246,8 @@ class ItemEditView extends GalleryView {
 	}
 
 	/*
-	 * If the plugin is empty get it from the session.  If it's empty there,
-	 * default to the first plugin we find.  Either way, save the user's
-	 * preference in the session.
+	 * If the plugin is empty get it from the session.  If it's empty there, default to the
+	 * first plugin we find.  Either way, save the user's preference in the session
 	 */
 	$session =& $gallery->getSession();
 	$editPluginSessionKey = 'core.view.ItemEdit.editPlugin.' . get_class($item);
@@ -256,10 +263,11 @@ class ItemEditView extends GalleryView {
 	/* Get display data for all plugins */
 	$plugins = array();
 	foreach ($pluginInstances as $pluginId => $plugin) {
-	    list ($ret, $title) =  $plugin->getTitle();
+	    list ($ret, $title) = $plugin->getTitle();
 	    if ($ret) {
 		return array($ret, null);
 	    }
+
 	    $plugins[] = array('title' => $title,
 			       'id' => $pluginId,
 			       'isSelected' => ($pluginId == $editPlugin));
@@ -273,11 +281,6 @@ class ItemEditView extends GalleryView {
 	$ItemEdit['plugins'] = $plugins;
 	$ItemEdit['itemTypeNames'] = $item->itemTypeName();
 	$ItemEdit['showEditThumbnail'] = $thumbnail != null;
-
-	list ($ret, $ItemEdit['isAdmin']) = GalleryCoreApi::isUserInSiteAdminGroup();
-	if ($ret) {
-	    return array($ret, null);
-	}
 
 	/* Let the plugin load its template data */
 	list ($ret, $ItemEdit['pluginFile'], $ItemEdit['pluginL10Domain']) =
@@ -306,10 +309,13 @@ class ItemEditView extends GalleryView {
 	    }
 	}
 
+	/* Render the HTML body */
 	$template->setVariable('ItemEdit', $ItemEdit);
 	$template->setVariable('controller', 'core.ItemEdit');
-	return array(null,
-		     array('body' => 'modules/core/templates/ItemEdit.tpl'));
+	$template->javascript('lib/yui/yahoo-min.js');
+	$template->javascript('lib/yui/dom-min.js');
+
+	return array(null, array('body' => 'modules/core/templates/ItemEdit.tpl'));
     }
 
     /**
@@ -342,6 +348,7 @@ class ItemEditView extends GalleryView {
  * @subpackage UserInterface
  */
 class ItemEditPlugin {
+
     /**
      * Does this plugin support the given item type?
      *
@@ -382,8 +389,7 @@ class ItemEditPlugin {
      *               boolean true if progress bar is needed
      */
     function handleRequest($form, &$item, &$preferred) {
-	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED),
-		     null, null, null);
+	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null, null, null);
     }
 
     /**
