@@ -36,8 +36,7 @@
 class ItemReorderController extends GalleryController {
 
     /**
-     * Move the selected items into the destination album, if all the
-     * permissions are set correctly.
+     * Reorder items in an album
      */
     function handleRequest($form) {
 	global $gallery;
@@ -67,9 +66,7 @@ class ItemReorderController extends GalleryController {
 		$before = 1;
 	    }
 
-	    /*
-	     * Make sure that the selectedId and targetId are children of the album
-	     */
+	    /* Make sure that the selectedId and targetId are children of the album */
 	    if (empty($error)) {
 		$selectedId = $form['selectedId'];
 		$targetId = $form['targetId'];
@@ -80,9 +77,8 @@ class ItemReorderController extends GalleryController {
 		}
 
 		if ($entities[0]->getParentId() != $itemId ||
-		    $entities[1]->getParentId() != $itemId) {
-		    return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED),
-				 null);
+			$entities[1]->getParentId() != $itemId) {
+		    return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED), null);
 		}
 	    }
 
@@ -90,8 +86,8 @@ class ItemReorderController extends GalleryController {
 		$loopCount = 0;
 		while (true) {
 		    /*
-		     * Get the current and target order weights (have to do
-		     * this after every rebalance, too)
+		     * Get the current and target order weights (have to do this after every
+		     * rebalance, too)
 		     */
 		    list ($ret, $orderWeights) =
 			GalleryCoreApi::fetchItemOrderWeights(array($selectedId, $targetId));
@@ -110,8 +106,8 @@ class ItemReorderController extends GalleryController {
 			$delta = (int)(($next - $orderWeights[$targetId]) / 2);
 		    } else {
 			/*
-			 * We couldn't get a weight, which means that the
-			 * target is at the edge.  So go beyond the edge
+			 * We couldn't get a weight, which means that the target is at the edge.  So
+			 * go beyond the edge
 			 */
 			$delta = $before ? -1000 : 1000;
 		    }
@@ -121,11 +117,8 @@ class ItemReorderController extends GalleryController {
 		    }
 
 		    if ($loopCount++ > 0) {
-			/*
-			 * If we have to rebalance more than once then something went wrong!
-			 */
-			return array(GalleryCoreApi::error(ERROR_UNKNOWN),
-				     null);
+			/* If we have to rebalance more than once then something went wrong! */
+			return array(GalleryCoreApi::error(ERROR_UNKNOWN), null);
 		    }
 
 		    /* A delta of 0 means that we don't have room, so rebalance */
@@ -149,20 +142,20 @@ class ItemReorderController extends GalleryController {
 		}
 
 		/* Redirect back to the same page so that we can do more reordering */
-		$redirect['view'] = 'core.ItemAdmin';
-		$redirect['subView'] = 'core.ItemReorder';
-		$redirect['itemId'] = $itemId;
+		$redirect = array('view' => 'core.ItemAdmin',
+		    'subView' => 'core.ItemReorder',
+		    'itemId' => $itemId);
 		$status['saved'] = 1;
 	    }
 	} else if (isset($form['action']['cancel'])) {
-	    $redirect['return'] = true;
+	    $redirect = array('return' => true);
 	}
 
 	if (!empty($redirect)) {
 	    $results['redirect'] = $redirect;
 	} else {
-	    $results['delegate']['view'] = 'core.ItemAdmin';
-	    $results['delegate']['subView'] = 'core.ItemReorder';
+	    $results['delegate'] = array('view' => 'core.ItemAdmin',
+		'subView' => 'core.ItemReorder');
 	}
 	$results['status'] = $status;
 	$results['error'] = $error;
@@ -172,8 +165,7 @@ class ItemReorderController extends GalleryController {
 }
 
 /**
- * This view will prompt for which files to move/copy and which is the
- * destination.
+ * This view will prompt for which item to reorder and what is the target
  *
  * @package GalleryCore
  * @subpackage UserInterface
@@ -212,7 +204,7 @@ class ItemReorderView extends GalleryView {
 	    }
 	}
 	if ($orderBy != 'orderWeight') {
-	    $show['automaticOrderMessage'] = 1;
+	    $show['automaticOrderMessage'] = true;
 	} else {
 
 	    /* Get all peers that we can see */
@@ -231,28 +223,26 @@ class ItemReorderView extends GalleryView {
 	    $peers = array();
 	    foreach ($peerItems as $peerItem) {
 		$peers[$peerItem->getId()] = (array)$peerItem;
-		if (GalleryUtilities::isA($peerItem, 'GalleryAlbumItem')) {
-		    $peerTypes['album'][$peerItem->getId()] = 1;
-		} else {
-		    $peerTypes['data'][$peerItem->getId()] = 1;
-		}
 		$peers[$peerItem->getId()]['selected'] =
 		    isset($form['selectedIds'][$peerItem->getId()]);
 	    }
 	    $ItemReorder['peers'] = $peers;
-	    $ItemReorder['peerTypes'] = $peerTypes;
 	}
 
 	$ItemReorder['show'] = $show;
 
+	/* Render the HTML body */
 	$template->setVariable('ItemReorder', $ItemReorder);
 	$template->setVariable('controller', 'core.ItemReorder');
-	return array(null,
-		     array('body' => 'modules/core/templates/ItemReorder.tpl'));
+	$template->javascript('lib/yui/yahoo-min.js');
+	$template->javascript('lib/yui/dom-min.js');
+	$template->javascript('lib/yui/event-min.js');
+
+	return array(null, array('body' => 'modules/core/templates/ItemReorder.tpl'));
     }
 
     /**
-     * @see GalleryView::getViewDescription()
+     * @see GalleryView::getViewDescription
      */
     function getViewDescription() {
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');

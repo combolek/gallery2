@@ -44,13 +44,9 @@ class ItemEditAlbum extends ItemEditPlugin {
 	$error = array();
 	$requiresProgressBar = false;
 	if (isset($form['action']['undo'])) {
-
-	    /*
-	     * Take no action and we'll be redirected back to the same page
-	     * which will reset the form
-	     */
+	    /* Take no action and be redirected back to the same page which will reset the form */
 	} else if (isset($form['action']['save'])) {
-	    /* Validate the input data. */
+	    /* Validate the input data */
 	    if (!is_numeric($form['thumbnail']['size']) || $form['thumbnail']['size'] < 1) {
 		$error[] = 'form[error][thumbnail][size][invalid]';
 	    }
@@ -134,9 +130,9 @@ class ItemEditAlbum extends ItemEditPlugin {
 			    }
 
 			    $ret = GalleryCoreApi::addDerivativePreference($i, $subAlbumIds,
-				    DERIVATIVE_TYPE_IMAGE_RESIZE, 'scale|' .
-				    $form['resizes'][$i]['width'] . ',' .
-				    $form['resizes'][$i]['height']);
+				DERIVATIVE_TYPE_IMAGE_RESIZE, 'scale|' .
+				$form['resizes'][$i]['width'] . ',' .
+				$form['resizes'][$i]['height']);
 			    if ($ret) {
 				return array($ret, null, null, null);
 			    }
@@ -154,9 +150,8 @@ class ItemEditAlbum extends ItemEditPlugin {
 		}
 
 		/*
-		 * Recreate the resizes, if requested to do so.
-		 * TODO: We should not delete resizes that we will be
-		 *       adding again moments later again
+		 * Recreate the resizes, if requested to do so
+		 * TODO We should not delete resizes that we will add again moments later
 		 */
 		if (isset($form['recreateResizes'])) {
 		    $templateAdapter =& $gallery->getTemplateAdapter();
@@ -194,9 +189,9 @@ class ItemEditAlbum extends ItemEditPlugin {
 		    return array($ret, null, null, null);
 		}
 
-		/* for sort order and theme we need to load subalbums */
+		/* For sort order and theme we need to load subalbums */
 		if (!empty($subAlbumIds) && (isset($form['changeInDescendents']['sort'])
-			    || isset($form['changeInDescendents']['theme']))) {
+			|| isset($form['changeInDescendents']['theme']))) {
 		    list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($subAlbumIds);
 		    if ($ret) {
 			return array($ret, null, null, null);
@@ -206,7 +201,8 @@ class ItemEditAlbum extends ItemEditPlugin {
 		    if ($ret) {
 			return array($ret, null, null, null);
 		    }
-		    foreach($subAlbums as $album) {
+
+		    foreach ($subAlbums as $album) {
 			if (isset($form['changeInDescendents']['sort'])) {
 			    if (!empty($form['presort'])) {
 				$album->setOrderBy($form['presort'] . '|' . $form['orderBy']);
@@ -217,15 +213,18 @@ class ItemEditAlbum extends ItemEditPlugin {
 				$album->setOrderDirection($form['orderDirection']);
 			    }
 			}
+
 			if (isset($form['changeInDescendents']['theme'])) {
 			    $album->setTheme($form['theme']);
 			}
+
 			$ret = $album->save();
 			if ($ret) {
 			    GalleryCoreApi::releaseLocks($lockId);
 			    return array($ret, null, null, null);
 			}
 		    }
+
 		    $ret = GalleryCoreApi::releaseLocks($lockId);
 		    if ($ret) {
 			return array($ret, null, null, null);
@@ -238,7 +237,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 		    return array($ret, null, null, null);
 		}
 
-		$status = $module->translate('Settings saved successfully.');
+		$status = $module->translate('Settings saved successfully');
 	    }
 	}
 
@@ -354,10 +353,13 @@ class ItemEditAlbum extends ItemEditPlugin {
 	$ItemEditAlbum['presortList'] = $presortList;
 	$ItemEditAlbum['orderDirectionList'] = $orderDirectionList;
 
+	/* Render the HTML body */
 	$template->setVariable('ItemEditAlbum', $ItemEditAlbum);
-	$template->setVariable('controller', 'core.ItemEditAlbum');
-	return array(null,
-		     'modules/core/templates/ItemEditAlbum.tpl', 'modules_core');
+	$template->javascript('lib/yui/yahoo-min.js');
+	$template->javascript('lib/yui/dom-min.js');
+	$template->javascript('lib/yui/event-min.js');
+
+	return array(null, 'modules/core/templates/ItemEditAlbum.tpl', 'modules_core');
     }
 
     function runRecreateResizes($form, $item, $preferred, $status) {
@@ -368,6 +370,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 	if ($ret) {
 	    return $ret;
 	}
+
 	$templateAdapter =& $gallery->getTemplateAdapter();
 	$ret = $templateAdapter->updateProgressBar(
 	    $module->translate('Recreating resized images'), 'Preparing...', 0);
@@ -382,16 +385,17 @@ class ItemEditAlbum extends ItemEditPlugin {
 	}
 
 	/*
-	 * for the progress bar feedback we will assume that the number of deleted
-	 * items is the same as the number of created.
+	 * For the progress bar feedback we will assume that the number of deleted items is the same
+	 * as the number of created
 	 */
 	$total = sizeof($childIds) * 2;
 	$runningTotal = 0;
-	$step = min(200, intval($total/20));
+	$step = min(200, intval($total / 20));
 	$batchSize = 100;
 	$resizes = array();
 	while (!empty($childIds)) {
-	    $ind = $runningTotal;	/* little true-up */
+	    /* Little true-up */
+	    $ind = $runningTotal;
 	    $currentChildIds = array_splice($childIds, 0, $batchSize);
 	    /* Load the children */
 	    list ($ret, $childItems) = GalleryCoreApi::loadEntitiesById($currentChildIds);
@@ -475,9 +479,11 @@ class ItemEditAlbum extends ItemEditPlugin {
 			    }
 			}
 		    }
+
 		    if (empty($resizes[$albumId])) {
 			return GalleryCoreApi::error(ERROR_MISSING_OBJECT);
 		    }
+
 		    $resize = $resizes[$albumId];
 		    for ($i = 0; $i < sizeof($resize); $i++) {
 			/* Special case to make sure that we don't upsample photos */
@@ -522,22 +528,24 @@ class ItemEditAlbum extends ItemEditPlugin {
 		}
 	    }
 	    $runningTotal += (sizeof($currentChildIds) * 2);
+
 	    $ret = $storage->checkPoint();
 	    if ($ret) {
 		return $ret;
 	    }
 	}
+
 	$ret = $templateAdapter->updateProgressBar(
 	    $module->translate('Recreating resized images'), 'Complete', 1);
 	if ($ret) {
 	    return $ret;
 	}
-	$redirect['view'] = 'core.ItemAdmin';
-	$redirect['subView'] = 'core.ItemEdit';
-	$redirect['itemId'] = $item->getId();
 
 	$urlGenerator =& $gallery->getUrlGenerator();
-	$templateAdapter->completeProgressBar($urlGenerator->generateUrl($redirect));
+	$templateAdapter->completeProgressBar($urlGenerator->generateUrl(
+	    array('view' => 'core.ItemAdmin',
+		'subView' => 'core.ItemEdit',
+		'itemId' => $item->getId())));
 
 	return null;
     }
@@ -550,6 +558,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 	if ($ret) {
 	    return $ret;
 	}
+
 	$templateAdapter =& $gallery->getTemplateAdapter();
 	$ret = $templateAdapter->updateProgressBar(
 	    $module->translate('Rebuilding thumbnails...'), '', 0);
@@ -567,7 +576,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 	$childItems = array();
 	$total = sizeof($childIds);
 	$ind = 0;
-	$step = min(500, intval($total/20));
+	$step = min(500, intval($total / 20));
 	$thumbnailSizes = array();
 	while (!empty($childIds)) {
 	    $currentChildIds = array_splice($childIds, 0, $batchSize);
@@ -625,19 +634,18 @@ class ItemEditAlbum extends ItemEditPlugin {
 		    /* Load the source of the thumbnail */
 		    list($ret, $source) = GalleryCoreApi::loadEntitiesById($sourceId);
 		    if ($ret && $ret->getErrorCode() & ERROR_MISSING_OBJECT) {
-			/*
-			 * Someone deleted the source image, we can do
-			 * nothing but delete the thumbnail
-			 */
+			/* Source image deleted, can do nothing but delete the thumbnail */
 			list ($ret, $lockIds[]) =
 			    GalleryCoreApi::acquireWriteLock($thumbnail->getId());
 			if ($ret) {
 			    return $ret;
 			}
+
 			$ret = $thumbnail->delete();
 			if ($ret) {
 			    return $ret;
 			}
+
 			continue;
 		    } else if ($ret) {
 			return $ret;
@@ -648,9 +656,9 @@ class ItemEditAlbum extends ItemEditPlugin {
 					      $thumbnail->getDerivativeOperations());
 		} else {
 		    /*
-		     * There is no thumbnail yet (maybe the file was uploaded
-		     * when there was no graphic toolkit). Build new thumbnail
-		     * from source if its a GalleryDataItem (with mimeType)
+		     * There is no thumbnail yet (maybe the file was uploaded when there was no
+		     * graphic toolkit).  Build new thumbnail from source if its a GalleryDataItem
+		     * (with mimeType)
 		     */
 		    if (!GalleryUtilities::isA($child, 'GalleryDataItem')) {
 			/* Its an album or something else, we can't make a thumbnail */
@@ -701,6 +709,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 			if ($ret) {
 			    return $ret;
 			}
+
 			$ret = GalleryCoreApi::estimateDerivativeDimensions($thumbnail, $source);
 			if ($ret) {
 			    return $ret;
@@ -713,21 +722,24 @@ class ItemEditAlbum extends ItemEditPlugin {
 		    }
 		}
 	    }
+
 	    $ret = GalleryCoreApi::releaseLocks($lockIds);
 	    if ($ret) {
 		return $ret;
 	    }
+
 	    $ret = $storage->checkPoint();
 	    if ($ret) {
 		return $ret;
 	    }
 	}
-	$redirect['view'] = 'core.ItemAdmin';
-	$redirect['subView'] = 'core.ItemEdit';
-	$redirect['itemId'] = $item->getId();
 
 	$urlGenerator =& $gallery->getUrlGenerator();
-	$templateAdapter->completeProgressBar($urlGenerator->generateUrl($redirect));
+	$templateAdapter->completeProgressBar($urlGenerator->generateUrl(
+	    array('view' => 'core.ItemAdmin',
+		'subView' => 'core.ItemEdit',
+		'itemId' => $item->getId())));
+
 	return null;
     }
 

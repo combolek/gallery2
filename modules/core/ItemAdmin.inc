@@ -38,6 +38,7 @@ class ItemAdminView extends GalleryView {
      */
     function loadTemplate(&$template, &$form) {
 	global $gallery;
+	$urlGenerator =& $gallery->getUrlGenerator();
 
 	/* Figure out the item we're referring to */
 	$itemId = GalleryUtilities::getRequestVariables('itemId');
@@ -47,15 +48,27 @@ class ItemAdminView extends GalleryView {
 	}
 
 	/* Find its thumbnail */
-	list ($ret, $thumbnailTable) = GalleryCoreApi::fetchThumbnailsByItemIds(array($itemId));
+	list ($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds(array($itemId));
 	if ($ret) {
 	    return array($ret, null);
 	}
-	if (empty($thumbnailTable)) {
-	    $thumbnailData = null;
-	} else {
-	    $thumbnail = $thumbnailTable[$itemId];
-	    $thumbnailData = (array)$thumbnail;
+
+	if (!empty($thumbnails)) {
+	    list ($ret, $thumbnail) = GalleryCoreApi::rebuildDerivativeCacheIfNotCurrent(
+		$thumbnails[$itemId]->getId());
+	    if ($ret) {
+		return array($ret, null);
+	    }
+
+	    list ($width, $height) = GalleryUtilities::shrinkDimensionsToFit($thumbnail->getWidth(),
+		$thumbnail->getHeight(), 130);
+
+	    $thumbnailData = array('src' => $urlGenerator->generateUrl(array(
+		    'view' => 'core.DownloadItem',
+		    'itemId' => $thumbnail->getId(),
+		    'serialNumber' => $thumbnail->getSerialNumber())),
+		'width' => $width,
+		'height' => $height);
 	}
 
 	/* Load the module list */
@@ -73,7 +86,7 @@ class ItemAdminView extends GalleryView {
 
 	    /* Get the selected module's admin view */
 	    if (in_array('getItemAdminViews', explode('|', $status['callbacks']))) {
-		list($ret, $module) = GalleryCoreApi::loadPlugin('module', $moduleId);
+		list ($ret, $module) = GalleryCoreApi::loadPlugin('module', $moduleId);
 		if ($ret) {
 		    if ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH) {
 			continue;
@@ -159,7 +172,6 @@ class ItemAdminView extends GalleryView {
 	}
 
 	/* Get the links for navigating back to where we came from */
-	$urlGenerator =& $gallery->getUrlGenerator();
 	list ($ret, $navigationLinks) = $urlGenerator->getNavigationLinks();
 	if ($ret) {
 	    return array($ret, null);
@@ -185,10 +197,15 @@ class ItemAdminView extends GalleryView {
 	    $ItemAdmin['enctype'] = 'application/x-www-form-urlencoded';
 	}
 
+	/* Render the HTML body */
 	$template->setVariable('ItemAdmin', $ItemAdmin);
 	$template->title($module->translate('Gallery Item Administration'));
-	return array(null,
-		     array('body' => 'modules/core/templates/ItemAdmin.tpl'));
+	$template->javascript('lib/yui/yahoo-min.js');
+	$template->javascript('lib/yui/connection-min.js');
+	$template->javascript('lib/yui/dom-min.js');
+	$template->javascript('lib/yui/event-min.js');
+
+	return array(null, array('body' => 'modules/core/templates/ItemAdmin.tpl'));
     }
 
     function sortByName($a, $b) {
