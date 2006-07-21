@@ -200,8 +200,8 @@ class ItemEditItem extends ItemEditPlugin {
 		}
 
 		/*
-		 * It's possible to get a collision when we rename, so try that
-		 * first.  If there's no collision then make the rest of the changes.
+		 * It's possible to get a collision when we rename, so try that first.  If there's
+		 * no collision then make the rest of the changes
 		 */
 		$originalPathComponent = $item->getPathComponent();
 		if (isset($form['pathComponent']) &&
@@ -238,8 +238,8 @@ class ItemEditItem extends ItemEditPlugin {
 			if (isset($form['pathComponent']) &&
 				$originalPathComponent != $form['pathComponent']) {
 			    /*
-			     * Move the file back and hope that this succeeds
-			     * since we're already in an error state
+			     * Move the file back and hope that this succeeds since we're already in
+			     * an error state
 			     */
 			    $item->rename($originalPathComponent);
 			}
