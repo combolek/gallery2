@@ -39,55 +39,8 @@
 	  "progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
       {rdelim}
 
-      var args = [];
-      YAHOO.util.Dom.batch(form.elements, function(element) {ldelim}
-
-	{* Don't serialize form elements without name attributes *}
-	if (element.name == "") {ldelim}
-	  return;
-	{rdelim}
-
-	{* Don't serialize submit elements which weren't clicked *}
-	if (element.type.toLowerCase() == "submit" &&
-	    element != YAHOO.util.Event.getTarget(event)) {ldelim}
-	  return;
-	{rdelim}
-
-	{* Serialize form elements *}
-	switch (element.type) {ldelim}
-	case 'select-one':
-	  var option = element.options[element.selectedIndex];
-	  var arg = [element.name, option.value];
-	  break;
-	case 'select-multiple':
-	  var value = [];
-	  YAHOO.util.Dom.batch(element.options, function(option) {ldelim}
-	    if (option.selected) {ldelim}
-	      value.push(option.value);
-	    {rdelim}
-	  {rdelim});
-	  var arg = [element.name, value];
-	  break;
-	case 'checkbox':
-	case 'radio':
-	  if (element.checked) {ldelim}
-	    var arg = [element.name, element.value];
-	  {rdelim}
-	  break;
-	case 'submit':
-	case 'hidden':
-	case 'password':
-	case 'text':
-	  var arg = [element.name, element.value];
-	  break;
-	{rdelim}
-
-	{* Ignore empty arguments *}
-	if (arg) {ldelim}
-	  args.push(encodeURIComponent(arg[0]) + '=' + encodeURIComponent(arg[1]));
-	{rdelim}
-      {rdelim});
-
+      {* Serialize form elements *}
+      var args = GalleryUtilities.serializeForm(form, YAHOO.util.Event.getTarget(event));
       args.push("{"callback"|formVar}=callback");
 
       YAHOO.util.Connect.asyncRequest("POST", "{g->url}", {ldelim}
@@ -146,7 +99,7 @@
 	{rdelim} else {ldelim}
 	  var img = document.createElement("img");
 
-	  {* FIXME Why doesn't this work?
+	  {* TODO Why doesn't this work?
 	  YAHOO.util.Event.addListener(img, "onload", function(event, self) {ldelim}
 	  *}
 	  img.onload = function() {ldelim}
@@ -176,16 +129,6 @@
 	  height: {$ItemAdmin.thumbnail.height}{rdelim}{rdelim});
     {/capture}
   {/if}
-
-  {* Trim leading spaces *}
-  String.prototype.ltrim = function() {ldelim}
-    var index = 0;
-    while (this.substr(index, 1) == " ") {ldelim}
-      index++;
-    {rdelim}
-
-    return this.substr(index);
-  {rdelim}
 
   // ]]>
 </script>
