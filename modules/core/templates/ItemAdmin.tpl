@@ -12,7 +12,7 @@
 
     {* Submit template's form using Ajax *}
     submit: function(event, self) {ldelim}
-      if (!YAHOO.util.Connect.getConnectionObject()) {ldelim}
+      if (!GalleryUtilities.isCallbackSupported()) {ldelim}
 	return;
       {rdelim}
 
@@ -43,42 +43,8 @@
       var args = GalleryUtilities.serializeForm(form, YAHOO.util.Event.getTarget(event));
       args.push("{"callback"|formVar}=callback");
 
-      YAHOO.util.Connect.asyncRequest("POST", "{g->url}", {ldelim}
-	success: function(response) {ldelim}
-
-	  {* Enable template's form *}
-	  YAHOO.util.Dom.batch(form.elements, function(element) {ldelim}
-	    element.disabled = "";
-	  {rdelim});
-
-	  if (response.getResponseHeader["Content-Type"] &&
-	      response.getResponseHeader["Content-Type"].ltrim().substr(0, 15) ==
-	        "text/javascript") {ldelim}
-	    eval(response.responseText);
-	  {rdelim} else {ldelim}
-	    document.open();
-	    document.write(response.responseText);
-	    document.close();
-	  {rdelim}
-	{rdelim},
-
-	failure: function(response) {ldelim}
-
-	  {* Enable template's form *}
-	  YAHOO.util.Dom.batch(form.elements, function(element) {ldelim}
-	    element.disabled = "";
-	  {rdelim});
-
-	  if (response.getResponseHeader["Content-Type"] &&
-	      response.getResponseHeader["Content-Type"].ltrim().substr(0, 15) ==
-	        "text/javascript") {ldelim}
-	    eval(response.responseText);
-	  {rdelim} else {ldelim}
-	    document.open();
-	    document.write(response.responseText);
-	    document.close();
-	  {rdelim}
-	{rdelim}{rdelim}, args.join("&"));
+      {* Make Ajax callback request *}
+      GalleryUtilities.callbackRequest("{g->url}", args);
 
       YAHOO.util.Event.preventDefault(event);
     {rdelim},
@@ -123,6 +89,14 @@
   {* Ajax callback output *}
   {if GalleryUtilities::isCallback()}
     {capture append="smarty.output"}
+
+      {* TODO Move to Ajax event listener so form is also enabled on failure *}
+      {* Enable template's form *}
+      YAHOO.util.Dom.batch(YAHOO.util.Dom.get("{"form"|elementId}").elements,
+          function(element) {ldelim}
+	element.disabled = "";
+      {rdelim});
+
       ItemAdmin.update({ldelim}item: {ldelim}parentId: {$ItemAdmin.item.parentId}{rdelim},
 	thumbnail: {ldelim}src: "{$ItemAdmin.thumbnail.src|replace:"&amp;":"&"}",
 	  width: {$ItemAdmin.thumbnail.width},
