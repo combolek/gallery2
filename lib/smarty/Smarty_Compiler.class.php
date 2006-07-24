@@ -171,8 +171,7 @@ class Smarty_Compiler extends Smarty {
         // |foo:"bar":$foobar
         // |foo|bar
         // |foo:$foo->bar
-        $this->_mod_regexp = '(?:\|@?\w+(?::(?:\w+|' . $this->_num_const_regexp . '|'
-           . $this->_obj_call_regexp . '|' . $this->_avar_regexp . '|' . $this->_qstr_regexp .'))*)';
+        $this->_mod_regexp = '(?:\|@?\w+(?::(?:\w*|' . $this->_num_const_regexp . '|' . $this->_obj_call_regexp . '|' . $this->_avar_regexp . '|' . $this->_qstr_regexp . '))*)';
 
         // matches valid function name:
         // foo123
