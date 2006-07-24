@@ -1198,43 +1198,51 @@ class Smarty_Compiler extends Smarty {
 
 
     /**
-     * Compile {capture} .. {/capture} tags
+     * Compile {capture} tag
      *
      * @param boolean $start true if this is the {capture} tag
      * @param string $tag_args
      * @return string
      */
-
     function _compile_capture_tag($start, $tag_args = '')
     {
         $attrs = $this->_parse_attrs($tag_args);
 
         if ($start) {
+            $buffer = "'default'";
             if (isset($attrs['name']))
                 $buffer = $attrs['name'];
-            else
-                $buffer = "'default'";
 
+            $assign = null;
             if (isset($attrs['assign']))
                 $assign = $attrs['assign'];
-            else
-                $assign = null;
+
+            $append = null;
+            if (isset($attrs['append']))
+                $append = $attrs['append'];
+
             $output = "<?php ob_start(); ?>";
-            $this->_capture_stack[] = array($buffer, $assign);
+            $this->_capture_stack[] = array($buffer, $assign, $append);
         } else {
-            list($buffer, $assign) = array_pop($this->_capture_stack);
-            $output = "<?php \$this->_smarty_vars['capture'][$buffer] = ob_get_contents(); ";
+            list ($buffer, $assign, $append) = array_pop($this->_capture_stack);
+            $output = "<?php \$this->_smarty_vars['capture'][$buffer] = ob_get_contents();";
+
             if (isset($assign)) {
                 $output .= " \$this->assign($assign, ob_get_contents());";
             }
-            $output .= "ob_end_clean(); ?>";
+
+            if (isset($append)) {
+                $output .= " \$this->append($append, ob_get_contents());";
+            }
+
+            $output .= " ob_end_clean(); ?>";
         }
 
         return $output;
     }
 
     /**
-     * Compile {if ...} tag
+     * Compile {if} tag
      *
      * @param string $tag_args
      * @param boolean $elseif if true, uses elseif instead of if
