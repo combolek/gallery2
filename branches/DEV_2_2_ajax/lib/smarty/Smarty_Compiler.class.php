@@ -176,7 +176,7 @@ class Smarty_Compiler extends Smarty {
         // matches valid function name:
         // foo123
         // _foo_bar
-        $this->_func_regexp = '[a-zA-Z_]\w*';
+        $this->_func_regexp = '[a-zA-Z_]\w*(?:::[a-zA-Z_]\w*)*';
 
         // matches valid registered object:
         // foo->bar
@@ -1243,14 +1243,20 @@ class Smarty_Compiler extends Smarty {
     function _compile_if_tag($tag_args, $elseif = false)
     {
 
-        /* Tokenize args for 'if' tag. */
-        preg_match_all('~(?>
-                ' . $this->_obj_call_regexp . '(?:' . $this->_mod_regexp . '*)? | # valid object call
-                ' . $this->_var_regexp . '(?:' . $this->_mod_regexp . '*)?    | # var or quoted string
-                \-?0[xX][0-9a-fA-F]+|\-?\d+(?:\.\d+)?|\.\d+|!==|===|==|!=|<>|<<|>>|<=|>=|\&\&|\|\||\(|\)|,|\!|\^|=|\&|\~|<|>|\||\%|\+|\-|\/|\*|\@    | # valid non-word token
-                \b\w+\b                                                        | # valid word token
-                \S+                                                           # anything else
-                )~x', $tag_args, $match);
+        /* Tokenize args for {if} tag */
+        preg_match_all('~(?>'
+            # valid object call
+            . $this->_obj_call_regexp . '(?:' . $this->_mod_regexp . '*)?|'
+            # var or quoted string
+            . $this->_var_regexp . '(?:' . $this->_mod_regexp . '*)?|'
+            # valid function name
+            . $this->_func_regexp
+            # valid non-word token
+            . '\-?0[xX][0-9a-fA-F]+|\-?\d+(?:\.\d+)?|\.\d+|!==|===|==|!=|<>|<<|>>|<=|>=|\&\&|\|\||\(|\)|,|\!|\^|=|\&|\~|<|>|\||\%|\+|\-|\/|\*|\@|
+            # valid word token
+            \b\w+\b|
+            # anything else
+            \S+)~x', $tag_args, $match);
 
         $tokens = $match[0];
 
