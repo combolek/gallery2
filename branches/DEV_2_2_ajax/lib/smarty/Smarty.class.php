@@ -572,23 +572,83 @@ class Smarty
     }
 
     /**
+     * Private utility to assign, append or merge values to template variables
+     *
+     * @param array|string $tpl_var the template variable name(s)
+     * @param mixed $value the value to assign, append or merge
+     */
+    function _assign(&$tpl_var, &$value, $operation='assign')
+    {
+        if (!is_array($tpl_var)) {
+            $tpl_var = array($tpl_var => &$value);
+        }
+
+        foreach ($tpl_var as $var_key => $var_val) {
+            $array =& $this->_tpl_vars;
+
+            /* Parse structured variable name */
+            preg_match_all('~(?:^\w+)|\.\w+|\S~', $var_key, $match);
+            $var_names = $match[0];
+
+            /* Handle first component */
+            $var_name = array_shift($var_names);
+            if (!empty($var_names)) {
+                $array =& $this->_tpl_vars[$var_name];
+                if ($var_name = 'smarty') {
+                    $array =& $this->_smarty_vars;
+                }
+
+                $var_name = array_shift($var_names);
+                if (substr($var_name, 0, 1) != '.' || substr($var_name, 1) == '') {
+                    $this->_trigger_fatal_error("'$var_name' is an invalid variable name");
+                    return;
+                }
+                $var_name = substr($var_name, 1);
+            }
+
+            /* Handle additional components */
+            while (!empty($var_names)) {
+                $array =& $array[substr($var_name, 1)];
+
+                $var_name = array_shift($var_names);
+                if (substr($var_name, 0, 1) != '.' || substr($var_name, 1) == '') {
+                    $this->_trigger_fatal_error("'$var_name' is an invalid variable name");
+                    return;
+                }
+                $var_name = substr($var_name, 1);
+            }
+
+            switch ($operation) {
+            case 'append':
+                if (is_array($array[$var_name])) {
+                    $array[$var_name][] =& $tpl_var[$var_key];
+                    return;
+                }
+
+                $array[$var_name] .= $tpl_var[$var_key];
+                break;
+
+            case 'merge':
+                foreach ($tpl_var[$var_key] as $val_key => $val_val) {
+                    $array[$var_name][$val_key] =& $tpl_var[$var_key][$val_key];
+                }
+                break;
+
+            default:
+                $array[$var_name] =& $tpl_var[$var_key];
+            }
+        }
+    }
+
+    /**
      * assigns values to template variables
      *
      * @param array|string $tpl_var the template variable name(s)
      * @param mixed $value the value to assign
      */
-    function assign($tpl_var, $value = null)
+    function assign($tpl_var, $value=null)
     {
-        if (is_array($tpl_var)){
-            foreach ($tpl_var as $key => $val) {
-                if ($key != '') {
-                    $this->_tpl_vars[$key] = $val;
-                }
-            }
-        } else {
-            if ($tpl_var != '')
-                $this->_tpl_vars[$tpl_var] = $value;
-        }
+        $this->_assign($tpl_var, $value);
     }
 
     /**
@@ -599,8 +659,7 @@ class Smarty
      */
     function assign_by_ref($tpl_var, &$value)
     {
-        if ($tpl_var != '')
-            $this->_tpl_vars[$tpl_var] = &$value;
+        $this->_assign($tpl_var, $value);
     }
 
     /**
@@ -611,36 +670,7 @@ class Smarty
      */
     function append($tpl_var, $value=null, $merge=false)
     {
-        if (is_array($tpl_var)) {
-            // $tpl_var is an array, ignore $value
-            foreach ($tpl_var as $_key => $_val) {
-                if ($_key != '') {
-                    if(!@is_array($this->_tpl_vars[$_key])) {
-                        settype($this->_tpl_vars[$_key],'array');
-                    }
-                    if($merge && is_array($_val)) {
-                        foreach($_val as $_mkey => $_mval) {
-                            $this->_tpl_vars[$_key][$_mkey] = $_mval;
-                        }
-                    } else {
-                        $this->_tpl_vars[$_key][] = $_val;
-                    }
-                }
-            }
-        } else {
-            if ($tpl_var != '' && isset($value)) {
-                if(!@is_array($this->_tpl_vars[$tpl_var])) {
-                    settype($this->_tpl_vars[$tpl_var],'array');
-                }
-                if($merge && is_array($value)) {
-                    foreach($value as $_mkey => $_mval) {
-                        $this->_tpl_vars[$tpl_var][$_mkey] = $_mval;
-                    }
-                } else {
-                    $this->_tpl_vars[$tpl_var][] = $value;
-                }
-            }
-        }
+        $this->_assign($tpl_var, $value, $merge ? 'merge' : 'append');
     }
 
     /**
@@ -651,20 +681,8 @@ class Smarty
      */
     function append_by_ref($tpl_var, &$value, $merge=false)
     {
-        if ($tpl_var != '' && isset($value)) {
-            if(!@is_array($this->_tpl_vars[$tpl_var])) {
-             settype($this->_tpl_vars[$tpl_var],'array');
-            }
-            if ($merge && is_array($value)) {
-                foreach($value as $_key => $_val) {
-                    $this->_tpl_vars[$tpl_var][$_key] = &$value[$_key];
-                }
-            } else {
-                $this->_tpl_vars[$tpl_var][] = &$value;
-            }
-        }
+        $this->_assign($tpl_var, $value, $merge ? 'merge' : 'append');
     }
-
 
     /**
      * clear the given assigned template variable.
