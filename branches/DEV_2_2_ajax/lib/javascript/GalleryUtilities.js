@@ -108,6 +108,18 @@ var GalleryUtilities = {
 	document.write(response.responseText);
 	document.close();
       }}, args.join("&"));
+  },
+
+  hide: function() {
+    for (var i = 0; i < arguments.length; i++) {
+      YAHOO.util.Dom.get(arguments[i]).style.display = "none";
+    }
+  },
+
+  show: function() {
+    for (var i = 0; i < arguments.length; i++) {
+      YAHOO.util.Dom.get(arguments[i]).style.display = "";
+    }
   }
 };
 

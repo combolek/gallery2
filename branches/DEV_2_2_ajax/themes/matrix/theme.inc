@@ -24,7 +24,7 @@
  */
 
 /**
- * This implements the standard gallery theme
+ * This implements the standard Gallery theme
  *
  * @package MatrixTheme
  * @subpackage Theme
@@ -43,8 +43,7 @@ class MatrixTheme extends GalleryTheme {
 	$this->setVersion('1.1.0');
 	$this->setRequiredCoreApi(array(7, 0));
 	$this->setRequiredThemeApi(array(2, 1));
-	$this->setStandardSettings(
-	    array('rows' => 3, 'columns' => 3,
+	$this->setStandardSettings(array('rows' => 3, 'columns' => 3,
 		  'showImageOwner' => 0, 'showAlbumOwner' => 1,
 		  'albumFrame' => '', 'itemFrame' => '', 'photoFrame' => '',
 		  'colorpack' => '',
@@ -78,6 +77,15 @@ class MatrixTheme extends GalleryTheme {
 	/* Add in our extra stuff */
 	$theme =& $template->getVariableByReference('theme');
 	$theme['columnWidthPct'] = floor(100 / $params['columns']);
+
+$template->javascript('lib/yui/yahoo-min.js');
+$template->javascript('lib/yui/connection-min.js');
+$template->javascript('lib/yui/dom-min.js');
+$template->javascript('lib/yui/event-min.js');
+$template->javascript('lib/javascript/GalleryUtilities.js');
+
+$template->setVariable('delegate', GalleryUtilities::getUrlVariablesFiltered(array('return',
+    'returnName', 'navId', 'fromNavId')));
 
 	/* Add our header and styles */
 	return array(null, 'theme.tpl');
