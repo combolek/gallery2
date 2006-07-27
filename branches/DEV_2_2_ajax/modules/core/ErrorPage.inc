@@ -122,7 +122,7 @@ class ErrorPageView extends GalleryView {
      *
      * @param object GalleryStatus
      * @param mixed GalleryMain result, if available
-     * @param boolean (default true) false if G2 has not initialized (can't use theme system)
+     * @param boolean (default true) false if Gallery has not initialized (can't use theme system)
      * @static
      */
     function errorHandler($error, $g2Data=null, $initOk=true) {
@@ -149,7 +149,7 @@ class ErrorPageView extends GalleryView {
 	 * Without the following, erroneous Ajax callback bodies replace page bodies using
 	 * JavaScript.  This way errors are displayed without additional requests.  However this
 	 * doesn't display perfectly on all browsers.  The following redirects the browser to the
-	 * error page
+	 * error page.
 	 */
 	if (GalleryUtilities::isCallback()) {
 	    $session =& $gallery->getSession();
@@ -217,7 +217,7 @@ class ErrorPageView extends GalleryView {
 	}
 
 	if ($failsafe) {
-	    /* Some kind of catastrophic failure.  Just dump the error out to the browser */
+	    /* A catastrophic failure has occurred so just dump the error out to the browser */
 	    print '<h2>Error</h2>' . $error->getAsHtml(false);
 	    if ($gallery->getDebug() == 'buffered') {
 		print '<h3>Debug Output</h3><pre>' . $gallery->getDebugBuffer() . '</pre>';
