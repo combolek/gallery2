@@ -196,7 +196,7 @@
 	element.disabled = "";
       {rdelim});
 
-      YAHOO.util.Dom.get("{"serialNumberInput"|elementId::$child.id}").value = {$form.serialNumber};
+      YAHOO.util.Dom.get("{"serialNumberInput"|elementId::$child.id}").value = {$child.serialNumber};
 
       {if empty($status.editMessage) && empty($status.warning) && empty($form.error)}
 	YAHOO.util.Dom.get("{"status"|elementId::$child.id}").style.display = "none";
