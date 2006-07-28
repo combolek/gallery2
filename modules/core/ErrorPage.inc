@@ -53,18 +53,17 @@ class ErrorPageView extends GalleryView {
 	$ErrorPage = array();
 
 	$error = $this->_error;
-	if (!isset($error)) {
+	if (empty($error)) {
 	    $session =& $gallery->getSession();
 	    $error = $session->get('core.error');
-	    if ($error) {
+	    if (!empty($error)) {
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryStatus.class');
 		$error = unserialize($error);
 	    }
 	}
 
 	list ($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
-	$ErrorPage['isAdmin'] = (!$ret && $isAdmin);
-	if ($gallery->getDebug() || $ErrorPage['isAdmin']) {
+	if ($gallery->getDebug() || $isAdmin) {
 	    $ErrorPage['stackTrace'] = $error->getAsHtml($isAdmin);
 	}
 
@@ -86,7 +85,7 @@ class ErrorPageView extends GalleryView {
 	    $ErrorPage['code']['missingObject'] = true;
 	}
 
-	if ($ErrorPage['isAdmin']) {
+	if ($isAdmin) {
 	    $ErrorPage['phpversion'] = phpversion();
 	    $ErrorPage['php_uname'] = php_uname();
 	    $ErrorPage['php_sapi_name'] = php_sapi_name();
@@ -132,11 +131,6 @@ class ErrorPageView extends GalleryView {
 	    $failsafe = true;
 	}
 
-	/* Return HTTP 404 status for ERROR_MISSING_OBJECT */
-	if ($error->getErrorCode() & ERROR_MISSING_OBJECT) {
-	    header('HTTP/1.1 404 Not Found');
-	}
-
 	/* Post Gallery::Error event */
 	$event = GalleryCoreApi::newEvent('Gallery::Error');
 	$event->setData(array('error' => $error));
@@ -156,10 +150,27 @@ class ErrorPageView extends GalleryView {
 	    $urlGenerator =& $gallery->getUrlGenerator();
 
 	    $session->put('core.error', serialize($error));
-	    header('Content-Type: text/javascript; charset=UTF-8');
-	    print 'window.location = "' . $urlGenerator->generateUrl(
-		array('view' => 'core.ErrorPage'), array('htmlEntities' => false)) . '";';
-	    return;
+	    $error = $session->save();
+	    if (!$error) {
+		if ($gallery->isStorageInitialized()) {
+		    $storage =& $gallery->getStorage();
+		    $error = $storage->commitTransaction();
+		}
+
+		if (!$error) {
+		    header('Content-Type: text/javascript; charset=UTF-8');
+		    print 'window.location = "' . $urlGenerator->generateUrl(
+			array('view' => 'core.ErrorPage'), array('htmlEntities' => false)) . '";';
+		    return;
+		}
+	    }
+	}
+
+	/* Return HTTP 404 status for ERROR_MISSING_OBJECT */
+	if ($error->getErrorCode() & ERROR_MISSING_OBJECT) {
+	    GalleryUtilities::setResponseHeader('HTTP/1.0 404 Not Found', false);
+	} else {
+	    GalleryUtilities::setResponseHeader('HTTP/1.0 500 Internal Server Error', false);
 	}
 
 	if (!$failsafe) {

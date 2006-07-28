@@ -17,9 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
  * @version $Revision$ $Date$
  * @package MatrixTheme
+ * @subpackage Theme
  * @author Bharat Mediratta <bharat@menalto.com>
  */
 
@@ -64,12 +66,10 @@ class MatrixTheme extends GalleryTheme {
      * @see GalleryTheme::showAlbumPage
      */
     function showAlbumPage(&$template, $item, $params, $childIds) {
-	$ret = $this->loadCommonTemplateData(
-	    $template, $item, $params,
+	$ret = $this->loadCommonTemplateData($template, $item, $params,
 	    array('owner', 'viewCount', 'childCount', 'descendentCount', 'parents',
 		  'systemLinks', 'itemLinks', 'itemSummaries', 'permissions',
-		  'thumbnails', 'pageNavigator', 'jumpRange'),
-	     $childIds);
+		  'thumbnails', 'pageNavigator', 'jumpRange'), $childIds);
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -85,7 +85,7 @@ $template->javascript('lib/yui/event-min.js');
 $template->javascript('lib/javascript/GalleryUtilities.js');
 
 $template->setVariable('delegate', GalleryUtilities::getUrlVariablesFiltered(array('return',
-    'returnName', 'navId', 'fromNavId')));
+    'returnName', 'navId', 'fromNavId'), true));
 
 	/* Add our header and styles */
 	return array(null, 'theme.tpl');
