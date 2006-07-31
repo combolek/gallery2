@@ -100,14 +100,10 @@
 
 		{g->block type="core.ItemLinks" item=$child links=$child.itemLinks}
 
-		{if !empty($child.title)}
-		<p class="giTitle">
-		  {if $child.canContainChildren}
-		  {g->text text="Album: %s" arg1=$child.title|markup}
-		  {else}
-		  {$child.title|markup}
-		  {/if}
-		</p>
+		{if $child.canContainChildren}
+		  {g->block type="core.EditItemBlock" templateId="title-`$child.id`" EditItemBlock.item=$child EditItemBlock.property="title" EditItemBlock.text="Album: %s"|text:`$child.title|markup`}
+		{else}
+		  {g->block type="core.EditItemBlock" templateId="title-`$child.id`" EditItemBlock.item=$child EditItemBlock.property="title" EditItemBlock.text=$child.title|markup}
 		{/if}
 
 		{g->block type="core.EditItemBlock" templateId="summary-`$child.id`" EditItemBlock.item=$child EditItemBlock.property="summary"}
