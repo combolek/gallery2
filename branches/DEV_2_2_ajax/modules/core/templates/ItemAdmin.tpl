@@ -107,7 +107,7 @@
   // ]]>
 </script>
 
-<form id="{"form"|elementId}" action="{g->url}" method="post" enctype="{$ItemAdmin.enctype}">
+<form id="{"form"|elementId}" action="{g->url}" method="post" enctype="{$ItemAdmin.enctype|default:"application/x-www-form-urlencoded"}">
   <div>
     {g->hiddenFormVars}
     <input name="{"controller"|formVar}" type="hidden" value="{$controller}"/>

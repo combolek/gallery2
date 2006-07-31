@@ -55,7 +55,7 @@ class ItemEditItem extends ItemEditPlugin {
 	    /* Validate the input data */
 	    $platform =& $gallery->getPlatform();
 
-	    foreach(array('title', 'summary', 'keywords', 'description') as $key) {
+	    foreach (array('title', 'summary', 'keywords', 'description') as $key) {
 		if (!empty($form[$key])) {
 		    $form[$key] = trim($form[$key]);
 		}
@@ -82,8 +82,9 @@ class ItemEditItem extends ItemEditPlugin {
 						  $form['originationTimestampSplit']['Date_Year']);
 	    }
 
-	    if (isset($form['thumbnail']['size']) &&
-		    (!is_numeric($form['thumbnail']['size']) || $form['thumbnail']['size'] < 0)) {
+	    if (isset($form['thumbnail']['size'])
+		    && (!is_numeric($form['thumbnail']['size'])
+			|| $form['thumbnail']['size'] < 0)) {
 		$error[] = 'form[error][thumbnail][size][invalid]';
 	    }
 
@@ -205,7 +206,7 @@ class ItemEditItem extends ItemEditPlugin {
 
 		/*
 		 * It's possible to get a collision when we rename, so try that first.  If there's
-		 * no collision then make the rest of the changes
+		 * no collision then make the rest of the changes.
 		 */
 		$originalPathComponent = $item->getPathComponent();
 		if (isset($form['pathComponent']) &&

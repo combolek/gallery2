@@ -193,10 +193,6 @@ class ItemAdminView extends GalleryView {
 	$ItemAdmin['viewL10Domain'] = $subView->getL10Domain();
 	$ItemAdmin['isSiteAdmin'] = $isSiteAdmin;
 
-	if (!isset($ItemAdmin['enctype'])) {
-	    $ItemAdmin['enctype'] = 'application/x-www-form-urlencoded';
-	}
-
 	/* Render the HTML body */
 	$template->setVariable('ItemAdmin', $ItemAdmin);
 	$template->title($module->translate('Gallery Item Administration'));
