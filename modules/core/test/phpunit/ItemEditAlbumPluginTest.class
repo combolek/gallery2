@@ -17,6 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
  * @version $Revision$ $Date$
  * @package GalleryCore
@@ -133,7 +134,7 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 	/* Perform the request and verify that we succeeded */
 	$results = $this->handleRequest($this->_album, $this->_preferred);
 	$this->assertEquals(array(array(),
-				  $this->_translate('Settings saved successfully.')),
+				  $this->_translate('Settings saved successfully')),
 			    $results);
 
 	list ($ret, $this->_album) = $this->_album->refresh();
@@ -184,9 +185,7 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 	$this->assertEquals(array(array('form[error][thumbnail][size][invalid]',
 					'form[error][resizes][0][size][invalid]',
 					'form[error][resizes][1][size][invalid]',
-					'form[error][resizes][2][size][invalid]'),
-				  null),
-			    $results);
+					'form[error][resizes][2][size][invalid]'), null), $results);
     }
 
     function testInvalidSave2() {
@@ -202,9 +201,7 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 	$results = $this->handleRequest($this->_album, $this->_preferred);
 	$this->assertEquals(array(array('form[error][resizes][0][size][missing]',
 					'form[error][resizes][1][size][missing]',
-					'form[error][resizes][2][size][missing]'),
-				  null),
-			    $results);
+					'form[error][resizes][2][size][missing]'), null), $results);
     }
 
     function testInvalidSerialNumber() {
@@ -350,8 +347,7 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 	/* Perform the request and verify that we succeeded */
 	$results = $this->handleRequest($this->_album, $this->_preferred);
 	$this->assertEquals(array(array(),
-				  $this->_translate('Settings saved successfully.')),
-			    $results);
+				  $this->_translate('Settings saved successfully')), $results);
 
 	/* Assert that we have 2 callbacks in the queue (recreate thumbnails and resies) */
 	$this->assertEquals(2, $mockAdapter->getCallbackCount());
@@ -482,8 +478,7 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 	/* Perform the request and verify that we succeeded */
 	$results = $this->handleRequest($this->_album, $this->_preferred);
 	$this->assertEquals(array(array(),
-				  $this->_translate('Settings saved successfully.')),
-			    $results);
+				  $this->_translate('Settings saved successfully')), $results);
 
 	/* Assert that we have 1 callback in the queue */
 	$this->assertEquals(1, $mockAdapter->getCallbackCount());
@@ -548,8 +543,7 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 	/* Perform the request and verify that we succeeded */
 	$results = $this->handleRequest($this->_album, $this->_preferred);
 	$this->assertEquals(array(array(),
-				  $this->_translate('Settings saved successfully.')),
-			    $results);
+				  $this->_translate('Settings saved successfully')), $results);
 	/* On the album itself */
 	list ($ret, $this->_album) = $this->_album->refresh();
 	if ($ret) {
@@ -572,8 +566,7 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 				  'derivativeOperations' => 'thumbnail|123'),
 			    array('order' => 0,
 				  'derivativeType' => 2,
-				  'derivativeOperations' => 'scale|50,50')),
-		      $preferences);
+				  'derivativeOperations' => 'scale|50,50')), $preferences);
 
 	/* On the child */
 	list ($ret, $this->_childAlbum) = $this->_childAlbum->refresh();
@@ -595,8 +588,7 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 				  'derivativeOperations' => 'thumbnail|123'),
 			    array('order' => 0,
 				  'derivativeType' => 2,
-				  'derivativeOperations' => 'scale|50,50')),
-		      $preferences, 'child');
+				  'derivativeOperations' => 'scale|50,50')), $preferences, 'child');
 
 	/* On the grandchild */
 	list ($ret, $this->_grandchildAlbum) = $this->_grandchildAlbum->refresh();
@@ -619,7 +611,7 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 			    array('order' => 0,
 				  'derivativeType' => 2,
 				  'derivativeOperations' => 'scale|50,50')),
-		      $preferences, 'grandchild');
+	    $preferences, 'grandchild');
 
     }
 
@@ -647,7 +639,7 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 	/* Perform the request and verify that we succeeded */
 	$results = $this->handleRequest($this->_album, $this->_preferred);
 	$this->assertEquals(array(array(),
-				  $this->_translate('Settings saved successfully.')),
+				  $this->_translate('Settings saved successfully')),
 			    $results);
 	/* On the album itself */
 	list ($ret, $this->_album) = $this->_album->refresh();
@@ -671,8 +663,7 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 				  'derivativeOperations' => 'thumbnail|123'),
 			    array('order' => 0,
 				  'derivativeType' => 2,
-				  'derivativeOperations' => 'scale|50,50')),
-		      $preferences);
+				  'derivativeOperations' => 'scale|50,50')), $preferences);
     }
 
 }
@@ -686,12 +677,13 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
 
 /**
  * Mock data item
+ *
  * @package GalleryCore
  * @subpackage PHPUnit
  */
 class ItemEditAlbumPluginTestDataItem extends GalleryDataItem {
     /**
-     * @see GalleryEntity::getClassName()
+     * @see GalleryEntity::getClassName
      */
     function getClassName() {
 	return 'ItemEditAlbumPluginTestDataItem';
@@ -700,8 +692,10 @@ class ItemEditAlbumPluginTestDataItem extends GalleryDataItem {
 
 /**
  * Mock toolkit
+ *
  * @package GalleryCore
  * @subpackage PHPUnit
  */
-class ItemEditAlbumPluginTestToolkit extends GalleryToolkit { }
+class ItemEditAlbumPluginTestToolkit extends GalleryToolkit {
+}
 ?>

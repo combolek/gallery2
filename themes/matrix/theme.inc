@@ -78,14 +78,9 @@ class MatrixTheme extends GalleryTheme {
 	$theme =& $template->getVariableByReference('theme');
 	$theme['columnWidthPct'] = floor(100 / $params['columns']);
 
-$template->javascript('lib/yui/yahoo-min.js');
-$template->javascript('lib/yui/connection-min.js');
-$template->javascript('lib/yui/dom-min.js');
-$template->javascript('lib/yui/event-min.js');
-$template->javascript('lib/javascript/GalleryUtilities.js');
-
-$template->setVariable('delegate', GalleryUtilities::getUrlVariablesFiltered(array('return',
-    'returnName', 'navId', 'fromNavId'), true));
+	/* EditItemBlock preloads */
+	GalleryCoreApi::requireOnce('modules/core/Preloads.inc');
+	CorePreloads::preload($template, 'EditItemBlock', array());
 
 	/* Add our header and styles */
 	return array(null, 'theme.tpl');

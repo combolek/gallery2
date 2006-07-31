@@ -71,7 +71,7 @@ class GalleryTheme extends GalleryPlugin {
      * Return the major and minor version of the GalleryTheme API.
      *
      * This follows the same rules as the core API
-     * @see GalleryCoreApi::getApiVersion()
+     * @see GalleryCoreApi::getApiVersion
      *
      * TODO On the next major API bump:
      * - Remove backwards compatible CSS from lib/javascript/AutoComplete.js
@@ -95,7 +95,8 @@ class GalleryTheme extends GalleryPlugin {
 
     /**
      * Return the possible settings that a theme can specify on a global or per item basis.  Used
-     * for theme with simple settings (@see isAdvancedSettings)
+     * for theme with simple settings
+     * @see isAdvancedSettings
      *
      * Each setting contains:
      *   key:         a unique identifier
@@ -126,7 +127,7 @@ class GalleryTheme extends GalleryPlugin {
 	/*
 	 * For simplicity in upgrading, we don't require themes to delete their old settings.  So
 	 * any item may be carting around extra settings that are no longer valid.  We could fix
-	 * this in the future, but for now, just leave those out of the settings list
+	 * this in the future, but for now, just leave those out of the settings list.
 	 */
 	$standard = $this->getStandardSettings();
 	$params = array_merge($standard, $params);
@@ -285,12 +286,12 @@ class GalleryTheme extends GalleryPlugin {
     }
 
     /**
-     * Check the values of the settings for legality.  If there are errors, return an array of
-     * localized error messages to display for each invalid setting.  Used for theme with simple
-     * settings (@see isAdvancedSettings)
+     * Check values of settings for legality.  If there are errors, return an array of localized
+     * error messages to display for each invalid setting.  Used for themes with simple settings.
      *
      * @param settings array('key' => array(value, ...), ...)
      * @return array errors in the form of array('key' => 'translated text', ...)
+     * @see isAdvancedSettings
      */
     function validateSettings($settings) {
 	$error = array();
@@ -401,11 +402,11 @@ class GalleryTheme extends GalleryPlugin {
 
     /**
      * Unpack a packed setting.
-     * @see GalleryTheme::packSetting
      *
      * @param string the pack type
      * @param mixed the packed value
      * @return string the unpacked value
+     * @see GalleryTheme::packSetting
      */
     function unpackSetting($packType, $value) {
 	$success = true;
@@ -456,13 +457,12 @@ class GalleryTheme extends GalleryPlugin {
      * Load the template with data to define the theme settings.  Used for theme with advanced
      * settings.
      *
-     * @see isAdvancedSettings
-     *
      * @param array object GalleryTemplate the template instance
      * @param array array the form values
      * @param the item id or null for site wide settings
      * @return array object GalleryStatus a status code
      *               string path to the body template
+     * @see isAdvancedSettings
      */
     function loadSettingsTemplate(&$template, &$form, $itemId=null) {
 	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
@@ -471,14 +471,13 @@ class GalleryTheme extends GalleryPlugin {
     /**
      * Let the theme handle the incoming request.  Used for theme with advanced settings.
      *
-     * @see isAdvancedSettings
      * @see GalleryController::handleRequest
-     *
      * @param array the form values
      * @param the item id or null for site wide settings
      * @return array object GalleryStatus a status code
      *               array error messages
      *               string status message (itemId!=null) or status key (itemId==null)
+     * @see isAdvancedSettings
      */
     function handleSettingsRequest($form, $itemId=null) {
 	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null, null);
@@ -538,7 +537,7 @@ class GalleryTheme extends GalleryPlugin {
      * 3. Set the new theme version and api requirements into the database
      *
      * Themes should not need to override this method.  Instead they should override the upgrade
-     * method and put all their theme specific logic there
+     * method and put all their theme specific logic there.
      *
      * @return object GalleryStatus a status code
      */
@@ -794,7 +793,7 @@ class GalleryTheme extends GalleryPlugin {
 
 	/*
 	 * Figure out what type of view we've got.  This is lame and not very OO.  We should create
-	 * a view hierarchy that lets them implement their own showPage() method
+	 * a view hierarchy that lets them implement their own showPage() method.
 	 */
 	switch ($view->getViewType()) {
 	case VIEW_TYPE_ADMIN:
@@ -874,8 +873,8 @@ class GalleryTheme extends GalleryPlugin {
 			$childIds = array_slice($theme['allChildIds'], $start, $perPage);
 			$theme['totalPages'] = ceil(count($theme['allChildIds']) / $perPage);
 		    } else {
-			list ($ret, $childIds) = GalleryCoreApi::fetchChildItemIds(
-				$item, $start, $perPage, $theme['actingUserId']);
+			list ($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($item, $start,
+			    $perPage, $theme['actingUserId']);
 			if ($ret) {
 			    return array($ret, null);
 			}
@@ -885,8 +884,8 @@ class GalleryTheme extends GalleryPlugin {
 			 * this after we get the child ids because the 'childCount' common template
 			 * data also gets the child counts for the child albums.
 			 */
-			$ret = $this->loadCommonTemplateData(
-				$template, $item, $params, array('childCount'), $childIds, false);
+			$ret = $this->loadCommonTemplateData($template, $item, $params,
+			    array('childCount'), $childIds, false);
 			if ($ret) {
 			    return array($ret, null);
 			}
@@ -912,8 +911,8 @@ class GalleryTheme extends GalleryPlugin {
 		    if (isset($isDynamicAlbum)) {
 			$childIds = $theme['allChildIds'];
 		    } else {
-			list ($ret, $childIds) = GalleryCoreApi::fetchChildItemIds(
-				$item, null, null, $theme['actingUserId']);
+			list ($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($item, null,
+			    null, $theme['actingUserId']);
 			if ($ret) {
 			    return array($ret, null);
 			}
@@ -1053,8 +1052,7 @@ class GalleryTheme extends GalleryPlugin {
 	if ($platform->file_exists("$g2Base/$path")) {
 	    GalleryCoreApi::requireOnce($path);
 	    $className = $module . 'Preloads';
-	    $instance = new $className;
-	    $ret = $instance->preload($template, $blockName, $blockParams);
+	    $ret = call_user_func(array($className, 'preload'), $template, $blockName, $blockParams);
 	    if ($ret) {
 		return $ret;
 	    }
@@ -1065,6 +1063,7 @@ class GalleryTheme extends GalleryPlugin {
 
     /**
      * Load commonly used data into theme template.
+     *
      * Always loaded:
      *   item        item data
      *   children    array of child item data
@@ -1114,8 +1113,8 @@ class GalleryTheme extends GalleryPlugin {
      * @access public
      * @static
      */
-    function loadCommonTemplateData(&$template, $item, $params, $dataToLoad,
-				    $childIds=array(), $useCache=true) {
+    function loadCommonTemplateData(&$template, $item, $params, $dataToLoad, $childIds=array(),
+	    $useCache=true) {
 	global $gallery;
 
 	$imageViewsIndex = GalleryUtilities::getRequestVariables('imageViewsIndex');
@@ -1126,9 +1125,8 @@ class GalleryTheme extends GalleryPlugin {
 	    }
 
 	    if ($shouldCache) {
-		list ($ret, $serializedData) = GalleryDataCache::getPageData(
-		    'template', array($item->getId(), $params, $dataToLoad,
-				      $childIds, $imageViewsIndex));
+		list ($ret, $serializedData) = GalleryDataCache::getPageData('template',
+		    array($item->getId(), $params, $dataToLoad, $childIds, $imageViewsIndex));
 		if ($ret) {
 		    return $ret;
 		}
@@ -1162,8 +1160,13 @@ class GalleryTheme extends GalleryPlugin {
 	    }
 	}
 	$itemId = $item->getId();
-	$allItems = array_merge($itemId ? array($item) : array(), $childItems);
-	$allItemIds = array_merge($itemId ? array($itemId) : array(), $childIds);
+	$allItems = $childItems;
+	$allItemIds = $childIds;
+	if ($itemId) {
+	    $allItems[] = $item;
+	    $allItemIds[] = $itemId;
+	}
+
 	$allAlbumIds = array();
 	foreach ($allItems as $it) {
 	    if ($it->getCanContainChildren()) {
@@ -1287,8 +1290,7 @@ class GalleryTheme extends GalleryPlugin {
 	if (!isset($theme['children'])) {
 	    $theme['children'] = array();
 	    foreach ($childItems as $child) {
-		$tmp = (array)$child;
-		$theme['children'][] = $tmp;
+		$theme['children'][] = (array)$child;
 	    }
 	}
 
@@ -1298,9 +1300,8 @@ class GalleryTheme extends GalleryPlugin {
 	 */
 	if (isset($load['owner'])) {
 	    $theme['item']['owner'] = (array)$entities[$item->getOwnerId()];
-	    for ($i = 0; $i < count($theme['children']); $i++) {
-		$theme['children'][$i]['owner'] =
-		    (array)$entities[$theme['children'][$i]['ownerId']];
+	    foreach ($theme['children'] as $key => $child) {
+		$theme['children'][$key]['owner'] = (array)$entities[$child['ownerId']];
 	    }
 	}
 
@@ -1392,8 +1393,8 @@ class GalleryTheme extends GalleryPlugin {
 	 * 'systemLinks', 'itemLinks', 'itemSummaries'
 	 * Load links and content from all active modules
 	 */
-	if (isset($load['systemLinks'])
-		|| isset($load['itemLinks']) || isset($load['itemSummaries'])) {
+	if (isset($load['systemLinks']) || isset($load['itemLinks'])
+		|| isset($load['itemSummaries'])) {
 	    if (!empty($allItemIds)) {
 		list ($ret, $permissions) =
 		    GalleryCoreApi::fetchPermissionsForItems($allItemIds, $theme['actingUserId']);
@@ -1448,7 +1449,7 @@ class GalleryTheme extends GalleryPlugin {
 		}
 
 		if (!$required) {
-		    /* This module doesn't have anything we need.  Don't bother with it */
+		    /* This module doesn't have anything we need.  Don't bother with it. */
 		    continue;
 		}
 
@@ -1537,13 +1538,10 @@ class GalleryTheme extends GalleryPlugin {
 	 * --------------------------------------------------------------------------------------
 	 * Populate data in children list
 	 */
-	if (!empty($childData)) {
-	    foreach (array_keys($theme['children']) as $i) {
-		$id = $theme['children'][$i]['id'];
-		foreach ($childData as $key) {
-		    if (isset(${$key}[$id])) {
-			$theme['children'][$i][$key] = ${$key}[$id];
-		    }
+	foreach ($childData as $name) {
+	    foreach ($theme['children'] as $key => $child) {
+		if (isset(${$name}[$child['id']])) {
+		    $theme['children'][$key][$name] = ${$name}[$child['id']];
 		}
 	    }
 	}
@@ -1738,16 +1736,32 @@ class GalleryTheme extends GalleryPlugin {
 	    $theme['fullSizeDimensions'] = $fullSizeDimensions;
 	}
 
-	/* -------------------------------------------------------------------------------------- */
-	if (isset($load['permissions']) && !isset($theme['permissions']) && $itemId) {
+	/*
+	 * --------------------------------------------------------------------------------------
+	 * 'permissions'
+	 */
+	if (isset($load['permissions']) && !isset($theme['permissions'])) {
 	    list ($ret, $permissions) =
-		GalleryCoreApi::getPermissions($itemId, $theme['actingUserId']);
+		GalleryCoreApi::fetchPermissionsForItems($allItemIds, $theme['actingUserId']);
 	    if ($ret) {
 		return $ret;
 	    }
 
-	    foreach (array_keys($permissions) as $perm) {
-		$theme['permissions'][str_replace('.', '_', $perm)] = 1;
+	    /*
+	     * TODO Should perhaps eventually be moved to $theme.item.permissions for consistency
+	     * with $theme.item.owner, etc.
+	     */
+	    if ($itemId) {
+		foreach ($permissions[$itemId] as $permission => $value) {
+		    $theme['permissions'][str_replace('.', '_', $permission)] = true;
+		}
+	    }
+
+	    foreach ($theme['children'] as $key => $child) {
+		foreach ($permissions[$child['id']] as $permission => $value) {
+		    $theme['children'][$key]['permissions'][str_replace('.', '_', $permission)] =
+			true;
+		}
 	    }
 	}
 
@@ -1758,8 +1772,7 @@ class GalleryTheme extends GalleryPlugin {
 	    }
 
 	    if ($shouldCache) {
-		$ret = GalleryDataCache::putPageData(
-		    'template', $item->getId(),
+		$ret = GalleryDataCache::putPageData('template', $item->getId(),
 		    array($item->getId(), $params, $dataToLoad, $childIds, $imageViewsIndex),
 		    serialize($template->_smarty->_tpl_vars));
 		if ($ret) {
@@ -1773,6 +1786,7 @@ class GalleryTheme extends GalleryPlugin {
 
     /**
      * Sort an array of associative arrays on the 'text' key.
+     *
      * @access private
      */
     function _sortItemLinks($a, $b) {
