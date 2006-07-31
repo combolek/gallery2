@@ -38,10 +38,10 @@ class RssModule extends GalleryModule /* and GalleryEventListener */ {
 	$this->setId('rss');
 	$this->setName($gallery->i18n('RSS'));
 	$this->setDescription($gallery->i18n('RSS'));
-	$this->setVersion('1.0.7');
+	$this->setVersion('1.0.9');
 	$this->setGroup('export', $gallery->i18n('Export'));
 	$this->setCallbacks('getSiteAdminViews|getItemLinks|registerEventListeners');
-	$this->setRequiredCoreApi(array(7, 5));
+	$this->setRequiredCoreApi(array(7, 10));
 	$this->setRequiredModuleApi(array(3, 1));
     }
 
@@ -201,6 +201,7 @@ class RssModule extends GalleryModule /* and GalleryEventListener */ {
 		foreach (array('sfAlbumType' => 'photos',
 			       'sfDate' => 'new',
 			       'sfPhotosRecurseLimit' => '10',
+			       'allowCommentsRecursive' => 0,
 			    ) as $key => $value) {
 		    $ret = $this->setParameter($key, $value);
 		    if ($ret) {

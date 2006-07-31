@@ -15,6 +15,11 @@
 {if !isset($data) || $data.type=='style'}
   {$content|replace:"%ID%":$objectId|replace:"%CLASS%":"ImageFrame_`$frame`"}
 {elseif $data.type=='image'}
+  {if isset($data.square) && $data.square && isset($width) && isset($height)}
+    {assign var="isSquare" value=true}
+    {if $width > $height}{assign var="height" value=$width}
+    {else}{assign var="width" value=$height}{/if}
+  {/if}
   <table class="ImageFrame_{$frame}" border="0" cellspacing="0" cellpadding="0">
   {if !empty($data.imageTT) || !empty($data.imageTL) || !empty($data.imageTR) ||
       !empty($data.imageTTL) || !empty($data.imageTTR)}
@@ -40,7 +45,9 @@
     {/if}><div class="V">&nbsp;</div></td>
   {/capture}
   {if $data.hVT}<td class="LLT"></td>{else}{$smarty.capture.LL}{/if}
-  <td rowspan="{$data.rowspan}" colspan="{$data.colspan}" class="IMG">
+  <td rowspan="{$data.rowspan}" colspan="{$data.colspan}" class="IMG"{if isset($isSquare)}
+   align="center" valign="middle" style="width:{$width}px;height:{$height}px;"
+  {/if}>
   {$content|replace:"%ID%":$objectId|replace:"%CLASS%":"ImageFrame_image"}</td>
   {if $data.hVT}<td class="RRT"></td>{else}{$smarty.capture.RR}{/if}
   </tr>

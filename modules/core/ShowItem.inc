@@ -34,9 +34,9 @@ class ShowItemController extends GalleryController {
 	global $gallery;
 
 	/*
-	 * Note that this always changes user preview mode; if we add management of other
-	 * variables to this controller then we should guard this properly.  (Maybe delete this
-	 * comment after writing the unit test that verifies it).
+	 * Note that this always changes user preview mode; if we add management of other variables
+	 * to this controller then we should guard this properly.  (Maybe delete this comment after
+	 * writing the unit test that verifies it)
 	 */
 	$guestPreviewMode = GalleryUtilities::getRequestVariables('guestPreviewMode');
 	if ($guestPreviewMode != null) {
@@ -44,10 +44,7 @@ class ShowItemController extends GalleryController {
 	    $session->put('theme.guestPreviewMode', $guestPreviewMode ? 1 : 0);
 	}
 
-	return array(null,
-		     array('return' => 1,
-			   'status' => array(),
-			   'error' => array()));
+	return array(null, array('return' => 1, 'status' => array(), 'error' => array()));
     }
 }
 
@@ -106,19 +103,22 @@ class ShowItemView extends GalleryView {
     }
 
     /**
-     * @see GalleryView::_getItem()
+     * @see GalleryView::_getItem
      */
     function _getItem() {
 	list ($ret, $item, $wasSpecified) = parent::_getItem();
 	if ($ret) {
 	    return array($ret, null, null);
 	}
-	/* Always return wasSpecified==true no itemId param still uses root album theme/params */
+	if (!$wasSpecified) {
+	    GalleryUtilities::putRequestVariable('itemId', $item->getId());
+	}
+	/* Always return wasSpecified==true so w/o itemId we still use root album theme/params */
 	return array(null, $item, true);
     }
 
     /**
-     * @see GalleryView::getViewDescription()
+     * @see GalleryView::getViewDescription
      */
     function getViewDescription() {
 	list ($ret, $item) = $this->_getItem();
@@ -131,7 +131,7 @@ class ShowItemView extends GalleryView {
     }
 
     /**
-     * @see GalleryView::getViewType()
+     * @see GalleryView::getViewType
      */
     function getViewType() {
 	return VIEW_TYPE_SHOW_ITEM;
