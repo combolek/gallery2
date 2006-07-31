@@ -7,8 +7,12 @@
 <div class="{$class}">
   {if !empty($EditItemBlock.item[$EditItemBlock.property])}
     {if !$EditItemBlock.item.permissions.core_edit}
-      <p class="giDescription">
-        {$EditItemBlock.item[$EditItemBlock.property]|markup|entitytruncate:256}
+      <p class="{if $EditItemProperty == 'title'}giTitle{else}giDescription{/if}">
+	{if !empty($EditItemBlock.text)}
+	  {$EditItemBlock.text}
+	{else}
+	  {$EditItemBlock.item[$EditItemBlock.property]|markup|entitytruncate:256}
+	{/if}
       </p>
     {else}
       <div class="gbBlock" id="{"status"|elementId}"{if empty($status.editMessage) && empty($status.warning) && empty($form.error)} style="display: none"{/if}>
@@ -23,10 +27,16 @@
 	<h2 class="giError" id="{"error"|elementId}"{if empty($form.error)} style="display: none"{/if}> {g->text text="There was a problem processing your request"} </h2>
       </div>
 
-      <p class="giDescription" id="{"text"|elementId}">
+      <p class="{if $EditItemBlock.property == 'title'}giTitle{else}giDescription{/if}" id="{"text"|elementId}">
 
 	{* TODO Fix CSS *}
-        <a id="{"link"|elementId}" style="color: black; font-weight: normal; text-decoration: none" href="javascript:GalleryUtilities.hide('{"status"|elementId}'); GalleryUtilities.hide('{"text"|elementId}'); GalleryUtilities.show('{"form"|elementId}')"> {$EditItemBlock.item[$EditItemBlock.property]|markup|entitytruncate:256} </a>
+        <a id="{"link"|elementId}" style="color: black{if $EditItemBlock.property != 'title'}; font-weight: normal{/if}; text-decoration: none" href="javascript:GalleryUtilities.hide('{"status"|elementId}'); GalleryUtilities.hide('{"text"|elementId}'); GalleryUtilities.show('{"form"|elementId}')">
+	  {if !empty($EditItemBlock.text)}
+	    {$EditItemBlock.text}
+	  {else}
+	    {$EditItemBlock.item[$EditItemBlock.property]|markup|entitytruncate:256}
+	  {/if}
+	</a>
       </p>
 
       <form id="{"form"|elementId}" style="display: none" action="{g->url}" method="post" enctype="{$EditItemBlock.enctype|default:"application/x-www-form-urlencoded"}">
@@ -90,7 +100,11 @@
   {* Ajax callback output *}
   {if GalleryUtilities::isCallback()}
     {capture append="smarty.output"}
-      YAHOO.util.Dom.get("{"link"|elementId}").innerHTML = "{$EditItemBlock.item[$EditItemBlock.property]|markup|entitytruncate:256}";
+      {if !empty($EditItemBlock.text)}
+	YAHOO.util.Dom.get("{"link"|elementId}").innerHTML = "{$EditItemBlock.text}";
+      {else}
+	YAHOO.util.Dom.get("{"link"|elementId}").innerHTML = "{$EditItemBlock.item[$EditItemBlock.property]|markup|entitytruncate:256}";
+      {/if}
 
       {* TODO Move to Ajax event listener so form is also enabled on failure *}
       {* Enable template's form *}

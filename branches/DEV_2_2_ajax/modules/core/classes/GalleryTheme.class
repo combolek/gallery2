@@ -1052,7 +1052,8 @@ class GalleryTheme extends GalleryPlugin {
 	if ($platform->file_exists("$g2Base/$path")) {
 	    GalleryCoreApi::requireOnce($path);
 	    $className = $module . 'Preloads';
-	    $ret = call_user_func(array($className, 'preload'), $template, $blockName, $blockParams);
+	    $ret = call_user_func(array($className, 'preload'), $template, $blockName,
+		$blockParams);
 	    if ($ret) {
 		return $ret;
 	    }
