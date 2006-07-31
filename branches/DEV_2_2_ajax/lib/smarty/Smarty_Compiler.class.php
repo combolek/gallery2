@@ -115,8 +115,7 @@ class Smarty_Compiler extends Smarty {
         // $foo[5].bar[$foobar][4]
         $this->_dvar_math_regexp = '(?:[\+\*\/\%]|(?:-(?!>)))';
         $this->_dvar_math_var_regexp = '[\$\w\.\+\-\*\/\%\d\>\[\]]';
-        $this->_dvar_guts_regexp = '\w+(?:' . $this->_var_bracket_regexp
-                . ')*(?:\.\$?\w+(?:' . $this->_var_bracket_regexp . ')*)*(?:' . $this->_dvar_math_regexp . '(?:' . $this->_num_const_regexp . '|' . $this->_dvar_math_var_regexp . ')*)?';
+        $this->_dvar_guts_regexp = '\w+(?:' . $this->_var_bracket_regexp . ')*(?:\.\$?\w+(?:' . $this->_var_bracket_regexp . ')*)*(?:' . $this->_dvar_math_regexp . '(?:' . $this->_num_const_regexp . '|' . $this->_dvar_math_var_regexp . ')*)?';
         $this->_dvar_regexp = '\$' . $this->_dvar_guts_regexp;
 
         // matches config vars:
@@ -129,8 +128,7 @@ class Smarty_Compiler extends Smarty {
         $this->_svar_regexp = '\%\w+\.\w+\%';
 
         // matches all valid variables (no quotes, no modifiers)
-        $this->_avar_regexp = '(?:' . $this->_dvar_regexp . '|'
-           . $this->_cvar_regexp . '|' . $this->_svar_regexp . ')';
+        $this->_avar_regexp = '(?:' . $this->_dvar_regexp . '|' . $this->_cvar_regexp . '|' . $this->_svar_regexp . ')';
 
         // matches valid variable syntax:
         // $foo
@@ -171,7 +169,7 @@ class Smarty_Compiler extends Smarty {
         // |foo:"bar":$foobar
         // |foo|bar
         // |foo:$foo->bar
-        $this->_mod_regexp = '(?:\|@?\w+(?::(?:\w*|' . $this->_num_const_regexp . '|' . $this->_obj_call_regexp . '|' . $this->_avar_regexp . '|' . $this->_qstr_regexp . '))*)';
+        $this->_mod_regexp = '(?:\|@?\w+(?::(?:\w*|' . $this->_num_const_regexp . '|' . $this->_obj_call_regexp . '|' . $this->_avar_regexp . '|' . $this->_qstr_regexp . '|`[^`]*`))*)';
 
         // matches valid function name:
         // foo123
@@ -191,25 +189,21 @@ class Smarty_Compiler extends Smarty {
         // "text"
         // "text"|bar
         // $foo->bar
-        $this->_param_regexp = '(?:\s*(?:' . $this->_obj_call_regexp . '|'
-           . $this->_var_regexp . '|' . $this->_num_const_regexp  . '|\w+)(?>' . $this->_mod_regexp . '*)\s*)';
+        $this->_param_regexp = '(?:\s*(?:' . $this->_obj_call_regexp . '|' . $this->_var_regexp . '|' . $this->_num_const_regexp  . '|\w+)(?>' . $this->_mod_regexp . '*)\s*)';
 
         // matches valid parenthesised function parameters:
         //
         // "text"
         //    $foo, $bar, "text"
         // $foo|bar, "foo"|bar, $foo->bar($foo)|bar
-        $this->_parenth_param_regexp = '(?:\((?:\w+|'
-                . $this->_param_regexp . '(?:\s*,\s*(?:(?:\w+|'
-                . $this->_param_regexp . ')))*)?\))';
+        $this->_parenth_param_regexp = '(?:\((?:\w+|' . $this->_param_regexp . '(?:\s*,\s*(?:(?:\w+|' . $this->_param_regexp . ')))*)?\))';
 
         // matches valid function call:
         // foo()
         // foo_bar($foo)
         // _foo_bar($foo,"bar")
         // foo123($foo,$foo->bar(),"foo")
-        $this->_func_call_regexp = '(?:' . $this->_func_regexp . '\s*(?:'
-           . $this->_parenth_param_regexp . '))';
+        $this->_func_call_regexp = '(?:' . $this->_func_regexp . '\s*(?:' . $this->_parenth_param_regexp . '))';
     }
 
     /**
@@ -1667,26 +1661,26 @@ class Smarty_Compiler extends Smarty {
     }
 
     /**
-     * expand quoted text with embedded variables
+     * Expand quoted text with embedded variables
      *
      * @param string $var_expr
      * @return string
      */
     function _expand_quoted_text($var_expr)
     {
-        // if contains unescaped $, expand it
-        if(preg_match_all('~(?:\`(?<!\\\\)\$' . $this->_dvar_guts_regexp . '(?:' . $this->_obj_ext_regexp . ')*\`)|(?:(?<!\\\\)\$\w+(\[[a-zA-Z0-9]+\])*)~', $var_expr, $_match)) {
+        /* If contains unescaped $, expand it */
+        if (preg_match_all('~(?:`(?<!\\\\)\$' . $this->_dvar_guts_regexp . '(?:' . $this->_obj_ext_regexp . ')*(?:' . $this->_mod_regexp . ')*`)|(?:(?<!\\\\)\$\w+(\[[a-zA-Z0-9]+\])*)~', $var_expr, $_match)) {
             $_match = $_match[0];
             rsort($_match);
             reset($_match);
-            foreach($_match as $_var) {
-                $var_expr = str_replace ($_var, '".(' . $this->_parse_var(str_replace('`','',$_var)) . ')."', $var_expr);
+            foreach ($_match as $_var) {
+                $var_expr = str_replace($_var, '".(' . $this->_parse_var_props(str_replace('`','',$_var)) . ')."', $var_expr);
             }
             $_return = preg_replace('~\.""|(?<!\\\\)""\.~', '', $var_expr);
         } else {
             $_return = $var_expr;
         }
-        // replace double quoted literal string with single quotes
+        /* Replace double quoted literal string with single quotes */
         $_return = preg_replace('~^"([\s\w]+)"$~',"'\\1'",$_return);
         return $_return;
     }
@@ -1898,7 +1892,7 @@ class Smarty_Compiler extends Smarty {
      */
     function _parse_modifiers(&$output, $modifier_string)
     {
-        preg_match_all('~\|(@?\w+)((?>:(?:'. $this->_qstr_regexp . '|[^|]+))*)~', '|' . $modifier_string, $_match);
+        preg_match_all('~\|(@?\w+)((?>:(?:' . $this->_qstr_regexp . '|`[^`]*`|[^|]+))*)~', $modifier_string, $_match);
         list(, $_modifiers, $modifier_arg_strings) = $_match;
 
         for ($_i = 0, $_for_max = count($_modifiers); $_i < $_for_max; $_i++) {

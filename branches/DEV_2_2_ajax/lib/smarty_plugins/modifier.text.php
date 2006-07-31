@@ -22,14 +22,38 @@
  * Smarty plugin
  * -------------------------------------------------------------
  * Type:     modifier
- * Name:     formVar
- * Purpose:  Return a transformed element name.  Useful for accessing a form element in JavaScript.
+ * Name:     text
+ * Purpose:  Localize the given text
  *
- * @param string element name
- * @return string transformed element name
+ * @param string some text to localize
+ * @param mixed no arguments or many arguments
+ * @return string localized value
+ * @see GalleryTranslator::translateDomain
  * -------------------------------------------------------------
  */
-function smarty_modifier_formVar($string) {
-    return GalleryUtilities::prefixFormVariable($string);
+function smarty_modifier_text($text) {
+    global $gallery;
+
+    $smarty =& GalleryTemplate::getSmarty();
+    if (isset($smarty->_tpl_vars['viewL10domain'])) {
+	$domain = $smarty->_tpl_vars['viewL10domain'];
+    } else {
+	$domain = $smarty->_tpl_vars['l10Domain'];
+    }
+
+    $params = array('text' => $text);
+    $args = func_get_args();
+    for ($i = 1; $i < count($args); $i++) {
+	$params['arg' . $i] = $args[$i];
+    }
+
+    $translator =& $gallery->getTranslator();
+    list ($ret, $text) = $translator->translateDomain($domain, $params);
+    if ($ret) {
+	return $ret->getAsHtml();
+	return "[Translation error]";
+    }
+
+    return $text;
 }
 ?>
