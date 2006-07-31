@@ -1522,13 +1522,9 @@ class Smarty_Compiler extends Smarty {
      */
     function _parse_attrs($tag_args)
     {
-
         /* Tokenize tag attributes. */
-        preg_match_all('~(?:' . $this->_obj_call_regexp . '|' . $this->_qstr_regexp . ' | (?>[^"\'=\s]+)
-                         )+ |
-                         [=]
-                        ~x', $tag_args, $match);
-        $tokens       = $match[0];
+        preg_match_all('~(?:' . $this->_obj_call_regexp . '|' . $this->_qstr_regexp . '|(?>[^"\'=\s]+))+|=~x', $tag_args, $match);
+        $tokens = $match[0];
 
         $attrs = array();
         /* Parse state:
@@ -1542,11 +1538,8 @@ class Smarty_Compiler extends Smarty {
                 case 0:
                     /* If the token is a valid identifier, we set attribute name
                        and go to state 1. */
-                    if (preg_match('~^\w+$~', $token)) {
-                        $attr_name = $token;
-                        $state = 1;
-                    } else
-                        $this->_syntax_error("invalid attribute name: '$token'", E_USER_ERROR, __FILE__, __LINE__);
+                    $attr_name = $token;
+                    $state = 1;
                     break;
 
                 case 1:
@@ -1916,7 +1909,7 @@ class Smarty_Compiler extends Smarty {
                 continue;
             }
 
-            preg_match_all('~:(' . $this->_qstr_regexp . '|[^:]+)~', $modifier_arg_strings[$_i], $_match);
+            preg_match_all('~:(' . $this->_qstr_regexp . '|[^:]*)~', $modifier_arg_strings[$_i], $_match);
             $_modifier_args = $_match[1];
 
             if (substr($_modifier_name, 0, 1) == '@') {
