@@ -192,6 +192,14 @@ class RssHelper {
 		}
 
 		break;
+	    case 'commentsRecursive':
+		list ($ret, $items) = GalleryCommentHelper::fetchAllComments($id,
+		    $param['count'], ORDER_DESCENDING);
+		if ($ret) {
+		    return $ret;
+		}
+
+		break;
 	}
 
 	/* go through subitems array and pass data to generator */
@@ -464,7 +472,13 @@ class RssHelper {
 
 	$timestamp = $newOnly ? 'creationTimestamp' : 'modificationTimestamp';
 	$table = $allowPhotos ? 'GalleryDataItem' : 'GalleryAlbumItem';
-	$timeCutOff = time() - 3600 * 24 * 20; /* 20 days in the past */
+
+	list ($ret, $newDays) =
+	    GalleryCoreApi::getPluginParameter('module', 'newitems', 'days.new');
+	if ($ret || !$newDays) {
+	    $newDays = 1; /* Use default on error or zero setting */
+	}
+	$timeCutOff = time() - 3600 * 24 * $newDays;
 
 	$query = "
 	    SELECT
@@ -563,6 +577,7 @@ class RssHelper {
 		'photosRecurse' => $module->translate('Items in an album and its sub-albums'),
 		'commentsAlbum' => $module->translate('Comments for an album'),
 		'commentsPhoto' => $module->translate('Comments for an item'),
+		'commentsRecursive' => $module->translate('Comments for an album and its subalbums'),
 		));
     }
 }

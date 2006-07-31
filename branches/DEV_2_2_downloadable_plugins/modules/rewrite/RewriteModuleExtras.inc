@@ -79,7 +79,7 @@ class RewriteModuleExtras {
 	case '0.9.0':
 	case '0.9.1':
 	case '0.9.2':
-	    /* Reset Gallery location, needs to be reconfigured. */
+	    /* Reset Gallery location, needs to be reconfigured */
 	    foreach (array('galleryLocation' => '',
 			   'embeddedLocation' => '',
 			   'embeddedHtaccess' => '')
@@ -108,9 +108,9 @@ class RewriteModuleExtras {
 
 	case '0.9.5':
 	    /*
-	     * Previously we changed all module:View names to module.View. Since we no longer
-	     * store view names in the active rules list, and the old table is deleted in version
-	     * 1.1.0 we no longer need to do this.
+	     * Previously we changed all module:View names to module.View.  Since we no longer store
+	     * view names in the active rules list, and the old table is deleted in version 1.1.0 we
+	     * no longer need to do this.
 	     */
 
 	case '0.9.6':
@@ -150,9 +150,9 @@ class RewriteModuleExtras {
 	    ';
 
 	    /*
-	     * If this is an upgrade from Beta 2 we dont have a RewriteMap. Previous to 0.9.3
-	     * rules were static, therefore leave $activeRules empty. It'll get populated
-	     * with the default rules when activate() is called.
+	     * If this is an upgrade from beta 2 we dont have a RewriteMap.  Previous to 0.9.3 rules
+	     * were static, therefore leave $activeRules empty.  It'll get populated with the
+	     * default rules when activate() is called.
 	     */
 	    $activeRules = array();
 	    if (version_compare($currentVersion, '0.9.3', '>=')) {
@@ -218,6 +218,12 @@ class RewriteModuleExtras {
 	case '1.1.2':
 	case '1.1.3':
 	case '1.1.4':
+	case '1.1.5':
+	    /*
+	     * Support rewrite rules with 'match' => array('controller' => 'webdav.WebDav').  Check
+	     * if 'match' is subset of URL params, instead of indexing by "$view|$subView".  Means
+	     * adding 'match' to $shortUrls.
+	     */
 
 	case 'end of upgrade path':
 	    break;
@@ -305,7 +311,7 @@ class RewriteModuleExtras {
 		return $ret;
 	    }
 	    $activeRules = unserialize($activeRules);
-	    $originalSize = sizeof($activeRules);
+	    $originalSize = count($activeRules);
 
 	    $seen = array();
 	    foreach (array_keys($activeRules) as $moduleId) {
@@ -322,7 +328,7 @@ class RewriteModuleExtras {
 	    }
 
 	    /* Only update the active rules if we added something */
-	    if (sizeof($activeRules) > $originalSize) {
+	    if (count($activeRules) > $originalSize) {
 		GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
 		list ($ret, $rewriteParser) = RewriteHelper::getRewriteParser();
 		if ($ret) {

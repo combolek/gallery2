@@ -65,7 +65,7 @@ class GalleryCoreApi {
      * - remove $skipBaseDirectoryDetection from GalleryCoreApi::requireOnce();
      */
     function getApiVersion() {
-	return array(7, 9);
+	return array(7, 10);
     }
 
     /**
@@ -2618,6 +2618,31 @@ class GalleryCoreApi {
     }
 
     /**
+     * Build query to select items in a given sort order
+     *
+     * @param string base table to query
+     * @param string name of id column in this table
+     * @param string where clause for query
+     * @param string order for results
+     * @param string order direction for results
+     * @param string a class to restrict children to (eg 'GalleryAlbumItem'; can be null)
+     * @param string a required permission (can be null)
+     * @param boolean whether to restrict to linkable items only
+     * @param int the userid we're doing this for
+     * @return array object GalleryStatus a status code
+     *               string query
+     *               array data items for query (not including any ? marks in baseQuery)
+     */
+    function buildItemQuery($baseTable, $baseIdColumn, $baseQuery, $orderBy, $orderDirection,
+			    $class, $requiredPermission, $linkableOnly, $userId) {
+	GalleryCoreApi::requireOnce(
+	    'modules/core/classes/helpers/GalleryChildEntityHelper_simple.class');
+	return GalleryChildEntityHelper_simple::buildItemQuery($baseTable, $baseIdColumn,
+		$baseQuery, $orderBy, $orderDirection, $class, $requiredPermission,
+		$linkableOnly, $userId);
+    }
+
+    /**
      * Convert a file extension to a mime type
      *
      * @param string a file extension
@@ -2913,6 +2938,33 @@ class GalleryCoreApi {
     }
 
     /**
+     * Get entries in a map that match a criteria and return selected fields
+     *
+     * @param string the map we're working on
+     * @param array the columns to return
+     * @param array the entries to match
+     * @param array optional arguments (eg, limit, orderBy)
+     *              array('limit' => array('count' => #, 'offset' => #),
+     *                    'orderBy' => array(columnName => ORDER_ASCENDING|ORDER_DESCENDING, ...))
+     * @return object GalleryStatus a status code
+     */
+    function getMapEntry($mapName, $select, $match=array(), $optional=array()) {
+	global $gallery;
+
+	if (empty($mapName) || empty($select) || !is_array($match) || !is_array($optional)) {
+	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+	}
+
+	$storage =& $gallery->getStorage();
+	list ($ret, $searchResults) = $storage->getMapEntry($mapName, $select, $match, $optional);
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	return array(null, $searchResults);
+    }
+
+    /**
      * Remove entries from a map
      *
      * @param string the map we're working on
@@ -3119,6 +3171,47 @@ class GalleryCoreApi {
 	GalleryCoreApi::requireOnce(
 	    'modules/core/classes/helpers/GalleryItemHelper_advanced.class');
 	return GalleryItemHelper_advanced::deleteRenderer($rendererClassName);
+    }
+
+    /**
+     * Load template data for a theme settings form
+     *
+     * @param string themeId; if empty, site default theme is used
+     * @param int itemId
+     * @param object GalleryTemplate template
+     * @param array form
+     * @return object GalleryStatus a status code
+     */
+    function loadThemeSettingsForm($themeId, $itemId, &$template, &$form) {
+	GalleryCoreApi::requireOnce('modules/core/classes/helpers/GalleryThemeHelper_medium.class');
+	return GalleryThemeHelper_medium::loadThemeSettingsForm(
+		$themeId, $itemId, $template, $form);
+    }
+
+    /**
+     * Load the block configuration files from every module
+     *
+     * @return array object GalleryStatus a status code
+     *               array block configurations
+     */
+    function loadAvailableBlocks() {
+	GalleryCoreApi::requireOnce('modules/core/classes/helpers/GalleryThemeHelper_medium.class');
+	return GalleryThemeHelper_medium::loadAvailableBlocks();
+    }
+
+    /**
+     * Handle theme settings form submission
+     *
+     * @param string themeId; if empty, site default theme is used
+     * @param int itemId
+     * @param array form values
+     * @return array object GalleryStatus a status code
+     *               array error messages
+     *               string localized status message
+     */
+    function handleThemeSettingsRequest($themeId, $itemId, $form) {
+	GalleryCoreApi::requireOnce('modules/core/classes/helpers/GalleryThemeHelper_medium.class');
+	return GalleryThemeHelper_medium::handleThemeSettingsRequest($themeId, $itemId, $form);
     }
 }
 ?>

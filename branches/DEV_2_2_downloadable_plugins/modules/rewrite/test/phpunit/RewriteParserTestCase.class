@@ -17,6 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
  * @version $Revision$ $Date$
  * @package Rewrite
@@ -25,7 +26,7 @@
  */
 
 /**
- * Global Rewrite Parser tests
+ * Global rewrite parser tests
  *
  * @package Rewrite
  * @subpackage PHPUnit
@@ -156,6 +157,7 @@ class RewriteParserTestCase extends GalleryTestCase {
 	$this->assertEquals($expected, unserialize($activeRules));
     }
 
+    /* It might be desirable to activate two rules for one Gallery view */
     function testSaveDupeShortUrl() {
 	$testRules['rewriteparsermock'][0] = 'bogus1';
 	$testRules['rewriteparsermock'][1] = 'bogus2';
@@ -170,9 +172,10 @@ class RewriteParserTestCase extends GalleryTestCase {
 	    return $this->failWithStatus($ret);
 	}
 
-	$expected['rewriteparsermock'][0] = 'bogus';
-	$this->assertEquals(REWRITE_STATUS_DUPE_SHORT_URL, $code);
-	$this->assertEquals(array('php.Unit'), $errno);
+	$expected['rewriteparsermock'][0] = 'bogus1';
+	$expected['rewriteparsermock'][1] = 'bogus2';
+	$this->assertEquals(REWRITE_STATUS_OK, $code);
+	$this->assertEquals(null, $errno);
 	$this->assertEquals($expected, unserialize($activeRules));
     }
 
