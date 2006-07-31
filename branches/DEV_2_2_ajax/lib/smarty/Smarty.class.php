@@ -577,7 +577,7 @@ class Smarty
      * @param array|string $tpl_var the template variable name(s)
      * @param mixed $value the value to assign, append or merge
      */
-    function _assign(&$tpl_var, &$value, $operation='assign')
+    function _assign(&$tpl_var, &$value, $action='assign')
     {
         if (!is_array($tpl_var)) {
             $tpl_var = array($tpl_var => &$value);
@@ -587,38 +587,44 @@ class Smarty
             $array =& $this->_tpl_vars;
 
             /* Parse structured variable name */
-            preg_match_all('~(?:^\w+)|\.\w+|\S~', $var_key, $match);
+            preg_match_all('~(?:^\w+)|\.\w+|\[[^]]*\]|\S~', $var_key, $match);
             $var_names = $match[0];
 
             /* Handle first component */
             $var_name = array_shift($var_names);
             if (!empty($var_names)) {
                 $array =& $this->_tpl_vars[$var_name];
-                if ($var_name = 'smarty') {
+                if ($var_name == 'smarty') {
                     $array =& $this->_smarty_vars;
                 }
 
                 $var_name = array_shift($var_names);
-                if (substr($var_name, 0, 1) != '.' || substr($var_name, 1) == '') {
+                if (substr($var_name, 0, 1) == '.') {
+                    $var_name = substr($var_name, 1);
+                } else if (substr($var_name, 0, 1) == '[') {
+                    $var_name = substr($var_name, 1, -1);
+                } else {
                     $this->_trigger_fatal_error("'$var_name' is an invalid variable name");
                     return;
                 }
-                $var_name = substr($var_name, 1);
             }
 
             /* Handle additional components */
             while (!empty($var_names)) {
-                $array =& $array[substr($var_name, 1)];
+                $array =& $array[$var_name];
 
                 $var_name = array_shift($var_names);
-                if (substr($var_name, 0, 1) != '.' || substr($var_name, 1) == '') {
+                if (substr($var_name, 0, 1) == '.') {
+                    $var_name = substr($var_name, 1);
+                } else if (substr($var_name, 0, 1) == '[') {
+                    $var_name = substr($var_name, 1, -1);
+                } else {
                     $this->_trigger_fatal_error("'$var_name' is an invalid variable name");
                     return;
                 }
-                $var_name = substr($var_name, 1);
             }
 
-            switch ($operation) {
+            switch ($action) {
             case 'append':
                 if (is_array($array[$var_name])) {
                     $array[$var_name][] =& $tpl_var[$var_key];
@@ -1071,15 +1077,11 @@ class Smarty
      */
     function &get_template_vars($name=null)
     {
-        if(!isset($name)) {
-            return $this->_tpl_vars;
-        } elseif(isset($this->_tpl_vars[$name])) {
+        if (isset($name)) {
             return $this->_tpl_vars[$name];
-        } else {
-            // var non-existant, return valid reference
-            $_tmp = null;
-            return $_tmp;   
         }
+
+        return $this->_tpl_vars;
     }
 
     /**
@@ -1854,14 +1856,11 @@ class Smarty
 
 
     /**
-     * called for included templates
+     * Called for included templates
      *
-     * @param string $_smarty_include_tpl_file
-     * @param string $_smarty_include_vars
+     * @param array string $_smarty_include_tpl_file
+     *              string $_smarty_include_vars
      */
-
-    // $_smarty_include_tpl_file, $_smarty_include_vars
-
     function _smarty_include($params)
     {
         if ($this->debugging) {
@@ -1869,12 +1868,12 @@ class Smarty
             require_once(SMARTY_CORE_DIR . 'core.get_microtime.php');
             $debug_start_time = smarty_core_get_microtime($_params, $this);
             $this->_smarty_debug_info[] = array('type'      => 'template',
-                                                  'filename'  => $params['smarty_include_tpl_file'],
-                                                  'depth'     => ++$this->_inclusion_depth);
+                'filename' => $params['smarty_include_tpl_file'],
+                'depth' => ++$this->_inclusion_depth);
             $included_tpls_idx = count($this->_smarty_debug_info) - 1;
         }
 
-        $this->_tpl_vars = array_merge($this->_tpl_vars, $params['smarty_include_vars']);
+        $this->assign($params['smarty_include_vars']);
 
         // config vars are treated as local, so push a copy of the
         // current ones onto the front of the stack
@@ -1882,10 +1881,8 @@ class Smarty
 
         $_smarty_compile_path = $this->_get_compile_path($params['smarty_include_tpl_file']);
 
-
         if ($this->_is_compiled($params['smarty_include_tpl_file'], $_smarty_compile_path)
-            || $this->_compile_resource($params['smarty_include_tpl_file'], $_smarty_compile_path))
-        {
+            || $this->_compile_resource($params['smarty_include_tpl_file'], $_smarty_compile_path)) {
             include($_smarty_compile_path);
         }
 
@@ -1905,7 +1902,6 @@ class Smarty
             $this->_cache_info['template'][$params['smarty_include_tpl_file']] = true;
         }
     }
-
 
     /**
      * get or set an array of cached attributes for function that is
