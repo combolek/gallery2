@@ -636,7 +636,11 @@ class Smarty
 
             case 'merge':
                 foreach ($tpl_var[$var_key] as $val_key => $val_val) {
-                    $array[$var_name][$val_key] =& $tpl_var[$var_key][$val_key];
+                    if (is_string($val_key)) {
+                        $array[$var_name][$val_key] =& $tpl_var[$var_key][$val_key];
+                    } else {
+                        $array[$var_name][] =& $tpl_var[$var_key][$val_key];
+                    }
                 }
                 break;
 
