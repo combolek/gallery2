@@ -425,10 +425,7 @@ class Smarty_Compiler extends Smarty {
             return '';
         
         /* Split tag into two three parts: command, command modifiers and the arguments. */
-        if(! preg_match('~^(?:(' . $this->_num_const_regexp . '|' . $this->_obj_call_regexp . '|' . $this->_var_regexp
-                . '|\/?' . $this->_reg_obj_regexp . '|\/?' . $this->_func_regexp . ')(' . $this->_mod_regexp . '*))
-                      (?:\s+(.*))?$
-                    ~xs', $template_tag, $match)) {
+        if (! preg_match('~^(?:(' . $this->_num_const_regexp . '|' . $this->_obj_call_regexp . '|' . $this->_var_regexp . '|\/?' . $this->_reg_obj_regexp . '|\/?' . $this->_func_regexp . ')(' . $this->_mod_regexp . '*))(?:\s+(.*))?$~xs', $template_tag, $match)) {
             $this->_syntax_error("unrecognized tag: $template_tag", E_USER_ERROR, __FILE__, __LINE__);
         }
         
@@ -1516,8 +1513,8 @@ class Smarty_Compiler extends Smarty {
      */
     function _parse_attrs($tag_args)
     {
-        /* Tokenize tag attributes. */
-        preg_match_all('~(?:' . $this->_obj_call_regexp . '|' . $this->_qstr_regexp . '|(?>[^"\'=\s]+))+|=~x', $tag_args, $match);
+        /* Tokenize tag attributes */
+        preg_match_all('~(?:' . $this->_obj_call_regexp . '|' . $this->_qstr_regexp . '|`[^`]*`|(?>[^"\'=\s]+))+|=~x', $tag_args, $match);
         $tokens = $match[0];
 
         $attrs = array();
@@ -1748,24 +1745,16 @@ class Smarty_Compiler extends Smarty {
             $_indexes = $match[0];
             $_var_name = array_shift($_indexes);
 
-            /* Handle $smarty.* variable references as a special case. */
+            /* Handle $smarty.* variable references as a special case */
             if ($_var_name == 'smarty') {
+                $_output = $this->_compile_smarty_ref($_indexes);
+            } else if (is_numeric($_var_name) && is_numeric(substr($var_expr, 0, 1))) {
                 /*
-                 * If the reference could be compiled, use the compiled output;
-                 * otherwise, fall back on the $smarty variable generated at
-                 * run-time.
+                 * Because . is the operator for accessing arrays thru inidices
+                 * we need to put it together again for floating point numbers
                  */
-                if (($smarty_ref = $this->_compile_smarty_ref($_indexes)) !== null) {
-                    $_output = $smarty_ref;
-                } else {
-                    $_var_name = substr(array_shift($_indexes), 1);
-                    $_output = "\$this->_smarty_vars['$_var_name']";
-                }
-            } elseif(is_numeric($_var_name) && is_numeric(substr($var_expr, 0, 1))) {
-                // because . is the operator for accessing arrays thru inidizes we need to put it together again for floating point numbers
-                if(count($_indexes) > 0)
-                {
-                    $_var_name .= implode("", $_indexes);
+                if (count($_indexes) > 0) {
+                    $_var_name .= implode('', $_indexes);
                     $_indexes = array();
                 }
                 $_output = $_var_name;
@@ -1971,7 +1960,6 @@ class Smarty_Compiler extends Smarty {
         }
     }
 
-
     /**
      * Compiles references of type $smarty.foo
      *
@@ -1980,140 +1968,136 @@ class Smarty_Compiler extends Smarty {
      */
     function _compile_smarty_ref(&$indexes)
     {
-        /* Extract the reference name. */
-        $_ref = substr($indexes[0], 1);
-        foreach($indexes as $_index_no=>$_index) {
-            if (substr($_index, 0, 1) != '.' && $_index_no<2 || !preg_match('~^(\.|\[|->)~', $_index)) {
+        foreach ($indexes as $index_no => $index) {
+            if (substr($index, 0, 1) != '.' && $index_no < 2 || !preg_match('~^(\.|\[|->)~', $index)) {
                 $this->_syntax_error('$smarty' . implode('', array_slice($indexes, 0, 2)) . ' is an invalid reference', E_USER_ERROR, __FILE__, __LINE__);
             }
         }
 
-        switch ($_ref) {
-            case 'now':
-                $compiled_ref = 'time()';
-                $_max_index = 1;
-                break;
+        /* Extract the reference name */
+        $ref = substr($indexes[0], 1);
+        switch ($ref) {
+        case 'now':
+            $compiled_ref = 'time()';
+            $_max_index = 1;
+            break;
 
-            case 'foreach':
+        case 'foreach':
+            array_shift($indexes);
+            $_var = $this->_parse_var_props(substr($indexes[0], 1));
+            $_propname = substr($indexes[1], 1);
+            $_max_index = 1;
+            switch ($_propname) {
+            case 'index':
                 array_shift($indexes);
-                $_var = $this->_parse_var_props(substr($indexes[0], 1));
-                $_propname = substr($indexes[1], 1);
-                $_max_index = 1;
-                switch ($_propname) {
-                    case 'index':
-                        array_shift($indexes);
-                        $compiled_ref = "(\$this->_foreach[$_var]['iteration']-1)";
-                        break;
-                        
-                    case 'first':
-                        array_shift($indexes);
-                        $compiled_ref = "(\$this->_foreach[$_var]['iteration'] <= 1)";
-                        break;
-
-                    case 'last':
-                        array_shift($indexes);
-                        $compiled_ref = "(\$this->_foreach[$_var]['iteration'] == \$this->_foreach[$_var]['total'])";
-                        break;
-                        
-                    case 'show':
-                        array_shift($indexes);
-                        $compiled_ref = "(\$this->_foreach[$_var]['total'] > 0)";
-                        break;
-                        
-                    default:
-                        unset($_max_index);
-                        $compiled_ref = "\$this->_foreach[$_var]";
-                }
+                $compiled_ref = "(\$this->_foreach[$_var]['iteration'] - 1)";
                 break;
-
-            case 'section':
+                
+            case 'first':
                 array_shift($indexes);
-                $_var = $this->_parse_var_props(substr($indexes[0], 1));
-                $compiled_ref = "\$this->_sections[$_var]";
+                $compiled_ref = "(\$this->_foreach[$_var]['iteration'] <= 1)";
                 break;
 
-            case 'get':
-                $compiled_ref = ($this->request_use_auto_globals) ? '$_GET' : "\$GLOBALS['HTTP_GET_VARS']";
-                break;
-
-            case 'post':
-                $compiled_ref = ($this->request_use_auto_globals) ? '$_POST' : "\$GLOBALS['HTTP_POST_VARS']";
-                break;
-
-            case 'cookies':
-                $compiled_ref = ($this->request_use_auto_globals) ? '$_COOKIE' : "\$GLOBALS['HTTP_COOKIE_VARS']";
-                break;
-
-            case 'env':
-                $compiled_ref = ($this->request_use_auto_globals) ? '$_ENV' : "\$GLOBALS['HTTP_ENV_VARS']";
-                break;
-
-            case 'server':
-                $compiled_ref = ($this->request_use_auto_globals) ? '$_SERVER' : "\$GLOBALS['HTTP_SERVER_VARS']";
-                break;
-
-            case 'session':
-                $compiled_ref = ($this->request_use_auto_globals) ? '$_SESSION' : "\$GLOBALS['HTTP_SESSION_VARS']";
-                break;
-
-            /*
-             * These cases are handled either at run-time or elsewhere in the
-             * compiler.
-             */
-            case 'request':
-                if ($this->request_use_auto_globals) {
-                    $compiled_ref = '$_REQUEST';
-                    break;
-                } else {
-                    $this->_init_smarty_vars = true;
-                }
-                return null;
-
-            case 'capture':
-                return null;
-
-            case 'template':
-                $compiled_ref = "'$this->_current_file'";
-                $_max_index = 1;
-                break;
-
-            case 'version':
-                $compiled_ref = "'$this->_version'";
-                $_max_index = 1;
-                break;
-
-            case 'const':
-                if ($this->security && !$this->security_settings['ALLOW_CONSTANTS']) {
-                    $this->_syntax_error("(secure mode) constants not permitted",
-                                         E_USER_WARNING, __FILE__, __LINE__);
-                    return;
-                }
+            case 'last':
                 array_shift($indexes);
-                if (preg_match('!^\.\w+$!', $indexes[0])) {
-                    $compiled_ref = '@' . substr($indexes[0], 1);
-                } else {
-                    $_val = $this->_parse_var_props(substr($indexes[0], 1));
-                    $compiled_ref = '@constant(' . $_val . ')';
-                }
-                $_max_index = 1;
+                $compiled_ref = "(\$this->_foreach[$_var]['iteration'] == \$this->_foreach[$_var]['total'])";
                 break;
-
-            case 'config':
-                $compiled_ref = "\$this->_config[0]['vars']";
-                $_max_index = 3;
-                break;
-
-            case 'ldelim':
-                $compiled_ref = "'$this->left_delimiter'";
-                break;
-
-            case 'rdelim':
-                $compiled_ref = "'$this->right_delimiter'";
+                
+            case 'show':
+                array_shift($indexes);
+                $compiled_ref = "(\$this->_foreach[$_var]['total'] > 0)";
                 break;
                 
             default:
-                $this->_syntax_error('$smarty.' . $_ref . ' is an unknown reference', E_USER_ERROR, __FILE__, __LINE__);
-                break;
+                unset($_max_index);
+                $compiled_ref = "\$this->_foreach[$_var]";
+            }
+            break;
+
+        case 'section':
+            array_shift($indexes);
+            $_var = $this->_parse_var_props(substr($indexes[0], 1));
+            $compiled_ref = "\$this->_sections[$_var]";
+            break;
+
+        case 'get':
+            $compiled_ref = ($this->request_use_auto_globals) ? '$_GET' : "\$GLOBALS['HTTP_GET_VARS']";
+            break;
+
+        case 'post':
+            $compiled_ref = ($this->request_use_auto_globals) ? '$_POST' : "\$GLOBALS['HTTP_POST_VARS']";
+            break;
+
+        case 'cookies':
+            $compiled_ref = ($this->request_use_auto_globals) ? '$_COOKIE' : "\$GLOBALS['HTTP_COOKIE_VARS']";
+            break;
+
+        case 'env':
+            $compiled_ref = ($this->request_use_auto_globals) ? '$_ENV' : "\$GLOBALS['HTTP_ENV_VARS']";
+            break;
+
+        case 'server':
+            $compiled_ref = ($this->request_use_auto_globals) ? '$_SERVER' : "\$GLOBALS['HTTP_SERVER_VARS']";
+            break;
+
+        case 'session':
+            $compiled_ref = ($this->request_use_auto_globals) ? '$_SESSION' : "\$GLOBALS['HTTP_SESSION_VARS']";
+            break;
+
+        case 'request':
+            if ($this->request_use_auto_globals) {
+                $compiled_ref = "\$_REQUEST";
+            } else {
+                $this->_init_smarty_vars = true;
+                $compiled_ref = "\$this->_smarty_vars['request']";
+            }
+            break;
+
+        case 'capture':
+            $compiled_ref = "\$this->_smarty_vars['capture']";
+            break;
+
+        case 'template':
+            $compiled_ref = "\$this->_current_file";
+            $_max_index = 1;
+            break;
+
+        case 'version':
+            $compiled_ref = "\$this->_version";
+            $_max_index = 1;
+            break;
+
+        case 'const':
+            if ($this->security && !$this->security_settings['ALLOW_CONSTANTS']) {
+                $this->_syntax_error("(secure mode) constants not permitted", E_USER_WARNING, __FILE__, __LINE__);
+                return;
+            }
+
+            array_shift($indexes);
+            if (preg_match('!^\.\w+$!', $indexes[0])) {
+                $compiled_ref = '@' . substr($indexes[0], 1);
+            } else {
+                $_val = $this->_parse_var_props(substr($indexes[0], 1));
+                $compiled_ref = '@constant(' . $_val . ')';
+            }
+            $_max_index = 1;
+            break;
+
+        case 'config':
+            $compiled_ref = "\$this->_config[0]['vars']";
+            $_max_index = 3;
+            break;
+
+        case 'ldelim':
+            $compiled_ref = "\$this->left_delimiter";
+            break;
+
+        case 'rdelim':
+            $compiled_ref = "\$this->right_delimiter";
+            break;
+            
+        default:
+            $compiled_ref = "\$this->_smarty_vars['$ref']";
         }
 
         if (isset($_max_index) && count($indexes) > $_max_index) {
