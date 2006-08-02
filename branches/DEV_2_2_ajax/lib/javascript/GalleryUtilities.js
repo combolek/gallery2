@@ -169,6 +169,35 @@ var GalleryUtilities = {
     for (var i = 0; i < arguments.length; i++) {
       YAHOO.util.Dom.get(arguments[i]).style.display = "";
     }
+  },
+
+  /**
+   * Element ids in Gallery contain 1) the element id, 2) the template basename - to avoid conflicts
+   * between different templates included in the same HTML page - & optionally 3) a template id - to
+   * avoid conflicts between the same template, if included more than once like an item block on an
+   * album page.
+   *
+   * @param string element id
+   * @param string template name
+   * @param string template id
+   * @return string an element id
+   */
+  elementId: function(elementId, templateName, templateId) {
+
+    /* JavaScript reference mentions join is a generic method, yet arguments.join is undefined */
+    arguments.join = Array.prototype.join;
+    return arguments.join("-");
+  },
+
+  /**
+   * Return variable name with prepended prefix
+   *
+   * @param string key
+   * @return string key with prefix
+   * @todo use GALLERY_FORM_VARIABLE_PREFIX
+   */
+  formVar: function(name) {
+    return "g2_" + name;
   }
 };
 

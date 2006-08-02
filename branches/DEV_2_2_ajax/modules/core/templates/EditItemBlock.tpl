@@ -46,112 +46,52 @@
 	  </div>
 	</form>
 
-  <script type="text/javascript">
-    // <![CDATA[
+	<script type="text/javascript">
+	  // <![CDATA[
 
-    {**
-     * Template's client-side variables & functions
-     *}
-    var EditItemBlock_{$templateId|replace:"-":"_"} = {ldelim}
+	  {* Register template's submit function with submit buttons *}
+	  YAHOO.util.Event.addListener(["{"saveInput"|elementId}", "{"undoInput"|elementId}"], "click",
+	    EditItemBlock.submit("{g->url}", "{$templateId}", {ldelim}item: {ldelim}
+	      id: {$EditItemBlock.item.id}{rdelim}, property: "{$EditItemBlock.property}"{rdelim}),
+	    EditItemBlock);
 
-      {**
-       * Submit template's form using Ajax
-       *
-       * @param {event} event which triggered the form's submision
-       * @param {Object} self reference, since function will be executed in scope of the event target
-       *}
-      submit: function(event, self) {ldelim}
-	if (!GalleryUtilities.isCallbackSupported()) {ldelim}
-	  return;
-	{rdelim}
-
-	var form = YAHOO.util.Dom.get("{"form"|elementId}");
-
-	{* Disable template's form *}
-	YAHOO.util.Dom.batch(form.elements, function(element) {ldelim}
-	  element.blur();
-	  element.disabled = "disabled";
-	{rdelim});
-
-	{* Give immediate feedback if possible *}
-	YAHOO.util.Dom.get("{"value"|elementId}").innerHTML = "Saving...";
-	GalleryUtilities.hide("{"form"|elementId}");
-	GalleryUtilities.show("{"link"|elementId}");
-
-	{* Serialize form elements *}
-	var args = GalleryUtilities.serializeForm(form, YAHOO.util.Event.getTarget(event));
-	args.push("{"callback"|formVar}=callback");
-
-	args.push("{"delegate[view]"|formVar}=core.EditItemBlock");
-	args.push("{"delegate[templateId]"|formVar}={$templateId}");
-	args.push("{"delegate[itemId]"|formVar}={$EditItemBlock.item.id}");
-	args.push("{"delegate[property]"|formVar}={$EditItemBlock.property}");
-
-	{* Make Ajax callback request *}
-	GalleryUtilities.callbackRequest("{g->url}", args);
-
-	YAHOO.util.Event.preventDefault(event);
-      {rdelim}
-    {rdelim};
-
-    {* Register template's submit function with submit buttons *}
-    YAHOO.util.Event.addListener(["{"saveInput"|elementId}", "{"undoInput"|elementId}"], "click", EditItemBlock_{$templateId|replace:"-":"_"}.submit, EditItemBlock_{$templateId|replace:"-":"_"});
-
-    {* Register with all callback responses *}
-    GalleryUtilities.callbackEvent.subscribe(function(type, args) {ldelim}
-      var response = args[0];
-
-      {* Enable template's form *}
-      YAHOO.util.Dom.batch(YAHOO.util.Dom.get("{"form"|elementId}").elements,
-	  function(element) {ldelim}
-	element.disabled = "";
-      {rdelim});
-
-      if (!GalleryUtilities.isResponseSuccessful(response)) {ldelim}
-	GalleryUtilities.show("{"status"|elementId}");
-	GalleryUtilities.hide("{"success"|elementId}");
-	GalleryUtilities.hide("{"warning"|elementId}");
-	GalleryUtilities.show("{"error"|elementId}");
-      {rdelim}
-    {rdelim});
-
-    // ]]>
-  </script>
+	  // ]]>
+	</script>
       {/if}
     {/if}
   </div>
 {/if}
 
-    {* Ajax callback output *}
-    {if GalleryUtilities::isCallback()}
-      {capture append="smarty.output"}
-	YAHOO.util.Dom.get("{"serialNumberInput"|elementId}").value = {$EditItemBlock.item.serialNumber};
-	YAHOO.util.Dom.get("{"value"|elementId}").innerHTML = "{$EditItemBlock.item[$EditItemBlock.property]|markup|entitytruncate:256}";
+{* Ajax callback output *}
+{if GalleryUtilities::isCallback()}
+  {capture append="smarty.output"}
+    YAHOO.util.Dom.get("{"serialNumberInput"|elementId}").value = {$EditItemBlock.item.serialNumber};
+    YAHOO.util.Dom.get("{"value"|elementId}").innerHTML = "{$EditItemBlock.item[$EditItemBlock.property]|markup|entitytruncate:256}";
 
-	{if empty($status.editMessage) && empty($status.warning) && empty($form.error)}
-	  GalleryUtilities.hide("{"status"|elementId}");
-	{else}
-	  GalleryUtilities.show("{"status"|elementId}");
-	{/if}
-
-	{if empty($status.editMessage)}
-	  GalleryUtilities.hide("{"success"|elementId}");
-	{else}
-	  YAHOO.util.Dom.get("{"success"|elementId}").innerHTML = "{$status.editMessage}";
-	  GalleryUtilities.show("{"success"|elementId}");
-	{/if}
-
-	{if empty($status.warning)}
-	  GalleryUtilities.hide("{"warning"|elementId}");
-	{else}
-	  YAHOO.util.Dom.get("{"warning"|elementId}").innerHTML = "{$status.warning|@implode:""}";
-	  GalleryUtilities.show("{"warning"|elementId}");
-	{/if}
-
-	{if empty($form.error)}
-	  GalleryUtilities.hide("{"error"|elementId}");
-	{else}
-	  GalleryUtilities.show("{"error"|elementId}");
-	{/if}
-      {/capture}
+    {if empty($status.editMessage) && empty($status.warning) && empty($form.error)}
+      GalleryUtilities.hide("{"status"|elementId}");
+    {else}
+      GalleryUtilities.show("{"status"|elementId}");
     {/if}
+
+    {if empty($status.editMessage)}
+      GalleryUtilities.hide("{"success"|elementId}");
+    {else}
+      YAHOO.util.Dom.get("{"success"|elementId}").innerHTML = "{$status.editMessage}";
+      GalleryUtilities.show("{"success"|elementId}");
+    {/if}
+
+    {if empty($status.warning)}
+      GalleryUtilities.hide("{"warning"|elementId}");
+    {else}
+      YAHOO.util.Dom.get("{"warning"|elementId}").innerHTML = "{$status.warning|@implode:""}";
+      GalleryUtilities.show("{"warning"|elementId}");
+    {/if}
+
+    {if empty($form.error)}
+      GalleryUtilities.hide("{"error"|elementId}");
+    {else}
+      GalleryUtilities.show("{"error"|elementId}");
+    {/if}
+  {/capture}
+{/if}
