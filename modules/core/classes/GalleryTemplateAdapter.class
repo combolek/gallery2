@@ -26,8 +26,8 @@
  */
 
 /**
- * This class is a glue layer between the templating system and our various
- * callbacks that generate URLs, localized text, dates, themed widgets, etc.
+ * This class is a glue layer between the templating system and our various callbacks that generate
+ * URLs, localized text, dates, themed widgets, etc.
  *
  * @package GalleryCore
  * @subpackage Classes
@@ -36,6 +36,7 @@ class GalleryTemplateAdapter {
 
     /**
      * The number of times our block callbacks have been executed
+     *
      * @var array _callCount
      */
     var $_callCount;
@@ -49,8 +50,8 @@ class GalleryTemplateAdapter {
     var $_theme;
 
     /**
-     * Aggregation of text that we want to output at the bottom of the page,
-     * useful for when we need to put javascript at the bottom.
+     * Aggregation of text that we want to output at the bottom of the page, useful for when we need
+     * to put JavaScript at the bottom.
      *
      * @var string $_trailer
      * @access private
@@ -97,12 +98,11 @@ class GalleryTemplateAdapter {
      *************************************************************/
 
     /**
-     * @see GalleryUrlGenerator::generateUrl()
-     *
      * Return a valid Gallery URL, standalone or embedded.
      *
      * @param array data in key/value pairs
      * @return string a URL
+     * @see GalleryUrlGenerator::generateUrl
      */
     function url($params, &$smarty) {
 	global $gallery;
@@ -126,9 +126,9 @@ class GalleryTemplateAdapter {
     }
 
     /**
-     * Return any hidden form variables that we want to embed in this form based on the
-     * current session and request context.  We use this to pass the special "return" variable
-     * forward, for example.
+     * Return any hidden form variables that we want to embed in this form based on the current
+     * session and request context.  We use this to pass the special "return" variable forward, for
+     * example.
      *
      * @param array data in key/value pairs
      * @return a series of XHTML 1.0 compliant <input> elements
@@ -138,12 +138,12 @@ class GalleryTemplateAdapter {
 	$urlGenerator =& $gallery->getUrlGenerator();
 	$vars = array();
 
-	/* The 'return' url */
+	/* The 'return' URL */
 	if (GalleryUtilities::hasRequestVariable('return')) {
 	    $vars['return'] = GalleryUtilities::getRequestVariables('return');
 	}
 
-	/* Remember the current url for getting back to where we came from */
+	/* Remember the current URL for getting back to where we came from */
 	if (empty($vars['return'])) {
 	    $currentView = $gallery->getCurrentView();
 	    list ($ret, $view) = GalleryView::loadView($currentView);
@@ -185,10 +185,9 @@ class GalleryTemplateAdapter {
     /**
      * Return a valid Gallery date.
      *
-     * @todo This needs to be refactored.
-     *
      * @param array data in key/value pairs
      * @return string a URL
+     * @todo This needs to be refactored.
      */
     function date($params, &$smarty) {
 	global $gallery;
@@ -216,7 +215,7 @@ class GalleryTemplateAdapter {
     }
 
     /**
-     * @see GalleryTranslator::translate
+     * @see GalleryTranslator::translateDomain
      */
     function text($params, &$smarty) {
 	global $gallery;
@@ -228,6 +227,7 @@ class GalleryTemplateAdapter {
 	} else {
 	    $domain = $smarty->_tpl_vars['l10Domain'];
 	}
+
 	$translator =& $gallery->getTranslator();
 	list ($ret, $text) = $translator->translateDomain($domain, $params);
 	if ($ret) {
@@ -270,7 +270,7 @@ class GalleryTemplateAdapter {
     }
 
     /**
-     * Return a transformed element name.  Useful for accessing a form element in JavaScript
+     * Return a transformed element name.  Useful for accessing a form element in JavaScript.
      *
      * @param array key => value attributes
      * @return string form variable name
@@ -281,10 +281,10 @@ class GalleryTemplateAdapter {
 
     /**
      * Serialize arrays as form variables by looping over the block content for each Gallery form
-     * variable & value in the array
+     * variable & value in the array.
      *
-     * Takes two parameters: Name & value of the form variable.  Parameter names correspond to
-     * template variable names in which the Gallery form variable & value is set each iteration
+     * Takes two parameters: name & value of the form variable.  Parameter names correspond to
+     * template variable names in which the Gallery form variable & value is set each iteration.
      *
      * eg. {g->formVars foo="form[exampleVar]" bar=$exampleArray}
      *     <input type="hidden" name="{$foo}" value="{$bar}"/>
@@ -387,24 +387,54 @@ class GalleryTemplateAdapter {
 	    }
 	    list ($item, $entity) = $results;
 	}
-
 	unset($params['item']);
 	unset($params['image']);
+
+	$fallback = null;
 	if (isset($params['fallback'])) {
 	    $fallback = $params['fallback'];
-	} else {
-	    $fallback = $params['fallback'] = null;
+	}
+	unset($params['fallback']);
+
+	/*
+	 * Keep track of our class & id in $smarty.Gallery.image.classes.0 &
+	 * $smarty.Gallery.image.ids.0 for cooperation with containers like ImageFrame &
+	 * RotatePhotoBlock
+	 */
+	$classes =& $smarty->_smarty_vars['Gallery']['image']['classes'];
+	if (empty($classes)) {
+	    $classes = array(null);
 	}
 
+	if (isset($params['class'])) {
+	    if (isset($classes[0])) {
+		$classes[0] .= " $params[class]";
+	    } else {
+	        $classes[0] = $params['class'];
+	    }
+	}
+	$params['class'] = $classes[0];
+	array_unshift($classes, null);
+
+	$ids =& $smarty->_smarty_vars['Gallery']['image']['ids'];
+	if (empty($ids)) {
+	    $ids = array(null);
+	}
+
+	if (isset($params['id'])) {
+	    $ids[0] = $params['id'];
+	}
+	$params['id'] = $ids[0];
+	array_unshift($ids, null);
+
 	$rendererClass = $item->getRenderer();
+	$renderer = null;
 	if ($rendererClass) {
 	    list ($ret, $renderer) =
 		GalleryCoreApi::newFactoryInstanceById('GalleryRenderer', $rendererClass);
 	    if ($ret) {
 		return array($ret, null);
 	    }
-	} else {
-	    $renderer = null;
 	}
 
 	/* TODO: Normalize these 3 different APIs */
@@ -453,7 +483,7 @@ class GalleryTemplateAdapter {
 				$urlGenerator->generateUrl(array('href' => $path)));
 	}
 
-	/* Javascript */
+	/* JavaScript */
 	if (isset($head['javascript'])) {
 	    foreach ($head['javascript'] as $path) {
 		$output[] = sprintf('<script type="text/javascript" src="%s"></script>' . "\n",
@@ -461,7 +491,7 @@ class GalleryTemplateAdapter {
 	    }
 	}
 
-	/* Tpl to include. */
+	/* Template to include */
 	foreach ($head['tpl'] as $path => $l10Domain) {
 	    /* Guard template vars so that the include doesn't pollute our namespace */
 	    $save = $smarty->_tpl_vars;
@@ -529,9 +559,8 @@ class GalleryTemplateAdapter {
     }
 
     /**
-     * Add hidden form elements to select a default submit button
-     * that is used if enter is pressed in a text input.
-     * Include this before any submit buttons are added to the form.
+     * Add hidden form elements to select a default submit button that is used if enter is pressed
+     * in a text input.  Include this before any submit buttons are added to the form.
      *
      * @param array params
      * @param object Smarty the smarty instance
@@ -553,7 +582,7 @@ class GalleryTemplateAdapter {
 
     /**
      * This takes an array and looks for view, subview, and controller to make a link id (being used
-     * as a css class)
+     * as a CSS class)
      *
      * @param array the items to make a css class out of
      * @return string the id of the css class
@@ -589,10 +618,10 @@ class GalleryTemplateAdapter {
 
     /**
      * This removes unsafe characters from a string so they can be used as a class name or id in
-     * html and be addressed via css
+     * HTML and be addressed via CSS
      *
      * Purpose:  Removes characters from a string so that it can be used for an
-     * html class name or id and be addressed via css
+     * html class name or id and be addressed via CSS
      *
      * @param string the input string
      * @return string
@@ -754,9 +783,9 @@ class GalleryTemplateAdapter {
     }
 
     /**
-     * Perform a theme related function.  Possible parameters are
-     *   include => file to include inside the theme's templates/ dir
-     *   url  => url to a file inside the themes dir
+     * Perform a theme related function.  Possible parameters are:
+     *   include => file to include inside the theme's templates/ directory
+     *   url => URL to a file inside the themes directory
      *
      * @params array('include' => ..., 'url' => ...)
      * @param reference to Smarty
@@ -774,8 +803,8 @@ class GalleryTemplateAdapter {
 	    $smarty->_tpl_vars = $save;
 	} else if (isset($params['url'])) {
 	    /*
-	     * Use this combo of dirname and '..' in g2Dir to avoid creating paths in the unit
-	     * test that won't be Windows compatible.
+	     * Use this combo of dirname and '..' in g2Dir to avoid creating paths in the unit test
+	     * that won't be Windows compatible.
 	     */
 	    $g2Dir = dirname(dirname(__FILE__)) . '/../../';
 	    $base = 'themes/' . $this->_theme->getId() . '/';
@@ -798,81 +827,116 @@ class GalleryTemplateAdapter {
 
     /**
      * Include a module's block in the current Smarty page.  The only required param is 'type' which
-     * should be of the form <module>.<blockname> eg: "core.LoginBlock".  Any other parameters get
-     * passed on to the block itself
+     * should be of the form <module>.<blockname>, eg. "core.LoginBlock".  Any other parameters get
+     * passed on to the block itself.
      *
-     * @params array('type' => <block descriptor>, ...)
+     * @param array('type' => <block descriptor>, ...)
      * @param reference to Smarty
+     * @return string HTML content
      */
     function block($params, &$smarty) {
-	list ($module, $file) = explode('.', $params['type']);
-	$class = empty($params['class']) ? '' : " $params[class]";
 
-	list ($ret, $pluginStatus) = GalleryCoreApi::fetchPluginStatus('module');
+	/* Guard template vars so that the include doesn't pollute our namespace */
+	$save = $smarty->_tpl_vars;
+
+	list ($ret, $output) = $this->_block($params, null, $smarty);
 	if ($ret) {
 	    /* What can we do here? */
-	    return '[error fetching blocks]';
+	    return '[block error]';
+	}
+
+	$smarty->_tpl_vars = $save;
+    }
+
+    /**
+     * Common parts of block & container
+     *
+     * @param array('type' => <block descriptor>, ...)
+     * @param string evaluated block content
+     * @param reference to Smarty
+     * @return string HTML content
+     */
+    function _block($params, $content, &$smarty) {
+	global $gallery;
+	$platform =& $gallery->getPlatform();
+
+	list ($module, $file) = explode('.', $params['type']);
+	list ($ret, $pluginStatus) = GalleryCoreApi::fetchPluginStatus('module');
+	if ($ret) {
+	    return $ret;
 	}
 
 	if (empty($pluginStatus[$module]['active'])) {
-	    return;
+	    return $content;
 	}
 
 	if (isset($params['params'])) {
 	    $params = $params['params'];
 	}
 
-	$params['class'] = "block-$module-$file$class";
-	$params['l10Domain'] = "modules_$module";
+	$class = $params['class'];
+	$params['class'] = "block-$module-$file";
+	if (!empty($class)) {
+	    $params['class'] .= " $class";
+	}
 
-	/* Guard template vars so that the include doesn't pollute our namespace */
-	$save = $smarty->_tpl_vars;
-	$smarty->_smarty_include(
-	    array('smarty_include_tpl_file' => "gallery:modules/$module/templates/blocks/$file.tpl",
-		  'smarty_include_vars' => $params));
-	$smarty->_tpl_vars = $save;
+	$params['l10Domain'] = "modules_$module";
+	$params['content'] = $content;
+
+	/*
+	 * The blocks/containers hierarchy should eventually be eliminated since it prevents usage
+	 * of the same template files with g->block & g->container
+	 */
+	$g2Dir = dirname(dirname(__FILE__)) . '/../../';
+	$path = "modules/$module/templates/blocks/$file.tpl";
+	if (!$platform->file_exists($g2Dir . $path)) {
+	    $path = "modules/$module/templates/containers/$file.tpl";
+	}
+	if (!$platform->file_exists($g2Dir . $path)) {
+	    $path = "modules/$module/templates/$file.tpl";
+	}
+
+	$smarty->_smarty_include(array('smarty_include_tpl_file' => "gallery:$path",
+	    'smarty_include_vars' => $params));
     }
 
     /**
      * Include a module's container in the current Smarty page.  The only required param is 'type'
-     * which should be of the form <module>.<blockname> eg: "core.LoginBlock".  Any other parameters
-     * get passed on to the block itself
+     * which should be of the form <module>.<blockname>, eg. "core.LoginBlock".  Any other
+     * parameters get passed on to the block itself.
      *
      * This is like block() except it wraps actual content
      *
-     * @params array('type' => <block descriptor>, ...)
+     * @param array('type' => <block descriptor>, ...)
+     * @param string evaluated block content
      * @param reference to Smarty
+     * @return string HTML content
      */
     function container($params, $content, &$smarty) {
-	if (!isset($content)) {
-	    return;
-	}
-
-	list ($ret, $pluginStatus) = GalleryCoreApi::fetchPluginStatus('module');
-	if ($ret) {
-	    /* What can we do here? */
-	    return '[container error]';
-	}
-
-	list ($module, $file) = explode('.', $params['type']);
-	if (empty($pluginStatus[$module]['active'])) {
-	    return $content;
-	}
 
 	/* Guard template vars so that the include doesn't pollute our namespace */
-	$save = $smarty->_tpl_vars;
-	$smarty->_smarty_include(
-	    array('smarty_include_tpl_file' =>
-		  "gallery:modules/$module/templates/containers/$file.tpl",
-		  'smarty_include_vars' => array_merge(array('content' => $content),
-						       $params)));
-	$smarty->_tpl_vars = $save;
+	static $save = array();
+	if (!isset($content)) {
+	    array_push($save, $smarty->_tpl_vars);
+	}
+
+	list ($ret, $output) = $this->_block($params, $content, $smarty);
+	if ($ret) {
+	    /* What can we do here? */
+	    $output = '[container error]';
+	}
+
+	if (isset($content)) {
+	    $smarty->_tpl_vars = array_pop($save);
+	}
+
+	return $output;
     }
 
     /**
-     * Call back to a module to get it to preload some data for the template. The only required
-     * param is 'type' which should be of the form <module>.<blockname> eg: "core.LoginBlock".
-     * Any other parameters get passed on to the block itself.
+     * Callback to a module to get it to preload some data for the template.  The only required
+     * param is 'type' which should be of the form <module>.<blockname>, eg. "core.LoginBlock".  Any
+     * other parameters get passed on to the block itself.
      *
      * @params array('type' => <block descriptor>, ...)
      * @param reference to Smarty
@@ -977,9 +1041,9 @@ class GalleryTemplateAdapter {
 	/*
 	 * Calculate the time remaining
 	 *
-	 * TODO: Use a weighted measurement to provide a balanced estimate.  Consider the case
-	 * where the first 50% goes really quickly and the second 50% goes really slowly; the
-	 * estimate will be wildly inaccurate at the transition.
+	 * TODO: Use a weighted measurement to provide a balanced estimate.  Consider the case where
+	 * the first 50% goes really quickly and the second 50% goes really slowly; the estimate
+	 * will be wildly inaccurate at the transition.
 	 */
 	if ($percentComplete > 0 &&
 		$percentComplete < 1 && time() > $this->_progressBarStats['startTime']) {
@@ -993,16 +1057,15 @@ class GalleryTemplateAdapter {
 	    $timeRemaining = '';
 	}
 
-	/* it is possible to not have this function compiled into php */
+	/* It is possible to not have this function compiled into PHP */
 	$memoryUsed = (function_exists('memory_get_usage')) ? memory_get_usage() : 0;
 
-	/* A disabled memory_limit is -1, 0 crashes php */
+	/* A disabled memory_limit is -1, 0 crashes PHP */
 	$memoryTotal = (0 < ini_get('memory_limit')) ? ini_get('memory_limit') : 0;
 
 	/*
-	 * Ensure that percentComplete is in a dotted-decimal format.  Since
-	 * the immediateView is dealing in percentages, anything beyond two decimal
-	 * places is unnecessary.
+	 * Ensure that percentComplete is in a dotted-decimal format.  Since the immediateView is
+	 * dealing in percentages, anything beyond two decimal places is unnecessary.
 	 */
 	$percentComplete = GalleryUtilities::roundToString($percentComplete, 2);
 

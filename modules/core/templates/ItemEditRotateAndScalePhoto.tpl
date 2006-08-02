@@ -12,17 +12,16 @@
   </p>
 
   {if empty($ItemEditRotateAndScalePhoto.editPhoto.can.rotate)}
-  <b>
-    {g->text text="There are no graphics toolkits enabled that support this type of photo, so we cannot rotate it."}
-    {if !empty($user.isAdmin)}
-      <a href="{g->url arg1="view=core.SiteAdmin" arg2="subView=core.AdminPlugins"}"> {g->text text="site admin"} </a>
-    {/if}
-  </b>
+    <b>
+      {g->text text="There are no graphics toolkits enabled that support this type of photo, so we cannot rotate it."}
+      {if !empty($user.isAdmin)}
+	<a href="{g->url arg1="view=core.SiteAdmin" arg2="subView=core.AdminPlugins"}"> {g->text text="site admin"} </a>
+      {/if}
+    </b>
   {else}
-    <input name="{"mode"|formVar}" type="hidden" value="editPhoto"/>
-    <input class="inputTypeSubmit" id="{"rotateCounterClockwiseInput"|elementId}" name="{"form[action][rotate][counterClockwise]"|formVar}" type="submit" value="{g->text text="CC 90&deg;"}"/> &nbsp;
-    <input class="inputTypeSubmit" id="{"flipInput"|elementId}" name="{"form[action][rotate][flip]"|formVar}" type="submit" value="{g->text text="180&deg;"}"/> &nbsp;
-    <input class="inputTypeSubmit" id="{"rotateClockwiseInput"|elementId}" name="{"form[action][rotate][clockwise]"|formVar}" type="submit" value="{g->text text="C 90&deg;"}"/>
+    <input class="inputTypeSubmit" id="{"rotate-90Input"|elementId}" name="{"form[action][rotate][-90]"|formVar}" type="submit" value="{g->text text="-90&deg;"}"/> &nbsp;
+    <input class="inputTypeSubmit" id="{"rotate180Input"|elementId}" name="{"form[action][rotate][180]"|formVar}" type="submit" value="{g->text text="180&deg;"}"/> &nbsp;
+    <input class="inputTypeSubmit" id="{"rotate90Input"|elementId}" name="{"form[action][rotate][90]"|formVar}" type="submit" value="{g->text text="90&deg;"}"/>
   {/if}
 </div>
 
@@ -34,20 +33,24 @@
   </p>
 
   {if empty($ItemEditRotateAndScalePhoto.editPhoto.can.resize)}
-  <b>
-    {g->text text="There are no graphics toolkits enabled that support this type of photo, so we cannot scale it."}
-    {if !empty($user.isAdmin)}
-      <a href="{g->url arg1="view=core.SiteAdmin" arg2="subView=core.AdminPlugins"}"> {g->text text="site admin"} </a>
-    {/if}
-  </b>
+    <b>
+      {g->text text="There are no graphics toolkits enabled that support this type of photo, so we cannot scale it."}
+      {if !empty($user.isAdmin)}
+	<a href="{g->url arg1="view=core.SiteAdmin" arg2="subView=core.AdminPlugins"}"> {g->text text="site admin"} </a>
+      {/if}
+    </b>
   {else}
     {g->dimensions formVar="form[resize]" width=$form.resize.width height=$form.resize.height}
     <input class="inputTypeSubmit" id="{"resizeInput"|elementId}" name="{"form[action][resize]"|formVar}" type="submit" value="{g->text text="Scale"}"/>
   {/if}
 
-  <div class="giError" id="{"errorSizeMissing"|elementId}"{if empty($form.error.resize.size.missing)} style="display: none"{/if}> {g->text text="You must enter a size"} </div>
+  <div class="giError" id="{"errorSizeMissing"|elementId}"{if empty($form.error.resize.size.missing)} style="display: none"{/if}>
+    {g->text text="You must enter a size"}
+  </div>
 
-  <div class="giError" id="{"errorSizeInvalid"|elementId}"{if empty($form.error.resize.size.invalid)} style="display: none"{/if}> {g->text text="You must enter a number (greater than zero)"} </div>
+  <div class="giError" id="{"errorSizeInvalid"|elementId}"{if empty($form.error.resize.size.invalid)} style="display: none"{/if}>
+    {g->text text="You must enter a number (greater than zero)"}
+  </div>
 </div>
 
 {* Include our extra ItemEditOptions *}
@@ -57,72 +60,78 @@
 
 {if !empty($ItemEditRotateAndScalePhoto.editPhoto.can.rotate) ||
     !empty($ItemEditRotateAndScalePhoto.editPhoto.can.resize)}
-<div class="gbBlock" id="{"preserveOriginal"|elementId}"{if !empty($ItemEditRotateAndScalePhoto.editPhoto.hasPreferredSource)} style="display: none"{/if}>
-  <h3> {g->text text="Preserve Original"} </h3>
+  <div class="gbBlock" id="{"preserveOriginal"|elementId}"{if !empty($ItemEditRotateAndScalePhoto.editPhoto.hasPreferredSource)} style="display: none"{/if}>
+    <h3> {g->text text="Preserve Original"} </h3>
 
-  <p class="giDescription">
-    {g->text text="Gallery does not modify your original photo when rotating and scaling.  Instead, it duplicates your photo and works with copies.  This requires a little extra disk space but prevents your original from getting damaged.  Disabling this option will cause any actions (rotating, scaling, etc) to modify the original."}
-  </p>
+    <p class="giDescription">
+      {g->text text="Gallery does not modify your original photo when rotating and scaling.  Instead, it duplicates your photo and works with copies.  This requires a little extra disk space but prevents your original from getting damaged.  Disabling this option will cause any actions (rotating, scaling, etc) to modify the original."}
+    </p>
 
-  {if !empty($ItemEditRotateAndScalePhoto.editPhoto.isLinked)}
-  <b> {g->text text="This is a link to another photo, so you cannot change the original"} </b>
-  {elseif !empty($ItemEditRotateAndScalePhoto.editPhoto.isLinkedTo)}
-  <b> {g->text text="There are links to this photo, so you cannot change the original"} </b>
-  {elseif $ItemEditRotateAndScalePhoto.editPhoto.noToolkitSupport}
-  <b> {g->text text="There is no toolkit support to modify the original so operations may only be applied to the copies"} </b>
-  {else}
-    <input id="cbPreserve" name="{"form[preserveOriginal]"|formVar}" type="checkbox"{if $form.preserveOriginal} checked="checked"{/if}/>
-    <label for="cbPreserve"> {g->text text="Preserve Original Photo"} </label>
-  {/if}
-</div>
-{capture append="ItemEditRotateAndScalePhoto.update"}
-  if (ItemEditRotateAndScalePhoto != null &&
-      ItemEditRotateAndScalePhoto.editPhoto != null) {ldelim}
-    if (ItemEditRotateAndScalePhoto.editPhoto.hasPreferredSource) {ldelim}
-      YAHOO.util.Dom.get("{"preserveOriginal"|elementId}").style.display = "none";
-    {rdelim} else {ldelim}
-      YAHOO.util.Dom.get("{"preserveOriginal"|elementId}").style.display = "";
+    {if !empty($ItemEditRotateAndScalePhoto.editPhoto.isLinked)}
+      <b> {g->text text="This is a link to another photo, so you cannot change the original"} </b>
+    {elseif !empty($ItemEditRotateAndScalePhoto.editPhoto.isLinkedTo)}
+      <b> {g->text text="There are links to this photo, so you cannot change the original"} </b>
+    {elseif $ItemEditRotateAndScalePhoto.editPhoto.noToolkitSupport}
+      <b> {g->text text="There is no toolkit support to modify the original so operations may only be applied to the copies"} </b>
+    {else}
+      <input id="cbPreserve" name="{"form[preserveOriginal]"|formVar}" type="checkbox"{if $form.preserveOriginal} checked="checked"{/if}/>
+      <label for="cbPreserve"> {g->text text="Preserve Original Photo"} </label>
+    {/if}
+  </div>
+  {capture append="ItemEditRotateAndScalePhoto.update"}
+    if (ItemEditRotateAndScalePhoto != null &&
+	ItemEditRotateAndScalePhoto.editPhoto != null) {ldelim}
+      if (ItemEditRotateAndScalePhoto.editPhoto.hasPreferredSource) {ldelim}
+	GalleryUtilities.hide("{"preserveOriginal"|elementId}");
+      {rdelim} else {ldelim}
+	GalleryUtilities.show("{"preserveOriginal"|elementId}");
+      {rdelim}
     {rdelim}
-  {rdelim}
-{/capture}
+  {/capture}
 
-<div class="gbBlock" id="{"modifiedPhoto"|elementId}"{if empty($ItemEditRotateAndScalePhoto.editPhoto.hasPreferredSource)} style="display: none"{/if}>
-  <h3> {g->text text="Modified Photo"} </h3>
+  <div class="gbBlock" id="{"modifiedPhoto"|elementId}"{if empty($ItemEditRotateAndScalePhoto.editPhoto.hasPreferredSource)} style="display: none"{/if}>
+    <h3> {g->text text="Modified Photo"} </h3>
 
-  <p class="giDescription">
-    {g->text text="You are using a copy of the original photo that has been scaled or rotated.  The original photo is still available, but is no longer being used.  Any changes you make will be applied to the copy instead."}
-  </p>
+    <p class="giDescription">
+      {g->text text="You are using a copy of the original photo that has been scaled or rotated.  The original photo is still available, but is no longer being used.  Any changes you make will be applied to the copy instead."}
+    </p>
 
-  <input class="inputTypeSubmit" id="{"revertInput"|elementId}" name="{"form[action][revertToOriginal]"|formVar}" type="submit" value="{g->text text="Restore original"}"/>
-</div>
-{capture append="ItemEditRotateAndScalePhoto.update"}
-  if (ItemEditRotateAndScalePhoto != null &&
-      ItemEditRotateAndScalePhoto.editPhoto != null) {ldelim}
-    if (!ItemEditRotateAndScalePhoto.editPhoto.hasPreferredSource) {ldelim}
-      YAHOO.util.Dom.get("{"modifiedPhoto"|elementId}").style.display = "none";
-    {rdelim} else {ldelim}
-      YAHOO.util.Dom.get("{"modifiedPhoto"|elementId}").style.display = "";
+    <input class="inputTypeSubmit" id="{"revertInput"|elementId}" name="{"form[action][revertToOriginal]"|formVar}" type="submit" value="{g->text text="Restore original"}"/>
+  </div>
+  {capture append="ItemEditRotateAndScalePhoto.update"}
+    if (ItemEditRotateAndScalePhoto != null &&
+	ItemEditRotateAndScalePhoto.editPhoto != null) {ldelim}
+      if (!ItemEditRotateAndScalePhoto.editPhoto.hasPreferredSource) {ldelim}
+	GalleryUtilities.hide("{"modifiedPhoto"|elementId}");
+      {rdelim} else {ldelim}
+	GalleryUtilities.show("{"modifiedPhoto"|elementId}");
+      {rdelim}
     {rdelim}
-  {rdelim}
-{/capture}
+  {/capture}
 {/if}
 
 <script>
   // <![CDATA[
 
-  {* Template's client-side variables & functions *}
+  {**
+   * Template's client-side variables & functions
+   *}
   var ItemEditRotateAndScalePhoto = {ldelim}
 
-    {* Update template's dynamic elements *}
+    {**
+     * Update template's dynamic elements
+     *
+     * @param {Object} scope from which to import new values
+     *}
     update: function(ItemEditRotateAndScalePhoto) {ldelim}
       {$ItemEditRotateAndScalePhoto.update}
     {rdelim}
   {rdelim};
 
   {* Register template's submit function with submit buttons *}
-  YAHOO.util.Event.addListener(["{"rotateCounterClockwiseInput"|elementId}",
-      "{"flipInput"|elementId}",
-      "{"rotateClockwiseInput"|elementId}",
+  YAHOO.util.Event.addListener(["{"rotate-90Input"|elementId}",
+      "{"rotate180Input"|elementId}",
+      "{"rotate90Input"|elementId}",
       "{"resizeInput"|elementId}",
       "{"revertInput"|elementId}"], "click", ItemAdmin.submit, ItemAdmin);
 
@@ -130,15 +139,15 @@
   {if GalleryUtilities::isCallback()}
     {capture append="smarty.output"}
       {if empty($form.error.resize.size.missing)}
-	YAHOO.util.Dom.get("{"errorSizeMissing"|elementId}").style.display = "none";
+	GalleryUtilities.hide("{"errorSizeMissing"|elementId}");
       {else}
-	YAHOO.util.Dom.get("{"errorSizeMissing"|elementId}").style.display = "";
+	GalleryUtilities.show("{"errorSizeMissing"|elementId}");
       {/if}
 
       {if empty($form.error.resize.size.invalid)}
-	YAHOO.util.Dom.get("{"errorSizeInvalid"|elementId}").style.display = "none";
+	GalleryUtilities.hide("{"errorSizeInvalid"|elementId}");
       {else}
-	YAHOO.util.Dom.get("{"errorSizeInvalid"|elementId}").style.display = "";
+	GalleryUtilities.show("{"errorSizeInvalid"|elementId}");
       {/if}
 
       {* |var_export is cheaper than |json *}

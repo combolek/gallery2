@@ -17,6 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
  * @version $Revision$ $Date$
  * @package ImageFrame
@@ -45,13 +46,12 @@ class ImageFrameTest extends GalleryTestCase {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret);
 	}
+
 	if (!isset($this->_imageframe)) {
 	    print 'Missing ImageFrameImpl';
-	    return $this->failWithStatus(
-		GalleryCoreApi::error(ERROR_MISSING_OBJECT));
+	    return $this->failWithStatus(GalleryCoreApi::error(ERROR_MISSING_OBJECT));
 	}
     }
-
 
     function testImageFrameList() {
 	list ($ret, $list) = $this->_imageframe->getImageFrameList();
@@ -67,8 +67,8 @@ class ImageFrameTest extends GalleryTestCase {
 	if ($ret) {
 	    return $this->failWithStatus($ret);
 	}
-	$this->assert(isset($template->data['ImageFrameData']), 'template data');
-	$data = $template->data['ImageFrameData'];
+	$this->assert(isset($template->data['ImageFrame']), 'template data');
+	$data = $template->data['ImageFrame'];
 	$this->assertEquals(array('idList', 'data'), array_keys($data), 'Data keys');
 	$this->assertEquals('none|dots|wood', $data['idList'], 'Id list');
 	$this->assertEquals(array('type' => 'style', 'style' => 'border-style: none'),
@@ -88,7 +88,7 @@ class ImageFrameTest extends GalleryTestCase {
 	if ($ret) {
 	    return $this->failWithStatus($ret);
 	}
-	$data = $template->data['ImageFrameData'];
+	$data = $template->data['ImageFrame'];
 	$this->assertEquals('none|dots|wood|solid', $data['idList'], 'Id list 2');
     }
 
@@ -107,12 +107,11 @@ class ImageFrameTest extends GalleryTestCase {
 
     function testSmartyCounter() {
 	/*
-	 * Each imageframe is rendered in a separate {g->container} call which does
-	 * not pass $smarty by reference.  Hence we cannot store a counter in $smarty
-	 * and have the value retained between calls to generate a unique id for each
-	 * imageframe.  Luckily, {counter} stores its data in a static variable and
-	 * not in $smarty so we can use it.  This unit test verifies this behavior
-	 * (in case it changes in a future version of smarty).
+	 * Each imageframe is rendered in a separate {g->container} call which does not pass $smarty
+	 * by reference.  Hence we cannot store a counter in $smarty and have the value retained
+	 * between calls to generate a unique id for each imageframe.  Luckily, {counter} stores its
+	 * data in a static variable and not in $smarty so we can use it.  This unit test verifies
+	 * this behavior (in case it changes in a future version of smarty).
 	 */
 	$smarty1 = GalleryTemplate::_getSmarty();
 	$smarty2 = GalleryTemplate::_getSmarty();
@@ -140,20 +139,29 @@ class ImageFrameTest extends GalleryTestCase {
  */
 class ImageFrameDummyGalleryTemplate {
     var $data = array();
+
     function hasVariable($key) {
 	return isset($this->data[$key]);
     }
+
     function setVariable($key, $value) {
 	$this->data[$key] = $value;
     }
+
     function &getVariableByReference($key) {
 	return $this->data[$key];
     }
+
     function &_getSmarty() {
 	return $this;
     }
-    function register_block() { }
-    function register_function() { }
+
+    function register_block() {
+    }
+
+    function register_function() {
+    }
+
     function head($tpl) {
 	$this->data['head'][] = $tpl;
     }

@@ -38,11 +38,6 @@ class CorePreloads {
 	    $template->javascript('lib/yui/dom-min.js');
 	    $template->javascript('lib/yui/event-min.js');
 	    $template->javascript('lib/javascript/GalleryUtilities.js');
-
-	    $EditItemBlock =
-		array('navigationReturnUrl' => GalleryUtilities::getUrlVariablesFiltered(
-		    array('return', 'returnName', 'navId', 'fromNavId'), true));
-	    $template->setVariable('EditItemBlock', $EditItemBlock);
 	    return null;
 
 	case 'EmergencyEditItemLink':
