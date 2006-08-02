@@ -59,20 +59,20 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 		$operation = 'scale';
 		$args = array($form['resize']['width'], $form['resize']['height']);
 	    }
-	} else if (isset($form['action']['rotate']['clockwise'])) {
-	    $operation = 'rotate';
-	    $args = array(90);
-	} else if (isset($form['action']['rotate']['counterClockwise'])) {
+	} else if (isset($form['action']['rotate'][-90])) {
 	    $operation = 'rotate';
 	    $args = array(-90);
-	} else if (isset($form['action']['rotate']['flip'])) {
+	} else if (isset($form['action']['rotate'][180])) {
 	    $operation = 'rotate';
 	    $args = array(180);
+	} else if (isset($form['action']['rotate'][90])) {
+	    $operation = 'rotate';
+	    $args = array(90);
 	} else if (isset($form['action']['revertToOriginal'])) {
 	    if (!empty($preferred)) {
 		/*
-		 * Pull out the rotate and resize operations and let our change ripple
-		 * down the derivative tree, if necessary
+		 * Pull out the rotate and resize operations and let our change ripple down the
+		 * derivative tree, if necessary
 		 */
 		$remainingOperations = array();
 		foreach (split(';', $preferred->getDerivativeOperations()) as $tmpOperation) {
@@ -134,9 +134,7 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 	$preserveOriginal = isset($form['preserveOriginal']);
 	$serialNumber = $form['serialNumber'];
 
-	/*
-	 * If we have a command, then apply it to the correct object.
-	 */
+	/* If we have a command, then apply it to the correct object */
 	if (!empty($operation)) {
 	    $ret = GalleryCoreApi::applyToolkitOperation(
 		$operation, $args, $preserveOriginal, $item, $preferred);

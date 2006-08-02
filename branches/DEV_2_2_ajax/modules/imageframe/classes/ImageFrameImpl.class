@@ -37,16 +37,16 @@ GalleryCoreApi::requireOnce('modules/imageframe/classes/ImageFrameInterface_1_1.
 class ImageFrameImpl extends ImageFrameInterface_1_1 {
 
     /**
-     * @see ImageFrameInterface_1_1::getImageFrameList()
+     * @see ImageFrameInterface_1_1::getImageFrameList
      */
     function getImageFrameList() {
 	global $gallery;
 	$platform =& $gallery->getPlatform();
 
 	/*
-	 * Load the plugin even if it's deactivated since we only need it for translation, and
-	 * it's possible that this is getting called during the core upgrade, when we won't be
-	 * able to properly deal with deactivated plugins.
+	 * Load the plugin even if it's deactivated since we only need it for translation, and it's
+	 * possible that this is getting called during the core upgrade, when we won't be able to
+	 * properly deal with deactivated plugins.
 	 */
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'imageframe', true);
 	if ($ret) {
@@ -69,33 +69,33 @@ class ImageFrameImpl extends ImageFrameInterface_1_1 {
 	}
 	asort($frames);
 
-	return array(null,
-		     array_merge(array('none' => $module->translate('None')), $frames));
+	return array(null, array_merge(array('none' => $module->translate('None')), $frames));
     }
 
     /**
-     * @see ImageFrameInterface_1_1::init()
+     * @see ImageFrameInterface_1_1::init
      */
     function init(&$template, $frameIds) {
 	global $gallery;
 	$platform =& $gallery->getPlatform();
+	$urlGenerator =& $gallery->getUrlGenerator();
+
 	static $simpleFrames;
-	if (!$template->hasVariable('ImageFrameData')) {
+	if (!$template->hasVariable('ImageFrame')) {
 	    $simpleFrames = array(
 		'none' => array('type' => 'style', 'style' => 'border-style: none'),
 		'solid' => array('type' => 'style',
 				 'style' => 'border: 1px solid black !important'));
 	    $templateAdapter =& $gallery->getTemplateAdapter();
-	    $template->setVariable('ImageFrameData', array('idList' => '', 'data' => array()));
+	    $template->setVariable('ImageFrame', array('idList' => '', 'data' => array()));
 	}
 	$template->head('modules/imageframe/templates/ImageFrameHead.tpl');
-	$data =& $template->getVariableByReference('ImageFrameData');
+	$data =& $template->getVariableByReference('ImageFrame');
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'imageframe');
 	if ($ret) {
 	    return $ret;
 	}
-	$urlGenerator =& $gallery->getUrlGenerator();
 	$baseUrl = $urlGenerator->generateUrl(array('href' => 'modules/imageframe/frames'));
 	if (!is_array($frameIds)) {
 	    $frameIds = array($frameIds);
@@ -105,6 +105,7 @@ class ImageFrameImpl extends ImageFrameInterface_1_1 {
 	    if (isset($data['data'][$frameId])) {
 		continue;
 	    }
+
 	    if (isset($simpleFrames[$frameId])) {
 		$data['data'][$frameId] = $simpleFrames[$frameId];
 	    } else {
@@ -150,15 +151,17 @@ class ImageFrameImpl extends ImageFrameInterface_1_1 {
     }
 
     /**
-     * @see ImageFrameInterface_1_1::getSampleUrl()
+     * @see ImageFrameInterface_1_1::getSampleUrl
      */
     function getSampleUrl($itemId=null) {
 	global $gallery;
 	$urlGenerator =& $gallery->getUrlGenerator();
+
 	$params = array('view' => 'imageframe.Sample');
 	if (isset($itemId)) {
 	    $params['itemId'] = $itemId;
 	}
+
 	return array(null, $urlGenerator->generateUrl($params));
     }
 }
