@@ -51,9 +51,9 @@
 
 	  {* Register template's submit function with submit buttons *}
 	  YAHOO.util.Event.addListener(["{"saveInput"|elementId}", "{"undoInput"|elementId}"], "click",
-	    EditItemBlock.submit("{g->url}", "{$templateId}", {ldelim}item: {ldelim}
-	      id: {$EditItemBlock.item.id}{rdelim}, property: "{$EditItemBlock.property}"{rdelim}),
-	    EditItemBlock);
+	    EditItemBlock.submit("{g->url}", "{$templateId}", {ldelim}
+	      item: {ldelim} id: {$EditItemBlock.item.id}{rdelim},
+	      property: "{$EditItemBlock.property}"{rdelim}), EditItemBlock);
 
 	  // ]]>
 	</script>
@@ -65,8 +65,10 @@
 {* Ajax callback output *}
 {if GalleryUtilities::isCallback()}
   {capture append="smarty.output"}
-    YAHOO.util.Dom.get("{"serialNumberInput"|elementId}").value = {$EditItemBlock.item.serialNumber};
-    YAHOO.util.Dom.get("{"value"|elementId}").innerHTML = "{$EditItemBlock.item[$EditItemBlock.property]|markup|entitytruncate:256}";
+    YAHOO.util.Dom.get("{"serialNumberInput"|elementId}").value =
+      {$EditItemBlock.item.serialNumber};
+    YAHOO.util.Dom.get("{"value"|elementId}").innerHTML =
+      "{$EditItemBlock.item[$EditItemBlock.property]|markup|entitytruncate:256}";
 
     {if empty($status.editMessage) && empty($status.warning) && empty($form.error)}
       GalleryUtilities.hide("{"status"|elementId}");

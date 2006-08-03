@@ -73,21 +73,24 @@
 		{/if}
 		<div>
 		  {if isset($child.thumbnail)}
-		    {g->container type="core.RotatePhotoBlock" templateId="rotate-`$child.id`" RotatePhotoBlock.item=$child}
-		      {if isset($theme.params.$frameType)}
-			{g->container type="imageframe.ImageFrame" frame=$theme.params.$frameType width=$child.thumbnail.width height=$child.thumbnail.height}
-			  <a href="{$linkUrl}"> {g->image item=$child image=$child.thumbnail class="giThumbnail"} </a>
-			{/g->container}
-		      {else}
-			<a href="{$linkUrl}"> {g->image item=$child image=$child.thumbnail class="giThumbnail"} </a>
-		      {/if}
+		    {g->container type="imageframe.ImageFrame"
+			frame=$theme.params.$frameType
+			width=$child.thumbnail.width
+			height=$child.thumbnail.height}
+		      <a href="{$linkUrl}"> {g->block type="core.RotatePhotoBlock"
+		        templateId=$child.id
+			RotatePhotoBlock.item=$child
+			RotatePhotoBlock.image=$child.thumbnail
+			RotatePhotoBlock.class="giThumbnail"} </a>
 		    {/g->container}
 		  {else}
 		    <a href="{$linkUrl}" class="giMissingThumbnail"> {g->text text="no thumbnail"} </a>
 		  {/if}
 		</div>
 
-		{*merge child.itemLinks=$smarty.RotatePhotoBlock.links*}
+		{$smarty.RotatePhotoBlock.form}
+
+		{merge child.itemLinks=$smarty.RotatePhotoBlock.links}
 		{g->block type="core.ItemLinks" item=$child links=$child.itemLinks}
 
 		{g->container type="core.EditItemBlock" templateId="title-`$child.id`" EditItemBlock.item=$child EditItemBlock.property="title"}

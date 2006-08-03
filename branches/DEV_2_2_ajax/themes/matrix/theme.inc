@@ -78,9 +78,10 @@ class MatrixTheme extends GalleryTheme {
 	$theme =& $template->getVariableByReference('theme');
 	$theme['columnWidthPct'] = floor(100 / $params['columns']);
 
-	/* EditItemBlock preloads */
+	/* Preloads */
 	GalleryCoreApi::requireOnce('modules/core/Preloads.inc');
 	CorePreloads::preload($template, 'EditItemBlock', array());
+	CorePreloads::preload($template, 'RotatePhotoBlock', array());
 
 	/* Add our header and styles */
 	return array(null, 'theme.tpl');
