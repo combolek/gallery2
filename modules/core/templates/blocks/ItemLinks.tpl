@@ -22,7 +22,7 @@
 
   {if count($links) > 1 && $useDropdown}
     <div class="{$class}">
-      <select onchange="eval(this.value)">
+      <select onchange="var value = this.value; this.options[0].selected = true; eval(this.value)">
 	<option label="{if $item.canContainChildren}{g->text text="&laquo; album actions &raquo;"}{else}{g->text text="&laquo; item actions &raquo;"}{/if}" value="">{if $item.canContainChildren}{g->text text="&laquo; album actions &raquo;"}{else}{g->text text="&laquo; item actions &raquo;"}{/if}</option>
 	{foreach from=$links item=link}
 	  {if $lowercase}

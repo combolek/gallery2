@@ -26,32 +26,32 @@
  */
 
 /**
- * Render one instance of the inline editing block.  Useful for Ajax callbacks.
+ * Render one instance of the Ajax rotation block
  *
  * @package GalleryCore
  * @subpackage UserInterface
  */
-class EditItemBlockView extends GalleryView {
+class RotatePhotoBlockView extends GalleryView {
 
     /**
      * @see GalleryView::loadTemplate
      */
     function loadTemplate(&$template, &$form) {
-	list ($templateId, $EditItemBlock) = GalleryUtilities::getRequestVariables('templateId',
-	    'EditItemBlock');
+	list ($templateId, $RotatePhotoBlock) = GalleryUtilities::getRequestVariables('templateId',
+	    'RotatePhotoBlock');
 
-	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($EditItemBlock['item']['id']);
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($RotatePhotoBlock['item']['id']);
 	if ($ret) {
 	    return array($ret, null);
 	}
 
-	$EditItemBlock['item'] = (array)$item;
+	$RotatePhotoBlock['item'] = (array)$item;
 
 	/* Render the HTML body */
 	$template->setVariable('templateId', $templateId);
-	$template->setVariable('EditItemBlock', $EditItemBlock);
+	$template->setVariable('RotatePhotoBlock', $RotatePhotoBlock);
 
-	return array(null, array('body' => 'modules/core/templates/EditItemBlock.tpl'));
+	return array(null, array('body' => 'modules/core/templates/RotatePhotoBlock.tpl'));
     }
 }
 ?>

@@ -85,6 +85,15 @@ class CorePreloads {
 	    /* Nothing to do */
 	    return null;
 
+	case 'RotatePhotoBlock':
+	    $template->javascript('lib/yui/yahoo-min.js');
+	    $template->javascript('lib/yui/connection-min.js');
+	    $template->javascript('lib/yui/dom-min.js');
+	    $template->javascript('lib/yui/event-min.js');
+	    $template->javascript('lib/javascript/GalleryUtilities.js');
+	    $template->javascript('lib/javascript/RotatePhotoBlock.js');
+	    return null;
+
 	case 'SystemLink':
 	    /* Nothing to do */
 	    return null;
