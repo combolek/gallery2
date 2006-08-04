@@ -103,7 +103,6 @@ class AdminRepositoryController extends GalleryController {
 		    array($this, 'performDownloadAndInstallation'),
 		    array($packages, 'commonTasks'));
 		$delegate['view'] = 'core.ProgressBar';
-		break;
 	    }
 	}
 
