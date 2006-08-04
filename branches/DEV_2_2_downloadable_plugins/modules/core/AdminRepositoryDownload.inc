@@ -61,13 +61,6 @@ class AdminRepositoryDownloadController extends GalleryController {
 	    return array($ret, null);
 	}
 
-	/* Init repository. */
-	$repository = $this->_getRepository();
-	$ret = $repository->init();
-	if ($ret) {
-	    return array($ret, null);
-	}
-
 	$status = $error = array();
 
 	if (!isset($form['pluginType']) || !isset($form['pluginId'])) {
@@ -84,13 +77,11 @@ class AdminRepositoryDownloadController extends GalleryController {
 					       "Invalid plugin type [$pluginType]"),
 			 null);
 	}
-	$returnTab = 'browse';
 
 	/* Handle cancel action. */
 	if (isset($form['action']['cancel'])) {
 	    $redirect['view'] = 'core.SiteAdmin';
 	    $redirect['subView'] = 'core.AdminRepository';
-	    $redirect['mode'] = $returnTab;
 	} else if (isset($form['action']['download'])) {
 	    /* Create package list. */
 	    $packages = array();
@@ -116,15 +107,16 @@ class AdminRepositoryDownloadController extends GalleryController {
 	    if (empty($packages)) {
 		$delegate['view'] = 'core.SiteAdmin';
 		$delegate['subView'] = 'core.AdminRepository';
-		$delegate['mode'] = 'download';
 		$error[] = 'form[packages][empty]';
+
+		/* TODO: Do we need to put these vars back into the request? */
 		GalleryUtilities::putRequestVariable('pluginId', $pluginId);
 		GalleryUtilities::putRequestVariable('pluginType', $pluginType);
 	    } else {
 		$templateAdapter =& $gallery->getTemplateAdapter();
 		$templateAdapter->registerTrailerCallback(
 		    array($this, 'performDownloadAndInstallation'),
-		    array(array($pluginType => array($pluginId => $packages)), $returnTab));
+		    array(array($pluginType => array($pluginId => $packages))));
 		$delegate['view'] = 'core.ProgressBar';
 	    }
 	}
@@ -154,7 +146,7 @@ class AdminRepositoryDownloadController extends GalleryController {
      * @param array packages
      * @param string 'commonTasks' or 'browse'
      */
-    function performDownloadAndInstallation($pluginData, $returnTab) {
+    function performDownloadAndInstallation($pluginData) {
 	global $gallery;
 	$templateAdapter =& $gallery->getTemplateAdapter();
 
@@ -253,7 +245,6 @@ class AdminRepositoryDownloadController extends GalleryController {
 	/* Show link to return to the previously selected tab. */
 	$redirect['view'] = 'core.SiteAdmin';
 	$redirect['subView'] = 'core.AdminRepository';
-	$redirect['mode'] = $returnTab;
 	$urlGenerator =& $gallery->getUrlGenerator();
 	$templateAdapter->completeProgressBar($urlGenerator->generateUrl($redirect));
 

@@ -215,6 +215,7 @@ class GalleryRepository {
 	if ($ret) {
 	    return array($ret, null);
 	}
+
 	foreach ($repositoryPluginList[$pluginType] as $pluginId => $plugin) {
 	    $action = '';
 	    $localVersion = '';
@@ -377,8 +378,8 @@ class GalleryRepository {
 	    $packageName, $packageVersion, $packageBuild) {
 	/* Check if specified package exists in the database. */
 	list ($ret, $searchResults) = GalleryCoreApi::getMapEntry('GalleryPluginPackageMap',
-	    array('packageVersion', 'packageBuild'), 
-	    array('pluginType' => $pluginType, 'pluginId' => $pluginId, 
+	    array('packageVersion', 'packageBuild'),
+	    array('pluginType' => $pluginType, 'pluginId' => $pluginId,
 		  'packageName' => $packageName));
 	if ($ret) {
 	    return $ret;
