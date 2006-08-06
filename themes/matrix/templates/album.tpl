@@ -62,17 +62,15 @@
 	      <td class="{if $child.canContainChildren}giAlbumCell gcBackground1{else}giItemCell{/if}" style="width: {$theme.columnWidthPct}%">
 		{if $child.canContainChildren || $child.entityType == 'GalleryLinkItem'}
 		  {assign frameType="albumFrame"}
-		  {capture assign="linkUrl"}
-		    {g->url arg1="view=core.ShowItem" arg2="itemId=`$child.id`"}
-		  {/capture}
+		  {capture assign="linkUrl"}{g->url arg1="view=core.ShowItem" arg2="itemId=`$child.id`"}{/capture}
 		{else}
 		  {assign frameType="itemFrame"}
-		  {capture assign="linkUrl"}
-		    {g->url params=$theme.pageUrl arg1="itemId=`$child.id`"}
-		  {/capture}
+		  {capture assign="linkUrl"}{g->url params=$theme.pageUrl arg1="itemId=`$child.id`"}{/capture}
 		{/if}
 		<div>
-		  {if isset($child.thumbnail)}
+		  {if empty($child.thumbnail)}
+		    <a href="{$linkUrl}" class="giMissingThumbnail"> {g->text text="no thumbnail"} </a>
+		  {else}
 		    {g->container type="imageframe.ImageFrame"
 			frame=$theme.params.$frameType
 			width=$child.thumbnail.width
@@ -83,14 +81,12 @@
 			RotatePhotoBlock.image=$child.thumbnail
 			RotatePhotoBlock.class="giThumbnail"} </a>
 		    {/g->container}
-		  {else}
-		    <a href="{$linkUrl}" class="giMissingThumbnail"> {g->text text="no thumbnail"} </a>
+
+		    {$smarty.RotatePhotoBlock.form}
+		    {merge child.itemLinks=$smarty.RotatePhotoBlock.links}
 		  {/if}
 		</div>
 
-		{$smarty.RotatePhotoBlock.form}
-
-		{merge child.itemLinks=$smarty.RotatePhotoBlock.links}
 		{g->block type="core.ItemLinks" item=$child links=$child.itemLinks}
 
 		{g->container type="core.EditItemBlock" templateId="title-`$child.id`" EditItemBlock.item=$child EditItemBlock.property="title"}
