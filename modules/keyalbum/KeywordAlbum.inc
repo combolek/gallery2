@@ -64,8 +64,6 @@ class KeywordAlbumView extends GalleryView {
 	    if ($ret) {
 		return array($ret, null, null, null);
 	    }
-
-	    /* Verify item and permissions */
 	    if (!GalleryUtilities::isA($viewItem, 'GalleryItem')) {
 		/* Invalid itemId given, return MISSING_OBJECT to get standard error page */
 		return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null, null, null);
