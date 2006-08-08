@@ -97,7 +97,7 @@ class Smarty_Compiler extends Smarty {
         // [0]
         // [foo]
         // [$bar]
-        $this->_var_bracket_regexp = '\[\$?[\w\.]+\]';
+        $this->_var_bracket_regexp = '\[(?:\$?[\w\.]+|' . $this->_qstr_regexp . ')\]';
 
         // matches numerical constants
         // 30
@@ -1241,174 +1241,175 @@ class Smarty_Compiler extends Smarty {
      */
     function _compile_if_tag($tag_args, $elseif = false)
     {
-
         /* Tokenize args for {if} tag */
         preg_match_all('~(?>'
-            # valid object call
+            /* Object call */
             . $this->_obj_call_regexp . '(?:' . $this->_mod_regexp . '*)?|'
-            # var or quoted string
+            /* Var or quoted string */
             . $this->_var_regexp . '(?:' . $this->_mod_regexp . '*)?|'
-            # valid function name
+            /* Function name */
             . $this->_func_regexp
-            # valid non-word token
+            /* Non-word token */
             . '|\-?0[xX][0-9a-fA-F]+|\-?\d+(?:\.\d+)?|\.\d+|!==|===|==|!=|<>|<<|>>|<=|>=|\&\&|\|\||\(|\)|,|\!|\^|=|\&|\~|<|>|\||\%|\+|\-|\/|\*|\@|
-            # valid word token
+            /* Word token */
             \b\w+\b|
-            # anything else
+            /* Anything else */
             \S+)~x', $tag_args, $match);
 
         $tokens = $match[0];
 
-        if(empty($tokens)) {
+        if (empty($tokens)) {
             $_error_msg = $elseif ? "'elseif'" : "'if'";
             $_error_msg .= ' statement requires arguments'; 
             $this->_syntax_error($_error_msg, E_USER_ERROR, __FILE__, __LINE__);
         }
-            
-                
-        // make sure we have balanced parenthesis
+
+        /* Make sure we have balanced parenthesis */
         $token_count = array_count_values($tokens);
-        if(isset($token_count['(']) && $token_count['('] != $token_count[')']) {
+        if (isset($token_count['(']) && $token_count['('] != $token_count[')']) {
             $this->_syntax_error("unbalanced parenthesis in if statement", E_USER_ERROR, __FILE__, __LINE__);
         }
 
         $is_arg_stack = array();
 
         for ($i = 0; $i < count($tokens); $i++) {
-
             $token = &$tokens[$i];
 
             switch (strtolower($token)) {
-                case '!':
-                case '%':
-                case '!==':
-                case '==':
-                case '===':
-                case '>':
-                case '<':
-                case '!=':
-                case '<>':
-                case '<<':
-                case '>>':
-                case '<=':
-                case '>=':
-                case '&&':
-                case '||':
-                case '|':
-                case '^':
-                case '&':
-                case '~':
-                case ')':
-                case ',':
-                case '+':
-                case '-':
-                case '*':
-                case '/':
-                case '@':
-                    break;
+            case '!':
+            case '%':
+            case '!==':
+            case '==':
+            case '===':
+            case '>':
+            case '<':
+            case '!=':
+            case '<>':
+            case '<<':
+            case '>>':
+            case '<=':
+            case '>=':
+            case '&&':
+            case '||':
+            case '|':
+            case '^':
+            case '&':
+            case '~':
+            case ')':
+            case ',':
+            case '+':
+            case '-':
+            case '*':
+            case '/':
+            case '@':
+                break;
 
-                case 'eq':
-                    $token = '==';
-                    break;
+            case 'eq':
+                $token = '==';
+                break;
 
-                case 'ne':
-                case 'neq':
-                    $token = '!=';
-                    break;
+            case 'ne':
+            case 'neq':
+                $token = '!=';
+                break;
 
-                case 'lt':
-                    $token = '<';
-                    break;
+            case 'lt':
+                $token = '<';
+                break;
 
-                case 'le':
-                case 'lte':
-                    $token = '<=';
-                    break;
+            case 'le':
+            case 'lte':
+                $token = '<=';
+                break;
 
-                case 'gt':
-                    $token = '>';
-                    break;
+            case 'gt':
+                $token = '>';
+                break;
 
-                case 'ge':
-                case 'gte':
-                    $token = '>=';
-                    break;
+            case 'ge':
+            case 'gte':
+                $token = '>=';
+                break;
 
-                case 'and':
-                    $token = '&&';
-                    break;
+            case 'and':
+                $token = '&&';
+                break;
 
-                case 'or':
-                    $token = '||';
-                    break;
+            case 'or':
+                $token = '||';
+                break;
 
-                case 'not':
-                    $token = '!';
-                    break;
+            case 'not':
+                $token = '!';
+                break;
 
-                case 'mod':
-                    $token = '%';
-                    break;
+            case 'mod':
+                $token = '%';
+                break;
 
-                case '(':
-                    array_push($is_arg_stack, $i);
-                    break;
+            case '(':
+                array_push($is_arg_stack, $i);
+                break;
 
-                case 'is':
-                    /* If last token was a ')', we operate on the parenthesized
-                       expression. The start of the expression is on the stack.
-                       Otherwise, we operate on the last encountered token. */
-                    if ($tokens[$i-1] == ')')
-                        $is_arg_start = array_pop($is_arg_stack);
-                    else
-                        $is_arg_start = $i-1;
-                    /* Construct the argument for 'is' expression, so it knows
-                       what to operate on. */
-                    $is_arg = implode(' ', array_slice($tokens, $is_arg_start, $i - $is_arg_start));
+            case 'is':
+                /*
+                 * If last token was a ')', we operate on the parenthesized
+                 * expression.  The start of the expression is on the stack.
+                 * Otherwise, we operate on the last encountered token.
+                 */
+                if ($tokens[$i-1] == ')')
+                    $is_arg_start = array_pop($is_arg_stack);
+                else
+                    $is_arg_start = $i-1;
+                /*
+                 * Construct the argument for 'is' expression, so it knows what
+                 * to operate on.
+                 */
+                $is_arg = implode(' ', array_slice($tokens, $is_arg_start, $i - $is_arg_start));
 
-                    /* Pass all tokens from next one until the end to the
-                       'is' expression parsing function. The function will
-                       return modified tokens, where the first one is the result
-                       of the 'is' expression and the rest are the tokens it
-                       didn't touch. */
-                    $new_tokens = $this->_parse_is_expr($is_arg, array_slice($tokens, $i+1));
+                /*
+                 * Pass all tokens from next one until the end to the 'is'
+                 * expression parsing function. The function will return
+                 * modified tokens, where the first one is the result of the
+                 * 'is' expression and the rest are the tokens it didn't touch.
+                 */
+                $new_tokens = $this->_parse_is_expr($is_arg, array_slice($tokens, $i+1));
 
-                    /* Replace the old tokens with the new ones. */
-                    array_splice($tokens, $is_arg_start, count($tokens), $new_tokens);
+                /* Replace the old tokens with the new ones. */
+                array_splice($tokens, $is_arg_start, count($tokens), $new_tokens);
 
-                    /* Adjust argument start so that it won't change from the
-                       current position for the next iteration. */
-                    $i = $is_arg_start;
-                    break;
+                /*
+                 * Adjust argument start so that it won't change from the
+                 * current position for the next iteration.
+                 */
+                $i = $is_arg_start;
+                break;
 
-                default:
-                    if(preg_match('~^' . $this->_func_regexp . '$~', $token) ) {
-                            // function call
-                            if($this->security &&
-                               !in_array($token, $this->security_settings['IF_FUNCS'])) {
-                                $this->_syntax_error("(secure mode) '$token' not allowed in if statement", E_USER_ERROR, __FILE__, __LINE__);
-                            }
-                    } elseif(preg_match('~^' . $this->_var_regexp . '$~', $token) && (strpos('+-*/^%&|', substr($token, -1)) === false) && isset($tokens[$i+1]) && $tokens[$i+1] == '(') {
-                        // variable function call
-                        $this->_syntax_error("variable function call '$token' not allowed in if statement", E_USER_ERROR, __FILE__, __LINE__);                      
-                    } elseif(preg_match('~^' . $this->_obj_call_regexp . '|' . $this->_var_regexp . '(?:' . $this->_mod_regexp . '*)$~', $token)) {
-                        // object or variable
-                        $token = $this->_parse_var_props($token);
-                    } elseif(is_numeric($token)) {
-                        // number, skip it
-                    } else {
-                        $this->_syntax_error("unidentified token '$token'", E_USER_ERROR, __FILE__, __LINE__);
+            default:
+                if (preg_match('~^' . $this->_func_regexp . '$~', $token)) {
+                    // function call
+                    if ($this->security && !in_array($token, $this->security_settings['IF_FUNCS'])) {
+                        $this->_syntax_error("(secure mode) '$token' not allowed in if statement", E_USER_ERROR, __FILE__, __LINE__);
                     }
-                    break;
+                } else if (preg_match('~^' . $this->_var_regexp . '$~', $token) && (strpos('+-*/^%&|', substr($token, -1)) === false) && isset($tokens[$i + 1]) && $tokens[$i + 1] == '(') {
+                    // variable function call
+                    $this->_syntax_error("variable function call '$token' not allowed in if statement", E_USER_ERROR, __FILE__, __LINE__);                      
+                } else if (preg_match('~^' . $this->_obj_call_regexp . '|' . $this->_var_regexp . '(?:' . $this->_mod_regexp . '*)$~', $token)) {
+                    // object or variable
+                    $token = $this->_parse_var_props($token);
+                } else if (is_numeric($token)) {
+                    // number, skip it
+                } else {
+                    $this->_syntax_error("unidentified token '$token'", E_USER_ERROR, __FILE__, __LINE__);
+                }
             }
         }
 
-        if ($elseif)
-            return '<?php elseif ('.implode(' ', $tokens).'): ?>';
-        else
-            return '<?php if ('.implode(' ', $tokens).'): ?>';
+        if ($elseif) {
+            return '<?php elseif (' . implode(' ', $tokens) . '): ?>';
+        }
+        return '<?php if (' . implode(' ', $tokens) . '): ?>';
     }
-
 
     function _compile_arg_list($type, $name, $attrs, &$cache_code) {
         $arg_list = array();
@@ -1583,8 +1584,7 @@ class Smarty_Compiler extends Smarty {
     }
 
     /**
-     * compile multiple variables and section properties tokens into
-     * PHP code
+     * Compile multiple variables and section properties tokens into PHP code
      *
      * @param array $tokens
      */
@@ -1596,8 +1596,7 @@ class Smarty_Compiler extends Smarty {
     }
 
     /**
-     * compile single variable and section properties token into
-     * PHP code
+     * Compile single variable and section properties token into PHP code
      *
      * @param string $val
      * @param string $tag_attrs
@@ -1691,29 +1690,30 @@ class Smarty_Compiler extends Smarty {
      */
     function _parse_var($var_expr)
     {
+var_dump($var_expr);
         $_has_math = false;
-        $_math_vars = preg_split('~('.$this->_dvar_math_regexp.'|'.$this->_qstr_regexp.')~', $var_expr, -1, PREG_SPLIT_DELIM_CAPTURE);
+        $_math_vars = preg_split('~(' . $this->_dvar_math_regexp . '|' . $this->_qstr_regexp.')~', $var_expr, -1, PREG_SPLIT_DELIM_CAPTURE);
 
-        if(count($_math_vars) > 1) {
+        if (count($_math_vars) > 1) {
             $_first_var = "";
             $_complete_var = "";
             $_output = "";
             // simple check if there is any math, to stop recursion (due to modifiers with "xx % yy" as parameter)
-            foreach($_math_vars as $_k => $_math_var) {
+            foreach ($_math_vars as $_k => $_math_var) {
                 $_math_var = $_math_vars[$_k];
 
-                if(!empty($_math_var) || is_numeric($_math_var)) {
+                if (!empty($_math_var) || is_numeric($_math_var)) {
                     // hit a math operator, so process the stuff which came before it
-                    if(preg_match('~^' . $this->_dvar_math_regexp . '$~', $_math_var)) {
+                    if (preg_match('~^' . $this->_dvar_math_regexp . '$~', $_math_var)) {
                         $_has_math = true;
-                        if(!empty($_complete_var) || is_numeric($_complete_var)) {
+                        if (!empty($_complete_var) || is_numeric($_complete_var)) {
                             $_output .= $this->_parse_var($_complete_var);
                         }
 
                         // just output the math operator to php
                         $_output .= $_math_var;
 
-                        if(empty($_first_var))
+                        if (empty($_first_var))
                             $_first_var = $_complete_var;
 
                         $_complete_var = "";
@@ -1722,8 +1722,8 @@ class Smarty_Compiler extends Smarty {
                     }
                 }
             }
-            if($_has_math) {
-                if(!empty($_complete_var) || is_numeric($_complete_var))
+            if ($_has_math) {
+                if (!empty($_complete_var) || is_numeric($_complete_var))
                     $_output .= $this->_parse_var($_complete_var);
 
                 // get the modifiers working (only the last var from math + modifier is left)
@@ -1732,17 +1732,18 @@ class Smarty_Compiler extends Smarty {
         }
 
         // prevent cutting of first digit in the number (we _definitly_ got a number if the first char is a digit)
-        if(is_numeric(substr($var_expr, 0, 1)))
+        if (is_numeric(substr($var_expr, 0, 1)))
             $_var_ref = $var_expr;
         else
             $_var_ref = substr($var_expr, 1);
         
-        if(!$_has_math) {
+        if (!$_has_math) {
             
             // get [foo] and .foo and ->foo and (...) pieces
             preg_match_all('~(?:^\w+)|' . $this->_obj_params_regexp . '|(?:' . $this->_var_bracket_regexp . ')|->\$?\w+|\.\$?\w+|\S+~', $_var_ref, $match);
                         
             $_indexes = $match[0];
+var_dump($_indexes);
             $_var_name = array_shift($_indexes);
 
             /* Handle $smarty.* variable references as a special case */
@@ -1765,9 +1766,9 @@ class Smarty_Compiler extends Smarty {
             foreach ($_indexes as $_index) {
                 if (substr($_index, 0, 1) == '[') {
                     $_index = substr($_index, 1, -1);
-                    if (is_numeric($_index)) {
+                    if (is_numeric($_index) || preg_match('~^' . $this->_qstr_regexp . '$~', $_index)) {
                         $_output .= "[$_index]";
-                    } elseif (substr($_index, 0, 1) == '$') {
+                    } else if (substr($_index, 0, 1) == '$') {
                         if (strpos($_index, '.') !== false) {
                             $_output .= '[' . $this->_parse_var($_index) . ']';
                         } else {
@@ -1785,11 +1786,11 @@ class Smarty_Compiler extends Smarty {
                     else
                         $_output .= "['" . substr($_index, 1) . "']";
                 } else if (substr($_index,0,2) == '->') {
-                    if(substr($_index,2,2) == '__') {
+                    if (substr($_index,2,2) == '__') {
                         $this->_syntax_error('call to internal object members is not allowed', E_USER_ERROR, __FILE__, __LINE__);
-                    } elseif($this->security && substr($_index, 2, 1) == '_') {
+                    } else if ($this->security && substr($_index, 2, 1) == '_') {
                         $this->_syntax_error('(secure) call to private object member is not allowed', E_USER_ERROR, __FILE__, __LINE__);
-                    } elseif (substr($_index, 2, 1) == '$') {
+                    } else if (substr($_index, 2, 1) == '$') {
                         if ($this->security) {
                             $this->_syntax_error('(secure) call to dynamic object member is not allowed', E_USER_ERROR, __FILE__, __LINE__);
                         } else {
@@ -1798,7 +1799,7 @@ class Smarty_Compiler extends Smarty {
                     } else {
                         $_output .= $_index;
                     }
-                } elseif (substr($_index, 0, 1) == '(') {
+                } else if (substr($_index, 0, 1) == '(') {
                     $_index = $this->_parse_parenth_args($_index);
                     $_output .= $_index;
                 } else {
