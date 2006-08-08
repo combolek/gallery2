@@ -26,10 +26,11 @@ function ItemAdmin() {
 /**
  * Submit template's form using Ajax
  *
- * @param {event} event which triggered the form's submision
+ * @param {Object} scope from which to import new values
+ * @param {Element} target of event which triggered the form's submision
  * @param {Object} self reference, since function will be executed in scope of the event target
  */
-ItemAdmin.submit = function(event, self) {
+ItemAdmin.submit = function(ItemAdmin, target, self) {
   if (!GalleryUtilities.isCallbackSupported()) {
     return;
   }
@@ -43,37 +44,37 @@ ItemAdmin.submit = function(event, self) {
   });
 
   /* Give immediate feedback if possible */
-  if (YAHOO.util.Event.getTarget(event).name
-      == GalleryUtilities.formVar("form[action][rotate][-90]")) {
+  if (target.name == GalleryUtilities.formVar("form[action][rotate][-90]")) {
     YAHOO.util.Dom.get(GalleryUtilities.elementId("thumbnailImage", "ItemAdmin")).style.filter =
       "progid:DXImageTransform.Microsoft.BasicImage(rotation=3)";
-  } else if (YAHOO.util.Event.getTarget(event).name
-      == GalleryUtilities.formVar("form[action][rotate][180]")) {
+  } else if (target.name == GalleryUtilities.formVar("form[action][rotate][180]")) {
     YAHOO.util.Dom.get(GalleryUtilities.elementId("thumbnailImage", "ItemAdmin")).style.filter =
       "progid:DXImageTransform.Microsoft.BasicImage(rotation=2)";
-  } else if (YAHOO.util.Event.getTarget(event).name
-      == GalleryUtilities.formVar("form[action][rotate][90]")) {
+  } else if (target.name == GalleryUtilities.formVar("form[action][rotate][90]")) {
     YAHOO.util.Dom.get(GalleryUtilities.elementId("thumbnailImage", "ItemAdmin")).style.filter =
       "progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
   }
 
-  /* Register with all callback responses */
-  GalleryUtilities.callbackEvent.subscribe(function(type, args) {
+  var connection;
 
-    /* Enable template's form */
-    YAHOO.util.Dom.batch(form.elements, function(element) {
-      element.disabled = "";
-    });
+  /* Register with all callback responses */
+  GalleryUtilities.responseEvent.subscribe(function(type, args) {
+    var response = args[0];
+    if (response.tId == connection.tId) {
+
+      /* Enable template's form */
+      YAHOO.util.Dom.batch(form.elements, function(element) {
+	element.disabled = "";
+      });
+    }
   });
 
   /* Serialize form elements */
-  var args = GalleryUtilities.serializeForm(form, YAHOO.util.Event.getTarget(event));
+  var args = GalleryUtilities.serializeForm(form, target);
   args.push(GalleryUtilities.formVar("callback") + "=callback");
 
   /* Make Ajax callback request */
-  GalleryUtilities.callbackRequest(form.action, args);
-
-  YAHOO.util.Event.preventDefault(event);
+  connection = GalleryUtilities.callbackRequest(form.action, args);
 }
 
 /**
