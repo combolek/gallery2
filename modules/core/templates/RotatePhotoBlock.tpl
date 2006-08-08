@@ -11,6 +11,7 @@
     class=$RotatePhotoBlock.class
     id=$RotatePhotoBlock.id}
 
+  {assign smarty.RotatePhotoBlock.status=null}
   {assign smarty.RotatePhotoBlock.form=null}
   {assign smarty.RotatePhotoBlock.links=null}
   {if GalleryUtilities::isA($RotatePhotoBlock.item, 'GalleryPhotoItem')
@@ -25,26 +26,27 @@
 	</b>
       {/capture}
     {else*}
+      {capture assign="smarty.RotatePhotoBlock.status"}
+	<span id="{"status"|elementId}"{if empty($status.editMessage) && empty($status.warning) && empty($form.error)} style="display: none"{/if}>
+	  <img class="giWorking" id="{"working"|elementId}" style="display: none" alt="{g->text text="Rotating photo..."}" src="{g->url href="themes/ajaxian/images/working-hard.gif"}"/>
+
+	  <img class="giSuccess" id="{"success"|elementId}"{if empty($status.editMessage)} style="display: none"{/if} alt="{$status.editMessage}" src="{g->url href="install/images/ico_success.gif"}"/>
+
+	  <img class="giWarning" id="{"warning"|elementId}"{if empty($status.warning)} style="display: none"{/if} alt="{$status.warning|@implode:""}" src="{g->url href="install/images/ico_warning.gif"}"/>
+
+	  <img class="giError" id="{"error"|elementId}"{if empty($form.error)} style="display: none"{/if} alt="{g->text text="There was a problem processing your request"}" src="{g->url href="install/images/ico_error.gif"}"/>
+	</span>
+      {/capture}
+
       {capture assign="smarty.RotatePhotoBlock.form"}
 	<span id="{"hidden"|elementId}" style="display: none"></span>
-	<div class="gbBlock" id="{"status"|elementId}"{if empty($status.editMessage) && empty($status.warning) && empty($form.error)} style="display: none"{/if}>
-	  <h2 class="giSuccess" id="{"success"|elementId}"{if empty($status.editMessage)} style="display: none"{/if}> {$status.editMessage} </h2>
-
-	  <div class="giWarning" id="{"warning"|elementId}"{if empty($status.warning)} style="display: none"{/if}>
-	    {foreach from=$status.warning item=warning}
-	      {$warning}
-	    {/foreach}
-	  </div>
-
-	  <h2 class="giError" id="{"error"|elementId}"{if empty($form.error)} style="display: none"{/if}> {g->text text="There was a problem processing your request"} </h2>
-	</div>
 
 	<form id="{"form"|elementId}" action="{g->url}" method="post" enctype="{$RotatePhotoBlock.enctype|default:"application/x-www-form-urlencoded"}">
 	  {g->hiddenFormVars}
 	  <input name="{"controller"|formVar}" type="hidden" value="core.ItemEdit"/>
 	  <input name="{"itemId"|formVar}" type="hidden" value="{$RotatePhotoBlock.item.id}"/>
 	  <input name="{"editPlugin"|formVar}" type="hidden" value="ItemEditRotateAndScalePhoto"/>
-	  <input id="{"serialNumberInput"|elementId}" name="{"form[serialNumber]"|formVar}" type="hidden" value="{$RotatePhotoBlock.item.serialNumber}"/>
+	  <input class="serialNumberInput-{$RotatePhotoBlock.item.id}" name="{"form[serialNumber]"|formVar}" type="hidden" value="{$RotatePhotoBlock.item.serialNumber}"/>
 	  <input class="inputTypeSubmit" id="{"rotate-90Input"|elementId}" name="{"form[action][rotate][-90]"|formVar}" type="submit" value="{g->text text="-90&deg;"}"/> &nbsp;
 	  <input class="inputTypeSubmit" id="{"rotate180Input"|elementId}" name="{"form[action][rotate][180]"|formVar}" type="submit" value="{g->text text="180&deg;"}"/> &nbsp;
 	  <input class="inputTypeSubmit" id="{"rotate90Input"|elementId}" name="{"form[action][rotate][90]"|formVar}" type="submit" value="{g->text text="90&deg;"}"/>
@@ -86,8 +88,6 @@
 {* Ajax callback output *}
 {if GalleryUtilities::isCallback()}
   {capture append="smarty.output"}
-    YAHOO.util.Dom.get("{"serialNumberInput"|elementId}").value =
-      {$RotatePhotoBlock.item.serialNumber};
     YAHOO.util.Dom.get("{"hidden"|elementId}").innerHTML =
       '{g->image item=$RotatePhotoBlock.item
         image=$RotatePhotoBlock.image
@@ -98,32 +98,40 @@
       var image = YAHOO.util.Dom.get("{$RotatePhotoBlock.id}");
       image.parentNode.replaceChild(hiddenImage, image);
       hiddenImage.id = "{$RotatePhotoBlock.id}";
-    {rdelim}, RotatePhotoBlock);
 
-    {if empty($status.editMessage) && empty($status.warning) && empty($form.error)}
-      GalleryUtilities.hide("{"status"|elementId}");
-    {else}
-      GalleryUtilities.show("{"status"|elementId}");
-    {/if}
+      GalleryUtilities.hide("{"working"|elementId}");
 
-    {if empty($status.editMessage)}
-      GalleryUtilities.hide("{"success"|elementId}");
-    {else}
-      YAHOO.util.Dom.get("{"success"|elementId}").innerHTML = "{$status.editMessage}";
-      GalleryUtilities.show("{"success"|elementId}");
-    {/if}
+      {if empty($status.editMessage) && empty($status.warning) && empty($form.error)}
+	GalleryUtilities.hide("{"status"|elementId}");
+      {else}
+	GalleryUtilities.show("{"status"|elementId}");
+      {/if}
 
-    {if empty($status.warning)}
-      GalleryUtilities.hide("{"warning"|elementId}");
-    {else}
-      YAHOO.util.Dom.get("{"warning"|elementId}").innerHTML = "{$status.warning|@implode:""}";
-      GalleryUtilities.show("{"warning"|elementId}");
-    {/if}
+      {if empty($status.editMessage)}
+	GalleryUtilities.hide("{"success"|elementId}");
+      {else}
+	YAHOO.util.Dom.get("{"success"|elementId}").innerHTML = "{$status.editMessage}";
+	GalleryUtilities.show("{"success"|elementId}");
+      {/if}
 
-    {if empty($form.error)}
-      GalleryUtilities.hide("{"error"|elementId}");
-    {else}
-      GalleryUtilities.show("{"error"|elementId}");
-    {/if}
+      {if empty($status.warning)}
+	GalleryUtilities.hide("{"warning"|elementId}");
+      {else}
+	YAHOO.util.Dom.get("{"warning"|elementId}").innerHTML = "{$status.warning|@implode:""}";
+	GalleryUtilities.show("{"warning"|elementId}");
+      {/if}
+
+      {if empty($form.error)}
+	GalleryUtilities.hide("{"error"|elementId}");
+      {else}
+	GalleryUtilities.show("{"error"|elementId}");
+      {/if}
+    {rdelim}, RotatePhotoBlock_{$templateId|replace:"-":"_"});
+
+    YAHOO.util.Dom.batch(
+      YAHOO.util.Dom.getElementsByClassName("serialNumberInput-{$RotatePhotoBlock.item.id}"),
+      function(element) {ldelim}
+	element.value = {$RotatePhotoBlock.item.serialNumber};
+      {rdelim});
   {/capture}
 {/if}

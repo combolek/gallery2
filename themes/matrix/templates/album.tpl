@@ -94,7 +94,7 @@
 		  {/if}
 		</div>
 
-		{g->block type="core.ItemLinks" item=$child links=$child.itemLinks}
+		{g->block type="core.ItemLinks" item=$child links=$child.itemLinks} {$smarty.RotatePhotoBlock.status}
 
 		{g->container type="core.EditItemBlock"
 		    templateId="title-`$child.id`"
