@@ -15,14 +15,21 @@
       <div class="gbBlock gcBackground1">
 	<table style="width: 100%"><tr>
 	  <td>
-	    {if !empty($theme.item.title)}
-	      <h2> {$theme.item.title|markup} </h2>
-	    {/if}
-	    {if !empty($theme.item.description)}
+	    {g->container type="core.EditItemBlock"
+		templateId="title-`$theme.item.id`"
+		EditItemBlock.item=$theme.item
+		EditItemBlock.property="title"}
+	      <h2> {$EditItemBlock.value} {$EditItemBlock.status} </h2>
+	    {/g->container}
+
+	    {g->container type="core.EditItemBlock"
+		templateId="title-`$theme.item.id`"
+		EditItemBlock.item=$theme.item
+		EditItemBlock.property="description"}
 	      <p class="giDescription">
-		{$theme.item.description|markup}
+		{$EditItemBlock.value} {$EditItemBlock.status}
 	      </p>
-	    {/if}
+	    {/g->container}
 	  </td>
 	  <td style="width: 30%">
 	    {g->block type="core.ItemInfo" item=$theme.item showDate=true showSize=true showOwner=true class="giInfo"}
@@ -99,6 +106,7 @@
 		    {else}
 		      {$EditItemBlock.value}
 		    {/if}
+		    {$EditItemBlock.status}
 		  </p>
 		{/g->container}
 
@@ -107,7 +115,7 @@
 		    EditItemBlock.item=$child
 		    EditItemBlock.property="summary"}
 		  <p class="giDescription">
-		    {$EditItemBlock.value}
+		    {$EditItemBlock.value} {$EditItemBlock.status}
 		  </p>
 		{/g->container}
 

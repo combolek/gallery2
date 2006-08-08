@@ -165,7 +165,10 @@ GalleryUtilities.isResponseSuccessful = function(response) {
  */
 GalleryUtilities.hide = function() {
   for (var i = 0; i < arguments.length; i++) {
-    YAHOO.util.Dom.get(arguments[i]).style.display = "none";
+    var element = YAHOO.util.Dom.get(arguments[i]);
+    if (element != null) {
+      element.style.display = "none";
+    }
   }
 }
 
@@ -176,7 +179,10 @@ GalleryUtilities.hide = function() {
  */
 GalleryUtilities.show = function() {
   for (var i = 0; i < arguments.length; i++) {
-    YAHOO.util.Dom.get(arguments[i]).style.display = "";
+    var element = YAHOO.util.Dom.get(arguments[i]);
+    if (element != null) {
+      element.style.display = "";
+    }
   }
 }
 

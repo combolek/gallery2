@@ -5,8 +5,16 @@
  * version.  Gallery will look for that file first and use it if it exists.
  *}
 {if !isset($content)}
-  {capture assign="EditItemBlock.value"}
-    <span id="{"value"|elementId}"> {$EditItemBlock.item[$EditItemBlock.property]|markup|entitytruncate:256} </span>
+  {capture assign="EditItemBlock.value"}<span id="{"value"|elementId}"> {$EditItemBlock.item[$EditItemBlock.property]|markup|entitytruncate:256} </span>{/capture}
+
+  {capture assign="EditItemBlock.status"}
+    <span class="gbBlock" id="{"status"|elementId}"{if empty($status.editMessage) && empty($status.warning) && empty($form.error)} style="display: none"{/if}>
+      <img class="giSuccess" id="{"success"|elementId}"{if empty($status.editMessage)} style="display: none"{/if} alt="{$status.editMessage}" src="{g->url href="install/images/ico_success.gif"}"/>
+
+      <img class="giWarning" id="{"warning"|elementId}"{if empty($status.warning)} style="display: none"{/if} alt="{$status.warning|@implode:""}" src="{g->url href="install/images/ico_warning.gif"}"/>
+
+      <img class="giError" id="{"error"|elementId}"{if empty($form.error)} style="display: none"{/if} alt="{g->text text="There was a problem processing your request"}" src="{g->url href="install/images/ico_error.gif"}"/>
+    </span>
   {/capture}
 {else}
   <div class="{$class}">
@@ -14,17 +22,6 @@
       {if !$EditItemBlock.item.permissions.core_edit}
 	{$content}
       {else}
-	<div class="gbBlock" id="{"status"|elementId}"{if empty($status.editMessage) && empty($status.warning) && empty($form.error)} style="display: none"{/if}>
-	  <h2 class="giSuccess" id="{"success"|elementId}"{if empty($status.editMessage)} style="display: none"{/if}> {$status.editMessage} </h2>
-
-	  <div class="giWarning" id="{"warning"|elementId}"{if empty($status.warning)} style="display: none"{/if}>
-	    {foreach from=$status.warning item=warning}
-	      {$warning}
-	    {/foreach}
-	  </div>
-
-	  <h2 class="giError" id="{"error"|elementId}"{if empty($form.error)} style="display: none"{/if}> {g->text text="There was a problem processing your request"} </h2>
-	</div>
 
 	{* TODO Fix CSS *}
 	<a id="{"link"|elementId}" style="color: black{if $EditItemBlock.property != 'title'}; font-weight: normal{/if}" href="javascript:GalleryUtilities.hide('{"status"|elementId}'); GalleryUtilities.hide('{"link"|elementId}'); GalleryUtilities.show('{"form"|elementId}')">
@@ -86,14 +83,14 @@
     {if empty($status.editMessage)}
       GalleryUtilities.hide("{"success"|elementId}");
     {else}
-      YAHOO.util.Dom.get("{"success"|elementId}").innerHTML = "{$status.editMessage}";
+      YAHOO.util.Dom.get("{"success"|elementId}").alt = "{$status.editMessage}";
       GalleryUtilities.show("{"success"|elementId}");
     {/if}
 
     {if empty($status.warning)}
       GalleryUtilities.hide("{"warning"|elementId}");
     {else}
-      YAHOO.util.Dom.get("{"warning"|elementId}").innerHTML = "{$status.warning|@implode:""}";
+      YAHOO.util.Dom.get("{"warning"|elementId}").alt = "{$status.warning|@implode:""}";
       GalleryUtilities.show("{"warning"|elementId}");
     {/if}
 
