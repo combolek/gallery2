@@ -37,8 +37,10 @@ class CorePreloads {
 	    $template->javascript('lib/yui/connection-min.js');
 	    $template->javascript('lib/yui/dom-min.js');
 	    $template->javascript('lib/yui/event-min.js');
+	    $template->javascript('lib/yui/container-min.js');
 	    $template->javascript('lib/javascript/GalleryUtilities.js');
 	    $template->javascript('lib/javascript/EditItemBlock.js');
+	    $template->style('lib/yui/container.css');
 	    return null;
 
 	case 'EmergencyEditItemLink':
