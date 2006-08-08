@@ -20,186 +20,186 @@
 /**
  * Collection of useful JavaScript utilities
  */
-var GalleryUtilities = {
+function GalleryUtilities() {
+}
 
-  /**
-   * Client supports Ajax callbacks
-   *
-   * @return {Boolean} true if the client supports Ajax callbacks
-   */
-  isCallbackSupported: function() {
-    return YAHOO.util.Connect.getConnectionObject();
-  },
+/**
+ * Client supports Ajax callbacks
+ *
+ * @return {Boolean} true if the client supports Ajax callbacks
+ */
+GalleryUtilities.isCallbackSupported = function() {
+  return YAHOO.util.Connect.getConnectionObject();
+}
 
-  /**
-   * Serialize form elements
-   *
-   * @param {Form} form to serialize
-   * @param {Element} target of event which triggered form's submission.  Other submit elements are
-   *                  not serialized.
-   * @return {Array} "name=value" arguments
-   */
-  serializeForm: function(form, target) {
-    form = YAHOO.util.Dom.get(form);
+/**
+ * Serialize form elements
+ *
+ * @param {Form} form to serialize
+ * @param {Element} target of event which triggered form's submission.  Other submit elements are
+ *                  not serialized.
+ * @return {Array} "name=value" arguments
+ */
+GalleryUtilities.serializeForm = function(form, target) {
+  form = YAHOO.util.Dom.get(form);
 
-    var args = [];
-    YAHOO.util.Dom.batch(form.elements, function(element) {
+  var args = [];
+  YAHOO.util.Dom.batch(form.elements, function(element) {
 
-      /* Don't serialize form elements without name attributes */
-      if (element.name == "") {
-	return;
-      }
+    /* Don't serialize form elements without name attributes */
+    if (element.name == "") {
+      return;
+    }
 
-      /* Don't serialize submit elements which weren't clicked */
-      if (element.type.toLowerCase() == "submit" && element != YAHOO.util.Dom.get(target)) {
-	return;
-      }
+    /* Don't serialize submit elements which weren't clicked */
+    if (element.type.toLowerCase() == "submit" && element != YAHOO.util.Dom.get(target)) {
+      return;
+    }
 
-      /* Serialize form elements */
-      switch (element.type) {
-      case "select-one":
-	var option = element.options[element.selectedIndex];
-	var arg = [element.name, option.value];
-	break;
-      case "select-multiple":
-	var value = [];
-	YAHOO.util.Dom.batch(element.options, function(option) {
-	  if (option.selected) {
-	    value.push(option.value);
-	  }
-	});
-	var arg = [element.name, value];
-	break;
-      case "checkbox":
-      case "radio":
-	if (element.checked) {
-	  var arg = [element.name, element.value];
+    /* Serialize form elements */
+    switch (element.type) {
+    case "select-one":
+      var option = element.options[element.selectedIndex];
+      var arg = [element.name, option.value];
+      break;
+    case "select-multiple":
+      var value = [];
+      YAHOO.util.Dom.batch(element.options, function(option) {
+	if (option.selected) {
+	  value.push(option.value);
 	}
-	break;
-      case "submit":
-      case "hidden":
-      case "password":
-      case "text":
+      });
+      var arg = [element.name, value];
+      break;
+    case "checkbox":
+    case "radio":
+      if (element.checked) {
 	var arg = [element.name, element.value];
-	break;
+      }
+      break;
+    case "submit":
+    case "hidden":
+    case "password":
+    case "text":
+      var arg = [element.name, element.value];
+      break;
+    }
+
+    /* Ignore empty arguments */
+    if (arg) {
+      args.push(encodeURIComponent(arg[0]) + "=" + encodeURIComponent(arg[1]));
+    }
+  });
+
+  return args;
+}
+
+/**
+ * Make Ajax callback request
+ *
+ * @param {String} request URL
+ * @param {Array} "name=value" arguments
+ * @return {Object} YUI connection object
+ */
+GalleryUtilities.callbackRequest = function(url, args) {
+  return YAHOO.util.Connect.asyncRequest("POST", url, {
+    success: function(response) {
+      if (response.getResponseHeader["Content-Type"] &&
+	  response.getResponseHeader["Content-Type"].ltrim().substr(0, 15) ==
+	    "text/javascript") {
+	eval(response.responseText);
+	this.callbackEvent.fire(response);
+	return;
       }
 
-      /* Ignore empty arguments */
-      if (arg) {
-	args.push(encodeURIComponent(arg[0]) + "=" + encodeURIComponent(arg[1]));
+      document.open();
+      document.write(response.responseText);
+      document.close();
+    },
+
+    failure: function(response) {
+      if (response.getResponseHeader["Content-Type"] &&
+	  response.getResponseHeader["Content-Type"].ltrim().substr(0, 15) ==
+	    "text/javascript") {
+	eval(response.responseText);
+	this.callbackEvent.fire(response);
+	return;
       }
-    });
 
-    return args;
-  },
+      document.open();
+      document.write(response.responseText);
+      document.close();
+    },
+    
+    scope: this}, args.join("&"));
+}
 
-  /**
-   * Make Ajax callback request
-   *
-   * @param {String} request URL
-   * @param {Array} "name=value" arguments
-   * @return {Object} YUI connection object
-   */
-  callbackRequest: function(url, args) {
-    return YAHOO.util.Connect.asyncRequest("POST", url, {
-      success: function(response) {
-	if (response.getResponseHeader["Content-Type"] &&
-	    response.getResponseHeader["Content-Type"].ltrim().substr(0, 15) ==
-	      "text/javascript") {
-	  eval(response.responseText);
-	  this.callbackEvent.fire(response);
-	  return;
-	}
+/**
+ * Custom event triggered on all callback responses
+ */
+GalleryUtilities.callbackEvent = new YAHOO.util.CustomEvent("callback");
 
-	document.open();
-	document.write(response.responseText);
-	document.close();
-      },
+/**
+ * Callback response is successful
+ *
+ * @param {Object} YUI response object
+ * @return {Boolean} true if the callback response is successful
+ */
+GalleryUtilities.isResponseSuccessful = function(response) {
+  var status = response.status;
+  return status >= 200 && status < 300;
+}
 
-      failure: function(response) {
-	if (response.getResponseHeader["Content-Type"] &&
-	    response.getResponseHeader["Content-Type"].ltrim().substr(0, 15) ==
-	      "text/javascript") {
-	  eval(response.responseText);
-	  this.callbackEvent.fire(response);
-	  return;
-	}
-
-	document.open();
-	document.write(response.responseText);
-	document.close();
-      },
-      
-      scope: this}, args.join("&"));
-  },
-
-  /**
-   * Custom event triggered on all callback responses
-   */
-  callbackEvent: new YAHOO.util.CustomEvent("callback"),
-
-  /**
-   * Callback response is successful
-   *
-   * @param {Object} YUI response object
-   * @return {Boolean} true if the callback response is successful
-   */
-  isResponseSuccessful: function(response) {
-    var status = response.status;
-    return status >= 200 && status < 300;
-  },
-
-  /**
-   * Hide element
-   *
-   * @param {mixed} one element or many elements
-   */
-  hide: function() {
-    for (var i = 0; i < arguments.length; i++) {
-      YAHOO.util.Dom.get(arguments[i]).style.display = "none";
-    }
-  },
-
-  /**
-   * Show element
-   *
-   * @param {mixed} one element or many elements
-   */
-  show: function() {
-    for (var i = 0; i < arguments.length; i++) {
-      YAHOO.util.Dom.get(arguments[i]).style.display = "";
-    }
-  },
-
-  /**
-   * Element ids in Gallery contain 1) the element id, 2) the template basename - to avoid conflicts
-   * between different templates included in the same HTML page - & optionally 3) a template id - to
-   * avoid conflicts between the same template, if included more than once like an item block on an
-   * album page.
-   *
-   * @param string element id
-   * @param string template name
-   * @param string template id
-   * @return string an element id
-   */
-  elementId: function(elementId, templateName, templateId) {
-
-    /* JavaScript reference mentions join is a generic method, yet arguments.join is undefined */
-    arguments.join = Array.prototype.join;
-    return arguments.join("-");
-  },
-
-  /**
-   * Return variable name with prepended prefix
-   *
-   * @param string key
-   * @return string key with prefix
-   * @todo use GALLERY_FORM_VARIABLE_PREFIX
-   */
-  formVar: function(name) {
-    return "g2_" + name;
+/**
+ * Hide element
+ *
+ * @param {mixed} one element or many elements
+ */
+GalleryUtilities.hide = function() {
+  for (var i = 0; i < arguments.length; i++) {
+    YAHOO.util.Dom.get(arguments[i]).style.display = "none";
   }
-};
+}
+
+/**
+ * Show element
+ *
+ * @param {mixed} one element or many elements
+ */
+GalleryUtilities.show = function() {
+  for (var i = 0; i < arguments.length; i++) {
+    YAHOO.util.Dom.get(arguments[i]).style.display = "";
+  }
+}
+
+/**
+ * Element ids in Gallery contain 1) the element id, 2) the template basename - to avoid conflicts
+ * between different templates included in the same HTML page - & optionally 3) a template id - to
+ * avoid conflicts between the same template, if included more than once like an item block on an
+ * album page.
+ *
+ * @param {String} element id
+ * @param {String} template name
+ * @param {String} template id
+ * @return {String} an element id
+ */
+GalleryUtilities.elementId = function(elementId, templateName, templateId) {
+
+  /* JavaScript reference mentions join is a generic method, yet arguments.join is undefined */
+  arguments.join = Array.prototype.join;
+  return arguments.join("-");
+}
+
+/**
+ * Return variable name with prepended prefix
+ *
+ * @param {String} key
+ * @return {String} key with prefix
+ * @todo use GALLERY_FORM_VARIABLE_PREFIX
+ */
+GalleryUtilities.formVar = function(name) {
+  return "g2_" + name;
+}
 
 /**
  * Trim leading spaces
