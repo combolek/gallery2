@@ -49,11 +49,18 @@
 	<script type="text/javascript">
 	  // <![CDATA[
 
+	  var EditItemBlock_{$templateId|replace:"-":"_"} = new EditItemBlock();
+	  EditItemBlock_{$templateId|replace:"-":"_"}.templateId = "{$templateId}";
+
 	  {* Register template's submit function with submit buttons *}
-	  YAHOO.util.Event.addListener(["{"saveInput"|elementId}", "{"undoInput"|elementId}"], "click",
-	    EditItemBlock.submit("{g->url}", "{$templateId}", {ldelim}
-	      item: {ldelim} id: {$EditItemBlock.item.id}{rdelim},
-	      property: "{$EditItemBlock.property}"{rdelim}), EditItemBlock);
+	  YAHOO.util.Event.addListener(["{"saveInput"|elementId}", "{"undoInput"|elementId}"],
+	    "click", function(event, self) {ldelim}
+	      EditItemBlock_{$templateId|replace:"-":"_"}.submit(
+	        {ldelim}item: {ldelim}id: {$EditItemBlock.item.id}{rdelim},
+		  property: "{$EditItemBlock.property}"{rdelim}, YAHOO.util.Event.getTarget(event),
+		self);
+	      YAHOO.util.Event.preventDefault(event);
+	    {rdelim}, EditItemBlock_{$templateId|replace:"-":"_"});
 
 	  // ]]>
 	</script>
