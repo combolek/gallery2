@@ -37,6 +37,10 @@ class MockTemplateAdapter {
 	return null;
     }
 
+    function getCallback($index) {
+	return $this->_callbacks[$index];
+    }
+
     function getCallbackCount() {
 	return sizeof($this->_callbacks);
     }
