@@ -73,7 +73,6 @@ class RepositoryTest extends GalleryTestCase {
 	    'installedPackages' => array(
 		'base' => array('version' => '1.0.0', 'build' => '19710411131300')),
 	    'expectedUpgradeInfo' => array(
-		'downloadablePackages' => array('test' => 1),
 		'downloadableLanguages' => array(
 		    'codes' => array('en_US', 'en_GB', 'pt_PT', 'pt_BR'),
 		    'names' => array('en_US', 'en_GB', 'pt_PT', 'pt_BR'))),
@@ -92,7 +91,6 @@ class RepositoryTest extends GalleryTestCase {
 		'base' => array('version' => '1.0.0', 'build' => '19700111131300')),
 	    'expectedUpgradeInfo' => array(
 		'isBaseUpgradeable' => 1,
-		'downloadablePackages' => array('test' => 1),
 		'downloadableLanguages' => array(
 		    'codes' => array('en_US', 'en_GB', 'pt_PT', 'pt_BR'),
 		    'names' => array('en_US', 'en_GB', 'pt_PT', 'pt_BR'))),
@@ -102,7 +100,6 @@ class RepositoryTest extends GalleryTestCase {
 
 	    'installedPackages' => array(
 		'base' => array('version' => '1.0.0', 'build' => '19700412131300'),
-		'test' => array('version' => '1.0.0', 'build' => '19700412131300'),
 		'lang-en_US' => array('version' => '2.2', 'build' => '2.3'),
 		'lang-en_GB' => array('version' => '2.2', 'build' => '2.3'),
 		'lang-pt_BR' => array('version' => '2.2', 'build' => '2.3'),
@@ -113,7 +110,6 @@ class RepositoryTest extends GalleryTestCase {
 	    'installedPackages' => array(),
 	    'expectedUpgradeInfo' => array(
 		'isBaseDownloadable' => 1,
-		'downloadablePackages' => array('test' => 1),
 		'downloadableLanguages' => array(
 		    'codes' => array('en_US', 'en_GB', 'pt_PT', 'pt_BR'),
 		    'names' => array('en_US', 'en_GB', 'pt_PT', 'pt_BR'))),
@@ -121,7 +117,6 @@ class RepositoryTest extends GalleryTestCase {
 
 	    'installedPackages' => array(
 		'base' => array('version' => '1.0.0', 'build' => '19700412131300'),
-		'test' => array('version' => '1.0.0', 'build' => '19700412131300'),
 		'lang-en_US' => array('version' => '2.2', 'build' => '2.1'),
 		'lang-en_GB' => array('version' => '2.2', 'build' => '2.2'),
 		'lang-pt_PT' => array('version' => '2.2', 'build' => '2.3')),
@@ -423,7 +418,7 @@ class RepositoryTest extends GalleryTestCase {
 			    'Invalid data added.');
 
 	$searches = $this->_testStorage->getSearches();
-	$this->assertEquals(array('map' => 'GalleryPluginPackageMap', 
+	$this->assertEquals(array('map' => 'GalleryPluginPackageMap',
 	    'select' => array('packageVersion', 'packageBuild'),
 	    'where' => array('pluginType' => 'module', 'pluginId' => 'testModule',
 		'packageName' => 'package')),
@@ -451,7 +446,7 @@ class RepositoryTest extends GalleryTestCase {
 	$this->assertEquals(array('map' => 'GalleryPluginPackageMap',
 	    'select' => array('packageVersion', 'packageBuild'),
 	    'where' => array('pluginType' => 'module', 'pluginId' => 'testModule',
-		'packageName' => 'package')), 
+		'packageName' => 'package')),
 	    $searches[1], 'Unexpected query on map update.');
     }
 
@@ -460,57 +455,28 @@ class RepositoryTest extends GalleryTestCase {
 
 	$repository = new GalleryRepository();
 
-	$repositoryCachePath = 'modules/core/cache';
+	$repositoryCachePath = '/cache/';
 	$gallery->setConfig('repository.cache', $repositoryCachePath);
-	$expectedPluginsDirectory = realpath(dirname(dirname(dirname(__FILE__))) . '/classes/') .
-	    '/../../../' . $gallery->getConfig('plugins.dirname');
-	$pluginsDirectory = 'plugins';
 
 	/* Test when all of the directories are set up properly. */
 	$platform = new UnitTestPlatform();
-	$platform->setReply('realpath', array($expectedPluginsDirectory), $pluginsDirectory);
-	$platform->setReply('is_dir', array($pluginsDirectory), true);
-	$platform->setReply('is_dir', array($pluginsDirectory . '/modules'), true);
-	$platform->setReply('is_dir', array($pluginsDirectory . '/themes'), true);
-	$platform->setReply('file_exists', array($repositoryCachePath), true);
-	$platform->setReply('is_dir', array($repositoryCachePath . 'modules'), true);
-	$platform->setReply('is_dir', array($repositoryCachePath . 'themes'), true);
+	$platform->setReply('file_exists', array('/cache/'), true);
+	$platform->setReply('is_dir', array('/cache/modules'), true);
+	$platform->setReply('is_dir', array('/cache/themes'), true);
 	$gallery->setPlatform($platform);
 	list ($isSetUp, $message) = $repository->createPluginsDirectory();
 	$this->assert($isSetUp, $message);
 
-	/* Test when the plugins directory does not exist. */
-	$platform = new UnitTestPlatform();
-	$platform->setReply('realpath', array($expectedPluginsDirectory), $pluginsDirectory);
-	$platform->setReply('is_dir', array($pluginsDirectory), false);
-	$gallery->setPlatform($platform);
-	list ($isSetUp, $message) = $repository->createPluginsDirectory();
-	$this->assert(!$isSetUp, 'Return value should be false.');
-
-	/* Test the creation of all directories. */
-	$platform = new UnitTestPlatform();
-	$platform->setReply('realpath', array($expectedPluginsDirectory), $pluginsDirectory);
-	$platform->setReply('is_dir', array($pluginsDirectory), true);
-	$platform->setReply('is_dir', array($pluginsDirectory . '/modules'), false);
-	$platform->setReply('mkdir', array($pluginsDirectory . '/modules', 755), true);
-	$platform->setReply('is_dir', array($pluginsDirectory . '/themes'), false);
-	$platform->setReply('mkdir', array($pluginsDirectory . '/themes', 755), true);
-
 	/* Test recursive repository cache directory creation. */
-	$platform->setReply('file_exists', array($repositoryCachePath), false);
-	$platform->setReply('is_dir', array('modules/core/cache'), false);
-	$platform->setReply('is_dir', array('modules/core'), false);
-	$platform->setReply('is_dir', array('modules'), true);
-	$platform->setReply('mkdir', array('modules/core', 755), true);
-	$platform->setReply('mkdir', array('modules/core/cache', 755), true);
-	$platform->setReply('file_exists', array($repositoryCachePath), true);
-
-	/* Test creation of cache subdirectories. */
-	$platform->setReply('is_dir', array($repositoryCachePath . 'modules'), false);
-	$platform->setReply('mkdir', array($repositoryCachePath . 'modules', 755), true);
-	$platform->setReply('is_dir', array($repositoryCachePath . 'themes'), false);
-	$platform->setReply('mkdir', array($repositoryCachePath . 'themes', 755), true);
-	$gallery->setPlatform($platform);
+	$platform->setReply('file_exists', array('/cache/'), false);
+	$platform->setReply('is_dir', array('/cache/'), false);
+	$platform->setReply('is_dir', array('/'), true);
+	$platform->setReply('mkdir', array('/cache/', 755), true);
+	$platform->setReply('file_exists', array('/cache/'), true);
+	$platform->setReply('is_dir', array('/cache/modules'), false);
+	$platform->setReply('mkdir', array('/cache/modules', 755), true);
+	$platform->setReply('is_dir', array('/cache/themes'), false);
+	$platform->setReply('mkdir', array('/cache/themes', 755), true);
 	list ($isSetUp, $message) = $repository->createPluginsDirectory();
 	$this->assert($isSetUp, $message);
 
@@ -542,43 +508,6 @@ class RepositoryTest extends GalleryTestCase {
 	    $files, 'Unexpected file data.');
     }
 
-    function testUpdatePluginIndexFile() {
-	global $gallery;
-	$gallery->setConfig('data.gallery.plugins', 'plugins/');
-
-	$indexWithoutPlugin = "pluginId1\npluginId2\n";
-	$indexWithPlugin = "pluginId1\npluginId2\ntestModule\n";
-	$repository = new GalleryRepository();
-
-	$platform = new UnitTestPlatform();
-	/* Return index without the specified plugin ID. */
-	$platform->setReply('file_exists', array('plugins/index.modules'), true);
-	$platform->setReply('file_get_contents',
-	    array('plugins/index.modules'), $indexWithoutPlugin);
-	$platform->setReply('file_put_contents', array('plugins/index.modules', $indexWithPlugin),
-	    true);
-
-	/* Return index with the specified plugin ID. */
-	$platform->setReply('file_exists', array('plugins/index.modules'), true);
-	$platform->setReply('file_get_contents',
-	    array('plugins/index.modules'), $indexWithPlugin);
-	$gallery->setPlatform($platform);
-
-	/* Test case when the plugin index file doesn't contain the specified plugin ID. */
-	$ret = $repository->updatePluginIndexFile('module', 'testModule');
-	if ($ret) {
-	    $this->failWithStatus($ret);
-	}
-
-	/* Test case when the plugin index already contains the specified plugin ID. */
-	$ret = $repository->updatePluginIndexFile('module', 'testModule');
-	if ($ret) {
-	    $this->failWithStatus($ret);
-	}
-
-	$this->assert($platform->isComplete(), $platform->getRemaining());
-    }
-
     function testDownloadAndUnpack() {
 	global $gallery;
 
@@ -592,13 +521,15 @@ class RepositoryTest extends GalleryTestCase {
 	$gallery->setConfig('data.gallery.plugins', 'plugins/');
 
 	$platform = new UnitTestPlatform();
+
 	/* Package download. */
-	$platform->setReply('file_exists', array('plugins/modules/testModule/'), true);
+	$modules = dirname(dirname(dirname(dirname(__FILE__))));
+	$platform->setReply('file_exists', array("$modules/testModule/"), true);
 	$platform->setReply('file_put_contents',
 	    array($testPackagePath, serialize(array($testPackageUrl))), true);
 
 	/* Descriptor download. */
-	$platform->setReply('file_exists', array('plugins/modules/testModule/'), true);
+	$platform->setReply('file_exists', array("$modules/testModule/"), true);
 	$platform->setReply('file_put_contents',
 	    array($testDescriptorPath, serialize(array($testDescriptorUrl))), true);
 	$gallery->setPlatform($platform);
@@ -630,6 +561,7 @@ class RepositoryTest extends GalleryTestCase {
     function testVerifyPackageIntegrity() {
 	global $gallery;
 
+	$modules = dirname(dirname(dirname(dirname(__FILE__))));
 	$gallery->setConfig('data.gallery.plugins', 'plugins/');
 	$testDescriptor = array(
 	    'pluginType' => 'module',
@@ -637,23 +569,23 @@ class RepositoryTest extends GalleryTestCase {
 	    'contents' => array('files' => array(
 		'moduleFile1' => array('packages' => array('package1'),
 				       'bytes' => 1337,
-				       'hash' => md5('plugins/modules/testModule/moduleFile1')),
+				       'hash' => md5('moduleFile1')),
 		'moduleFile2' => array('packages' => array('package1'),
 				       'bytes' => 31337,
-				       'hash' => md5('plugins/modules/testModule/moduleFile2')))));
+				       'hash' => md5('moduleFile2')))));
 
 	$platform = new UnitTestPlatform();
 	/* moduleFile1 */
-	$platform->setReply('file_exists', array('plugins/modules/testModule/moduleFile1'), true);
-	$platform->setReply('filesize', array('plugins/modules/testModule/moduleFile1'), 1337);
-	$platform->setReply('file_get_contents', array('plugins/modules/testModule/moduleFile1'),
-	    'plugins/modules/testModule/moduleFile1');
+	$platform->setReply('file_exists', array("$modules/testModule/moduleFile1"), true);
+	$platform->setReply('filesize', array("$modules/testModule/moduleFile1"), 1337);
+	$platform->setReply('file_get_contents',
+			    array("$modules/testModule/moduleFile1"), "moduleFile1");
 
 	/* moduleFile2 */
-	$platform->setReply('file_exists', array('plugins/modules/testModule/moduleFile2'), true);
-	$platform->setReply('filesize', array('plugins/modules/testModule/moduleFile2'), 31337);
-	$platform->setReply('file_get_contents', array('plugins/modules/testModule/moduleFile2'),
-	    'plugins/modules/testModule/moduleFile2');
+	$platform->setReply('file_exists', array("$modules/testModule/moduleFile2"), true);
+	$platform->setReply('filesize', array("$modules/testModule/moduleFile2"), 31337);
+	$platform->setReply('file_get_contents',
+			    array("$modules/testModule/moduleFile2"), "moduleFile2");
 	$gallery->setPlatform($platform);
 
 	$repository = new GalleryRepository();

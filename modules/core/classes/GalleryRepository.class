@@ -433,7 +433,7 @@ class GalleryRepository {
 		$repositoryCachePath = $parentDir;
 	    }
 	    for ($i = count($dirStack); $i != 0; $i--) {
-		$platform->mkdir($repositoryCachePath . $dirStack[$i-1]);
+		@$platform->mkdir($repositoryCachePath . $dirStack[$i-1]);
 		$repositoryCachePath .= $dirStack[$i-1];
 	    }
 	    if (!@$platform->file_exists($gallery->getConfig('repository.cache'))) {
