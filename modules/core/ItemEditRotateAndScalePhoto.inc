@@ -246,6 +246,7 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 	$template->javascript('lib/yui/yahoo-min.js');
 	$template->javascript('lib/yui/dom-min.js');
 	$template->javascript('lib/yui/event-min.js');
+	$template->javascript('lib/javascript/ItemEditRotateAndScalePhoto.js');
 
 	return array(null, 'modules/core/templates/ItemEditRotateAndScalePhoto.tpl',
 	    'modules_core');

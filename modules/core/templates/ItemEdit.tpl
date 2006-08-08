@@ -4,55 +4,6 @@
  * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
  * version.  Gallery will look for that file first and use it if it exists.
  *}
-<script type="text/javascript">
-  // <![CDATA[
-
-  {* Register with all callback responses *}
-  GalleryUtilities.callbackEvent.subscribe(function(type, args) {ldelim}
-    var response = args[0];
-    if (!GalleryUtilities.isResponseSuccessful(response)) {ldelim}
-      GalleryUtilities.show("{"status"|elementId}");
-      GalleryUtilities.hide("{"success"|elementId}");
-      GalleryUtilities.hide("{"warning"|elementId}");
-      GalleryUtilities.show("{"error"|elementId}");
-    {rdelim}
-  {rdelim});
-
-  {* Ajax callback output *}
-  {if GalleryUtilities::isCallback()}
-    {capture append="smarty.output"}
-      YAHOO.util.Dom.get("{"serialNumberInput"|elementId}").value = {$form.serialNumber};
-      {if empty($status.editMessage) && empty($status.warning) && empty($form.error)}
-	GalleryUtilities.hide("{"status"|elementId}");
-      {else}
-	GalleryUtilities.show("{"status"|elementId}");
-      {/if}
-
-      {if empty($status.editMessage)}
-	GalleryUtilities.hide("{"success"|elementId}");
-      {else}
-	YAHOO.util.Dom.get("{"success"|elementId}").innerHTML = "{$status.editMessage}";
-	GalleryUtilities.show("{"success"|elementId}");
-      {/if}
-
-      {if empty($status.warning)}
-	GalleryUtilities.hide("{"warning"|elementId}");
-      {else}
-	YAHOO.util.Dom.get("{"warning"|elementId}").innerHTML = "{$status.warning|@implode:""}";
-	GalleryUtilities.show("{"warning"|elementId}");
-      {/if}
-
-      {if empty($form.error)}
-	GalleryUtilities.hide("{"error"|elementId}");
-      {else}
-	GalleryUtilities.show("{"error"|elementId}");
-      {/if}
-    {/capture}
-  {/if}
-
-  // ]]>
-</script>
-
 <div class="gbBlock gcBackground1">
   <h2> {g->text text="Edit %s" arg1=$ItemEdit.itemTypeNames.0} </h2>
 </div>
@@ -87,3 +38,62 @@
 </div>
 
 {include file="gallery:`$ItemEdit.pluginFile`" l10Domain=$ItemEdit.pluginL10Domain}
+
+<script type="text/javascript">
+  // <![CDATA[
+
+  {* Register with all callback requests *}
+  GalleryUtilities.requestEvent.subscribe(function(type, args) {ldelim}
+    var connection = args[0];
+
+    {* Give immediate feedback if possible *}
+    GalleryUtilities.hide("{"status"|elementId}");
+
+    {* Register with all callback responses *}
+    GalleryUtilities.responseEvent.subscribe(function(type, args) {ldelim}
+      var response = args[0];
+      if (response.tId == connection.tId) {ldelim}
+	if (!GalleryUtilities.isResponseSuccessful(response)) {ldelim}
+	  GalleryUtilities.show("{"status"|elementId}");
+	  GalleryUtilities.hide("{"success"|elementId}");
+	  GalleryUtilities.hide("{"warning"|elementId}");
+	  GalleryUtilities.show("{"error"|elementId}");
+	{rdelim}
+      {rdelim}
+    {rdelim});
+  {rdelim});
+
+  // ]]>
+</script>
+
+{* Ajax callback output *}
+{if GalleryUtilities::isCallback()}
+  {capture append="smarty.output"}
+    YAHOO.util.Dom.get("{"serialNumberInput"|elementId}").value = {$form.serialNumber};
+    {if empty($status.editMessage) && empty($status.warning) && empty($form.error)}
+      GalleryUtilities.hide("{"status"|elementId}");
+    {else}
+      GalleryUtilities.show("{"status"|elementId}");
+    {/if}
+
+    {if empty($status.editMessage)}
+      GalleryUtilities.hide("{"success"|elementId}");
+    {else}
+      YAHOO.util.Dom.get("{"success"|elementId}").innerHTML = "{$status.editMessage}";
+      GalleryUtilities.show("{"success"|elementId}");
+    {/if}
+
+    {if empty($status.warning)}
+      GalleryUtilities.hide("{"warning"|elementId}");
+    {else}
+      YAHOO.util.Dom.get("{"warning"|elementId}").innerHTML = "{$status.warning|@implode:""}";
+      GalleryUtilities.show("{"warning"|elementId}");
+    {/if}
+
+    {if empty($form.error)}
+      GalleryUtilities.hide("{"error"|elementId}");
+    {else}
+      GalleryUtilities.show("{"error"|elementId}");
+    {/if}
+  {/capture}
+{/if}

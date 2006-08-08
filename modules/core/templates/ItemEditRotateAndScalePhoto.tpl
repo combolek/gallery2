@@ -110,53 +110,51 @@
   {/capture}
 {/if}
 
-<script>
-  // <![CDATA[
+{if !empty($head.javascript['lib/javascript/ItemEditRotateAndScalePhoto.js'])}
+  <script>
+    // <![CDATA[
 
-  {**
-   * Template's client-side variables & functions
-   *}
-  var ItemEditRotateAndScalePhoto = {ldelim}
+    {* Update template's dynamic elements *}
+    ItemEditRotateAndScalePhoto.update = function(ItemEditRotateAndScalePhoto) {ldelim}
+      {* TODO
+      var update = ItemEditRotateAndScalePhoto.update;
+      update();
+      *}
 
-    {**
-     * Update template's dynamic elements
-     *
-     * @param {Object} scope from which to import new values
-     *}
-    update: function(ItemEditRotateAndScalePhoto) {ldelim}
       {$ItemEditRotateAndScalePhoto.update}
     {rdelim}
-  {rdelim};
 
-  {if !empty($head.javascript['lib/javascript/ItemAdmin.js'])}
-  {* Register template's submit function with submit buttons *}
-  YAHOO.util.Event.addListener(["{"rotate-90Input"|elementId}",
-      "{"rotate180Input"|elementId}",
-      "{"rotate90Input"|elementId}",
-      "{"resizeInput"|elementId}",
-      "{"revertInput"|elementId}"], "click", ItemAdmin.submit, ItemAdmin);
-  {/if}
+    {* Register template's submit function with submit buttons *}
+    YAHOO.util.Event.addListener(["{"rotate-90Input"|elementId}",
+	"{"rotate180Input"|elementId}",
+	"{"rotate90Input"|elementId}",
+	"{"resizeInput"|elementId}",
+	"{"revertInput"|elementId}"], "click", function(event, self) {ldelim}
+	ItemAdmin.submit({ldelim}{rdelim}, YAHOO.util.Event.getTarget(event), self);
+	YAHOO.util.Event.preventDefault(event);
+      {rdelim}, ItemAdmin);
 
-  {* Ajax callback output *}
-  {if GalleryUtilities::isCallback()}
-    {capture append="smarty.output"}
-      {if empty($form.error.resize.size.missing)}
-	GalleryUtilities.hide("{"errorSizeMissing"|elementId}");
-      {else}
-	GalleryUtilities.show("{"errorSizeMissing"|elementId}");
-      {/if}
+    // ]]>
+  </script>
+{/if}
 
-      {if empty($form.error.resize.size.invalid)}
-	GalleryUtilities.hide("{"errorSizeInvalid"|elementId}");
-      {else}
-	GalleryUtilities.show("{"errorSizeInvalid"|elementId}");
-      {/if}
+{* Ajax callback output *}
+{if GalleryUtilities::isCallback()}
+  {capture append="smarty.output"}
+    {if empty($form.error.resize.size.missing)}
+      GalleryUtilities.hide("{"errorSizeMissing"|elementId}");
+    {else}
+      GalleryUtilities.show("{"errorSizeMissing"|elementId}");
+    {/if}
 
-      {* |var_export is cheaper than |json *}
-      ItemEditRotateAndScalePhoto.update({ldelim}editPhoto: {ldelim}hasPreferredSource:
-	{$ItemEditRotateAndScalePhoto.editPhoto.hasPreferredSource|var_export}{rdelim}{rdelim});
-    {/capture}
-  {/if}
+    {if empty($form.error.resize.size.invalid)}
+      GalleryUtilities.hide("{"errorSizeInvalid"|elementId}");
+    {else}
+      GalleryUtilities.show("{"errorSizeInvalid"|elementId}");
+    {/if}
 
-  // ]]>
-</script>
+    {* |var_export is cheaper than |json *}
+    ItemEditRotateAndScalePhoto.update({ldelim}editPhoto: {ldelim}hasPreferredSource:
+      {$ItemEditRotateAndScalePhoto.editPhoto.hasPreferredSource|var_export}{rdelim}{rdelim});
+  {/capture}
+{/if}

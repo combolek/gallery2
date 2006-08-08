@@ -82,7 +82,7 @@
 			RotatePhotoBlock.class="giThumbnail"} </a>
 		    {/g->container}
 
-		    {$smarty.RotatePhotoBlock.form}
+		    <span style="display: none"> {$smarty.RotatePhotoBlock.form} </span>
 		    {merge child.itemLinks=$smarty.RotatePhotoBlock.links}
 		  {/if}
 		</div>
