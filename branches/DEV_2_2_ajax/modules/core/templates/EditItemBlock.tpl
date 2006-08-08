@@ -9,6 +9,8 @@
 
   {capture assign="EditItemBlock.status"}
     <span class="gbBlock" id="{"status"|elementId}"{if empty($status.editMessage) && empty($status.warning) && empty($form.error)} style="display: none"{/if}>
+      <img class="giWorking" id="{"working"|elementId}" style="display: none" alt="{g->text text="Saving changes..."}" src="{g->url href="themes/ajaxian/images/working-hard.gif"}"/>
+
       <img class="giSuccess" id="{"success"|elementId}"{if empty($status.editMessage)} style="display: none"{/if} alt="{$status.editMessage}" src="{g->url href="install/images/ico_success.gif"}"/>
 
       <img class="giWarning" id="{"warning"|elementId}"{if empty($status.warning)} style="display: none"{/if} alt="{$status.warning|@implode:""}" src="{g->url href="install/images/ico_warning.gif"}"/>
@@ -33,7 +35,7 @@
 	  <input name="{"controller"|formVar}" type="hidden" value="core.ItemEdit"/>
 	  <input name="{"itemId"|formVar}" type="hidden" value="{$EditItemBlock.item.id}"/>
 	  <input name="{"editPlugin"|formVar}" type="hidden" value="ItemEditItem"/>
-	  <input id="{"serialNumberInput"|elementId}" name="{"form[serialNumber]"|formVar}" type="hidden" value="{$EditItemBlock.item.serialNumber}"/>
+	  <input class="{"serialNumberInput-`$EditItemBlock.item.id`"|elementId:"EditItemBlock"}" name="{"form[serialNumber]"|formVar}" type="hidden" value="{$EditItemBlock.item.serialNumber}"/>
 	  {include file="gallery:modules/core/templates/MarkupBar.tpl" viewL10domain="modules_core" element="textInput"|elementId}
 	  <input id="{"textInput"|elementId}" name="{"form[`$EditItemBlock.property`]"|formVar}" type="text" value="{$EditItemBlock.item[$EditItemBlock.property]}"/>
 
@@ -69,10 +71,16 @@
 {* Ajax callback output *}
 {if GalleryUtilities::isCallback()}
   {capture append="smarty.output"}
-    YAHOO.util.Dom.get("{"serialNumberInput"|elementId}").value =
-      {$EditItemBlock.item.serialNumber};
     YAHOO.util.Dom.get("{"value"|elementId}").innerHTML =
       "{$EditItemBlock.item[$EditItemBlock.property]|markup|entitytruncate:256}";
+
+    YAHOO.util.Dom.batch(YAHOO.util.Dom.getElementsByClassName(
+        "{"serialNumberInput-`$EditItemBlock.item.id`"|elementId:"EditItemBlock"}"),
+      function(element) {ldelim}
+	element.value = {$EditItemBlock.item.serialNumber};
+      {rdelim});
+
+    GalleryUtilities.hide("{"working"|elementId}");
 
     {if empty($status.editMessage) && empty($status.warning) && empty($form.error)}
       GalleryUtilities.hide("{"status"|elementId}");

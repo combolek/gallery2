@@ -47,7 +47,13 @@ EditItemBlock.prototype.submit = function(EditItemBlock, target, self) {
   /* Give immediate feedback if possible */
   YAHOO.util.Dom.get(
     GalleryUtilities.elementId("value", "EditItemBlock", self.templateId)).innerHTML = "Saving...";
-  GalleryUtilities.hide(GalleryUtilities.elementId("status", "EditItemBlock", self.templateId));
+
+  GalleryUtilities.hide(GalleryUtilities.elementId("success", "EditItemBlock", self.templateId));
+  GalleryUtilities.hide(GalleryUtilities.elementId("warning", "EditItemBlock", self.templateId));
+  GalleryUtilities.hide(GalleryUtilities.elementId("error", "EditItemBlock", self.templateId));
+  GalleryUtilities.show(GalleryUtilities.elementId("working", "EditItemBlock", self.templateId));
+  GalleryUtilities.show(GalleryUtilities.elementId("status", "EditItemBlock", self.templateId));
+
   GalleryUtilities.hide(GalleryUtilities.elementId("form", "EditItemBlock", self.templateId));
   GalleryUtilities.show(GalleryUtilities.elementId("link", "EditItemBlock", self.templateId));
 
@@ -64,13 +70,15 @@ EditItemBlock.prototype.submit = function(EditItemBlock, target, self) {
       });
 
       if (!GalleryUtilities.isResponseSuccessful(response)) {
-	GalleryUtilities.show(GalleryUtilities.elementId("status", "EditItemBlock",
+	GalleryUtilities.hide(GalleryUtilities.elementId("working", "EditItemBlock",
 	  self.templateId));
 	GalleryUtilities.hide(GalleryUtilities.elementId("success", "EditItemBlock",
 	  self.templateId));
 	GalleryUtilities.hide(GalleryUtilities.elementId("warning", "EditItemBlock",
 	  self.templateId));
 	GalleryUtilities.show(GalleryUtilities.elementId("error", "EditItemBlock",
+	  self.templateId));
+	GalleryUtilities.show(GalleryUtilities.elementId("status", "EditItemBlock",
 	  self.templateId));
       }
     }
