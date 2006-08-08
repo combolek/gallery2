@@ -247,7 +247,7 @@ class ItemEditView extends GalleryView {
 
 	/*
 	 * If the plugin is empty get it from the session.  If it's empty there, default to the
-	 * first plugin we find.  Either way, save the user's preference in the session
+	 * first plugin we find.  Either way, save the user's preference in the session.
 	 */
 	$session =& $gallery->getSession();
 	$editPluginSessionKey = 'core.view.ItemEdit.editPlugin.' . get_class($item);
@@ -362,7 +362,6 @@ class ItemEditPlugin {
 
     /**
      * Load the template with data from this plugin
-     * @see GalleryView::loadTemplate
      *
      * @param object GalleryTemplate the template instance
      * @param array the form values
@@ -371,6 +370,7 @@ class ItemEditPlugin {
      * @return array object GalleryStatus a status code
      *               string the path to a template file to include
      *               string localization domain for the template file
+     * @see GalleryView::loadTemplate
      */
     function loadTemplate(&$template, &$form, $item, $thumbnail) {
 	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null, null);
@@ -378,7 +378,6 @@ class ItemEditPlugin {
 
     /**
      * Let the plugin handle the incoming request
-     * @see GalleryController::handleRequest
      *
      * @param array the form values
      * @param the item
@@ -387,6 +386,7 @@ class ItemEditPlugin {
      *               array error messages
      *               string localized status message
      *               boolean true if progress bar is needed
+     * @see GalleryController::handleRequest
      */
     function handleRequest($form, &$item, &$preferred) {
 	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null, null, null);
@@ -427,10 +427,9 @@ class ItemEditPlugin {
 }
 
 /**
- * Interface for options to the ItemEdit view and controller.
- * Options allow us to provide extra UI in the views and extra
- * processing in the controller so that we can add new functionality
- * to various ItemEditPlugins
+ * Interface for options to the ItemEdit view and controller.  Options allow us to provide extra UI
+ * in the views and extra processing in the controller so that we can add new functionality to
+ * various ItemEditPlugins.
  *
  * @package GalleryCore
  * @subpackage UserInterface
@@ -477,7 +476,6 @@ class ItemEditOption {
 
     /**
      * Load the template with data from this plugin
-     * @see GalleryView::loadTemplate
      *
      * @param object GalleryTemplate the template instance
      * @param array the form values
@@ -485,6 +483,7 @@ class ItemEditOption {
      * @return array object GalleryStatus a status code
      *               string the path to a template file to include
      *               string localization domain for the template file
+     * @see GalleryView::loadTemplate
      */
     function loadTemplate(&$template, &$form, $item, $thumbnail) {
 	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null, null);
@@ -492,7 +491,6 @@ class ItemEditOption {
 
     /**
      * Let the plugin handle the incoming request.  We expect the $item to be locked.
-     * @see GalleryController::handleRequest
      *
      * @param array the form values
      * @param reference to the item
@@ -500,6 +498,7 @@ class ItemEditOption {
      * @return array object GalleryStatus a status code
      *               array error messages
      *               array localized warning messages
+     * @see GalleryController::handleRequest
      */
     function handleRequestAfterEdit($form, &$item, &$preferred) {
 	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null, null);
@@ -520,8 +519,8 @@ class ItemEditOption {
     /**
      * Will this task run so long that it requires a progress bar?
      *
-     * @param the state of the current form
-     * @return true or false
+     * @param array the state of the current form
+     * @return boolean true or false
      */
     function requiresProgressBar($form) {
 	return false;
