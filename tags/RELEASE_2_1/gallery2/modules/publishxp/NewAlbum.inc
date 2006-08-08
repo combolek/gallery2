@@ -1,6 +1,6 @@
 <?php
 /*
- * $RCSfile$
+ * $RCSfile: NewAlbum.inc,v $
  *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
@@ -27,7 +27,7 @@
  * is redirected back to the select album page after creating the album with
  * the newly created album automatically selected.
  *
- * @version $Revision$ $Date$
+ * @version $Revision: 1.9 $ $Date: 2006/02/01 12:05:51 $
  * @package PublishXp
  * @author Timothy Webb <tiwebb@cisco.com>
  */
