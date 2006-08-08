@@ -13,64 +13,67 @@
 
   {assign smarty.RotatePhotoBlock.form=null}
   {assign smarty.RotatePhotoBlock.links=null}
-  {if $RotatePhotoBlock.item.permissions.core_edit}
-    {capture assign="smarty.RotatePhotoBlock.form"}
-      <span id="{"hidden"|elementId}" style="display: none"></span>
-      <div class="gbBlock" id="{"status"|elementId}"{if empty($status.editMessage) && empty($status.warning) && empty($form.error)} style="display: none"{/if}>
-	<h2 class="giSuccess" id="{"success"|elementId}"{if empty($status.editMessage)} style="display: none"{/if}> {$status.editMessage} </h2>
+  {if GalleryUtilities::isA($RotatePhotoBlock.item, 'GalleryPhotoItem')
+      && $RotatePhotoBlock.item.permissions.core_edit}
+    {*if empty($ItemEditRotateAndScalePhoto.editPhoto.can.rotate)}
+      {capture assign="smarty.RotatePhotoBlock.form"}
+	<b>
+	  {g->text text="There are no graphics toolkits enabled that support this type of photo, so we cannot rotate it."}
+	  {if !empty($user.isAdmin)}
+	    <a href="{g->url arg1="view=core.SiteAdmin" arg2="subView=core.AdminPlugins"}"> {g->text text="site admin"} </a>
+	  {/if}
+	</b>
+      {/capture}
+    {else*}
+      {capture assign="smarty.RotatePhotoBlock.form"}
+	<span id="{"hidden"|elementId}" style="display: none"></span>
+	<div class="gbBlock" id="{"status"|elementId}"{if empty($status.editMessage) && empty($status.warning) && empty($form.error)} style="display: none"{/if}>
+	  <h2 class="giSuccess" id="{"success"|elementId}"{if empty($status.editMessage)} style="display: none"{/if}> {$status.editMessage} </h2>
 
-	<div class="giWarning" id="{"warning"|elementId}"{if empty($status.warning)} style="display: none"{/if}>
-	  {foreach from=$status.warning item=warning}
-	    {$warning}
-	  {/foreach}
+	  <div class="giWarning" id="{"warning"|elementId}"{if empty($status.warning)} style="display: none"{/if}>
+	    {foreach from=$status.warning item=warning}
+	      {$warning}
+	    {/foreach}
+	  </div>
+
+	  <h2 class="giError" id="{"error"|elementId}"{if empty($form.error)} style="display: none"{/if}> {g->text text="There was a problem processing your request"} </h2>
 	</div>
 
-	<h2 class="giError" id="{"error"|elementId}"{if empty($form.error)} style="display: none"{/if}> {g->text text="There was a problem processing your request"} </h2>
-      </div>
-
-      <form id="{"form"|elementId}" action="{g->url}" method="post" enctype="{$RotatePhotoBlock.enctype|default:"application/x-www-form-urlencoded"}">
-	{g->hiddenFormVars}
-	<input name="{"controller"|formVar}" type="hidden" value="core.ItemEdit"/>
-	<input name="{"itemId"|formVar}" type="hidden" value="{$RotatePhotoBlock.item.id}"/>
-	<input name="{"editPlugin"|formVar}" type="hidden" value="ItemEditRotateAndScalePhoto"/>
-	<input id="{"serialNumberInput"|elementId}" name="{"form[serialNumber]"|formVar}" type="hidden" value="{$RotatePhotoBlock.item.serialNumber}"/>
-	{*{if empty($ItemEditRotateAndScalePhoto.editPhoto.can.rotate)}
-	  <b>
-	    {g->text text="There are no graphics toolkits enabled that support this type of photo, so we cannot rotate it."}
-	    {if !empty($user.isAdmin)}
-	      <a href="{g->url arg1="view=core.SiteAdmin" arg2="subView=core.AdminPlugins"}"> {g->text text="site admin"} </a>
-	    {/if}
-	  </b>
-	{else}*}
+	<form id="{"form"|elementId}" action="{g->url}" method="post" enctype="{$RotatePhotoBlock.enctype|default:"application/x-www-form-urlencoded"}">
+	  {g->hiddenFormVars}
+	  <input name="{"controller"|formVar}" type="hidden" value="core.ItemEdit"/>
+	  <input name="{"itemId"|formVar}" type="hidden" value="{$RotatePhotoBlock.item.id}"/>
+	  <input name="{"editPlugin"|formVar}" type="hidden" value="ItemEditRotateAndScalePhoto"/>
+	  <input id="{"serialNumberInput"|elementId}" name="{"form[serialNumber]"|formVar}" type="hidden" value="{$RotatePhotoBlock.item.serialNumber}"/>
 	  <input class="inputTypeSubmit" id="{"rotate-90Input"|elementId}" name="{"form[action][rotate][-90]"|formVar}" type="submit" value="{g->text text="-90&deg;"}"/> &nbsp;
 	  <input class="inputTypeSubmit" id="{"rotate180Input"|elementId}" name="{"form[action][rotate][180]"|formVar}" type="submit" value="{g->text text="180&deg;"}"/> &nbsp;
 	  <input class="inputTypeSubmit" id="{"rotate90Input"|elementId}" name="{"form[action][rotate][90]"|formVar}" type="submit" value="{g->text text="90&deg;"}"/>
-	{*{/if}*}
-      </form>
+	</form>
 
-      <script type="text/javascript">
-	// <![CDATA[
+	<script type="text/javascript">
+	  // <![CDATA[
 
-	{* Register template's submit function with submit buttons *}
-	YAHOO.util.Event.addListener(["{"rotate-90Input"|elementId}",
-	    "{"rotate180Input"|elementId}",
-	    "{"rotate90Input"|elementId}"], "click",
-	  RotatePhotoBlock.submit("{g->url}", "{$templateId}", {ldelim}
-	    item: {ldelim}id: {$RotatePhotoBlock.item.id}{rdelim},
-	    image: {ldelim}id: {$RotatePhotoBlock.image.id}{rdelim},
-	    class: "{$smarty.Gallery.image.classes.1}",
-	    id: "{$smarty.Gallery.image.ids.1}"{rdelim}), RotatePhotoBlock);
+	  {* Register template's submit function with submit buttons *}
+	  YAHOO.util.Event.addListener(["{"rotate-90Input"|elementId}",
+	      "{"rotate180Input"|elementId}",
+	      "{"rotate90Input"|elementId}"], "click",
+	    RotatePhotoBlock.submit("{g->url}", "{$templateId}", {ldelim}
+	      item: {ldelim}id: {$RotatePhotoBlock.item.id}{rdelim},
+	      image: {ldelim}id: {$RotatePhotoBlock.image.id}{rdelim},
+	      class: "{$smarty.Gallery.image.classes.1}",
+	      id: "{$smarty.Gallery.image.ids.1}"{rdelim}), RotatePhotoBlock);
 
-	// ]]>
-      </script>
-    {/capture}
+	  // ]]>
+	</script>
+      {/capture}
 
-    {capture assign="smarty.RotatePhotoBlock.links.0.script"}YAHOO.util.Dom.get('{"rotate-90Input"|elementId}').click(){/capture}
-    {capture assign="smarty.RotatePhotoBlock.links.0.text"}{g->text text="Rotate -90&deg;"}{/capture}
-    {capture assign="smarty.RotatePhotoBlock.links.1.script"}YAHOO.util.Dom.get('{"rotate180Input"|elementId}').click(){/capture}
-    {capture assign="smarty.RotatePhotoBlock.links.1.text"}{g->text text="Rotate 180&deg;"}{/capture}
-    {capture assign="smarty.RotatePhotoBlock.links.2.script"}YAHOO.util.Dom.get('{"rotate90Input"|elementId}').click(){/capture}
-    {capture assign="smarty.RotatePhotoBlock.links.2.text"}{g->text text="Rotate 90&deg;"}{/capture}
+      {capture assign="smarty.RotatePhotoBlock.links.0.script"}YAHOO.util.Dom.get('{"rotate-90Input"|elementId}').click(){/capture}
+      {capture assign="smarty.RotatePhotoBlock.links.0.text"}{g->text text="Rotate -90&deg;"}{/capture}
+      {capture assign="smarty.RotatePhotoBlock.links.1.script"}YAHOO.util.Dom.get('{"rotate180Input"|elementId}').click(){/capture}
+      {capture assign="smarty.RotatePhotoBlock.links.1.text"}{g->text text="Rotate 180&deg;"}{/capture}
+      {capture assign="smarty.RotatePhotoBlock.links.2.script"}YAHOO.util.Dom.get('{"rotate90Input"|elementId}').click(){/capture}
+      {capture assign="smarty.RotatePhotoBlock.links.2.text"}{g->text text="Rotate 90&deg;"}{/capture}
+    {*/if*}
   {/if}
 </div>
 

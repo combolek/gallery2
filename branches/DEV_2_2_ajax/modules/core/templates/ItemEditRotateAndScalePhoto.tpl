@@ -128,12 +128,14 @@
     {rdelim}
   {rdelim};
 
+  {if !empty($head.javascript['lib/javascript/ItemAdmin.js'])}
   {* Register template's submit function with submit buttons *}
   YAHOO.util.Event.addListener(["{"rotate-90Input"|elementId}",
       "{"rotate180Input"|elementId}",
       "{"rotate90Input"|elementId}",
       "{"resizeInput"|elementId}",
       "{"revertInput"|elementId}"], "click", ItemAdmin.submit, ItemAdmin);
+  {/if}
 
   {* Ajax callback output *}
   {if GalleryUtilities::isCallback()}

@@ -201,6 +201,7 @@ class ItemAdminView extends GalleryView {
 	$template->javascript('lib/yui/dom-min.js');
 	$template->javascript('lib/yui/event-min.js');
 	$template->javascript('lib/javascript/GalleryUtilities.js');
+	$template->javascript('lib/javascript/ItemAdmin.js');
 
 	return array(null, array('body' => 'modules/core/templates/ItemAdmin.tpl'));
     }

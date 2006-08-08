@@ -89,7 +89,10 @@
 
 		{g->block type="core.ItemLinks" item=$child links=$child.itemLinks}
 
-		{g->container type="core.EditItemBlock" templateId="title-`$child.id`" EditItemBlock.item=$child EditItemBlock.property="title"}
+		{g->container type="core.EditItemBlock"
+		    templateId="title-`$child.id`"
+		    EditItemBlock.item=$child
+		    EditItemBlock.property="title"}
 		  <p class="giTitle">
 		    {if $child.canContainChildren}
 		      {g->text text="Album: %s" arg1=$EditItemBlock.value}
@@ -99,13 +102,23 @@
 		  </p>
 		{/g->container}
 
-		{g->container type="core.EditItemBlock" templateId="summary-`$child.id`" EditItemBlock.item=$child EditItemBlock.property="summary"}
+		{g->container type="core.EditItemBlock"
+		    templateId="summary-`$child.id`"
+		    EditItemBlock.item=$child
+		    EditItemBlock.property="summary"}
 		  <p class="giDescription">
 		    {$EditItemBlock.value}
 		  </p>
 		{/g->container}
 
-		{g->block type="core.ItemInfo" item=$child showDate=true showOwner=`$child.canContainChildren && $theme.params.showAlbumOwner) || (!$child.canContainChildren && $theme.params.showImageOwner` showSize=true showViewCount=true showSummaries=true class="giInfo"}
+		{g->block type="core.ItemInfo"
+		  class="giInfo"
+		  item=$child
+		  showDate=true
+		  showOwner=`($child.canContainChildren && $theme.params.showAlbumOwner) || (!$child.canContainChildren && $theme.params.showImageOwner)`
+		  showSize=true
+		  showViewCount=true
+		  showSummaries=true}
 	      </td>
 	    {/foreach}
 
@@ -132,7 +145,10 @@
       {g->block type="core.GuestPreview" class="gbBlock"}
 
       {* Our emergency edit link, if the user removes all blocks containing edit links *}
-      {g->block type="core.EmergencyEditItemLink" class="gbBlock" checkSidebarBlocks=true checkAlbumBlocks=true}
+      {g->block type="core.EmergencyEditItemLink"
+	class="gbBlock"
+	checkSidebarBlocks=true
+	checkAlbumBlocks=true}
 
       {* Show any other album blocks (comments, etc) *}
       {foreach from=$theme.params.albumBlocks item=block}

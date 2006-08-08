@@ -1528,6 +1528,7 @@ class GalleryUtilities {
      * Check if this is an Ajax callback request
      *
      * @return boolean true if this is an Ajax callback request, false otherwise
+     * @static
      */
     function isCallback() {
 
