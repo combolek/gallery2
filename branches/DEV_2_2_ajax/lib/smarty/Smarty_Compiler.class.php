@@ -1690,7 +1690,6 @@ class Smarty_Compiler extends Smarty {
      */
     function _parse_var($var_expr)
     {
-var_dump($var_expr);
         $_has_math = false;
         $_math_vars = preg_split('~(' . $this->_dvar_math_regexp . '|' . $this->_qstr_regexp.')~', $var_expr, -1, PREG_SPLIT_DELIM_CAPTURE);
 
@@ -1743,7 +1742,6 @@ var_dump($var_expr);
             preg_match_all('~(?:^\w+)|' . $this->_obj_params_regexp . '|(?:' . $this->_var_bracket_regexp . ')|->\$?\w+|\.\$?\w+|\S+~', $_var_ref, $match);
                         
             $_indexes = $match[0];
-var_dump($_indexes);
             $_var_name = array_shift($_indexes);
 
             /* Handle $smarty.* variable references as a special case */
