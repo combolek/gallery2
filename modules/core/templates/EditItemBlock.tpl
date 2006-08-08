@@ -26,7 +26,7 @@
       {else}
 
 	{* TODO Fix CSS *}
-	<a id="{"link"|elementId}" style="color: black{if $EditItemBlock.property != 'title'}; font-weight: normal{/if}" href="javascript:GalleryUtilities.hide('{"status"|elementId}'); GalleryUtilities.hide('{"link"|elementId}'); GalleryUtilities.show('{"form"|elementId}')">
+	<a id="{"link"|elementId}" style="color: black{if $EditItemBlock.property != 'title'}; font-weight: normal{/if}" href="javascript:GalleryUtilities.hide('{"status"|elementId}'); GalleryUtilities.hide('{"link"|elementId}'); GalleryUtilities.show('{"form"|elementId}')" title="Click to edit">
 	  {$content}
 	</a>
 
@@ -60,6 +60,8 @@
 		self);
 	      YAHOO.util.Event.preventDefault(event);
 	    {rdelim}, EditItemBlock_{$templateId|replace:"-":"_"});
+
+	  new YAHOO.widget.Tooltip("{"tooltip"|elementId}", {ldelim}context: "{"link"|elementId}"{rdelim});
 
 	  // ]]>
 	</script>
