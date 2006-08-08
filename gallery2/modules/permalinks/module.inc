@@ -1,6 +1,6 @@
 <?php
 /*
-* $RCSfile$
+* $RCSfile: module.inc,v $
 *
 * Gallery - a web based photo album viewer and editor
 * Copyright (C) 2000-2006 Bharat Mediratta
@@ -21,7 +21,7 @@
 */
 /**
  * @package Permalinks
- * @version $Revision$ $Date$
+ * @version $Revision: 1.8 $ $Date: 2006/03/22 03:52:33 $
  * @author Pierre-Luc Paour <gallery@paour.com>
  */
 

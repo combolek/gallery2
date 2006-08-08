@@ -1,6 +1,6 @@
 <?php
 /*
- * $RCSfile$
+ * $RCSfile: Getid3DescriptionOption.inc,v $
  *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
@@ -20,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.2 $ $Date: 2006/01/24 03:35:42 $
  * @package Getid3
  * @subpackage UserInterface
  * @author Don Willingham <donwillingham@users.sf.net>

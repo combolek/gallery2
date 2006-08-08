@@ -1,6 +1,6 @@
 <?php
 /*
- * $RCSfile$
+ * $RCSfile: module.inc,v $
  *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
@@ -21,7 +21,7 @@
  */
 /**
  * @package Comment
- * @version $Revision$ $Date$
+ * @version $Revision: 1.91 $ $Date: 2006/03/22 03:52:29 $
  * @author Bharat Mediratta <bharat@menalto.com>
  */
 

@@ -1,6 +1,6 @@
 <?php
 /*
- * $RCSfile$
+ * $RCSfile: AdminRewrite.inc,v $
  *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
@@ -21,7 +21,7 @@
  */
 /**
  * @package Rewrite
- * @version $Revision$ $Date$
+ * @version $Revision: 1.21 $ $Date: 2006/01/17 01:52:04 $
  * @author Douglas Cau <douglas@cau.se>
  */
 

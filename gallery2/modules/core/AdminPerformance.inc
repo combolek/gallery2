@@ -1,6 +1,6 @@
 <?php
 /*
- * $RCSfile$
+ * $RCSfile: AdminPerformance.inc,v $
  *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
@@ -21,7 +21,7 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.2 $ $Date: 2006/02/09 05:03:51 $
  * @package GalleryCore
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
