@@ -196,6 +196,11 @@ class RepositoryDescriptor extends RepositoryObject {
 	global $gallery;
 	$relativePath = substr($path, strlen($pluginDir));
 
+	/* We ignore test code entirely */
+	if ($path == "${pluginDir}test/") {
+	    return null;
+	}
+
 	$platform =& $gallery->getPlatform();
 	if ($platform->is_dir($path) && $dir = $platform->opendir($path)) {
 	    /* Ignore plugin base directory */
@@ -206,7 +211,7 @@ class RepositoryDescriptor extends RepositoryObject {
 
 	    /* Get directory meta data and recurse into subdirectories. */
 	    while (false !== ($file = $platform->readdir($dir))) {
-		if (!preg_match('/^(\.|CVS)/', $file)) {
+		if (!preg_match('/^(\.|svn)/', $file)) {
 		    $ret = $this->getFileMetaData(
 			$platform->realpath($path) . '/' . $file, $data, $pluginDir);
 		    if ($ret) {
@@ -327,9 +332,7 @@ class RepositoryDescriptor extends RepositoryObject {
 
     /**
      * Gets the timestamp of the last modified file under the specified directory.
-     *
-     * Runs the following CVS command in the plugin directory:
-     * cvs log -N -r . | grep "^date: " | sort | tail -1 | cut -f2,3 -d' '
+     * Operates by reading the revision number from the MANIFEST.
      *
      * @param string directory path
      * @return array object GalleryStatus a status code
