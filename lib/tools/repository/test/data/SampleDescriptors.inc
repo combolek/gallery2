@@ -10,8 +10,8 @@ $sampleModuleDescriptor = array (
 	'version' => '1.0.0',
 	'requiredCoreApi' => array (1, 2),
 	'requiredPluginApi' => array (3, 4),
-	'stringsRevision' => 12345,
-	'buildTimestamp' => 12345),
+	'stringsRevision' => '22222',
+	'buildTimestamp' => '11111'),
     'descriptions' => array (
 	'en_US' => array (
 	    'name' => 'Test Module',
@@ -114,23 +114,23 @@ $sampleModuleDescriptor = array (
 	    'hash' => '1a3e2f89a8d8a19e716d50ecdd3a2c2b',
 	    'packages' => array ('base'))),
     'languages' => array (
-	12345 => array (
-	    'en_US' => 12345,
-	    'en_GB' => 12345,
-	    'pt_PT' => 12345,
-	    'pt_BR' => 12345)));
+	'22222' => array (
+	    'en_US' => '33333',
+	    'en_GB' => '33333',
+	    'pt_PT' => '33333',
+	    'pt_BR' => '33333')));
 
 /*
  * Set a newer plugin build and po file versions. These are
  * the po versions that should be in the index.
  */
 $sampleModule2Descriptor = $sampleModuleDescriptor;
-$sampleModule2Descriptor['header']['buildTimestamp'] = '19700412131300';
-$sampleModule2Descriptor['languages']['2.2'] = array (
-    'en_US' => '2.3',
-    'en_GB' => '2.3',
-    'pt_PT' => '2.3',
-    'pt_BR' => '2.3');
+$sampleModule2Descriptor['header']['buildTimestamp'] = '44444';
+$sampleModule2Descriptor['languages']['22222'] = array (
+    'en_US' => '33333',
+    'en_GB' => '33333',
+    'pt_PT' => '33333',
+    'pt_BR' => '33333');
 
 $sampleThemeDescriptor = array (
     'header' => array (
@@ -138,8 +138,8 @@ $sampleThemeDescriptor = array (
 	'version' => '1.0.0',
 	'requiredCoreApi' => array (1, 2),
 	'requiredPluginApi' => array (3, 4),
-	'stringsRevision' => '2.2',
-	'buildTimestamp' => '19700411131300'),
+	'stringsRevision' => '22222',
+	'buildTimestamp' => '11111'),
     'descriptions' => array (
 	'en_US' => array (
 	    'name' => 'Test Theme',
@@ -242,9 +242,9 @@ $sampleThemeDescriptor = array (
 	    'hash' => '1a3e2f89a8d8a19e716d50ecdd3a2c2b',
 	    'packages' => array ('base'))),
     'languages' => array (
-	'2.2' => array (
-	    'en_US' => '2.2',
-	    'en_GB' => '2.2',
-	    'pt_PT' => '2.2',
-	    'pt_BR' => '2.2')));
+	'22222' => array (
+	    'en_US' => '33333',
+	    'en_GB' => '22222',
+	    'pt_PT' => '33333',
+	    'pt_BR' => '33333')));
 ?>

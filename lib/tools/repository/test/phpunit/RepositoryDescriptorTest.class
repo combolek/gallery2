@@ -48,10 +48,9 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 
 	/* Set up utilities. */
 	$this->_utilities = new RepositoryDescriptorTestUtilities(
-	    array('/strings.raw/' => '# $' . 'Id: strings.raw 12345 2006-07-08 23:55:12Z bharat $',
-		  '/MANIFEST/' => '# $' . 'Revision: 12345 $',
-		  '/.po$/' => '# $' . 'Id: en_GB.po 12345 2006-07-08 23:55:12Z bharat $'),
-	    12345);
+	    array('/strings.raw/' => '# $' . 'Id: strings.raw 22222 2006-07-08 23:55:12Z bharat $',
+		  '/MANIFEST/' => '# $' . 'Revision: 11111 $',
+		  '/.po$/' => '# $' . 'Id: en_GB.po 33333 2006-07-08 23:55:12Z bharat $'));
 
 	/* Set up plugin files and directories. */
 	$pluginDir = 'pluginpath';
@@ -254,12 +253,10 @@ class RepositoryDescriptorTestTranslator {
 
 class RepositoryDescriptorTestUtilities {
 
-    var $_extractedRevision;
     var $_expectedFile;
 
-    function RepositoryDescriptorTestUtilities($matches, $revision) {
+    function RepositoryDescriptorTestUtilities($matches) {
 	$this->_matches = $matches;
-	$this->_extractedRevision = $revision;
     }
 
     function getFirstBytesFromFile($file, $bytes) {
@@ -273,7 +270,8 @@ class RepositoryDescriptorTestUtilities {
     }
 
     function extractRevision($string) {
-	return array(null, $this->_extractedRevision);
+	preg_match('/([\d]{5})/', $string, $matches);
+	return array(null, $matches[0]);
     }
 }
 

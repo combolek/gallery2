@@ -79,8 +79,7 @@ class RepositoryTest extends GalleryTestCase {
 	    'expectedPackages' => array()), array(
 
 	    'installedPackages' => array(
-		'base' => array('version' => '2.0.0', 'build' => '19710411131300'),
-		'test' => array('version' => '2.0.0', 'build' => '19710411131300')),
+		'base' => array('version' => '2.0.0', 'build' => '19710411131300')),
 	    'expectedUpgradeInfo' => array(
 		'downloadableLanguages' => array(
 		    'codes' => array('en_US', 'en_GB', 'pt_PT', 'pt_BR'),
@@ -88,7 +87,7 @@ class RepositoryTest extends GalleryTestCase {
 	    'expectedPackages' => array()), array(
 
 	    'installedPackages' => array(
-		'base' => array('version' => '1.0.0', 'build' => '19700111131300')),
+		'base' => array('version' => '1.0.0', 'build' => '00001')),
 	    'expectedUpgradeInfo' => array(
 		'isBaseUpgradeable' => 1,
 		'downloadableLanguages' => array(
@@ -99,11 +98,11 @@ class RepositoryTest extends GalleryTestCase {
 		'base' => 1)))), array(
 
 	    'installedPackages' => array(
-		'base' => array('version' => '1.0.0', 'build' => '19700412131300'),
-		'lang-en_US' => array('version' => '2.2', 'build' => '2.3'),
-		'lang-en_GB' => array('version' => '2.2', 'build' => '2.3'),
-		'lang-pt_BR' => array('version' => '2.2', 'build' => '2.3'),
-		'lang-pt_PT' => array('version' => '2.2', 'build' => '2.3')),
+		'base' => array('version' => '1.0.0', 'build' => '44444'),
+		'lang-en_US' => array('version' => '22222', 'build' => '33333'),
+		'lang-en_GB' => array('version' => '22222', 'build' => '33333'),
+		'lang-pt_BR' => array('version' => '22222', 'build' => '33333'),
+		'lang-pt_PT' => array('version' => '22222', 'build' => '33333')),
 	    'expectedUpgradeInfo' => array(),
 	    'expectedPackages' => array()), array(
 
@@ -116,10 +115,10 @@ class RepositoryTest extends GalleryTestCase {
 	    'expectedPackages' => array()), array(
 
 	    'installedPackages' => array(
-		'base' => array('version' => '1.0.0', 'build' => '19700412131300'),
-		'lang-en_US' => array('version' => '2.2', 'build' => '2.1'),
-		'lang-en_GB' => array('version' => '2.2', 'build' => '2.2'),
-		'lang-pt_PT' => array('version' => '2.2', 'build' => '2.3')),
+		'base' => array('version' => '1.0.0', 'build' => '44444'),
+		'lang-en_US' => array('version' => '22222', 'build' => '00001'),
+		'lang-en_GB' => array('version' => '22222', 'build' => '22222'),
+		'lang-pt_PT' => array('version' => '22222', 'build' => '33333')),
 	    'expectedUpgradeInfo' => array(
 		'upgradeableLanguages' => array(
 		    'codes' => array('en_US', 'en_GB'),
@@ -287,8 +286,7 @@ class RepositoryTest extends GalleryTestCase {
 	    'isCompatible' => true,
 	    'isAvailable' => true,
 	    'installedPackages' => array(
-		'base' => array('version' => '1.0.0', 'build' => '19700412131300'),
-		'test' => array('version' => '1.0.0', 'build' => '19700412131300')),
+		'base' => array('version' => '1.0.0', 'build' => '44444')),
 	    'expectedPluginList' => array(
 		'testModule' =>	array(
 		    'type' => 'module',
@@ -331,12 +329,11 @@ class RepositoryTest extends GalleryTestCase {
 	    'isCompatible' => true,
 	    'isAvailable' => true,
 	    'installedPackages' => array(
-		'base' => array('version' => '1.0.0', 'build' => '19700412131300'),
-		'test' => array('version' => '1.0.0', 'build' => '19700412131300'),
-		'lang-en_US' => array('version' => '2.2', 'build' => '2.4'),
-		'lang-en_GB' => array('version' => '2.2', 'build' => '2.4'),
-		'lang-pt_BR' => array('version' => '2.2', 'build' => '2.4'),
-		'lang-pt_PT' => array('version' => '2.2', 'build' => '2.4')),
+		'base' => array('version' => '1.0.0', 'build' => '44444'),
+		'lang-en_US' => array('version' => '22222', 'build' => '66666'),
+		'lang-en_GB' => array('version' => '22222', 'build' => '66666'),
+		'lang-pt_BR' => array('version' => '22222', 'build' => '66666'),
+		'lang-pt_PT' => array('version' => '22222', 'build' => '66666')),
 	    'expectedPluginList' => array(
 		'testModule' =>	array(
 		    'type' => 'module',
@@ -629,7 +626,7 @@ class RepositoryTestUtilities {
     }
 
     function getLanguageBaseRevision() {
-	return array(null, '2.2');
+	return array(null, '22222');
     }
 
     function isPluginAvailable($pluginType, $pluginId) {
