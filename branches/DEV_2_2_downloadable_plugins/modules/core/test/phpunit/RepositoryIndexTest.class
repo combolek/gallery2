@@ -71,11 +71,11 @@ class RepositoryIndexTest extends GalleryTestCase {
 	$testcases = array(array(
 	    'pluginType' => 'module',
 	    'pluginId' => 'testModule',
-	    'expectedUrl' => 'modules/testModule-1.0.0-19700412131300.descriptor'), array(
+	    'expectedUrl' => 'modules/testModule-1.0.0-44444.descriptor'), array(
 
 	    'pluginType' => 'theme',
 	    'pluginId' => 'testTheme',
-	    'expectedUrl' => 'themes/testTheme-1.0.0-19700411131300.descriptor'));
+	    'expectedUrl' => 'themes/testTheme-1.0.0-11111.descriptor'));
 
 	foreach ($testcases as $case) {
 	    list ($ret, $url) =
@@ -93,32 +93,32 @@ class RepositoryIndexTest extends GalleryTestCase {
 	    'pluginType' => 'module',
 	    'pluginId' => 'testModule',
 	    'package' => 'base',
-	    'expectedUrl' => 'modules/testModule-1.0.0-19700412131300-base.package'), array(
+	    'expectedUrl' => 'modules/testModule-1.0.0-44444-base.package'), array(
 
 	    'pluginType' => 'module',
 	    'pluginId' => 'testModule',
 	    'package' => 'test',
-	    'expectedUrl' => 'modules/testModule-1.0.0-19700412131300-test.package'), array(
+	    'expectedUrl' => 'modules/testModule-1.0.0-44444-test.package'), array(
 
 	    'pluginType' => 'module',
 	    'pluginId' => 'testModule',
 	    'package' => 'lang-en_US',
-	    'expectedUrl' => 'modules/testModule-lang-en_US-2.2-2.3.package'), array(
+	    'expectedUrl' => 'modules/testModule-lang-en_US-22222-33333.package'), array(
 
 	    'pluginType' => 'module',
 	    'pluginId' => 'testModule',
 	    'package' => 'lang-pt_BR',
-	    'expectedUrl' => 'modules/testModule-lang-pt_BR-2.2-2.3.package'), array(
+	    'expectedUrl' => 'modules/testModule-lang-pt_BR-22222-33333.package'), array(
 
 	    'pluginType' => 'theme',
 	    'pluginId' => 'testTheme',
 	    'package' => 'base',
-	    'expectedUrl' => 'themes/testTheme-1.0.0-19700411131300-base.package'), array(
+	    'expectedUrl' => 'themes/testTheme-1.0.0-11111-base.package'), array(
 
 	    'pluginType' => 'theme',
 	    'pluginId' => 'testTheme',
 	    'package' => 'lang-pt_BR',
-	    'expectedUrl' => 'themes/testTheme-lang-pt_BR-2.2-2.2.package'));
+	    'expectedUrl' => 'themes/testTheme-lang-pt_BR-22222-33333.package'));
 
 	$this->_index->utilities = new RepositoryIndexTestUtilities();
 
@@ -334,13 +334,14 @@ class RepositoryIndexTest extends GalleryTestCase {
 
     function testGetAvailableLanguagesInPlugin() {
 	$testCases = array(
-	     array('pluginType' => 'module',
-		   'pluginId' => 'testModule',
-		   'languages' => $this->_sampleIndex['modules']['testModule']['languages']['2.2']),
-
-	     array('pluginType' => 'theme',
-		   'pluginId' => 'testTheme',
-		   'languages' => $this->_sampleIndex['themes']['testTheme']['languages']['2.2']));
+	     array(
+		 'pluginType' => 'module',
+		 'pluginId' => 'testModule',
+		 'languages' => $this->_sampleIndex['modules']['testModule']['languages']['22222']),
+	     array(
+		 'pluginType' => 'theme',
+		 'pluginId' => 'testTheme',
+		 'languages' => $this->_sampleIndex['themes']['testTheme']['languages']['22222']));
 
 	foreach ($testCases as $case) {
 	    list ($ret, $languages) =
