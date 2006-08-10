@@ -238,12 +238,11 @@ class GalleryRepository {
 		 * an 'upgrade' action. Maybe we can show some additional info, such as
 		 * '3 languages updated' or 'base data upgrade available'.
 		 */
-		list ($ret, $upgradeInfo) =
-		    $this->getPluginUpgradeInfo($pluginType, $pluginId);
-
+		list ($ret, $upgradeInfo) = $this->getPluginUpgradeInfo($pluginType, $pluginId);
 		if ($ret) {
 		    return array($ret, null);
 		}
+
 		if (!empty($upgradeInfo)) {
 		    $action = $gallery->i18n('upgrade');
 		}
