@@ -1769,13 +1769,9 @@ class GalleryTheme extends GalleryPlugin {
 		return $ret;
 	    }
 
-	    /*
-	     * TODO Should perhaps eventually be moved to $theme.item.permissions for consistency
-	     * with $theme.item.owner, etc.
-	     */
 	    if ($itemId) {
 		foreach ($permissions[$itemId] as $permission => $value) {
-		    $theme['permissions'][str_replace('.', '_', $permission)] = true;
+		    $theme['item']['permissions'][str_replace('.', '_', $permission)] = true;
 		}
 	    }
 
