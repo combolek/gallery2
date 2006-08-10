@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: Gallery: Core 1.1.10\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-02-01 23:38+0100\n"
-"PO-Revision-Date: 2006-05-11 15:22+0100\n"
+"PO-Revision-Date: 2006-07-28 22:34+0100\n"
 "Last-Translator: Sverre M. Vikan <sverre AT urven DOT net>\n"
 "Language-Team: Norwegian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -196,10 +196,10 @@ msgid "Converting MySQL data to UTF8"
 msgstr "Omdanner MySQL-data til UTF8"
 
 msgid "Updating panorama items"
-msgstr ""
+msgstr "Oppdaterer panoramaobjekter"
 
 msgid "Optimizing AccessSubscriberMap table"
-msgstr ""
+msgstr "Optimaliserer tabellen AccessSubscriberMap"
 
 msgid "Site Admins"
 msgstr "Nettstedadministratorer"
@@ -274,28 +274,22 @@ msgstr[1] "%d kilobyte"
 
 #, c-format
 msgid "Input file %s exceeds maximum permitted file size"
-msgstr ""
+msgstr "Inndatafilen %s overstiger den største tillatte filstørrelsen"
 
 #, c-format
 msgid "Input file %s exceeds file size specified in the form"
-msgstr ""
+msgstr "Inndatafilen %s overstiger filstørrelsen spesifisert i skjemaet"
 
 #, c-format
 msgid "Input file %s was only partially uploaded"
-msgstr ""
+msgstr "Inndatafilen %s ble bare delvis lastet opp"
 
 #, c-format
 msgid "Input file %s was not uploaded. Error %d"
-msgstr ""
+msgstr "Inndatafilen %s ble ikke lastet opp. Feil %d"
 
 msgid "Gallery Item Administration"
 msgstr "Administrasjon av Gallery-objekter"
-
-msgid "create link"
-msgstr "opprett lenke"
-
-msgid "link an item"
-msgstr "lenk et objekt"
 
 msgid "delete an item"
 msgstr "slett et objekt"
@@ -405,9 +399,6 @@ msgstr "Vellykket skalering av foto"
 msgid "Modify Photo"
 msgstr "Endre foto"
 
-msgid "Successfully saved theme settings"
-msgstr "Vellykket lagring av temainnstillinger"
-
 msgid "Theme"
 msgstr "Tema"
 
@@ -466,9 +457,6 @@ msgstr "Rediger foto"
 
 msgid "Edit Movie"
 msgstr "Rediger film"
-
-msgid "Create Link"
-msgstr "Opprett lenke"
 
 msgid "Add Album"
 msgstr "Legg til album"
@@ -548,15 +536,6 @@ msgstr "Kontoinnstillinger"
 msgid "Change Password"
 msgstr "Endre passord"
 
-msgid "Link Album"
-msgstr "Lenk album"
-
-msgid "Link Photo"
-msgstr "Lenk foto"
-
-msgid "Link Movie"
-msgstr "Lenk film"
-
 #, c-format
 msgid "Edit %s"
 msgstr "Rediger %s"
@@ -568,10 +547,6 @@ msgstr "Slett %s"
 #, c-format
 msgid "Move %s"
 msgstr "Flytt %s"
-
-#, c-format
-msgid "Link %s"
-msgstr "Lenk %s"
 
 msgid "Build all thumbnails/resizes"
 msgstr "Opprett alle miniatyrbilder/skaleringer"
@@ -686,6 +661,14 @@ msgstr "Tittel"
 
 msgid "Owner"
 msgstr "Eier"
+
+#, fuzzy
+msgid "Dynamic Album"
+msgstr "Rediger album"
+
+#, fuzzy
+msgid "dynamic album"
+msgstr "Rediger album"
 
 msgid "Group"
 msgstr "Gruppe"
@@ -988,11 +971,24 @@ msgstr "Operativsystem"
 msgid "Default theme"
 msgstr "Standardtema"
 
+msgid "gettext"
+msgstr "gettext"
+
+#, fuzzy
+msgid "enabled"
+msgstr "deaktivert"
+
+msgid "disabled"
+msgstr "deaktivert"
+
 msgid "Locale"
 msgstr "Lokaltilpassing"
 
 msgid "Browser"
 msgstr "Nettleser"
+
+msgid "Successfully saved theme settings"
+msgstr "Vellykket lagring av temainnstillinger"
 
 msgid "General Settings"
 msgstr "Generelle innstillinger"
@@ -1033,9 +1029,6 @@ msgstr "Standardspråk"
 
 msgid "Check Browser Preference"
 msgstr "Kontroller nettleserinnstillinger"
-
-msgid "gettext"
-msgstr "gettext"
 
 #, c-format
 msgid ""
@@ -1723,9 +1716,6 @@ msgstr ""
 msgid "up to date"
 msgstr "Oppdatert"
 
-msgid "disabled"
-msgstr "deaktivert"
-
 msgid "upgrade required"
 msgstr "oppgradering er påkrevd"
 
@@ -2208,6 +2198,9 @@ msgstr ""
 "filsystemtilganger. Dette kan skje om du eller din nettvert endret noe i filsystemet, f.eks. "
 "ved å gjenopprette en sikkerhetskopi."
 
+msgid "Item not found."
+msgstr ""
+
 msgid "An error has occurred."
 msgstr "En feil har oppstått."
 
@@ -2336,64 +2329,6 @@ msgstr "Miniatyrbilde mangler"
 msgid "Options"
 msgstr "Valg"
 
-msgid "Link an Item"
-msgstr "Lenk et objekt"
-
-#, c-format
-msgid "Successfully linked %d item"
-msgid_plural "Successfully linked %d items"
-msgstr[0] "Vellykket lenke av %d objekt"
-msgstr[1] "Vellykket lenke av %d objekter"
-
-msgid "This album contains no items to link."
-msgstr "Dette altbumet inneholder ingen objekter å lenke."
-
-msgid "Source"
-msgstr "Kilde"
-
-msgid "Choose the items you want to link"
-msgstr "Velg de objektene du ønsker å lenke"
-
-#, c-format
-msgid "(page %d of %d)"
-msgstr "(side %d av %d)"
-
-msgid "No sources chosen"
-msgstr "Ingen kilder valgt"
-
-msgid "Check All"
-msgstr "Marker alle"
-
-msgid "Check None"
-msgstr "Marker ingen"
-
-msgid "Invert"
-msgstr "Speilvend"
-
-msgid "Previous Page"
-msgstr "Forrige side"
-
-msgid "Next Page"
-msgstr "Neste side"
-
-msgid "Destination"
-msgstr "Mål"
-
-msgid "Choose a new album for the link"
-msgstr "Velg et nytt album for lenken"
-
-msgid "No destination chosen"
-msgstr "Intet mål valgt"
-
-msgid "Link"
-msgstr "Lenk"
-
-msgid "Successfully linked"
-msgstr "Vellykket lenking"
-
-msgid "Choose a destination album"
-msgstr "Velg et målalbum"
-
 msgid "Delete Items"
 msgstr "Slett objekter"
 
@@ -2411,6 +2346,10 @@ msgstr "Dette altbumet inneholder ingen objekter å slette"
 
 msgid "Choose the items you want to delete"
 msgstr "Velg de objektene du ønsker å slette"
+
+#, c-format
+msgid "(page %d of %d)"
+msgstr "(side %d av %d)"
 
 msgid "Items selected here will remain selected when moving between pages."
 msgstr "Objekter valgt her vil forbli valgt ved navigering mellom sider."
@@ -2432,6 +2371,21 @@ msgstr[1] "(album inneholder %d objekter)"
 
 msgid "(empty album)"
 msgstr "(tomt album)"
+
+msgid "Check All"
+msgstr "Marker alle"
+
+msgid "Check None"
+msgstr "Marker ingen"
+
+msgid "Invert"
+msgstr "Speilvend"
+
+msgid "Previous Page"
+msgstr "Forrige side"
+
+msgid "Next Page"
+msgstr "Neste side"
 
 msgid "Deletion Complete"
 msgstr "Sletting fullført"
@@ -2691,6 +2645,10 @@ msgstr "Størrelsesforhold: "
 msgid "Crop"
 msgstr "Beskjær"
 
+#, fuzzy
+msgid "Undo Changes"
+msgstr "Endre"
+
 msgid "Reset to default"
 msgstr "Tilbakestill til standard"
 
@@ -2765,6 +2723,11 @@ msgstr "Dette er en lenke til et annet bilde, så du kan ikke endre orginalen"
 msgid "There are links to this photo, so you cannot change the original"
 msgstr "Det er lenker til dette fotografiet, så du kan ikke endre orginalen"
 
+msgid ""
+"There is no toolkit support to modify the original so operations may only be applied to the "
+"copies"
+msgstr ""
+
 msgid "Preserve Original Photo"
 msgstr "Oppretthold orginalfoto"
 
@@ -2789,12 +2752,6 @@ msgid ""
 msgstr ""
 "Dette albumet er satt opp til  bruke temaet <b>%s</b>. Disse instillingene gjelder bare "
 "temaet for dette albumet."
-
-msgid "Setting"
-msgstr "Innstilling"
-
-msgid "Use Global"
-msgstr "Bruk global"
 
 #, c-format
 msgid "Use these settings in all subalbums that use %s theme"
@@ -2830,6 +2787,9 @@ msgstr[1] "Vellykket flytting av %d objekter"
 msgid "This album contains no items to move."
 msgstr "Dette altbumet inneholder ingen objekter å flytte."
 
+msgid "Source"
+msgstr "Kilde"
+
 msgid "Choose the items you want to move"
 msgstr "Velg de objektene du ønsker å flytte"
 
@@ -2854,17 +2814,26 @@ msgstr "Du har ikke tilgang til å flytte et objekt til valgte mål."
 msgid "You cannot move an album into its own subtree."
 msgstr "Du kan ikke flytte et album inn i katalogene under seg selv."
 
+msgid "Destination"
+msgstr "Mål"
+
 msgid "Choose a new album for them"
 msgstr "Velg et nytt album for dem"
 
 msgid "You don't have the permission to add items in this album"
 msgstr "Du har ikke tilgang til å legge til objekter i dette albumet"
 
+msgid "No destination chosen"
+msgstr "Intet mål valgt"
+
 msgid "Move"
 msgstr "Flytt"
 
 msgid "Successfully moved"
 msgstr "Vellykket flytting"
+
+msgid "Choose a destination album"
+msgstr "Velg et målalbum"
 
 msgid "Permissions"
 msgstr "Tilganger"
@@ -3433,6 +3402,12 @@ msgstr "Ukjent"
 msgid "Full size: "
 msgstr "Full størrelse: "
 
+msgid "Setting"
+msgstr "Innstilling"
+
+msgid "Use Global"
+msgstr "Bruk global"
+
 msgid "Language selector"
 msgstr "Språkvelger"
 
@@ -3459,3 +3434,50 @@ msgstr "[test] En andre tilgang"
 
 msgid "Unit test theme"
 msgstr "Enhetstesttema"
+
+#~ msgid "create link"
+#~ msgstr "opprett lenke"
+
+#~ msgid "link an item"
+#~ msgstr "lenk et objekt"
+
+#~ msgid "Create Link"
+#~ msgstr "Opprett lenke"
+
+#~ msgid "Link Album"
+#~ msgstr "Lenk album"
+
+#~ msgid "Link Photo"
+#~ msgstr "Lenk foto"
+
+#~ msgid "Link Movie"
+#~ msgstr "Lenk film"
+
+#~ msgid "Link %s"
+#~ msgstr "Lenk %s"
+
+#~ msgid "Link an Item"
+#~ msgstr "Lenk et objekt"
+
+#~ msgid "Successfully linked %d item"
+#~ msgid_plural "Successfully linked %d items"
+#~ msgstr[0] "Vellykket lenke av %d objekt"
+#~ msgstr[1] "Vellykket lenke av %d objekter"
+
+#~ msgid "This album contains no items to link."
+#~ msgstr "Dette altbumet inneholder ingen objekter å lenke."
+
+#~ msgid "Choose the items you want to link"
+#~ msgstr "Velg de objektene du ønsker å lenke"
+
+#~ msgid "No sources chosen"
+#~ msgstr "Ingen kilder valgt"
+
+#~ msgid "Choose a new album for the link"
+#~ msgstr "Velg et nytt album for lenken"
+
+#~ msgid "Link"
+#~ msgstr "Lenk"
+
+#~ msgid "Successfully linked"
+#~ msgstr "Vellykket lenking"

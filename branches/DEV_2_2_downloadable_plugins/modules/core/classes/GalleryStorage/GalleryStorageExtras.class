@@ -1050,7 +1050,7 @@ class GalleryStorageExtras /* the other half of GalleryStorage */ {
      * @see GalleryStorage::getMapEntry
      */
     function getMapEntry($mapName, $select, $match=array(), $optional=array()) {
-	$ret = $this->_dbInit(true);
+	$ret = $this->_dbInit();
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -1076,7 +1076,7 @@ class GalleryStorageExtras /* the other half of GalleryStorage */ {
 	    if (!array_key_exists($columnName, $mapInfo)) {
 		break;
 	    }
-	    $this->_gs->_getWhereSql($columnName, $mapInfo[$columnName], $matchValue, 
+	    $this->_gs->_getWhereSql($columnName, $mapInfo[$columnName], $matchValue,
 		    $where, $wheredata);
 	}
 
@@ -1092,9 +1092,9 @@ class GalleryStorageExtras /* the other half of GalleryStorage */ {
 	}
 
 	/* Check if all parameters are correct */
-	if (empty($selectColumns) || count($selectColumns) != count($select) 
-		|| count($where) != count($match) 
-		|| (!empty($optional['orderBy']) 
+	if (empty($selectColumns) || count($selectColumns) != count($select)
+		|| count($where) != count($match)
+		|| (!empty($optional['orderBy'])
 		    && count($optional['orderBy']) != count($orderBy))) {
 	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 	}
@@ -1602,9 +1602,7 @@ class GalleryStorageExtras /* the other half of GalleryStorage */ {
 		$query = str_replace('DB_COLUMN_PREFIX', $this->_gs->_columnPrefix, $query);
 
 		/* Perform database specific replacements */
-		foreach ($this->_gs->_getSqlReplacements() as $key => $value) {
-		    $query = str_replace($key, $value, $query);
-		}
+		$query = strtr($query, $this->_gs->_getSqlReplacements());
 
 		$this->_gs->_traceStart();
 		$recordSet = $this->_gs->_db->Execute($query);

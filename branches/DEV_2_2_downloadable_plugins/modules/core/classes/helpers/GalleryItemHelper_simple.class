@@ -297,6 +297,11 @@ class GalleryItemHelper_simple {
 	while ($result = $searchResults->nextResult()) {
 	    $counts[$result[0]] = $result[1];
 	}
+	foreach ($itemIds as $itemId) {
+	    if (!isset($counts[$itemId])) {
+		$counts[$itemId] = 0;
+	    }
+	}
 
 	return array(null, $counts);
     }

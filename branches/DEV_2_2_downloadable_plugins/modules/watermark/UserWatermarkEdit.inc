@@ -54,16 +54,11 @@ class UserWatermarkEditView extends GalleryView {
      * @see GalleryView::loadTemplate
      */
     function loadTemplate(&$template, &$form) {
-	$ret = WatermarkHelper::loadEditTemplate($template, $form, 'UserWatermarkEdit');
+	$ret = WatermarkHelper::loadEditTemplate($template, $form,
+						 'UserWatermarkEdit', 'UserAdmin');
 	if ($ret) {
 	    return array($ret, null);
 	}
-
-	$template->javascript('lib/yui/yahoo-min.js');
-	$template->javascript('lib/yui/dom-min.js');
-	$template->javascript('lib/yui/event-min.js');
-	$template->javascript('lib/yui/dragdrop-min.js');
-	$template->javascript('modules/watermark/watermark.js');
 
 	return array(null,
 		     array('body' => 'modules/watermark/templates/UserWatermarkEdit.tpl'));
