@@ -100,23 +100,23 @@ function GalleryMain($embedded=false) {
 
     /* Error handling (or redirect info in debug mode) */
     if ($ret) {
-	_GalleryMain_errorHandler($ret, $g2Data);
-	$g2Data['isDone'] = true;
-
-	if ($ret && $gallery->isStorageInitialized()) {
+	if ($gallery->isStorageInitialized()) {
 	    /* Nuke our transaction, too */
 	    $storage =& $gallery->getStorage();
 	    $storage->rollbackTransaction();
 	}
+
+	_GalleryMain_errorHandler($ret, $g2Data);
+	$g2Data['isDone'] = true;
     } else if (isset($g2Data['redirectUrl'])) {
 	/* If we're in debug mode, show a redirect page */
 	print '<h1> Debug Redirect </h1> ' .
 	    'Not automatically redirecting you to the next page because we\'re in debug mode<br/>';
 	printf('<a href="%s">Continue to the next page</a>', $g2Data['redirectUrl']);
 	print '<hr/>';
-	print "<pre>";
+	print '<pre>';
 	print $gallery->getDebugBuffer();
-	print "</pre>";
+	print '</pre>';
     }
 
     return $g2Data;
@@ -125,7 +125,7 @@ function GalleryMain($embedded=false) {
 /**
  * Process our request
  * @return array object GalleryStatus a status code
- *               array[]
+ *               array
  */
 function _GalleryMain($embedded=false) {
     global $gallery;
@@ -341,9 +341,12 @@ function _GalleryMain($embedded=false) {
 
 	/* Set the appropriate charset in our HTTP header */
 	if (!headers_sent()) {
-	    header('Content-Type: text/html; charset=UTF-8');
 	    if (GalleryUtilities::isCallback()) {
-		header('Content-Type: text/javascript; charset=UTF-8');
+		GalleryUtilities::setResponseHeader(
+		    'Content-Type: text/javascript; charset=UTF-8', false);
+	    } else {
+		GalleryUtilities::setResponseHeader(
+		    'Content-Type: text/html; charset=UTF-8', false);
 	    }
 	}
 
@@ -369,6 +372,23 @@ function _GalleryMain($embedded=false) {
 	    $session->doNotUseTempId();
 	}
 
+	/* Get our status */
+	$status = array();
+	if (!empty($results['status'])) {
+	    $status = $results['status'];
+	} else {
+	    $statusId = GalleryUtilities::getRequestVariables('statusId');
+	    if (!empty($statusId)) {
+		$session =& $gallery->getSession();
+		$status = $session->getStatus($statusId);
+	    }
+	}
+
+	$error = array();
+	if (!empty($results['error'])) {
+	    $error = $results['error'];
+	}
+
 	/*
 	 * If this is an immediate view, it will send its own output directly.  This is used in the
 	 * situation where we want to send back data that's not controlled by the layout.  That's
@@ -376,8 +396,6 @@ function _GalleryMain($embedded=false) {
 	 */
 	$data = array();
 	if ($view->isImmediate()) {
-	    $status = isset($results['status']) ? $results['status'] : array();
-	    $error = isset($results['error']) ? $results['error'] : array();
 	    $ret = $view->renderImmediate($status, $error);
 	    if ($ret) {
 		return array($ret, null);
@@ -386,10 +404,12 @@ function _GalleryMain($embedded=false) {
 	} else {
 	    GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
 	    $template = new GalleryTemplate(dirname(__FILE__));
+	    $template->setVariable('status', $status);
 	    list ($ret, $results, $theme) = $view->doLoadTemplate($template);
 	    if ($ret) {
 		return array($ret, null);
 	    }
+
 	    if (isset($results['redirect']) || isset($results['redirectUrl'])) {
 		if (isset($results['redirectUrl'])) {
 		    $redirectUrl = $results['redirectUrl'];
@@ -456,9 +476,12 @@ function _GalleryMain($embedded=false) {
 		} else {
 		    /* Set the appropriate charset in our HTTP header */
 		    if (!headers_sent()) {
-			header('Content-Type: text/html; charset=UTF-8');
 			if (GalleryUtilities::isCallback()) {
-			    header('Content-Type: text/javascript; charset=UTF-8');
+			    GalleryUtilities::setResponseHeader(
+				'Content-Type: text/javascript; charset=UTF-8', false);
+			} else {
+			    GalleryUtilities::setResponseHeader(
+				'Content-Type: text/html; charset=UTF-8', false);
 			}
 		    }
 		    print $html;
@@ -550,9 +573,7 @@ function _GalleryMain_doRedirect($redirectUrl, $template=null, $controller=null)
 	    }
 	}
 
-	/* Use our PHP VM for testability */
-	$phpVm = $gallery->getPhpVm();
-	$phpVm->header("Location: $redirectUrl");
+	GalleryUtilities::setResponseHeader("Location: $redirectUrl");
 	return array('isDone' => true);
     }
 
