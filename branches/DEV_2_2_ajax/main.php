@@ -21,7 +21,7 @@ include(dirname(__FILE__) . '/bootstrap.inc');
 
 /*
  * If they don't have a setup password, we assume that the config.php is empty and this is an
- * initial install
+ * initial install.
  */
 if (!@$gallery->getConfig('setup.password')) {
     /* May be invalid if a multisite install lost its config.php; galleryBaseUrl unknown */
@@ -83,7 +83,7 @@ function GalleryMain($embedded=false) {
     global $gallery;
 
     /* Process the request */
-    list($ret, $g2Data) = _GalleryMain($embedded);
+    list ($ret, $g2Data) = _GalleryMain($embedded);
     if (!$ret) {
 	$gallery->performShutdownActions();
 
@@ -133,7 +133,7 @@ function _GalleryMain($embedded=false) {
     $urlGenerator =& $gallery->getUrlGenerator();
 
     /* Figure out the target view/controller */
-    list($controllerName, $viewName) = GalleryUtilities::getRequestVariables('controller', 'view');
+    list ($controllerName, $viewName) = GalleryUtilities::getRequestVariables('controller', 'view');
     $gallery->debug("controller $controllerName, view $viewName");
 
     /* Check if core module needs upgrading */
@@ -267,14 +267,9 @@ function _GalleryMain($embedded=false) {
 
 	    /* Save the view name, put the rest into the request so the view can get it */
 	    foreach ($results['delegate'] as $key => $value) {
-		switch($key) {
-		case 'view':
+		GalleryUtilities::putRequestVariable($key, $value);
+		if ($key == 'view') {
 		    $viewName = $value;
-		    break;
-
-		default:
-		    GalleryUtilities::putRequestVariable($key, $value);
-		    break;
 		}
 	    }
 	}

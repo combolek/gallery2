@@ -26,7 +26,7 @@
  */
 
 /**
- * This view prepares all the information the theme requires to render an error page
+ * This view prepares all the information the theme requires to render an error page.
  *
  * @package GalleryCore
  * @subpackage UserInterface
