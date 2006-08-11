@@ -27,7 +27,7 @@
       {/capture}
     {else*}
       {capture assign="smarty.RotatePhotoBlock.status"}
-	<span id="{"status"|elementId}"{if empty($status.editMessage) && empty($status.warning) && empty($form.error)} style="display: none"{/if}>
+	<span id="{"status"|elementId}" style="{if empty($status.editMessage) && empty($status.warning) && empty($form.error)}display: none; {/if}position: absolute">
 	  <img class="giWorking" id="{"working"|elementId}" style="display: none" alt="{g->text text="Rotating photo..."}" src="{g->url href="themes/ajaxian/images/working-hard.gif"}"/>
 
 	  <img class="giSuccess" id="{"success"|elementId}"{if empty($status.editMessage)} style="display: none"{/if} alt="{$status.editMessage}" src="{g->url href="install/images/ico_success.gif"}"/>
