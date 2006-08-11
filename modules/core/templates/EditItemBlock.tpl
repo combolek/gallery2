@@ -9,13 +9,13 @@
 
   {capture assign="EditItemBlock.status"}
     <span id="{"status"|elementId}"{if empty($status.editMessage) && empty($status.warning) && empty($form.error)} style="display: none"{/if}>
-      <img class="giWorking" id="{"working"|elementId}" style="display: none" alt="{g->text text="Saving changes..."}" src="{g->url href="themes/ajaxian/images/working-hard.gif"}"/>
+      <img class="giWorking" id="{"working"|elementId}" style="display: none" src="{g->url href="themes/ajaxian/images/working-hard.gif"}" title="{g->text text="Saving changes..."}"/>
 
-      <img class="giSuccess" id="{"success"|elementId}"{if empty($status.editMessage)} style="display: none"{/if} alt="{$status.editMessage}" src="{g->url href="install/images/ico_success.gif"}"/>
+      <img class="giSuccess" id="{"success"|elementId}"{if empty($status.editMessage)} style="display: none"{/if} src="{g->url href="install/images/ico_success.gif"}" title="{$status.editMessage}"/>
 
-      <img class="giWarning" id="{"warning"|elementId}"{if empty($status.warning)} style="display: none"{/if} alt="{$status.warning|@implode:""}" src="{g->url href="install/images/ico_warning.gif"}"/>
+      <img class="giWarning" id="{"warning"|elementId}"{if empty($status.warning)} style="display: none"{/if} src="{g->url href="install/images/ico_warning.gif"}" title="{$status.warning|@implode:""}"/>
 
-      <img class="giError" id="{"error"|elementId}"{if empty($form.error)} style="display: none"{/if} alt="{g->text text="There was a problem processing your request"}" src="{g->url href="install/images/ico_error.gif"}"/>
+      <img class="giError" id="{"error"|elementId}"{if empty($form.error)} style="display: none"{/if} src="{g->url href="install/images/ico_error.gif"}" title="{g->text text="There was a problem processing your request"}"/>
     </span>
   {/capture}
 {else}
@@ -26,7 +26,7 @@
       {else}
 
 	{* TODO Fix CSS *}
-	<a id="{"link"|elementId}" style="color: black{if $EditItemBlock.property != 'title'}; font-weight: normal{/if}" href="javascript:GalleryUtilities.hide('{"status"|elementId}'); GalleryUtilities.hide('{"link"|elementId}'); GalleryUtilities.show('{"form"|elementId}')" title="Click to edit">
+	<a id="{"link"|elementId}" style="color: black{if $EditItemBlock.property != 'title'}; font-weight: normal{/if}" href="javascript:GalleryUtilities.hide('{"status"|elementId}'); GalleryUtilities.hide('{"link"|elementId}'); GalleryUtilities.show('{"form"|elementId}')" title="{g->text text="Click to edit"}">
 	  {$content}
 	</a>
 
@@ -63,7 +63,12 @@
 		YAHOO.util.Event.preventDefault(event);
 	      {rdelim}, EditItemBlock_{$templateId|replace:"-":"_"});
 
-	  new YAHOO.widget.Tooltip("{"tooltip"|elementId}", {ldelim}context: "{"link"|elementId}"{rdelim});
+	  new YAHOO.widget.Tooltip("{"linkTooltip"|elementId}", {ldelim}context: "{"link"|elementId}"{rdelim});
+
+	  new YAHOO.widget.Tooltip("{"workingTooltip"|elementId}", {ldelim}context: "{"working"|elementId}"{rdelim});
+	  new YAHOO.widget.Tooltip("{"successTooltip"|elementId}", {ldelim}context: "{"success"|elementId}"{rdelim});
+	  new YAHOO.widget.Tooltip("{"warningTooltip"|elementId}", {ldelim}context: "{"warning"|elementId}"{rdelim});
+	  new YAHOO.widget.Tooltip("{"errorTooltip"|elementId}", {ldelim}context: "{"error"|elementId}"{rdelim});
 
 	  // ]]>
 	</script>
@@ -78,15 +83,10 @@
     YAHOO.util.Dom.get("{"value"|elementId}").innerHTML =
       "{$EditItemBlock.item[$EditItemBlock.property]|markup|entitytruncate:256}";
 
-    YAHOO.util.Dom.batch(
-      YAHOO.util.Dom.getElementsByClassName("serialNumberInput-{$EditItemBlock.item.id}"),
-      function(element) {ldelim}
-	  element.value = {$EditItemBlock.item.serialNumber};
-	{rdelim});
-
     GalleryUtilities.hide("{"working"|elementId}");
 
     {if empty($status.editMessage) && empty($status.warning) && empty($form.error)}
+      YAHOO.util.Dom.get("{"link"|elementId}").title = "{g->text text="Click to edit"}";
       GalleryUtilities.hide("{"status"|elementId}");
     {else}
       GalleryUtilities.show("{"status"|elementId}");
@@ -95,21 +95,30 @@
     {if empty($status.editMessage)}
       GalleryUtilities.hide("{"success"|elementId}");
     {else}
-      YAHOO.util.Dom.get("{"success"|elementId}").alt = "{$status.editMessage}";
+      YAHOO.util.Dom.get("{"link"|elementId}").title = "{$status.editMessage}";
+      {*YAHOO.util.Dom.get("{"success"|elementId}").title = "{$status.editMessage}";*}
       GalleryUtilities.show("{"success"|elementId}");
     {/if}
 
     {if empty($status.warning)}
       GalleryUtilities.hide("{"warning"|elementId}");
     {else}
-      YAHOO.util.Dom.get("{"warning"|elementId}").alt = "{$status.warning|@implode:""}";
+      YAHOO.util.Dom.get("{"link"|elementId}").title = "{$status.warning|@implode:""}";
+      {*YAHOO.util.Dom.get("{"warning"|elementId}").title = "{$status.warning|@implode:""}";*}
       GalleryUtilities.show("{"warning"|elementId}");
     {/if}
 
     {if empty($form.error)}
       GalleryUtilities.hide("{"error"|elementId}");
     {else}
+      YAHOO.util.Dom.get("{"link"|elementId}").title = "{g->text text="There was a problem processing your request"}";
       GalleryUtilities.show("{"error"|elementId}");
     {/if}
+
+    YAHOO.util.Dom.batch(
+      YAHOO.util.Dom.getElementsByClassName("serialNumberInput-{$EditItemBlock.item.id}"),
+      function(element) {ldelim}
+	  element.value = {$EditItemBlock.item.serialNumber};
+	{rdelim});
   {/capture}
 {/if}
