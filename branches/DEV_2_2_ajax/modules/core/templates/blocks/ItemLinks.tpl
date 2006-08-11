@@ -23,26 +23,34 @@
   {if count($links) > 1 && $useDropdown}
     <div class="{$class}">
       <select onchange="var value = this.value; this.options[0].selected = true; eval(value)">
-	<option label="{if $item.canContainChildren}{g->text text="&laquo; album actions &raquo;"}{else}{g->text text="&laquo; item actions &raquo;"}{/if}" value="">{if $item.canContainChildren}{g->text text="&laquo; album actions &raquo;"}{else}{g->text text="&laquo; item actions &raquo;"}{/if}</option>
-	{foreach from=$links item=link}
-	  {if $lowercase}
-	    {assign linkText=$link.text|lower}
+	<option value="">
+	  {if $item.canContainChildren}
+	    {g->text text="&laquo; album actions &raquo;"}
 	  {else}
-	    {assign linkText=$link.text}
+	    {g->text text="&laquo; item actions &raquo;"}
 	  {/if}
-	  <option label="{$linkText}" value="{if isset($link.script)}{$link.script}{else}window.location = '{g->url params=$link.params}'{/if}"> {$linkText} </option>
+	</option>
+	{foreach from=$links item=link}
+	  <option value="{if isset($link.script)}{$link.script}{else}window.location = '{g->url params=$link.params}'{/if}"{if !empty($link.selected)} selected="selected"{/if}>
+	    {if $lowercase}
+	      {$link.text|lower}
+	    {else}
+	      {$link.text}
+	    {/if}
+	  </option>
 	{/foreach}
       </select>
     </div>
   {elseif count($links) > 0}
     <div class="{$class}">
       {foreach from=$links item=link}
-	{if $lowercase}
-	  {assign linkText=$link.text|lower}
-	{else}
-	  {assign linkText=$link.text}
-	{/if}
-	<a class="gbAdminLink {g->linkid urlParams=$link.params}" href="{if isset($link.script)}javascript:{$link.script}{else}{g->url params=$link.params}{/if}"> {$linkText} </a>
+	<a class="gbAdminLink {g->linkid urlParams=$link.params}" href="{if isset($link.script)}javascript:{$link.script}{else}{g->url params=$link.params}{/if}">
+	  {if $lowercase}
+	    {$link.text|lower}
+	  {else}
+	    {$link.text}
+	  {/if}
+	</a>
       {/foreach}
     </div>
   {/if}

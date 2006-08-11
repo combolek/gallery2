@@ -49,17 +49,19 @@
 	  // <![CDATA[
 
 	  var EditItemBlock_{$templateId|replace:"-":"_"} = new EditItemBlock();
-	  EditItemBlock_{$templateId|replace:"-":"_"}.templateId = "{$templateId}";
+	  {if !empty($templateId)}
+	    EditItemBlock_{$templateId|replace:"-":"_"}.templateId = "{$templateId}";
+	  {/if}
 
 	  {* Register template's submit function with submit buttons *}
 	  YAHOO.util.Event.addListener(["{"saveInput"|elementId}", "{"undoInput"|elementId}"],
 	    "click", function(event, self) {ldelim}
-	      EditItemBlock_{$templateId|replace:"-":"_"}.submit(
-	        {ldelim}item: {ldelim}id: {$EditItemBlock.item.id}{rdelim},
-		  property: "{$EditItemBlock.property}"{rdelim}, YAHOO.util.Event.getTarget(event),
-		self);
-	      YAHOO.util.Event.preventDefault(event);
-	    {rdelim}, EditItemBlock_{$templateId|replace:"-":"_"});
+		EditItemBlock_{$templateId|replace:"-":"_"}.submit(
+		  {ldelim}item: {ldelim}id: {$EditItemBlock.item.id}{rdelim},
+		    property: "{$EditItemBlock.property}"{rdelim},
+		  YAHOO.util.Event.getTarget(event), self);
+		YAHOO.util.Event.preventDefault(event);
+	      {rdelim}, EditItemBlock_{$templateId|replace:"-":"_"});
 
 	  new YAHOO.widget.Tooltip("{"tooltip"|elementId}", {ldelim}context: "{"link"|elementId}"{rdelim});
 
@@ -79,8 +81,8 @@
     YAHOO.util.Dom.batch(
       YAHOO.util.Dom.getElementsByClassName("serialNumberInput-{$EditItemBlock.item.id}"),
       function(element) {ldelim}
-	element.value = {$EditItemBlock.item.serialNumber};
-      {rdelim});
+	  element.value = {$EditItemBlock.item.serialNumber};
+	{rdelim});
 
     GalleryUtilities.hide("{"working"|elementId}");
 

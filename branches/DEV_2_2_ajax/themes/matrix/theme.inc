@@ -46,20 +46,18 @@ class MatrixTheme extends GalleryTheme {
 	$this->setRequiredCoreApi(array(7, 0));
 	$this->setRequiredThemeApi(array(2, 4));
 	$this->setStandardSettings(array('rows' => 3, 'columns' => 3,
-		  'showImageOwner' => 0, 'showAlbumOwner' => 1,
-		  'albumFrame' => '', 'itemFrame' => '', 'photoFrame' => '',
-		  'colorpack' => '',
-		  'showMicroThumbs' => 0,
-		  'sidebarBlocks' => serialize(array(
-			array('search.SearchBlock', array('showAdvancedLink' => true)),
-			array('core.ItemLinks', array('useDropdown' => false)),
-			array('core.PeerList', array()),
-			array('imageblock.ImageBlock', array()))),
-		  'albumBlocks' => serialize(array(
-			array('comment.ViewComments', array()))),
-		  'photoBlocks' => serialize(array(
-			array('exif.ExifInfo', array()),
-			array('comment.ViewComments', array())))));
+	    'showImageOwner' => 0, 'showAlbumOwner' => 1,
+	    'albumFrame' => '', 'itemFrame' => '', 'photoFrame' => '',
+	    'colorpack' => '',
+	    'showMicroThumbs' => 0,
+	    'sidebarBlocks' => serialize(array(
+		array('search.SearchBlock', array('showAdvancedLink' => true)),
+	        array('core.ItemLinks', array('useDropdown' => false)),
+	        array('core.PeerList', array()),
+	        array('imageblock.ImageBlock', array()))),
+	    'albumBlocks' => serialize(array(array('comment.ViewComments', array()))),
+	    'photoBlocks' => serialize(array(array('exif.ExifInfo', array()),
+		array('comment.ViewComments', array())))));
     }
 
     /**
@@ -101,6 +99,12 @@ class MatrixTheme extends GalleryTheme {
 	    return array($ret, null);
 	}
 
+	/* Preloads */
+	GalleryCoreApi::requireOnce('modules/core/Preloads.inc');
+	CorePreloads::preload($template, 'EditItemBlock', array());
+	CorePreloads::preload($template, 'RotatePhotoBlock', array());
+
+	/* Add our header and styles */
 	return array(null, 'theme.tpl');
     }
 

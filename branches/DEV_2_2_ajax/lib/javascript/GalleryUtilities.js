@@ -29,8 +29,8 @@ function GalleryUtilities() {
  * @return {Boolean} true if the client supports Ajax callbacks
  */
 GalleryUtilities.isCallbackSupported = function() {
-  return YAHOO.util.Connect.getConnectionObject();
-}
+    return YAHOO.util.Connect.getConnectionObject();
+  }
 
 /**
  * Serialize form elements
@@ -41,58 +41,58 @@ GalleryUtilities.isCallbackSupported = function() {
  * @return {Array} "name=value" arguments
  */
 GalleryUtilities.serializeForm = function(form, target) {
-  form = YAHOO.util.Dom.get(form);
+    form = YAHOO.util.Dom.get(form);
 
-  var args = [];
-  YAHOO.util.Dom.batch(form.elements, function(element) {
+    var args = [];
+    YAHOO.util.Dom.batch(form.elements, function(element) {
 
-    /* Don't serialize form elements without name attributes */
-    if (element.name == "") {
-      return;
-    }
+	/* Don't serialize form elements without name attributes */
+	if (element.name == "") {
+	  return;
+	}
 
-    /* Don't serialize submit elements which weren't clicked */
-    if (element.type.toLowerCase() == "submit" && element != YAHOO.util.Dom.get(target)) {
-      return;
-    }
+	/* Don't serialize submit elements which weren't clicked */
+	if (element.type.toLowerCase() == "submit" && element != YAHOO.util.Dom.get(target)) {
+	  return;
+	}
 
-    /* Serialize form elements */
-    switch (element.type) {
-    case "select-one":
-      var option = element.options[element.selectedIndex];
-      var arg = [element.name, option.value];
-      break;
-    case "select-multiple":
-      var value = [];
-      YAHOO.util.Dom.batch(element.options, function(option) {
-	if (option.selected) {
-	  value.push(option.value);
+	/* Serialize form elements */
+	switch (element.type) {
+	case "select-one":
+	  var option = element.options[element.selectedIndex];
+	  var arg = [element.name, option.value];
+	  break;
+	case "select-multiple":
+	  var value = [];
+	  YAHOO.util.Dom.batch(element.options, function(option) {
+	      if (option.selected) {
+		value.push(option.value);
+	      }
+	    });
+	  var arg = [element.name, value];
+	  break;
+	case "checkbox":
+	case "radio":
+	  if (element.checked) {
+	    var arg = [element.name, element.value];
+	  }
+	  break;
+	case "submit":
+	case "hidden":
+	case "password":
+	case "text":
+	  var arg = [element.name, element.value];
+	  break;
+	}
+
+	/* Ignore empty arguments */
+	if (arg) {
+	  args.push(encodeURIComponent(arg[0]) + "=" + encodeURIComponent(arg[1]));
 	}
       });
-      var arg = [element.name, value];
-      break;
-    case "checkbox":
-    case "radio":
-      if (element.checked) {
-	var arg = [element.name, element.value];
-      }
-      break;
-    case "submit":
-    case "hidden":
-    case "password":
-    case "text":
-      var arg = [element.name, element.value];
-      break;
-    }
 
-    /* Ignore empty arguments */
-    if (arg) {
-      args.push(encodeURIComponent(arg[0]) + "=" + encodeURIComponent(arg[1]));
-    }
-  });
-
-  return args;
-}
+    return args;
+  }
 
 /**
  * Make Ajax callback request
@@ -102,40 +102,40 @@ GalleryUtilities.serializeForm = function(form, target) {
  * @return {Object} YUI connection object
  */
 GalleryUtilities.callbackRequest = function(url, args) {
-  var connection = YAHOO.util.Connect.asyncRequest("POST", url, {
-    success: function(response) {
-      if (response.getResponseHeader["Content-Type"] &&
-	  response.getResponseHeader["Content-Type"].ltrim().substr(0, 15) ==
-	    "text/javascript") {
-	eval(response.responseText);
-	this.responseEvent.fire(response);
-	return;
-      }
+    var connection = YAHOO.util.Connect.asyncRequest("POST", url, {
+      success: function(response) {
+	  if (response.getResponseHeader["Content-Type"] &&
+	      response.getResponseHeader["Content-Type"].ltrim().substr(0, 15) ==
+		"text/javascript") {
+	    eval(response.responseText);
+	    this.responseEvent.fire(response);
+	    return;
+	  }
 
-      document.open();
-      document.write(response.responseText);
-      document.close();
-    },
+	  document.open();
+	  document.write(response.responseText);
+	  document.close();
+	},
 
-    failure: function(response) {
-      if (response.getResponseHeader["Content-Type"] &&
-	  response.getResponseHeader["Content-Type"].ltrim().substr(0, 15) ==
-	    "text/javascript") {
-	eval(response.responseText);
-	this.responseEvent.fire(response);
-	return;
-      }
+      failure: function(response) {
+	  if (response.getResponseHeader["Content-Type"] &&
+	      response.getResponseHeader["Content-Type"].ltrim().substr(0, 15) ==
+		"text/javascript") {
+	    eval(response.responseText);
+	    this.responseEvent.fire(response);
+	    return;
+	  }
 
-      document.open();
-      document.write(response.responseText);
-      document.close();
-    },
-    
-    scope: this}, args.join("&"));
+	  document.open();
+	  document.write(response.responseText);
+	  document.close();
+	},
+      
+      scope: this}, args.join("&"));
 
-    this.requestEvent.fire(connection);
-    return connection;
-}
+      this.requestEvent.fire(connection);
+      return connection;
+  }
 
 /**
  * Custom event triggered on all callback requests
@@ -154,9 +154,24 @@ GalleryUtilities.responseEvent = new YAHOO.util.CustomEvent("response");
  * @return {Boolean} true if the callback response is successful
  */
 GalleryUtilities.isResponseSuccessful = function(response) {
-  var status = response.status;
-  return status >= 200 && status < 300;
-}
+    var status = response.status;
+    return status >= 200 && status < 300;
+  }
+
+/**
+ * Center one element relative to another
+ *
+ * @param {Element} one element
+ * @param {Element} another element
+ */
+GalleryUtilities.center = function(element, context) {
+    element = YAHOO.util.Dom.get(element);
+    context = YAHOO.util.Dom.get(context);
+    var position = YAHOO.util.Dom.getXY(context);
+    position[0] += (context.offsetWidth - element.offsetWidth) / 2;
+    position[1] += (context.offsetHeight - element.offsetHeight) / 2;
+    YAHOO.util.Dom.setXY(element, position);
+  }
 
 /**
  * Hide element
@@ -164,13 +179,13 @@ GalleryUtilities.isResponseSuccessful = function(response) {
  * @param {mixed} one element or many elements
  */
 GalleryUtilities.hide = function() {
-  for (var i = 0; i < arguments.length; i++) {
-    var element = YAHOO.util.Dom.get(arguments[i]);
-    if (element != null) {
-      element.style.display = "none";
-    }
+    YAHOO.util.Dom.batch(arguments, function(argument) {
+	var element = YAHOO.util.Dom.get(argument);
+	if (element != null) {
+	  element.style.display = "none";
+	}
+      });
   }
-}
 
 /**
  * Show element
@@ -178,13 +193,13 @@ GalleryUtilities.hide = function() {
  * @param {mixed} one element or many elements
  */
 GalleryUtilities.show = function() {
-  for (var i = 0; i < arguments.length; i++) {
-    var element = YAHOO.util.Dom.get(arguments[i]);
-    if (element != null) {
-      element.style.display = "";
-    }
+    YAHOO.util.Dom.batch(arguments, function(argument) {
+	var element = YAHOO.util.Dom.get(argument);
+	if (element != null) {
+	  element.style.display = "";
+	}
+      });
   }
-}
 
 /**
  * Element ids in Gallery contain 1) the element id, 2) the template basename - to avoid conflicts
@@ -199,10 +214,16 @@ GalleryUtilities.show = function() {
  */
 GalleryUtilities.elementId = function(elementId, templateName, templateId) {
 
-  /* JavaScript reference mentions join is a generic method, yet arguments.join is undefined */
-  arguments.join = Array.prototype.join;
-  return arguments.join("-");
-}
+    /* JavaScript reference mentions join is a generic method, yet arguments.join is undefined */
+    var components = [];
+    YAHOO.util.Dom.batch(arguments, function(argument) {
+	if (argument != null) {
+	  components.push(argument);
+	}
+      });
+
+    return components.join("-");
+  }
 
 /**
  * Return variable name with prepended prefix
@@ -212,8 +233,8 @@ GalleryUtilities.elementId = function(elementId, templateName, templateId) {
  * @todo use GALLERY_FORM_VARIABLE_PREFIX
  */
 GalleryUtilities.formVar = function(name) {
-  return "g2_" + name;
-}
+    return "g2_" + name;
+  }
 
 /**
  * Trim leading spaces
@@ -221,10 +242,10 @@ GalleryUtilities.formVar = function(name) {
  * @return {String} this string without leading spaces
  */
 String.prototype.ltrim = function() {
-  var index = 0;
-  while (this.substr(index, 1) == " ") {
-    index++;
-  }
+    var index = 0;
+    while (this.substr(index, 1) == " ") {
+      index++;
+    }
 
-  return this.substr(index);
-}
+    return this.substr(index);
+  }
