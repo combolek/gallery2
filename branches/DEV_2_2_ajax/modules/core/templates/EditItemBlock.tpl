@@ -24,11 +24,7 @@
       {if !$EditItemBlock.item.permissions.core_edit}
 	{$content}
       {else}
-
-	{* TODO Fix CSS *}
-	<a id="{"link"|elementId}" style="color: black{if $EditItemBlock.property != 'title'}; font-weight: normal{/if}" href="javascript:GalleryUtilities.hide('{"status"|elementId}'); GalleryUtilities.hide('{"link"|elementId}'); GalleryUtilities.show('{"form"|elementId}')" title="{g->text text="Click to edit"}">
-	  {$content}
-	</a>
+	<span id="{"link"|elementId}" onclick="GalleryUtilities.hide('{"status"|elementId}'); GalleryUtilities.hide('{"link"|elementId}'); GalleryUtilities.show('{"form"|elementId}')" title="{g->text text="Click to edit"}"> {$content} </span>
 
 	<form id="{"form"|elementId}" style="display: none" action="{g->url}" method="post" enctype="{$EditItemBlock.enctype|default:"application/x-www-form-urlencoded"}">
 	  {g->hiddenFormVars}
