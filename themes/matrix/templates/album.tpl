@@ -89,6 +89,7 @@
 			RotatePhotoBlock.class="giThumbnail"} </a>
 		    {/g->container}
 
+		    {$EditItemBlock.status}
 		    <span style="display: none"> {$smarty.RotatePhotoBlock.form} </span>
 		    {merge child.itemLinks=$smarty.RotatePhotoBlock.links}
 		  {/if}
@@ -106,7 +107,6 @@
 		    {else}
 		      {$EditItemBlock.value}
 		    {/if}
-		    {$EditItemBlock.status}
 		  </p>
 		{/g->container}
 
