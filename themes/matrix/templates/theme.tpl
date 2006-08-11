@@ -21,55 +21,53 @@
   <body class="gallery">
     <div {g->mainDivAttributes}>
       {*
-       * Some module views (eg slideshow) want the full screen.  So for those, we
-       * don't draw a header, footer, navbar, etc.  Those views are responsible for
-       * drawing everything.
+       * Some module views (eg slideshow) want the full screen.  So for those, we don't draw a
+       * header, footer, navbar, etc.  Those views are responsible for drawing everything.
        *}
       {if $theme.useFullScreen}
 	{include file="gallery:`$theme.moduleTemplate`" l10Domain=$theme.moduleL10Domain}
       {else}
-      <div id="gsHeader">
-	<img src="{g->url href="images/galleryLogo_sm.gif"}" width="107" height="48" alt=""/>
-      </div>
-
-      <div id="gsNavBar" class="gcBorder1">
-	<div class="gbSystemLinks">
-	  {g->block type="core.SystemLinks"
-		    order="core.SiteAdmin core.YourAccount core.Login core.Logout"
-		    othersAt=4}
+	<div id="gsHeader">
+	  <img src="{g->url href="images/galleryLogo_sm.gif"}" width="107" height="48" alt=""/>
 	</div>
 
-	<div class="gbBreadCrumb">
-	  {g->block type="core.BreadCrumb"}
+	<div id="gsNavBar" class="gcBorder1">
+	  <div class="gbSystemLinks">
+	    {g->block type="core.SystemLinks"
+	      order="core.SiteAdmin core.YourAccount core.Login core.Logout"
+	      othersAt=4}
+	  </div>
+
+	  <div class="gbBreadCrumb">
+	    {g->block type="core.BreadCrumb"}
+	  </div>
 	</div>
-      </div>
 
-      {* Include the appropriate content type for the page we want to draw. *}
-      {if $theme.pageType == 'album'}
-	{g->theme include="album.tpl"}
-      {elseif $theme.pageType == 'photo'}
-	{g->theme include="photo.tpl"}
-      {elseif $theme.pageType == 'admin'}
-	{g->theme include="admin.tpl"}
-      {elseif $theme.pageType == 'module'}
-	{g->theme include="module.tpl"}
-      {elseif $theme.pageType == 'progressbar'}
-	{g->theme include="progressbar.tpl"}
-      {/if}
+	{* Include the appropriate content type for the page we want to draw *}
+	{if $theme.pageType == 'album'}
+	  {g->theme include="album.tpl"}
+	{elseif $theme.pageType == 'photo'}
+	  {g->theme include="photo.tpl"}
+	{elseif $theme.pageType == 'admin'}
+	  {g->theme include="admin.tpl"}
+	{elseif $theme.pageType == 'module'}
+	  {g->theme include="module.tpl"}
+	{elseif $theme.pageType == 'progressbar'}
+	  {g->theme include="progressbar.tpl"}
+	{/if}
 
-      <div id="gsFooter">
-	{g->logoButton type="validation"}
-	{g->logoButton type="gallery2"}
-	{g->logoButton type="gallery2-version"}
-	{g->logoButton type="donate"}
-      </div>
-      {/if}  {* end of full screen check *}
+	<div id="gsFooter">
+	  {g->logoButton type="validation"}
+	  {g->logoButton type="gallery2"}
+	  {g->logoButton type="gallery2-version"}
+	  {g->logoButton type="donate"}
+	</div>
+      {/if}  {* End of full screen check *}
     </div>
 
     {*
-     * Give Gallery a chance to output any cleanup code, like javascript that
-     * needs to be run at the end of the <body> tag.  If you take this out, some
-     * code won't work properly.
+     * Give Gallery a chance to output any cleanup code, like JavaScript that needs to be run at the
+     * end of the <body> tag.  If you take this out, some code won't work properly.
      *}
     {g->trailer}
 

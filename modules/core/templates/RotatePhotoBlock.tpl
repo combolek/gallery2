@@ -56,20 +56,22 @@
 	  // <![CDATA[
 
 	  var RotatePhotoBlock_{$templateId|replace:"-":"_"} = new RotatePhotoBlock();
-	  RotatePhotoBlock_{$templateId|replace:"-":"_"}.templateId = "{$templateId}";
+	  {if !empty($templateId)}
+	    RotatePhotoBlock_{$templateId|replace:"-":"_"}.templateId = "{$templateId}";
+	  {/if}
 
 	  {* Register template's submit function with submit buttons *}
 	  YAHOO.util.Event.addListener(["{"rotate-90Input"|elementId}",
 	      "{"rotate180Input"|elementId}",
 	      "{"rotate90Input"|elementId}"], "click", function(event, self) {ldelim}
-	      RotatePhotoBlock_{$templateId|replace:"-":"_"}.submit(
-	        {ldelim}item: {ldelim}id: {$RotatePhotoBlock.item.id}{rdelim},
-		  image: {ldelim}id: {$RotatePhotoBlock.image.id}{rdelim},
-		  class: "{$smarty.Gallery.image.classes.1}",
-		  id: "{$smarty.Gallery.image.ids.1}"{rdelim}, YAHOO.util.Event.getTarget(event),
-		self);
-	      YAHOO.util.Event.preventDefault(event);
-	    {rdelim}, RotatePhotoBlock_{$templateId|replace:"-":"_"});
+		  RotatePhotoBlock_{$templateId|replace:"-":"_"}.submit(
+		    {ldelim}item: {ldelim}id: {$RotatePhotoBlock.item.id}{rdelim},
+		      image: {ldelim}id: {$RotatePhotoBlock.image.id}{rdelim},
+		      class: "{$smarty.Gallery.image.classes.1}",
+		      id: "{$smarty.Gallery.image.ids.1}"{rdelim},
+		    YAHOO.util.Event.getTarget(event), self);
+		  YAHOO.util.Event.preventDefault(event);
+		{rdelim}, RotatePhotoBlock_{$templateId|replace:"-":"_"});
 
 	  // ]]>
 	</script>
@@ -88,50 +90,52 @@
 {* Ajax callback output *}
 {if GalleryUtilities::isCallback()}
   {capture append="smarty.output"}
-    YAHOO.util.Dom.get("{"hidden"|elementId}").innerHTML =
-      '{g->image item=$RotatePhotoBlock.item
+    YAHOO.util.Dom.get("{"hidden"|elementId}").innerHTML = '{g->image item=$RotatePhotoBlock.item
         image=$RotatePhotoBlock.image
 	class=$RotatePhotoBlock.class
 	id="hiddenImage"|elementId}';
     var hiddenImage = YAHOO.util.Dom.get("{"hiddenImage"|elementId}");
     YAHOO.util.Event.addListener(hiddenImage, "load", function(event, self) {ldelim}
-      var image = YAHOO.util.Dom.get("{$RotatePhotoBlock.id}");
-      image.parentNode.replaceChild(hiddenImage, image);
-      hiddenImage.id = "{$RotatePhotoBlock.id}";
+	var image = YAHOO.util.Dom.get("{$RotatePhotoBlock.id}");
+	image.parentNode.replaceChild(hiddenImage, image);
+	hiddenImage.id = "{$RotatePhotoBlock.id}";
 
-      GalleryUtilities.hide("{"working"|elementId}");
+	GalleryUtilities.hide("{"working"|elementId}");
 
-      {if empty($status.editMessage) && empty($status.warning) && empty($form.error)}
-	GalleryUtilities.hide("{"status"|elementId}");
-      {else}
-	GalleryUtilities.show("{"status"|elementId}");
-      {/if}
+	{if empty($status.editMessage) && empty($status.warning) && empty($form.error)}
+	  GalleryUtilities.hide("{"status"|elementId}");
+	{else}
+	  GalleryUtilities.show("{"status"|elementId}");
+	{/if}
 
-      {if empty($status.editMessage)}
-	GalleryUtilities.hide("{"success"|elementId}");
-      {else}
-	YAHOO.util.Dom.get("{"success"|elementId}").innerHTML = "{$status.editMessage}";
-	GalleryUtilities.show("{"success"|elementId}");
-      {/if}
+	{if empty($status.editMessage)}
+	  GalleryUtilities.hide("{"success"|elementId}");
+	{else}
+	  YAHOO.util.Dom.get("{"success"|elementId}").innerHTML = "{$status.editMessage}";
+	  GalleryUtilities.show("{"success"|elementId}");
+	{/if}
 
-      {if empty($status.warning)}
-	GalleryUtilities.hide("{"warning"|elementId}");
-      {else}
-	YAHOO.util.Dom.get("{"warning"|elementId}").innerHTML = "{$status.warning|@implode:""}";
-	GalleryUtilities.show("{"warning"|elementId}");
-      {/if}
+	{if empty($status.warning)}
+	  GalleryUtilities.hide("{"warning"|elementId}");
+	{else}
+	  YAHOO.util.Dom.get("{"warning"|elementId}").innerHTML = "{$status.warning|@implode:""}";
+	  GalleryUtilities.show("{"warning"|elementId}");
+	{/if}
 
-      {if empty($form.error)}
-	GalleryUtilities.hide("{"error"|elementId}");
-      {else}
-	GalleryUtilities.show("{"error"|elementId}");
-      {/if}
-    {rdelim}, RotatePhotoBlock_{$templateId|replace:"-":"_"});
+	{if empty($form.error)}
+	  GalleryUtilities.hide("{"error"|elementId}");
+	{else}
+	  GalleryUtilities.show("{"error"|elementId}");
+	{/if}
+
+	/* Center status over image */
+	GalleryUtilities.center("{"status"|elementId}", "{$RotatePhotoBlock.id}");
+      {rdelim}, RotatePhotoBlock_{$templateId|replace:"-":"_"});
 
     YAHOO.util.Dom.batch(
       YAHOO.util.Dom.getElementsByClassName("serialNumberInput-{$RotatePhotoBlock.item.id}"),
       function(element) {ldelim}
-	element.value = {$RotatePhotoBlock.item.serialNumber};
-      {rdelim});
+	  element.value = {$RotatePhotoBlock.item.serialNumber};
+	{rdelim});
   {/capture}
 {/if}

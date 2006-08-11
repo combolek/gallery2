@@ -30,9 +30,12 @@
 		{$EditItemBlock.value} {$EditItemBlock.status}
 	      </p>
 	    {/g->container}
-	  </td>
-	  <td style="width: 30%">
-	    {g->block type="core.ItemInfo" item=$theme.item showDate=true showSize=true showOwner=true class="giInfo"}
+	  </td><td style="width: 30%">
+	    {g->block type="core.ItemInfo"
+	      class="giInfo"
+	      item=$theme.item showDate=true
+	      showSize=true
+	      showOwner=true}
 	  </td>
 	</tr></table>
       </div>
@@ -67,14 +70,15 @@
 
 	      {assign childrenInColumnCount=`$childrenInColumnCount+1`}
 	      <td class="{if $child.canContainChildren}giAlbumCell gcBackground1{else}giItemCell{/if}" style="width: {$theme.columnWidthPct}%">
-		{if $child.canContainChildren || $child.entityType == 'GalleryLinkItem'}
-		  {assign frameType="albumFrame"}
-		  {capture assign="linkUrl"}{g->url arg1="view=core.ShowItem" arg2="itemId=`$child.id`"}{/capture}
-		{else}
-		  {assign frameType="itemFrame"}
-		  {capture assign="linkUrl"}{g->url params=$theme.pageUrl arg1="itemId=`$child.id`"}{/capture}
-		{/if}
 		<div>
+		  {if $child.canContainChildren || $child.entityType == 'GalleryLinkItem'}
+		    {assign frameType="albumFrame"}
+		    {capture assign="linkUrl"}{g->url arg1="view=core.ShowItem" arg2="itemId=`$child.id`"}{/capture}
+		  {else}
+		    {assign frameType="itemFrame"}
+		    {capture assign="linkUrl"}{g->url params=$theme.pageUrl arg1="itemId=`$child.id`"}{/capture}
+		  {/if}
+
 		  {if empty($child.thumbnail)}
 		    <a href="{$linkUrl}" class="giMissingThumbnail"> {g->text text="no thumbnail"} </a>
 		  {else}
@@ -86,16 +90,15 @@
 		        templateId=$child.id
 			RotatePhotoBlock.item=$child
 			RotatePhotoBlock.image=$child.thumbnail
-			RotatePhotoBlock.class="giThumbnail"} </a>
+			RotatePhotoBlock.class="giThumbnail"} {$smarty.RotatePhotoBlock.status} </a>
 		    {/g->container}
 
-		    {$EditItemBlock.status}
 		    <span style="display: none"> {$smarty.RotatePhotoBlock.form} </span>
 		    {merge child.itemLinks=$smarty.RotatePhotoBlock.links}
 		  {/if}
 		</div>
 
-		{g->block type="core.ItemLinks" item=$child links=$child.itemLinks} {$smarty.RotatePhotoBlock.status}
+		{g->block type="core.ItemLinks" item=$child links=$child.itemLinks}
 
 		{g->container type="core.EditItemBlock"
 		    templateId="title-`$child.id`"
@@ -106,7 +109,7 @@
 		      {g->text text="Album: %s" arg1=$EditItemBlock.value}
 		    {else}
 		      {$EditItemBlock.value}
-		    {/if}
+		    {/if} {$EditItemBlock.status}
 		  </p>
 		{/g->container}
 

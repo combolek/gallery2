@@ -35,16 +35,16 @@
  * template.  If the template name & id are omitted, the template id is filled in with the
  * {$templateId} template variable, if present.
  *
- * @param string input string
+ * @param string element id
  * @param string template name
  * @param string template id
  * @return string an HTML element id
  * -------------------------------------------------------------
  */
-function smarty_modifier_elementId($string, $templateName=null, $templateId=null) {
-    $elementId = array();
-    if (!empty($string)) {
-	$elementId[] = $string;
+function smarty_modifier_elementId($elementId, $templateName=null, $templateId=null) {
+    $components = array();
+    if (!empty($elementId)) {
+	$components[] = $elementId;
     }
 
     if (empty($templateName)) {
@@ -57,12 +57,12 @@ function smarty_modifier_elementId($string, $templateName=null, $templateId=null
 	    $templateId = $smarty->_tpl_vars['templateId'];
 	}
     }
-    $elementId[] = $templateName;
+    $components[] = $templateName;
 
     if (!empty($templateId)) {
-	$elementId[] = $templateId;
+	$components[] = $templateId;
     }
 
-    return implode('-', $elementId);
+    return implode('-', $components);
 }
 ?>
