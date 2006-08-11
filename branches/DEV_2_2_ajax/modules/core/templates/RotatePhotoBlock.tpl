@@ -28,13 +28,13 @@
     {else*}
       {capture assign="smarty.RotatePhotoBlock.status"}
 	<span id="{"status"|elementId}" style="{if empty($status.editMessage) && empty($status.warning) && empty($form.error)}display: none; {/if}position: absolute">
-	  <img class="giWorking" id="{"working"|elementId}" style="display: none" alt="{g->text text="Rotating photo..."}" src="{g->url href="themes/ajaxian/images/working-hard.gif"}"/>
+	  <img class="giWorking" id="{"working"|elementId}" style="display: none" src="{g->url href="themes/ajaxian/images/working-hard.gif"}" title="{g->text text="Rotating photo..."}"/>
 
-	  <img class="giSuccess" id="{"success"|elementId}"{if empty($status.editMessage)} style="display: none"{/if} alt="{$status.editMessage}" src="{g->url href="install/images/ico_success.gif"}"/>
+	  <img class="giSuccess" id="{"success"|elementId}"{if empty($status.editMessage)} style="display: none"{/if} src="{g->url href="install/images/ico_success.gif"}" title="{$status.editMessage}"/>
 
-	  <img class="giWarning" id="{"warning"|elementId}"{if empty($status.warning)} style="display: none"{/if} alt="{$status.warning|@implode:""}" src="{g->url href="install/images/ico_warning.gif"}"/>
+	  <img class="giWarning" id="{"warning"|elementId}"{if empty($status.warning)} style="display: none"{/if} src="{g->url href="install/images/ico_warning.gif"}" title="{$status.warning|@implode:""}"/>
 
-	  <img class="giError" id="{"error"|elementId}"{if empty($form.error)} style="display: none"{/if} alt="{g->text text="There was a problem processing your request"}" src="{g->url href="install/images/ico_error.gif"}"/>
+	  <img class="giError" id="{"error"|elementId}"{if empty($form.error)} style="display: none"{/if} src="{g->url href="install/images/ico_error.gif"}" title="{g->text text="There was a problem processing your request"}"/>
 	</span>
       {/capture}
 
@@ -73,6 +73,10 @@
 		  YAHOO.util.Event.preventDefault(event);
 		{rdelim}, RotatePhotoBlock_{$templateId|replace:"-":"_"});
 
+	  new YAHOO.widget.Tooltip("{"workingTooltip"|elementId}", {ldelim}context: "{"working"|elementId}"{rdelim});
+	  new YAHOO.widget.Tooltip("{"successTooltip"|elementId}", {ldelim}context: "{"success"|elementId}"{rdelim});
+	  new YAHOO.widget.Tooltip("{"warningTooltip"|elementId}", {ldelim}context: "{"warning"|elementId}"{rdelim});
+	  new YAHOO.widget.Tooltip("{"errorTooltip"|elementId}", {ldelim}context: "{"error"|elementId}"{rdelim});
 	  // ]]>
 	</script>
       {/capture}
@@ -111,14 +115,14 @@
 	{if empty($status.editMessage)}
 	  GalleryUtilities.hide("{"success"|elementId}");
 	{else}
-	  YAHOO.util.Dom.get("{"success"|elementId}").innerHTML = "{$status.editMessage}";
+	  YAHOO.util.Dom.get("{"success"|elementId}").title = "{$status.editMessage}";
 	  GalleryUtilities.show("{"success"|elementId}");
 	{/if}
 
 	{if empty($status.warning)}
 	  GalleryUtilities.hide("{"warning"|elementId}");
 	{else}
-	  YAHOO.util.Dom.get("{"warning"|elementId}").innerHTML = "{$status.warning|@implode:""}";
+	  YAHOO.util.Dom.get("{"warning"|elementId}").title = "{$status.warning|@implode:""}";
 	  GalleryUtilities.show("{"warning"|elementId}");
 	{/if}
 

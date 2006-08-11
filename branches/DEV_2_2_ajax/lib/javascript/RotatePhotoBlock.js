@@ -35,8 +35,8 @@ RotatePhotoBlock.prototype.submit = function(RotatePhotoBlock, target, self) {
       return;
     }
 
-    var form = YAHOO.util.Dom.get(GalleryUtilities.elementId("form", "RotatePhotoBlock",
-      self.templateId));
+    var form = YAHOO.util.Dom.get(
+      GalleryUtilities.elementId("form", "RotatePhotoBlock", self.templateId));
 
     /* Disable template's form */
     YAHOO.util.Dom.batch(form.elements, function(element) {
@@ -56,11 +56,16 @@ RotatePhotoBlock.prototype.submit = function(RotatePhotoBlock, target, self) {
 	"progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
     }
 
-    GalleryUtilities.hide(GalleryUtilities.elementId("success", "RotatePhotoBlock", self.templateId));
-    GalleryUtilities.hide(GalleryUtilities.elementId("warning", "RotatePhotoBlock", self.templateId));
-    GalleryUtilities.hide(GalleryUtilities.elementId("error", "RotatePhotoBlock", self.templateId));
-    GalleryUtilities.show(GalleryUtilities.elementId("working", "RotatePhotoBlock", self.templateId));
-    GalleryUtilities.show(GalleryUtilities.elementId("status", "RotatePhotoBlock", self.templateId));
+    GalleryUtilities.hide(
+      GalleryUtilities.elementId("success", "RotatePhotoBlock", self.templateId));
+    GalleryUtilities.hide(
+      GalleryUtilities.elementId("warning", "RotatePhotoBlock", self.templateId));
+    GalleryUtilities.hide(
+      GalleryUtilities.elementId("error", "RotatePhotoBlock", self.templateId));
+    GalleryUtilities.show(
+      GalleryUtilities.elementId("working", "RotatePhotoBlock", self.templateId));
+    GalleryUtilities.show(
+      GalleryUtilities.elementId("status", "RotatePhotoBlock", self.templateId));
 
     /* Center status over image */
     GalleryUtilities.center(
@@ -68,8 +73,8 @@ RotatePhotoBlock.prototype.submit = function(RotatePhotoBlock, target, self) {
       RotatePhotoBlock.id);
 
     /* TODO Make prettier */
-    YAHOO.util.Dom.setStyle(GalleryUtilities.elementId("status", "RotatePhotoBlock",
-      self.templateId), "opacity", 0.8);
+    YAHOO.util.Dom.setStyle(
+      GalleryUtilities.elementId("status", "RotatePhotoBlock", self.templateId), "opacity", 0.8);
 
     var connection;
 
@@ -84,16 +89,16 @@ RotatePhotoBlock.prototype.submit = function(RotatePhotoBlock, target, self) {
 	    });
 
 	  if (!GalleryUtilities.isResponseSuccessful(response)) {
-	    GalleryUtilities.hide(GalleryUtilities.elementId("working", "RotatePhotoBlock",
-	      self.templateId));
-	    GalleryUtilities.hide(GalleryUtilities.elementId("success", "RotatePhotoBlock",
-	      self.templateId));
-	    GalleryUtilities.hide(GalleryUtilities.elementId("warning", "RotatePhotoBlock",
-	      self.templateId));
-	    GalleryUtilities.show(GalleryUtilities.elementId("error", "RotatePhotoBlock",
-	      self.templateId));
-	    GalleryUtilities.show(GalleryUtilities.elementId("status", "RotatePhotoBlock",
-	      self.templateId));
+	    GalleryUtilities.hide(
+	      GalleryUtilities.elementId("working", "RotatePhotoBlock", self.templateId));
+	    GalleryUtilities.hide(
+	      GalleryUtilities.elementId("success", "RotatePhotoBlock", self.templateId));
+	    GalleryUtilities.hide(
+	      GalleryUtilities.elementId("warning", "RotatePhotoBlock", self.templateId));
+	    GalleryUtilities.show(
+	      GalleryUtilities.elementId("error", "RotatePhotoBlock", self.templateId));
+	    GalleryUtilities.show(
+	      GalleryUtilities.elementId("status", "RotatePhotoBlock", self.templateId));
 
 	      /* Center status over image */
 	      GalleryUtilities.center(
