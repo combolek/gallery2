@@ -369,20 +369,21 @@ function _GalleryMain($embedded=false) {
 	}
 
 	/* Get our status */
-	$status = array();
-	if (!empty($results['status'])) {
-	    $status = $results['status'];
-	} else {
+	$status = $results['status'];
+	if (empty($status)) {
 	    $statusId = GalleryUtilities::getRequestVariables('statusId');
 	    if (!empty($statusId)) {
 		$session =& $gallery->getSession();
 		$status = $session->getStatus($statusId);
 	    }
 	}
+	if (empty($status)) {
+	    $status = array();
+	}
 
-	$error = array();
-	if (!empty($results['error'])) {
-	    $error = $results['error'];
+	$error = $results['error'];
+	if (empty($error)) {
+	    $error = array();
 	}
 
 	/*
