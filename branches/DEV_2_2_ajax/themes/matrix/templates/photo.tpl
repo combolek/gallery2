@@ -65,7 +65,7 @@
 	        templateId="title"
 		EditItemBlock.item=$theme.item
 		EditItemBlock.property="title"}
-	      <h2> {$EditItemBlock.value} {$EditItemBlock.status} </h2>
+	      <h2> {$EditItemBlock.value} </h2>
 	    {/g->container}
 
 	    {g->container type="core.EditItemBlock"
@@ -73,7 +73,7 @@
 		EditItemBlock.item=$theme.item
 		EditItemBlock.property="description"}
 	      <p class="giDescription">
-		{$EditItemBlock.value} {$EditItemBlock.status}
+		{$EditItemBlock.value}
 	      </p>
 	    {/g->container}
 	  </td><td style="width: 30%">
