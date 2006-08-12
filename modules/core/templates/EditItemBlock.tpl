@@ -24,7 +24,7 @@
       {if !$EditItemBlock.item.permissions.core_edit}
 	{$content}
       {else}
-	<span id="{"link"|elementId}" onclick="GalleryUtilities.hide('{"status"|elementId}'); GalleryUtilities.hide('{"link"|elementId}'); GalleryUtilities.show('{"form"|elementId}')" title="{g->text text="Click to edit"}"> {$content} </span>
+	<span id="{"link"|elementId}" title="{g->text text="Click to edit"}"> {$content} </span>
 
 	<form id="{"form"|elementId}" style="display: none" action="{g->url}" method="post" enctype="{$EditItemBlock.enctype|default:"application/x-www-form-urlencoded"}">
 	  {g->hiddenFormVars}
@@ -37,7 +37,7 @@
 
 	  <div class="gbBlock gcBackground1">
 	    <input class="inputTypeSubmit" id="{"saveInput"|elementId}" name="{"form[action][save]"|formVar}" type="submit" value="{g->text text="Save"}"/>
-	    <input class="inputTypeSubmit" id="{"undoInput"|elementId}" name="{"form[action][undo]"|formVar}" type="submit" value="{g->text text="Reset"}"/>
+	    <input class="inputTypeSubmit" id="{"undoInput"|elementId}" name="{"form[action][undo]"|formVar}" type="submit" value="{g->text text="Cancel"}"/>
 	  </div>
 	</form>
 
@@ -49,13 +49,28 @@
 	    EditItemBlock_{$templateId|replace:"-":"_"}.templateId = "{$templateId}";
 	  {/if}
 
+	  YAHOO.util.Event.addListener("{"link"|elementId}", "click", function(event, self) {ldelim}
+	      GalleryUtilities.hide("{"link"|elementId}");
+	      GalleryUtilities.hide("{"status"|elementId}");
+	      GalleryUtilities.show("{"form"|elementId}");
+	    {rdelim}, EditItemBlock_{$templateId|replace:"-":"_"});
+
 	  {* Register template's submit function with submit buttons *}
-	  YAHOO.util.Event.addListener(["{"saveInput"|elementId}", "{"undoInput"|elementId}"],
+	  YAHOO.util.Event.addListener("{"saveInput"|elementId}",
 	    "click", function(event, self) {ldelim}
 		EditItemBlock_{$templateId|replace:"-":"_"}.submit(
 		  {ldelim}item: {ldelim}id: {$EditItemBlock.item.id}{rdelim},
 		    property: "{$EditItemBlock.property}"{rdelim},
 		  YAHOO.util.Event.getTarget(event), self);
+		YAHOO.util.Event.preventDefault(event);
+	      {rdelim}, EditItemBlock_{$templateId|replace:"-":"_"});
+
+	  YAHOO.util.Event.addListener("{"undoInput"|elementId}",
+	    "click", function(event, self) {ldelim}
+	        YAHOO.util.Dom.get("{"link"|elementId}").title = "{g->text text="Click to edit"}";
+		GalleryUtilities.hide("{"status"|elementId}");
+		GalleryUtilities.hide("{"form"|elementId}");
+		GalleryUtilities.show("{"link"|elementId}");
 		YAHOO.util.Event.preventDefault(event);
 	      {rdelim}, EditItemBlock_{$templateId|replace:"-":"_"});
 
