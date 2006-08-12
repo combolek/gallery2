@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: CommentChangeConfirmation.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.9 $ $Date: 2006/01/10 04:39:11 $
  * @package Comment
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -43,7 +45,7 @@ class CommentChangeConfirmationView extends GalleryView {
 	/* Load our item */
 	list ($ret, $item) = $this->_getItem();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if ($form['formName'] != 'CommentChangeConfirmation') {

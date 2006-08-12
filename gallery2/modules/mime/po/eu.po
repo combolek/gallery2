@@ -1,4 +1,4 @@
-# $Id$
+# $Id: eu.po,v 1.6 2006/03/22 04:20:01 mindless Exp $
 #
 # Gallery - a web based photo album viewer and editor
 # Copyright (C) 2000-2006 Bharat Mediratta
@@ -20,20 +20,17 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: MIME Maintenance 1.1.0\n"
+"Project-Id-Version: Gallery: MIME Maintenance 1.0.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-11-04 13:55+0100\n"
-"PO-Revision-Date: 2006-05-24 11:45+0200\n"
-"Last-Translator: \n"
-"Language-Team:  <eu@li.org>\n"
+"PO-Revision-Date: 2006-02-16 10:18+0100\n"
+"Last-Translator: Piarres Beobide <pi@beobide.net>\n"
+"Language-Team: librezale.org <librezale@librezale.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.2\n"
+"X-Generator: Pootle 0.6.3.20060126\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-msgid "This type of file not allowed; item will not be added."
-msgstr "Mota honetako fitxategiak ez dira onartzen; elementua ez da gehituko."
 
 msgid "MIME Maintenance"
 msgstr "MIME Mantenua"
@@ -47,32 +44,11 @@ msgstr "Datu gehigarriak"
 msgid "MIME Types"
 msgstr "MIME Motak"
 
-msgid "Settings saved successfully"
-msgstr "Ezarpenak behar bezala gorde dira"
-
 msgid "MIME entry saved successfully"
 msgstr "MIME sarrera behar bezala gorde da"
 
 msgid "MIME entry deleted"
 msgstr "MIME sarrera ezabaturik"
-
-msgid "Allow all uploads"
-msgstr "Igoera guztiak baimendu"
-
-msgid "Block upload of types selected below"
-msgstr "Behean hautaturiko fitxategi moten igoera blokeatu"
-
-msgid "Only allow uploads of types selected below"
-msgstr "Behean hautaturiko fitxategi moten igoera bakarrik onartu"
-
-msgid "Save"
-msgstr "Gorde"
-
-msgid "Reset"
-msgstr "Berezarri"
-
-msgid "Add new MIME type"
-msgstr "MIME mota berri bat gehitu"
 
 msgid "Extensions"
 msgstr "Luzapenak"
@@ -89,11 +65,8 @@ msgstr "editatu"
 msgid "delete"
 msgstr "ezabatu"
 
-msgid "Allow Upload"
-msgstr "Igoera Onartu"
-
-msgid "Block Upload"
-msgstr "Igoera Blokeatu"
+msgid "Add new MIME type"
+msgstr "MIME mota berri bat gehitu"
 
 #, c-format
 msgid "Edit MIME type: %s"
@@ -118,7 +91,10 @@ msgid "This extension is already in use and cannot be reused."
 msgstr "Luzapen hau dagoeneko erabilia dago eta ezin da berriz erabili."
 
 msgid "You must specify at least one extension."
-msgstr "Behintzat luzapen bat ezarri behar duzu."
+msgstr "Beintzat luzapen bat ezarri behar duzu."
+
+msgid "Save"
+msgstr "Gorde"
 
 msgid "Apply"
 msgstr "Ezarri"
@@ -128,7 +104,6 @@ msgstr "Utzi"
 
 #, c-format
 msgid ""
-"Warning: Adding and allowing upload of any of the following mime types could leave you open "
-"to %sCross Site Scripting%s security vulnerabilities."
-msgstr "Oharra: Hauetako motatako fitxategien igoera gehitu eta onartuaz %sCross Site Scripting%s segurtasun zuloak gaitu ditzakezu"
-
+"Warning: Adding any of the following mime types could leave you open to %sCross Site "
+"Scripting%s security vulnerabilities."
+msgstr ""

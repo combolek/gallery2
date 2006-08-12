@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: GalleryTemplate.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.61 $ $Date: 2006/02/16 17:12:26 $
  * @package GalleryCore
  * @author Bharat Mediratta <bharat@menalto.com>
  */
@@ -28,7 +30,7 @@
  * library changes, bump this number to trigger a complete rebuild of all
  * compiled templates.
  */
-define('TEMPLATE_DATA_VERSION', 10);
+define('TEMPLATE_DATA_VERSION', 9);
 
 /**
  * This is Gallery's templating class.  It hides the details of the
@@ -197,13 +199,13 @@ class GalleryTemplate {
 
 	$ret = $this->_initCompiledTemplateDir();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$this->_smarty->compile_dir = $this->_compiledTemplateDir;
 
 	list($ret, $html) = $this->_smarty->fetch($templateName);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	return array(null, $html);
     }
@@ -219,13 +221,13 @@ class GalleryTemplate {
 
 	$ret = $this->_initCompiledTemplateDir();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$this->_smarty->compile_dir = $this->_compiledTemplateDir;
 
 	list ($ret, $junk) = $this->_smarty->fetch($templateName, null, null, true);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	return null;
     }
@@ -247,7 +249,7 @@ class GalleryTemplate {
 	/* Make a unique subdirectory for compiled templates for this templates dir */
 	$dir = $this->_compiledTemplateDir;
 	if ($platform->file_exists($dir) && !$platform->is_dir($dir)) {
-	    return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE);
+	    return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__);
 	}
 
 	$templateVersionFile = $dir . '/v_' . TEMPLATE_DATA_VERSION;
@@ -265,7 +267,7 @@ class GalleryTemplate {
 	    }
 	} else {
 	    if (!$platform->is_writeable($dir)) {
-		return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE);
+		return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__);
 	    }
 
 	    $rebuild = false;

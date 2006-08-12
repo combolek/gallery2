@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ItemAddPluginTestCase.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.9 $ $Date: 2006/01/10 04:38:41 $
  * @package Gallery
  * @subpackage PHPUnit
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -50,7 +52,7 @@ class ItemAddPluginTestCase extends GalleryTestCase {
 	list ($ret, $this->_plugin) =
 	    GalleryCoreApi::newFactoryInstanceById('ItemAddPlugin', $pluginName);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	if (!isset($this->_plugin)) {
 	    return $this->assert(false, "Unable to create ItemAddPlugin, type $pluginName");
@@ -58,7 +60,7 @@ class ItemAddPluginTestCase extends GalleryTestCase {
 
 	list ($ret, $this->_module) = GalleryCoreApi::loadPlugin('module', $moduleName);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
 
@@ -83,7 +85,7 @@ class ItemAddPluginTestCase extends GalleryTestCase {
 				      join(' | ', GalleryStatus::getErrorCodeConstants($ret->getErrorCode()))));
 	    }
 	} else if ($ret) {
-	    $this->failWithStatus($ret);
+	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	} else {
 	    /* Check to make sure we got back everything we want */
 	    $this->assert(isset($error) && is_array($error), 'plugin error results missing');

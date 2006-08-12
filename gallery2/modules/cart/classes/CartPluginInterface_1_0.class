@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: CartPluginInterface_1_0.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,8 +20,8 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
- * @package Cart
+ * @version $Revision: 1.6 $ $Date: 2006/01/10 04:38:59 $
+ * @package Search
  * @author Bharat Mediratta <bharat@menalto.com>
  */
 
@@ -52,7 +54,7 @@ class CartPluginInterface_1_0 {
      *               string the action display name
      */
     function getActionDisplayName() {
-	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
+	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED, __FILE__, __LINE__), null);
     }
 
     /**
@@ -62,7 +64,7 @@ class CartPluginInterface_1_0 {
      *               array url components that can be passed to the UrlGenerator
      */
     function fulfillCart($cartItemIds) {
-	return GalleryCoreApi::error(ERROR_UNIMPLEMENTED);
+	return GalleryCoreApi::error(ERROR_UNIMPLEMENTED, __FILE__, __LINE__);
     }
 }
 ?>

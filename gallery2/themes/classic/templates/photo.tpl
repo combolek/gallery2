@@ -1,5 +1,5 @@
 {*
- * $Revision$
+ * $Revision: 1.7 $
  * If you want to customize this file, do not edit it directly since future upgrades
  * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
  * version.  Gallery will look for that file first and use it if it exists.
@@ -96,7 +96,7 @@
 
         {g->block type="core.GuestPreview" class="gbBlock"}
 
-        {* Our emergency edit link, if the user removes all blocks containing edit links *}
+        {* Our emergency edit link, if the user all blocks containing edit links *}
 	{g->block type="core.EmergencyEditItemLink" class="gbBlock"
                   checkSidebarBlocks=true
                   checkPhotoBlocks=true}

@@ -1,4 +1,4 @@
-# $Id$
+# $Id: hu.po,v 1.11 2006/03/22 04:18:34 mindless Exp $
 #
 # Gallery - a web based photo album viewer and editor
 # Copyright (C) 2000-2006 Bharat Mediratta
@@ -25,7 +25,7 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Core 1.1.10\n"
+"Project-Id-Version: Gallery: Core 1.1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-11-04 20:08+0100\n"
 "PO-Revision-Date: 2006-01-06 17:02+0100\n"
@@ -90,6 +90,24 @@ msgstr[0] "%d hét"
 msgid "<none>"
 msgstr "<nincs>"
 
+msgid "install"
+msgstr "telepítés"
+
+msgid "upgrade"
+msgstr "frissítés"
+
+msgid "configure"
+msgstr "beállítás"
+
+msgid "activate"
+msgstr "aktiválás"
+
+msgid "uninstall"
+msgstr "eltávolít"
+
+msgid "deactivate"
+msgstr "deaktiválás"
+
 msgid "No acceleration"
 msgstr ""
 
@@ -98,9 +116,6 @@ msgstr ""
 
 msgid "Full acceleration"
 msgstr ""
-
-msgid "Themes"
-msgstr "Témák"
 
 #, fuzzy
 msgid "Performing Maintenance Tasks"
@@ -119,21 +134,6 @@ msgstr "Frissítés"
 
 msgid "Download"
 msgstr "Letöltés"
-
-msgid "install"
-msgstr "telepítés"
-
-msgid "upgrade"
-msgstr "frissítés"
-
-msgid "activate"
-msgstr "aktiválás"
-
-msgid "uninstall"
-msgstr "eltávolít"
-
-msgid "deactivate"
-msgstr "deaktiválás"
 
 msgid "Inherit settings from parent album"
 msgstr "Beállítások öröklése a szülőalbumtól"
@@ -201,12 +201,6 @@ msgid "Deleting old fast-download cache"
 msgstr "Régi jogosultsági táblák törlése"
 
 msgid "Converting MySQL data to UTF8"
-msgstr ""
-
-msgid "Updating panorama items"
-msgstr ""
-
-msgid "Optimizing AccessSubscriberMap table"
 msgstr ""
 
 msgid "Site Admins"
@@ -280,21 +274,14 @@ msgid "%d kilobytes"
 msgid_plural "%d kilobytes"
 msgstr[0] "%d Kilobájt"
 
-#, c-format
-msgid "Input file %s exceeds maximum permitted file size"
-msgstr ""
+msgid "From Local Server"
+msgstr "Helyi szerverről"
 
-#, c-format
-msgid "Input file %s exceeds file size specified in the form"
-msgstr ""
+msgid "Photo"
+msgstr "Fénykép"
 
-#, c-format
-msgid "Input file %s was only partially uploaded"
-msgstr ""
-
-#, c-format
-msgid "Input file %s was not uploaded. Error %d"
-msgstr ""
+msgid "From Web Page"
+msgstr "Weboldalról"
 
 msgid "Gallery Item Administration"
 msgstr "Galéria elem adminisztáció"
@@ -358,9 +345,6 @@ msgstr "Általános"
 
 msgid "Movie Size"
 msgstr "Film mérete"
-
-msgid "Photo"
-msgstr "Fénykép"
 
 msgid "Thumbnail cropped successfully"
 msgstr "Előnézeti kép vágása sikeres"
@@ -529,12 +513,17 @@ msgstr "A Te fiókod"
 msgid "Logout"
 msgstr "Kilépés"
 
-#, fuzzy
-msgid "Plugins"
-msgstr "belépés"
+msgid "Modules"
+msgstr "Modulok"
 
 msgid "Repository"
 msgstr ""
+
+msgid "Themes"
+msgstr "Témák"
+
+msgid "Display"
+msgstr "Megjelenítés"
 
 msgid "Users"
 msgstr "Felhasználók"
@@ -550,9 +539,6 @@ msgstr "Kezelőkészlt prioritása"
 
 msgid "Graphics Toolkits"
 msgstr "Grafikus eszköztár"
-
-msgid "Defaults"
-msgstr "Alapértelmezettek"
 
 msgid "Account Settings"
 msgstr "Felhasználói beállítások"
@@ -881,9 +867,11 @@ msgstr "Táblázat"
 msgid "spreadsheet"
 msgstr ""
 
-#, fuzzy
-msgid "file"
-msgstr "Fájl"
+msgid "Unknown"
+msgstr "Ismeretlen"
+
+msgid "unknown"
+msgstr "ismeretlen"
 
 #, c-format
 msgid ""
@@ -960,9 +948,6 @@ msgstr ""
 
 msgid "core"
 msgstr "mag"
-
-msgid "unknown"
-msgstr "ismeretlen"
 
 msgid "Gallery version"
 msgstr "Galéria verzió"
@@ -1089,6 +1074,52 @@ msgstr "Új könyvtárak"
 msgid "New files"
 msgstr "Új fájlok"
 
+msgid "Local Server Upload Paths"
+msgstr "Helyi szerver feltöltési útvonal"
+
+msgid ""
+"Specify the legal directories on the local server where a user can store files and then "
+"upload them into Gallery using the <i>Upload from Local Server</i> feature.  The paths you "
+"enter here and all the files and directories under those paths will be available to any "
+"Gallery user who has upload privileges, so you should limit this to directories that won't "
+"contain sensitive data (eg. /tmp or /usr/ftp/incoming)"
+msgstr ""
+"Add meg az érvényes könyvtárakat a helyi szerveren, ahová a felhasználófájlokat tehet, "
+"ahonnan feltölti a Galériába a <i>Feltöltés a helyi szerverről</i> funkcióval. Az itt "
+"megadott útvonalak, és az alatta levő fájlok elérhetőek lesznek bármelyik Galéria "
+"felhasználónak, akinek van feltöltési joga, tehát olyan könyvtárakat adjon meg, amik nem "
+"tartalmaznak érzékeny adatokat (pl. /tmp vagy /usr/ftp/incoming)"
+
+msgid "Path"
+msgstr "Útvonal"
+
+msgid "Action"
+msgstr "Művelet"
+
+msgid "remove"
+msgstr "törlés"
+
+msgid "Add"
+msgstr "Hozzáadás"
+
+msgid "You must enter a directory to add."
+msgstr "Add meg a hozzáadandó könyvtárat."
+
+msgid "open_basedir documentation"
+msgstr "open_basedir dokumentáció"
+
+#, c-format
+msgid ""
+"Your webserver is configured to prevent you from accessing that directory.  Please refer to "
+"the %s and consult your webserver administrator."
+msgstr ""
+
+msgid "The webserver does not have permissions to read that directory."
+msgstr "A webszervernek nincs jogosultsága a könyvtár olvasásának."
+
+msgid "The path you specified is not a valid directory."
+msgstr "A beírt útvonal nem egy könyvtár"
+
 msgid "Session Settings"
 msgstr "Kapcsolat beállítások"
 
@@ -1187,9 +1218,6 @@ msgid ""
 "<b>have to clear their browser cookie cache</b>. If they do not, they will experience "
 "login / logout / lost session problems."
 msgstr ""
-
-msgid "Path"
-msgstr "Útvonal"
 
 msgid "Invalid cookie path"
 msgstr "Érvénytelen süti"
@@ -1420,9 +1448,6 @@ msgstr "Nem veheted ki magad ebből a csoportból."
 msgid "Add Member"
 msgstr "Tagok hozzáadása"
 
-msgid "Add"
-msgstr "Hozzáadás"
-
 msgid "You must enter a username."
 msgstr "Adj meg egy felhasználónevet."
 
@@ -1494,9 +1519,6 @@ msgstr "Nem szerkesztheted ennek a csoportnak a felhasználóit"
 msgid "Edit Group (by list)"
 msgstr "Csoport szerkesztése (lista)"
 
-msgid "Action"
-msgstr "Művelet"
-
 msgid "edit"
 msgstr "szerkesztés"
 
@@ -1546,6 +1568,86 @@ msgstr "futtatás most"
 
 msgid "Last Run Details:"
 msgstr "Utolsó Futás Részletei:"
+
+msgid "Gallery Modules"
+msgstr "Galéria modulok"
+
+#, c-format
+msgid "Successfully installed and auto-configured module %s"
+msgstr "%s modul sikeresen telepítve és beállítva"
+
+#, c-format
+msgid "Successfully installed module %s"
+msgstr "%s modul sikeresen telepítve"
+
+#, c-format
+msgid "Successfully configured module %s"
+msgstr "%s modul sikeresen konfigurálva"
+
+#, c-format
+msgid "Successfully upgraded module %s"
+msgstr "%s modul sikeresen frissítve"
+
+#, c-format
+msgid "Successfully activated module %s"
+msgstr "%s modul sikeresen aktiválva"
+
+#, c-format
+msgid "Successfully deactivated module %s"
+msgstr "%s modul sikeresen kikapcsolva"
+
+#, c-format
+msgid "Successfully uninstalled module %s"
+msgstr "%s modul sikeresen eltávolítva"
+
+msgid ""
+"Gallery features come as separate modules.  You can download and install modules to add more "
+"features to your Gallery, or you can disable features if you don't want to use them.  In "
+"order to use a feature, you must install, configure (if necessary) and activate it.  If you "
+"don't wish to use a feature, you can deactivate it."
+msgstr ""
+"A Galéria lehetőségei különböző modulok formájában jönnek. Ilyen modulok külön "
+"letölthetőekés telepíthetőek, ha új lehetőségeket szeretnénk hozzáadni, vagy törölhetőek ha "
+"valamitmár nem használunk. Az ilyen lehetőségek használatához telepíteni kell a modult majd "
+"aktíválni (esetleg beállítani)."
+
+msgid "Module Name"
+msgstr "Modulnév"
+
+msgid "Version"
+msgstr "Verzió"
+
+msgid "Installed"
+msgstr "Telepítve"
+
+msgid "Actions"
+msgstr "Műveletek"
+
+msgid "Status: Not Installed"
+msgstr "Állapot: nem telepített"
+
+msgid "Status: Active"
+msgstr "Állapot: aktív"
+
+msgid "Status: Inactive"
+msgstr "Állapot: inaktív"
+
+msgid "Status: Upgrade Required (Inactive)"
+msgstr "Állapot: frissíteni kell (inaktív)"
+
+msgid "Status: Incompatible Module (Inactive)"
+msgstr "Állapot: nem kompatibilis modul (inaktív)"
+
+msgid "Incompatible module!"
+msgstr "Inkompatibilis modul!"
+
+#, c-format
+msgid "Core API Required: %s (available: %s)"
+msgstr "Szükséges Core API: %s (jelenleg %s)"
+
+#, c-format
+msgid "Module API Required: %s (available: %s)"
+msgstr "Szükséges modul API: %s (jelenleg %s)"
 
 msgid "Confirm module uninstall"
 msgstr "Modul leszedésének megerősítése"
@@ -1627,102 +1729,6 @@ msgstr ""
 msgid "Clear Saved Pages"
 msgstr ""
 
-msgid "Status: Inactive"
-msgstr "Állapot: inaktív"
-
-#, fuzzy
-msgid "__PLUGIN__ deactivated"
-msgstr "deaktiválás"
-
-msgid "Status: Active"
-msgstr "Állapot: aktív"
-
-msgid "__PLUGIN__ activated"
-msgstr ""
-
-msgid "Status: Not Installed"
-msgstr "Állapot: nem telepített"
-
-msgid "__PLUGIN__ uninstalled"
-msgstr ""
-
-msgid "Status: Upgrade Required (Inactive)"
-msgstr "Állapot: frissíteni kell (inaktív)"
-
-#, fuzzy
-msgid "Status: Incompatible Plugin (Inactive)"
-msgstr "Állapot: nem kompatibilis modul (inaktív)"
-
-msgid "Status: Inactive (Configuration Required)"
-msgstr ""
-
-msgid "__PLUGIN__ needs configuration"
-msgstr ""
-
-#, fuzzy
-msgid "Gallery Plugins"
-msgstr "Galéria modulok"
-
-#, fuzzy
-msgid ""
-"Gallery features come as separate plugins.  You can download and install plugins to add more "
-"features to your Gallery, or you can disable features if you don't want to use them.  In "
-"order to use a feature, you must install, configure (if necessary) and activate it.  If you "
-"don't wish to use a feature, you can deactivate it."
-msgstr ""
-"A Galéria lehetőségei különböző modulok formájában jönnek. Ilyen modulok külön "
-"letölthetőekés telepíthetőek, ha új lehetőségeket szeretnénk hozzáadni, vagy törölhetőek ha "
-"valamitmár nem használunk. Az ilyen lehetőségek használatához telepíteni kell a modult majd "
-"aktíválni (esetleg beállítani)."
-
-#, fuzzy
-msgid "up to date"
-msgstr "Dátum"
-
-#, fuzzy
-msgid "disabled"
-msgstr "%d elem sikertelen"
-
-#, fuzzy
-msgid "upgrade required"
-msgstr "(szükséges)"
-
-#, fuzzy
-msgid "not installed"
-msgstr "eltávolít"
-
-#, fuzzy
-msgid "incompatible"
-msgstr "Inkompatibilis modul!"
-
-#, fuzzy
-msgid "Plugin Name"
-msgstr "Teljes név"
-
-msgid "Version"
-msgstr "Verzió"
-
-msgid "Installed"
-msgstr "Telepítve"
-
-msgid "Actions"
-msgstr "Műveletek"
-
-#, fuzzy
-msgid "Incompatible plugin!"
-msgstr "Inkompatibilis modul!"
-
-#, c-format
-msgid "Core API Required: %s (available: %s)"
-msgstr "Szükséges Core API: %s (jelenleg %s)"
-
-#, fuzzy, c-format
-msgid "Plugin API Required: %s (available: %s)"
-msgstr "Szükséges modul API: %s (jelenleg %s)"
-
-msgid "configure"
-msgstr "beállítás"
-
 msgid "Please make sure that your internet connection is set up properly or try again later."
 msgstr ""
 
@@ -1734,9 +1740,6 @@ msgstr ""
 
 msgid "Common Tasks"
 msgstr ""
-
-msgid "Modules"
-msgstr "Modulok"
 
 msgid "Warning: Experimental feature!"
 msgstr ""
@@ -1839,9 +1842,6 @@ msgstr ""
 msgid "Theme Name"
 msgstr "Felület Neve"
 
-msgid "Module Name"
-msgstr "Modulnév"
-
 #, fuzzy
 msgid "Latest"
 msgstr "utolsó"
@@ -1849,6 +1849,14 @@ msgstr "utolsó"
 #, fuzzy
 msgid "Incompatible Plugin"
 msgstr "Inkompatibilis modul!"
+
+#, fuzzy
+msgid "Incompatible plugin!"
+msgstr "Inkompatibilis modul!"
+
+#, fuzzy, c-format
+msgid "Plugin API Required: %s (available: %s)"
+msgstr "Szükséges modul API: %s (jelenleg %s)"
 
 msgid "No packages have been selected."
 msgstr ""
@@ -1956,6 +1964,25 @@ msgstr "Alapértelmezett albumbeállítások sikeresen elmentve"
 
 msgid "Restored theme settings"
 msgstr "Felületbeállítások visszaállítva"
+
+msgid "All Themes"
+msgstr "Minden Felület"
+
+msgid "Defaults"
+msgstr "Alapértelmezettek"
+
+msgid "Status: Incompatible Theme (Inactive)"
+msgstr "Állapot: Inkompatibilis Felület (Inaktív)"
+
+msgid "Incompatible theme!"
+msgstr "Inkompatibilis felület!"
+
+#, c-format
+msgid "Theme API Required: %s (available: %s)"
+msgstr "Szükséges Felületi API: %s (jelenlegi: %s)"
+
+msgid "(default)"
+msgstr "(alapértelmezett)"
 
 msgid ""
 "These are default display settings for albums in your gallery.  They can be overridden in "
@@ -2250,6 +2277,155 @@ msgstr "Elem címének beállítása innen:"
 
 msgid "Assign caption to:"
 msgstr "Felirat hozzárendelése ehhez: "
+
+msgid ""
+"Transfer files that are already on your server into your Gallery.  The files must already "
+"have been uploaded to your server some other way (like FTP) and must be placed in a "
+"directory where they are accessibly by any element on the server.  If you're on Unix this "
+"means that the files and the directory the files are in should have modes of at least 755."
+msgstr ""
+"Képek áthelyezése a Galériába a szerverről. A fájloknak mar a szerveren kell lenniük "
+"(például FTP-vel feltöltve) egy olyan könyvtárban, amit bármilyen program elérhet. Ha ön egy "
+"Unix szervert használ, akkor ez azt jelenti, hogy a fájloknak és könyvtáraknak legalább 755-"
+"ös joggal kell rendelkezniük."
+
+msgid ""
+"For security purposes, you can't use this feature until the Gallery Site Administrator "
+"configures a set of legal upload directories."
+msgstr ""
+"Biztonsági okok miatt ez a lehetőség addig nem használható, amíg az Adminisztrátor nem állít "
+"be helyes feltöltési könyvtárakat."
+
+msgid "Server Path"
+msgstr "Kiszolgáló útvonal"
+
+msgid "You must enter a directory."
+msgstr "Adj meg egy könyvtárat."
+
+msgid ""
+"The directory you entered is invalid.  Make sure that the directory is readable by all users."
+msgstr ""
+"A megadott könyvtár érvénytelen. Győződj meg róla, hogy a könyvtár minden felhasználó "
+"számára olvasható."
+
+msgid ""
+"The directory you entered is illegal.  It must be a sub directory of one of the directories "
+"listed below."
+msgstr ""
+"A megadott könyvtár érvénytelen. Egy a listában megjelent könyvtár alkönyvtárának kellene "
+"lennie."
+
+msgid "An item with the same name already exists."
+msgstr "Egy ilyen nevű elem már létezik."
+
+msgid "Legal Directories"
+msgstr "Érvényes könyvtárak"
+
+msgid "modify"
+msgstr "módosítás"
+
+msgid "Recent Directories"
+msgstr "Friss könyvtárak"
+
+msgid "Find Files"
+msgstr "Fájlok keresése"
+
+#, c-format
+msgid "Directory: %s"
+msgstr "Könyvtár: %s"
+
+msgid "File name"
+msgstr "Fájlnév"
+
+msgid "Type"
+msgstr "Típus"
+
+msgid "Size"
+msgstr "Méret"
+
+msgid "Use Symlink"
+msgstr "Szimbolikus link használata"
+
+# c-format
+#, c-format
+msgid "%d byte"
+msgid_plural "%d bytes"
+msgstr[0] "%d bájt"
+
+msgid "Parent Directory"
+msgstr "Szülőkönyvtár"
+
+msgid "Directory"
+msgstr "Könyvtár"
+
+msgid "(Un)check all known types"
+msgstr "Minden ismert típus ki/bekapcsolása"
+
+msgid "(Un)check symlinks"
+msgstr "Linkek ki/bekapcsolása"
+
+msgid "for selected items"
+msgstr "a kiválasztott elemekre"
+
+msgid "Copy base filenames to:"
+msgstr "Fáljok másolása ide:"
+
+msgid "Add Files"
+msgstr "Fájlok hozzáadása"
+
+msgid "Start Over"
+msgstr "Újrakezdés"
+
+msgid ""
+"Import files into Gallery from another website.  Enter a URL below to a web page anywhere on "
+"the net and Gallery will allow you to upload any media files that it finds on that page.  "
+"Note that if you're entering a URL to a directory, you should end the URL with a trailing "
+"slash (eg, http://example.com/directory/). "
+msgstr ""
+"Fájlok importálása a galériába egy másik weboldalról. Írj be egy bármilyen weboldalra mutató "
+"URL-t, és a galéria letölt róla bármilyen média fájlt, amit ott talál. Ha könyvtárra mutató "
+"URL-t adsz meg, ügyelj arra hogy az URL-nek lezáró '/'-el kell végződnie.(pl: http://www."
+"pelda.hu/konyvtar/)"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "You must enter a URL to a web page"
+msgstr "Adjon meg egy weboldalra mutató URLt"
+
+msgid "The URL entered must begin with http://"
+msgstr "A beírt URL-nek http:// -el kell kezdődnie"
+
+msgid "The web page you specified is unavailable"
+msgstr "A megadott weboldal nem elérhető"
+
+msgid "Nothing to add found from this URL"
+msgstr "Semmi hozzáadható nem található erről a címről"
+
+msgid "Nothing added since no items were selected"
+msgstr "Nem adtunk hozzá semmit, mivel nincs elem kiválasztva"
+
+msgid "Recent URLs"
+msgstr "Friss URL-ek"
+
+#, c-format
+msgid "URL: %s"
+msgstr "URL: %s"
+
+msgid "change"
+msgstr "változtatás"
+
+# c-format
+#, c-format
+msgid "%d url found"
+msgid_plural "%d urls found"
+msgstr[0] "%d urlt nem találtam"
+
+msgid "(Un)check all"
+msgstr "Mind ki/bekapcsol"
+
+msgid "Add URLs"
+msgstr "URLek hozzáadása"
 
 msgid "No Thumbnail"
 msgstr "Nincs előnézet"
@@ -2569,10 +2745,6 @@ msgid ""
 msgstr ""
 "Ennek az elemnek a formátumhoz nincs grafikus kezelőkészlet telepítve, így nem készíthetsz, "
 "vagy modosíthatsz előnézeti képeket."
-
-#, fuzzy
-msgid "Unable to create a thumbnail for this item"
-msgstr "Add meg az elem nevét."
 
 msgid ""
 "In order for Gallery to properly display this movie, it has to know the movie's width and "
@@ -2915,9 +3087,6 @@ msgid ""
 msgstr ""
 "Ez az album automatikus rendezésre van állítva. Ha mégis szeretné kézzel rendezni, akkor "
 "előbb kapcsolja ki az automatikus rendezést."
-
-msgid "change"
-msgstr "változtatás"
 
 msgid "Change the order of the items in this album."
 msgstr "Elemek elrendezésének megváltoztatása az albumokban"
@@ -3346,9 +3515,6 @@ msgstr "%d. %s"
 msgid "Size: "
 msgstr "Méret:"
 
-msgid "Unknown"
-msgstr "Ismeretlen"
-
 msgid "Full size: "
 msgstr "Teljes méret:"
 
@@ -3379,59 +3545,84 @@ msgstr "[test] Egy második jogosultság"
 msgid "Unit test theme"
 msgstr "Egységtesztelő felület"
 
-#~ msgid "Successfully installed and auto-configured module %s"
-#~ msgstr "%s modul sikeresen telepítve és beállítva"
-
-#~ msgid "Successfully installed module %s"
-#~ msgstr "%s modul sikeresen telepítve"
-
-#~ msgid "Successfully configured module %s"
-#~ msgstr "%s modul sikeresen konfigurálva"
-
-#~ msgid "Successfully upgraded module %s"
-#~ msgstr "%s modul sikeresen frissítve"
-
-#~ msgid "Successfully activated module %s"
-#~ msgstr "%s modul sikeresen aktiválva"
-
-#~ msgid "Successfully deactivated module %s"
-#~ msgstr "%s modul sikeresen kikapcsolva"
-
-#~ msgid "Successfully uninstalled module %s"
-#~ msgstr "%s modul sikeresen eltávolítva"
-
-#~ msgid "Incompatible module!"
-#~ msgstr "Inkompatibilis modul!"
-
-#~ msgid "Module API Required: %s (available: %s)"
-#~ msgstr "Szükséges modul API: %s (jelenleg %s)"
-
-#~ msgid "All Themes"
-#~ msgstr "Minden Felület"
-
-#~ msgid "Status: Incompatible Theme (Inactive)"
-#~ msgstr "Állapot: Inkompatibilis Felület (Inaktív)"
-
-#~ msgid "Incompatible theme!"
-#~ msgstr "Inkompatibilis felület!"
-
-#~ msgid "Theme API Required: %s (available: %s)"
-#~ msgstr "Szükséges Felületi API: %s (jelenlegi: %s)"
-
-#~ msgid "(default)"
-#~ msgstr "(alapértelmezett)"
-
 #~ msgid "&laquo; None &raquo;"
 #~ msgstr "&laquo;·Nincs·&raquo;"
 
 #~ msgid "You did it right!"
 #~ msgstr "Jól csináltad!"
 
+#, fuzzy
+#~ msgid "$ cd %s"
+#~ msgstr "%d. %s"
+
+#~ msgid "B"
+#~ msgstr "B"
+
+#~ msgid "i"
+#~ msgstr "i"
+
+#~ msgid "Egyszeru"
+#~ msgstr "Egyszerű"
+
+#~ msgid "Profi"
+#~ msgstr "Profi"
+
 #~ msgid "Unable to delete directory: /templates_c"
 #~ msgstr "Nem lehet törölni a könyvtárat: /templates_c"
+
+#~ msgid "G2RC2: kthxbye"
+#~ msgstr "G2RC2: kthxbye"
+
+#, fuzzy
+#~ msgid "add album"
+#~ msgstr "al-album hozzáadása"
 
 #~ msgid "edit permissions"
 #~ msgstr "jogok szerkesztése"
 
+#, fuzzy
+#~ msgid "view permissions"
+#~ msgstr "jogok szerkesztése"
+
+#~ msgid "login"
+#~ msgstr "belépés"
+
+#~ msgid "and then"
+#~ msgstr "és utána"
+
+#, fuzzy
+#~ msgid "choose a new theme for this album"
+#~ msgstr "új elrendezés választása az albumnak"
+
+#~ msgid "login as a site administrator"
+#~ msgstr "lépjen be adminisztrátorként"
+
+#, fuzzy
+#~ msgid "install or activate this theme"
+#~ msgstr "az elrendezés telepítése vagy aktiválása"
+
 #~ msgid "HDTV 16x9"
 #~ msgstr "HDTV 16x9"
+
+# c-format
+#, fuzzy
+#~ msgid "Successfully deleted directory: /cache/entity"
+#~ msgstr "%d elem sikeresen törölve"
+
+# c-format
+#, fuzzy
+#~ msgid "Successfully deleted directory: /cache/theme"
+#~ msgstr "%d elem sikeresen törölve"
+
+# c-format
+#, fuzzy
+#~ msgid "Successfully deleted directory: /cache/module"
+#~ msgstr "%d elem sikeresen törölve"
+
+# c-format
+#, fuzzy
+#~ msgid "Unable to delete directory: /cache/theme"
+#~ msgstr "%d elem sikeresen törölve"
+
+#~ msgid "Missing Layout"
+#~ msgstr "Hiányzó elrendezés"

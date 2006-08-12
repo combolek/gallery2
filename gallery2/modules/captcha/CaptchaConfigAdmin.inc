@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: CaptchaConfigAdmin.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.9 $ $Date: 2006/01/30 18:25:52 $
  * @package Captcha
  * @author Stefan Ioachim <stefanioachim@gmail.com>
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -35,11 +37,11 @@ class CaptchaConfigAdminController extends GalleryController {
     function handleRequest($form) {
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$results['status'] = $results['error'] = array();
-	$results['redirect'] = array('view' => 'core.SiteAdmin', 'subView' => 'core.AdminPlugins');
+	$results['redirect'] = array('view' => 'core.SiteAdmin', 'subView' => 'core.AdminModules');
 	return array(null, $results);
     }
 }
@@ -57,7 +59,7 @@ class CaptchaConfigAdminView extends GalleryView {
     function loadTemplate(&$template, &$form) {
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if ($form['formName'] != 'CaptchaConfigAdmin') {

@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: DeleteSessionsTask.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.1 $ $Date: 2006/01/30 23:00:13 $
  * @package GalleryCore
  * @subpackage Classes
  * @author Andy Staudacher <ast@gmx.ch>
@@ -60,46 +62,43 @@ class DeleteSessionsTask extends MaintenanceTask {
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 	if ($ret) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	/* Touch this admin session to ensure that we don't delete it */
 	$session->put('touch', time());
 	$ret = $session->save();
 	if ($ret) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
 	if ($ret) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 	$inactivityTimeout = (int)$params['session.inactivityTimeout'];
 	$lifetime = (int)$params['session.lifetime'];
-	list ($ret, $anonymousUserId) = GalleryCoreApi::getAnonymousUserId();
-	if ($ret) {
-	    return array($ret, null, null);
-	}
-
+	$anonymousUserId = (int)$params['id.anonymousUser'];
+	
 	$ret =
 	    $templateAdapter->updateProgressBar($module->translate('Delete user sessions'), '', 0);
 	if ($ret) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	$data = array(time() - $inactivityTimeout, time() - $lifetime,
 		      $anonymousUserId, time() - (7 * 86400));
-
+	
 	$query = '
 	SELECT COUNT([GallerySessionMap::id])
 	FROM [GallerySessionMap]
 	WHERE [GallerySessionMap::modificationTimestamp] < ? OR
-	      [GallerySessionMap::creationTimestamp] < ? OR
+              [GallerySessionMap::creationTimestamp] < ? OR
 	      ([GallerySessionMap::userId] = ? AND [GallerySessionMap::creationTimestamp] < ?)
 	';
 	list ($ret, $results) = $gallery->search($query, $data);
 	if ($ret) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 	$result = $results->resultCount();
 	$total = $result[0];
@@ -109,28 +108,28 @@ class DeleteSessionsTask extends MaintenanceTask {
 	    $stepSize = $session->_expirationLimit = 1000;
 	    $iterations = ceil($total / $stepSize);
 	    $option['limit']['count'] = $stepSize;
-
-	    for ($i = 1; $i <= $iterations; $i++) {
+	    
+	    for ($i = 1; $i <= $iterations; $i++) {	    
 		$gallery->guaranteeTimeLimit(120);
 		$ret = $session->_expireSessions();
 		if ($ret) {
-		    return array($ret, null, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
-
+		
 		$ret = $templateAdapter->updateProgressBar(
 		    $module->translate('Delete user sessions'), '', $i / $iterations);
 		if ($ret) {
-		    return array($ret, null, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 	    }
 	}
-
+	
 	$ret =
 	    $templateAdapter->updateProgressBar($module->translate('Delete user sessions'), '', 1);
 	if ($ret) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
-
+	
 	return array(null, true, $result);
     }
 

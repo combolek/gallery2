@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: module.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.38 $ $Date: 2006/03/22 03:52:34 $
  * @package SelfRegistration
  * @author Sebastian Eichner <mailsp@sebastian-eichner.de>
  */
@@ -39,7 +41,7 @@ class RegisterModule extends GalleryModule {
 	$this->setVersion('1.0.6');
 	$this->setGroup('gallery', $gallery->i18n('Gallery'));
 	$this->setCallbacks('getSystemLinks|getUserAdminViews|getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 5));
+	$this->setRequiredCoreApi(array(7, 0));
 	$this->setRequiredModuleApi(array(3, 0));
     }
 
@@ -49,7 +51,7 @@ class RegisterModule extends GalleryModule {
     function upgrade($currentVersion) {
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'register');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	foreach (array('confirmation' => 'admin', 'emailadmins' => 1,
@@ -61,7 +63,7 @@ class RegisterModule extends GalleryModule {
 	    if (!isset($params[$key])) {
 		$ret = $this->setParameter($key, $value);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	}
@@ -77,14 +79,14 @@ class RegisterModule extends GalleryModule {
 	    'GalleryEntity', 'GalleryPendingUser', 'GalleryPendingUser',
 	    'modules/register/classes/GalleryPendingUser.class', 'register', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'CaptchaAdminOption', 'RegisterCaptchaAdminOption', 'RegisterCaptchaAdminOption',
 	    'modules/register/classes/RegisterCaptchaAdminOption.class', 'register', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -101,13 +103,17 @@ class RegisterModule extends GalleryModule {
      * @see GalleryModule::getSystemLinks
      */
     function getSystemLinks() {
+	global $gallery;
 	$links = array();
 
-	list ($ret, $isAnonymous) = GalleryCoreApi::isAnonymousUser();
+	list ($ret, $anonymousUserId) =
+	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	if ($isAnonymous) {
+
+	/* Only anonymous users will see the register link */
+	if ($gallery->getActiveUserId() == $anonymousUserId) {
 	    $links['Register'] = array(
 		'text' => $this->translate('Register'),
 		'params' => array('view' => 'core.UserAdmin',
@@ -122,13 +128,17 @@ class RegisterModule extends GalleryModule {
      * @see GalleryModule::getUserAdminViews();
      */
     function getUserAdminViews($user) {
+	global $gallery;
 	$views = array();
 
-	list ($ret, $isAnonymous) = GalleryCoreApi::isAnonymousUser();
+	list ($ret, $anonymousUserId) =
+	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	if ($isAnonymous) {
+
+	/* Only anonymous users will see the register link */
+	if ($gallery->getActiveUserId() == $anonymousUserId) {
 	    $views[] = array('name' => $this->translate('Register'),
 			     'view' => 'register.UserSelfRegistration');
 	}

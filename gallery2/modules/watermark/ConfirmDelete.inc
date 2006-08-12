@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ConfirmDelete.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.8 $ $Date: 2006/01/10 04:43:26 $
  * @package Watermark
  * @author Alan Harder <alan.harder@sun.com>
  */
@@ -36,7 +38,7 @@ class ConfirmDeleteController extends GalleryController {
 	/* Make sure we have permission to edit this item */
 	$ret = GalleryCoreApi::assertHasItemPermission($form['watermarkId'], 'core.edit');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$status = array();
@@ -45,7 +47,7 @@ class ConfirmDeleteController extends GalleryController {
 
 	    list ($ret) = WatermarkHelper::deleteWatermarkImageById($form['watermarkId'], true);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    $status['delete'] = 1;
@@ -80,12 +82,12 @@ class ConfirmDeleteView extends GalleryView {
 
 	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($form['watermarkId']);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $itemIds) = WatermarkHelper::fetchWatermarkedItemIds($item);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$template->setVariable('ConfirmDelete',

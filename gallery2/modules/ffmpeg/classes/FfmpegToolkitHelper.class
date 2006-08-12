@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: FfmpegToolkitHelper.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.22.2.1 $ $Date: 2006/04/05 00:19:54 $
  * @package Ffmpeg
  * @author Bharat Mediratta <bharat@menalto.com>
  */
@@ -45,18 +47,19 @@ class FfmpegToolkitHelper {
 
 	list ($ret, $ffmpegPath) = GalleryCoreApi::getPluginParameter('module', 'ffmpeg', 'path');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (empty($ffmpegPath)) {
-	    return array(GalleryCoreApi::error(ERROR_MISSING_VALUE),
+	    return array(GalleryCoreApi::error(ERROR_MISSING_VALUE,
+					      __FILE__, __LINE__),
 			 null);
 	}
 
 	list ($ret, $tests, $mimeTypes, $supportsOffset) =
 	    FfmpegToolkitHelper::testBinary($ffmpegPath);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/*
@@ -124,14 +127,17 @@ class FfmpegToolkitHelper {
 	 */
 	if (!$platform->isRestrictedByOpenBaseDir($ffmpegPath)) {
 	    if (!$platform->file_exists($ffmpegPath) || !$platform->is_file($ffmpegPath)) {
-		return array(GalleryCoreApi::error(ERROR_BAD_PATH),
+		return array(GalleryCoreApi::error(ERROR_BAD_PATH, __FILE__, __LINE__),
 			     null, null, null);
 	    }
 	}
 
 	/* We only care about video for now */
-	$relevantTypes = array('mpeg' => 'mpeg', 'asf' => 'asf', 'avi' => 'avi',
-			       'mov' => 'mov', 'wmv1' => 'wmv', 'flv' => 'flv', 'mp4' => 'mp4');
+	$relevantTypes['mpeg'] = 'mpeg';
+	$relevantTypes['asf'] = 'asf';
+	$relevantTypes['avi'] = 'avi';
+	$relevantTypes['mov'] = 'mov';
+	$relevantTypes['wmv1'] = 'wmv';
 	list ($ignored, $results) = $platform->exec(array(array($ffmpegPath, '-formats')));
 	$mimeTypes = array();
 
@@ -181,7 +187,7 @@ class FfmpegToolkitHelper {
 			list ($ret, $mime) =
 			    GalleryCoreApi::convertExtensionToMime($relevantTypes[$type]);
 			if ($ret) {
-			    return array($ret, null, null, null);
+			    return array($ret->wrap(__FILE__, __LINE__), null, null, null);
 			}
 			$mimeTypes[$mime] = 1;
 		    }
@@ -194,7 +200,7 @@ class FfmpegToolkitHelper {
 			    list ($ret, $mime) = GalleryCoreApi::convertExtensionToMime(
 				$relevantTypes[$type]);
 			    if ($ret) {
-				return array($ret, null, null, null);
+				return array($ret->wrap(__FILE__, __LINE__), null, null, null);
 			    }
 			    $mimeTypes[$mime] = 1;
 			}
@@ -217,7 +223,7 @@ class FfmpegToolkitHelper {
 				list ($ret, $mime) = GalleryCoreApi::convertExtensionToMime(
 				    $relevantTypes[$type]);
 				if ($ret) {
-				    return array($ret, null, null, null);
+				    return array($ret->wrap(__FILE__, __LINE__), null, null, null);
 				}
 				$mimeTypes[$mime] = 1;
 			    }

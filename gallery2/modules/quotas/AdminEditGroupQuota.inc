@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: AdminEditGroupQuota.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.9 $ $Date: 2006/01/17 01:52:03 $
  * @package Quotas
  * @subpackage UserInterface
  * @author Robert Balousek <volksport@users.sf.net>
@@ -39,7 +41,7 @@ class AdminEditGroupQuotaController extends GalleryController {
     function handleRequest($form) {
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$results = $status = $error = array();
@@ -47,7 +49,7 @@ class AdminEditGroupQuotaController extends GalleryController {
 	$groupId = GalleryUtilities::getRequestVariables('groupId');
 	list ($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (isset($form['action']['cancel'])) {
@@ -77,18 +79,21 @@ class AdminEditGroupQuotaController extends GalleryController {
 		    } else if ($form['quotaUnit'] == 'GB') {
 			$quotaSize = round($form['quotaSize'] * 1024.00 * 1024.00);
 		    } else {
-			return array(GalleryCoreApi::error(ERROR_MISSING_VALUE),
+			return array(GalleryCoreApi::error(ERROR_MISSING_VALUE, __FILE__, __LINE__),
 			     	     null);
 		    }
 		    if ($quotaSize <= 2147483647) {
 			if (!isset($group)) {
-			    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
+			    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT,
+			    				      __FILE__,
+			    				      __LINE__),
+					 null);
 			}
 
 			list ($ret, $quotaExists, $groupQuota) =
 			    GalleryQuotasHelper::fetchGroupQuota($group->getId());
 			if ($ret) {
-			    return array($ret, null);
+			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 			if ($quotaExists) {
 			    $match = array('userOrGroupId' => $groupQuota['id'],
@@ -99,7 +104,7 @@ class AdminEditGroupQuotaController extends GalleryController {
 				array('userOrGroupId' => $group->getId(),
 				      'quotaSize' => $quotaSize));
 			    if ($ret) {
-				return array($ret, null);
+				return array($ret->wrap(__FILE__, __LINE__), null);
 			    }
 
 			    /* Request a redirect to the confirmation screen */
@@ -152,13 +157,13 @@ class AdminEditGroupQuotaView extends GalleryView {
     function loadTemplate(&$template, &$form) {
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$groupId = GalleryUtilities::getRequestVariables('groupId');
 	list ($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	GalleryCoreApi::requireOnce('modules/quotas/classes/GalleryQuotasHelper.class');
@@ -166,7 +171,7 @@ class AdminEditGroupQuotaView extends GalleryView {
 	list ($ret, $quotaExists, $groupQuota) =
 	    GalleryQuotasHelper::fetchGroupQuota($group->getId());
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if ($form['formName'] != 'AdminEditGroupQuota') {
@@ -178,14 +183,14 @@ class AdminEditGroupQuotaView extends GalleryView {
 	list ($ret, $form['quotaSize'], $form['quotaUnit']) =
 	    GalleryQuotasHelper::humanReadableFromKilobytes($groupQuota['quota']);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$AdminEditGroupQuota = array();
 	$AdminEditGroupQuota['groupId'] = $group->getId();
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'quotas');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$AdminEditGroupQuota['quotaUnitChoices'] = array('KB' => $module->translate('KB'),
 							 'MB' => $module->translate('MB'),

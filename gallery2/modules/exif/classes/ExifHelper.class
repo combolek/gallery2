@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ExifHelper.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.34 $ $Date: 2006/01/21 10:07:18 $
  * @package Exif
  * @subpackage Classes
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -51,16 +53,6 @@ define('EXIF_ITEM_DESCRIPTION', 2);
 define('IPTC_ITEM_KEYWORDS', 4);
 
 /**
- * Rotate pictures based on exifData
- */
-define('EXIF_ITEM_ROTATE', 8);
-
-/**
- * Preserve original on rotating
- */
-define('EXIF_ITEM_ROTATE_PRESERVE', 16);
-
-/**
  * A helper class for the EXIF module.
  *
  * This class follows the Adapter pattern: 2 foreign packages with totally different APIs are made
@@ -80,7 +72,7 @@ class ExifHelper {
      * @static
      */
     function setDefaultProperties($viewMode) {
-	switch ($viewMode) {
+	switch($viewMode) {
 	case EXIF_SUMMARY:
 	    /*
 	     * This is an initial install. Make sure that we have some
@@ -136,12 +128,12 @@ class ExifHelper {
 	    break;
 
 	default:
-	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
 	$ret = ExifHelper::setProperties($viewMode, $properties);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -156,12 +148,12 @@ class ExifHelper {
      * @static
      */
     function addDefaultIptcProperties($viewMode) {
-	list ($ret, $properties) = ExifHelper::getProperties($viewMode);
+	list($ret, $properties) = ExifHelper::getProperties($viewMode);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	switch ($viewMode) {
+	switch($viewMode) {
 	case EXIF_SUMMARY:
 	    $properties[] = 'IPTC/Caption';
 	    $properties[] = 'IPTC/CopyrightNotice';
@@ -174,12 +166,12 @@ class ExifHelper {
 	    break;
 
 	default:
-	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
 	$ret = ExifHelper::setProperties($viewMode, $properties);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -203,7 +195,11 @@ class ExifHelper {
 	}
 	$rawExifData = read_exif_data_raw($path, false);
 	if ($gallery->getDebug()) {
-	    $buf = print_r($rawExifData, true);
+	    /* Capture old-school print_r() to support older PHP */
+	    ob_start();
+	    print_r($rawExifData);
+	    $buf = ob_get_contents();
+	    ob_end_clean();
 	    $gallery->debug(str_replace("\0", '', $buf));
 	}
     }
@@ -258,7 +254,7 @@ class ExifHelper {
 	ExifHelper::_fetchRawExifData($path, $rawExifData);
 	list ($ret, $iptcObj) = ExifHelper::getIptcObject($path);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$exifKeys = ExifHelper::getExifKeys();
@@ -266,7 +262,7 @@ class ExifHelper {
 	$results = array();
 	list ($ret, $properties) = ExifHelper::getProperties($viewMode);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	foreach ($properties as $property) {
 	    $title = $exifKeys[$property][0];
@@ -301,7 +297,7 @@ class ExifHelper {
 
 	GalleryUtilities::sanitizeInputValues($value);
 
-	switch ($property) {
+	switch($property) {
 	case 'ShutterSpeedValue':
 	    /* Convert "25/10000 sec" to "1/400 sec" */
 	    $results = sscanf($value, '%d/%d sec');
@@ -495,11 +491,21 @@ class ExifHelper {
      * @static
      */
     function getProperties($viewMode) {
-	list ($ret, $searchResults) = GalleryCoreApi::getMapEntry('ExifPropertiesMap',
-	    array('property', 'sequence'), array('viewMode' => $viewMode), 
-	    array('orderBy' => array('sequence' => ORDER_ASCENDING)));
+	global $gallery;
+
+	$query = '
+        SELECT
+          [ExifPropertiesMap::property], [ExifPropertiesMap::viewMode], ' .
+	    '[ExifPropertiesMap::sequence]
+        FROM
+          [ExifPropertiesMap]
+        WHERE
+          [ExifPropertiesMap::viewMode] = ?
+        ORDER BY
+          [ExifPropertiesMap::sequence] ASC';
+	list ($ret, $searchResults) = $gallery->search($query, array((int)$viewMode));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$data = array();
@@ -524,7 +530,7 @@ class ExifHelper {
 	$ret = GalleryCoreApi::removeMapEntry(
 	    'ExifPropertiesMap', array('viewMode' => $viewMode));
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	for ($i = 0; $i < sizeof($properties); $i++) {
@@ -534,7 +540,7 @@ class ExifHelper {
 		      'viewMode' => $viewMode,
 		      'sequence' => $i));
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 

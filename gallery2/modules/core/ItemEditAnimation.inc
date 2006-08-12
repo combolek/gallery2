@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ItemEditAnimation.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.13 $ $Date: 2006/01/10 04:39:20 $
  * @package GalleryCore
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -60,13 +62,13 @@ class ItemEditAnimation extends ItemEditPlugin {
 	    if (empty($error)) {
 		list ($ret, $lock) = GalleryCoreApi::acquireWriteLock($item->getId());
 		if ($ret) {
-		    return array($ret, null, null, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null, null, null);
 		}
 
 		list ($ret, $item) = $item->refresh();
 		if ($ret) {
 		    GalleryCoreApi::releaseLocks($lock);
-		    return array($ret, null, null, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null, null, null);
 		}
 
 		$item->setWidth($form['width']);
@@ -75,18 +77,18 @@ class ItemEditAnimation extends ItemEditPlugin {
 		$ret = $item->save();
 		if ($ret) {
 		    GalleryCoreApi::releaseLocks($lock);
-		    return array($ret, null, null, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null, null, null);
 		}
 
 		$ret = GalleryCoreApi::releaseLocks($lock);
 		if ($ret) {
-		    return array($ret, null, null, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null, null, null);
 		}
 
 		/* Prepare our status message */
 		list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 		if ($ret) {
-		    return array($ret, null, null, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null, null, null);
 		}
 
 		$status = $module->translate('Changes saved successfully');
@@ -129,7 +131,7 @@ class ItemEditAnimation extends ItemEditPlugin {
     function getTitle() {
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, $module->translate('Animation Size'));

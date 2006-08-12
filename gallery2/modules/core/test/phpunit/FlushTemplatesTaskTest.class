@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: FlushTemplatesTaskTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.6 $ $Date: 2006/01/10 04:39:36 $
  * @package GalleryCore
  * @subpackage PHPUnit
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -44,7 +46,7 @@ class FlushTemplatesTaskTest extends GalleryTestCase {
 	list ($ret, $dirPerms) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'permissions.directory');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$gallery->setConfig('data.smarty.templates_c', '/templates_c');
@@ -54,12 +56,12 @@ class FlushTemplatesTaskTest extends GalleryTestCase {
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $success, $details) = $task->run();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assert($success, 'should have succeeded');
@@ -80,12 +82,12 @@ class FlushTemplatesTaskTest extends GalleryTestCase {
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $success, $details) = $task->run();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$expected = $module->translate(array('text' => 'Unable to delete directory: %s',

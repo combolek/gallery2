@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: Getid3Interface_1_0.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.1 $ $Date: 2006/01/22 20:01:56 $
  * @package Getid3
  * @author Don Willingham <donwillingham@users.sf.net>
  */
@@ -42,7 +44,8 @@ class Getid3Interface_1_0 {
      *               array( id => array(property=>value,...) ))
      */
     function getMetaData($itemIds, $properties=array()) {
-	return array(GalleryStatus::error(ERROR_UNIMPLEMENTED), null);
+	return array(GalleryStatus::error(ERROR_UNIMPLEMENTED, __FILE__, __LINE__),
+	             null);
     }
 }
 ?>

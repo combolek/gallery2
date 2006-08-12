@@ -11,19 +11,15 @@
  * @author     Roman Ivanov <thingol@mail.ru>
  * @copyright  2004-2005 Roman Ivanov
  * @license    http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @version    CVS: $Id$
+ * @version    CVS: $Id: Safe.php,v 1.3 2006/02/28 17:28:22 paour Exp $
  * @link       http://pear.php.net/package/HTML_Safe
  */
 
 
 /**
  * This package requires HTMLSax3 package
- * @G2 - skip if already defined elsewhere (when embedded)
  */
-if (!class_exists('XML_HTMLSax3')) {
 require_once(dirname(__FILE__) . '/HTMLSax3.php');
-}
-if (class_exists('HTML_Safe')) { return; } /* @G2 - done if defined elsewhere (when embedded) */
 
  
 /**
@@ -604,8 +600,7 @@ class HTML_Safe
        $doc = str_replace("\xC0\xBC", '&lt;', $doc);
 
        // UTF-7 encoding ASCII decode
-       // @G2 - skip UTF-7 handling, causes a string like 'a+b-c' to become 'ac'
-       //$doc = $this->repackUTF7($doc);
+       $doc = $this->repackUTF7($doc);
 
        // Instantiate the parser
        $parser=& new XML_HTMLSax3();

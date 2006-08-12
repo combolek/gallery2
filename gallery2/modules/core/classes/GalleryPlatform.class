@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: GalleryPlatform.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.79.2.1 $ $Date: 2006/04/05 00:19:52 $
  * @package GalleryCore
  * @author Bharat Mediratta <bharat@menalto.com>
  */
@@ -331,12 +333,22 @@ class GalleryPlatform {
 
     /**
      * Reads the entire contents of the specified file into a string.
+     * file_get_contents PHP function is used if available.
      *
      * @param string file path
      * @return string file contents or boolean false on failure
      */
     function file_get_contents($path) {
-	return file_get_contents($path);
+	if (function_exists('file_get_contents')) {
+	    return file_get_contents($path);
+	}
+	if (!($fd = $this->fopen($path, 'rb'))) {
+	    return false;
+	}
+	$fileSize = $this->filesize($path);
+	$contents = $fileSize == 0 ? '' : $this->fread($fd, $fileSize);
+	$this->fclose($fd);
+	return $contents;
     }
 
     /**
@@ -704,8 +716,8 @@ class GalleryPlatform {
      * @param array(array('cmd', 'arg'), ...)
      * @param whether or not we should return error output
      * @return array(bool TRUE if the command succeeded, FALSE otherwise,
-     *               array standard output from the command
-     *               array error output from the command)
+     *               string standard output from the command
+     *               string error output from the command)
      * @access public
      */
     function exec($cmdArray) {
@@ -832,8 +844,8 @@ class GalleryPlatform {
      * Writes specified data to file.
      * Uses PHP's file_put_contents() function if it is available.
      *
-     * @param string output file path
      * @param string data to write
+     * @param string output file path
      * @return boolean true on success, false on failure
      */
     function file_put_contents($path, $data) {
@@ -1011,8 +1023,7 @@ class GalleryPlatform {
     }
 
     /**
-     * mail -- Send an email.  Lines in the headers and body should be terminated
-     * with \r\n in accordance with RFC2821.
+     * mail -- Send an email
      *
      * @param string to address(es) (comma separated)
      * @param string subject
@@ -1043,21 +1054,10 @@ class GalleryPlatform {
 		$gallery->debug("smtpmail error: " . $ret->getAsText());
 	    }
 	    return !$ret;
+	} else if (isset($headers)) {
+	    return mail($to, $subject, $body, $headers);
 	} else {
-	    $phpVm = $gallery->getPhpVm();
-	    /* Convert \r\n to the appropriate line ending style */
-	    if ($this->getLineEnding() == "\n") {
-		if (isset($headers)) {
-		    $headers = preg_replace("#\r\n#si", "\n", $headers);
-		}
-		$body = preg_replace("#\r\n#si", "\n", $body);
-	    }
-
-	    if (isset($headers)) {
-		return $phpVm->mail($to, $subject, $body, $headers);
-	    } else {
-		return $phpVm->mail($to, $subject, $body);
-	    }
+	    return mail($to, $subject, $body);
 	}
     }
 
@@ -1155,11 +1155,6 @@ class GalleryPlatform {
      * @return boolean true on success
      */
     function chmod($path, $mode=null) {
-	global $gallery;
-	if ($gallery->getDebug()) {
-	    $gallery->debug("chmod($path, $mode)");
-	}
-
 	if (!isset($mode)) {
 	    if (!isset($this->_filePerms) || !isset($this->_dirPerms)) {
 		$this->_loadPermissionPreferences();
@@ -1178,11 +1173,6 @@ class GalleryPlatform {
      * @return boolean true on success
      */
     function recursiveChmod($path, $dirMode=null, $fileMode=null) {
-	global $gallery;
-	if ($gallery->getDebug()) {
-	    $gallery->debug("recursiveChmod($path, $dirMode, $fileMode)");
-	}
-
 	if (!isset($this->_filePerms) || !isset($this->_dirPerms)) {
 	    $this->_loadPermissionPreferences();
 	}
@@ -1235,11 +1225,6 @@ class GalleryPlatform {
      * @deprecated -- TODO: remove at the next major version bump of core api
      */
     function recursiveFixDirPermissions($path) {
-	global $gallery;
-	if ($gallery->getDebug()) {
-	    $gallery->debug("recursiveFixDirPermissions($path)");
-	}
-
 	if (!$this->is_dir($path)) {
 	    return true;
 	} else if (!$this->chmod($path)) {
@@ -1268,11 +1253,6 @@ class GalleryPlatform {
      * @return string
      */
     function strftime($format, $timestamp=null) {
-	global $gallery;
-	if ($gallery->getDebug()) {
-	    $gallery->debug("strftime($format, $timestamp)");
-	}
-
 	$i = 0;
 	$newFormat = '';
 	$textPieces = array('');

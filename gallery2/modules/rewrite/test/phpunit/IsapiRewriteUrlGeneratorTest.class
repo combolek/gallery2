@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: IsapiRewriteUrlGeneratorTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -17,24 +19,22 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.2 $ $Date: 2006/01/10 04:42:22 $
  * @package Rewrite
  * @subpackage PHPUnit
  * @author Douglas Cau <douglas@cau.se>
  */
 
-GalleryCoreApi::requireOnce(
-    'modules/rewrite/classes/parsers/isapirewrite/IsapiRewriteUrlGenerator.class');
-GalleryCoreApi::requireOnce('modules/rewrite/test/phpunit/RewriteUrlGeneratorTestCase.class');
-
 /**
- * ISAPI rewrite URL generator tests
+ * Isapi Rewrite URL Generator tests
  *
  * @package Rewrite
  * @subpackage PHPUnit
  */
+GalleryCoreApi::requireOnce(
+    'modules/rewrite/classes/parsers/isapirewrite/IsapiRewriteUrlGenerator.class');
+GalleryCoreApi::requireOnce('modules/rewrite/test/phpunit/RewriteUrlGeneratorTestCase.class');
 class IsapiRewriteUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 
     function IsapiRewriteUrlGeneratorTest($methodName) {
@@ -52,7 +52,7 @@ class IsapiRewriteUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'rewrite', $key, $value);
 	    if ($ret) {
 		print $ret->getAsHtml();
-		return $this->failWithStatus($ret);
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	}
 
@@ -64,15 +64,16 @@ class IsapiRewriteUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 	$ret = $this->_urlGeneratorInit('IsapiRewriteUrlGenerator');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
+
     
     /*
-     * It should generate a server-relative URL (and not a relative URL) if REQUEST_URI is
-     * gallery2/main.php?g2_view=core.ShowItem&g2_itemId=15 which was rewritten from
+     * It should generate a server-relative URL (and not a relative URL) if
+     * REQUEST_URI is gallery2/main.php?g2_view=core.ShowItem&g2_itemId=15 which was rewritten from
      * gallery2/v/foobar/randomAlbum/ -> isapi_rewrite changes REQUEST_URI so we'd still assume that
-     * a relative URL is alright.  But it isn't, we should use server-relative URLs in this case.
+     * a relativ URL is alright. But it isn't, we should use server-relative URLs in this case.
      */
      function testGenerateUrlMustBeServerRelative() {
 	$env = array('REQUEST_URI' => '/gallery2/' . GALLERY_MAIN_PHP .
@@ -84,7 +85,7 @@ class IsapiRewriteUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 
 	$ret = $this->_runGenerateUrlTest($env, $expectedUrl, $params);
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
 }

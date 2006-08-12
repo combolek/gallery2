@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: AdminEditGroupUsers.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.35 $ $Date: 2006/01/17 01:52:01 $
  * @package GalleryCore
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -41,7 +43,7 @@ class AdminEditGroupUsersController extends GalleryController {
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$results = $error = $status = array();
@@ -50,7 +52,7 @@ class AdminEditGroupUsersController extends GalleryController {
 	$groupId = GalleryUtilities::getRequestVariables('groupId');
 	list ($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (isset($form['action']['filterClear'])) {
@@ -86,12 +88,12 @@ class AdminEditGroupUsersController extends GalleryController {
 		    foreach ($form['userIds'] as $userId => $dummy) {
 			list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId);
 			if ($ret) {
-			    return array($ret, null);
+			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 
 			$ret = GalleryCoreApi::removeUserFromGroup($user->getId(), $groupId);
 			if ($ret) {
-			    return array($ret, null);
+			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 			$removedUsers++;
 		    }
@@ -116,13 +118,13 @@ class AdminEditGroupUsersController extends GalleryController {
 		    if ($ret && ($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
 			$error[] = 'form[error][text][userName][invalid]';
 		    } else if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    } else {
 			/* Is the user already in the group? */
 			list ($ret, $inGroup) =
 			    GalleryCoreApi::isUserInGroup($user->getId(), $groupId);
 			if ($ret) {
-			    return array($ret, null);
+			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 			if ($inGroup) {
 			    $error[] = 'form[error][text][userName][alreadyInGroup]';
@@ -133,7 +135,7 @@ class AdminEditGroupUsersController extends GalleryController {
 		if (empty($error)) {
 		    $ret = GalleryCoreApi::addUserToGroup($user->getId(), $groupId);
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
 		    /* Redirect back to the same view */
@@ -175,7 +177,7 @@ class AdminEditGroupUsersView extends GalleryView {
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Set some defaults, if necessary */
@@ -190,7 +192,7 @@ class AdminEditGroupUsersView extends GalleryView {
 	$groupId = GalleryUtilities::getRequestVariables('groupId');
 	list ($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* First time on this page, initialize form fields */
@@ -202,7 +204,7 @@ class AdminEditGroupUsersView extends GalleryView {
 	/* Initialize the user list */
 	list ($ret, $totalUserCount) = GalleryCoreApi::fetchUserCount(null, $group->getId());
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$form['list']['count'] = $totalUserCount;
@@ -232,7 +234,7 @@ class AdminEditGroupUsersView extends GalleryView {
 					$form['list']['filter']
 			      );
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$form['list']['userNames'] = array();

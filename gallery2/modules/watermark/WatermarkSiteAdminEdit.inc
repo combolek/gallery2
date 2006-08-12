@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: WatermarkSiteAdminEdit.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.8 $ $Date: 2006/01/10 04:43:26 $
  * @package Watermark
  * @author Bharat Mediratta <bharat@menalto.com>
  */
@@ -38,7 +40,7 @@ class WatermarkSiteAdminEditController extends GalleryController {
 	list ($ret, $results) = WatermarkHelper::handleEditRequest($form,
 	    'core.SiteAdmin', 'watermark.WatermarkSiteAdmin', 'watermark.WatermarkSiteAdminEdit');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	return array(null, $results);
     }
@@ -54,12 +56,10 @@ class WatermarkSiteAdminEditView extends GalleryView {
      * @see GalleryView::loadTemplate
      */
     function loadTemplate(&$template, &$form) {
-	$ret = WatermarkHelper::loadEditTemplate($template, $form,
-						 'WatermarkSiteAdminEdit', 'SiteAdmin');
+	$ret = WatermarkHelper::loadEditTemplate($template, $form, 'WatermarkSiteAdminEdit');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-
 	return array(null,
 		     array('body' => 'modules/watermark/templates/WatermarkSiteAdminEdit.tpl'));
     }

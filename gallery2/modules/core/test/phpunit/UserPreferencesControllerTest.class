@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: UserPreferencesControllerTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.28 $ $Date: 2006/03/06 06:56:06 $
  * @package GalleryCore
  * @subpackage PHPUnit
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -47,7 +49,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 				     'fullName' => 'Test User',
 				     'language' => 'te'));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->_markForCleanup($this->_user);
@@ -105,7 +107,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 	/* Load back the user object and make sure the data got saved */
 	list ($ret, $this->_user) = $this->_user->refresh();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assertEquals('full name', $this->_user->getFullName());
@@ -131,7 +133,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 	/* Load back the user object and make sure the data got saved */
 	list ($ret, $this->_user) = $this->_user->refresh();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assertEquals('full name', $this->_user->getFullName());
@@ -242,7 +244,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 	/* Load back the user object and make sure the data got saved */
 	list ($ret, $this->_user) = $this->_user->refresh();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assertEquals('full name', $this->_user->getFullName());
@@ -271,7 +273,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 	/* Load back the user object and make sure the data got not saved */
 	list ($ret, $this->_user) = $this->_user->refresh();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assertEquals('Test User', $this->_user->getFullName());
@@ -298,7 +300,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 	/* Load back the user object and make sure the data got not saved */
 	list ($ret, $this->_user) = $this->_user->refresh();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assertEquals('Test User', $this->_user->getFullName());
@@ -324,37 +326,25 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 	/* Load back the user object and make sure the data got not saved */
 	list ($ret, $this->_user) = $this->_user->refresh();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assertEquals('Test User', $this->_user->getFullName());
 	$this->assertEquals('test@email.com', $this->_user->getEmail());
 	$this->assertEquals('te', $this->_user->getLanguage());
     }
-
-    function testGuestPreferences() {
-	global $gallery;
-	$gallery->setConfig('anonymousUserId', $this->_user->getId());
-
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-	GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
-	GalleryUtilities::putRequestVariable('form[email]', 'email@test.me');
-	GalleryUtilities::putRequestVariable('form[currentPassword]', 'TestPassword');
-
-	$this->handleRequest(ERROR_PERMISSION_DENIED);
-    }
-
+    
     function _addUserToAdminGroup() {
 	/* Make ourselves an admin */
 	list ($ret, $adminGroupId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.adminGroup');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$ret = GalleryCoreApi::addUserToGroup($this->_user->getId(), $adminGroupId);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
 }

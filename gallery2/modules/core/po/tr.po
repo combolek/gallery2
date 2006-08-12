@@ -1,4 +1,4 @@
-# $Id$
+# $Id: tr.po,v 1.12 2006/03/23 19:59:39 mindless Exp $
 #
 # Gallery - a web based photo album viewer and editor
 # Copyright (C) 2000-2006 Bharat Mediratta
@@ -18,7 +18,7 @@
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Core 1.1.10\n"
+"Project-Id-Version: Gallery: Core 1.1.0\n"
 "POT-Creation-Date: 2005-05-23 02:14+0200\n"
 "PO-Revision-Date: 2006-02-27 00:00+0200\n"
 "Last-Translator: Goker ISIK <admin@ansolon.com>\n"
@@ -84,6 +84,24 @@ msgstr[1] "%d hafta"
 msgid "<none>"
 msgstr ""
 
+msgid "install"
+msgstr "kur"
+
+msgid "upgrade"
+msgstr "güncelle"
+
+msgid "configure"
+msgstr "konfigüre et"
+
+msgid "activate"
+msgstr "Aktive et"
+
+msgid "uninstall"
+msgstr "kaldır"
+
+msgid "deactivate"
+msgstr ""
+
 msgid "No acceleration"
 msgstr ""
 
@@ -92,9 +110,6 @@ msgstr ""
 
 msgid "Full acceleration"
 msgstr ""
-
-msgid "Themes"
-msgstr "Temalar"
 
 #, fuzzy
 msgid "Performing Maintenance Tasks"
@@ -113,21 +128,6 @@ msgstr "Güncelle"
 
 msgid "Download"
 msgstr "Yükle"
-
-msgid "install"
-msgstr "kur"
-
-msgid "upgrade"
-msgstr "güncelle"
-
-msgid "activate"
-msgstr "Aktive et"
-
-msgid "uninstall"
-msgstr "kaldır"
-
-msgid "deactivate"
-msgstr ""
 
 msgid "Inherit settings from parent album"
 msgstr ""
@@ -194,12 +194,6 @@ msgid "Deleting old fast-download cache"
 msgstr "Eski izin tabloları siliniyor"
 
 msgid "Converting MySQL data to UTF8"
-msgstr ""
-
-msgid "Updating panorama items"
-msgstr ""
-
-msgid "Optimizing AccessSubscriberMap table"
 msgstr ""
 
 msgid "Site Admins"
@@ -273,20 +267,13 @@ msgid_plural "%d kilobytes"
 msgstr[0] "%d kilobyte"
 msgstr[1] "%d kilobyte"
 
-#, c-format
-msgid "Input file %s exceeds maximum permitted file size"
-msgstr ""
+msgid "From Local Server"
+msgstr "Lokal Server'dan"
 
-#, c-format
-msgid "Input file %s exceeds file size specified in the form"
-msgstr ""
+msgid "Photo"
+msgstr "Foto"
 
-#, c-format
-msgid "Input file %s was only partially uploaded"
-msgstr ""
-
-#, c-format
-msgid "Input file %s was not uploaded. Error %d"
+msgid "From Web Page"
 msgstr ""
 
 msgid "Gallery Item Administration"
@@ -350,9 +337,6 @@ msgstr "Genel"
 
 msgid "Movie Size"
 msgstr "Film Boyutu"
-
-msgid "Photo"
-msgstr "Foto"
 
 msgid "Thumbnail cropped successfully"
 msgstr "Thumbnail başarıyla tıraşlandı"
@@ -524,11 +508,17 @@ msgstr "Hesabınız"
 msgid "Logout"
 msgstr "Çıkış"
 
-msgid "Plugins"
-msgstr ""
+msgid "Modules"
+msgstr "Modüller"
 
 msgid "Repository"
 msgstr ""
+
+msgid "Themes"
+msgstr "Temalar"
+
+msgid "Display"
+msgstr "Görüntüle"
 
 msgid "Users"
 msgstr "Kullanıcılar"
@@ -544,9 +534,6 @@ msgstr "Araç Önceliği"
 
 msgid "Graphics Toolkits"
 msgstr "Grafik Araçları"
-
-msgid "Defaults"
-msgstr "Varsayılanlar"
 
 msgid "Account Settings"
 msgstr "Hesap Ayarları"
@@ -877,9 +864,11 @@ msgstr "Reset"
 msgid "spreadsheet"
 msgstr "hesapçizelgesi"
 
-#, fuzzy
-msgid "file"
-msgstr "Dosya"
+msgid "Unknown"
+msgstr "Bilinmeyen"
+
+msgid "unknown"
+msgstr "bilinmeyen"
 
 #, c-format
 msgid ""
@@ -953,9 +942,6 @@ msgstr "Sistem detaylarını al; G2 destek forumlarına kopyalama/yapıştırma 
 
 msgid "core"
 msgstr "çekirdek"
-
-msgid "unknown"
-msgstr "bilinmeyen"
 
 msgid "Gallery version"
 msgstr "Galeri Versiyonu"
@@ -1081,6 +1067,47 @@ msgstr "Yeni klasörler"
 msgid "New files"
 msgstr "Yeni Dosyalar"
 
+msgid "Local Server Upload Paths"
+msgstr "Local Server Yükleme Klasör Yolları"
+
+msgid ""
+"Specify the legal directories on the local server where a user can store files and then "
+"upload them into Gallery using the <i>Upload from Local Server</i> feature.  The paths you "
+"enter here and all the files and directories under those paths will be available to any "
+"Gallery user who has upload privileges, so you should limit this to directories that won't "
+"contain sensitive data (eg. /tmp or /usr/ftp/incoming)"
+msgstr ""
+
+msgid "Path"
+msgstr "Klasör Yolu"
+
+msgid "Action"
+msgstr "Hareket"
+
+msgid "remove"
+msgstr "kaldır"
+
+msgid "Add"
+msgstr "Ekle"
+
+msgid "You must enter a directory to add."
+msgstr "Eklemek için klasör girmelisiniz."
+
+msgid "open_basedir documentation"
+msgstr "open_basedir dökümantasyonu"
+
+#, c-format
+msgid ""
+"Your webserver is configured to prevent you from accessing that directory.  Please refer to "
+"the %s and consult your webserver administrator."
+msgstr ""
+
+msgid "The webserver does not have permissions to read that directory."
+msgstr "Webserverın bu klasörü okuma izni yok."
+
+msgid "The path you specified is not a valid directory."
+msgstr ""
+
 msgid "Session Settings"
 msgstr "Oturum Ayarları"
 
@@ -1175,9 +1202,6 @@ msgid ""
 "<b>have to clear their browser cookie cache</b>. If they do not, they will experience "
 "login / logout / lost session problems."
 msgstr ""
-
-msgid "Path"
-msgstr "Klasör Yolu"
 
 msgid "Invalid cookie path"
 msgstr "Geçersiz çerez klasör yolu"
@@ -1400,9 +1424,6 @@ msgstr "Kendiniz bu gruptan çıkartamazsınız."
 msgid "Add Member"
 msgstr "Üye Ekle"
 
-msgid "Add"
-msgstr "Ekle"
-
 msgid "You must enter a username."
 msgstr "Kullanıcıadı girmelisiniz."
 
@@ -1474,9 +1495,6 @@ msgstr "Bu grubun kullanıcılarını düzenleyemezsiniz"
 msgid "Edit Group (by list)"
 msgstr "Grup Düzenle (listeden)"
 
-msgid "Action"
-msgstr "Hareket"
-
 msgid "edit"
 msgstr "düzenle"
 
@@ -1526,6 +1544,82 @@ msgstr "şimdi çalıştır"
 
 msgid "Last Run Details:"
 msgstr "Son Çalıştırma Detayları:"
+
+msgid "Gallery Modules"
+msgstr "Galeri Modülleri"
+
+#, c-format
+msgid "Successfully installed and auto-configured module %s"
+msgstr "Modül %s başarıyla otomatik konfigüre edildi ve kuruldu"
+
+#, c-format
+msgid "Successfully installed module %s"
+msgstr "Modül %s başarıyla kuruldu"
+
+#, c-format
+msgid "Successfully configured module %s"
+msgstr "Modül %s başarıyla yapılandırıldı."
+
+#, c-format
+msgid "Successfully upgraded module %s"
+msgstr "Modül %s başarıyla güncellendi"
+
+#, c-format
+msgid "Successfully activated module %s"
+msgstr "Modül  %s başarıyla etkinleştirildi"
+
+#, c-format
+msgid "Successfully deactivated module %s"
+msgstr "Modül %s başarıyla çalışamaz duruma getirildi."
+
+#, c-format
+msgid "Successfully uninstalled module %s"
+msgstr "Modül %s başarıyla kaldırıldı"
+
+msgid ""
+"Gallery features come as separate modules.  You can download and install modules to add more "
+"features to your Gallery, or you can disable features if you don't want to use them.  In "
+"order to use a feature, you must install, configure (if necessary) and activate it.  If you "
+"don't wish to use a feature, you can deactivate it."
+msgstr ""
+
+msgid "Module Name"
+msgstr "Modül Adı"
+
+msgid "Version"
+msgstr "Versiyon"
+
+msgid "Installed"
+msgstr "Kuruldu"
+
+msgid "Actions"
+msgstr "Hareketler"
+
+msgid "Status: Not Installed"
+msgstr "Durum: Kurulmadı"
+
+msgid "Status: Active"
+msgstr "Durum: Aktif"
+
+msgid "Status: Inactive"
+msgstr "Durum : Aktif Değil"
+
+msgid "Status: Upgrade Required (Inactive)"
+msgstr "Durum: Güncelleme gerekli (Aktif Değik)"
+
+msgid "Status: Incompatible Module (Inactive)"
+msgstr "Durum: Uyumsuz Modül (Aktif Değil)"
+
+msgid "Incompatible module!"
+msgstr "Uyumsuz modül!"
+
+#, c-format
+msgid "Core API Required: %s (available: %s)"
+msgstr ""
+
+#, c-format
+msgid "Module API Required: %s (available: %s)"
+msgstr ""
 
 msgid "Confirm module uninstall"
 msgstr ""
@@ -1604,94 +1698,6 @@ msgstr ""
 msgid "Clear Saved Pages"
 msgstr ""
 
-msgid "Status: Inactive"
-msgstr "Durum : Aktif Değil"
-
-msgid "__PLUGIN__ deactivated"
-msgstr ""
-
-msgid "Status: Active"
-msgstr "Durum: Aktif"
-
-msgid "__PLUGIN__ activated"
-msgstr ""
-
-msgid "Status: Not Installed"
-msgstr "Durum: Kurulmadı"
-
-msgid "__PLUGIN__ uninstalled"
-msgstr ""
-
-msgid "Status: Upgrade Required (Inactive)"
-msgstr "Durum: Güncelleme gerekli (Aktif Değik)"
-
-#, fuzzy
-msgid "Status: Incompatible Plugin (Inactive)"
-msgstr "Durum: Uyumsuz Modül (Aktif Değil)"
-
-msgid "Status: Inactive (Configuration Required)"
-msgstr ""
-
-msgid "__PLUGIN__ needs configuration"
-msgstr ""
-
-#, fuzzy
-msgid "Gallery Plugins"
-msgstr "Galeri Modülleri"
-
-msgid ""
-"Gallery features come as separate plugins.  You can download and install plugins to add more "
-"features to your Gallery, or you can disable features if you don't want to use them.  In "
-"order to use a feature, you must install, configure (if necessary) and activate it.  If you "
-"don't wish to use a feature, you can deactivate it."
-msgstr ""
-
-#, fuzzy
-msgid "up to date"
-msgstr "Güncelle"
-
-msgid "disabled"
-msgstr ""
-
-#, fuzzy
-msgid "upgrade required"
-msgstr "[gerekli]"
-
-#, fuzzy
-msgid "not installed"
-msgstr "kaldır"
-
-#, fuzzy
-msgid "incompatible"
-msgstr "Uyumsuz Eklenti"
-
-#, fuzzy
-msgid "Plugin Name"
-msgstr "İsim"
-
-msgid "Version"
-msgstr "Versiyon"
-
-msgid "Installed"
-msgstr "Kuruldu"
-
-msgid "Actions"
-msgstr "Hareketler"
-
-msgid "Incompatible plugin!"
-msgstr "Uyumsuz eklenti!"
-
-#, c-format
-msgid "Core API Required: %s (available: %s)"
-msgstr ""
-
-#, c-format
-msgid "Plugin API Required: %s (available: %s)"
-msgstr ""
-
-msgid "configure"
-msgstr "konfigüre et"
-
 msgid "Please make sure that your internet connection is set up properly or try again later."
 msgstr ""
 
@@ -1703,9 +1709,6 @@ msgstr ""
 
 msgid "Common Tasks"
 msgstr ""
-
-msgid "Modules"
-msgstr "Modüller"
 
 msgid "Warning: Experimental feature!"
 msgstr ""
@@ -1805,14 +1808,18 @@ msgstr ""
 msgid "Theme Name"
 msgstr "Tema Adı"
 
-msgid "Module Name"
-msgstr "Modül Adı"
-
 msgid "Latest"
 msgstr "Son"
 
 msgid "Incompatible Plugin"
 msgstr "Uyumsuz Eklenti"
+
+msgid "Incompatible plugin!"
+msgstr "Uyumsuz eklenti!"
+
+#, c-format
+msgid "Plugin API Required: %s (available: %s)"
+msgstr ""
 
 msgid "No packages have been selected."
 msgstr ""
@@ -1918,6 +1925,25 @@ msgstr "Varsayılan albüm ayarları başarıyla kaydedildi"
 
 msgid "Restored theme settings"
 msgstr "Tema ayarları iade edildi"
+
+msgid "All Themes"
+msgstr "Tüm Temalar"
+
+msgid "Defaults"
+msgstr "Varsayılanlar"
+
+msgid "Status: Incompatible Theme (Inactive)"
+msgstr "Durum: Uyumsuz Tema (Aktif Değil)"
+
+msgid "Incompatible theme!"
+msgstr "Uyumsuz tema!"
+
+#, c-format
+msgid "Theme API Required: %s (available: %s)"
+msgstr ""
+
+msgid "(default)"
+msgstr "(varsayılan)"
 
 msgid ""
 "These are default display settings for albums in your gallery.  They can be overridden in "
@@ -2204,6 +2230,144 @@ msgstr ""
 #, fuzzy
 msgid "Assign caption to:"
 msgstr "Gallery Site Administration"
+
+msgid ""
+"Transfer files that are already on your server into your Gallery.  The files must already "
+"have been uploaded to your server some other way (like FTP) and must be placed in a "
+"directory where they are accessibly by any element on the server.  If you're on Unix this "
+"means that the files and the directory the files are in should have modes of at least 755."
+msgstr ""
+
+msgid ""
+"For security purposes, you can't use this feature until the Gallery Site Administrator "
+"configures a set of legal upload directories."
+msgstr ""
+
+msgid "Server Path"
+msgstr "Server Klasör Yolu"
+
+msgid "You must enter a directory."
+msgstr "Klasör girmelisiniz."
+
+msgid ""
+"The directory you entered is invalid.  Make sure that the directory is readable by all users."
+msgstr ""
+
+msgid ""
+"The directory you entered is illegal.  It must be a sub directory of one of the directories "
+"listed below."
+msgstr ""
+
+msgid "An item with the same name already exists."
+msgstr ""
+
+msgid "Legal Directories"
+msgstr "Yasal Klasörler"
+
+msgid "modify"
+msgstr "modifiye et"
+
+msgid "Recent Directories"
+msgstr "Yeni Klasörler"
+
+msgid "Find Files"
+msgstr "Dosyaları Bul"
+
+#, c-format
+msgid "Directory: %s"
+msgstr "Klasör: %s"
+
+msgid "File name"
+msgstr "Dosya Adı"
+
+msgid "Type"
+msgstr "Tür"
+
+msgid "Size"
+msgstr "Boyut"
+
+msgid "Use Symlink"
+msgstr ""
+
+#, c-format
+msgid "%d byte"
+msgid_plural "%d bytes"
+msgstr[0] "%d byte"
+msgstr[1] "%d byte"
+
+msgid "Parent Directory"
+msgstr "Ana Klasör"
+
+msgid "Directory"
+msgstr "Klasör"
+
+msgid "(Un)check all known types"
+msgstr ""
+
+msgid "(Un)check symlinks"
+msgstr ""
+
+#, fuzzy
+msgid "for selected items"
+msgstr "[core] Delete item"
+
+msgid "Copy base filenames to:"
+msgstr "Temel dosya adlarını kopyala:"
+
+msgid "Add Files"
+msgstr "Dosya Ekle"
+
+msgid "Start Over"
+msgstr "Baştan Başla"
+
+msgid ""
+"Import files into Gallery from another website.  Enter a URL below to a web page anywhere on "
+"the net and Gallery will allow you to upload any media files that it finds on that page.  "
+"Note that if you're entering a URL to a directory, you should end the URL with a trailing "
+"slash (eg, http://example.com/directory/). "
+msgstr ""
+
+msgid "URL"
+msgstr "URL"
+
+#, fuzzy
+msgid "You must enter a URL to a web page"
+msgstr "You must enter a user name"
+
+msgid "The URL entered must begin with http://"
+msgstr ""
+
+#, fuzzy
+msgid "The web page you specified is unavailable"
+msgstr "The user name you entered is invalid"
+
+msgid "Nothing to add found from this URL"
+msgstr ""
+
+msgid "Nothing added since no items were selected"
+msgstr ""
+
+msgid "Recent URLs"
+msgstr "Yeni URL'ler"
+
+#, c-format
+msgid "URL: %s"
+msgstr "URL: %s"
+
+msgid "change"
+msgstr "değiştir"
+
+#, c-format
+msgid "%d url found"
+msgid_plural "%d urls found"
+msgstr[0] "%d url bulundu "
+msgstr[1] "%d url bulundu"
+
+msgid "(Un)check all"
+msgstr ""
+
+msgid "Add URLs"
+msgstr "URL'ler ekle"
 
 msgid "No Thumbnail"
 msgstr "Thumbnail Yok"
@@ -2507,10 +2671,6 @@ msgid ""
 "There are no graphics toolkits enabled that support this type of item, so we cannot create "
 "or modify a thumbnail."
 msgstr ""
-
-#, fuzzy
-msgid "Unable to create a thumbnail for this item"
-msgstr "Bu öge için isim girmelisiniz."
 
 msgid ""
 "In order for Gallery to properly display this movie, it has to know the movie's width and "
@@ -2827,9 +2987,6 @@ msgid ""
 "This album has an automatic sort order specified, so you cannot change the order of items "
 "manually.  You must remove the automatic sort order to continue."
 msgstr ""
-
-msgid "change"
-msgstr "değiştir"
 
 msgid "Change the order of the items in this album."
 msgstr "Bu albümdeki ögelerin sıralanışını değiştir."
@@ -3217,9 +3374,6 @@ msgstr "%d. %s"
 msgid "Size: "
 msgstr "Boyut:"
 
-msgid "Unknown"
-msgstr "Bilinmeyen"
-
 msgid "Full size: "
 msgstr "Tam boyut:"
 
@@ -3249,39 +3403,3 @@ msgstr "[test] İkinci izin"
 
 msgid "Unit test theme"
 msgstr ""
-
-#~ msgid "Successfully installed and auto-configured module %s"
-#~ msgstr "Modül %s başarıyla otomatik konfigüre edildi ve kuruldu"
-
-#~ msgid "Successfully installed module %s"
-#~ msgstr "Modül %s başarıyla kuruldu"
-
-#~ msgid "Successfully configured module %s"
-#~ msgstr "Modül %s başarıyla yapılandırıldı."
-
-#~ msgid "Successfully upgraded module %s"
-#~ msgstr "Modül %s başarıyla güncellendi"
-
-#~ msgid "Successfully activated module %s"
-#~ msgstr "Modül  %s başarıyla etkinleştirildi"
-
-#~ msgid "Successfully deactivated module %s"
-#~ msgstr "Modül %s başarıyla çalışamaz duruma getirildi."
-
-#~ msgid "Successfully uninstalled module %s"
-#~ msgstr "Modül %s başarıyla kaldırıldı"
-
-#~ msgid "Incompatible module!"
-#~ msgstr "Uyumsuz modül!"
-
-#~ msgid "All Themes"
-#~ msgstr "Tüm Temalar"
-
-#~ msgid "Status: Incompatible Theme (Inactive)"
-#~ msgstr "Durum: Uyumsuz Tema (Aktif Değil)"
-
-#~ msgid "Incompatible theme!"
-#~ msgstr "Uyumsuz tema!"
-
-#~ msgid "(default)"
-#~ msgstr "(varsayılan)"

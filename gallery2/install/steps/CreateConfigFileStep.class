@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: CreateConfigFileStep.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -34,7 +36,6 @@ class CreateConfigFileStep extends InstallStep {
 
 	$configDir = $_SESSION['configPath'];
 	$configFilePath = $configDir . '/config.php';
-	$templateData['OS'] = strncasecmp(PHP_OS, 'win', 3) ? 'unix' : 'winnt';
 	if (file_exists($configFilePath) && !is_writeable($configFilePath)) {
 	    /* The file exists but we can't write to it */
 	    $templateData['error'] = sprintf(

@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: Getid3Extractor.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.1 $ $Date: 2006/01/22 20:01:56 $
  * @package Getid3
  * @subpackage Classes
  * @author Don Willingham <donwillingham@users.sf.net>
@@ -55,7 +57,7 @@ class Getid3Extractor extends Getid3Interface_1_0 {
 	foreach ($itemIds as $itemId) {
 	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	    if ($ret) {
-	        return array($ret, null);
+	        return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    /* Only look at GalleryDataItems */
 	    if (!GalleryUtilities::isA($item, 'GalleryDataItem')) {
@@ -63,7 +65,7 @@ class Getid3Extractor extends Getid3Interface_1_0 {
 	    }
 	    list($ret, $path) = $item->fetchPath();
 	    if ($ret) {
-	        return array($ret, null);
+	        return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $data[$itemId] = array();
 

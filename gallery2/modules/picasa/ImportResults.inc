@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ImportResults.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -15,13 +17,13 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.2 $ $Date: 2006/01/10 04:41:32 $
  * @package Picasa
  * @subpackage UserInterface
- * @author Waldemar Schlackow <gallery@schlackow.de> based on code by
+ * @author Waldemar Schlackow <gallery@schlackow.de> based on code by 
  * Jesse Mullan <jmullan@visi.com>
  */
 
@@ -36,7 +38,7 @@ class ImportResultsView extends GalleryView {
      */
     function loadTemplate(&$template, &$form) {
         global $gallery;
-
+        
         if ($form['formName'] != 'ImportResults') {
             $form['formName'] = 'ImportResults';
         }
@@ -44,14 +46,14 @@ class ImportResultsView extends GalleryView {
         $counts = array();
         foreach (array('albumImportFailure', 'albumImportSuccess',
                 'pictureImportFailure', 'pictureImportSuccess') as $key) {
-
+    
             if (isset($status[$key])) {
                 $counts[$key] = sizeof($status[$key]);
             } else {
                 $counts[$key] = 0;
             }
         }
-
+    
         $ImportResults = array();
         $ImportResults['counts'] = $counts;
         $ImportResults['status'] = $status;

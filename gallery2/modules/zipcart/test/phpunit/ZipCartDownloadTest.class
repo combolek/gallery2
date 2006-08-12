@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ZipCartDownloadTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.3 $ $Date: 2006/01/10 04:43:43 $
  * @package ZipCart
  * @subpackage PHPUnit
  * @author Alan Harder <alan.harder@sun.com>
@@ -43,7 +45,7 @@ class ZipCartDownloadTest extends GalleryTestCase {
 	list ($ret, $this->_view) = GalleryView::loadView('zipcart.Download');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$gallery->_phpVm = new ZipCartDownloadPhpVm($this);
@@ -69,7 +71,7 @@ class ZipCartDownloadTest extends GalleryTestCase {
 	ob_start();
 	$ret = $this->_view->renderImmediate(array(), array());
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$output = ob_get_contents();
 	ob_end_clean();
@@ -100,7 +102,7 @@ class ZipCartDownloadTest extends GalleryTestCase {
 	ob_start();
 	$ret = $this->_view->renderImmediate(array(), array());
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$output = ob_get_contents();
 	ob_end_clean();
@@ -124,7 +126,7 @@ class ZipCartDownloadTest extends GalleryTestCase {
 	ob_start();
 	$ret = $this->_view->renderImmediate(array(), array());
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$output = ob_get_contents();
 	ob_end_clean();
@@ -146,7 +148,7 @@ class ZipCartDownloadTest extends GalleryTestCase {
 	ob_start();
 	$ret = $this->_view->renderImmediate(array(), array());
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$output = ob_get_contents();
 	ob_end_clean();

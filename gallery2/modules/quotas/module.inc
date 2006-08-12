@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: module.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.17.2.1 $ $Date: 2006/04/05 22:10:59 $
  * @package Quotas
  * @author Robert Balousek <volksport@users.sf.net>
  */
@@ -53,7 +55,7 @@ class QuotasModule extends GalleryModule {
 	    $storage =& $gallery->getStorage();
 	    $ret = $storage->configureStore($this->getId(), array('QuotasMap:1.0'));
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
@@ -84,7 +86,7 @@ class QuotasModule extends GalleryModule {
 	    'ItemAddOption', 'DiskQuotaOption', 'DiskQuotaOption',
 	    'modules/quotas/DiskQuotaOption.inc', 'quotas', null, 9);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -111,14 +113,14 @@ class QuotasModule extends GalleryModule {
 		    list ($ret, $quotaExists, $groupQuota) =
 			GalleryQuotasHelper::fetchGroupQuota($entity->getId());
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		/* If its a user, find if a user quota exists, if so delete it */
 		} else if (GalleryUtilities::isA($entity, 'GalleryUser')) {
 		    list ($ret, $quotaExists, $userQuota) =
 			GalleryQuotasHelper::fetchUserQuota($entity->getId());
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		   }
 		}
 
@@ -126,7 +128,7 @@ class QuotasModule extends GalleryModule {
 		    $ret = GalleryCoreApi::removeMapEntry(
 			'QuotasMap', array('userOrGroupId' => $entity->getId()));
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		}
 	    }

@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: CantActivate.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.8 $ $Date: 2006/01/10 04:42:59 $
  * @package SquareThumb
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -28,7 +30,7 @@
 /**
  * A view to display whenever there's some kind of attempted security breach.
  *
- * @package SquareThumb
+ * @package Squarethumb
  * @subpackage UserInterface
  */
 class CantActivateView extends GalleryView {

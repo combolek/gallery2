@@ -1,5 +1,5 @@
 {*
- * $Revision$
+ * $Revision: 1.14 $
  * If you want to customize this file, do not edit it directly since future upgrades
  * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
  * version.  Gallery will look for that file first and use it if it exists.
@@ -74,28 +74,25 @@
 		  style="width: {$theme.columnWidthPct}%">
 		{if ($child.canContainChildren || $child.entityType == 'GalleryLinkItem')}
 		{assign var=frameType value="albumFrame"}
-		{capture assign=linkUrl}{g->url arg1="view=core.ShowItem"
-						arg2="itemId=`$child.id`"}{/capture}
 		{else}
 		{assign var=frameType value="itemFrame"}
-		{capture assign=linkUrl}{g->url params=$theme.pageUrl
-						arg1="itemId=`$child.id`"}{/capture}
 		{/if}
 		<div>
 		  {if isset($theme.params.$frameType) && isset($child.thumbnail)}
 		    {g->container type="imageframe.ImageFrame" frame=$theme.params.$frameType
 				  width=$child.thumbnail.width height=$child.thumbnail.height}
-		      <a href="{$linkUrl}">
+		      <a href="{g->url arg1="view=core.ShowItem" arg2="itemId=`$child.id`"}">
 			{g->image id="%ID%" item=$child image=$child.thumbnail
 			 class="%CLASS% giThumbnail"}
 		      </a>
 		    {/g->container}
 		  {elseif isset($child.thumbnail)}
-		    <a href="{$linkUrl}">
+		    <a href="{g->url arg1="view=core.ShowItem" arg2="itemId=`$child.id`"}">
 		      {g->image item=$child image=$child.thumbnail class="giThumbnail"}
 		    </a>
 		  {else}
-		    <a href="{$linkUrl}" class="giMissingThumbnail">
+		    <a href="{g->url arg1="view=core.ShowItem" arg2="itemId=`$child.id`"}"
+		       class="giMissingThumbnail">
 		      {g->text text="no thumbnail"}
 		    </a>
 		  {/if}
@@ -159,7 +156,7 @@
 
         {g->block type="core.GuestPreview" class="gbBlock"}
 
-        {* Our emergency edit link, if the user removes all blocks containing edit links *}
+        {* Our emergency edit link, if the user all blocks containing edit links *}
 	{g->block type="core.EmergencyEditItemLink" class="gbBlock"
                   checkSidebarBlocks=true
                   checkAlbumBlocks=true}

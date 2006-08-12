@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: FulfillmentError.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.6 $ $Date: 2006/01/10 04:41:23 $
  * @package PhotoAccess
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -39,7 +41,7 @@ class FulfillmentErrorView extends GalleryView {
     function loadTemplate(&$template, &$form) {
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'photoaccess');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$template->title($module->translate('PhotoAccess Fulfillment Error'));

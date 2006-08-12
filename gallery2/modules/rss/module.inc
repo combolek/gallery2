@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: module.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -15,11 +17,11 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 /**
- * @version $Revision$ $Date$
- * @package Rss
+ * @version $Revision: 1.7.2.1 $ $Date: 2006/04/05 22:10:59 $
+ * @package RSS
  * @author Jonatan Heyman <http://heyman.info>
  * @author Pierre-Luc Paour
  * @author Daniel Grund <http://www.photogrund.nl>
@@ -28,21 +30,20 @@
 /**
  * Implementation of the RSS module
  *
- * @package Rss
+ * @package RSS
  */
 class RssModule extends GalleryModule /* and GalleryEventListener */ {
 
     function RssModule() {
 	global $gallery;
-
 	$this->setId('rss');
 	$this->setName($gallery->i18n('RSS'));
 	$this->setDescription($gallery->i18n('RSS'));
-	$this->setVersion('1.0.9');
+	$this->setVersion('1.0.6');
 	$this->setGroup('export', $gallery->i18n('Export'));
 	$this->setCallbacks('getSiteAdminViews|getItemLinks|registerEventListeners');
-	$this->setRequiredCoreApi(array(7, 10));
-	$this->setRequiredModuleApi(array(3, 1));
+	$this->setRequiredCoreApi(array(7, 0));
+	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
@@ -56,53 +57,52 @@ class RssModule extends GalleryModule /* and GalleryEventListener */ {
     /**
      * @see GalleryModule::getItemLinks()
      */
-    function getItemLinks($items, $wantsDetailedLinks, $permissions, $userId) {
+    function getItemLinks($items, $wantsDetailedLinks, $permissions) {
 	GalleryCoreApi::requireOnce('modules/rss/classes/RssMapHelper.class');
+	global $gallery;
 	$links = array();
 
 	/* check that this type of link is allowed */
 	list ($ret, $param) = GalleryCoreApi::fetchAllPluginParameters('module', 'rss');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	foreach ($items as $item) {
 	    $itemId = $item->getId();
-	    if (!isset($wantsDetailedLinks[$itemId])) {
-		continue;
-	    }
+	    if (isset($wantsDetailedLinks[$itemId])) {
+		if ($param['allowSimpleFeed'] == 1) {
+		    $itemTypeNames = array_merge($item->itemTypeName(), $item->itemTypeName(false));
 
-	    if ($param['allowSimpleFeed'] == 1) {
-		$itemTypeNames = array_merge($item->itemTypeName(), $item->itemTypeName(false));
-
-		/*
-		 * Specific translations:
-		 * _('RSS Feed for this Album')
-		 * _('RSS Feed for this Photo')
-		 * _('RSS Feed for this Movie')
-		 */
-		$links[$itemId][] = array(
+		    /* 
+		     * Specific translations: 
+		     * _('RSS Feed for this Album') 
+		     * _('RSS Feed for this Photo') 
+		     * _('RSS Feed for this Movie') 
+		     */
+		    $links[$itemId][] = array(
 			'text' => $this->_translate(array(
 			    'text' => 'RSS Feed for this %s',
 			    'arg1' => $itemTypeNames[0]), $itemTypeNames[2]),
 			'params' => array(
 			    'view' => 'rss.SimpleRender',
 			    'itemId' => $itemId));
-	    }
+		}
 
-	    list ($ret, $canConfigure) = RssMapHelper::canConfigureFeed($item, $param, $userId);
-	    if ($ret) {
-		return array($ret, null);
-	    }
+		list ($ret, $canConfigure) = RssMapHelper::canConfigureFeed($item, $param);
+		if ($ret) {
+		    return array($ret->wrap(__FILE__, __LINE__), null);
+		}
 
-	    if ($canConfigure) {
-		$links[$itemId][] = array(
-			'text' => $this->translate('Configure RSS Feeds'),
-			'params' => array(
-			    'view' => 'core.ItemAdmin',
-			    'subView' => 'rss.EditFeed',
-			    'itemId' => $itemId,
-			    'return' => 1));
+		if ($canConfigure) {
+		    $links[$itemId][] = array(
+			    'text' => $this->translate('Configure RSS Feeds'),
+			    'params' => array(
+				'view' => 'core.ItemAdmin',
+				'subView' => 'rss.EditFeed',
+				'itemId' => $itemId,
+				'return' => 1));
+		}
 	    }
 	}
 
@@ -154,13 +154,13 @@ class RssModule extends GalleryModule /* and GalleryEventListener */ {
 		GalleryCoreApi::requireOnce('modules/rss/classes/RssMapHelper.class');
 		list ($ret, $results) = RssMapHelper::fetchFeedsForItem($entity->getId());
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		foreach ($results as $feed) {
 		    $ret = RssMapHelper::deleteFeed($feed['name']);
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		}
 	    }
@@ -192,7 +192,7 @@ class RssModule extends GalleryModule /* and GalleryEventListener */ {
 			    ) as $key => $value) {
 		    $ret = $this->setParameter($key, $value);
 		    if ($ret) {
-			return $ret;
+			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		}
 		/* keep going */
@@ -201,11 +201,10 @@ class RssModule extends GalleryModule /* and GalleryEventListener */ {
 		foreach (array('sfAlbumType' => 'photos',
 			       'sfDate' => 'new',
 			       'sfPhotosRecurseLimit' => '10',
-			       'allowCommentsRecursive' => 0,
 			    ) as $key => $value) {
 		    $ret = $this->setParameter($key, $value);
 		    if ($ret) {
-			return $ret;
+			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		}
 	}

@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: CantActivate.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -17,8 +19,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.1 $ $Date: 2006/02/14 09:05:02 $
  * @package Getid3
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>

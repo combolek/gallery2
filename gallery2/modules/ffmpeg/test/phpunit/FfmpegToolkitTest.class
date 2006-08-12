@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: FfmpegToolkitTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.26.2.1 $ $Date: 2006/04/05 00:19:54 $
  * @package Ffmpeg
  * @subpackage PHPUnit
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -51,7 +53,7 @@ class FfmpegToolkitTest extends GalleryTestCase {
 	$ret = $gallery->_platform->init($this);
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	/* Get a toolkit to work with */
@@ -62,14 +64,14 @@ class FfmpegToolkitTest extends GalleryTestCase {
 	list ($ret, $results) =
 	    $this->_toolkit->getProperty('video/x-msvideo', 'dimensions', 'testGetProperties1.avi');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(array(200, 240), $results, 'dimensions mismatch');
 
 	list ($ret, $results) = $this->_toolkit->getProperty(
 	    'video/x-msvideo', 'dimensions-and-duration', 'testGetProperties1.avi');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(array(200, 240, 3.1), $results, 'dimensions-and-duration mismatch');
 
@@ -80,10 +82,10 @@ class FfmpegToolkitTest extends GalleryTestCase {
     function testGetOperationsAndProperties() {
 	list ($ret, $results) = FfmpegToolkitHelper::getOperationsAndProperties();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$expectedMimeTypes = array('video/mpeg', 'video/x-ms-asf', 'video/x-msvideo',
-				   'video/quicktime', 'video/x-flv', 'video/x-ms-wmv');
+				   'video/quicktime', 'video/x-ms-wmv');
 	$this->assertEquals(array('convert-to-image/jpeg' => array(
 		'params' => array(),
 		'description' => 'Convert to a JPEG',
@@ -111,11 +113,11 @@ class FfmpegToolkitTest extends GalleryTestCase {
 	list ($ret, $results, $mimeTypes, $supportsOffset) =
 	    FfmpegToolkitHelper::testBinary('/validPath/ffmpeg');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$expectedMimeTypes = array('video/mpeg', 'video/x-ms-asf', 'video/x-msvideo',
-				   'video/quicktime', 'video/x-flv', 'video/x-ms-wmv');
+		'video/quicktime', 'video/x-ms-wmv');
 	$output[] = 'Output audio/video file formats: mpeg vcd vob mpegts crc image ' .
 	    'imagepipe mp2 ac3 h263 m4v h264 mpeg1video mjpeg s16le s16be u16le u16be ' .
 	    's8 u8 mulaw alaw rawvideo null rm asf asf_stream avi wav swf au gif mpjpeg ' .
@@ -154,11 +156,11 @@ class FfmpegToolkitTest extends GalleryTestCase {
 	list ($ret, $results, $mimeTypes) =
 	    FfmpegToolkitHelper::testBinary('/validPath/ffmpeg048FormatsOutput');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	$expectedMimeTypes = array('video/mpeg', 'video/mp4', 'video/x-ms-asf', 'video/x-msvideo',
-				   'video/quicktime', 'video/x-flv', 'video/x-ms-wmv');
+	$expectedMimeTypes = array(
+	    'video/mpeg', 'video/x-ms-asf', 'video/x-msvideo', 'video/quicktime', 'video/x-ms-wmv');
 	sort($expectedMimeTypes);
 
 	$output[] = 'File formats:';
@@ -353,7 +355,7 @@ class FfmpegToolkitTest extends GalleryTestCase {
 	list ($ret, $results, $mimeTypes, $supportsOffset) =
 	    FfmpegToolkitHelper::testBinary('/validPath/ffmpeg046FormatsOutput');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$expectedMimeTypes = array(
@@ -395,7 +397,7 @@ class FfmpegToolkitTest extends GalleryTestCase {
 	list ($ret, $results, $mimeTypes, $supportsOffset) =
 	    FfmpegToolkitHelper::testBinary('/validPath/bogusBinary');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$output[] = 'Bogus stdout';
@@ -413,7 +415,7 @@ class FfmpegToolkitTest extends GalleryTestCase {
 					      'testPerformOperation2.avi',
 					      array());
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals($results, 'image/jpeg');
 	$this->assert($this->_chmodWasCalled, 'chmod not called');
@@ -428,7 +430,7 @@ class FfmpegToolkitTest extends GalleryTestCase {
 					      'testPerformOperation2.avi',
 					      array('1.2'));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals($results, 'video/avi', 'mime after offset');
 	$this->assertEquals(array('ffmpeg.offset' => '1.2'), $context, 'offset');
@@ -441,7 +443,7 @@ class FfmpegToolkitTest extends GalleryTestCase {
 					      array(),
 					      $context);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals($results, 'image/jpeg', 'mime after convert');
 	$this->assertEquals(array(), $context, 'no offset');
@@ -462,7 +464,7 @@ class FfmpegToolkitTestPlatform {
 	list ($ret, $this->_ffmpegPath) =
 	    GalleryCoreApi::getPluginParameter('module', 'ffmpeg', 'path');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	return null;
     }
@@ -767,7 +769,7 @@ class FfmpegToolkitTestPlatform {
 	    return array(1, $results, $stderr);
 	}
 
-	printf("Unexpected command for mock toolkit<pre>%s</pre>", print_r($cmd, true));
+	printf("Unexpected command for mock toolkit<pre>%s</pre>", GalleryTestCase::sprint_r($cmd));
 
 	return array(0, '', 'unprepared for exec()');
     }

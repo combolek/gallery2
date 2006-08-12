@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: module.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.41 $ $Date: 2006/03/22 03:52:32 $
  * @package Members
  * @author Robert Balousek <rbalousek@hotmail.com>
  */
@@ -51,14 +53,14 @@ class MembersModule extends GalleryModule {
 	    list ($ret, $viewSelectedGroupId) =
 		GalleryCoreApi::getPluginParameter('module', 'core', 'id.everybodyGroup');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    foreach (array('canViewMembersModule' => $viewSelectedGroupId,
 			   'canViewEmailAddress' => 0) as $key => $value) {
 		$ret = $this->setParameter($key, $value);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	}

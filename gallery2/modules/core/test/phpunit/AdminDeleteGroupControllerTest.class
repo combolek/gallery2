@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: AdminDeleteGroupControllerTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.20 $ $Date: 2006/01/11 01:55:46 $
  * @package GalleryCore
  * @subpackage PHPUnit
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -53,19 +55,19 @@ class AdminDeleteGroupControllerTest extends GalleryControllerTestCase {
 	/* Create a group that we can delete */
 	list ($ret, $group) = $this->_createGroup();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$groupId = $group->getId();
 
 	/* Assign a permission using this group */
 	list ($ret, $album) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($album);
 	$ret = GalleryCoreApi::addGroupPermission($album->getId(), $groupId, 'core.view');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	GalleryUtilities::putRequestVariable('groupId', $groupId);
@@ -93,7 +95,7 @@ class AdminDeleteGroupControllerTest extends GalleryControllerTestCase {
 	/* Verify the permissions are cleaned up */
 	list ($ret, $perms) = GalleryCoreApi::fetchAllPermissionsForItem($album->getId(), true);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	foreach ($perms as $perm) {
 	    if (isset($perm['groupId']) && $perm['groupId'] == $groupId) {
@@ -107,7 +109,7 @@ class AdminDeleteGroupControllerTest extends GalleryControllerTestCase {
 	list ($ret, $groupId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.allUserGroup');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	GalleryUtilities::putRequestVariable('groupId', $groupId);
@@ -122,7 +124,7 @@ class AdminDeleteGroupControllerTest extends GalleryControllerTestCase {
 	list ($ret, $groupId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.everybodyGroup');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	GalleryUtilities::putRequestVariable('groupId', $groupId);
@@ -137,7 +139,7 @@ class AdminDeleteGroupControllerTest extends GalleryControllerTestCase {
 	list ($ret, $groupId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.adminGroup');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	GalleryUtilities::putRequestVariable('groupId', $groupId);
@@ -150,21 +152,21 @@ class AdminDeleteGroupControllerTest extends GalleryControllerTestCase {
     function _createGroup() {
 	list ($ret, $group) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryGroup');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (!isset($group)) {
-	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT),
+	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__),
 			 null);
 	}
 
 	$ret = $group->create('testgroup-'.rand());
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$ret = $group->save();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	return array(null, $group);
     }
@@ -172,7 +174,7 @@ class AdminDeleteGroupControllerTest extends GalleryControllerTestCase {
     function _deleteGroup($group) {
 	$ret = GalleryCoreApi::deleteEntityById($group->getId());
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
 }

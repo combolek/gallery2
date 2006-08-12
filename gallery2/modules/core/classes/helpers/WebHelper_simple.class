@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: WebHelper_simple.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.16 $ $Date: 2006/01/29 13:39:38 $
  * @package GalleryCore
  * @author Bharat Mediratta <bharat@menalto.com>
  */
@@ -83,19 +85,14 @@ class WebHelper_simple {
 	    $extraHeaderLines[] = "$headerKey: $headerValue";
 	}
 	
-	$ok = $platform->fwrite($fd, sprintf("GET %s HTTP/1.0\r\n" .
-					     "Host: %s\r\n" .
-					     "%s\r\n",
-					     $get,
-					     $components['host'],
-					     empty($extraHeaderLines) ? '' :
-					     implode("\r\n", $extraHeaderLines) . "\r\n"));
-	if (!$ok) {
-	    /* Zero bytes written or false was returned */
-	    $gallery->debug(
-		"fwrite call failed in fetchWebFile($url)" . ($ok === false ? ' - false' : ''));
-	    return array(false, null, null, null);
-	}
+	$platform->fwrite($fd, sprintf("GET %s HTTP/1.0\r\n" .
+				       "Host: %s\r\n" .
+				       "%s" .
+				       "\r\n",
+				       $get,
+				       $components['host'],
+				       empty($extraHeaderLines) ? '' :
+				       join("\r\n", $extraHeaderLines) . "\r\n"));
 	$platform->fflush($fd);
 
 	/*
@@ -247,18 +244,28 @@ class WebHelper_simple {
 
 	$ok = $platform->fwrite($fd, sprintf("GET %s HTTP/1.0\r\n" .
 					     "Host: %s\r\n" .
-					     "%s\r\n",
+					     "%s" .
+					     "\r\n",
 					     $get,
 					     $components['host'],
 					     empty($extraHeaderLines) ? '' :
-					     implode("\r\n", $extraHeaderLines) . "\r\n"));
+					     join("\r\n", $extraHeaderLines) . "\r\n"));
 	if (!$ok) {
 	    /* Zero bytes written or false was returned */
-	    $gallery->debug(
-		"fwrite call failed in fetchWebPage($url)" . ($ok === false ? ' - false' : ''));
+	    $gallery->debug("fwrite call failed in fetchWebPage($url)");
+	    if ($ok === false) {
+		$gallery->debug('return value was false');
+	    }
 	    return array(false, null, null, null, null);
 	}
-	$platform->fflush($fd);
+	$ok = $platform->fflush($fd);
+	if (!$ok) {
+	    $gallery->debug("fflush call failed in fetchWebPage($url)");
+	    if (version_compare(phpversion(), '4.2.0', '>=')) {
+		/* Ignore false returned from fflush on PHP 4.1 */
+		return array(false, null, null, null, null);
+	    }
+	}
 
 	/*
 	 * Read the response code. fgets stops after newlines.
@@ -396,16 +403,10 @@ class WebHelper_simple {
 			       $post,
 			       $components['host'],
 			       empty($extraHeaderLines) ? '' :
-			       implode("\r\n", $extraHeaderLines) . "\r\n",
+			       join("\r\n", $extraHeaderLines) . "\r\n",
 			       strlen($postDataRaw),
 			       $postDataRaw);
-	$ok = $platform->fwrite($fd, $postRequest);
-	if (!$ok) {
-	    /* Zero bytes written or false was returned */
-	    $gallery->debug(
-		"fwrite call failed in postToWebPage($url)" . ($ok === false ? ' - false' : ''));
-	    return array(null, null, null);
-	}
+	$platform->fwrite($fd, $postRequest);
 	$platform->fflush($fd);
 
 	/*

@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: config.php-template,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -73,14 +75,12 @@ $gallery->setConfig('data.gallery.base', '');
  * you modify it back.
  *
  * The possible database types are:
- *  mysqlt       MySQL (3.23.34a and newer)
- *  mysqli       MySQL (4.1 and newer) with PHP mysqli extension
- *  mysql        Older MySQL (no transactions)
- *  postgres7    PostgreSQL 7.x and newer
- *  postgres     PostgreSQL 6.x (not tested)
- *  oci8po       Oracle 9i and newer
- *  db2          IBM DB2 8.2 and newer
- *  ado_mssql    Microsoft SQL Server (2005 and newer)
+ *  mysql        Standard MySQL
+ *  mysqlt       MySQL with transactions (3.23.34a and newer)
+ *  postgres     PostgreSQL 6.x (not rigorously tested)
+ *  postgres7    PostgreSQL 7.x
+ *  oci8po       Oracle (9i and newer)
+ *  db2          (EXPERIMENTAL!) IBM DB2 for Linux/UNIX/Windows, v8.2.2
  */
 $storeConfig['type'] = 'mysql';
 $storeConfig['hostname'] = 'localhost';
@@ -130,7 +130,7 @@ $gallery->setProfile(false);
 
 /*
  * Maintenance mode.  You can disable access to the site for anyone but
- * site administrators by setting this flag.  Set value below to:
+ * site administrators by setting this this flag.  Set value below to:
  *  true (without quotes) - to use a basic notification page; themed
  *    view with admin login link when codebase is up to date, but a
  *    plain unstyled page when codebase has been updated but upgrader
@@ -143,10 +143,7 @@ $gallery->setConfig('mode.maintenance', false);
 
 /*
  * Embedded mode.  You can disable direct access to main.php (standalone G2)
- * by setting this flag.  Set value below to:
- *  true (without quotes) - block direct requests
- *  url (with quotes) - redirect requests to this url
- *  false (without quotes) - allow direct requests
+ * by setting this this flag to true.
  */
 $gallery->setConfig('mode.embed.only', false);
 

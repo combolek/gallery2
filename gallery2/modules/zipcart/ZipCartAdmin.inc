@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ZipCartAdmin.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.9 $ $Date: 2006/01/17 01:52:05 $
  * @package ZipCart
  * @author Alan Harder <alan.harder@sun.com>
  */
@@ -37,7 +39,7 @@ class ZipCartAdminController extends GalleryController {
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$error = $status = array();
@@ -77,16 +79,16 @@ class ZipCartAdminController extends GalleryController {
 	if (isset($form['action']['save']) && empty($error)) {
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'zipcart', 'path', $form['path']);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'zipcart');
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    list ($ret, $isActive) = $module->isActive();
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    $redirect['view'] = 'core.SiteAdmin';
@@ -94,7 +96,7 @@ class ZipCartAdminController extends GalleryController {
 		$redirect['subView'] = 'zipcart.ZipCartAdmin';
 		$status['saved'] = 1;
 	    } else {
-		$redirect['subView'] = 'core.AdminPlugins';
+		$redirect['subView'] = 'core.AdminModules';
 		$status['configured'] = 'zipcart';
 	    }
 	} else if (isset($form['action']['reset'])) {
@@ -102,7 +104,7 @@ class ZipCartAdminController extends GalleryController {
 	    $redirect['subView'] = 'zipcart.ZipCartAdmin';
 	} else if (isset($form['action']['cancel'])) {
 	    $redirect['view'] = 'core.SiteAdmin';
-	    $redirect['subView'] = 'core.AdminPlugins';
+	    $redirect['subView'] = 'core.AdminModules';
 	}
 
 	if (!empty($redirect)) {
@@ -130,7 +132,7 @@ class ZipCartAdminView extends GalleryView {
     function loadTemplate(&$template, &$form) {
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if ($form['formName'] != 'ZipCartAdmin') {
@@ -138,7 +140,7 @@ class ZipCartAdminView extends GalleryView {
 	    list ($ret, $form['path']) =
 		    GalleryCoreApi::getPluginParameter('module', 'zipcart', 'path');
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
@@ -148,11 +150,11 @@ class ZipCartAdminView extends GalleryView {
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'zipcart');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $isActive) = $module->isActive();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$ZipCartAdmin = array('isConfigure' => !$isActive);

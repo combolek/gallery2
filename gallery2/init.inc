@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: init.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -17,9 +19,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.19 $ $Date: 2006/01/30 23:00:05 $
  * @package Gallery
  * @author Bharat Mediratta <bharat@menalto.com>
  */
@@ -33,7 +34,7 @@ function GalleryInitFirstPass($params=array()) {
     ini_set('magic_quotes_runtime', 0);
     ini_set('magic_quotes_sybase', 0);
 
-    /* Specify that when an assertion fails, we terminate right away */
+    /* Specify that when an assertion fails, we terminate right away. */
     assert_options(ASSERT_WARNING, 1);
     assert_options(ASSERT_BAIL, 1);
 
@@ -65,7 +66,7 @@ function GalleryInitFirstPass($params=array()) {
 
     /* Sanitize the data path */
     $dataBase = $gallery->getConfig('data.gallery.base');
-    if ($dataBase{strlen($dataBase) - 1} != $slash) {
+    if ($dataBase{strlen($dataBase)-1} != $slash) {
 	$dataBase .= $slash;
 	$gallery->setConfig('data.gallery.base', $dataBase);
     }
@@ -90,13 +91,13 @@ function GalleryInitFirstPass($params=array()) {
     /* Configure our url generator */
     if (!isset($params['noDatabase'])) {
 	/*
-	 * Swallow error to prevent GalleryFactoryHelper_loadRegistry cache from breaking upgrade to
-	 * core 1.0.6
+	 * Swallow error to prevent GalleryFactoryHelper_loadRegistry
+	 * cache from breaking upgrade to core 1.0.6.
 	 */
 	list ($ret, $urlGenerator) = @GalleryCoreApi::newFactoryInstance('GalleryUrlGenerator');
 	/* Swallow ERROR_STORAGE_FAILURE, or automatic upgrading fails */
 	if ($ret && !($ret->getErrorCode() & ERROR_STORAGE_FAILURE)) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
     }
     if (!isset($urlGenerator)) {
@@ -111,7 +112,7 @@ function GalleryInitFirstPass($params=array()) {
 	isset($params['g2Uri']) ? $params['g2Uri'] : null,
 	isset($params['embedSessionString']) ? $params['embedSessionString'] : null);
     if ($ret) {
-	return $ret;
+	return $ret->wrap(__FILE__, __LINE__);
     }
     $gallery->setUrlGenerator($urlGenerator);
 
@@ -123,7 +124,7 @@ function GalleryInitFirstPass($params=array()) {
 	}
 	$ret = $gallery->initSession();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
     } else {
 	$gallery->initEmptySession();
@@ -139,7 +140,7 @@ function GalleryInitFirstPass($params=array()) {
     }
     $ret = $gallery->initTranslator(isset($params['noDatabase']));
     if ($ret) {
-	return $ret;
+	return $ret->wrap(__FILE__, __LINE__);
     }
 
     return null;
@@ -152,50 +153,44 @@ function GalleryInitSecondPass() {
 
     $ret = $urlGenerator->initNavigation();
     if ($ret) {
-	return $ret;
+	return $ret->wrap(__FILE__, __LINE__);
     }
-
+    
     /*
-     * Set our active user.  Try getting our active user from registered authentication plugins.  If
-     * not, make us the anonymous user.  If we don't have a session, this will initiate one for us.
+     * Set our active user id.  Check to see if we have one in our session.  If
+     * not, make us the anonymous user.  If we don't have a session, this will
+     * initiate one for us.
      */
-    list ($ret, $pluginIds) = GalleryCoreApi::getAllFactoryImplementationIds('GalleryAuthPlugin');
+    $activeUserId = $session->getUserId();
+    if (empty($activeUserId)) {
+	/* No active user -- be anonymous */
+	list ($ret, $activeUserId) =
+	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
+	if ($ret) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+    }
+
+    list ($ret, $activeUser) = GalleryCoreApi::loadEntitiesById($activeUserId);
     if ($ret) {
-	return $ret;
-    }
+	if ($ret->getErrorCode() & ERROR_MISSING_OBJECT) {
+	    /* Missing user -- be anonymous */
+	    list ($ret, $activeUserId) =
+		GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
+	    if ($ret) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
 
-    foreach ($pluginIds as $pluginId) {
-	list ($ret, $plugin) =
-	    GalleryCoreApi::newFactoryInstanceById('GalleryAuthPlugin', $pluginId);
-	if ($ret) {
-	    return $ret;
-	}
-
-	list ($ret, $user) = $plugin->getUser();
-	if ($ret) {
-	    return $ret;
-	}
-
-	if (isset($user)) {
-	    break;
+	    list ($ret, $activeUser) = GalleryCoreApi::loadEntitiesById($activeUserId);
+	    if ($ret) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+	} else {
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
     }
 
-    if (!isset($user)) {
-
-	/* Missing user, be anonymous */
-	list ($ret, $userId) = GalleryCoreApi::getAnonymousUserId();
-	if ($ret) {
-	    return $ret;
-	}
-
-	list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId);
-	if ($ret) {
-	    return $ret;
-	}
-    }
-
-    $gallery->setActiveUser($user);
+    $gallery->setActiveUser($activeUser);
 
     return null;
 }

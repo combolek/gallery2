@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ItemReorder.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.21 $ $Date: 2006/01/22 18:12:28 $
  * @package GalleryCore
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -47,7 +49,7 @@ class ItemReorderController extends GalleryController {
 	/* Check permissions */
 	$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.edit');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$status = $error = array();
@@ -76,12 +78,12 @@ class ItemReorderController extends GalleryController {
 		list ($ret, $entities) =
 		    GalleryCoreApi::loadEntitiesById(array($selectedId, $targetId));
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		if ($entities[0]->getParentId() != $itemId ||
 		    $entities[1]->getParentId() != $itemId) {
-		    return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED),
+		    return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED, __FILE__, __LINE__),
 				 null);
 		}
 	    }
@@ -96,13 +98,13 @@ class ItemReorderController extends GalleryController {
 		    list ($ret, $orderWeights) =
 			GalleryCoreApi::fetchItemOrderWeights(array($selectedId, $targetId));
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
 		    list ($ret, $next) = GalleryCoreApi::fetchNextItemWeight($targetId,
 			$before ? LOWER_WEIGHT : HIGHER_WEIGHT);
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
 		    if (isset($next)) {
@@ -124,28 +126,28 @@ class ItemReorderController extends GalleryController {
 			/*
 			 * If we have to rebalance more than once then something went wrong!
 			 */
-			return array(GalleryCoreApi::error(ERROR_UNKNOWN),
+			return array(GalleryCoreApi::error(ERROR_UNKNOWN, __FILE__, __LINE__),
 				     null);
 		    }
 
 		    /* A delta of 0 means that we don't have room, so rebalance */
 		    $ret = GalleryCoreApi::rebalanceChildOrderWeights($itemId);
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		}
 		$newWeight = $orderWeights[$targetId] + $delta;
 
 		$ret = GalleryCoreApi::setItemOrderWeight($selectedId, $newWeight);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		$event = GalleryCoreApi::newEvent('Gallery::ItemOrder');
 		$event->setData($itemId);
 		list ($ret) = GalleryCoreApi::postEvent($event);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		/* Redirect back to the same page so that we can do more reordering */
@@ -198,7 +200,7 @@ class ItemReorderView extends GalleryView {
 
 	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$show = array();
@@ -208,7 +210,7 @@ class ItemReorderView extends GalleryView {
 	    list ($ret, $orderBy) =
 		GalleryCoreApi::getPluginParameter('module', 'core', 'default.orderBy');
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 	if ($orderBy != 'orderWeight') {
@@ -218,13 +220,13 @@ class ItemReorderView extends GalleryView {
 	    /* Get all peers that we can see */
 	    list ($ret, $peerIds) = GalleryCoreApi::fetchChildItemIds($item);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    /* Load all the peers */
 	    list ($ret, $peerItems) = GalleryCoreApi::loadEntitiesById($peerIds);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    /* Build our peers table */
@@ -257,7 +259,7 @@ class ItemReorderView extends GalleryView {
     function getViewDescription() {
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, $core->translate('reorder items'));

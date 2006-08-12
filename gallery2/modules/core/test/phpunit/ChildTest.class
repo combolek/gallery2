@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ChildTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.26 $ $Date: 2006/01/10 04:39:36 $
  * @package GalleryCore
  * @subpackage PHPUnit
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -29,6 +31,7 @@
  *
  * @package GalleryCore
  * @subpackage PHPUnit
+ *
  */
 class ChildTest extends GalleryTestCase {
 
@@ -44,44 +47,25 @@ class ChildTest extends GalleryTestCase {
 	    $this->_createRandomAlbum($this->_getRootId(), array('orderBy' => 'orderWeight'));
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($this->_root);
 
-	$rootId = $this->_root->getId();
-	list ($ret, $this->_rootHighlight) = $this->_createDerivative(
-		$this->_root, $rootId, DERIVATIVE_TYPE_IMAGE_THUMBNAIL);
-	if ($ret) {
-	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
-	}
-	for ($i = 0; $i < 3; $i++) {
-	    if ($i % 2) {
-		list ($ret, $this->_child[$i]) = $this->_createRandomDataItem($rootId);
-		if ($ret) {
-		    print $ret->getAsHtml();
-		    return $this->failWithStatus($ret);
-		}
-		list ($ret, $this->_derivative[$i][1]) =
+	for ($i = 0; $i < 2; $i++) {
+	    list ($ret, $this->_child[$i]) = $this->_createRandomAlbum($this->_root->getId());
+	    if ($ret) {
+		print $ret->getAsHtml();
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	    }
+
+	    for ($j = 0; $j < 2; $j++) {
+		list ($ret, $this->_derivative[$i][$j]) =
 		    $this->_createDerivative($this->_child[$i], $this->_child[$i]->getId(),
 					     DERIVATIVE_TYPE_IMAGE_RESIZE);
 		if ($ret) {
 		    print $ret->getAsHtml();
-		    return $this->failWithStatus($ret);
+		    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 		}
-	    } else {
-		list ($ret, $this->_child[$i]) = $this->_createRandomAlbum($rootId);
-		if ($ret) {
-		    print $ret->getAsHtml();
-		    return $this->failWithStatus($ret);
-		}
-	    }
-	    list ($ret, $this->_derivative[$i][0]) =
-		$this->_createDerivative($this->_child[$i], $this->_child[$i]->getId(),
-					 DERIVATIVE_TYPE_IMAGE_THUMBNAIL);
-	    if ($ret) {
-		print $ret->getAsHtml();
-		return $this->failWithStatus($ret);
 	    }
 	}
     }
@@ -89,278 +73,113 @@ class ChildTest extends GalleryTestCase {
     function testFetchChildItemIds() {
 	list ($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($this->_root);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	sort($childIds);
-	$this->assertEquals(array($this->_child[0]->getId(), $this->_child[1]->getId(),
-				  $this->_child[2]->getId()),
-			    $childIds, 'root children');
+	$this->assertEquals(array($this->_child[0]->getId(),
+				  $this->_child[1]->getId()),
+			    $childIds,
+			    'root children');
 
 	/* Make sure only items appear from fetchChildItemIds */
 	list ($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($this->_child[0]);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(array(), $childIds, "child 0's children");
-    }
-
-    function testFetchChildIdsWithSort() {
-	list ($ret, $album) = $this->_createRandomAlbum($this->_root->getId());
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-
-	list ($ret, $child[1]) = $this->_createRandomDataItem($album->getId(), 'test/file',
-		array('title' => 'ZZZ', 'summary' => 'mno', 'description' => 'ZZdesc',
-		      'keywords' => 'def', 'originationTimestamp' => time() - 1000,
-		      'creationTimestamp' => time() - 10));
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-
-	list ($ret, $child[2]) = $this->_createRandomAlbum($album->getId(),
-		array('title' => 'AAA', 'summary' => 'zzz', 'description' => 'MMdesc',
-		      'keywords' => 'abc', 'originationTimestamp' => time() - 100,
-		      'creationTimestamp' => time() - 5));
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-	$ret = GalleryCoreApi::incrementItemViewCount($child[2]->getId(), 3);
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-
-	list ($ret, $child[3]) = $this->_createRandomDataItem($album->getId(), 'test/file',
-		array('title' => 'MMM', 'summary' => 'abc', 'description' => 'ABdesc',
-		      'keywords' => 'zyx', 'originationTimestamp' => time() - 500));
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-	$ret = GalleryCoreApi::incrementItemViewCount($child[3]->getId(), 3);
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-
-	list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock(array($album->getId()));
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-
-	foreach (array('title' => array(ORDER_ASCENDING, 2, 3, 1),
-		       'summary' => array(ORDER_DESCENDING, 2, 1, 3),
-		       'description' => array(ORDER_ASCENDING, 3, 2, 1),
-		       'keywords' => array(ORDER_DESCENDING, 3, 1, 2),
-		       'originationTimestamp' => array(ORDER_ASCENDING, 1, 3, 2),
-		       'creationTimestamp' => array(ORDER_DESCENDING, 3, 2, 1),
-		       'viewCount' => array(ORDER_DESCENDING, 2, 3, 1), /* Tie break by Id */
-		       'pathComponent' => array(ORDER_ASCENDING, '?'),
-		       'random' => array(ORDER_ASCENDING, '?'),
-		       'viewedFirst|summary' => array(ORDER_ASCENDING, 3, 2, 1),
-		       'albumsFirst|description' => array(ORDER_DESCENDING, 2, 1, 3),
-		    ) as $orderBy => $data) {
-	    $album->setOrderBy($orderBy);
-	    $album->setOrderDirection(array_shift($data));
-	    $ret = $album->save();
-	    if ($ret) {
-		GalleryCoreApi::releaseLocks($lockId);
-		return $this->failWithStatus($ret);
-	    }
-
-	    list ($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($album);
-	    if ($ret) {
-		GalleryCoreApi::releaseLocks($lockId);
-		return $this->failWithStatus($ret);
-	    }
-
-	    if (count($data) < 3) {
-		/* Don't know exact order to expect, just make sure all 3 items are there */
-		$data = array(1, 2, 3);
-		sort($childIds);
-	    }
-
-	    $this->assertEquals(array($child[$data[0]]->getId(), $child[$data[1]]->getId(),
-				      $child[$data[2]]->getId()), $childIds, $orderBy);
-	}
-
-	$ret = GalleryCoreApi::releaseLocks($lockId);
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
     }
 
     function testFetchChildItemIdsDifferentUser() {
 	/* Create a new user and give him limited view permissions on our tree */
 	list ($ret, $user) = $this->_createRandomUser();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($user);
 
 	/* Create a new user and give him limited view permissions on our tree */
 	list ($ret, $user) = $this->_createRandomUser();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($user);
 
-	for ($i = 0; $i < 3; $i++) {
+	for ($i = 0; $i < 2; $i++) {
 	    $ret = GalleryCoreApi::removeItemPermissions($this->_child[$i]->getId());
 	    if ($ret) {
-		return $this->failWithStatus($ret);
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	}
 	$ret = GalleryCoreApi::addUserPermission(
 	    $this->_child[0]->getId(), $user->getId(), 'core.view', false);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $childIds) =
 	    GalleryCoreApi::fetchChildItemIds($this->_root, null, null, $user->getId());
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assertEquals(array($this->_child[0]->getId()), $childIds, 'root children');
     }
 
     function testFetchChildDataItemIds() {
-	list ($ret, $childIds) = GalleryCoreApi::fetchChildDataItemIds($this->_root);
+	list ($ret, $item) = $this->_createRandomDataItem($this->_root->getId());
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	$this->assertEquals(array($this->_child[1]->getId()), $childIds, 'root children');
+	list ($ret, $childIds) = GalleryCoreApi::fetchChildDataItemIds($this->_root);
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+
+	$this->assertEquals(array($item->getId()), $childIds, "root children");
     }
 
     function testFetchChildAlbumItemIds() {
 	list ($ret, $childIds) = GalleryCoreApi::fetchChildAlbumItemIds($this->_root);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	$this->assertEquals(array($this->_child[0]->getId(), $this->_child[2]->getId()),
-			    $childIds, 'root sub-albums');
-    }
-
-    function testChildItemIdsWithPermission() {
-	global $gallery;
-
-	$permission = array('core.view', 'core.all', 'core.edit');
-	for ($i = 0; $i < 3; $i++) {
-	    $ret = GalleryCoreApi::removeItemPermissions($this->_child[$i]->getId());
-	    if ($ret) {
-		return $this->failWithStatus($ret);
-	    }
-	    $ret = GalleryCoreApi::addUserPermission(
-		    $this->_child[$i]->getId(), $gallery->getActiveUserId(), $permission[$i]);
-	    if ($ret) {
-		return $this->failWithStatus($ret);
-	    }
-	}
-
-	list ($ret, $childIds) =
-	    GalleryCoreApi::fetchChildItemIdsWithPermission($this->_root->getId(), 'core.edit');
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-
-	$this->assertEquals(array($this->_child[1]->getId(), $this->_child[2]->getId()),
-			    $childIds, 'editable children');
-
-	/* verify all permission bits must match, not just one bit */
-	list ($ret, $childIds) =
-	    GalleryCoreApi::fetchChildItemIdsWithPermission($this->_root->getId(), 'core.viewAll');
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-
-	$this->assertEquals(array($this->_child[1]->getId()), $childIds, 'match all bits failed');
-    }
-
-    function testFetchLinkableChildItemIdsWithPermission() {
-	list ($ret, $childIds) =
-	    GalleryCoreApi::fetchLinkableChildItemIdsWithPermission($this->_root->getId(),
-								    'core.view');
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-	$this->assertEquals(array($this->_child[1]->getId()), $childIds);
-
-	/* Verify 2 references to GalleryEntity table don't produce bad sql (2 joins) */
-	list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock(array($this->_root->getId()));
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-	$this->_root->setOrderBy('modificationTimestamp');
-	$ret = $this->_root->save();
-	if ($ret) {
-	    GalleryCoreApi::releaseLocks($lockId);
-	    return $this->failWithStatus($ret);
-	}
-	$ret = GalleryCoreApi::releaseLocks($lockId);
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-
-	list ($ret, $childIds) =
-	    GalleryCoreApi::fetchLinkableChildItemIdsWithPermission($this->_root->getId(),
-								    'core.view');
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-	$this->assertEquals(array($this->_child[1]->getId()), $childIds, 'with sort');
-    }
-
-    function testChildItemIdsIgnorePermission() {
-	for ($i = 0; $i < 3; $i++) {
-	    $ret = GalleryCoreApi::removeItemPermissions($this->_child[$i]->getId());
-	    if ($ret) {
-		return $this->failWithStatus($ret);
-	    }
-	}
-
-	list ($ret, $childIds) = GalleryCoreApi::fetchChildItemIdsIgnorePermissions($this->_root);
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-
-	sort($childIds);
-	$this->assertEquals(array($this->_child[0]->getId(), $this->_child[1]->getId(),
-				  $this->_child[2]->getId()),
-			    $childIds, 'root children');
+	$this->assertEquals(array($this->_child[0]->getId(), $this->_child[1]->getId()),
+        $childIds, "root sub-albums");
     }
 
     function testFetchChildIds2() {
+
 	/* Order them in reverse */
 	$count = sizeof($this->_child);
 	for ($i = 0; $i < $count; $i++) {
 	    $ret = GalleryCoreApi::setItemOrderWeight($this->_child[$i]->getId(), $count-$i);
 	    if ($ret) {
-		return $this->failWithStatus($ret);
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	}
 
 	list ($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($this->_root);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$expectedIds = array();
-	for ($i = $count - 1; $i >= 0; $i--) {
+	for ($i = $count-1; $i >= 0; $i--) {
 	    $expectedIds[] = $this->_child[$i]->getId();
 	}
 
 	$this->assertEquals($expectedIds, $childIds);
     }
 
-    function testAlbumsFirstOrder() {
+    function testAlbumFirstOrder() {
 	list ($ret, $album) = $this->_createRandomAlbum($this->_root->getId(),
 				      array('orderBy' => 'albumsFirst|creationTimestamp',
 					    'orderDirection' => ORDER_DESCENDING));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$timestamp = time() - 1000;
 	for ($i = 0; $i < 6; $i++) {
@@ -368,13 +187,13 @@ class ChildTest extends GalleryTestCase {
 		list ($ret, $child[$i]) = $this->_createRandomAlbum($album->getId(),
 						  array('creationTimestamp' => $timestamp));
 		if ($ret) {
-		    return $this->failWithStatus($ret);
+		    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 		}
 	    } else {
 		list ($ret, $child[$i]) = $this->_createRandomDataItem($album->getId(),
 					  'test/file', array('creationTimestamp' => $timestamp));
 		if ($ret) {
-		    return $this->failWithStatus($ret);
+		    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 		}
 	    }
 	    $timestamp += 100;
@@ -382,7 +201,7 @@ class ChildTest extends GalleryTestCase {
 
 	list ($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($album);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assertEquals(
@@ -395,242 +214,163 @@ class ChildTest extends GalleryTestCase {
 	    $childIds);
     }
 
-    function testMultisortConflict() {
-	/* Previously a sort and presort both with a left join could create bad SQL */
-	$ret = GalleryCoreApi::registerFactoryImplementation('GallerySortInterface_1_2',
-		'ChildTestSortOrder', 'ChildTestSortOrder',
-		'modules/core/test/phpunit/ChildTest.class', 'coreTest', null);
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-	$this->_markFactoryModuleForCleanup('coreTest');
-
-	list ($ret, $album) = $this->_createRandomAlbum($this->_root->getId(),
-				      array('orderBy' => 'albumsFirst|ChildTestSortOrder',
-					    'orderDirection' => ORDER_DESCENDING));
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-
-	/* Don't need any results.. just validating that SQL query is ok, no error returned */
-	list ($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($album);
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-	$this->assertEquals(array(), $childIds, 'child ids');
-    }
-
-    function testFetchAlbumConflict() {
-	/* Previously albumsFirst and fetchChildAlbumItemIds would create bad SQL */
-	list ($ret, $album) = $this->_createRandomAlbum($this->_root->getId(),
-				      array('orderBy' => 'albumsFirst|creationTimestamp',
-					    'orderDirection' => ORDER_ASCENDING));
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-	/* Don't need any results.. just validating that SQL query is ok, no error returned */
-	list ($ret, $childIds) = GalleryCoreApi::fetchChildAlbumItemIds($album);
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-	$this->assertEquals(array(), $childIds, 'child ids');
-    }
-
-    function testNoSelfJoin() {
-	/* Verify a self join is avoided */
-	$ret = GalleryCoreApi::registerFactoryImplementation('GallerySortInterface_1_2',
-		'ChildTestSortOrder2', 'ChildTestSortOrder2',
-		'modules/core/test/phpunit/ChildTest.class', 'coreTest', null);
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-	$this->_markFactoryModuleForCleanup('coreTest');
-
-	list ($ret, $album) = $this->_createRandomAlbum($this->_root->getId(),
-				      array('orderBy' => 'ChildTestSortOrder2',
-					    'orderDirection' => ORDER_ASCENDING));
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-
-	/* Don't need any results.. just validating that SQL query is ok, no error returned */
-	list ($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($album);
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-	$this->assertEquals(array(), $childIds, 'child ids');
-    }
-
     function testDescendentItemIds() {
-	list ($ret, $items[]) = $this->_createRandomDataItem($this->_child[0]->getId());
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-	list ($ret, $items[]) = $this->_createRandomDataItem($this->_child[2]->getId());
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-	$itemIds = array($this->_child[0]->getId(), $this->_child[1]->getId(),
-			 $this->_child[2]->getId());
-	foreach ($items as $item) {
-	    $itemIds[] = $item->getId();
-	}
+        list ($ret, $items[]) = $this->_createRandomDataItem($this->_root->getId());
+        if ($ret) {
+            return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+        }
+        list ($ret, $items[]) = $this->_createRandomDataItem($this->_child[0]->getId());
+        if ($ret) {
+            return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+        }
+        list ($ret, $items[]) = $this->_createRandomDataItem($this->_child[1]->getId());
+        if ($ret) {
+            return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+        }
+        $itemIds = array($this->_child[0]->getId(), $this->_child[1]->getId());
+        foreach ($items as $item) {
+            $itemIds[] = $item->getId();
+        }
 
-	list ($ret, $childIds) = GalleryCoreApi::fetchDescendentItemIds($this->_root);
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-	sort($childIds);
-	$this->assertEquals($itemIds, $childIds, 'descendents');
+        list ($ret, $childIds) = GalleryCoreApi::fetchDescendentItemIds($this->_root);
+        if ($ret) {
+            return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+        }
+        sort($childIds);
+        $this->assertEquals($itemIds, $childIds, 'descendents');
     }
 
     function testDescendentRoot() {
-	list ($ret, $items[]) = $this->_createRandomDataItem($this->_child[0]->getId());
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-	list ($ret, $items[]) = $this->_createRandomDataItem($this->_child[2]->getId());
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-	$itemIds = array($this->_child[0]->getId(), $this->_child[1]->getId(),
-			 $this->_child[2]->getId());
-	foreach ($items as $item) {
-	    $itemIds[] = $item->getId();
-	}
+        list ($ret, $items[]) = $this->_createRandomDataItem($this->_root->getId());
+        if ($ret) {
+            return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+        }
+        list ($ret, $items[]) = $this->_createRandomDataItem($this->_child[0]->getId());
+        if ($ret) {
+            return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+        }
+        list ($ret, $items[]) = $this->_createRandomDataItem($this->_child[1]->getId());
+        if ($ret) {
+            return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+        }
+        $itemIds = array($this->_child[0]->getId(), $this->_child[1]->getId());
+        foreach ($items as $item) {
+            $itemIds[] = $item->getId();
+        }
 	list ($ret, $albumRoot) = GalleryCoreApi::loadEntitiesById($this->_getRootID());
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
+        if ($ret) {
+            return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+        }
 
-	list ($ret, $childIds) = GalleryCoreApi::fetchDescendentItemIds($albumRoot);
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
+        list ($ret, $childIds) = GalleryCoreApi::fetchDescendentItemIds($albumRoot);
+        if ($ret) {
+            return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+        }
 	/*
 	 * childIds has all descendents in the Gallery;
-	 * we just need to make sure that all *our* items are indeed in the list
+         * we just need to make sure that all *our* items are indeed in the list
 	 */
 	foreach ($itemIds as $itemId) {
-	    $this->assert(in_array($itemId, $childIds), 'descendent ' . $itemId);
+            $this->assert(in_array($itemId, $childIds), 'descendent ' . $itemId);
 	}
     }
 
     function testDescendentItemIdsNoItem() {
-	list ($ret, $childIds) = GalleryCoreApi::fetchDescendentItemIds($this->_child[0]);
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-	$this->assertEquals(array(), $childIds, 'empty descendents');
+        list ($ret, $childIds) = GalleryCoreApi::fetchDescendentItemIds($this->_child[0]);
+        if ($ret) {
+            return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+        }
+        $this->assertEquals(array(), $childIds, 'empty descendents');
     }
 
     function testDescendentItemIdsInadequatePermissions() {
-	global $gallery;
+        global $gallery;
 
-	list ($ret, $items[]) = $this->_createRandomDataItem($this->_child[0]->getId());
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-	list ($ret, $items[]) = $this->_createRandomDataItem($this->_child[2]->getId());
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-	/* Create a user that we can delete */
-	list ($ret, $user) = $this->_createRandomUser();
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-	$this->_markForCleanup($user);
-	$gallery->setActiveUser($user);
+        list ($ret, $items[]) = $this->_createRandomDataItem($this->_root->getId());
+        if ($ret) {
+            return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+        }
+        list ($ret, $items[]) = $this->_createRandomDataItem($this->_child[0]->getId());
+        if ($ret) {
+            return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+        }
+        list ($ret, $items[]) = $this->_createRandomDataItem($this->_child[1]->getId());
+        if ($ret) {
+            return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+        }
+        /* Create a user that we can delete */
+        list ($ret, $user) = $this->_createRandomUser();
+        if ($ret) {
+            return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+        }
+        $this->_markForCleanup($user);
+        $gallery->setActiveUser($user);
 
-	list ($ret, $childIds) =
-	    GalleryCoreApi::fetchDescendentItemIds($this->_root, null, null, 'core.edit');
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-	$this->assertEquals(array(), $childIds, 'inadequate permissions');
+        list ($ret, $childIds) = GalleryCoreApi::fetchDescendentItemIds($this->_root, null,
+            null, 'core.edit');
+        if ($ret) {
+            return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+        }
+        $this->assertEquals(array(), $childIds, 'inadequate permissions');
      }
 
     function testDescendentItemIdsNoPermissions() {
-	global $gallery;
+        global $gallery;
 
-	list ($ret, $items[]) = $this->_createRandomDataItem($this->_child[0]->getId());
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-	list ($ret, $items[]) = $this->_createRandomDataItem($this->_child[2]->getId());
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-	/* Create a user that we can delete */
-	list ($ret, $user) = $this->_createRandomUser();
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-	$this->_markForCleanup($user);
-	$gallery->setActiveUser($user);
+        list ($ret, $items[]) = $this->_createRandomDataItem($this->_root->getId());
+        if ($ret) {
+            return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+        }
+        list ($ret, $items[]) = $this->_createRandomDataItem($this->_child[0]->getId());
+        if ($ret) {
+            return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+        }
+        list ($ret, $items[]) = $this->_createRandomDataItem($this->_child[1]->getId());
+        if ($ret) {
+            return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+        }
+        /* Create a user that we can delete */
+        list ($ret, $user) = $this->_createRandomUser();
+        if ($ret) {
+            return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+        }
 
-	/* the goal here is to test for the permissions that "everyone" doesn't have */
-	list ($ret, $childIds) =
-	    GalleryCoreApi::fetchDescendentItemIds($this->_root, null, null, 'core.all');
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-	$this->assertEquals(array(), $childIds, 'no permissions');
-    }
+        $this->_markForCleanup($user);
+        $gallery->setActiveUser($user);
 
+        /* the goal here is to test for the permissions that "everyone" doesn't have */
+        list ($ret, $childIds) = GalleryCoreApi::fetchDescendentItemIds($this->_root,
+            null, null, 'core.all');
+        if ($ret) {
+            return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+        }
+        $this->assertEquals(array(), $childIds, 'no permissions');
+     }
+     
     function testDescendentAlbumItemIds() {
-	list ($ret, $items['ignore']) = $this->_createRandomDataItem($this->_child[0]->getId());
+        list ($ret, $items['ignore1']) = $this->_createRandomDataItem($this->_root->getId());
+        if ($ret) {
+            return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+        }
+        list ($ret, $items['ignore2']) = $this->_createRandomDataItem($this->_child[0]->getId());
+        if ($ret) {
+            return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+        }
+	list ($ret, $items['album']) = $this->_createRandomAlbum($this->_child[1]->getId());
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-	list ($ret, $items['album']) = $this->_createRandomAlbum($this->_child[2]->getId());
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-	$itemIds = array($this->_child[0]->getId(), $this->_child[2]->getId(),
-			 $items['album']->getId());
+        $itemIds = array($this->_child[0]->getId(), $this->_child[1]->getId(),
+	    $items['album']->getId());
 
 	/* this should bring back all sub albums and ignore non-albums */
-	list ($ret, $childIds) = GalleryCoreApi::fetchDescendentAlbumItemIds($this->_root);
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-	sort($childIds);
-	$this->assertEquals($itemIds, $childIds, 'descendents');
-    }
-}
-
-GalleryCoreApi::requireOnce('modules/core/classes/GallerySortInterface_1_2.class');
-
-/**
- * Test sort order
- */
-class ChildTestSortOrder extends GallerySortInterface_1_2 {
-    function getSortInfo() {
-	return array(null, 'ChildTestSort', false);
+        list ($ret, $childIds) = GalleryCoreApi::fetchDescendentAlbumItemIds($this->_root);
+        if ($ret) {
+            return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+        }
+        sort($childIds);
+        $this->assertEquals($itemIds, $childIds, 'descendents');
     }
 
-    function getSortOrder($direction) {
-	/* Won't match anything.. just used to ensure valid SQL is constructed */
-	return array(null, '[GalleryUser::userName]' . $direction,
-		'[GalleryUser::userName]', null,
-		'LEFT JOIN [GalleryUser] ON [BASE::ID] = [GalleryUser::id]');
-    }
-}
-
-/**
- * Test sort order to verify self-join is avoided
- */
-class ChildTestSortOrder2 extends GallerySortInterface_1_2 {
-    function getSortInfo() {
-	return array(null, 'ChildTestSort2', false);
-    }
-
-    function getSortOrder($direction) {
-	return array(null, '[GalleryChildEntity::parentId]' . $direction,
-		'[GalleryChildEntity::parentId]', null,
-		'INNER JOIN [GalleryChildEntity] ON [BASE::ID] = [GalleryChildEntity::id]');
-    }
 }
 ?>

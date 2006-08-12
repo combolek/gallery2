@@ -1,4 +1,4 @@
-# $Id$
+# $Id: fr.po,v 1.15 2006/03/23 19:59:35 mindless Exp $
 #
 # Gallery - a web based photo album viewer and editor
 # Copyright (C) 2000-2006 Bharat Mediratta
@@ -19,9 +19,9 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Core 1.1.10\n"
+"Project-Id-Version: Gallery: Core 1.1.0\n"
 "POT-Creation-Date: 2003-08-10 04:27+0200\n"
-"PO-Revision-Date: 2006-05-07 00:00+0100\n"
+"PO-Revision-Date: 2006-03-15 00:00+0100\n"
 "Last-Translator: Arnaud MOURONVAL <ArnaudMouronval@yahoo.com>\n"
 "Language-Team: French <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -83,6 +83,24 @@ msgstr[1] "%d semaines"
 msgid "<none>"
 msgstr "<aucune>"
 
+msgid "install"
+msgstr "installer"
+
+msgid "upgrade"
+msgstr "mettre à jour"
+
+msgid "configure"
+msgstr "configurer"
+
+msgid "activate"
+msgstr "activer"
+
+msgid "uninstall"
+msgstr "désinstaller"
+
+msgid "deactivate"
+msgstr "désactiver"
+
 msgid "No acceleration"
 msgstr "Aucune accélération"
 
@@ -91,9 +109,6 @@ msgstr "Accélération partielle"
 
 msgid "Full acceleration"
 msgstr "Accélération complète"
-
-msgid "Themes"
-msgstr "Thèmes"
 
 msgid "Performing Maintenance Tasks"
 msgstr "Maintenance du système en cours"
@@ -110,21 +125,6 @@ msgstr "Mettre à jour"
 
 msgid "Download"
 msgstr "Télécharger"
-
-msgid "install"
-msgstr "installer"
-
-msgid "upgrade"
-msgstr "mettre à jour"
-
-msgid "activate"
-msgstr "activer"
-
-msgid "uninstall"
-msgstr "désinstaller"
-
-msgid "deactivate"
-msgstr "désactiver"
 
 msgid "Inherit settings from parent album"
 msgstr "Hériter les paramètres de l'album parent"
@@ -191,12 +191,6 @@ msgstr "Suppression du vieux cache des téléchargements rapides"
 
 msgid "Converting MySQL data to UTF8"
 msgstr "Conversion en cours des données MySQL en UTF8"
-
-msgid "Updating panorama items"
-msgstr ""
-
-msgid "Optimizing AccessSubscriberMap table"
-msgstr ""
 
 msgid "Site Admins"
 msgstr "Adminstrateurs du site"
@@ -269,21 +263,14 @@ msgid_plural "%d kilobytes"
 msgstr[0] "%d kilooctet"
 msgstr[1] "%d kilooctets"
 
-#, c-format
-msgid "Input file %s exceeds maximum permitted file size"
-msgstr ""
+msgid "From Local Server"
+msgstr "Depuis le serveur local"
 
-#, c-format
-msgid "Input file %s exceeds file size specified in the form"
-msgstr ""
+msgid "Photo"
+msgstr "Photo"
 
-#, c-format
-msgid "Input file %s was only partially uploaded"
-msgstr ""
-
-#, c-format
-msgid "Input file %s was not uploaded. Error %d"
-msgstr ""
+msgid "From Web Page"
+msgstr "Depuis une page Web"
 
 msgid "Gallery Item Administration"
 msgstr "Administration d'Éléments de Gallery"
@@ -344,9 +331,6 @@ msgstr "Général"
 
 msgid "Movie Size"
 msgstr "Taille de film"
-
-msgid "Photo"
-msgstr "Photo"
 
 msgid "Thumbnail cropped successfully"
 msgstr "La vignette a été retaillée avec succès"
@@ -515,11 +499,17 @@ msgstr "Votre compte"
 msgid "Logout"
 msgstr "Déconnexion"
 
-msgid "Plugins"
-msgstr ""
+msgid "Modules"
+msgstr "Modules"
 
 msgid "Repository"
 msgstr "Répertoire"
+
+msgid "Themes"
+msgstr "Thèmes"
+
+msgid "Display"
+msgstr "Affichage"
 
 msgid "Users"
 msgstr "Utilisateurs"
@@ -535,9 +525,6 @@ msgstr "Priorité des boîtes à outils"
 
 msgid "Graphics Toolkits"
 msgstr "Boîtes à outils graphiques"
-
-msgid "Defaults"
-msgstr "Valeurs par défaut"
 
 msgid "Account Settings"
 msgstr "Paramètres du compte"
@@ -878,9 +865,11 @@ msgstr "Tableur"
 msgid "spreadsheet"
 msgstr "tableur"
 
-#, fuzzy
-msgid "file"
-msgstr "Fichier"
+msgid "Unknown"
+msgstr "Inconnu"
+
+msgid "unknown"
+msgstr "inconnu"
 
 #, c-format
 msgid ""
@@ -965,9 +954,6 @@ msgstr ""
 
 msgid "core"
 msgstr "noyau"
-
-msgid "unknown"
-msgstr "inconnu"
 
 msgid "Gallery version"
 msgstr "Gallery version"
@@ -1096,6 +1082,55 @@ msgstr "Nouveaux répertoires"
 
 msgid "New files"
 msgstr "Nouveaux fichiers"
+
+msgid "Local Server Upload Paths"
+msgstr "Chemins locaux de chargement"
+
+msgid ""
+"Specify the legal directories on the local server where a user can store files and then "
+"upload them into Gallery using the <i>Upload from Local Server</i> feature.  The paths you "
+"enter here and all the files and directories under those paths will be available to any "
+"Gallery user who has upload privileges, so you should limit this to directories that won't "
+"contain sensitive data (eg. /tmp or /usr/ftp/incoming)"
+msgstr ""
+"Spécifier le répertoire correct sur le serveur local, ou l'utilisateur peut stocker les "
+"ficheirs et les envoyer dans Gallery en utilisant la fonctionnalité <i>Envoyer depuis le "
+"Serveur Local</i>. Les chemins que vous entrez ici et tous les fichiers et répertoires sous "
+"ces chemins seront accessibles à chaque Utilisateur de Gallery qui a les privilèges d'envoi, "
+"alors vous devriez limiter vous limiter aux répertoires qui ne contiennent pas "
+"d'informations sensibles. (ex&nbsp;: /tmp ou /usr/ftp/incoming)"
+
+msgid "Path"
+msgstr "Chemin"
+
+msgid "Action"
+msgstr "Opération"
+
+msgid "remove"
+msgstr "supprimer"
+
+msgid "Add"
+msgstr "Ajouter"
+
+msgid "You must enter a directory to add."
+msgstr "Vous devez saisir un répertoire à ajouter."
+
+msgid "open_basedir documentation"
+msgstr "Documentation sur open_basedir"
+
+#, c-format
+msgid ""
+"Your webserver is configured to prevent you from accessing that directory.  Please refer to "
+"the %s and consult your webserver administrator."
+msgstr ""
+"Votre serveur Web est configuré pour vous empêcher d'accéder à ce répertoire. Veuillez faire "
+"référence à %s auprès de votre administrateur système."
+
+msgid "The webserver does not have permissions to read that directory."
+msgstr "Le serveur Web n'a pas la permission de lire ce répertoire."
+
+msgid "The path you specified is not a valid directory."
+msgstr "Le chemin spécifié n'est pas un répertoire valide."
 
 msgid "Session Settings"
 msgstr "Paramètres de session"
@@ -1227,9 +1262,6 @@ msgstr ""
 "de votre installation de Gallery <b>doivent vider le cache des cookies de leur navigateur</"
 "b>. Si ils ne le font pas, ils rencontrerons des problèmes à la connexion, déconnexion et "
 "des pertes de session."
-
-msgid "Path"
-msgstr "Chemin"
 
 msgid "Invalid cookie path"
 msgstr "Chemin de cookie invalide"
@@ -1476,9 +1508,6 @@ msgstr "Vous ne pouvez pas vous retirer de ce groupe"
 msgid "Add Member"
 msgstr "Ajouter un membre"
 
-msgid "Add"
-msgstr "Ajouter"
-
 msgid "You must enter a username."
 msgstr "Vous devez saisir un nom d'utilisateur."
 
@@ -1550,9 +1579,6 @@ msgstr "Vous ne pouvez pas éditer les utilisateurs de ce groupe"
 msgid "Edit Group (by list)"
 msgstr "Éditer un Groupe (par liste)"
 
-msgid "Action"
-msgstr "Opération"
-
 msgid "edit"
 msgstr "éditer"
 
@@ -1602,6 +1628,87 @@ msgstr "exécuter maintenant"
 
 msgid "Last Run Details:"
 msgstr "Résultat de la dernière exécution&nbsp;:"
+
+msgid "Gallery Modules"
+msgstr "Modules de Gallery"
+
+#, c-format
+msgid "Successfully installed and auto-configured module %s"
+msgstr "Module %s installé et auto-configuré avec succès"
+
+#, c-format
+msgid "Successfully installed module %s"
+msgstr "Module %s installé avec succès"
+
+#, c-format
+msgid "Successfully configured module %s"
+msgstr "Module %s configuré avec succès"
+
+#, c-format
+msgid "Successfully upgraded module %s"
+msgstr "Module %s mis à jour avec succès"
+
+#, c-format
+msgid "Successfully activated module %s"
+msgstr "Module %s activé avec succès"
+
+#, c-format
+msgid "Successfully deactivated module %s"
+msgstr "Module %s désactivé avec succès"
+
+#, c-format
+msgid "Successfully uninstalled module %s"
+msgstr "Module %s désinstallé avec succès"
+
+msgid ""
+"Gallery features come as separate modules.  You can download and install modules to add more "
+"features to your Gallery, or you can disable features if you don't want to use them.  In "
+"order to use a feature, you must install, configure (if necessary) and activate it.  If you "
+"don't wish to use a feature, you can deactivate it."
+msgstr ""
+"Les fonctionnalités de Gallery sont réparties dans différents modules. Vous pouvez "
+"télécharger et installer d'autres modules pour ajouter de nouvelles fonctionnalités. Vous "
+"pouvez également désactiver ces fonctionnalités si vous ne souhaitez pas les utiliser. Pour "
+"utiliser une fonctionnalité, vous devez installer, configurer (si nécessaire) et activer le "
+"module. Pour ne plus l'utiliser, vous pouvez simplement le désactiver."
+
+msgid "Module Name"
+msgstr "Nom du module"
+
+msgid "Version"
+msgstr "Version"
+
+msgid "Installed"
+msgstr "Installé"
+
+msgid "Actions"
+msgstr "Opérations"
+
+msgid "Status: Not Installed"
+msgstr "Statut&nbsp;: Non installé"
+
+msgid "Status: Active"
+msgstr "Statut&nbsp;: Actif"
+
+msgid "Status: Inactive"
+msgstr "Statut&nbsp;: Inactif"
+
+msgid "Status: Upgrade Required (Inactive)"
+msgstr "Statut&nbsp;: Mise à jour requise (inactif)"
+
+msgid "Status: Incompatible Module (Inactive)"
+msgstr "Statut&nbsp;: Module incompatible (inactif)"
+
+msgid "Incompatible module!"
+msgstr "Module incompatible&nbsp;!"
+
+#, c-format
+msgid "Core API Required: %s (available: %s)"
+msgstr "API noyau requise&nbsp;: %s (disponible&nbsp;: %s)"
+
+#, c-format
+msgid "Module API Required: %s (available: %s)"
+msgstr "API Module requise&nbsp;: %s (disponible&nbsp;: %s)"
 
 msgid "Confirm module uninstall"
 msgstr "Confirmer la désinstallation du module"
@@ -1699,100 +1806,6 @@ msgstr "Expire après&nbsp;:"
 msgid "Clear Saved Pages"
 msgstr "Effacer les pages sauvegardées"
 
-msgid "Status: Inactive"
-msgstr "Statut&nbsp;: Inactif"
-
-#, fuzzy
-msgid "__PLUGIN__ deactivated"
-msgstr "__MODULE__ désactivé"
-
-msgid "Status: Active"
-msgstr "Statut&nbsp;: Actif"
-
-#, fuzzy
-msgid "__PLUGIN__ activated"
-msgstr "__MODULE__ activé"
-
-msgid "Status: Not Installed"
-msgstr "Statut&nbsp;: Non installé"
-
-#, fuzzy
-msgid "__PLUGIN__ uninstalled"
-msgstr "__MODULE__ désinstallé"
-
-msgid "Status: Upgrade Required (Inactive)"
-msgstr "Statut&nbsp;: Mise à jour requise (inactif)"
-
-#, fuzzy
-msgid "Status: Incompatible Plugin (Inactive)"
-msgstr "Statut&nbsp;: Module incompatible (inactif)"
-
-msgid "Status: Inactive (Configuration Required)"
-msgstr "Statut&nbsp;: Inactif (configuration requise)"
-
-#, fuzzy
-msgid "__PLUGIN__ needs configuration"
-msgstr "__MODULE__ a besoin d'être configuré"
-
-#, fuzzy
-msgid "Gallery Plugins"
-msgstr "Modules de Gallery"
-
-#, fuzzy
-msgid ""
-"Gallery features come as separate plugins.  You can download and install plugins to add more "
-"features to your Gallery, or you can disable features if you don't want to use them.  In "
-"order to use a feature, you must install, configure (if necessary) and activate it.  If you "
-"don't wish to use a feature, you can deactivate it."
-msgstr ""
-"Les fonctionnalités de Gallery sont réparties dans différents modules. Vous pouvez "
-"télécharger et installer d'autres modules pour ajouter de nouvelles fonctionnalités. Vous "
-"pouvez également désactiver ces fonctionnalités si vous ne souhaitez pas les utiliser. Pour "
-"utiliser une fonctionnalité, vous devez installer, configurer (si nécessaire) et activer le "
-"module. Pour ne plus l'utiliser, vous pouvez simplement le désactiver."
-
-msgid "up to date"
-msgstr "à jour"
-
-msgid "disabled"
-msgstr "désactivé"
-
-msgid "upgrade required"
-msgstr "mise à jour requise"
-
-msgid "not installed"
-msgstr "non installé"
-
-msgid "incompatible"
-msgstr "incompatible"
-
-#, fuzzy
-msgid "Plugin Name"
-msgstr "Nom complet"
-
-msgid "Version"
-msgstr "Version"
-
-msgid "Installed"
-msgstr "Installé"
-
-msgid "Actions"
-msgstr "Opérations"
-
-msgid "Incompatible plugin!"
-msgstr "Plugin incompatible&nbsp;!"
-
-#, c-format
-msgid "Core API Required: %s (available: %s)"
-msgstr "API noyau requise&nbsp;: %s (disponible&nbsp;: %s)"
-
-#, c-format
-msgid "Plugin API Required: %s (available: %s)"
-msgstr "API Plugin requise&nbsp;: %s (disponible&nbsp;: %s)"
-
-msgid "configure"
-msgstr "configurer"
-
 msgid "Please make sure that your internet connection is set up properly or try again later."
 msgstr ""
 "Veuillez vous assurer que votre connexion à Internet est opérationnelle ou réessayez plus "
@@ -1806,9 +1819,6 @@ msgstr "Tous les plugins sont déjà à jour."
 
 msgid "Common Tasks"
 msgstr "Tâches communes"
-
-msgid "Modules"
-msgstr "Modules"
 
 msgid "Warning: Experimental feature!"
 msgstr "Attention&nbsp;: fonctionnalité expérimentale&nbsp;!"
@@ -1933,14 +1943,18 @@ msgstr ""
 msgid "Theme Name"
 msgstr "Nom du thème"
 
-msgid "Module Name"
-msgstr "Nom du module"
-
 msgid "Latest"
 msgstr "Dernière"
 
 msgid "Incompatible Plugin"
 msgstr "Plugin incompatible"
+
+msgid "Incompatible plugin!"
+msgstr "Plugin incompatible&nbsp;!"
+
+#, c-format
+msgid "Plugin API Required: %s (available: %s)"
+msgstr "API Plugin requise&nbsp;: %s (disponible&nbsp;: %s)"
 
 msgid "No packages have been selected."
 msgstr "Aucun package n'a été sélectionné."
@@ -2060,6 +2074,25 @@ msgstr "Sauvegarde réussie des paramètres par défaut de l'album"
 
 msgid "Restored theme settings"
 msgstr "Paramètres du thème restaurés"
+
+msgid "All Themes"
+msgstr "Tous les thèmes"
+
+msgid "Defaults"
+msgstr "Valeurs par défaut"
+
+msgid "Status: Incompatible Theme (Inactive)"
+msgstr "Statut&nbsp;: Thème incompatible (inactif)"
+
+msgid "Incompatible theme!"
+msgstr "Thème incompatible&nbsp;!"
+
+#, c-format
+msgid "Theme API Required: %s (available: %s)"
+msgstr "API des thèmes requise&nbsp;: %s (disponible&nbsp;: %s)"
+
+msgid "(default)"
+msgstr "(défaut)"
 
 msgid ""
 "These are default display settings for albums in your gallery.  They can be overridden in "
@@ -2378,6 +2411,156 @@ msgstr "Spécifier les titres des éléments à l'aide de&nbsp;:"
 
 msgid "Assign caption to:"
 msgstr "Assigner les sous-titres à&nbsp;:"
+
+msgid ""
+"Transfer files that are already on your server into your Gallery.  The files must already "
+"have been uploaded to your server some other way (like FTP) and must be placed in a "
+"directory where they are accessibly by any element on the server.  If you're on Unix this "
+"means that the files and the directory the files are in should have modes of at least 755."
+msgstr ""
+"Transférer les fichiers qui sont déjà sur votre serveur vers Gallery. Les fichiers doivent "
+"avoir été déjà déposés sur votre serveur d'une autre manière (par FTP par exemple) et "
+"doivent être placés dans un répertoire où ils sont accessibles par quiconque sur le serveur. "
+"Si vous êtes sous Unix celà signifie que les fichiers et les répertoires contenant les "
+"fichiers devraient au moins avoir les droits 755."
+
+msgid ""
+"For security purposes, you can't use this feature until the Gallery Site Administrator "
+"configures a set of legal upload directories."
+msgstr ""
+"Pour des questions de sécurité, vous ne pouvez pas utiliser cette fonctionnalité tant que "
+"l'Administrateur du Site Gallery n'a pas configuré un répertoire de chargement autorisé."
+
+msgid "Server Path"
+msgstr "Chemin serveur"
+
+msgid "You must enter a directory."
+msgstr "Vous devez saisir un répertoire."
+
+msgid ""
+"The directory you entered is invalid.  Make sure that the directory is readable by all users."
+msgstr ""
+"Le répertoire que vous avez saisi est incorrect. Assurez-vous que le répertoire est lisible "
+"par tous les utilisateurs."
+
+msgid ""
+"The directory you entered is illegal.  It must be a sub directory of one of the directories "
+"listed below."
+msgstr ""
+"Le répertoire que vous avez saisi est incorrect. Ce doit être un sous-répertoire d'un des "
+"répertoires listés ci-dessous."
+
+msgid "An item with the same name already exists."
+msgstr "Un élément avec le même nom existe déjà."
+
+msgid "Legal Directories"
+msgstr "Répertoires autorisés"
+
+msgid "modify"
+msgstr "modifier"
+
+msgid "Recent Directories"
+msgstr "Répertoires récents"
+
+msgid "Find Files"
+msgstr "Rechercher des fichiers"
+
+#, c-format
+msgid "Directory: %s"
+msgstr "Répertoire&nbsp;: %s"
+
+msgid "File name"
+msgstr "Nom de fichier"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Size"
+msgstr "Taille"
+
+msgid "Use Symlink"
+msgstr "Utiliser le lien symbolique"
+
+#, c-format
+msgid "%d byte"
+msgid_plural "%d bytes"
+msgstr[0] "%d octet"
+msgstr[1] "%d octets"
+
+msgid "Parent Directory"
+msgstr "Répertoire parent"
+
+msgid "Directory"
+msgstr "Répertoire"
+
+msgid "(Un)check all known types"
+msgstr "(Dé)cocher tous les types connus"
+
+msgid "(Un)check symlinks"
+msgstr "(Dé)cocher les liens symboliques"
+
+msgid "for selected items"
+msgstr "pour les éléments sélectionnés"
+
+msgid "Copy base filenames to:"
+msgstr "Copier les fichiers vers&nbsp;:"
+
+msgid "Add Files"
+msgstr "Ajouter des fichiers"
+
+msgid "Start Over"
+msgstr "Reprendre au début"
+
+msgid ""
+"Import files into Gallery from another website.  Enter a URL below to a web page anywhere on "
+"the net and Gallery will allow you to upload any media files that it finds on that page.  "
+"Note that if you're entering a URL to a directory, you should end the URL with a trailing "
+"slash (eg, http://example.com/directory/). "
+msgstr ""
+"Importez des images dans Gallery depuis un autre site. Saisissez ci-dessous l'URL de "
+"nimporte quelle page et Gallery vous proposera de télécharger les fichiers qui se trouvent "
+"dans cette page. Notez bien que si vous saisissez l'URL d'un répertoire, vérifiez que l'URL "
+"se termine par un '/' (exemple&nbsp;: http://www.exemple.com/repertoire/)."
+
+msgid "URL"
+msgstr "URL"
+
+msgid "You must enter a URL to a web page"
+msgstr "Vous devez saisir l'URL vers un page Web"
+
+msgid "The URL entered must begin with http://"
+msgstr "L'URL doit commencer par http://"
+
+msgid "The web page you specified is unavailable"
+msgstr "La page Web que vous avez saisie est invalide"
+
+msgid "Nothing to add found from this URL"
+msgstr "Rien à ajouter à partir de cette URL"
+
+msgid "Nothing added since no items were selected"
+msgstr "Aucun ajout car aucun élément n'a été sélectionné"
+
+msgid "Recent URLs"
+msgstr "URL récentes"
+
+#, c-format
+msgid "URL: %s"
+msgstr "URL&nbsp;: %s"
+
+msgid "change"
+msgstr "changer"
+
+#, c-format
+msgid "%d url found"
+msgid_plural "%d urls found"
+msgstr[0] "%d URL trouvée"
+msgstr[1] "%d URL trouvées"
+
+msgid "(Un)check all"
+msgstr "(Dé)cocher tout"
+
+msgid "Add URLs"
+msgstr "Ajouter des URL"
 
 msgid "No Thumbnail"
 msgstr "Aucune vignette"
@@ -2700,9 +2883,6 @@ msgid ""
 msgstr ""
 "Il n'y a pas de boîte à outils graphiques activée qui supporte ce type d'élément,nous ne "
 "pouvons donc pas créer ou modifier la vignette."
-
-msgid "Unable to create a thumbnail for this item"
-msgstr "Impossible de créer une vignette pour cet élément"
 
 msgid ""
 "In order for Gallery to properly display this movie, it has to know the movie's width and "
@@ -3060,9 +3240,6 @@ msgstr ""
 "Cet album a un ordre de tri automatique spécifié, vous ne pouvez donc pas changer "
 "manuellement l'ordre des éléments. Vous devez supprimer le tri automatique si vous désirez "
 "procéder."
-
-msgid "change"
-msgstr "changer"
 
 msgid "Change the order of the items in this album."
 msgstr "Changer l'ordre des éléments de cet album."
@@ -3502,9 +3679,6 @@ msgstr "%d. %s"
 msgid "Size: "
 msgstr "Taille&nbsp;: "
 
-msgid "Unknown"
-msgstr "Inconnu"
-
 msgid "Full size: "
 msgstr "Taille entière&nbsp;: "
 
@@ -3534,24 +3708,3 @@ msgstr "[test] Une seconde permission"
 
 msgid "Unit test theme"
 msgstr "Thème de tests unitaires"
-
-#~ msgid "Incompatible module!"
-#~ msgstr "Module incompatible&nbsp;!"
-
-#~ msgid "Module API Required: %s (available: %s)"
-#~ msgstr "API Module requise&nbsp;: %s (disponible&nbsp;: %s)"
-
-#~ msgid "All Themes"
-#~ msgstr "Tous les thèmes"
-
-#~ msgid "Status: Incompatible Theme (Inactive)"
-#~ msgstr "Statut&nbsp;: Thème incompatible (inactif)"
-
-#~ msgid "Incompatible theme!"
-#~ msgstr "Thème incompatible&nbsp;!"
-
-#~ msgid "Theme API Required: %s (available: %s)"
-#~ msgstr "API des thèmes requise&nbsp;: %s (disponible&nbsp;: %s)"
-
-#~ msgid "(default)"
-#~ msgstr "(défaut)"

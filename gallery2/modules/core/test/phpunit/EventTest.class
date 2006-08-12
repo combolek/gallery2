@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: EventTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.12 $ $Date: 2006/01/13 18:34:03 $
  * @package GalleryCore
  * @subpackage PHPUnit
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -51,7 +53,7 @@ class EventTest extends GalleryTestCase {
 	$event->setData('some data');
 	list ($ret, $result) = GalleryCoreApi::postEvent($event);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assertEquals($event, $listener->getEvent());
@@ -69,7 +71,7 @@ class EventTest extends GalleryTestCase {
 	$event->setData('send result');
 	list ($ret, $result) = GalleryCoreApi::postEvent($event);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assertEquals($event, $listener->getEvent());
@@ -85,7 +87,7 @@ class EventTest extends GalleryTestCase {
 
 	list ($ret, $item) = $this->_createRandomDataItem($this->_getRootId());
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($item);
 
@@ -94,7 +96,7 @@ class EventTest extends GalleryTestCase {
 
 	list ($ret, $permissions) = GalleryCoreApi::fetchAllPermissionsForItem($item->getId());
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(array(array('userId' => $gallery->getActiveUserId(),
 					'permission' => 'core.delete')),
@@ -120,12 +122,12 @@ class EventTestEventListener extends GalleryEventListener {
 	    $item = $event->getEntity();
 	    $ret = GalleryCoreApi::removeItemPermissions($item->getId());
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $ret = GalleryCoreApi::addUserPermission(
 		    $item->getId(), $gallery->getActiveUserId(), 'core.delete');
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 

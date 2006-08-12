@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: GalleryTranslator.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.101 $ $Date: 2006/03/18 19:35:05 $
  * @package GalleryCore
  * @author Bharat Mediratta <bharat@menalto.com>
  */
@@ -113,7 +115,7 @@ class GalleryTranslator {
 	static $defaultCountry = array();
 
 	if (empty($supportedLanguages)) {
-	    /* TODO: Move this information into a configuration file */
+	    /* XXX: Move this information into a configuration file */
 	    /* English */
 	    $supportedLanguages['en']['US']['description'] = 'English (US)';
 	    $supportedLanguages['en']['GB']['description'] = 'English (UK)';
@@ -122,10 +124,6 @@ class GalleryTranslator {
 	    /* Afrikaans */
 	    $supportedLanguages['af']['ZA']['description'] = 'Afrikaans';
 	    $defaultCountry['af'] = 'ZA';
-
-	    /* Catalan */
-	    $supportedLanguages['ca']['ES']['description'] = 'Catalan';
-	    $defaultCountry['ca'] = 'ES';
 
 	    /* Czech */
 	    $supportedLanguages['cs']['CZ']['description'] = '&#x010c;esky';
@@ -144,10 +142,6 @@ class GalleryTranslator {
 	    $supportedLanguages['es']['MX']['description'] = 'Espa&#241;ol (MX)';
 	    $supportedLanguages['es']['AR']['description'] = 'Espa&#241;ol (AR)';
 	    $defaultCountry['es'] = 'ES';
-
-	    /* Estonian */
-	    $supportedLanguages['et']['EE']['description'] = 'Eesti';
-	    $defaultCountry['et'] = 'EE';
 
 	    /* Basque */
 	    $supportedLanguages['eu']['ES']['description'] = 'Euskara';
@@ -202,10 +196,6 @@ class GalleryTranslator {
 	    $supportedLanguages['pt']['PT']['description'] = 'Portugu&#234;s';
 	    $defaultCountry['pt'] = 'BR';
 
-	    /* Romanian */
-	    $supportedLanguages['ro']['RO']['description'] = 'Rom&#226;n&#259;';
-	    $defaultCountry['ro'] = 'RO';
-
 	    /* Slovenian */
 	    $supportedLanguages['sl']['SI']['description'] = 'Sloven&#353;&#269;ina';
 	    $defaultCountry['sl'] = 'SI';
@@ -225,10 +215,6 @@ class GalleryTranslator {
 	    /* Thai */
 	    $supportedLanguages['th']['TH']['description'] = 'Thai';
 	    $defaultCountry['th'] = 'TH';
-
-	    /* Ukrainian */
-	    $supportedLanguages['uk']['UA']['description'] = 'Українська';
-	    $defaultCountry['uk'] = 'UA';
 
 	    /* Vietnamese */
 	    $supportedLanguages['vi']['VN']['description'] = 'Ti&#7871;ng Vi&#7879;t';
@@ -297,7 +283,7 @@ class GalleryTranslator {
 	if (empty($languageCode) && !$dontUseDatabase) {
 	    list ($ret, $languageCode) = GalleryTranslator::getDefaultLanguageCode();
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
@@ -353,10 +339,6 @@ class GalleryTranslator {
 		return $ret;
 	    }
 	}
-	/* For Norwegian try nb language code in addition to no */
-	if (substr($locale, 0, 2) == 'no') {
-	    return GalleryTranslator::_setlocale($category, 'nb' . substr($locale, 2));
-	}
 	$gallery->debug("Warning: Unable to select locale $locale");
 	return false;
     }
@@ -372,7 +354,7 @@ class GalleryTranslator {
 	list ($ret, $useBrowserPref) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'language.useBrowserPref');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if ($useBrowserPref) {
@@ -385,7 +367,7 @@ class GalleryTranslator {
 	    list ($ret, $languageCode) =
 		GalleryCoreApi::getPluginParameter('module', 'core', 'default.language');
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
@@ -478,7 +460,7 @@ class GalleryTranslator {
 	/* Validate our parameters */
 	if (!(isset($data['text']) ||
 	      (isset($data['one']) && isset($data['many']) && isset($data['count'])))) {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER),
+	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__),
 			 null);
 	}
 
@@ -523,6 +505,17 @@ class GalleryTranslator {
 	    } else {
 		$localized = dgettext($domain, $data['text']);
 	    }
+
+	    /*
+	     * In PHP 4.1.x (before bind_textdomain_codeset) the string will be returned from
+	     * gettext in the default encoding for that language. Here we convert that encoding
+	     * to the active charset.  However, it seems newer versions of PHP that are missing
+	     * bind_textdomain_charset do return the output in UTF-8.
+	     */
+	    if (!function_exists('bind_textdomain_codeset') &&
+		    version_compare(phpversion(), '4.2.0', '<')) {
+		$localized = GalleryCoreApi::convertToUtf8($localized);
+	    }
 	} else {
 	    /* en_US is selected or the server doesn't have gettext */
 	    if (isset($data['text'])) {
@@ -546,7 +539,7 @@ class GalleryTranslator {
 
 	    /* Catch runaways */
 	    if ($i > 100) {
-		return array(GalleryCoreApi::error(ERROR_UNKNOWN), null);
+		return array(GalleryCoreApi::error(ERROR_UNKNOWN, __FILE__, __LINE__), null);
 	    }
 	}
 

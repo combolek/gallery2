@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: AdminToolkitPriorityControllerTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.8 $ $Date: 2006/01/10 04:39:36 $
  * @package GalleryCore
  * @subpackage PHPUnit
  * @author Alan Harder <alan.harder@sun.com>
@@ -42,7 +44,7 @@ class AdminToolkitPriorityControllerTest extends GalleryControllerTestCase {
 		array('test/type'), 'test-operation', array(),
 		'test-description', 'test/outputType', 30);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markToolkitForCleanup('TestToolkitPriority');
 
@@ -50,7 +52,7 @@ class AdminToolkitPriorityControllerTest extends GalleryControllerTestCase {
 		array('test/type'), 'test-operation', array(),
 		'test-description', 'test/outputType', 27);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markToolkitForCleanup('TestToolkitPriority2');
     }
@@ -82,7 +84,7 @@ class AdminToolkitPriorityControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $list) = GalleryCoreApi::getRedundantToolkitPriorities();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assert(count($list) >= 2, 'count');

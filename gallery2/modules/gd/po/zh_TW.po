@@ -1,4 +1,4 @@
-# $Id$
+# $Id: zh_TW.po,v 1.10 2006/03/22 04:19:10 mindless Exp $
 #
 # Gallery - a web based photo album viewer and editor
 # Copyright (C) 2000-2006 Bharat Mediratta
@@ -19,7 +19,7 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Gd 1.1.0\n"
+"Project-Id-Version: Gallery: Gd 1.0.3\n"
 "POT-Creation-Date: 2005-07-28 22:29-0400\n"
 "PO-Revision-Date: 2005-07-28 22:29-0400\n"
 "Last-Translator: Stephen Chu <stephen@ju-ju.com>\n"
@@ -41,9 +41,8 @@ msgstr "圖形工具"
 msgid "Convert to a JPEG"
 msgstr "轉換成 JPEG"
 
-#, c-format
-msgid "target width (# pixels or #% of full size)"
-msgstr ""
+msgid "target width"
+msgstr "目標寬度"
 
 msgid "(optional) target height, defaults to same as width"
 msgstr "（選用）目標高度，預設為和寬度相同"
@@ -51,9 +50,8 @@ msgstr "（選用）目標高度，預設為和寬度相同"
 msgid "Scale the image to the target size, maintain aspect ratio"
 msgstr "縮放圖片到目標大小並保待長寬比"
 
-#, c-format
-msgid "target height (# pixels or #% of full size)"
-msgstr ""
+msgid "target height"
+msgstr "目標高度"
 
 msgid "Resize the image to the target dimensions"
 msgstr "縮放圖片到目標尺寸"
@@ -171,9 +169,3 @@ msgstr "支援的 MIME 類型"
 
 msgid "The Gd module will support files with the following MIME types:"
 msgstr "Gd 模組可支援下列 MIME 類型的檔案："
-
-#~ msgid "target width"
-#~ msgstr "目標寬度"
-
-#~ msgid "target height"
-#~ msgstr "目標高度"

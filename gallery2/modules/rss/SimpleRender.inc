@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: SimpleRender.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,8 +20,8 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
- * @package Rss
+ * @version $Revision: 1.4 $ $Date: 2006/02/27 19:27:30 $
+ * @package RSS
  * @author Jonatan Heyman <http://heyman.info>
  * @author Pierre-Luc Paour
  * @author Daniel Grund <http://www.photogrund.nl>
@@ -33,7 +35,7 @@ GalleryCoreApi::requireOnce('modules/rss/Render.inc');
 /**
  * Render the Simple Feed
  *
- * @package Rss
+ * @package RSS
  * @subpackage UserInterface
  */
 class SimpleRenderView extends RenderView {
@@ -46,7 +48,7 @@ class SimpleRenderView extends RenderView {
 	/* get all parameters */
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'rss');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if ($params['allowSimpleFeed'] != 1) {
@@ -56,7 +58,7 @@ class SimpleRenderView extends RenderView {
 
 	list ($ret, $item) = $this->_getItem();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$params['itemId'] = $item->getId();
@@ -86,7 +88,7 @@ class SimpleRenderView extends RenderView {
 
 	$ret = $this->continueRender($params);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;

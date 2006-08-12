@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ExternalCSS.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.6 $ $Date: 2006/01/10 04:40:16 $
  * @package ImageBlock
  * @author Alan Harder <alan.harder@sun.com>
  */
@@ -37,7 +39,7 @@ class ExternalCSSController extends GalleryController {
     function handleRequest($form) {
 	list ($ret, $imageframe) = GalleryCoreApi::newFactoryInstance('ImageFrameInterface_1_1');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (isset($imageframe)) {
 	    $frames = GalleryUtilities::getRequestVariables('frames');
@@ -47,7 +49,7 @@ class ExternalCSSController extends GalleryController {
 		    list ($ret, $frame) =
 			GalleryCoreApi::getPluginParameter('module', 'imageblock', $key);
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		    if (!empty($frame)) {
 			$frames[] = $frame;

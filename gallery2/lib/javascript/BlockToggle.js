@@ -1,4 +1,6 @@
 /*
+ * $RCSfile: BlockToggle.js,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  * 
@@ -25,9 +27,9 @@ function BlockToggle(objId, togId, display) {
 	    if (agent.indexOf('msie') >= 0 && agent.indexOf('opera') < 0) display = 'block';
 	}
 	o.style.display = display;
-	if (t) t.innerHTML = '-';
+	t.innerHTML = '-';
     } else {
 	o.style.display = 'none';
-	if (t) t.innerHTML = '+';
+	t.innerHTML = '+';
     }
 }

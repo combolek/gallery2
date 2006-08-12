@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: UserAlbumHelper.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 /**
  * @package UserAlbum
- * @version $Revision$ $Date$
+ * @version $Revision: 1.9 $ $Date: 2006/01/10 04:43:20 $
  * @author Alan Harder <alan.harder@sun.com>
  */
 
@@ -41,11 +43,11 @@ class UserAlbumHelper {
     function createUserAlbum($user) {
 	list ($ret, $core) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	list ($ret, $module) = GalleryCoreApi::fetchAllPluginParameters('module', 'useralbum');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Create album.. */
@@ -63,13 +65,13 @@ class UserAlbumHelper {
 	    if ($ret->getErrorCode() & ERROR_COLLISION) {
 		$albumName .= '_';
 	    } else {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
 	list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($album->getId());
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Set owner.. */
@@ -77,7 +79,7 @@ class UserAlbumHelper {
 	$ret = $album->save();
 	if ($ret) {
 	    GalleryCoreApi::releaseLocks($lockId);
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$albumId = $album->getId();
 
@@ -85,17 +87,17 @@ class UserAlbumHelper {
 	$ret = GalleryCoreApi::removeItemPermissions($albumId);
 	if ($ret) {
 	    GalleryCoreApi::releaseLocks($lockId);
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$ret = GalleryCoreApi::addGroupPermission($albumId, $core['id.adminGroup'], 'core.all');
 	if ($ret) {
 	    GalleryCoreApi::releaseLocks($lockId);
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$ret = GalleryCoreApi::addUserPermission($albumId, $user->getId(), 'core.all');
 	if ($ret) {
 	    GalleryCoreApi::releaseLocks($lockId);
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$viewPermissions = $module['fullSize'] ? array('core.viewAll')
@@ -113,21 +115,21 @@ class UserAlbumHelper {
 		$ret = GalleryCoreApi::addGroupPermission($albumId, $groupId, $permission);
 		if ($ret) {
 		    GalleryCoreApi::releaseLocks($lockId);
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	}
 
 	$ret = GalleryCoreApi::releaseLocks($lockId);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Record id of album */
 	$ret = GalleryCoreApi::setPluginParameter(
 			       'module', 'useralbum', 'albumId', $albumId, $user->getId());
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;

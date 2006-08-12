@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: Sample.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.9 $ $Date: 2006/01/10 04:40:23 $
  * @package ImageFrame
  * @author Alan Harder <alan.harder@sun.com>
  */
@@ -36,19 +38,19 @@ class SampleView extends GalleryView {
 	list ($ret, $imageframe) =
 	    GalleryCoreApi::newFactoryInstance('ImageFrameInterface_1_1');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (!isset($imageframe)) {
-	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
+	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__), null);
 	}
 
 	list ($ret, $list) = $imageframe->getImageFrameList();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$ret = $imageframe->init($template, array_keys($list));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$ImageFrameSample = array('list' => $list);
@@ -56,15 +58,15 @@ class SampleView extends GalleryView {
 	if (!empty($itemId)) {
 	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    list ($ret, $thumbnail) = GalleryCoreApi::fetchThumbnailsByItemIds(array($itemId));
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    list ($ret, $canSee) = GalleryCoreApi::hasItemPermission($itemId, 'core.view');
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    if ($canSee && isset($thumbnail[$itemId])) {
 		$ImageFrameSample['item'] = (array)$item;
@@ -74,7 +76,7 @@ class SampleView extends GalleryView {
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'imageframe');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$template->setVariable('ImageFrameSample', $ImageFrameSample);
@@ -85,31 +87,12 @@ class SampleView extends GalleryView {
     }
 
     /**
-     * @see GalleryView::loadThemeAndParameters
-     */
-    function loadThemeAndParameters() {
-	list ($ret, $theme, $params, $item) = parent::loadThemeAndParameters();
-	if ($ret) {
-	    if (!($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
-		return array($ret, null, null, null);
-	    }
-	    /* Fallback to default theme if given invalid itemId */
-	    GalleryUtilities::removeRequestVariable('itemId');
-	    list ($ret, $theme, $params, $item) = parent::loadThemeAndParameters();
-	    if ($ret) {
-		return array($ret, null, null, null);
-	    }
-	}
-	return array(null, $theme, $params, $item);
-    }
-
-    /**
      * @see GalleryView::getViewDescription
      */
     function getViewDescription() {
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'imageframe');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	return array(null, $module->translate('Image Frame Samples'));
     }

@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: WatermarkSiteAdminControllerTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,12 +20,15 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.18 $ $Date: 2006/01/10 04:43:34 $
  * @package Watermark
  * @subpackage PHPUnit
  * @author Alan Harder <alan.harder@sun.com>
  */
 
+/**
+ * Load required classes
+ */
 GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
 
 /**
@@ -45,7 +50,7 @@ class WatermarkSiteAdminControllerTest extends GalleryControllerTestCase {
 	$ret = $this->_markPluginParametersForCleanup('module', 'watermark');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$rand = rand();
@@ -56,7 +61,7 @@ class WatermarkSiteAdminControllerTest extends GalleryControllerTestCase {
 	list ($ret, $this->_beforeWatermarks) = WatermarkHelper::fetchWatermarks();
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
 
@@ -64,14 +69,14 @@ class WatermarkSiteAdminControllerTest extends GalleryControllerTestCase {
 	/* Get the list of watermarks before, then after delete any that we created */
 	list ($ret, $this->_afterWatermarks) = WatermarkHelper::fetchWatermarks();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	foreach (array_keys($this->_afterWatermarks) as $id) {
 	    if (!isset($this->_beforeWatermarks[$id])) {
 		$ret = GalleryCoreApi::deleteEntityById($id);
 		if ($ret) {
-		    return $this->failWithStatus($ret);
+		    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 		}
 	    }
 	}
@@ -86,7 +91,7 @@ class WatermarkSiteAdminControllerTest extends GalleryControllerTestCase {
 	$results = $this->handleRequest();
 	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
 						      'subView' => 'watermark.WatermarkSiteAdmin'),
-				  'status' => array('addError' => 1),
+				  'status' => array('add_error' => 1),
 				  'error' => array()),
 			    $results, 'No file');
     }
@@ -114,7 +119,7 @@ class WatermarkSiteAdminControllerTest extends GalleryControllerTestCase {
 	/* Verify */
 	list ($ret, $map) = $this->_fetchWatermarkMapByFilename();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assert(isset($map[$this->_expectedName]), 'Watermark is missing');
@@ -145,7 +150,7 @@ class WatermarkSiteAdminControllerTest extends GalleryControllerTestCase {
 	/* Verify */
 	list ($ret, $map) = $this->_fetchWatermarkMapByFilename();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assert(isset($map[$this->_expectedName]), 'Watermark is missing');
@@ -175,7 +180,7 @@ class WatermarkSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $map) = $this->_fetchWatermarkMapByFilename();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	if (GalleryUtilities::isA($map[$this->_expectedName], 'WatermarkImage')) {
@@ -208,7 +213,7 @@ class WatermarkSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $map) = $this->_fetchWatermarkMapByFilename();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	if (GalleryUtilities::isA($map[$this->_expectedName], 'WatermarkImage')) {
@@ -229,7 +234,7 @@ class WatermarkSiteAdminControllerTest extends GalleryControllerTestCase {
 	    /* Verify that it's gone */
 	    $ret = $this->_verifyMissing($map[$this->_expectedName]->getId());
 	    if ($ret) {
-		return $this->failWithStatus($ret);
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	} else {
 	    $this->assert(false, 'Expected object is not a watermark!');
@@ -258,14 +263,14 @@ class WatermarkSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $map) = $this->_fetchWatermarkMapByFilename();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$watermark = $map[$this->_expectedName];
 
 	/* Use this watermark */
 	list ($ret, $item) = $this->_createRandomDataItem($this->_getRootId());
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($item);
 	list ($ret, $derivative) = $this->_createDerivative(
@@ -273,7 +278,7 @@ class WatermarkSiteAdminControllerTest extends GalleryControllerTestCase {
 	    array('postFilterOperations' =>
 		      'composite|plugins_data/modules/watermark/' . $this->_expectedName . ',...'));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	if (GalleryUtilities::isA($watermark, 'WatermarkImage')) {
@@ -295,7 +300,7 @@ class WatermarkSiteAdminControllerTest extends GalleryControllerTestCase {
 	    /* Verify that it's NOT gone */
 	    $ret = $this->_verifyEntity($watermark);
 	    if ($ret) {
-		return $this->failWithStatus($ret);
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	} else {
 	    $this->assert(false, 'Expected object is not a watermark!');
@@ -339,7 +344,7 @@ class WatermarkSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $map) = $this->_fetchWatermarkMapByFilename();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert(isset($map[$expectedName]), 'Watermark is missing');
 
@@ -349,7 +354,7 @@ class WatermarkSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	    list ($ret, $path) = $map[$expectedName]->fetchPath();
 	    if ($ret) {
-		return $this->failWithStatus($ret);
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
 	    /* We're expecting the same name, but the . changed to _ in the file extension */
@@ -362,7 +367,7 @@ class WatermarkSiteAdminControllerTest extends GalleryControllerTestCase {
     function _fetchWatermarkMapByFilename() {
 	list ($ret, $watermarks) = WatermarkHelper::fetchWatermarks();
 	if ($ret) {
-	    return array($this, null);
+	    return array($this->wrap(__FILE__, __LINE__), null);
 	}
 	$results = array();
 	foreach ($watermarks as $id => $watermark) {
@@ -371,29 +376,25 @@ class WatermarkSiteAdminControllerTest extends GalleryControllerTestCase {
 	return array(null, $results);
     }
 
-    function testSave() {
+    function testSaveMissingId() {
 	GalleryUtilities::putRequestVariable('form[action][save]', '1');
-	GalleryUtilities::putRequestVariable('form[allowUserWatermarks]', 1);
-	GalleryUtilities::putRequestVariable('form[hotlinkWatermarkId]', 123);
-	GalleryUtilities::putRequestVariable('form[defaultWatermarkId]', 456);
 
 	$results = $this->handleRequest();
 	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
 						      'subView' => 'watermark.WatermarkSiteAdmin'),
-				  'status' => array('savedSettings' => 1),
+				  'status' => array('missingId' => 1),
 				  'error' => array()),
 			    $results);
     }
 
-    function testSaveMissingId() {
+    function testSave() {
 	GalleryUtilities::putRequestVariable('form[action][save]', '1');
-	GalleryUtilities::putRequestVariable('form[forceDefaultWatermark]', 1);
 	GalleryUtilities::putRequestVariable('form[hotlinkWatermarkId]', 123);
 
 	$results = $this->handleRequest();
 	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
 						      'subView' => 'watermark.WatermarkSiteAdmin'),
-				  'status' => array('missingDefault' => 1, 'savedSettings' => 1),
+				  'status' => array('idSaved' => 1),
 				  'error' => array()),
 			    $results);
     }

@@ -112,9 +112,9 @@ function formatGPSData($type,$tag,$intel,$data) {
 		
 		if($tag=="0002" || $tag=="0004") { //Latitude
 		
-			$hour = GPSRational(substr($data,0,16),$intel);
+			$seconds = GPSRational(substr($data,0,16),$intel);
 			$minutes = GPSRational(substr($data,16,16),$intel);
-			$seconds = GPSRational(substr($data,32,16),$intel);
+			$hour = GPSRational(substr($data,32,16),$intel);
 			
 			$data = $hour+$minutes/60+$seconds/3600;
 		} else if($tag=="0007") { //Time
@@ -206,7 +206,7 @@ function parseGPS($block,&$result,$offset,$seek, $globalOffset) {
 			if($intel==1) $value = intel2Moto($value);
 			
 			$v = fseek($seek,$globalOffset+hexdec($value));  //offsets are from TIFF header which is 12 bytes from the start of the file
-			if($v==0 && $bytesofdata < $GLOBALS['exiferFileSize']) {
+			if($v==0 && $bytesofdata < 100000000) {
 				$data = fread($seek, $bytesofdata);
 			} else {
 				$result['Errors'] = $result['Errors']++;

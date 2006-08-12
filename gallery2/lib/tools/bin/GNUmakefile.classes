@@ -1,7 +1,5 @@
 RXP ?= $(shell which rxp 2>/dev/null)
 XMLLINT ?= $(shell which xmllint 2>/dev/null)
-PHP ?= php
-CLASSES = $(shell ls *.class 2>/dev/null)
 
 all: Entities.inc
 	if [ -f Maps.xml ]; then $(MAKE) -$(MAKEFLAGS) Maps.inc; fi
@@ -20,7 +18,8 @@ Maps.inc: Maps.xml ../../../lib/tools/bin/maps.tpl
 	else \
 		echo "No available XML validators (need xmllint or rxp)"; \
 	fi
-	$(PHP) -q -C ../../../lib/tools/bin/generate-maps.php
+	php ../../../lib/tools/bin/generate-maps.php
 
-Entities.inc: $(CLASSES) ../../../lib/tools/bin/entities.tpl
-	$(PHP) -q -C ../../../lib/tools/bin/generate-entities.php
+Entities.inc: *.class ../../../lib/tools/bin/entities.tpl
+	php ../../../lib/tools/bin/generate-entities.php
+

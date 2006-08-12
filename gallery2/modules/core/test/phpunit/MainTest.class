@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: MainTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.23 $ $Date: 2006/02/17 23:38:39 $
  * @package GalleryCore
  * @subpackage PHPUnit
  * @author Alan Harder <alan.harder@sun.com>
@@ -65,7 +67,7 @@ class MainTest extends GalleryTestCase {
 	$ret = $this->_urlGenerator->init('phpunit_test.php');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$GLOBALS['gallery']->setUrlGenerator($this->_urlGenerator);
 	$GLOBALS['gallery']->_session = new GallerySession();
@@ -79,7 +81,7 @@ class MainTest extends GalleryTestCase {
 	global $gallery;
 	list ($ret, $languageCode) = $gallery->getActiveLanguageCode();
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	} else {
 	    /* Init a new translator so that we reset our locale */
 	    $translator = new GalleryTranslator();
@@ -90,30 +92,11 @@ class MainTest extends GalleryTestCase {
     }
 
     function testEmbedOnly() {
-	/* Test embed-only mode with simple permission denied error */
 	global $gallery;
 	$gallery->setConfig('mode.embed.only', true);
 
 	list ($ret, $g2Data) = _GalleryMain(false);
 	$this->assertEquals(GALLERY_ERROR | ERROR_PERMISSION_DENIED, $ret->getErrorCode());
-    }
-
-    function testEmbedOnlyUrl() {
-	/* Test embed-only mode with configured redirect url */
-	global $gallery;
-	$gallery->_phpVm = $phpVm = new MainTestPhpVm();
-	$gallery->setConfig('mode.embed.only', $expectedUrl = '/embedApp/index.php');
-
-	list ($ret, $g2Data) = _GalleryMain(false);
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-	$headers = $phpVm->headers_sent() ? $_REQUEST['phpVmHeaders'] : array();
-	if (isset($headers['Location'])) {
-	    $this->assertEquals($expectedUrl, trim($headers['Location']), 'wrong redirect url');
-	} else {
-	    $this->assert(false, 'should have redirected');
-	}
     }
 
     function testMaintenanceMode() {
@@ -126,7 +109,7 @@ class MainTest extends GalleryTestCase {
 
 	list ($ret, $g2Data) = _GalleryMain(false);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$headers = $phpVm->headers_sent() ? $_REQUEST['phpVmHeaders'] : array();
 	if (isset($headers['Location'])) {
@@ -148,7 +131,7 @@ class MainTest extends GalleryTestCase {
 
 	list ($ret, $g2Data) = _GalleryMain(false);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$headers = $phpVm->headers_sent() ? $_REQUEST['phpVmHeaders'] : array();
 	if (isset($headers['Location'])) {
@@ -180,11 +163,11 @@ class MainTest extends GalleryTestCase {
 	$session =& $gallery->getSession();
 	$ret = $session->init();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$ret = $session->start();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$sessionId = $session->getId();
 	$sessionKey = $session->getKey();
@@ -250,7 +233,7 @@ class MainTest extends GalleryTestCase {
     	$session = new GallerySession();
     	$ret = $session->init();
     	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(false, $session->isUsingCookies(), 'isUsingCookies');
 	$this->assertEquals(SESSION_TEMP_ID, $session->getId(), 'temp session id');

@@ -1,5 +1,5 @@
 {*
- * $Revision$
+ * $Revision: 1.1 $
  * If you want to customize this file, do not edit it directly since future upgrades
  * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
  * version.  Gallery will look for that file first and use it if it exists.
@@ -22,8 +22,8 @@
 {foreach from=$theme.children key=i item=it}
   {if isset($it.image)}
     {if isset($it.renderItem)}
-      <a id="img_{$it.imageIndex}" href="{g->url params=$theme.pageUrl
-       arg1="itemId=`$it.id`" arg2="renderId=`$it.image.id`"}"></a>
+      <a id="img_{$it.imageIndex}" href="{g->url arg1="view=core.ShowItem"
+       arg2="itemId=`$it.id`" arg3="renderId=`$it.image.id`"}"></a>
     {else}
       <a id="img_{$it.imageIndex}" href="{g->url arg1="view=core.DownloadItem"
        arg2="itemId=`$it.image.id`" arg3="serialNumber=`$it.image.serialNumber`"}"></a>

@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: Callbacks.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.5 $ $Date: 2006/01/10 04:39:36 $
  * @package CustomField
  * @author Alan Harder <alan.harder@sun.com>
  */
@@ -33,11 +35,11 @@ class CustomFieldCallbacks {
 	case 'LoadCustomFields':
 	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($params['itemId']);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    list ($ret, $fields) = CustomFieldHelper::fetchFieldValues(array($item), 'detail');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    $block =& $smarty->_tpl_vars['block'];
@@ -47,7 +49,7 @@ class CustomFieldCallbacks {
 	    return null;
 	}
 
-	return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
+	return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
     }
 }
 ?>

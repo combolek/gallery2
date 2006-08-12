@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: modifier.print_r.php,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *

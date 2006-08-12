@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: WatermarkSiteAdmin.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.15 $ $Date: 2006/01/17 01:52:04 $
  * @package Watermark
  * @author Alan Harder <alan.harder@sun.com>
  */
@@ -33,17 +35,65 @@ class WatermarkSiteAdminController extends GalleryController {
      * @see GalleryController::handleRequest
      */
     function handleRequest($form) {
-	GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$status = array();
 	if (isset($form['action']['add']) && !empty($form['tmp_name'][1])) {
-	    list ($ret, $item) = WatermarkHelper::createWatermarkImage($form, true);
+
+	    /* Get the mime type from the upload info. */
+	    $mimeType = $form['type'][1];
+
+	    /*
+	     * If we don't get useful data from that or its a type we don't
+	     * recognize, take a swing at it using the file name.
+	     */
+	    list ($ret, $mimeExtensions) = GalleryCoreApi::convertMimeToExtensions($mimeType);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
+	    if ($mimeType == 'application/octet-stream' ||
+		    $mimeType == 'application/unknown' || empty($mimeExtensions)) {
+		$extension = GalleryUtilities::getFileExtension($form['name'][1]);
+		list ($ret, $mimeType) = GalleryCoreApi::convertExtensionToMime($extension);
+		if ($ret || empty($mimeType)) {
+		    $mimeType = 'application/unknown';
+		}
+	    }
+
+	    list ($ret, $item) =
+		GalleryCoreApi::newFactoryInstance('GalleryEntity', 'WatermarkImage');
+	    if ($ret) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
+	    if (!isset($item)) {
+		return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__), null);
+	    }
+
+	    $ret = $item->create($form['tmp_name'][1], $mimeType, $form['name'][1]);
+	    if ($ret) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
+
+	    $ret = $item->save();
+	    if ($ret) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
+
+	    /* Give appropriate permissions */
+	    foreach (array('id.allUserGroup' => 'core.viewSource',
+			   'id.adminGroup' => 'core.all') as $key => $perm) {
+		list ($ret, $id) = GalleryCoreApi::getPluginParameter('module', 'core', $key);
+		if ($ret) {
+		    return array($ret->wrap(__FILE__, __LINE__), null);
+		}
+
+		$ret = GalleryCoreApi::addGroupPermission($item->getId(), $id, $perm);
+		if ($ret) {
+		    return array($ret->wrap(__FILE__, __LINE__), null);
+		}
 	    }
 
 	    $status['add'] = 1;
@@ -51,12 +101,14 @@ class WatermarkSiteAdminController extends GalleryController {
 					 'subView' => 'watermark.WatermarkSiteAdminEdit',
 					 'watermarkId' => $item->getId());
 	} else if (isset($form['action']['add'])) {
-	    $status['addError'] = 1;
+	    $status['add_error'] = 1;
 	} else if (isset($form['action']['delete']) && isset($form['delete']['watermarkId'])) {
+	    GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
+
 	    list ($ret, $wasDeleted) =
 		WatermarkHelper::deleteWatermarkImageById($form['delete']['watermarkId']);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    if ($wasDeleted) {
@@ -69,26 +121,16 @@ class WatermarkSiteAdminController extends GalleryController {
 					     'fromAdmin' => 1);
 	    }
 	} else if (isset($form['action']['save'])) {
-	    foreach (array('allowUserWatermarks', 'forceDefaultWatermark') as $key) {
+	    if (empty($form['hotlinkWatermarkId'])) {
+		$status['missingId'] = 1;
+	    } else {
 		$ret = GalleryCoreApi::setPluginParameter('module', 'watermark',
-							  $key, empty($form[$key]) ? 0 : 1);
+		    'hotlinkWatermarkId', $form['hotlinkWatermarkId']);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
+		$status['idSaved'] = 1;
 	    }
-	    foreach (array('hotlinkWatermarkId', 'defaultWatermarkId') as $key) {
-		if (!empty($form[$key])) {
-		    $ret = GalleryCoreApi::setPluginParameter('module', 'watermark',
-							      $key, $form[$key]);
-		    if ($ret) {
-			return array($ret, null);
-		    }
-		}
-	    }
-	    if (!empty($form['forceDefaultWatermark']) && empty($form['defaultWatermarkId'])) {
-		$status['missingDefault'] = 1;
-	    }
-	    $status['savedSettings'] = 1;
 	}
 
 	if (!isset($results['redirect'])) {
@@ -116,23 +158,21 @@ class WatermarkSiteAdminView extends GalleryView {
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if ($form['formName'] != 'WatermarkSiteAdmin') {
 	    $form['formName'] = 'WatermarkSiteAdmin';
-	    foreach (array('allowUserWatermarks', 'forceDefaultWatermark',
-			   'hotlinkWatermarkId', 'defaultWatermarkId') as $key) {
-		list ($ret, $form[$key]) =
-		    GalleryCoreApi::getPluginParameter('module', 'watermark', $key);
-		if ($ret) {
-		    return array($ret, null);
-		}
+
+	    list ($ret, $form['hotlinkWatermarkId']) =
+		GalleryCoreApi::getPluginParameter('module', 'watermark', 'hotlinkWatermarkId');
+	    if ($ret) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 	list ($ret, $list) = WatermarkHelper::fetchWatermarks();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$owners = array();
 	$form['list'] = array();
@@ -145,7 +185,7 @@ class WatermarkSiteAdminView extends GalleryView {
 	    }
 	    list ($ret, $tmp) = GalleryCoreApi::loadEntitiesById($ownerIds);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    for ($i = 0; $i < sizeof($tmp); $i++) {
@@ -162,10 +202,11 @@ class WatermarkSiteAdminView extends GalleryView {
 	    $template->setVariable('SiteAdmin', $SiteAdmin);
 	}
 
-	$WatermarkSiteAdmin = array('owners' => $owners);
+	$WatermarkSiteAdmin = array();
+	$WatermarkSiteAdmin['owners'] = $owners;
 
-	$template->setVariable('WatermarkSiteAdmin', $WatermarkSiteAdmin);
 	$template->setVariable('controller', 'watermark.WatermarkSiteAdmin');
+	$template->setVariable('WatermarkSiteAdmin', $WatermarkSiteAdmin);
 	return array(null,
 		     array('body' => 'modules/watermark/templates/WatermarkSiteAdmin.tpl'));
     }

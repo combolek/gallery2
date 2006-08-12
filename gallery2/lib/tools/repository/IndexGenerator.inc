@@ -15,7 +15,9 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ *
+ * $Id: IndexGenerator.inc,v 1.4 2006/01/10 04:38:42 mindless Exp $
  */
 
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryRepositoryUtilities.class');
@@ -27,7 +29,7 @@ GalleryCoreApi::requireOnce('lib/tools/repository/classes/RepositoryIndex.class'
  *
  * @author Jozef Selesi <selesi at gmail dot com>
  *
- * @version $Revision$ $Date$
+ * @version $Revision: 1.4 $ $Date: 2006/01/10 04:38:42 $
  * @package RepositoryTools
  * @subpackage Controllers
  * @module IndexGeneratorController
@@ -48,12 +50,12 @@ class IndexGeneratorControllerAndView extends RepositoryControllerAndView {
 
 	$ret = $index->init($repositoryDir);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	list ($ret, $pluginCounts) = $index->generate();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$viewData = array('moduleCount' => $pluginCounts['modules'],
@@ -64,7 +66,7 @@ class IndexGeneratorControllerAndView extends RepositoryControllerAndView {
 
 	$ret = $this->showView('IndexGenerationResults', $viewData);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;

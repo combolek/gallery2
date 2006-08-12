@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: GallerySearchInterface_1_0.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.11 $ $Date: 2006/01/10 04:42:22 $
  * @package Search
  * @author Bharat Mediratta <bharat@menalto.com>
  */
@@ -50,7 +52,7 @@ class GallerySearchInterface_1_0 {
      *                                                        'enabled' => 1))))
      */
     function getSearchModuleInfo() {
-	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED),
+	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED, __FILE__, __LINE__),
 		     null);
     }
 
@@ -74,7 +76,7 @@ class GallerySearchInterface_1_0 {
      *                                                    'value' => 'localized text')))))
      */
     function search($options, $criteria, $offset=0, $count=-1) {
-	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED),
+	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED, __FILE__, __LINE__),
 		     null);
     }
 }

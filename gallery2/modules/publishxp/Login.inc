@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: Login.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -23,7 +25,7 @@
  * Allows the user to log in to Gallery to begin the process of uploading
  * photos through Windows XP's publishing mechanism.
  *
- * @version $Revision$ $Date$
+ * @version $Revision: 1.7 $ $Date: 2006/01/13 15:39:38 $
  * @package PublishXp
  * @author Timothy Webb <tiwebb@cisco.com>
  */
@@ -46,7 +48,7 @@ class LoginController extends GalleryController {
 	    if (empty($error)) {
 		list($ret, $user) = GalleryCoreApi::fetchUserByUsername($form['userName']);
 		if ($ret && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		if (isset($user) && $user->isCorrectPassword($form['password'])) {
 		    $gallery->setActiveUser($user);
@@ -55,7 +57,7 @@ class LoginController extends GalleryController {
 		    $event->setEntity($user);
 		    list ($ret, $ignoreTheRedirect) = GalleryCoreApi::postEvent($event);
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
 		    $session =& $gallery->getSession();
@@ -97,14 +99,16 @@ class LoginView extends GalleryView {
 	    $form['formName'] = 'Login';
 	}
 
-	list ($ret, $isAnonymous) = GalleryCoreApi::isAnonymousUser();
+	list ($ret, $anonymousUserId) =
+	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	if (!$isAnonymous) {
+	if ($gallery->getActiveUserId() != $anonymousUserId) {
 	    /* No need to log in */
-	    return array(null, array('redirect' => array('view' => 'publishxp.SelectAlbum')));
+	    return array(null,
+			 array('redirect' => array('view' => 'publishxp.SelectAlbum')));
 	}
 
 	$template->setVariable('controller', 'publishxp.Login');

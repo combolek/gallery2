@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: PlatformTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.40.2.1 $ $Date: 2006/04/05 00:19:53 $
  * @package GalleryCore
  * @subpackage PHPUnit
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -232,14 +234,14 @@ class PlatformTest extends GalleryTestCase {
 	    }
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'core', 'permissions.file', '600');
 	    if ($ret) {
-		return $this->failWithStatus($ret);
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $this->_platform->resetPlatform();
 	    $this->_permissionTest(0600, 1, array('copy', 'atomicWrite', 'symlink'));
 
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'core', 'permissions.file', '664');
 	    if ($ret) {
-		return $this->failWithStatus($ret);
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $this->_platform->resetPlatform();
 	    $this->_permissionTest(0664, 2, array('copy', 'symlink', 'atomicWrite'));
@@ -247,7 +249,7 @@ class PlatformTest extends GalleryTestCase {
 	    $this->assert($this->_platform->copy($this->_sourceFile, $this->_destFile), 'copy');
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'core', 'permissions.file', '612');
 	    if ($ret) {
-		return $this->failWithStatus($ret);
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $this->_platform->resetPlatform();
 	    $this->_permissionTest(0612, 3, array('chmod'));
@@ -256,7 +258,7 @@ class PlatformTest extends GalleryTestCase {
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'core',
 						      'permissions.directory', '751');
 	    if ($ret) {
-		return $this->failWithStatus($ret);
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $this->_platform->resetPlatform();
 	    $this->_permissionTest(0751, 4, array('chmod'));
@@ -342,15 +344,15 @@ class PlatformTest extends GalleryTestCase {
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'core');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'permissions.directory', '734');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'permissions.file', '652');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	return null;
     }
@@ -359,7 +361,7 @@ class PlatformTest extends GalleryTestCase {
 	/* Set dir and file permissions by system prefs */
 	$ret = $this->_setupChmodTest();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->_platform->resetPlatform();
@@ -367,18 +369,17 @@ class PlatformTest extends GalleryTestCase {
 	$this->_platform->clearstatcache();
 	$expected = GalleryUtilities::isA($this->_platform, 'WinNtPlatform') ? '777' : '734';
 	$expected2 = GalleryUtilities::isA($this->_platform, 'WinNtPlatform') ? '777' : '652';
-	$expected3 = GalleryUtilities::isA($this->_platform, 'WinNtPlatform') ? '666' : '652';
 
 	$stat = $this->_platform->stat($this->_destFile);
 	$this->assertEquals($expected, decoct($stat[2] & 0777), 'perm0');
 	$stat = $this->_platform->stat($this->_destFile . '/1');
 	$this->assertEquals($expected, decoct($stat[2] & 0777), 'perm1');
 	$stat = $this->_platform->stat($this->_destFile . '/1/2');
-	$this->assertEquals($expected3, decoct($stat[2] & 0777), 'perm2');
+	$this->assertEquals($expected2, decoct($stat[2] & 0777), 'perm2');
 	$stat = $this->_platform->stat($this->_destFile . '/1/3');
 	$this->assertEquals($expected, decoct($stat[2] & 0777), 'perm3');
 	$stat = $this->_platform->stat($this->_destFile . '/1/3/4');
-	$this->assertEquals($expected3, decoct($stat[2] & 0777), 'perm4');
+	$this->assertEquals($expected2, decoct($stat[2] & 0777), 'perm4');
 	$stat = $this->_platform->stat($this->_destFile . '/1/5');
 	$this->assertEquals($expected, decoct($stat[2] & 0777), 'perm5');
 
@@ -390,7 +391,7 @@ class PlatformTest extends GalleryTestCase {
 	/* Set given dir permission, don't change file permissions */
 	$ret = $this->_setupChmodTest();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$fileStat = $this->_platform->stat($this->_destFile . '/1/2');
@@ -422,7 +423,7 @@ class PlatformTest extends GalleryTestCase {
 	/* Set given file permission, don't change dir permissions */
 	$ret = $this->_setupChmodTest();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$dirStat = $this->_platform->stat($this->_destFile . '/1');
@@ -432,18 +433,17 @@ class PlatformTest extends GalleryTestCase {
 	$this->assert($this->_platform->recursiveChmod($this->_destFile, -1, 0640), 'set perms');
 	$this->_platform->clearstatcache();
 	$expected = GalleryUtilities::isA($this->_platform, 'WinNtPlatform') ? '777' : '640';
-	$expected2 = GalleryUtilities::isA($this->_platform, 'WinNtPlatform') ? '666' : '640';
 
 	$stat = $this->_platform->stat($this->_destFile);
 	$this->assertEquals($dirStat, decoct($stat[2]), 'dir0 should be unchanged');
 	$stat = $this->_platform->stat($this->_destFile . '/1');
 	$this->assertEquals($dirStat, decoct($stat[2]), 'dir1 should be unchanged');
 	$stat = $this->_platform->stat($this->_destFile . '/1/2');
-	$this->assertEquals($expected2, decoct($stat[2] & 0777), 'perm2');
+	$this->assertEquals($expected, decoct($stat[2] & 0777), 'perm2');
 	$stat = $this->_platform->stat($this->_destFile . '/1/3');
 	$this->assertEquals($dirStat, decoct($stat[2]), 'dir3 should be unchanged');
 	$stat = $this->_platform->stat($this->_destFile . '/1/3/4');
-	$this->assertEquals($expected2, decoct($stat[2] & 0777), 'perm4');
+	$this->assertEquals($expected, decoct($stat[2] & 0777), 'perm4');
 	$stat = $this->_platform->stat($this->_destFile . '/1/5');
 	$this->assertEquals($dirStat, decoct($stat[2]), 'dir5 should be unchanged');
 
@@ -474,7 +474,7 @@ class PlatformTest extends GalleryTestCase {
 
 	$this->assert(!$this->_platform->isRestrictedByOpenBaseDir(__FILE__), 'this file');
 
-	$gallery->_phpVm = new PlatformTestPhpVm(dirname(__FILE__), $this);
+	$gallery->_phpVm = new PlatformTestPhpVm(dirname(__FILE__));
 	$this->assert(!$this->_platform->isRestrictedByOpenBaseDir(__FILE__), 'simple case');
 
 	/* Bad paths are still checked even though no realpath */
@@ -484,7 +484,7 @@ class PlatformTest extends GalleryTestCase {
 	$this->assert(
 	    $this->_platform->isRestrictedByOpenBaseDir(dirname(__FILE__) . '/../bogus/path'),
 	    'bogus path using .. to get outside valid dir');
-	$gallery->_phpVm = new PlatformTestPhpVm('', $this);
+	$gallery->_phpVm = new PlatformTestPhpVm('');
 	$this->assert(!$this->_platform->isRestrictedByOpenBaseDir('/bogus/path'),
 		      'bogus path with no restriction');
 
@@ -500,8 +500,7 @@ class PlatformTest extends GalleryTestCase {
 					 'c:\\TEST\\file' => 'C:\\Test\\file',
 					 '/TEST/file' => '/TEST/file'));
 
-	$gallery->_phpVm =
-	    new PlatformTestPhpVm($isWin ? 'C:\\Test;D:\\Fun\\' : '/test:/fun/', $this);
+	$gallery->_phpVm = new PlatformTestPhpVm($isWin ? 'C:\\Test;D:\\Fun\\' : '/test:/fun/');
 	$this->assert(
 	    !$platform->isRestrictedByOpenBaseDir($isWin ? 'C:\\Test\\file' : '/test/file'),
 	    'first path');
@@ -521,7 +520,7 @@ class PlatformTest extends GalleryTestCase {
 					     '/test/real/linktoetc/passwd' => '/etc/passwd',
 					     '/test/link/linktoetc/passwd' => '/etc/passwd'));
 
-	    $gallery->_phpVm = new PlatformTestPhpVm('/test/real', $this);
+	    $gallery->_phpVm = new PlatformTestPhpVm('/test/real');
 	    $this->assert(!$platform->isRestrictedByOpenBaseDir('/test/link/file'),
 			  'path with symlink, open_basedir has realpath');
 	    $this->assert($platform->isRestrictedByOpenBaseDir('/test/real/linktoetc/passwd'),
@@ -529,7 +528,7 @@ class PlatformTest extends GalleryTestCase {
 	    $this->assert($platform->isRestrictedByOpenBaseDir('/test/link/bogus/path'),
 			  'invalid path with symlink, open_basedir has realpath');
 
-	    $gallery->_phpVm = new PlatformTestPhpVm('/test/link', $this);
+	    $gallery->_phpVm = new PlatformTestPhpVm('/test/link');
 	    $this->assert(!$platform->isRestrictedByOpenBaseDir('/test/real/file'),
 			  'realpath given, open_basedir has symlink');
 	    $this->assert($platform->isRestrictedByOpenBaseDir('/test/link/linktoetc/passwd'),
@@ -547,7 +546,7 @@ class PlatformTest extends GalleryTestCase {
 					 '/toast/file' => '/toast/file',
 					 '/link/file' => '/test/file'));
 
-	$gallery->_phpVm = new PlatformTestPhpVm('/tes', $this);
+	$gallery->_phpVm = new PlatformTestPhpVm('/tes');
 	$this->assert(!$platform->isRestrictedByOpenBaseDir('/testfile'), 'file with prefix');
 	$this->assert(!$platform->isRestrictedByOpenBaseDir('/test/file'), 'dir with prefix');
 	$this->assert(!$platform->isRestrictedByOpenBaseDir('/tes/bad/path'),
@@ -566,13 +565,13 @@ class PlatformTest extends GalleryTestCase {
 					     '/lonk/file' => '/lonk/file',
 					     '/link/fu' => false, '/link/fun' => '/test/fun',
 					     '/test/fun' => '/test/fun'));
-	    $gallery->_phpVm = new PlatformTestPhpVm('/lin', $this);
+	    $gallery->_phpVm = new PlatformTestPhpVm('/lin');
 	    $this->assert(!$platform->isRestrictedByOpenBaseDir('/linnen'), 'nonlink with prefix');
 	    $this->assert($platform->isRestrictedByOpenBaseDir('/linkfile'), 'link with prefix');
 	    $this->assert($platform->isRestrictedByOpenBaseDir('/link/file'), 'dir with prefix');
 	    $this->assert($platform->isRestrictedByOpenBaseDir('/lonk/file'), 'not match prefix');
 
-	    $gallery->_phpVm = new PlatformTestPhpVm('/link/fu', $this);
+	    $gallery->_phpVm = new PlatformTestPhpVm('/link/fu');
 	    $this->assert($platform->isRestrictedByOpenBaseDir('/test/fun'),
 			  'realpath given, open_basedir has prefix with link parent');
 	    $this->assert($platform->isRestrictedByOpenBaseDir('/link/fun'),
@@ -582,7 +581,7 @@ class PlatformTest extends GalleryTestCase {
 	}
 
 	/* Open_basedir with . */
-	$gallery->_phpVm = new PlatformTestPhpVm('.', $this);
+	$gallery->_phpVm = new PlatformTestPhpVm('.');
 	$this->assert(!$this->_platform->isRestrictedByOpenBaseDir(
 	    dirname(__FILE__) . '/../../../../lib/tools/phpunit/index.php'), 'dot basedir');
 
@@ -590,14 +589,14 @@ class PlatformTest extends GalleryTestCase {
 	$s = $this->_platform->getDirectorySeparator();
 	$platform->setRealpathData(array("${s}test${s}" => "${s}test",
 					 "${s}testing" => "${s}testing"));
-	$gallery->_phpVm = new PlatformTestPhpVm("${s}test${s}", $this);
+	$gallery->_phpVm = new PlatformTestPhpVm("${s}test${s}");
 	$this->assert(!$platform->isRestrictedByOpenBaseDir("${s}test"), 'no trailing slash');
 	$this->assert($platform->isRestrictedByOpenBaseDir("${s}testing"),
 		      'should not match basedir with trailing slash');
 
 	/* Invalid paths (realpath returns false, our code does relative path and .. handling) */
 	$platform->setRealpathData(array("${s}test" => "${s}test"));
-	$gallery->_phpVm = new PlatformTestPhpVm("${s}test", $this);
+	$gallery->_phpVm = new PlatformTestPhpVm("${s}test");
 	$this->assert(!$platform->isRestrictedByOpenBaseDir("${s}test${s}bogus"),
 		      'valid bogus path');
 	$this->assert(!$platform->isRestrictedByOpenBaseDir("${s}test${s}bogus${s}..${s}path"),
@@ -636,7 +635,7 @@ class PlatformTest extends GalleryTestCase {
 	/* We know this is going to bomb so unset PHPunit's error handler */
 	restore_error_handler();
 
-	$fd = @$this->_platform->fsockopen('www.BOGUSBOGUSBOGUSBOGUS.com', $_SERVER['SERVER_PORT'],
+	$fd = @$this->_platform->fsockopen('www.BOGUSBOGUSBOGUS.com', $_SERVER['SERVER_PORT'],
 					   $errno, $errstr, 30);
 	$this->assertEquals(false, $fd);
     }
@@ -753,34 +752,11 @@ class PlatformTest extends GalleryTestCase {
 	$this->assertEquals(1083, $this->_platform->filesize($this->_destFile));
 	$this->assert($this->_platform->unlink($this->_destFile), 'unlink');
     }
-
-    function testMailUsesUnixLineEndings() {
-	global $gallery;
-
-	$ret = $this->_markPluginParametersForCleanup('module', 'core');
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'smtp.host', null);
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-
-	$gallery->_phpVm = new PlatformTestPhpVm(dirname(__FILE__), $this);
-	$platform = new UnixPlatform();
-	$result = $platform->mail("foo@example.com", "subject",
-				  "body line1\nline2\r\nline3\r\n",
-				  "header line1\nline2\r\nline3\r\n");
-	$this->assert($result);
-	$this->assertEquals("body line1\nline2\nline3\n", $this->_mail['body']);
-	$this->assertEquals("header line1\nline2\nline3\n", $this->_mail['headers']);
-    }
 }
 
 class PlatformTestPhpVm extends GalleryPhpVm {
-    function PlatformTestPhpVm($iniVal, &$test) {
+    function PlatformTestPhpVm($iniVal) {
 	$this->_iniVal = $iniVal;
-	$this->_test =& $test;
     }
 
     function ini_get($varname) {
@@ -788,15 +764,6 @@ class PlatformTestPhpVm extends GalleryPhpVm {
 	    return $this->_iniVal;
 	}
 	return parent::ini_get($varname);
-    }
-
-    function mail($to, $subject, $body, $additionalHeaders=null, $additionalParameters=null) {
-	$this->_test->_mail = array('to' => $to,
-				    'subj' => $subject,
-				    'body' => $body,
-				    'headers' => $additionalHeaders,
-				    'params' => $additionalParameters);
-	return true;
     }
 }
 

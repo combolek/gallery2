@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: LinkItemOption.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.2 $ $Date: 2006/01/10 04:40:35 $
  * @package LinkItem
  * @subpackage UserInterface
  * @author Alan Harder <alan.harder@sun.com>
@@ -65,19 +67,19 @@ class LinkItemOption extends ItemEditOption {
 	} else {
 	    list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock(array($item->getId()));
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 
 	    $item->setLink($form['LinkItemOption']['link']);
 	    $ret = $item->save();
 	    if ($ret) {
 		GalleryCoreApi::releaseLocks($lockId);
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 
 	    $ret = GalleryCoreApi::releaseLocks($lockId);
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	}
 

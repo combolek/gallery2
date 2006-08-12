@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: module.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 /**
  * @package Rewrite
- * @version $Revision$ $Date$
+ * @version $Revision: 1.49 $ $Date: 2006/03/22 03:52:35 $
  * @author Douglas Cau <douglas@cau.se>
  */
 
@@ -36,13 +38,26 @@ class RewriteModule extends GalleryModule {
 	global $gallery;
 	$this->setId('rewrite');
 	$this->setName($gallery->i18n('URL Rewrite'));
-	$this->setDescription($gallery->i18n(
-	    'Enables short URLs using Apache mod_rewrite, ISAPI Rewrite, or PathInfo'));
-	$this->setVersion('1.1.6'); /* Update RewriteModuleExtras::upgrade also! */
+	$this->setDescription($gallery->i18n('Enables short URLs using Apache mod_rewrite, ' .
+	    'ISAPI Rewrite, or PathInfo.'));
+	$this->setVersion('1.1.4'); /* Update RewriteModuleExtras::upgrade also! */
 	$this->setGroup('gallery', $gallery->i18n('Gallery'));
 	$this->setCallbacks('getSiteAdminViews|registerEventListeners');
-	$this->setRequiredCoreApi(array(7, 5));
+	$this->setRequiredCoreApi(array(7, 0));
 	$this->setRequiredModuleApi(array(3, 0));
+    }
+
+    /**
+     * When rewrite is deactivated we need to restore the original URL generator for this request.
+     *
+     * @see GalleryModule::deactivate
+     */
+    function deactivate($postDeactivationEvent=true) {
+	global $gallery;
+	$urlGenerator =& $gallery->getUrlGenerator();
+	$urlGenerator->_error = true;
+
+    	return parent::deactivate($postDeactivationEvent);
     }
 
     /**
@@ -52,7 +67,7 @@ class RewriteModule extends GalleryModule {
 	GalleryCoreApi::requireOnce('modules/rewrite/RewriteModuleExtras.inc');
 	$ret = RewriteModuleExtras::upgrade($this, $currentVersion);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -62,32 +77,32 @@ class RewriteModule extends GalleryModule {
      * @see GalleryModule::uninstall
      */
     function uninstall() {
-	GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
+    	GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
 	list ($ret, $rewriteParser) = RewriteHelper::getRewriteParser();
 	if ($ret && !($ret->getErrorCode() & ERROR_MISSING_VALUE)) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if (!$ret) {
 	    list ($ret) = $rewriteParser->saveActiveRules(array());
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
 	$ret = parent::uninstall();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
     }
 
     /**
-     * @see GalleryModule::registerEventListeners
+     * @see GalleryModule::registerEventListeners();
      */
     function registerEventListeners() {
-	$listener = new RewriteModule();
+    	$listener = new RewriteModule();
 	GalleryCoreApi::registerEventListener('Gallery::DeactivatePlugin', $listener, true);
 	GalleryCoreApi::registerEventListener('Gallery::ActivatePlugin', $listener, true);
 	GalleryCoreApi::registerEventListener('Gallery::UninstallPlugin', $listener, true);
@@ -97,17 +112,17 @@ class RewriteModule extends GalleryModule {
      * @see GalleryModule::needsConfiguration
      */
     function needsConfiguration() {
-	GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
+    	GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
 	list ($ret, $rewriteParser) = RewriteHelper::getRewriteParser();
 	if ($ret && !($ret->getErrorCode() & ERROR_MISSING_VALUE)) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	} else if ($ret && ($ret->getErrorCode() & ERROR_MISSING_VALUE)) {
 	    return array(null, true);
 	}
 
 	list ($ret, $status) = $rewriteParser->needsConfiguration($this);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, $status);
@@ -127,21 +142,21 @@ class RewriteModule extends GalleryModule {
 	GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
 	list ($ret, $rewriteParser) = RewriteHelper::getRewriteParser();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list($ret, $activeRules) = GalleryCoreApi::getPluginParameter(
 	    'module', 'rewrite', 'activeRules');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$activeRules = unserialize($activeRules);
 
 	if (empty($activeRules)) {
 	    $activeRules = array('rewrite' => array(0 => 'v/%path%'));
 	    /*
-	     * We'll break fast download cache if we activate the short URL for download items with
-	     * an inGallery parser
+	     * We'll break fast download cache if we activate the short url for download items
+	     * with an inGallery parser
 	     */
 	    if ($rewriteParser->getParserType() != 'inGallery') {
 		$activeRules['rewrite'][1] = 'd/%itemId%-%serialNumber%/%fileName%';
@@ -150,15 +165,16 @@ class RewriteModule extends GalleryModule {
 
 	list ($ret, $code) = $rewriteParser->saveActiveRules($activeRules);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if ($code != REWRITE_STATUS_OK) {
-	    return array(GalleryCoreApi::error(ERROR_CONFIGURATION_REQUIRED), null);
+	    return array(GalleryCoreApi::error(ERROR_CONFIGURATION_REQUIRED, __FILE__, __LINE__),
+			 null);
 	}
 
 	list ($ret, $redirect) = parent::activate($postActivationEvent);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, array());
@@ -195,8 +211,9 @@ class RewriteModule extends GalleryModule {
      * @see GalleryModule::getSiteAdminViews
      */
     function getSiteAdminViews() {
-	return array(null, array(array('name' => $this->translate('URL Rewrite'),
-	    'view' => 'rewrite.AdminRewrite')));
+	return array(null,
+		    array(array('name' => $this->translate('URL Rewrite'),
+			    'view' => 'rewrite.AdminRewrite')));
     }
 
     /**
@@ -206,30 +223,30 @@ class RewriteModule extends GalleryModule {
 	GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
 	list ($ret, $rewriteParser) = RewriteHelper::getRewriteParser();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$rewriteUrlGenerator = $rewriteParser->getUrlGeneratorId();
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'GalleryUrlGenerator', $rewriteUrlGenerator, $rewriteUrlGenerator,
-	    'modules/rewrite/classes/parsers/' . $rewriteParser->getParserId() . '/'
-	    . $rewriteUrlGenerator . '.class', 'rewrite', null, 2);
+	    'modules/rewrite/classes/parsers/' . $rewriteParser->getParserId() . '/' .
+	    $rewriteUrlGenerator . '.class', 'rewrite', null, 2);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'MaintenanceTask', 'RewriteCheckConflictTask', 'RewriteCheckConflictTask',
 	    'modules/rewrite/classes/RewriteCheckConflictTask.class', 'rewrite', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'RewriteApi', 'RewriteApi', 'RewriteApi',
 	    'modules/rewrite/classes/RewriteApi.class', 'rewrite', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -248,7 +265,7 @@ class RewriteModule extends GalleryModule {
     function getRewriteRules() {
 	$rules = array();
 
-	/* Rule 0: Show Item */
+	/* Rule 0: Show Item*/
 	$rules[0] = array(
 	    'comment' => $this->translate('Show Item'),
 	    'match' => array('view' => 'core.ShowItem'),
@@ -258,10 +275,6 @@ class RewriteModule extends GalleryModule {
 		    'pattern' => '([^?]+)',
 		    'help' => $this->translate('Path to an item (eg, /album/image.jpg.html)'),
 		    'function' => array('rewrite', 'RewriteSimpleHelper', 'parsePath')),
-		'page' => array(
-		    'pattern' => '([0-9]*)',
-		    'help' => $this->translate('Page number in an album'),
-		    'function' => array('rewrite', 'RewriteSimpleHelper', 'parsePage')),
 		'language' => array(
 		    'pattern' => '([a-z]{2}|[a-z]{2}_[A-Z]{2})',
 		    'help' => $this->translate('Current language (eg, en or de)'),
@@ -277,8 +290,8 @@ class RewriteModule extends GalleryModule {
 	    'keywords' => array(
 		'serialNumber' => array(
 		    'pattern' => '([0-9]+)',
-		    'help' => $this->translate(
-			'Ensures browsers do not use cached version when image has changed'),
+		    'help' => $this->translate('Ensures browsers do not use cached version ' .
+			'when image has changed'),
 		    'function' => array('rewrite', 'RewriteSimpleHelper', 'parseSerialNumber')),
 		'fileName' => array(
 		    'pattern' => '([^\/\?]+)',
@@ -314,19 +327,6 @@ class RewriteModule extends GalleryModule {
 	    'restrict' => array('view' => 'core.DownloadItem'),
 	    'parser' => 'preGallery',
 	    'exemptReferer' => 1);
-
-	/* Rule 5: Send HTML for hotlinked items */
-	$rules[5] = array(
-	    'comment' => $this->translate('Send HTML for hotlinked items'),
-	    'pattern' => '.',
-	    'locked' => 1,
-	    'flags' => array(),
-	    'restrict' => array('view' => 'core.DownloadItem', 'itemId' => '([0-9]+)'),
-	    'queryString' => array('view' => 'rewrite.DownloadItem', 'itemId' => '%1'),
-	    'parser' => 'preGallery',
-	    'exemptReferer' => 1,
-	    'help' => $this->translate('Blocks use of images in other sites (HTML creates broken'
-				     . ' image), but allows linking to images.'));
 
 	return $rules;
     }

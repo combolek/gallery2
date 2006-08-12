@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: SearchShowAll.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.33 $ $Date: 2006/02/04 21:37:37 $
  * @package Search
  * @author Bharat Mediratta <bharat@menalto.com>
  */
@@ -119,17 +121,17 @@ class SearchShowAllView extends GalleryView {
 		    GalleryCoreApi::newFactoryInstanceById('GallerySearchInterface_1_0',
 							   $form['moduleId']);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		if (!isset($searchInstance)) {
-		    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT),
+		    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__),
 				 null);
 		}
 
 		list ($ret, $moduleInfo) = $searchInstance->getSearchModuleInfo();
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		if (isset($form['options'][$moduleId])) {
@@ -139,7 +141,7 @@ class SearchShowAllView extends GalleryView {
 			    ($form['page']-1) * $pageSize,
 			    $pageSize);
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		}
 		$maxPages = ceil($results['count'] / $pageSize);
@@ -159,7 +161,7 @@ class SearchShowAllView extends GalleryView {
 		    /* Fetch items */
 		    list ($ret, $itemList) = GalleryCoreApi::loadEntitiesById($itemIds);
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		    foreach ($itemList as $item) {
 			$items[$item->getId()] = (array)$item;
@@ -169,7 +171,7 @@ class SearchShowAllView extends GalleryView {
 		    list ($ret, $thumbnailList) =
 			GalleryCoreApi::fetchThumbnailsByItemIds($itemIds);
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		    foreach ($thumbnailList as $thumbnail) {
 			$thumbnails[$thumbnail->getParentId()] = (array)$thumbnail;
@@ -180,6 +182,16 @@ class SearchShowAllView extends GalleryView {
 	    $form['searchCriteria'] = '';
 	}
 
+	list ($ret, $rootAlbumId) =
+	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+	list ($ret, $rootAlbum) = GalleryCoreApi::loadEntitiesById($rootAlbumId);
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
 	/* Render the HTML body */
 	$template->setVariable('SearchShowAll', array(
 	    'controller' => 'search.SearchShowAll',
@@ -188,11 +200,12 @@ class SearchShowAllView extends GalleryView {
 	    'moduleId' => $moduleId,
 	    'results' => $results,
 	    'thumbnails' => $thumbnails,
-	    'items' => $items));
+	    'items' => $items,
+	    'rootAlbum' => (array)$rootAlbum));
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'search');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$template->javascript('modules/search/HighlightResults.js');

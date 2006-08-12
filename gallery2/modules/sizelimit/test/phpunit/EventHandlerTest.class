@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: EventHandlerTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.7 $ $Date: 2006/01/10 04:42:47 $
  * @package SizeLimit
  * @subpackage PHPUnit
  * @author Felix Rabinovich <felix@rabinovich.org>
@@ -40,7 +42,7 @@ class EventHandlerTest extends GalleryTestCase {
 	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($this->_album);
     }
@@ -52,23 +54,23 @@ class EventHandlerTest extends GalleryTestCase {
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'sizelimit',
 		$key, $value, $this->_album->getId());
 	    if ($ret) {
-		return $this->failWithStatus($ret);
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	}
 	list ($ret, $this->_childAlbum) = $this->_createRandomAlbum($this->_album->getId());
         if ($ret) {
-            return $this->failWithStatus($ret);
+            return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
         }
 
 	GalleryCoreApi::requireOnce('modules/sizelimit/module.inc');
 	list($ret, $data) = SizeLimitModule::handleEvent($event);
         if ($ret) {
-            return $this->failWithStatus($ret);
+            return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
         }
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(
 	    'module', 'sizelimit', $this->_album->getId());
         if ($ret) {
-            return $this->failWithStatus($ret);
+            return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
         }
 	$this->assertEquals(array('width' => 768, 'height' => 1024, 'size' => 1000,
 	    'keepOriginal' => 1), $params, 'Copied Album');

@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: Callbacks.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.15 $ $Date: 2006/02/13 20:06:59 $
  * @package GalleryCore
  * @author Bharat Mediratta <bharat@menalto.com>
  */
@@ -41,7 +43,7 @@ class CoreCallbacks {
 
 	    list ($ret, $language) = $gallery->getActiveLanguageCode();
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    $block['core']['LanguageSelector'] =
@@ -70,31 +72,24 @@ class CoreCallbacks {
 
 	case 'LoadPeers':
 	    $item = $params['item'];
-	    if (isset($item['parent']->getChildrenFunction)) {
-		$parent = $item['parent'];
-		list ($ret, $peerIds) = call_user_func($parent->getChildrenFunction, $userId);
+	    $canViewParent = false;
+	    if ($item['parentId'] > 0) {
+		list ($ret, $canViewParent) = GalleryCoreApi::hasItemPermission(
+		    $item['parentId'], 'core.view', $theme['actingUserId']);
 		if ($ret) {
-		    return $ret;
-		}
-	    } else if ($item['parentId'] > 0) {
-		list ($ret, $canViewParent) =
-		    GalleryCoreApi::hasItemPermission($item['parentId'], 'core.view', $userId);
-		if ($ret) {
-		    return $ret;
-		}
-		if ($canViewParent) {
-		    list ($ret, $parent) = GalleryCoreApi::loadEntitiesById($item['parentId']);
-		    if ($ret) {
-			return $ret;
-		    }
-		    list ($ret, $peerIds) =
-			GalleryCoreApi::fetchChildItemIds($parent, null, null, $userId);
-		    if ($ret) {
-			return $ret;
-		    }
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
-	    if (!empty($peerIds)) {
+	    if ($canViewParent) {
+		list ($ret, $parent) = GalleryCoreApi::loadEntitiesById($item['parentId']);
+		if ($ret) {
+		    return $ret->wrap(__FILE__, __LINE__);
+		}
+		list ($ret, $peerIds) =
+		    GalleryCoreApi::fetchChildItemIds($parent, null, null, $theme['actingUserId']);
+		if ($ret) {
+		    return $ret->wrap(__FILE__, __LINE__);
+		}
 		foreach ($peerIds as $i => $id) {
 		    if ($id == $item['id']) {
 			$peerItemIndex = $i;
@@ -126,12 +121,12 @@ class CoreCallbacks {
 
 		list ($ret, $peerItems) = GalleryCoreApi::loadEntitiesById($peerMap);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 		if (!empty($params['loadThumbnails'])) {
 		    list ($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds($peerMap);
 		    if ($ret) {
-			return $ret;
+			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		}
 		$j = 0;
@@ -159,7 +154,7 @@ class CoreCallbacks {
 		list ($ret, $options['level']) =
 		    GalleryCoreApi::getPluginParameter('module', 'core', 'validation.level');
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	    if ($options['level'] == 'MEDIUM' && !empty($params['key'])) {
@@ -171,7 +166,7 @@ class CoreCallbacks {
 		list ($ret, $allPluginIds) =
 		    GalleryCoreApi::getAllFactoryImplementationIds('GalleryValidationPlugin');
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 
@@ -181,13 +176,13 @@ class CoreCallbacks {
 		list ($ret, $plugin) =
 		    GalleryCoreApi::newFactoryInstanceById('GalleryValidationPlugin', $pluginId);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
 		list ($ret, $data['file'], $data['l10Domain']) =
 		    $plugin->loadTemplate($smarty->_tpl_vars['form'], $options);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 		if (isset($data['file'])) {
 		    $block['core']['ValidationPlugins'][] = $data;
@@ -196,7 +191,7 @@ class CoreCallbacks {
 	    return null;
 	}
 
-	return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
+	return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
     }
 }
 ?>

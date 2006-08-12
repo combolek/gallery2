@@ -1,5 +1,5 @@
 {*
- * $Revision$
+ * $Revision: 1.15 $
  * If you want to customize this file, do not edit it directly since future upgrades
  * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
  * version.  Gallery will look for that file first and use it if it exists.
@@ -12,63 +12,99 @@
   </p>
 
   {if $ItemEditPhotoThumbnail.editThumbnail.can.crop}
-  <div id="crop-canvas" style="width: 630px; height: 480px">
-    <img id="crop-image"/>
-    <div id="crop-frame">
-      <div id="crop-marquee-top" class="horizontal-marquee"></div>
-      <div id="crop-marquee-right" class="vertical-marquee"></div>
-      <div id="crop-marquee-bottom" class="horizontal-marquee"></div>
-      <div id="crop-marquee-left" class="vertical-marquee"></div>
-      <div id="crop-handle"></div>
-    </div>
-  </div>
+  <!--
+  <object
+    classid="clsid:8AD9C840-044E-11D1-B3E9-00805F499D93"
+    codebase="http://java.sun.com/products/plugin/autodl/jinstall-1_4-windows-i586.cab#Version=1,4,0,0"
+    width="630"
+    height="480">
+    <param name="code" value="{$ItemEditPhotoThumbnail.editThumbnail.appletCodeBase}"/>
+    <param name="archive" value="{$ItemEditPhotoThumbnail.editThumbnail.appletJarFile}"/>
+    <param name="type" value="application/x-java-applet;version=1.1.8"/>
+    <param name="scriptable" value="true"/>
+
+    <param name="image"              value="{$ItemEditPhotoThumbnail.editThumbnail.imageUrl}"/>
+    <param name="image_width"        value="{$ItemEditPhotoThumbnail.editThumbnail.imageWidth}"/>
+    <param name="image_height"       value="{$ItemEditPhotoThumbnail.editThumbnail.imageHeight}"/>
+    <param name="crop_x"             value="{$ItemEditPhotoThumbnail.editThumbnail.cropLeft}"/>
+    <param name="crop_y"             value="{$ItemEditPhotoThumbnail.editThumbnail.cropTop}"/>
+    <param name="crop_width"         value="{$ItemEditPhotoThumbnail.editThumbnail.cropWidth}"/>
+    <param name="crop_height"        value="{$ItemEditPhotoThumbnail.editThumbnail.cropHeight}"/>
+    <param name="crop_ratio_width"   value="{$ItemEditPhotoThumbnail.editThumbnail.cropRatioWidth}"/>
+    <param name="crop_ratio_height"  value="{$ItemEditPhotoThumbnail.editThumbnail.cropRatioHeight}"/>
+    <param name="crop_orientation"   value="{$ItemEditPhotoThumbnail.editThumbnail.selectedOrientation}"/>
+    <param name="crop_to_size"       value="{$ItemEditPhotoThumbnail.editThumbnail.targetThumbnailSize}"/>
+
+    <comment>
+      <embed
+         type="application/x-java-applet;version=1.1.8"
+         code="{$ItemEditPhotoThumbnail.editThumbnail.appletCodeBase}"
+         archive="{$ItemEditPhotoThumbnail.editThumbnail.appletJarFile}"
+         width="630"
+         height="480"
+         scriptable="true"
+         image="{$ItemEditPhotoThumbnail.editThumbnail.imageUrl}"
+         image_width="{$ItemEditPhotoThumbnail.editThumbnail.imageWidth}"
+         image_height="{$ItemEditPhotoThumbnail.editThumbnail.imageHeight}"
+         crop_x="{$ItemEditPhotoThumbnail.editThumbnail.cropLeft}"
+         crop_y="{$ItemEditPhotoThumbnail.editThumbnail.cropTop}"
+         crop_width="{$ItemEditPhotoThumbnail.editThumbnail.cropWidth}"
+         crop_height="{$ItemEditPhotoThumbnail.editThumbnail.cropHeight}"
+         crop_ratio_width="{$ItemEditPhotoThumbnail.editThumbnail.cropRatioWidth}"
+         crop_ratio_height="{$ItemEditPhotoThumbnail.editThumbnail.cropRatioHeight}"
+         crop_orientation="{$ItemEditPhotoThumbnail.editThumbnail.selectedOrientation}"
+         crop_to_size="{$ItemEditPhotoThumbnail.editThumbnail.targetThumbnailSize}"/>
+    </comment>
+  </object>
+   -->
+
+  <applet id="ImageCrop"
+          code="ImageCrop"
+          width="630"
+          height="480"
+          codebase="{$ItemEditPhotoThumbnail.editThumbnail.appletCodeBase}"
+          archive="{$ItemEditPhotoThumbnail.editThumbnail.appletJarFile}"
+          scriptable="TRUE"
+          mayscript="TRUE">
+       <param name="type"               value="application/x-java-applet;version=1.1.2"/>
+       <param name="image"              value="{$ItemEditPhotoThumbnail.editThumbnail.imageUrl}"/>
+       <param name="image_width"        value="{$ItemEditPhotoThumbnail.editThumbnail.imageWidth}"/>
+       <param name="image_height"       value="{$ItemEditPhotoThumbnail.editThumbnail.imageHeight}"/>
+       <param name="crop_x"             value="{$ItemEditPhotoThumbnail.editThumbnail.cropLeft}"/>
+       <param name="crop_y"             value="{$ItemEditPhotoThumbnail.editThumbnail.cropTop}"/>
+       <param name="crop_width"         value="{$ItemEditPhotoThumbnail.editThumbnail.cropWidth}"/>
+       <param name="crop_height"        value="{$ItemEditPhotoThumbnail.editThumbnail.cropHeight}"/>
+       <param name="crop_ratio_width"   value="{$ItemEditPhotoThumbnail.editThumbnail.cropRatioWidth}"/>
+       <param name="crop_ratio_height"  value="{$ItemEditPhotoThumbnail.editThumbnail.cropRatioHeight}"/>
+       <param name="crop_orientation"   value="{$ItemEditPhotoThumbnail.editThumbnail.selectedOrientation}"/>
+       <param name="crop_to_size"       value="{$ItemEditPhotoThumbnail.editThumbnail.targetThumbnailSize}"/>
+  </applet>
 
   <script type="text/javascript">
     // <![CDATA[
-    var cropper;
-    initCropper = function() {ldelim}
-      cropper = new Cropper(
-	  new CropImage("crop-canvas", "crop-image",
-			"{$ItemEditPhotoThumbnail.editThumbnail.imageUrl}",
-			{$ItemEditPhotoThumbnail.editThumbnail.imageWidth},
-			{$ItemEditPhotoThumbnail.editThumbnail.imageHeight}),
-	  new CropFrame("crop-image", "crop-frame"),
-	  new CropHandle("crop-image", "crop-frame", "crop-handle"));
-
-      cropper.setOrientation('{$ItemEditPhotoThumbnail.editThumbnail.selectedOrientation}');
-      cropper.setFrameDimensions(
-	    {$ItemEditPhotoThumbnail.editThumbnail.cropTop},
-	    {$ItemEditPhotoThumbnail.editThumbnail.cropLeft} + {$ItemEditPhotoThumbnail.editThumbnail.cropWidth},
-	    {$ItemEditPhotoThumbnail.editThumbnail.cropTop} + {$ItemEditPhotoThumbnail.editThumbnail.cropHeight},
-	    {$ItemEditPhotoThumbnail.editThumbnail.cropLeft});
-
-      if (document.getElementById("gallery").className == "opera") {ldelim}
-	// Opera < 9.0 doesn't support opacity
-	document.getElementById("crop-frame").style.background = "transparent";
-      {rdelim}
-    {rdelim}
-    YAHOO.util.Event.addListener(window, "load", initCropper);
-
     function setAspectRatio(value) {ldelim}
       switch(value) {ldelim}
       {foreach from=$ItemEditPhotoThumbnail.editThumbnail.aspectRatioList key=index item=aspectRatio}
-	case "{$index}":
-	  cropper.setAspectRatio({$aspectRatio.width}, {$aspectRatio.height});
-	  break;
-      {/foreach}
-      {rdelim}
-    {rdelim}
+        case "{$index}":
+          document.ImageCrop.setCropRatio({$aspectRatio.width}, {$aspectRatio.height});
+          break;
+      {/foreach}{literal}
+      }
+    }
 
-    function setCropFields() {ldelim}
+    function setCropFields() {
       var frm = document.getElementById('itemAdminForm');
-      var region = cropper.getFrameDimensions();
-      frm.crop_x.value = region.left;
-      frm.crop_y.value = region.top;
-      frm.crop_width.value = region.right - region.left;
-      frm.crop_height.value = region.bottom - region.top;
-    {rdelim}
+      frm.crop_x.value = document.ImageCrop.getCropX();
+      frm.crop_y.value = document.ImageCrop.getCropY();
+      frm.crop_width.value = document.ImageCrop.getCropWidth();
+      frm.crop_height.value = document.ImageCrop.getCropHeight();
+    }
+
+    function setOrientation(orientation) {
+      document.ImageCrop.setCropOrientation(orientation);
+    }
     // ]]>
-  </script>
+  {/literal}</script>
 
   <h2> {g->text text="Aspect Ratio: "} </h2>
 
@@ -82,7 +118,7 @@
     {/foreach}
   </select>
 
-  <select onchange="cropper.setOrientation(this.value)">
+  <select onchange="setOrientation(this.value)">
     {html_options options=$ItemEditPhotoThumbnail.editThumbnail.orientationList
 		  selected=$ItemEditPhotoThumbnail.editThumbnail.selectedOrientation}
   </select>
@@ -94,8 +130,6 @@
 
   <input type="submit" class="inputTypeSubmit" onclick="setCropFields(); return true"
    name="{g->formVar var="form[action][crop]"}" value="{g->text text="Crop"}"/>
-  <input type="button" class="inputTypeSubmit" onclick="cropper.resetFrame()"
-   value="{g->text text="Undo Changes"}"/>
   <input type="submit" class="inputTypeSubmit" onclick="setCropFields(); return true"
    name="{g->formVar var="form[action][reset]"}" value="{g->text text="Reset to default"}"/>
 
@@ -103,7 +137,7 @@
   <b>
     {g->text text="There are no graphics toolkits enabled that support this type of photo, so we cannot crop the thumbnail."}
     {if $ItemEditPhotoThumbnail.isAdmin}
-      <a href="{g->url arg1="view=core.SiteAdmin" arg2="subView=core.AdminPlugins"}">
+      <a href="{g->url arg1="view=core.SiteAdmin" arg2="subView=core.AdminModules"}">
 	{g->text text="site admin"}
       </a>
     {/if}

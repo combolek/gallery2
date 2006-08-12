@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ImageFrameInterface_1_1.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.7 $ $Date: 2006/01/10 04:40:23 $
  * @package ImageFrame
  * @author Alan Harder <alan.harder@sun.com>
  */
@@ -40,7 +42,7 @@ class ImageFrameInterface_1_1 {
      *               array(frame_id=>localized_frame_name) )
      */
     function getImageFrameList() {
-	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED),
+	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED, __FILE__, __LINE__),
 		     null);
     }
 
@@ -58,7 +60,7 @@ class ImageFrameInterface_1_1 {
      * @return object GalleryStatus a status code
      */
     function init(&$template, $frameIds) {
-	return GalleryCoreApi::error(ERROR_UNIMPLEMENTED);
+	return GalleryCoreApi::error(ERROR_UNIMPLEMENTED, __FILE__, __LINE__);
     }
 
     /**
@@ -70,7 +72,7 @@ class ImageFrameInterface_1_1 {
      *               string view url
      */
     function getSampleUrl($itemId=null) {
-	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED),
+	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED, __FILE__, __LINE__),
 		     null);
     }
 }

@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: module.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.38 $ $Date: 2006/03/22 03:52:31 $
  * @package Gd
  * @author Ernesto Baschny <ernst@baschny.de>
  */
@@ -38,7 +40,7 @@ class GdModule extends GalleryModule {
 	$this->setId('gd');
 	$this->setName($gallery->i18n('Gd'));
 	$this->setDescription($gallery->i18n('Gd Graphics Toolkit'));
-	$this->setVersion('1.1.0');
+	$this->setVersion('1.0.3');
 	$this->setGroup('toolkits', $gallery->i18n('Graphics Toolkits'));
 	$this->setCallbacks('getSiteAdminViews');
 	$this->setRequiredCoreApi(array(7, 0));
@@ -53,7 +55,7 @@ class GdModule extends GalleryModule {
 	    /* Initial install */
 	    $ret = $this->setParameter('jpegQuality', '75');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
@@ -69,7 +71,7 @@ class GdModule extends GalleryModule {
 	    'GalleryToolkit', 'GdToolkit', 'Gd',
 	    'modules/gd/classes/GdToolkit.class', 'gd', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -86,20 +88,20 @@ class GdModule extends GalleryModule {
 	list ($ret, $results) =
 	    GdToolkitHelper::getOperationsAndProperties();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $priority) = GalleryCoreApi::getToolkitPriorityById('Gd');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (!$priority) {
 	    list ($ret, $priority) = GalleryCoreApi::getMaximumManagedToolkitPriority();
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
-	    $priority = min($priority + 1, 40);
+	    $priority++;
 	}
 
 	foreach ($results['operations'] as $operation => $info) {
@@ -111,7 +113,7 @@ class GdModule extends GalleryModule {
 							    $info['description'],
 							    $outputMimeType, $priority);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
@@ -122,13 +124,35 @@ class GdModule extends GalleryModule {
 							   $info['type'],
 							   $info['description']);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
 	list ($ret, $redirect) = parent::activate($postActivationEvent);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	return array(null, $redirect);
+    }
+
+    /**
+     * @see GalleryModule::deactivate
+     */
+    function deactivate($postDeactivationEvent=true) {
+	/*
+	 * Unregister all of our properties and operations.  Do this before the parent deactivates
+	 * so that any event handlers triggered by the deactivation will see the world as it will
+	 * be after the deactivation is done.
+	 */
+	$ret = GalleryCoreApi::unregisterToolkit('Gd');
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	list ($ret, $redirect) = parent::deactivate($postDeactivationEvent);
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, $redirect);
@@ -141,7 +165,7 @@ class GdModule extends GalleryModule {
 	/* This module requires all fields to be filled out before it can be activated. */
 	list ($ret, $value) = $this->getParameter('jpegQuality');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (empty($value)) {
 	    return array(null, true);
@@ -155,7 +179,7 @@ class GdModule extends GalleryModule {
 
 	list($ret, $isSupported) = GdToolkitHelper::isGdVersionSupported();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (!$isSupported) {
 	    return array(null, true);
@@ -170,7 +194,7 @@ class GdModule extends GalleryModule {
     function autoConfigure() {
 	list ($ret, $needsConfiguration) = $this->needsConfiguration();
 	if ($ret) {
-	    return array($ret, false);
+	    return array($ret->wrap(__FILE__, __LINE__), false);
 	}
 
 	return array(null, !$needsConfiguration);

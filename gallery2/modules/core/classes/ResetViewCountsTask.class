@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ResetViewCountsTask.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.4 $ $Date: 2006/01/13 03:39:31 $
  * @package GalleryCore
  * @subpackage Classes
  * @author Alan Harder <alan.harder@sun.com>
@@ -68,17 +70,17 @@ class ResetViewCountsTask extends FlushDatabaseCacheTask {
 
 	$ret = $storage->execute($resetCount);
 	if ($ret) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	$ret = $storage->execute($resetDate, array(time()));
 	if ($ret) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 	if ($ret) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	$details = array($module->translate('View counts reset successfully'));
@@ -86,7 +88,7 @@ class ResetViewCountsTask extends FlushDatabaseCacheTask {
 	/* Call parent::run() to flush cache */
 	list ($ret, $success, $subDetails) = parent::run();
 	if ($ret) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	return array(null, $success, array_merge($details, $subDetails));

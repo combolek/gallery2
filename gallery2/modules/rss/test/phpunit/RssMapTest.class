@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: RssMapTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.1 $ $Date: 2006/02/09 09:47:58 $
  * @package Rss
  * @subpackage PHPUnit
  * @author Pierre-Luc Paour
@@ -50,14 +52,14 @@ class RssMapTest extends GalleryTestCase {
 	$ret = $this->_markPluginParametersForCleanup('module', 'rss');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	/* create an album */
 	list ($ret, $this->_root) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($this->_root);
 
@@ -66,23 +68,23 @@ class RssMapTest extends GalleryTestCase {
 	$params = array('itemId' => $this->_root->getId());
 	$ret = RssMapHelper::createFeed($this->_name, $params);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	
 	$this->_feedsToDelete[] = $this->_name;
     }
 
     function tearDown() {
+	parent::tearDown();
+
 	if (!empty($this->_feedsToDelete)) {
 	    foreach ($this->_feedsToDelete as $name) {
 		$ret = RssMapHelper::deleteFeed($name);
 		if ($ret) {
-		    return $this->failWithStatus($ret);
+		    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 		}
 	    }
 	}
-
-	parent::tearDown();
     }
 
     function testCollision() {
@@ -99,7 +101,7 @@ class RssMapTest extends GalleryTestCase {
     function testDelete() {
 	$ret = RssMapHelper::deleteFeed($this->_name);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	
 	list($ret, $feed) = RssMapHelper::fetchFeed($this->_name);
@@ -116,7 +118,7 @@ class RssMapTest extends GalleryTestCase {
 	
 	list($ret, $feeds) = RssMapHelper::fetchFeedsForItem($this->_root->getId());
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	
 	$this->assertEquals($feeds, array(array(
@@ -132,7 +134,7 @@ class RssMapTest extends GalleryTestCase {
 	
 	list($ret, $names) = RssMapHelper::fetchFeedNames();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	
 	$this->assert(in_array($this->_name, $names));

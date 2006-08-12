@@ -1,5 +1,5 @@
 {*
- * $Revision$
+ * $Revision: 1.28 $
  * If you want to customize this file, do not edit it directly since future upgrades
  * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
  * version.  Gallery will look for that file first and use it if it exists.
@@ -34,7 +34,10 @@
     <h4> {g->text text="Posted by"} </h4>
     {g->text text="%s (%s)" arg1=$user.fullName arg2=$AddComment.host}
 
-    <h4> {g->text text="Subject"} </h4>
+    <h4>
+      {g->text text="Subject"}
+      <span class="giSubtitle"> {g->text text="(required)"} </span>
+    </h4>
 
     {include file="gallery:modules/core/templates/MarkupBar.tpl" viewL10domain="modules_core"
 	     element="subject" firstMarkupBar=true}
@@ -45,6 +48,12 @@
     <script type="text/javascript">
       document.getElementById('addCommentForm')['{g->formVar var="form[subject]"}'].focus();
     </script>
+
+    {if isset($form.error.subject.missing)}
+    <div class="giError">
+      {g->text text="You must enter a subject!"}
+    </div>
+    {/if}
 
     <h4>
       {g->text text="Comment"}

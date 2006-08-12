@@ -1,5 +1,5 @@
 {*
- * $Revision$
+ * $Revision: 1.56 $
  * If you want to customize this file, do not edit it directly since future upgrades
  * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
  * version.  Gallery will look for that file first and use it if it exists.
@@ -15,7 +15,7 @@
   <table width="100%" cellspacing="0" cellpadding="0">
     <tr valign="top">
     <td id="gsSidebarCol"><div id="gsSidebar" class="gcBorder1">
-      {if $ItemAdmin.item.parentId or !empty($ItemAdmin.thumbnail)}
+      {if !$ItemAdmin.isRootAlbum or !empty($ItemAdmin.thumbnail)}
       <div class="gbBlock">
 	{if empty($ItemAdmin.thumbnail)}
 	  {g->text text="No Thumbnail"}

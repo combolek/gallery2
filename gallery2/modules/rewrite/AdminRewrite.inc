@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: AdminRewrite.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 /**
  * @package Rewrite
- * @version $Revision$ $Date$
+ * @version $Revision: 1.21 $ $Date: 2006/01/17 01:52:04 $
  * @author Douglas Cau <douglas@cau.se>
  */
 
@@ -37,13 +39,13 @@ class AdminRewriteController extends GalleryController {
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
 	list ($ret, $rewriteParser) = RewriteHelper::getRewriteParser();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (isset($form['action']['rules'])) {
@@ -55,7 +57,7 @@ class AdminRewriteController extends GalleryController {
 		foreach (array_keys($form['rules']) as $moduleId) {
 		    foreach (array_keys($form['rules'][$moduleId]) as $ruleId) {
 			if (isset($form['rules'][$moduleId][$ruleId]['active'])) {
-			    /* Empty or just '/'? */
+			    /* Empty or just '/' ? */
 			    if (empty($form['rules'][$moduleId][$ruleId]['pattern']) ||
 				    $form['rules'][$moduleId][$ruleId]['pattern'] == '/') {
 				$error[] = 'form[error][empty][' . $moduleId . '][' . $ruleId . ']';
@@ -85,7 +87,7 @@ class AdminRewriteController extends GalleryController {
 	    if (empty($error)) {
 		list ($ret, $code, $errorId) = $rewriteParser->saveActiveRules($activeRules);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		if ($code == REWRITE_STATUS_OK) {
@@ -119,7 +121,7 @@ class AdminRewriteController extends GalleryController {
 	    list ($ret, $code) = $rewriteParser->saveAccessList($accessList,
 		$allowEmptyReferer);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    if ($code == REWRITE_STATUS_OK) {
@@ -132,14 +134,14 @@ class AdminRewriteController extends GalleryController {
 
 	    list ($ret, $error, $status) = $rewriteParser->handleAdminParserRequest($form);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	} else if (isset($form['action']['testParser'])) {
 	    $mode = 'test';
 
 	    list ($ret, $error, $status) = $rewriteParser->handleTestResultsRequest($form);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	} else if (isset($form['action']['refresh'])) {
 	    $mode = 'test';
@@ -176,13 +178,13 @@ class AdminRewriteView extends GalleryView {
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
 	list ($ret, $rewriteParser) = RewriteHelper::getRewriteParser();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$AdminRewrite['parserType'] = $rewriteParser->getParserType();
 	$AdminRewrite['parserId'] = $rewriteParser->getParserId();
@@ -199,7 +201,7 @@ class AdminRewriteView extends GalleryView {
 		if (is_numeric($errno)) {
 		    list ($ret, $errors[]) = $rewriteParser->getErrorMessage($errno);
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		}
 	    }
@@ -213,24 +215,24 @@ class AdminRewriteView extends GalleryView {
 	    list($ret, $activeRules) = GalleryCoreApi::getPluginParameter(
 		'module', 'rewrite', 'activeRules');
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $activeRules = unserialize($activeRules);
 
 	    /* Get all modules to walk through and get any rules it provieds */
-	    list ($ret, $modules) = GalleryCoreAPi::fetchPluginStatus('module');
+	    list($ret, $modules) = GalleryCoreAPi::fetchPluginStatus('module');
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    foreach ($modules as $moduleId => $status) {
 		if (isset($status['active']) && $status['active']) {
-		    list ($ret, $module) = GalleryCoreApi::loadPlugin('module', $moduleId);
+		    list($ret, $module) = GalleryCoreApi::loadPlugin('module', $moduleId);
 		    if ($ret) {
 			if ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH) {
 			    continue;
 			}
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
 		    $AdminRewrite['modules'][$moduleId] = $module->translate($module->getName());
@@ -302,14 +304,14 @@ class AdminRewriteView extends GalleryView {
 		list ($ret, $form['accessList']) = GalleryCoreApi::getPluginParameter(
 		    'module', 'rewrite', 'accessList');
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		$form['accessList'] = unserialize($form['accessList']);
 
 		list ($ret, $allowEmptyReferer) = GalleryCoreApi::getPluginParameter(
 		    'module', 'rewrite', 'allowEmptyReferer');
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		if ($allowEmptyReferer) {
 		    $form['allowEmptyReferer'] = 1;
@@ -318,14 +320,14 @@ class AdminRewriteView extends GalleryView {
 
 	    $ret = $rewriteParser->loadAdminParserTemplate($template, $form);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    break;
 
 	case 'test':
 	    $ret = $rewriteParser->loadTestResultsTemplate($template, $form);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    break;
 	}

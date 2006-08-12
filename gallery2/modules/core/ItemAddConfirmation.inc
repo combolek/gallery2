@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ItemAddConfirmation.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.9 $ $Date: 2006/01/10 04:39:20 $
  * @package GalleryCore
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -43,7 +45,7 @@ class ItemAddConfirmationView extends GalleryView {
 	$itemId = GalleryUtilities::getRequestVariables('itemId');
 	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/*
@@ -51,7 +53,6 @@ class ItemAddConfirmationView extends GalleryView {
 	 * it down so that the template doesn't have to know.
 	 */
 	$status = $template->getVariable('status');
-	$uploaded = 0;
 	if (!empty($status['addedFiles'])) {
 	    $count = sizeof($status['addedFiles']);
 	    for ($i = 0; $i < $count; $i++) {
@@ -59,19 +60,19 @@ class ItemAddConfirmationView extends GalleryView {
 		    GalleryCoreApi::loadEntitiesById($status['addedFiles'][$i]['id']);
 		if (!$ret) {
 		    $status['addedFiles'][$i]['exists'] = true;
-		    $uploaded++;
-		} else if ($ret->getErrorCode() & (ERROR_MISSING_OBJECT | ERROR_BAD_PARAMETER)) {
+		} else if ($ret->getErrorCode() & ERROR_MISSING_OBJECT) {
 		    $status['addedFiles'][$i]['exists'] = false;
 		} else {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
 	} else {
+	    $count = 0;
 	    $status['addedFiles'] = array();
 	}
 
 	$ItemAddConfirmation = array();
-	$ItemAddConfirmation['count'] = $uploaded;
+	$ItemAddConfirmation['count'] = $count;
 	$ItemAddConfirmation['status'] = $status;
 
 	$template->setVariable('ItemAddConfirmation', $ItemAddConfirmation);
@@ -86,7 +87,7 @@ class ItemAddConfirmationView extends GalleryView {
     function getViewDescription() {
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, $core->translate('add items confirmation'));

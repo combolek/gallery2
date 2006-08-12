@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: module.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.8 $ $Date: 2006/03/22 03:52:31 $
  * @package Hidden
  * @author Alan Harder <alan.harder@sun.com>
  * @author Jess Martin <jmartin@cs.unc.edu>
@@ -63,21 +65,21 @@ class HiddenModule extends GalleryModule /* and GalleryEventListener */ {
 	    'GalleryOnLoadHandler', 'HiddenModule', 'Hidden',
 	    'modules/hidden/module.inc', 'hidden', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'ItemEditOption', 'HiddenItemOption', 'HiddenItemOption',
 	    'modules/hidden/HiddenItemOption.inc', 'hidden', array('ItemEditItem'));
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'HiddenInterface_1_0', 'HiddenHelper', 'Hidden',
 	    'modules/hidden/classes/HiddenHelper.class', 'hidden', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -105,7 +107,7 @@ class HiddenModule extends GalleryModule /* and GalleryEventListener */ {
 	    ';
 	list ($ret, $searchResults) = $gallery->search($query);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	while ($result = $searchResults->nextResult()) {
 	    $itemIds[] = (int)$result[0];
@@ -114,19 +116,19 @@ class HiddenModule extends GalleryModule /* and GalleryEventListener */ {
 	while (!empty($itemIds)) {
 	    list ($ret, $items) = GalleryCoreApi::loadEntitiesById(array_splice($itemIds, 0, 100));
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    foreach ($items as $item) {
 		$ret = HiddenHelper::unHideItem($item);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	}
 
 	$ret = parent::uninstall();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	return null;
     }
@@ -139,7 +141,7 @@ class HiddenModule extends GalleryModule /* and GalleryEventListener */ {
 	if ($view == 'core.ShowItem' && $itemId == $item->getId()) {
 	    list ($ret, $permissions) = GalleryCoreApi::getPermissions($itemId);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    if (!isset($permissions['core.view']) && (isset($permissions['core.viewResizes'])
 		    || isset($permissions['core.viewSource']))) {
@@ -170,7 +172,7 @@ class HiddenModule extends GalleryModule /* and GalleryEventListener */ {
 	    GalleryCoreApi::requireOnce('modules/hidden/classes/HiddenHelper.class');
 	    $ret = HiddenHelper::handleMoveItem($item);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 	return array(null, null);

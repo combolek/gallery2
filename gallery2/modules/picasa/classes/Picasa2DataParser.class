@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: Picasa2DataParser.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -15,11 +17,12 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
 /**
- * @version $Revision$ $Date$
- * @package Picasa
+ * @version $Revision: 1.7 $ $Date: 2005/10/07 02:53:13 $
+ * @package picasa
  * @author Waldemar Schlackow <gallery@schlackow.de>
  */
 
@@ -29,6 +32,7 @@
  * @package Picasa
  * @subpackage Picasa2DataParser
  */
+
 class Picasa2DataParser {
 
     /**
@@ -230,17 +234,17 @@ class Picasa2DataParser {
     function getAlbum($picasaXmlPath) {
 	list($ret, $rawXml) = Picasa2DataParser::getRawXmlFromPicasaPath($picasaXmlPath);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list($ret, $picasaXmlArray) = Picasa2DataParser::getXmlArray($rawXml);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list($ret, $albumArray) = Picasa2DataParser::getAlbumFromArray($picasaXmlArray);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	return array(null, $albumArray);
     }

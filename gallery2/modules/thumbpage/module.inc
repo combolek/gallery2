@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: module.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.32 $ $Date: 2006/03/22 03:52:36 $
  * @package ThumbPage
  * @author Alan Harder <alan.harder@sun.com>
  */
@@ -52,14 +54,14 @@ class ThumbPageModule extends GalleryModule /* and GalleryEventListener */ {
 	    'ItemEditPlugin', 'ItemEditThumbPage', 'ItemEditThumbPage',
 	    'modules/thumbpage/ItemEditThumbPage.inc', 'thumbpage', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'ItemEditPlugin', 'ItemEditThumbOffset', 'ItemEditThumbOffset',
 	    'modules/thumbpage/ItemEditThumbOffset.inc', 'thumbpage', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -78,11 +80,11 @@ class ThumbPageModule extends GalleryModule /* and GalleryEventListener */ {
     function activate($postActivationEvent=true) {
 	list ($ret, $page) = $this->_getSupportedMultiPageTypes();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $movie) = $this->_getSupportedMovieTypes();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (empty($page) && empty($movie)) {
@@ -92,17 +94,17 @@ class ThumbPageModule extends GalleryModule /* and GalleryEventListener */ {
 	} else {
 	    $ret = $this->setParameter('pageTypes', implode('|', $page));
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $ret = $this->setParameter('movieTypes', implode('|', $movie));
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
 	list ($ret, $redirect) = parent::activate($postActivationEvent);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, $redirect);
@@ -125,18 +127,18 @@ class ThumbPageModule extends GalleryModule /* and GalleryEventListener */ {
     function _getSupportedMultiPageTypes() {
 	list ($ret, $thumbnail) = GalleryCoreApi::getToolkitOperationMimeTypes('thumbnail');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $select) = GalleryCoreApi::getToolkitOperationMimeTypes('select-page');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$mimeTypes = array();
 	foreach (array_intersect(array_keys($thumbnail), array_keys($select)) as $mimeType) {
 	    list ($ret, $properties) = GalleryCoreApi::getToolkitProperties($mimeType);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    foreach ($properties as $tmp) {
 		if ($tmp['name'] == 'page-count') {
@@ -160,18 +162,18 @@ class ThumbPageModule extends GalleryModule /* and GalleryEventListener */ {
 	list ($ret, $convert) =
 	    GalleryCoreApi::getToolkitOperationMimeTypes('convert-to-image/jpeg');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $select) = GalleryCoreApi::getToolkitOperationMimeTypes('select-offset');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$mimeTypes = array();
 	foreach (array_intersect(array_keys($convert), array_keys($select)) as $mimeType) {
 	    list ($ret, $properties) = GalleryCoreApi::getToolkitProperties($mimeType);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    foreach ($properties as $tmp) {
 		if ($tmp['name'] == 'dimensions-and-duration') {
@@ -200,13 +202,13 @@ class ThumbPageModule extends GalleryModule /* and GalleryEventListener */ {
 		$data['pluginType'] == 'module' && $data['pluginId'] != 'thumbpage') {
 	    list ($ret, $isActive) = $this->isActive();
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    if ($isActive) {
 		/* Reactivate may fail if toolkit support no longer found. */
 		list ($ret, $redirect) = $this->reactivate();
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
 	}

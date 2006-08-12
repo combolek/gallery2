@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: SelectGallery.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.19 $ $Date: 2006/01/10 04:40:41 $
  * @package Migrate
  * @subpackage UserInterface
  * @author Jesse Mullan <jmullan@visi.com>
@@ -31,7 +33,7 @@ GalleryCoreApi::requireOnce('modules/migrate/classes/Gallery1DataParser.class');
 GalleryCoreApi::requireOnce('modules/migrate/classes/G1MigrateHelper.class');
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.19 $ $Date: 2006/01/10 04:40:41 $
  * @package Migrate
  * @subpackage UserInterface
  */
@@ -45,7 +47,7 @@ class SelectGalleryController extends GalleryController {
 	/* Verify that active user is an admin */
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$error = array();
@@ -89,7 +91,7 @@ class SelectGalleryController extends GalleryController {
 	} else if (isset($form['action']['deleteMap'])) {
 	    $ret = GalleryCoreApi::removeAllMapEntries('G1MigrateMap');
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    $redirect['view'] = 'core.SiteAdmin';
@@ -111,7 +113,7 @@ class SelectGalleryController extends GalleryController {
 }
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.19 $ $Date: 2006/01/10 04:40:41 $
  * @package Migrate
  * @subpackage UserInterface
  */
@@ -136,7 +138,7 @@ class SelectGalleryView extends GalleryView {
 
 	list ($ret, $operations) = GalleryCoreApi::getToolkitOperations('image/jpeg');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$hasToolkit = false;
@@ -149,7 +151,7 @@ class SelectGalleryView extends GalleryView {
 
 	list ($ret, $mapCount) = G1MigrateHelper::fetchMapCount();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$SelectGallery = array();

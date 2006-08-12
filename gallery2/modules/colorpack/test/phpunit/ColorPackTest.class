@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ColorPackTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.3 $ $Date: 2006/01/10 04:39:10 $
  * @package ColorPack
  * @subpackage PHPUnit
  * @author Alan Harder <alan.harder@sun.com>
@@ -43,19 +45,19 @@ class ColorPackTest extends GalleryTestCase {
 	    GalleryCoreApi::newFactoryInstance('ColorPackInterface_1_0', 'ColorPackImpl');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	if (!isset($this->_colorpack)) {
 	    print 'Missing ColorPackImpl';
 	    return $this->failWithStatus(
-		GalleryCoreApi::error(ERROR_MISSING_OBJECT));
+		GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__));
 	}
     }
 
     function testColorPackList() {
 	list ($ret, $list) = $this->_colorpack->getColorPacks();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert(isset($list['']) && isset($list['blue']), 'Should have "" and "blue" keys');
     }
@@ -64,7 +66,7 @@ class ColorPackTest extends GalleryTestCase {
 	$template = new ColorPackDummyGalleryTemplate();
 	$ret = $this->_colorpack->selectColorPack($template, 'blue');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(array('modules/colorpack/packs/blue/color.css'), $template->style);
     }

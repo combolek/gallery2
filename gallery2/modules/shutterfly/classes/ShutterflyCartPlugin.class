@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ShutterflyCartPlugin.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.4 $ $Date: 2006/01/10 04:42:31 $
  * @package Shutterfly
  * @subpackage Classes
  * @author Alan Harder <alan.harder@sun.com>
@@ -44,7 +46,7 @@ class ShutterflyCartPlugin extends CartPluginInterface_1_0 {
     function getActionDisplayName() {
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'shutterfly');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	return array(null, $module->translate('Print with Shutterfly'));
     }
@@ -57,11 +59,8 @@ class ShutterflyCartPlugin extends CartPluginInterface_1_0 {
 	$session =& $gallery->getSession();
 	$session->put('shutterfly.cart', $cartItemIds);
 
-	$urlGenerator =& $gallery->getUrlGenerator();
-	$returnUrl = $urlGenerator->generateUrl(
-		array('view' => 'cart.ViewCart'), array('forceFullUrl' => true));
-
-	return array(null, array('view' => 'shutterfly.PrintPhotos', 'returnUrl' => $returnUrl));
+	return array(null,
+		     array('view' => 'shutterfly.PrintPhotos', 'return' => 1));
     }
 }
 ?>

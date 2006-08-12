@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: SelectAlbum.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -24,7 +26,7 @@
  * Also lets the user select a parent album and go to the new album page should the
  * user wish to first create a new album.
  *
- * @version $Revision$ $Date$
+ * @version $Revision: 1.7 $ $Date: 2006/01/13 15:39:38 $
  * @package PublishXp
  * @author Timothy Webb <tiwebb@cisco.com>
  */
@@ -105,14 +107,14 @@ class SelectAlbumView extends GalleryView {
 	list ($ret, $albumIds['addDataItem']) =
 	    GalleryCoreApi::fetchAllItemIds('GalleryAlbumItem', 'core.addDataItem');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Get ids of all all albums where we can add new album items */
 	list ($ret, $albumIds['addAlbumItem']) =
 	    GalleryCoreApi::fetchAllItemIds('GalleryAlbumItem', 'core.addAlbumItem');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Merge them together to get the master list of ids */
@@ -122,7 +124,7 @@ class SelectAlbumView extends GalleryView {
 	/* Load all the album entities */
 	list ($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds['allIds']);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$SelectAlbum = array();

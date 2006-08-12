@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ImageMagickToolkit.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.48 $ $Date: 2006/02/08 01:29:23 $
  * @package ImageMagick
  * @author Vallimar <vallimar@sexorcisto.net>
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -49,7 +51,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 	case 'dimensions':
 	    list ($ret, $width, $height) = $this->_getImageDimensions($mimeType, $sourceFilename);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $results = array((int)$width, (int)$height);
 	    break;
@@ -57,7 +59,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 	case 'page-count':
 	    list ($ret, $count) = $this->_getPageCount($sourceFilename, $mimeType);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $results = array($count);
 	    break;
@@ -65,13 +67,13 @@ class ImageMagickToolkit extends GalleryToolkit {
 	case 'colorspace':
 	    list ($ret, $colorspace) = $this->_getColorspace($sourceFilename);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $results = array($colorspace);
 	    break;
 
 	default:
-	    return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED),
+	    return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED, __FILE__, __LINE__),
 			 null);
 	}
 
@@ -118,25 +120,11 @@ class ImageMagickToolkit extends GalleryToolkit {
 	    $queueIt = false;
 	}
 
-	$usePercent = in_array($operationName, array('thumbnail', 'scale', 'resize'))
-	    && (substr($parameters[0], -1) == '%'
-		    || (isset($parameters[1]) && substr($parameters[1], -1) == '%'));
-
-	if (!isset($width) && ($queueIt || $usePercent
-		    || in_array($operationName, array('thumbnail', 'crop', 'composite')))) {
+	if (!isset($width) &&
+		($queueIt || in_array($operationName, array('thumbnail', 'crop', 'composite')))) {
 	    list ($ret, $width, $height) = $this->_getImageDimensions($mimeType, $sourceFilename);
 	    if ($ret) {
-		return array($ret, null, null);
-	    }
-	}
-
-	if ($usePercent) {
-	    /* Convert percentages to real image dimensions */
-	    if (substr($parameters[0], -1) == '%') {
-		$parameters[0] = (int)round($width * rtrim($parameters[0], '%') / 100);
-	    }
-	    if (isset($parameters[1]) && substr($parameters[1], -1) == '%') {
-		$parameters[1] = (int)round($height * rtrim($parameters[1], '%') / 100);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	}
 
@@ -156,7 +144,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 	    list ($ret, $removeMetaDataSwitch) =
 		GalleryCoreApi::getPluginParameter('module', 'imagemagick', 'removeMetaDataSwitch');
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    if (!empty($removeMetaDataSwitch)) {
 		$transform = array_merge($transform, explode('|', $removeMetaDataSwitch));
@@ -220,7 +208,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 	    list ($ret, $cmd) =
 		GalleryCoreApi::getPluginParameter('module', 'imagemagick', 'compositeCmd');
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    if (empty($cmd)) {
 		$cmd = 'composite';
@@ -315,7 +303,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 	    list ($ret, $quality) =
 		GalleryCoreApi::getPluginParameter('module', 'imagemagick', 'jpegQuality');
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    $maxQuality = 100;
 	    $minQuality = 5;
@@ -323,7 +311,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 		$ret = $this->_transformImage($mimeType, 'convert', array(), $sourceFilename,
 					      $destFilename, $outputMimeType, $quality);
 		if ($ret) {
-		    return array($ret, null, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 		clearstatcache();
 		$fileSize = $platform->filesize($destFilename) >> 10;
@@ -355,7 +343,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 	    if ($sourceFilename != $destFilename) {
 		$platform =& $gallery->getPlatform();
 		if (!$platform->copy($sourceFilename, $destFilename)) {
-		    return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE),
+		    return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__),
 				 null, null);
 		}
 	    }
@@ -367,7 +355,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 	    if ($sourceFilename != $destFilename) {
 		$platform =& $gallery->getPlatform();
 		if (!$platform->copy($sourceFilename, $destFilename)) {
-		    return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE),
+		    return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__),
 				 null, null);
 		}
 	    }
@@ -375,7 +363,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 	    $ret = $this->_transformImage($mimeType, $cmd, $transform,
 					  $sourceFilename, $destFilename, $outputMimeType);
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	}
 
@@ -401,7 +389,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 
 	list ($ret, $cmd) = ImageMagickToolkitHelper::getCommand('identify');
 	if ($ret) {
-	    return array($ret, 0, 0);
+	    return array($ret->wrap(__FILE__, __LINE__), 0, 0);
 	}
 
 	$oldCwd = $platform->getcwd();
@@ -409,7 +397,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 	list ($success, $output) = $platform->exec(array(array_merge($cmd, array($filename))));
 	if (!$success) {
 	    $platform->chdir($oldCwd);
-	    return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), 0, 0);
+	    return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE, __FILE__, __LINE__), 0, 0);
 	}
 	$platform->chdir($oldCwd);
 
@@ -419,7 +407,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 	    }
 	}
 
-	return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null, null);
+	return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE, __FILE__, __LINE__), null, null);
     }
 
     /**
@@ -431,7 +419,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 
 	list ($ret, $cmd) = ImageMagickToolkitHelper::getCommand('identify');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$oldCwd = $platform->getcwd();
@@ -447,7 +435,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 
 	$platform->chdir($oldCwd);
 	if (!$success) {
-	    return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null);
+	    return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE, __FILE__, __LINE__), null);
 	}
 
 	$count = 0;
@@ -479,13 +467,13 @@ class ImageMagickToolkit extends GalleryToolkit {
 
 	list ($ret, $cmd) = ImageMagickToolkitHelper::getCommand('identify');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($success, $output) =
 	    $platform->exec(array(array_merge($cmd, array('-format', '%r', $filename))));
 	if (!$success || empty($output)) {
-	    return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null);
+	    return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE, __FILE__, __LINE__), null);
 	}
 	foreach (array('RGB', 'CMYK') as $colorspace) {
 	    if (strpos($output[0], $colorspace) !== false) {
@@ -513,20 +501,20 @@ class ImageMagickToolkit extends GalleryToolkit {
 	$tmpFilename = $platform->tempnam($tmpDir, 'imgk_');
 	if (empty($tmpFilename)) {
 	    /* This can happen if the $tmpDir path is bad */
-	    return GalleryCoreApi::error(ERROR_BAD_PATH);
+	    return GalleryCoreApi::error(ERROR_BAD_PATH, __FILE__, __LINE__);
 	}
 
 	list ($ret, $command) = ImageMagickToolkitHelper::getCommand($cmd);
 	if ($ret) {
 	    @$platform->unlink($tmpFilename);
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	if (!isset($jpegQuality)) {
 	    list ($ret, $jpegQuality) =
 		GalleryCoreApi::getPluginParameter('module', 'imagemagick', 'jpegQuality');
 	    if ($ret) {
 		@$platform->unlink($tmpFilename);
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
@@ -578,7 +566,6 @@ class ImageMagickToolkit extends GalleryToolkit {
 
 	case 'image/jpeg-cmyk':
 	case 'image/tiff-cmyk':
-	case 'application/photoshop-cmyk':
 	    if (substr($outputMimeType, -5) != '-cmyk') {
 		$command[] = '-colorspace';
 		$command[] = 'RGB';
@@ -623,7 +610,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 	if (!$success) {
 	    @$platform->unlink($tmpFilename);
 	    $platform->chdir($oldCwd);
-	    return GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE);
+	    return GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE, __FILE__, __LINE__);
 	}
 	$platform->chdir($oldCwd);
 
@@ -650,7 +637,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 	list ($ret, $imageMagickPath) =
 		GalleryCoreApi::getPluginParameter('module', 'imagemagick', 'path');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return $imageMagickPath . $cmd;

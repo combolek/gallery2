@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: UpgradeOtherModulesStep.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -20,7 +22,7 @@
 
 class UpgradeOtherModulesStep extends UpgradeStep {
     function stepName() {
-	return _('Upgrade Plugins');
+	return _('Upgrade Modules');
     }
 
     function processRequest() {
@@ -66,7 +68,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 		$ret = $template->renderStatusMessage(_('Upgrading modules'),
 		    $module->getName(), $currentModule / $totalModules);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
 		$ret = $module->installOrUpgrade();
@@ -110,7 +112,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 		$ret = $template->renderStatusMessage(_('Upgrading themes'),
 		    $theme->getName(), $currentTheme / $totalThemes);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
 		$ret = $theme->installOrUpgrade();
@@ -167,13 +169,12 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 	if (empty($translator)) {
 	    $ret = $gallery->initTranslator();
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
 	$groupedModules = $groupLabel = array();
-	$moduleInstalledStatus = $pluginIsUpgradeable = $pluginIsCompatible =
-	    $installedVersion = $deactivatedPlugins = array();
+	$moduleInstalledStatus = $moduleIsUpgradeable = $installedVersion = $missingCode = array();
 	$templateData['stackTrace'] = '';
 
 	if (empty($templateData['errors'])) {
@@ -189,7 +190,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 	    }
 	    foreach ($installedModules as $moduleId => $data) {
 		if ($data['active'] && !isset($moduleList[$moduleId])) {
-		    $deactivatedPlugins['module'][] = $moduleId;
+		    $missingCode['module'][] = $moduleId;
 		}
 	    }
 	}
@@ -206,7 +207,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 	    }
 	    foreach ($installedThemes as $themeId => $data) {
 		if ($data['active'] && !isset($themeList[$themeId])) {
-		    $deactivatedPlugins['theme'][] = $themeId;
+		    $missingCode['theme'][] = $themeId;
 		}
 	    }
 	}
@@ -220,23 +221,6 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 			sprintf(_('Unable to load the %s module'), $moduleId);
 		    $templateData['stackTrace'] .= $ret->getAsHtml();
 		} else {
-		    $pluginIsCompatible['module'][$moduleId] =
-			GalleryCoreApi::isPluginCompatibleWithApis($modulePlugin);
-		    if (!$pluginIsCompatible['module'][$moduleId]) {
-			list ($ret, $isActive) = $modulePlugin->isActive();
-			if ($ret) {
-			    $this->resetL10Domain();
-			    $templateData['errors'][] =
-				sprintf(_('Unable to query the %s module'), $moduleId);
-			    $templateData['stackTrace'] .= $ret->getAsHtml();
-			    continue;
-			}
-
-			if ($isActive) {
-			    $deactivatedPlugins['module'][] = $moduleId;
-			}
-		    }
-
 		    $modulePlugin->setName($modulePlugin->translate($modulePlugin->getName()));
 		    $modulePlugin->setDescription(
 			$modulePlugin->translate($modulePlugin->getDescription()));
@@ -248,10 +232,9 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 	    uksort($modules, array($this, '_sortModules'));
 	    foreach (array_keys($modules) as $moduleId) {
 		$module =& $modules[$moduleId];
-		$pluginIsUpgradeable['module'][$moduleId] =
+		$moduleIsUpgradeable[$moduleId] =
 		    !empty($moduleList[$moduleId]['version']) &&
-		    $moduleList[$moduleId]['version'] != $module->getVersion() &&
-		    $pluginIsCompatible['module'][$moduleId];
+		    $moduleList[$moduleId]['version'] != $module->getVersion();
 		$currentVersion[$moduleId] = $moduleList[$moduleId]['version'];
 
 		$group = $module->getGroup();
@@ -271,23 +254,6 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 			sprintf(_('Unable to load the %s theme'), $themeId);
 		    $templateData['stackTrace'] .= $ret->getAsHtml();
 		} else {
-		    $pluginIsCompatible['theme'][$themeId] =
-			GalleryCoreApi::isPluginCompatibleWithApis($themePlugin);
-		    if (!$pluginIsCompatible['theme'][$themeId]) {
-			list ($ret, $isActive) = $themePlugin->isActive();
-			if ($ret) {
-			    $this->resetL10Domain();
-			    $templateData['errors'][] =
-				sprintf(_('Unable to query the %s theme'), $themeId);
-			    $templateData['stackTrace'] .= $ret->getAsHtml();
-			    continue;
-			}
-
-			if ($isActive) {
-			    $deactivatedPlugins['theme'][] = $themeId;
-			}
-		    }
-
 		    $themePlugin->setName($themePlugin->translate($themePlugin->getName()));
 		    $themePlugin->setDescription(
 			$themePlugin->translate($themePlugin->getDescription()));
@@ -301,10 +267,9 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 	    $groupType['themes'] = 'theme';
 	    foreach (array_keys($themes) as $themeId) {
 		$theme =& $themes[$themeId];
-		$pluginIsUpgradeable['theme'][$themeId] =
+		$moduleIsUpgradeable[$themeId] =
 		   !empty($themeList[$themeId]['version']) &&
-		    $themeList[$themeId]['version'] != $theme->getVersion() &&
-		    $pluginIsCompatible['theme'][$themeId];
+		    $themeList[$themeId]['version'] != $theme->getVersion();
 		$currentVersion[$themeId] = $themeList[$themeId]['version'];
 
 		$groupedModules['themes'][$themeId] =& $theme;
@@ -313,71 +278,21 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 	    $templateData['bodyFile'] = 'UpgradeOtherModulesRequest.html';
 	}
 
-	/* Deactivate any plugins that need it */
-	eval('
-	    class MockTheme extends GalleryTheme {
-		function MockTheme($pluginId) {
-		  $this->_pluginId = $pluginId;
-		}
-
-		function getId() {
-		  return $this->_pluginId;
-		}
-	    }
-
-	    class MockModule extends GalleryModule {
-		function MockModule($pluginId) {
-		  $this->_pluginId = $pluginId;
-		}
-
-		function getId() {
-		  return $this->_pluginId;
-		}
-	    }
-        ');
-
-	foreach (array('theme' => 'MockTheme',
-		       'module' => 'MockModule') as $type => $className) {
-	    if (empty($deactivatedPlugins[$type])) {
-		continue;
-	    }
-
-	    foreach ($deactivatedPlugins[$type] as $pluginId) {
-		$plugin = new $className($pluginId);
-		list ($ret, $ignored) = $plugin->deactivate(false);
-		if ($ret) {
-		    $this->resetL10Domain();
-		    if ($type == 'theme') {
-			$templateData['errors'][] =
-			    sprintf(_('Unable to deactivate the %s theme'), $pluginId);
-		    } else {
-			$templateData['errors'][] =
-			    sprintf(_('Unable to deactivate the %s module'), $pluginId);
-		    }
-		    $templateData['stackTrace'] .= $ret->getAsHtml();
-		}
-	    }
-	}
-
 	$templateData['groupedModules'] =& $groupedModules;
 	$templateData['groupLabel'] = $groupLabel;
 	$templateData['groupType'] = $groupType;
-	$templateData['pluginIsUpgradeable'] = $pluginIsUpgradeable;
+	$templateData['moduleIsUpgradeable'] = $moduleIsUpgradeable;
 	$templateData['currentVersion'] = $currentVersion;
 	$templateData['bodyFile'] = 'UpgradeOtherModulesRequest.html';
 	$templateData['anyUpgradeable'] = false;
-	$templateData['deactivatedPlugins'] = $deactivatedPlugins;
-
-	$templateData['pluginIsCompatible'] = $pluginIsCompatible;
+	$templateData['missingCode'] = $missingCode;
 	if (!empty($templateData['errors'])) {
 	    $templateData['debug'] = $gallery->getDebugBuffer();
-	} else if (!empty($pluginIsUpgradeable)) {
-	    foreach ($pluginIsUpgradeable as $pluginType) {
-		foreach ($pluginType as $tmp) {
-		    if ($tmp) {
-			$templateData['anyUpgradeable'] = true;
-			break;
-		    }
+	} else if (!empty($moduleIsUpgradeable)) {
+	    foreach ($moduleIsUpgradeable as $tmp) {
+		if ($tmp) {
+		    $templateData['anyUpgradeable'] = true;
+		    break;
 		}
 	    }
 	    if (!$templateData['anyUpgradeable']) {

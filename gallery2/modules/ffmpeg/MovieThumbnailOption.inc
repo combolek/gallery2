@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: MovieThumbnailOption.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.2 $ $Date: 2006/01/10 04:39:54 $
  * @package Ffmpeg
  * @subpackage UserInterface
  * @author Alan Harder <alan.harder@sun.com>
@@ -39,11 +41,11 @@ class MovieThumbnailOption extends ItemAddOption {
 	list ($ret, $useWatermark) =
 	    GalleryCoreApi::getPluginParameter('module', 'ffmpeg', 'useWatermark');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $toolkit) = GalleryCoreApi::getToolkitByOperation('image/jpeg', 'composite');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	return array(null, $useWatermark && isset($toolkit));
     }
@@ -54,6 +56,7 @@ class MovieThumbnailOption extends ItemAddOption {
     function handleRequestAfterAdd($form, $items) {
 	$errors = $warnings = $movieIds = $thumbIds = array();
 	foreach ($items as $item) {
+	    $warnings[] = array();
 	    if (GalleryUtilities::isA($item, 'GalleryMovieItem')) {
 		$movieIds[] = $item->getId();
 	    }
@@ -61,7 +64,7 @@ class MovieThumbnailOption extends ItemAddOption {
 	if (!empty($movieIds)) {
 	    list ($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds($movieIds);
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    foreach ($thumbTable as $itemId => $thumbnail) {
 		$thumbIds[] = $thumbnail->getId();
@@ -72,7 +75,7 @@ class MovieThumbnailOption extends ItemAddOption {
 	}
 	list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($thumbIds);
 	if ($ret) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	$op = 'composite|plugins_data/modules/ffmpeg/filmreel.png,image/png,12,399';
@@ -88,13 +91,13 @@ class MovieThumbnailOption extends ItemAddOption {
 	    $ret = $thumbnail->save();
 	    if ($ret) {
 		GalleryCoreApi::releaseLocks($lockId);
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	}
 
 	$ret = GalleryCoreApi::releaseLocks($lockId);
 	if ($ret) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	return array(null, $errors, $warnings);

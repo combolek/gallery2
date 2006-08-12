@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: SimpleCallback.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.10 $ $Date: 2006/01/10 04:39:20 $
  * @package GalleryCore
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -46,10 +48,13 @@ class SimpleCallbackView extends GalleryView {
      * @see GalleryView::isImmediate()
      */
     function renderImmediate($status, $error) {
+	global $gallery;
+
 	list ($command, $prefix) = GalleryUtilities::getRequestVariables('command', 'prefix');
-	list ($ret, $isAnonymous) = GalleryCoreApi::isAnonymousUser();
+	list ($ret, $anonymousUserId) =
+	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	if (!headers_sent()) {
 	    header("Content-type: text/plain; charset=UTF-8");
@@ -57,7 +62,7 @@ class SimpleCallbackView extends GalleryView {
 
 	switch($command) {
 	case 'lookupUsername':
-	    if (!$isAnonymous) {
+	    if ($gallery->getActiveUserId() != $anonymousUserId) {
 		list ($ret, $usernames) = GalleryCoreApi::fetchUsernames(10, null, $prefix);
 		if (!$ret) {
 		    print implode("\n", $usernames);
@@ -66,7 +71,7 @@ class SimpleCallbackView extends GalleryView {
 	    break;
 
 	case 'lookupGroupname':
-	    if (!$isAnonymous) {
+	    if ($gallery->getActiveUserId() != $anonymousUserId) {
 		list ($ret, $groupNames) = GalleryCoreApi::fetchGroupNames(10, null, $prefix);
 		if (!$ret) {
 		    print implode("\n", $groupNames);
@@ -77,8 +82,8 @@ class SimpleCallbackView extends GalleryView {
 	case 'lookupDirectories':
 	    list ($ret, $isSiteAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
 	    if (!$ret && $isSiteAdmin) {
-		GalleryUtilities::unsanitizeInputValues($prefix, false);
-		$dirs = implode("\n", $this->_getDirectoryListing($prefix, false));
+		$dirs = implode("\n",
+		    $this->_getAllImmediateSubdirs(GalleryUtilities::htmlEntityDecode($prefix)));
 		GalleryUtilities::sanitizeInputValues($dirs, false);
 		print $dirs;
 	    }
@@ -87,8 +92,8 @@ class SimpleCallbackView extends GalleryView {
 	case 'lookupFiles':
 	    list ($ret, $isSiteAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
 	    if (!$ret && $isSiteAdmin) {
-		GalleryUtilities::unsanitizeInputValues($prefix, false);
-		$files = implode("\n", $this->_getDirectoryListing($prefix));
+		$files = implode("\n",
+		    $this->_getAllFiles(GalleryUtilities::htmlEntityDecode($prefix)));
 		GalleryUtilities::sanitizeInputValues($files, false);
 		print $files;
 	    }
@@ -98,50 +103,83 @@ class SimpleCallbackView extends GalleryView {
 	return null;
     }
 
-    function _getDirectoryListing($path, $getFiles=true) {
+    function _getAllImmediateSubdirs($path) {
 	global $gallery;
 	$platform =& $gallery->getPlatform();
 
 	/* $path is UTF-8, we need it in the system charset for filesystem interactions */
 	$path = GalleryCoreApi::convertFromUtf8($path);
-
-	if ($platform->is_dir($path)) {
-	    $match = '';
-	} else {
-	    $match = basename($path);
-	    $matchLength = strlen($match);
-	    $path = dirname($path);
-	    if (!$platform->is_dir($path)) {
-		return array();
-	    }
+	$dirList = array();
+	if (!$platform->file_exists($path) || !$platform->is_dir($path)) {
+	    return $dirList;
 	}
 
-	$dirList = $fileList = array();
+	$slash = $platform->getDirectorySeparator();
 	if ($dir = $platform->opendir($path)) {
-	    $slash = $platform->getDirectorySeparator();
-	    if ($path{strlen($path)-1} != $slash) {
-		$path .= $slash;
-	    }
 	    while (($file = $platform->readdir($dir)) !== false) {
-		if ($file == '.' || $file == '..'
-			|| ($match && strncmp($file, $match, $matchLength))) {
+		if ($file == '.' || $file == '..') {
 		    continue;
 		}
-		$file = $path . $file;
+
+		if ($path[strlen($path)-1] == $slash) {
+		    $file = $path . $file;
+		} else {
+		    $file = sprintf('%s%s%s', $path, $slash, $file);
+		}
 
 		if ($platform->is_dir($file)) {
 		    /* Filesystem charset -> UTF-8 conversion required */
 		    $dirList[] = GalleryCoreApi::convertToUtf8($file);
-		} else if ($getFiles && $platform->is_file($file)) {
+		}
+	    }
+	    $platform->closedir($dir);
+	}
+
+	sort($dirList);
+	return $dirList;
+    }
+
+    function _getAllFiles($path) {
+	global $gallery;
+	$platform =& $gallery->getPlatform();
+
+	/* $path is UTF-8, we need it in the system charset for filesystem interactions */
+	$path = GalleryCoreApi::convertFromUtf8($path);
+	
+	$dirList = $fileList = array();
+	if (!$platform->file_exists($path) || !$platform->is_dir($path)) {
+	    return $dirList;
+	}
+
+	$slash = $platform->getDirectorySeparator();
+	if ($dir = $platform->opendir($path)) {
+	    while (($file = $platform->readdir($dir)) !== false) {
+		if ($file == '.' || $file == '..') {
+		    continue;
+		}
+
+		if ($path[strlen($path)-1] == $slash) {
+		    $file = $path . $file;
+		} else {
+		    $file = sprintf('%s%s%s', $path, $slash, $file);
+		}
+
+		if ($platform->is_dir($file)) {
+		    $dirList[] = GalleryCoreApi::convertToUtf8($file);
+		} else if ($platform->is_file($file)) {
 		    $fileList[] = GalleryCoreApi::convertToUtf8($file);
 		}
 	    }
 	    $platform->closedir($dir);
-	    sort($dirList);
-	    sort($fileList);
 	}
 
-	return empty($dirList) ? $fileList : array_merge($dirList, $fileList);
+	$result = $dirList;
+	if (empty($result)) {
+	    $result = $fileList;
+	} else {
+	    $result = array_merge($result, $fileList);
+	}
+	return $result;
     }
 }
 ?>

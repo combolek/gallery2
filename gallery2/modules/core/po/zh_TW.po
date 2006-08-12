@@ -1,4 +1,4 @@
-# $Id$
+# $Id: zh_TW.po,v 1.106 2006/03/23 19:59:39 mindless Exp $
 #
 # Gallery - a web based photo album viewer and editor
 # Copyright (C) 2000-2006 Bharat Mediratta
@@ -19,7 +19,7 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Core 1.1.10\n"
+"Project-Id-Version: Gallery: Core 1.1.0\n"
 "POT-Creation-Date: 2005-07-27 23:11-0400\n"
 "PO-Revision-Date: 2005-08-24 14:00-0400\n"
 "Last-Translator: Stephen Chu <stephen@ju-ju.com>\n"
@@ -79,6 +79,24 @@ msgstr[0] "%d 星期"
 msgid "<none>"
 msgstr "<無>"
 
+msgid "install"
+msgstr "安裝"
+
+msgid "upgrade"
+msgstr "昇級"
+
+msgid "configure"
+msgstr "設定"
+
+msgid "activate"
+msgstr "啟動"
+
+msgid "uninstall"
+msgstr "卸載"
+
+msgid "deactivate"
+msgstr "關閉"
+
 msgid "No acceleration"
 msgstr "無加速"
 
@@ -87,9 +105,6 @@ msgstr "部分加速"
 
 msgid "Full acceleration"
 msgstr "完全加速"
-
-msgid "Themes"
-msgstr "佈景主題"
 
 msgid "Performing Maintenance Tasks"
 msgstr "系統維護中"
@@ -106,21 +121,6 @@ msgstr "昇級"
 
 msgid "Download"
 msgstr "下載"
-
-msgid "install"
-msgstr "安裝"
-
-msgid "upgrade"
-msgstr "昇級"
-
-msgid "activate"
-msgstr "啟動"
-
-msgid "uninstall"
-msgstr "卸載"
-
-msgid "deactivate"
-msgstr "關閉"
 
 msgid "Inherit settings from parent album"
 msgstr "從上層相簿中繼承設定值"
@@ -187,12 +187,6 @@ msgstr "正在清除舊的快速下載快取"
 
 msgid "Converting MySQL data to UTF8"
 msgstr "將 MySQL 資料轉成 UTF8 中"
-
-msgid "Updating panorama items"
-msgstr "更新全景圖片項目中"
-
-msgid "Optimizing AccessSubscriberMap table"
-msgstr "對 AccessSubscriberMap 表格最佳化中"
 
 msgid "Site Admins"
 msgstr "網站管理員"
@@ -263,21 +257,14 @@ msgid "%d kilobytes"
 msgid_plural "%d kilobytes"
 msgstr[0] "%d KB"
 
-#, c-format
-msgid "Input file %s exceeds maximum permitted file size"
-msgstr "輸入檔案 %s 超過最大允許的檔案大小"
+msgid "From Local Server"
+msgstr "從本地伺服器"
 
-#, c-format
-msgid "Input file %s exceeds file size specified in the form"
-msgstr "輸入檔案 %s 超過表格中指定的檔案大小"
+msgid "Photo"
+msgstr "照片"
 
-#, c-format
-msgid "Input file %s was only partially uploaded"
-msgstr "輸入檔案 %s 只上載了一部分"
-
-#, c-format
-msgid "Input file %s was not uploaded. Error %d"
-msgstr "輸入檔案 %s 並沒有上載。錯誤 %d"
+msgid "From Web Page"
+msgstr "從網頁"
 
 msgid "Gallery Item Administration"
 msgstr "Gallery 項目管理"
@@ -338,9 +325,6 @@ msgstr "一般"
 
 msgid "Movie Size"
 msgstr "影片大小"
-
-msgid "Photo"
-msgstr "照片"
 
 msgid "Thumbnail cropped successfully"
 msgstr "縮略圖裁切成功"
@@ -509,11 +493,17 @@ msgstr "你的帳戶"
 msgid "Logout"
 msgstr "登出"
 
-msgid "Plugins"
-msgstr "外掛組件"
+msgid "Modules"
+msgstr "模組"
 
 msgid "Repository"
 msgstr "軟體庫"
+
+msgid "Themes"
+msgstr "佈景主題"
+
+msgid "Display"
+msgstr "顯示"
 
 msgid "Users"
 msgstr "用戶"
@@ -529,9 +519,6 @@ msgstr "工具優先次序"
 
 msgid "Graphics Toolkits"
 msgstr "圖形工具"
-
-msgid "Defaults"
-msgstr "預設值"
 
 msgid "Account Settings"
 msgstr "帳戶設定"
@@ -695,11 +682,11 @@ msgid "download"
 msgstr "下載"
 
 msgid "Plugins directory does not exist."
-msgstr "外掛組件目錄不存在。"
+msgstr "模組目錄不存在。"
 
 msgid ""
 "Couldn't create plugins subdirectory. Make sure the webserver has write permissions in it."
-msgstr "無法產生外掛組件子目錄。請確定網頁伺服器有寫入的權限。"
+msgstr "無法產生插入組件子目錄。請確定網頁伺服器有寫入的權限。"
 
 msgid "Couldn't create repository cache path."
 msgstr "無法產生軟體庫快取路徑。"
@@ -837,10 +824,10 @@ msgid "%dx%d"
 msgstr "%d乘%d"
 
 msgid "Audio"
-msgstr "音樂/聲音"
+msgstr "音頻"
 
 msgid "audio"
-msgstr "音樂/聲音"
+msgstr "音頻"
 
 msgid "Archive"
 msgstr "壓縮檔"
@@ -860,8 +847,11 @@ msgstr "試算表"
 msgid "spreadsheet"
 msgstr "試算表"
 
-msgid "file"
-msgstr "檔案"
+msgid "Unknown"
+msgstr "未知"
+
+msgid "unknown"
+msgstr "未知"
 
 #, c-format
 msgid ""
@@ -938,9 +928,6 @@ msgstr "詳細系統資料；可用來貼入 G2 技術支援論譠。"
 msgid "core"
 msgstr "核心"
 
-msgid "unknown"
-msgstr "不明文件"
-
 msgid "Gallery version"
 msgstr "Gallery 版本"
 
@@ -961,16 +948,6 @@ msgstr "作業系統"
 
 msgid "Default theme"
 msgstr "預設風格佈景主題"
-
-msgid "gettext"
-msgstr "gettext"
-
-#, fuzzy
-msgid "enabled"
-msgstr "關閉"
-
-msgid "disabled"
-msgstr "關閉"
 
 msgid "Locale"
 msgstr "地區"
@@ -1016,6 +993,9 @@ msgstr "預設語言"
 
 msgid "Check Browser Preference"
 msgstr "檢查瀏覽程式偏好"
+
+msgid "gettext"
+msgstr "gettext"
 
 #, c-format
 msgid ""
@@ -1066,6 +1046,50 @@ msgstr "新目錄"
 
 msgid "New files"
 msgstr "新檔案"
+
+msgid "Local Server Upload Paths"
+msgstr "本地伺服器上傳路徑"
+
+msgid ""
+"Specify the legal directories on the local server where a user can store files and then "
+"upload them into Gallery using the <i>Upload from Local Server</i> feature.  The paths you "
+"enter here and all the files and directories under those paths will be available to any "
+"Gallery user who has upload privileges, so you should limit this to directories that won't "
+"contain sensitive data (eg. /tmp or /usr/ftp/incoming)"
+msgstr ""
+"指定在本地伺服器上用戶可儲存檔案並透過「從本地伺服器上傳」功能上傳到 Gallery 的合法目錄。你在"
+"這裡輸入的路徑以及這個路徑下的所有檔案和目錄將會對所有擁有上傳權限的 Gallery 用戶開放，所以請"
+"限制這個目錄於不含敏感資料的目錄（如：/tmp 或 /usr/ftp/incoming）"
+
+msgid "Path"
+msgstr "路徑"
+
+msgid "Action"
+msgstr "操作"
+
+msgid "remove"
+msgstr "刪除"
+
+msgid "Add"
+msgstr "增加"
+
+msgid "You must enter a directory to add."
+msgstr "你必須輸入一個目錄來增加。"
+
+msgid "open_basedir documentation"
+msgstr "open_basedir 說明文件"
+
+#, c-format
+msgid ""
+"Your webserver is configured to prevent you from accessing that directory.  Please refer to "
+"the %s and consult your webserver administrator."
+msgstr "你的伺服器的設定不允許你存取這個目錄。請參考 %s 並與你的系統管理員協商。"
+
+msgid "The webserver does not have permissions to read that directory."
+msgstr "網站伺服器沒有讀取這個目錄的權限。"
+
+msgid "The path you specified is not a valid directory."
+msgstr "你指定的路徑不是一個有效的目錄。"
 
 msgid "Session Settings"
 msgstr "連線期間設定"
@@ -1185,9 +1209,6 @@ msgid ""
 msgstr ""
 "在你改變了 cookie 設定後，你的 Gallery 中<b>所有登錄的用戶</b>都<b>必需清除他們瀏覽程式中的 "
 "cookie 快取</b>。否則他們會遭還登入、登出和連線方面的問題。"
-
-msgid "Path"
-msgstr "路徑"
 
 msgid "Invalid cookie path"
 msgstr "無效的 cookie 路徑"
@@ -1337,7 +1358,7 @@ msgstr ""
 "個新的所有人。"
 
 msgid "New owner (leaving blank means one of the Site Admins):"
-msgstr "新所有人（留空表示為網站管理員之一）："
+msgstr "新所有人 (留空為網站管理員之一)："
 
 #, c-format
 msgid "User '%s' does not exist! Cannot assign items to a nonexistent user."
@@ -1416,9 +1437,6 @@ msgstr "你不能從這個成員組中將自己刪除。"
 msgid "Add Member"
 msgstr "增加會員"
 
-msgid "Add"
-msgstr "增加"
-
 msgid "You must enter a username."
 msgstr "你必須輸入一個用戶名。"
 
@@ -1487,10 +1505,7 @@ msgid "You cannot edit that group's users"
 msgstr "你不能編輯該成員組的用戶"
 
 msgid "Edit Group (by list)"
-msgstr "編輯成員組（列表）"
-
-msgid "Action"
-msgstr "操作"
+msgstr "編輯成員組(列表)"
 
 msgid "edit"
 msgstr "編輯"
@@ -1540,6 +1555,85 @@ msgstr "馬上執行"
 
 msgid "Last Run Details:"
 msgstr "上次執行細節："
+
+msgid "Gallery Modules"
+msgstr "Gallery 模組"
+
+#, c-format
+msgid "Successfully installed and auto-configured module %s"
+msgstr "「%s」模組安裝並自動設定成功"
+
+#, c-format
+msgid "Successfully installed module %s"
+msgstr "「%s」模組安裝成功"
+
+#, c-format
+msgid "Successfully configured module %s"
+msgstr "「%s」模組昇級成功"
+
+#, c-format
+msgid "Successfully upgraded module %s"
+msgstr "「%s」模組昇級成功"
+
+#, c-format
+msgid "Successfully activated module %s"
+msgstr "「%s」模組啟動成功"
+
+#, c-format
+msgid "Successfully deactivated module %s"
+msgstr "「%s」模組關閉成功"
+
+#, c-format
+msgid "Successfully uninstalled module %s"
+msgstr "「%s」模組卸載成功"
+
+msgid ""
+"Gallery features come as separate modules.  You can download and install modules to add more "
+"features to your Gallery, or you can disable features if you don't want to use them.  In "
+"order to use a feature, you must install, configure (if necessary) and activate it.  If you "
+"don't wish to use a feature, you can deactivate it."
+msgstr ""
+"Gallery 相關功能均來自獨立的模組。你可以通過下載並安裝模組來增加 Gallery 功能，或通過關閉模組"
+"來禁用不使用的功能。要使用一個功能，你必須安裝，設定（如需要）並啟動它。如果你不想使用一個功"
+"能，可以關閉它。"
+
+msgid "Module Name"
+msgstr "模組名稱"
+
+msgid "Version"
+msgstr "版本"
+
+msgid "Installed"
+msgstr "安裝版本"
+
+msgid "Actions"
+msgstr "操作"
+
+msgid "Status: Not Installed"
+msgstr "狀態：未安裝"
+
+msgid "Status: Active"
+msgstr "狀態：啟動"
+
+msgid "Status: Inactive"
+msgstr "狀態：關閉"
+
+msgid "Status: Upgrade Required (Inactive)"
+msgstr "狀態：需要昇級 (關閉)"
+
+msgid "Status: Incompatible Module (Inactive)"
+msgstr "狀態：模組不相容 (關閉)"
+
+msgid "Incompatible module!"
+msgstr "模組不相容！"
+
+#, c-format
+msgid "Core API Required: %s (available: %s)"
+msgstr "核心API需要：%s (%s 可用)"
+
+#, c-format
+msgid "Module API Required: %s (available: %s)"
+msgstr "模組API需要：%s (%s 可用)"
 
 msgid "Confirm module uninstall"
 msgstr "確認模組卸載"
@@ -1625,87 +1719,6 @@ msgstr "有效期限："
 msgid "Clear Saved Pages"
 msgstr "清除儲存頁面"
 
-msgid "Status: Inactive"
-msgstr "狀態：未啟用"
-
-msgid "__PLUGIN__ deactivated"
-msgstr "__PLUGIN__已關閉"
-
-msgid "Status: Active"
-msgstr "狀態：啟動"
-
-msgid "__PLUGIN__ activated"
-msgstr "__PLUGIN__已啟用"
-
-msgid "Status: Not Installed"
-msgstr "狀態：未安裝"
-
-msgid "__PLUGIN__ uninstalled"
-msgstr "__PLUGIN__已卸載"
-
-msgid "Status: Upgrade Required (Inactive)"
-msgstr "狀態：需要昇級（未啟用）"
-
-msgid "Status: Incompatible Plugin (Inactive)"
-msgstr "狀態：不相容的外掛組件（未啟用）"
-
-msgid "Status: Inactive (Configuration Required)"
-msgstr "狀態：未啟用（需要設定）"
-
-msgid "__PLUGIN__ needs configuration"
-msgstr "__PLUGIN__需要設定"
-
-msgid "Gallery Plugins"
-msgstr "Gallery 外掛組件"
-
-msgid ""
-"Gallery features come as separate plugins.  You can download and install plugins to add more "
-"features to your Gallery, or you can disable features if you don't want to use them.  In "
-"order to use a feature, you must install, configure (if necessary) and activate it.  If you "
-"don't wish to use a feature, you can deactivate it."
-msgstr ""
-"Gallery 相關功能均來自獨立的外掛組件。你可以通過下載並安裝外掛組件來增加 Gallery 功能，或關閉"
-"外掛組件來停用不使用的功能。要使用一個功能，你必須安裝，設定（如需要）並啟動它。如果你不想使"
-"用一個功能，可以關閉它。"
-
-msgid "up to date"
-msgstr "最新版"
-
-msgid "upgrade required"
-msgstr "需要昇級"
-
-msgid "not installed"
-msgstr "未安裝"
-
-msgid "incompatible"
-msgstr "不相容"
-
-msgid "Plugin Name"
-msgstr "外掛組件名稱"
-
-msgid "Version"
-msgstr "版本"
-
-msgid "Installed"
-msgstr "安裝版本"
-
-msgid "Actions"
-msgstr "操作"
-
-msgid "Incompatible plugin!"
-msgstr "不相容的外掛組件！"
-
-#, c-format
-msgid "Core API Required: %s (available: %s)"
-msgstr "核心API需要：%s（%s 可用）"
-
-#, c-format
-msgid "Plugin API Required: %s (available: %s)"
-msgstr "外掛組件 API 需要：%s（%s 可用）"
-
-msgid "configure"
-msgstr "設定"
-
 msgid "Please make sure that your internet connection is set up properly or try again later."
 msgstr "請確定你的網路連線的設定是正確的或稍後再試。"
 
@@ -1713,13 +1726,10 @@ msgid "The repository index has been successfully updated."
 msgstr "成功更新軟體庫索引。"
 
 msgid "All plugins are already up-to-date."
-msgstr "所有外掛組件都已經是最新版。"
+msgstr "所有插入組件都已經是最新版。"
 
 msgid "Common Tasks"
 msgstr "共通作業"
-
-msgid "Modules"
-msgstr "模組"
 
 msgid "Warning: Experimental feature!"
 msgstr "警告：實驗中的功能！"
@@ -1740,7 +1750,7 @@ msgid ""
 "personal information is sent to the Gallery server during updating. On slower connections "
 "the process might take a minute or two."
 msgstr ""
-"Gallery 軟體庫含有最新且經由 Gallery 團隊嚴格測試的模組和佈景主題。軟體庫索引含有可下載的外掛"
+"Gallery 軟體庫含有最新且經由 Gallery 團隊嚴格測試的模組和佈景主題。軟體庫索引含有可下載的插入"
 "組件的資訊，如最新版本、可用語言和相容性。索引必需定期和 Gallery 伺服器同步，才能通知你是否有"
 "新的更新。在更新時不會傳送任何私人的資料回 Gallery 伺服器。使用較慢的連線時，這個過程可能會用"
 "到一到兩分鐘的時間。"
@@ -1769,11 +1779,11 @@ msgid ""
 "the features of the new version may become available. Here are the recommended steps for "
 "upgrading:"
 msgstr ""
-"Gallery 的有新的版本，可是無法經由這個界面昇級。昇級可能會造成某些你的外掛組件無法使用，可是"
+"Gallery 的有新的版本，可是無法經由這個界面昇級。昇級可能會造成某些你的插入組件無法使用，可是"
 "可能有其他新的組件需要這個新的版本的功能。下面是建議的昇級步驟："
 
 msgid "Review plugin compatibility (on the Themes and Modules tabs)"
-msgstr "檢查外掛組件的相容性（在模組和佈景主題面板中）"
+msgstr "檢查插入組件的相容性（在模組和佈景主題面板中）"
 
 #, c-format
 msgid "%sDownload%s Gallery core"
@@ -1792,12 +1802,12 @@ msgid ""
 msgstr "Gallery 無法透過這個界面更新。當有新的版本時，昇級的說明會在這裡出現。"
 
 msgid "Upgrade All Plugins"
-msgstr "更新所有外掛組件"
+msgstr "更新所有模組"
 
 msgid ""
 "Gallery can automatically upgrade your themes and modules to the latest available versions. "
 "No new plugins will be downloaded."
-msgstr "Gallery 可以自動更新你的佈景主題和模組到最新的版本。不會下載全新的外掛組件。"
+msgstr "Gallery 可以自動更新你的佈景主題和模組到最新的版本。不會下載全新的插入組件。"
 
 msgid "Upgrade All"
 msgstr "昇級全部"
@@ -1806,16 +1816,16 @@ msgid ""
 "Once the repository index has been downloaded, a list of available plugins will be "
 "presented. It can be downloaded by clicking on the Update button on the Common Tasks tab."
 msgstr ""
-"在下載完軟體庫的索引後，會顯示一份可供下載的外掛組件列表。索引可以用共通作業面板下的更新按鈕"
+"在下載完軟體庫的索引後，會顯示一份可供下載的插入組件列表。索引可以用共通作業面板下的更新按鈕"
 "下載。"
 
 msgid ""
 "The following plugins are available. Click on the action beside the plugin you're interested "
 "in to see what's available in the repository."
-msgstr "下列外掛組件可供下載。按你有興趣的組件旁的動作選單看軟體庫中的內容。"
+msgstr "下列插入組件可供下載。按你有興趣的組件旁的動作選單看軟體庫中的內容。"
 
 msgid "Incompatible plugins are marked with an exclamation icon."
-msgstr "不相容的外掛組件會有驚嘆號標記。"
+msgstr "不相容的插入組件會有驚嘆號標記。"
 
 #, c-format
 msgid ""
@@ -1823,20 +1833,24 @@ msgid ""
 "installed core module, which are not shown here. You can view a %scomplete list%s of "
 "plugins, including incompatible ones, which are marked with a red icon."
 msgstr ""
-"核心模組有新的版本。有些外掛組件可能和安裝的核心模組不相容，它們沒有在這裡列出來。你可以看所"
+"核心模組有新的版本。有些插入組件可能和安裝的核心模組不相容，它們沒有在這裡列出來。你可以看所"
 "有插入組件的%s完整列表%s，包括不相容的組件，它們會有一個紅色的標記。"
 
 msgid "Theme Name"
 msgstr "佈景主題名稱"
 
-msgid "Module Name"
-msgstr "模組名稱"
-
 msgid "Latest"
 msgstr "最新"
 
 msgid "Incompatible Plugin"
-msgstr "不相容的外掛組件"
+msgstr "不相容的模組"
+
+msgid "Incompatible plugin!"
+msgstr "不相容的模組！"
+
+#, c-format
+msgid "Plugin API Required: %s (available: %s)"
+msgstr "模組API需要：%s (%s 可用)"
 
 msgid "No packages have been selected."
 msgstr "沒有選取任何軟體包。"
@@ -1862,7 +1876,7 @@ msgid "Base Files Up-To-Date"
 msgstr "基礎檔案更新"
 
 msgid "This plugin's base files are up-to-date."
-msgstr "這個外掛組件的基礎檔案已經是最新版。"
+msgstr "這個插入組件的基礎檔案已經是最新版。"
 
 msgid "Updated Translations"
 msgstr "更新的翻譯"
@@ -1878,7 +1892,7 @@ msgstr "額外語言"
 msgid ""
 "Below is a list of languages this plugin has been translated to. Select the ones you want "
 "included in addition to the ones already downloaded."
-msgstr "下面是這個外掛組件翻譯成的語言。請選擇你要包含在下載中的語言。"
+msgstr "下面是這個插入組件翻譯成的語言。請選擇你要包含在下載中的語言。"
 
 msgid "Unit Tests"
 msgstr "單元測試"
@@ -1887,7 +1901,7 @@ msgid ""
 "This plugin has unit tests available for download, which are useful for Gallery developers. "
 "All of the module's features are available without the tests."
 msgstr ""
-"這個外掛組件有可下載的單元測試，這對 Gallery 的程式開發人員很有幫助。沒有這些測試，你仍然可以"
+"這個插入組件有可下載的單元測試，這對 Gallery 的程式開發人員很有幫助。沒有這些測試，你仍然可以"
 "使用模組的所有功能。"
 
 msgid "Download unit tests"
@@ -1906,7 +1920,7 @@ msgid ""
 "directory called '%s' and allow the web server to write into it by appropriately setting the "
 "permissions."
 msgstr ""
-"為了能從 Gallery 軟體庫下載外掛組件，在 Gallery 中必需要有一個特別的目錄來存放這些資料。在你"
+"為了能從 Gallery 軟體庫下載插入組件，在 Gallery 中必需要有一個特別的目錄來存放這些資料。在你"
 "的 Gallery 目錄中，產生一個叫「%s」的目錄並設定適當的存取權限以允許網頁伺服器寫入這個目錄。"
 
 msgid "Instructions for Unix-type platforms:"
@@ -1945,6 +1959,25 @@ msgstr "預設相簿設定儲存成功"
 
 msgid "Restored theme settings"
 msgstr "重新載入佈景主題設定"
+
+msgid "All Themes"
+msgstr "所有佈景主題"
+
+msgid "Defaults"
+msgstr "預設值"
+
+msgid "Status: Incompatible Theme (Inactive)"
+msgstr "狀態：佈景主題不相容 (關閉)"
+
+msgid "Incompatible theme!"
+msgstr "不相容的佈景主題！"
+
+#, c-format
+msgid "Theme API Required: %s (available: %s)"
+msgstr "核心API需要：%s (%s 可用)"
+
+msgid "(default)"
+msgstr "（預設）"
 
 msgid ""
 "These are default display settings for albums in your gallery.  They can be overridden in "
@@ -2232,6 +2265,144 @@ msgstr "設定項目主題為："
 
 msgid "Assign caption to:"
 msgstr "將說明設為："
+
+msgid ""
+"Transfer files that are already on your server into your Gallery.  The files must already "
+"have been uploaded to your server some other way (like FTP) and must be placed in a "
+"directory where they are accessibly by any element on the server.  If you're on Unix this "
+"means that the files and the directory the files are in should have modes of at least 755."
+msgstr ""
+"將已儲存在你伺服器上的檔案傳輸到 Gallery 中。檔案必須已經通過其他方式（如FTP）上傳到伺服器，"
+"並放置在可由任何伺服器程式處理的目錄中。如果你使用的是UNIX系統則目錄權限至少要是755。"
+
+msgid ""
+"For security purposes, you can't use this feature until the Gallery Site Administrator "
+"configures a set of legal upload directories."
+msgstr "出於安全考慮，在網站管理員設定允許的上傳目錄前，你不能使用這個功能。"
+
+msgid "Server Path"
+msgstr "伺服器路徑"
+
+msgid "You must enter a directory."
+msgstr "你必須輸入一個目錄。"
+
+msgid ""
+"The directory you entered is invalid.  Make sure that the directory is readable by all users."
+msgstr "你輸入的目錄不合法。請確認這個目錄是所有用戶可讀取的。"
+
+msgid ""
+"The directory you entered is illegal.  It must be a sub directory of one of the directories "
+"listed below."
+msgstr "你輸入的目錄不合法。它必須是下列目錄之一的一個子目錄。"
+
+msgid "An item with the same name already exists."
+msgstr "同名項目已經存在。"
+
+msgid "Legal Directories"
+msgstr "合法目錄"
+
+msgid "modify"
+msgstr "修改"
+
+msgid "Recent Directories"
+msgstr "近期目錄"
+
+msgid "Find Files"
+msgstr "查找檔案"
+
+#, c-format
+msgid "Directory: %s"
+msgstr "目錄：%s"
+
+msgid "File name"
+msgstr "檔案名稱"
+
+msgid "Type"
+msgstr "類型"
+
+msgid "Size"
+msgstr "大小"
+
+msgid "Use Symlink"
+msgstr "使用鏈接"
+
+#, c-format
+msgid "%d byte"
+msgid_plural "%d bytes"
+msgstr[0] "%d 字元"
+
+msgid "Parent Directory"
+msgstr "上層目錄"
+
+msgid "Directory"
+msgstr "目錄"
+
+msgid "(Un)check all known types"
+msgstr "選擇／取消選擇所有已知類型"
+
+msgid "(Un)check symlinks"
+msgstr "選擇／取消選擇鏈接"
+
+msgid "for selected items"
+msgstr "對已選擇項目"
+
+msgid "Copy base filenames to:"
+msgstr "複製檔案名到："
+
+msgid "Add Files"
+msgstr "增加檔案"
+
+msgid "Start Over"
+msgstr "重新開始"
+
+msgid ""
+"Import files into Gallery from another website.  Enter a URL below to a web page anywhere on "
+"the net and Gallery will allow you to upload any media files that it finds on that page.  "
+"Note that if you're entering a URL to a directory, you should end the URL with a trailing "
+"slash (eg, http://example.com/directory/). "
+msgstr ""
+"從其他網站引進檔案到 Gallery。請在下面輸入網路上任何一個網頁的地址，Gallery 會讓你上傳在那會"
+"網頁中找到的任何媒體檔案。請注意，如果你輸入的位置是一個目錄，請用以反斜線作為地址結尾（例"
+"如：http://example.com/directory/）。"
+
+msgid "URL"
+msgstr "網址"
+
+msgid "You must enter a URL to a web page"
+msgstr "你必須為網頁輸入一個網址"
+
+msgid "The URL entered must begin with http://"
+msgstr "輸入網址必須以 http:// 開始"
+
+msgid "The web page you specified is unavailable"
+msgstr "你指定的網頁無法找到"
+
+msgid "Nothing to add found from this URL"
+msgstr "在這個網址中找不到可以加的項目"
+
+msgid "Nothing added since no items were selected"
+msgstr "由於未選擇項目，沒有內容被增加"
+
+msgid "Recent URLs"
+msgstr "近期網址"
+
+#, c-format
+msgid "URL: %s"
+msgstr "網址：%s"
+
+msgid "change"
+msgstr "變更"
+
+#, c-format
+msgid "%d url found"
+msgid_plural "%d urls found"
+msgstr[0] "找到 %d 個網址"
+
+msgid "(Un)check all"
+msgstr "選擇／取消選擇全部"
+
+msgid "Add URLs"
+msgstr "增加網址"
 
 msgid "No Thumbnail"
 msgstr "無縮略圖"
@@ -2534,9 +2705,6 @@ msgid ""
 "or modify a thumbnail."
 msgstr "沒有啟動的圖形工具支援這個照片格式，所以無法建立或更改縮略圖。"
 
-msgid "Unable to create a thumbnail for this item"
-msgstr "無法產生這個項目的縮略圖"
-
 msgid ""
 "In order for Gallery to properly display this movie, it has to know the movie's width and "
 "height.  If you have installed a graphics toolkit that can handle movie types, then these "
@@ -2573,10 +2741,6 @@ msgstr "寬高比例："
 
 msgid "Crop"
 msgstr "裁切"
-
-#, fuzzy
-msgid "Undo Changes"
-msgstr "變更"
 
 msgid "Reset to default"
 msgstr "重置為預設值"
@@ -2643,11 +2807,6 @@ msgstr "這是一個其他照片的鏈接，所以你不能改變原始照片。
 
 msgid "There are links to this photo, so you cannot change the original"
 msgstr "這僅是這個照片的鏈接，所以你不能更改原始照片"
-
-msgid ""
-"There is no toolkit support to modify the original so operations may only be applied to the "
-"copies"
-msgstr ""
 
 msgid "Preserve Original Photo"
 msgstr "保留原始照片"
@@ -2850,7 +3009,7 @@ msgid "New User Permission"
 msgstr "新用戶權限"
 
 msgid "The user already has this permission (check sub-permissions)"
-msgstr "用戶已擁有此權限（請檢查子權限設定）"
+msgstr "用戶已擁有此權限 (請檢查子權限設定)"
 
 msgid "Reorder Album"
 msgstr "改變相簿順序"
@@ -2863,9 +3022,6 @@ msgid ""
 "manually.  You must remove the automatic sort order to continue."
 msgstr ""
 "此相簿已指定了自動排序方式，因此你不能手動更改項目排序。你必須先刪除自動排序方式才能繼續。"
-
-msgid "change"
-msgstr "變更"
 
 msgid "Change the order of the items in this album."
 msgstr "在此相簿中變更項目順序。"
@@ -3267,9 +3423,6 @@ msgstr "%d. %s"
 
 msgid "Size: "
 msgstr "大小："
-
-msgid "Unknown"
-msgstr "未知"
 
 msgid "Full size: "
 msgstr "全尺寸："

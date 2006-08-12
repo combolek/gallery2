@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: MarkupTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.17 $ $Date: 2006/02/03 16:52:34 $
  * @package GalleryCore
  * @subpackage PHPUnit
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -53,14 +55,14 @@ class MarkupTest extends GalleryTestCase {
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'misc.markup');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
 
     function tearDown() {
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'misc.markup', $this->_markup);
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	parent::tearDown();
@@ -136,11 +138,6 @@ class MarkupTest extends GalleryTestCase {
 			    $results);
     }
 
-    function testImageSize() {
-	$results = $this->_bbcode->parse('[img width=50 height=15]/images/foo.png[/img]');
-	$this->assertEquals('<img src="/images/foo.png" alt="" width="50" height="15"/>', $results);
-    }
-
     function testJavascriptInImage() {
 	$results = $this->_bbcode->parse('[img]javascript:alert()[/img]');
 	$this->assertEquals('[img]javascript:alert()[/img]', $results);
@@ -209,7 +206,7 @@ class MarkupTest extends GalleryTestCase {
     function testMarkupNone() {
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'misc.markup', 'none');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assertEquals('&lt;b&gt; [i] &amp;oacute;',
@@ -221,7 +218,7 @@ class MarkupTest extends GalleryTestCase {
     function testMarkupBbcode() {
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'misc.markup', 'bbcode');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	/* Bbcode processor adds closing </i> tag too */
@@ -234,7 +231,7 @@ class MarkupTest extends GalleryTestCase {
     function testMarkupHtml() {
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'misc.markup', 'html');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assertEquals('<b> [i] &oacute;',

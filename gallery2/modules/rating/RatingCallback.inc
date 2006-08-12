@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: RatingCallback.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -17,8 +19,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.2 $ $Date: 2006/01/10 04:41:53 $
  * @package Rating
  * @author  Don Seiler <don@seiler.us>
  */
@@ -43,11 +46,16 @@ class RatingCallbackView extends GalleryView {
      */
     function renderImmediate($status, $error) {
 	global $gallery;
+
 	GalleryCoreApi::requireOnce('modules/rating/classes/RatingHelper.class');
 
-	list ($command, $itemId, $rating) =
-	    GalleryUtilities::getRequestVariables('command', 'itemId', 'rating');
-
+	list ($command, $itemId, $rating) = GalleryUtilities::getRequestVariables('command',
+		'itemId', 'rating');
+	list ($ret, $anonymousUserId) =
+	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
+	if ($ret) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
 	if (!headers_sent()) {
 	    header("Content-type: text/plain; charset=UTF-8");
 	}
@@ -56,30 +64,21 @@ class RatingCallbackView extends GalleryView {
 	case 'rate':
 	    list ($ret, $permission) = GalleryCoreApi::hasItemPermission($itemId, 'rating.add');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    if (!$permission) {
 		return null;
 	    }
 
-	    list ($ret, $results) =
-		RatingHelper::rateItem($itemId, (int)$rating, $gallery->getActiveUserId());
+	    list ($ret, $results) = RatingHelper::rateItem($itemId, (int)$rating,
+		    $gallery->getActiveUserId());
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
-	    list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'rating');
-	    if ($ret) {
-		return $ret;
-	    }
-	    $results['votesString'] = 
-		$module->translate(array('one' => '%d vote', 
-					 'many' => '%d votes', 
-					 'count' => $results['votes'], 
-					 'arg1' => $results['votes']));
 
 	    print $results['itemId'] . "\n"
 		. $results['rating'] . "\n"
-		. $results['votesString'] . "\n"
+		. $results['votes'] . "\n"
 		. $results['userRating'];
 
 	    break;

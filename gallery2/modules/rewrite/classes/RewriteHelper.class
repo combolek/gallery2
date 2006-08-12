@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: RewriteHelper.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 /**
  * @package Rewrite
- * @version $Revision$ $Date$
+ * @version $Revision: 1.33 $ $Date: 2006/01/10 04:42:16 $
  * @author Douglas Cau <douglas@cau.se>
  */
 
@@ -27,12 +29,12 @@
 define('REWRITE_STATUS_OK', 0);
 define('REWRITE_STATUS_BAD_KEYWORD', 1);
 define('REWRITE_STATUS_MULTISITE', 2);
-define('REWRITE_STATUS_DUPE_SHORT_URL', 3); /* Deprecated */
+define('REWRITE_STATUS_DUPE_SHORT_URL', 3);
 define('REWRITE_STATUS_INVALID_PATTERN', 4);
 define('REWRITE_STATUS_EMPTY_VALUE', 5);
 
 /**
- * A helper class for the URL rewrite module
+ * A helper class for the URL Rewrite module
  *
  * @package Rewrite
  * @subpackage Classes
@@ -40,7 +42,7 @@ define('REWRITE_STATUS_EMPTY_VALUE', 5);
 class RewriteHelper {
 
     /**
-     * Load and initialize the rewrite plugin.  If no plugin has been configured yet
+     * Load and initialize the rewrite plugin. If no plugin has been configured yet
      * it returns a GalleryStatus ERROR_MISSING_VALUE.
      *
      * @param boolean true if we need a new instance
@@ -57,10 +59,10 @@ class RewriteHelper {
 	    list ($ret, $rewriteParserId) = GalleryCoreApi::getPluginParameter(
 		'module', 'rewrite', 'parserId');
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    if (empty($rewriteParserId)) {
-		return array(GalleryCoreApi::error(ERROR_MISSING_VALUE), null);
+		return array(GalleryCoreApi::error(ERROR_MISSING_VALUE, __FILE__, __LINE__), null);
 	    }
 
 	    $path = 'modules/rewrite/classes/parsers/' . $rewriteParserId . '/parser.inc';
@@ -76,17 +78,17 @@ class RewriteHelper {
     }
 
     /**
-     * Parse active rules into an array of regular expresions for parsing URLs during page requests
-     * and build an array for the URL generator to use when generating short URLs.
+     * Parse active rules into an array of regular expresions for parsing URLs during page
+     * requests and build an array for the url generator to use when generating short URLs.
      *
      * @param array active rules by reference
      * @param object RewriteParser
      * @param object RewriteModule (optional) passed in during activate/upgrade
-     * @param array optional defenition of default and mandator flags
+     * @param array optional defenition of default and mandator flags.
      * @return array object GalleryStatus a status code
      *               int rewrite status code (REWRITE_STATUS_OK on success)
      *               array parsed patterns translated to regular expressions
-     *               array short URLs which will used by to generate URLs
+     *               array short urls which will used by to generate urls
      *               array string module (on error)
      *                     int rule id (on error)
      */
@@ -98,7 +100,7 @@ class RewriteHelper {
 	list ($ret, $accessList) = GalleryCoreApi::getPluginParameter(
 	    'module', 'rewrite', 'accessList');
 	if ($ret) {
-	    return array($ret, null, null, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null, null, null);
 	}
 	$accessList = unserialize($accessList);
 	$ourHostNames[$urlGenerator->getHostName()] = true;
@@ -116,18 +118,18 @@ class RewriteHelper {
 		if ($ret) {
 		    if ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH) {
 			/*
-			 * Add CONFIGURATION_REQUIRED code to more gracefully abort upgrade if a
-			 * dependent module for one of our rules also needs upgrading.
+			 * Add CONFIGURATION_REQUIRED code to more gracefully abort upgrade
+			 * if a dependent module for one of our rules also needs upgrading.
 			 */
 			$ret->addErrorCode(ERROR_CONFIGURATION_REQUIRED);
 		    }
-		    return array($ret, null, null, null, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null, null, null, null);
 		}
 	    }
 
 	    $rules = $module->getRewriteRules();
 	    foreach (array_keys($activeRules[$moduleId]) as $ruleId) {
-		/* Make sure this rule still exists, if not silently continue */
+		/* Make sure this rule still exists, if not silently continue. */
 		if (!isset($rules[$ruleId])) {
 		    unset($activeRules[$moduleId][$ruleId]);
 		    continue;
@@ -142,24 +144,28 @@ class RewriteHelper {
 
 	    	/* Save the pattern for the URL generator to use */
 		if (isset($rules[$ruleId]['match'])) {
-		    $shortUrl = array('match' => $rules[$ruleId]['match'],
+		    $match = join('|', $rules[$ruleId]['match']);
+		    if (isset($shortUrls[$match])) {
+			return array(null, REWRITE_STATUS_DUPE_SHORT_URL,
+			    null, null, array($match));
+		    }
+
+		    $shortUrls[$match] = array(
 			'pattern' => $activeRules[$moduleId][$ruleId]);
 
 		    /* Get custom function information */
 		    if (isset($rules[$ruleId]['keywords'])) {
 			foreach ($rules[$ruleId]['keywords'] as $key => $info) {
 			    if (isset($info['function'])) {
-				$shortUrl['functions'][$key] = $info['function'];
+				$shortUrls[$match]['functions'][$key] = $info['function'];
 			    }
 			}
 		    }
 
 		    /* Save the onLoad handler for this rule */
 		    if (isset($rules[$ruleId]['onLoad'])) {
-			$shortUrl['onLoad'] = $rules[$ruleId]['onLoad'];
+			$shortUrls[$match]['onLoad'] = $rules[$ruleId]['onLoad'];
 		    }
-
-		    $shortUrls[] = $shortUrl;
 		}
 
 		/* Parse the pattern and create regular expressions with conditions */
@@ -184,7 +190,7 @@ class RewriteHelper {
 		    }
 		}
 
-		/* Build the list of flags to apply to this rule */
+		/* Build the list of flags to apply to this rule. */
 		$settings['flags'] = isset($flags) ? $flags['default'] : array();
 		if (isset($rules[$ruleId]['flags']) && isset($flags)) {
 		    $settings['flags'] = array_merge($rules[$ruleId]['flags'], $flags['mandatory']);
@@ -209,7 +215,7 @@ class RewriteHelper {
 		list ($ret, $code) = RewriteHelper::_parseRule($activeRules[$moduleId][$ruleId],
 		    $keywords, $queryString, $regexRules, $settings);
 		if ($ret) {
-		    return array($ret, null, null, null, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null, null, null, null);
 		}
 		if ($code != REWRITE_STATUS_OK) {
 		    return array(null, $code, null, null,
@@ -225,7 +231,7 @@ class RewriteHelper {
     /**
      * Replaces all keywords with an appropriate pattern and append to $regexRules.
      *
-     * @param string URL pattern
+     * @param string url pattern
      * @param array of keywords => regular expresion for the htaccess file
      * @param array of query string params (key => value)
      * @param array of parsed rules
@@ -273,7 +279,7 @@ class RewriteHelper {
     function _sortRules($a, $b) {
 	if (isset($a['settings']['restrict']) || isset($b['settings']['restrict'])) {
 	    if (isset($a['settings']['restrict']) && isset($b['settings']['restrict'])) {
-		$diff = count($a['settings']['restrict']) - count($b['settings']['restrict']);
+		$diff = sizeof($a['settings']['restrict']) - sizeof($b['settings']['restrict']);
 		return $diff;
 	    }
 

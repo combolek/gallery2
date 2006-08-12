@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: BuildDerivativesTask.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.12 $ $Date: 2006/03/14 17:58:58 $
  * @package GalleryCore
  * @subpackage Classes
  * @author Alan Harder <alan.harder@sun.com>
@@ -60,7 +62,7 @@ class BuildDerivativesTask extends MaintenanceTask {
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 	if ($ret) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	$ret = $templateAdapter->updateProgressBar(
@@ -68,7 +70,7 @@ class BuildDerivativesTask extends MaintenanceTask {
 	    '',
 	    0);
 	if ($ret) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	$query = '
@@ -80,7 +82,7 @@ class BuildDerivativesTask extends MaintenanceTask {
 	';
 	list ($ret, $results) = $gallery->search($query);
 	if ($ret) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	$i = $broken = $built = 0;
@@ -90,14 +92,14 @@ class BuildDerivativesTask extends MaintenanceTask {
 	    $gallery->startRecordingDebugSnippet();
 	    list ($ret, $derivative, $wasBuilt) =
 		GalleryCoreApi::rebuildDerivativeCacheIfNotCurrent($result[0], true);
-	    $debug = $gallery->stopRecordingDebugSnippet();
 	    if ($ret) {
-		$debug .= "Error: building $result[0]: " . $ret->getAsHtml();
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
+	    $debug = $gallery->stopRecordingDebugSnippet();
 	    if ($wasBuilt) {
 		$built++;
 	    }
-	    if ($ret || $derivative->getIsBroken()) {
+	    if ($derivative->getIsBroken()) {
 		if (!$broken++) {
 		    print '<br/><h3>' . $module->translate('Debug output for failed items:') .
 			  '</h3>';
@@ -110,12 +112,12 @@ class BuildDerivativesTask extends MaintenanceTask {
 		    array('text' => 'Processing image %d of %d', 'arg1' => $i, 'arg2' => $total));
 		$ret = $templateAdapter->updateProgressBar($message, '', $i / $total);
 		if ($ret) {
-		    return array($ret, null, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 		/* Close open locks (too many open files for flock based locking) */
 		$ret = $storage->checkPoint();
 		if ($ret) {
-		    return array($ret, null, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 		$gallery->guaranteeTimeLimit(120);
 	    }

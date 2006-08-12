@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: MySqlStorage.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.4 $ $Date: 2006/02/20 19:13:09 $
  * @package GalleryCore
  * @author Bharat Mediratta <bharat@menalto.com>
  */
@@ -37,13 +39,31 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryStorage.class', true);
 class MySqlStorage extends GalleryStorage {
 
     /**
+     * The type of mysql database (mysql or mysqlt)
+     *
+     * @var string $_mysqlType
+     * @access private
+     */
+    var $_mysqlType;
+
+    /**
      * Constructor
      */
     function MySqlStorage($config) {
 	$this->GalleryStorage($config);
-	if ($this->_type != 'mysql' /* mysqlt and mysqli are transactional */) {
+	$this->_mysqlType = $config['type'];
+	if ($this->_mysqlType == 'mysqlt') {
 	    $this->_isTransactional = true;
 	}
+    }
+
+    /**
+     * Return the type of this database
+     *
+     * @return string
+     */
+    function getAdoDbType() {
+	return $this->_mysqlType;
     }
 
     /**
@@ -59,34 +79,34 @@ class MySqlStorage extends GalleryStorage {
      * @see GalleryStorage::_setConnectionSettings
      */
     function _setConnectionSettings(&$db) {
-	/* MySQL 4.1.0+ support UTF-8, for details, see: http://drupal.org/node/40515 */
-	$this->_serverInfo = ($this->_type == 'mysqli')
-	    ? mysqli_get_server_info($db->_connectionID) : mysql_get_server_info();
-	if ($this->_serverInfo && version_compare($this->_serverInfo, '4.1.0', '>=')) {
-	    $this->_traceStart();
-	    $recordSet = $db->execute('SET NAMES "utf8"');
-	    $this->_traceStop();
-
-	    if (!$recordSet) {
-		return GalleryCoreApi::error(ERROR_STORAGE_FAILURE);
+    	/* MySQL 4.1.0+ support UTF-8, for details, see: http://drupal.org/node/40515 */
+    	$version = mysql_get_server_info();
+	if ($version && version_compare($version, '4.1.0', '>=')) {
+    	    $this->_traceStart();
+    	    $recordSet = $db->execute('SET NAMES "utf8"');
+    	    $this->_traceStop();
+    	
+    	    if (!$recordSet) {
+	        return GalleryCoreApi::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__);
 	    }
 	}
-
-	return null;
+    	
+    	return null;
     }
-
+    
     /**
      * @see GalleryStorage::_getSqlReplacements
      */
     function _getSqlReplacements() {
-	/* 3.23.0-4.0.17 used TYPE, 5.1+ only accepts ENGINE, between accepts either */
-	$typeKeyword = ($this->_serverInfo && version_compare($this->_serverInfo, '4.0.18', '>='))
-		     ? 'ENGINE' : 'TYPE';
 
 	/* Use InnoDB for transactional tables */
-	$tableType = $this->_isTransactional ? 'InnoDB' : 'MyISAM';
+	if ($this->_isTransactional) {
+	    $tableType = 'InnoDB';
+	} else {
+	    $tableType = 'MyISAM';
+	}
 
-	return array('DB_TABLE_TYPE' => $typeKeyword . '=' . $tableType);
+	return array('DB_TABLE_TYPE' => $tableType);
     }
 
     /**
@@ -104,8 +124,8 @@ class MySqlStorage extends GalleryStorage {
 
 	case 'BIT_OR':
 	    $sql = 'BIT_OR(' . $args[0] . ')';
-	    break;
-
+            break;
+	    
 	case 'UNIX_TIMESTAMP':
 	    $sql = sprintf('UNIX_TIMESTAMP(%s)', $args[0]);
 	    break;
@@ -141,9 +161,9 @@ class MySqlStorage extends GalleryStorage {
 	case 'LIKE':
 	    $sql = $args[0] . ' LIKE ' . $args[1];
 	    break;
-
+	    
 	case 'MULTI_INSERT':
-	    /*
+	    /* 
 	     * 0 - table name
 	     * 1 - array of column names
 	     * 2 - number of rows
@@ -171,10 +191,8 @@ class MySqlStorage extends GalleryStorage {
      * @see GalleryStorage::encodeBlob
      */
     function encodeBlob($blob) {
-	if (!isset($this->_db)) {
-	    list ($ret, $this->_db) = $this->_getConnection();
-	}
-	if ($this->_serverInfo && version_compare($this->_serverInfo, '4.1.0', '>=')) {
+	$version = mysql_get_server_info();
+	if ($version && version_compare($version, '4.1.0', '>=')) {
 	    /* See: http://www.postgresql.org/docs/8.1/interactive/datatype-binary.html */
 	    $blob = addcslashes($blob, "\000..\037\047\134\177..\377");
 	}
@@ -186,29 +204,20 @@ class MySqlStorage extends GalleryStorage {
      * @see GalleryStorage::decodeBlob
      */
     function decodeBlob($blob) {
-	if (!isset($this->_db)) {
-	    list ($ret, $this->_db) = $this->_getConnection();
-	}
-	if ($this->_serverInfo && version_compare($this->_serverInfo, '4.1.0', '>=')) {
+	$version = mysql_get_server_info();
+	if ($version && version_compare($version, '4.1.0', '>=')) {
 	    $blob = stripcslashes($blob);
-	}
-
+	} 
+	    
 	return $blob;
     }
-
+	
     /**
      * Get database version.
      * @return string version
      */
     function getVersion() {
-	if (!isset($this->_db)) {
-	    list ($ret, $this->_db) = $this->_getConnection();
-	    if ($ret) {
-		return ($this->_type == 'mysqli'
-			? mysqli_get_client_info() : mysql_get_client_info()) . ' client';
-	    }
-	}
-	return $this->_serverInfo;
+	return mysql_get_server_info();
     }
 
     /**
@@ -216,20 +225,6 @@ class MySqlStorage extends GalleryStorage {
      */
     function _getOptimizeStatement() {
 	return 'OPTIMIZE TABLE %s';
-    }
-
-    /**
-     * @see GalleryStorage::getUniqueId
-     */
-    function getUniqueId() {
-	/* Make sure we're using a non-transactional connection to avoid duplicating sequence ids */
-	$extras =& $this->_getExtras();
-	list ($ret, $db) = $extras->_getNonTransactionalDatabaseConnection();
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	return $extras->_getUniqueIdWithConnection($db);
     }
 }
 ?>

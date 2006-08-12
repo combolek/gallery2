@@ -14,7 +14,7 @@
 # Copyright 2001-2002 Chuck Hagenbuch <chuck@horde.org>
 # Copyright 2001-2002 Jan Schneider <jan@horde.org>
 #
-# $Id$
+# $Id: GNUmakefile.inc,v 1.15 2006/03/07 20:47:44 mindless Exp $
 #
 MODULE_DIR = $(shell dirname `pwd`)
 TYPE_DIR = $(shell dirname $(MODULE_DIR))
@@ -58,8 +58,6 @@ messages.po:
 	    if [ -n "$(LANGPO)" ]; then \
 	      perl $(TOOLDIR)/po/premerge-messages.pl -2 messages.po $(LANGPO) > $@; \
 	    else cp messages.po $@; fi; \
-	    perl -pi~ $(TOOLDIR)/po/header.pl $@; \
-	    $(RM) $@~; \
 	  fi
 	@$(RM) messages.tmp
 
@@ -80,7 +78,7 @@ install:
 		fi; \
 		if test -z "$${QUIET}"; then echo $${LOCALE}; fi; \
 		if $(TOOLDIR)/po/shtool mkdir -p ../locale/$${LOCALE}/LC_MESSAGES; then \
-			php -f $(TOOLDIR)/po/trim-po.php `pwd`/$${LOCALE}.po > tmp.po; \
+			php -f $(TOOLDIR)/po/trim-po.php $${LOCALE}.po > tmp.po; \
 			if test "${OSTYPE}" = "solaris"; then \
 				if {MSGFMTSOL} ../locale/$${LOCALE}/LC_MESSAGES/${APPLICATION}.mo \
 						tmp.po; then \

@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: CartHelper.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -20,7 +22,7 @@
 
 /**
  * @package Cart
- * @version $Revision$ $Date$
+ * @version $Revision: 1.13 $ $Date: 2006/01/10 04:38:59 $
  * @author Bharat Mediratta <bharat@menalto.com>
  */
 
@@ -65,20 +67,20 @@ class CartHelper {
     function addItemsToCart($ids) {
 	list ($ret, $cartItemIds) = CartHelper::fetchCartItemCounts();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if (!empty($ids)) {
 	    $ret = GalleryCoreApi::studyPermissions($ids);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
 	foreach ($ids as $id) {
 	    list ($ret, $canAdd) = GalleryCoreApi::hasItemPermission($id, 'cart.add');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    if ($canAdd) {
 		if (isset($cartItemIds[$id])) {
@@ -91,7 +93,7 @@ class CartHelper {
 
 	$ret = CartHelper::setCartItemCounts($cartItemIds);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -128,13 +130,13 @@ class CartHelper {
     function loadCartItems() {
 	list ($ret, $cartItemIds) = CartHelper::fetchCartItemCounts();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$idList = array_keys($cartItemIds);
 	if (!empty($cartItemIds)) {
 	    $ret = GalleryCoreApi::studyPermissions($idList);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 	$changed = false;
@@ -148,12 +150,12 @@ class CartHelper {
 		    $changed = true;
 		    continue;
 		} else {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
 	    list ($ret, $canView) = GalleryCoreApi::hasItemPermission($itemId, 'core.view');
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    if ($canView) {
 		$items[] = $item;
@@ -165,7 +167,7 @@ class CartHelper {
 	if ($changed) {
 	    $ret = CartHelper::setCartItemCounts($cartItemIds);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
     

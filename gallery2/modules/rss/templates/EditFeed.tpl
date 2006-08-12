@@ -1,5 +1,5 @@
 {*
- * $Revision$
+ * $Revision: 1.3 $
  * If you want to customize this file, do not edit it directly since future upgrades
  * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
  * version.  Gallery will look for that file first and use it if it exists.
@@ -189,21 +189,8 @@
       <br/>{g->text text="Feeds of this type are disallowed by the administrator. Users won't be able to view them."}
     {/if}
     </td>
-  </tr><tr valign="top">
-    <td>
-      <input type="radio" name="{g->formVar var="form[feedType]"}"
-        value="commentsRecursive" {if $EditFeed.feedType=='commentsRecursive'}checked="checked"{/if}
-	id="EditFeed_typeCommentsRecursive" />
-    </td><td>
-      <label for="EditFeed_typeCommentsRecursive">
-        {g->text text="Comments for this album and its subalbums"}
-      </label>
-    {if !$param.allowCommentsRecursive}
-      <br/>{g->text text="Feeds of this type are disallowed by the administrator. Users won't be able to view them."}
-    {/if}
-    </td>
   </tr>
-  {else}
+{else}
   <tr valign="top">
     <td>{g->text text="Type of feed"}</td>
     <td><input type="radio" name="{g->formVar var="form[feedType]"}"
@@ -370,11 +357,11 @@
     {g->text text="If you want to use the cloud tag, you can set up its properties here"}
     <br />
     {g->text text="Example: "}
-    &lt;cloud domain="<b>{g->text text="domain"}</b>"
-	      port="<b>{g->text text="port"}</b>"
-	      path="<b>{g->text text="path"}</b>"
-	      registerProcedure="<b>{g->text text="registerProcedure"}</b>"
-	      protocol="<b>{g->text text="protocol"}</b>" /&gt;
+    &lt;cloud domain="<b>domain</b>"
+              port="<b>port</b>"
+	      path="<b>path</b>"
+	      registerProcedure="<b>registerProcedure</b>"
+	      protocol="<b>protocol</b>" /&gt;
   </p>
   <table class="gbDataTable"><tr>
     <td>{g->text text="Cloud tag"}</td>
@@ -394,7 +381,9 @@
     <td>{g->text text="domain"}</td>
     <td>
       <input type="text" name="{g->formVar var="form[cloudDomain]"}"
-	{if isset($EditFeed.cloudDomain)}value="{$EditFeed.cloudDomain}"{/if} />
+        {if isset($EditFeed.cloudDomain)}
+          value="{$EditFeed.cloudDomain}"
+	{/if} />
     </td>
     <td>
       {if isset($form.error.cloudDomain)}

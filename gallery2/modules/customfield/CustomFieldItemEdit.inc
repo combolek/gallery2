@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: CustomFieldItemEdit.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.13 $ $Date: 2006/01/10 04:39:36 $
  * @package CustomField
  * @subpackage UserInterface
  * @author Alan Harder <alan.harder@sun.com>
@@ -44,13 +46,13 @@ class CustomFieldItemEdit extends ItemEditPlugin {
 	$error = array();
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'customfield');
 	if ($ret) {
-	    return array($ret, null, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null, null);
 	}
 
 	if (isset($form['cfAdmin'])) {
 	    list ($ret, $adminStatus) = CustomFieldHelper::handleAdminAction($form, $item->getId());
 	    if ($ret) {
-		return array($ret, null, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null, null);
 	    }
 	    foreach ($adminStatus as $key => $tmp) {
 		switch ($key) {
@@ -80,11 +82,11 @@ class CustomFieldItemEdit extends ItemEditPlugin {
 	} else if (isset($form['action']['save'])) {
 	    $ret = CustomFieldHelper::saveFieldValues($item, $form['fields']);
 	    if ($ret) {
-		return array($ret, null, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null, null);
 	    }
 	    list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'customfield');
 	    if ($ret) {
-		return array($ret, null, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null, null);
 	    }
 	    $status = $module->translate('Changes saved successfully');
 	}
@@ -110,7 +112,7 @@ class CustomFieldItemEdit extends ItemEditPlugin {
 	case 1:
 	    $ret = CustomFieldHelper::loadAdminForm($form, $item->getId());
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    $tpl = 'modules/customfield/templates/CustomFieldItemAdmin.tpl';
 	    break;
@@ -120,7 +122,7 @@ class CustomFieldItemEdit extends ItemEditPlugin {
 	    list ($ret, $tmp, $param, $isContainerSettings) =
 		CustomFieldHelper::fetchFieldValues(array($item), null, $set);
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    $form['fields'] = $tmp[$item->getId()];
 	    foreach (array('common' => 1, $set => 1) as $s => $tmp) {
@@ -163,7 +165,7 @@ class CustomFieldItemEdit extends ItemEditPlugin {
     function getTitle() {
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'customfield');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	return array(null, $module->translate('Custom Fields'));
     }

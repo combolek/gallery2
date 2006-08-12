@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: OracleStorage.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.10.2.1 $ $Date: 2006/04/10 15:36:16 $
  * @package GalleryCore
  * @author Alan Harder <alan.harder@sun.com>
  */
@@ -37,12 +39,31 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryStorage.class', true);
 class OracleStorage extends GalleryStorage {
 
     /**
+     * The type of Oracle database (oci8, oci8po, oci805 or oracle)
+     *
+     * @var string $_oracleDbType
+     * @access private
+     */
+    var $_oracleDbType;
+
+    /**
      * Constructor
+     *
      */
     function OracleStorage($config) {
 	$this->GalleryStorage($config);
+	$this->_oracleDbType = $config['type'];
 	$this->_isTransactional = true;
 	$this->_isEmptyAllowedForNotNullColumn = false;
+    }
+
+    /**
+     * Return the type of this database
+     *
+     * @return string
+     */
+    function getAdoDbType() {
+	return $this->_oracleDbType;
     }
 
     /**
@@ -60,8 +81,8 @@ class OracleStorage extends GalleryStorage {
     function _setConnectionSettings(&$db) {
 	/* May cause "ORA-12705: Cannot access NLS data files or invalid environment specified" */
 	/* @putenv("NLS_LANG=UTF8"); */
-
-	return null;
+    	
+    	return null;
     }
 
     /**
@@ -78,16 +99,9 @@ class OracleStorage extends GalleryStorage {
 	    break;
 
 	case 'BIT_OR':
-	    /*
-	     * By default don't use BIT_OR aggregate, but OR together values in PHP.
-	     * Performing BIT_OR in the database may boost performance a bit; to do
-	     * this, see OracleCreateBitOr.sql in this directory and run the statements
-	     * with sqlplus.  Then uncomment the line below:
-	     */
-	    /* return array(null, 'BIT_OR(' . $args[0] . ')'); */
-	    return array(GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION), null);
-	    break;
-
+	    $sql = 'BIT_OR(' . $args[0] . ')';
+            break;
+	    
 	case 'AS':
 	    $sql = '';
 	    break;
@@ -121,13 +135,16 @@ class OracleStorage extends GalleryStorage {
 	    break;
 
 	case 'MULTI_INSERT':
-	    /*
+	    /* 
 	     * 0 - table name
 	     * 1 - array of column names
 	     * 2 - number of rows
 	     */
 	    $markers = GalleryUtilities::makeMarkers(sizeof($args[1]));
-	    $rowList = array_fill(0, $args[2], 'SELECT ' . $markers . ' FROM DUAL');
+	    $rowList = array(); //php4.2: array-fill(1, $args[2], 'SELECT '.$markers.' FROM DUAL');
+	    for ($i = 0; $i < $args[2]; $i++) {
+		$rowList[] = 'SELECT ' . $markers . ' FROM DUAL';
+	    }
 	    $sql = 'INSERT INTO ' . $args[0] . ' (';
 	    $sql .= implode(', ', $args[1]);
 	    $sql .= ') ' . implode(' UNION ALL ', $rowList);
@@ -144,6 +161,63 @@ class OracleStorage extends GalleryStorage {
 
 	return array(null, $sql);
     }
+
+    /**
+     * @see GalleryStorage::cleanStore
+     */
+    function cleanStore() {
+	$ret = parent::cleanStore();
+	if ($ret) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	/*
+	 * Create a temporary database connection and remove our custom
+	 * aggregate function.
+	 */
+	list ($ret, $tmpDb) = $this->_getConnection(true);
+	if ($ret) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	$this->_traceStart();
+	$recordSet1 = $tmpDb->Execute('DROP FUNCTION BIT_OR');
+	$recordSet2 = $tmpDb->Execute('DROP TYPE BIT_OR_IMPL');
+	$tmpDb->Close();
+	$this->_traceStop();
+
+	if (empty($recordSet1) || empty($recordSet2)) {
+	    return GalleryCoreApi::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__);
+	}
+
+	return null;
+    }
+
+    /**
+     * @see GalleryStorage::configureStore
+     */
+    function configureStore($moduleId, $upgradeInfo=array()) {
+	if ($moduleId == 'core') {
+	    /* Install our custom aggregate function */
+	    $ret = $this->_executeSqlFile(dirname(__FILE__) . '/OracleCreateBitOr.sql');
+
+	    /*
+	     * Ignore errors here, since we'll get them every time we try to
+	     * install the aggregate, which will happen every time we upgrade core
+	     * or install in a database with another Gallery already present.
+	     *
+	     * XXX: At some point figure out a way to detect if the aggregate is
+	     * already there before trying to install it again.
+	     */
+	}
+
+	$ret = parent::configureStore($moduleId, $upgradeInfo);
+	if ($ret) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	return null;
+     }
 
     /**
      * Get database version.

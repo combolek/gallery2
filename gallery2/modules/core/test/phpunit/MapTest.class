@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: MapTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.7 $ $Date: 2006/01/10 04:39:36 $
  * @package GalleryCore
  * @subpackage PHPUnit
  * @author Alan Harder <alan.harder@sun.com>
@@ -45,7 +47,7 @@ class MapTest extends GalleryTestCase {
 	    array('name' => $name, 'parametersCrc' => 'test', 'outputMimeType' => 'test'));
 	$this->assert($ret->getErrorCode() & ERROR_BAD_PARAMETER, 'expect error for missing key');
 	if ($ret && !($ret->getErrorCode() & ERROR_BAD_PARAMETER)) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$ret = GalleryCoreApi::addMapEntry(
@@ -54,12 +56,12 @@ class MapTest extends GalleryTestCase {
 		  'description' => null));
 	$this->assert(!$ret, 'should succeed with null value');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$ret = GalleryCoreApi::removeMapEntry('GalleryToolkitOperationMap', array('name' => $name));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
 
@@ -71,7 +73,7 @@ class MapTest extends GalleryTestCase {
 	    array('name' => $name, 'parametersCrc' => 'test', 'outputMimeType' => 'test',
 		  'description' => 'test'));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$ret = GalleryCoreApi::updateMapEntry(
@@ -80,7 +82,7 @@ class MapTest extends GalleryTestCase {
 	    array('description' => null));
 	$this->assert(!$ret, 'should succeed setting null value');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$ret = GalleryCoreApi::updateMapEntry(
@@ -89,12 +91,12 @@ class MapTest extends GalleryTestCase {
 	    array('parametersCrc' => 'changed'));
 	$this->assert(!$ret, 'should succeed matching null value');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$ret = GalleryCoreApi::removeMapEntry('GalleryToolkitOperationMap', array('name' => $name));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
 }

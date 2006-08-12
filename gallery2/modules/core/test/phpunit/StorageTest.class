@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: StorageTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.17 $ $Date: 2006/02/16 20:22:17 $
  * @package GalleryCore
  * @subpackage PHPUnit
  * @author Alan Harder <alan.harder@sun.com>
@@ -85,12 +87,12 @@ class StorageTest extends GalleryTestCase {
 	 */
 	list ($ret, $id1) = $storage->getUniqueId();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $id2) = $storage->getUniqueId();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assert(is_int($id1), 'Id1 is not an int');
@@ -110,7 +112,7 @@ class StorageTest extends GalleryTestCase {
 	    'GalleryUserGroupMap',
 	    array('userId' => 0, 'groupId' => 1));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assertEquals(
@@ -136,7 +138,7 @@ class StorageTest extends GalleryTestCase {
 		  'entityType' => 'test',
 		  'entityId' => 1));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assertEquals(
@@ -161,7 +163,7 @@ class StorageTest extends GalleryTestCase {
 	    array('externalId' => str_repeat('y', 200)),
 	    array('externalId' => str_repeat('x', 200)));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assertEquals(
@@ -185,7 +187,7 @@ class StorageTest extends GalleryTestCase {
 	    array('externalId' => array(str_repeat('y', 200), str_repeat('z', 200))),
 	    array('externalId' => str_repeat('x', 200)));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assertEquals(
@@ -208,7 +210,7 @@ class StorageTest extends GalleryTestCase {
 	$ret = $storage->updateMapEntry('GalleryFactoryMap', array('classType' => null),
 					array('classType' => 'testType'));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assertEquals(
@@ -229,7 +231,7 @@ class StorageTest extends GalleryTestCase {
 	 */
 	$ret = $storage->removeMapEntry('GalleryFactoryMap', array('classType' => null));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assertEquals(
@@ -251,7 +253,7 @@ class StorageTest extends GalleryTestCase {
 	    'GalleryUserGroupMap',
 	    array('userId' =>array(1, 2, 3), 'groupId' => array(4, 5, 6)));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $sql) = $storage->getFunctionSql(
@@ -279,7 +281,7 @@ class StorageTest extends GalleryTestCase {
 		  'entityType' => array('test1', 'test2'),
 		  'entityId' => array(1, 2)));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $sql) = $storage->getFunctionSql(
@@ -295,160 +297,18 @@ class StorageTest extends GalleryTestCase {
 	    $this->_results);
     }
 
-    function testGetMapEntry() {
-	global $gallery;
-	$storage =& $gallery->getStorage();
-
-	$mapName = 'ExternalIdMap';
-	$select = array('entityType', 'externalId', 'entityId');
-	$match = array('externalId' => 40);
-
-	list($ret, $searchResults) = GalleryCoreApi::getMapEntry($mapName, $select, $match);
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-
-	$this->assertEquals(
-	    array(array(
-		sprintf('SELECT %2$sentityType, %2$sexternalId, %2$sentityId ' .
-			'FROM %1$sExternalIdMap WHERE %2$sexternalId=?',
-			$storage->_tablePrefix, $storage->_columnPrefix),
-		array(40))),
-	    $this->_results);
-    }
-
-    function testGetMapEntries() {
-	global $gallery;
-	$storage =& $gallery->getStorage();
-
-	$mapName = 'ExternalIdMap';
-	$select = array('entityType');
-	$match = array('externalId' => array(38, 40, 42));
-
-	list($ret, $searchResults) = GalleryCoreApi::getMapEntry($mapName, $select, $match);
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-
-	$this->assertEquals(
-	    array(array(
-		sprintf(
-		    'SELECT %2$sentityType FROM %1$sExternalIdMap ' .
-		    'WHERE %2$sexternalId IN (?,?,?)',
-		    $storage->_tablePrefix, $storage->_columnPrefix),
-		array(38, 40, 42))),
-	    $this->_results);
-    }
-
-    function testGetMapEntriesAll() {
-	global $gallery;
-	$storage =& $gallery->getStorage();
-
-	$mapName = 'ExternalIdMap';
-	$select = array('entityType');
-	$match = array();
-
-	list($ret, $searchResults) = GalleryCoreApi::getMapEntry($mapName, $select, $match);
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-
-	$this->assertEquals(
-	    array(array(
-		sprintf(
-		    'SELECT %2$sentityType FROM %1$sExternalIdMap',
-		    $storage->_tablePrefix, $storage->_columnPrefix),
-		array())),
-	    $this->_results);
-    }
-
-    function testGetMapEntriesLimited() {
-	global $gallery;
-	$storage =& $gallery->getStorage();
-
-	$mapName = 'ExternalIdMap';
-	$select = array('entityType');
-	$match = array('externalId' => array(38, 40, 42));
-	$optional = array('limit' => array('count' => 1, 'offset' => 2));
-
-	list($ret, $searchResults) = GalleryCoreApi::getMapEntry($mapName, $select, $match,
-								 $optional);
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-
-	$this->assertEquals(
-	    array(array(
-		sprintf(
-		    'SELECT %2$sentityType FROM %1$sExternalIdMap WHERE %2$sexternalId IN (?,?,?)',
-		    $storage->_tablePrefix, $storage->_columnPrefix),
-		1,
-		2,
-		array(38, 40, 42))),
-	    $this->_results);
-    }
-
-    function testGetMapEntriesOrdered() {
-	global $gallery;
-	$storage =& $gallery->getStorage();
-
-	$mapName = 'ExternalIdMap';
-	$select = array('entityType');
-	$match = array('externalId' => array(38, 40, 42));
-	$optional = array('orderBy' => array('entityType' => ORDER_DESCENDING,
-					     'externalId' => ORDER_ASCENDING));
-
-	list($ret, $searchResults) =
-	    GalleryCoreApi::getMapEntry($mapName, $select, $match, $optional);
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-
-	$this->assertEquals(
-	    array(array(
-		sprintf(
-		    'SELECT %2$sentityType FROM %1$sExternalIdMap ' .
-		    'WHERE %2$sexternalId IN (?,?,?) ' .
-		    'ORDER BY %2$sentityType DESC, %2$sexternalId ASC',
-		    $storage->_tablePrefix, $storage->_columnPrefix),
-		array(38, 40, 42))),
-	    $this->_results);
-    }
-
-    function testUpdateMapEntry() {
-	global $gallery;
-	$storage =& $gallery->getStorage();
-
-	$mapName = 'ExternalIdMap';
-	$match = array('externalId' => array(38, 40, 42));
-	$set = array('entityType' => 54);
-
-	$ret = GalleryCoreApi::updateMapEntry($mapName, $match, $set);
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-
-	$this->assertEquals(
-	    array(array(
-		sprintf('UPDATE %1$sExternalIdMap SET %2$sentityType=? ' .
-			'WHERE %2$sexternalId IN (?,?,?)',
-			$storage->_tablePrefix, $storage->_columnPrefix),
-			array(54, 38, 40, 42))),
-	    $this->_results);
-    }
-
     function testSaveEntity() {
 	global $gallery;
 	$storage =& $gallery->getStorage();
 	$entity = new GalleryChildEntity();
 	$ret = $entity->create(1234);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$ret = $storage->saveEntity($entity);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	/* Only some entity fields are set because we're not calling GalleryEntity::save() here */
@@ -475,7 +335,7 @@ class StorageTest extends GalleryTestCase {
 	$entity = new GalleryEntity();
 	$ret = $entity->create();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	/* onLoadHandlers is a medium string, which is 128 chars */
@@ -483,7 +343,7 @@ class StorageTest extends GalleryTestCase {
 
 	$ret = $storage->saveEntity($entity);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	/* Only some entity fields are set because we're not calling GalleryEntity::save() here */
@@ -584,7 +444,7 @@ class StorageTest extends GalleryTestCase {
 				"null for $type");
 	}
     }
-
+    
     function testNormalizeValueToBoolean() {
 	global $gallery;
 	$storage =& $gallery->getStorage();
@@ -659,7 +519,7 @@ class StorageTest extends GalleryTestCase {
 	$this->assertEquals(5, $storage->_normalizeValue('5', $memberData, true),
 			    'from DB 2');
 	$this->assertEquals(null, $storage->_normalizeValue(null, $memberData, true), 'null');
-	$this->assertEquals($storage->convertIntToBits(0),
+	$this->assertEquals($storage->convertIntToBits(0), 
 			    $storage->_normalizeValue('', $memberData), 'empty string');
     }
 
@@ -690,13 +550,13 @@ class StorageTest extends GalleryTestCase {
 					   'parameterValue' => $testString));
 	/* If the \0 character wasn't properly escaped, PG would throw an error here */
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $value) =
 	    GalleryCoreApi::getPluginParameter('module', 'unitTestModule', $key, 1);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	/*
@@ -710,78 +570,70 @@ class StorageTest extends GalleryTestCase {
 	/* Cleanup */
 	$ret = GalleryCoreApi::removeAllPluginParameters('module', 'unitTestModule');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	/* Commit our DB transaction to release locks from the PluginParameterMap table */
 	$ret = $storage->checkPoint();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
 
     function testEncodeDecodeBlob() {
-	global $gallery;
+        global $gallery;
 	$storage =& $gallery->getStorage();
 	/* Use a real SQL connection for this test */
 	$storage->_db = null;
-
+	
 	/* We want to store binary (gz-deflated) data in a text field */
 	$blobData = '';
 	for ($i = 0; $i <= 255; $i++) {
 	    $blobData .= chr($i);
 	}
-
+	
 	/* encode it */
 	$escapedString = $storage->encodeBlob($blobData);
-
+	
 	$key = 'test_' . rand();
 	$ret = GalleryCoreApi::addMapEntry(
 	    'GalleryCacheMap',
 	    array('key' => $key, 'value' => $escapedString, 'userId' => 55,
 		  'itemId' => 99, 'type' => 'test', 'timestamp' => time()));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	/* No (PHP) error? Good! Next, get the entry from the db and compare */
-
+	
 	$query = '
-	SELECT
-	  [GalleryCacheMap::value]
-	FROM
-	  [GalleryCacheMap]
-	WHERE
-	  [GalleryCacheMap::key] = ?
-	';
+            SELECT
+              [GalleryCacheMap::value]
+            FROM
+              [GalleryCacheMap]
+            WHERE
+              [GalleryCacheMap::key] = ?
+            ';
 	list ($ret, $results) = $storage->search($query, array($key));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-
+	
 	if ($results->resultCount() > 0) {
 	    $result = $results->nextResult();
-	    $result = $storage->decodeBlob($result[0]);
-	    $this->assertEquals($blobData, $result,
+	    $this->assertEquals($blobData, $storage->decodeBlob($result[0]),
 				'blob data was altered in encode -> insert -> select -> decode');
-	    if ($blobData != $result) {
-		$bytes = '';
-		for ($i = 0; $i < strlen($result); $i++) {
-		    $bytes .= ' ' . ord($result{$i});
-		}
-		$this->assert(false, 'Result bytes:' . $bytes);
-	    }
 	} else {
 	    $this->assert(false, 'SELECT failed, got nothing back!');
 	}
-
+	
 	/* Cleanup */
 	$ret = GalleryCoreApi::removeMapEntry('GalleryCacheMap', array('type' => 'test'));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	/* Commit our DB transaction to release locks from the Cache table */
 	$ret = $storage->checkPoint();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
 }
@@ -796,11 +648,6 @@ class StorageTestDB {
 
     function execute($query, $data) {
 	$this->_testCase->_results[] = array($query, $data);
-	return 1;
-    }
-
-    function SelectLimit($query, $nrows=-1, $offset=-1, $inputarr=false) {
-	$this->_testCase->_results[] = array($query, $nrows, $offset, $inputarr);
 	return 1;
     }
 

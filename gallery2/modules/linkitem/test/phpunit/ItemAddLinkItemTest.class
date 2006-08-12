@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ItemAddLinkItemTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.2 $ $Date: 2006/01/10 04:40:36 $
  * @package LinkItem
  * @subpackage PHPUnit
  * @author Alan Harder <alan.harder@sun.com>
@@ -38,59 +40,30 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
     function setUp() {
 	parent::setUp();
 
-	$ret = $this->_markPluginParametersForCleanup('module', 'linkitem');
-	if ($ret) {
-	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
-	}
-
 	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($this->_album);
-
-	$ret = GalleryCoreApi::removeDerivativePreferencesForItem($this->_album->getId());
-	if ($ret) {
-	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
-	}
-	$ret = GalleryCoreApi::addDerivativePreference(
-		1, $this->_album->getId(), DERIVATIVE_TYPE_IMAGE_THUMBNAIL, 'thumbnail|123');
-	if ($ret) {
-	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
-	}
 
 	list ($ret, $this->_lockId) = GalleryCoreApi::acquireReadLock($this->_album->getId());
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
 
     function tearDown() {
 	$ret = GalleryCoreApi::releaseLocks($this->_lockId);
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	parent::tearDown();
     }
 
     function testAddAlbumLink() {
-	$ret = GalleryCoreApi::setPluginParameter('module', 'linkitem', 'arrowWatermark', '0');
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-
-	list ($ret, $highlight) = $this->_createDerivative(
-		$this->_album, 321, DERIVATIVE_TYPE_IMAGE_THUMBNAIL, 'thumbnail|234', 'image/png');
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-
 	GalleryUtilities::putRequestVariable('form[action][addLinkItem]', 1);
 	GalleryUtilities::putRequestVariable('form[linkType]', 'album');
 	GalleryUtilities::putRequestVariable('form[linkedAlbumId]', $this->_album->getId());
@@ -103,58 +76,6 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 			    array_keys($results[1]['addedFiles'][0]), 'key');
 	$this->assertEquals($this->_album->getTitle(), $results[1]['addedFiles'][0]['fileName'],
 			    'fileName');
-
-	list ($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($this->_album);
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-	$this->assertEquals(1, count($childIds), 'child count');
-
-	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($childIds[0]);
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-	$this->assert(GalleryUtilities::isExactlyA($item, 'GalleryLinkItem'), 'type');
-	$this->assertEquals((string)$this->_album->getId(), $item->getLink(), 'link');
-
-	list ($ret, $thumbnailTable) =
-	    GalleryCoreApi::fetchThumbnailsByItemIds(array($childIds[0]));
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-	$this->assertEquals(array($childIds[0]), array_keys($thumbnailTable), 'thumbnail table');
-	$thumbnail = $thumbnailTable[$childIds[0]];
-	$this->assertEquals($highlight->getId(), $thumbnail->getDerivativeSourceId(), 'src');
-	$this->assertEquals('thumbnail|123', $thumbnail->getDerivativeOperations(), 'op');
-	$this->assertEquals(null, $thumbnail->getPostFilterOperations(), 'postfilter');
-    }
-
-    function testAddEmptyAlbumLink() {
-	/* Link to empty album (no highlight) falls back to using linkitem as thumbnail source */
-	GalleryUtilities::putRequestVariable('form[action][addLinkItem]', 1);
-	GalleryUtilities::putRequestVariable('form[linkType]', 'album');
-	GalleryUtilities::putRequestVariable('form[linkedAlbumId]', $this->_album->getId());
-
-	$results = $this->handleRequest($this->_album);
-	$this->assertEquals(array(), $results[0], 'no error');
-	$this->assertEquals(1, count($results[1]['addedFiles']), '1 file');
-
-	list ($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($this->_album);
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-	$this->assertEquals(1, count($childIds), 'child count');
-
-	list ($ret, $thumbnailTable) =
-	    GalleryCoreApi::fetchThumbnailsByItemIds(array($childIds[0]));
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-	$this->assertEquals(array($childIds[0]), array_keys($thumbnailTable), 'thumbnail table');
-	$thumbnail = $thumbnailTable[$childIds[0]];
-	$this->assertEquals($childIds[0], $thumbnail->getDerivativeSourceId(), 'src');
-	$this->assertEquals('convert-to-image/jpeg;thumbnail|123',
-			    $thumbnail->getDerivativeOperations(), 'op');
     }
 
     function testAddLinkItemAlbumNotFound() {
@@ -168,11 +89,6 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
     }
 
     function testAddLinkItemURL() {
-	$ret = GalleryCoreApi::setPluginParameter('module', 'linkitem', 'arrowWatermark', '1');
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-
 	GalleryUtilities::putRequestVariable('form[action][addLinkItem]', 1);
 	GalleryUtilities::putRequestVariable('form[linkType]', 'url');
 	GalleryUtilities::putRequestVariable('form[linkUrl]', 'http://test.com/test.html');
@@ -184,33 +100,6 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 	$this->assertEquals(array('fileName', 'id', 'warnings'),
 			    array_keys($results[1]['addedFiles'][0]), 'key');
 	$this->assertEquals('test.html', $results[1]['addedFiles'][0]['fileName'], 'fileName');
-
-	list ($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($this->_album);
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-	$this->assertEquals(1, count($childIds), 'child count');
-
-	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($childIds[0]);
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-	$this->assert(GalleryUtilities::isExactlyA($item, 'GalleryLinkItem'), 'type');
-	$this->assertEquals('http://test.com/test.html', $item->getLink(), 'link');
-
-	list ($ret, $thumbnailTable) =
-	    GalleryCoreApi::fetchThumbnailsByItemIds(array($childIds[0]));
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-	$this->assertEquals(array($childIds[0]), array_keys($thumbnailTable), 'thumbnail table');
-	$thumbnail = $thumbnailTable[$childIds[0]];
-	$this->assertEquals($childIds[0], $thumbnail->getDerivativeSourceId(), 'src');
-	$this->assertEquals('convert-to-image/jpeg;thumbnail|123',
-			    $thumbnail->getDerivativeOperations(), 'op');
-	$this->assertEquals(
-	    'composite|plugins_data/modules/linkitem/arrow.png,image/png,14,14,bottom-right,0,0',
-	    $thumbnail->getPostFilterOperations(), 'postfilter');
     }
 
     function testAddLinkItemURLMissing() {

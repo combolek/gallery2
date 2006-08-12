@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ItemAddAlbumControllerTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.22 $ $Date: 2006/01/10 04:39:36 $
  * @package GalleryCore
  * @subpackage PHPUnit
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -41,7 +43,7 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 	list ($ret, $this->_parentAlbum) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($this->_parentAlbum);
     }
@@ -59,7 +61,7 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	/* Perform the request and verify that we succeeded */
@@ -78,7 +80,7 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 	/* Create an album */
 	list ($ret, $subAlbum) = $this->_createRandomAlbum($this->_parentAlbum->getId());
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	/* Use valid inputs */
@@ -95,7 +97,7 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	/* Perform the request and verify that we succeeded */
@@ -111,7 +113,7 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $newAlbum) = GalleryCoreApi::loadEntitiesById($this->_getSecondChildId());
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	/* Verify that the new album's path component is unique (it's got _001 as a suffix) */
@@ -171,7 +173,7 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	/* Perform the request and verify that we succeeded */
@@ -187,13 +189,13 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $newAlbum) = GalleryCoreApi::loadEntitiesById($id);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(trim($name), $newAlbum->getPathComponent(), 'path component');
 
 	list ($ret, $path) = $newAlbum->fetchPath();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert($platform->is_dir($path), "directory '$path'");
 	$this->assertEquals(trim($name), basename($path),

@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: NewAlbumControllerTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,15 +20,15 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
- * @package PublishXp
+ * @version $Revision: 1.6 $ $Date: 2006/01/10 04:41:41 $
+ * @package PublishXP
  * @subpackage PHPUnit
  * @author Bharat Mediratta <bharat@menalto.com>
  */
 
 /**
  * NewAlbum controller tests
- * @package PublishXp
+ * @package PublishXP
  * @subpackage PHPUnit
  */
 class NewAlbumControllerTest extends GalleryControllerTestCase {
@@ -55,19 +57,19 @@ class NewAlbumControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $album) = GalleryCoreApi::loadEntitiesById($albumId);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-
+	
 	$this->assertEquals($this->_getRootId(), $album->getParentId());
 	$this->assertEquals($pathComponent, $album->getPathComponent());
 	$this->assertEquals('test title', $album->getTitle());
 	$this->assertEquals('test summary', $album->getSummary());
 	$this->assertEquals('test description', $album->getDescription());
 	$this->assertEquals(null, $album->getKeywords());
-
+	
 	$ret = GalleryCoreApi::deleteEntityById($albumId);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
 

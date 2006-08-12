@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: theme.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,15 +20,15 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
- * @package FloatrixTheme
+ * @version $Revision: 1.10 $ $Date: 2006/03/22 03:52:37 $
+ * @package Gallery
  * @author Bharat Mediratta <bharat@menalto.com>
  */
 
 /**
  * This implements the standard gallery theme
  *
- * @package FloatrixTheme
+ * @package GalleryTheme
  * @subpackage Theme
  */
 class FloatrixTheme extends GalleryTheme {
@@ -40,9 +42,9 @@ class FloatrixTheme extends GalleryTheme {
 	$this->setId('floatrix');
 	$this->setName($gallery->i18n('Floatrix'));
 	$this->setDescription($gallery->i18n('Variable column theme based on Matrix'));
-	$this->setVersion('1.0.3');
+	$this->setVersion('1.0.2');
 	$this->setRequiredCoreApi(array(7, 0));
-	$this->setRequiredThemeApi(array(2, 4));
+	$this->setRequiredThemeApi(array(2, 3));
 	$this->setStandardSettings(
 	    array('perPage' => 12,
 		  'columnWidth' => 200, 'rowHeight' => 300,
@@ -86,11 +88,11 @@ class FloatrixTheme extends GalleryTheme {
 	      'thumbnails', 'pageNavigator', 'jumpRange'),
 	     $childIds);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$ret = $this->preloadBlock($template, 'search.SearchBlock');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$this->_splitItemLinks($template);
@@ -108,11 +110,11 @@ class FloatrixTheme extends GalleryTheme {
 	}
 	$ret = $this->loadCommonTemplateData($template, $item, $params, $dataTypes);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$ret = $this->preloadBlock($template, 'search.SearchBlock');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$this->_splitItemLinks($template);
@@ -129,7 +131,6 @@ class FloatrixTheme extends GalleryTheme {
 		'slideshowapplet.SlideshowApplet' => true,
 		'comment.AddComment' => true,
 		'comment.ShowAllComments' => true,
-		'ecard.SendEcard' => true,
 		'rss.SimpleRender' => true,
 		);
 	$theme['userLinks'] = array();
@@ -148,7 +149,7 @@ class FloatrixTheme extends GalleryTheme {
 	$ret = $this->loadCommonTemplateData(
 	    $template, $item, $params, array('parents', 'systemLinks'));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, 'theme.tpl');
@@ -161,7 +162,7 @@ class FloatrixTheme extends GalleryTheme {
 	$ret = $this->loadCommonTemplateData(
 	    $template, $item, $params, array('parents', 'systemLinks'));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, 'theme.tpl');
@@ -181,7 +182,7 @@ class FloatrixTheme extends GalleryTheme {
 	$ret = $this->loadCommonTemplateData(
 	    $template, $item, $params, array('parents', 'systemLinks'));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, 'theme.tpl');

@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: module.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.50.2.1 $ $Date: 2006/04/05 00:19:54 $
  * @package Ffmpeg
  * @author Bharat Mediratta <bharat@menalto.com>
  */
@@ -38,7 +40,7 @@ class FfmpegModule extends GalleryModule {
 	$this->setId('ffmpeg');
 	$this->setName($gallery->i18n('Ffmpeg'));
 	$this->setDescription($gallery->i18n('A toolkit for processing movies'));
-	$this->setVersion('1.0.6');
+	$this->setVersion('1.0.5');
 	$this->setGroup('toolkits', $gallery->i18n('Graphics Toolkits'));
 	$this->setCallbacks('getSiteAdminViews');
 	$this->setRequiredCoreApi(array(7, 0));
@@ -54,13 +56,13 @@ class FfmpegModule extends GalleryModule {
 
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'ffmpeg');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	foreach (array('path' => '', 'useWatermark' => 0) as $key => $value) {
 	    if (!isset($params[$key])) {
 		$ret = $this->setParameter($key, $value);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	}
@@ -93,14 +95,14 @@ class FfmpegModule extends GalleryModule {
 	    'GalleryToolkit', 'FfmpegToolkit', 'Ffmpeg',
 	    'modules/ffmpeg/classes/FfmpegToolkit.class', 'ffmpeg', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::registerFactoryImplementation('ItemAddOption',
 	    'MovieThumbnailOption', 'MovieThumbnailOption',
 	    'modules/ffmpeg/MovieThumbnailOption.inc', 'ffmpeg', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -114,7 +116,7 @@ class FfmpegModule extends GalleryModule {
 
 	list ($ret, $needsConfiguration) = $this->needsConfiguration();
 	if ($ret) {
-	    return array($ret, false);
+	    return array($ret->wrap(__FILE__, __LINE__), false);
 	}
 
 	if (!$needsConfiguration) {
@@ -187,7 +189,7 @@ class FfmpegModule extends GalleryModule {
 		/* We have a winner */
 		$ret = GalleryCoreApi::setPluginParameter('module', 'ffmpeg', 'path', $path);
 		if ($ret) {
-		    return array($ret, false);
+		    return array($ret->wrap(__FILE__, __LINE__), false);
 		}
 
 		return array(null, true);
@@ -208,20 +210,20 @@ class FfmpegModule extends GalleryModule {
 	list ($ret, $results) =
 	    FfmpegToolkitHelper::getOperationsAndProperties();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $priority) = GalleryCoreApi::getToolkitPriorityById('Ffmpeg');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (!$priority) {
 	    list ($ret, $priority) = GalleryCoreApi::getMaximumManagedToolkitPriority();
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
-	    $priority = min($priority + 1, 40);
+	    $priority++;
 	}
 
 	foreach ($results['operations'] as $operation => $info) {
@@ -232,7 +234,7 @@ class FfmpegModule extends GalleryModule {
 							   $info['description'],
 							   $info['outputMimeType'], $priority);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
@@ -243,13 +245,31 @@ class FfmpegModule extends GalleryModule {
 							  $info['type'],
 							  $info['description']);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
 	list ($ret, $redirect) = parent::activate($postActivationEvent);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	return array(null, $redirect);
+    }
+
+    /**
+     * @see GalleryModule::deactivate()
+     */
+    function deactivate($postDeactivationEvent=true) {
+	list ($ret, $redirect) = parent::deactivate($postDeactivationEvent);
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	/* Unregister all of our properties and operations */
+	$ret = GalleryCoreApi::unregisterToolkit('Ffmpeg');
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, $redirect);
@@ -263,7 +283,7 @@ class FfmpegModule extends GalleryModule {
 	foreach (array('path') as $key) {
 	    list ($ret, $value) = $this->getParameter($key);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    if (empty($value)) {

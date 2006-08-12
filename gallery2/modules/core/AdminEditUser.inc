@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: AdminEditUser.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.40 $ $Date: 2006/01/21 01:36:45 $
  * @package GalleryCore
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -39,7 +41,7 @@ class AdminEditUserController extends GalleryController {
     function handleRequest($form) {
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$results = $status = $error = array();
@@ -47,7 +49,7 @@ class AdminEditUserController extends GalleryController {
 	$userId = GalleryUtilities::getRequestVariables('userId');
 	list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/*
@@ -56,7 +58,7 @@ class AdminEditUserController extends GalleryController {
 	list ($ret, $anonymousUserId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$isAnonymous = ($userId == $anonymousUserId);
 
@@ -87,7 +89,7 @@ class AdminEditUserController extends GalleryController {
 	    if (!empty($form['userName'])) {
 		list ($ret, $tmpUser) = GalleryCoreApi::fetchUserByUsername($form['userName']);
 		if ($ret && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		if (!empty($tmpUser) && $tmpUser->getId() != $userId) {
@@ -119,12 +121,12 @@ class AdminEditUserController extends GalleryController {
 	    if (empty($error)) {
 		list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($user->getId());
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		list ($ret, $user) = $user->refresh();
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		$user->setUserName(trim($form['userName']));
@@ -133,19 +135,19 @@ class AdminEditUserController extends GalleryController {
 		    $user->setEmail($form['email']);
 		    $user->setLanguage($form['language']);
 		    if (!empty($form['password1'])) {
-			GalleryUtilities::unsanitizeInputValues($form['password1'], false);
-			$user->changePassword($form['password1']);
+			$user->changePassword(
+			    GalleryUtilities::htmlEntityDecode($form['password1']));
 		    }
 		}
 
 		$ret = $user->save();
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		$ret = GalleryCoreApi::releaseLocks($lockId);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		/* Request a redirect to the confirmation screen */
@@ -185,13 +187,13 @@ class AdminEditUserView extends GalleryView {
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$userId = GalleryUtilities::getRequestVariables('userId');
 	list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Load the form with user data the first time around. */
@@ -207,7 +209,7 @@ class AdminEditUserView extends GalleryView {
 	list ($ret, $anonymousUserId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$show['email'] = ($userId != $anonymousUserId);
 	$show['language'] = ($userId != $anonymousUserId);
@@ -217,7 +219,7 @@ class AdminEditUserView extends GalleryView {
 	    /* Set up our language selection list */
 	    list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    $languageList = array();

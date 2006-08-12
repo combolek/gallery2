@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: AdminMembers.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.13 $ $Date: 2006/03/17 18:52:51 $
  * @package Members
  * @author Robert Balousek <rbalousek@hotmail.com>
  */
@@ -35,7 +37,7 @@ class AdminMembersController extends GalleryController {
     function handleRequest($form) {
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$error = $status = array();
@@ -45,7 +47,7 @@ class AdminMembersController extends GalleryController {
 		    $ret = GalleryCoreApi::setPluginParameter('module', 'members',
 							      $key, trim($form[$key]));
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		}
 	    }
@@ -79,12 +81,12 @@ class AdminMembersView extends GalleryView {
     function loadTemplate(&$template, &$form) {
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'members');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Load our default values if we didn't just come from this form. */
@@ -93,7 +95,7 @@ class AdminMembersView extends GalleryView {
 		list ($ret, $form[$key]) =
 		    GalleryCoreApi::getPluginParameter('module', 'members', $key);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
 	    $form['formName'] = 'AdminMembers';
@@ -105,7 +107,7 @@ class AdminMembersView extends GalleryView {
 	    list ($ret, $groupIds[]) =
 		GalleryCoreApi::getPluginParameter('module', 'core', $key);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 	$members = array();

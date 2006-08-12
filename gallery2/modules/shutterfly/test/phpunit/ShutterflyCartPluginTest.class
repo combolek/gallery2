@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ShutterflyCartPluginTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.6 $ $Date: 2006/01/10 04:42:36 $
  * @package Shutterfly
  * @subpackage PHPUnit
  * @author Alan Harder <alan.harder@sun.com>
@@ -44,20 +46,20 @@ class ShutterflyCartPluginTest extends GalleryTestCase {
 	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($this->_album);
 
 	$ret = GalleryCoreApi::removeItemPermissions($this->_album->getId());
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$ret = GalleryCoreApi::addUserPermission(
 	    $this->_album->getId(), $gallery->getActiveUserId(), 'core.all');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	for ($i = 0; $i < 3; $i++) {
@@ -69,7 +71,7 @@ class ShutterflyCartPluginTest extends GalleryTestCase {
 					     'GalleryPhotoItem');
 	    if ($ret) {
 		print $ret->getAsHtml();
-		return $this->failWithStatus($ret);
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	}
 
@@ -78,37 +80,25 @@ class ShutterflyCartPluginTest extends GalleryTestCase {
 	    $this->_items[1]->getId(), $gallery->getActiveUserId(), 'shutterfly.print');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	/* Public view permission on one */
 	list ($ret, $anonymousUserId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$ret = GalleryCoreApi::addUserPermission(
 	    $this->_items[2]->getId(), $anonymousUserId, 'core.viewAll');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
-	}
-	/* Watermarked thumbnail for one*/
-	for ($i = 0; $i < 3; $i++) {
-	    list ($ret, $this->_thumbs[$i]) = $this->_createDerivative(
-		    $this->_items[$i], $this->_items[$i]->getId(),
-		    DERIVATIVE_TYPE_IMAGE_THUMBNAIL, 'test-operation|100', 'test/jpeg',
-		    $i ? array() : array('postFilterOperations' => 'test-watermark|yes'));
-	    if ($ret) {
-		print $ret->getAsHtml();
-		return $this->failWithStatus($ret);
-	    }
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
 
     function testFulfillCart() {
 	global $gallery;
-	$urlGenerator =& $gallery->getUrlGenerator();
 
 	$cartItemIds = array();
 	for ($i = 0; $i < count($this->_items); $i++) {
@@ -121,13 +111,9 @@ class ShutterflyCartPluginTest extends GalleryTestCase {
 	$cartPlugin = new ShutterflyCartPlugin();
 	list ($ret, $urlParams) = $cartPlugin->fulfillCart($cartItemIds);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-	$returnUrl = $urlGenerator->generateUrl(array('view' => 'cart.ViewCart'),
-						array('forceFullUrl' => true));
-	$this->assertEquals(
-		array('view' => 'shutterfly.PrintPhotos', 'returnUrl' => $returnUrl),
-		$urlParams);
+	$this->assertEquals(array('view' => 'shutterfly.PrintPhotos', 'return' => 1), $urlParams);
 
 	$session =& $gallery->getSession();
 	$printCart = $session->get('shutterfly.cart');
@@ -136,40 +122,23 @@ class ShutterflyCartPluginTest extends GalleryTestCase {
 	/* Render PrintPhotos view to test processing of cart items */
 	list ($ret, $view) = GalleryView::loadView('shutterfly.PrintPhotos');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	} else {
-	    GalleryUtilities::putRequestVariable('returnUrl', 'http://test.com/testUrl');
+	    GalleryUtilities::putRequestVariable('return', '/testUrl');
 	    ob_start();
 	    $view->renderImmediate(array(), array());
 	    $form = ob_get_contents();
 	    ob_end_clean();
-	    $this->assert(strpos($form, '"returl" value="http://test.com/testUrl"'), 'return url');
+	    $this->assert(strpos($form, '"returl" value="/testUrl"'), 'return url');
 	    $this->assert(strpos($form, '"imnum" value="4"'),
 		'form should include 4 photos: qty 1 of item 0, none of item 1 ' .
 		'(no print permission), qty 3 of item 2');
-	    $this->assert(preg_match('{"imraw-1" value="http://[^"]*'
-			. $this->_items[0]->getId() . '[^"]*'
-			. GalleryUtilities::prefixFormVariable($session->getKey())
-			. '=([A-Za-z0-9]+)}', $form, $matches),
-		    'URL for first image should include a session id');
-	    $this->assert($matches[1] != $session->getId(),
-		    'session id in URL for first image should be a new id, not my session');
-	    $this->assert(preg_match('{"imthumb-1" value="http://[^"]*'
-			. $this->_items[0]->getId() . '[^"]*'
-			. GalleryUtilities::prefixFormVariable($session->getKey())
-			. '=([A-Za-z0-9]+)}', $form, $matches),
-		    'URL for first thumbnail should include a session id'
-		    . ' and use itemId not thumbId due to watermark');
-	    $this->assertEquals($session->getId(), $matches[1],
-		    'session id in URL for first thumbnail should be my session');
-	    $this->assert(preg_match('{"imraw-4" value="http://[^"]*'
-			. $this->_items[2]->getId() . '(?![^"]*'
-			. $session->getKey() . '=)}', $form, $matches),
-		    'URL for second image should not include a session id');
-	    $this->assert(preg_match('{"imthumb-4" value="http://[^"]*'
-			. $this->_thumbs[2]->getId() . '(?![^"]*'
-			. $session->getKey() . '=)}', $form, $matches),
-		    'URL for second thumbnail should not include a session id');
+	    preg_match_all('/' . GalleryUtilities::prefixFormVariable($session->getKey()) .
+		'=([A-Za-z0-9]+)/', $form, $matches);
+	    /* Only first photo should add sessionid; the other is viewable to guests */
+	    $this->assert(!empty($matches[1]), 'missing sessionid for shutterfly access');
+	    $this->assert(1, count($matches[1]), 'number of urls with sessionid');
+	    $this->assert($matches[1][0] != $session->getId(), 'wrong sessionid in form');
 	}
 
 	$printCart = $session->get('shutterfly.cart');

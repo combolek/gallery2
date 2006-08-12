@@ -1,4 +1,4 @@
-# $Id$
+# $Id: af.po,v 1.1 2006/03/18 19:43:32 mindless Exp $
 #
 # Gallery - a web based photo album viewer and editor
 # Copyright (C) 2000-2006 Bharat Mediratta
@@ -20,7 +20,7 @@
 # Previous translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Upgrader 2.2\n"
+"Project-Id-Version: Gallery: Upgrader 2.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-06-12 14:00+0200\n"
 "PO-Revision-Date: 2006-02-24 09:09+0200\n"
@@ -59,13 +59,12 @@ msgstr "Begin Opgradering"
 msgid "System Checks"
 msgstr "Stelsel Nagaan"
 
-#, fuzzy
-msgid "PHP version >= 4.3.0 or >= 5.0.4"
+msgid "PHP version >= 4.1.0 or >= 5.0.4"
 msgstr "PHP weergawe >= 4.1.0 of >= 5.0.4"
 
-#, fuzzy, c-format
+#, c-format
 msgid ""
-"Error: Gallery 2 requires PHP version 4.3.0 or newer or 5.0.4 or newer. You have PHP version "
+"Error: Gallery 2 requires PHP version 4.1.0 or newer or 5.0.4 or newer. You have PHP version "
 "%s installed. Contact your webserver administrator to request an upgrade, available at the %"
 "sPHP website%s."
 msgstr ""
@@ -440,9 +439,8 @@ msgstr "Gallery: <strong>Jou fotos</strong> op <strong>jou webwerf</strong>"
 msgid "Missing files (%d)"
 msgstr "Vermiste l&ecirc;ers (%d)"
 
-#, fuzzy
 msgid ""
-"Note: You're running Gallery from SVN, so recently removed files may appear here.  It might "
+"Note: You're running Gallery from CVS, so recently removed files may appear here.  It might "
 "be safe to ignore these."
 msgstr ""
 "Let op: U loop Gallery vanuit CVS, daarom kan onlangs verwyderde l&ecirc;ers hier verskyn.  "
@@ -452,11 +450,10 @@ msgstr ""
 msgid "Modified files (%d)"
 msgstr "Gewysigde l&ecirc;ers (%d)"
 
-#, fuzzy
 msgid ""
-"Note: You're running Gallery from SVN, so some modified files are to be expected.  You can "
-"probably ignore these, but to be safe you should make sure that you do 'svn update' before "
-"continuing."
+"Note: You're running Gallery from CVS, so some modified files are to be expected.  You can "
+"probably ignore these, but to be safe you should make sure that you do <b>cvs update -Pd</b> "
+"before continuing."
 msgstr ""
 "Let op: U loop Gallery vanaf CVS, daarom kan sommige gewysigde l&ecirc;ers hier verskyn.  U "
 "kan hulle waarskynlik ignoreer, maar om veilig te wees maak seker dat u <b>cvs update -Pd</"

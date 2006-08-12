@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ChangeLanguage.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.6 $ $Date: 2006/01/10 04:39:20 $
  * @package GalleryCore
  * @subpackage UserInterface
  * @author Alan Harder <alan.harder@sun.com>
@@ -42,7 +44,7 @@ class ChangeLanguageController extends GalleryController {
 	$language = GalleryUtilities::getRequestVariables('language');
 	$ret = $gallery->setActiveLanguageCode($language);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$results['return'] = 1;

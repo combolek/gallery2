@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: module.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.39 $ $Date: 2006/03/22 03:52:36 $
  * @package SquareThumb
  * @author Alan Harder <alan.harder@sun.com>
  */
@@ -52,14 +54,14 @@ class SquareThumbModule extends GalleryModule /* and GalleryEventListener */ {
     function upgrade($currentVersion) {
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'squarethumb');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	foreach (array('mode' => 'crop', 'color' => '000000')
 		 as $key => $value) {
 	    if (!isset($params[$key])) {
 		$ret = $this->setParameter($key, $value);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	}
@@ -75,7 +77,7 @@ class SquareThumbModule extends GalleryModule /* and GalleryEventListener */ {
 	    'GalleryToolkit', 'SquareThumbToolkit', 'SquareThumb',
 	    'modules/squarethumb/classes/SquareThumbToolkit.class', 'squarethumb', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -97,7 +99,7 @@ class SquareThumbModule extends GalleryModule /* and GalleryEventListener */ {
 	list ($ret, $toolkit) = GalleryCoreApi::getToolkitByOperation('image/x-portable-pixmap',
 								      'convert-to-image/jpeg');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	return array(null, !isset($toolkit) ? array() :
 		     array(array('name' => $this->translate('Square Thumbnails'),
@@ -113,11 +115,11 @@ class SquareThumbModule extends GalleryModule /* and GalleryEventListener */ {
 	list ($ret, $toolkit) = GalleryCoreApi::getToolkitByOperation('image/x-portable-pixmap',
 								      'convert-to-image/jpeg');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $mimeTypes) = $this->_getSupportedMimeTypes(isset($toolkit));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Register toolkit operation using high priority */
@@ -127,7 +129,7 @@ class SquareThumbModule extends GalleryModule /* and GalleryEventListener */ {
 		      array('type' => 'int', 'description' => $gallery->i18n('(optional)'))),
 		$gallery->i18n('Create square thumbnail'), '', 10);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	} else {
 	    /* Can't activate unless there's a toolkit to leech off of */
@@ -140,13 +142,13 @@ class SquareThumbModule extends GalleryModule /* and GalleryEventListener */ {
 	    /* Make sure we're in crop mode, if toolkit support for fit mode gets deactivated */
 	    $ret = $this->setParameter('mode', 'crop');
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
 	list ($ret, $redirect) = parent::activate($postActivationEvent);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, $redirect);
@@ -164,16 +166,16 @@ class SquareThumbModule extends GalleryModule /* and GalleryEventListener */ {
     function _getSupportedMimeTypes($useComposite) {
 	list ($ret, $thumbnail) = GalleryCoreApi::getToolkitOperationMimeTypes('thumbnail');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $crop) = GalleryCoreApi::getToolkitOperationMimeTypes('crop');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if ($useComposite) {
 	    list ($ret, $composite) = GalleryCoreApi::getToolkitOperationMimeTypes('composite');
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	} else {
 	    $composite = array();
@@ -184,7 +186,7 @@ class SquareThumbModule extends GalleryModule /* and GalleryEventListener */ {
 		 as $mimeType) {
 	    list ($ret, $properties) = GalleryCoreApi::getToolkitProperties($mimeType);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    foreach ($properties as $tmp) {
 		if ($tmp['name'] == 'dimensions') {
@@ -195,6 +197,26 @@ class SquareThumbModule extends GalleryModule /* and GalleryEventListener */ {
 	}
 
 	return array(null, $mimeTypes);
+    }
+
+    /**
+     * @see GalleryModule::deactivate()
+     */
+    function deactivate($postDeactivationEvent=true) {
+	global $gallery;
+
+	list ($ret, $redirect) = parent::deactivate($postDeactivationEvent);
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	/* Unregister all of our properties and operations */
+	$ret = GalleryCoreApi::unregisterToolkit('SquareThumb');
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	return array(null, $redirect);
     }
 
     /**
@@ -215,14 +237,14 @@ class SquareThumbModule extends GalleryModule /* and GalleryEventListener */ {
 
 	    list ($ret, $isActive) = $this->isActive();
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    if ($isActive) {
 		/* Reactivate may fail if toolkit support no longer found. */
 		list ($ret, $redirect) = $this->reactivate();
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
 	}

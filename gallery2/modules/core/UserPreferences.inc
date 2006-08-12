@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: UserPreferences.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.29 $ $Date: 2006/03/06 06:56:06 $
  * @package GalleryCore
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -40,15 +42,20 @@ class UserPreferencesController extends GalleryController {
     function handleRequest($form) {
 	global $gallery;
 
-	list ($ret, $isAnonymous) = GalleryCoreApi::isAnonymousUser();
+	$userId = $gallery->getActiveUserId();
+
+	list ($ret, $anonymousUserId) =
+	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	if ($isAnonymous) {
-	    return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED), null);
+	if ($userId == $anonymousUserId) {
+	    return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED, __FILE__, __LINE__), null);
 	}
 
-	$results = $status = $error = array();
+	$results = array();
+	$status = array();
+	$error = array();
 	if (isset($form['action']['cancel'])) {
 
 	    /* Redirect back to the previous view */
@@ -70,17 +77,17 @@ class UserPreferencesController extends GalleryController {
 
 	    list ($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
-	    $userId = $gallery->getActiveUserId();
 	    list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($userId);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
+	    
 	    list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 
@@ -98,7 +105,7 @@ class UserPreferencesController extends GalleryController {
 		    !$user->isCorrectPassword($form['currentPassword'])) {
 		$error[] = 'form[error][currentPassword][incorrect]';
 	    }
-
+	    
 	    /* Set a default if for some reason it doesn't get sent from the browser */
 	    $form['email'] = empty($form['email']) ? '' : $form['email'];
 
@@ -107,7 +114,7 @@ class UserPreferencesController extends GalleryController {
 		if (empty($form['currentPassword'])) {
 		    $error[] = 'form[error][currentPassword][missing]';
 		}
-	    }
+		}
 
 	    /* If all the right fields are in place then go ahead and modify the user. */
 	    if (empty($error)) {
@@ -123,8 +130,7 @@ class UserPreferencesController extends GalleryController {
 
 		$ret = $user->save();
 		if ($ret) {
-		    GalleryCoreApi::releaseLocks($lockId);
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		/* Request a redirect to the confirmation screen */
@@ -135,7 +141,7 @@ class UserPreferencesController extends GalleryController {
 
 	    $ret = GalleryCoreApi::releaseLocks($lockId);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
@@ -168,12 +174,14 @@ class UserPreferencesView extends GalleryView {
     function loadTemplate(&$template, &$form) {
 	global $gallery;
 
-	list ($ret, $isAnonymous) = GalleryCoreApi::isAnonymousUser();
+	$userId = $gallery->getActiveUserId();
+	list ($ret, $anonymousUserId) =
+	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	if ($isAnonymous) {
-	    return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED), null);
+	if ($userId == $anonymousUserId) {
+	    return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED, __FILE__, __LINE__), null);
 	}
 
 	$user = $gallery->getActiveUser();
@@ -190,7 +198,7 @@ class UserPreferencesView extends GalleryView {
 	/* Set up our language selection list */
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$languageList = array();
@@ -219,7 +227,7 @@ class UserPreferencesView extends GalleryView {
     function getViewDescription() {
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, $core->translate('your account'));

@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: parser.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 /**
  * @package Rewrite
- * @version $Revision$ $Date$
+ * @version $Revision: 1.2 $ $Date: 2006/01/10 04:42:17 $
  * @author Douglas Cau <douglas@cau.se>
  */
 
@@ -97,13 +99,13 @@ class IsapiRewriteParser extends RewriteParser {
 	if (!isset($rewriteModule)) {
 	    list($ret, $rewriteModule) = GalleryCoreApi::loadPlugin('module', 'rewrite');
 	    if ($ret) {
-	        return array($ret, null);
+	        return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
 	list ($ret, $message) = parent::getErrorMessage($code, $rewriteModule);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (!isset($message)) {
@@ -119,7 +121,7 @@ class IsapiRewriteParser extends RewriteParser {
 		    'create it.');
 		break;
 	    default:
-	        return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+	        return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	    }
 	}
 
@@ -144,14 +146,14 @@ class IsapiRewriteParser extends RewriteParser {
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	if (isset($form['force']['test'])) {
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'rewrite',
 		'isapirewrite.forced', '1');
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	}
 
@@ -181,7 +183,7 @@ class IsapiRewriteParser extends RewriteParser {
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	if (empty($form['httpdini'])) {
@@ -205,7 +207,7 @@ class IsapiRewriteParser extends RewriteParser {
 	$ret = GalleryCoreApi::setPluginParameter('module', 'rewrite',
 	    'isapirewrite.httpdini', $path);
 	if ($ret) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	if (GalleryUtilities::isEmbedded()) {
@@ -219,7 +221,7 @@ class IsapiRewriteParser extends RewriteParser {
 		$this,
 		GalleryUtilities::getRequestVariables('controller') != 'SetupRewriteController');
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 
 	    if ($code != REWRITE_STATUS_OK) {
@@ -241,7 +243,7 @@ class IsapiRewriteParser extends RewriteParser {
 	list ($ret, $value) = GalleryCoreApi::getPluginParameter('module', 'rewrite',
 	    'isapirewrite.embeddedLocation');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, empty($value));
@@ -254,7 +256,7 @@ class IsapiRewriteParser extends RewriteParser {
 	list ($ret, $value) = GalleryCoreApi::getPluginParameter('module', 'rewrite',
 	    'isapirewrite.embeddedLocation');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, array('embeddedLocation' => $value));
@@ -269,7 +271,7 @@ class IsapiRewriteParser extends RewriteParser {
 
 	list ($ret, $code) = IsapiRewriteHelper::saveEmbedConfig($param, $this, true);
 	if ($ret) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	return array(null, $code,

@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: AdminModulesVerifyUninstall.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.8 $ $Date: 2006/02/24 20:44:18 $
  * @package GalleryCore
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -39,7 +41,7 @@ class AdminModulesVerifyUninstallController extends GalleryController {
     function handleRequest($form) {
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$status = $error = array();
@@ -48,29 +50,24 @@ class AdminModulesVerifyUninstallController extends GalleryController {
 	if (!empty($moduleId) && isset($form['action']['uninstall'])) {
 	    list ($ret, $module) = GalleryCoreApi::loadPlugin('module', $moduleId);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    list ($ret, $isActive) = $module->isActive();
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
-	    if ($isActive) {
-		list ($ret, $redirect) = $module->deactivate();
-		if ($ret) {
-		    return array($ret, null);
-		}
-	    }
-
-	    if (empty($redirect)) {
+	    if (!$isActive) {
 		$ret = $module->uninstall();
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
+		}
+		if (empty($redirect)) {
+		    $redirect['view'] = 'core.SiteAdmin';
+		    $redirect['subView'] = 'core.AdminModules';
 		}
 		$status['uninstalled'] = $module->translate($module->getName());
-		$redirect['view'] = 'core.SiteAdmin';
-		$redirect['subView'] = 'core.AdminPlugins';
 	    }
 	}
 
@@ -78,7 +75,7 @@ class AdminModulesVerifyUninstallController extends GalleryController {
 	    $results['redirect'] = $redirect;
 	} else {
 	    $results['delegate']['view'] = 'core.SiteAdmin';
-	    $results['delegate']['subView'] = 'core.AdminPlugins';
+	    $results['delegate']['subView'] = 'core.AdminModules';
 	}
 	$results['status'] = $status;
 	$results['error'] = $error;
@@ -101,13 +98,13 @@ class AdminModulesVerifyUninstallView extends GalleryView {
     function loadTemplate(&$template, &$form) {
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$moduleId = GalleryUtilities::getRequestVariables('moduleId');
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', $moduleId);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if ($form['formName'] != 'AdminModulesVerifyUninstall') {

@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: PrintPhotos.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -15,10 +17,10 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.6 $ $Date: 2006/02/06 18:09:40 $
  * @package Fotokasten
  * @author Ioana Ciocanescu <service@fotokasten.de>
  */
@@ -62,45 +64,45 @@ class PrintPhotosController extends GalleryController {
 	    $session->remove('fotokasten.cart');
 	}
 	if (empty($cartItemIds)) {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	}
 
 	/* Load the necessary item data */
 	$itemIds = array_keys($cartItemIds);
 	list ($ret, $items) = GalleryCoreApi::loadEntitiesById($itemIds);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds($itemIds);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $resizes) = GalleryCoreApi::fetchResizesByItemIds($itemIds);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $preferreds) = GalleryCoreApi::fetchPreferredsByItemIds($itemIds);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$ret = GalleryCoreApi::studyPermissions($itemIds);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* We want to know which are viewable to guests */
 	list ($ret, $anonymousUserId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$ret = GalleryCoreApi::studyPermissions($itemIds, $anonymousUserId);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	/* Assemble all our data */
 	$i = 0;
@@ -109,21 +111,37 @@ class PrintPhotosController extends GalleryController {
 	    $itemId = $item->getId();
 	    list ($ret, $permissions) = GalleryCoreApi::getPermissions($itemId);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    list ($ret, $publicPermissions) =
 		GalleryCoreApi::getPermissions($itemId, $anonymousUserId);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    if (!isset($permissions['fotokasten.print'])) {
 		/* Skip any cart items for which we don't have print permission */
 		continue;
 	    }
-
-	    $source = isset($preferreds[$itemId]) ? $preferreds[$itemId] : $item;
-	    $needSession = !isset($publicPermissions['core.viewSource']);
+	    if (isset($permissions['core.viewSource'])) {
+		$source = isset($preferreds[$itemId]) ? $preferreds[$itemId] : $item;
+		$needSession = !isset($publicPermissions['core.viewSource']);
+	    } else if (isset($permissions['core.viewResizes']) && !empty($resizes[$itemId])) {
+		$maxSize = null;
+		foreach ($resizes[$itemId] as $resize) {
+		    $size = $resize->getDerivativeSize();
+		    if (!isset($maxSize) || $size > $maxSize) {
+			$source = $resize;
+			$maxSize = $size;
+		    }
+		}
+		$needSession = !isset($publicPermissions['core.viewResizes']);
+	    } else if (isset($thumbnails[$itemId])) {
+		$source = $thumbnails[$itemId];
+		$needSession = !isset($publicPermissions['core.view']);
+	    } else {
+		continue;
+	    }
 
 	    if ($needSession && !isset($foSession)) {
 		/*
@@ -135,21 +153,20 @@ class PrintPhotosController extends GalleryController {
 		$foSession = new GallerySession();
 		$ret = $foSession->initEmpty(true, $gallery->getActiveUserId());
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
-
-		/* Mark this session so that it can be treated specially */
-		$foSession->put('core.isPrintService', 1);
-
 		/*
-		 * TODO: Would like to enforce a particular session timeout to ensure this session
-		 * lasts long enough for fotokasten to retrieve the images.  Maybe also store the
-		 * sessionid in this session so we can reuse it for multiple print requests (and
-		 * just bump timeout each time).
+		 * TODO: Would like to enforce a particular session timeout to ensure this
+		 * session lasts long enough for fotokasten to retrieve the images.  With
+		 * current file based sessions this would require modifying ctime of files
+		 * which we can't do.  Maybe if sessions move to the database we'll be able
+		 * to guarantee session lifetime.
+		 * When we can do this, maybe also store the sessionid in this session so we
+		 * can reuse it for multiple print requests (and just bump timeout each time).
 		 */
 		$ret = $foSession->save();
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
 	    $sessionParam =
@@ -165,20 +182,14 @@ class PrintPhotosController extends GalleryController {
 		'height'        => $source->getHeight(),
 		'width'         => $source->getWidth()
 	    );
-
-	    if (!isset($thumbnails[$itemId]) || $thumbnails[$itemId]->getPostFilterOperations()) {
-		/* Use the source if the thumbnail has a postfilter (like a watermark) */
-		$thumbSource = $source;
-	    } else {
-		$thumbSource = $thumbnails[$itemId];
+	    if (isset($thumbnails[$itemId])) {
+		$basket_item['thumbnail_url'] = $urlGenerator->generateUrl(
+		    array_merge(array('view' => 'core.DownloadItem',
+				      'itemId' => $thumbnails[$itemId]->getId()),
+				$sessionParam),
+		    array('forceSessionId' => false, 'forceFullUrl' => true,
+			  'htmlEntities' => false));
 	    }
-
-	    $basket_item['thumbnail_url'] = $urlGenerator->generateUrl(
-		array_merge(array('view' => 'core.DownloadItem',
-				  'itemId' => $thumbSource->getId()),
-			    $sessionParam),
-		array('forceSessionId' => false, 'forceFullUrl' => true,
-		      'htmlEntities' => false));
 
 	    $basket["item" . ++$i] = $basket_item;
 	}
@@ -186,7 +197,7 @@ class PrintPhotosController extends GalleryController {
 	/* prepare for connection */
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'fotokasten');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$this->affiliate_id = $params['affiliateId'];
 	$this->affiliate_id_pass = $params['affiliateIdPass'];
@@ -201,13 +212,13 @@ class PrintPhotosController extends GalleryController {
 	/* get fotokasten session */
 	$ret = $this->getFotokastenSession();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* transfer cart to fotokasten */
 	list ($ret, $referer) = $this->sendFotokastenCart($basket);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* add language parameter */

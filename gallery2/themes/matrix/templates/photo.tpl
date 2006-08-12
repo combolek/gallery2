@@ -1,5 +1,5 @@
 {*
- * $Revision$
+ * $Revision: 1.8 $
  * If you want to customize this file, do not edit it directly since future upgrades
  * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
  * version.  Gallery will look for that file first and use it if it exists.
@@ -56,19 +56,7 @@
 	    </a>
 	    {/capture}
 
-	    {if $image.viewInline}
-	      {if count($theme.imageViews) > 1}
-		{if $theme.imageViewsIndex==1 && count($theme.imageViews)==2}
-		  <a href="{g->url params=$theme.pageUrl arg1="itemId=`$theme.item.id`"}">
-		{else}
-		  {assign var="imageViewsLink" value=$theme.imageViewsIndex+1}
-		  {if $imageViewsLink==count($theme.imageViews)}
-		    {assign var="imageViewsLink" value=$theme.imageViewsIndex-1}
-		  {/if}
-		  <a href="{g->url params=$theme.pageUrl arg1="itemId=`$theme.item.id`"
-				   arg2="imageViewsIndex=`$imageViewsLink`"}">
-		{/if}
-	      {/if}
+	    {if ($image.viewInline)}
 	      {if isset($theme.photoFrame)}
 		{g->container type="imageframe.ImageFrame" frame=$theme.photoFrame
 			      width=$image.width height=$image.height}
@@ -77,9 +65,6 @@
 		{/g->container}
 	      {else}
 		{g->image item=$theme.item image=$image fallback=$smarty.capture.fallback}
-	      {/if}
-	      {if count($theme.imageViews) > 1}
-		</a>
 	      {/if}
 	    {else}
 	      {$smarty.capture.fallback}
@@ -111,7 +96,7 @@
 
         {g->block type="core.GuestPreview" class="gbBlock"}
 
-        {* Our emergency edit link, if the user removes all blocks containing edit links *}
+        {* Our emergency edit link, if the user all blocks containing edit links *}
 	{g->block type="core.EmergencyEditItemLink" class="gbBlock"
                   checkSidebarBlocks=true
                   checkPhotoBlocks=true}

@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: AddToCart.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.14 $ $Date: 2006/01/10 04:38:59 $
  * @package Cart
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -48,26 +50,26 @@ class AddToCartController extends GalleryController {
 
 	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Figure out what ids we care about */
 	if ($item->getCanContainChildren()) {
 	    list ($ret, $ids) = GalleryCoreApi::fetchChildDataItemIds($item);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	} else {
 	    $ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.view');
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $ids = array($item->getId());
 	}
 
 	$ret = CartHelper::addItemsToCart($ids);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Prepare our results */

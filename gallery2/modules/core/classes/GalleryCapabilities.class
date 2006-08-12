@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: GalleryCapabilities.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,17 +20,15 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.12 $ $Date: 2006/01/10 04:39:21 $
  * @package GalleryCore
  * @author Alan Harder <alan.harder@sun.com>
  */
 
 /**
  * Switches and configuration for some core functionality.
- * This class is deprecated; use $gallery->setConfig instead.
- * TODO: remove this class on next major bump of core/embed api.
+ * This gives modules or an embedded environment an access point to modify core behavior.
  *
- * @deprecated
  * @package GalleryCore
  * @subpackage Classes
  */
@@ -41,6 +41,33 @@ class GalleryCapabilities {
      */
 
     /**
+     * Return reference to array of configuration values.
+     * @access private
+     * @static
+     */
+    function &_getConfig() {
+	static $config;
+	if (!isset($config)) {
+	    $config = array(
+
+		/* Offer UserAdmin links on sidebar (Login/Logout/Your Account) */
+		'login' => true,
+
+		/* UrlGenerator parameters for redirect when ShowItem target is inaccessible */
+		'loginRedirect' => array('view' => 'core.UserAdmin',
+					 'subView' => 'core.UserLogin', 'return' => true),
+
+		/* Allow item linking */
+		'link' => true,
+
+		/* Can we allow themes to show the sidebar? */
+		'showSidebarBlocks' => true,
+	    );
+	}
+	return $config;
+    }
+
+    /**
      * Get a configuration value.
      *
      * @param string key name
@@ -48,8 +75,8 @@ class GalleryCapabilities {
      * @static
      */
     function get($key) {
-	global $gallery;
-	return $gallery->getConfig($key);
+	$config =& GalleryCapabilities::_getConfig();
+	return isset($config[$key]) ? $config[$key] : null;
     }
 
     /**
@@ -60,8 +87,8 @@ class GalleryCapabilities {
      * @static
      */
     function can($key) {
-	global $gallery;
-	return (boolean)$gallery->getConfig($key);
+	$config =& GalleryCapabilities::_getConfig();
+	return isset($config[$key]) ? (boolean)$config[$key] : null;
     }
 
     /**
@@ -72,8 +99,12 @@ class GalleryCapabilities {
      * @static
      */
     function set($key, $value) {
-	global $gallery;
-	$gallery->setConfig($key, $value);
+	$config =& GalleryCapabilities::_getConfig();
+	if (!isset($value)) {
+	    unset($config[$key]);
+	} else {
+	    $config[$key] = $value;
+	}
     }
 }
 ?>

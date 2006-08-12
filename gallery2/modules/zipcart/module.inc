@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: module.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.31.2.1 $ $Date: 2006/04/05 00:19:58 $
  * @package ZipCart
  * @author Alan Harder <alan.harder@sun.com>
  */
@@ -52,7 +54,7 @@ class ZipCartModule extends GalleryModule {
 	    'CartPluginInterface_1_0', 'ZipCartPlugin', 'zipcart',
 	    'modules/zipcart/classes/ZipCartPlugin.class', 'zipcart', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -64,7 +66,7 @@ class ZipCartModule extends GalleryModule {
     function needsConfiguration() {
 	list ($ret, $value) = $this->getParameter('path');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, empty($value));
@@ -78,7 +80,7 @@ class ZipCartModule extends GalleryModule {
 
 	list ($ret, $needsConfiguration) = $this->needsConfiguration();
 	if ($ret) {
-	    return array($ret, false);
+	    return array($ret->wrap(__FILE__, __LINE__), false);
 	}
 	if (!$needsConfiguration) {
 	    return array(null, true);
@@ -135,7 +137,7 @@ class ZipCartModule extends GalleryModule {
 		/* We have a winner */
 		$ret = $this->setParameter('path', $path);
 		if ($ret) {
-		    return array($ret, false);
+		    return array($ret->wrap(__FILE__, __LINE__), false);
 		}
 		return array(null, true);
 	    }

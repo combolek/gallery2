@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -23,7 +25,6 @@
  */
 require_once(dirname(__FILE__) . '/../../support/security.inc');
 ini_set('magic_quotes_runtime', false);
-set_time_limit(0);
 
 $type = 'summary';
 if (!empty($_REQUEST['type']) && $_REQUEST['type'] == 'detail') {

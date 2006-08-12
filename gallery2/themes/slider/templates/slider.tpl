@@ -1,5 +1,5 @@
 {*
- * $Revision$
+ * $Revision: 1.1 $
  * If you want to customize this file, do not edit it directly since future upgrades
  * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
  * version.  Gallery will look for that file first and use it if it exists.
@@ -8,8 +8,8 @@
 {foreach from=$theme.children key=i item=it}
   {if isset($it.image)}
     {if isset($it.renderItem)}
-      <a id="img_{$it.imageIndex}" href="{g->url params=$theme.pageUrl
-       arg1="itemId=`$it.id`" arg2="renderId=`$it.image.id`"}"></a>
+      <a id="img_{$it.imageIndex}" href="{g->url arg1="view=core.ShowItem"
+          arg2="itemId=`$it.id`" arg3="renderId=`$it.image.id`"}"></a>
     {else}
       <a id="img_{$it.imageIndex}" href="{g->url arg1="view=core.DownloadItem"
        arg2="itemId=`$it.image.id`" arg3="serialNumber=`$it.image.serialNumber`"}"></a>
@@ -24,32 +24,7 @@
 {/foreach}
 </div>
 
-<div id="imagearea" class="gcBackground1">{if $theme.params.enableImageMap}<img
-     src="{g->theme url="images/arrow-left.gif"}" alt="" width="20" height="17"
-     id="prevArrow" onclick="image_prev()"
-     style="position: absolute; top: 30px; left: 30px; visibility: hidden; cursor: pointer"
-     onmouseover="document.getElementById('prevArrow').style.visibility='visible'"
-     onmouseout="document.getElementById('prevArrow').style.visibility='hidden'"
-  />{/if}<div id="image"></div>{if $theme.params.enableImageMap}<img
-     src="{g->theme url="images/arrow-right.gif"}" alt="" width="20" height="17"
-     id="nextArrow" onclick="image_next()"
-     style="position: absolute; top: 30px; right: 30px; visibility: hidden; cursor: pointer"
-     onmouseover="document.getElementById('nextArrow').style.visibility='visible'"
-     onmouseout="document.getElementById('nextArrow').style.visibility='hidden'"
-  />{/if}</div>
-
-{if $theme.params.enableImageMap}
-<map id="prevnext" name="prevnext">
-  <area shape="rect" coords="0,0,0,0"
-   href="javascript:image_prev()" alt=""
-   onmouseover="document.getElementById('prevArrow').style.visibility='visible'"
-   onmouseout="document.getElementById('prevArrow').style.visibility='hidden'"/>
-  <area shape="rect" coords="0,0,0,0"
-   href="javascript:image_next()" alt=""
-   onmouseover="document.getElementById('nextArrow').style.visibility='visible'"
-   onmouseout="document.getElementById('nextArrow').style.visibility='hidden'"/>
-</map>
-{/if}
+<div id="imagearea" class="gcBackground1"><div id="image"></div></div>
 
 <div id="titlebar" class="gcBackground2 gcBorder2">
   <div id="tools_left">
@@ -91,7 +66,7 @@
     </p></noscript>
     {foreach from=$theme.children key=i item=it}{strip}
     {if isset($it.image)}
-      <a href="" onclick="this.blur();image_show({$it.imageIndex});return false">
+      <a href="" onclick="image_show({$it.imageIndex});return false">
 	{if isset($it.thumbnail)}
 	  {g->image item=$it image=$it.thumbnail class=hthumb}
 	{else}

@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ZipCartAdminControllerTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.11 $ $Date: 2006/01/10 04:43:43 $
  * @package ZipCart
  * @subpackage PHPUnit
  * @author Alan Harder <alan.harder@sun.com>
@@ -42,7 +44,7 @@ class ZipCartAdminControllerTest extends GalleryControllerTestCase {
 	$ret = $this->_markPluginParametersForCleanup('module', 'zipcart');
 	if ($ret) {
 		print $ret->getAsHtml();
-		return $this->failWithStatus($ret);
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->_platform = new UnitTestPlatform();
@@ -70,7 +72,7 @@ class ZipCartAdminControllerTest extends GalleryControllerTestCase {
 
 	$results = $this->handleRequest();
 	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'core.AdminPlugins'),
+						      'subView' => 'core.AdminModules'),
 				  'status' => array(),
 				  'error' => array()),
 			    $results);

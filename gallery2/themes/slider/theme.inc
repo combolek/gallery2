@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: theme.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,8 +20,8 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
- * @package SliderTheme
+ * @version $Revision: 1.9 $ $Date: 2006/03/22 03:52:38 $
+ * @package Gallery
  * @author Alan Harder <alan.harder@sun.com>
  */
 
@@ -28,7 +30,7 @@
  * slideshow support in a single dynamic page.  Displays inline items ONLY; subalbums
  * or other items types are NOT shown.
  *
- * @package SliderTheme
+ * @package GalleryTheme
  * @subpackage Theme
  */
 class SliderTheme extends GalleryTheme {
@@ -43,33 +45,14 @@ class SliderTheme extends GalleryTheme {
 	$this->setName($gallery->i18n('Slider'));
 	$this->setDescription(
 	    $gallery->i18n('Image viewer/slideshow; subalbums/other items not shown'));
-	$this->setVersion('1.0.5');
+	$this->setVersion('1.0.3');
 	$this->setRequiredCoreApi(array(7, 0));
-	$this->setRequiredThemeApi(array(2, 4));
+	$this->setRequiredThemeApi(array(2, 0));
 	$this->setStandardSettings(array(
 	    'colorpack' => '',
 	    'sidebarBlocks' => serialize(array(
 		 array('search.SearchBlock', array('showAdvancedLink' => true)),
-		 array('imageblock.ImageBlock', array()))),
-	    'enableImageMap' => 0));
-    }
-
-    /**
-     * @see GalleryTheme::getSettings
-     */
-    function getSettings($itemId=null) {
-	list ($ret, $settings, $params) = parent::getSettings($itemId);
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	$settings[] = array('key' => 'enableImageMap',
-			    'name' => $this->translate(
-		'Enable prev/next navigation by clicking in the left/right half of the image'),
-			    'type' => 'checkbox',
-			    'value' => $params['enableImageMap']);
-
-	return array(null, $settings);
+		 array('imageblock.ImageBlock', array())))));
     }
 
     /**
@@ -80,14 +63,14 @@ class SliderTheme extends GalleryTheme {
 	    array('parents', 'systemLinks', 'itemLinks'),
 	    $childIds);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$theme =& $template->getVariableByReference('theme');
 
 	list ($ret, $imageWidths, $imageHeights) =
 	    $this->_buildItemList($childIds, $theme['children']);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$theme['imageWidths'] = implode(',', $imageWidths);
@@ -107,7 +90,7 @@ class SliderTheme extends GalleryTheme {
 	    /* Render this item */
 	    list ($ret, $image) = GalleryCoreApi::loadEntitiesById($renderId);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $template->setVariable('theme', array('item' => (array)$item,
 						  'image' => (array)$image));
@@ -117,16 +100,16 @@ class SliderTheme extends GalleryTheme {
 	/* Otherwise, load the parent with initial view of this item  */
 	list ($ret, $parent) = GalleryCoreApi::loadEntitiesById($item->getParentId());
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($parent);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $tplFile) = $this->showAlbumPage($template, $parent, $params, $childIds);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$theme =& $template->getVariableByReference('theme');
 	foreach ($theme['children'] as $tmp) {
@@ -148,7 +131,7 @@ class SliderTheme extends GalleryTheme {
 	$ret = $this->loadCommonTemplateData(
 	    $template, $item, $params, array('parents', 'systemLinks'));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, 'theme.tpl');
@@ -161,7 +144,7 @@ class SliderTheme extends GalleryTheme {
 	$ret = $this->loadCommonTemplateData(
 	    $template, $item, $params, array('parents', 'systemLinks'));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, 'theme.tpl');
@@ -181,7 +164,7 @@ class SliderTheme extends GalleryTheme {
 	$ret = $this->loadCommonTemplateData(
 	    $template, $item, $params, array('parents', 'systemLinks'));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, 'theme.tpl');
@@ -196,26 +179,26 @@ class SliderTheme extends GalleryTheme {
 	if (!empty($childIds)) {
 	    $ret = GalleryCoreApi::studyPermissions($childIds);
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    list ($ret, $childItems) = GalleryCoreApi::loadEntitiesById($childIds);
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    list ($ret, $preferredFullImages) =
 		GalleryCoreApi::fetchPreferredsByItemIds($childIds);
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    list ($ret, $resizedImages) =
 		GalleryCoreApi::fetchResizesByItemIds($childIds);
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    list ($ret, $thumbnails) =
 		GalleryCoreApi::fetchThumbnailsByItemIds($childIds);
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	}
 	$i = -1;
@@ -231,7 +214,7 @@ class SliderTheme extends GalleryTheme {
 		    list ($ret, $thumbnails[$childId]) =
 			GalleryCoreApi::rebuildDerivativeCache($thumbnails[$childId]->getId());
 		    if ($ret) {
-			return array($ret, null, null);
+			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 		}
 		$children[$i]['thumbnail'] = (array)$thumbnails[$childId];
@@ -239,7 +222,7 @@ class SliderTheme extends GalleryTheme {
 
 	    list ($ret, $permissions) = GalleryCoreApi::getPermissions($childId);
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 
 	    $images = array();
@@ -268,7 +251,7 @@ class SliderTheme extends GalleryTheme {
 			&& !($image->getWidth() && $image->getHeight())) {
 		    list ($ret, $image) = GalleryCoreApi::rebuildDerivativeCache($image->getId());
 		    if ($ret) {
-			return array($ret, null, null);
+			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 		}
 		$image = (array)$image;

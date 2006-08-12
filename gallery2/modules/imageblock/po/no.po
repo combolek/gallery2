@@ -1,4 +1,4 @@
-# $Id$
+# $Id: no.po,v 1.9 2006/03/22 04:19:29 mindless Exp $
 #
 # Gallery - a web based photo album viewer and editor
 # Copyright (C) 2000-2006 Bharat Mediratta
@@ -21,14 +21,14 @@
 # - Sverre M. Vikan <sverre AT urven DOT net>
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Image Block 1.0.8\n"
+"Project-Id-Version: Gallery: Image Block 1.0.7\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-02-01 23:52+0100\n"
-"PO-Revision-Date: 2006-05-11 16:43+0100\n"
+"PO-Revision-Date: 2006-03-09 23:47+0100\n"
 "Last-Translator: Sverre M. Vikan <sverre AT urven DOT net>\n"
 "Language-Team: Norwegian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -154,9 +154,6 @@ msgstr "Begrens objektvalget til undertreet av galleriet under album med gitt id
 msgid "Scale images to this maximum size. If maxSize exceeds the thumbnail dimensions, you must also specify g2_show=fullSize"
 msgstr "Skaler bilder til denne maksimumsstørrelsen. Du må også oppgi g2_show=fullSize om maxSize overgår miniatyrbildedimensjonene"
 
-msgid "Href for link on image; value of none for no link; default is link to item in the Gallery"
-msgstr "Href for lenke på bilde; ingen verdi for ingen lenke; standard er lenke til objekt i galleriet"
-
 msgid "Add a link target (for example, to open links in a new browser window)"
 msgstr "Legg til en mållenke (f.eks., for å åpne lenker i nytt vindu)"
 
@@ -233,4 +230,3 @@ msgstr "Vis antall visninger"
 
 msgid "Show owner"
 msgstr "Vis eier"
-

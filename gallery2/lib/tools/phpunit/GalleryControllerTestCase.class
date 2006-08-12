@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: GalleryControllerTestCase.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.9 $ $Date: 2006/01/10 04:38:41 $
  * @package Gallery
  * @subpackage PHPUnit
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -43,7 +45,7 @@ class GalleryControllerTestCase extends GalleryTestCase {
 	GalleryCoreApi::requireOnce('modules/core/classes/GalleryController.class');
 	list ($ret, $this->_controller) = GalleryController::loadController($controllerName);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
 
@@ -69,7 +71,7 @@ class GalleryControllerTestCase extends GalleryTestCase {
 			join(' | ', GalleryStatus::getErrorCodeConstants($ret->getErrorCode()))));
 	    }
 	} else if ($ret) {
-	    $this->failWithStatus($ret);
+	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	} else {
 	    /* Check to make sure we got back everything we want */
 	    $this->assert(isset($results['status']), 'controller results missing status');

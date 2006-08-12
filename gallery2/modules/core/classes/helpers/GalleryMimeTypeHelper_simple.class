@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: GalleryMimeTypeHelper_simple.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.10 $ $Date: 2006/01/10 04:39:23 $
  * @package GalleryCore
  * @author Bharat Mediratta <bharat@menalto.com>
  */
@@ -42,7 +44,7 @@ class GalleryMimeTypeHelper_simple {
     function convertExtensionToMime($extension) {
 	list ($ret, $mimeData) = GalleryMimeTypeHelper_simple::_getMimeData();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$extension = strtolower($extension);
@@ -62,7 +64,7 @@ class GalleryMimeTypeHelper_simple {
     function convertMimeToExtensions($mimeType) {
 	list ($ret, $mimeData) = GalleryMimeTypeHelper_simple::_getMimeData();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$mimeType = strtolower($mimeType);
@@ -85,7 +87,7 @@ class GalleryMimeTypeHelper_simple {
 	list ($base, $extension) = GalleryUtilities::getFileNameComponents($filename);
 	list ($ret, $mimeType) = GalleryMimeTypeHelper_simple::convertExtensionToMime($extension);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	return array(null, $mimeType);
     }
@@ -100,7 +102,7 @@ class GalleryMimeTypeHelper_simple {
     function isViewableMimeType($mimeType) {
 	list ($ret, $mimeData) = GalleryMimeTypeHelper_simple::_getMimeData();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null,
@@ -145,7 +147,7 @@ class GalleryMimeTypeHelper_simple {
 		';
 		list ($ret, $searchResults) = $gallery->search($query);
 		if ($ret) {
-		    $ret = array($ret, null);
+		    $ret = array($ret->wrap(__FILE__, __LINE__), null);
 		    return $ret;
 		}
 

@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: RedirectControllerTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.14 $ $Date: 2006/02/03 14:58:43 $
  * @package Migrate
  * @subpackage PHPUnit
  * @author Alan Harder <alan.harder@sun.com>
@@ -41,19 +43,19 @@ class RedirectControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $this->_item) = $this->_createRandomDataItem($this->_getRootId());
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($this->_item);
 
 	list ($ret, $this->_thumb) = $this->_createDerivative($this->_item, $this->_item->getId(),
 							      DERIVATIVE_TYPE_IMAGE_THUMBNAIL);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	list ($ret, $this->_sized) = $this->_createDerivative($this->_item, $this->_item->getId(),
 							      DERIVATIVE_TYPE_IMAGE_RESIZE);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->_albumId = 12345;
@@ -66,13 +68,13 @@ class RedirectControllerTest extends GalleryControllerTestCase {
 	    'G1MigrateMap',
 	    array('itemId' => $this->_albumId, 'g1album' => $this->_albumName, 'g1item' => null));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$ret = GalleryCoreApi::addMapEntry(
 	    'G1MigrateMap', array('itemId' => $this->_itemId,
 	    'g1album' => $this->_albumName, 'g1item' => $this->_itemName));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$_SERVER['PHP_SELF'] = '/gallery2/' . GALLERY_MAIN_PHP;
@@ -86,7 +88,7 @@ class RedirectControllerTest extends GalleryControllerTestCase {
 	$ret = GalleryCoreApi::removeMapEntry(
 	    'G1MigrateMap', array('g1album' => $this->_albumName));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	parent::tearDown();

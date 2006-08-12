@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: module.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.4 $ $Date: 2006/03/22 03:52:31 $
  * @package Getid3
  * @author Don Willingham <donwillingham@users.sf.net>
  */
@@ -38,10 +40,10 @@ class Getid3Module extends GalleryModule {
 	$this->setId('getid3');
 	$this->setName($gallery->i18n('Getid3'));
 	$this->setDescription($gallery->i18n('A toolkit for getting id3 tag information'));
-	$this->setVersion('1.0.1'); /* Update upgrade() function below too */
+	$this->setVersion('1.0.0'); /* Update upgrade() function below too */
 	$this->setGroup('data', $gallery->i18n('Extra Data'));
 	$this->setCallbacks('getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 10));
+	$this->setRequiredCoreApi(array(7, 1));
 	$this->setRequiredModuleApi(array(3, 0));
     }
 
@@ -56,19 +58,18 @@ class Getid3Module extends GalleryModule {
 	    GalleryCoreApi::requireOnce('modules/getid3/classes/Getid3Helper.class');
 	    $ret = Getid3Helper::setDefaultProperties(GETID3_SUMMARY);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    $ret = Getid3Helper::setDefaultProperties(GETID3_DETAILED);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	} else {
 	    switch ($currentVersion) {
 	    case '0.0.1':
 	    case '0.9.0':
 	    case '0.9.1':
-	    case '1.0.0':
 
 	    case 'end of upgrade path':
 		break;
@@ -91,21 +92,21 @@ class Getid3Module extends GalleryModule {
 	    'Getid3Interface_1_0', 'Getid3Extractor', 'Getid3',
 	    'modules/getid3/classes/Getid3Extractor.class', 'getid3', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'GalleryToolkit', 'Getid3Toolkit', 'Getid3',
 	    'modules/getid3/classes/Getid3Toolkit.class', 'getid3', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::registerFactoryImplementation('ItemAddOption',
 	    'Getid3DescriptionOption', 'Getid3DescriptionOption',
 	    'modules/getid3/Getid3DescriptionOption.inc', 'getid3', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 
@@ -124,7 +125,7 @@ class Getid3Module extends GalleryModule {
 		'int',
 		$gallery->i18n('Get the origination timestamp'));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/*
@@ -142,7 +143,25 @@ class Getid3Module extends GalleryModule {
 
 	list ($ret, $redirect) = parent::activate($postActivationEvent);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	return array(null, $redirect);
+    }
+
+    /**
+     * @see GalleryModule::deactivate()
+     */
+    function deactivate() {
+	list ($ret, $redirect) = parent::deactivate();
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	/* Unregister all of our properties and operations */
+	$ret = GalleryCoreApi::unregisterToolkit('Getid3');
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, $redirect);

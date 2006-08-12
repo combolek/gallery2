@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: CoreModuleExtras.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -17,17 +19,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.165.2.3 $ $Date: 2006/08/08 00:00:00 $
  * @package GalleryCore
  * @author Bharat Mediratta <bharat@menalto.com>
  */
 
 /**
- * Extra, rarely used core module code.  Most modules will not need to push their extra code into a
- * separate class, but the core module has a lot of install code that is very rarely used so we tuck
- * it out of the way.
+ * Extra, rarely used core module code.  Most modules will not need to push
+ * their extra code into a separate class, but the core module has a lot of
+ * install code that is very rarely used so we tuck it out of the way.
  *
  * @package GalleryCore
  * @static
@@ -35,9 +36,9 @@
 class CoreModuleExtras {
 
     /**
+     * @see GalleryModule::upgrade()
      * @param object GalleryModule the core module
      * @param string the current installed version
-     * @see GalleryModule::upgrade
      * @static
      */
     function upgrade($module, $currentVersion, $statusMonitor) {
@@ -47,18 +48,20 @@ class CoreModuleExtras {
 	$gallery->debug('Entering CoreModuleExtras::upgrade');
 
 	/*
-	 * We store our version outside of the database so that we can upgrade even if the database
-	 * is in an undependable state
+	 * We store our version outside of the database so that we can upgrade
+	 * even if the database is in an undependable state.
 	 */
 	$versions = $module->getInstalledVersions();
 	$currentVersion = $versions['core'];
 	if (!isset($currentVersion)) {
 	    $gallery->debug('Current version not set');
 	    /*
-	     * This is either an initial install or an upgrade from version 0.8 (which didn't have
-	     * the core versions.dat file).  Use a module parameter as our acid test.
+	     * This is either an initial install or an upgrade from version
+	     * 0.8 (which didn't have the core versions.dat file).  Use a module
+	     * parameter as our acid test.
 	     *
-	     * TODO: Get rid of this when we stop supporting upgrades from alphas
+	     * TODO: Get rid of this when we get to the final release.  It's
+	     * only useful in the alpha -> beta transition.
 	     */
 	    list ($ret, $paramValue) = $module->getParameter('permissions.directory');
 	    if (isset($paramValue)) {
@@ -67,38 +70,40 @@ class CoreModuleExtras {
 		$currentVersion = '0';
 	    }
 	}
-	/* Enable upgrade from any patch release version */
-	$currentVersion = preg_replace('/^(1\.[01]\.0)\.\d+$/', '$1.x', $currentVersion);
+	if (substr($currentVersion, 0, 6) == '1.0.0.') {
+	    /* Enable upgrade from any Gallery 2.0.x version */
+	    $currentVersion = '1.0.0.x';
+	}
 
 	/**
-	 * README: How to update the block below
+	 * README: How to update the block below.
 	 *
 	 * If you add a new feature to the core module and revise the version, you should do the
-	 * following.  Supposing the current version is 1.0.1 and you're adding 1.0.2.  Go to the
+	 * following.  Supposing the current version is 1.0.1 and you're adding 1.0.2. Go to the
 	 * end of the switch and find the 'end of upgrade path' case.  Create a new case *above*
 	 * that one with the old version number.  For our example you'd add: "case '1.0.1':" and
-	 * then your code.  Do *not* put in a break statement.  (Update _prepareConfigUpgrade too).
+	 * then your code.  Do *not* put in a break statement. (Update _prepareConfigUpgrade too)
 	 */
 	$gallery->debug(sprintf('The current version is %s', $currentVersion));
 	switch ($currentVersion) {
 	case '0':
 	    $gallery->debug('Install core module');
 	    /*
-	     * Checkpoint (commit configureStore transaction)
-	     * Later in the installation code, we create the root album and therefore need locking.
-	     * Locks are acquired with a non-transactional db connection.  So before we can query
-	     * the db with a second connection, the INSERT id into SequenceLock needs to be
-	     * committed.  Related bug 1235284.
+	     * Checkpoint (commit configurStore transaction)
+	     * Later in the installation code, we create the root album and therefore need
+	     * locking. Locks are acquired with a non-transactional db connection. So before we
+	     * can query the db with a second connection, the INSERT id into SequenceLock needs to
+	     * be committed. Related g2 bug id: 1235284.
 	     */
 	    $ret = $storage->checkPoint();
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    $ret = $statusMonitor->renderStatusMessage(
 		    $module->translate('Installing the core module'), '', 0.15);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $gallery->guaranteeTimeLimit(180);
 
@@ -128,8 +133,8 @@ class CoreModuleExtras {
 			   'default.language' => GalleryTranslator::getLanguageCodeFromRequest(),
 			   'language.useBrowserPref' => '0',
 			   'default.newAlbumsUseDefaults' => 'false',
-			   'session.lifetime' => 21 * 86400, /* Three weeks */
-			   'session.inactivityTimeout' => 7 * 86400, /* One week */
+			   'session.lifetime' => 21 * 86400, /* three weeks */
+			   'session.inactivityTimeout' => 7 * 86400, /* one week */
 			   'misc.markup' => 'bbcode',
 			   'lock.system' => $flockType,
 			   'format.date' => '%x',
@@ -144,9 +149,9 @@ class CoreModuleExtras {
 		    $ret = $module->setParameter($key, (string)$value);
 		    if ($ret) {
 			$gallery->debug(sprintf('Error: Failed to set core module parameter %s, ' .
-						'this is the error stack trace: %s', $key,
-						$ret->getAsText()));
-			return $ret;
+					       'this is the error stack trace: %s', $key,
+					       $ret->getAsText()));
+			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		}
 	    }
@@ -154,7 +159,7 @@ class CoreModuleExtras {
 	    $ret = $statusMonitor->renderStatusMessage(
 		    $module->translate('Installing the core module'), '', 0.2);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $gallery->guaranteeTimeLimit(180);
 
@@ -164,13 +169,13 @@ class CoreModuleExtras {
 	    if ($ret) {
 		$gallery->debug(sprintf('Error: Failed to load matrix theme, this is the error ' .
 				'stack trace; %s', $ret->getAsText()));
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    $ret = $statusMonitor->renderStatusMessage(
 		    $module->translate('Installing the core module'), '', 0.25);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $gallery->guaranteeTimeLimit(180);
 
@@ -179,13 +184,13 @@ class CoreModuleExtras {
 	    if ($ret) {
 		$gallery->debug(sprintf('Error: Failed to installOrUpgrade matrix theme, this is ' .
 				'the error stack trace; %s', $ret->getAsText()));
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    $ret = $statusMonitor->renderStatusMessage(
 		    $module->translate('Installing the core module'), '', 0.3);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $gallery->guaranteeTimeLimit(180);
 
@@ -194,21 +199,22 @@ class CoreModuleExtras {
 	    if ($ret) {
 		$gallery->debug(sprintf('Error: Failed to activate matrix theme, this is ' .
 				'the error stack trace; %s', $ret->getAsText()));
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    $ret = $statusMonitor->renderStatusMessage(
 		    $module->translate('Installing the core module'), '', 0.4);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $gallery->guaranteeTimeLimit(180);
 
 	    /*
-	     * Register our permissions.  Since we're storing internationalized strings in the
-	     * database, we have to give our internationalized string extractor a clue that these
-	     * strings get translated.  So put a line like this translate('key') in for each
-	     * description so that our extractor can find it.
+	     * Register our permissions.  Since we're storing internationalized
+	     * strings in the database, we have to give our internationalized
+	     * string extractor a clue that these strings get translated.  So
+	     * put a line like this translate('key') in for each description so
+	     * that our extractor can find it.
 	     */
 	    $gallery->debug('Register core module permissions');
 	    $permissions[] = array('all', $gallery->i18n('All access'),
@@ -236,14 +242,14 @@ class CoreModuleExtras {
 		    $gallery->debug(sprintf('Error: Failed to register a permission, ' .
 					    'this is the error stack trace: %s',
 					    $ret->getAsText()));
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 
 	    $ret = $statusMonitor->renderStatusMessage(
 		    $module->translate('Installing the core module'), '', 0.5);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $gallery->guaranteeTimeLimit(180);
 
@@ -261,14 +267,14 @@ class CoreModuleExtras {
 		    $gallery->debug(sprintf('Error: %s returned an error, ' .
 					   'this is the error stack trace: %s', $func,
 					   $ret->getAsText()));
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 
 	    $ret = $statusMonitor->renderStatusMessage(
 		    $module->translate('Installing the core module'), '', 0.6);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $gallery->guaranteeTimeLimit(180);
 
@@ -279,14 +285,14 @@ class CoreModuleExtras {
 	    if ($ret) {
 		$gallery->debug(sprintf('Error: Failed to initialize MIME types, this is ' .
 					'the error stack trace: %s', $ret->getAsText()));
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $gallery->debug('CoreModulesExtra::upgrade: successfully installed core');
 
 	    $ret = $statusMonitor->renderStatusMessage(
 		    $module->translate('Installing the core module'), '', 0.7);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $gallery->guaranteeTimeLimit(180);
 	    break;
@@ -296,8 +302,8 @@ class CoreModuleExtras {
 	case '0.8.1':
 	case '0.8.2':
 	    /*
-	     * Update our framework module parameters to have a leading underscore so that we have
-	     * our own separate namespace
+	     * Update our framework module parameters to have a leading
+	     * underscore so that we have our own separate namespace.
 	     */
 	    $query = '
 	    UPDATE
@@ -313,18 +319,18 @@ class CoreModuleExtras {
 	    ';
 	    $ret = $storage->execute($query, array('_version', 'version'));
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    $ret = $storage->execute($query, array('_callbacks', 'callbacks'));
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    /* Added a new parameter */
 	    $ret = $module->setParameter('misc.login', 'both');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	case '0.8.3':
@@ -333,7 +339,7 @@ class CoreModuleExtras {
 	    /* Added GalleryItem::originationTimestamp */
 	    $ret = $storage->configureStore($module->getId(), array('GalleryItem:1.0'));
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    /* Copy viewedSinceTimestamp to originationTimestamp as both default to time() */
@@ -345,36 +351,37 @@ class CoreModuleExtras {
 	    ';
 	    $ret = $storage->execute($query, array());
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	case '0.8.6':
 	case '0.8.7':
 	    $ret = $module->setParameter('default.newAlbumsUseDefaults', 'false');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	case '0.8.8':
 	    /*
-	     * This was not originally part of the 0.8.9 upgrade, but added much later.  Upgrade
-	     * code after this will need valid factory registrations so we can't wait until
-	     * upgrade() completes to register during reactivate().
+	     * This was not originally part of the 0.8.9 upgrade, but added much later.
+	     * Upgrade code after this will need valid factory registrations so we can't
+	     * wait until upgrade() completes to register during reactivate()..
 	     */
 	    $ret = CoreModuleExtras::performFactoryRegistrations($module);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	case '0.8.9':
 	    /*
-	     * Set all factory implementation weights to 5.  We'll re-register all core
-	     * implementations with a weight of 4 so that they get precedence.
+	     * Set all factory implementation weights to 5.  We'll re-register
+	     * all core implementations with a weight of 4 so that they get
+	     * precedence.
 	     */
 	    $query = 'UPDATE [GalleryFactoryMap] SET [::orderWeight] = 5';
 	    $ret = $storage->execute($query, array());
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	case '0.8.10':
@@ -382,17 +389,17 @@ class CoreModuleExtras {
 	case '0.8.12':
 	    $ret = $module->setParameter('lock.system', 'flock');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	case '0.8.13':
-	    /* We used to add layout versioning here.  Now that's been moved to the 0.9.29 block. */
+	    /* We used to add layout versioning here.  Now that's been moved to the 0.9.29 block */
 
 	case '0.8.14':
 	    /* Added Entity::onLoadHandlers; default all values to null */
 	    $ret = $storage->configureStore($module->getId(), array('GalleryEntity:1.0'));
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	case '0.8.15':
@@ -403,7 +410,7 @@ class CoreModuleExtras {
 	    $ret = $storage->configureStore($module->getId(),
 		array('GalleryPluginMap:1.0', 'GalleryPluginParameterMap:1.0', 'GalleryGroup:1.0'));
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	case '0.8.17':
@@ -412,11 +419,11 @@ class CoreModuleExtras {
 	case '0.9.0':
 	    $ret = $module->removeParameter('misc.useShortUrls');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	case '0.9.1':
-	    /* Set Gallery version to 2.0-beta-1+ */
+	    /* Set g2 version to 2.0-beta-1+ */
 
 	case '0.9.2':
 	    /* Changed the data cache format */
@@ -430,20 +437,20 @@ class CoreModuleExtras {
 		'modules/core/classes/helpers/GalleryMimeTypeHelper_advanced.class');
 	    $ret = GalleryMimeTypeHelper_advanced::initializeMimeTypes();
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	case '0.9.5':
 	    $gallery->guaranteeTimeLimit(30);
 	    $ret = CoreModuleExtras::_createAccessListCompacterLock($module);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    /*
-	     * Choose an item that has permission rows.  Find all other items with the same exact
-	     * permissions.  Create a new ACL, assign all those items to the ACL, delete those rows
-	     * from the permissions table.  Repeat.
+	     * Choose an item that has permission rows.  Find all other items with the same
+	     * exact permissions.  Create a new ACL, assign all those items to the ACL, delete
+	     * those rows from the permissions table.  Repeat.
 	     */
 	    $totalRowsQuery = '
 	    SELECT
@@ -540,7 +547,7 @@ class CoreModuleExtras {
 	    list ($ret, $results) =
 		$gallery->search($totalRowsQuery, array(), array('limit' => array('count' => 1)));
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    if ($results->resultCount() == 0) {
 		break;
@@ -555,7 +562,7 @@ class CoreModuleExtras {
 		    null,
 		    $itemsProcessed / $totalPermissionItems);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 
@@ -565,7 +572,7 @@ class CoreModuleExtras {
 		/* Find the next item in the permissions table */
 		list ($ret, $results) = $storage->search($findItemIdQuery);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 		if ($results->resultCount() == 0) {
 		    break;
@@ -576,25 +583,25 @@ class CoreModuleExtras {
 		/* Create a new ACL */
 		list ($ret, $newAclId) = $storage->getUniqueId();
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
 		$ret = $storage->execute($createAclQuery, array($newAclId, $targetItemId));
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
 		/*
-		 * Find all items that share the same permissions as the target.  I haven't figured
-		 * out a good way to do aggregation without using temporary tables, which I'd like
-		 * to avoid for portability.  So, figure out how many rows have at least as many
-		 * matching permissions as our target item.  These are potentially dupes.  We'll
-		 * refine them later on.
+		 * Find all items that share the same permissions as the target.  I haven't
+		 * figured out a good way to do aggregation without using temporary tables,
+		 * which I'd like to avoid for portability.  So, figure out how many rows
+		 * have at least as many matching permissions as our target item.  These
+		 * are potentially dupes.  We'll refine them later on.
 		 */
 		list ($ret, $results) = $gallery->search(
 		    $findPossibleDupesQuery, array($targetItemId, $permissionRowCount));
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 		$possibleDupeIds = array();
 		while ($result = $results->nextResult()) {
@@ -603,7 +610,7 @@ class CoreModuleExtras {
 
 		/*
 		 * Process these queries in chunks since we may have thousands of items with the
-		 * same permissions and we don't want to give the database a heart attack
+		 * same permissions and we don't want to give the database a heart attack.
 		 */
 		$chunkSize = 200;
 		while (!empty($possibleDupeIds)) {
@@ -611,9 +618,9 @@ class CoreModuleExtras {
 		    $count = count($chunk);
 
 		    /*
-		     * Refine our dupes by eliminating ones that don't have exactly the same number
-		     * of permission rows as our target.  Our target item is included in the dupes,
-		     * so this will always return at least 1 row.
+		     * Refine our dupes by eliminating ones that don't have exactly the same
+		     * number of permission rows as our target.  Our target item is included
+		     * in the dupes, so this will always return at least 1 row.
 		     */
 		    $markers = GalleryUtilities::makeMarkers($count);
 		    $query = sprintf($refineDupesQuery, $markers);
@@ -627,7 +634,7 @@ class CoreModuleExtras {
 		    }
 
 		    if (empty($dupeIds)) {
-			/* No actual dupes?  Try the next chunk. */
+			/* No actual dupes?  Try the next chunk */
 			continue;
 		    }
 
@@ -638,14 +645,14 @@ class CoreModuleExtras {
 		    $query = sprintf($assignAclQuery, $markers);
 		    $ret = $storage->execute($query, array_merge(array($newAclId), $dupeIds));
 		    if ($ret) {
-			return $ret;
+			return $ret->wrap(__FILE__, __LINE__);
 		    }
 
 		    /* Remove all the permission rows for the migrated items */
 		    $query = sprintf($deleteOldPermsQuery, $markers);
 		    $ret = $storage->execute($query, $dupeIds);
 		    if ($ret) {
-			return $ret;
+			return $ret->wrap(__FILE__, __LINE__);
 		    }
 
 		    $itemsProcessed += $count;
@@ -658,7 +665,7 @@ class CoreModuleExtras {
 			'',
 			$itemsProcessed / $totalPermissionItems);
 		    if ($ret) {
-			return $ret;
+			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		}
 	    }
@@ -669,7 +676,7 @@ class CoreModuleExtras {
 		    '',
 		    $itemsProcessed / $totalPermissionItems);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 
@@ -680,22 +687,22 @@ class CoreModuleExtras {
 
 	case '0.9.7':
 	    /*
-	     * Change GalleryMaintenance::details column to be a serialized array.  The old data is
-	     * transient so just delete it.  Added FlushTemplatesTask, FlushDatabaseCacheTask.
+	     * Change GalleryMaintenance::details column to be a serialized array.  The old data
+	     * is transient so just delete it. Added FlushTemplatesTask, FlushDatabaseCacheTask
 	     */
 	    $gallery->guaranteeTimeLimit(30);
 	    $ret = GalleryCoreApi::removeAllMapEntries('GalleryMaintenanceMap');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	case '0.9.8':
 	    /*
-	     * Create 'plugins' and 'plugins_data' directories in g2data.  Remove trailing slash for
-	     * config paths using substr so file_exists can detect either file or dir.  Update: in
-	     * core 1.0.6 the data.gallery.plugins dir moved under gallery2 basedir, not in g2data
-	     * anymore; we may not have permission to create a dir here.  So code below is now
-	     * updated to not require those mkdirs to succeed.
+	     * Create 'plugins' and 'plugins_data' directories in g2data.  Remove trailing slash
+	     * for config paths using substr so file_exists can detect either file or dir.
+	     * Update: in core 1.0.6 the data.gallery.plugins dir moved under gallery2 basedir,
+	     * not in g2data anymore; we may not have permission to create a dir here.
+	     * So code below is now updated to not require those mkdirs to succeed.
 	     */
 	    $gallery->guaranteeTimeLimit(30);
 	    foreach (array(substr($gallery->getConfig('data.gallery.plugins'), 0, -1) => false,
@@ -709,7 +716,7 @@ class CoreModuleExtras {
 		    if ($platform->is_dir($dir)) {
 			/* No need to do anything.  Except maybe we could check permissions here. */
 		    } else {
-			/* There's a file there.  There shouldn't be.  Move it out of the way. */
+			/* There's a file there.  There shouldn't be.  Move it out of the way */
 			if (!@$platform->rename($newDir, "$newDir.old") ||
 				!@$platform->mkdir($dir)) {
 			    return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
@@ -735,10 +742,8 @@ class CoreModuleExtras {
 
 	case '0.9.12':
 	    /* Added ResetViewCountsTask */
-
 	case '0.9.13':
 	    /* Added SystemInfoTask */
-
 	case '0.9.14':
 	    /* Added SetOriginationTimestampTask */
 
@@ -752,19 +757,19 @@ class CoreModuleExtras {
 		GalleryCoreApi::fetchGroupByGroupName($module->translate('Registered Users'));
 	    if ($ret) {
 		if ($ret->getErrorCode() & ERROR_MISSING_OBJECT) {
-		    /* OK, we can change the group name */
+		    /* Ok, we can change the group name */
 
 		    list ($ret, $allUserGroupId) = $module->getParameter('id.allUserGroup');
 		    if ($ret) {
-			return $ret;
+			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		    list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($allUserGroupId);
 		    if ($ret) {
-			return $ret;
+			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		    list ($ret, $group) = GalleryCoreApi::loadEntitiesById($allUserGroupId);
 		    if ($ret) {
-			return $ret;
+			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		    $allUserGroupName = $group->getGroupName();
 		    /* We used to entitize data in db; expect that from orignal group name: */
@@ -774,18 +779,18 @@ class CoreModuleExtras {
 			$group->setGroupName($module->translate('Registered Users'));
 			$ret = $group->save();
 			if ($ret) {
-			    return $ret;
+			    return $ret->wrap(__FILE__, __LINE__);
 			}
 
 			$ret = GalleryCoreApi::releaseLocks($lockId);
 			if ($ret) {
-			    return $ret;
+			    return $ret->wrap(__FILE__, __LINE__);
 			}
 		    }
 		} else {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
-	    } /* Else a group with that name already exists, nothing to do */
+	    } /* else a group with that name already exists, nothing to do */
 
 	case '0.9.16':
 	    /* Beta 3 release! */
@@ -794,20 +799,20 @@ class CoreModuleExtras {
 	    /* Split uploadLocalServer.dirs list into one parameter per entry */
 	    list ($ret, $dirList) = $module->getParameter('uploadLocalServer.dirs');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    if (!empty($dirList)) {
 		$dirList = explode(',', $dirList);
 		for ($i = 1; $i <= count($dirList); $i++) {
 		    $ret = $module->setParameter('uploadLocalServer.dir.' . $i, $dirList[$i - 1]);
 		    if ($ret) {
-			return $ret;
+			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		}
 	    }
 	    $ret = $module->removeParameter('uploadLocalServer.dirs');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	case '0.9.18':
@@ -816,18 +821,16 @@ class CoreModuleExtras {
 	    if (!$ret && $mimeType == 'application/unknown') {
 		$ret = GalleryCoreApi::addMimeType('pcd', 'image/x-photo-cd', false);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 
 	case '0.9.19':
 	    /* New multisite system and support for config.php upgrades */
-
 	case '0.9.20':
 	    /* Change view/controller separator: core:ShowItem -> core.ShowItem */
 	case '0.9.21':
 	    /* Session cookie change, requires new config.php variable */
-
 	case '0.9.22':
 	    /* GalleryModule::getItemLinks API change (GalleryModule API bumped to 0.13) */
 
@@ -836,7 +839,7 @@ class CoreModuleExtras {
 	    foreach (array('cookie.path', 'cookie.domain') as $parameterName) {
 		$ret = $module->setParameter($parameterName, '');
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 
@@ -846,31 +849,31 @@ class CoreModuleExtras {
 	    if (!$ret && $mimeType == 'application/unknown') {
 		$ret = GalleryCoreApi::addMimeType('jpgcmyk', 'image/jpeg-cmyk', false);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	case '0.9.25':
-	    /* Add image/tiff-cmyk mime type */
+	    /* And image/tiff-cmyk mime type */
 	    list ($ret, $mimeType) = GalleryCoreApi::convertExtensionToMime('tifcmyk');
 	    if (!$ret && $mimeType == 'application/unknown') {
 		$ret = GalleryCoreApi::addMimeType('tifcmyk', 'image/tiff-cmyk', false);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	case '0.9.26':
 	    /* Added GalleryDerivative::isBroken; default all values to null */
 	    $ret = $storage->configureStore($module->getId(), array('GalleryDerivative:1.0'));
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	case '0.9.27':
 	    /* Mark old broken derivatives as such with our new isBroken flag */
 	    /*
 	     * This is the filesize and the crc32 checksum of the broken derivative placeholder
-	     * image that we used in beta 3 and earlier versions.  We may have replaced this image
-	     * by the time this upgrade code is run.  Thus we hardcode filesize(oldImage) and
+	     * image that we used in beta 3 and earlier versions. We may have replaced this image
+	     * by the time this upgrade code is run. Thus we hardcode filesize(oldImage) and
 	     * crc32(oldImageData) here.
 	     */
 	    $referenceSize = 1589;
@@ -891,7 +894,7 @@ class CoreModuleExtras {
 		      AND [GalleryEntity::entityType] = \'GalleryDerviativeImage\'';
 	    list ($ret, $searchResults) = $gallery->search($query);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    /* Check the derivatives that match the search criteria */
@@ -903,11 +906,11 @@ class CoreModuleExtras {
 		$totalDerivatives = sizeof($derivativeIds);
 
 		/*
-		 * The following process is very expensive.  We have to deal with a potentially huge
-		 * (10^6) amount of derivatives.  To not exceed the memory limit we do everything in
-		 * batches.  To not exceed the PHP execution time limit and to not exceed the apache
-		 * timeout we add a progress bar and manipulate the PHP execution time limit
-		 * periodically.
+		 * The following process is very expensive.
+		 * We have to deal with a potentially huge (10^6) amount of derivatives.
+		 * To not exceed the memory limit we do everything in batches.
+		 * To not exceed the PHP execution time limit and to not exceed the apache timeout
+		 * we add a progress bar and manipulate the PHP execution time limit periodically.
 		 */
 		$gallery->guaranteeTimeLimit(60);
 
@@ -915,16 +918,16 @@ class CoreModuleExtras {
 		$ret = $statusMonitor->renderStatusMessage(
 		    $module->translate('Detecting broken derivatives'), '', 0);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
 		/*
 		 * The outer loop is for each derivativeId and we upgrade a progress bar every
-		 * $progressStepSize ids.  We don't load entity by entity, but in batches of
-		 * $loadBatchSize.  And we don't save the items that were detected as broken
+		 * $progressStepSize ids. We don't load entity by entity, but in batches of
+		 * $loadBatchSize. And we don't save the items that were detected as broken
 		 * derivatives one by one, but also in batches of $saveBatchSize, i.e. we acquire
-		 * and release the locks in this batch size, but still have to save entity by entity
-		 * because Gallery has no mass entity save like loadEntitiesById().
+		 * and release the locks in this batch size, but still have to save entity by
+		 * entity because G2 has no mass entity save like loadEntitiesById().
 		 */
 		$derivatives = array();
 		$progressStepSize = min(500, intval($totalDerivatives / 10));
@@ -946,14 +949,14 @@ class CoreModuleExtras {
 				      'arg2' => sizeof($derivativeIds))),
 			    '',  $itemsProcessed / $totalDerivatives);
 			if ($ret) {
-			    return $ret;
+			    return $ret->wrap(__FILE__, __LINE__);
 			}
 
 			$currentDerivativeIds = array_splice($derivativeIds, 0, $loadBatchSize);
 			list ($ret, $derivatives) =
 			    GalleryCoreApi::loadEntitiesById($currentDerivativeIds);
 			if ($ret) {
-			    return $ret;
+			    return $ret->wrap(__FILE__, __LINE__);
 			}
 		    }
 
@@ -964,8 +967,8 @@ class CoreModuleExtras {
 			$derivative = array_pop($derivatives);
 
 			/*
-			 * Show the progress, but not for each derivative, this would slow down the
-			 * process considerably
+			 * Show the progress ..., but not for each derivative, this would slow down
+			 * the process considerably
 			 */
 			if ($itemsProcessed % $progressStepSize == 0 ||
 				$itemsProcessed == $totalDerivatives) {
@@ -977,7 +980,7 @@ class CoreModuleExtras {
 					  'arg2' => $totalDerivatives - $itemsProcessed)),
 				'', $itemsProcessed / $totalDerivatives);
 			    if ($ret) {
-				return $ret;
+				return $ret->wrap(__FILE__, __LINE__);
 			    }
 			    $gallery->guaranteeTimeLimit(30);
 			}
@@ -988,7 +991,7 @@ class CoreModuleExtras {
 			 */
 			list ($ret, $current) = $derivative->isCacheCurrent();
 			if ($ret) {
-			    return $ret;
+			    return $ret->wrap(__FILE__, __LINE__);
 			}
 			if (!$current) {
 			    continue;
@@ -1000,10 +1003,11 @@ class CoreModuleExtras {
 			 */
 			list($ret, $path) = $derivative->fetchPath();
 			if ($ret) {
-			    return $ret;
+			    return $ret->wrap(__FILE__, __LINE__);
 			}
 			if (($size = $platform->filesize($path)) === false) {
-			    return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE);
+			    return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__,
+							__LINE__);
 			}
 			if ($size != $referenceSize) {
 			    continue;
@@ -1011,7 +1015,8 @@ class CoreModuleExtras {
 
 			/* 5. Binary compare the derivative file with the placeholder file */
 			if (($data = $platform->file($path)) === false) {
-			    return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE);
+			    return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__,
+							__LINE__);
 			}
 			$data = implode('', $data);
 			if ($referenceCrc == crc32($data)) {
@@ -1035,13 +1040,13 @@ class CoreModuleExtras {
 				      'arg2' => $totalDerivatives - $itemsProcessed)),
 			    '', $itemsProcessed / $totalDerivatives);
 			if ($ret) {
-			    return $ret;
+			    return $ret->wrap(__FILE__, __LINE__);
 			}
 
 			list ($ret, $lockId) =
 			    GalleryCoreApi::acquireWriteLock(array_keys($brokenDerivatives));
 			if ($ret) {
-			    return $ret;
+			    return $ret->wrap(__FILE__, __LINE__);
 			}
 
 			$itemsSaved = 0;
@@ -1060,7 +1065,7 @@ class CoreModuleExtras {
 				    '', $itemsProcessed / $totalDerivatives);
 				if ($ret) {
 				    GalleryCoreApi::releaseLocks($lockId);
-				    return $ret;
+				    return $ret->wrap(__FILE__, __LINE__);
 				}
 				$gallery->guaranteeTimeLimit(30);
 			    }
@@ -1069,33 +1074,33 @@ class CoreModuleExtras {
 			    $ret = $brokenDerivative->save(true, false);
 			    if ($ret) {
 				GalleryCoreApi::releaseLocks($lockId);
-				return $ret;
+				return $ret->wrap(__FILE__, __LINE__);
 			    }
 			}
 			$brokenDerivatives = array();
 
 			$ret = GalleryCoreApi::releaseLocks($lockId);
 			if ($ret) {
-			    return $ret;
+			    return $ret->wrap(__FILE__, __LINE__);
 			}
 		    }
 		    /*
-		     * Continue if there are either unloaded ids, unchecked derivatives or unsaved
-		     * derivatives
+		     * Continue if there are either unloaded ids, unchecked derivatives or
+		     * unsaved derivatives
 		     */
 		} while (!empty($derivativeIds) || !empty($brokenDerivatives) ||
 			 !empty($derivatives));
 	    }
 
 	case '0.9.28':
-	    /* Changed module API onLoad($entity, $duringUpgrade) definition */
+	    /* Changed Module Api onLoad($entity, $duringUpgrade) definition */
 
 	case '0.9.29':
 	    /* Ginormous layout and theme consolidation refactor */
 	    $ret = $storage->configureStore($module->getId(),
 					    array('GalleryPluginParameterMap:1.1'));
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    $query = '
@@ -1108,7 +1113,7 @@ class CoreModuleExtras {
 	    ';
 	    $ret = $storage->execute($query);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    /* After this refactor we only support the matrix theme */
@@ -1120,7 +1125,7 @@ class CoreModuleExtras {
 	    ';
 	    $ret = $storage->execute($query);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    $query = '
@@ -1133,12 +1138,12 @@ class CoreModuleExtras {
 	    ';
 	    $ret = $storage->execute($query);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    /*
-	     * Rename g2data 'layouts' directories to be 'themes', or create them if they don't
-	     * already exist (they should exist, though)
+	     * Rename g2data 'layouts' directories to be 'themes', or create them
+	     * if they don't already exist (they should exist, though).
 	     */
 	    foreach (array($gallery->getConfig('data.gallery.plugins'),
 			   $gallery->getConfig('data.gallery.plugins_data')) as $base) {
@@ -1159,20 +1164,20 @@ class CoreModuleExtras {
 	    foreach (array('language.selector', 'misc.login') as $paramName) {
 		$ret = $module->removeParameter($paramName);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 
 	    /*
 	     * If we're coming from 0.8.13 or earlier, then our themes don't have version
-	     * information, so take care of that here by calling installOrUpgrade() on the currently
-	     * active themes to let them update their bookkeeping.  Reactivate them too for good
-	     * measure.
+	     * information, so take care of that here by calling installOrUpgrade() on the
+	     * currently active themes to let them update their bookkeeping.  Reactivate them too
+	     * for good measure.
 	     */
 	    if (version_compare($currentVersion, '0.8.13', '<=')) {
 		list ($ret, $themes) = GalleryCoreApi::fetchPluginStatus('theme');
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
 		foreach ($themes as $themeId => $themeStatus) {
@@ -1181,12 +1186,12 @@ class CoreModuleExtras {
 			list($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeId);
 			if ($ret &&
 			    !($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH)) {
-			    return $ret;
+			    return $ret->wrap(__FILE__, __LINE__);
 			}
 
 			$ret = $theme->installOrUpgrade();
 			if ($ret) {
-			    return $ret;
+			    return $ret->wrap(__FILE__, __LINE__);
 			}
 
 			list ($ret, $ignored) = $theme->activate(false);
@@ -1194,9 +1199,9 @@ class CoreModuleExtras {
 			    !($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH)) {
 			    /*
 			     * Theme getSettings may try to load ImageFrame interface, but
-			     * ImageFrame may need to be upgraded.  Ignore version mismatch here.
+			     * ImageFrame may need to be upgraded.. ignore version mismatch here.
 			     */
-			    return $ret;
+			    return $ret->wrap(__FILE__, __LINE__);
 			}
 		    }
 		}
@@ -1206,16 +1211,16 @@ class CoreModuleExtras {
 	    /* Removed layout column from AlbumItem; matrix is only theme for now: set default */
 	    $ret = $storage->configureStore($module->getId(), array('GalleryAlbumItem:1.0'));
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    $ret = $module->setParameter('default.theme', 'matrix');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $ret = $module->removeParameter('default.layout');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $query = '
 	    UPDATE
@@ -1225,13 +1230,13 @@ class CoreModuleExtras {
 	    ';
 	    $ret = $storage->execute($query);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	case '0.9.31':
 	    /* Beta 4! */
 	case '0.9.32':
-	    /* Minor core API change */
+	    /* Minor core api change */
 	case '0.9.33':
 	    /* Release Candidate 1! */
 
@@ -1241,7 +1246,7 @@ class CoreModuleExtras {
 		     as $key => $value) {
 		$ret = $module->setParameter($key, $value);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 
@@ -1250,8 +1255,8 @@ class CoreModuleExtras {
 
 	case '0.9.36':
 	    /*
-	     * Fixed GalleryUtilities::getPseudoFileName for derivatives.  Delete fast-download
-	     * files that may have cached incorrect filenames.
+	     * Fixed GalleryUtilities::getPseudoFileName for derivatives.
+	     * Delete fast-download files that may have cached incorrect filenames.
 	     */
 	    $slash = $platform->getDirectorySeparator();
 	    $baseDir = $gallery->getConfig('data.gallery.cache') . 'derivative' . $slash;
@@ -1260,7 +1265,7 @@ class CoreModuleExtras {
 		$ret = $statusMonitor->renderStatusMessage(
 		    $module->translate('Clearing fast-download cache'), '', $i / 10);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 		for ($j = 0; $j < 10; $j++) {
 		    $dir = $baseDir . $i . $slash . $j . $slash;
@@ -1277,7 +1282,7 @@ class CoreModuleExtras {
 	    $ret = $statusMonitor->renderStatusMessage(
 		$module->translate('Clearing fast-download cache'), '', 1);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	case '0.9.37':
@@ -1289,16 +1294,16 @@ class CoreModuleExtras {
 	    $ret = $storage->configureStore($module->getId(),
 					    array('GalleryPluginParameterMap:1.2'));
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	case '1.0.1':
-	    /* Add image/wmf mime type */
+	    /* And image/wmf mime type */
 	    list ($ret, $mimeType) = GalleryCoreApi::convertExtensionToMime('wmf');
 	    if (!$ret && $mimeType == 'application/unknown') {
 		$ret = GalleryCoreApi::addMimeType('wmf', 'image/wmf', false);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 
@@ -1312,7 +1317,7 @@ class CoreModuleExtras {
 	    /* Added maintenance mode */
 
 	case '1.0.5':
-	    /* Remove plugins directory from g2data */
+	    /* Remove plugins directory from g2data. */
 	    $pluginDirectory = $gallery->getConfig('data.gallery.base') . 'plugins';
 	    $pluginDirectories = array($pluginDirectory . '/modules',
 				       $pluginDirectory . '/themes',
@@ -1320,7 +1325,7 @@ class CoreModuleExtras {
 
 	    foreach ($pluginDirectories as $pluginDirectory) {
 		if (@$platform->file_exists($pluginDirectory)) {
-		    /* We're not interested in whether it succeeded or not */
+		    /* We're not interested in whether it succeeded or not. */
 		    @$platform->recursiveRmDir($pluginDirectory);
 		}
 	    }
@@ -1331,7 +1336,7 @@ class CoreModuleExtras {
 	case '1.0.7':
 	    $ret = $module->setParameter('exec.beNice', '0');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	case '1.0.8':
@@ -1353,14 +1358,14 @@ class CoreModuleExtras {
 	    }
 
 	    /*
-	     * Combine AccessMap userId/groupId into single userOrGroupId, and remove unused
-	     * GALLERY_PERMISSION_ITEM_ADMIN permission flag.  Also increase size of
-	     * GalleryUser::email column.
+	     * Combine AccessMap userId/groupId into single userOrGroupId,
+	     * and remove unused GALLERY_PERMISSION_ITEM_ADMIN permission flag.
+	     * Also increase size of GalleryUser::email column.
 	     */
 	    $ret = $storage->configureStore($module->getId(),
 					    array('GalleryAccessMap:1.0', 'GalleryUser:1.0'));
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    /* If coming from 0.9.5 or earlier then GalleryAccessMap already has userOrGroupId */
@@ -1373,19 +1378,19 @@ class CoreModuleExtras {
 		';
 		$ret = $storage->execute($query, array());
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 
 	    $ret = $storage->configureStore($module->getId(), array('GalleryAccessMap:1.1'));
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    list ($ret, $flagModifier) =
 		$storage->getFunctionSql('BITAND', array('[::flags]', '?'));
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $query = '
 	    UPDATE
@@ -1395,20 +1400,20 @@ class CoreModuleExtras {
 	    ';
 	    $ret = $storage->execute($query, array(3));
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	case '1.0.11':
 	    /* Several previous upgrades used 'modules' instead of 'module' with plugin params */
 	    list ($ret, $coreParams) = $module->fetchParameters();
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    foreach (array('misc.useShortUrls', 'language.selector') as $key) {
 		if (isset($coreParams[$key])) {
 		    $ret = $module->removeParameter('misc.useShortUrls');
 		    if ($ret) {
-			return $ret;
+			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		}
 	    }
@@ -1418,33 +1423,33 @@ class CoreModuleExtras {
 		if (!isset($coreParams[$key])) {
 		    $ret = $module->setParameter($key, $value);
 		    if ($ret) {
-			return $ret;
+			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		}
 	    }
 	    $ret = GalleryCoreApi::removeMapEntry(
 		'GalleryPluginParameterMap', array('pluginType' => 'modules'));
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	case '1.0.12':
 	    /* Add param 'language.useBrowserPref' */
 	    list ($ret, $langCode) = $module->getParameter('default.language');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $useBrowserPref = '0';
 	    if (empty($langCode)) {
 		$useBrowserPref = '1';
 		$ret = $module->setParameter('default.language', 'en_US');
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	    $ret = $module->setParameter('language.useBrowserPref', $useBrowserPref);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	case '1.0.13':
@@ -1453,15 +1458,15 @@ class CoreModuleExtras {
 	    /* GalleryCoreApi 7.0 and GalleryModule 3.0 */
 	case '1.0.15':
 	    /*
-	     * Add fast-download for GalleryDataItems too.  Fast-download files are now in
-	     * cache/entity/.  Delete the old files in cache/derivative/.
+	     * Add fast-download for GalleryDataItems too. Fast-download files are now in
+	     * cache/entity/. Delete the old files in cache/derivative/.
 	     */
 	    $gallery->guaranteeTimeLimit(60);
 	    $query = 'SELECT [GalleryDerivativeImage::id]
 		      FROM [GalleryDerivativeImage]';
 	    list ($ret, $searchResults) = $gallery->search($query);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    if ($searchResults->resultCount() > 0) {
@@ -1477,7 +1482,7 @@ class CoreModuleExtras {
 		$ret = $statusMonitor->renderStatusMessage(
 		    $module->translate('Deleting old fast-download cache'), '', 0);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
 		$stepSize = min(100, intval($totalDerivatives / 10));
@@ -1497,7 +1502,7 @@ class CoreModuleExtras {
 			    $module->translate('Deleting old fast-download cache'),
 			    '',  ($i+1) / $totalDerivatives);
 			if ($ret) {
-			    return $ret;
+			    return $ret->wrap(__FILE__, __LINE__);
 			}
 		    }
 		}
@@ -1507,12 +1512,12 @@ class CoreModuleExtras {
 	    $storageExtras =& $storage->_getExtras();
 	    $storageExtras->_clearEntityAndMapCache();
 	case '1.0.17':
-	    /* Add image/tga mime type */
+	    /* And image/tga mime type */
 	    list ($ret, $mimeType) = GalleryCoreApi::convertExtensionToMime('tga');
 	    if (!$ret && $mimeType == 'application/unknown') {
 		$ret = GalleryCoreApi::addMimeType('tga', 'image/tga', false);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 
@@ -1520,7 +1525,7 @@ class CoreModuleExtras {
 	    /* Add index to GalleryEntity::linkId */
 	    $ret = $storage->configureStore($module->getId(), array('GalleryEntity:1.1'));
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	case '1.0.19':
@@ -1530,14 +1535,14 @@ class CoreModuleExtras {
 	    $ret = GalleryCoreApi::setPluginParameter(
 		'module', 'core', 'acceleration', $acceleration);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	case '1.0.20':
 	    /* Add configurable captcha security level */
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'core', 'captcha.level', 'MEDIUM');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	case '1.0.21':
@@ -1548,13 +1553,13 @@ class CoreModuleExtras {
 	    $count = 0;
 	    $iterationSize = 5000;
 	    $iteration = 1;
-	    /* Show a progress bar while removing the files */
+	    /* Show a progress bar while removing the files  */
 	    $ret = $statusMonitor->renderStatusMessage(
 		$module->translate(array('text' => 'Deleting old session files (iteration %d)',
 					 'arg1' => $iteration)),
 		'', 0);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $dir = $platform->opendir($sessionsDir, 'r');
 	    if (!$dir) {
@@ -1578,7 +1583,7 @@ class CoreModuleExtras {
 				  'arg1' => $iteration)),
 			'', $count / $iterationSize);
 		    if ($ret) {
-			return $ret;
+			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		}
 
@@ -1594,7 +1599,7 @@ class CoreModuleExtras {
 					 'arg1' => $iteration)),
 		'', 1);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	case '1.0.22':
@@ -1674,26 +1679,26 @@ class CoreModuleExtras {
 	    /* Commit transactions before we execute a query that we expect to fail */
 	    $ret = $storage->checkPoint();
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    /*
 	     * Also add a single column index on AccessMap.accessListId since it was forgotten in
-	     * the initial upgrade code.  Ignore errors since some installations already have it.
+	     * the initial upgrade code. Ignore errors since some installations already have it.
 	     */
 	    $gallery->debug('Adding an index to the AccessMap table, ignore errors');
 	    $storage->configureStore($module->getId(), array('GalleryAccessMap:1.2'));
 
-	    /* Postgres will abort the transaction if the index exists, so checkpoint here */
-	    $ret = $storage->checkPoint();
+	    /* Postgres will abort the transaction if the index exists, so checkpoint here. */
+	    $ret = $storage->checkpoint();
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    $gallery->debug('Finished adding an index to the AccessMap table');
 	    /*
-	     * Make sure the schema update is stored, can't use updateMapEntry because schema is not
-	     * in Maps.xml
+	     * Make sure the schema update is stored, can't use updateMapEntry because Schema is
+	     * not in Maps.xml
 	     */
 	    $query = sprintf('
 	    UPDATE %sSchema
@@ -1704,7 +1709,7 @@ class CoreModuleExtras {
 			     $storage->_columnPrefix, $storage->_columnPrefix);
 	    $ret = $storage->execute($query);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	case '1.0.23':
@@ -1715,15 +1720,15 @@ class CoreModuleExtras {
 	    $gallery->guaranteeTimeLimit(60);
 	    list ($ret, $level) = $module->getParameter('captcha.level');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $ret = $module->setParameter('validation.level', $level);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $ret = $module->removeParameter('captcha.level');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	case '1.0.25':
@@ -1739,22 +1744,22 @@ class CoreModuleExtras {
 		    list ($ret, $results) =
 			$storage->search('SHOW CREATE DATABASE `' . $storage->_database . '`');
 		    if ($ret) {
-			return $ret;
+			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		    $row = $results->nextResult();
 		    $result = $row[1];
 		    if (!$result || !preg_match('/utf8/i', $result)) {
-			/* Convert all existing tables to UTF-8 */
+			/* Convert all existing tables to UTF8 */
 			$ret = $statusMonitor->renderStatusMessage(
 				$module->translate('Converting MySQL data to UTF8'), null, 0);
 			if ($ret) {
-			    return $ret;
+			    return $ret->wrap(__FILE__, __LINE__);
 			}
 			$gallery->guaranteeTimeLimit(120);
 			$storageExtras =& $storage->_getExtras();
 			list ($ret, $tableVersions) = $storageExtras->_loadTableVersions();
 			if ($ret) {
-			    return $ret;
+			    return $ret->wrap(__FILE__, __LINE__);
 			}
 			$types = array('varchar'  => 'varbinary',
 				       'text'     => 'blob',
@@ -1767,10 +1772,10 @@ class CoreModuleExtras {
 			    $query = "ALTER TABLE `$tableName` DEFAULT CHARACTER SET utf8";
 			    $ret = $storage->execute($query);
 			    if ($ret) {
-				return $ret;
+				return $ret->wrap(__FILE__, __LINE__);
 			    }
 			    /*
-			     * Then all character/string columns
+			     * Then all character / string columns
 			     * See: http://dev.mysql.com/doc/refman/4.1/en/charset-conversion.html
 			     *      and http://drupal.org/node/40515
 			     * 1. Detect current column attributes
@@ -1782,7 +1787,7 @@ class CoreModuleExtras {
 			    $originalFetchMode = $storage->_db->SetFetchMode(ADODB_FETCH_ASSOC);
 			    list ($ret, $results) = $storage->search($query);
 			    if ($ret) {
-				return $ret;
+				return $ret->wrap(__FILE__, __LINE__);
 			    }
 			    $storage->_db->SetFetchMode($originalFetchMode);
 			    $changeToBinary = $changeToUtf8 = array();
@@ -1811,12 +1816,12 @@ class CoreModuleExtras {
 				    "ALTER TABLE `$tableName` " . implode(', ', $changeToBinary);
 				$ret = $storage->Execute($query);
 				if ($ret) {
-				    return $ret;
+				    return $ret->wrap(__FILE__, __LINE__);
 				}
 				$query = "ALTER TABLE `$tableName` " . implode(', ', $changeToUtf8);
 				$ret = $storage->Execute($query);
 				if ($ret) {
-				    return $ret;
+				    return $ret->wrap(__FILE__, __LINE__);
 				}
 			    }
 
@@ -1824,19 +1829,19 @@ class CoreModuleExtras {
 				$module->translate('Converting MySQL data to UTF8'),
 				null, $i / count($tableVersions));
 			    if ($ret) {
-				return $ret;
+				return $ret->wrap(__FILE__, __LINE__);
 			    }
 			    $gallery->guaranteeTimeLimit(120);
-			} /* End for each table */
-		    } /* End if database character set not UTF-8 */
-		} /* End if MySql version > 4.1.0 */
-	    } /* End if MySQL */
+			} /* end for each table */
+		    } /* end if database character set not utf8 */
+		} /* end if MySql version > 4.1.0 */
+	    } /* end if MySQL */
 
 	    /* Clear the cache data since we changed the blob encoding */
 	    $gallery->guaranteeTimeLimit(60);
 	    $ret = GalleryCoreApi::removeAllMapEntries('GalleryCacheMap');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	case '1.0.27':
@@ -1850,13 +1855,13 @@ class CoreModuleExtras {
 	    $ret = GalleryCoreApi::removeMimeType(
 		array('mimeType' => array('text/html', 'application/xhtml+xml', 'text/xml')));
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	case '1.0.31':
 	    list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    foreach (array('session.lifetime' => array(25 * 365 * 86400, 21 * 86400),
 			   'session.inactivityTimeout' => array(14 * 86400, 7 * 86400)) as
@@ -1864,7 +1869,7 @@ class CoreModuleExtras {
 		if ($params[$key] == $oldAndNew[0]) {
 		    $ret = $module->setParameter($key, $oldAndNew[1]);
 		    if ($ret) {
-			return $ret;
+			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		}
 	    }
@@ -1875,217 +1880,11 @@ class CoreModuleExtras {
 	    /* Security fix in installer/upgrader - RC-2a */
 	case '1.0.34':
 	    /* 2.1 Release! */
-
 	case '1.1.0':
-	case '1.1.0.x':
-	    /* Minimum PHP version now 4.3.0; new versions of ADODb and Smarty */
-	case '1.1.1':
-
-	case '1.1.2':
-	    /* Add Flash video and Windows playlist mime types */
-	    list ($ret, $mimeType) = GalleryCoreApi::convertExtensionToMime('flv');
-	    if (!$ret && $mimeType == 'application/unknown') {
-		$ret = GalleryCoreApi::addMimeType('flv', 'video/x-flv', false);
-		if ($ret) {
-		    return $ret;
-		}
-	    }
-	    list ($ret, $mimeType) = GalleryCoreApi::convertExtensionToMime('asx');
-	    if (!$ret && $mimeType == 'application/unknown') {
-		$ret = GalleryCoreApi::addMimeType('asx', 'video/x-ms-asx', false);
-		if ($ret) {
-		    return $ret;
-		}
-	    }
-
-	case '1.1.3':
-	    /* Add renderers to GalleryItem */
-	    $ret = $storage->configureStore($module->getId(), array('GalleryItem:1.1'));
-	    if ($ret) {
-		return $ret;
-	    }
-	    $ret = $storage->execute('UPDATE [GalleryItem] SET [::renderer] = NULL');
-	    if ($ret) {
-		return $ret;
-	    }
-
+	    /* 2.1.1 Bugfix Release */
+	case '1.1.0.1':
 	    /*
-	     * Switch PanoramaPhotoItem and PanoramaDerivativeImage entities back to their base
-	     * classes and set the items to use the PanoramaRenderer instead
-	     */
-	    $gallery->guaranteeTimeLimit(60);
-	    $query = '
-	      SELECT
-		[GalleryEntity::id], [GalleryEntity::entityType]
-	      FROM
-		[GalleryEntity]
-	      WHERE
-		[GalleryEntity::entityType] IN (\'PanoramaPhotoItem\', \'PanoramaDerivativeImage\')
-	    ';
-	    list ($ret, $searchResults) = $gallery->search($query, array());
-	    if ($ret) {
-		return $ret;
-	    }
-	    $photos = $derivatives = array();
-	    while ($result = $searchResults->nextResult()) {
-		if ($result[1] == 'PanoramaPhotoItem') {
-		    $photos[] = $result[0];
-		} else {
-		    $derivatives[] = $result[0];
-		}
-	    }
-	    $total = count($photos) + count($derivatives);
-
-	    /* Switch PanoramaPhotoItems back to GalleryPhotoItems */
-	    for ($i = 0; $photos; $i += count($ids)) {
-		$gallery->guaranteeTimeLimit(30);
-		$ret = $statusMonitor->renderStatusMessage(
-			$module->translate('Updating panorama items'), '', $i / $total);
-		if ($ret) {
-		    return $ret;
-		}
-		$ids = array_splice($photos, 0, 500);
-		$markers = GalleryUtilities::makeMarkers($ids);
-		$query = "UPDATE [GalleryItem] SET [::renderer] = 'PanoramaRenderer' " .
-		    "WHERE [GalleryItem::id] IN ($markers)";
-		$ret = $storage->execute($query, $ids);
-		if ($ret) {
-		    return $ret;
-		}
-
-		$query = "UPDATE [GalleryEntity] SET [::entityType] = 'GalleryPhotoItem' " .
-		    "WHERE [GalleryEntity::id] IN ($markers)";
-		$ret = $storage->execute($query, $ids);
-		if ($ret) {
-		    return $ret;
-		}
-	    }
-
-	    /* Switch PanoramaDerivativeImage back to GalleryDerivativeImage */
-	    while ($derivatives) {
-		$gallery->guaranteeTimeLimit(30);
-		$ret = $statusMonitor->renderStatusMessage(
-			$module->translate('Updating panorama items'), '', $i / $total);
-		if ($ret) {
-		    return $ret;
-		}
-		$ids = array_splice($derivatives, 0, 500);
-		$markers = GalleryUtilities::makeMarkers($ids);
-		$query = "UPDATE [GalleryEntity] SET [::entityType] = 'GalleryDerivativeImage' " .
-		    "WHERE [GalleryEntity::id] IN ($markers)";
-		$ret = $storage->execute($query, $ids);
-		if ($ret) {
-		    return $ret;
-		}
-		$i += count($ids);
-	    }
-	    if ($total) {
-		$ret = $statusMonitor->renderStatusMessage(
-			$module->translate('Updating panorama items'), '', 1);
-		if ($ret) {
-		    return $ret;
-		}
-	    }
-
-	case '1.1.4':
-	    /* Add mpeg-4 video mime type */
-	    list ($ret, $mimeType) = GalleryCoreApi::convertExtensionToMime('mp4');
-	    if (!$ret && $mimeType == 'application/unknown') {
-		$ret = GalleryCoreApi::addMimeType('mp4', 'video/mp4', false);
-		if ($ret) {
-		    return $ret;
-		}
-	    }
-
-	case '1.1.5':
-	case '1.1.6':
-	    /* Remove useless rows in AccessSubscriberMap */
-	    $gallery->guaranteeTimeLimit(60);
-	    $query = '
-	      SELECT
-		[GalleryAccessSubscriberMap::itemId]
-	      FROM
-		[GalleryAccessSubscriberMap], [GalleryEntity]
-	      WHERE
-		[GalleryAccessSubscriberMap::accessListId] = 0
-	      AND
-		[GalleryAccessSubscriberMap::itemId] = [GalleryEntity::id]
-	      AND
-		[GalleryEntity::entityType] IN (?,?,?,?)
-	    ';
-	    list ($ret, $searchResults) = $gallery->search($query,
-		array('GalleryDerivativeImage', 'GalleryUser', 'GalleryGroup', 'GalleryComment'));
-	    if ($ret) {
-		return $ret;
-	    }
-	    $itemIds = array();
-	    while ($result = $searchResults->nextResult()) {
-		$itemIds[] = (int)$result[0];
-	    }
-	    $total = count($itemIds);
-	    $query = 'DELETE FROM [GalleryAccessSubscriberMap] WHERE [::itemId] IN (';
-
-	    for ($i = 0; $itemIds; $i += count($ids)) {
-		$gallery->guaranteeTimeLimit(30);
-		$ret = $statusMonitor->renderStatusMessage(
-		    $module->translate('Optimizing AccessSubscriberMap table'), '', $i / $total);
-		if ($ret) {
-		    return $ret;
-		}
-		$ids = array_splice($itemIds, 0, 500);
-		$markers = GalleryUtilities::makeMarkers($ids);
-		$ret = $storage->execute($query . $markers . ')', $ids);
-		if ($ret) {
-		    return $ret;
-		}
-	    }
-	    if ($total) {
-		$ret = $statusMonitor->renderStatusMessage(
-			$module->translate('Optimizing AccessSubscriberMap table'), '', 1);
-		if ($ret) {
-		    return $ret;
-		}
-	    }
-
-	case '1.1.7':
-	    /* ItemAddFromServer and ItemAddFromWeb moved to separate module */
-	    /* Move uploadLocalServer.dir entries to itemadd module in case it is activated later */
-	    list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
-	    if ($ret) {
-		return $ret;
-	    }
-	    for ($i = 1; isset($params['uploadLocalServer.dir.' . $i]); $i++) {
-		$key = 'uploadLocalServer.dir.' . $i;
-		$ret = GalleryCoreApi::setPluginParameter('module', 'itemadd', $key, $params[$key]);
-		if ($ret) {
-		    return $ret;
-		}
-		$ret = $module->removeParameter($key);
-		if ($ret) {
-		    return $ret;
-		}
-	    }
-
-	case '1.1.8':
-	    /* Remove lock subdirs */
-	    $locksDir = $gallery->getConfig('data.gallery.locks');
-	    if ($platform->file_exists($locksDir)) {
-		@$platform->recursiveRmDir($locksDir);
-	    }
-	    @$platform->mkdir($locksDir);
-
-	case '1.1.9':
-	    /* Graphics toolkits now support percentages for thumbnail/scale/resize */
-	case '1.1.10':
-	    /* Moved ItemCreateLink[Single] to replica module */
-	case '1.1.11':
-	    /* GalleryAuthPlugin: set active user from session now handled by SessionAuthPlugin */
-	case '1.1.12':
-	    /* GalleryCoreApi::getMapEntry */
-	case '1.1.13':
-	    /* GalleryDynamicAlbum */
-	case '1.1.14':
-	    /*
+	     * 2.1.2 Security Release
 	     * Add a .htaccess file in the storage folder to protect it against direct access
 	     * in case it is accessible from the web.
 	     */
@@ -2100,15 +1899,15 @@ class CoreModuleExtras {
 				    "<IfModule mod_access.c>\n" .
 				    "Order allow,deny\n" .
 				    "Deny from all\n" .
-				    "</IfModule>\n";    
+				    "</IfModule>\n";
 		fwrite($fh, $htaccessContents);
 		fclose($fh);
 	    }
 
 	case 'end of upgrade path':
 	    /*
-	     * Leave this bogus case at the end of the legitimate case statements so that we always
-	     * properly terminate our upgrade path with a break
+	     * Leave this bogus case at the end of the legitimate case statements so that we
+	     * always properly terminate our upgrade path with a break.
 	     */
 	    break;
 
@@ -2144,27 +1943,28 @@ class CoreModuleExtras {
 
     /**
      * Determine what changes to config.php are required for this upgrade.
-     *
-     * @access private
      * @param string current core version
      * @return array of array('remove' => array of string regexp removals,
      *                        'add' => array of string additions)
+     * @access private
      * @static
      */
     function _prepareConfigUpgrade($currentVersion) {
 	global $gallery;
 	$configChanges = array();
 
-	$currentVersion = preg_replace('/^(1\.[01]\.0)\.\d+$/', '$1.x', $currentVersion);
+	if (substr($currentVersion, 0, 6) == '1.0.0.') {
+	    $currentVersion = '1.0.0.x';
+	}
 
 	/**
-	 * README: How to update the block below
+	 * README: How to update the block below.
 	 *
 	 * If you add a new feature to the core module and revise the version, you should do the
-	 * following.  Supposing the current version is 1.0.1 and you're adding 1.0.2.  Go to the
+	 * following.  Supposing the current version is 1.0.1 and you're adding 1.0.2. Go to the
 	 * end of the switch and find the 'end of upgrade path' case.  Create a new case *above*
 	 * that one with the old version number.  For our example you'd add: "case '1.0.1':" and
-	 * then your code.  Do *not* put in a break statement.  (Update upgrade function too).
+	 * then your code.  Do *not* put in a break statement. (Update upgrade function too)
 	 */
 	switch ($currentVersion) {
 	case '0.8.4':
@@ -2204,8 +2004,8 @@ class CoreModuleExtras {
 	    $add = array();
 	    if (!isset($gallery->_config['allowSessionAccess'])) {
 		/*
-		 * This item was added to config.php before config.php upgrades were supported.  Add
-		 * it only if not already present.
+		 * This item was added to config.php before config.php upgrades were supported.
+		 * Add it only if not already present.
 		 */
 		$add[] =
 '/*
@@ -2242,13 +2042,13 @@ $gallery->setConfig(\'galleryBaseUrl\', \'\');
 	    $add[] =
 '
 /*
- * Set the name for Gallery session cookies.  The name of the session cookie is
+ * Set the name for G2 session cookies. The name of the session cookie is
  * a concatenation of \'GALLERYSID_\' and cookieId, which is randomly generated
- * at Gallery installation time.  You can change cookieId at any time, but if
+ * at Gallery installation time. You can change cookieId at any time, but if
  * you change it be aware of two things:
- * 1. Users have to login again after the change.  They lose their old session.
- * 2. If multiple Gallery installs are running on the same domain (in different paths or
- *    different subdomains) choose cookieId such that it is different for all Gallery
+ * 1. Users have to login again after the change. They lose their old session.
+ * 2. If multiple G2 installs are running on the same domain (in different paths or
+ *    different subdomains) choose cookieId such that it is different for all G2
  *    installs on the same domain.
  */
 $gallery->setConfig(\'cookieId\', \'' . $cookieId . '\');
@@ -2292,7 +2092,7 @@ $gallery->setConfig(\'cookieId\', \'' . $cookieId . '\');
  *    view with admin login link when codebase is up to date, but a
  *    plain unstyled page when codebase has been updated but upgrader
  *    has not yet been run.
- *  url (with quotes) - provide a URL where requests are redirected in
+ *  url (with quotes) - provide a url where requests are redirected in
  *    either case described above.  Example: \'/maintenance.html\'
  */
 $gallery->setConfig(\'mode.maintenance\', false);
@@ -2307,13 +2107,13 @@ $gallery->setConfig(\'mode.maintenance\', false);
 	case '1.0.11':
 	case '1.0.12':
 	case '1.0.13':
-	    /* Add config parameter: 'baseUri' */
+	    /* Add config parameter: 'baseUri'*/
 	    $add[] =
 '
 /*
  * This setting can be used to override Gallery\'s auto-detection of the domain-name,
  * protocol (http/https), URL path, and of the file & query string.
- * Most users can leave this empty.  If the server is misconfigured or for very special
+ * Most users can leave this empty. If the server is misconfigured or for very special
  * setups, this setting can be quite handy.
  * Examples (the positions of the slashes (\'/\') are important):
  *   override the path: $gallery->setConfig(\'baseUri\', \'/another/path/\');
@@ -2328,8 +2128,8 @@ $gallery->setConfig(\'baseUri\', \'\');';
 	case '1.0.14':
 	case '1.0.15':
 	    /*
-	     * Normalize the config path 'data.gallery.base' (add a trailing slash if necessary).
-	     * Escape the backslashes and quotes two times since we feed preg_replace with it.
+	     * Normalize the config path 'data.gallery.base' (add a trailing slash if necessary)
+	     * Escape the backslashes and quotes two times since we feed preg_replace with it
 	     */
 	    $tmp = strtr($gallery->getConfig('data.gallery.base'),
 			 array('\\' => '\\\\\\\\', "'" => "\\\\'"));
@@ -2356,26 +2156,12 @@ $gallery->setConfig(\'baseUri\', \'\');';
 	case '1.0.33':
 	case '1.0.34':
 	case '1.1.0':
-	case '1.1.0.x':
-	case '1.1.1':
-	case '1.1.2':
-	case '1.1.3':
-	case '1.1.4':
-	case '1.1.5':
-	case '1.1.6':
-	case '1.1.7':
-	case '1.1.8':
-	case '1.1.9':
-	case '1.1.10':
-	case '1.1.11':
-	case '1.1.12':
-	case '1.1.13':
-	case '1.1.14':
+	case '1.1.0.1':
 
 	case 'end of upgrade path':
 	    /*
-	     * Leave this bogus case at the end of the legitimate case statements so that we always
-	     * properly terminate our upgrade path with a break
+	     * Leave this bogus case at the end of the legitimate case statements so that we
+	     * always properly terminate our upgrade path with a break.
 	     */
 	    break;
 
@@ -2388,7 +2174,6 @@ $gallery->setConfig(\'baseUri\', \'\');';
 
     /**
      * Check if any changes to config.php are required for this upgrade.
-     *
      * @param string current core version
      * @return boolean true if change is required
      * @static
@@ -2400,7 +2185,6 @@ $gallery->setConfig(\'baseUri\', \'\');';
 
     /**
      * Perform upgrade of config.php file.
-     *
      * @param string current core version
      * @return object GalleryStatus a status code
      * @static
@@ -2444,7 +2228,7 @@ $gallery->setConfig(\'baseUri\', \'\');';
     }
 
     /**
-     * Create the initial all users group.
+     * Create the initial All Users group
      *
      * @param object GalleryModule the core module
      * @return object GalleryStatus a status code
@@ -2455,7 +2239,7 @@ $gallery->setConfig(\'baseUri\', \'\');';
 
 	list ($ret, $id) = $module->getParameter('id.allUserGroup');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if (!empty($id)) {
@@ -2468,24 +2252,24 @@ $gallery->setConfig(\'baseUri\', \'\');';
 	$groupName = $module->translate('Registered Users');
 	$ret = $group->create($groupName, GROUP_ALL_USERS);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = $group->save();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = $module->setParameter('id.allUserGroup', $group->getId());
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
     }
 
     /**
-     * Create the site admins group.
+     * Create the Site Admins group
      *
      * @param object GalleryModule the core module
      * @return object GalleryStatus a status code
@@ -2496,7 +2280,7 @@ $gallery->setConfig(\'baseUri\', \'\');';
 
 	list ($ret, $id) = $module->getParameter('id.adminGroup');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if (!empty($id)) {
@@ -2509,24 +2293,24 @@ $gallery->setConfig(\'baseUri\', \'\');';
 	$groupName = $module->translate('Site Admins');
 	$ret = $group->create($groupName, GROUP_SITE_ADMINS);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = $group->save();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = $module->setParameter('id.adminGroup', $group->getId());
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
     }
 
     /**
-     * Create the everybody group.
+     * Create the Site Admins group
      *
      * @param object GalleryModule the core module
      * @return object GalleryStatus a status code
@@ -2537,7 +2321,7 @@ $gallery->setConfig(\'baseUri\', \'\');';
 
 	list ($ret, $id) = $module->getParameter('id.everybodyGroup');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if (!empty($id)) {
@@ -2550,24 +2334,24 @@ $gallery->setConfig(\'baseUri\', \'\');';
 	$groupName = $module->translate('Everybody');
 	$ret = $group->create($groupName, GROUP_EVERYBODY);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = $group->save();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = $module->setParameter('id.everybodyGroup', $group->getId());
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
     }
 
     /**
-     * Create the initial anonymous user.
+     * Create the initial Anonymous User
      *
      * @param object GalleryModule the core module
      * @return object GalleryStatus a status code
@@ -2578,7 +2362,7 @@ $gallery->setConfig(\'baseUri\', \'\');';
 
 	list ($ret, $id) = $module->getParameter('id.anonymousUser');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if (!empty($id)) {
@@ -2592,36 +2376,34 @@ $gallery->setConfig(\'baseUri\', \'\');';
 	$fullName = $module->translate('Guest');
 	$ret = $user->create($userName);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$user->setFullName($fullName);
 	$user->changePassword('');
 
 	$ret = $user->save();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	/* Remove the anonymous user from the Everybody group */
+	/* Remove the anonymous user from the "all users" group */
 	list ($ret, $allUserGroupId) = $module->getParameter('id.allUserGroup');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	$ret = GalleryCoreApi::removeUserFromGroup($user->getId(), $allUserGroupId);
-	if ($ret) {
-	    return $ret;
-	}
+
+	GalleryCoreApi::removeUserFromGroup($user->getId(), $allUserGroupId);
 
 	$ret = $module->setParameter('id.anonymousUser', $user->getId());
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
     }
 
     /**
-     * Create the initial admin user.
+     * Create the initial admin user
      *
      * @param object GalleryModule the core module
      * @return object GalleryStatus a status code
@@ -2633,12 +2415,12 @@ $gallery->setConfig(\'baseUri\', \'\');';
 	/* Don't create if there is already a user in the admin group */
 	list ($ret, $adminGroupId) = $module->getParameter('id.adminGroup');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	list ($ret, $results) = GalleryCoreApi::fetchUsersForGroup($adminGroupId);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if (sizeof($results) > 0) {
@@ -2649,8 +2431,8 @@ $gallery->setConfig(\'baseUri\', \'\');';
 	$user = new GalleryUser();
 
 	/*
-	 * Get the admin name and data from the installer and default to 'admin' if it's not
-	 * available for some reason
+	 * Get the admin name and data from the installer and default to 'admin' if it's
+	 * not available for some reason
 	 */
 	$userName = $gallery->getConfig('setup.admin.userName');
 	$userName = !strlen($userName) ? 'admin' : $userName;
@@ -2658,7 +2440,7 @@ $gallery->setConfig(\'baseUri\', \'\');';
 	$fullName = $gallery->getConfig('setup.admin.fullName');
 	$ret = $user->create($userName);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$user->changePassword($gallery->getConfig('setup.password'));
 	$user->setFullName($fullName);
@@ -2666,18 +2448,18 @@ $gallery->setConfig(\'baseUri\', \'\');';
 
 	$ret = $user->save();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Add her to the admin group */
 	$ret = GalleryCoreApi::addUserToGroup($user->getId(), $adminGroupId);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/*
-	 * The rest of the bootstrap code won't work so well unless we're logged in, so log in as
-	 * the admin user now
+	 * The rest of the bootstrap code won't work so well unless we're
+	 * logged in, so log in as the admin user now.
 	 */
 	$gallery->setActiveUser($user);
 
@@ -2685,7 +2467,7 @@ $gallery->setConfig(\'baseUri\', \'\');';
     }
 
     /**
-     * Create the root album item.
+     * Create the root album item
      *
      * @param object GalleryModule the core module
      * @return object GalleryStatus a status code
@@ -2705,7 +2487,7 @@ $gallery->setConfig(\'baseUri\', \'\');';
 
 	$ret = $album->createRoot();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$title = $module->translate('Gallery');
 	$description = $module->translate('This is the main page of your Gallery');
@@ -2714,41 +2496,41 @@ $gallery->setConfig(\'baseUri\', \'\');';
 
 	$ret = $album->save();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Give everybody some permissions */
 	list ($ret, $groupId) = $module->getParameter('id.everybodyGroup');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::addGroupPermission($album->getId(), $groupId, 'core.viewAll');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Grant admin users everything */
 	list ($ret, $groupId) = $module->getParameter('id.adminGroup');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::addGroupPermission($album->getId(), $groupId, 'core.all');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = $module->setParameter('id.rootAlbum', $album->getId());
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
     }
 
     /**
-     * Create the access list compactor lock entity.
+     * Create the access list compactor lock entity
      *
      * @param object GalleryModule the core module
      * @return object GalleryStatus a status code
@@ -2768,12 +2550,12 @@ $gallery->setConfig(\'baseUri\', \'\');';
 	$lock->create();
 	$ret = $lock->save(false);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = $module->setParameter('id.accessListCompacterLock', $lock->getId());
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -2796,13 +2578,13 @@ $gallery->setConfig(\'baseUri\', \'\');';
 	$regs[] = array('GalleryEntity', 'GalleryAnimationItem', 'class', null);
 	$regs[] = array('GalleryEntity', 'GalleryPhotoItem', 'class', null);
 	$regs[] = array('GalleryEntity', 'GalleryUnknownItem', 'class', null);
-	$regs[] = array('GalleryItem', 'GalleryPhotoItem', 'class',
-			array('image/*', 'application/photoshop'));
-	$regs[] = array('GalleryItem', 'GalleryMovieItem', 'class', array('video/*'));
+	$regs[] = array('GalleryItem', 'GalleryPhotoItem', 'class', array('image/*'));
+	$regs[] = array('GalleryItem', 'GalleryMovieItem', 'class',
+			array('video/x-msvideo', 'video/quicktime', 'video/mpeg',
+			      'video/x-ms-asf', 'video/x-ms-wmv'));
 	$regs[] = array('GalleryItem', 'GalleryAnimationItem', 'class',
 			array('application/x-director', 'application/x-shockwave-flash'));
 	$regs[] = array('GalleryItem', 'GalleryUnknownItem', 'class', array('*'));
-	$regs[] = array('GalleryDynamicAlbum', 'GalleryDynamicAlbum', 'class', null);
 	$regs[] = array('GallerySearchInterface_1_0', 'GalleryCoreSearch', 'class', null);
 	$regs[] = array('ItemEditPlugin', 'ItemEditItem', 'inc', null, 1);
 	$regs[] = array('ItemEditPlugin', 'ItemEditAnimation', 'inc', null, 2);
@@ -2813,6 +2595,8 @@ $gallery->setConfig(\'baseUri\', \'\');';
 	$regs[] = array('ItemEditPlugin', 'ItemEditRotateAndScalePhoto', 'inc', null, 3);
 	$regs[] = array('ItemEditPlugin', 'ItemEditPhotoThumbnail', 'inc', null, 4);
 	$regs[] = array('ItemAddPlugin', 'ItemAddFromBrowser', 'inc', null, 2);
+	$regs[] = array('ItemAddPlugin', 'ItemAddFromServer', 'inc', null, 3);
+	$regs[] = array('ItemAddPlugin', 'ItemAddFromWeb', 'inc', null, 4);
 	$regs[] = array('ItemAddOption', 'CreateThumbnailOption', 'inc', null);
 	$regs[] = array('MaintenanceTask', 'OptimizeDatabaseTask', 'class', null);
 	$regs[] = array('MaintenanceTask', 'FlushTemplatesTask', 'class', null);
@@ -2823,17 +2607,16 @@ $gallery->setConfig(\'baseUri\', \'\');';
 	$regs[] = array('MaintenanceTask', 'SetOriginationTimestampTask', 'class', null);
 	$regs[] = array('MaintenanceTask', 'DeleteSessionsTask', 'class', null);
 	$regs[] = array('CaptchaAdminOption', 'CoreCaptchaAdminOption', 'class', null);
-	$regs[] = array('GalleryAuthPlugin', 'SessionAuthPlugin', 'class', null);
 
 	/*
-	 * Unlike other modules, the core module doesn't get deactivated so its factory
-	 * registrations may still be around from before.  Unregister them now before reregistering
-	 * them all.
+	 * Unlike other modules, the core module doesn't get deactivated so its
+	 * factory registrations may still be around from before.  Unregister
+	 * them now before reregistering them all.
 	 */
 	/* Unregister all factory implementations */
 	$ret = GalleryCoreApi::unregisterFactoryImplementationsByModuleId($module->getId());
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	foreach ($regs as $entry) {
@@ -2844,7 +2627,7 @@ $gallery->setConfig(\'baseUri\', \'\');';
 		  sprintf('modules/core/%s.inc', $entry[1]),
 		'core', $entry[3], isset($entry[4]) ? (string)$entry[4] : '4');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 

@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: Db2Storage.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.15 $ $Date: 2006/03/06 01:48:14 $
  * @package GalleryCore
  * @author 
  */
@@ -37,11 +39,29 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryStorage.class', true);
 class Db2Storage extends GalleryStorage {
 
     /**
+     * The type of DB2 database (N/A for DB2)
+     *
+     * @var string $_db2Type
+     * @access private
+     */
+    var $_db2DbType;
+
+    /**
      * Constructor
      */
     function Db2Storage($config) {
 	$this->GalleryStorage($config);
+	$this->_db2Type = $config['type'];
 	$this->_isTransactional = true;
+    }
+
+    /**
+     * Return the type of this database
+     *
+     * @return string
+     */
+    function getAdoDbType() {
+	return $this->_db2Type;
     }
 
     /**
@@ -59,7 +79,7 @@ class Db2Storage extends GalleryStorage {
     function cleanStore() {
 	$ret = parent::cleanStore();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/*
@@ -68,7 +88,7 @@ class Db2Storage extends GalleryStorage {
 	 */
 	list ($ret, $tmpDb) = $this->_getConnection(true);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$statements = array();
@@ -86,7 +106,7 @@ class Db2Storage extends GalleryStorage {
 	    $recordSet = $tmpDb->Execute($sql);
 	    $this->_traceStop();
 	    if (empty($recordSet)) {
-		return GalleryCoreApi::error(ERROR_STORAGE_FAILURE);
+		return GalleryCoreApi::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__);
 	    }
 	}
 	$tmpDb->Close();
@@ -110,16 +130,16 @@ class Db2Storage extends GalleryStorage {
 	     */
 	    $platform =& $gallery->getPlatform();
 	    $slash = $platform->getDirectorySeparator();
-
+	   
 	    /* 1) Create a temporary database connection */
 	    list ($ret, $tmpDb) = $this->_getConnection(true);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
-	    /*
-	     * 2) Register the Jar file (use ODBC delimiters, see
-	     *    http://gallery.menalto.com/node/37648?from=850#comment-172690)
+	    /* 
+	     * 2) Register the Jar file (use ODBC delimiters, see 
+	     *    http://gallery.menalto.com/node/37648?from=850#comment-172690) 
 	     */
 	    $sql = "{CALL SQLJ.INSTALL_JAR('file:" . dirname(__FILE__) . $slash .
 		    "g2_db2.jar',  'g2_db2_jar')}";
@@ -127,13 +147,13 @@ class Db2Storage extends GalleryStorage {
 	    $recordSet = $tmpDb->Execute($sql);
 	    $this->_traceStop();
 	    if (empty($recordSet)) {
-		return GalleryCoreApi::error(ERROR_STORAGE_FAILURE);
+		return GalleryCoreApi::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__);
 	    }
 
 	    /* 3) Create/Catalog the UDFs */
 	    $ret = $this->_executeSqlFile(dirname(__FILE__) . $slash . 'Db2CreateUdfs.sql');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    /* 4) Disconnect from the database */
@@ -147,7 +167,7 @@ class Db2Storage extends GalleryStorage {
 
 	$ret = parent::configureStore($moduleId, $upgradeInfo);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -196,9 +216,9 @@ class Db2Storage extends GalleryStorage {
 	     * plus it stores the result in the DB2 scratchpad. We use the built-in aggregate
 	     * function MAX() to select the last "intermediate" result of the BIT_OR
 	     */
-
-	    /*
-	     * arg 0 is the column over which we do the BIT_OR, arg 1 is the GROUP BY column
+	     
+	    /* 
+	     * arg 0 is the column over which we do the BIT_OR, arg 1 is the GROUP BY column 
 	     * (or a constant number if no GROUP BY clause is used)
 	     */
 	    $sql = 'MAX(G2_BIT_OR (' . $args[1] . ', ' . $args[0] . '))';
@@ -238,7 +258,7 @@ class Db2Storage extends GalleryStorage {
 	    break;
 
 	case 'MULTI_INSERT':
-	    /*
+	    /* 
 	     * 0 - table name
 	     * 1 - array of column names
 	     * 2 - number of rows
@@ -273,7 +293,7 @@ class Db2Storage extends GalleryStorage {
     function getVersion() {
 	global $gallery;
 	$platform =& $gallery->getPlatform();
-
+	
 	list ($success, $results) = $platform->exec(array(array('db2level')));
 	if ($success && is_array($results)) {
 	    return implode("\n", $results);
@@ -281,7 +301,7 @@ class Db2Storage extends GalleryStorage {
 	    return '';
 	}
     }
-
+    
     /**
      * @see GalleryStorage::_getOptimizeStatement
      */
@@ -289,7 +309,7 @@ class Db2Storage extends GalleryStorage {
 	global $gallery;
 	$platform =& $gallery->getPlatform();
 	/*
-	 * This requires SYSCTL (therefore, groups), so won't work on single-user
+	 * This requires SYSCTL (therefore, groups), so won't work on single-user 
 	 * Windows (9*, ME, XP). getmygid() returns "0" on my XP system. We presume it will not
 	 * return "0" on OSes that support groups.  Need to confirm that.
 	 */

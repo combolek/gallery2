@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: module.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 /**
  * @package ArchiveUpload
- * @version $Revision$ $Date$
+ * @version $Revision: 1.18.2.1 $ $Date: 2006/04/05 00:19:52 $
  * @author Alan Harder <alan.harder@sun.com>
  */
 
@@ -52,13 +54,13 @@ class ArchiveUploadModule extends GalleryModule {
     function upgrade($currentVersion) {
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'archiveupload');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	foreach (array('unzipPath' => '') as $key => $value) {
 	    if (!isset($params[$key])) {
 		$ret = $this->setParameter($key, $value);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	}
@@ -74,7 +76,7 @@ class ArchiveUploadModule extends GalleryModule {
 	    'GalleryToolkit', 'ArchiveExtractToolkit', 'ArchiveUpload',
 	    'modules/archiveupload/classes/ArchiveExtractToolkit.class', 'archiveupload', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -86,7 +88,7 @@ class ArchiveUploadModule extends GalleryModule {
     function autoConfigure() {
 	list ($ret, $needsConfiguration) = $this->needsConfiguration();
 	if ($ret) {
-	    return array($ret, false);
+	    return array($ret->wrap(__FILE__, __LINE__), false);
 	}
 	if (!$needsConfiguration) {
 	    return array(null, true);
@@ -101,7 +103,7 @@ class ArchiveUploadModule extends GalleryModule {
 
 	$this->setParameter('unzipPath', $unzipPath);
 	if ($ret) {
-	    return array($ret, false);
+	    return array($ret->wrap(__FILE__, __LINE__), false);
 	}
 
 	return array(null, true);
@@ -114,7 +116,7 @@ class ArchiveUploadModule extends GalleryModule {
 	foreach (array('unzipPath') as $key) {
 	    list ($ret, $value) = $this->getParameter($key);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    if (empty($value)) {
@@ -135,12 +137,30 @@ class ArchiveUploadModule extends GalleryModule {
 							array(),
 							'extract files from an archive');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $redirect) = parent::activate($postActivationEvent);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	return array(null, $redirect);
+    }
+
+    /**
+     * @see GalleryModule::deactivate()
+     */
+    function deactivate($postDeactivationEvent=true) {
+	list ($ret, $redirect) = parent::deactivate($postDeactivationEvent);
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	/* Unregister all of our properties and operations */
+	$ret = GalleryCoreApi::unregisterToolkit('ArchiveUpload');
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, $redirect);

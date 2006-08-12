@@ -1,5 +1,5 @@
 {*
- * $Revision$
+ * $Revision: 1.34 $
  * If you want to customize this file, do not edit it directly since future upgrades
  * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
  * version.  Gallery will look for that file first and use it if it exists.
@@ -184,7 +184,7 @@
     <b>
     {g->text text="There are no graphics toolkits enabled that support this type of item, so we cannot create or modify a thumbnail."}
     {if $user.isAdmin}
-      <a href="{g->url arg1="view=core.SiteAdmin" arg2="subView=core.AdminPlugins"}">
+      <a href="{g->url arg1="view=core.SiteAdmin" arg2="subView=core.AdminModules"}">
 	{g->text text="site admin"}
       </a>
     {/if}
@@ -194,11 +194,6 @@
   {if !empty($form.error.thumbnail.size.invalid)}
   <div class="giError">
     {g->text text="You must enter a number (greater than zero)"}
-  </div>
-  {/if}
-  {if !empty($form.error.thumbnail.create)}
-  <div class="giError">
-    {g->text text="Unable to create a thumbnail for this item"}
   </div>
   {/if}
 </div>

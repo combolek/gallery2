@@ -1,5 +1,5 @@
 {*
- * $Revision$
+ * $Revision: 1.9 $
  * If you want to customize this file, do not edit it directly since future upgrades
  * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
  * version.  Gallery will look for that file first and use it if it exists.
@@ -29,7 +29,7 @@
       <a href="{g->url arg1="view=core.UserAdmin" arg2="subView=core.UserLogin" arg3="return=1"}">
     {/capture}
     {capture name="adminLink"}
-      <a href="{g->url arg1="view=core.SiteAdmin" arg2="subView=core.AdminPlugins"
+      <a href="{g->url arg1="view=core.SiteAdmin" arg2="subView=core.AdminThemes"
 	 arg3="mode=config" arg4="return=1"}">
     {/capture}
 

@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: GalleryTestCase.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.59 $ $Date: 2006/02/24 02:32:05 $
  * @package Gallery
  * @subpackage PHPUnit
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -106,7 +108,7 @@ class TestEventListener /* extends GalleryEventListener */ {
 	for ($i = 0; $i < count($list); $i++) {
 	    list ($ret, $data) = $list[$i]->handleEvent($event);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    if (isset($data)) {
 		$result[] = $data;
@@ -225,13 +227,13 @@ class GalleryTestCase extends TestCase {
 	$storage =& $gallery->getStorage();
 	$ret = $storage->beginTransaction();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	list ($ret, $this->_rootAlbumId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$gallery->clearDebugBuffer();
@@ -285,7 +287,7 @@ class GalleryTestCase extends TestCase {
 		GalleryCoreApi::fetchAllPluginParameters($pluginType, $pluginId);
 	    if ($ret) {
 		print $ret->getAsHtml();
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    /* Remove each new key from the DB */
@@ -314,7 +316,7 @@ class GalleryTestCase extends TestCase {
 	    $ret = GalleryCoreApi::deleteEntityById($entity->getId());
 	    if ($ret) {
 		print $ret->getAsHtml();
-		return $this->failWithStatus($ret);
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	}
 
@@ -322,7 +324,7 @@ class GalleryTestCase extends TestCase {
 	    $ret = GalleryCoreApi::unregisterToolkit($toolkitId);
 	    if ($ret) {
 		print $ret->getAsHtml();
-		return $this->failWithStatus($ret);
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	}
 
@@ -330,14 +332,14 @@ class GalleryTestCase extends TestCase {
 	    $ret = GalleryCoreApi::unregisterFactoryImplementationsByModuleId($moduleId);
 	    if ($ret) {
 		print $ret->getAsHtml();
-		return $this->failWithStatus($ret);
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	}
 
 	$storage =& $gallery->getStorage();
 	$ret = $storage->commitTransaction();
 	if ($ret) {
-	    $ret = $ret;
+	    $ret = $ret->wrap(__FILE__, __LINE__);
 	    $this->fail($ret->getAsText());
 	}
 
@@ -398,7 +400,7 @@ class GalleryTestCase extends TestCase {
 	    GalleryCoreApi::fetchAllPluginParameters($pluginType, $pluginId);
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$this->_cleanup['pluginParameters'][] = array($pluginType, $pluginId, $pluginParams);
@@ -434,7 +436,7 @@ class GalleryTestCase extends TestCase {
 	global $gallery;
 
 	if (empty($parentId)) {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	}
 
 	list ($ret, $album) = GalleryCoreApi::createAlbum(
@@ -442,18 +444,18 @@ class GalleryTestCase extends TestCase {
 	    'I am Jack\'s title', 'This is my summary',
 	    'This is my description', null);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (!empty($fields)) {
 	    list ($ret, $lockIds[]) = GalleryCoreApi::acquireWriteLock($album->getId());
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    $ret = $this->_verifyFields($album, array_keys($fields));
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    /* Change some settings */
@@ -465,14 +467,14 @@ class GalleryTestCase extends TestCase {
 	    /* Save it */
 	    $ret = $album->save();
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    /* Leggo of our locks */
 	    if (isset($lockIds)) {
 		$ret = GalleryCoreApi::releaseLocks($lockIds);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
 	}
@@ -505,16 +507,16 @@ class GalleryTestCase extends TestCase {
 	    list ($ret, $item) = GalleryCoreApi::newItemByMimeType($mimeType);
 	}
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (!isset($item)) {
-	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
+	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__), null);
 	}
 
 	list ($ret, $lockIds[]) = GalleryCoreApi::acquireReadLock($parentId);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (get_magic_quotes_gpc()) {
@@ -524,7 +526,7 @@ class GalleryTestCase extends TestCase {
 	$ret = $item->create($parentId, $inputFile, $mimeType,
 			     'test-' . rand(1, 5000) . '.dat');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Change some settings */
@@ -535,7 +537,7 @@ class GalleryTestCase extends TestCase {
 
 	$ret = $this->_verifyFields($item, array_keys($fields));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	foreach ($fields as $field => $value) {
@@ -546,14 +548,14 @@ class GalleryTestCase extends TestCase {
 	/* Save it */
 	$ret = $item->save();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Leggo of our locks */
 	if (isset($lockIds)) {
 	    $ret = GalleryCoreApi::releaseLocks($lockIds);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
@@ -573,33 +575,33 @@ class GalleryTestCase extends TestCase {
 	global $gallery;
 
 	if (!isset($targetItem)) {
-	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
+	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__), null);
 	}
 
 	list ($ret, $lockIds[]) =
 	    GalleryCoreApi::acquireReadLock(array($parentId, $targetItem->getId()));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$className = get_class($targetItem);
 	$linkedItem = new $className();
 	$ret = $linkedItem->createLink($targetItem, $parentId);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Save it */
 	$ret = $linkedItem->save();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Leggo of our locks */
 	if (isset($lockIds)) {
 	    $ret = GalleryCoreApi::releaseLocks($lockIds);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
@@ -617,11 +619,11 @@ class GalleryTestCase extends TestCase {
     function _createRandomUser($userTag=null, $password='password') {
 	list ($ret, $user) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryUser');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (!isset($user)) {
-	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
+	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__), null);
 	}
 
 	if (!isset($userTag)) {
@@ -630,7 +632,7 @@ class GalleryTestCase extends TestCase {
 
 	$ret = $user->create('testuser-' . $userTag);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$user->setFullName('User ' . $userTag);
@@ -639,7 +641,7 @@ class GalleryTestCase extends TestCase {
 
 	$ret = $user->save();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, $user);
@@ -656,11 +658,11 @@ class GalleryTestCase extends TestCase {
     function _createRandomGroup($groupTag=null) {
 	list ($ret, $group) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryGroup');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (!isset($group)) {
-	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
+	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__), null);
 	}
 
 	if (!isset($groupTag)) {
@@ -669,12 +671,12 @@ class GalleryTestCase extends TestCase {
 
 	$ret = $group->create('Test Group ' . $groupTag);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$ret = $group->save();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, $group);
@@ -689,12 +691,12 @@ class GalleryTestCase extends TestCase {
 	list ($ret, $derivative) =
 	    GalleryCoreApi::newFactoryInstanceByHint('GalleryDerivative', $parent->getEntityType());
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$ret = $derivative->create($parentId, $type);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Set bogus values */
@@ -704,7 +706,7 @@ class GalleryTestCase extends TestCase {
 
 	$ret = $this->_verifyFields($derivative, array_keys($fields));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	foreach ($fields as $field => $value) {
@@ -714,7 +716,7 @@ class GalleryTestCase extends TestCase {
 
 	$ret = $derivative->save();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, $derivative);
@@ -725,12 +727,12 @@ class GalleryTestCase extends TestCase {
 
 	$ret = GalleryCoreApi::deleteEntityById($id);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = $this->_verifyMissing($id);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -744,11 +746,11 @@ class GalleryTestCase extends TestCase {
 	list ($ret, $entity) = GalleryCoreApi::loadEntitiesById($id);
 	if ($ret) {
 	    if (!$ret->getErrorCode() & ERROR_MISSING_OBJECT) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	} else {
 	    /* We failed to delete! */
-	    return GalleryCoreApi::error(ERROR_UNKNOWN);
+	    return GalleryCoreApi::error(ERROR_UNKNOWN, __FILE__, __LINE__);
 	}
 
 	return null;
@@ -762,7 +764,7 @@ class GalleryTestCase extends TestCase {
 	/* Load it back from the storage */
 	list ($ret, $newEntity) = GalleryCoreApi::loadEntitiesById($entity->getId());
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Verify it */
@@ -776,22 +778,22 @@ class GalleryTestCase extends TestCase {
 
 	list ($ret, $user) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryUser');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (!isset($user)) {
-	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT),
+	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__),
 			 null);
 	}
 
 	$ret = $user->create('testuser-'.rand());
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$ret = $this->_verifyFields($user, array_keys($fields));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	foreach ($fields as $field => $value) {
@@ -801,7 +803,7 @@ class GalleryTestCase extends TestCase {
 
 	$ret = $user->save();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	return array(null, $user);
     }
@@ -816,7 +818,7 @@ class GalleryTestCase extends TestCase {
 	    $storage =& $gallery->getStorage();
 	    list ($ret, $unusedId) = $storage->getUniqueId();
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
@@ -829,12 +831,12 @@ class GalleryTestCase extends TestCase {
 	list ($ret, $anonymousUserId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $anonymousUser) = GalleryCoreApi::loadEntitiesById($anonymousUserId);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$gallery->setActiveUser($anonymousUser);
@@ -842,8 +844,8 @@ class GalleryTestCase extends TestCase {
 
     function DeepCompare($obj1, $obj2, $context=null) {
 	if (gettype($obj1) !== gettype($obj2)) {
-	    return "[$context] $obj1 type (" . gettype($obj1)
-		 . ") !== $obj2 type (" . gettype($obj2) . ')';
+	    return sprintf("[$context] $obj1 type (%s) !== $obj2 type (%s)",
+			   gettype($obj1), gettype($obj2));
 	}
 
 	if (is_array($obj1)) {
@@ -854,9 +856,9 @@ class GalleryTestCase extends TestCase {
 		if (empty($keys1) && empty($keys2)) {
 		    break;
 		} else if (empty($keys1) && !empty($keys2)) {
-		    return "[$context] extra keys in array 2: " . implode(',', $keys2);
+		    return sprintf("[$context] extra keys in array 2: %s", join(',', $keys2));
 		} else if (empty($keys2) && !empty($keys1)) {
-		    return "[$context] extra keys in array 1: " . implode(',', $keys1);
+		    return sprintf("[$context] extra keys in array 1: %s", join(',', $keys1));
 		}
 
 		$key1 = array_shift($keys1);
@@ -880,7 +882,23 @@ class GalleryTestCase extends TestCase {
 	return null;
     }
 
+    /**
+     * Like print_r($value, 1)
+     * @static
+     */
+    function sprint_r($value) {
+	ob_start();
+	print_r($value);
+	$buf = ob_get_contents();
+	ob_end_clean();
+	return $buf;
+    }
+
     function _verifyFields($entity, $fields) {
+	if (version_compare(phpversion(), '4.2.0', '<')) {
+	    /* Before 4.2.0, uninitialized class variables are not reported by get_class_vars() */
+	    return null;
+	}
 	$vars = get_class_vars(get_class($entity));
 	foreach ($fields as $field) {
 	    if (!array_key_exists($field, $vars)) {

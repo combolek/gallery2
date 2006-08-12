@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: RewriteParser.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,13 +21,13 @@
  */
 /**
  * @package Rewrite
- * @version $Revision$ $Date$
+ * @version $Revision: 1.2 $ $Date: 2006/01/10 04:42:16 $
  * @author Douglas Cau <douglas@cau.se>
  */
 
 /**
- * RewriteParser class.  Parsers are stored in modules/rewrite/classes/parsers/<parserId> and
- * require a parser.inc file in that directory.
+ * RewriteParser class. Parsers are stored in modules/rewrite/classes/parsers/<parserId>
+ * and require a parser.inc file in that directory.
  *
  * @package Rewrite
  * @subpackage Classes
@@ -41,26 +43,26 @@ class RewriteParser {
     var $_parserId;
 
     /**
-     * The name of this URL generator class
+     * The name of this url generator class
      *
-     * @var string URL generator class name
+     * @var string url generator class name
      * @access private
      */
     var $_urlGeneratorId;
 
     /**
-     * The type of this parser.  Can be either 'preGallery' or 'inGallery'
+     * The type of this parser. Can be either 'preGallery' or 'inGallery'
      *
-     * @var string URL generator class name
+     * @var string url generator class name
      * @access private
      */
     var $_type;
 
     /**
-     * Saves the active rewrite rules.  This needs to be implemented by the specific plugin.  It
-     * needs to save two rewrite params, activeRules and shortUrls.  activeRules is just a
-     * serialized array of the given activeRules and shortUrls is returned by
-     * RewriteHelper::parseActiveRules().  It returns REWRITE_STATUS_OK on success.
+     * Saves the active rewrite rules. This needs to be implemented by the specific plugin. It
+     * needs to save two rewrite params, activeRules and shortUrls. activeRules is just a
+     * serialized array of the given activeRules, and shortUrls is returned by
+     * RewriteHelper::parseActiveRules(). It returns REWRITE_STATUS_OK on success.
      *
      * @param array active rules (if null, or not set, it defaults to the current rules)
      * @param object RewriteModule (optional)
@@ -70,21 +72,22 @@ class RewriteParser {
      *                     int rule id (on error)
      */
     function saveActiveRules($activeRules=null, $rewriteModule=null) {
-	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null, null);
+	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED, __FILE__, __LINE__), null, null);
     }
 
     /**
-     * Saves list of hosts Gallery allows as referrer and if Gallery should allow an empty referrer.
-     * This needs to be implemented by the specific plugin.  It needs to save a serialized array of
-     * the hosts and the value of allowEmptyReferer to the params accessList and allowEmptyReferer.
+     * Saves the list of host gallery allows as referer, and if gallery should allow an empty
+     * referer. This needs to be implemented by the specific plugin. It needs to save a serialized
+     * array of the hosts and the value of allowEmptyReferer to the params accessList and
+     * allowEmptyReferer.
      *
-     * @param array access list of referrer hosts
-     * @param boolean true if Gallery should allow empty referrer
+     * @param array access list of referer hosts
+     * @param boolean true if gallery should allow empty referer
      * @return array object GalleryStatus a status code
      *               int rewrite status code (REWRITE_STATUS_OK on success)
      */
     function saveAccessList($accessList, $allowEmptyReferer) {
-	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
+	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED, __FILE__, __LINE__), null);
     }
 
     /**
@@ -99,9 +102,9 @@ class RewriteParser {
 
     /**
      * This function is called when new rules are saved and by rewrite.AdminRewrite to know if this
-     * rule should be displayed.  If the parser overrides this function it needs to call this (the
-     * parent).  It also verifies that locked rules are saved with the original pattern.  We perform
-     * a sanity check to minimize possible conflicts and bad regular expressions.
+     * rule should be displayed. If the parser overrides this function it needs to call this (the
+     * parent). It also verifies that locked rules are saved with the original pattern. We perform
+     * a sanity check to minimize possible conflicts and bad regular expression.
      *
      * @param array rewrite rule
      * @param string (optional) set to the custom pattern when called from saveActiveRules
@@ -124,8 +127,9 @@ class RewriteParser {
     }
 
     /**
-     * Returns translated error message, called from AdminRewrite when an unsucsessful save has been
-     * made.  A valid $code is anything that $this->saveActiveRules would return if an error occurs.
+     * Returns translated error message, called from AdminRewrite when an unsucsessful save
+     * has been made. A valid $code is anything that $this->saveActiveRules would return if an
+     * error occurs.
      *
      * @param int rewrite status code
      * @param object RewriteModule (optional)
@@ -136,7 +140,7 @@ class RewriteParser {
 	if (!isset($rewriteModule)) {
 	    list($ret, $rewriteModule) = GalleryCoreApi::loadPlugin('module', 'rewrite');
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
@@ -146,7 +150,7 @@ class RewriteParser {
 		$rewriteModule->translate('Bad keyword.'));
 	case REWRITE_STATUS_DUPE_SHORT_URL:
 	    return array(null,
-		$rewriteModule->translate('Duplicate short URL rule.'));
+		$rewriteModule->translate('Duplicate short url rule.'));
 	case REWRITE_STATUS_INVALID_PATTERN:
 	    return array(null,
 		$rewriteModule->translate('Ivalid pattern.'));
@@ -159,8 +163,8 @@ class RewriteParser {
     }
 
     /**
-     * Displays the test results if the template variable $TestResults.body is set.  It should be a
-     * Gallery base dir relative path.
+     * Displays the test results if the template variable $TestResults.body is set. It should
+     * be a gallery base dir relative path.
      *
      * @param object GalleryTemplate the template instance
      * @param array the form values
@@ -171,7 +175,7 @@ class RewriteParser {
     }
 
     /**
-     * Handles the submitted form and should save any settings (ie. forced tests).
+     * Handles the submitted form and should save any settings (ie forced tests).
      *
      * @param array the form values
      * @return array object GalleryStatus a status code
@@ -183,8 +187,8 @@ class RewriteParser {
     }
 
     /**
-     * Displays the parser configuration if the template variable $AdminParser.body is set.  It
-     * should be a Gallery base dir relative path.
+     * Displays the parser configuration if the template variable $AdminParser.body is set. It
+     * should be a gallery base dir relative path.
      *
      * @param object GalleryTemplate the template instance
      * @param array the form values

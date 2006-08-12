@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: Callbacks.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.15 $ $Date: 2006/02/10 01:11:25 $
  * @package AlbumSelect
  * @author Alan Harder <alan.harder@sun.com>
  */
@@ -36,34 +38,36 @@ class AlbumSelectCallbacks {
 	    list ($ret, $params) =
 		GalleryCoreApi::fetchAllPluginParameters('module', 'albumselect');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    /* Try to load it from the cache */
 	    list ($ret, $languageCode) = $gallery->getActiveLanguageCode();
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $cachePathInfo = array('type' => 'module-data',
 				   'module' => 'albumselect',
 				   'itemId' => $userId . '_' . $languageCode .
 				   '_' . substr(md5(serialize($callbackParams)), 0, 5));
-	    list ($treeList, $titles, $titlesForJs, $links) =
-		GalleryDataCache::getFromDisk($cachePathInfo);
-	    if (!isset($titles) || !isset($treeList) || !isset($titlesForJs) || !isset($links)) {
+	    list ($treeList, $titles, $titlesForJs) = 
+	    				GalleryDataCache::getFromDisk($cachePathInfo);
+	    if (!isset($titles) || !isset($treeList) || !isset($titlesForJs)) {
 		if (isset($callbackParams['stripTitles'])) {
 		    GalleryCoreApi::requireOnce('lib/smarty_plugins/modifier.markup.php');
 		}
 		if (isset($callbackParams['truncateTitles'])) {
-		    GalleryCoreApi::requireOnce('lib/smarty_plugins/modifier.entitytruncate.php');
+		    GalleryCoreApi::requireOnce(
+			'lib/smarty_plugins/modifier.entitytruncate.php');
 		}
-		list ($ret, $rootAlbumId) = GalleryCoreApi::getDefaultAlbumId();
+		list ($ret, $rootAlbumId) =
+		    GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 		list ($ret, $rootAlbum) = GalleryCoreApi::loadEntitiesById($rootAlbumId);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 		$titles = array('root' => preg_replace('/\r\n/', ' ', $rootAlbum->getTitle()));
 		if (isset($callbackParams['stripTitles'])) {
@@ -76,13 +80,12 @@ class AlbumSelectCallbacks {
 		$treeList = array();
 
 		if ($params['sort'] != 'album') {
-		    list ($ret, $tree) =
-			GalleryCoreApi::fetchAlbumTree($rootAlbumId, null, $userId);
+		    list ($ret, $tree) = GalleryCoreApi::fetchAlbumTree(null, null, $userId);
 		    if ($ret) {
 			if ($ret->getErrorCode() & ERROR_PERMISSION_DENIED) {
 			    $tree = null;
 			} else {
-			    return $ret;
+			    return $ret->wrap(__FILE__, __LINE__);
 			}
 		    }
 		    if (empty($tree)) {
@@ -92,7 +95,7 @@ class AlbumSelectCallbacks {
 		    list ($ret, $items) = GalleryCoreApi::loadEntitiesById(
 			GalleryUtilities::arrayKeysRecursive($tree));
 		    if ($ret) {
-			return $ret;
+			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		    foreach ($items as $item) {
 			$title = $item->getTitle() ? $item->getTitle() : $item->getPathComponent();
@@ -116,55 +119,30 @@ class AlbumSelectCallbacks {
 		    list ($ret, $canView) =
 			GalleryCoreApi::hasItemPermission($rootAlbumId, 'core.view', $userId);
 		    if ($ret) {
-			return $ret;
+			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		    if ($canView) {
 			$ret = $this->_buildTree($rootAlbum, $treeList, $titles, $nodeId,
 						 $userId, 0, 0, $callbackParams);
 			if ($ret) {
-			    return $ret;
+			    return $ret->wrap(__FILE__, __LINE__);
 			}
 		    }
 		    if (empty($treeList)) {
 			return null;
 		    }
 		}
-
+		
 		/* Need to double escape for javascript (double-quote delimiter, backslash, ..) */
 		GalleryCoreApi::requireOnce('lib/smarty/plugins/modifier.escape.php');
-		$urlGenerator =& $gallery->getUrlGenerator();
-		$titlesForJs = $links = array();
+		$titlesForJs = array();
 		foreach ($titles as $id => $title) {
 		    $titlesForJs[$id] = smarty_modifier_escape($title, 'javascript');
-		    if ($id == 'root') {
-			continue;
-		    }
-		    $links[$id] = $urlGenerator->generateUrl(
-			    array('view' => 'core.ShowItem', 'itemId' => $id),
-			    array('htmlEntities' => false));
-		    /* Find common prefix across all URLs */
-		    if (!isset($links['prefix'])) {
-			$links['prefix'] = $links[$id];
-			$prefixLength = strlen($links['prefix']);
-		    } else {
-			while ($prefixLength
-				&& strncmp($links[$id], $links['prefix'], $prefixLength)) {
-			    $links['prefix'] = substr($links['prefix'], 0, -1);
-			    $prefixLength--;
-			}
-		    }
 		}
-		if (!empty($prefixLength)) {
-		    foreach ($links as $id => $link) {
-			if ($id != 'prefix') {
-			    $links[$id] = substr($link, $prefixLength);
-			}
-		    }
-		}
-
+		
 		GalleryDataCache::putToDisk($cachePathInfo,
-					    $dataToCache =
-					       array($treeList, $titles, $titlesForJs, $links));
+					    $dataToCache = 
+					       array($treeList, $titles, $titlesForJs));
 	    }
 
 	    $block =& $smarty->_tpl_vars['block'];
@@ -173,7 +151,6 @@ class AlbumSelectCallbacks {
 		'tree' => $treeList,
 		'titles' => $titles,
 		'titlesForJs' => $titlesForJs,
-		'links' => $links,
 		'params' => $params);
 	    if (isset($albumTreeName)) {
 		$block['albumselect']['LoadAlbumData'][$type]['albumTreeName'] = $albumTreeName;
@@ -182,7 +159,7 @@ class AlbumSelectCallbacks {
 	    return null;
 	}
 
-	return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
+	return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
     }
 
     /**
@@ -217,12 +194,12 @@ class AlbumSelectCallbacks {
 	list ($ret, $subAlbumIds) =
 	    GalleryCoreApi::fetchChildAlbumItemIds($album, null, null, $userId);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	if (!empty($subAlbumIds)) {
 	    list ($ret, $subAlbums) = GalleryCoreApi::loadEntitiesById($subAlbumIds);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    foreach ($subAlbums as $subAlbum) {
 		$treeList[] = array('id' => $subAlbum->getId(), 'nodeId' => ++$nodeId,
@@ -245,7 +222,7 @@ class AlbumSelectCallbacks {
 					 $nodeId, $userId, $nodeId, $depth + 1,
 					 $callbackParams);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	}

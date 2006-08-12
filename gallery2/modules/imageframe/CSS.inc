@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: CSS.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.5 $ $Date: 2006/01/10 04:40:23 $
  * @package ImageFrame
  * @author Alan Harder <alan.harder@sun.com>
  */
@@ -57,7 +59,7 @@ class CSSView extends GalleryView {
     function renderImmediate($status, $error) {
 	$frameList = GalleryUtilities::getRequestVariables('frames');
 	if (empty($frameList)) {
-	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 	$frameList = explode('|', $frameList);
 
@@ -80,7 +82,7 @@ class CSSView extends GalleryView {
 		    }
 		}
 		if (!isset($new)) {
-		    header('HTTP/1.0 304 Not Modified');
+		    header('HTTP/1.x 304 Not Modified');
 		    return null;
 		}
 	    }
@@ -88,10 +90,10 @@ class CSSView extends GalleryView {
 
 	list ($ret, $imageframe) = GalleryCoreApi::newFactoryInstance('ImageFrameInterface_1_1');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	if (!isset($imageframe)) {
-	    return GalleryCoreApi::error(ERROR_MISSING_OBJECT);
+	    return GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__);
 	}
 
 	GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
@@ -100,7 +102,7 @@ class CSSView extends GalleryView {
 
 	$ret = $imageframe->init($template, $frameList);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	header('Content-type: text/css');
@@ -109,7 +111,7 @@ class CSSView extends GalleryView {
 
 	$ret = $template->display('gallery:modules/imageframe/templates/ImageFrameStyle.tpl');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;

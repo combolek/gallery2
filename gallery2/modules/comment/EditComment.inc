@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: EditComment.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.27 $ $Date: 2006/01/14 01:42:51 $
  * @package Comment
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -44,7 +46,7 @@ class EditCommentController extends GalleryController {
 	/* Make sure we have permission to edit a comment */
 	$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'comment.edit');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$status = array();
@@ -53,12 +55,12 @@ class EditCommentController extends GalleryController {
 	    /* Edit the comment */
 	    list ($ret, $comment) = GalleryCoreApi::loadEntitiesById($commentId);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    /* Make sure that the comment<->parent relationship is right */
 	    if ($comment->getParentId() != $itemId) {
-		return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+		return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	    }
 
 	    /* Verify the input parameters */
@@ -104,17 +106,17 @@ class EditCommentController extends GalleryController {
 		list ($ret, $markup) =
 		    GalleryCoreApi::getPluginParameter('module', 'core', 'misc.markup');
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock(array($comment->getId()));
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		list ($ret, $comment) = $comment->refresh();
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		if ($markup == 'html') {
@@ -130,12 +132,12 @@ class EditCommentController extends GalleryController {
 		$comment->setDate($longDate);
 		$ret = $comment->save();
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		$ret = GalleryCoreApi::releaseLocks($lockId);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		$status['changed'] = 1;
@@ -223,13 +225,13 @@ class EditCommentView extends GalleryView {
 	/* Load our item */
 	list ($ret, $item) = $this->_getItem();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Make sure we have permission to edit a comment */
 	$ret = GalleryCoreApi::assertHasItemPermission($item->getId(), 'comment.edit');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$commentId = GalleryUtilities::getRequestVariables('commentId');
@@ -237,19 +239,19 @@ class EditCommentView extends GalleryView {
 	/* Load the specific comment */
 	list ($ret, $comment) = GalleryCoreApi::loadEntitiesById($commentId);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Make sure the comment is associated with the item */
 	if ($comment->getParentId() != $item->getId()) {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	}
 
 	/* Associate the commenter's info */
 	$commenterId = $comment->getCommenterId();
 	list ($ret, $commenter) = GalleryCoreApi::loadEntitiesById($commenterId);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if ($form['formName'] != 'EditComment') {

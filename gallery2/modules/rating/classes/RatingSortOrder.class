@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: RatingSortOrder.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,12 +20,12 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.3 $ $Date: 2006/01/13 03:39:48 $
  * @package Rating
  * @author Don Seiler <don@seiler.us>
  */
 
-GalleryCoreApi::requireOnce('modules/core/classes/GallerySortInterface_1_2.class');
+GalleryCoreApi::requireOnce('modules/core/classes/GallerySortInterface_1_1.class');
 
 /**
  * Sort by average rating.
@@ -31,28 +33,28 @@ GalleryCoreApi::requireOnce('modules/core/classes/GallerySortInterface_1_2.class
  * @package Rating
  * @subpackage Classes
  */
-class RatingSortOrder extends GallerySortInterface_1_2 {
+class RatingSortOrder extends GallerySortInterface_1_1 {
 
     /**
-     * @see GallerySortInterface_1_2::getSortInfo
+     * @see GallerySortInterface_1_1::getSortInfo
      */
     function getSortInfo() {
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'rating');
 	if ($ret) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	return array(null, $module->translate('Rating'), false);
     }
 
     /**
-     * @see GallerySortInterface_1_2::getSortOrder
+     * @see GallerySortInterface_1_1::getSortOrder
      */
     function getSortOrder($direction) {
-	return array(null,
-	    '[RatingCacheMap::averageRating]' . $direction . ', [RatingCacheMap::voteCount] DESC',
-	    '[RatingCacheMap::averageRating], [RatingCacheMap::voteCount]', null,
-	    'LEFT JOIN [RatingCacheMap] ON [BASE::ID] = [RatingCacheMap::itemId]');
+	return array(null, '[RatingCacheMap::averageRating] ' . $direction, 
+		'[RatingCacheMap::averageRating]', null,
+		'[GalleryChildEntity] LEFT JOIN [RatingCacheMap] ON ' .
+		     '[GalleryChildEntity::id] = [RatingCacheMap::itemId]');
     }
 }
 ?>

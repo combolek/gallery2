@@ -1,5 +1,5 @@
 {*
- * $Revision$
+ * $Revision: 1.3 $
  * If you want to customize this file, do not edit it directly since future upgrades
  * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
  * version.  Gallery will look for that file first and use it if it exists.
@@ -40,9 +40,10 @@
 {*
  * After the template is sent to the browser, Gallery will send a
  * Javascript snippet to the browser that calls the updateStatus()
- * function below.  It'll call it over and over again until the task is
- * done.  The code below should update the various elements of the page
- * (title, description, etc) with the values that it receives as arguments.
+ * function below.  It'll call it over and over again until the task
+ * is done.  The code below should update the update the various elements
+ * of the page (title, description, etc) with the values that it receives as
+ * arguments.
  *}
 {g->addToTrailer}
 {literal}

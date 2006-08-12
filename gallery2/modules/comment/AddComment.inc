@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: AddComment.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.42 $ $Date: 2006/01/30 22:52:14 $
  * @package Comment
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -51,7 +53,7 @@ class AddCommentController extends GalleryController {
 	/* Make sure we have permission to add a comment */
 	$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'comment.add');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$redirect = $status = $error = array();
@@ -60,7 +62,7 @@ class AddCommentController extends GalleryController {
 		'modules/comment/classes/GalleryCommentHelper.class');
 
 	    if (empty($form['subject'])) {
-		$form['subject'] = '';
+		$error[] = 'form[error][subject][missing]';
 	    }
 	    if (empty($form['comment'])) {
 		$error[] = 'form[error][comment][missing]';
@@ -68,7 +70,7 @@ class AddCommentController extends GalleryController {
 
 	    list ($ret, $useValidationPlugins) = GalleryCommentHelper::useValidationPlugins();
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    if (empty($error) && $useValidationPlugins) {
 		if (isset($this->_pluginInstances)) {
@@ -77,7 +79,7 @@ class AddCommentController extends GalleryController {
 		    list ($ret, $pluginInstances) =
 			GalleryCoreApi::getAllFactoryImplementationIds('GalleryValidationPlugin');
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
 		    foreach (array_keys($pluginInstances) as $pluginId) {
@@ -85,7 +87,7 @@ class AddCommentController extends GalleryController {
 			    GalleryCoreApi::newFactoryInstanceById('GalleryValidationPlugin',
 								   $pluginId);
 			if ($ret) {
-			    return array($ret, null);
+			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 		    }
 		}
@@ -94,7 +96,7 @@ class AddCommentController extends GalleryController {
 		foreach ($pluginInstances as $plugin) {
 		    list ($ret, $pluginErrors, $continue) = $plugin->performValidation($form);
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
 		    $error = array_merge($error, $pluginErrors);
@@ -109,23 +111,23 @@ class AddCommentController extends GalleryController {
 		list ($ret, $comment) =
 		    GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryComment');
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		if (!isset($comment)) {
-		    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT),
+		    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__),
 				 null);
 		}
 
 		$ret = $comment->create($itemId);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		list ($ret, $markup) =
 		    GalleryCoreApi::getPluginParameter('module', 'core', 'misc.markup');
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		if ($markup == 'html') {
 		    /* Strip malicious content if html markup allowed */
@@ -141,7 +143,7 @@ class AddCommentController extends GalleryController {
 
 		$ret = $comment->save();
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		/* Send the user to a confirmation page, for now */
@@ -151,7 +153,7 @@ class AddCommentController extends GalleryController {
 	    }
 	} else if (isset($form['action']['preview'])) {
 	    if (empty($form['subject'])) {
-		$form['subject'] = '';
+		$error[] = 'form[error][subject][missing]';
 	    }
 
 	    if (empty($form['comment'])) {
@@ -167,6 +169,7 @@ class AddCommentController extends GalleryController {
 
 	/* Prepare our results */
 	if (!empty($redirect)) {
+	    $results['return'] = 1;
 	    $results['redirect'] = $redirect;
 	} else {
 	    $results['delegate']['view'] = 'comment.AddComment';
@@ -196,20 +199,65 @@ class AddCommentView extends GalleryView {
 	/* Load our item */
 	list ($ret, $item) = $this->_getItem();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	list ($ret, $AddComment) = GalleryCommentHelper::getAddComment($item, $form);
+	/* Make sure we have permission to add a comment */
+	$ret = GalleryCoreApi::assertHasItemPermission($item->getId(), 'comment.add');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	$template->setVariable('AddComment', $AddComment);
+	if ($form['formName'] != 'AddComment') {
+	    $form['formName'] = 'AddComment';
+	    $form['subject'] = $form['comment'] = '';
+	} else {
+	    foreach (array('subject', 'comment') as $key) {
+		if (empty($form[$key])) {
+		    $form[$key] = '';
+		}
+	    }
+	}
+
+	/* Check if we should use validation plugins for new comments */
+	$plugins = array();
+	list ($ret, $useValidationPlugins) = GalleryCommentHelper::useValidationPlugins();
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+	if ($useValidationPlugins) {
+	    list ($ret, $allPluginIds) =
+		GalleryCoreApi::getAllFactoryImplementationIds('GalleryValidationPlugin');
+	    if ( $ret) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
+
+	    /* Let each plugin load its template data */
+	    foreach (array_keys($allPluginIds) as $pluginId) {
+		list ($ret, $plugin) =
+		    GalleryCoreApi::newFactoryInstanceById('GalleryValidationPlugin', $pluginId);
+		if ($ret) {
+		    return array($ret->wrap(__FILE__, __LINE__), null);
+		}
+		list ($ret, $data['file'], $data['l10Domain']) = $plugin->loadTemplate($form);
+		if ($ret) {
+		    return array($ret->wrap(__FILE__, __LINE__), null);
+		}
+		if (isset($data['file'])) {
+		    $plugins[] = $data;
+		}
+	    }
+	}
+
+	$template->setVariable('AddComment',
+	    array('itemId' => $item->getId(),
+		  'host' => GalleryUtilities::getRemoteHostAddress(),
+		  'plugins' => $plugins));
 	$template->setVariable('controller', 'comment.AddComment');
 
 	list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'comment');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$template->title($module->translate('Add Comment'));
@@ -224,7 +272,7 @@ class AddCommentView extends GalleryView {
     function getViewDescription() {
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'comment');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, $module->translate('add comment'));

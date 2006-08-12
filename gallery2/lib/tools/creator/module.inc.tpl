@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: module.inc.tpl,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 /**
  * @package {$moduleName}
- * @version $Revision$ $Date$
+ * @version $Revision: 1.3 $ $Date: 2006/03/17 17:10:34 $
  * @author {$authorFullName}
  */
 
@@ -34,12 +36,13 @@ class {$ucModuleId}Module extends GalleryModule {ldelim}
 
     function {$ucModuleId}Module() {ldelim}
 	global $gallery;
+
 	$this->setId('{$moduleId}');
 	$this->setName($gallery->i18n('{$moduleName}'));
 	$this->setDescription($gallery->i18n('My {$moduleName} module'));
 	$this->setVersion('1.0.0');
 	$this->setCallbacks('getItemLinks');
-	$this->setGroup('other', $gallery->i18n('Other'));
+	$this->setGroup('other', $this->translate('Other'));
 	$this->setRequiredCoreApi(array(7, 0));
 	$this->setRequiredModuleApi(array(3, 0));
     {rdelim}
@@ -50,7 +53,7 @@ class {$ucModuleId}Module extends GalleryModule {ldelim}
     function getItemLinks($items, $wantsDetailedLinks, $permissions) {ldelim}
 	$links = array();
 	foreach ($items as $item) {ldelim}
-	    $params['view'] = '{$moduleId}.{$viewName}';
+	    $params['view'] = '{$moduleId}.MyPage';
 	    $params['itemId'] = $item->getId();
 	    $links[$item->getId()][] =
 		array('text' => $this->translate('{$moduleName}'), 'params' => $params);

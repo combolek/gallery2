@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: Callbacks.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.6 $ $Date: 2006/01/10 04:39:49 $
  * @package Exif
  * @author Bharat Mediratta <bharat@menalto.com>
  */
@@ -30,12 +32,11 @@ class ExifCallbacks {
 
 	switch ($callback) {
 	case 'LoadExifInfo':
-
 	    GalleryCoreApi::requireOnce('modules/exif/classes/ExifHelper.class');
 
 	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($params['itemId']);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    /* We only work on JPEG/raw data items */
@@ -47,7 +48,7 @@ class ExifCallbacks {
 	    /* Feed the file to exifer */
 	    list($ret, $path) = $item->fetchPath();
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    /* Figure out which version we're looking at */
@@ -67,7 +68,7 @@ class ExifCallbacks {
 
 	    list ($ret, $exifData) = ExifHelper::getExifData($path, $filter);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    if (empty($exifData)) {
 		if ($filter == EXIF_SUMMARY) {
@@ -76,7 +77,7 @@ class ExifCallbacks {
 		    list ($ret, $exifData) = ExifHelper::getExifData($path, EXIF_SUMMARY);
 		}
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 		$mode = null;
 	    }
@@ -91,7 +92,7 @@ class ExifCallbacks {
 	    return null;
 	}
 
-	return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
+	return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
     }
 }
 ?>

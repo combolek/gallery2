@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: RatingCallbackViewTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.2 $ $Date: 2006/01/10 04:41:54 $
  * @package Rating
  * @subpackage PHPUnit
  * @author Don Seiler <don@seiler.us>
@@ -47,7 +49,7 @@ class RatingCallbackViewTest extends GalleryTestCase {
 	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($this->_album);
 
@@ -55,19 +57,19 @@ class RatingCallbackViewTest extends GalleryTestCase {
 		'image/test', array(), __FILE__, 'GalleryPhotoItem');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $this->_module) = GalleryCoreApi::loadPlugin('module', 'rating');
 	if ($ret || !isset($this->_module)) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $this->_view) = GalleryView::loadView('rating.RatingCallback');
 	if ($ret || !isset($this->_view)) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
     }
@@ -83,7 +85,7 @@ class RatingCallbackViewTest extends GalleryTestCase {
 	$ret = $this->_view->renderImmediate(array(), array());
 	if ($ret) {
 	    ob_end_clean();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$results = explode("\n", ob_get_contents());
 	ob_end_clean();
@@ -98,11 +100,7 @@ class RatingCallbackViewTest extends GalleryTestCase {
 	$this->assertEquals($rating, (int)$results[3]);
 
 	/* Vote count */
-	$votesString = $this->_module->translate(array('one' => '%d vote',
-						       'many' => '%d votes',
-						       'count' => 1,
-						       'arg1' => 1));
-	$this->assertEquals($votesString, $results[2]);
+	$this->assertEquals(1, (int)$results[2]);
     }
 
     function testNoRatingPermissions() {
@@ -116,7 +114,7 @@ class RatingCallbackViewTest extends GalleryTestCase {
 	$ret = $this->_view->renderImmediate(array(), array());
 	if ($ret) {
 	    ob_end_clean();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$results = explode("\n", ob_get_contents());
 	ob_end_clean();
@@ -131,21 +129,17 @@ class RatingCallbackViewTest extends GalleryTestCase {
 	$this->assertEquals($rating, (int)$results[3], 'Seed user rating is incorrect.');
 
 	/* Vote count */
-	$votesString = $this->_module->translate(array('one' => '%d vote',
-						       'many' => '%d votes',
-						       'count' => 1,
-						       'arg1' => 1));
-	$this->assertEquals($votesString, $results[2], 'Seed vote count is incorrect.'); 
+	$this->assertEquals(1, (int)$results[2], 'Seed vote count is incorrect.');
 
 	/* Remove all permissions */
 	$ret = GalleryCoreApi::removeItemPermissions($this->_item->getId());
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$ret = GalleryCoreApi::addUserPermission(
 	    $this->_item->getId(), $this->_userId, 'rating.view');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$newRating = rand(1, 5);
@@ -158,7 +152,7 @@ class RatingCallbackViewTest extends GalleryTestCase {
 	$ret = $this->_view->renderImmediate(array(), array());
 	if ($ret) {
 	    ob_end_clean();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$results = explode("\n", ob_get_contents());
 	ob_end_clean();
@@ -181,7 +175,7 @@ class RatingCallbackViewTest extends GalleryTestCase {
 	$ret = $this->_view->renderImmediate(array(), array());
 	if ($ret) {
 	    ob_end_clean();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$results = explode("\n", ob_get_contents());
 	ob_end_clean();
@@ -196,26 +190,22 @@ class RatingCallbackViewTest extends GalleryTestCase {
 	$this->assertEquals($rating, (int)$results[3], 'Seed user rating is incorrect.');
 
 	/* Vote count */
-	$votesString = $this->_module->translate(array('one' => '%d vote',
-						       'many' => '%d votes',
-						       'count' => 1,
-						       'arg1' => 1));
-	$this->assertEquals($votesString, $results[2], 'Seed vote count is incorrect.');
+	$this->assertEquals(1, (int)$results[2], 'Seed vote count is incorrect.');
 
 	/* Remove all permissions */
 	$ret = GalleryCoreApi::removeItemPermissions($this->_item->getId());
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$ret = GalleryCoreApi::addUserPermission(
 	    $this->_item->getId(), $this->_userId, 'rating.view');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$ret = GalleryCoreApi::addUserPermission(
 	    $this->_item->getId(), $this->_userId, 'rating.add');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$newRating = rand(1, 5);
@@ -228,7 +218,7 @@ class RatingCallbackViewTest extends GalleryTestCase {
 	$ret = $this->_view->renderImmediate(array(), array());
 	if ($ret) {
 	    ob_end_clean();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$results = explode("\n", ob_get_contents());
 	ob_end_clean();
@@ -243,11 +233,7 @@ class RatingCallbackViewTest extends GalleryTestCase {
 	$this->assertEquals($newRating, (int)$results[3], 'User rating is incorrect.');
 
 	/* Vote count (should be same since duplicate user votes ignored) */
-	$votesString = $this->_module->translate(array('one' => '%d vote',
-						       'many' => '%d votes',
-						       'count' => 1,
-						       'arg1' => 1));
-	$this->assertEquals($votesString, $results[2], 'Vote count is incorrect.');
+	$this->assertEquals(1, (int)$results[2], 'Vote count is incorrect.');
     }
 
 }

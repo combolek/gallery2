@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: RssSiteAdminControllerTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.1 $ $Date: 2006/02/09 09:47:58 $
  * @package Rss
  * @subpackage PHPUnit
  * @author Pierre-Luc Paour
@@ -47,21 +49,21 @@ class RssSiteAdminControllerTest extends GalleryControllerTestCase {
 	$ret = $this->_markPluginParametersForCleanup('module', 'rss');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
 
     function tearDown() {
+	parent::tearDown();
+
 	if (!empty($this->_feedsToDelete)) {
 	    foreach ($this->_feedsToDelete as $name) {
 		$ret = RssMapHelper::deleteFeed($name);
 		if ($ret) {
-		    return $this->failWithStatus($ret);
+		    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 		}
 	    }
 	}
-
-	parent::tearDown();
     }
 
     function testRssSiteAdminControllerReset() {
@@ -128,7 +130,7 @@ class RssSiteAdminControllerTest extends GalleryControllerTestCase {
 	foreach ($values as $key => $expectedValue) {
 	    list ($ret, $value) = GalleryCoreApi::getPluginParameter('module', 'rss', $key);
 	    if ($ret) {
-		return $this->failWithStatus($ret);
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $this->assertEquals($expectedValue, $value, $key);
 	}
@@ -160,7 +162,7 @@ class RssSiteAdminControllerTest extends GalleryControllerTestCase {
 	foreach ($values as $key => $expectedValue) {
 	    list ($ret, $value) = GalleryCoreApi::getPluginParameter('module', 'rss', $key);
 	    if ($ret) {
-		return $this->failWithStatus($ret);
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $this->assertEquals($expectedValue, $value, $key);
 	}
@@ -172,7 +174,7 @@ class RssSiteAdminControllerTest extends GalleryControllerTestCase {
 	$params = array('itemId' => $this->_getRootId());
 	$ret = RssMapHelper::createFeed($name, $params);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	
 	GalleryUtilities::putRequestVariable('form[action][delete]', $name);

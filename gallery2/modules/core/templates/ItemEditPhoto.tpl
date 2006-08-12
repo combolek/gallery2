@@ -1,5 +1,5 @@
 {*
- * $Revision$
+ * $Revision: 1.19 $
  * If you want to customize this file, do not edit it directly since future upgrades
  * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
  * version.  Gallery will look for that file first and use it if it exists.
@@ -36,7 +36,7 @@
   <b>
     {g->text text="There are no graphics toolkits enabled that support this type of photo, so we cannot create or modify resized versions."}
     {if $user.isAdmin}
-      <a href="{g->url arg1="view=core.SiteAdmin" arg2="subView=core.AdminPlugins"}">
+      <a href="{g->url arg1="view=core.SiteAdmin" arg2="subView=core.AdminModules"}">
 	{g->text text="site admin"}
       </a>
     {/if}

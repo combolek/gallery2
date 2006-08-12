@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: module.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 /**
  * @package Rating
- * @version $Revision$ $Date$
+ * @version $Revision: 1.4 $ $Date: 2006/03/22 03:52:34 $
  * @author  Don Seiler <don@seiler.us>
  */
 
@@ -38,10 +40,10 @@ class RatingModule extends GalleryModule {
 	$this->setId('rating');
 	$this->setName($gallery->i18n('Rating'));
 	$this->setDescription($gallery->i18n('Item Rating Interface'));
-	$this->setVersion('1.0.6'); /* Update upgrade() too */
+	$this->setVersion('1.0.3'); /* Update upgrade() too */
 	$this->setCallbacks('getSiteAdminViews|getItemSummaries|registerEventListeners');
 	$this->setGroup('data', $gallery->i18n('Extra Data'));
-	$this->setRequiredCoreApi(array(7, 10));
+	$this->setRequiredCoreApi(array(7, 0));
 	$this->setRequiredModuleApi(array(3, 0));
     }
 
@@ -56,22 +58,23 @@ class RatingModule extends GalleryModule {
      * @see GalleryModule::performFactoryRegistrations()
      */
     function performFactoryRegistrations() {
-	$ret = GalleryCoreApi::registerFactoryImplementation('ItemEditOption', 'RatingItemEdit',
+	$ret = GalleryCoreApi::registerFactoryImplementation( 'ItemEditOption', 'RatingItemEdit',
 		'RatingItemEdit', 'modules/rating/RatingItemEdit.inc', 'rating',
 		array('ItemEditAlbum'));
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	$ret = GalleryCoreApi::registerFactoryImplementation('GallerySortInterface_1_2',
+	$ret = GalleryCoreApi::registerFactoryImplementation( 'GallerySortInterface_1_1',
 		'RatingSortOrder', 'RatingSortOrder',
 		'modules/rating/classes/RatingSortOrder.class', 'rating', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
     }
+
 
     /**
      * @see GalleryModule::getItemSummaries()
@@ -93,7 +96,7 @@ class RatingModule extends GalleryModule {
 	    list ($ret, $enabled) = GalleryCoreApi::getPluginParameter('module', 'rating',
 					'enabled', $parentId);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    $enabledAlbums[$parentId] = !empty($enabled);
@@ -101,7 +104,7 @@ class RatingModule extends GalleryModule {
 		$numEnabledAlbums++;
 	    }
 	}
-
+ 
 	if (empty($numEnabledAlbums)) {
 	    return array(null, array());
 	}
@@ -110,8 +113,7 @@ class RatingModule extends GalleryModule {
 	GalleryCoreApi::requireOnce('modules/rating/classes/RatingHelper.class');
 
 	$template->style('modules/rating/rating.css');
-	$template->javascript('lib/yui/yahoo-min.js');
-	$template->javascript('lib/yui/connection-min.js');
+	$template->javascript('lib/javascript/XmlHttp.js');
 	$template->javascript('modules/rating/rating.js');
 
 	$template->setVariable('l10Domain', $this->getL10Domain());
@@ -121,7 +123,7 @@ class RatingModule extends GalleryModule {
 	list ($ret, $allowAlbumRating) = GalleryCoreApi::getPluginParameter('module', 'rating',
 		'allowAlbumRating');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Acquire the current rating for the items (populate $RatingData) */
@@ -129,7 +131,7 @@ class RatingModule extends GalleryModule {
 	list ($ret, $RatingData) = RatingHelper::fetchRatings($itemIds,
 		$gallery->getActiveUserId());
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$summaries = array();
@@ -178,7 +180,7 @@ class RatingModule extends GalleryModule {
 	    list ($ret, $summaries[$itemId]) =
 		$template->fetch('gallery:modules/rating/templates/RatingInterface.tpl');
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    $RatingSummary['firstCall'] = false;
@@ -186,6 +188,7 @@ class RatingModule extends GalleryModule {
 
 	return array(null, $summaries);
     }
+
 
     /**
      * @see GalleryModule::upgrade()
@@ -201,7 +204,7 @@ class RatingModule extends GalleryModule {
 	case '0':
 	    list ($ret, $coreParams) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    /* Initial install.  Register our permissions */
@@ -214,7 +217,7 @@ class RatingModule extends GalleryModule {
 			'rating.' . $p[0],
 			$p[1], $p[2], $p[3]);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 
@@ -223,16 +226,13 @@ class RatingModule extends GalleryModule {
 		$coreParams['id.rootAlbum'], $coreParams['id.everybodyGroup'],
 		'rating.all', true);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    break;
 
 	case '1.0.0':
 	case '1.0.1':
 	case '1.0.2':
-	case '1.0.3':
-	case '1.0.4':
-	case '1.0.5':
 
 	case 'end of upgrade path':
 	    break;
@@ -242,36 +242,9 @@ class RatingModule extends GalleryModule {
 		    sprintf('Unknown module version %s', $currentVersion));
 	}
 
-	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'rating');
-	if ($ret) {
-	    return $ret;
-	}
-	foreach (array('allowAlbumRating' => 0, 'themeId' => '', 'orderBy' => 'RatingSortOrder',
-		       'orderDirection' => ORDER_DESCENDING, 'minLimit' => 2)
-		as $key => $value) {
-	    if (!isset($params[$key])) {
-		$this->setParameter($key, $value);
-		if ($ret) {
-		    return $ret;
-		}
-	    }
-	}
-	if (!isset($params['themeSettingsId'])) {
-	    list ($ret, $entity) =
-		GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryEntity');
-	    $entity->create();
-	    $ret = $entity->save(false);
-	    if ($ret) {
-		return $ret;
-	    }
-	    $ret = $this->setParameter('themeSettingsId', $entity->getId());
-	    if ($ret) {
-		return $ret;
-	    }
-	}
-
 	return null;
     }
+
 
     /**
      * @see GalleryModule::getSiteAdminViews()
@@ -280,20 +253,6 @@ class RatingModule extends GalleryModule {
 	return array(null,
 		array(array('name' => $this->translate('Rating'),
 			'view' => 'rating.RatingSiteAdmin')));
-    }
-
-    /**
-     * @see GalleryModule::getRewriteRules
-     */
-    function getRewriteRules() {
-	return array(
-		array('comment' => $this->translate('Rating Album'),
-		      'match' => array('view' => 'rating.RatingAlbum'),
-		      'pattern' => 'rating/%limit%',
-		      'keywords' => array(
-			  'limit' => array('pattern' => '([^?/]+)',
-			      'help' => $this->translate('Rating limit to use for dynamic album')))
-		    ));
     }
 
     /**
@@ -311,28 +270,17 @@ class RatingModule extends GalleryModule {
 		$ret = GalleryCoreApi::removeMapEntry('RatingMap',
 						      array('itemId' => $entity->getId()));
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		$ret = GalleryCoreApi::removeMapEntry('RatingCacheMap',
 						      array('itemId' => $entity->getId()));
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
 	}
 	return array(null, $result);
     }
 
-    /**
-     * @see GalleryModule::uninstall
-     */
-    function uninstall() {
-	$ret = GalleryCoreApi::deleteSortOrder('RatingSortOrder');
-	if ($ret) {
-	    return $ret;
-	}
-
-	return parent::uninstall();
-    }
 }
 ?>

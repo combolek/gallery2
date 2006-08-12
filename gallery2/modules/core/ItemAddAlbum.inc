@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ItemAddAlbum.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.35 $ $Date: 2006/01/21 11:26:43 $
  * @package GalleryCore
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -45,12 +47,12 @@ class ItemAddAlbumController extends GalleryController {
 	/* Make sure we have permission do edit this item */
 	$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.addAlbumItem');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $lockIds[]) = GalleryCoreApi::acquireReadLock($itemId);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$status = array();
@@ -74,12 +76,12 @@ class ItemAddAlbumController extends GalleryController {
 						$form['keywords']);
 		if ($ret) {
 		    GalleryCoreApi::releaseLocks($lockIds);
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		if (!isset($instance)) {
 		    GalleryCoreApi::releaseLocks($lockIds);
-		    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT),
+		    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__),
 				 null);
 		}
 	    }
@@ -91,7 +93,7 @@ class ItemAddAlbumController extends GalleryController {
 							 false);
 		if ($ret) {
 		    GalleryCoreApi::releaseLocks($lockIds);
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		/* Figure out where to redirect upon success */
@@ -104,7 +106,7 @@ class ItemAddAlbumController extends GalleryController {
 		list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 		if ($ret) {
 		    GalleryCoreApi::releaseLocks($lockIds);
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		$status['editMessage'] = $module->translate('Album created successfully.');
@@ -113,7 +115,7 @@ class ItemAddAlbumController extends GalleryController {
 
 	$ret = GalleryCoreApi::releaseLocks($lockIds);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (!empty($redirect)) {
@@ -149,7 +151,7 @@ class ItemAddAlbumView extends GalleryView {
 	/* Make sure we have permission do edit this item */
 	$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.addAlbumItem');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if ($form['formName'] == 'ItemAddAlbum') {
@@ -182,7 +184,7 @@ class ItemAddAlbumView extends GalleryView {
     function getViewDescription() {
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, $core->translate('add sub-album'));

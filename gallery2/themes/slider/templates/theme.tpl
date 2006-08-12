@@ -1,5 +1,5 @@
 {*
- * $Revision$
+ * $Revision: 1.7 $
  * If you want to customize this file, do not edit it directly since future upgrades
  * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
  * version.  Gallery will look for that file first and use it if it exists.
@@ -12,7 +12,7 @@
 
     {* If Gallery doesn't provide a header, we use the album/photo title (or filename) *}
     {if empty($head.title)}
-      <title>{$theme.item.title|markup:strip|default:$theme.item.pathComponent}</title>
+      <title>{$theme.item.title|default:$theme.item.pathComponent|markup:strip}</title>
     {/if}
 
     {* Include this theme's style sheet *}

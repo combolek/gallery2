@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: MaintenanceHelperTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.4 $ $Date: 2006/01/10 04:39:36 $
  * @package GalleryCore
  * @subpackage PHPUnit
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -48,7 +50,7 @@ class MaintenanceHelperTest extends GalleryTestCase {
 	    'MaintenanceHelperTestTask', $path, 'coreTest', null);
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markFactoryModuleForCleanup('coreTest');
     }
@@ -59,7 +61,7 @@ class MaintenanceHelperTest extends GalleryTestCase {
 	    array('taskId' => 'MaintenanceHelperTestTask'));
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	parent::tearDown();
@@ -68,7 +70,7 @@ class MaintenanceHelperTest extends GalleryTestCase {
     function testFetchTasks() {
 	list ($ret, $tasks) = MaintenanceHelper_simple::fetchTasks();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assert(GalleryUtilities::isA($tasks['MaintenanceHelperTestTask'],
@@ -81,7 +83,7 @@ class MaintenanceHelperTest extends GalleryTestCase {
 	$ret = MaintenanceHelper_simple::addRun(
 	    'MaintenanceHelperTestTask', $time, true, array('some details'));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $info) = MaintenanceHelper_simple::fetchLastRun('MaintenanceHelperTestTask');
@@ -96,7 +98,7 @@ class MaintenanceHelperTest extends GalleryTestCase {
 	$ret = MaintenanceHelper_simple::addRun(
 	    'MaintenanceHelperTestTask', $time, false, array('different details'));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $info) = MaintenanceHelper_simple::fetchLastRun('MaintenanceHelperTestTask');

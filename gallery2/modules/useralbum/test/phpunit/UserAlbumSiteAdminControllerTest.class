@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: UserAlbumSiteAdminControllerTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.16 $ $Date: 2006/01/13 03:39:52 $
  * @package UserAlbum
  * @subpackage PHPUnit
  * @author Alan Harder <alan.harder@sun.com>
@@ -42,14 +44,14 @@ class UserAlbumSiteAdminControllerTest extends GalleryControllerTestCase {
 	$ret = $this->_markPluginParametersForCleanup('module', 'useralbum');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Create random album to test assignment */
 	list ($ret, $this->_parentAlbum) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->_markForCleanup($this->_parentAlbum);

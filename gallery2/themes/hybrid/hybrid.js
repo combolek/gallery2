@@ -1,7 +1,7 @@
 /****************************
  * Hybrid theme for Gallery2
  * @author Alan Harder <alan.harder@sun.com>
- * $Revision$ $Date$
+ * $Revision: 1.10 $ $Date: 2005/10/14 18:29:18 $
  */
 
 //Class app
@@ -372,7 +372,7 @@ function slide_previndex() {
   return slide_nextindex(1);
 }
 function slide_next() {
-  var i = slide_nextindex(); if (i >= 0) image_show(i); else { slide_inprog = 0; slide_onoff(); }
+  var i = slide_nextindex(); if (i >= 0) image_show(i); else slide_onoff();
 }
 function slide_setorder(o) {
   slide_order = parseInt(o);

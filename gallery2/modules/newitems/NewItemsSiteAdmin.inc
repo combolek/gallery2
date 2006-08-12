@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: NewItemsSiteAdmin.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.10 $ $Date: 2006/01/17 01:52:02 $
  * @package NewItems
  * @author Alan Harder <alan.harder@sun.com>
  */
@@ -35,7 +37,7 @@ class NewItemsSiteAdminController extends GalleryController {
     function handleRequest($form) {
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$status = $error = array();
@@ -53,7 +55,7 @@ class NewItemsSiteAdminController extends GalleryController {
 		    $ret = GalleryCoreApi::setPluginParameter(
 			'module', 'newitems', $key, $form[$keys[0]][$keys[1]]);
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		}
 		$status['saved'] = 1;
@@ -62,19 +64,19 @@ class NewItemsSiteAdminController extends GalleryController {
 	    list ($ret, $default) =
 		GalleryCoreApi::getPluginParameter('module', 'core', 'default.orderBy');
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    if (strpos($default, 'NewItems') !== false) {
 		$ret = GalleryCoreApi::setPluginParameter(
 				     'module', 'core', 'default.orderBy', 'orderWeight');
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
 	    GalleryCoreApi::requireOnce('modules/newitems/classes/NewItemsHelper.class');
 	    $ret = NewItemsHelper::resetNewItemSorts();
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $status['reset'] = 1;
 	} /* else $form['action']['reset'] */
@@ -104,7 +106,7 @@ class NewItemsSiteAdminView extends GalleryView {
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if ($form['formName'] != 'NewItemsSiteAdmin') {
@@ -113,7 +115,7 @@ class NewItemsSiteAdminView extends GalleryView {
 		list ($ret, $value) =
 		    GalleryCoreApi::getPluginParameter('module', 'newitems', $key);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		$key = explode('.', $key);
 		$form[$key[0]][$key[1]] = $value;
@@ -121,12 +123,12 @@ class NewItemsSiteAdminView extends GalleryView {
 	}
 	list ($ret, $form['count']) = NewItemsHelper::fetchAlbumCount();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $default) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'default.orderBy');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$form['isDefault'] = strpos($default, 'NewItems') !== false;
 

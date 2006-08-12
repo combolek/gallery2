@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: module.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 /**
  * @package Comment
- * @version $Revision$ $Date$
+ * @version $Revision: 1.91.2.1 $ $Date: 2006/04/05 22:10:57 $
  * @author Bharat Mediratta <bharat@menalto.com>
  */
 
@@ -42,7 +44,7 @@ class CommentModule extends GalleryModule {
 	$this->setGroup('data', $gallery->i18n('Extra Data'));
 	$this->setCallbacks('registerEventListeners|getItemLinks|getItemSummaries|' .
 			    'getSiteAdminViews|getItemAdminViews');
-	$this->setRequiredCoreApi(array(7, 5));
+	$this->setRequiredCoreApi(array(7, 1));
 	$this->setRequiredModuleApi(array(3, 0));
     }
 
@@ -76,7 +78,7 @@ class CommentModule extends GalleryModule {
 							  'comment.' . $p[0],
 							  $p[1], $p[2], $p[3]);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	     }
 
@@ -85,7 +87,7 @@ class CommentModule extends GalleryModule {
 		     as $key => $value) {
 		$ret = $this->setParameter($key, $value);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	    break;
@@ -100,7 +102,7 @@ class CommentModule extends GalleryModule {
 		'GalleryPermissionSetMap',
 		array('module' => 'comment', 'permission' => 'comment.search'));
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	case '0.9.7':
@@ -108,7 +110,7 @@ class CommentModule extends GalleryModule {
 	    $storage =& $gallery->getStorage();
 	    $ret = $storage->configureStore($this->getId(), array('GalleryComment:1.0'));
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	case '1.0.1':
@@ -120,7 +122,7 @@ class CommentModule extends GalleryModule {
 		     as $key => $value) {
 		$ret = $this->setParameter($key, $value);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 
@@ -128,15 +130,15 @@ class CommentModule extends GalleryModule {
 	case '1.0.7':
 	    list ($ret, $level) = $this->getParameter('comments.captcha');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $ret = $this->setParameter('validation.level', $level ? 'HIGH' : 'OFF');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $ret = $this->removeParameter('comments.captcha');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	case '1.0.8':
@@ -175,21 +177,21 @@ class CommentModule extends GalleryModule {
 	    'GalleryEntity', 'GalleryComment', 'GalleryComment',
 	    'modules/comment/classes/GalleryComment.class', 'comment', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'GallerySearchInterface_1_0', 'GalleryCommentSearch', 'comment',
 	    'modules/comment/classes/GalleryCommentSearch.class', 'comment', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'CaptchaAdminOption', 'CommentCaptchaAdminOption', 'CommentCaptchaAdminOption',
 	    'modules/comment/classes/CommentCaptchaAdminOption.class', 'comment', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -208,7 +210,7 @@ class CommentModule extends GalleryModule {
     function getItemLinks($items, $wantsDetailedLinks, $permissions) {
 	list ($ret, $showAll) = $this->getParameter('comments.latest');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$links = array();
 	foreach ($items as $item) {
@@ -245,7 +247,7 @@ class CommentModule extends GalleryModule {
 	GalleryCoreApi::requireOnce('modules/comment/classes/GalleryCommentHelper.class');
 	list ($ret, $commentCounts) = GalleryCommentHelper::fetchCommentCounts($ids);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$summaries = array();
@@ -271,7 +273,7 @@ class CommentModule extends GalleryModule {
 	$views = array();
 	list ($ret, $permissions) = GalleryCoreApi::getPermissions($item->getId());
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (isset($permissions['comment.edit']) ||

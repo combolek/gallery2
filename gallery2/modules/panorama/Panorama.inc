@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: Panorama.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.10 $ $Date: 2006/01/18 01:39:22 $
  * @package Panorama
  * @author Alan Harder <alan.harder@sun.com>
  */
@@ -38,38 +40,44 @@ class PanoramaView extends GalleryView {
 
 	list ($ret, $item) = $this->_getItem();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $image) = PanoramaHelper::fetchViewableImages(array($item));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (empty($image)) {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	}
 	$image = $image[$item->getId()];
 
-	list ($ret, $renderer) =
-	    GalleryCoreApi::newFactoryInstance('GalleryRenderer', 'PanoramaRenderer');
+	list ($ret, $viewWidth) = GalleryCoreApi::getPluginParameter('module', 'panorama', 'width');
 	if ($ret) {
-	    return array($ret, null);
-	}
-	if (!isset($renderer)) {
-	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	$template->setVariable('Panorama', array(
-		    'item' => (array)$item,
-		    'appletHtml' => $renderer->render('HTML', $image, $item, array()),
-		    ));
+	$urlGenerator =& $gallery->getUrlGenerator();
+	$src = $urlGenerator->generateUrl(
+	    array('view' => 'core.DownloadItem', 'itemId' => $image->getId(),
+		  'serialNumber' => $image->getSerialNumber()),
+	    array('forceSessionId' => true, 'forceFullUrl' => true));
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'panorama');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	$template->title($module->translate('Panorama'));
 
-	return array(null, array('body' => 'modules/panorama/templates/Panorama.tpl'));
+	$Panorama['item'] = (array)$item;
+	$Panorama['image'] = (array)$image;
+	$Panorama['imageUrl'] = $src;
+	$Panorama['width'] = $viewWidth;
+	$Panorama['moduleUrl'] =
+	    GalleryUtilities::convertPathToUrl(dirname(__FILE__), array('forceFullUrl' => true));
+
+	$template->setVariable('Panorama', $Panorama);
+	$template->title($module->translate('Panorama'));
+	return array(null,
+	    array('body' => 'modules/panorama/templates/Panorama.tpl'));
     }
 }
 ?>

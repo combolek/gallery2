@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: PrintPhotoControllerTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.22 $ $Date: 2006/02/24 02:32:07 $
  * @package PhotoAccess
  * @subpackage PHPUnit
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -48,7 +50,7 @@ class PrintPhotoControllerTest extends GalleryControllerTestCase {
 	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    $this->failWithStatus($ret);
+	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->_markForCleanup($this->_album);
@@ -63,7 +65,7 @@ class PrintPhotoControllerTest extends GalleryControllerTestCase {
 					 'test/jpeg', array(), __FILE__, 'GalleryPhotoItem');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    $this->failWithStatus($ret);
+	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	/* Create a stub thumbnail */
@@ -71,13 +73,13 @@ class PrintPhotoControllerTest extends GalleryControllerTestCase {
 					  'GalleryDerivative', $this->_photo->getEntityType());
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = $derivative->create($this->_photo->getId(), DERIVATIVE_TYPE_IMAGE_THUMBNAIL);
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$derivative->setDerivativeSourceId($this->_photo->getId());
@@ -87,20 +89,20 @@ class PrintPhotoControllerTest extends GalleryControllerTestCase {
 	$ret = $derivative->save();
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Ensure we have print permission */
 	$ret = GalleryCoreApi::removeItemPermissions($this->_photo->getId());
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$ret = GalleryCoreApi::addUserPermission(
 	    $this->_photo->getId(), $gallery->getActiveUserId(), 'core.all');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/*
@@ -114,7 +116,7 @@ class PrintPhotoControllerTest extends GalleryControllerTestCase {
 	$ret = $storage->checkPoint();
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	/* Empty out the plugin session id */
@@ -126,7 +128,7 @@ class PrintPhotoControllerTest extends GalleryControllerTestCase {
 	list ($ret) = GalleryCoreApi::getPermissionIds();
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Swap in a dummy url generator */

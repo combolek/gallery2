@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ItemEditOptionTestCase.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.9 $ $Date: 2006/01/10 04:38:41 $
  * @package Gallery
  * @subpackage PHPUnit
  * @author Alan Harder <alan.harder@sun.com>
@@ -56,16 +58,16 @@ class ItemEditOptionTestCase extends GalleryTestCase {
 	list ($ret, $this->_option) =
 	    GalleryCoreApi::newFactoryInstanceById('ItemEditOption', $optionName);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	if (!isset($this->_option)) {
 	    return $this->failWithStatus(
-			  GalleryCoreApi::error(ERROR_MISSING_OBJECT));
+			  GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__));
 	}
 
 	list ($ret, $this->_module) = GalleryCoreApi::loadPlugin('module', $moduleName);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
         $this->_statusMonitor = new ItemEditOptionTestImmediateStatusView();
     }
@@ -81,7 +83,7 @@ class ItemEditOptionTestCase extends GalleryTestCase {
     function _handleRequestAfterEdit($form, &$item, $errorCode=null) {
 	list ($ret, $preferred) = GalleryCoreApi::fetchPreferredsByItemIds(array($item->getId()));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$preferred = empty($preferred) ? null : array_shift($preferred);
 
@@ -95,7 +97,7 @@ class ItemEditOptionTestCase extends GalleryTestCase {
 				      join(' | ', GalleryStatus::getErrorCodeConstants($ret->getErrorCode()))));
 	    }
 	} else if ($ret) {
-	    $this->failWithStatus($ret);
+	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	} else {
 	    /* Check to make sure we got back everything we want */
 	    $this->assert(isset($error) && is_array($error), 'option error results missing');

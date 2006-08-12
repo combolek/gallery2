@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: GalleryEventHelper_simple.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.17 $ $Date: 2006/01/10 04:39:22 $
  * @package GalleryCore
  * @author Bharat Mediratta <bharat@menalto.com>
  */
@@ -90,7 +92,7 @@ class GalleryEventHelper_simple {
 	if (!isset($allListenersRegistered)) {
 	    list ($ret, $moduleStatus) = GalleryCoreApi::fetchPluginStatus('module');
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    foreach ($moduleStatus as $moduleId => $status) {
@@ -105,7 +107,7 @@ class GalleryEventHelper_simple {
 			list ($ret, $module) =
 			    GalleryCoreApi::loadPlugin('module', $moduleId, true);
 			if ($ret) {
-			    return array($ret, null);
+			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 
 			if (!GalleryCoreApi::isPluginCompatibleWithApis($module)) {
@@ -128,7 +130,7 @@ class GalleryEventHelper_simple {
 	    for ($i = 0; $i < count($listeners); $i++) {
 		list ($ret, $data) = $listeners[$i]->handleEvent($event);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		if (isset($data)) {
 		    $result[] = $data;

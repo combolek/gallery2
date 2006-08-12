@@ -1,4 +1,4 @@
-# $Id$
+# $Id: no.po,v 1.5 2006/03/22 04:20:01 mindless Exp $
 #
 # Gallery - a web based photo album viewer and editor
 # Copyright (C) 2000-2006 Bharat Mediratta
@@ -21,19 +21,16 @@
 # - Sverre M. Vikan <sverre AT urven DOT net>
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: MIME Maintenance 1.1.0\n"
+"Project-Id-Version: Gallery: MIME Maintenance 1.0.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-15 10:39+0100\n"
-"PO-Revision-Date: 2006-05-11 16:47+0100\n"
+"PO-Revision-Date: 2006-03-10 00:14+0100\n"
 "Last-Translator: Sverre M. Vikan <sverre AT urven DOT net>\n"
 "Language-Team: Norwegian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-msgid "This type of file not allowed; item will not be added."
-msgstr "Denne typen fil er ikke tillatt; objekt vil ikke bli lagt til."
 
 msgid "MIME Maintenance"
 msgstr "MIME-vedlikehold"
@@ -47,32 +44,11 @@ msgstr "Ekstra data"
 msgid "MIME Types"
 msgstr "MIME-typer"
 
-msgid "Settings saved successfully"
-msgstr "Vellykket lagring av innstillinger"
-
 msgid "MIME entry saved successfully"
 msgstr "Vellykket lagring av MIME-oppføring"
 
 msgid "MIME entry deleted"
 msgstr "MIME-oppføring slettet"
-
-msgid "Allow all uploads"
-msgstr "Tillat alle opplastinger"
-
-msgid "Block upload of types selected below"
-msgstr "Blokker opplasting av typer valgt nedenfor"
-
-msgid "Only allow uploads of types selected below"
-msgstr "Tillat bare opplastinger av typer valgt nedenfor"
-
-msgid "Save"
-msgstr "Lagre"
-
-msgid "Reset"
-msgstr "Nullstill"
-
-msgid "Add new MIME type"
-msgstr "Legg til ny MIME-type"
 
 msgid "Extensions"
 msgstr "Filtyper"
@@ -89,11 +65,8 @@ msgstr "rediger"
 msgid "delete"
 msgstr "slett"
 
-msgid "Allow Upload"
-msgstr "Tillat opplasting"
-
-msgid "Block Upload"
-msgstr "Blokker opplasting"
+msgid "Add new MIME type"
+msgstr "Legg til ny MIME-type"
 
 #, c-format
 msgid "Edit MIME type: %s"
@@ -120,6 +93,9 @@ msgstr "Denne filtypen er allerede i bruk og kan ikke brukes igjen."
 msgid "You must specify at least one extension."
 msgstr "Du må angi minst én filtype."
 
+msgid "Save"
+msgstr "Lagre"
+
 msgid "Apply"
 msgstr "Bruk"
 
@@ -127,6 +103,6 @@ msgid "Cancel"
 msgstr "Avbryt"
 
 #, c-format
-msgid "Warning: Adding and allowing upload of any of the following mime types could leave you open to %sCross Site Scripting%s security vulnerabilities."
-msgstr "Advarsel: å legge til og tillate opplasting av hvilke som helst av følgende MIME-typer kan etterlate deg åpen for sikkerhetssårbarheter av typen %sCross Site Scripting%s."
+msgid "Warning: Adding any of the following mime types could leave you open to %sCross Site Scripting%s security vulnerabilities."
+msgstr "Advarsel: å legge til hvilke som helst av følgende MIME-typer kan etterlate deg åpen for sikkerhetssårbarheter av typen %sCross Site Scripting%s."
 

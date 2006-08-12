@@ -1,5 +1,5 @@
 {*
- * $Revision$
+ * $Revision: 1.3 $
  * If you want to customize this file, do not edit it directly since future upgrades
  * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
  * version.  Gallery will look for that file first and use it if it exists.
@@ -23,7 +23,7 @@
 	{g->text text="%d. %s" arg1=$peer.peerIndex arg2=$title|markup:strip|entitytruncate:14}
       </span>
     {else}
-      <a href="{g->url params=$theme.pageUrl arg1="itemId=`$peer.id`"}">
+      <a href="{g->url arg1="view=core.ShowItem" arg2="itemId=`$peer.id`"}">
 	{g->text text="%d. %s" arg1=$peer.peerIndex arg2=$title|markup:strip|entitytruncate:14}
       </a>
     {/if}

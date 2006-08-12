@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: Redirect.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.20 $ $Date: 2006/03/18 03:24:48 $
  * @package Migrate
  * @subpackage Redirect
  * @author Joseph Elwell <jelwell@yahoo.com>
@@ -72,7 +74,7 @@ class RedirectController extends GalleryController {
 
 	    list ($ret, $id) = G1MigrateHelper::fetchMapping($path[0], $path[1]);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    if (isset($id) && isset($derivative)) {
@@ -80,19 +82,19 @@ class RedirectController extends GalleryController {
 		case DERIVATIVE_TYPE_IMAGE_PREFERRED:
 		    list ($ret, $data) = GalleryCoreApi::fetchPreferredsByItemIds(array($id));
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		    break;
 		case DERIVATIVE_TYPE_IMAGE_RESIZE:
 		    list ($ret, $data) = GalleryCoreApi::fetchResizesByItemIds(array($id));
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		    break;
 		case DERIVATIVE_TYPE_IMAGE_THUMBNAIL:
 		    list ($ret, $data) = GalleryCoreApi::fetchThumbnailsByItemIds(array($id));
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		    break;
 		}
@@ -107,7 +109,7 @@ class RedirectController extends GalleryController {
 	} else {
 	    list ($ret, $id) = G1MigrateHelper::fetchMapping($path[0]);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
@@ -166,7 +168,7 @@ class RedirectView extends GalleryView {
     function renderImmediate($status, $error) {
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	header('Content-type: text/plain');

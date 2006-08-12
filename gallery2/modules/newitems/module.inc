@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: module.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.32 $ $Date: 2006/03/22 03:52:33 $
  * @package NewItems
  * @author Alan Harder <alan.harder@sun.com>
  */
@@ -38,10 +40,10 @@ class NewItemsModule extends GalleryModule {
 	$this->setId('newitems');
 	$this->setName($gallery->i18n('New Items'));
 	$this->setDescription($gallery->i18n('Highlight new/updated Gallery items'));
-	$this->setVersion('1.0.4');
+	$this->setVersion('1.0.3');
 	$this->setGroup('display', $gallery->i18n('Display'));
 	$this->setCallbacks('getSiteAdminViews|getItemSummaries');
-	$this->setRequiredCoreApi(array(7, 10));
+	$this->setRequiredCoreApi(array(7, 0));
 	$this->setRequiredModuleApi(array(3, 0));
     }
 
@@ -55,7 +57,7 @@ class NewItemsModule extends GalleryModule {
 		     as $key => $value) {
 		$ret = $this->setParameter($key, $value);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	}
@@ -68,13 +70,41 @@ class NewItemsModule extends GalleryModule {
      */
     function performFactoryRegistrations() {
 	$ret = GalleryCoreApi::registerFactoryImplementation(
-	    'GallerySortInterface_1_2', 'NewItemsSortOrder', 'NewItems',
+	    'GallerySortInterface_1_1', 'NewItemsSortOrder', 'NewItems',
 	    'modules/newitems/classes/NewItemsSortOrder.class', 'newitems', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
+    }
+
+    /**
+     * @see GalleryModule::deactivate()
+     */
+    function deactivate($postDeactivationEvent=true) {
+	GalleryCoreApi::requireOnce('modules/newitems/classes/NewItemsHelper.class');
+	list ($ret, $count) = NewItemsHelper::fetchAlbumCount();
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+	list ($ret, $default) =
+	    GalleryCoreApi::getPluginParameter('module', 'core', 'default.orderBy');
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+	if ($count > 0 || strpos($default, 'NewItems') !== false) {
+	    /* Can't deactivate if NewItems sort is in use */
+	    return array(null,
+			 array('view' => 'core.SiteAdmin',
+			       'subView' => 'newitems.NewItemsSiteAdmin'));
+	}
+
+	list ($ret, $redirect) = parent::deactivate($postDeactivationEvent);
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+	return array(null, $redirect);
     }
 
     /**
@@ -92,7 +122,7 @@ class NewItemsModule extends GalleryModule {
     function getItemSummaries($items, $permissions) {
 	list ($ret, $param) = GalleryCoreApi::fetchAllPluginParameters('module', 'newitems');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$time = time();
 	$newTime = $time - $param['days.new'] * 86400;
@@ -113,19 +143,6 @@ class NewItemsModule extends GalleryModule {
 	    }
 	}
 	return array(null, $summaries);
-    }
-
-
-    /**
-     * @see GalleryModule::uninstall
-     */
-    function uninstall() {
-	$ret = GalleryCoreApi::deleteSortOrder('NewItems');
-	if ($ret) {
-	    return $ret;
-	}
-
-	return parent::uninstall();
     }
 }
 ?>

@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: module.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.22 $ $Date: 2006/03/22 03:52:34 $
  * @package Rearrange
  * @author Alan Harder <alan.harder@sun.com>
  */
@@ -62,7 +64,7 @@ class RearrangeModule extends GalleryModule {
 	     */
 	    list ($ret, $childCounts) = GalleryCoreApi::fetchChildCounts($itemIds);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    foreach ($itemIds as $itemId) {
@@ -93,11 +95,11 @@ class RearrangeModule extends GalleryModule {
 
 	list ($ret, $permissions) = GalleryCoreApi::getPermissions($item->getId());
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $childCounts) = GalleryCoreApi::fetchChildCounts(array($item->getId()));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$childCount = empty($childCounts[$item->getId()]) ? 0 : $childCounts[$item->getId()];
 

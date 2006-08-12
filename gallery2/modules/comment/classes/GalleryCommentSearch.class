@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: GalleryCommentSearch.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -20,7 +22,7 @@
 
 /**
  * @package Comment
- * @version $Revision$ $Date$
+ * @version $Revision: 1.25 $ $Date: 2006/01/13 03:39:31 $
  * @author Bharat Mediratta <bharat@menalto.com>
  */
 
@@ -46,7 +48,7 @@ class GalleryCommentSearch extends GallerySearchInterface_1_0 {
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'comment');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$info = array('name' => $module->translate('Comments'),
@@ -69,12 +71,12 @@ class GalleryCommentSearch extends GallerySearchInterface_1_0 {
 	list ($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds('comment.view',
 								  $gallery->getActiveUserId());
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $viewAclIds) = GalleryCoreApi::fetchAccessListIds('core.view',
 								      $gallery->getActiveUserId());
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$aclIds = array_intersect($aclIds, $viewAclIds);
 	if (empty($aclIds)) {
@@ -92,24 +94,24 @@ class GalleryCommentSearch extends GallerySearchInterface_1_0 {
 	WHERE
 	  [GalleryChildEntity::id] = [GalleryComment::id]
 	  AND
-	  [GalleryChildEntity::parentId] = [GalleryAccessSubscriberMap::itemId]
-	  AND
-	  [GalleryAccessSubscriberMap::accessListId] IN (%s)
-	  AND
-	  ([GalleryComment::subject] LIKE ?
-	   OR
-	   [GalleryComment::comment] LIKE ?)
-	', $aclMarkers);
+          [GalleryChildEntity::parentId] = [GalleryAccessSubscriberMap::itemId]
+          AND
+          [GalleryAccessSubscriberMap::accessListId] IN (%s)
+          AND
+          ([GalleryComment::subject] LIKE ?
+           OR
+           [GalleryComment::comment] LIKE ?)
+        ', $aclMarkers);
 
 	$query = sprintf('
 	SELECT
 	  [GalleryChildEntity::id],
-	  [GalleryComment::subject],
-	  [GalleryComment::comment],
-	  [GalleryComment::date],
-	  [GalleryUser::fullName],
-	  [GalleryUser::userName],
-	  [GalleryChildEntity::parentId]
+          [GalleryComment::subject],
+          [GalleryComment::comment],
+          [GalleryComment::date],
+          [GalleryUser::fullName],
+          [GalleryUser::userName],
+          [GalleryChildEntity::parentId]
 	FROM
 	  [GalleryChildEntity], [GalleryComment], [GalleryAccessSubscriberMap], [GalleryUser]
 	WHERE
@@ -117,16 +119,16 @@ class GalleryCommentSearch extends GallerySearchInterface_1_0 {
 	  AND
 	  [GalleryUser::id] = [GalleryComment::commenterId]
 	  AND
-	  [GalleryChildEntity::parentId] = [GalleryAccessSubscriberMap::itemId]
-	  AND
-	  [GalleryAccessSubscriberMap::accessListId] IN (%s)
-	  AND
-	  ([GalleryComment::subject] LIKE ?
-	   OR
-	   [GalleryComment::comment] LIKE ?)
+          [GalleryChildEntity::parentId] = [GalleryAccessSubscriberMap::itemId]
+          AND
+          [GalleryAccessSubscriberMap::accessListId] IN (%s)
+          AND
+          ([GalleryComment::subject] LIKE ?
+           OR
+           [GalleryComment::comment] LIKE ?)
 	ORDER BY
 	  [GalleryComment::date] DESC, [GalleryChildEntity::id] DESC
-	', $aclMarkers);
+        ', $aclMarkers);
 
 	$data = $aclIds;
 	$data[] = '%' . $criteria . '%';
@@ -135,7 +137,7 @@ class GalleryCommentSearch extends GallerySearchInterface_1_0 {
 	/* Find the total */
 	list ($ret, $results) = $gallery->search($countQuery, $data);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$result = $results->nextResult();
 	$numRows = (int)$result[0];
@@ -143,12 +145,12 @@ class GalleryCommentSearch extends GallerySearchInterface_1_0 {
 	list ($ret, $results) = $gallery->search(
 	    $query, $data, array('limit' => array('offset' => $offset, 'count' => $count)));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'comment');
+        list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'comment');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$text['subject'] = $module->translate('Subject');

@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: module.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.28 $ $Date: 2006/03/22 03:52:33 $
  * @package NokiaUpload
  * @author Jerome Rannikko <jeromer@hotpop.com>
  */
@@ -53,7 +55,7 @@ class NokiaUploadModule extends GalleryModule {
     function autoConfigure() {
 	list ($ret, $needsConfiguration) = $this->needsConfiguration();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	return array(null, !$needsConfiguration);
     }
@@ -64,7 +66,7 @@ class NokiaUploadModule extends GalleryModule {
     function needsConfiguration() {
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'nokiaupload');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	foreach (array('id.mobileGroup', 'id.uploadAlbum') as $key) {
 	    if (empty($params[$key])) {

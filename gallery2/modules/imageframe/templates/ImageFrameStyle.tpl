@@ -1,5 +1,5 @@
 {*
- * $Revision$
+ * $Revision: 1.7 $
  * If you want to customize this file, do not edit it directly since future upgrades
  * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
  * version.  Gallery will look for that file first and use it if it exists.
@@ -43,8 +43,6 @@ table.ImageFrame_{$id} .RR div.V {ldelim} width:{$data.widthRR}px; {rdelim}
 {if !empty($data.imageBBR)}table.ImageFrame_{$id} .BBR {ldelim} width:{$data.widthBBR}px; background:url({$data.imageBBR}) no-repeat; {rdelim}
 {/if}
 {if !empty($data.imageBR)}table.ImageFrame_{$id} .BR {ldelim} width:{$data.widthBR}px; height:{$data.heightBR}px; background:url({$data.imageBR}) no-repeat; {rdelim}
-{/if}
-{if !empty($data.imageCC)}table.ImageFrame_{$id} .IMG {ldelim} background:url({$data.imageCC}) repeat center center; {rdelim}
 {/if}
 table.ImageFrame_{$id} td {ldelim} font-size:1px {rdelim} /* For IE */
 {/if}

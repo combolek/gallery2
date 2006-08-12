@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: UserWatermarks.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.15 $ $Date: 2006/01/13 03:39:53 $
  * @package Watermark
  * @author Bharat Mediratta <bharat@menalto.com>
  */
@@ -33,25 +35,64 @@ class UserWatermarksController extends GalleryController {
      * @see GalleryController::handleRequest
      */
     function handleRequest($form) {
-	GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
-	list ($ret, $isAnonymous) = GalleryCoreApi::isAnonymousUser();
-	if ($ret) {
-	    return array($ret, null);
-	}
-	list ($ret, $isOn) =
-	    GalleryCoreApi::getPluginParameter('module', 'watermark', 'allowUserWatermarks');
-	if ($ret) {
-	    return array($ret, null);
-	}
-	if ($isAnonymous || !$isOn) {
-	    return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED), null);
-	}
+	global $gallery;
 
-	$status = $error = array();
+	$status = array();
+	$error = array();
 	if (isset($form['action']['add']) && !empty($form['tmp_name'][1])) {
-	    list ($ret, $item) = WatermarkHelper::createWatermarkImage($form);
+
+	    /* Get the mime type from the upload info. */
+	    $mimeType = $form['type'][1];
+
+	    /*
+	     * If we don't get useful data from that or its a type we don't
+	     * recognize, take a swing at it using the file name.
+	     */
+	    list ($ret, $mimeExtensions) = GalleryCoreApi::convertMimeToExtensions($mimeType);
+	    if ($mimeType == 'application/octet-stream' ||
+		$mimeType == 'application/unknown' || empty($mimeExtensions)) {
+		$extension = GalleryUtilities::getFileExtension($form['name'][1]);
+		list ($ret, $mimeType) = GalleryCoreApi::convertExtensionToMime($extension);
+		if ($ret) {
+		    $mimeType = 'application/unknown';
+		}
+	    }
+
+	    list ($ret, $item) =
+		GalleryCoreApi::newFactoryInstance('GalleryEntity', 'WatermarkImage');
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
+	    if (!isset($item)) {
+		return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__), null);
+	    }
+
+	    $ret = $item->create($form['tmp_name'][1], $mimeType, $form['name'][1]);
+	    if ($ret) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
+
+	    $ret = $item->save();
+	    if ($ret) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
+
+	    /* Give appropriate permissions */
+	    list ($ret, $id) =
+		GalleryCoreApi::getPluginParameter('module', 'core', 'id.adminGroup');
+	    if ($ret) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
+
+	    $ret = GalleryCoreApi::addGroupPermission($item->getId(), $id, 'core.all');
+	    if ($ret) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
+
+	    $ret = GalleryCoreApi::addUserPermission($item->getId(), $gallery->getActiveUserId(),
+						     'core.all');
+	    if ($ret) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    $results['redirect']['view'] = 'core.UserAdmin';
@@ -62,10 +103,12 @@ class UserWatermarksController extends GalleryController {
 	    $results['delegate']['view'] = 'core.UserAdmin';
 	    $results['delegate']['subView'] = 'watermark.UserWatermarks';
 	} else if (isset($form['action']['delete']) && isset($form['delete']['watermarkId'])) {
+	    GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
+
 	    list ($ret, $wasDeleted) =
 		WatermarkHelper::deleteWatermarkImageById($form['delete']['watermarkId']);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    if ($wasDeleted) {
@@ -100,22 +143,19 @@ class UserWatermarksView extends GalleryView {
 	global $gallery;
 	GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
 
-	list ($ret, $isAnonymous) = GalleryCoreApi::isAnonymousUser();
+	list ($ret, $anonymousUserId) =
+	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	list ($ret, $isOn) =
-	    GalleryCoreApi::getPluginParameter('module', 'watermark', 'allowUserWatermarks');
-	if ($ret) {
-	    return array($ret, null);
-	}
-	if ($isAnonymous || !$isOn) {
-	    return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED), null);
+
+	if ($gallery->getActiveUserId() == $anonymousUserId) {
+	    return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED, __FILE__, __LINE__), null);
 	}
 
 	list ($ret, $watermarks) = WatermarkHelper::fetchWatermarks();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	foreach ($watermarks as $id => $watermark) {
 	    /* Exclude site-wide watermarks (and, in the case of admins -- other people's) */
@@ -159,7 +199,7 @@ class UserWatermarksView extends GalleryView {
     function getViewDescription() {
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'watermark');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, $core->translate('user watermarks'));

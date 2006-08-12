@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: CommentSiteAdmin.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.4 $ $Date: 2006/02/09 05:02:26 $
  * @package Comment
  * @author Johannes Schmittat <Johannes@Schmittat.com>
  * @author Alan Harder <alan.harder@sun.com>
@@ -36,7 +38,7 @@ class CommentSiteAdminController extends GalleryController {
     function handleRequest($form) {
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$status = $error = array();
@@ -49,12 +51,12 @@ class CommentSiteAdminController extends GalleryController {
 		$ret = GalleryCoreApi::setPluginParameter('module', 'comment',
 							  'comments.show', $form['show']);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		$ret = GalleryCoreApi::setPluginParameter('module', 'comment',
 			'comments.latest', (isset($form['latest']) && $form['latest']) ? 1 : 0);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		$status['saved'] = 1;
 	    }
@@ -83,7 +85,7 @@ class CommentSiteAdminView extends GalleryView {
     function loadTemplate(&$template, &$form) {
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if ($form['formName'] != 'CommentSiteAdmin') {
@@ -92,7 +94,7 @@ class CommentSiteAdminView extends GalleryView {
 		list ($ret, $value) =
 		    GalleryCoreApi::getPluginParameter('module', 'comment', 'comments.' . $key);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		$form[$key] = $value;
 	    }
@@ -103,7 +105,7 @@ class CommentSiteAdminView extends GalleryView {
 	list ($ret, $pluginInstances) =
 	    GalleryCoreApi::getAllFactoryImplementationIds('GalleryValidationPlugin');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$form['canValidate'] = !empty($pluginInstances);
 

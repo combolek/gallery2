@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: DiskQuotasOptionTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.9 $ $Date: 2006/01/10 04:41:49 $
  * @package Quotas
  * @subpackage PHPUnit
  * @author Alan Harder <alan.harder@sun.com>
@@ -48,7 +50,7 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($this->_album);
 
@@ -56,7 +58,7 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 	list ($ret, $this->_user) = $this->_createRandomUser();
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($this->_user);
 
@@ -66,26 +68,26 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 	list ($ret, $this->_group) = $this->_createRandomGroup();
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($this->_group);
 
 	list ($ret, $this->_group2) = $this->_createRandomGroup();
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($this->_group2);
 
 	$ret = GalleryCoreApi::addUserToGroup($this->_user->getId(), $this->_group->getId());
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$ret = GalleryCoreApi::addUserToGroup($this->_user->getId(), $this->_group2->getId());
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	/* Save/clear quotas for All Users,Everybody groups so they won't interfere with tests */
@@ -95,12 +97,12 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 		GalleryCoreApi::getPluginParameter('module', 'core', 'id.' . $groupName);
 	    if ($ret) {
 		print $ret->getAsHtml();
-		return $this->failWithStatus($ret);
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    list ($ret, $hasQuota, $quota) = GalleryQuotasHelper::fetchGroupQuota($groupId);
 	    if ($ret) {
 		print $ret->getAsHtml();
-		return $this->failWithStatus($ret);
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    if ($hasQuota) {
 		$this->_saveQuota[$groupId] = $quota;
@@ -108,7 +110,7 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 		    'QuotasMap', array('userOrGroupId' => $groupId));
 		if ($ret) {
 		    print $ret->getAsHtml();
-		    return $this->failWithStatus($ret);
+		    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 		}
 	    }
 	}
@@ -116,7 +118,7 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 	list ($ret, $this->_module) = GalleryCoreApi::loadPlugin('module', 'quotas');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->_usingMessage =
@@ -142,7 +144,7 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 	    $ret = GalleryCoreApi::addMapEntry(
 		'QuotasMap', array('userOrGroupId' => $groupId, 'quotaSize' => $quota['quota']));
 	    if ($ret) {
-		$this->failWithStatus($ret);
+		$this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	}
 
@@ -151,17 +153,17 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 	/* Verify test quotas were deleted with users/groups */
 	list ($ret, $hasQuota) = GalleryQuotasHelper::fetchUserQuota($this->_user->getId());
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert(!$hasQuota, $this->_user->getId() . ' user quota was not deleted');
 	list ($ret, $hasQuota) = GalleryQuotasHelper::fetchGroupQuota($this->_group->getId());
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert(!$hasQuota, $this->_group->getId() . ' group quota was not deleted');
 	list ($ret, $hasQuota) = GalleryQuotasHelper::fetchGroupQuota($this->_group2->getId());
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert(!$hasQuota, $this->_group2->getId() . ' group2 quota was not deleted');
     }
@@ -169,7 +171,7 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
     function testNoQuota() {
 	list ($ret, $item) = $this->_createRandomDataItem($this->_album->getId());
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($errors, $warnings) = $this->_handleRequestAfterAdd(array(), array($item));
@@ -182,13 +184,13 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 	    'QuotasMap',
 	    array('userOrGroupId' => $this->_user->getId(), 'quotaSize' => '2000'));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $item) = $this->_createRandomDataItem($this->_album->getId(), 'test/file',
 							  array(), __FILE__);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$filesize = (string)round($this->_platform->filesize(__FILE__) / 1024, 2);
 	list ($errors, $warnings) = $this->_handleRequestAfterAdd(array(), array($item));
@@ -204,12 +206,12 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 	    'QuotasMap',
 	    array('userOrGroupId' => $this->_user->getId(), 'quotaSize' => '5'));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $item) = $this->_createRandomDataItem($this->_album->getId());
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($errors, $warnings) = $this->_handleRequestAfterAdd(array(), array($item));
@@ -232,19 +234,19 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 	    'QuotasMap',
 	    array('userOrGroupId' => $this->_user->getId(), 'quotaSize' => '15'));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $item) = $this->_createRandomDataItem($this->_album->getId(), 'test/file',
 							  array(), __FILE__);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$filesize = (string)round($this->_platform->filesize(__FILE__) / 1024, 2);
 	list ($ret, $item2) = $this->_createRandomDataItem($this->_album->getId());
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($errors, $warnings) = $this->_handleRequestAfterAdd(array(), array($item, $item2));
@@ -259,7 +261,7 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 	/* Verify first item ok and second item was deleted */
 	list ($ret, $tmp) = GalleryCoreApi::loadEntitiesById($item->getId());
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	list ($ret, $tmp) = GalleryCoreApi::loadEntitiesById($item2->getId());
 	$this->assert($ret && ($ret->getErrorCode() & ERROR_MISSING_OBJECT),
@@ -271,13 +273,13 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 	    'QuotasMap',
 	    array('userOrGroupId' => $this->_group->getId(), 'quotaSize' => '2000000'));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $item) = $this->_createRandomDataItem($this->_album->getId(), 'test/file',
 							  array(), __FILE__);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$filesize = (string)round($this->_platform->filesize(__FILE__) / 1024, 2);
@@ -293,19 +295,19 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 	    'QuotasMap',
 	    array('userOrGroupId' => $this->_group->getId(), 'quotaSize' => '5'));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$ret = GalleryCoreApi::addMapEntry(
 	    'QuotasMap',
 	    array('userOrGroupId' => $this->_group2->getId(), 'quotaSize' => '500'));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $item) = $this->_createRandomDataItem($this->_album->getId(), 'test/file',
 							  array(), __FILE__);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$filesize = (string)round($this->_platform->filesize(__FILE__) / 1024, 2);
@@ -323,24 +325,24 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 	    'QuotasMap',
 	    array('userOrGroupId' => $this->_user->getId(), 'quotaSize' => '6'));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$ret = GalleryCoreApi::addMapEntry(
 	    'QuotasMap',
 	    array('userOrGroupId' => $this->_group->getId(), 'quotaSize' => '2'));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$ret = GalleryCoreApi::addMapEntry(
 	    'QuotasMap',
 	    array('userOrGroupId' => $this->_group2->getId(), 'quotaSize' => '200'));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $item) = $this->_createRandomDataItem($this->_album->getId());
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($errors, $warnings) = $this->_handleRequestAfterAdd(array(), array($item));

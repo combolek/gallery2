@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: Gallery.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.139 $ $Date: 2006/02/24 02:32:05 $
  * @package GalleryCore
  * @author Bharat Mediratta <bharat@menalto.com>
  */
@@ -211,25 +213,6 @@ class Gallery {
 
 	/* Set up a shutdown function to release any hanging locks. */
 	register_shutdown_function(array(&$this, '_shutdown'));
-
-	/* Default config settings (can be overridden via config.php or embedded environment) */
-	$this->_config = array(
-	    'login' => true,             /* Offer UserAdmin links (Login/Logout/Your Account) */
-
-	    /* UrlGenerator parameters for redirect when ShowItem target is inaccessible */
-	    'loginRedirect' => array('view' => 'core.UserAdmin',
-				     'subView' => 'core.UserLogin', 'return' => true),
-
-	    'link' => true,              /* @deprecated - Allow item linking */
-					 /* (now unused, there is a separate replica module */
-
-	    'showSidebarBlocks' => true, /* Can we allow themes to show the sidebar? */
-
-	    'systemCharset' => null,     /* Specify system character set, skip autodetect */
-	    'defaultAlbumId' => null,    /* Initial album to display instead of root album */
-	    'breadcrumbRootId' => null,  /* Omit any parents above this id in fetchParentSequence */
-	    'anonymousUserId' => null,   /* Alternate user account for guest sessions */
-	);
     }
 
     /**
@@ -239,7 +222,7 @@ class Gallery {
 	$storage =& $this->getStorage();
 	list ($ret, $results) = $storage->search($query, $data, $options);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, $results);
@@ -331,7 +314,7 @@ class Gallery {
 	    $this->_session = new GallerySession();
 	    $ret = $this->_session->init();
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
@@ -393,7 +376,7 @@ class Gallery {
 		list ($ret, $which) =
 		    GalleryCoreApi::getPluginParameter('module', 'core', 'lock.system');
 		if ($ret) {
-		    $ret = array($ret, null);
+		    $ret = array($ret->wrap(__FILE__, __LINE__), null);
 		    return $ret;
 		}
 	    } else {
@@ -416,7 +399,7 @@ class Gallery {
 		break;
 
 	    default:
-		$ret = array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+		$ret = array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 		return $ret;
 	    }
 	}
@@ -464,7 +447,6 @@ class Gallery {
 	    switch ($config['type']) {
 	    case 'mysql':
 	    case 'mysqlt':
-	    case 'mysqli':
 		GalleryCoreApi::requireOnce(
 			'modules/core/classes/GalleryStorage/MySqlStorage.class', true);
 		$this->_storage = new MySqlStorage($config);
@@ -490,12 +472,6 @@ class Gallery {
 		GalleryCoreApi::requireOnce(
 			'modules/core/classes/GalleryStorage/OracleStorage.class', true);
 		$this->_storage = new OracleStorage($config);
-		break;
-
-	    case 'ado_mssql':
-		GalleryCoreApi::requireOnce(
-			'modules/core/classes/GalleryStorage/MSSqlStorage.class', true);
-		$this->_storage = new MSSqlStorage($config);
 		break;
 
 	    default:
@@ -564,7 +540,7 @@ class Gallery {
     function &getTranslator() {
 	return $this->_translator;
     }
-
+    
     /**
      * Initialize our GalleryTranslator
      *
@@ -579,18 +555,18 @@ class Gallery {
 	    /* Do we already have an activeLanguage for this session? */
 	    list ($ret, $language) = $this->getActiveLanguageCode();
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 
 	    }
 
 	    $this->_translator = new GalleryTranslator();
 	    list ($ret, $languageCode) = $this->_translator->init($language, $dontUseDatabase);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $ret = $this->setActiveLanguageCode($languageCode);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
@@ -611,7 +587,7 @@ class Gallery {
 	} else {
 	    $language = '';
 	}
-
+	
 	return array(null, $language);
     }
 
@@ -627,7 +603,7 @@ class Gallery {
 	if (!empty($session)) {
 	    $session->put('core.language', $language);
 	}
-
+	
 	return null;
     }
 
@@ -709,8 +685,7 @@ class Gallery {
 	    $this->clearDebugBuffer();
 	}
 	if (!empty($this->_debug)) {
-	    /* Hardcode the value to avoid E_STRICT without using the >=5.0.0 constant */
-	    error_reporting(2047);
+	    error_reporting(E_ALL);
 	    ini_set('short_open_tag', false);
 	    ini_set('allow_call_time_pass_reference', false);
 	}
@@ -819,7 +794,15 @@ class Gallery {
      */
     function debug_r($object, $escapeHtmlEntities=false) {
 	if (!empty($this->_debug)) {
-	    $buf = print_r($object, true);
+	    if (version_compare(phpversion(), '4.3.0', '>=')) {
+		$buf = print_r($object, true);
+	    } else {
+		ob_start();
+		print_r($object);
+		$buf = ob_get_contents();
+		ob_end_clean();
+	    }
+
 	    if ($escapeHtmlEntities) {
 		$buf = htmlentities($buf);
 	    }

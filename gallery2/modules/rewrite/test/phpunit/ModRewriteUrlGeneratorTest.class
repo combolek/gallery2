@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ModRewriteUrlGeneratorTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -17,24 +19,22 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.3 $ $Date: 2006/01/15 19:50:12 $
  * @package Rewrite
  * @subpackage PHPUnit
  * @author Douglas Cau <douglas@cau.se>
  */
 
-GalleryCoreApi::requireOnce(
-    'modules/rewrite/classes/parsers/modrewrite/ModRewriteUrlGenerator.class');
-GalleryCoreApi::requireOnce('modules/rewrite/test/phpunit/RewriteUrlGeneratorTestCase.class');
-
 /**
- * Mod rewrite URL generator tests
+ * Mod Rewrite URL Generator tests
  *
  * @package Rewrite
  * @subpackage PHPUnit
  */
+GalleryCoreApi::requireOnce(
+    'modules/rewrite/classes/parsers/modrewrite/ModRewriteUrlGenerator.class');
+GalleryCoreApi::requireOnce('modules/rewrite/test/phpunit/RewriteUrlGeneratorTestCase.class');
 class ModRewriteUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 
     function ModRewriteUrlGeneratorTest($methodName) {
@@ -52,7 +52,7 @@ class ModRewriteUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'rewrite', $key, $value);
 	    if ($ret) {
 		print $ret->getAsHtml();
-		return $this->failWithStatus($ret);
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	}
 
@@ -64,7 +64,7 @@ class ModRewriteUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 	$ret = $this->_urlGeneratorInit('ModRewriteUrlGenerator');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
 
@@ -89,8 +89,7 @@ class ModRewriteUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 	$this->_expectedUrl[11] = ltrim($this->_testItemPath, '/') . '/test.html';
 	$this->_expectedUrl[12] = 't' . rtrim($this->_testAlbumPath, '/') . '.test';
 	$this->_expectedUrl[13] = 't' . $this->_testItemPath . '.test';
-	$this->_expectedUrl[14] = 'phpunit1/';
-	$this->_expectedUrl[15] = 'phpunit2/';
+	$this->_expectedUrl[14] = 'phpunit/';
 
 	parent::testGenerateUrlOverrideBaseUri();
     }

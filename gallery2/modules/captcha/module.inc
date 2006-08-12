@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: module.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.26 $ $Date: 2006/03/22 03:52:29 $
  * @package Captcha
  * @author Stefan Ioachim <stefanioachim@gmail.com>
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -52,13 +54,13 @@ class CaptchaModule extends GalleryModule {
 	    'GalleryValidationPlugin', 'CaptchaValidationPlugin', 'CaptchaValidationPlugin',
 	    'modules/captcha/classes/CaptchaValidationPlugin.inc', 'captcha', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'MaintenanceTask', 'ResetFailureCountsTask', 'ResetFailureCountsTask',
 	    'modules/captcha/classes/ResetFailureCountsTask.class', 'captcha', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -74,7 +76,7 @@ class CaptchaModule extends GalleryModule {
 	    /* Set some reasonable defaults */
 	    $ret = $this->setParameter('failedAttemptThreshold', 3);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    break;
 
@@ -117,7 +119,7 @@ class CaptchaModule extends GalleryModule {
 	/* We need to perform a test before activating */
 	list ($ret, $needsConfiguration) = $this->needsConfiguration();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	return array(null, !$needsConfiguration);
     }

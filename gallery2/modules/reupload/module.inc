@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: module.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.4 $ $Date: 2006/03/22 03:52:35 $
  * @package Reupload
  * @author Piotr P. Karwasz <piotr.karwasz@ens.fr>
  */
@@ -51,7 +53,7 @@ class ReuploadModule extends GalleryModule {
 	    'modules/reupload/ReuploadPhotoOption.inc', 'reupload',
 	    array('ItemEditRotateAndScalePhoto'));
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	return null;
     }

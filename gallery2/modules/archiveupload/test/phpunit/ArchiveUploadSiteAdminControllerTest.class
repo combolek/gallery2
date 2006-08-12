@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ArchiveUploadSiteAdminControllerTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.6 $ $Date: 2006/01/10 04:38:54 $
  * @package ArchiveUpload
  * @subpackage PHPUnit
  * @author Alan Harder <alan.harder@sun.com>
@@ -42,7 +44,7 @@ class ArchiveUploadSiteAdminControllerTest extends GalleryControllerTestCase {
 	$ret = $this->_markPluginParametersForCleanup('module', 'archiveupload');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$gallery->_platform = new ArchiveUploadSiteAdminControllerTestPlatform();
@@ -64,7 +66,7 @@ class ArchiveUploadSiteAdminControllerTest extends GalleryControllerTestCase {
 	list ($ret, $unzipPath) =
 	    GalleryCoreApi::getPluginParameter('module', 'archiveupload', 'unzipPath');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals('/validPath/unzip', $unzipPath);
     }
@@ -85,7 +87,7 @@ class ArchiveUploadSiteAdminControllerTest extends GalleryControllerTestCase {
 	list ($ret, $unzipPath) =
 	    GalleryCoreApi::getPluginParameter('module', 'archiveupload', 'unzipPath');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals('/incompletePath/unzip', $unzipPath);
     }
@@ -107,7 +109,7 @@ class ArchiveUploadSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	$results = $this->handleRequest();
 	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'core.AdminPlugins'),
+						      'subView' => 'core.AdminModules'),
 				  'status' => array(),
 				  'error' => array()),
 			    $results);

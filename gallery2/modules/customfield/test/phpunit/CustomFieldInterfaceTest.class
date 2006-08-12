@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: CustomFieldInterfaceTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.12 $ $Date: 2006/01/13 03:39:32 $
  * @package CustomField
  * @subpackage PHPUnit
  * @author Alan Harder <alan.harder@sun.com>
@@ -48,19 +50,19 @@ class CustomFieldInterfaceTest extends GalleryTestCase {
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'customfield');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    $this->failWithStatus($ret);
+	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	list ($ret, $this->_interface) =
 	    GalleryCoreApi::newFactoryInstance('CustomFieldInterface_1_0', 'CustomFieldHelper');
 	if ($ret || !isset($this->_interface)) {
 	    print $ret->getAsHtml();
-	    $this->failWithStatus($ret);
+	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->_markForCleanup($this->_album);
@@ -69,20 +71,20 @@ class CustomFieldInterfaceTest extends GalleryTestCase {
 		'image/test', array(), __FILE__, 'GalleryPhotoItem');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'customfield');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	foreach (array('common' => '', 'album' => '', 'photo' => 'Test`0`1') as $key => $value) {
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'customfield', $key, $value);
 	    if ($ret) {
 		print $ret->getAsHtml();
-		return $this->failWithStatus($ret);
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	}
     }
@@ -92,13 +94,13 @@ class CustomFieldInterfaceTest extends GalleryTestCase {
 	// Create global fields..
 	list ($ret, $duplicates) = $this->_interface->createCustomFields(array('One', 'Two'));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(array(), $duplicates, 'Add global 1');
 
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'customfield');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	foreach ($params as $key => $value) {
 	    if ($key[0] == '_') {
@@ -115,13 +117,13 @@ class CustomFieldInterfaceTest extends GalleryTestCase {
 	list ($ret, $duplicates) =
 	    $this->_interface->createCustomFields(array('Test', 'Three', 'Two'));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(array('Test', 'Two'), $duplicates, 'Add global 2');
 
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'customfield');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	foreach ($params as $key => $value) {
 	    if ($key[0] == '_') {
@@ -139,14 +141,14 @@ class CustomFieldInterfaceTest extends GalleryTestCase {
 	    $this->_interface->createCustomFields(array('Photographer', 'Location', 'One'),
 						  $this->_album->getId());
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(array(), $duplicates, 'Add album');
 
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'customfield',
 									$this->_album->getId());
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	ksort($params);
 	$this->assertEquals(array('common' => 'Photographer`0`1|Location`0`1|One`0`1'),
@@ -156,13 +158,13 @@ class CustomFieldInterfaceTest extends GalleryTestCase {
 	$ret = $this->_interface->setCustomFieldValues($this->_item->getId(),
 		array('Photographer' => 'Me', 'Location' => 'Here'));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $data, $tmp, $isContainer) =
 		CustomFieldHelper::fetchFieldValues(array($this->_item));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(array('Photographer' => 'Me', 'Location' => 'Here'),
 			    $data[$this->_item->getId()], 'Field values');

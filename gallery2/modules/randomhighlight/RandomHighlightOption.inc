@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: RandomHighlightOption.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.8 $ $Date: 2006/01/10 04:41:49 $
  * @package RandomHighlight
  * @subpackage UserInterface
  * @author Alan Harder <alan.harder@sun.com>
@@ -56,7 +58,7 @@ class RandomHighlightOption extends ItemEditOption {
     function handleRequestAfterEdit($form, &$item, &$preferred) {
 	list ($ret, $thumbnail) = GalleryCoreApi::fetchThumbnailsByItemIds(array($item->getId()));
 	if ($ret) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 	$thumbnail = array_shift($thumbnail);
 	$isRandomHighlight = isset($form['RandomHighlightOption']['isRandomHighlight'])
@@ -66,7 +68,7 @@ class RandomHighlightOption extends ItemEditOption {
 	        $isRandomHighlight != $thumbnail->hasOnLoadHandler('RandomHighlight')) {
 	    list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($thumbnail->getId());
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    if ($isRandomHighlight) {
 		$thumbnail->addOnLoadHandler('RandomHighlight');
@@ -76,11 +78,11 @@ class RandomHighlightOption extends ItemEditOption {
 	    $ret = $thumbnail->save();
 	    if ($ret) {
 		GalleryCoreApi::releaseLocks($lockId);
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    $ret = GalleryCoreApi::releaseLocks($lockId);
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	}
 

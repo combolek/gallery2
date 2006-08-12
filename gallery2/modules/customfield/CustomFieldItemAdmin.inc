@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: CustomFieldItemAdmin.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.9 $ $Date: 2006/02/16 20:39:16 $
  * @package CustomField
  * @subpackage UserInterface
  * @author Alan Harder <alan.harder@sun.com>
@@ -49,7 +51,7 @@ class CustomFieldItemAdminController extends GalleryController {
 	    $itemId = (int)$itemId;
 	    $ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.edit');
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    /* Activate album-specific settings: */
@@ -57,18 +59,18 @@ class CustomFieldItemAdminController extends GalleryController {
 		/* Copy in global settings */
 		list ($ret, $globalParam) = CustomFieldHelper::loadParameters();
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		$ret = CustomFieldHelper::saveParameters($globalParam, $itemId);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		/* Mark setId on existing field values */
 		list ($ret, $searchResults) = $gallery->search(
 		    'SELECT [ChildEntity::id] FROM [ChildEntity] WHERE [ChildEntity::parentId]=?',
 		    array($itemId));
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		$idList = array($itemId);
 		while ($rec = $searchResults->nextResult()) {
@@ -79,7 +81,7 @@ class CustomFieldItemAdminController extends GalleryController {
 		    array('itemId' => $idList),
 		    array('setId' => $itemId) );
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
 
@@ -93,7 +95,7 @@ class CustomFieldItemAdminController extends GalleryController {
 		/* Clear setId for existing field values that can be retained */
 		list ($ret, $globalParam) = CustomFieldHelper::loadParameters();
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		foreach (array('common' => 0, 'album' => 1, 'photo' => 2) as $set => $setType) {
 		    $fieldList = array();
@@ -110,14 +112,14 @@ class CustomFieldItemAdminController extends GalleryController {
 		    $ret = GalleryCoreApi::updateMapEntry(
 			'CustomFieldMap', $match, array('setId' => 0));
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		}
 		/* Remove remaining field values */
 		$ret = GalleryCoreApi::removeMapEntry(
 		    'CustomFieldMap', array('setId' => $itemId));
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
 

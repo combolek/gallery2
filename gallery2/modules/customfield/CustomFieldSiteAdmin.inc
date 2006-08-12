@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: CustomFieldSiteAdmin.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.11 $ $Date: 2006/01/17 01:52:01 $
  * @package CustomField
  * @author Alan Harder <alan.harder@sun.com>
  */
@@ -38,12 +40,12 @@ class CustomFieldSiteAdminController extends GalleryController {
 	/* Make sure we have adequate permissions */
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $status) = CustomFieldHelper::handleAdminAction($form);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Figure out where to redirect upon success */
@@ -68,7 +70,7 @@ class CustomFieldSiteAdminView extends GalleryView {
     function loadTemplate(&$template, &$form) {
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if ($form['formName'] != 'CustomFieldSiteAdmin') {
@@ -76,7 +78,7 @@ class CustomFieldSiteAdminView extends GalleryView {
 
 	    $ret = CustomFieldHelper::loadAdminForm($form);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 	$template->setVariable('controller', 'customfield.CustomFieldSiteAdmin');

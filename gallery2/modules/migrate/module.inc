@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: module.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.45 $ $Date: 2006/03/22 03:52:32 $
  * @package Migrate
  * @author Bharat Mediratta <bharat@menalto.com>
  */
@@ -37,45 +39,11 @@ class MigrateModule extends GalleryModule /* and GalleryEventListener */ {
 	$this->setId('migrate');
 	$this->setName($gallery->i18n('Migration'));
 	$this->setDescription($gallery->i18n('Migrate your Gallery 1 albums to Gallery 2'));
-	$this->setVersion('1.0.5');
+	$this->setVersion('1.0.4');
 	$this->setGroup('import', $gallery->i18n('Import'));
 	$this->setCallbacks('registerEventListeners|getSiteAdminViews');
 	$this->setRequiredCoreApi(array(7, 0));
 	$this->setRequiredModuleApi(array(3, 0));
-    }
-
-    /**
-     * @see GalleryModule::install
-     *
-     * We pushed all this code into its own file since we need it very rarely so it doesn't
-     * make sense to load it every single time.
-     */
-    function upgrade($currentVersion, $statusMonitor) {
-	global $gallery;
-	$storage =& $gallery->getStorage();
-
-	/* We don't care about anything older than 1.0.4 */
-	if (version_compare($currentVersion, '1.0.4', '<=')) {
-	    $currentVersion = '1.0.4';
-	}
-
-	switch($currentVersion) {
-	case '1.0.4':
-	    /* Added index */
-	    $ret = $storage->configureStore($this->getId(), array('G1MigrateMap:1.0'));
-	    if ($ret) {
-		return $ret;
-	    }
-
-	case 'end of upgrade path':
-	    /*
-	     * Leave this bogus case at the end of the legitimate case statements so that we
-	     * always properly terminate our upgrade path with a break.
-	     */
-	    break;
-	}
-
-	return null;
     }
 
     /**
@@ -94,7 +62,7 @@ class MigrateModule extends GalleryModule /* and GalleryEventListener */ {
 	    $ret = GalleryCoreApi::removeMapEntry('G1MigrateMap',
 						  array('itemId' => $item->getId()));
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 	return array(null, null);

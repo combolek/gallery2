@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: module.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.15 $ $Date: 2006/03/22 03:52:31 $
  * @package Icons
  * @author Jesse Mullan <jmullan@visi.com>
  */
@@ -48,13 +50,13 @@ class IconsModule extends GalleryModule {
     function upgrade($currentVersion) {
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'icons');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	foreach (array('iconpack' => '') as $key => $value) {
 	    if (!isset($params[$key])) {
 		$ret = $this->setParameter($key, $value);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	}
@@ -67,7 +69,7 @@ class IconsModule extends GalleryModule {
 	case '0':
 	    $ret = $this->setParameter('iconpack', 'paularmstrongdesigns');
 	    if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    break;
 
@@ -78,7 +80,7 @@ class IconsModule extends GalleryModule {
 		/* Removed ".com" from paularmstrongdesigns.com dir, IIS 5.1 didn't like it */
 		$ret = $this->setParameter('iconpack', 'paularmstrongdesigns');
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 
@@ -108,7 +110,7 @@ class IconsModule extends GalleryModule {
 	    'IconsInterface_1_0', 'IconsImpl', 'Icons',
 	    'modules/icons/classes/IconsImpl.class', 'icons', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;

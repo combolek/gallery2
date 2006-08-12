@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: PostgreSqlStorage.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.9 $ $Date: 2006/02/20 19:13:09 $
  * @package GalleryCore
  * @author Bharat Mediratta <bharat@menalto.com>
  */
@@ -37,11 +39,30 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryStorage.class', true);
 class PostgreSqlStorage extends GalleryStorage {
 
     /**
+     * The type of postgres database (postgres or postgrest)
+     *
+     * @var string $_postgresType
+     * @access private
+     */
+    var $_postgresType;
+
+    /**
      * Constructor
+     *
      */
     function PostgreSqlStorage($config) {
 	$this->GalleryStorage($config);
+	$this->_postgresType = $config['type'];
 	$this->_isTransactional = true;
+    }
+
+    /**
+     * Return the type of this database
+     *
+     * @return string
+     */
+    function getAdoDbType() {
+	return $this->_postgresType;
     }
 
     /**
@@ -59,7 +80,7 @@ class PostgreSqlStorage extends GalleryStorage {
     function cleanStore() {
 	$ret = parent::cleanStore();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/*
@@ -68,7 +89,7 @@ class PostgreSqlStorage extends GalleryStorage {
 	 */
 	list ($ret, $tmpDb) = $this->_getConnection(true);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$this->_traceStart();
@@ -77,7 +98,7 @@ class PostgreSqlStorage extends GalleryStorage {
 	$this->_traceStop();
 
 	if (empty($recordSet)) {
-	    return GalleryCoreApi::error(ERROR_STORAGE_FAILURE);
+	    return GalleryCoreApi::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__);
 	}
 
 	return null;
@@ -102,7 +123,7 @@ class PostgreSqlStorage extends GalleryStorage {
 	     */
 	    list ($ret, $tmpDb) = $this->_getConnection(true);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    $this->_traceStart();
@@ -122,7 +143,7 @@ class PostgreSqlStorage extends GalleryStorage {
 
 	$ret = parent::configureStore($moduleId, $upgradeInfo);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -241,7 +262,7 @@ class PostgreSqlStorage extends GalleryStorage {
      * @see GalleryStorage::encodeBlob
      *
      * Note: pg_escape_bytea is only available in PHP 4.2.0+ and is even a little
-     * slower than addcslashes.
+     * slower than addcslashes. 
      */
     function encodeBlob($blob) {
 	/* See: http://www.postgresql.org/docs/8.1/interactive/datatype-binary.html */

@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ImEnvironments.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.18 $ $Date: 2006/01/12 12:45:25 $
  * @package ImageMagick
  * @subpackage PHPUnit
  * @author Ernesto Baschny <ernst@baschny.de>
@@ -267,7 +269,6 @@ $imEnvironment[] = array(
 		'image/tga',
 		'image/jpeg-cmyk',
 		'image/tiff-cmyk',
-		'application/photoshop-cmyk',
 	),
 	'binaries' => array(
 		'animate',
@@ -374,7 +375,6 @@ $imEnvironment[] = array(
 		'image/tga',
 		'image/jpeg-cmyk',
 		'image/tiff-cmyk',
-		'application/photoshop-cmyk',
 	),
 	'binaries' => array(
 		'animate',

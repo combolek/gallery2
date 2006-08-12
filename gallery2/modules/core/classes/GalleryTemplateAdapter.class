@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: GalleryTemplateAdapter.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.106.2.1 $ $Date: 2006/03/23 21:31:38 $
  * @package GalleryCore
  * @author Bharat Mediratta <bharat@menalto.com>
  */
@@ -105,15 +107,17 @@ class GalleryTemplateAdapter {
     function url($params, &$smarty) {
 	global $gallery;
 
-	/* Allow the user to pass in bulk params */
-	$hrefParams = isset($params['params']) ? $params['params'] : array();
-	unset($params['params']);
-
-	/* Search for args and add them to the params */
-	for ($i = 1; ($arg = "arg$i") && isset($params[$arg]); $i++) {
-	    list ($key, $value) = explode('=', $params[$arg], 2);
-	    $hrefParams[$key] = $value;
-	    unset($params[$arg]);
+	if (isset($params['params'])) {
+	    /* Allow the user to pass in bulk params */
+	    $hrefParams = $params['params'];
+	} else {
+	    /* Search for args and add them to the params */
+	    $hrefParams = array();
+	    for ($i = 1; ($arg = "arg$i") && isset($params[$arg]); $i++) {
+		list ($key, $value) = explode('=', $params[$arg], 2);
+		$hrefParams[$key] = $value;
+		unset($params[$arg]);
+	    }
 	}
 	if (isset($params['href'])) {
 	    $hrefParams['href'] = $params['href'];
@@ -261,10 +265,12 @@ class GalleryTemplateAdapter {
 	    return '[Translation error]';
 	}
 
-	return '<input type="checkbox" id="' . $params['module'] . '_ChangeInDescendents" name="'
-	     . GalleryUtilities::prefixFormVariable(
-		     'form[changeInDescendents][' . $params['module'] . ']') . '"/> <label for="'
-	     . $params['module'] . '_ChangeInDescendents"> ' . $text . '</label>';
+        return '<input type="checkbox" id="' . $params['module'] .
+            '_ChangeInDescendents"	name="' .
+            GalleryUtilities::prefixFormVariable(
+                'form[changeInDescendents][' . $params['module'] . ']' ) .
+            '"/>  <label for="' . $params['module'] . '_ChangeInDescendents"> ' .
+            $text . '</label>';
     }
 
     /**
@@ -284,44 +290,19 @@ class GalleryTemplateAdapter {
      * @param array containing item, image, maxSize, fallback, and any img attributes
      * @param object Smarty the smarty instance
      * @return string HTML content
-     *
-     * TODO: Figure out a more graceful way to deal with errors here.
      */
     function image($params, &$smarty) {
-	list ($ret, $html) = $this->_image($params, $smarty);
+	/* Ask the entity to render itself in HTML */
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($params['item']['id']);
 	if ($ret) {
-	    return '[Render error]';
+	    /* TODO: is there a more graceful way to handle this? */
+	    return '[Render error: missing item]';
 	}
 
-	return $html;
-    }
-
-    /**
-     * Implementation of image() that can return an error.
-     *
-     * @access private
-     * @see GalleryTemplateAdapter::image
-     */
-    function _image($params, &$smarty) {
-	/*
-	 * Cases:
-	 * - Item can render itself
-	 * - Entity can render itself (with info from the item)
-	 * - Renderer can render the entity (with info from the item)
-	 */
-	if ($params['item']['id'] == $params['image']['id']) {
-	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($params['item']['id']);
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	    $entity = null;
-	} else {
-	    list ($ret, $results) = GalleryCoreApi::loadEntitiesById(
-		array($params['item']['id'], $params['image']['id']));
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	    list ($item, $entity) = $results;
+	list ($ret, $entity) = GalleryCoreApi::loadEntitiesById($params['image']['id']);
+	if ($ret) {
+	    /* TODO: is there a more graceful way to handle this? */
+	    return '[Render error: missing entity]';
 	}
 
 	unset($params['item']);
@@ -332,36 +313,13 @@ class GalleryTemplateAdapter {
 	    $fallback = $params['fallback'] = null;
 	}
 
-	$rendererClass = $item->getRenderer();
-	if ($rendererClass) {
-	    list ($ret, $renderer) =
-		GalleryCoreApi::newFactoryInstanceById('GalleryRenderer', $rendererClass);
-	    if ($ret) {
-		return array($ret, null);
-	    }
+	if ($entity->getId() == $item->getId()) {
+	    $html = $item->render('HTML', $params);
 	} else {
-	    $renderer = null;
+	    $html = $entity->render('HTML', $item, $params);
 	}
 
-	/* TODO: Normalize these 3 different APIs */
-	$html = null;
-	if (isset($renderer)) {
-	    $html = $renderer->render('HTML', $entity ? $entity : $item, $item, $params);
-	}
-
-	if ($html === null) {
-	    if ($entity) {
-		$html = $entity->render('HTML', $item, $params);
-	    } else {
-		$html = $item->render('HTML', $params);
-	    }
-	}
-
-	if (empty($html)) {
-	    $html = $fallback;
-	}
-
-	return array(null, $html);
+	return !empty($html) ? $html : $fallback;
     }
 
     /**
@@ -580,8 +538,6 @@ class GalleryTemplateAdapter {
 	    return;
 	}
 	$linkTarget = empty($params['target']) ? '' : (' target="' . $params['target'] . '"');
-	$isAdminOrShowAll = $isAdmin || (isset($params['showToAll']) && $params['showToAll']);
-	$useLink = !isset($params['link']) || $params['link'];
 
 	switch($params['type']) {
 	case 'gallery2':
@@ -593,19 +549,17 @@ class GalleryTemplateAdapter {
 	    }
 	    $version = $core->translate(
 		    array('text' => "Gallery %s", 'arg1' => $installedVersions['gallery']));
-	    return sprintf(
-		    '%s<img src="%s" alt="%s" title="%s" style="%s" width="80" height="15"/>%s',
-		    $useLink ? ('<a href="http://gallery.sourceforge.net"' . $linkTarget . '>')
-			     : '',
-		    $urlGenerator->generateUrl(array('href' => 'images/gallery.gif')),
-		    $version, $version, 'border-style: none',
-		    $useLink ? '</a>' : '');
+	    return '<a href="http://gallery.sourceforge.net"' . $linkTarget . '><img src="' .
+		$urlGenerator->generateUrl(array('href' => 'images/gallery.gif')) .
+		'" alt="' . $version . '" '.
+		'title="' . $version . '" ' .
+		'style="border-style: none" width="80" height="15"/></a>';
 
 	case 'validation':
-	    if (!$isAdminOrShowAll) {
+	    if (!$isAdmin) {
 		return;
 	    }
-	    if ($useLink && $gallery->getConfig('allowSessionAccess')) {
+	    if ($gallery->getConfig('allowSessionAccess')) {
 		/* Calculate a URI that we can use for the validation link */
 		$validationUri = $urlGenerator->getCurrentUrl();
 		$session =& $gallery->getSession();
@@ -616,49 +570,45 @@ class GalleryTemplateAdapter {
 		$validationUri = sprintf(
 		    'http://validator.w3.org/check?uri=%s&amp;ss=1',
 		    urlencode(str_replace('&amp;', '&', $validationUri)));
-	    } else if ($useLink) {
+	    } else {
 		$validationUri = sprintf(
 		    'javascript:alert(\'%s\');',
 		    $core->translate(
 			'Validation disabled until you set allowSessionAccess in config.php'));
 	    }
-	    return sprintf(
-		    '%s<img src="%s" alt="%s" title="%s" style="%s" width="80" height="15"/>%s',
-		    $useLink ? ('<a href="' . $validationUri . '"' . $linkTarget . '>') : '',
-		    $urlGenerator->generateUrl(array('href' => 'images/xhtml10.png')),
-		    $core->translate('This page is valid XHTML 1.0'),
-		    $core->translate('This page is valid XHTML 1.0'),
-		    'border-style: none',
-		    $useLink ? '</a>' : '');
+	    return '<a href="' . $validationUri . '"' . $linkTarget . '><img src="' .
+		$urlGenerator->generateUrl(array('href' => 'images/xhtml10.png')) .
+		'" alt="' . $core->translate('This page is valid XHTML 1.0') .
+		'" title="' . $core->translate('This page is valid XHTML 1.0') .
+		'" style="border-style: none" width="80" height="15"/></a>';
 
 	case 'donate':
-	    if (!$isAdminOrShowAll) {
+	    if (!$isAdmin) {
 		return;
 	    }
 	    $installedVersions = $core->getInstalledVersions();
 	    return sprintf(
-		    '%s<img src="%s" alt="%s" title="%s" style="%s" width="80" height="15"/>%s',
-		    $useLink ? ('<a href="http://gallery.sourceforge.net/donate.php?donate_tag=' .
-			$installedVersions['gallery'] . '"' . $linkTarget . '>') : '',
+		    '<a href="%s"%s><img src="%s" alt="%s" title="%s" ' .
+		    'style="border-style: none" width="80" height="15"/></a>',
+		    $urlGenerator->generateUrl(
+			array('href' => 'http://gallery.sourceforge.net/donate.php?donate_tag=' .
+			      $installedVersions['gallery'])),
+		    $linkTarget,
 		    $urlGenerator->generateUrl(array('href' => 'modules/core/data/donate.png')),
 		    $core->translate('Donate to the Gallery project'),
-		    $core->translate('Donate to the Gallery project'),
-		    'border-style: none',
-		    $useLink ? '</a>' : '');
+		    $core->translate('Donate to the Gallery project'));
 
 	case 'gallery2-version':
-	    if (!$isAdminOrShowAll) {
+	    if (!$isAdmin) {
 		return;
 	    }
-	    return ''; /* sprintf(
-		    '%s<img src="%s" alt="%s" title="%s" style="%s" width="80" height="15"/>%s',
-		    $useLink ? '' : '',
-		    $urlGenerator->generateUrl(
-			array('href' => 'modules/core/data/g21-blackjack.png')),
-		    $core->translate('G2.1: Blackjack'),
-		    $core->translate('G2.1: Blackjack'),
-		    'border-style: none',
-		    $useLink ? '' : ''); */
+	    return sprintf(
+		'<img src="%s" alt="%s" title="%s" ' .
+		'style="border-style: none" width="80" height="15"/>',
+		$urlGenerator->generateUrl(
+		    array('href' => 'modules/core/data/g21-blackjack.png')),
+		$core->translate('G2.1: Blackjack'),
+		$core->translate('G2.1: Blackjack'));
 	}
     }
 
@@ -784,17 +734,7 @@ class GalleryTemplateAdapter {
 	    return;
 	}
 
-	list ($ret, $pluginStatus) = GalleryCoreApi::fetchPluginStatus('module');
-	if ($ret) {
-	    /* What can we do here? */
-	    return '[container error]';
-	}
-
 	list ($module, $file) = explode('.', $params['type']);
-	if (empty($pluginStatus[$module]['active'])) {
-	    return $content;
-	}
-
 	/* Guard template vars so that the include doesn't pollute our namespace */
 	$save = $smarty->_tpl_vars;
 	$smarty->_smarty_include(
@@ -814,31 +754,18 @@ class GalleryTemplateAdapter {
      * @param reference to Smarty
      */
     function callback($params, &$smarty) {
-	global $gallery;
-	static $moduleStatus;
-	if (empty($status)) {
-	    list ($ret, $status) = GalleryCoreApi::fetchPluginStatus('module');
-	    if ($ret) {
-		/* What can we do with this error? */
-		$gallery->debug("Error performing $params[type] callback");
-		$gallery->debug($ret->getAsHtml());
-	    }
-	}
-
 	list ($module, $file) = explode('.', $params['type']);
+	GalleryCoreApi::requireOnce("modules/$module/Callbacks.inc");
 
-	if (!empty($status[$module]['active'])) {
-	    GalleryCoreApi::requireOnce("modules/$module/Callbacks.inc");
-
-	    $userId = $smarty->_tpl_vars['theme']['actingUserId'];
-	    $className = "${module}Callbacks";
-	    $class = new $className;
-	    $ret = $class->callback($params, $smarty, $file, $userId);
-	    if ($ret) {
-		/* What can we do with this error? */
-		$gallery->debug("Error performing $params[type] callback");
-		$gallery->debug($ret->getAsHtml());
-	    }
+	$userId = $smarty->_tpl_vars['theme']['actingUserId'];
+	$className = "${module}Callbacks";
+	$class = new $className;
+	$ret = $class->callback($params, $smarty, $file, $userId);
+	if ($ret) {
+	    /* What can we do with this error? */
+	    global $gallery;
+	    $gallery->debug("Error performing $params[type] callback");
+	    $gallery->debug($ret->getAsHtml());
 	}
     }
 
@@ -902,7 +829,7 @@ class GalleryTemplateAdapter {
 	if (!isset($coreModule)) {
 	    list ($ret, $coreModule) = GalleryCoreApi::loadPlugin('module', 'core');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 

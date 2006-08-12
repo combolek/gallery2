@@ -1,4 +1,4 @@
-# $Id$
+# $Id: sv.po,v 1.12 2006/03/23 19:59:38 mindless Exp $
 #
 # Gallery - a web based photo album viewer and editor
 # Copyright (C) 2000-2006 Bharat Mediratta
@@ -28,10 +28,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Core 1.1.10\n"
+"Project-Id-Version: Gallery: Core 1.1.0\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2003-02-11 03:09-0800\n"
-"PO-Revision-Date: 2006-07-04 11:25+0200\n"
+"PO-Revision-Date: 2006-03-13 18:40+0100\n"
 "Last-Translator: Anders Lindquist <andersl@saaf.se>\n"
 "Language-Team: Swedish <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -95,6 +95,24 @@ msgstr[1] "%d veckor"
 msgid "<none>"
 msgstr "<ingen>"
 
+msgid "install"
+msgstr "installera"
+
+msgid "upgrade"
+msgstr "uppgradera"
+
+msgid "configure"
+msgstr "konfigurera"
+
+msgid "activate"
+msgstr "aktivera"
+
+msgid "uninstall"
+msgstr "avinstallera"
+
+msgid "deactivate"
+msgstr "avaktivera"
+
 msgid "No acceleration"
 msgstr "Ingen acceleration"
 
@@ -103,9 +121,6 @@ msgstr "Partiell acceleration"
 
 msgid "Full acceleration"
 msgstr "Full acceleration"
-
-msgid "Themes"
-msgstr "Teman"
 
 msgid "Performing Maintenance Tasks"
 msgstr "Utför Systemunderhåll"
@@ -122,21 +137,6 @@ msgstr "uppgradera"
 
 msgid "Download"
 msgstr "Laddar ned"
-
-msgid "install"
-msgstr "installera"
-
-msgid "upgrade"
-msgstr "uppgradera"
-
-msgid "activate"
-msgstr "aktivera"
-
-msgid "uninstall"
-msgstr "avinstallera"
-
-msgid "deactivate"
-msgstr "avaktivera"
 
 msgid "Inherit settings from parent album"
 msgstr "Ärv inställningar från överliggande album"
@@ -203,12 +203,6 @@ msgstr "Tömmer snabb-nerladdnings cachen"
 
 msgid "Converting MySQL data to UTF8"
 msgstr "Konverterar MySQL databasen till UTF8"
-
-msgid "Updating panorama items"
-msgstr "Uppdaterar panorama objekt"
-
-msgid "Optimizing AccessSubscriberMap table"
-msgstr "Optimerar <i>AccessSubscriberMap</i> tabellen"
 
 msgid "Site Admins"
 msgstr "Siteadministratörer"
@@ -281,21 +275,14 @@ msgid_plural "%d kilobytes"
 msgstr[0] "%d kilobyte"
 msgstr[1] "%d kilobyte"
 
-#, c-format
-msgid "Input file %s exceeds maximum permitted file size"
-msgstr "Källfilen %s överskrider maximal tillåten filstorlek"
+msgid "From Local Server"
+msgstr "Från Lokal Server"
 
-#, c-format
-msgid "Input file %s exceeds file size specified in the form"
-msgstr "Källfilen %s överskrider den filstorlek som specifierats i formuläret"
+msgid "Photo"
+msgstr "Foto"
 
-#, c-format
-msgid "Input file %s was only partially uploaded"
-msgstr "Källfilen %s laddades bara delvis upp"
-
-#, c-format
-msgid "Input file %s was not uploaded. Error %d"
-msgstr "Källfilen %s laddades inte upp. Fel %d"
+msgid "From Web Page"
+msgstr "Från Webbsida"
 
 msgid "Gallery Item Administration"
 msgstr "Galleriets Objektadministration"
@@ -356,9 +343,6 @@ msgstr "Generellt"
 
 msgid "Movie Size"
 msgstr "Filmstorlek"
-
-msgid "Photo"
-msgstr "Foto"
 
 msgid "Thumbnail cropped successfully"
 msgstr "Miniatyrbilden beskärdes framgångsrikt"
@@ -527,11 +511,17 @@ msgstr "Ditt Konto"
 msgid "Logout"
 msgstr "Logga ut"
 
-msgid "Plugins"
-msgstr "Pluginer"
+msgid "Modules"
+msgstr "Moduler"
 
 msgid "Repository"
 msgstr "Förvaringsplats"
+
+msgid "Themes"
+msgstr "Teman"
+
+msgid "Display"
+msgstr "Visa"
 
 msgid "Users"
 msgstr "Användare"
@@ -547,9 +537,6 @@ msgstr "Verktygsprioritet"
 
 msgid "Graphics Toolkits"
 msgstr "Grafiska Verktyg"
-
-msgid "Defaults"
-msgstr "Förvalda värden"
 
 msgid "Account Settings"
 msgstr "Kontoinställningar"
@@ -719,7 +706,7 @@ msgid "download"
 msgstr "nedladdning"
 
 msgid "Plugins directory does not exist."
-msgstr "Plugin katalogen finns inte."
+msgstr "Plugins katalogen finns inte."
 
 msgid ""
 "Couldn't create plugins subdirectory. Make sure the webserver has write permissions in it."
@@ -753,7 +740,7 @@ msgid "Manual sort order"
 msgstr "Manuell sorteringsordning"
 
 msgid "Origination Date"
-msgstr "Skapad datum"
+msgstr "Skapardatum"
 
 msgid "Creation Date"
 msgstr "Fotograferingsdatum"
@@ -887,8 +874,11 @@ msgstr "Kalkylblad"
 msgid "spreadsheet"
 msgstr "kalkylblad"
 
-msgid "file"
-msgstr "fil"
+msgid "Unknown"
+msgstr "Okänd"
+
+msgid "unknown"
+msgstr "okänd"
 
 #, c-format
 msgid ""
@@ -972,9 +962,6 @@ msgstr "Hämta systemdetailjer; användbart för att klippa/klistra in i G2 supp
 msgid "core"
 msgstr "kärna"
 
-msgid "unknown"
-msgstr "okänd"
-
 msgid "Gallery version"
 msgstr "Gallery version"
 
@@ -995,16 +982,6 @@ msgstr "Operativsystem"
 
 msgid "Default theme"
 msgstr "Förvalt tema"
-
-msgid "gettext"
-msgstr "gettext"
-
-#, fuzzy
-msgid "enabled"
-msgstr "avaktiverad"
-
-msgid "disabled"
-msgstr "avaktiverad"
 
 msgid "Locale"
 msgstr "Locale"
@@ -1050,6 +1027,9 @@ msgstr "Förvalt språk"
 
 msgid "Check Browser Preference"
 msgstr "Kontrollera Webbläsarens Preferenser"
+
+msgid "gettext"
+msgstr "gettext"
 
 #, c-format
 msgid ""
@@ -1105,6 +1085,55 @@ msgstr "Nya kataloger"
 
 msgid "New files"
 msgstr "Nya filer"
+
+msgid "Local Server Upload Paths"
+msgstr "Lokala sökvägar på servern för uppladdning"
+
+msgid ""
+"Specify the legal directories on the local server where a user can store files and then "
+"upload them into Gallery using the <i>Upload from Local Server</i> feature.  The paths you "
+"enter here and all the files and directories under those paths will be available to any "
+"Gallery user who has upload privileges, so you should limit this to directories that won't "
+"contain sensitive data (eg. /tmp or /usr/ftp/incoming)"
+msgstr ""
+"Specificera de gällande katalogerna på den lokala servern där en användare kan spara filer "
+"och ladda sen upp dem till Gallery med användning av <i>Hämta från lokal server</i>.  "
+"Sökvägarna du skriver in här och alla filerna och katalogerna under dessa sökvägar kommer "
+"att bli tillgängliga för alla Galleryanvändare som har uppladdningsprivilegier. Så du bör "
+"begränsa detta till kataloger som inte innehåller känslig information (t.ex. /tmp eller /usr/"
+"incoming)"
+
+msgid "Path"
+msgstr "Sökväg"
+
+msgid "Action"
+msgstr "Händelse"
+
+msgid "remove"
+msgstr "ta bort"
+
+msgid "Add"
+msgstr "Lägg till"
+
+msgid "You must enter a directory to add."
+msgstr "Du måste skriva in en katalog att lägga till."
+
+msgid "open_basedir documentation"
+msgstr "open_basedir dokumentation"
+
+#, c-format
+msgid ""
+"Your webserver is configured to prevent you from accessing that directory.  Please refer to "
+"the %s and consult your webserver administrator."
+msgstr ""
+"Din webbserver är konfigurerad för att hindra dig att komma åt den katalogen.  Vänligen vänd "
+"dig till %s och konsultera din webbserveradministratör."
+
+msgid "The webserver does not have permissions to read that directory."
+msgstr "Webbservern har inga rättigheter att läsa den katalogen."
+
+msgid "The path you specified is not a valid directory."
+msgstr "Sökvägen du skrev in är inte en giltig katalog."
 
 msgid "Session Settings"
 msgstr "Sessionsinställningar"
@@ -1231,9 +1260,6 @@ msgstr ""
 "När du har ändrat cookie inställningarna, kommer <b>alla registrerade användare</b> av ditt "
 "Gallery behöva <b>radera web läsarens cookie cache</b>. Om dom inte gör det kommer dom få "
 "problem med inloggning / utloggning / förlorade sessioner."
-
-msgid "Path"
-msgstr "Sökväg"
 
 msgid "Invalid cookie path"
 msgstr "Ogiltig cookie-sökväg"
@@ -1473,9 +1499,6 @@ msgstr "Du kan inte ta bort dig själv från denna gruppen"
 msgid "Add Member"
 msgstr "Lägg till Medlem"
 
-msgid "Add"
-msgstr "Lägg till"
-
 msgid "You must enter a username."
 msgstr "Du måste skriva in ett användarnamn."
 
@@ -1547,9 +1570,6 @@ msgstr "Du kan inte redigera denna gruppens användare"
 msgid "Edit Group (by list)"
 msgstr "Redigera Grupp (genom lista)"
 
-msgid "Action"
-msgstr "Händelse"
-
 msgid "edit"
 msgstr "redigera"
 
@@ -1599,6 +1619,87 @@ msgstr "kör nu"
 
 msgid "Last Run Details:"
 msgstr "Detaljer För Senaste Körning:"
+
+msgid "Gallery Modules"
+msgstr "Gallery:s Moduler"
+
+#, c-format
+msgid "Successfully installed and auto-configured module %s"
+msgstr "Installerade och automatkonfigurerade framgångsrikt modul %s"
+
+#, c-format
+msgid "Successfully installed module %s"
+msgstr "Installerade framgångsrikt modul %s"
+
+#, c-format
+msgid "Successfully configured module %s"
+msgstr "Konfigurerade framgångsrikt modul %s"
+
+#, c-format
+msgid "Successfully upgraded module %s"
+msgstr "Uppgraderade framgångsrikt modul %s"
+
+#, c-format
+msgid "Successfully activated module %s"
+msgstr "Aktiverade framgångsrikt modul %s"
+
+#, c-format
+msgid "Successfully deactivated module %s"
+msgstr "Avaktiverade framgångsrikt modul %s"
+
+#, c-format
+msgid "Successfully uninstalled module %s"
+msgstr "Avinstallerade framgångsrikt modul %s"
+
+msgid ""
+"Gallery features come as separate modules.  You can download and install modules to add more "
+"features to your Gallery, or you can disable features if you don't want to use them.  In "
+"order to use a feature, you must install, configure (if necessary) and activate it.  If you "
+"don't wish to use a feature, you can deactivate it."
+msgstr ""
+"Galleryegenskaper kommer som separata moduler.  Du kan hämta och installera moduler för att "
+"lägga till fler egenskaper i ditt Gallery eller så kan du avaktivera egenskaper om inte vill "
+"använda dem.  För att kunna använda en egenskap så måste du installera, konfigurera (om "
+"nödvändigt) och aktivera den.  Om du inte önskar att använda en egenskap så kan du "
+"avaktivera den."
+
+msgid "Module Name"
+msgstr "Modulnamn"
+
+msgid "Version"
+msgstr "Version"
+
+msgid "Installed"
+msgstr "Installerad"
+
+msgid "Actions"
+msgstr "Händelser"
+
+msgid "Status: Not Installed"
+msgstr "Status: Inte Installerad"
+
+msgid "Status: Active"
+msgstr "Status: Aktiv"
+
+msgid "Status: Inactive"
+msgstr "Status: Inaktiv"
+
+msgid "Status: Upgrade Required (Inactive)"
+msgstr "Status: Uppgradering Nödvändig (Inaktiv)"
+
+msgid "Status: Incompatible Module (Inactive)"
+msgstr "Status: Inkompatibel modul (Inaktiv)"
+
+msgid "Incompatible module!"
+msgstr "Inkompatibel modul!"
+
+#, c-format
+msgid "Core API Required: %s (available: %s)"
+msgstr "Kärn-API Begärd : %s (tillgänglig: %s)"
+
+#, c-format
+msgid "Module API Required: %s (available: %s)"
+msgstr "Modul API obligatorisk: %s (tillgänglig: %s)"
 
 msgid "Confirm module uninstall"
 msgstr "Bekräfta avinstallation av modul"
@@ -1691,89 +1792,6 @@ msgstr "Upphör att gälla efter:"
 msgid "Clear Saved Pages"
 msgstr "Rensa Sparade Sidor"
 
-msgid "Status: Inactive"
-msgstr "Status: Inaktiv"
-
-msgid "__PLUGIN__ deactivated"
-msgstr "__PLUGIN__avaktiverad"
-
-msgid "Status: Active"
-msgstr "Status: Aktiv"
-
-msgid "__PLUGIN__ activated"
-msgstr "__PLUGIN__ aktiverad"
-
-msgid "Status: Not Installed"
-msgstr "Status: Inte Installerad"
-
-msgid "__PLUGIN__ uninstalled"
-msgstr "__PLUGIN__ avinstallerad"
-
-msgid "Status: Upgrade Required (Inactive)"
-msgstr "Status: Uppgradering Nödvändig (Inaktiv)"
-
-msgid "Status: Incompatible Plugin (Inactive)"
-msgstr "Status: Inkompatibel Plugin (Inaktiv)"
-
-msgid "Status: Inactive (Configuration Required)"
-msgstr "Status: Inaktiv (Konfigurering Behövs"
-
-msgid "__PLUGIN__ needs configuration"
-msgstr "__PLUGIN__ beföver konfigureras"
-
-msgid "Gallery Plugins"
-msgstr "Gallery:s Pluginer"
-
-msgid ""
-"Gallery features come as separate plugins.  You can download and install plugins to add more "
-"features to your Gallery, or you can disable features if you don't want to use them.  In "
-"order to use a feature, you must install, configure (if necessary) and activate it.  If you "
-"don't wish to use a feature, you can deactivate it."
-msgstr ""
-"Galleryegenskaper kommer som separata pluginer.  Du kan hämta och installera pluginer för "
-"att lägga till fler egenskaper i ditt Gallery eller så kan du avaktivera egenskaper om inte "
-"vill använda dem.  För att kunna använda en egenskap så måste du installera, konfigurera (om "
-"nödvändigt) och aktivera den.  Om du inte önskar att använda en egenskap så kan du "
-"avaktivera den."
-
-msgid "up to date"
-msgstr "Aktuell version"
-
-msgid "upgrade required"
-msgstr "uppgradering krävs"
-
-msgid "not installed"
-msgstr "ej installerad"
-
-msgid "incompatible"
-msgstr "inkompatibel"
-
-msgid "Plugin Name"
-msgstr "Pluginens Namn"
-
-msgid "Version"
-msgstr "Version"
-
-msgid "Installed"
-msgstr "Installerad"
-
-msgid "Actions"
-msgstr "Händelser"
-
-msgid "Incompatible plugin!"
-msgstr "Inkompatibel plugin!"
-
-#, c-format
-msgid "Core API Required: %s (available: %s)"
-msgstr "Kärn-API Begärd : %s (tillgänglig: %s)"
-
-#, c-format
-msgid "Plugin API Required: %s (available: %s)"
-msgstr "Plugin API obligatorisk: %s (tillgänglig: %s)"
-
-msgid "configure"
-msgstr "konfigurera"
-
 msgid "Please make sure that your internet connection is set up properly or try again later."
 msgstr "Kontrollera att din internetförbindelse fungerar eller försök igen senare."
 
@@ -1785,9 +1803,6 @@ msgstr "Alla plugin moduler är redan uppdaterade."
 
 msgid "Common Tasks"
 msgstr "Vanliga uppgifter"
-
-msgid "Modules"
-msgstr "Moduler"
 
 msgid "Warning: Experimental feature!"
 msgstr "Varning: experimentell feature!"
@@ -1895,11 +1910,11 @@ msgid ""
 "The following plugins are available. Click on the action beside the plugin you're interested "
 "in to see what's available in the repository."
 msgstr ""
-"Följande pluginer är tillgängliga. Klicka på knappen brevid pluginen du är intresserad av "
+"Följande plugginer är tillgängliga. Klicka på knappen brevid pluginen du är intresserad av "
 "för att se om den är tillgänglig i repositoryt."
 
 msgid "Incompatible plugins are marked with an exclamation icon."
-msgstr "Ej kompatibla pluginer är markerade med ett utropstecken."
+msgstr "Ej kompatibla plugginer är markerade med ett utropstecken."
 
 #, c-format
 msgid ""
@@ -1907,21 +1922,25 @@ msgid ""
 "installed core module, which are not shown here. You can view a %scomplete list%s of "
 "plugins, including incompatible ones, which are marked with a red icon."
 msgstr ""
-"En ny kärnmoduls version är tillgänglig. Det kan finnas pluginer som är inkompatibla med den "
-"installerade kärnmodulen, som inte visas här. Du kan se en %skomplett lista%s med pluginer, "
-"inclusive inkompatibla pluginer, som är markerade med en röd ikon."
+"En ny kärnmoduls version är tillgänglig. Det kan finnas plugginer som är inkompatibla med "
+"den installerade kärnmodulen, som inte visas här. Du kan se en %skomplett lista%s med "
+"plugginer, inclusive inkompatibla plugginer, som är markerade med en röd ikon."
 
 msgid "Theme Name"
 msgstr "Temanamn"
-
-msgid "Module Name"
-msgstr "Modulnamn"
 
 msgid "Latest"
 msgstr "sista"
 
 msgid "Incompatible Plugin"
-msgstr "Inkompatibel Plugin!"
+msgstr "Inkompatibel modul!"
+
+msgid "Incompatible plugin!"
+msgstr "Inkompatibel modul!"
+
+#, c-format
+msgid "Plugin API Required: %s (available: %s)"
+msgstr "Modul API obligatorisk: %s (tillgänglig: %s)"
 
 msgid "No packages have been selected."
 msgstr "Inget paket har valts"
@@ -1949,7 +1968,7 @@ msgid "Base Files Up-To-Date"
 msgstr "Grundfilerna är Up-To-Date"
 
 msgid "This plugin's base files are up-to-date."
-msgstr "Den här pluginen's grundfiler är av senaste version."
+msgstr "Den här pluginen's grundfiler är up-to-date."
 
 msgid "Updated Translations"
 msgstr "Updatera Översättningarna"
@@ -1968,7 +1987,7 @@ msgid ""
 "Below is a list of languages this plugin has been translated to. Select the ones you want "
 "included in addition to the ones already downloaded."
 msgstr ""
-"Nedanför är en lista på språk som den här pluginen har blivit översatt till. Välj vilka du "
+"Nedanför är en lista på språk som den här plugginen har blivit översatt till. Välj vilka du "
 "vill ha ytterligare förutom de du redan har laddat ned."
 
 msgid "Unit Tests"
@@ -1978,8 +1997,8 @@ msgid ""
 "This plugin has unit tests available for download, which are useful for Gallery developers. "
 "All of the module's features are available without the tests."
 msgstr ""
-"Den här pluginen har en enhetstest tillgänglig för nedladdning, som är användbar för Gallery "
-"utvecklare. Alla funktioner hos modulen är tillgängliga utan test funktionen."
+"Den här plugginen har en enhetstest tillgänglig för nedladdning, som är användbar för "
+"Gallery utvecklare. Alla funktioner hos modulen är tillgängliga utan test funktionen."
 
 msgid "Download unit tests"
 msgstr "Ladda ned enhetstester"
@@ -2040,6 +2059,25 @@ msgstr "Sparade framgångsrikt förvalda albuminställningar"
 
 msgid "Restored theme settings"
 msgstr "Återskapade temainställningar"
+
+msgid "All Themes"
+msgstr "Alla Teman"
+
+msgid "Defaults"
+msgstr "Förvalda värden"
+
+msgid "Status: Incompatible Theme (Inactive)"
+msgstr "Status: Inkompatibelt Tema (Inaktiv)"
+
+msgid "Incompatible theme!"
+msgstr "Inkompatibelt tema!"
+
+#, c-format
+msgid "Theme API Required: %s (available: %s)"
+msgstr "Tema-API Begärd : %s (tillgänglig: %s)"
+
+msgid "(default)"
+msgstr "(förvalda värden)"
 
 msgid ""
 "These are default display settings for albums in your gallery.  They can be overridden in "
@@ -2341,6 +2379,154 @@ msgstr "Sätt item titel från:"
 
 msgid "Assign caption to:"
 msgstr "Ange rubrik till:"
+
+msgid ""
+"Transfer files that are already on your server into your Gallery.  The files must already "
+"have been uploaded to your server some other way (like FTP) and must be placed in a "
+"directory where they are accessibly by any element on the server.  If you're on Unix this "
+"means that the files and the directory the files are in should have modes of at least 755."
+msgstr ""
+"För över filer som redan finns på din server till ditt Gallery.  Filerna måste redan ha "
+"laddats upp till din server på annat sätt (t.ex. FTP) och måste vara placerade i en katalog "
+"där de är tillgängliga för alla på servern.  Om du använder Unix så betyder detta att "
+"filerna och katalogen filerna är i ska ha rättigheter satta till minst 755."
+
+msgid ""
+"For security purposes, you can't use this feature until the Gallery Site Administrator "
+"configures a set of legal upload directories."
+msgstr ""
+"Av säkerhetsändamål så kan du inte använda denna egenskap förräns Gallery sidadministratören "
+"konfigurerar en uppsättning av giltiga uppladdningskataloger."
+
+msgid "Server Path"
+msgstr "Serversökväg"
+
+msgid "You must enter a directory."
+msgstr "Du måste skriva in ett katalognamn."
+
+msgid ""
+"The directory you entered is invalid.  Make sure that the directory is readable by all users."
+msgstr ""
+"Katalogen du skrev in är inte giltig. Se till att katalogen är läsbar av alla användare."
+
+msgid ""
+"The directory you entered is illegal.  It must be a sub directory of one of the directories "
+"listed below."
+msgstr ""
+"Katalogen du skrev in är inte giltig. Den måste vara en underkatalog till en av katalogerna "
+"listade här nedan."
+
+msgid "An item with the same name already exists."
+msgstr "En fil med samma namn existerar redan"
+
+msgid "Legal Directories"
+msgstr "Giltiga Kataloger"
+
+msgid "modify"
+msgstr "ändra"
+
+msgid "Recent Directories"
+msgstr "Senaste Katalogerna"
+
+msgid "Find Files"
+msgstr "Hitta filer"
+
+#, c-format
+msgid "Directory: %s"
+msgstr "Katalog: %s"
+
+msgid "File name"
+msgstr "Filnamn"
+
+msgid "Type"
+msgstr "Typ"
+
+msgid "Size"
+msgstr "Storlek"
+
+msgid "Use Symlink"
+msgstr "Använd Symbolisk Länk"
+
+#, c-format
+msgid "%d byte"
+msgid_plural "%d bytes"
+msgstr[0] "%d byte"
+msgstr[1] "%d bytes"
+
+msgid "Parent Directory"
+msgstr "Överliggande Katalog"
+
+msgid "Directory"
+msgstr "Katalog"
+
+msgid "(Un)check all known types"
+msgstr "(Av)markera alla kända typer"
+
+msgid "(Un)check symlinks"
+msgstr "(Av)markera symboliska länkar"
+
+msgid "for selected items"
+msgstr "för valda objekt"
+
+msgid "Copy base filenames to:"
+msgstr "Kopiera basfilnamn till:"
+
+msgid "Add Files"
+msgstr "Lägg till Filer"
+
+msgid "Start Over"
+msgstr "Börja Om"
+
+msgid ""
+"Import files into Gallery from another website.  Enter a URL below to a web page anywhere on "
+"the net and Gallery will allow you to upload any media files that it finds on that page.  "
+"Note that if you're entering a URL to a directory, you should end the URL with a trailing "
+"slash (eg, http://example.com/directory/). "
+msgstr ""
+"Importera filer till Gallery från en annan webbsida. Skriv in en URL till en webbsida "
+"någonstans på internet nedan så kommer Gallery att tillåta dig att ladda upp alla mediafiler "
+"som det hittar på den sidan. Observera att om du skriver in en URL till en katalog så bör du "
+"avsluta URL'en med ett framåtsträck (t.ex. http://example.com/directory/). "
+
+msgid "URL"
+msgstr "URL"
+
+msgid "You must enter a URL to a web page"
+msgstr "Du måste skriva in en URL till en webbsida"
+
+msgid "The URL entered must begin with http://"
+msgstr "Den inskrivna webbadressen måste börja med http://"
+
+msgid "The web page you specified is unavailable"
+msgstr "Webbsidan du skrev in är inte tillgänglig"
+
+msgid "Nothing to add found from this URL"
+msgstr "Inget att lägga till från denna URL"
+
+msgid "Nothing added since no items were selected"
+msgstr "Inget inlagt eftersom inget var valt"
+
+msgid "Recent URLs"
+msgstr "Senaste URL:erna"
+
+#, c-format
+msgid "URL: %s"
+msgstr "URL: %s"
+
+msgid "change"
+msgstr "ändra"
+
+#, c-format
+msgid "%d url found"
+msgid_plural "%d urls found"
+msgstr[0] "%d webbadress hittades"
+msgstr[1] "%d webbadresser hittades"
+
+msgid "(Un)check all"
+msgstr "(Av)markera alla"
+
+msgid "Add URLs"
+msgstr "Lägg till Webbadresser"
 
 msgid "No Thumbnail"
 msgstr "Ingen miniatyrbild"
@@ -2656,9 +2842,6 @@ msgstr ""
 "Det finns inga grafiska verktyg tillgängliga som stödjer denna typ av objekt så vi kan inte "
 "skapa eller modifiera miniatyrbild."
 
-msgid "Unable to create a thumbnail for this item"
-msgstr "Kunde inte skapa en miniatyrbild för detta objekt."
-
 msgid ""
 "In order for Gallery to properly display this movie, it has to know the movie's width and "
 "height.  If you have installed a graphics toolkit that can handle movie types, then these "
@@ -2703,10 +2886,6 @@ msgstr "Lägesförhållande:"
 
 msgid "Crop"
 msgstr "Beskär"
-
-#, fuzzy
-msgid "Undo Changes"
-msgstr "Ändra"
 
 msgid "Reset to default"
 msgstr "återställ till förvalt värde"
@@ -2783,11 +2962,6 @@ msgstr "Detta är en länk till ett annat foto så du kan inte ändra det"
 
 msgid "There are links to this photo, so you cannot change the original"
 msgstr "Det finns länkar till detta foto så du kan inte ändra orginalet"
-
-msgid ""
-"There is no toolkit support to modify the original so operations may only be applied to the "
-"copies"
-msgstr ""
 
 msgid "Preserve Original Photo"
 msgstr "Bevara Originalfoto"
@@ -3019,9 +3193,6 @@ msgstr ""
 "Detta album har en automatisk sorteringsordning angiven så du kan inte ändra ordningen av "
 "objekt manuellt. Du måste ta bort automatisk sorteringsordning för att forsätta."
 
-msgid "change"
-msgstr "ändra"
-
 msgid "Change the order of the items in this album."
 msgstr "Ändra ordning på objekten i detta album."
 
@@ -3056,10 +3227,10 @@ msgid "Enter an image URL"
 msgstr "Skriv in en bild-webbadress"
 
 msgid "B <!-- Button label for Bold -->"
-msgstr "F"
+msgstr "B <!-- Button label for Bold -->"
 
 msgid "i <!-- Button label for italic -->"
-msgstr "k"
+msgstr "i <!-- Button label for italic -->"
 
 msgid "list"
 msgstr "lista"
@@ -3451,9 +3622,6 @@ msgstr "%d. %s"
 
 msgid "Size: "
 msgstr "Storlek:  "
-
-msgid "Unknown"
-msgstr "Okänd"
 
 msgid "Full size: "
 msgstr "Full storlek: "

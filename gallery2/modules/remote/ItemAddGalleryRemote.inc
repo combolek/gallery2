@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ItemAddGalleryRemote.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.10 $ $Date: 2006/01/13 03:39:49 $
  * @package Remote
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -54,7 +56,7 @@ class ItemAddGalleryRemote extends ItemAddPlugin {
     function getTitle() {
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'remote');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, $module->translate('Gallery Remote'));
@@ -67,7 +69,7 @@ class ItemAddGalleryRemote extends ItemAddPlugin {
 	list ($ret, $showItemAdd) =
 	    GalleryCoreApi::getPluginParameter('module', 'remote', 'showItemAdd');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, $showItemAdd);

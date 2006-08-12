@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ShowTree.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,14 +20,15 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.19 $ $Date: 2006/01/10 04:39:44 $
  * @package Debug
  * @subpackage UserInterface
  * @author Ernesto Baschny <ernst@baschny.de>
  */
 
 /**
- * This controller will show a tree of elements starting with the current item
+ * This controller will show a tree of elements starting with the current
+ * item
  *
  * @package Debug
  * @subpackage UserInterface
@@ -36,51 +39,47 @@ class ShowTreeView extends GalleryView {
      * @see GalleryView::loadTemplate
      */
     function loadTemplate(&$template, &$form) {
+	list ($entityId, $itemId) = GalleryUtilities::getRequestVariables('entityId', 'itemId');
+
 	/* Make sure we have permission */
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	/* Get the entity */
-	$entityId = GalleryUtilities::getRequestVariables('entityId');
+	/* Try the entity id.  Fall back to the item id, then the root album id */
 	if (empty($entityId)) {
-	    list ($ret, $entity) = $this->_getItem();
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	    $entityId = $entity->getId();
-	} else {
-	    list ($ret, $entity) = GalleryCoreApi::loadEntitiesById($entityId);
-	    if ($ret) {
-		return array($ret, null);
+	    if (!empty($itemId)) {
+		$entityId = $itemId;
+	    } else {
+		list ($ret, $entityId) =
+		    GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
+		if ($ret) {
+		    return array($ret->wrap(__FILE__, __LINE__), null);
+		}
 	    }
 	}
 
-	$parentIds = $childIds = $entityObjects = $isItemTable = $entityTable = array();
-	if (GalleryUtilities::isA($entity, 'GalleryChildEntity')) {
-	    global $gallery;
+	/* Get the parent ids leading up to this entity */
+	list ($ret, $parentIds) = GalleryCoreApi::fetchParentSequence($entityId);
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
 
-	    /* Get the parent ids leading up to this entity */
-	    if (GalleryUtilities::isA($entity, 'GalleryItem')) {
-		list ($ret, $parentIds) = GalleryCoreApi::fetchParentSequence($entityId);
-		if ($ret) {
-		    return array($ret, null);
-		}
-	    } else if ($entity->getParentId()) {
-		$parentIds[] = $entity->getParentId();
-	    }
+	/* Load everything at once */
+	list ($ret, $entity) = GalleryCoreApi::loadEntitiesById($entityId);
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
 
-	    /* Get all of this entity's children */
-	    list ($ret, $results) = $gallery->search('
-		SELECT [::id] FROM [GalleryChildEntity] WHERE [::parentId] = ?
-	    ', array($entityId));
+	/* Get all of this entity's children */
+	if ($entity->getCanContainChildren()) {
+	    list ($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($entity);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
-	    while ($result = $results->nextResult()) {
-		$childIds[] = (int)$result[0];
-	    }
+	} else {
+	    $childIds = array();
 	}
 
 	if (!empty($parentIds) || !empty($childIds)) {
@@ -88,13 +87,13 @@ class ShowTreeView extends GalleryView {
 	    list ($ret, $entityObjects) =
 		GalleryCoreApi::loadEntitiesById(array_merge($parentIds, $childIds));
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 	$entityObjects[] = $entity;
 
 	foreach ($entityObjects as $entity) {
-	    $isItemTable[$entity->getId()] = GalleryUtilities::isA($entity, 'GalleryItem');
+	    $isItem[$entity->getId()] = GalleryUtilities::isA($entity, 'GalleryItem');
 	    $entityTable[$entity->getId()] = (array)$entity;
 	}
 
@@ -104,12 +103,13 @@ class ShowTreeView extends GalleryView {
 	$ShowTree['childIds'] = $childIds;
 	$ShowTree['entityId'] = $entityId;
 	$ShowTree['entityTable'] = $entityTable;
-	$ShowTree['isItem'] = $isItemTable;
+	$ShowTree['isItem'] = $isItem;
+	$ShowTree['form'] = $form;
 	$template->setVariable('ShowTree', $ShowTree);
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'debug');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$template->title($module->translate('Gallery Debug'));

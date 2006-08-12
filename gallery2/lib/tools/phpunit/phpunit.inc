@@ -5,7 +5,7 @@
 // Written by Fred Yankowski <fred@ontosys.com>
 //            OntoSys, Inc  <http://www.OntoSys.com>
 //
-// $Id$
+// $Id: phpunit.inc,v 1.11 2006/01/28 23:57:08 mindless Exp $
 
 // Copyright (c) 2000 Fred Yankowski
 
@@ -65,6 +65,12 @@ if (phpversion() >= '4') {
 	 */
 	if (version_compare(phpversion(), '4.3.3') <= 0 &&
 		preg_match('{stat failed for.*\(errno=0 -}', $errstr)) {
+	    return;
+	}
+
+	/* Allow php 4.1 warnings for undefined $this->$member access in GalleryPersistent */
+	if (version_compare(phpversion(), '4.2.0') <= 0
+		&& strpos($errstr, 'Undefined property:') !== false) {
 	    return;
 	}
 

@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: GalleryRepositoryUtilities.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -15,10 +17,10 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.2 $ $Date: 2006/01/10 04:39:21 $
  * @package GalleryCore
  * @author Jozef Selesi <selesi at gmail dot com>
  */
@@ -224,12 +226,12 @@ class GalleryRepositoryUtilities {
 	/* Get the strings.raw file's first line which contains the timestamp. */
 	list ($ret, $line) = $this->getFirstBytesFromFile($pluginLanguageBasePath, 128);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $revision) = $this->extractRevision($line);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, $revision);
@@ -247,7 +249,7 @@ class GalleryRepositoryUtilities {
 	/* REVISIT: Cache plugin list/convert to hashtable for better performance? */
 	list ($ret, $plugins) = GalleryCoreApi::getAllPluginIds($pluginType);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$isAvailable = in_array($pluginId, $plugins);
@@ -323,16 +325,30 @@ class GalleryRepositoryUtilities {
      *		     array[$packageName] => array('version' => $version, 'build' => $build)
      */
     function getPluginPackages($pluginType, $pluginId) {
+	global $gallery;
+
 	if (empty($pluginType) || empty($pluginId)) {
 	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
 					 "Missing plugin type [$pluginType] and/or ID [$pluginId]"),
 			 null);
 	}
-	list ($ret, $searchResults) = GalleryCoreApi::getMapEntry('GalleryPluginPackageMap',
-	    array('packageName', 'packageVersion', 'packageBuild'), 
-	    array('pluginType' => $pluginType, 'pluginId' => $pluginId));
+
+	$query = '
+	    SELECT
+	      [GalleryPluginPackageMap::packageName],
+	      [GalleryPluginPackageMap::packageVersion],
+	      [GalleryPluginPackageMap::packageBuild]
+	    FROM
+	      [GalleryPluginPackageMap]
+	    WHERE
+	      [GalleryPluginPackageMap::pluginType] = ?
+	      AND
+	      [GalleryPluginPackageMap::pluginId] = ?
+	    ';
+
+	list ($ret, $searchResults) = $gallery->search($query, array($pluginType, $pluginId));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$data = array();
@@ -386,7 +402,7 @@ class GalleryRepositoryUtilities {
     function getPluginVersion($pluginType, $pluginId) {
 	list ($ret, $plugin) = GalleryCoreApi::loadPlugin($pluginType, $pluginId);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, $plugin->getVersion());

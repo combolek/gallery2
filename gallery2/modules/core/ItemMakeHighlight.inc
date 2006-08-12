@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ItemMakeHighlight.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.28 $ $Date: 2006/01/10 04:39:20 $
  * @package GalleryCore
  * @subpackage UserInterface
  * @author Ernesto Baschny <ernst@baschny.de>
@@ -42,20 +44,20 @@ class ItemMakeHighlightController extends GalleryController {
 	    $itemId = GalleryUtilities::getRequestVariables('itemId');
 	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    /* Make sure we have permission to edit this item */
 	    $ret = GalleryCoreApi::assertHasItemPermission($form['parentId'], 'core.edit');
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    /* XXX: What should we do if this fails? */
 	    list ($ret, $success) =
 		GalleryCoreApi::setThumbnailFromItem($form['parentId'], $itemId);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	} /* else $form['action']['cancel'] */
 
@@ -83,14 +85,14 @@ class ItemMakeHighlightView extends GalleryView {
 
 	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$parentId = $item->getParentId();
 
 	/* Make sure we have permission do edit the parent of this item */
 	$ret = GalleryCoreApi::assertHasItemPermission($parentId, 'core.edit');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if ($form['formName'] != 'ItemMakeHighlight') {
@@ -99,7 +101,7 @@ class ItemMakeHighlightView extends GalleryView {
 
 	list ($ret, $parents) = GalleryCoreApi::fetchParents($item, 'core.edit');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$parentList = array();
@@ -121,7 +123,7 @@ class ItemMakeHighlightView extends GalleryView {
     function getViewDescription() {
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, $core->translate('make highlight'));

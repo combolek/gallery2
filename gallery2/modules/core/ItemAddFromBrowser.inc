@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ItemAddFromBrowser.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.20 $ $Date: 2006/02/06 17:55:30 $
  * @package GalleryCore
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -40,15 +42,10 @@ class ItemAddFromBrowser extends ItemAddPlugin {
 
 	$status = array();
 	$error = array();
-	$uploaded = false;
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret) {
-	    return array($ret, null, null);
-	}
 	if (isset($form['action']['addFromBrowser'])) {
 
 	    /* Upload any new files */
-	    for ($i = 1; $i <= count($form['name']); $i++) {
+	    for ($i = 1; $i <= $form['uploadBoxCount']; $i++) {
 		$newItem = null;
 
 		/* Placeholder for later */
@@ -94,7 +91,8 @@ class ItemAddFromBrowser extends ItemAddPlugin {
 		    if ($platform->is_uploaded_file($file['tmp_name'])) {
 			$tmpFile = $platform->move_uploaded_file($file['tmp_name']);
 			if (!$tmpFile) {
-			    return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE), null, null);
+			    return array(GalleryCoreApi::error(
+				ERROR_PLATFORM_FAILURE, __FILE__, __LINE__), null, null);
 			}
 			$needToDeleteTmpFile = true;
 		    } else {
@@ -112,57 +110,13 @@ class ItemAddFromBrowser extends ItemAddPlugin {
 		    }
 
 		    if ($ret) {
-			return array($ret, null, null);
+			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 
 		    $status['addedFiles'][] = array('fileName' => $file['name'],
 						    'id' => $newItem->getId(),
 						    'warnings' => array());
-		    $uploaded = true;
-		} else if (!empty($form['name'][$i])) {
-		    $error[] = 'form[error][upload][' . $i . ']';
-		    if (empty($form['error'])) {
-			$form['error'][$i] = -1;
-		    }
-		    switch($form['error'][$i]) {
-		    case UPLOAD_ERR_INI_SIZE:
-			$warning = $module->translate(array(
-			    'text' => 'Input file %s exceeds maximum permitted file size',
-			    'arg1' => $form['name'][$i]));
-			break;
-			
-		    case UPLOAD_ERR_FORM_SIZE:
-			$warning = $module->translate(array(
-			    'text' => 'Input file %s exceeds file size specified in the form',
-			    'arg1' => $form['name'][$i]));
-			break;
-			
-		    case UPLOAD_ERR_PARTIAL:
-			$warning = $module->translate(array(
-			    'text' => 'Input file %s was only partially uploaded',
-			    'arg1' => $form['name'][$i]));
-			break;
-			
-		    default:
-			$warning = $module->translate(array(
-			    'text' => 'Input file %s was not uploaded. Error %d',
-			    'arg1' => $form['name'][$i],
-			    'arg2' => $form['error'][$i]));
-		    }
-		    $status['addedFiles'][] = array('fileName' => $form['name'][$i],
-						    'id' => null,
-						    'warnings' => array($warning));
 		}
-	    }
-	    if ($uploaded || empty($status)) {
-		/* 
-		 * Some files were uploaded successfully (or not even attempted)
-		 * Go to confirmation page, even if there were errors in uploads
-		 */
-		$error = array();
-	    } else {
-		GalleryUtilities::putRequestVariable('ItemAddFromBrowserStatus', 
-						     $status['addedFiles']);
 	    }
 	}
 
@@ -182,12 +136,11 @@ class ItemAddFromBrowser extends ItemAddPlugin {
 	$maxFileSize = ini_get('upload_max_filesize');
 	if (preg_match("/(\d+)M/", $maxFileSize, $matches)) {
 	    $maxFileSize = $matches[1] * 1024 * 1024;
-	}	
-	$status = GalleryUtilities::getRequestVariables('ItemAddFromBrowserStatus');
+	}
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 	if ($ret) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	foreach (array('totalUploadSize', 'maxFileSize') as $key) {
@@ -205,6 +158,9 @@ class ItemAddFromBrowser extends ItemAddPlugin {
 	}
 
 	if ($form['formName'] != 'ItemAddFromBrowser') {
+	    /* First time around, load the form with item data */
+	    $form['uploadBoxCount'] = 20;
+	    $form['visibleBoxCount'] = 4;
 	    $form['set'] = array('title' => 'filename', 'summary' => 1, 'description' => 1);
 	    $form['formName'] = 'ItemAddFromBrowser';
 	}
@@ -217,8 +173,7 @@ class ItemAddFromBrowser extends ItemAddPlugin {
 	    array('totalUploadSize' => $totalUploadSize,
 		  'maxFileSize' => $maxFileSize,
 		  'uploadsPermitted' => $fileUploadsBool,
-		  'titleList' => $titleList,
-		  'status' => $status));
+		  'titleList' => $titleList));
 
 	/* Set the ItemAdmin form's encoding type specially since we're uploading binary files */
 	if ($template->hasVariable('ItemAdmin')) {
@@ -240,7 +195,7 @@ class ItemAddFromBrowser extends ItemAddPlugin {
     function getTitle() {
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, $module->translate('From Web Browser'));

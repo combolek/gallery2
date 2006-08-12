@@ -1,4 +1,4 @@
-# $Id$
+# $Id: cs.po,v 1.9 2006/03/15 05:53:02 mindless Exp $
 #
 # Gallery - a web based photo album viewer and editor
 # Copyright (C) 2000-2006 Bharat Mediratta
@@ -19,7 +19,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Upgrader 2.2\n"
+"Project-Id-Version: Gallery: Upgrader 2.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-06-11 11:57+0200\n"
 "PO-Revision-Date: 2006-03-11 22:04+0100\n"
@@ -58,13 +58,12 @@ msgstr "Dokončit aktualizaci"
 msgid "System Checks"
 msgstr "Kontrola systému"
 
-#, fuzzy
-msgid "PHP version >= 4.3.0 or >= 5.0.4"
+msgid "PHP version >= 4.1.0 or >= 5.0.4"
 msgstr "PHP verze >= 4.1.0 nebo >= 5.0.4"
 
-#, fuzzy, c-format
+#, c-format
 msgid ""
-"Error: Gallery 2 requires PHP version 4.3.0 or newer or 5.0.4 or newer. You have PHP version "
+"Error: Gallery 2 requires PHP version 4.1.0 or newer or 5.0.4 or newer. You have PHP version "
 "%s installed. Contact your webserver administrator to request an upgrade, available at the %"
 "sPHP website%s."
 msgstr ""
@@ -438,9 +437,8 @@ msgstr "Galerie: <strong>Vaše fotografie</strong> na <strong>Vašem webu</stron
 msgid "Missing files (%d)"
 msgstr "Chybějící soubory (%d)"
 
-#, fuzzy
 msgid ""
-"Note: You're running Gallery from SVN, so recently removed files may appear here.  It might "
+"Note: You're running Gallery from CVS, so recently removed files may appear here.  It might "
 "be safe to ignore these."
 msgstr ""
 "Poznámka: Toto je Galerie z CVS, takže se zde mohou vyskytnout nedávno odebrané soubory. "
@@ -450,11 +448,10 @@ msgstr ""
 msgid "Modified files (%d)"
 msgstr "Modifikované soubory (%d)"
 
-#, fuzzy
 msgid ""
-"Note: You're running Gallery from SVN, so some modified files are to be expected.  You can "
-"probably ignore these, but to be safe you should make sure that you do 'svn update' before "
-"continuing."
+"Note: You're running Gallery from CVS, so some modified files are to be expected.  You can "
+"probably ignore these, but to be safe you should make sure that you do <b>cvs update -Pd</b> "
+"before continuing."
 msgstr ""
 "Poznámka: Toto je Galerie z CVS, která pravděpodobně obsahuje modifikované soubory. Nejspíše "
 "lze bez problému ignorovat, ale pokud si chcete být jisti že máte nejnovější verzi, můžete "
@@ -591,10 +588,11 @@ msgid ""
 "distribution from %s."
 msgstr ""
 "Aktualizace nemůže začít, protože některé z Vašich aktivních modulů nebo témat nejsou "
-"kompatibilní nebo chybí. Musíte buď najít novější verze těchto modulů/témat nebo se vrátit k "
-"původní verzi Galerie. Zatím nebyly provedeny žádné změny, takže návrat je bezpečný. Pokud "
-"je v seznamu níže mnoho nekompatibilních modulů, může to znamenat, že jste si stáhli menší "
-"distribuci Galerie než jste původně nainstalovali. Větší distribuci si můžete stáhnout z %s."
+"kompatibilní nebo chybí. Musíte buď najít novější verze těchto modulů/témat nebo se vrátit "
+"k původní verzi Galerie. Zatím nebyly provedeny žádné změny, takže návrat je bezpečný. "
+"Pokud je v seznamu níže mnoho nekompatibilních modulů, může to znamenat, že jste si stáhli "
+"menší distribuci Galerie než jste původně nainstalovali. Větší distribuci si můžete "
+"stáhnout z %s."
 
 #, c-format
 msgid "Download replacement modules from %s"

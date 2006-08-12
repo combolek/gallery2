@@ -1,4 +1,4 @@
-# $Id$
+# $Id: no.po,v 1.14 2006/03/23 19:59:36 mindless Exp $
 #
 # Gallery - a web based photo album viewer and editor
 # Copyright (C) 2000-2006 Bharat Mediratta
@@ -21,10 +21,10 @@
 # - Sverre M. Vikan <sverre AT urven DOT net>
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Core 1.1.10\n"
+"Project-Id-Version: Gallery: Core 1.1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-02-01 23:38+0100\n"
-"PO-Revision-Date: 2006-08-09 09:20+0100\n"
+"PO-Revision-Date: 2006-03-17 14:42+0100\n"
 "Last-Translator: Sverre M. Vikan <sverre AT urven DOT net>\n"
 "Language-Team: Norwegian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -86,6 +86,24 @@ msgstr[1] "%d uker"
 msgid "<none>"
 msgstr "<ingen>"
 
+msgid "install"
+msgstr "installer"
+
+msgid "upgrade"
+msgstr "oppgrader"
+
+msgid "configure"
+msgstr "oppsett"
+
+msgid "activate"
+msgstr "aktiver"
+
+msgid "uninstall"
+msgstr "avinstaller"
+
+msgid "deactivate"
+msgstr "deaktiver"
+
 msgid "No acceleration"
 msgstr "Ingen akselerasjon"
 
@@ -94,9 +112,6 @@ msgstr "Delvis akselerasjon"
 
 msgid "Full acceleration"
 msgstr "Full akselerasjon"
-
-msgid "Themes"
-msgstr "Tema"
 
 msgid "Performing Maintenance Tasks"
 msgstr "Utfører vedlikeholdsoppgaver"
@@ -113,21 +128,6 @@ msgstr "Oppgrader"
 
 msgid "Download"
 msgstr "Last ned"
-
-msgid "install"
-msgstr "installer"
-
-msgid "upgrade"
-msgstr "oppgrader"
-
-msgid "activate"
-msgstr "aktiver"
-
-msgid "uninstall"
-msgstr "avinstaller"
-
-msgid "deactivate"
-msgstr "deaktiver"
 
 msgid "Inherit settings from parent album"
 msgstr "Arve innstillinger fra hovedalbum"
@@ -194,12 +194,6 @@ msgstr "Sletter gammelt hurtigminne for rask nedlasting"
 
 msgid "Converting MySQL data to UTF8"
 msgstr "Omdanner MySQL-data til UTF8"
-
-msgid "Updating panorama items"
-msgstr "Oppdaterer panoramaobjekter"
-
-msgid "Optimizing AccessSubscriberMap table"
-msgstr "Optimaliserer tabellen AccessSubscriberMap"
 
 msgid "Site Admins"
 msgstr "Nettstedadministratorer"
@@ -272,24 +266,23 @@ msgid_plural "%d kilobytes"
 msgstr[0] "%d kilobyte"
 msgstr[1] "%d kilobyte"
 
-#, c-format
-msgid "Input file %s exceeds maximum permitted file size"
-msgstr "Inndatafilen %s overstiger den største tillatte filstørrelsen"
+msgid "From Local Server"
+msgstr "Fra lokal tjener"
 
-#, c-format
-msgid "Input file %s exceeds file size specified in the form"
-msgstr "Inndatafilen %s overstiger filstørrelsen spesifisert i skjemaet"
+msgid "Photo"
+msgstr "Foto"
 
-#, c-format
-msgid "Input file %s was only partially uploaded"
-msgstr "Inndatafilen %s ble bare delvis lastet opp"
-
-#, c-format
-msgid "Input file %s was not uploaded. Error %d"
-msgstr "Inndatafilen %s ble ikke lastet opp. Feil %d"
+msgid "From Web Page"
+msgstr "Fra nettside"
 
 msgid "Gallery Item Administration"
 msgstr "Administrasjon av Gallery-objekter"
+
+msgid "create link"
+msgstr "opprett lenke"
+
+msgid "link an item"
+msgstr "lenk et objekt"
 
 msgid "delete an item"
 msgstr "slett et objekt"
@@ -313,10 +306,6 @@ msgstr "&laquo; standardtema &raquo;"
 
 msgid "Recreating resized images"
 msgstr "Gjenskaper skalerte bilder"
-
-#, fuzzy
-msgid "Preparing..."
-msgstr "Behandler ..."
 
 msgid "Rebuilding resized images..."
 msgstr "Gjenskaper skalerte bilder ..."
@@ -345,9 +334,6 @@ msgstr "Generelt"
 
 msgid "Movie Size"
 msgstr "Filmstørrelse"
-
-msgid "Photo"
-msgstr "Foto"
 
 msgid "Thumbnail cropped successfully"
 msgstr "Vellykket beskjæring av miniatyrbilde"
@@ -402,6 +388,9 @@ msgstr "Vellykket skalering av foto"
 
 msgid "Modify Photo"
 msgstr "Endre foto"
+
+msgid "Successfully saved theme settings"
+msgstr "Vellykket lagring av temainnstillinger"
 
 msgid "Theme"
 msgstr "Tema"
@@ -462,6 +451,9 @@ msgstr "Rediger foto"
 msgid "Edit Movie"
 msgstr "Rediger film"
 
+msgid "Create Link"
+msgstr "Opprett lenke"
+
 msgid "Add Album"
 msgstr "Legg til album"
 
@@ -510,11 +502,17 @@ msgstr "Din konto"
 msgid "Logout"
 msgstr "Logg ut"
 
-msgid "Plugins"
-msgstr "Programtillegg"
+msgid "Modules"
+msgstr "Moduler"
 
 msgid "Repository"
 msgstr "Kodelager"
+
+msgid "Themes"
+msgstr "Tema"
+
+msgid "Display"
+msgstr "Visning"
 
 msgid "Users"
 msgstr "Brukere"
@@ -531,14 +529,20 @@ msgstr "Verktøyprioritet"
 msgid "Graphics Toolkits"
 msgstr "Grafikkverktøy"
 
-msgid "Defaults"
-msgstr "Standarder"
-
 msgid "Account Settings"
 msgstr "Kontoinnstillinger"
 
 msgid "Change Password"
 msgstr "Endre passord"
+
+msgid "Link Album"
+msgstr "Lenk album"
+
+msgid "Link Photo"
+msgstr "Lenk foto"
+
+msgid "Link Movie"
+msgstr "Lenk film"
 
 #, c-format
 msgid "Edit %s"
@@ -551,6 +555,10 @@ msgstr "Slett %s"
 #, c-format
 msgid "Move %s"
 msgstr "Flytt %s"
+
+#, c-format
+msgid "Link %s"
+msgstr "Lenk %s"
 
 msgid "Build all thumbnails/resizes"
 msgstr "Opprett alle miniatyrbilder/skaleringer"
@@ -665,12 +673,6 @@ msgstr "Tittel"
 
 msgid "Owner"
 msgstr "Eier"
-
-msgid "Dynamic Album"
-msgstr "Dynamisk album"
-
-msgid "dynamic album"
-msgstr "dynamisk album"
 
 msgid "Group"
 msgstr "Gruppe"
@@ -840,10 +842,10 @@ msgid "%dx%d"
 msgstr "%dx%d"
 
 msgid "Audio"
-msgstr "Lydfil"
+msgstr "Audio"
 
 msgid "audio"
-msgstr "lydfilen"
+msgstr "audio"
 
 msgid "Archive"
 msgstr "Arkiv"
@@ -863,8 +865,11 @@ msgstr "Regneark"
 msgid "spreadsheet"
 msgstr "regneark"
 
-msgid "file"
-msgstr "fil"
+msgid "Unknown"
+msgstr "Ukjent"
+
+msgid "unknown"
+msgstr "ukjent"
 
 #, c-format
 msgid ""
@@ -895,7 +900,7 @@ msgid ""
 "you're using, but this routine maintenance will make your Gallery run faster.  Especially "
 "useful after adding or deleting many items."
 msgstr ""
-"Ok ytelsen til databasen din.  Resultater vil variere avhengig av hvilken database du "
+"Øk ytelsen til databasen din.  Resultater vil variere avhengig av hvilken database du "
 "bruker, men dette rutinevedlikeholdet vil gjøre ditt galleri raskere.  Det er spesielt "
 "nyttig etter at du har lagt til eller slettet mange objekter."
 
@@ -949,9 +954,6 @@ msgstr ""
 msgid "core"
 msgstr "kjerne"
 
-msgid "unknown"
-msgstr "ukjent"
-
 msgid "Gallery version"
 msgstr "Gallery-versjon"
 
@@ -973,23 +975,11 @@ msgstr "Operativsystem"
 msgid "Default theme"
 msgstr "Standardtema"
 
-msgid "gettext"
-msgstr "gettext"
-
-msgid "enabled"
-msgstr "aktivert"
-
-msgid "disabled"
-msgstr "deaktivert"
-
 msgid "Locale"
 msgstr "Lokaltilpassing"
 
 msgid "Browser"
 msgstr "Nettleser"
-
-msgid "Successfully saved theme settings"
-msgstr "Vellykket lagring av temainnstillinger"
 
 msgid "General Settings"
 msgstr "Generelle innstillinger"
@@ -1030,6 +1020,9 @@ msgstr "Standardspråk"
 
 msgid "Check Browser Preference"
 msgstr "Kontroller nettleserinnstillinger"
+
+msgid "gettext"
+msgstr "gettext"
 
 #, c-format
 msgid ""
@@ -1085,11 +1078,59 @@ msgstr "Nye kataloger"
 msgid "New files"
 msgstr "Nye filer"
 
+msgid "Local Server Upload Paths"
+msgstr "Opplastingsstier på lokal tjener"
+
+msgid ""
+"Specify the legal directories on the local server where a user can store files and then "
+"upload them into Gallery using the <i>Upload from Local Server</i> feature.  The paths you "
+"enter here and all the files and directories under those paths will be available to any "
+"Gallery user who has upload privileges, so you should limit this to directories that won't "
+"contain sensitive data (eg. /tmp or /usr/ftp/incoming)"
+msgstr ""
+"Oppgi de tillatte kataloger på den lokale tjeneren hvor en bruker kan lagre filer og så "
+"laste de inn i Gallery via <i>Last opp fra lokal tjener</i>.  Stiene du skriver inn her og "
+"alle filer og kataloger under de stiene vil være tilgjengelig for enhver Gallery-bruker som "
+"har tilgang til opplasting, så du bør begrense dette til kataloger som ikke inneholder "
+"sensitive data (f.eks. /tmp eller /usr/ftp/incoming)"
+
+msgid "Path"
+msgstr "Sti"
+
+msgid "Action"
+msgstr "Behandling"
+
+msgid "remove"
+msgstr "fjern"
+
+msgid "Add"
+msgstr "Legg til"
+
+msgid "You must enter a directory to add."
+msgstr "Du må skrive inn en katalog som skal legges til."
+
+msgid "open_basedir documentation"
+msgstr "open_basedir-dokumentasjon"
+
+#, c-format
+msgid ""
+"Your webserver is configured to prevent you from accessing that directory.  Please refer to "
+"the %s and consult your webserver administrator."
+msgstr ""
+"Din nettjener er satt opp til  nekte deg tilgang til den katalogen.  Vennligst henvis til %s "
+"og snakk med systemansvarlig for din nettjener."
+
+msgid "The webserver does not have permissions to read that directory."
+msgstr "Nettjeneren har ikke tilgang til  lese den katalogen."
+
+msgid "The path you specified is not a valid directory."
+msgstr "Stien du skrev inn er ikke en gyldig katalog."
+
 msgid "Session Settings"
-msgstr "Oktinnstillinger"
+msgstr "Øktinnstillinger"
 
 msgid "Session Lifetime"
-msgstr "Oktlevetid"
+msgstr "Øktlevetid"
 
 msgid "Inactivity Timeout"
 msgstr "Tidsavbrudd grunnet inaktivitet"
@@ -1120,7 +1161,7 @@ msgid ""
 "non-default port."
 msgstr ""
 "Gallery bruker som standard PHP's innebygde e-postfunksjoner for å sende e-post, og den "
-"trenger ikke settes opp.  For å benytte en smtp/e-posttjener, skriv inn informasjonen "
+"trenger ikke konfigureres.  For å benytte en smtp/e-posttjener, skriv inn informasjonen "
 "nedenfor, inkludert autentiseringinformasjon om nødvendig.  Legg til :port etter "
 "tjenernavnet for å benytte en ikke-standard port."
 
@@ -1212,9 +1253,6 @@ msgstr ""
 "Så snart du endrer informasjonskapselinstillingene vil <b>alle registrerte brukere</b> av "
 "ditt galleri måtte <b>tømme deres nettlesers hurtiglager for informasjonskapsler</b>. De vil "
 "oppleve innloggings-/utloggings-/tapte øktproblemer om de ikke gjør det."
-
-msgid "Path"
-msgstr "Sti"
 
 msgid "Invalid cookie path"
 msgstr "Ugyldig sti til informasjonskapsel"
@@ -1451,9 +1489,6 @@ msgstr "Du kan ikke fjerne deg selv fra denne gruppen."
 msgid "Add Member"
 msgstr "Legg til medlem"
 
-msgid "Add"
-msgstr "Legg til"
-
 msgid "You must enter a username."
 msgstr "Du må skrive inn et brukernavn."
 
@@ -1525,9 +1560,6 @@ msgstr "Du kan ikke redigere den gruppens brukere"
 msgid "Edit Group (by list)"
 msgstr "Rediger gruppe (listeform)"
 
-msgid "Action"
-msgstr "Behandling"
-
 msgid "edit"
 msgstr "rediger"
 
@@ -1578,6 +1610,86 @@ msgstr "kjør nå"
 msgid "Last Run Details:"
 msgstr "Detaljer fra siste gjennomkjøring:"
 
+msgid "Gallery Modules"
+msgstr "Gallery-moduler"
+
+#, c-format
+msgid "Successfully installed and auto-configured module %s"
+msgstr "Vellykket installasjon og automatisk konfigurasjon av modulen %s"
+
+#, c-format
+msgid "Successfully installed module %s"
+msgstr "Vellykket installasjon av modul %s"
+
+#, c-format
+msgid "Successfully configured module %s"
+msgstr "Vellykket konfigurering av modul %s"
+
+#, c-format
+msgid "Successfully upgraded module %s"
+msgstr "Vellykket oppgradering av modul %s"
+
+#, c-format
+msgid "Successfully activated module %s"
+msgstr "Vellykket aktivering av modul %s"
+
+#, c-format
+msgid "Successfully deactivated module %s"
+msgstr "Vellykket deaktivering av modul %s"
+
+#, c-format
+msgid "Successfully uninstalled module %s"
+msgstr "Vellykket avinstallering av modul %s"
+
+msgid ""
+"Gallery features come as separate modules.  You can download and install modules to add more "
+"features to your Gallery, or you can disable features if you don't want to use them.  In "
+"order to use a feature, you must install, configure (if necessary) and activate it.  If you "
+"don't wish to use a feature, you can deactivate it."
+msgstr ""
+"Gallerys funksjoner kommer som separate moduler.  Du kan laste ned og installere moduler for "
+"å legge til flere funksjoner i ditt galleri, eller du kan deaktivere funksjoner om du ikke "
+"ønsker å bruke dem.  Du må installere, sette opp (om nødvendig) og aktivere en modul for å "
+"benytte den."
+
+msgid "Module Name"
+msgstr "Modulnavn"
+
+msgid "Version"
+msgstr "Versjon"
+
+msgid "Installed"
+msgstr "Installert"
+
+msgid "Actions"
+msgstr "Handlinger"
+
+msgid "Status: Not Installed"
+msgstr "Status: ikke installert"
+
+msgid "Status: Active"
+msgstr "Status: Aktiv"
+
+msgid "Status: Inactive"
+msgstr "Status: Deaktivert"
+
+msgid "Status: Upgrade Required (Inactive)"
+msgstr "Status: oppgradering påkrevd (deaktivert)"
+
+msgid "Status: Incompatible Module (Inactive)"
+msgstr "Status: Ikke-kompatibel modul (Deaktivert)"
+
+msgid "Incompatible module!"
+msgstr "Ikke-kompatibel modul!"
+
+#, c-format
+msgid "Core API Required: %s (available: %s)"
+msgstr "Påkrevd kjerne-API: %s (tilgjengelig: %s)"
+
+#, c-format
+msgid "Module API Required: %s (available: %s)"
+msgstr "Modul-API påkrevd: %s (tilgjengelig: %s) "
+
 msgid "Confirm module uninstall"
 msgstr "Bekreft avinstallasjon av modul"
 
@@ -1609,7 +1721,7 @@ msgid ""
 "you can always get the most recent version of the page by forcing a refresh in your browser "
 "(typically by holding down the shift key and clicking the reload button)."
 msgstr ""
-"Ok ytelsen til Gallery ved å lagre hele nettsider i databasen.  Dette kan kan redusere "
+"Øk ytelsen til Gallery ved å lagre hele nettsider i databasen.  Dette kan kan redusere "
 "nettjener- og databaseressursene påkrevd for å vise en nettside betraktelig.  Bakdelen er at "
 "nettsidene du ser kan være noe utdaterte, men du kan alltid hente den nyeste versjonen av "
 "siden ved å påtvinge en oppdatering i din nettleser (typisk ved å holde inne shift og trykke "
@@ -1670,88 +1782,6 @@ msgstr "Utløper etter:"
 msgid "Clear Saved Pages"
 msgstr "Fjern lagrede sider"
 
-msgid "Status: Inactive"
-msgstr "Status: Deaktivert"
-
-msgid "__PLUGIN__ deactivated"
-msgstr "__PLUGIN__ deaktivert"
-
-msgid "Status: Active"
-msgstr "Status: Aktiv"
-
-msgid "__PLUGIN__ activated"
-msgstr "__PLUGIN__ aktivert"
-
-msgid "Status: Not Installed"
-msgstr "Status: ikke installert"
-
-msgid "__PLUGIN__ uninstalled"
-msgstr "__PLUGIN__ avinstallert"
-
-msgid "Status: Upgrade Required (Inactive)"
-msgstr "Status: oppgradering påkrevd (deaktivert)"
-
-msgid "Status: Incompatible Plugin (Inactive)"
-msgstr "Status: Ikke-kompatibelt programtillegg (Deaktivert)"
-
-msgid "Status: Inactive (Configuration Required)"
-msgstr "Status: deaktivert (oppsett påkrevd)"
-
-msgid "__PLUGIN__ needs configuration"
-msgstr "__PLUGIN__ må settes opp"
-
-msgid "Gallery Plugins"
-msgstr "Programtillegg for Gallery"
-
-msgid ""
-"Gallery features come as separate plugins.  You can download and install plugins to add more "
-"features to your Gallery, or you can disable features if you don't want to use them.  In "
-"order to use a feature, you must install, configure (if necessary) and activate it.  If you "
-"don't wish to use a feature, you can deactivate it."
-msgstr ""
-"Gallerys funksjoner kommer som separate moduler.  Du kan laste ned og installere moduler for "
-"å legge til flere funksjoner i ditt galleri, eller du kan deaktivere funksjoner om du ikke "
-"ønsker å bruke dem.  Du må installere, sette opp (om nødvendig) og aktivere en modul for å "
-"benytte den.  Om du ikke ønsker å bruke en funksjon kan du deaktivere den."
-
-msgid "up to date"
-msgstr "Oppdatert"
-
-msgid "upgrade required"
-msgstr "oppgradering er påkrevd"
-
-msgid "not installed"
-msgstr "ikke installert"
-
-msgid "incompatible"
-msgstr "Ikke-kompatibelt"
-
-msgid "Plugin Name"
-msgstr "Programtilleggsnavn"
-
-msgid "Version"
-msgstr "Versjon"
-
-msgid "Installed"
-msgstr "Installert"
-
-msgid "Actions"
-msgstr "Handlinger"
-
-msgid "Incompatible plugin!"
-msgstr "Ikke-kompatibelt programtillegg!"
-
-#, c-format
-msgid "Core API Required: %s (available: %s)"
-msgstr "Påkrevd kjerne-API: %s (tilgjengelig: %s)"
-
-#, c-format
-msgid "Plugin API Required: %s (available: %s)"
-msgstr "Programtillegg-API påkrevd: %s (tilgjengelig: %s) "
-
-msgid "configure"
-msgstr "oppsett"
-
 msgid "Please make sure that your internet connection is set up properly or try again later."
 msgstr ""
 "Vennligst påse at din Internettforbindelse er satt opp riktig eller forsøk igjen senere."
@@ -1764,9 +1794,6 @@ msgstr "Alle programtillegg er allerede oppdaterte."
 
 msgid "Common Tasks"
 msgstr "Vanlige oppgaver"
-
-msgid "Modules"
-msgstr "Moduler"
 
 msgid "Warning: Experimental feature!"
 msgstr "Advarsel: eksperimentell funksjon!"
@@ -1893,14 +1920,18 @@ msgstr ""
 msgid "Theme Name"
 msgstr "Temanavn"
 
-msgid "Module Name"
-msgstr "Modulnavn"
-
 msgid "Latest"
 msgstr "Siste"
 
 msgid "Incompatible Plugin"
 msgstr "Ikke-kompatibelt programtillegg"
+
+msgid "Incompatible plugin!"
+msgstr "Ikke-kompatibelt programtillegg!"
+
+#, c-format
+msgid "Plugin API Required: %s (available: %s)"
+msgstr "Programtillegg-API påkrevd: %s (tilgjengelig: %s) "
 
 msgid "No packages have been selected."
 msgstr "Ingen pakker er valgt."
@@ -2018,6 +2049,25 @@ msgstr "Vellykket lagring av standard albuminnstillinger"
 
 msgid "Restored theme settings"
 msgstr "Gjenopprettet temainnstillinger"
+
+msgid "All Themes"
+msgstr "Alle temaer"
+
+msgid "Defaults"
+msgstr "Standarder"
+
+msgid "Status: Incompatible Theme (Inactive)"
+msgstr "Status: ikke-kompatibelt tema (Deaktivert)"
+
+msgid "Incompatible theme!"
+msgstr "Ikke-kompatibelt tema!"
+
+#, c-format
+msgid "Theme API Required: %s (available: %s)"
+msgstr "Tema-API påkrevd: %s (tilgjengelig: %s)"
+
+msgid "(default)"
+msgstr "(standard)"
 
 msgid ""
 "These are default display settings for albums in your gallery.  They can be overridden in "
@@ -2199,9 +2249,6 @@ msgstr ""
 "filsystemtilganger. Dette kan skje om du eller din nettvert endret noe i filsystemet, f.eks. "
 "ved å gjenopprette en sikkerhetskopi."
 
-msgid "Item not found."
-msgstr "Objekt ikke funnet."
-
 msgid "An error has occurred."
 msgstr "En feil har oppstått."
 
@@ -2301,7 +2348,7 @@ msgid ""
 "must upload the files separately, use a different upload format, or ask your system "
 "administrator to allow larger uploads."
 msgstr ""
-"<b>Merknad:</b> Du kan laste opp %s om gangen.  Onsker du å laste opp mer enn det må du "
+"<b>Merknad:</b> Du kan laste opp %s om gangen.  Ønsker du å laste opp mer enn det må du "
 "laste opp filene hver for seg, bruke et annet opplastingsformat eller be din "
 "systemadministrator tillate større opplastinger."
 
@@ -2312,7 +2359,7 @@ msgid ""
 "upload format, or ask your system administrator to allow larger uploads."
 msgstr ""
 "<b>Merknad:</b> Du kan laste opp %s om gangen.  Ingen enkeltfil kan være større enn %s. "
-"Onsker du å laste opp mer enn det må du laste opp filene hver for seg, bruke et annet "
+"Ønsker du å laste opp mer enn det må du laste opp filene hver for seg, bruke et annet "
 "opplastingsformat eller be din systemadministrator tillate større opplastinger."
 
 msgid "More.."
@@ -2324,11 +2371,216 @@ msgstr "Velg objekttitler fra:"
 msgid "Assign caption to:"
 msgstr "Gi billedtekst til:"
 
+msgid ""
+"Transfer files that are already on your server into your Gallery.  The files must already "
+"have been uploaded to your server some other way (like FTP) and must be placed in a "
+"directory where they are accessibly by any element on the server.  If you're on Unix this "
+"means that the files and the directory the files are in should have modes of at least 755."
+msgstr ""
+"Overfør filer som allerede finnes på din tjener til ditt galleri.  Filene må allerede være "
+"lastet opp til din tjener på en annen måte (f.eks. via FTP) og må være plasserte i en "
+"katalog som er tilgjengelig for ethvert element på tjeneren.  Om du bruker Unix betyr dette "
+"at filene og katalogen filene er i må minst ha modus 755."
+
+msgid ""
+"For security purposes, you can't use this feature until the Gallery Site Administrator "
+"configures a set of legal upload directories."
+msgstr ""
+"Av sikkerhetsmessige hensyn kan du ikke bruke denne delen av programmet inntil "
+"administratoren av Gallery setter opp kataloger tilgjengelig for opplasting."
+
+msgid "Server Path"
+msgstr "Tjenersti"
+
+msgid "You must enter a directory."
+msgstr "Du må skrive inn en katalog."
+
+msgid ""
+"The directory you entered is invalid.  Make sure that the directory is readable by all users."
+msgstr "Katalogen du skrev inn er ugyldig.  Sjekk at katalogen er lesbar for alle brukere."
+
+msgid ""
+"The directory you entered is illegal.  It must be a sub directory of one of the directories "
+"listed below."
+msgstr ""
+"Katalogen du skrev inn er ulovlig.  Den må være en underkatalog av en av katalogene som er "
+"listet under."
+
+msgid "An item with the same name already exists."
+msgstr "Et objekt med samme navn finnes allerede."
+
+msgid "Legal Directories"
+msgstr "Tillatte kataloger"
+
+msgid "modify"
+msgstr "endre"
+
+msgid "Recent Directories"
+msgstr "Nylige kataloger"
+
+msgid "Find Files"
+msgstr "Finn filer"
+
+#, c-format
+msgid "Directory: %s"
+msgstr "Katalog: %s"
+
+msgid "File name"
+msgstr "Filnavn"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Size"
+msgstr "Størrelse"
+
+msgid "Use Symlink"
+msgstr "Bruk symlenke"
+
+#, c-format
+msgid "%d byte"
+msgid_plural "%d bytes"
+msgstr[0] "%d byte"
+msgstr[1] "%d byte"
+
+msgid "Parent Directory"
+msgstr "Hovedkatalog"
+
+msgid "Directory"
+msgstr "Katalog"
+
+msgid "(Un)check all known types"
+msgstr "(De-)marker alle kjente typer"
+
+msgid "(Un)check symlinks"
+msgstr "(De-)marker symlenker"
+
+msgid "for selected items"
+msgstr "for valgte objekter"
+
+msgid "Copy base filenames to:"
+msgstr "Kopier basisfilnavn til:"
+
+msgid "Add Files"
+msgstr "Legg til filer"
+
+msgid "Start Over"
+msgstr "Start på nytt"
+
+msgid ""
+"Import files into Gallery from another website.  Enter a URL below to a web page anywhere on "
+"the net and Gallery will allow you to upload any media files that it finds on that page.  "
+"Note that if you're entering a URL to a directory, you should end the URL with a trailing "
+"slash (eg, http://example.com/directory/). "
+msgstr ""
+"Importer filer til Gallery fra en annen nettside.  Skriv inn nettadressenen til en side på "
+"Internett, og Gallery vil tillate deg å laste opp alle mediafiler den finner på siden.  Merk "
+"at hvis du skriver inn nettadresseen til en katalog, må nettadressen slutte med en "
+"skråstrek. (eks. http://eksempel.no/katalog/)."
+
+msgid "URL"
+msgstr "Nettadresse"
+
+msgid "You must enter a URL to a web page"
+msgstr "Du må skrive inn en nettadresse til en nettside"
+
+msgid "The URL entered must begin with http://"
+msgstr "Den inntastede nettadressen må begynne med http://"
+
+msgid "The web page you specified is unavailable"
+msgstr "Nettsiden du oppga er utilgjengelig"
+
+msgid "Nothing to add found from this URL"
+msgstr "Det ble ikke funnet noe å legge til fra denne nettadressen"
+
+msgid "Nothing added since no items were selected"
+msgstr "Ingenting ble lagt til ettersom ingen objekter ble valgt"
+
+msgid "Recent URLs"
+msgstr "Nylige nettadresser"
+
+#, c-format
+msgid "URL: %s"
+msgstr "Nettadresse: %s"
+
+msgid "change"
+msgstr "endre"
+
+#, c-format
+msgid "%d url found"
+msgid_plural "%d urls found"
+msgstr[0] "%d nettadresse funnet"
+msgstr[1] "%d nettadresser funnet"
+
+msgid "(Un)check all"
+msgstr "(De-)marker alle"
+
+msgid "Add URLs"
+msgstr "Legg til nettadresser"
+
 msgid "No Thumbnail"
 msgstr "Miniatyrbilde mangler"
 
 msgid "Options"
 msgstr "Valg"
+
+msgid "Link an Item"
+msgstr "Lenk et objekt"
+
+#, c-format
+msgid "Successfully linked %d item"
+msgid_plural "Successfully linked %d items"
+msgstr[0] "Vellykket lenke av %d objekt"
+msgstr[1] "Vellykket lenke av %d objekter"
+
+msgid "This album contains no items to link."
+msgstr "Dette altbumet inneholder ingen objekter å lenke."
+
+msgid "Source"
+msgstr "Kilde"
+
+msgid "Choose the items you want to link"
+msgstr "Velg de objektene du ønsker å lenke"
+
+#, c-format
+msgid "(page %d of %d)"
+msgstr "(side %d av %d)"
+
+msgid "No sources chosen"
+msgstr "Ingen kilder valgt"
+
+msgid "Check All"
+msgstr "Marker alle"
+
+msgid "Check None"
+msgstr "Marker ingen"
+
+msgid "Invert"
+msgstr "Speilvend"
+
+msgid "Previous Page"
+msgstr "Forrige side"
+
+msgid "Next Page"
+msgstr "Neste side"
+
+msgid "Destination"
+msgstr "Mål"
+
+msgid "Choose a new album for the link"
+msgstr "Velg et nytt album for lenken"
+
+msgid "No destination chosen"
+msgstr "Intet mål valgt"
+
+msgid "Link"
+msgstr "Lenk"
+
+msgid "Successfully linked"
+msgstr "Vellykket lenking"
+
+msgid "Choose a destination album"
+msgstr "Velg et målalbum"
 
 msgid "Delete Items"
 msgstr "Slett objekter"
@@ -2347,10 +2599,6 @@ msgstr "Dette altbumet inneholder ingen objekter å slette"
 
 msgid "Choose the items you want to delete"
 msgstr "Velg de objektene du ønsker å slette"
-
-#, c-format
-msgid "(page %d of %d)"
-msgstr "(side %d av %d)"
 
 msgid "Items selected here will remain selected when moving between pages."
 msgstr "Objekter valgt her vil forbli valgt ved navigering mellom sider."
@@ -2372,21 +2620,6 @@ msgstr[1] "(album inneholder %d objekter)"
 
 msgid "(empty album)"
 msgstr "(tomt album)"
-
-msgid "Check All"
-msgstr "Marker alle"
-
-msgid "Check None"
-msgstr "Marker ingen"
-
-msgid "Invert"
-msgstr "Speilvend"
-
-msgid "Previous Page"
-msgstr "Forrige side"
-
-msgid "Next Page"
-msgstr "Neste side"
 
 msgid "Deletion Complete"
 msgstr "Sletting fullført"
@@ -2599,9 +2832,6 @@ msgstr ""
 "Det er ingen grafikkverktøy aktivert som støtter denne typen objekt, så vi kan ikke opprette "
 "eller endre et miniatyrbilde."
 
-msgid "Unable to create a thumbnail for this item"
-msgstr "Kunne ikke opprette miniatyr for dette objektet"
-
 msgid ""
 "In order for Gallery to properly display this movie, it has to know the movie's width and "
 "height.  If you have installed a graphics toolkit that can handle movie types, then these "
@@ -2645,9 +2875,6 @@ msgstr "Størrelsesforhold: "
 
 msgid "Crop"
 msgstr "Beskjær"
-
-msgid "Undo Changes"
-msgstr "Angre endringer"
 
 msgid "Reset to default"
 msgstr "Tilbakestill til standard"
@@ -2723,11 +2950,6 @@ msgstr "Dette er en lenke til et annet bilde, så du kan ikke endre orginalen"
 msgid "There are links to this photo, so you cannot change the original"
 msgstr "Det er lenker til dette fotografiet, så du kan ikke endre orginalen"
 
-msgid ""
-"There is no toolkit support to modify the original so operations may only be applied to the "
-"copies"
-msgstr "Det er ingen verktøy for å endre originalen, så operasjoner kan bare utføres på kopier"
-
 msgid "Preserve Original Photo"
 msgstr "Oppretthold orginalfoto"
 
@@ -2752,6 +2974,12 @@ msgid ""
 msgstr ""
 "Dette albumet er satt opp til  bruke temaet <b>%s</b>. Disse instillingene gjelder bare "
 "temaet for dette albumet."
+
+msgid "Setting"
+msgstr "Innstilling"
+
+msgid "Use Global"
+msgstr "Bruk global"
 
 #, c-format
 msgid "Use these settings in all subalbums that use %s theme"
@@ -2787,9 +3015,6 @@ msgstr[1] "Vellykket flytting av %d objekter"
 msgid "This album contains no items to move."
 msgstr "Dette altbumet inneholder ingen objekter å flytte."
 
-msgid "Source"
-msgstr "Kilde"
-
 msgid "Choose the items you want to move"
 msgstr "Velg de objektene du ønsker å flytte"
 
@@ -2814,26 +3039,17 @@ msgstr "Du har ikke tilgang til å flytte et objekt til valgte mål."
 msgid "You cannot move an album into its own subtree."
 msgstr "Du kan ikke flytte et album inn i katalogene under seg selv."
 
-msgid "Destination"
-msgstr "Mål"
-
 msgid "Choose a new album for them"
 msgstr "Velg et nytt album for dem"
 
 msgid "You don't have the permission to add items in this album"
 msgstr "Du har ikke tilgang til å legge til objekter i dette albumet"
 
-msgid "No destination chosen"
-msgstr "Intet mål valgt"
-
 msgid "Move"
 msgstr "Flytt"
 
 msgid "Successfully moved"
 msgstr "Vellykket flytting"
-
-msgid "Choose a destination album"
-msgstr "Velg et målalbum"
 
 msgid "Permissions"
 msgstr "Tilganger"
@@ -2961,9 +3177,6 @@ msgstr ""
 "objektrekkefølgen manuelt.  Du må fjerne den automatiske sorteringsrekkefølgen for å "
 "fortsette."
 
-msgid "change"
-msgstr "endre"
-
 msgid "Change the order of the items in this album."
 msgstr "Endre rekkefølgen på objektene i dette albumet."
 
@@ -3016,7 +3229,7 @@ msgid "image"
 msgstr "bilde"
 
 msgid "Configuration Error: Missing Theme"
-msgstr "Innstillingsfeil: tema mangler"
+msgstr "Konfigurasjonsfeil: tema mangler"
 
 msgid "Missing Theme"
 msgstr "Tema mangler"
@@ -3396,17 +3609,8 @@ msgstr "%d. %s"
 msgid "Size: "
 msgstr "Størrelse: "
 
-msgid "Unknown"
-msgstr "Ukjent"
-
 msgid "Full size: "
 msgstr "Full størrelse: "
-
-msgid "Setting"
-msgstr "Innstilling"
-
-msgid "Use Global"
-msgstr "Bruk global"
 
 msgid "Language selector"
 msgstr "Språkvelger"

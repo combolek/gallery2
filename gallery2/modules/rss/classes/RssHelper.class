@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: RssHelper.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,8 +20,8 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
- * @package Rss
+ * @version $Revision: 1.4 $ $Date: 2006/02/27 19:27:30 $
+ * @package RSS
  * @author Jonatan Heyman <http://heyman.info>
  * @author Pierre-Luc Paour
  * @author Daniel Grund <http://www.photogrund.nl>
@@ -37,7 +39,7 @@ if (GalleryPlatform::file_exists(dirname(__FILE__) .
 /**
  * Helper class for the RSS module
  *
- * @package Rss
+ * @package rss
  * @subpackage classes
  */
 class RssHelper {
@@ -56,7 +58,7 @@ class RssHelper {
 	/* get gallery entity by id */
 	list ($ret, $entity) = GalleryCoreApi::loadEntitiesById($id);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* get member data for the <channel> properties */
@@ -80,7 +82,7 @@ class RssHelper {
 	    /* retrieve gallery thumbnail */
 	    list ($ret, $thumbArrayl) = GalleryCoreApi::fetchThumbnailsByItemIds(array($id));
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    /* check if image tag should be used */
@@ -140,13 +142,13 @@ class RssHelper {
 		    $param['feedType'] != 'album',
 		    $param['feedType'] == 'photosRecurse'?$param['photosRecurseLimit']:0);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
 		if (!empty($items)) {
 		    list ($ret, $items) = GalleryCoreApi::loadEntitiesById($items);
 		    if ($ret) {
-			return $ret;
+			return $ret->wrap(__FILE__, __LINE__);
 		    }
 
 		    if ($param['feedType'] == 'photosRecurse') {
@@ -161,7 +163,7 @@ class RssHelper {
 
 			list ($ret, $parents) = GalleryCoreApi::loadEntitiesById($parentIds);
 			if ($ret) {
-			    return $ret;
+			    return $ret->wrap(__FILE__, __LINE__);
 			}
 
 			$parentsA = array();
@@ -178,7 +180,7 @@ class RssHelper {
 	    case 'photos':
 		list ($ret, $items) = RssHelper::getPhotoFeed($entity, $newOnly);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
 		break;
@@ -188,15 +190,7 @@ class RssHelper {
 		list ($ret, $items) = GalleryCommentHelper::fetchComments($id,
 		    $param['count'], ORDER_DESCENDING);
 		if ($ret) {
-		    return $ret;
-		}
-
-		break;
-	    case 'commentsRecursive':
-		list ($ret, $items) = GalleryCommentHelper::fetchAllComments($id,
-		    $param['count'], ORDER_DESCENDING);
-		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
 		break;
@@ -208,7 +202,7 @@ class RssHelper {
 		$ret = RssHelper::addItem($generator, $item, $param);
 
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	}
@@ -227,7 +221,7 @@ class RssHelper {
 	/* retrieve subitems' ids */
 	list ($ret, $subIds) = GalleryCoreApi::fetchChildItemIds($entity);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$itemsAcc = array();
@@ -238,7 +232,7 @@ class RssHelper {
 	    /* retrieve array of subitems */
 	    list ($ret, $subItems) = GalleryCoreApi::loadEntitiesById($subIds);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    foreach ($subItems as $key => $subItem) {
@@ -271,7 +265,7 @@ class RssHelper {
 	} else if (GalleryUtilities::isA($item, 'GalleryComment')) {
 	    return RssHelper::addComment($generator, $item, $param);
 	} else {
-	    return GalleryCoreApi::error(ERROR_INVALID_OBJECT);
+	    return GalleryCoreApi::error(ERROR_INVALID_OBJECT, __FILE__, __LINE__);
 	}
     }
 
@@ -304,7 +298,7 @@ class RssHelper {
 
 	list ($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds(array($item->getId()));
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if (!empty($thumbnails) && !empty($thumbnails[$item->getId()])) {
@@ -316,7 +310,7 @@ class RssHelper {
 		array(
 		    'forceSessionId' => false,
 		    'forceFullUrl' => true));
-
+		    
 	    $description = '<a href="' . $url .'"><img border="0" src="' . $imageUrl .
 		'" width="' . $thumbnail->getWidth() .
 		'" height="' . $thumbnail->getHeight() .
@@ -327,7 +321,7 @@ class RssHelper {
 	    /* add a link to the parent album */
 	    list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'rss');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    $url1 = $urlGenerator->generateUrl(
@@ -453,32 +447,26 @@ class RssHelper {
 	if (isset($itemId)) {
 	    list ($ret, $parentSequence) = GalleryCoreApi::fetchParentSequence($itemId);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	} else {
 	    list ($ret, $itemId) =
 		GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
 	$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.view');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$parentSequence[] = $itemId;
 	$parentSequence = implode('/', $parentSequence);
 
 	$timestamp = $newOnly ? 'creationTimestamp' : 'modificationTimestamp';
 	$table = $allowPhotos ? 'GalleryDataItem' : 'GalleryAlbumItem';
-
-	list ($ret, $newDays) =
-	    GalleryCoreApi::getPluginParameter('module', 'newitems', 'days.new');
-	if ($ret || !$newDays) {
-	    $newDays = 1; /* Use default on error or zero setting */
-	}
-	$timeCutOff = time() - 3600 * 24 * $newDays;
+	$timeCutOff = time() - 3600 * 24 * 20; /* 20 days in the past */
 
 	$query = "
 	    SELECT
@@ -524,7 +512,7 @@ class RssHelper {
 
 	list ($ret, $searchResults) = $gallery->search($query, $data, $params);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$list = array();
@@ -568,7 +556,7 @@ class RssHelper {
     function getFeedTypeTranslation() {
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'rss');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, array(
@@ -577,8 +565,6 @@ class RssHelper {
 		'photosRecurse' => $module->translate('Items in an album and its sub-albums'),
 		'commentsAlbum' => $module->translate('Comments for an album'),
 		'commentsPhoto' => $module->translate('Comments for an item'),
-		'commentsRecursive' =>
-		    $module->translate('Comments for an album and its subalbums'),
 		));
     }
 }

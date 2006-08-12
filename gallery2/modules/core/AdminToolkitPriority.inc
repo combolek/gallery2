@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: AdminToolkitPriority.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.8 $ $Date: 2006/01/17 01:52:01 $
  * @package GalleryCore
  * @subpackage UserInterface
  * @author Alan Harder <alan.harder@sun.com>
@@ -39,14 +41,14 @@ class AdminToolkitPriorityController extends GalleryController {
     function handleRequest($form) {
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$status = array();
 	if (isset($form['action']['save'])) {
 	    list ($ret, $list) = GalleryCoreApi::getRedundantToolkitPriorities();
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    foreach ($form['priority'] as $priority => $toolkit) {
 		if ($priority != $list[$toolkit]) {
@@ -54,7 +56,7 @@ class AdminToolkitPriorityController extends GalleryController {
 			'GalleryToolkitOperationMimeTypeMap',
 			array('toolkitId' => $toolkit), array('priority' => $priority));
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		}
 	    }
@@ -86,7 +88,7 @@ class AdminToolkitPriorityView extends GalleryView {
     function loadTemplate(&$template, &$form) {
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if ($form['formName'] != 'AdminToolkitPriority') {
@@ -95,14 +97,9 @@ class AdminToolkitPriorityView extends GalleryView {
 
 	list ($ret, $list) = GalleryCoreApi::getRedundantToolkitPriorities();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	asort($list);
-	/* Reset all priorities to start of managed-priority window; ensure we break any ties */
-	$priority = 20;
-	foreach ($list as $toolkit => $tmp) {
-	    $list[$toolkit] = $priority++;
-	}
 
 	$AdminToolkitPriority = array('list' => $list, 'count' => count($list));
 	$template->setVariable('AdminToolkitPriority', $AdminToolkitPriority);

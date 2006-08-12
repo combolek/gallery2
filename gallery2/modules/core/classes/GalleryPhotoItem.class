@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: GalleryPhotoItem.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.56 $ $Date: 2006/01/24 00:41:53 $
  * @package GalleryCore
  * @author Bharat Mediratta <bharat@menalto.com>
  */
@@ -78,9 +80,9 @@ class GalleryPhotoItem extends GalleryDataItem {
      * @see GalleryDataItem::canBeViewedInline()
      */
     function canBeViewedInline() {
-	static $mimeList = array('image/jpeg', 'image/pjpeg', 'image/png',
-				 'image/gif', 'image/vnd.wap.wbmp');
-	return $this->_canBeViewedInline($mimeList);
+	$mimeType = $this->getMimeType();
+	return in_array($mimeType, array('image/jpeg', 'image/pjpeg', 'image/png',
+					 'image/gif', 'image/vnd.wap.wbmp'));
     }
 
     /**
@@ -100,7 +102,7 @@ class GalleryPhotoItem extends GalleryDataItem {
 
 	/* Validate the input filename */
 	if (empty($imageFileName)) {
-	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
 	if (!$platform->file_exists($imageFileName)) {
@@ -111,7 +113,7 @@ class GalleryPhotoItem extends GalleryDataItem {
 	$ret = parent::create($parentId, $imageFileName,
 			      $mimeType, $targetName, $symlink);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* We're linkable */
@@ -129,7 +131,7 @@ class GalleryPhotoItem extends GalleryDataItem {
 	    if (!$ret2) {
 		@$platform->unlink($path);
 	    }
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -141,25 +143,25 @@ class GalleryPhotoItem extends GalleryDataItem {
     function rescan() {
 	$ret = parent::rescan();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	list ($ret, $path) = $this->fetchPath();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$mimeType = $this->getMimeType();
 
 	/* Check for CMYK colorspace and alter mime type if detected */
 	list ($ret, $toolkit) = GalleryCoreApi::getToolkitByProperty($mimeType, 'colorspace');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	if (isset($toolkit)) {
 	    list ($ret, $colorspace) = $toolkit->getProperty($mimeType, 'colorspace', $path);
 	    if ($ret) {
 		$ret->addErrorCode(ERROR_BAD_DATA_TYPE); /* See BAD_DATA_TYPE comment below */
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    if ($colorspace[0] == 'CMYK') {
 		$this->setMimeType($mimeType .= '-cmyk');
@@ -169,7 +171,7 @@ class GalleryPhotoItem extends GalleryDataItem {
 
 	list ($ret, $toolkit) = GalleryCoreApi::getToolkitByProperty($mimeType, 'dimensions');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if (isset($toolkit)) {
@@ -181,7 +183,7 @@ class GalleryPhotoItem extends GalleryDataItem {
 		 * Or our graphics code is broken.  Hard to tell which at this point.
 		 */
 		$ret->addErrorCode(ERROR_BAD_DATA_TYPE);
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    $this->setWidth($dimensions[0]);
@@ -236,11 +238,8 @@ class GalleryPhotoItem extends GalleryDataItem {
 				      : $this->getPathComponent();
 	    }
 	    if (!isset($params['longdesc'])) {
-		$longdesc = preg_replace('/[\r\n]+/', ' ',
-			GalleryUtilities::markup($this->getDescription(), 'strip'));
-		if (!empty($longdesc)) {
-		    $params['longdesc'] = $longdesc;
-		}
+		$params['longdesc'] = preg_replace('/[\r\n]+/', ' ',
+		    GalleryUtilities::markup($this->getDescription(), 'strip'));
 	    }
 
 	    $html = sprintf('<img src="%s"%s', $src, $sizeStr);

@@ -15,10 +15,10 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.2 $ $Date: 2006/01/10 04:39:36 $
  * @package GalleryCore
  * @subpackage PHPUnit
  * @author Jozef Selesi <selesi at gmail dot com>
@@ -76,14 +76,6 @@ class RepositoryTestStorage {
 	return null;
     }
 
-    function getMapEntry($map, $data, $match) {
-	$singleton =& $this->getSingleton();
-	$singleton->_searches[] = array('map' => $map, 'select' => $data, 'where' => $match);
-
-	return array(null,
-		     new RepositoryTestSearchResults($singleton->_searchResults));
-    }
-    
     function getAddedMapData() {
 	$singleton =& $this->getSingleton();
 	return $singleton->_addedMapData;

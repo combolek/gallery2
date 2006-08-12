@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: DcrawToolkit.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.7.2.1 $ $Date: 2006/04/05 00:19:53 $
  * @package Dcraw
  * @author Vallimar <vallimar@sexorcisto.net>
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -47,7 +49,7 @@ class DcrawToolkit extends GalleryToolkit {
 	global $gallery;
 
 	if ($mimeType != 'image/x-dcraw') {
-	    return array(GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION),
+	    return array(GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION, __FILE__, __LINE__),
 			 null);
 	}
 
@@ -60,7 +62,7 @@ class DcrawToolkit extends GalleryToolkit {
 	    list ($ret, $toolkit) =
 		GalleryCoreApi::getToolkitByProperty('image/x-portable-pixmap', 'dimensions');
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    if (isset($toolkit)) {
@@ -70,7 +72,7 @@ class DcrawToolkit extends GalleryToolkit {
 		    'image/x-dcraw', 'convert-to-image/x-portable-pixmap', $sourceFilename,
 		    $tempfile, array(), array());
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		/* We now have a PPM file, get its dimensions */
@@ -78,7 +80,7 @@ class DcrawToolkit extends GalleryToolkit {
 		    $toolkit->getProperty('image/x-portable-pixmap', 'dimensions', $tempfile);
 		$platform->unlink($tempfile);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    } else {
 		/* We have no idea :-( */
@@ -87,7 +89,7 @@ class DcrawToolkit extends GalleryToolkit {
 	    break;
 
 	default:
-	    return array(GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION),
+	    return array(GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION, __FILE__, __LINE__),
 			 null);
 	}
 
@@ -102,7 +104,7 @@ class DcrawToolkit extends GalleryToolkit {
 	global $gallery;
 
 	if ($mimeType != 'image/x-dcraw') {
-	    return array(GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION),
+	    return array(GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION, __FILE__, __LINE__),
 			 null, null);
 	}
 
@@ -110,7 +112,7 @@ class DcrawToolkit extends GalleryToolkit {
 	case 'convert-to-image/x-portable-pixmap':
 	    list ($ret, $dcraw) = GalleryCoreApi::getPluginParameter('module', 'dcraw', 'path');
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 
 	    $tmpDir = $gallery->getConfig('data.gallery.tmp');
@@ -118,14 +120,14 @@ class DcrawToolkit extends GalleryToolkit {
 	    $tmpFilename = $platform->tempnam($tmpDir, 'dcraw_');
 	    if (empty($tmpFilename)) {
 		/* This can happen if the $tmpDir path is bad */
-		return array(GalleryCoreApi::error(ERROR_BAD_PATH),
+		return array(GalleryCoreApi::error(ERROR_BAD_PATH, __FILE__, __LINE__),
 			     null, null);
 	    }
 
 	    list ($ret, $version) =
 		GalleryCoreApi::getPluginParameter('module', 'dcraw', 'version');
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 
 	    if (version_compare($version, '7.73', '>=')) {
@@ -139,7 +141,7 @@ class DcrawToolkit extends GalleryToolkit {
 	    list ($success, $output) = $platform->exec(array($cmd));
 	    if (!$success) {
 		@$platform->unlink($tmpFilename);
-		return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE),
+		return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE, __FILE__, __LINE__),
 			     null, null);
 	    }
 
@@ -155,7 +157,7 @@ class DcrawToolkit extends GalleryToolkit {
 	    return array(null, 'image/x-portable-pixmap', $context);
 
 	default:
-	    return array(GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION),
+	    return array(GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION, __FILE__, __LINE__),
 			 null, null);
 	}
     }

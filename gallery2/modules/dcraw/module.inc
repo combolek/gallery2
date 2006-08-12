@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: module.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.18.2.1 $ $Date: 2006/04/05 00:19:53 $
  * @package Dcraw
  * @author Bharat Mediratta <bharat@menalto.com>
  */
@@ -55,7 +57,7 @@ class DcrawModule extends GalleryModule {
 	    'GalleryToolkit', 'DcrawToolkit', 'Dcraw',
 	    'modules/dcraw/classes/DcrawToolkit.class', 'dcraw', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -69,29 +71,29 @@ class DcrawModule extends GalleryModule {
 
         list ($ret, $priority) = GalleryCoreApi::getToolkitPriorityById('Dcraw');
         if ($ret) {
-            return array($ret, null);
+            return array($ret->wrap(__FILE__, __LINE__), null);
         }
 
         if (!$priority) {
 	    list ($ret, $priority) = GalleryCoreApi::getMaximumManagedToolkitPriority();
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
-	    $priority = min($priority + 1, 40);
+	    $priority++;
 	}
 
 	$ret = GalleryCoreApi::registerToolkitOperation(
 	    'Dcraw', array('image/x-dcraw'), 'convert-to-image/x-portable-pixmap',
 	    array(), $gallery->i18n('Convert to PPM'), 'image/x-portable-pixmap', $priority);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$ret = GalleryCoreApi::registerToolkitProperty(
 	    'Dcraw', array('image/x-dcraw'), 'dimensions', 'int,int',
 	    $gallery->i18n('Get the width and height of the image'));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Assign all extensions we handle to our image mime type */
@@ -101,7 +103,7 @@ class DcrawModule extends GalleryModule {
 	    $ret = GalleryCoreApi::addMimeType($extension, 'image/x-dcraw', 0);
 	    if ($ret) {
 		if (!($ret->getErrorCode() & ERROR_COLLISION)) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
 	}
@@ -111,22 +113,44 @@ class DcrawModule extends GalleryModule {
 
 	list ($ret, $path) = $this->getParameter('path');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $testResults, $version) = DcrawToolkitHelper::testBinary($path);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$ret = $this->setParameter('version', $version);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $redirect) = parent::activate($postActivationEvent);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	return array(null, $redirect);
+    }
+
+    /**
+     * @see GalleryModule::deactivate
+     */
+    function deactivate($postDeactivationEvent=true) {
+	/*
+	 * Unregister all of our properties and operations.  Do this before the parent deactivates
+	 * so that any event handlers triggered by the deactivation will see the world as it will
+	 * be after the deactivation is done.
+	 */
+	$ret = GalleryCoreApi::unregisterToolkit('Dcraw');
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	list ($ret, $redirect) = parent::deactivate($postDeactivationEvent);
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, $redirect);
@@ -138,12 +162,12 @@ class DcrawModule extends GalleryModule {
     function needsConfiguration() {
 	list ($ret, $path) = $this->getParameter('path');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $version) = $this->getParameter('version');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, empty($path) || empty($version));
@@ -157,7 +181,7 @@ class DcrawModule extends GalleryModule {
 
 	list ($ret, $needsConfiguration) = $this->needsConfiguration();
 	if ($ret) {
-	    return array($ret, false);
+	    return array($ret->wrap(__FILE__, __LINE__), false);
 	}
 
 	if (!$needsConfiguration) {
@@ -235,7 +259,7 @@ class DcrawModule extends GalleryModule {
 		/* We have a winner */
 		$ret = GalleryCoreApi::setPluginParameter('module', 'dcraw', 'path', $path);
 		if ($ret) {
-		    return array($ret, false);
+		    return array($ret->wrap(__FILE__, __LINE__), false);
 		}
 
 		return array(null, true);

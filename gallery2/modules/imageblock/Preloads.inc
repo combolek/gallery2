@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: Preloads.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.6 $ $Date: 2006/01/10 04:40:16 $
  * @package ImageBlock
  * @author Bharat Mediratta <bharat@menalto.com>
  */
@@ -31,7 +33,7 @@ class ImageBlockPreloads {
 	    list ($ret, $moduleParams) =
 		GalleryCoreApi::fetchAllPluginParameters('module', 'imageblock');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $frameIds = array();
 	    foreach ($paramSet as $params) {
@@ -49,7 +51,7 @@ class ImageBlockPreloads {
 		list ($ret, $imageframe) =
 		    GalleryCoreApi::newFactoryInstance('ImageFrameInterface_1_1');
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
 		if (isset($imageframe)) {
@@ -58,7 +60,7 @@ class ImageBlockPreloads {
 			if ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH) {
 			    /* It's there, but unusable so ignore it. */
 			} else {
-			    return $ret;
+			    return $ret->wrap(__FILE__, __LINE__);
 			}
 		    }
 		}
@@ -68,7 +70,7 @@ class ImageBlockPreloads {
 	}
 
 
-	return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
+	return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
     }
 }
 ?>

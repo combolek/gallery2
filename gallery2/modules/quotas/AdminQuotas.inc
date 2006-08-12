@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: AdminQuotas.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.8 $ $Date: 2006/01/17 01:52:03 $
  * @package Quotas
  * @subpackage UserInterface
  * @author Robert Balousek <volksport@users.sf.net>
@@ -39,7 +41,7 @@ class AdminQuotasController extends GalleryController {
     function handleRequest($form) {
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$results = $status = $error = array();
@@ -48,7 +50,7 @@ class AdminQuotasController extends GalleryController {
 	    list ($ret, $group) = GalleryCoreApi::fetchGroupByGroupName($form['text']['groupName']);
 	    if ($ret) {
 		if (!($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
 	}
@@ -56,7 +58,7 @@ class AdminQuotasController extends GalleryController {
 	    list ($ret, $user) = GalleryCoreApi::fetchUserByUserName($form['text']['userName']);
 	    if ($ret) {
 	        if (!($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
 	}
@@ -72,7 +74,7 @@ class AdminQuotasController extends GalleryController {
 		list ($ret, $quotaExists, $groupQuota) =
 		    GalleryQuotasHelper::fetchGroupQuota($group->getId());
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		if (isset($groupQuota['id'])) {
 		    $error[] = 'form[error][text][GroupQuotaExists]';
@@ -93,7 +95,7 @@ class AdminQuotasController extends GalleryController {
 		list ($ret, $quotaExists, $userQuota) =
 		    GalleryQuotasHelper::fetchUserQuota($user->getId());
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		if (isset($userQuota['id'])) {
 		    $error[] = 'form[error][text][UserQuotaExists]';
@@ -115,7 +117,7 @@ class AdminQuotasController extends GalleryController {
 		list ($ret, $quotaExists, $groupQuota) =
 		    GalleryQuotasHelper::fetchGroupQuota($group->getId());
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		if (!isset($groupQuota['id'])) {
 		    $error[] = 'form[error][text][noSuchGroupQuota]';
@@ -138,7 +140,7 @@ class AdminQuotasController extends GalleryController {
 		list ($ret, $quotaExists, $userQuota) =
 		    GalleryQuotasHelper::fetchUserQuota($user->getId());
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		if (!isset($userQuota['id'])) {
 		    $error[] = 'form[error][text][noSuchUserQuota]';
@@ -161,7 +163,7 @@ class AdminQuotasController extends GalleryController {
 		list ($ret, $quotaExists, $groupQuota) =
 		    GalleryQuotasHelper::fetchGroupQuota($group->getId());
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		if (!isset($groupQuota['id'])) {
 		    $error[] = 'form[error][text][noSuchGroupQuota]';
@@ -184,7 +186,7 @@ class AdminQuotasController extends GalleryController {
 		list ($ret, $quotaExists, $userQuota) =
 		    GalleryQuotasHelper::fetchUserQuota($user->getId());
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		if (!isset($userQuota['id'])) {
 		    $error[] = 'form[error][text][noSuchUserQuota]';
@@ -229,7 +231,7 @@ class AdminQuotasView extends GalleryView {
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Load some standard form parameters */
@@ -248,12 +250,12 @@ class AdminQuotasView extends GalleryView {
 
 	list ($ret, $totalGroupCount) = GalleryQuotasHelper::fetchQuotaGroupCount();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $totalUserCount) = GalleryQuotasHelper::fetchQuotaUserCount();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$form['list']['group']['count'] = $totalGroupCount;
@@ -276,7 +278,7 @@ class AdminQuotasView extends GalleryView {
 						     (($form['list']['group']['page'] - 1) *
 						       $form['list']['group']['pageSize']));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$form['list']['groupNames'] = array();
@@ -287,7 +289,7 @@ class AdminQuotasView extends GalleryView {
 	    	  $form['list']['groupNames'][$groupId]['quotaUnit']) =
 	        GalleryQuotasHelper::humanReadableFromKilobytes($values['quota']);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
@@ -311,7 +313,7 @@ class AdminQuotasView extends GalleryView {
 						     (($form['list']['user']['page'] - 1) *
 						       $form['list']['user']['pageSize']));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$form['list']['userNames'] = array();
@@ -322,7 +324,7 @@ class AdminQuotasView extends GalleryView {
 	    	  $form['list']['userNames'][$userId]['quotaUnit']) =
 	        GalleryQuotasHelper::humanReadableFromKilobytes($values['quota']);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 

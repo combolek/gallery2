@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: NewItemsSortOrder.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,12 +20,12 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.8 $ $Date: 2006/01/13 03:39:47 $
  * @package NewItems
  * @author Alan Harder <alan.harder@sun.com>
  */
 
-GalleryCoreApi::requireOnce('modules/core/classes/GallerySortInterface_1_2.class');
+GalleryCoreApi::requireOnce('modules/core/classes/GallerySortInterface_1_1.class');
 
 /**
  * Sort with new items shown first, followed by other items sorted by view count.
@@ -31,22 +33,22 @@ GalleryCoreApi::requireOnce('modules/core/classes/GallerySortInterface_1_2.class
  * @package NewItems
  * @subpackage Classes
  */
-class NewItemsSortOrder extends GallerySortInterface_1_2 {
+class NewItemsSortOrder extends GallerySortInterface_1_1 {
 
     /**
-     * @see GallerySortInterface_1_2::getSortInfo
+     * @see GallerySortInterface_1_1::getSortInfo
      */
     function getSortInfo() {
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'newitems');
 	if ($ret) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	return array(null, $module->translate('New Items First'), true);
     }
 
     /**
-     * @see GallerySortInterface_1_2::getSortOrder
+     * @see GallerySortInterface_1_1::getSortOrder
      */
     function getSortOrder($direction) {
 	global $gallery;
@@ -55,17 +57,17 @@ class NewItemsSortOrder extends GallerySortInterface_1_2 {
 	list ($ret, $newTime) =
 	    GalleryCoreApi::getPluginParameter('module', 'newitems', 'days.new');
 	if ($ret) {
-	    return array($ret, null, null, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null, null, null);
 	}
 	$newTime = time() - $newTime * 86400;
 	list ($ret, $case) = $storage->getFunctionSql('CASE',
 	    array("[GalleryEntity::creationTimestamp] > $newTime", '0', '1'));
 	if ($ret) {
-	    return array($ret, null, null, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null, null, null);
 	}
 
-	return array(null, '%1%', $case, null,
-		     'INNER JOIN [GalleryEntity] ON [BASE::ID] = [GalleryEntity::id]');
+	return array(null, '%1%', $case,
+		     '[GalleryEntity::id] = [GalleryChildEntity::id]', null);
     }
 }
 ?>

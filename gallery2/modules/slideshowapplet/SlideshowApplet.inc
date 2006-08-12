@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: SlideshowApplet.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.11 $ $Date: 2006/02/27 00:25:57 $
  * @package SlideshowApplet
  * @author Pierre-Luc Paour <gallery@paour.com>
  */
@@ -33,12 +35,12 @@ class SlideshowAppletView extends GalleryView {
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'slideshowapplet');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $modules) = GalleryCoreApi::fetchPluginStatus('module');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$startId = null;
@@ -46,7 +48,7 @@ class SlideshowAppletView extends GalleryView {
 	/* Build slideshow for an album.. */
 	list ($ret, $item) = $this->_getItem();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (!$item->getCanContainChildren()) {
@@ -54,7 +56,7 @@ class SlideshowAppletView extends GalleryView {
 	    $startId = $item->getId();
 	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($item->getParentId());
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
@@ -73,11 +75,11 @@ class SlideshowAppletView extends GalleryView {
 	    $SlideshowApplet['g2BaseUrl'] = $urlGenerator->getCurrentUrlDir(true);
 	    list ($ret, $cookiePath) = $urlGenerator->getCookiePath(true);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    list ($ret, $cookieDomain) = $session->getCookieDomain();
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $SlideshowApplet['NoProtocolError'] = 0;
 	    $SlideshowApplet['cookieName'] = $session->getKey();
@@ -91,7 +93,7 @@ class SlideshowAppletView extends GalleryView {
 
 	    list ($ret, $locale) = $gallery->getActiveLanguageCode();
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $SlideshowApplet['locale'] = $locale;
 
@@ -103,7 +105,7 @@ class SlideshowAppletView extends GalleryView {
 	    list ($ret, $params) =
 		GalleryCoreApi::fetchAllPluginParameters('module', 'slideshowapplet');
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    foreach (array('default', 'override') as $type) {
 		$SlideshowApplet[$type] = array();
@@ -130,7 +132,7 @@ class SlideshowAppletView extends GalleryView {
     function getViewDescription() {
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'slideshowapplet');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, $module->translate('slideshow (fullscreen)'));

@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: Download.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.18 $ $Date: 2006/01/11 23:14:37 $
  * @package ZipCart
  * @author Alan Harder <alan.harder@sun.com>
  */
@@ -55,9 +57,6 @@ class DownloadView extends GalleryView {
 	    $size = $platform->filesize($file);
 	    /* Disable output compression (if necessary) since IE seems to have problems with it */
 	    @$phpVm->ini_set('zlib.output_compression', 0);
-	    if (function_exists('apache_setenv')) {
-		@apache_setenv('no-gzip', '1');
-	    }
 
 	    /* preg i modifier is affected by locale */
 	    $sendMultipart = !preg_match('{[Mm][Ss][Ii][Ee] |[Ss][Aa][Ff][Aa][Rr][Ii]}',

@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ThumbnailSiteAdminControllerTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.10 $ $Date: 2006/01/13 03:39:52 $
  * @package Thumbnail
  * @subpackage PHPUnit
  * @author Alan Harder <alan.harder@sun.com>
@@ -73,7 +75,7 @@ class ThumbnailSiteAdminControllerTest extends GalleryControllerTestCase {
 	list ($ret, $toolkit, $outputMimeType) =
 	    GalleryCoreApi::getToolkitByOperation('image/gif', 'thumbnail');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	if (!isset($toolkit)) {
 	    echo "<b>Warning</b>: testThumbnailSiteAdminControllerAddBadMime requires an active " .
@@ -136,14 +138,14 @@ class ThumbnailSiteAdminControllerTest extends GalleryControllerTestCase {
 	list ($ret, $toolkit, $outputMimeType) =
 	    GalleryCoreApi::getToolkitByOperation('test/fakemime', 'convert-to-image/jpeg');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert(GalleryUtilities::isA($toolkit, 'ThumbnailToolkit'), 'Toolkit');
 	$this->assertEquals('image/jpeg', $outputMimeType, 'Output mime type');
 
 	list ($ret, $mimeMap) = ThumbnailHelper::fetchMimeTypeMap();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert(isset($mimeMap['test/fakemime']), 'Map entry not found after add');
 	$itemId = $mimeMap['test/fakemime'];
@@ -164,7 +166,7 @@ class ThumbnailSiteAdminControllerTest extends GalleryControllerTestCase {
 	list ($ret, $toolkit, $outputMimeType) =
 	    GalleryCoreApi::getToolkitByOperation('test/fakemime2', 'convert-to-image/jpeg');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert(GalleryUtilities::isA($toolkit, 'ThumbnailToolkit'), 'Toolkit');
 	$this->assertEquals('image/jpeg', $outputMimeType, 'Output mime type');
@@ -190,7 +192,7 @@ class ThumbnailSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $mimeMap) = ThumbnailHelper::fetchMimeTypeMap();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert(!isset($mimeMap['test/fakemime']), 'Map entry still found after delete');
 	$this->assert(isset($mimeMap['test/fakemime2']), 'Map entry not found after delete');
@@ -199,7 +201,7 @@ class ThumbnailSiteAdminControllerTest extends GalleryControllerTestCase {
 	list ($ret, $toolkit, $outputMimeType) =
 	    GalleryCoreApi::getToolkitByOperation('test/fakemime', 'convert-to-image/jpeg');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert(!isset($toolkit), 'Toolkit should not be found');
 
@@ -216,7 +218,7 @@ class ThumbnailSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $mimeMap) = ThumbnailHelper::fetchMimeTypeMap();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert(!isset($mimeMap['test/fakemime']), 'Map entry still found after delete');
 	$this->assert(!isset($mimeMap['test/fakemime2']), 'Map entry still found after delete');
@@ -224,7 +226,7 @@ class ThumbnailSiteAdminControllerTest extends GalleryControllerTestCase {
 	list ($ret, $toolkit, $outputMimeType) =
 	    GalleryCoreApi::getToolkitByOperation('test/fakemime2', 'convert-to-image/jpeg');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert(!isset($toolkit), 'Toolkit should not be found');
     }

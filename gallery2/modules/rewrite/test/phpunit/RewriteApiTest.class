@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: RewriteApiTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.2 $ $Date: 2006/01/10 04:42:22 $
  * @package Rewrite
  * @subpackage PHPUnit
  * @author Douglas Cau <douglas@cau.se>
@@ -44,7 +46,7 @@ class RewriteApiTest extends GalleryTestCase {
         $ret = $this->_markPluginParametersForCleanup('module', 'rewrite');
         if ($ret) {
             print $ret->getAsHtml();
-            return $this->failWithStatus($ret);
+            return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
         }
 
         /* Set up our mock parser */
@@ -52,7 +54,7 @@ class RewriteApiTest extends GalleryTestCase {
             'rewriteapimock');
         if ($ret) {
             print $ret->getAsHtml();
-            return $this->failWithStatus($ret);
+            return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
         }
 
         /* Make sure we use the mock parser */
@@ -60,7 +62,7 @@ class RewriteApiTest extends GalleryTestCase {
         list ($ret, $parser) = RewriteHelper::getRewriteParser(true);
         if ($ret) {
             print $ret->getAsHtml();
-            return $this->failWithStatus($ret);
+            return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
         }
         $this->assertEquals('rewriteapimock', $parser->getParserId(), 'parserId');
 
@@ -68,7 +70,7 @@ class RewriteApiTest extends GalleryTestCase {
 	list ($ret, $this->_rewriteApi) = GalleryCoreApi::newFactoryInstance('RewriteApi');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	/* Set gallery in embedded mode */
@@ -94,7 +96,7 @@ class RewriteApiTest extends GalleryTestCase {
     function testNeedsEmbedConfig1() {
 	list ($ret, $needsConfiguration) = $this->_rewriteApi->needsEmbedConfig();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assertEquals(true, $needsConfiguration);
@@ -104,7 +106,7 @@ class RewriteApiTest extends GalleryTestCase {
 	GalleryDataCache::remove('G2_EMBED');
 	list ($ret, $needsConfiguration) = $this->_rewriteApi->needsEmbedConfig();
 	if ($ret && !($ret->getErrorCode() & ERROR_UNSUPPORTED_OPERATION)) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assert(ERROR_UNSUPPORTED_OPERATION & $ret->getErrorCode());
@@ -113,7 +115,7 @@ class RewriteApiTest extends GalleryTestCase {
     function testFetchEmbedConfig1() {
 	list ($ret, $params) = $this->_rewriteApi->fetchEmbedConfig();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assertEquals(array('phpunit' => 'test'), $params);
@@ -123,7 +125,7 @@ class RewriteApiTest extends GalleryTestCase {
 	GalleryDataCache::remove('G2_EMBED');
 	list ($ret, $params) = $this->_rewriteApi->fetchEmbedConfig();
 	if ($ret && !($ret->getErrorCode() & ERROR_UNSUPPORTED_OPERATION)) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assert(ERROR_UNSUPPORTED_OPERATION & $ret->getErrorCode());
@@ -132,7 +134,7 @@ class RewriteApiTest extends GalleryTestCase {
     function testSaveEmbedConfig1() {
 	list ($ret, $code, $errstr) = $this->_rewriteApi->saveEmbedConfig(array('phpunit' => 1));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assertEquals(REWRITE_STATUS_OK, $code, 'code');
@@ -140,7 +142,7 @@ class RewriteApiTest extends GalleryTestCase {
 
 	list ($ret, $code, $errstr) = $this->_rewriteApi->saveEmbedConfig(array('phpunit' => 0));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assertEquals(REWRITE_STATUS_INVALID_PATTERN, $code, 'code');
@@ -151,7 +153,7 @@ class RewriteApiTest extends GalleryTestCase {
 	GalleryDataCache::remove('G2_EMBED');
 	list ($ret, $params) = $this->_rewriteApi->saveEmbedConfig(array());
 	if ($ret && !($ret->getErrorCode() & ERROR_UNSUPPORTED_OPERATION)) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assert(ERROR_UNSUPPORTED_OPERATION & $ret->getErrorCode());

@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: TemplateAdapterTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$
+ * @version $Revision: 1.16 $
  * @package GalleryCore
  * @subpackage PHPUnit
  * @author Jesse Mullan
@@ -127,21 +129,12 @@ class TemplateAdapterTest extends GalleryTestCase {
 			    $this->_mockUrlGenerator->_calls[0]);
     }
 
-    function testUrlParamsAndArgs() {
-	$this->_setupAdapterWithMocks();
-	$this->_templateAdapter->url(array('params' => array('view' => 'fun.View'),
-					   'arg1' => 'foo=bar'), $this->_mockSmarty);
-
-	$this->assertEquals(array(array('view' => 'fun.View', 'foo' => 'bar'), array()),
-			    $this->_mockUrlGenerator->_calls[0]);
-    }
-
     function testChangeInDescendents() {
 	$test = array('module' => 'pirate', 'text' => 'ninja', 'l10Domain' => 'en_US');
 	$this->_setupAdapterWithMocks();
 	$result = GalleryTemplateAdapter::changeInDescendents($test, $this->_mockSmarty);
-	$this->assertEquals('<input type="checkbox" id="pirate_ChangeInDescendents" ' .
-	    'name="g2_form[changeInDescendents][pirate]"/> <label ' .
+	$this->assertEquals('<input type="checkbox" id="pirate_ChangeInDescendents"	' .
+	    'name="g2_form[changeInDescendents][pirate]"/>  <label ' .
 	    'for="pirate_ChangeInDescendents"> ninja</label>', $result);
     }
 

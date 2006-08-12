@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: Configure.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.8 $ $Date: 2006/01/10 04:41:12 $
  * @package NokiaUpload
  * @author Alan Harder <alan.harder@sun.com>
  */
@@ -38,7 +40,7 @@ class ConfigureController extends GalleryController {
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$error = array();
@@ -60,7 +62,7 @@ class ConfigureController extends GalleryController {
 		    if ($ret->getErrorCode() & ERROR_COLLISION) {
 			$error[] = 'form[error][group][duplicate]';
 		    } else {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		}
 
@@ -68,11 +70,11 @@ class ConfigureController extends GalleryController {
 		    list ($ret, $albumId) =
 			ImageUploadHelper::createUploadAlbum($form['album'], $form['parent']);
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		    $ret = ImageUploadHelper::setAlbumPermissions($albumId, $groupId);
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
 		    $status['configured'] = 'nokiaupload';
@@ -82,7 +84,7 @@ class ConfigureController extends GalleryController {
 
 	if (empty($error)) {
 	    $results['redirect'] = array('view' => 'core.SiteAdmin',
-					 'subView' => 'core.AdminPlugins');
+					 'subView' => 'core.AdminModules');
 	} else {
 	    $results['delegate'] = array('view' => 'core.SiteAdmin',
 					 'subView' => 'nokiaupload.Configure');
@@ -108,7 +110,7 @@ class ConfigureView extends GalleryView {
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'nokiaupload');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Load our default values if we didn't just come from this form. */
@@ -122,11 +124,11 @@ class ConfigureView extends GalleryView {
 	list ($ret, $albumIds) =
 	    GalleryCoreApi::fetchAllItemIds('GalleryAlbumItem', 'core.addAlbumItem');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$albumTree = GalleryUtilities::createAlbumTree($albums);
 

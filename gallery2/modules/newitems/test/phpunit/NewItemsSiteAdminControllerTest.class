@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: NewItemsSiteAdminControllerTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.7 $ $Date: 2006/01/10 04:41:12 $
  * @package NewItems
  * @subpackage PHPUnit
  * @author Alan Harder <alan.harder@sun.com>
@@ -48,26 +50,26 @@ class NewItemsSiteAdminControllerTest extends GalleryControllerTestCase {
 	$ret = $this->_markPluginParametersForCleanup('module', 'newitems');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'core');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'default.orderBy', 'NewItems');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId(),
 	    array('orderBy' => 'NewItems', 'orderDirection' => ORDER_DESCENDING));
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->_markForCleanup($this->_album);
@@ -100,7 +102,7 @@ class NewItemsSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $days) = GalleryCoreApi::getPluginParameter('module', 'newitems', 'days.new');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals('13', $days, 'days');
     }
@@ -134,12 +136,12 @@ class NewItemsSiteAdminControllerTest extends GalleryControllerTestCase {
     function testNewItemsSiteAdminControllerReset() {
 	$ret = $this->_saveNewItemSorts();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $count) = NewItemsHelper::fetchAlbumCount();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert($count > 0, 'Should be at least one NewItems sort in db');
 
@@ -154,19 +156,19 @@ class NewItemsSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $count) = NewItemsHelper::fetchAlbumCount();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(0, $count, 'Should be no NewItems sorts in db after reset');
 
 	$ret = $this->_restoreNewItemSorts();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $defaultSort) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'default.orderBy');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals('orderWeight', $defaultSort, 'default sort');
     }
@@ -178,7 +180,7 @@ class NewItemsSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $results) = $gallery->search($query);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$ids = array();
 	while ($result = $results->nextResult()) {
@@ -194,23 +196,23 @@ class NewItemsSiteAdminControllerTest extends GalleryControllerTestCase {
 	}
 	list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock(array_keys($this->_newItemSortIds));
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	list ($ret, $items) = GalleryCoreApi::loadEntitiesById(array_keys($this->_newItemSortIds));
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	foreach ($items as $item) {
 	    $item->setOrderBy('NewItems');
 	    $item->setOrderDirection($this->_newItemSortIds[$item->getId()]);
 	    $ret = $item->save();
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 	$ret = GalleryCoreApi::releaseLocks($lockId);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	return null;
     }

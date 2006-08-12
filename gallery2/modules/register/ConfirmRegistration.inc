@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ConfirmRegistration.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.12 $ $Date: 2006/01/10 04:42:01 $
  * @package SelfRegistration
  * @subpackage UserInterface
  * @author Sebastian Eichner <mailsp@sebastian-eichner.de>
@@ -59,7 +61,7 @@ class ConfirmRegistrationController extends GalleryController {
 		    $results['error'][] = 'form[error][unknownUser]';
 		}
 	    } else {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	} else {
 	    /* verify registration key: */
@@ -68,7 +70,7 @@ class ConfirmRegistrationController extends GalleryController {
 	    } else {
 		$ret = GalleryPendingUserHelper::createGalleryUser($user);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
 	}
@@ -85,7 +87,7 @@ class ConfirmRegistrationController extends GalleryController {
 /**
  * This view shows a confirmation that the users account was activated
  *
- * @package SelfRegistration
+ * @package Selfregistration
  * @subpackage UserInterface
  */
 class ConfirmRegistrationView extends GalleryView {

@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: UserAlbum.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.8 $ $Date: 2006/01/13 03:39:52 $
  * @package UserAlbum
  * @author Alan Harder <alan.harder@sun.com>
  */
@@ -44,30 +46,31 @@ class UserAlbumController extends GalleryController {
 	    $userId = $activeUserId;
 	}
 
-	list ($ret, $isAnonymous) = GalleryCoreApi::isAnonymousUser($userId);
+	list ($ret, $anonymousUserId) =
+	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	if ($isAnonymous) {
-	    return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED), null);
+	if ($userId == $anonymousUserId) {
+	    return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED, __FILE__, __LINE__), null);
 	}
 
 	list ($ret, $albumId) =
 	    GalleryCoreApi::getPluginParameter('module', 'useralbum', 'albumId', $userId);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $createMode) =
 	    GalleryCoreApi::getPluginParameter('module', 'useralbum', 'create');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (!empty($albumId)) {
 	    list ($ret, $album) = GalleryCoreApi::loadEntitiesById($albumId);
 	    if ($ret && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
@@ -75,19 +78,19 @@ class UserAlbumController extends GalleryController {
 	    /* If userId matches active user then create the user album */
 	    if ($userId != $activeUserId) {
 		return
-		    array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED), null);
+		    array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED, __FILE__, __LINE__), null);
 	    }
 	    GalleryCoreApi::requireOnce('modules/useralbum/classes/UserAlbumHelper.class');
 
 	    $ret = UserAlbumHelper::createUserAlbum($gallery->getActiveUser());
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    list ($ret, $albumId) =
 		GalleryCoreApi::getPluginParameter('module', 'useralbum', 'albumId', $userId);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 

@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: CommentCaptchaAdminOption.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.1 $ $Date: 2006/02/09 05:02:26 $
  * @package Comment
  * @subpackage Classes
  * @author Alan Harder <alan.harder@sun.com>
@@ -37,7 +39,7 @@ class CommentCaptchaAdminOption extends CaptchaAdminOption {
     function getOptionData() {
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'comment');
 	if ($ret) {
-	    return array($ret, null, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null, null);
 	}
 	/* Note: we use validation.level for all plugins, but config is via captcha module */
 	return array(null, $module->translate('Guest Comments'),

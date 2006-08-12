@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ArchiveExtractToolkit.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.4.2.1 $ $Date: 2006/04/05 00:19:52 $
  * @package ArchiveUpload
  * @author Alan Harder <alan.harder@sun.com>
  */
@@ -49,19 +51,19 @@ class ArchiveExtractToolkit extends GalleryToolkit {
 					       "$operationName $mimeType"), null, null);
 	}
 	if (!$platform->is_dir($destFilename)) {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER),
+	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__),
 			 null, null);
 	}
 
 	list ($ret, $unzip) =
 	    GalleryCoreApi::getPluginParameter('module', 'archiveupload', 'unzipPath');
 	if ($ret) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	$cwd = $platform->getcwd();
 	if (!$platform->chdir($destFilename)) {
-	    return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE),
+	    return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__),
 			 null, null);
 	}
 	$gallery->guaranteeTimeLimit(60);
@@ -71,13 +73,13 @@ class ArchiveExtractToolkit extends GalleryToolkit {
 	    @$platform->chdir($cwd);
 	}
 	if (!$success) {
-	    return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE),
+	    return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__),
 			 null, null);
 	}
 
 	/* Set permissions according to core parameter settings */
 	if (!$platform->recursiveChmod($destFilename)) {
-	    return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE),
+	    return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__),
 			 null, null);
 	}
 

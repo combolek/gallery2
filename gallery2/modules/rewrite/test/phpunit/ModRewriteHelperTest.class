@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ModRewriteHelperTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.2 $ $Date: 2006/01/10 04:42:22 $
  * @package Rewrite
  * @subpackage PHPUnit
  * @author Douglas Cau <douglas@cau.se>
@@ -47,14 +49,14 @@ class ModRewriteHelperTest extends GalleryTestCase {
 	$ret = $urlGenerator->init('http://www.test.server/gallery2/main.php');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$gallery->setUrlGenerator($urlGenerator);
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'rewrite');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	/* Set up our environment */
@@ -66,7 +68,7 @@ class ModRewriteHelperTest extends GalleryTestCase {
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'rewrite', $key, $value);
 	    if ($ret) {
 		print $ret->getAsHtml();
-		return $this->failWithStatus($ret);
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	}
 
@@ -81,14 +83,14 @@ class ModRewriteHelperTest extends GalleryTestCase {
     function testHtaccessPath() {
 	list ($ret, $path) = ModRewriteHelper::getHtaccessPath();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assertEquals(GALLERY_CONFIG_DIR . '/.htaccess', $path, 'standalone');
 
 	list ($ret, $path) = ModRewriteHelper::getHtaccessPath(true);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assertEquals('/phpunit/embedded/.htaccess', $path, 'embedded');
@@ -97,28 +99,28 @@ class ModRewriteHelperTest extends GalleryTestCase {
     function testCheckFile() {
 	list ($ret, $code) = ModRewriteHelper::checkFile();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(REWRITE_STATUS_OK, $code, 'success');
 
 	$this->_platform->_isWriteable = false;
 	list ($ret, $code) = ModRewriteHelper::checkFile();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(REWRITE_STATUS_HTACCESS_CANT_WRITE, $code, 'writeable');
 
 	$this->_platform->_isReadable = false;
 	list ($ret, $code) = ModRewriteHelper::checkFile();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(REWRITE_STATUS_HTACCESS_CANT_READ, $code, 'readable');
 
 	$this->_platform->_fileExists = false;
 	list ($ret, $code) = ModRewriteHelper::checkFile();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(REWRITE_STATUS_HTACCESS_MISSING, $code, 'exists');
     }
@@ -126,28 +128,28 @@ class ModRewriteHelperTest extends GalleryTestCase {
     function testCheckFileEmbedded() {
 	list ($ret, $code) = ModRewriteHelper::checkFile(true);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(REWRITE_STATUS_OK, $code, 'success');
 
 	$this->_platform->_isWriteableEmbed = false;
 	list ($ret, $code) = ModRewriteHelper::checkFile(true);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(REWRITE_STATUS_EMBED_HTACCESS_CANT_WRITE, $code, 'writeable');
 
 	$this->_platform->_isReadableEmbed = false;
 	list ($ret, $code) = ModRewriteHelper::checkFile(true);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(REWRITE_STATUS_EMBED_HTACCESS_CANT_READ, $code, 'readable');
 
 	$this->_platform->_fileExistsEmbed = false;
 	list ($ret, $code) = ModRewriteHelper::checkFile(true);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(REWRITE_STATUS_EMBED_HTACCESS_MISSING, $code, 'exists');
     }
@@ -155,7 +157,7 @@ class ModRewriteHelperTest extends GalleryTestCase {
     function testWriteFile() {
 	list ($ret, $code) = ModRewriteHelper::writeFile(array());
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assertEquals(REWRITE_STATUS_OK, $code, 'success');
@@ -165,7 +167,7 @@ class ModRewriteHelperTest extends GalleryTestCase {
 	$this->_platform->_isReadable = false;
 	list ($ret, $code) = ModRewriteHelper::writeFile(array());
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assertEquals(REWRITE_STATUS_HTACCESS_CANT_READ, $code, 'readable');
@@ -175,7 +177,7 @@ class ModRewriteHelperTest extends GalleryTestCase {
 	$this->_platform->_isWriteable = false;
 	list ($ret, $code) = ModRewriteHelper::writeFile(array());
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assertEquals(REWRITE_STATUS_HTACCESS_CANT_WRITE, $code, 'writeable');
@@ -185,7 +187,7 @@ class ModRewriteHelperTest extends GalleryTestCase {
     function testWriteFileEmbedded() {
 	list ($ret, $code) = ModRewriteHelper::writeFile(array(), true);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assertEquals(REWRITE_STATUS_OK, $code, 'success');
@@ -195,7 +197,7 @@ class ModRewriteHelperTest extends GalleryTestCase {
 	$this->_platform->_isReadableEmbed = false;
 	list ($ret, $code) = ModRewriteHelper::writeFile(array(), true);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assertEquals(REWRITE_STATUS_EMBED_HTACCESS_CANT_READ, $code, 'readable');
@@ -205,7 +207,7 @@ class ModRewriteHelperTest extends GalleryTestCase {
 	$this->_platform->_isWriteableEmbed = false;
 	list ($ret, $code) = ModRewriteHelper::writeFile(array(), true);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assertEquals(REWRITE_STATUS_EMBED_HTACCESS_CANT_WRITE, $code, 'writeable');
@@ -216,7 +218,7 @@ class ModRewriteHelperTest extends GalleryTestCase {
 	GalleryUtilities::putRequestVariable('modRewriteTest', 'pass');
 	list ($ret, $status, $trueStatus) = ModRewriteHelper::checkModRewrite();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assertEquals(REWRITE_STATUS_OK, $status);
@@ -225,7 +227,7 @@ class ModRewriteHelperTest extends GalleryTestCase {
 	GalleryUtilities::putRequestVariable('modRewriteTest', 'fail');
 	list ($ret, $status, $trueStatus) = ModRewriteHelper::checkModRewrite();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assertEquals(REWRITE_STATUS_APACHE_NO_MOD_REWRITE, $status, 'fail');
@@ -234,7 +236,7 @@ class ModRewriteHelperTest extends GalleryTestCase {
 	GalleryUtilities::putRequestVariable('modRewriteTest', '404');
 	list ($ret, $status, $trueStatus) = ModRewriteHelper::checkModRewrite();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assertEquals(REWRITE_STATUS_APACHE_NO_MOD_REWRITE, $status, '404');
@@ -247,7 +249,7 @@ class ModRewriteHelperTest extends GalleryTestCase {
 	$urlGenerator = new GalleryUrlGenerator();
 	$ret = $urlGenerator->init('http://www.test.server/bogus/main.php');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$gallery->setUrlGenerator($urlGenerator);
 
@@ -255,7 +257,7 @@ class ModRewriteHelperTest extends GalleryTestCase {
 	GalleryUtilities::putRequestVariable('modRewriteTest', 'fail');
 	list ($ret, $status, $trueStatus) = ModRewriteHelper::checkModRewrite();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assertEquals(REWRITE_STATUS_APACHE_UNABLE_TO_TEST, $status, 'unable to test');
@@ -266,13 +268,13 @@ class ModRewriteHelperTest extends GalleryTestCase {
 	$ret = GalleryCoreApi::setPluginParameter('module', 'rewrite', 'modrewrite.status',
 	    serialize(array('needOptions' => true, 'forced' => 1)));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	GalleryUtilities::putRequestVariable('modRewriteTest', 'fail');
 	list ($ret, $status, $trueStatus) = ModRewriteHelper::checkModRewrite();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assertEquals(REWRITE_STATUS_OK, $status);

@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: SetupRewriteControllerTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.11 $ $Date: 2006/01/10 04:42:22 $
  * @package Rewrite
  * @subpackage PHPUnit
  * @author Douglas Cau <douglas@cau.se>
@@ -43,7 +45,7 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 	$ret = $this->_markPluginParametersForCleanup('module', 'rewrite');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	/* Set up our mock parser */
@@ -51,7 +53,7 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 	    'setuprewritemock');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	GalleryUtilities::putRequestVariable('phpunit[config]', 1);
 
@@ -60,7 +62,7 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 	list ($ret, $parser) = RewriteHelper::getRewriteParser(true);
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals('setuprewritemock', $parser->getParserId(), 'parserId');
     }
@@ -68,14 +70,14 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
     function testSave1() {
 	$ret = GalleryCoreApi::setPluginParameter('module', 'rewrite', 'parserId', '');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	GalleryUtilities::putRequestVariable('form[action][save]', 1);
 	GalleryUtilities::putRequestVariable('form[parser]', 'setuprewritemock');
 
 	$results = $this->handleRequest();
 	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'core.AdminPlugins'),
+						      'subView' => 'core.AdminModules'),
 				  'error' => array(),
 				  'status' => array('saved' => 1)),
 			    $results, 'handleRequest');
@@ -83,17 +85,17 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 	list ($ret, $parserId) = GalleryCoreApi::getPluginParameter('module', 'rewrite',
 	    'parserId');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals('setuprewritemock', $parserId, 'parserId');
 
 	list ($ret, $parser) = RewriteHelper::getRewriteParser();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	list ($ret, $result) = $parser->needsConfiguration();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(false, $result);
     }
@@ -101,7 +103,7 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
     function testSave2() {
 	$ret = GalleryCoreApi::setPluginParameter('module', 'rewrite', 'parserId', '');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	GalleryUtilities::putRequestVariable('form[action][save]', 1);
 	GalleryUtilities::putRequestVariable('form[parser]', 'setuprewritemock');
@@ -117,17 +119,17 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 	list ($ret, $parserId) = GalleryCoreApi::getPluginParameter('module', 'rewrite',
 	    'parserId');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals('setuprewritemock', $parserId, 'parserId');
 
 	list ($ret, $parser) = RewriteHelper::getRewriteParser();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	list ($ret, $result) = $parser->needsConfiguration();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(true, $result);
     }
@@ -145,7 +147,7 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 	list ($ret, $parserId) = GalleryCoreApi::getPluginParameter('module', 'rewrite',
 	    'parserId');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals('', $parserId, 'parserId');
     }
@@ -155,7 +157,7 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 
 	$results = $this->handleRequest();
 	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'core.AdminPlugins'),
+						      'subView' => 'core.AdminModules'),
 				  'error' => array(),
 				  'status' => array()),
 			    $results, 'handleRequest');

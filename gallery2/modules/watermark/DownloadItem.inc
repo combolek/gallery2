@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: DownloadItem.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.6 $ $Date: 2006/03/23 16:21:23 $
  * @package Watermark
  * @subpackage UserInterface
  * @author Alan Harder <alan.harder@sun.com>
@@ -60,19 +62,19 @@ class DownloadItemView extends GalleryView {
     function renderImmediate($status, $error) {
 	$itemId = GalleryUtilities::getRequestVariables('itemId');
 	if (empty($itemId)) {
-	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
 	/* Load the item */
 	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Figure out the filename */
 	list ($ret, $pseudoFileName) = GalleryUtilities::getPseudoFileName($item);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	/* Don't allow malicious URLs */
 	$fileName = GalleryUtilities::getRequestVariables('fileName');
@@ -83,14 +85,14 @@ class DownloadItemView extends GalleryView {
 	/* Get the path to the file */
 	list ($ret, $path) = $item->fetchPath();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Rebuild derivative cache, if necessary */
 	if (GalleryUtilities::isA($item, 'GalleryDerivative')) {
 	    list ($ret, $item) = GalleryCoreApi::rebuildDerivativeCacheIfNotCurrent($item->getId());
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $itemForPermission = $item->getParentId();
 	    $derivativeType = $item->getDerivativeType();
@@ -104,25 +106,25 @@ class DownloadItemView extends GalleryView {
 	if ($derivativeType != DERIVATIVE_TYPE_IMAGE_THUMBNAIL) {
 	    list ($ret, $toolkit) = GalleryCoreApi::getToolkitByOperation($mimeType, 'composite');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    if (!isset($toolkit)) {
 		/*
 		 * Allow items that can't be watermarked (movies, audio, etc) to be
 		 * downloaded.  Uncomment the line below to block these downloads.
 		 */
-		/* return GalleryCoreApi::error(ERROR_PERMISSION_DENIED); */
+		/* return GalleryCoreApi::error(ERROR_PERMISSION_DENIED, __FILE__, __LINE__); */
 	    } else {
 		list ($ret, $hotlinkWatermarkId) =
 		    GalleryCoreApi::getPluginParameter('module', 'watermark', 'hotlinkWatermarkId');
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 		if (!empty($hotlinkWatermarkId)) {
 		    list ($ret, $watermark) = GalleryCoreApi::loadEntitiesById($hotlinkWatermarkId);
 		    if ($ret && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
 			/* Ignore error if this watermark has been deleted */
-			return $ret;
+			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		}
 	    }
@@ -137,7 +139,7 @@ class DownloadItemView extends GalleryView {
 			  $watermark->getWidth(), $watermark->getHeight(),
 			  'manual', $watermark->getXPercentage(), $watermark->getYPercentage()));
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 		$path = $tmpFile;
 	    }
@@ -149,7 +151,7 @@ class DownloadItemView extends GalleryView {
 				      'pseudoFileName' => $pseudoFileName,
 				      'parentId' => $itemForPermission));
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if (isset($tmpFile)) {
@@ -178,7 +180,7 @@ class DownloadItemView extends GalleryView {
 	}
 	$ret = GalleryCoreApi::assertHasItemPermission($data['parentId'], $permission);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	header('Content-type: ' . $data['mimeType']);

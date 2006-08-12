@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: MockTemplateAdapter.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -30,7 +32,7 @@ class MockTemplateAdapter {
 		$ret = $ret[0];
 	    }
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 

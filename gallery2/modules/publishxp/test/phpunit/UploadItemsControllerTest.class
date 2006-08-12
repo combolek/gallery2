@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: UploadItemsControllerTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,15 +20,15 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
- * @package PublishXp
+ * @version $Revision: 1.12 $ $Date: 2006/02/14 15:54:26 $
+ * @package PublishXP
  * @subpackage PHPUnit
  * @author Bharat Mediratta <bharat@menalto.com>
  */
 
 /**
  * UploadItems controller tests
- * @package PublishXp
+ * @package PublishXP
  * @subpackage PHPUnit
  */
 class UploadItemsControllerTest extends GalleryControllerTestCase {
@@ -42,7 +44,7 @@ class UploadItemsControllerTest extends GalleryControllerTestCase {
 	list ($ret, $this->_parent) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($this->_parent);
 	$this->_controller->setOptionInstances(array());
@@ -50,7 +52,7 @@ class UploadItemsControllerTest extends GalleryControllerTestCase {
 	$ret = GalleryCoreApi::addMimeType('phpunit_ext', 'test/file', false);
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->_saveSession =& $gallery->getSession();
@@ -60,7 +62,7 @@ class UploadItemsControllerTest extends GalleryControllerTestCase {
 	global $gallery;
 	$ret = GalleryCoreApi::removeMimeType(array('extension' => 'phpunit_ext'));
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$gallery->_session = $this->_saveSession;
@@ -85,7 +87,7 @@ class UploadItemsControllerTest extends GalleryControllerTestCase {
 	$id = $entityCounter->getRecentEntityId('GalleryUnknownItem');
 	list ($ret, $entity) = GalleryCoreApi::loadEntitiesById($id);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assertEquals($this->_parent->getId(), $entity->getParentId());
@@ -131,7 +133,7 @@ class UploadItemsControllerTest extends GalleryControllerTestCase {
 	$id = $entityCounter->getRecentEntityId('GalleryUnknownItem');
 	list ($ret, $entity) = GalleryCoreApi::loadEntitiesById($id);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assertEquals($this->_parent->getId(), $entity->getParentId());
@@ -160,7 +162,7 @@ class UploadItemsControllerTest extends GalleryControllerTestCase {
 	$id = $entityCounter->getRecentEntityId('GalleryUnknownItem');
 	list ($ret, $entity) = GalleryCoreApi::loadEntitiesById($id);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assertEquals($this->_parent->getId(), $entity->getParentId());
@@ -195,7 +197,7 @@ class UploadItemsControllerTest extends GalleryControllerTestCase {
 	$id = $entityCounter->getRecentEntityId('GalleryUnknownItem');
 	list ($ret, $entity) = GalleryCoreApi::loadEntitiesById($id);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	/* Make sure our option was called */

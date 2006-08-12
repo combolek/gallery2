@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: MyPageHelper.class.tpl,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.2 $ $Date: 2006/01/10 04:38:41 $
  * @package {$ucModuleId}
  * @subpackage Helpers
  * @author {$authorFullName}
@@ -32,7 +34,7 @@
  * @subpackage UserInterface
  *
  */
-class {$viewName}Helper {ldelim}
+class MyPageHelper {ldelim}
 
     /**
      * Load a text value out of the database for a given item id.
@@ -55,7 +57,7 @@ class {$viewName}Helper {ldelim}
 
 	list ($ret, $searchResults) = $gallery->search($query, array($itemId));
 	if ($ret) {ldelim}
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	{rdelim}
 
         if ($searchResults->resultCount() != 0) {ldelim}

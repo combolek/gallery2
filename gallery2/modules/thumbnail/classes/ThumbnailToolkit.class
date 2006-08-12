@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ThumbnailToolkit.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.10 $ $Date: 2006/01/10 04:43:04 $
  * @package Thumbnail
  * @author Alan Harder <alan.harder@sun.com>
  */
@@ -41,7 +43,7 @@ class ThumbnailToolkit extends GalleryToolkit {
      * @see GalleryToolkit::getProperty()
      */
     function getProperty($mimeType, $propertyName, $sourceFilename) {
-	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
+	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED, __FILE__, __LINE__), null);
     }
 
     /**
@@ -55,7 +57,7 @@ class ThumbnailToolkit extends GalleryToolkit {
 
 	list ($ret, $mimeTypeMap) = ThumbnailHelper::fetchMimeTypeMap();
 	if ($ret) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 	if (!isset($mimeTypeMap[$mimeType]) || $operationName != 'convert-to-image/jpeg') {
 	    return array(GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION, __FILE__, __LINE__,
@@ -63,11 +65,11 @@ class ThumbnailToolkit extends GalleryToolkit {
 	}
 	list ($ret, $thumbImage) = GalleryCoreApi::loadEntitiesById($mimeTypeMap[$mimeType]);
 	if ($ret) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 	list ($ret, $thumbPath) = $thumbImage->fetchPath();
 	if ($ret) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	$outputMimeType = 'image/jpeg';

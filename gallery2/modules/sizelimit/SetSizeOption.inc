@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: SetSizeOption.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.10 $ $Date: 2006/01/10 04:42:42 $
  * @package SizeLimit
  * @subpackage UserInterface
  * @author Felix Rabinovich <felix@rabinovich.org>
@@ -50,59 +52,59 @@ class SetSizeOption extends ItemAddOption {
 	$warnings = array();
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'sizelimit');
 	if ($ret) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
-	foreach ($items as $i => $item) {
+	for ($i = 0; $i < count($items); $i++) {
 	    $warnings[$i] = array();
-	    if (!GalleryUtilities::isA($item, 'GalleryDataItem')) {
+	    if (!GalleryUtilities::isA($items[$i], 'GalleryDataItem')) {
 		continue;
 	    }
 
 	    list ($ret, $param) = GalleryCoreApi::fetchAllPluginParameters(
-		'module', 'sizelimit', $item->getParentId());
+		'module', 'sizelimit', $items[$i]->getParentId());
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    $param = array_merge(
 		array('keepOriginal' => 0, 'width' => 0, 'height' => 0, 'size' => 0), $param);
 
-	    if ($param['width'] && $param['height'] && method_exists($item, 'getwidth') &&
-		    method_exists($item, 'getheight') &&
-		    ($item->getWidth() > $param['width'] ||
-		     $item->getHeight() > $param['height'])) {
+	    if ($param['width'] && $param['height'] && method_exists($items[$i], 'getwidth') &&
+		    method_exists($items[$i], 'getheight') &&
+		    ($items[$i]->getWidth() > $param['width'] ||
+		     $items[$i]->getHeight() > $param['height'])) {
 		$args = array($param['width'], $param['height']);
 		if ($param['keepOriginal']) {
-		    $ret = SizeLimitHelper::buildDerivativeWithLimits($item, 'scale', $args);
+		    $ret = SizeLimitHelper::buildDerivativeWithLimits($items[$i], 'scale', $args);
 		} else {
-		    $ret = SizeLimitHelper::applyLimits($item, 'scale', $args);
+		    $ret = SizeLimitHelper::applyLimits($items[$i], 'scale', $args);
 		}
 		if ($ret) {
 		    if ($ret->getErrorCode() & ERROR_UNSUPPORTED_FILE_TYPE) {
 			$warnings[$i][] = $module->translate(
 			    array('text' => 'WARNING: Cannot resize mime type %s',
-				  'arg1' => $item->getMimeType()));
+				  'arg1' => $items[$i]->getMimeType()));
 		    } else {
-			return array($ret, null, null);
+			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 		}
 	    }
 
 	    if (isset($param['size']) && $param['size'] > 0 &&
-		    ($item->getSize() >> 10) > $param['size']) {
+		    ($items[$i]->getSize() >> 10) > $param['size']) {
 		$args = array($param['size']);
 		if ($param['keepOriginal']) {
-		    $ret = SizeLimitHelper::buildDerivativeWithLimits($item, 'compress',
+		    $ret = SizeLimitHelper::buildDerivativeWithLimits($items[$i], 'compress',
 								      $args);
 		} else {
-		    $ret = SizeLimitHelper::applyLimits($item, 'compress', $args);
+		    $ret = SizeLimitHelper::applyLimits($items[$i], 'compress', $args);
 		}
 		if ($ret) {
 		    if ($ret->getErrorCode() & ERROR_UNSUPPORTED_FILE_TYPE) {
 			$warnings[$i][] = $module->translate(
 			    array('text' => 'WARNING: Cannot compress mime type %s',
-				  'arg1' => $item->getMimeType()));
+				  'arg1' => $items[$i]->getMimeType()));
 		    } else {
-			return array($ret, null, null);
+			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 		}
 	    }

@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: UploadItems.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -26,7 +28,7 @@
  * the photos.  Subsequent requests from Windows include the photo data and text.
  * This page processes the data and applies the options to be used while uploading.
  *
- * @version $Revision$ $Date$
+ * @version $Revision: 1.12 $ $Date: 2006/01/13 15:39:38 $
  * @package PublishXp
  * @author Timothy Webb <tiwebb@cisco.com>
  */
@@ -64,19 +66,19 @@ class UploadItemsController extends GalleryController {
 	    /* Check the user has permissions in this album */
 	    $ret = GalleryCoreApi::assertHasItemPermission($form['albumId'], 'core.addDataItem');
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    /* Get the file passed in this submission */
 	    $file = GalleryUtilities::getFile('userFile', false);
 	    list($ret, $lockIds[]) = GalleryCoreApi::acquireReadLock($form['albumId']);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    if (empty($file['name'])) {
 		GalleryCoreApi::releaseLocks($lockIds);
-		return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+		return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	    }
 
 	    /*
@@ -89,7 +91,7 @@ class UploadItemsController extends GalleryController {
 		list ($ret, $exts) = GalleryCoreApi::convertMimeToExtensions($mimeType);
 		if ($ret) {
 		    GalleryCoreApi::releaseLocks($lockIds);
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
 
@@ -101,7 +103,7 @@ class UploadItemsController extends GalleryController {
 		list($ret, $mimeType) = GalleryCoreApi::convertExtensionToMime($extension);
 		if ($ret) {
 		    GalleryCoreApi::releaseLocks($lockIds);
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
 	    $title = basename($file['name']);
@@ -118,11 +120,11 @@ class UploadItemsController extends GalleryController {
 		$mimeType, $form['albumId']);
 	    if ($ret) {
 		GalleryCoreApi::releaseLocks($lockIds);
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $ret = GalleryCoreApi::releaseLocks($lockIds);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    if (isset($this->_optionInstances)) {
@@ -131,7 +133,7 @@ class UploadItemsController extends GalleryController {
 		GalleryCoreApi::requireOnce('modules/core/ItemAdd.inc');
 		list ($ret, $optionInstances) = ItemAddOption::getAllAddOptions();
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
 
@@ -146,7 +148,7 @@ class UploadItemsController extends GalleryController {
 		list ($ret, $optionErrors, $optionWarnings) =
 		    $option->handleRequestAfterAdd($extraOptionsForm, array($newItem));
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		/*

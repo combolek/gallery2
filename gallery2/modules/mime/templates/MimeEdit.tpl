@@ -1,5 +1,5 @@
 {*
- * $Revision$
+ * $Revision: 1.5 $
  * If you want to customize this file, do not edit it directly since future upgrades
  * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
  * version.  Gallery will look for that file first and use it if it exists.
@@ -64,7 +64,7 @@
 <div class="gbBlock">
   <br/>
   <p class="giDescription giWarning">
-    {g->text text="Warning: Adding and allowing upload of any of the following mime types could leave you open to %sCross Site Scripting%s security vulnerabilities." arg1="<a href=\"http://www.google.com/search?q=cross%20site%20scripting\">" arg2="</a>"}
+    {g->text text="Warning: Adding any of the following mime types could leave you open to %sCross Site Scripting%s security vulnerabilities." arg1="<a href=\"http://www.google.com/search?q=cross%20site%20scripting\">" arg2="</a>"}
   </p>
   <ul class="giWarning">
     <li>text/html</li>

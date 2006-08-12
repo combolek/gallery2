@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: RewriteApi.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 /**
  * @package Rewrite
- * @version $Revision$ $Date$
+ * @version $Revision: 1.2 $ $Date: 2006/01/10 04:42:16 $
  * @author Douglas Cau <douglas@cau.se>
  */
 
@@ -49,7 +51,7 @@ class RewriteApi {
 	GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
 	list ($ret, $this->_parser) = RewriteHelper::getRewriteParser();
 	if ($ret) {
-	    $this->_error = $ret;
+	    $this->_error = $ret->wrap(__FILE__, __LINE__);
 	}
     }
 
@@ -62,7 +64,7 @@ class RewriteApi {
      */
     function isCompatibleWithApi($version) {
 	if (isset($this->_error)) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null,
@@ -83,7 +85,7 @@ class RewriteApi {
      */
     function needsEmbedConfig() {
    	if (isset($this->_error)) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (!GalleryUtilities::isEmbedded()) {
@@ -93,7 +95,7 @@ class RewriteApi {
 
 	list ($ret, $status) = $this->_parser->needsEmbedConfig();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, $status);
@@ -107,7 +109,7 @@ class RewriteApi {
      */
     function fetchEmbedConfig() {
 	if (isset($this->_error)) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (!GalleryUtilities::isEmbedded()) {
@@ -117,7 +119,7 @@ class RewriteApi {
 
 	list ($ret, $config) = $this->_parser->fetchEmbedConfig();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, $config);
@@ -133,7 +135,7 @@ class RewriteApi {
      */
     function saveEmbedConfig($params) {
 	if (isset($this->_error)) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	if (!GalleryUtilities::isEmbedded()) {
@@ -143,7 +145,7 @@ class RewriteApi {
 
 	list ($ret, $status, $errstr) = $this->_parser->saveEmbedConfig($params);
 	if ($ret) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	return array(null, $status, $errstr);

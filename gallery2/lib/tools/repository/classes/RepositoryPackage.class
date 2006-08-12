@@ -15,7 +15,9 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ *
+ * $Id: RepositoryPackage.class,v 1.4 2006/01/10 04:38:42 mindless Exp $
  */
 
 /**
@@ -23,7 +25,7 @@
  *
  * @author Jozef Selesi <selesi at gmail dot com>
  *
- * @version $Revision$ $Date$
+ * @version $Revision: 1.4 $ $Date: 2006/01/10 04:38:42 $
  * @package RepositoryTools
  * @subpackage Classes
  * @module RepositoryPackage
@@ -53,13 +55,13 @@ class RepositoryPackage extends RepositoryObject {
 
 	$ret = $this->setOutputDir($outputDir);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$this->_descriptor = $descriptor;
 
 	$this->setTemplateFile('package.tpl');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -79,7 +81,7 @@ class RepositoryPackage extends RepositoryObject {
 	foreach ($this->_descriptor->getPackages() as $packageType) {
 	    $ret = $this->writeSinglePackageToDisk($packageType, $overwritePackages);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    if ($this->_wasFileWritten) {
 		$packagesWritten[] = $packageType;
@@ -131,7 +133,7 @@ class RepositoryPackage extends RepositoryObject {
 
 	$ret = $this->writeToDisk($overwritePackage);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	return null;
     }

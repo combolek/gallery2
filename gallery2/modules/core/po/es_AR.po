@@ -1,4 +1,4 @@
-# $Id$
+# $Id: es_AR.po,v 1.94 2006/03/23 19:59:34 mindless Exp $
 #
 # Gallery - a web based photo album viewer and editor
 # Copyright (C) 2000-2006 Bharat Mediratta
@@ -19,7 +19,7 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Core 1.1.10\n"
+"Project-Id-Version: Gallery: Core 1.1.0\n"
 "POT-Creation-Date: 2003-06-05 16:56-0300\n"
 "PO-Revision-Date: 2003-08-27 22:25-0700\n"
 "Last-Translator: Alvaro Cortizo <alvaro@netpandora.com>\n"
@@ -84,6 +84,25 @@ msgstr[1] "semana %d"
 msgid "<none>"
 msgstr "<ninguno>"
 
+msgid "install"
+msgstr "instalar"
+
+msgid "upgrade"
+msgstr ""
+
+msgid "configure"
+msgstr "configurar"
+
+msgid "activate"
+msgstr "activar"
+
+#, fuzzy
+msgid "uninstall"
+msgstr "instalar"
+
+msgid "deactivate"
+msgstr "desactivar"
+
 msgid "No acceleration"
 msgstr ""
 
@@ -92,10 +111,6 @@ msgstr ""
 
 msgid "Full acceleration"
 msgstr ""
-
-#, fuzzy
-msgid "Themes"
-msgstr "Tema"
 
 msgid "Performing Maintenance Tasks"
 msgstr ""
@@ -113,22 +128,6 @@ msgstr ""
 
 msgid "Download"
 msgstr ""
-
-msgid "install"
-msgstr "instalar"
-
-msgid "upgrade"
-msgstr ""
-
-msgid "activate"
-msgstr "activar"
-
-#, fuzzy
-msgid "uninstall"
-msgstr "instalar"
-
-msgid "deactivate"
-msgstr "desactivar"
 
 msgid "Inherit settings from parent album"
 msgstr ""
@@ -202,12 +201,6 @@ msgid "Deleting old fast-download cache"
 msgstr "permisos"
 
 msgid "Converting MySQL data to UTF8"
-msgstr ""
-
-msgid "Updating panorama items"
-msgstr ""
-
-msgid "Optimizing AccessSubscriberMap table"
 msgstr ""
 
 #, fuzzy
@@ -290,20 +283,14 @@ msgid_plural "%d kilobytes"
 msgstr[0] "minuto %d"
 msgstr[1] "minuto %d"
 
-#, c-format
-msgid "Input file %s exceeds maximum permitted file size"
+#, fuzzy
+msgid "From Local Server"
+msgstr "Agregar desde su Servidor"
+
+msgid "Photo"
 msgstr ""
 
-#, c-format
-msgid "Input file %s exceeds file size specified in the form"
-msgstr ""
-
-#, c-format
-msgid "Input file %s was only partially uploaded"
-msgstr ""
-
-#, c-format
-msgid "Input file %s was not uploaded. Error %d"
+msgid "From Web Page"
 msgstr ""
 
 msgid "Gallery Item Administration"
@@ -377,9 +364,6 @@ msgstr "General"
 #, fuzzy
 msgid "Movie Size"
 msgstr "Opciones Disponibles"
-
-msgid "Photo"
-msgstr ""
 
 #, fuzzy
 msgid "Thumbnail cropped successfully"
@@ -580,10 +564,17 @@ msgstr ""
 msgid "Logout"
 msgstr "desconectarse"
 
-msgid "Plugins"
-msgstr ""
+msgid "Modules"
+msgstr "M&oacute;dulos"
 
 msgid "Repository"
+msgstr ""
+
+#, fuzzy
+msgid "Themes"
+msgstr "Tema"
+
+msgid "Display"
 msgstr ""
 
 msgid "Users"
@@ -600,9 +591,6 @@ msgstr ""
 
 msgid "Graphics Toolkits"
 msgstr ""
-
-msgid "Defaults"
-msgstr "Por defecto"
 
 #, fuzzy
 msgid "Account Settings"
@@ -965,9 +953,11 @@ msgstr "Resetear"
 msgid "spreadsheet"
 msgstr "Resetear"
 
-#, fuzzy
-msgid "file"
-msgstr "Archivo: "
+msgid "Unknown"
+msgstr ""
+
+msgid "unknown"
+msgstr ""
 
 #, c-format
 msgid ""
@@ -1048,9 +1038,6 @@ msgstr ""
 #, fuzzy
 msgid "core"
 msgstr "configurar"
-
-msgid "unknown"
-msgstr ""
 
 #, fuzzy
 msgid "Gallery version"
@@ -1188,6 +1175,49 @@ msgstr "Nuevas carpetas"
 msgid "New files"
 msgstr "Nuevos archivos"
 
+msgid "Local Server Upload Paths"
+msgstr ""
+
+msgid ""
+"Specify the legal directories on the local server where a user can store files and then "
+"upload them into Gallery using the <i>Upload from Local Server</i> feature.  The paths you "
+"enter here and all the files and directories under those paths will be available to any "
+"Gallery user who has upload privileges, so you should limit this to directories that won't "
+"contain sensitive data (eg. /tmp or /usr/ftp/incoming)"
+msgstr ""
+
+msgid "Path"
+msgstr ""
+
+msgid "Action"
+msgstr "Acci&oacute;n"
+
+#, fuzzy
+msgid "remove"
+msgstr "Borrar"
+
+msgid "Add"
+msgstr "Agregar"
+
+#, fuzzy
+msgid "You must enter a directory to add."
+msgstr "Tiene que ingresar un tama&ntilde;o"
+
+msgid "open_basedir documentation"
+msgstr ""
+
+#, c-format
+msgid ""
+"Your webserver is configured to prevent you from accessing that directory.  Please refer to "
+"the %s and consult your webserver administrator."
+msgstr ""
+
+msgid "The webserver does not have permissions to read that directory."
+msgstr ""
+
+msgid "The path you specified is not a valid directory."
+msgstr ""
+
 msgid "Session Settings"
 msgstr "Caracter&iacute;sticas de sesi&oacute;n"
 
@@ -1285,9 +1315,6 @@ msgid ""
 "Once you change the cookie settings, <b>all registered users</b> of your Gallery will "
 "<b>have to clear their browser cookie cache</b>. If they do not, they will experience "
 "login / logout / lost session problems."
-msgstr ""
-
-msgid "Path"
 msgstr ""
 
 msgid "Invalid cookie path"
@@ -1525,9 +1552,6 @@ msgstr "No puede agregar o borrar usuarios de este grupo"
 msgid "Add Member"
 msgstr "Agregar Items"
 
-msgid "Add"
-msgstr "Agregar"
-
 msgid "You must enter a username."
 msgstr "Tiene que ingresar un nombre de usuario."
 
@@ -1607,9 +1631,6 @@ msgstr "No puede borrar el usuario an&oacute;nimo!"
 msgid "Edit Group (by list)"
 msgstr "Editando Grupo '%s'"
 
-msgid "Action"
-msgstr "Acci&oacute;n"
-
 #, fuzzy
 msgid "edit"
 msgstr "Editar"
@@ -1664,6 +1685,86 @@ msgid "run now"
 msgstr ""
 
 msgid "Last Run Details:"
+msgstr ""
+
+#, fuzzy
+msgid "Gallery Modules"
+msgstr "Gallery"
+
+#, c-format
+msgid "Successfully installed and auto-configured module %s"
+msgstr ""
+
+#, c-format
+msgid "Successfully installed module %s"
+msgstr ""
+
+#, c-format
+msgid "Successfully configured module %s"
+msgstr ""
+
+#, c-format
+msgid "Successfully upgraded module %s"
+msgstr ""
+
+#, c-format
+msgid "Successfully activated module %s"
+msgstr ""
+
+#, c-format
+msgid "Successfully deactivated module %s"
+msgstr ""
+
+#, c-format
+msgid "Successfully uninstalled module %s"
+msgstr ""
+
+msgid ""
+"Gallery features come as separate modules.  You can download and install modules to add more "
+"features to your Gallery, or you can disable features if you don't want to use them.  In "
+"order to use a feature, you must install, configure (if necessary) and activate it.  If you "
+"don't wish to use a feature, you can deactivate it."
+msgstr ""
+
+msgid "Module Name"
+msgstr "Nombre del M&oacute;dulo"
+
+msgid "Version"
+msgstr "Versi&oacute;n"
+
+#, fuzzy
+msgid "Installed"
+msgstr "instalar"
+
+msgid "Actions"
+msgstr "Acciones"
+
+#, fuzzy
+msgid "Status: Not Installed"
+msgstr "instalar"
+
+#, fuzzy
+msgid "Status: Active"
+msgstr "Activo"
+
+msgid "Status: Inactive"
+msgstr ""
+
+msgid "Status: Upgrade Required (Inactive)"
+msgstr ""
+
+msgid "Status: Incompatible Module (Inactive)"
+msgstr ""
+
+msgid "Incompatible module!"
+msgstr ""
+
+#, c-format
+msgid "Core API Required: %s (available: %s)"
+msgstr ""
+
+#, c-format
+msgid "Module API Required: %s (available: %s)"
 msgstr ""
 
 msgid "Confirm module uninstall"
@@ -1746,96 +1847,6 @@ msgstr ""
 msgid "Clear Saved Pages"
 msgstr ""
 
-msgid "Status: Inactive"
-msgstr ""
-
-#, fuzzy
-msgid "__PLUGIN__ deactivated"
-msgstr "desactivar"
-
-#, fuzzy
-msgid "Status: Active"
-msgstr "Activo"
-
-msgid "__PLUGIN__ activated"
-msgstr ""
-
-#, fuzzy
-msgid "Status: Not Installed"
-msgstr "instalar"
-
-msgid "__PLUGIN__ uninstalled"
-msgstr ""
-
-msgid "Status: Upgrade Required (Inactive)"
-msgstr ""
-
-msgid "Status: Incompatible Plugin (Inactive)"
-msgstr ""
-
-msgid "Status: Inactive (Configuration Required)"
-msgstr ""
-
-msgid "__PLUGIN__ needs configuration"
-msgstr ""
-
-#, fuzzy
-msgid "Gallery Plugins"
-msgstr "Gallery"
-
-msgid ""
-"Gallery features come as separate plugins.  You can download and install plugins to add more "
-"features to your Gallery, or you can disable features if you don't want to use them.  In "
-"order to use a feature, you must install, configure (if necessary) and activate it.  If you "
-"don't wish to use a feature, you can deactivate it."
-msgstr ""
-
-#, fuzzy
-msgid "up to date"
-msgstr "Borrar un usuario"
-
-msgid "disabled"
-msgstr ""
-
-#, fuzzy
-msgid "upgrade required"
-msgstr "[required]"
-
-#, fuzzy
-msgid "not installed"
-msgstr "instalar"
-
-msgid "incompatible"
-msgstr ""
-
-#, fuzzy
-msgid "Plugin Name"
-msgstr "Nombre completo"
-
-msgid "Version"
-msgstr "Versi&oacute;n"
-
-#, fuzzy
-msgid "Installed"
-msgstr "instalar"
-
-msgid "Actions"
-msgstr "Acciones"
-
-msgid "Incompatible plugin!"
-msgstr ""
-
-#, c-format
-msgid "Core API Required: %s (available: %s)"
-msgstr ""
-
-#, c-format
-msgid "Plugin API Required: %s (available: %s)"
-msgstr ""
-
-msgid "configure"
-msgstr "configurar"
-
 msgid "Please make sure that your internet connection is set up properly or try again later."
 msgstr ""
 
@@ -1847,9 +1858,6 @@ msgstr ""
 
 msgid "Common Tasks"
 msgstr ""
-
-msgid "Modules"
-msgstr "M&oacute;dulos"
 
 msgid "Warning: Experimental feature!"
 msgstr ""
@@ -1952,14 +1960,18 @@ msgstr ""
 msgid "Theme Name"
 msgstr "Tema"
 
-msgid "Module Name"
-msgstr "Nombre del M&oacute;dulo"
-
 #, fuzzy
 msgid "Latest"
 msgstr "Borrar un usuario"
 
 msgid "Incompatible Plugin"
+msgstr ""
+
+msgid "Incompatible plugin!"
+msgstr ""
+
+#, c-format
+msgid "Plugin API Required: %s (available: %s)"
 msgstr ""
 
 msgid "No packages have been selected."
@@ -2069,6 +2081,27 @@ msgstr ""
 #, fuzzy
 msgid "Restored theme settings"
 msgstr "Opciones del Album"
+
+#, fuzzy
+msgid "All Themes"
+msgstr "Tema"
+
+msgid "Defaults"
+msgstr "Por defecto"
+
+msgid "Status: Incompatible Theme (Inactive)"
+msgstr ""
+
+msgid "Incompatible theme!"
+msgstr ""
+
+#, c-format
+msgid "Theme API Required: %s (available: %s)"
+msgstr ""
+
+#, fuzzy
+msgid "(default)"
+msgstr "Por defecto"
 
 #, fuzzy
 msgid ""
@@ -2368,6 +2401,154 @@ msgstr ""
 #, fuzzy
 msgid "Assign caption to:"
 msgstr "Administrador de Gallery"
+
+msgid ""
+"Transfer files that are already on your server into your Gallery.  The files must already "
+"have been uploaded to your server some other way (like FTP) and must be placed in a "
+"directory where they are accessibly by any element on the server.  If you're on Unix this "
+"means that the files and the directory the files are in should have modes of at least 755."
+msgstr ""
+
+msgid ""
+"For security purposes, you can't use this feature until the Gallery Site Administrator "
+"configures a set of legal upload directories."
+msgstr ""
+
+msgid "Server Path"
+msgstr ""
+
+#, fuzzy
+msgid "You must enter a directory."
+msgstr "Tiene que ingresar un tama&ntilde;o"
+
+msgid ""
+"The directory you entered is invalid.  Make sure that the directory is readable by all users."
+msgstr ""
+
+msgid ""
+"The directory you entered is illegal.  It must be a sub directory of one of the directories "
+"listed below."
+msgstr ""
+
+msgid "An item with the same name already exists."
+msgstr ""
+
+#, fuzzy
+msgid "Legal Directories"
+msgstr "Nuevas carpetas"
+
+msgid "modify"
+msgstr ""
+
+#, fuzzy
+msgid "Recent Directories"
+msgstr "Nuevas carpetas"
+
+#, fuzzy
+msgid "Find Files"
+msgstr "Agregar Items"
+
+#, fuzzy, c-format
+msgid "Directory: %s"
+msgstr "Nuevas carpetas"
+
+#, fuzzy
+msgid "File name"
+msgstr "Nombre completo"
+
+msgid "Type"
+msgstr ""
+
+msgid "Size"
+msgstr ""
+
+msgid "Use Symlink"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "%d byte"
+msgid_plural "%d bytes"
+msgstr[0] "minuto %d"
+msgstr[1] "minuto %d"
+
+#, fuzzy
+msgid "Parent Directory"
+msgstr "Nuevas carpetas"
+
+#, fuzzy
+msgid "Directory"
+msgstr "Nuevas carpetas"
+
+msgid "(Un)check all known types"
+msgstr ""
+
+msgid "(Un)check symlinks"
+msgstr ""
+
+#, fuzzy
+msgid "for selected items"
+msgstr "[core] Borrar item"
+
+msgid "Copy base filenames to:"
+msgstr ""
+
+#, fuzzy
+msgid "Add Files"
+msgstr "Agregar Items"
+
+#, fuzzy
+msgid "Start Over"
+msgstr "Ordenar por"
+
+msgid ""
+"Import files into Gallery from another website.  Enter a URL below to a web page anywhere on "
+"the net and Gallery will allow you to upload any media files that it finds on that page.  "
+"Note that if you're entering a URL to a directory, you should end the URL with a trailing "
+"slash (eg, http://example.com/directory/). "
+msgstr ""
+
+msgid "URL"
+msgstr ""
+
+#, fuzzy
+msgid "You must enter a URL to a web page"
+msgstr "Tiene que ingresar un nombre de usuario"
+
+msgid "The URL entered must begin with http://"
+msgstr ""
+
+#, fuzzy
+msgid "The web page you specified is unavailable"
+msgstr "El nombre de usuario que ingres&oacute; es inv&aacute;lido"
+
+msgid "Nothing to add found from this URL"
+msgstr ""
+
+msgid "Nothing added since no items were selected"
+msgstr ""
+
+msgid "Recent URLs"
+msgstr ""
+
+#, c-format
+msgid "URL: %s"
+msgstr ""
+
+#, fuzzy
+msgid "change"
+msgstr "Cambiar"
+
+#, c-format
+msgid "%d url found"
+msgid_plural "%d urls found"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "(Un)check all"
+msgstr ""
+
+msgid "Add URLs"
+msgstr ""
 
 msgid "No Thumbnail"
 msgstr "Sin Miniatura"
@@ -2693,10 +2874,6 @@ msgid ""
 "There are no graphics toolkits enabled that support this type of item, so we cannot create "
 "or modify a thumbnail."
 msgstr ""
-
-#, fuzzy
-msgid "Unable to create a thumbnail for this item"
-msgstr "Tiene que ingresar un nombre para este item."
 
 msgid ""
 "In order for Gallery to properly display this movie, it has to know the movie's width and "
@@ -3051,10 +3228,6 @@ msgid ""
 "This album has an automatic sort order specified, so you cannot change the order of items "
 "manually.  You must remove the automatic sort order to continue."
 msgstr ""
-
-#, fuzzy
-msgid "change"
-msgstr "Cambiar"
 
 #, fuzzy
 msgid "Change the order of the items in this album."
@@ -3466,9 +3639,6 @@ msgstr "Editar un usuario"
 msgid "Size: "
 msgstr "Editar Tama&ntilde;o"
 
-msgid "Unknown"
-msgstr ""
-
 msgid "Full size: "
 msgstr ""
 
@@ -3503,14 +3673,6 @@ msgstr "permisos"
 
 msgid "Unit test theme"
 msgstr ""
-
-#, fuzzy
-#~ msgid "All Themes"
-#~ msgstr "Tema"
-
-#, fuzzy
-#~ msgid "(default)"
-#~ msgstr "Por defecto"
 
 #, fuzzy
 #~ msgid "add album"

@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: LanguageTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.10 $ $Date: 2006/01/10 04:39:36 $
  * @package GalleryCore
  * @subpackage PHPUnit
  * @author Alan Harder <alan.harder@sun.com>
@@ -45,7 +47,7 @@ class LanguageTest extends GalleryControllerTestCase {
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'default.language');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
 
@@ -63,7 +65,7 @@ class LanguageTest extends GalleryControllerTestCase {
 
 	list ($ret, $language) = $gallery->getActiveLanguageCode();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(null, $language, 'not set');
 
@@ -74,7 +76,7 @@ class LanguageTest extends GalleryControllerTestCase {
 
 	list ($ret, $language) = $gallery->getActiveLanguageCode();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals('test_language', $language, 'user language');
 
@@ -82,7 +84,7 @@ class LanguageTest extends GalleryControllerTestCase {
 
 	list ($ret, $language) = $gallery->getActiveLanguageCode();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals('sess_language', $language, 'session language');
     }
@@ -99,7 +101,7 @@ class LanguageTest extends GalleryControllerTestCase {
 
 	list ($ret, $language) = $gallery->getActiveLanguageCode();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals('test_language', $language, 'language');
     }

@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: theme.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,8 +20,8 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
- * @package TileTheme
+ * @version $Revision: 1.8 $ $Date: 2006/03/22 03:52:38 $
+ * @package Gallery
  * @author Alan Harder <alan.harder@sun.com>
  */
 
@@ -27,7 +29,7 @@
  * This implements a gallery theme with a tiled background image and image thumbnails
  * on top of it; Displays inline items ONLY; subalbums or other item types are NOT shown.
  *
- * @package TileTheme
+ * @package GalleryTheme
  * @subpackage Theme
  */
 class TileTheme extends GalleryTheme {
@@ -42,9 +44,9 @@ class TileTheme extends GalleryTheme {
 	$this->setName($gallery->i18n('Tile'));
 	$this->setDescription($gallery->i18n('Tile view of background image and image ' .
 					     'thumbnails; subalbums/other items not shown'));
-	$this->setVersion('1.0.4');
+	$this->setVersion('1.0.3');
 	$this->setRequiredCoreApi(array(7, 0));
-	$this->setRequiredThemeApi(array(2, 4));
+	$this->setRequiredThemeApi(array(2, 0));
 	$this->setStandardSettings(array('colorpack' => '',
 	    'sidebarBlocks' => serialize(array(
 		array('search.SearchBlock', array('showAdvancedLink' => true)),
@@ -70,14 +72,14 @@ class TileTheme extends GalleryTheme {
 	    array('parents', 'systemLinks', 'itemLinks'),
 	    $childIds);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$theme =& $template->getVariableByReference('theme');
 
 	if (!empty($params['backgroundId'])) {
 	    list ($ret, $bgImage) = GalleryCoreApi::loadEntitiesById($params['backgroundId']);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $params['bgSerialNumber'] = $bgImage->getSerialNumber();
 	}
@@ -104,7 +106,7 @@ class TileTheme extends GalleryTheme {
 	list ($ret, $imageWidths, $imageHeights) =
 	    $this->_buildItemList($childIds, $theme['children']);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$itemMap = array();
 	foreach ($theme['children'] as $child) {
@@ -132,7 +134,7 @@ class TileTheme extends GalleryTheme {
 	    /* Render this item */
 	    list ($ret, $image) = GalleryCoreApi::loadEntitiesById($renderId);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $template->setVariable('theme', array('item' => (array)$item,
 						  'image' => (array)$image));
@@ -142,16 +144,16 @@ class TileTheme extends GalleryTheme {
 	/* Otherwise, load the parent with initial view of this item  */
 	list ($ret, $parent) = GalleryCoreApi::loadEntitiesById($item->getParentId());
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($parent);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $tplFile) = $this->showAlbumPage($template, $parent, $params, $childIds);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$theme =& $template->getVariableByReference('theme');
 	foreach ($theme['children'] as $tmp) {
@@ -175,7 +177,7 @@ class TileTheme extends GalleryTheme {
 	$ret = $this->loadCommonTemplateData(
 	    $template, $item, $params, array('parents', 'systemLinks'));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, 'theme.tpl');
@@ -188,7 +190,7 @@ class TileTheme extends GalleryTheme {
 	$ret = $this->loadCommonTemplateData(
 	    $template, $item, $params, array('parents', 'systemLinks'));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, 'theme.tpl');
@@ -208,7 +210,7 @@ class TileTheme extends GalleryTheme {
 	$ret = $this->loadCommonTemplateData(
 	    $template, $item, $params, array('parents', 'systemLinks'));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, 'theme.tpl');
@@ -219,26 +221,26 @@ class TileTheme extends GalleryTheme {
 	if (!empty($childIds)) {
 	    $ret = GalleryCoreApi::studyPermissions($childIds);
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    list ($ret, $childItems) = GalleryCoreApi::loadEntitiesById($childIds);
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    list ($ret, $preferredFullImages) =
 		GalleryCoreApi::fetchPreferredsByItemIds($childIds);
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    list ($ret, $resizedImages) =
 		GalleryCoreApi::fetchResizesByItemIds($childIds);
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    list ($ret, $thumbnails) =
 		GalleryCoreApi::fetchThumbnailsByItemIds($childIds);
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	}
 	$i = 0;
@@ -249,7 +251,7 @@ class TileTheme extends GalleryTheme {
 		    list ($ret, $thumbnails[$childId]) =
 			GalleryCoreApi::rebuildDerivativeCache($thumbnails[$childId]->getId());
 		    if ($ret) {
-			return array($ret, null, null);
+			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 		}
 		$children[$i]['thumbnail'] = (array)$thumbnails[$childId];
@@ -261,7 +263,7 @@ class TileTheme extends GalleryTheme {
 
 	    list ($ret, $permissions) = GalleryCoreApi::getPermissions($childId);
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 
 	    $images = array();
@@ -290,7 +292,7 @@ class TileTheme extends GalleryTheme {
 			&& !($image->getWidth() && $image->getHeight())) {
 		    list ($ret, $image) = GalleryCoreApi::rebuildDerivativeCache($image->getId());
 		    if ($ret) {
-			return array($ret, null, null);
+			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 		}
 		$image = (array)$image;
@@ -347,14 +349,11 @@ class TileTheme extends GalleryTheme {
 	 */
 	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	if ($ret) {
-	    return array($ret, null);
-	}
-	if (!GalleryUtilities::isA($item, 'GalleryAlbumItem')) {
-	    return array(null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $params) = $this->fetchParameters($itemId);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$this->_setDefaultParameters($params);
 
@@ -364,12 +363,12 @@ class TileTheme extends GalleryTheme {
 
 	list ($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($item);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $tmp) = $this->showAlbumPage($template, $item, $params, $childIds, false);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, 'themes/tile/templates/edit.tpl');
@@ -385,7 +384,7 @@ class TileTheme extends GalleryTheme {
 	}
 	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	if ($ret) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	$status = null;
@@ -396,7 +395,7 @@ class TileTheme extends GalleryTheme {
 		    $ret = GalleryCoreApi::setPluginParameter('theme', 'tile', $key, $form[$key],
 							      $item->getId());
 		    if ($ret) {
-			return array($ret, null, null);
+			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 		}
 	    }
@@ -413,7 +412,7 @@ class TileTheme extends GalleryTheme {
 	    $ret = GalleryCoreApi::setPluginParameter('theme', 'tile', 'map', implode(';', $map),
 						      $item->getId());
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    $status = $this->translate('Successfully saved theme settings');
 	} /* else $form['action']['undo'] */

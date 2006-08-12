@@ -1,5 +1,5 @@
 {*
- * $Revision$
+ * $Revision: 1.2 $
  * If you want to customize this file, do not edit it directly since future upgrades
  * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
  * version.  Gallery will look for that file first and use it if it exists.
@@ -23,7 +23,7 @@
     {if $AdminSitemap.canRewrite}
       {assign var=subView value="rewrite.AdminRewrite"}
     {else}
-      {assign var=subView value="core.AdminPlugins"}
+      {assign var=subView value="core.AdminModules"}
     {/if}
     <a href="{g->url arg1="view=core.SiteAdmin" arg2="subView=`$subView`"}">
       {g->text text="URL Rewrite Module"}</a>

@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: AdminPerformanceControllerTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.4 $ $Date: 2006/02/09 05:03:51 $
  * @package GalleryCore
  * @subpackage PHPUnit
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -42,7 +44,7 @@ class AdminPerformanceControllerTest extends GalleryControllerTestCase {
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'core');
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$acceleration['user']['type'] = 'none';
@@ -52,7 +54,7 @@ class AdminPerformanceControllerTest extends GalleryControllerTestCase {
 	$ret = GalleryCoreApi::setPluginParameter(
 	    'module', 'core', 'acceleration', serialize($acceleration));
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
 
@@ -77,7 +79,7 @@ class AdminPerformanceControllerTest extends GalleryControllerTestCase {
 	list ($ret, $acceleration) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'acceleration');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$acceleration = unserialize($acceleration);
 
@@ -98,7 +100,7 @@ class AdminPerformanceControllerTest extends GalleryControllerTestCase {
 
 	$ret = GalleryDataCache::putPageData('test-key', 0, 'key', 'test-value');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	GalleryUtilities::putRequestVariable('form[action][clear]', 1);
@@ -120,7 +122,7 @@ class AdminPerformanceControllerTest extends GalleryControllerTestCase {
 	$storage =& $gallery->getStorage();
 	list ($ret, $results) = $storage->search('SELECT COUNT(*) FROM [GalleryCacheMap]', array());
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$result = $results->nextResult();
 	$this->assertEquals(0, (int)$result[0]);

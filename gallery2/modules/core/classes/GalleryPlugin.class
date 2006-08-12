@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: GalleryPlugin.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.21 $ $Date: 2006/01/10 04:39:21 $
  * @package GalleryCore
  * @author Bharat Mediratta <bharat@menalto.com>
  */
@@ -179,7 +181,7 @@ class GalleryPlugin {
 
 	list ($ret, $pluginStatus) = GalleryCoreApi::fetchPluginStatus($pluginType);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (isset($pluginStatus[$pluginId]['active'])) {
@@ -196,7 +198,7 @@ class GalleryPlugin {
 		      'active' => 1));
 	}
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Flush the cache */
@@ -217,7 +219,7 @@ class GalleryPlugin {
 				  'pluginId' => $this->getId()));
 	    list ($ret) = GalleryCoreApi::postEvent($event);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
@@ -230,11 +232,7 @@ class GalleryPlugin {
     }
 
     /**
-     * Deactivate this plugin.
-     *
-     * Note that modules and themes should not override this method to do anything critical.
-     * Modules and themes can be forcibly deactivated during the upgrade process and it's
-     * important that this doesn't leave the app in a broken state.
+     * Deactivate this plugin
      *
      * @param bool should we post a deactivation event?  Normally true, but the
      *             upgrader may choose to suppress this event so that it can
@@ -252,7 +250,7 @@ class GalleryPlugin {
 		  'pluginId' => $pluginId),
 	    array('active' => 0));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Flush the cache */
@@ -265,7 +263,7 @@ class GalleryPlugin {
 	if ($postDeactivationEvent) {
 	    $ret = $this->_postDeactivationEvent();
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
@@ -290,7 +288,7 @@ class GalleryPlugin {
 
 	list ($ret, $isActive) = $this->isActive();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (!$isActive) {
 	    if ($gallery->getDebug()) {
@@ -307,7 +305,7 @@ class GalleryPlugin {
 
 	list ($ret, $redirect) = $this->deactivate(false);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (!empty($redirect)) {
 	    return array(null, $redirect);
@@ -322,7 +320,7 @@ class GalleryPlugin {
 	if ($ret) {
 	    /* Try to send the deactivation event before failing completely. */
 	    $this->_postDeactivationEvent();
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (!empty($redirect)) {
@@ -351,7 +349,7 @@ class GalleryPlugin {
 			      'pluginId' => $this->getId()));
 	list ($ret) = GalleryCoreApi::postEvent($event);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -368,7 +366,7 @@ class GalleryPlugin {
 	/* Remove this plugin */
 	$ret = GalleryCoreApi::removePlugin($this->getPluginType(), $this->getId());
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Remove data directory for this plugin */
@@ -384,7 +382,7 @@ class GalleryPlugin {
 			      'pluginId' => $this->getId()));
 	list ($ret) = GalleryCoreApi::postEvent($event);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -414,7 +412,7 @@ class GalleryPlugin {
 
 	list($ret, $pluginStatus) = GalleryCoreApi::fetchPluginStatus($this->getPluginType());
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (empty($pluginStatus[$this->getId()])) {
@@ -439,7 +437,7 @@ class GalleryPlugin {
 	list ($ret, $value) = GalleryCoreApi::getPluginParameter(
 	    $this->getPluginType(), $this->getId(), $parameterName, $itemId);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, $value);
@@ -457,7 +455,7 @@ class GalleryPlugin {
 	$ret = GalleryCoreApi::setPluginParameter(
 	    $this->getPluginType(), $this->getId(), $parameterName, $parameterValue, $itemId);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -474,7 +472,7 @@ class GalleryPlugin {
 	$ret = GalleryCoreApi::removePluginParameter(
 	    $this->getPluginType(), $this->getId(), $parameterName, $itemId);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -501,7 +499,7 @@ class GalleryPlugin {
 	    list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(
 		$this->getPluginType(), $this->getId(), $id);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $results = array_merge($results, $params);
 	}

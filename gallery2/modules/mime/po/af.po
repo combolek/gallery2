@@ -1,4 +1,4 @@
-# $Id$
+# $Id: af.po,v 1.2 2006/03/22 04:20:01 mindless Exp $
 #
 # Gallery - a web based photo album viewer and editor
 # Copyright (C) 2000-2006 Bharat Mediratta
@@ -19,7 +19,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: MIME Maintenance 1.1.0\n"
+"Project-Id-Version: Gallery: MIME Maintenance 1.0.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-04-09 12:15+0200\n"
 "PO-Revision-Date: 2006-03-16 10:11+0200\n"
@@ -30,9 +30,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Language: Afrikaans\n"
 "X-Poedit-Country: SOUTH AFRICA\n"
-
-msgid "This type of file not allowed; item will not be added."
-msgstr ""
 
 msgid "MIME Maintenance"
 msgstr "MIME Onderhoud"
@@ -46,33 +43,11 @@ msgstr "Ekstra Data"
 msgid "MIME Types"
 msgstr "MIME Tipes"
 
-#, fuzzy
-msgid "Settings saved successfully"
-msgstr "MIME invoer suksesvol gestoor"
-
 msgid "MIME entry saved successfully"
 msgstr "MIME invoer suksesvol gestoor"
 
 msgid "MIME entry deleted"
 msgstr "MIME invoer uitgevee"
-
-msgid "Allow all uploads"
-msgstr ""
-
-msgid "Block upload of types selected below"
-msgstr ""
-
-msgid "Only allow uploads of types selected below"
-msgstr ""
-
-msgid "Save"
-msgstr "Stoor"
-
-msgid "Reset"
-msgstr ""
-
-msgid "Add new MIME type"
-msgstr "Voeg nuwe MIME tipes by"
 
 msgid "Extensions"
 msgstr "Uitbreidings"
@@ -89,11 +64,8 @@ msgstr "wysig"
 msgid "delete"
 msgstr "verwyder"
 
-msgid "Allow Upload"
-msgstr ""
-
-msgid "Block Upload"
-msgstr ""
+msgid "Add new MIME type"
+msgstr "Voeg nuwe MIME tipes by"
 
 #, c-format
 msgid "Edit MIME type: %s"
@@ -120,6 +92,9 @@ msgstr "Hierdie uitbreiding is reeds in gebruik en kan nie hergebruik word nie."
 msgid "You must specify at least one extension."
 msgstr "U moet ten minste een uitbreiding verskaf."
 
+msgid "Save"
+msgstr "Stoor"
+
 msgid "Apply"
 msgstr "Pas toe"
 
@@ -128,6 +103,6 @@ msgstr "Kanselleer"
 
 #, c-format
 msgid ""
-"Warning: Adding and allowing upload of any of the following mime types could leave you open "
-"to %sCross Site Scripting%s security vulnerabilities."
+"Warning: Adding any of the following mime types could leave you open to %sCross Site "
+"Scripting%s security vulnerabilities."
 msgstr ""

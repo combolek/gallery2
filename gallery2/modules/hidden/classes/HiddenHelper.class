@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: HiddenHelper.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -15,10 +17,10 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.7 $ $Date: 2006/01/27 21:31:36 $
  * @package Hidden
  * @author Alan Harder <alan.harder@sun.com>
  */
@@ -65,7 +67,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 	if (!isset($coreParams)) {
 	    list ($ret, $coreParams) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 	static $passwordInterface;
@@ -73,7 +75,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 	    list ($ret, $passwordInterface) =
 		GalleryCoreApi::newFactoryInstance('PasswordInterface_1_0');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    if (!isset($passwordInterface)) {
 		$passwordInterface = false;
@@ -84,12 +86,12 @@ class HiddenHelper extends HiddenInterface_1_0 {
 	$ret = GalleryCoreApi::removeUserPermission(
 		$itemId, $coreParams['id.anonymousUser'], 'core.view');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$ret = GalleryCoreApi::removeGroupPermission(
 		$itemId, $coreParams['id.everybodyGroup'], 'core.view');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Remove session based permission for a hidden ancestor */
@@ -97,47 +99,47 @@ class HiddenHelper extends HiddenInterface_1_0 {
 	    list ($ret, $hiddenAncestor, $passwordAncestor) =
 		HiddenHelper::_checkAncestors($item, $passwordInterface);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 	if ($hiddenAncestor) {
 	    $ret = GalleryCoreApi::removeEntityPermission($itemId, $hiddenAncestor, 'core.view');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 	if ($passwordAncestor) {
 	    $ret = GalleryCoreApi::removeEntityPermission($itemId, $passwordAncestor, 'core.view');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
 	/* Add session based permission */
 	$ret = GalleryCoreApi::addEntityPermission($itemId, $hideId, 'core.view');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Set onLoadHandler */
 	if ($itemId == $hideId) {
 	    list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($itemId);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    list ($ret, $item) = $item->refresh();
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $item->addOnLoadHandler('Hidden');
 	    $ret = $item->save();
 	    if ($ret) {
 		GalleryCoreApi::releaseLocks($lockId);
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $ret = GalleryCoreApi::releaseLocks($lockId);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
@@ -146,24 +148,24 @@ class HiddenHelper extends HiddenInterface_1_0 {
 	if ($item->getCanContainChildren() && $passwordInterface) {
 	    list ($ret, $hasPassword) = $passwordInterface->hasPassword($item);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 	if ($item->getCanContainChildren() && !$hasPassword) {
 	    list ($ret, $childIds) = GalleryCoreApi::fetchChildItemIdsIgnorePermissions($item);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    if (!empty($childIds)) {
 		list ($ret, $childItems) = GalleryCoreApi::loadEntitiesById($childIds);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 		foreach ($childItems as $child) {
 		    $ret = HiddenHelper::hideItem($child, $hideId,
 						  $hiddenAncestor, $passwordAncestor);
 		    if ($ret) {
-			return $ret;
+			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		}
 	    }
@@ -172,7 +174,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 	if ($hideId == $itemId) {
 	    $ret = GalleryCoreApi::maybeCompactAccessLists();
 	    if ($ret && !($ret->getErrorCode() & ERROR_LOCK_TIMEOUT)) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
@@ -205,7 +207,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 	    list ($ret, $passwordInterface) =
 		GalleryCoreApi::newFactoryInstance('PasswordInterface_1_0');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    if (!isset($passwordInterface)) {
 		$passwordInterface = false;
@@ -215,7 +217,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 	if ($item->getCanContainChildren() && $passwordInterface) {
 	    list ($ret, $hasPassword) = $passwordInterface->hasPassword($item);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
@@ -223,7 +225,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 	if ($item->getId() != $hideId || !$hasPassword) {
 	    $ret = GalleryCoreApi::removeEntityPermission($itemId, $hideId, 'core.view');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
@@ -232,19 +234,19 @@ class HiddenHelper extends HiddenInterface_1_0 {
 	    list ($ret, $hiddenAncestor, $passwordAncestor) =
 		HiddenHelper::_checkAncestors($item, $passwordInterface);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 	if ($hiddenAncestor) {
 	    /* Mark as hidden under a different id */
 	    $ret = GalleryCoreApi::addEntityPermission($itemId, $hiddenAncestor, 'core.view');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	} else if ($passwordAncestor) {
 	    $ret = GalleryCoreApi::addEntityPermission($itemId, $passwordAncestor, 'core.view');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	} else {
 	    /* Restore public view permission */
@@ -253,12 +255,12 @@ class HiddenHelper extends HiddenInterface_1_0 {
 		list ($ret, $coreParams) =
 		    GalleryCoreApi::fetchAllPluginParameters('module', 'core');
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	    list ($ret, $permissions) = GalleryCoreApi::fetchAllPermissionsForItem($itemId);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $userSee = $groupSee = false;
 	    foreach ($permissions as $permission) {
@@ -271,7 +273,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 		    $ret = GalleryCoreApi::addUserPermission(
 			    $itemId, $coreParams['id.anonymousUser'], 'core.view');
 		    if ($ret) {
-			return $ret;
+			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		    $userSee = true;
 		}
@@ -280,7 +282,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 		    $ret = GalleryCoreApi::addGroupPermission(
 			    $itemId, $coreParams['id.everybodyGroup'], 'core.view');
 		    if ($ret) {
-			return $ret;
+			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		    $groupSee = true;
 		}
@@ -290,7 +292,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 		$ret = GalleryCoreApi::addGroupPermission(
 			$itemId, $coreParams['id.everybodyGroup'], 'core.view');
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	}
@@ -299,21 +301,21 @@ class HiddenHelper extends HiddenInterface_1_0 {
 	if ($itemId == $hideId) {
 	    list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($itemId);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    list ($ret, $item) = $item->refresh();
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $item->removeOnLoadHandler('Hidden');
 	    $ret = $item->save();
 	    if ($ret) {
 		GalleryCoreApi::releaseLocks($lockId);
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $ret = GalleryCoreApi::releaseLocks($lockId);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
@@ -321,18 +323,18 @@ class HiddenHelper extends HiddenInterface_1_0 {
 	if ($item->getCanContainChildren() && !$hasPassword) {
 	    list ($ret, $childIds) = GalleryCoreApi::fetchChildItemIdsIgnorePermissions($item);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    if (!empty($childIds)) {
 		list ($ret, $childItems) = GalleryCoreApi::loadEntitiesById($childIds);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 		foreach ($childItems as $child) {
 		    $ret = HiddenHelper::unHideItem($child, $hideId,
 						    $hiddenAncestor, $passwordAncestor);
 		    if ($ret) {
-			return $ret;
+			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		}
 	    }
@@ -341,7 +343,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 	if ($hideId == $itemId) {
 	    $ret = GalleryCoreApi::maybeCompactAccessLists();
 	    if ($ret && !($ret->getErrorCode() & ERROR_LOCK_TIMEOUT)) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
@@ -361,7 +363,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
     function _checkAncestors($item, $passwordInterface) {
 	list ($ret, $ancestors) = GalleryCoreApi::fetchParents($item);
 	if ($ret) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 	$hiddenAncestor = $passwordAncestor = false;
 	foreach ($ancestors as $ancestor) {
@@ -371,7 +373,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 	    if ($passwordInterface) {
 		list ($ret, $hasPassword) = $passwordInterface->hasPassword($ancestor);
 		if ($ret) {
-		    return array($ret, null, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 		if ($hasPassword) {
 		    $passwordAncestor = $ancestor->getId();
@@ -393,12 +395,12 @@ class HiddenHelper extends HiddenInterface_1_0 {
 	list ($ret, $parents) =
 	    GalleryCoreApi::loadEntitiesById(array($oldParentId, $newParentId));
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	foreach ($parents as $parent) {
 	    list ($ret, $ancestors) = GalleryCoreApi::fetchParents($parent);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $ancestors[] = $parent;
 	    $hiddenAncestor = false;
@@ -413,13 +415,13 @@ class HiddenHelper extends HiddenInterface_1_0 {
 	    /* New location is hidden */
 	    $ret = HiddenHelper::hideItem($item, $hiddenAncestors[1], $hiddenAncestors[0]);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	} else if ($hiddenAncestors[0]) {
 	    /* Old location was hidden, new location is not */
 	    $ret = HiddenHelper::unHideItem($item, $hiddenAncestors[0], false);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 	return null;

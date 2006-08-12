@@ -1,24 +1,26 @@
 <?php
 /*
- * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or (at
- * your option) any later version.
- *
- * This program is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- */
+* $RCSfile: PermalinksOptionTest.class,v $
+*
+* Gallery - a web based photo album viewer and editor
+* Copyright (C) 2000-2006 Bharat Mediratta
+*
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; either version 2 of the License, or (at
+* your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but
+* WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+* General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program; if not, write to the Free Software
+* Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+*/
 /**
-* @version $Revision$ $Date$
+* @version $Revision: 1.6 $ $Date: 2006/01/21 10:31:43 $
 * @package Permalinks
 * @subpackage PHPUnit
 * @author Pierre-Luc Paour <paour@users.sf.net>
@@ -47,14 +49,14 @@ class PermalinksOptionTest extends ItemEditOptionTestCase {
 	$ret = $this->_markPluginParametersForCleanup('module', 'permalinks');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $item) = $this->_createRandomDataItem($this->_getRootId(), 'image/test',
 		array(), __FILE__, 'GalleryPhotoItem');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$item->setMimeType('image/gif');
 
@@ -62,7 +64,7 @@ class PermalinksOptionTest extends ItemEditOptionTestCase {
 		array(), __FILE__, 'GalleryPhotoItem');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$item1->setMimeType('image/gif');
 
@@ -73,17 +75,17 @@ class PermalinksOptionTest extends ItemEditOptionTestCase {
     }
 
     function tearDown() {
+	parent::tearDown();
+
 	if (!empty($this->_aliasNamesToDelete)) {
 	    foreach ($this->_aliasNamesToDelete as $name) {
 		$ret =
 		    PermalinksMapHelper::deleteAlias($name);
 		if ($ret) {
-		    return $this->failWithStatus($ret);
+		    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 		}
 	    }
 	}
-
-	parent::tearDown();
     }
 
     function testPermalinksOptionCreate() {

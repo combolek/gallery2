@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: PanoramaOptionTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.12 $ $Date: 2006/01/24 00:41:53 $
  * @package Panorama
  * @subpackage PHPUnit
  * @author Alan Harder <alan.harder@sun.com>
@@ -26,7 +28,6 @@
 
 GalleryCoreApi::requireOnce('lib/tools/phpunit/ItemEditOptionTestCase.class');
 GalleryCoreApi::requireOnce('modules/panorama/classes/PanoramaHelper.class');
-GalleryCoreApi::requireOnce('modules/panorama/classes/PanoramaRenderer.class');
 
 /**
  * PanoramaOption tests
@@ -48,7 +49,7 @@ class PanoramaOptionTest extends ItemEditOptionTestCase {
 		    array('width' => 10000, 'height' => 100), __FILE__, 'GalleryPhotoItem');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($this->_item);
 
@@ -57,34 +58,27 @@ class PanoramaOptionTest extends ItemEditOptionTestCase {
 		'test-operation|80', 'image/test', array('width' => 8000, 'height' => 80));
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-
-	$this->_renderer = new PanoramaRenderer();
     }
 
     function _makePanoramas() {
-	list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($this->_item->getId());
+	$ret = PanoramaHelper::assignEntityType($this->_item, true);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
-
 	list ($ret, $this->_item) = $this->_item->refresh();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-
-	$this->_item->setRenderer('PanoramaRenderer');
-	$ret = $this->_item->save();
+	$ret = PanoramaHelper::assignEntityType($this->_derivative, true);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
-
-	$ret = GalleryCoreApi::releaseLocks($lockId);
+	list ($ret, $this->_derivative) = $this->_derivative->refresh();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-
 	return null;
     }
 
@@ -96,15 +90,21 @@ class PanoramaOptionTest extends ItemEditOptionTestCase {
 
 	list ($ret, $item) = $this->_item->refresh();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-	$this->assertEquals('PanoramaRenderer', $item->getRenderer());
+	$this->assertEquals('PanoramaPhotoItem', $item->getEntityType());
+
+	list ($ret, $item) = $this->_derivative->refresh();
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+	$this->assertEquals('PanoramaDerivativeImage', $item->getEntityType());
     }
 
     function testPanoramaOff() {
 	$ret = $this->_makePanoramas();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$result = $this->_handleRequestAfterEdit(array(), $this->_item);
@@ -112,15 +112,22 @@ class PanoramaOptionTest extends ItemEditOptionTestCase {
 
 	list ($ret, $item) = $this->_item->refresh();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-	$this->assertEquals(null, $item->getRenderer());
+	$this->assertEquals('GalleryPhotoItem', $item->getEntityType());
+
+	list ($ret, $item) = $this->_derivative->refresh();
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+	$this->assertEquals('GalleryDerivativeImage', $item->getEntityType());
     }
 
     function testHelper() {
 	list ($ret, $images) = PanoramaHelper::fetchViewableImages(array($this->_item));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert(isset($images[$this->_item->getId()]), 'Missing result');
 	$this->assertEquals($this->_derivative->getId(),
@@ -131,36 +138,34 @@ class PanoramaOptionTest extends ItemEditOptionTestCase {
 	/* Make sure we use full urls in applet parameters, and sessionid in image url */
 	$ret = $this->_makePanoramas();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	$html = $this->_renderer->render('HTML', $this->_item, $this->_item, array());
-	$this->assert(
-	    preg_match('{<param name="archive" value="http}', $html),
-	    'item: jar full url: ' . htmlentities($html));
+	$html = $this->_item->render('HTML', array());
+	$this->assert(preg_match('{<object[^>]*archive="http}', $html),
+		      'item: jar full url: ' . htmlentities($html));
 	$this->assert(preg_match('{<param[^>]*name="ScrollerThumb"[^>]*value="http}', $html),
 		      'item: slider full url: ' . htmlentities($html));
 	$this->assert(preg_match('{<param[^>]*name="PanoramaTile"[^>]*value="http[^"]*'
 				 . SESSION_ID_PARAMETER . '}', $html),
 		      'item: image full url: ' . htmlentities($html));
 
-	$html = $this->_renderer->render('HTML', $this->_derivative, $this->_item, array());
-	$this->assert(preg_match('{<param name="archive" value="http}', $html),
+	$html = $this->_derivative->render('HTML', $this->_item, array());
+	$this->assert(preg_match('{<object[^>]*archive="http}', $html),
 		      'deriv: jar full url: ' . htmlentities($html));
 	$this->assert(preg_match('{<param[^>]*name="ScrollerThumb"[^>]*value="http}', $html),
 		      'deriv: slider full url: ' . htmlentities($html));
 	$this->assert(preg_match('{<param[^>]*name="PanoramaTile"[^>]*value="http[^"]*'
 				 . SESSION_ID_PARAMETER . '}', $html),
 		      'deriv: image full url: ' . htmlentities($html));
-
+    
 	/* Accept forceRawImage parameter to bypass applet display */
-	$html = $this->_renderer->render(
-	    'HTML', $this->_item, $this->_item, array('forceRawImage' => true));
-	$this->assertEquals(null, $html, 'item: raw image');
-
-	$html = $this->_renderer->render(
-	    'HTML', $this->_derivative, $this->_item, array('forceRawImage' => true));
-	$this->assertEquals(null, $html, 'deriv: raw image');
+	$html = $this->_item->render('HTML', array('forceRawImage' => true));
+	$this->assert(strpos($html, '<img') !== false && strpos($html, '<object') === false,
+		      'item: raw image');
+	$html = $this->_derivative->render('HTML', $this->_item, array('forceRawImage' => true));
+	$this->assert(strpos($html, '<img') !== false && strpos($html, '<object') === false,
+		      'deriv: raw image');
     }
 }
 ?>

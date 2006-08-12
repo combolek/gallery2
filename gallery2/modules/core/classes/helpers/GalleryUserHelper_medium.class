@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: GalleryUserHelper_medium.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.15 $ $Date: 2006/01/13 22:47:48 $
  * @package GalleryCore
  * @author Bharat Mediratta <bharat@menalto.com>
  */
@@ -83,7 +85,7 @@ class GalleryUserHelper_medium {
 			     array('limit' => array('count' => $count,
 						    'offset' => $offset)));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$usernames = array();
@@ -108,7 +110,7 @@ class GalleryUserHelper_medium {
 	    list($ret, $groupId) =
 		GalleryCoreApi::getPluginParameter('module', 'core', 'id.everybodyGroup');
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 	$data = array();
@@ -142,7 +144,7 @@ class GalleryUserHelper_medium {
 
         list ($ret, $searchResults) = $gallery->search($query, $data);
         if ($ret) {
-            return array($ret, null);
+            return array($ret->wrap(__FILE__, __LINE__), null);
         }
 
         $result = $searchResults->nextResult();
@@ -170,17 +172,17 @@ class GalleryUserHelper_medium {
         ';
 	list ($ret, $searchResults) = $gallery->search($query, array($userName));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if ($searchResults->resultCount() == 0) {
-	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
+	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__), null);
 	} else {
 	    $result = $searchResults->nextResult();
 	    $id = $result[0];
 	    list ($ret, $user) = GalleryCoreApi::loadEntitiesById($id);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    return array(null, $user);
@@ -200,11 +202,11 @@ class GalleryUserHelper_medium {
 	/* Make sure we have adequate permissions */
 	list ($ret, $inGroup) = GalleryCoreApi::isUserInSiteAdminGroup();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if (!$inGroup) {
-	    return GalleryCoreApi::error(ERROR_PERMISSION_DENIED);
+	    return GalleryCoreApi::error(ERROR_PERMISSION_DENIED, __FILE__, __LINE__);
 	}
 
 	return null;
@@ -223,24 +225,24 @@ class GalleryUserHelper_medium {
 	global $gallery;
 
 	if (empty($userId)) {
-	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* First check if the User is a valid gallery user! */
 	list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Get all items by the user */
 	list ($ret, $itemIds) = GalleryCoreApi::fetchAllItemIdsByOwnerId($user->getId());
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if (empty($itemIds)) {
@@ -254,7 +256,7 @@ class GalleryUserHelper_medium {
 	list ($ret, $userItemPermissions) =
 	    GalleryCoreApi::fetchPermissionsForItems($itemIds, $user->getId());
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* First sort out the items that we can delete (permissions) */
@@ -274,7 +276,7 @@ class GalleryUserHelper_medium {
 	/* Load all items */
 	list ($ret, $items) = GalleryCoreApi::loadEntitiesById($itemIds);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$albums = array();
@@ -290,7 +292,7 @@ class GalleryUserHelper_medium {
 	    /* delete the item */
 	    $ret = GalleryCoreApi::deleteEntityById($item->getId());
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
@@ -311,7 +313,7 @@ class GalleryUserHelper_medium {
 	    list ($ret, $descendentCounts) =
 		GalleryCoreApi::fetchDescendentCounts($modifiedAlbumIds);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    /* $descendentCounts has no entry for all albums with 0 descendents!! */
 	    $newModifiedAlbumIds = array();
@@ -327,7 +329,7 @@ class GalleryUserHelper_medium {
 		    /* delete albumItem */
 		    $ret = GalleryCoreApi::deleteEntityById($albumId);
 		    if ($ret) {
-			return $ret;
+			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		    $remainingAlbums[$albumId] = 0;
 		} else {
@@ -342,7 +344,7 @@ class GalleryUserHelper_medium {
 	    if ($remaining) {
 		list ($ret, $trueOrFalse) = GalleryCoreApi::guaranteeAlbumHasThumbnail($albumId);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	}

@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: Render.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,8 +20,8 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
- * @package Rss
+ * @version $Revision: 1.6 $ $Date: 2006/03/06 23:10:41 $
+ * @package RSS
  * @author Jonatan Heyman <http://heyman.info>
  * @author Pierre-Luc Paour
  * @author Daniel Grund <http://www.photogrund.nl>
@@ -32,7 +34,7 @@ GalleryCoreApi::requireOnce('modules/rss/classes/RssMapHelper.class');
 /**
  * Render the Feed
  *
- * @package Rss
+ * @package RSS
  * @subpackage UserInterface
  */
 class RenderView extends GalleryView {
@@ -52,7 +54,7 @@ class RenderView extends GalleryView {
 	/* get all parameters */
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'rss');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* retrieve request variables */
@@ -79,7 +81,7 @@ class RenderView extends GalleryView {
 
 	$ret = $this->continueRender($params);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -91,7 +93,7 @@ class RenderView extends GalleryView {
 	/* check permissions */
 	list ($ret, $perm) = GalleryCoreApi::hasItemPermission($params['itemId'], 'core.view');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if (!$perm) {
@@ -101,22 +103,18 @@ class RenderView extends GalleryView {
 
 	/* check render type */
 	$feedType = $params['feedType'];
-	if (!in_array($feedType, array('album',
-					'photos',
-					'photosRecurse',
-					'commentsAlbum',
-					'commentsPhoto',
-					'commentsRecursive'))) {
+	if ($feedType != 'album' && $feedType != 'photos'  && $feedType != 'photosRecurse' &&
+		$feedType != 'commentsAlbum' && $feedType != 'commentsPhoto') {
 	    $this->handleError($gallery->i18n('Incorrect feed type!'));
 	    return null;
 	}
 
 	/* check if we comments are active */
-	if (in_array($feedType, array('commentsAlbum', 'commentsPhoto', 'commentsRecursive'))) {
+	if ($params['feedType'] == 'commentsAlbum' || $params['feedType'] == 'commentsPhoto') {
 	    /* make sure that the comments module is active */
 	    list ($ret, $modulestatus) = GalleryCoreApi::fetchPluginStatus('module');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    if ($modulestatus['comment']['active'] != '1') {
@@ -129,7 +127,7 @@ class RenderView extends GalleryView {
 	    list ($ret, $perm) =
 		GalleryCoreApi::hasItemPermission($params['itemId'], 'comment.view');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    if (!$perm) {
@@ -154,7 +152,7 @@ class RenderView extends GalleryView {
 
 	$ret = RssHelper::getFeed($generator, $params['itemId'], $params);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$generator->sliceItems($count);

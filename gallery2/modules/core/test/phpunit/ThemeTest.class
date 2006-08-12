@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ThemeTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -17,9 +19,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.7 $ $Date: 2006/01/10 04:39:36 $
  * @package GalleryCore
  * @subpackage PHPUnit
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -50,44 +51,33 @@ class ThemeTest extends GalleryTestCase {
 	list ($ret, $this->_theme) = GalleryCoreApi::loadPlugin('theme', 'ThemeTest');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_theme->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
 	$this->_theme->setRequiredThemeApi(GalleryTheme::getApiVersion());
-
-	$ret = $this->_markPluginParametersForCleanup('module', 'core');
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-
-	list ($ret, $this->_item) = $this->_createRandomDataItem($this->_getRootId());
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-	$this->_markForCleanup($this->_item);
     }
 
     function tearDown() {
-	/* If a unit test fails it might not deactivate/uninstall the mock theme properly */
+	/* If a unitest fails it might not deactivate/uninstall the mock theme properly */
 	list ($ret, $isActive) = $this->_theme->isActive();
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	if ($isActive) {
 	    list ($ret, $redirect) = $this->_theme->deactivate();
 	    if ($ret) {
-		$this->failWithStatus($ret);
+		$this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	}
 
 	$ret = $this->_theme->uninstall();
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$ret = GalleryCoreApi::removePlugin('theme', 'ThemeTest');
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	parent::tearDown();
@@ -96,45 +86,49 @@ class ThemeTest extends GalleryTestCase {
     function testPackSettingBlockList1() {
 	$this->assertEquals(
 	    array(true, serialize(array(array('module.BlockName', array('param1' => 'value1'))))),
-	    $this->_theme->packSetting('block-list', '[["module.BlockName",{"param1":"value1"}]]'));
+	    $this->_theme->packSetting('block-list', '[module.BlockName param1=value1]'));
     }
 
     function testPackSettingBlockList2() {
-	$this->assertEquals(array(true, serialize(array(array('module.BlockName',
-			array('param1' => 'value1')),
-		    array('module2.Block2', array()),
-		    array('module.BlockName', array('param1' => 'value1', 'param2' => 'value2'))))),
-	    $this->_theme->packSetting(
-		'block-list',
-		'[["module.BlockName", {"param1":"value1"}],' .
-		' ["module2.Block2"],' .
-		' ["module.BlockName",{"param1":"value1","param2":"value2"}]]'));
+	$this->assertEquals(
+	    array(true,
+		  serialize(
+		      array(
+			  array('module.BlockName',
+				array('param1' => 'value1')),
+			  array('module2.Block2',
+				array()),
+			  array('module.BlockName',
+				array('param1' => 'value1',
+				      'param2' => 'value2'))))),
+	    $this->_theme->packSetting('block-list',
+				'[module.BlockName param1=value1] ' .
+				'[module2.Block2] ' .
+				'[module.BlockName param1=value1 param2=value2]'));
     }
 
     function testPackSettingBlockListTrueFalse() {
-	$this->assertEquals(array(true, serialize(array(array('module.BlockName',
-			array('param1' => false, 'param2' => true))))),
+	$this->assertEquals(
+	    array(true,
+		  serialize(
+		      array(
+			  array('module.BlockName',
+				array('param1' => false,
+				      'param2' => true))))),
 	    $this->_theme->packSetting('block-list',
-		'[["module.BlockName",{"param1":false,"param2":true}]]'));
+				       '[module.BlockName param1=false param2=true]'));
     }
 
     function testPackSettingBlockListWhitespace1() {
 	$this->assertEquals(
 	    array(true, serialize(array(array('a.B', array('x' => 'y')), array('b.c', array())))),
-	    $this->_theme->packSetting('block-list', '[["a.B",{"x":"y"}],    ["b.c"]]'));
+	    $this->_theme->packSetting('block-list', '[a.B x=y][b.c]'));
     }
 
     function testPackSettingBlockListWhitespace2() {
 	$this->assertEquals(
-	    array(true, serialize(
-		      array(array('a.B', array('x' => "y \n y")), array('b.c', array())))),
-	    $this->_theme->packSetting('block-list', '[["a.B",{"x":"y \n y"}],["b.c"]]'));
-    }
-
-    function testPackSettingBlockListQuotedValue() {
-	$this->assertEquals(
-	    array(true, serialize(array(array('a.B', array('x' => 'foo "bar" baz'))))),
-	    $this->_theme->packSetting('block-list', '[["a.B",{"x":"foo \"bar\" baz"}]]'));
+	    array(true, serialize(array(array('a.B', array('x' => 'y')), array('b.c', array())))),
+	    $this->_theme->packSetting('block-list', "[a.B\n\r\tx=y]\n\n\t\n[b.c]"));
     }
 
     function testPackSettingBlockListEmpty() {
@@ -153,12 +147,14 @@ class ThemeTest extends GalleryTestCase {
     }
 
     function testPackSettingBlockListMissingRightBracket2() {
-	$this->assertEquals(array(false, serialize(array())),
+	$this->assertEquals(
+	    array(false, serialize(array())),
 	    $this->_theme->packSetting('block-list', '[foo.Bar a=b [foo.Baz b=c]'));
     }
 
     function testPackSettingBlockListMissingLeftBracket() {
-	$this->assertEquals(array(false, serialize(array())),
+	$this->assertEquals(
+	    array(false, serialize(array())),
 	    $this->_theme->packSetting('block-list', 'foo.Bar]'));
     }
 
@@ -168,48 +164,40 @@ class ThemeTest extends GalleryTestCase {
     }
 
     function testPackSettingBlockListVeryLongList() {
-	$count = 3;
-	$data_pattern = '["a.b",{"c":"d"}]';
-	$expected_pattern = array('a.b', array('c' => 'd'));
-
-	$data = '';
+	$count = 100;
+	$value = str_repeat('[a.b c=d]', $count);
 	for ($i = 0; $i < $count; $i++) {
-	    $expected[] = $expected_pattern;
-	    if ($i) {
-		$data .= ',';
-	    }
-	    $data .= $data_pattern;
+	    $expected[] = array('a.b', array('c' => 'd'));
 	}
-	$data = '[' . $data . ']';
-
-	$actual = $this->_theme->packSetting('block-list', $data);
-
-	$this->assertEquals(array(true, $expected),
-			    array($actual[0], unserialize($actual[1])));
+	$this->assertEquals(array(true, serialize($expected)),
+			    $this->_theme->packSetting('block-list', $value));
     }
 
     function testUnpackSettingBlockList1() {
 	$this->assertEquals(
-	    array(true, '[["a.B",{"foo":"bar"}]]'),
+	    array(true, '[a.B foo=bar]'),
 	    $this->_theme->unpackSetting('block-list',
 					 serialize(array(array('a.B', array('foo' => 'bar'))))));
     }
 
     function testUnpackSettingBlockList2() {
 	$this->assertEquals(
-	    array(true, '[["a.B",{"foo":"bar"}],["c.D",{}]]'),
+	    array(true, '[a.B foo=bar] [c.D]'),
 	    $this->_theme->unpackSetting('block-list',
-		serialize(array(array('a.B', array('foo' => 'bar')), array('c.D')))));
+					 serialize(array(array('a.B', array('foo' => 'bar')),
+							 array('c.D')))));
     }
 
     function testUnpackSettingBlockListTrueFalse() {
-	$this->assertEquals(array(true, '[["a.B",{"foo":true,"bar":false}]]'),
-	    $this->_theme->unpackSetting('block-list',
+	$this->assertEquals(
+	    array(true, '[a.B foo=true bar=false]'),
+	    $this->_theme->unpackSetting(
+		'block-list',
 		serialize(array(array('a.B', array('foo' => true, 'bar' => false))))));
     }
 
     function testUnpackSettingBlockListEmpty() {
-	$this->assertEquals(array(true, '[]'),
+	$this->assertEquals(array(true, ''),
 			    $this->_theme->unpackSetting('block-list', serialize(array())));
     }
 
@@ -219,17 +207,19 @@ class ThemeTest extends GalleryTestCase {
     }
 
     function testUnpackSettingBlockListMalformed2() {
-	$this->assertEquals(array(false, ''),
+	$this->assertEquals(
+	    array(false, ''),
 	    $this->_theme->unpackSetting('block-list', serialize(array('x' => 'y'))));
     }
 
     function testInstallBadThemeApi() {
+
 	list ($major, $minor) = $this->_theme->getRequiredThemeApi();
 	$this->_theme->setRequiredThemeApi(array($major - 1, $minor));
 
 	$ret = $this->_theme->installOrUpgrade();
 	if ($ret && !($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH)) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert($ret && ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH),
 	    'success?');
@@ -238,7 +228,7 @@ class ThemeTest extends GalleryTestCase {
     function testActivateBadThemeApiActivate() {
 	$ret = $this->_theme->installOrUpgrade();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($major, $minor) = $this->_theme->getRequiredThemeApi();
@@ -246,13 +236,14 @@ class ThemeTest extends GalleryTestCase {
 
 	list ($ret, $redirect) = $this->_theme->activate();
 	if ($ret && !($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH)) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-	$this->assert($ret && ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH), 'success?');
+	$this->assert($ret && ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH),
+	    'success?');
 
 	list ($ret, $isActive) = $this->_theme->isActive();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert(!$isActive, 'is active');
     }
@@ -263,15 +254,16 @@ class ThemeTest extends GalleryTestCase {
 
 	$ret = $this->_theme->installOrUpgrade();
 	if ($ret && !($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH)) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-	$this->assert($ret && ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH), 'success?');
+	$this->assert($ret && ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH),
+	    'success?');
     }
 
     function testActivateBadCoreApiActivate() {
 	$ret = $this->_theme->installOrUpgrade();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($major, $minor) = $this->_theme->getRequiredCoreApi();
@@ -279,45 +271,16 @@ class ThemeTest extends GalleryTestCase {
 
 	list ($ret, $redirect) = $this->_theme->activate();
 	if ($ret && !($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH)) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-	$this->assert($ret && ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH), 'success?');
+	$this->assert($ret && ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH),
+	    'success?');
 
 	list ($ret, $isActive) = $this->_theme->isActive();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert(!$isActive, 'is active');
-    }
-
-    function testDeactivateDefaultTheme() {
-	$ret = GalleryCoreApi::setPluginParameter(
-	    'module', 'core', 'default.theme', 'themetest');
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-
-	list ($ret, $redirect) = $this->_theme->deactivate();
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-
-	$this->assertEquals(array('href' => 'upgrade/'), $redirect);
-    }
-
-    function testVariableReferenceAccrossLoadCommonTemplateData() {
-	$template = new GalleryTemplate('/path/to/fake/templatedir');
-	$theme =& $template->getVariableByReference('theme');
-
-	$ret = $this->_theme->loadCommonTemplateData($template, $this->_item,
-						     array(), array(), array(), false);
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-
-	$theme['foo'] = 'bar';
-	$theme =& $template->getVariableByReference('theme');
-	$this->assertEquals('bar', $theme['foo']);
     }
 }
 

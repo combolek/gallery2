@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ItemAddUploadApplet.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,8 +20,8 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
- * @package UploadApplet
+ * @version $Revision: 1.21 $ $Date: 2006/02/27 00:25:57 $
+ * @package uploadapplet
  * @author Pierre-Luc Paour <gallery@paour.com>
  */
 
@@ -33,12 +35,12 @@ class ItemAddUploadApplet extends ItemAddPlugin {
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'uploadapplet');
 	if ($ret) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	list ($ret, $modules) = GalleryCoreApi::fetchPluginStatus('module');
 	if ($ret) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	$ItemAddUploadApplet = array();
@@ -54,11 +56,11 @@ class ItemAddUploadApplet extends ItemAddPlugin {
 	    $ItemAddUploadApplet['g2BaseUrl'] = $urlGenerator->getCurrentUrlDir(true);
 	    list ($ret, $cookiePath) = $urlGenerator->getCookiePath(true);
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    list ($ret, $cookieDomain) = $session->getCookieDomain();
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    $ItemAddUploadApplet['NoProtocolError'] = 0;
 	    $ItemAddUploadApplet['cookieName'] = $session->getKey();
@@ -72,14 +74,14 @@ class ItemAddUploadApplet extends ItemAddPlugin {
 
 	    list ($ret, $locale) = $gallery->getActiveLanguageCode();
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    $ItemAddUploadApplet['locale'] = $locale;
 
 	    list ($ret, $params) =
 		GalleryCoreApi::fetchAllPluginParameters('module', 'uploadapplet');
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    foreach (array('default', 'override') as $type) {
 		$ItemAddUploadApplet[$type] = array();
@@ -105,7 +107,7 @@ class ItemAddUploadApplet extends ItemAddPlugin {
     function getTitle() {
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'uploadapplet');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, $module->translate('Upload Applet'));

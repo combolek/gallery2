@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: MultiLangSiteAdmin.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.6 $ $Date: 2006/01/17 01:52:02 $
  * @package MultiLang
  * @subpackage UserInterface
  * @author Alan Harder <alan.harder@sun.com>
@@ -38,7 +40,7 @@ class MultiLangSiteAdminController extends GalleryController {
     function handleRequest($form) {
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$status = array();
@@ -47,7 +49,7 @@ class MultiLangSiteAdminController extends GalleryController {
 	    $ret = GalleryCoreApi::setPluginParameter(
 			  'module', 'multilang', 'languages', implode('|', $languages));
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    /* TODO: if removed some language then optionally delete all data for that language? */
 	    $status['saved'] = 1;
@@ -80,7 +82,7 @@ class MultiLangSiteAdminView extends GalleryView {
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if ($form['formName'] != 'MultiLangSiteAdmin') {
@@ -88,7 +90,7 @@ class MultiLangSiteAdminView extends GalleryView {
 	    list ($ret, $languages) =
 		GalleryCoreApi::getPluginParameter('module', 'multilang', 'languages');
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $form['languages'] = empty($languages) ? array() : explode('|', $languages);
 	}

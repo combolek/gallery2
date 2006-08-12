@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: PluginTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.9 $ $Date: 2006/01/10 08:03:47 $
  * @package GalleryCore
  * @subpackage PHPUnit
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -103,7 +105,7 @@ class PluginTest extends GalleryTestCase {
     function testLoadPlugin() {
  	list ($ret, $plugin) = GalleryCoreApi::loadPlugin('module', 'PluginTestCompatible');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
     function testFetchPluginStatusForWrongPluginType() {
@@ -140,7 +142,7 @@ class PluginTest extends GalleryTestCase {
 
 	    list ($ret, $pluginIds) = GalleryCoreApi::getAllPluginIds($type);
 	    if ($ret) {
-		return $this->failWithStatus($ret);
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $this->assertEquals($expectedIds, $pluginIds, "$type ids do not match");
 	}

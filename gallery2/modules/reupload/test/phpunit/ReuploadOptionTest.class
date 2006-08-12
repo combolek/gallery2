@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ReuploadOptionTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.2 $ $Date: 2006/01/27 15:56:49 $
  * @package Reupload
  * @subpackage PHPUnit
  * @author Piotr P. Karwasz <piotr.karwasz@ens.fr>
@@ -41,7 +43,7 @@ class ReuploadOptionTest extends ItemEditOptionTestCase {
 	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->_markForCleanup($this->_album);
@@ -52,25 +54,25 @@ class ReuploadOptionTest extends ItemEditOptionTestCase {
 	    'modules/reupload/test/phpunit/ReuploadOptionTest.class', 'reuploadTest', null);
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markToolkitForCleanup('ReuploadOptionTestToolkit');
-
+	
 	$ret = GalleryCoreApi::registerToolkitProperty('ReuploadOptionTestToolkit',
 	    array('image/known'), 'dimensions', 'int,int', 'desc');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $this->_item) =
 	    $this->_createRandomDataItem($this->_album->getId(), 'image/known');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_itemSize = $this->_item->getSize();
-
+	
         /* create custom platform to return dummy filesize, imagesize, etc. */
         $gallery->setPlatform(new ReuploadOptionTestPlatform($gallery->getPlatform()));
     }
@@ -83,11 +85,11 @@ class ReuploadOptionTest extends ItemEditOptionTestCase {
 	/* Perform the request and verify that we succeeded */
 	list ($errors, $warnings) = $this->_handleRequestAfterEdit($form, $this->_item);
 	$this->assertEquals(array(), $errors, 'Errors');
-	$this->assertEquals(array($this->_translate('Reuploaded file successfully.')),
+	$this->assertEquals(array($this->_translate('Reuploaded file successfully.')), 
 			    $warnings, 'Warnings');
 	$this->assertEquals(800, $this->_item->getSize(), 'Item size');
     }
-
+    
     /*
      * This imitates the case when the file couldn't be uploaded.
      * We are assuming that the reason is that filesize exceeds the limit
@@ -105,7 +107,7 @@ class ReuploadOptionTest extends ItemEditOptionTestCase {
 	$this->assertEquals(array(), $warnings, 'Warnings');
 	$this->assertEquals($this->_itemSize, $this->_item->getSize(), 'Item size');
     }
-
+    
     /* This imitates the case when the new file has different mime type than the old one */
     function testReuploadToolkitFailure() {
 	$form['tmp_name']['reupload'] = 'bogus.mpeg';
@@ -121,11 +123,11 @@ class ReuploadOptionTest extends ItemEditOptionTestCase {
 	list ($ret, $item) = $this->_item->refresh();
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals($this->_itemSize, $item->getSize(), 'Item size');
     }
-
+    
     /*
      * This imitates the case when we didn't even try to upload the file
      * Shouldn't be any errors!
@@ -140,7 +142,7 @@ class ReuploadOptionTest extends ItemEditOptionTestCase {
 	list ($errors, $warnings) = $this->_handleRequestAfterEdit($form, $this->_item);
 	$this->assertEquals(array(), $errors, 'Errors');
 	$this->assertEquals(array(), $warnings, 'Warnings');
-    }
+    }    
 }
 
 /**
@@ -165,7 +167,7 @@ class ReuploadOptionTestPlatform extends GalleryPlatform {
     function copy($input, $output) {
 	return true;
     }
-
+    
     function filesize($path) {
 	return 800;
     }
@@ -173,7 +175,7 @@ class ReuploadOptionTestPlatform extends GalleryPlatform {
 
 /**
  * Test toolkit
- * @package Reupload
+ * @package ReuploadOption
  * @subpackage PHPUnit
  */
 class ReuploadOptionTestToolkit extends GalleryToolkit {
@@ -184,12 +186,12 @@ class ReuploadOptionTestToolkit extends GalleryToolkit {
 	if ($propertyName == 'dimensions') {
 	    $dimensionRequest = GalleryUtilities::getRequestVariables('dimensions');
 	    if ($dimensionRequest == 'bad_data') {
-		return array(GalleryCoreApi::error(ERROR_BAD_DATA_TYPE), null);
+		return array(GalleryCoreApi::error(ERROR_BAD_DATA_TYPE, __FILE__, __LINE__), null);
 	    } else {
 		return array(null, array(2603, 1966));
 	    }
 	}
-	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
+	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED, __FILE__, __LINE__), null);
     }
 }
 

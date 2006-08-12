@@ -1,4 +1,4 @@
-# $Id$
+# $Id: sv.po,v 1.8 2006/03/22 04:19:29 mindless Exp $
 #
 # Gallery - a web based photo album viewer and editor
 # Copyright (C) 2000-2006 Bharat Mediratta
@@ -28,10 +28,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Image Block 1.0.8\n"
+"Project-Id-Version: Gallery: Image Block 1.0.7\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2003-02-11 03:09-0800\n"
-"PO-Revision-Date: 2006-04-29 17:00+0200\n"
+"PO-Revision-Date: 2006-03-13 19:55+0100\n"
 "Last-Translator: Anders Lindquist <andersl@saaf.se>\n"
 "Language-Team: Swedish <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -160,45 +160,30 @@ msgid ""
 "recentAlbum, viewedAlbum, dailyImage, weeklyImage, monthlyImage, dailyAlbum, weeklyAlbum, "
 "monthlyAlbum, specificItem; default is randomImage"
 msgstr ""
-"Vertikalltstreck(|) separerad lista vald från: slumpmässig bild, senast visad bild, visad "
-"bild, slumpmässig bild, senaste album, visat album, dagens bild, veckans bild, månadens "
-"bild. dagens album, veckans album, månadens album, specifierat objekt; standard är "
-"slumpmässig bild"
+"Vertikalltstreck(|) separerad lista vald från: slumpmässig bild, senast visad bild, visad bild, "
+"slumpmässig bild, senaste album, visat album, dagens bild, veckans bild, månadens bild. "
+"dagens album, veckans album, månadens album, specifierat objekt; standard är slumpmässig bild"
 
 msgid ""
 "Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize; the value "
 "can also be: none"
 msgstr ""
-"Vertikaltstreck(|) separerad lista vald från: titel, datum. antal visningar, ägare. "
-"överskrift, fullstorlek; värdet kan också vara: inget"
+"Vertikaltstreck(|) separerad lista vald från: titel, datum. antal visningar, ägare. överskrift, "
+"fullstorlek; värdet kan också vara: inget"
 
 msgid ""
 "Limit the item selection to the subtree of the gallery under the album with the given id; or "
 "the id of the item to display when used with specificItem block type"
 msgstr ""
-"Begränsa objekt valet till underalbum till det album med det givna id; eller till objektets "
-"id när det används vid specifierad blocktyp"
-
-#, c-format
-msgid ""
-"Scale images to this maximum size. If used alone Gallery will locate the most-closely-sized "
-"image to the specified value - larger images will be scaled down as necessary in your "
-"browser. If specified along with %sshow=fullSize the full size image will always be used and "
-"scaled down as necessary."
-msgstr ""
-
-#, c-format
-msgid ""
-"Just like %smaxSize except that it will not substitute an image smaller than the size you "
-"request, so you'll get the closest match in size possible.  Note that this may use a lot "
-"more bandwidth if a much larger image has to be scaled down in your browser."
-msgstr ""
+"Begränsa objekt valet till underalbum till det album med det givna id; eller till objektets id "
+"när det används vid specifierad blocktyp"
 
 msgid ""
-"Href for link on image; value of none for no link; default is link to item in the Gallery"
+"Scale images to this maximum size. If maxSize exceeds the thumbnail dimensions, you must "
+"also specify g2_show=fullSize"
 msgstr ""
-"Href för länkar till bilder; inget värde för att inte länka; standard är länk till objekt i "
-"Gallery"
+"Skala bilder till den här maximala storleken. Om maxStorleken överskrider "
+"tummnagelns dimmensioner så måste du också specifiera g2_show=fullSize"
 
 msgid "Add a link target (for example, to open links in a new browser window)"
 msgstr "Addera en mållänk (t.ex. för att öppna länken i ett nytt browser fönster)"
@@ -226,8 +211,8 @@ msgid ""
 "parameter to support the image frames configured above. Frame ids are the directory names in "
 "the %s directory."
 msgstr ""
-"Specifiera ram-id (eller en id-lista separerad med vertikalstreck) i ramparametern. Ram-id "
-"är katalog namnen i %s katalogen."
+"Specifiera ram-id (eller en id-lista separerad med vertikalstreck) i ramparametern. "
+"Ram-id är katalog namnen i %s katalogen."
 
 msgid "Image type"
 msgstr "Bildtyp"
@@ -285,10 +270,3 @@ msgstr "Visa Visningsräknare"
 
 msgid "Show owner"
 msgstr "Visa ägare"
-
-#~ msgid ""
-#~ "Scale images to this maximum size. If maxSize exceeds the thumbnail dimensions, you must "
-#~ "also specify g2_show=fullSize"
-#~ msgstr ""
-#~ "Skala bilder till den här maximala storleken. Om maxStorleken överskrider tummnagelns "
-#~ "dimmensioner så måste du också specifiera g2_show=fullSize"

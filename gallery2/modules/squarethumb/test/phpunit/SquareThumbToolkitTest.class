@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: SquareThumbToolkitTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.16 $ $Date: 2006/01/10 04:43:03 $
  * @package SquareThumb
  * @subpackage PHPUnit
  * @author Alan Harder <alan.harder@sun.com>
@@ -49,12 +51,12 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 	$ret = $this->_markPluginParametersForCleanup('module', 'squarethumb');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$ret = GalleryCoreApi::setPluginParameter('module', 'squarethumb', 'mode', 'crop');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	/* Register a dummy toolkit, property and operations */
@@ -64,7 +66,7 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 	    'squarethumbTest', null);
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markToolkitForCleanup('SquareThumbTestToolkit');
 
@@ -73,7 +75,7 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 	    'dimensions', 'int,int', 'desc');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$ret = GalleryCoreApi::registerToolkitOperation('SquareThumbTestToolkit',
 	    array('test/crop', 'test/image'), 'crop',
@@ -83,7 +85,7 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 		  array('type' => 'float', 'description' => 'height %')), 'desc');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$ret = GalleryCoreApi::registerToolkitOperation('SquareThumbTestToolkit',
 	    array('test/composite', 'test/image'), 'composite',
@@ -96,7 +98,7 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 		  array('type' => 'int', 'description' => 'y%')), 'desc');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$ret = GalleryCoreApi::registerToolkitOperation('SquareThumbTestToolkit',
 	    array('test/thumbnail', 'test/image'), 'thumbnail',
@@ -104,7 +106,7 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 		  array('type' => 'int', 'description' => 'height')), 'desc');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	/* Get a toolkit to work with */
@@ -133,7 +135,7 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'squarethumb', 'mode', 'fit');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $mimeType) = $this->_toolkit->performOperation('test/dim', 'thumbnail',
@@ -150,7 +152,7 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'squarethumb', 'mode', 'fit');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $mimeType) = $this->_toolkit->performOperation('test/composite', 'thumbnail',
@@ -164,7 +166,7 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 	list ($ret, $mimeType) = $this->_toolkit->performOperation('test/thumbnail', 'thumbnail',
 	      'squareSrc', 'squareDest', array(150));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals('test/thumbnail', $mimeType, 'Output mime type');
     }
@@ -177,7 +179,7 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 	list ($ret, $mimeType) = $this->_toolkit->performOperation('test/image', 'thumbnail',
 	      'cropSrc', 'cropDest', array(150));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals('test/image', $mimeType, 'Output mime type');
 	$this->assertEquals(array('queue:crop', 'thumbnail'), $gallery->_squareQueue, 'operations');
@@ -187,7 +189,7 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 	list ($ret, $mimeType) = $this->_toolkit->performOperation('test/crop', 'thumbnail',
 	      'smallCropSrc', 'smallCropDest', array(700));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals('test/crop', $mimeType, 'Output mime type 2');
 	$this->assertEquals(array('crop'), $gallery->_squareQueue, 'operations 2');
@@ -203,7 +205,7 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'squarethumb', 'mode', 'fit');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$destFile = $gallery->getConfig('data.gallery.tmp') . 'squareThumbTestFit';
 
@@ -213,7 +215,7 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 	      'compositeSrc', $destFile, array(300));
 	@$platform->unlink($destFile);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals('image/jpeg', $mimeType, 'Output mime type');
 	$this->assertEquals(array('thumbnail', 'composite'), $gallery->_squareQueue, 'operations');
@@ -224,7 +226,7 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 	      'smallCompositeSrc', $destFile, array(100));
 	@$platform->unlink($destFile);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals('image/jpeg', $mimeType, 'Output mime type 2');
 	$this->assertEquals(array('composite'), $gallery->_squareQueue, 'operations 2');
@@ -245,7 +247,7 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 	      'smallCompositeSrc', $destFile, array(100));
 	@$platform->unlink($destFile);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals('image/jpeg', $mimeType, 'Output mime type');
 	$this->assertEquals(array('composite'), $gallery->_squareQueue, 'operations');
@@ -259,14 +261,14 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'squarethumb', 'mode', 'fit');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$gallery->_squareQueue = array();
 	list ($ret, $mimeType) = $this->_toolkit->performOperation('test/crop', 'thumbnail',
 	      'smallCropSrc', 'smallCropDest', array(700));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals('test/crop', $mimeType, 'Output mime type');
 	$this->assertEquals(array('crop'), $gallery->_squareQueue, 'operations');
@@ -359,7 +361,7 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 class SquareThumbTestToolkit extends GalleryToolkit {
     function getProperty($mimeType, $propertyName, $sourceFilename) {
 	if ($propertyName != 'dimensions') {
-	    return array(GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION),
+	    return array(GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION, __FILE__, __LINE__),
 			 null);
 	}
 	switch ($sourceFilename) {
@@ -375,7 +377,7 @@ class SquareThumbTestToolkit extends GalleryToolkit {
 	case 'smallCompositeSrc':
 	    return array(null, array(40, 60));
 	default:
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	}
     }
 

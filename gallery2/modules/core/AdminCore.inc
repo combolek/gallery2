@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: AdminCore.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -17,8 +19,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.77 $ $Date: 2006/02/09 05:02:27 $
  * @package GalleryCore
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -40,17 +43,18 @@ class AdminCoreController extends GalleryController {
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $param) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$status = $error = array();
 	$canSave = !empty($form['action']) &&
-	    array_intersect(array_keys($form['action']), array('save', 'emailTest'));
+	    array_intersect(array_keys($form['action']),
+			    array('save', 'addUploadLocalServerDir', 'emailTest'));
 	if ($canSave) {
 	    /* Validate inputs */
 	    if (!empty($form['smtp']['from']) &&
@@ -118,14 +122,73 @@ class AdminCoreController extends GalleryController {
 	    }
 	}
 
-	if (isset($form['action']['emailTest'])) {
+	if (isset($form['action']['addUploadLocalServerDir'])) {
+	    $path = GalleryUtilities::htmlEntityDecode($form['uploadLocalServer']['newDir']);
+	    /* $path is UTF-8, $realPath is in the system charset for filesystem interactions */
+	    $realPath = GalleryCoreApi::convertFromUtf8($path);
+	    if (empty($path)) {
+		$error[] = 'form[error][uploadLocalServer][newDir][missing]';
+	    } else {
+		$platform =& $gallery->getPlatform();
+		$splitPath = $platform->splitPath($realPath);
+		if (!preg_match('{[\\/]}', $splitPath[0]) || in_array('..', $splitPath)) {
+		    /* Use realpath value if path is relative or has .. */
+		    $realPath = $platform->realpath($realPath);
+		    $path = GalleryCoreApi::convertToUtf8($realPath);
+		}
+
+		if ($platform->isRestrictedByOpenBaseDir($realPath)) {
+		    $error[] = 'form[error][uploadLocalServer][newDir][restrictedByOpenBaseDir]';
+		} else if (!$platform->is_readable($realPath)) {
+		    $error[] = 'form[error][uploadLocalServer][newDir][notReadable]';
+		} else if (!$platform->is_dir($realPath)) {
+		    $error[] = 'form[error][uploadLocalServer][newDir][notADirectory]';
+		}
+	    }
+
+	    /* Store the path in UTF-8 in the database */
+	    if (empty($error)) {
+		for ($i = 1; !empty($param['uploadLocalServer.dir.' . $i])
+			  && ($param['uploadLocalServer.dir.' . $i] != $path); $i++) { }
+
+		if (empty($param['uploadLocalServer.dir.' . $i])) {
+		    $ret = GalleryCoreApi::setPluginParameter(
+			'module', 'core', 'uploadLocalServer.dir.' . $i, $path);
+		    if ($ret) {
+			return array($ret->wrap(__FILE__, __LINE__), null);
+		    }
+		    $status['addedDir'] = 1;
+		}
+	    }
+	} else if (isset($form['action']['removeUploadLocalServerDir'])) {
+	    if (!empty($form['uploadLocalServer']['selectedDir'])) {
+		for ($i = $form['uploadLocalServer']['selectedDir'] + 1;
+			!empty($param['uploadLocalServer.dir.' . $i]); $i++) {
+		    $ret = GalleryCoreApi::setPluginParameter('module', 'core',
+			'uploadLocalServer.dir.' . ($i - 1), $param['uploadLocalServer.dir.' . $i]);
+		    if ($ret) {
+			return array($ret->wrap(__FILE__, __LINE__), null);
+		    }
+		}
+		$ret = GalleryCoreApi::removePluginParameter('module', 'core',
+							     'uploadLocalServer.dir.' . ($i - 1));
+		if ($ret) {
+		    return array($ret->wrap(__FILE__, __LINE__), null);
+		}
+		$status['removedDir'] = 1;
+		$redirect['view'] = 'core.SiteAdmin';
+		$redirect['subView'] = 'core.AdminCore';
+	    } else {
+		$error[] = 'form[error][uploadLocalServer][selectedDir][missing]';
+	    }
+	} else if (isset($form['action']['emailTest'])) {
 	    if (empty($form['emailTest']['to']) ||
 		    !GalleryUtilities::isValidEmailString($form['emailTest']['to'])) {
 		$error[] = 'form[emailTestError][invalidTo]';
 	    } else {
 		list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
 	}
@@ -157,7 +220,7 @@ class AdminCoreController extends GalleryController {
 		    $ret = GalleryCoreApi::setPluginParameter(
 			'module', 'core', $key, $form[$outer][$inner]);
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		}
 	    }
@@ -166,7 +229,7 @@ class AdminCoreController extends GalleryController {
 		$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'smtp.password',
 							  base64_encode($form['smtp']['password']));
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
 
@@ -222,7 +285,7 @@ class AdminCoreView extends GalleryView {
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if ($form['formName'] != 'AdminCore') {
@@ -250,7 +313,7 @@ class AdminCoreView extends GalleryView {
 		list ($ret, $value) =
 		    GalleryCoreApi::getPluginParameter('module', 'core', $key);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		list ($outer, $inner) = explode('.', $key);
@@ -260,12 +323,23 @@ class AdminCoreView extends GalleryView {
 	    $form['smtp']['password'] =
 		str_repeat('*', strlen(base64_decode($form['smtp']['password'])));
 	    $form['formName'] = 'AdminCore';
+	    $form['uploadLocalServer']['newDir'] = '';
 	    $form['emailTest']['to'] = '';
 	}
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	/* Get the list of legal local server dirs */
+	list ($ret, $param) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+	$localServerDirList = array();
+	for ($i = 1; !empty($param['uploadLocalServer.dir.' . $i]); $i++) {
+	    $localServerDirList[$i] = $param['uploadLocalServer.dir.' . $i];
 	}
 
 	$platform =& $gallery->getPlatform();
@@ -340,7 +414,13 @@ class AdminCoreView extends GalleryView {
 	$lockSystemList = array('database' => $module->translate('Database'),
 				'flock' => $module->translate('File'));
 
+	list ($ret, $rootId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
 	$AdminCore['can'] = $can;
+	$AdminCore['localServerDirList'] = $localServerDirList;
 	$AdminCore['sessionTimeList'] = $sessionTimeList;
 	$AdminCore['embeddedMarkupList'] = $embeddedMarkupList;
 	$AdminCore['lockSystemList'] = $lockSystemList;

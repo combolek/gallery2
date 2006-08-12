@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -84,8 +86,7 @@ class GalleryNoMarkupParser {
 
 class GalleryHtmlMarkupParser {
     function parse($text) {
-	/* http://bugs.php.net/bug.php?id=22014 - TODO: remove empty check when min php is 4.3.2+ */
-	return empty($text) ? $text : html_entity_decode($text);
+	return GalleryUtilities::htmlEntityDecode($text);
     }
 }
 
@@ -177,10 +178,8 @@ class GalleryBbcodeMarkupParser {
 	}
 
 	if ($openClose == 'all') {
-	    $size = (isset($attrs['width']) ? ' width="' . (int)$attrs['width'] . '"' : '')
-		. (isset($attrs['height']) ? ' height="' . (int)$attrs['height'] . '"' : '');
 	    /* Input should have entities already, so no htmlspecialchars here */
-	    return sprintf('<img src="%s" alt=""%s/>', $elementContents, $size);
+	    return sprintf('<img src="%s" alt=""/>', $elementContents);
 	} else {
 	    return false;
 	}

@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: WatermarkOption.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.10 $ $Date: 2006/01/10 04:43:26 $
  * @package Watermark
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -37,31 +39,24 @@ class WatermarkOption extends ItemAddOption {
      * @see ItemAddOption::loadTemplate
      */
     function loadTemplate(&$template, &$form, $item) {
-	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'watermark');
+	GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
+
+	list ($ret, $watermarks) = WatermarkHelper::fetchWatermarks();
 	if ($ret) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
+	}
+
+	$currentId = null;
+	foreach (array_keys($watermarks) as $id) {
+	    if (!isset($currentId)) {
+		$currentId = $id;
+	    }
+	    $watermarks[$id] = (array)$watermarks[$id];
 	}
 
 	$WatermarkOption = array();
-	if (!$params['forceDefaultWatermark'] || empty($params['defaultWatermarkId'])) {
-	    GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
-	    list ($ret, $watermarks) = WatermarkHelper::fetchWatermarks();
-	    if ($ret) {
-		return array($ret, null, null);
-	    }
-
-	    $currentId = null;
-	    foreach (array_keys($watermarks) as $id) {
-		if (!isset($currentId)) {
-		    $currentId = $id;
-		}
-		$watermarks[$id] = (array)$watermarks[$id];
-	    }
-
-	    $WatermarkOption['watermarks'] = $watermarks;
-	    $WatermarkOption['currentId'] = $currentId;
-	}
-
+	$WatermarkOption['watermarks'] = $watermarks;
+	$WatermarkOption['currentId'] = $currentId;
 	$template->setVariable('WatermarkOption', $WatermarkOption);
 	return array(null,
 		     'modules/watermark/templates/WatermarkOption.tpl',
@@ -77,7 +72,7 @@ class WatermarkOption extends ItemAddOption {
 	/* Only appropriate if we've got some watermarks to show */
 	list ($ret, $watermarks) = WatermarkHelper::fetchWatermarks();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, !empty($watermarks));
@@ -87,36 +82,31 @@ class WatermarkOption extends ItemAddOption {
      * @see ItemAddOption::handleRequestAfterAdd
      */
     function handleRequestAfterAdd($form, $items) {
-	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'watermark');
-	if ($ret) {
-	    return array($ret, null, null);
-	}
-	if ($params['forceDefaultWatermark'] && !empty($params['defaultWatermarkId'])) {
-	    $form['WatermarkOption']['watermarkId'] = $params['defaultWatermarkId'];
-	}
-
-	foreach ($items as $i => $item) {
-	    if (!empty($form['WatermarkOption']['watermarkId'])
-		    && GalleryUtilities::isA($item, 'GalleryPhotoItem')) {
+	$errors = array();
+	$warnings = array();
+	for ($i = 0; $i < count($items); $i++) {
+	    $warnings[$i] = array();
+	    if (!empty($form['WatermarkOption']['watermarkId']) &&
+		GalleryUtilities::isA($items[$i], 'GalleryPhotoItem')) {
 		list ($ret, $watermark) =
 		    GalleryCoreApi::loadEntitiesById($form['WatermarkOption']['watermarkId']);
 		if ($ret) {
-		    return array($ret, null, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 		$watermarkArray =
 		    array(DERIVATIVE_TYPE_IMAGE_THUMBNAIL => $watermark->getApplyToThumbnail(),
 			  DERIVATIVE_TYPE_IMAGE_RESIZE => $watermark->getApplyToResizes(),
 			  DERIVATIVE_TYPE_IMAGE_PREFERRED => $watermark->getApplyToPreferred());
-		$ret = WatermarkHelper::watermarkItem($watermark, $item,
+		$ret = WatermarkHelper::watermarkItem($watermark, $items[$i],
 						      $watermark->getXPercentage(),
 						      $watermark->getYPercentage(),
 						      $watermarkArray);
-		if ($ret) {
-		    return array($ret, null, null);
+	    	if ($ret) {
+		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 	    }
 	}
-	return array(null, array(), array());
+	return array(null, $errors, $warnings);
     }
 }
 ?>

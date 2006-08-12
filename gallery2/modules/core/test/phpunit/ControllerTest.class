@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ControllerTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.14 $ $Date: 2006/01/13 03:39:32 $
  * @package GalleryCore
  * @subpackage PHPUnit
  * @author Ernesto Baschny <ernst@baschny.de>
@@ -48,7 +50,7 @@ class ControllerTest extends GalleryTestCase {
 	GalleryCoreApi::requireOnce('modules/core/classes/GalleryController.class');
 	list ($ret, $controller) = GalleryController::loadController('core.ItemEdit');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert(isset($controller));
     }
@@ -71,7 +73,7 @@ class ControllerTest extends GalleryTestCase {
 	 */
 	list ($ret, $controller) = GalleryController::loadController('controllertest.ConfigView');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert(isset($controller));
     }

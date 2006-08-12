@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: InstallOtherModulesStep.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -20,7 +22,7 @@
 
 class InstallOtherModulesStep extends InstallStep {
     function stepName() {
-	return _('Install Plugins');
+	return _('Install More Modules');
     }
 
     function processRequest() {
@@ -68,7 +70,7 @@ class InstallOtherModulesStep extends InstallStep {
 		$ret = $template->renderStatusMessage(_('Installing modules'),
 		    $module->getName(), $currentModule / $totalModules);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
 		$ret = $module->installOrUpgrade();
@@ -255,19 +257,19 @@ class InstallOtherModulesStep extends InstallStep {
 	list ($ret, $siteAdminGroupId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.adminGroup');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	list ($ret, $adminUserInfo) = GalleryCoreApi::fetchUsersForGroup($siteAdminGroupId, 1);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	if (empty($adminUserInfo)) {
-	    return GalleryCoreApi::error(ERROR_MISSING_VALUE);
+	    return GalleryCoreApi::error(ERROR_MISSING_VALUE, __FILE__, __LINE__);
 	}
 	$adminUserInfo = array_keys($adminUserInfo);
 	list ($ret, $adminUser) = GalleryCoreApi::loadEntitiesById($adminUserInfo[0]);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$gallery->setActiveUser($adminUser);

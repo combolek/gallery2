@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: DownloadItem.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.45 $ $Date: 2006/01/22 17:56:30 $
  * @package GalleryCore
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -30,52 +32,52 @@
  *
  * @package GalleryCore
  * @subpackage UserInterface
+ *
  */
 class DownloadItemView extends GalleryView {
 
     /**
-     * @see GalleryView::isImmediate
+     * @see GalleryView::isImmediate()
      */
     function isImmediate() {
 	return true;
     }
 
     /**
-     * @see GalleryView::isAllowedInEmbedOnly
+     * @see GalleryView::isAllowedInEmbedOnly()
      */
     function isAllowedInEmbedOnly() {
 	return true;
     }
 
     /**
-     * @see GalleryView::shouldSaveSession
+     * @see GalleryView::shouldSaveSession()
      */
     function shouldSaveSession() {
 	return false;
     }
 
     /**
-     * @see GalleryView::renderImmediate
+     * @see GalleryView::renderImmediate()
      */
     function renderImmediate($status, $error) {
 	/* Figure out which item we're talking about */
 	$itemId = GalleryUtilities::getRequestVariables('itemId');
 	if (empty($itemId)) {
-	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
 	/* Load the item */
 	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Figure out the filename */
 	list ($ret, $pseudoFileName) = GalleryUtilities::getPseudoFileName($item);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
-
 	/* Don't allow malicious URLs */
 	$fileName = GalleryUtilities::getRequestVariables('fileName');
 	if (!empty($fileName) && $fileName != $pseudoFileName) {
@@ -85,20 +87,20 @@ class DownloadItemView extends GalleryView {
 	/* Get the path to the file */
 	list ($ret, $path) = $item->fetchPath();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Rebuild derivative cache, if necessary */
-	$itemForPermission = $itemId;
-	$derivativeType = null;
 	if (GalleryUtilities::isA($item, 'GalleryDerivative')) {
-	    list ($ret, $item) = GalleryCoreApi::rebuildDerivativeCacheIfNotCurrent($itemId);
+	    list ($ret, $item) = GalleryCoreApi::rebuildDerivativeCacheIfNotCurrent($item->getId());
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
-
 	    $itemForPermission = $item->getParentId();
 	    $derivativeType = $item->getDerivativeType();
+	} else {
+	    $itemForPermission = $item->getId();
+	    $derivativeType = null;
 	}
 
 	$ret = $this->_sendFile(array('derivativePath' => $path,
@@ -107,7 +109,7 @@ class DownloadItemView extends GalleryView {
 				      'pseudoFileName' => $pseudoFileName,
 				      'parentId' => $itemForPermission));
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::createFastDownloadFile($item);
@@ -119,18 +121,10 @@ class DownloadItemView extends GalleryView {
     function _sendFile($data) {
 	global $gallery;
 	$platform =& $gallery->getPlatform();
-	$session =& $gallery->getSession();
 
-	if (function_exists('apache_setenv')) {
-	    @apache_setenv('no-gzip', '1');
-	}
-
-	/* Print services bypass security so they can get access to full size version of prints */
-	if (!$session->get('core.isPrintService')) {
-
-	    /* Make sure we have permission */
-	    $permission = 'core.viewSource';
-	    switch($data['derivativeType']) {
+	/* Make sure we have permission */
+	$permission = 'core.viewSource';
+	switch($data['derivativeType']) {
 	    case DERIVATIVE_TYPE_IMAGE_THUMBNAIL:
 		$permission = 'core.view';
 		break;
@@ -139,12 +133,11 @@ class DownloadItemView extends GalleryView {
 		$permission = 'core.viewResizes';
 		break;
 
-		/* DERIVATIVE_TYPE_IMAGE_PREFERRED uses core.viewSource */
-	    }
-	    $ret = GalleryCoreApi::assertHasItemPermission($data['parentId'], $permission);
-	    if ($ret) {
-		return $ret;
-	    }
+	    /* DERIVATIVE_TYPE_IMAGE_PREFERRED uses core.viewSource */
+	}
+	$ret = GalleryCoreApi::assertHasItemPermission($data['parentId'], $permission);
+	if ($ret) {
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	header('Content-type: ' . $data['mimeType']);
@@ -157,9 +150,10 @@ class DownloadItemView extends GalleryView {
 	header('Expires: ' . GalleryUtilities::getHttpDate(time() + 31536000));
 
 	/*
-	 * Don't use readfile() because it buffers the entire file in memory.  Profiling shows that
-	 * this approach is as efficient as fpassthru() but we get to call guaranteeTimeLimit which
-	 * prevents it from failing on very large files
+	 * Don't use readfile() because it buffers the entire file in memory
+	 * Profiling shows that this approach is as efficient as fpassthru()
+	 * but we get to call guaranteeTimeLimit which prevents it from failing on
+	 * very large files.
 	 */
 	if ($fd = $platform->fopen($data['derivativePath'], 'rb')) {
 	    while (true) {

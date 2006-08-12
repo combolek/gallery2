@@ -1,4 +1,4 @@
-# $Id$
+# $Id: strings.raw,v 1.13 2006/01/20 19:07:15 mindless Exp $
 
 /* Panorama.inc */
 gettext("Panorama") /* also in: module.inc templates/PanoramaOption.tpl */
@@ -7,10 +7,6 @@ gettext("Panorama") /* also in: module.inc templates/PanoramaOption.tpl */
 gettext("View wide jpeg/gif images in a java applet viewer")
 gettext("Display")
 gettext("View Panorama")
-
-/* classes/PanoramaRenderer.class */
-gettext("Downloading the Panorama Applet")
-gettext("Your browser does not support Java applets")
 
 /* templates/PanoramaOption.tpl */
 gettext("Note that panorama view only applies to full size photo, not resizes.")
@@ -28,3 +24,5 @@ gettext("Width of panorama viewer: ")
 gettext("Invalid width value")
 gettext("Save")
 gettext("Reset")
+gettext("This gallery contains items activated for panorama view.  These must be reset to standard items before this module can be deactivated.  You can reset all items here.  Warning: there is no undo.")
+gettext("Reset all items")

@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: Preloads.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.2 $ $Date: 2006/01/10 04:41:53 $
  * @package Rating
  * @author  Don Seiler <don@seiler.us>
  */
@@ -32,8 +34,7 @@ class RatingPreloads {
 
 	$loaded[$preload] = 1;
 	$template->style('modules/rating/rating.css');
-	$template->javascript('lib/yui/yahoo-min.js');
-	$template->javascript('lib/yui/connection-min.js');
+	$template->javascript('lib/javascript/XmlHttp.js');
 	$template->javascript('modules/rating/rating.js');
 	return null;
 

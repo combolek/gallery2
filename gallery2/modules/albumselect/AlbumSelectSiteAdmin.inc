@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: AlbumSelectSiteAdmin.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.12 $ $Date: 2006/01/17 01:52:00 $
  * @package AlbumSelect
  * @author Alan Harder <alan.harder@sun.com>
  */
@@ -35,7 +37,7 @@ class AlbumSelectSiteAdminController extends GalleryController {
     function handleRequest($form) {
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$status = $error = array();
@@ -46,7 +48,7 @@ class AlbumSelectSiteAdminController extends GalleryController {
 			      ($key == 'sort') ? $form['sort']
 					       : ((isset($form[$key]) && $form[$key]) ? 1 : 0));
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
 	    $status['saved'] = 1;
@@ -77,7 +79,7 @@ class AlbumSelectSiteAdminView extends GalleryView {
     function loadTemplate(&$template, &$form) {
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	foreach (array('sort', 'treeLines', 'treeIcons', 'treeCookies',
@@ -91,7 +93,7 @@ class AlbumSelectSiteAdminView extends GalleryView {
 	    list ($ret, $params) =
 		GalleryCoreApi::fetchAllPluginParameters('module', 'albumselect');
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    foreach ($params as $key => $value) {
 		$form[$key] = $value;

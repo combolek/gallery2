@@ -1,5 +1,5 @@
 {*
- * $Revision$
+ * $Revision: 1.13 $
  * If you want to customize this file, do not edit it directly since future upgrades
  * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
  * version.  Gallery will look for that file first and use it if it exists.
@@ -133,27 +133,27 @@
 	{/strip}{/capture}
 	{if isset($it.image)}
 	  {if isset($it.renderItem)}
-	    <a id="img_{$it.imageIndex}" href="{g->url params=$theme.pageUrl
-	     arg1="itemId=`$it.id`" arg2="renderId=`$it.image.id`"}"></a>
+	    <a id="img_{$it.imageIndex}" href="{g->url arg1="view=core.ShowItem"
+	     arg2="itemId=`$it.id`" arg3="renderId=`$it.image.id`"}"></a>
 	  {else}
 	    <a id="img_{$it.imageIndex}" href="{g->url arg1="view=core.DownloadItem"
 	     arg2="itemId=`$it.image.id`" arg3="serialNumber=`$it.image.serialNumber`"}"></a>
 	  {/if}
-	  <a id="info_{$it.imageIndex}" href="{g->url params=$theme.pageUrl
-	   arg1="itemId=`$it.id`" arg2="detail=1"}"></a>
-	  {capture assign=link}
+	  <a id="info_{$it.imageIndex}" href="{g->url arg1="view=core.ShowItem"
+	   arg2="itemId=`$it.id`" arg3="detail=1"}"></a>
+	  {capture name="link"}
 	    <a href="" onclick="image_show({$it.imageIndex});return false">
 	  {/capture}
 	  {if isset($it.thumbnail) && isset($theme.params.itemFrame)}
 	    {g->container type="imageframe.ImageFrame" frame=$theme.params.itemFrame
 			  width=$it.thumbnail.width height=$it.thumbnail.height}
-	      {$link}
+	      {$smarty.capture.link}
 	      {g->image item=$it image=$it.thumbnail id="%ID%" class="%CLASS% giThumbnail"
 			title=$smarty.capture.thumbTitle}
 	      </a>
 	    {/g->container}
 	  {else}
-	    {$link}
+	    {$smarty.capture.link}
 	    {if isset($it.thumbnail)}
 	      {g->image item=$it image=$it.thumbnail class="giThumbnail"
 			title=$smarty.capture.thumbTitle}
@@ -163,19 +163,19 @@
 	    </a>
 	  {/if}
 	{elseif ($it.canContainChildren || $it.entityType == 'GalleryLinkItem')}
-	  {capture assign=link}
+	  {capture name="link"}
 	    <a href="{g->url arg1="view=core.ShowItem" arg2="itemId=`$it.id`"}">
 	  {/capture}
 	  {if isset($it.thumbnail) && isset($theme.params.albumFrame)}
 	    {g->container type="imageframe.ImageFrame" frame=$theme.params.albumFrame
 			  width=$it.thumbnail.width height=$it.thumbnail.height}
-	      {$link}
+	      {$smarty.capture.link}
 	      {g->image item=$it image=$it.thumbnail id="%ID%" class="%CLASS% giThumbnail"
 			title=$smarty.capture.thumbTitle}
 	      </a>
 	    {/g->container}
 	  {else}
-	    {$link}
+	    {$smarty.capture.link}
 	    {if isset($it.thumbnail)}
 	      {g->image item=$it image=$it.thumbnail class="giThumbnail"
 			title=$smarty.capture.thumbTitle}

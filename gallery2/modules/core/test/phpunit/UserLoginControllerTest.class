@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: UserLoginControllerTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -17,9 +19,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.29 $ $Date: 2006/02/09 05:02:27 $
  * @package GalleryCore
  * @subpackage PHPUnit
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -47,31 +48,42 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 	list ($ret, $this->_user) = $this->_createRandomUser(null, 'password');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->_markForCleanup($this->_user);
 
 	$this->_saveSession = $gallery->_session;
-
-	/* Set up a mock session so that we don't accidentally log out the PHPUnit session */
-	$this->_mockSession = new UserLoginControllerTestSession();
-	$gallery->_session =& $this->_mockSession;
+	$gallery->_session = new GallerySession();
+	$ret = $gallery->_session->init();
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+	$ret = $gallery->_session->start();
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
 
 	list ($ret, $this->_validationLevel) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'validation.level');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'validation.level', 'HIGH');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	/* Disable all plugins by default */
+	/* Disable all plugins by default. */
 	$this->_controller->setPluginInstances(array());
+
+	/* Set up a mock session so that we don't accidentally log out the PHPUnit session */
+	$this->_mockSession = new UserLoginControllerTestSession();
+	$gallery->_session =& $this->_mockSession;
     }
 
     function tearDown() {
@@ -81,7 +93,7 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 	$ret = GalleryCoreApi::setPluginParameter(
 		'module', 'core', 'validation.level', $this->_validationLevel);
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	parent::tearDown();
@@ -109,7 +121,7 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 	global $gallery;
 	list ($ret, $user) = $this->_createRandomUser(null, 'pass&word');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($user);
 
@@ -131,7 +143,7 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
     function testLoginInvalidUser() {
 	GalleryUtilities::putRequestVariable('form[action][login]', 1);
 	GalleryUtilities::putRequestVariable('form[username]', 'some-bogus-user');
-	/* From _createRandomUser */
+	/* from _createRandomUser: */
 	GalleryUtilities::putRequestVariable('form[password]', 'password');
 
 	$results = $this->handleRequest();
@@ -180,8 +192,9 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
     }
 
     /**
-     * Bogus user/password, and an error from the plugin.  Plugin set to halt on failure so we
-     * shouldn't even try to log in which means we won't see the incorrect password error
+     * Bogus user/password, and an error from the plugin.  Plugin set to halt on failure
+     * so we shouldn't even try to log in which means we won't see the incorrect password
+     * error.
      */
     function testPlugins1() {
 	GalleryUtilities::putRequestVariable('form[action][login]', 1);
@@ -202,9 +215,9 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
     }
 
     /**
-     * Valid user, invalid password, 2 plugins with an error from the first plugin, but the first
-     * plugin allows the flow to continue.  We should see the error from both plugins, but not the
-     * invalid password
+     * Valid user, invalid password, 2 plugins with an error from the first plugin, but
+     * the first plugin allows the flow to continue.  We should see the error from both plugins,
+     * but not the invalid password.
      */
     function testPlugins2() {
 	GalleryUtilities::putRequestVariable('form[action][login]', 1);
@@ -230,9 +243,9 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
     }
 
     /**
-     * Valid user, invalid password, 2 plugins with an error from the first plugin, and the first
-     * plugin stops the flow from continuing.  We should see the error from only the first plugin,
-     * and not the invalid password error
+     * Valid user, invalid password, 2 plugins with an error from the first plugin, and
+     * the first plugin stops the flow from continuing.  We should see the error from only the
+     * first plugin, and not the invalid password error.
      */
     function testPlugins3() {
 	GalleryUtilities::putRequestVariable('form[action][login]', 1);
@@ -309,7 +322,7 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 	global $gallery;
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'validation.level', 'OFF');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	GalleryUtilities::putRequestVariable('form[action][login]', 1);
@@ -352,7 +365,7 @@ class UserLoginControllerTestPlugin extends GalleryValidationPlugin {
 }
 
 /**
- * Mock session
+ * Mock session.
  */
 class UserLoginControllerTestSession {
 

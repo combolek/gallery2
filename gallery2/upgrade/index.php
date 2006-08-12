@@ -10,7 +10,7 @@
  *
  * ----------------------------------------------------------------------------
  *
- * $Id$
+ * $Id: index.php,v 1.33 2006/03/10 00:15:34 mindless Exp $
  *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
@@ -98,12 +98,8 @@ if (!empty($sessionId)) {
     }
 }
 
-if (@ini_get('session.save_handler') == 'user') {
-    /*
-     * Escape hatch to avoid conflicting with an application specific session handler, which can
-     * happen in the case where Gallery2 is installed in a subdir of some other app.
-     */
-    @ini_set('session.save_handler', 'files');
+if (@ini_get('session.save_handler') != 'files') {
+    @ini_set('session.save_handler','files');
     session_start();
 } else if (!ini_get('session.auto_start')) {
     session_start();
@@ -245,19 +241,19 @@ function selectAdminUser() {
     list ($ret, $siteAdminGroupId) =
 	GalleryCoreApi::getPluginParameter('module', 'core', 'id.adminGroup');
     if ($ret) {
-	return $ret;
+	return $ret->wrap(__FILE__, __LINE__);
     }
     list ($ret, $adminUserInfo) = GalleryCoreApi::fetchUsersForGroup($siteAdminGroupId, 1);
     if ($ret) {
-	return $ret;
+	return $ret->wrap(__FILE__, __LINE__);
     }
     if (empty($adminUserInfo)) {
-	return GalleryCoreApi::error(ERROR_MISSING_VALUE);
+	return GalleryCoreApi::error(ERROR_MISSING_VALUE, __FILE__, __LINE__);
     }
     $adminUserInfo = array_keys($adminUserInfo);
     list ($ret, $adminUser) = GalleryCoreApi::loadEntitiesById($adminUserInfo[0]);
     if ($ret) {
-	return $ret;
+	return $ret->wrap(__FILE__, __LINE__);
     }
 
     $gallery->setActiveUser($adminUser);

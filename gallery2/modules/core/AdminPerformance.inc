@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: AdminPerformance.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.2 $ $Date: 2006/02/09 05:03:51 $
  * @package GalleryCore
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -42,14 +44,14 @@ class AdminPerformanceController extends GalleryController {
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$results = $status = $error = array();
 	list ($ret, $acceleration) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'acceleration');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if ($acceleration) {
 	    $acceleration = unserialize($acceleration);
@@ -61,28 +63,26 @@ class AdminPerformanceController extends GalleryController {
 		    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
 						       "Missing '$class' from the form"), null);
 		}
-		$acceleration[$class]['type'] = $form['acceleration'][$class]['type'];
-		switch ($form['acceleration'][$class]['type']) {
+		switch($form['acceleration'][$class]['type']) {
 		case 'partial':
 		case 'full':
 		    $acceleration[$class]['expiration'] =
 			(int)$form['acceleration'][$class]['expiration'];
-		    break;
+		    /* fall through */
 
 		case 'none':
-		    if (!isset($acceleration[$class]['expiration'])) {
-			$acceleration[$class]['expiration'] = 0;
-		    }
+		    $acceleration[$class]['type'] = $form['acceleration'][$class]['type'];
 		    break;
 
 		default:
-		    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+		    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__),
+				 null);
 		}
 	    }
 	    $ret = GalleryCoreApi::setPluginParameter(
 		'module', 'core', 'acceleration', serialize($acceleration));
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    $status['saved'] = 1;
@@ -91,7 +91,7 @@ class AdminPerformanceController extends GalleryController {
 	} else if (isset($form['action']['clear'])) {
 	    $ret = GalleryCoreApi::removeAllMapEntries('GalleryCacheMap');
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $status['cleared'] = 1;
 	    $redirect = array('view' => 'core.SiteAdmin',
@@ -126,7 +126,7 @@ class AdminPerformanceView extends GalleryView {
     function loadTemplate(&$template, &$form) {
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Load some standard form parameters */
@@ -135,9 +135,6 @@ class AdminPerformanceView extends GalleryView {
 
 	    list ($ret, $acceleration) =
 		GalleryCoreApi::getPluginParameter('module', 'core', 'acceleration');
-	    if ($ret) {
-		return array($ret, null);
-	    }
 	    if ($acceleration) {
 		$form['acceleration'] = unserialize($acceleration);
 	    } else {
@@ -150,7 +147,7 @@ class AdminPerformanceView extends GalleryView {
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Set up our type lists */

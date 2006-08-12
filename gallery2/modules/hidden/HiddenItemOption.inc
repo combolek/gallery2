@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: HiddenItemOption.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.3 $ $Date: 2006/01/20 01:21:33 $
  * @package Hidden
  * @subpackage UserInterface
  * @author Alan Harder <alan.harder@sun.com>
@@ -40,7 +42,7 @@ class HiddenItemOption extends ItemEditOption {
 	list ($ret, $canHide) =
 	    GalleryCoreApi::hasItemPermission($item->getId(), 'core.changePermissions');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	return array(null, $canHide);
     }
@@ -54,7 +56,7 @@ class HiddenItemOption extends ItemEditOption {
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'hidden');
 	if ($ret) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	/* Specific translations: _('Hide Album') _('Hide Photo') _('Hide Movie') */
@@ -74,18 +76,18 @@ class HiddenItemOption extends ItemEditOption {
 
 	$ret = GalleryCoreApi::assertHasItemPermission($item->getId(), 'core.changePermissions');
 	if ($ret) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 	if (isset($form['HiddenItemOption']['setHidden'])
 		&& $form['HiddenItemOption']['setHidden']) {
 	    $ret = HiddenHelper::hideItem($item);
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	} else {
 	    $ret = HiddenHelper::unHideItem($item);
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	}
 

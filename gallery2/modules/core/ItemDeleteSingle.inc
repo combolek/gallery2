@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ItemDeleteSingle.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.10 $ $Date: 2006/01/13 03:39:31 $
  * @package GalleryCore
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -48,18 +50,18 @@ class ItemDeleteSingleController extends GalleryController {
 	    list ($ret, $rootId) =
 		GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    /* The view shouldn't let us get this far if we don't have delete permission */
 	    $ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.delete');
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    /* The view shouldn't let us try to delete the root album, either */
@@ -70,13 +72,13 @@ class ItemDeleteSingleController extends GalleryController {
 
 	    $ret = GalleryCoreApi::deleteEntityById($itemId);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    list ($ret, $success) =
 		GalleryCoreApi::guaranteeAlbumHasThumbnail($item->getParentId());
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    /* What do we do if we weren't successful?  No thumbnail, I guess */
 
@@ -124,13 +126,13 @@ class ItemDeleteSingleView extends GalleryView {
 
 	list($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Get child counts */
 	list ($ret, $childCountTable) = GalleryCoreApi::fetchDescendentCounts(array($itemId));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$childCount = isset($childCountTable[$itemId]) ? $childCountTable[$itemId] : 0;
 
@@ -152,12 +154,12 @@ class ItemDeleteSingleView extends GalleryView {
     function getViewDescription() {
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $item) = $this->_getItem();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$itemTypeNames = $item->itemTypeName(true);

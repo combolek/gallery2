@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: parser.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 /**
  * @package Rewrite
- * @version $Revision$ $Date$
+ * @version $Revision: 1.2 $ $Date: 2006/01/10 04:42:18 $
  * @author Douglas Cau <douglas@cau.se>
  */
 
@@ -61,7 +63,7 @@ class PathInfoParser extends RewriteParser {
 
 	list ($ret, $code) = PathInfoHelper::checkPathInfo();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, $code != REWRITE_STATUS_OK);
@@ -84,13 +86,13 @@ class PathInfoParser extends RewriteParser {
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	if (isset($form['force']['test'])) {
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'rewrite', 'pathinfo.forced', '1');
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	}
 

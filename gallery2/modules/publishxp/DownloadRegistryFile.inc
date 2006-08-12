@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: DownloadRegistryFile.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -24,7 +26,7 @@
  * The information in the registry file informs Windows that there is a web service
  * which supports uploading media.
  *
- * @version $Revision$ $Date$
+ * @version $Revision: 1.6 $ $Date: 2006/01/13 15:39:38 $
  * @package PublishXp
  * @author Timothy Webb <tiwebb@cisco.com>
  */
@@ -55,11 +57,11 @@ class DownloadRegistryFileView extends GalleryView {
 	/* Get the name of the gallery */
 	list($ret, $rootId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	list($ret, $root) = GalleryCoreApi::loadEntitiesById($rootId);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$title = $root->getTitle();
 
@@ -78,7 +80,7 @@ class DownloadRegistryFileView extends GalleryView {
 	list ($ret, $html) =
 	    $template->fetch('gallery:modules/publishxp/templates/DownloadRegistryFile.tpl');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Make sure we use Windows line endings */

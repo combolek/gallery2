@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: module.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.34 $ $Date: 2006/03/22 03:52:28 $
  * @package AlbumSelect
  * @author Alan Harder <alan.harder@sun.com>
  * @author Jonas Forsberg <jonas@gargamel.nu> (Initial dTree integration)
@@ -40,7 +42,7 @@ class AlbumSelectModule extends GalleryModule {
 	$this->setVersion('1.0.3');
 	$this->setGroup('blocks', $gallery->i18n('Blocks'));
 	$this->setCallbacks('getSiteAdminViews|registerEventListeners');
-	$this->setRequiredCoreApi(array(7, 5));
+	$this->setRequiredCoreApi(array(7, 0));
 	$this->setRequiredModuleApi(array(3, 0));
     }
 
@@ -60,7 +62,7 @@ class AlbumSelectModule extends GalleryModule {
     function upgrade($currentVersion) {
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'albumselect');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* We removed the 'show' parameter in 0.9.8 and 'type' in 0.9.11 */
@@ -68,7 +70,7 @@ class AlbumSelectModule extends GalleryModule {
 	    if (isset($params[$param])) {
 		$ret = $this->removeParameter($param);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	}
@@ -79,14 +81,14 @@ class AlbumSelectModule extends GalleryModule {
 	    if (!isset($params[$key])) {
 		$ret = $this->setParameter($key, $value);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    } else if ($key == 'sort' && ($params[$key] == '0' || $params[$key] == '1')) {
 		/* v0.9.4 changed 'sort' param from 0/1 to manual/title */
 		$value = ($params[$key] == 1) ? 'title' : 'manual';
 		$ret = $this->setParameter($key, $value);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	}
@@ -121,7 +123,7 @@ class AlbumSelectModule extends GalleryModule {
 	} else if ($event->getEventName() == 'Gallery::ItemOrder') {
 	    list ($ret, $sort) = $this->getParameter('sort');
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    if ($sort == 'manual') {
 		$invalidateCache = true;
@@ -132,7 +134,7 @@ class AlbumSelectModule extends GalleryModule {
 		if ($entity->isModified('orderBy') || $entity->isModified('orderDirection')) {
 		    list ($ret, $sort) = $this->getParameter('sort');
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		    if ($sort == 'album') {
 			$invalidateCache = true;

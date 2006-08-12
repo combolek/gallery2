@@ -1,5 +1,5 @@
 {*
- * $Revision$
+ * $Revision: 1.17 $
  * If you want to customize this file, do not edit it directly since future upgrades
  * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
  * version.  Gallery will look for that file first and use it if it exists.
@@ -26,7 +26,7 @@
   <b>
     {g->text text="There are no graphics toolkits enabled that support this type of photo, so we cannot rotate it."}
     {if $ItemEditRotateAndScalePhoto.isAdmin}
-      <a href="{g->url arg1="view=core.SiteAdmin" arg2="subView=core.AdminPlugins"}">
+      <a href="{g->url arg1="view=core.SiteAdmin" arg2="subView=core.AdminModules"}">
 	{g->text text="site admin"}
       </a>
     {/if}
@@ -49,7 +49,7 @@
   <b>
     {g->text text="There are no graphics toolkits enabled that support this type of photo, so we cannot scale it."}
     {if $ItemEditRotateAndScalePhoto.isAdmin}
-      <a href="{g->url arg1="view=core.SiteAdmin" arg2="subView=core.AdminPlugins"}">
+      <a href="{g->url arg1="view=core.SiteAdmin" arg2="subView=core.AdminModules"}">
 	{g->text text="site admin"}
       </a>
     {/if}
@@ -90,10 +90,6 @@
   {elseif $ItemEditRotateAndScalePhoto.editPhoto.isLinkedTo}
   <b>
     {g->text text="There are links to this photo, so you cannot change the original"}
-  </b>
-  {elseif $ItemEditRotateAndScalePhoto.editPhoto.noToolkitSupport}
-  <b>
-    {g->text text="There is no toolkit support to modify the original so operations may only be applied to the copies"}
   </b>
   {else}
     <input type="checkbox" id="cbPreserve"{if $form.preserveOriginal} checked="checked"{/if}

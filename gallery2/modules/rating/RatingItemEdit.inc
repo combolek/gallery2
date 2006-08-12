@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: RatingItemEdit.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.2 $ $Date: 2006/01/10 04:41:53 $
  * @package Rating
  * @author Don Seiler <don@seiler.us>
  */
@@ -42,7 +44,7 @@ class RatingItemEdit extends ItemEditOption {
             list ($ret, $subAlbumIds) =
                 GalleryCoreApi::fetchDescendentAlbumItemIds($item);
             if ($ret) {
-                return array($ret, null, null);
+                return array($ret->wrap(__FILE__, __LINE__), null, null);
             }
             array_unshift($subAlbumIds, $item->getId());
         } else {
@@ -56,7 +58,7 @@ class RatingItemEdit extends ItemEditOption {
 		    (empty($form['rating']['enabled']) ? 0 : 1),
 		    $id);
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	}
 
@@ -74,7 +76,7 @@ class RatingItemEdit extends ItemEditOption {
 		    'enabled',
 		    $item->getId());
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	}
 

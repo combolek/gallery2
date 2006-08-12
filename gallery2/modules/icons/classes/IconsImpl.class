@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: IconsImpl.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.5 $ $Date: 2006/01/10 04:40:13 $
  * @package Icons
  * @author Jesse Mullan <jmullan@visi.com>
  */
@@ -50,7 +52,7 @@ class IconsImpl extends IconsInterface_1_0 {
 	 */
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'icons', true);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$icons = array('' => $module->translate('None'));
@@ -76,7 +78,7 @@ class IconsImpl extends IconsInterface_1_0 {
     function init(&$template) {
 	list ($ret, $iconpack) = GalleryCoreApi::getPluginParameter('module', 'icons', 'iconpack');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	if (!empty($iconpack)) {
 	    global $gallery;

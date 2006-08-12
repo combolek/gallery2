@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: embed.php,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -23,7 +25,7 @@
  * http://codex.gallery2.org/index.php/Gallery2:Embedding  for more details.
  *
  * @package GalleryMain
- * @version $Revision$ $Date$
+ * @version $Revision: 1.50 $ $Date: 2006/03/16 08:57:42 $
  * @author Alan Harder <alan.harder@sun.com>
  */
 

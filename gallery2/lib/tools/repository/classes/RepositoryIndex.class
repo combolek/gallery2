@@ -15,7 +15,9 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ *
+ * $Id: RepositoryIndex.class,v 1.5 2006/01/13 03:39:31 andy_st Exp $
  */
 
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryModule.class');
@@ -26,7 +28,7 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryTheme.class');
  *
  * @author Jozef Selesi <selesi at gmail dot com>
  *
- * @version $Revision$ $Date$
+ * @version $Revision: 1.5 $ $Date: 2006/01/13 03:39:31 $
  * @package RepositoryTools
  * @subpackage Classes
  * @module RepositoryIndex
@@ -59,7 +61,7 @@ class RepositoryIndex extends RepositoryObject {
 
 	$ret = $this->setOutputDir($repositoryDir);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$this->setOutputFile('index');
@@ -133,7 +135,7 @@ class RepositoryIndex extends RepositoryObject {
 			$this->_utilities->compareVersions($currentPluginVersion,
 			    $indexPluginVersion, $currentPluginBuild, $indexPluginBuild);
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
 		    if ($relation == 'newer') {
@@ -180,7 +182,7 @@ class RepositoryIndex extends RepositoryObject {
 	$this->_template->setVariable('contents', $serializedIndex);
 	$ret = $this->writeToDisk(true);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Write index hash to disk. */
@@ -189,7 +191,7 @@ class RepositoryIndex extends RepositoryObject {
 	$this->_template->setVariable('contents', $this->_indexHash);
 	$ret = $this->writeToDisk(true);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$this->setOutputFile($indexFile);
 

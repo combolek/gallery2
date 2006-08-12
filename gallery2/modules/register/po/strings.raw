@@ -1,4 +1,4 @@
-# $Id$
+# $Id: strings.raw,v 1.19 2006/02/16 05:14:43 mindless Exp $
 
 /* AdminSelfRegistration.inc */
 gettext("Activation by administrator")
@@ -13,7 +13,7 @@ gettext("New User Registration")
 gettext("Gallery")
 gettext("Account activation")
 gettext("New user registration")
-gettext("Register") /* also in: templates/UserSelfRegistration.tpl test/phpunit/RegisterModuleTest.class */
+gettext("Register") /* also in: templates/UserSelfRegistration.tpl */
 
 /* templates/AdminEmail.tpl */
 gettext("New user registration:")

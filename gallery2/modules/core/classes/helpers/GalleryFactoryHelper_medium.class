@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: GalleryFactoryHelper_medium.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.23 $ $Date: 2006/02/15 01:14:14 $
  * @package GalleryCore
  * @author Bharat Mediratta <bharat@menalto.com>
  */
@@ -35,6 +37,34 @@ GalleryCoreApi::requireOnce(
 class GalleryFactoryHelper_medium {
 
     /**
+     * Create a new instance of the given type based on the id provided
+     *
+     * @param string the class type (eg. 'GalleryGraphics')
+     * @param string the class name (eg. 'NetPBM')
+     * @return array object GalleryStatus a status code,
+     *               object an instance
+     * @static
+     */
+    function newInstanceById($classType, $id) {
+	list ($ret, $registry) = GalleryFactoryHelper_simple::_getFactoryData();
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	if (empty($registry['ids'][$classType][$id])) {
+	    return array(null, null);
+	}
+
+	$className = $registry['ids'][$classType][$id];
+	list ($ret, $instance) = GalleryFactoryHelper_simple::newInstance($classType, $className);
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	return array(null, $instance);
+    }
+
+    /**
      * Return the ids of all the available implementations for a class
      *
      * @return array object GalleryStatus a status code
@@ -44,7 +74,7 @@ class GalleryFactoryHelper_medium {
     function getAllImplementationIds($classType) {
 	list ($ret, $registry) = GalleryFactoryHelper_simple::_getFactoryData();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (isset($registry['ids'][$classType])) {
@@ -65,7 +95,7 @@ class GalleryFactoryHelper_medium {
     function getAllImplementationIdsWithHint($classType, $hint) {
 	list ($ret, $registry) = GalleryFactoryHelper_simple::_getFactoryData();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$hint = GalleryUtilities::strToLower($hint);
@@ -88,7 +118,7 @@ class GalleryFactoryHelper_medium {
 	$ret = GalleryCoreApi::removeMapEntry(
 	    'GalleryFactoryMap', array('implModuleId' => $moduleId));
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	GalleryFactoryHelper_simple::deleteCache();
@@ -109,7 +139,7 @@ class GalleryFactoryHelper_medium {
 	    'GalleryFactoryMap',
 	    array('classType' => $classType, 'implId' => $implId));
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	GalleryFactoryHelper_simple::deleteCache();
@@ -160,7 +190,7 @@ class GalleryFactoryHelper_medium {
 		  'orderWeight' => (string)$orderWeight,
 		  'hints' => serialize($hints)));
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	GalleryFactoryHelper_simple::deleteCache();

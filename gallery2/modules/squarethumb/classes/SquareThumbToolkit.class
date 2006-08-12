@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: SquareThumbToolkit.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.14 $ $Date: 2006/01/10 04:42:59 $
  * @package SquareThumb
  * @author Alan Harder <alan.harder@sun.com>
  */
@@ -40,7 +42,7 @@ class SquareThumbToolkit extends GalleryToolkit {
      * @see GalleryToolkit::getProperty()
      */
     function getProperty($mimeType, $propertyName, $sourceFilename) {
-	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
+	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED, __FILE__, __LINE__), null);
     }
 
     /**
@@ -57,7 +59,7 @@ class SquareThumbToolkit extends GalleryToolkit {
 	}
 	list ($ret, $square) = GalleryCoreApi::fetchAllPluginParameters('module', 'squarethumb');
 	if ($ret) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	/* Get dimensions */
@@ -67,7 +69,7 @@ class SquareThumbToolkit extends GalleryToolkit {
 	} else {
 	    list ($ret, $toolkit) = GalleryCoreApi::getToolkitByProperty($mimeType, 'dimensions');
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    if (!isset($toolkit)) {
 		return array(GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION, __FILE__, __LINE__,
@@ -76,7 +78,7 @@ class SquareThumbToolkit extends GalleryToolkit {
 	    list ($ret, $dimensions) =
 		$toolkit->getProperty($mimeType, 'dimensions', $sourceFilename);
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    list ($width, $height) = $dimensions;
 	}
@@ -89,7 +91,7 @@ class SquareThumbToolkit extends GalleryToolkit {
 		list ($ret, $toolkit, $nextMime) =
 		    GalleryCoreApi::getToolkitByOperation($mimeType, $operation);
 		if ($ret) {
-		    return array($ret, null, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 		if (isset($toolkit)) {
 		    break;
@@ -118,7 +120,7 @@ class SquareThumbToolkit extends GalleryToolkit {
 	    list ($ret, $mimeType, $subContext) = $toolkit->performOperation(
 		$mimeType, 'crop', $sourceFilename, $destFilename, $args, $subContext);
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    $sourceFilename = $destFilename;
 	}
@@ -127,14 +129,14 @@ class SquareThumbToolkit extends GalleryToolkit {
 	    /* Scale to thumb size */
 	    list ($ret, $toolkit) = $this->_getThumbnailToolkit($mimeType);
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    $subContext['next.toolkit'] = $subContext['next.operation'] = null;
 	    list ($ret, $mimeType, $subContext) =
 		$toolkit->performOperation($mimeType, 'thumbnail', $sourceFilename, $destFilename,
 					   $parameters, $subContext);
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    $sourceFilename = $destFilename;
 	}
@@ -147,7 +149,7 @@ class SquareThumbToolkit extends GalleryToolkit {
 	    list ($ret, $toolkit) = GalleryCoreApi::getToolkitByOperation('image/x-portable-pixmap',
 									  'convert-to-image/jpeg');
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    if (!isset($toolkit)) {
 		return array(GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION, __FILE__, __LINE__,
@@ -155,16 +157,16 @@ class SquareThumbToolkit extends GalleryToolkit {
 	    }
 	    $tmpFilename = $platform->tempnam($gallery->getConfig('data.gallery.tmp'), 'sqth_');
 	    if (empty($tmpFilename)) {
-		return array(GalleryCoreApi::error(ERROR_BAD_PATH), null, null);
+		return array(GalleryCoreApi::error(ERROR_BAD_PATH, __FILE__, __LINE__), null, null);
 	    }
 	    if (!$platform->copy($sourceFilename, $tmpFilename)) {
 		@$platform->unlink($tmpFilename);
-		return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE),
+		return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__),
 			     null, null);
 	    }
 	    if (!($fh = $platform->fopen($destFilename, 'w'))) {
 		@$platform->unlink($tmpFilename);
-		return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE),
+		return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__),
 			     null, null);
 	    }
 	    $platform->fwrite($fh, "P6\n$size $size\n255\n");
@@ -181,14 +183,14 @@ class SquareThumbToolkit extends GalleryToolkit {
 		$destFilename, $destFilename, array());
 	    if ($ret) {
 		@$platform->unlink($tmpFilename);
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 
 	    /* Overlay thumbnail image on square background */
 	    list ($ret, $toolkit) = GalleryCoreApi::getToolkitByOperation($mimeType, 'composite');
 	    if ($ret) {
 		@$platform->unlink($tmpFilename);
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    if (!isset($toolkit)) {
 		@$platform->unlink($tmpFilename);
@@ -203,7 +205,7 @@ class SquareThumbToolkit extends GalleryToolkit {
 		$newContext);
 	    @$platform->unlink($tmpFilename);
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    $sourceFilename = $destFilename;
 	}
@@ -211,7 +213,7 @@ class SquareThumbToolkit extends GalleryToolkit {
 	if ($sourceFilename != $destFilename) {
 	    /* If no work was done (small image, already square) then just copy original */
 	    if (!$platform->copy($sourceFilename, $destFilename)) {
-		return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE),
+		return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__),
 			     null, null);
 	    }
 	}
@@ -270,7 +272,7 @@ class SquareThumbToolkit extends GalleryToolkit {
     function _getThumbnailToolkit($mimeType) {
 	list ($ret, $data) = GalleryCoreApi::getToolkitOperationMimeTypes('thumbnail');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (!empty($data[$mimeType]) && $data[$mimeType][0] == 'SquareThumb') {
 	    array_shift($data[$mimeType]);
@@ -282,7 +284,7 @@ class SquareThumbToolkit extends GalleryToolkit {
 	list ($ret, $toolkit) =
 	    GalleryCoreApi::newFactoryInstanceById('GalleryToolkit', $data[$mimeType][0]);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (!isset($toolkit)) {
 	    return array(GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION, __FILE__, __LINE__,

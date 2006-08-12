@@ -1,4 +1,6 @@
 /*
+ * $RCSfile: rating.js,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -16,14 +18,30 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
+
+/* Get teh ajax */
+var http = GetXmlHttp();
+
 function rateItem(itemId, rating, url) {
-    YAHOO.util.Connect.asyncRequest(
-	'GET', url, {success: handleRatingResponse, failure: null, scope: null}, null);
+    SendHttpGet(http, url, handleRatingResponse);
 }
 
-function handleRatingResponse(http) {
-    var results = http.responseText.split("\n");
-    updateItemRating(results);
+function handleRatingResponse() {
+    if (http.readyState != 4) {
+	return;
+    } else {
+	if (http.status == 200) {
+	    /* Success */
+	    var results = http.responseText.split("\n");
+
+	    /* Update display */
+	    updateItemRating(results);
+	} else {
+	    /* Not so much success */
+	    alert('Bad status of ' + http.status + ' returned.');
+	}
+    }
 }
 
 function updateItemRating(results) {
@@ -86,6 +104,6 @@ function updateStarDisplay(itemId, userRating) {
 
 function updateElementDisplay(id, str) {
     document.getElementById(id).replaceChild(
-	    document.createTextNode(str),
+	    document.createTextNode(str), 
 	    document.getElementById(id).childNodes[0]);
 }

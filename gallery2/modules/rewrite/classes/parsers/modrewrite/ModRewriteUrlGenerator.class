@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ModRewriteUrlGenerator.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 /**
  * @package Rewrite
- * @version $Revision$ $Date$
+ * @version $Revision: 1.2 $ $Date: 2006/01/10 04:42:17 $
  * @author Douglas Cau <douglas@cau.se>
  */
 
@@ -37,17 +39,17 @@ GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteUrlGenerator.class')
 class ModRewriteUrlGenerator extends RewriteUrlGenerator {
 
     /**
-     * @see GalleryUrlGenerator::initNavigation
+     * @see GalleryUrlGenerator::init
      */
-    function initNavigation() {
-	$ret = $this->_onLoad();
+    function init($baseUri=null, $g2Uri=null, $embedSessionString=null) {
+	$ret = parent::init($baseUri, $g2Uri, $embedSessionString);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	$ret = parent::initNavigation();
+	$ret = $this->_onLoad();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -85,25 +87,13 @@ class ModRewriteUrlGenerator extends RewriteUrlGenerator {
 	    $tmp = $path . $this->_file[$forceDirect];
 	    $queryString = GalleryUtilities::getServerVar('QUERY_STRING');
 	    if (!empty($queryString)) {
-		GalleryUtilities::unsanitizeInputValues($queryString, false);
-		$tmp .= '?' . $queryString;
+		$tmp .= '?' . GalleryUtilities::htmlEntityDecode($queryString);
 	    }
 
 	    $this->_currentUrl[$forceDirect] = $this->makeUrl($tmp);
 	}
 
 	return $this->_currentUrl[$forceDirect];
-    }
-
-    /**
-     * @see GalleryUrlGenerator::generateUrl
-     */
-    function generateUrl($params=array(), $options=array()) {
-	if (GalleryUtilities::isEmbedded()) {
-	    $options['forceServerRelativeUrl'] = 1;
-	}
-	
-	return parent::generateUrl($params, $options);
     }
 }
 ?>

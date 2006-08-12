@@ -1,4 +1,4 @@
-# $Id$
+# $Id: he.po,v 1.11 2006/03/22 04:18:34 mindless Exp $
 #
 # Gallery - a web based photo album viewer and editor
 # Copyright (C) 2000-2006 Bharat Mediratta
@@ -16,31 +16,31 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
-# Guy Sheffer <guysoft@ort.org.il>, 2006.
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Core 1.1.10\n"
+"Project-Id-Version: Gallery: Core 1.1.0\n"
 "POT-Creation-Date: 2004-12-18 15:28+0200\n"
-"PO-Revision-Date: 2006-04-05 16:36+0300\n"
-"Last-Translator: Guy Sheffer <guysoft@ort.org.il>\n"
-"Language-Team: hebrew <guysoft@ort.org.il>\n"
+"PO-Revision-Date: 2005-01-09 11:20+0200\n"
+"Last-Translator: Omri Amos <omriamos@hwzone.co.il>\n"
+"Language-Team: Hebrew <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: KBabel 1.11.2\n"
 
+#, fuzzy
 msgid "Gallery Email Test"
-msgstr "ניסוי דואר גלרייה"
+msgstr "allery Modules"
 
 msgid "forever"
 msgstr "לתמיד"
 
 msgid "High Priority (Me first!)"
-msgstr "עדיפות גבוהה (אני קודם!)"
+msgstr ""
 
 msgid "Low Priority (I want to share!)"
-msgstr "עדיפות נמוכה (אני רוצה להתחלק!)"
+msgstr ""
 
 msgid "No Markup"
 msgstr "ללא טאגים מובנים"
@@ -84,39 +84,14 @@ msgstr[1] "(%d שבועות)"
 msgid "<none>"
 msgstr "<ללא>"
 
-msgid "No acceleration"
-msgstr "ללא תאוצה"
-
-msgid "Partial acceleration"
-msgstr "תאוצה חלקית"
-
-msgid "Full acceleration"
-msgstr "תאוצה מלאה"
-
-msgid "Themes"
-msgstr "עיצוב"
-
-msgid "Performing Maintenance Tasks"
-msgstr "מבצע פעולות תחזוק"
-
-#, c-format
-msgid "Downloading %s"
-msgstr "מוריד %s"
-
-msgid "Done."
-msgstr "הושלם."
-
-msgid "Upgrade"
-msgstr "שדרוג"
-
-msgid "Download"
-msgstr "מוריד"
-
 msgid "install"
 msgstr "התקנה"
 
 msgid "upgrade"
 msgstr "שדרוג"
+
+msgid "configure"
+msgstr "הגדרות"
 
 msgid "activate"
 msgstr "הפעל"
@@ -127,14 +102,42 @@ msgstr "הסרה"
 msgid "deactivate"
 msgstr "בטל פעילות"
 
+msgid "No acceleration"
+msgstr ""
+
+msgid "Partial acceleration"
+msgstr ""
+
+msgid "Full acceleration"
+msgstr ""
+
+msgid "Performing Maintenance Tasks"
+msgstr ""
+
+#, c-format
+msgid "Downloading %s"
+msgstr ""
+
+#, fuzzy
+msgid "Done."
+msgstr "הושלם"
+
+#, fuzzy
+msgid "Upgrade"
+msgstr "שדרוג"
+
+msgid "Download"
+msgstr ""
+
 msgid "Inherit settings from parent album"
 msgstr "קבל הגדרות מאלבום-האב"
 
 msgid "Use these settings"
 msgstr "השתמש בהגדרות אלה"
 
+#, fuzzy
 msgid "Installing the core module"
-msgstr "מתקיד את מודות הגלעין"
+msgstr "Gallery Core Module"
 
 msgid "key"
 msgstr "מפתח"
@@ -185,18 +188,13 @@ msgid "Detecting broken derivatives"
 msgstr "מזהה נגזרות שבורות"
 
 msgid "Clearing fast-download cache"
-msgstr "מנקה את מטמון של ההורדות-המהירות"
-
-msgid "Deleting old fast-download cache"
-msgstr "מוחקת את המטמון הישן של ההורדות-המהירות"
-
-msgid "Converting MySQL data to UTF8"
-msgstr "ממיר את המידע במסד MySQL לקידוד utf8."
-
-msgid "Updating panorama items"
 msgstr ""
 
-msgid "Optimizing AccessSubscriberMap table"
+#, fuzzy
+msgid "Deleting old fast-download cache"
+msgstr "מוחק טבלת הרשאות ישנה"
+
+msgid "Converting MySQL data to UTF8"
 msgstr ""
 
 msgid "Site Admins"
@@ -216,7 +214,7 @@ msgstr "זהו העמוד הראשי של הגלרייה שלך"
 
 #, c-format
 msgid "Upgrading permissions (%d items complete, %d remaining)"
-msgstr "משדרג הרשאות (%d פריטים הושלמו, נותרו %d פריטים)"
+msgstr ""
 
 msgid "Detecting broken derivatives, loading "
 msgstr "מזהה נגזרות שבורות, טוען "
@@ -230,9 +228,9 @@ msgstr "מזהה נגזרות שבורות, "
 msgid "Detecting broken derivatives, saving "
 msgstr "מזהה נגזרות שבורות, שומר "
 
-#, c-format
+#, fuzzy, c-format
 msgid "Deleting old session files (iteration %d)"
-msgstr "מוחק את קבצי הסשן הישנים (מחזור %d)"
+msgstr "מוחק טבלת הרשאות ישנה"
 
 msgid "add items"
 msgstr "הוסף פריטים"
@@ -270,21 +268,14 @@ msgid_plural "%d kilobytes"
 msgstr[0] "(%d קילובייט)"
 msgstr[1] "(%d קילובייט)"
 
-#, c-format
-msgid "Input file %s exceeds maximum permitted file size"
-msgstr ""
+msgid "From Local Server"
+msgstr "מהשרת המקומי"
 
-#, c-format
-msgid "Input file %s exceeds file size specified in the form"
-msgstr ""
+msgid "Photo"
+msgstr "תמונה"
 
-#, c-format
-msgid "Input file %s was only partially uploaded"
-msgstr ""
-
-#, c-format
-msgid "Input file %s was not uploaded. Error %d"
-msgstr ""
+msgid "From Web Page"
+msgstr "מאתר אינטרנט"
 
 msgid "Gallery Item Administration"
 msgstr "Gallery Item Administration"
@@ -315,21 +306,24 @@ msgstr "הגדרות נשמרו בהצלחה."
 msgid "&laquo; default theme &raquo;"
 msgstr "&laquo; עיצוב ברירת המחדל &raquo;"
 
+#, fuzzy
 msgid "Recreating resized images"
-msgstr "מייצר מחדש גדלים שונים של התמונות"
+msgstr "צור מחדש תמונות בגודל שונה"
 
+#, fuzzy
 msgid "Rebuilding resized images..."
-msgstr "מייצר מחדש גדלים שונים של התמונות"
+msgstr "צור מחדש תמונות בגודל שונה"
 
+#, fuzzy
 msgid "Rebuilding thumbnails..."
-msgstr "מייצר מחדש תמונות מוקטנות"
+msgstr "צור מחדש תמונות מוקטנות"
 
 msgid "Album"
 msgstr "אלבום"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Processing image %d of %d"
-msgstr "מעבד תמונה %d מתוך %d"
+msgstr "מציג עמוד %d מתוך %d"
 
 msgid "Changes saved successfully"
 msgstr "שינויים נשמרו בהצלחה"
@@ -345,9 +339,6 @@ msgstr "כללי"
 
 msgid "Movie Size"
 msgstr "גודל הסרט"
-
-msgid "Photo"
-msgstr "תמונה"
 
 msgid "Thumbnail cropped successfully"
 msgstr "תמונה מוקטנת נגזרה בהצלחה"
@@ -447,8 +438,9 @@ msgstr "החשבון שלך"
 msgid "Password Recovery"
 msgstr "שחזור סיסמה"
 
+#, fuzzy
 msgid "Core"
-msgstr "גלעין"
+msgstr "הגדרות"
 
 msgid "Gallery 2 Core Module"
 msgstr "Gallery 2 Core Module"
@@ -516,11 +508,17 @@ msgstr "החשבון שלך"
 msgid "Logout"
 msgstr "יציאה"
 
-msgid "Plugins"
-msgstr ""
+msgid "Modules"
+msgstr "מודולים"
 
 msgid "Repository"
-msgstr "מאגר"
+msgstr ""
+
+msgid "Themes"
+msgstr "עיצוב"
+
+msgid "Display"
+msgstr "תצוגה"
 
 msgid "Users"
 msgstr "משתמשים"
@@ -529,16 +527,13 @@ msgid "Groups"
 msgstr "קבוצות"
 
 msgid "Performance"
-msgstr "ביצועים"
+msgstr ""
 
 msgid "Toolkit Priority"
 msgstr "עדיפות ערכת כלים"
 
 msgid "Graphics Toolkits"
 msgstr "ערכת כלים גרפיים"
-
-msgid "Defaults"
-msgstr "ברירות מחדל"
 
 msgid "Account Settings"
 msgstr "הגדרות חשבון משתמש"
@@ -577,37 +572,36 @@ msgstr "צור מחדש תמונות מוקטנות ותמונות בגודל ש
 msgid ""
 "Ensure data files for all derivatives (thumbnails, etc) have been built and rebuild broken "
 "ones."
-msgstr "וודא כי כל קבצי המידע המידע הנובעים (תמונות מקטנות וכו') נבנו ויתקן את השבורים."
+msgstr ""
 
 msgid "Build All Thumbnails/Resizes"
-msgstr "בנה מחדש את כל תמונות המוקטנות/תמונות בגודל שונה"
+msgstr ""
 
 msgid "Debug output for failed items:"
-msgstr "הצג דיבאגיג בשביל פריטים שנכשלו"
+msgstr ""
 
-#, c-format
+#, fuzzy, c-format
 msgid "Checked %d items"
-msgstr "%d פריטים מסומנים"
+msgstr "הוסף פריטים"
 
-#, c-format
+#, fuzzy, c-format
 msgid "%d items built"
-msgstr "%d פריטים נבנו"
+msgstr "הוסף פריטים"
 
 #, c-format
 msgid "%d items failed"
-msgstr "%d פריטים נכשלו"
+msgstr ""
 
 #, fuzzy
 msgid "Delete user sessions"
-msgstr "מחק את הסשנים של המשתמשים"
+msgstr "הרשאות מערכת קבצים"
 
-#, fuzzy
 msgid ""
 "Delete all persistent user sessions according to your current session expiration settings."
-msgstr "מחק את כל הסשנים שנתקעו, לפי הגדרות התפוגה"
+msgstr ""
 
 msgid "Delete database cache"
-msgstr "מחק את המטמון של מסד הנתונים"
+msgstr ""
 
 msgid ""
 "Gallery stores commonly used database information on disk for increased performance. If you "
@@ -873,9 +867,11 @@ msgstr "גיליון אלקטרוני"
 msgid "spreadsheet"
 msgstr "גיליון אלקטרוני"
 
-#, fuzzy
-msgid "file"
-msgstr "קובץ"
+msgid "Unknown"
+msgstr "לא ידוע"
+
+msgid "unknown"
+msgstr "לא ידוע"
 
 #, c-format
 msgid ""
@@ -953,9 +949,6 @@ msgstr ""
 #, fuzzy
 msgid "core"
 msgstr "הגדרות"
-
-msgid "unknown"
-msgstr "לא ידוע"
 
 #, fuzzy
 msgid "Gallery version"
@@ -1091,6 +1084,51 @@ msgstr "סיפריות חדשות"
 msgid "New files"
 msgstr "קבצים חדשים"
 
+msgid "Local Server Upload Paths"
+msgstr "סיפריות העלאה בשרת מקומי"
+
+msgid ""
+"Specify the legal directories on the local server where a user can store files and then "
+"upload them into Gallery using the <i>Upload from Local Server</i> feature.  The paths you "
+"enter here and all the files and directories under those paths will be available to any "
+"Gallery user who has upload privileges, so you should limit this to directories that won't "
+"contain sensitive data (eg. /tmp or /usr/ftp/incoming)"
+msgstr ""
+"קבע סיפריות חוקיות בשרת שלך שבהן משתמשים יכולים לשים קבצים ואז להעלות אותם לגלרייה דרך "
+"<i>העלאה משרת מקומי</i>.  הסיפריות שאתה מגדיר כאן וכל הקבצים שבהן יהיו זמינים לכל משתמש בעל "
+"הרשאות העלאה, אז מומלץ שתגדיר רק סיפריות שלא מכילות מידע רגיש."
+
+msgid "Path"
+msgstr "סיפריה"
+
+msgid "Action"
+msgstr "פעולה"
+
+msgid "remove"
+msgstr "הסר"
+
+msgid "Add"
+msgstr "הוסף"
+
+msgid "You must enter a directory to add."
+msgstr "אתה מוכרח להכניס סיפריה להוספה."
+
+msgid "open_basedir documentation"
+msgstr "תיעוד עבור open_basedir"
+
+#, c-format
+msgid ""
+"Your webserver is configured to prevent you from accessing that directory.  Please refer to "
+"the %s and consult your webserver administrator."
+msgstr ""
+"השרת שלך מוגדר כך שהוא לא מאפשר לך גישה לסיפריה זו.  אנא עיין ב %s והתייעץ במנהל השרת שלך."
+
+msgid "The webserver does not have permissions to read that directory."
+msgstr "אין לשרת הרשאה מתאימה על מנת לקרוא את סיפריה זו."
+
+msgid "The path you specified is not a valid directory."
+msgstr "הסיפריה שהכנסת אינה סיפריה תיקנית"
+
 msgid "Session Settings"
 msgstr "הגדרות Session"
 
@@ -1190,9 +1228,6 @@ msgid ""
 "<b>have to clear their browser cookie cache</b>. If they do not, they will experience "
 "login / logout / lost session problems."
 msgstr ""
-
-msgid "Path"
-msgstr "סיפריה"
 
 msgid "Invalid cookie path"
 msgstr ""
@@ -1416,9 +1451,6 @@ msgstr "אינך יכול להסיר את עצמך מקבוצה זו."
 msgid "Add Member"
 msgstr "הוסף משתמש"
 
-msgid "Add"
-msgstr "הוסף"
-
 msgid "You must enter a username."
 msgstr "אתה מוכרח להכניס שם משתמש."
 
@@ -1491,9 +1523,6 @@ msgstr "אינך יכול לערוך משתמשים מקבוצה זו"
 msgid "Edit Group (by list)"
 msgstr "ערוך קבוצה (מתוך רשימה)"
 
-msgid "Action"
-msgstr "פעולה"
-
 msgid "edit"
 msgstr "עריכה"
 
@@ -1548,6 +1577,86 @@ msgstr "לא ידוע"
 
 msgid "Last Run Details:"
 msgstr ""
+
+msgid "Gallery Modules"
+msgstr "allery Modules"
+
+#, c-format
+msgid "Successfully installed and auto-configured module %s"
+msgstr "מודול %s הותקן והוגדר אוטומטית בהצלחה"
+
+#, c-format
+msgid "Successfully installed module %s"
+msgstr "מודול %s הותקן בהצלחה"
+
+#, fuzzy, c-format
+msgid "Successfully configured module %s"
+msgstr "מודול %s שודרג בהצלחה"
+
+#, c-format
+msgid "Successfully upgraded module %s"
+msgstr "מודול %s שודרג בהצלחה"
+
+#, c-format
+msgid "Successfully activated module %s"
+msgstr "מודול %s הופעל בהצלחה"
+
+#, c-format
+msgid "Successfully deactivated module %s"
+msgstr "מודול %s כובה בהצלחה"
+
+#, c-format
+msgid "Successfully uninstalled module %s"
+msgstr "מודול %s הוסר בהצלחה"
+
+msgid ""
+"Gallery features come as separate modules.  You can download and install modules to add more "
+"features to your Gallery, or you can disable features if you don't want to use them.  In "
+"order to use a feature, you must install, configure (if necessary) and activate it.  If you "
+"don't wish to use a feature, you can deactivate it."
+msgstr ""
+"אפשרויות המערכת השונות מגיעות כמודולים נפרדים.  אתה יכול להתקין מודולים שונים כדי להוסיף "
+"תכונות נוספות למערכת שלך, או לבטל אפשרויות מיותרות אם אינך רוצה אותן.  על מנת להשתמש באופציה "
+"כלשהיא, אתה חייב להתקין אותה, להגדיר אותה (אם זה נדרש) ולהפעיל אותה.  אם אינך רוצה להשתמש "
+"באופציה כלשהיא, אתה יכול לבטל את ההפעלה שלה (ולהשאיר אותה מותקנת לעת הצורך)."
+
+msgid "Module Name"
+msgstr "שם מודול"
+
+msgid "Version"
+msgstr "גירסה"
+
+msgid "Installed"
+msgstr "מותקן"
+
+msgid "Actions"
+msgstr "פעולות"
+
+msgid "Status: Not Installed"
+msgstr "סטטוס: לא מותקן"
+
+msgid "Status: Active"
+msgstr "סטטוס: פעיל"
+
+msgid "Status: Inactive"
+msgstr "סטטוס: לא פעיל"
+
+msgid "Status: Upgrade Required (Inactive)"
+msgstr "סטטוס: דרוש שדרוג (לא פעיל)"
+
+msgid "Status: Incompatible Module (Inactive)"
+msgstr "סטטוס: מודול לא מתאים (לא פעיל)"
+
+msgid "Incompatible module!"
+msgstr "מודול לא מתאים"
+
+#, c-format
+msgid "Core API Required: %s (available: %s)"
+msgstr "ממשק הליבה דורש: %s (קיים: %s)"
+
+#, c-format
+msgid "Module API Required: %s (available: %s)"
+msgstr "מודול API דורש: %s (קיים: %s)"
 
 msgid "Confirm module uninstall"
 msgstr "אשר הסרת מודול"
@@ -1629,103 +1738,6 @@ msgstr ""
 msgid "Clear Saved Pages"
 msgstr ""
 
-msgid "Status: Inactive"
-msgstr "סטטוס: לא פעיל"
-
-#, fuzzy
-msgid "__PLUGIN__ deactivated"
-msgstr "בטל פעילות"
-
-msgid "Status: Active"
-msgstr "סטטוס: פעיל"
-
-#, fuzzy
-msgid "__PLUGIN__ activated"
-msgstr "בטל פעילות"
-
-msgid "Status: Not Installed"
-msgstr "סטטוס: לא מותקן"
-
-msgid "__PLUGIN__ uninstalled"
-msgstr ""
-
-msgid "Status: Upgrade Required (Inactive)"
-msgstr "סטטוס: דרוש שדרוג (לא פעיל)"
-
-#, fuzzy
-msgid "Status: Incompatible Plugin (Inactive)"
-msgstr "סטטוס: מודול לא מתאים (לא פעיל)"
-
-msgid "Status: Inactive (Configuration Required)"
-msgstr ""
-
-msgid "__PLUGIN__ needs configuration"
-msgstr ""
-
-#, fuzzy
-msgid "Gallery Plugins"
-msgstr "allery Modules"
-
-#, fuzzy
-msgid ""
-"Gallery features come as separate plugins.  You can download and install plugins to add more "
-"features to your Gallery, or you can disable features if you don't want to use them.  In "
-"order to use a feature, you must install, configure (if necessary) and activate it.  If you "
-"don't wish to use a feature, you can deactivate it."
-msgstr ""
-"אפשרויות המערכת השונות מגיעות כמודולים נפרדים.  אתה יכול להתקין מודולים שונים כדי להוסיף "
-"תכונות נוספות למערכת שלך, או לבטל אפשרויות מיותרות אם אינך רוצה אותן.  על מנת להשתמש באופציה "
-"כלשהיא, אתה חייב להתקין אותה, להגדיר אותה (אם זה נדרש) ולהפעיל אותה.  אם אינך רוצה להשתמש "
-"באופציה כלשהיא, אתה יכול לבטל את ההפעלה שלה (ולהשאיר אותה מותקנת לעת הצורך)."
-
-#, fuzzy
-msgid "up to date"
-msgstr "תאריך:"
-
-#, fuzzy
-msgid "disabled"
-msgstr "%d פריטים נכשלו"
-
-#, fuzzy
-msgid "upgrade required"
-msgstr "(דרוש)"
-
-#, fuzzy
-msgid "not installed"
-msgstr "הסרה"
-
-#, fuzzy
-msgid "incompatible"
-msgstr "מודול לא מתאים"
-
-#, fuzzy
-msgid "Plugin Name"
-msgstr "שם מלא"
-
-msgid "Version"
-msgstr "גירסה"
-
-msgid "Installed"
-msgstr "מותקן"
-
-msgid "Actions"
-msgstr "פעולות"
-
-#, fuzzy
-msgid "Incompatible plugin!"
-msgstr "מודול לא מתאים"
-
-#, c-format
-msgid "Core API Required: %s (available: %s)"
-msgstr "ממשק הליבה דורש: %s (קיים: %s)"
-
-#, fuzzy, c-format
-msgid "Plugin API Required: %s (available: %s)"
-msgstr "מודול API דורש: %s (קיים: %s)"
-
-msgid "configure"
-msgstr "הגדרות"
-
 msgid "Please make sure that your internet connection is set up properly or try again later."
 msgstr ""
 
@@ -1737,9 +1749,6 @@ msgstr ""
 
 msgid "Common Tasks"
 msgstr ""
-
-msgid "Modules"
-msgstr "מודולים"
 
 msgid "Warning: Experimental feature!"
 msgstr ""
@@ -1843,9 +1852,6 @@ msgstr ""
 msgid "Theme Name"
 msgstr "עיצוב"
 
-msgid "Module Name"
-msgstr "שם מודול"
-
 #, fuzzy
 msgid "Latest"
 msgstr "אחרון"
@@ -1853,6 +1859,14 @@ msgstr "אחרון"
 #, fuzzy
 msgid "Incompatible Plugin"
 msgstr "מודול לא מתאים"
+
+#, fuzzy
+msgid "Incompatible plugin!"
+msgstr "מודול לא מתאים"
+
+#, fuzzy, c-format
+msgid "Plugin API Required: %s (available: %s)"
+msgstr "מודול API דורש: %s (קיים: %s)"
 
 msgid "No packages have been selected."
 msgstr ""
@@ -1961,6 +1975,27 @@ msgstr "הגדרות ברירת המחדל לאלבום נשמרו בהצלחה"
 
 msgid "Restored theme settings"
 msgstr "הגדרות תבנית שוחזרו"
+
+#, fuzzy
+msgid "All Themes"
+msgstr "עיצוב"
+
+msgid "Defaults"
+msgstr "ברירות מחדל"
+
+msgid "Status: Incompatible Theme (Inactive)"
+msgstr "סטטוס: מודול לא מתאים (לא פעיל)"
+
+msgid "Incompatible theme!"
+msgstr "מודול לא מתאים"
+
+#, fuzzy, c-format
+msgid "Theme API Required: %s (available: %s)"
+msgstr "ממשק הליבה דורש: %s (קיים: %s)"
+
+#, fuzzy
+msgid "(default)"
+msgstr "ברירות מחדל"
 
 msgid ""
 "These are default display settings for albums in your gallery.  They can be overridden in "
@@ -2258,6 +2293,151 @@ msgstr ""
 
 msgid "Assign caption to:"
 msgstr ""
+
+#, fuzzy
+msgid ""
+"Transfer files that are already on your server into your Gallery.  The files must already "
+"have been uploaded to your server some other way (like FTP) and must be placed in a "
+"directory where they are accessibly by any element on the server.  If you're on Unix this "
+"means that the files and the directory the files are in should have modes of at least 755."
+msgstr ""
+"העבר קבצים שכבר נמצאים על השרת שלך לתוך הגלרייה שלך.  הקבצים חייבים להיות בסיפריה בעלת "
+"הרשאות קריאה של לפחות 755."
+
+msgid ""
+"For security purposes, you can't use this feature until the Gallery Site Administrator "
+"configures a set of legal upload directories."
+msgstr "למטרות אבטחה, לא ניתן להשתמש באופציה זו עד שלא יוגדרו במערכת סיפריות מורשות להעלאה."
+
+msgid "Server Path"
+msgstr "סיפרית השרת"
+
+msgid "You must enter a directory."
+msgstr "אתה מוכרח להכניס סיפריה."
+
+msgid ""
+"The directory you entered is invalid.  Make sure that the directory is readable by all users."
+msgstr "הסיפריה שבחרת אינה תיקנית.  וודא שהסיפריה נגישה עבור כל המשתמשים."
+
+msgid ""
+"The directory you entered is illegal.  It must be a sub directory of one of the directories "
+"listed below."
+msgstr "הסיפריה שהכנסת אינה חוקית.   היא חייבת להיות תת-סיפריה תחת אחת מהסיפריות הבאות."
+
+#, fuzzy
+msgid "An item with the same name already exists."
+msgstr "שם המשתמש '%s' כבר קיים"
+
+msgid "Legal Directories"
+msgstr "סיפריות חוקיות"
+
+msgid "modify"
+msgstr "שנה"
+
+msgid "Recent Directories"
+msgstr "סיפריות אחרונות"
+
+msgid "Find Files"
+msgstr "חפש קבצים"
+
+#, c-format
+msgid "Directory: %s"
+msgstr "סיפריה: %s"
+
+msgid "File name"
+msgstr "שם קובץ"
+
+msgid "Type"
+msgstr "סוג"
+
+msgid "Size"
+msgstr "גודל"
+
+msgid "Use Symlink"
+msgstr ""
+
+#, c-format
+msgid "%d byte"
+msgid_plural "%d bytes"
+msgstr[0] "(%d בייט)"
+msgstr[1] "(%d בייט)"
+
+#, fuzzy
+msgid "Parent Directory"
+msgstr "סיפריה"
+
+msgid "Directory"
+msgstr "סיפריה"
+
+msgid "(Un)check all known types"
+msgstr "סמן/בטל את כל הסוגים המוכרים"
+
+#, fuzzy
+msgid "(Un)check symlinks"
+msgstr "סמן/בטל הכל"
+
+#, fuzzy
+msgid "for selected items"
+msgstr "[ליבה] מחק פריט"
+
+msgid "Copy base filenames to:"
+msgstr ""
+
+msgid "Add Files"
+msgstr "הוסף קבצים"
+
+msgid "Start Over"
+msgstr "התחל מחדש"
+
+msgid ""
+"Import files into Gallery from another website.  Enter a URL below to a web page anywhere on "
+"the net and Gallery will allow you to upload any media files that it finds on that page.  "
+"Note that if you're entering a URL to a directory, you should end the URL with a trailing "
+"slash (eg, http://example.com/directory/). "
+msgstr ""
+"ייבוא קבצים לגלרייה מאתר אחר.  הכנס כתובת לדף אינטרנט כלשהוא והמערכת תאפשר לך להעלות כל קובץ "
+"מדיה שהיא תמצא בדף זה.  שים לב, אם אתה נותן כתובת לסיפריה, אתה צריך לסיים אותה עם סלאש "
+"(לדוגמה, http://www.hwzone.co.il/directory/)."
+
+msgid "URL"
+msgstr "כתובת"
+
+msgid "You must enter a URL to a web page"
+msgstr "אתה מוכרח להכניס כתובת לעמוד האינטרנט"
+
+msgid "The URL entered must begin with http://"
+msgstr "הכתובת חייבת להתחיל ב http://"
+
+msgid "The web page you specified is unavailable"
+msgstr "דף האינטרנט שהכנסת אינו זמין"
+
+msgid "Nothing to add found from this URL"
+msgstr ""
+
+msgid "Nothing added since no items were selected"
+msgstr ""
+
+msgid "Recent URLs"
+msgstr "כתובות אחרונות"
+
+#, c-format
+msgid "URL: %s"
+msgstr "כתובת: %s"
+
+msgid "change"
+msgstr "שנה"
+
+#, c-format
+msgid "%d url found"
+msgid_plural "%d urls found"
+msgstr[0] "כתובת %d נמצאה"
+msgstr[1] "%d כתובות נמצאו"
+
+msgid "(Un)check all"
+msgstr "סמן/בטל הכל"
+
+msgid "Add URLs"
+msgstr "הוסף כתובות URL"
 
 msgid "No Thumbnail"
 msgstr "תמונה מוקטנת לא קיימת"
@@ -2579,10 +2759,6 @@ msgid ""
 "There are no graphics toolkits enabled that support this type of item, so we cannot create "
 "or modify a thumbnail."
 msgstr "לא קיימים כלים גרפיים שתומכים בסוג קובץ זה, אז אין אפשרות ליצור או לשנות תמונה מוקטנת."
-
-#, fuzzy
-msgid "Unable to create a thumbnail for this item"
-msgstr "אתה מוכרח להכניס שם עבור פריט זה."
 
 msgid ""
 "In order for Gallery to properly display this movie, it has to know the movie's width and "
@@ -2922,9 +3098,6 @@ msgid ""
 msgstr ""
 "אלבום זה מוגדר לסידור אוטומטי, ולכן אין באפשרותך לשנות את סדר הפריטים שבו בצורה ידנית.   בטל "
 "את אפשרות הסידור האוטומטי על-מנת להמשיך."
-
-msgid "change"
-msgstr "שנה"
 
 msgid "Change the order of the items in this album."
 msgstr "שנה את סדר הפריטים באלבום זה"
@@ -3323,9 +3496,6 @@ msgstr "%d. %s"
 msgid "Size: "
 msgstr "גודל: "
 
-msgid "Unknown"
-msgstr "לא ידוע"
-
 msgid "Full size: "
 msgstr "גודל מלא: "
 
@@ -3347,64 +3517,45 @@ msgstr "כניסה"
 msgid "Links to album/photo peers"
 msgstr ""
 
-#, fuzzy
 msgid "Unit test module"
 msgstr "מודול בדיקת יחידה"
 
-#, fuzzy
 msgid "[test] A permission"
-msgstr "עריכת הרשאות עבור %s"
+msgstr "[בדיקה] הרשאה"
 
 #, fuzzy
 msgid "[test] A second permission"
-msgstr "עריכת הרשאות עבור %s"
+msgstr "[בדיקה] הרשאה"
 
 #, fuzzy
 msgid "Unit test theme"
 msgstr "מודול בדיקת יחידה"
 
-#~ msgid "Incompatible module!"
-#~ msgstr "מודול לא מתאים"
+#, fuzzy
+#~ msgid "$ cd %s"
+#~ msgstr "%d. %s"
 
-#~ msgid "Module API Required: %s (available: %s)"
-#~ msgstr "מודול API דורש: %s (קיים: %s)"
+#~ msgid "&laquo; None &raquo;"
+#~ msgstr "&laquo; לא קיים &raquo;"
 
 #, fuzzy
-#~ msgid "All Themes"
-#~ msgstr "עיצוב"
+#~ msgid "add album"
+#~ msgstr "הוסף תת-אלבום"
 
-#~ msgid "Status: Incompatible Theme (Inactive)"
-#~ msgstr "סטטוס: מודול לא מתאים (לא פעיל)"
-
-#~ msgid "Incompatible theme!"
-#~ msgstr "מודול לא מתאים"
+#~ msgid "edit permissions"
+#~ msgstr "עריכת הרשאות"
 
 #, fuzzy
-#~ msgid "Theme API Required: %s (available: %s)"
-#~ msgstr "ממשק הליבה דורש: %s (קיים: %s)"
+#~ msgid "view permissions"
+#~ msgstr "עריכת הרשאות"
+
+#~ msgid "HDTV 16x9"
+#~ msgstr "HDTV 16x9"
 
 #, fuzzy
-#~ msgid "(default)"
-#~ msgstr "ברירות מחדל"
-
-#~ msgid "Successfully installed and auto-configured module %s"
-#~ msgstr "מודול %s הותקן והוגדר אוטומטית בהצלחה"
-
-#~ msgid "Successfully installed module %s"
-#~ msgstr "מודול %s הותקן בהצלחה"
+#~ msgid "Successfully deleted directory: /cache/entity"
+#~ msgstr "מחק בהצלחה פריט %d"
 
 #, fuzzy
-#~ msgid "Successfully configured module %s"
-#~ msgstr "מודול %s שודרג בהצלחה"
-
-#~ msgid "Successfully upgraded module %s"
-#~ msgstr "מודול %s שודרג בהצלחה"
-
-#~ msgid "Successfully activated module %s"
-#~ msgstr "מודול %s הופעל בהצלחה"
-
-#~ msgid "Successfully deactivated module %s"
-#~ msgstr "מודול %s כובה בהצלחה"
-
-#~ msgid "Successfully uninstalled module %s"
-#~ msgstr "מודול %s הוסר בהצלחה"
+#~ msgid "Unable to delete directory: /cache/theme"
+#~ msgstr "מחק בהצלחה פריט %d"

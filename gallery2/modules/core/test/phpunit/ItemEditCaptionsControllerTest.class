@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ItemEditCaptionsControllerTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.9 $ $Date: 2006/01/13 03:39:32 $
  * @package GalleryCore
  * @subpackage PHPUnit
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -42,7 +44,7 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    $this->failWithStatus($ret);
+	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($this->_album);
 
@@ -51,7 +53,7 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 	    list ($ret, $this->_items[$i]) = $this->_createRandomDataItem($this->_album->getId());
 	    if ($ret) {
 		print $ret->getAsHtml();
-		$this->failWithStatus($ret);
+		$this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	}
     }
@@ -92,7 +94,7 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 	    $id = $item->getId();
 	    list ($ret, $item) = $item->refresh();
 	    if ($ret) {
-		return $this->failWithStatus($ret);
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
 	    $this->assertEquals("title $id", $item->getTitle());
@@ -137,7 +139,7 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 	    $id = $item->getId();
 	    list ($ret, $item) = $item->refresh();
 	    if ($ret) {
-		return $this->failWithStatus($ret);
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
 	    $this->assertEquals("title $id", $item->getTitle());
@@ -182,7 +184,7 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 	    $id = $item->getId();
 	    list ($ret, $item) = $item->refresh();
 	    if ($ret) {
-		return $this->failWithStatus($ret);
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
 	    $this->assertEquals("title $id", $item->getTitle());
@@ -210,7 +212,7 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 	foreach ($this->_items as $item) {
 	    list ($ret, $newItem) = $item->refresh();
 	    if ($ret) {
-		return $this->failWithStatus($ret);
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
 	    $this->assertEquals($item->getTitle(), $newItem->getTitle());
@@ -238,7 +240,7 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 	/* Remove permissions from one item */
 	$ret = GalleryCoreApi::removeItemPermissions($this->_items[0]->getId());
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	/* Screw up one serial number */
@@ -265,7 +267,7 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 	    $item = $this->_items[$i];
 	    list ($ret, $newItem) = $item->refresh();
 	    if ($ret) {
-		return $this->failWithStatus($ret);
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
 	    if ($i == 1) {

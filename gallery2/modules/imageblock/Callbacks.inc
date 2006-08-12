@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: Callbacks.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.11 $ $Date: 2006/01/10 04:40:16 $
  * @package ImageBlock
  * @author Bharat Mediratta <bharat@menalto.com>
  */
@@ -39,7 +41,7 @@ class ImageBlockCallbacks {
 		list ($ret, $moduleParams) =
 		    GalleryCoreApi::fetchAllPluginParameters('module', 'imageblock');
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
 		$showMap = array_flip(explode('|', $moduleParams['show']));
@@ -57,9 +59,10 @@ class ImageBlockCallbacks {
 		$params['show'] = implode('|', array_keys($showMap));
 	    }
 
-	    if (isset($userId)) {
+	    $vars =& $smarty->_tpl_vars;
+	    if (isset($vars['theme']['actingUserId'])) {
 		/* Support guest-preview mode */
-		$params['userId'] = $userId;
+		$params['userId'] = $vars['theme']['actingUserId'];
 	    }
 
 	    /*
@@ -78,13 +81,13 @@ class ImageBlockCallbacks {
 
 	    $ret = ImageBlockHelper::loadImageBlocks($template, $params);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    return null;
 	}
 
-	return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
+	return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
     }
 }
 ?>

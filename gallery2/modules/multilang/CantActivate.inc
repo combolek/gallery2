@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: CantActivate.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.6 $ $Date: 2006/01/10 04:40:52 $
  * @package MultiLang
  * @subpackage UserInterface
  * @author Alan Harder <alan.harder@sun.com>
@@ -39,7 +41,7 @@ class CantActivateController extends GalleryController {
     function handleRequest($form) {
 	/* Figure out where to redirect upon success */
 	$results['redirect']['view'] = 'core.SiteAdmin';
-	$results['redirect']['subView'] = 'core.AdminPlugins';
+	$results['redirect']['subView'] = 'core.AdminModules';
 	$results['status'] = array();
 	$results['error'] = array();
 

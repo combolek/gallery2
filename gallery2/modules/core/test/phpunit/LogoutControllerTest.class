@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: LogoutControllerTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.13 $ $Date: 2006/01/30 23:00:21 $
  * @package GalleryCore
  * @subpackage PHPUnit
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -39,19 +41,15 @@ class LogoutControllerTest extends GalleryControllerTestCase {
 	global $gallery;
 	parent::setUp();
 
-	list ($ret, $this->_guestId) = GalleryCoreApi::getAnonymousUserId();
-	if ($ret) {
-	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
-	}
-
+	/* Bend the rules */
 	$this->_saveSession = $gallery->_session;
 	$gallery->_session = new LogoutTestSession();
     }
 
     function tearDown() {
-	/* Restore our session */
 	global $gallery;
+
+	/* Restore our session */
 	$gallery->_session = $this->_saveSession;
 
 	parent::tearDown();
@@ -65,21 +63,7 @@ class LogoutControllerTest extends GalleryControllerTestCase {
 				  'status' => array(),
 				  'error' => array()),
 			    $results);
-	$this->assertEquals(1, $gallery->_session->getResetCallCount(), 'reset');
-	$this->assertEquals((int)$this->_guestId, $gallery->_session->getUserId(), 'userId');
-    }
-
-    function testLogoutAlternateGuest() {
-	global $gallery;
-	$gallery->setConfig('anonymousUserId', $userId = $gallery->getActiveUserId());
-
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.ShowItem'),
-				  'status' => array(),
-				  'error' => array()),
-			    $results);
 	$this->assertEquals(1, $gallery->_session->getResetCallCount());
-	$this->assertEquals($userId, $gallery->_session->getUserId(), 'userId');
     }
 }
 
@@ -114,9 +98,6 @@ class LogoutTestSession {
 
     function getUserId() {
 	return $this->_userId;
-    }
-
-    function put($key, $value) {
     }
 }
 ?>

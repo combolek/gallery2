@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: GalleryToolkitHelper_medium.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.32 $ $Date: 2006/01/19 22:44:31 $
  * @package GalleryCore
  * @author Bharat Mediratta <bharat@menalto.com>
  */
@@ -74,11 +76,20 @@ class GalleryToolkitHelper_medium {
 	}
 	$crc = sprintf('%u', crc32($signature));
 
-	list ($ret, $searchResults) = GalleryCoreApi::getMapEntry('GalleryToolkitOperationMap',
-	    array('parametersCrc', 'outputMimeType'),
-	    array('name' => $operationName), array('limit' => array('count' => 1)));
+	$query = '
+	SELECT
+	  [GalleryToolkitOperationMap::parametersCrc],
+	  [GalleryToolkitOperationMap::outputMimeType]
+	FROM
+	  [GalleryToolkitOperationMap]
+	WHERE
+	  [GalleryToolkitOperationMap::name] = ?
+	';
+	list ($ret, $searchResults) = $gallery->search($query,
+						       array($operationName),
+						       array('limit' => array('count' => 1)));
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if ($searchResults->resultCount() > 0) {
@@ -110,7 +121,7 @@ class GalleryToolkitHelper_medium {
 		      'outputMimeType' => $outputMimeType,
 		      'description' => $description));
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    /* Add all of its parameters also */
@@ -123,7 +134,7 @@ class GalleryToolkitHelper_medium {
 			  'type' => $parameterType['type'],
 			  'description' => $parameterType['description']));
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	}
@@ -137,7 +148,7 @@ class GalleryToolkitHelper_medium {
 		      'mimeType' => $mimeType,
 		      'priority' => $priority));
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
@@ -168,11 +179,18 @@ class GalleryToolkitHelper_medium {
 	global $gallery;
 
 	/* Check to see if the property name exists, but with a different unique id. */
-	list ($ret, $searchResults) = GalleryCoreApi::getMapEntry('GalleryToolkitPropertyMap',
-	    array('type'),
-	    array('name' => $propertyName), array('limit' => array('count' => 1)));
+	$query = '
+	SELECT
+	  [GalleryToolkitPropertyMap::type]
+	FROM
+	  [GalleryToolkitPropertyMap]
+	WHERE
+	  [GalleryToolkitPropertyMap::name] = ?
+	';
+	list ($ret, $searchResults) =
+	    $gallery->search($query, array($propertyName), array('limit' => array('count' => 1)));
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if ($searchResults->resultCount() > 0) {
@@ -183,7 +201,7 @@ class GalleryToolkitHelper_medium {
 		 * We can't allow this property to be registered since it
 		 * conflicts with an existing one.  Bounce it.
 		 */
-		return GalleryCoreApi::error(ERROR_COLLISION);
+		return GalleryCoreApi::error(ERROR_COLLISION, __FILE__, __LINE__);
 	    }
 	} else {
 	    /*
@@ -196,7 +214,7 @@ class GalleryToolkitHelper_medium {
 		      'type' => $type,
 		      'description' => $description));
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
@@ -208,7 +226,7 @@ class GalleryToolkitHelper_medium {
 		      'toolkitId' => $toolkitId,
 		      'mimeType' => $mimeType));
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
@@ -231,7 +249,7 @@ class GalleryToolkitHelper_medium {
 	}
 	$ret = GalleryCoreApi::removeMapEntry('GalleryToolkitOperationMimeTypeMap', $entry);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Invalidate our cache */
@@ -256,7 +274,7 @@ class GalleryToolkitHelper_medium {
 	$ret = GalleryCoreApi::removeMapEntry(
 	    'GalleryToolkitOperationMimeTypeMap', array('toolkitId' => $toolkitId));
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Find and remove any unused operations */
@@ -274,20 +292,20 @@ class GalleryToolkitHelper_medium {
 	';
 	list($ret, $searchResults) = $gallery->search($query);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	while ($result = $searchResults->nextResult()) {
 	    $ret = GalleryCoreApi::removeMapEntry(
 		'GalleryToolkitOperationMap', array('name' => $result[0]));
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    $ret = GalleryCoreApi::removeMapEntry(
 		'GalleryToolkitOperationParameterMap', array('operationName' => $result[0]));
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
@@ -295,7 +313,7 @@ class GalleryToolkitHelper_medium {
 	$ret = GalleryCoreApi::removeMapEntry(
 	    'GalleryToolkitPropertyMimeTypeMap', array('toolkitId' => $toolkitId));
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Find and remove any unused properties */
@@ -313,54 +331,24 @@ class GalleryToolkitHelper_medium {
 	';
 	list($ret, $searchResults) = $gallery->search($query);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	while ($result = $searchResults->nextResult()) {
 	    $ret = GalleryCoreApi::removeMapEntry(
 		'GalleryToolkitPropertyMap', array('name' => $result[0]));
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
 	$ret = GalleryCoreApi::unregisterFactoryImplementation('GalleryToolkit', $toolkitId);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Invalidate our cache */
 	GalleryDataCache::removeByPattern('GalleryToolkitHelper::');
-
-	return null;
-    }
-
-    /**
-     * Unregister all operations and properties provided by toolkits implemented
-     * by the given module.
-     *
-     * @param string the id of the module
-     * @return object GalleryStatus a status code
-     * @static
-     */
-    function unregisterToolkitsByModuleId($moduleId) {
-	list ($ret, $searchResults) = GalleryCoreApi::getMapEntry('GalleryFactoryMap',
-	    array('implId'), array('implModuleId' => $moduleId));
-	if ($ret) {
-	    return $ret;
-	}
-
-	$implIds = array();
-	while ($result = $searchResults->nextResult()) {
-	    $implIds[] = $result[0];
-	}
-
-	foreach ($implIds as $implId) {
-	    $ret = GalleryToolkitHelper_medium::unregisterToolkit($implId);
-	    if ($ret) {
-		return $ret;
-	    }
-	}
 
 	return null;
     }
@@ -413,7 +401,7 @@ class GalleryToolkitHelper_medium {
 
 	    list ($ret, $searchResults) = $gallery->search($query, array($mimeType));
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    $data = array();
@@ -474,7 +462,7 @@ class GalleryToolkitHelper_medium {
 
 	    list ($ret, $searchResults) = $gallery->search($query, array($mimeType));
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    $data = array();
@@ -507,14 +495,22 @@ class GalleryToolkitHelper_medium {
 	if (empty($operationName)) {
 	    $data = array();
 	} else if (!GalleryDataCache::containsKey($cacheKey)) {
-	    list ($ret, $searchResults) =
-	    	GalleryCoreApi::getMapEntry('GalleryToolkitOperationMimeTypeMap',
-		array('mimeType', 'toolkitId', 'priority'),
-		array('operationName' => $operationName),
-		array('orderBy' => array('mimeType' => ORDER_ASCENDING,
-		    			 'priority' => ORDER_ASCENDING)));
+	    $query = '
+	    SELECT
+	      [GalleryToolkitOperationMimeTypeMap::mimeType],
+	      [GalleryToolkitOperationMimeTypeMap::toolkitId]
+	    FROM
+	      [GalleryToolkitOperationMimeTypeMap]
+	    WHERE
+	      [GalleryToolkitOperationMimeTypeMap::operationName] = ?
+	    ORDER BY
+	      [GalleryToolkitOperationMimeTypeMap::mimeType] ASC,
+	      [GalleryToolkitOperationMimeTypeMap::priority] ASC
+	    ';
+
+	    list ($ret, $searchResults) = $gallery->search($query, array($operationName));
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    $data = array();
@@ -557,7 +553,7 @@ class GalleryToolkitHelper_medium {
 	    ';
 	    list ($ret, $results) = $gallery->search($query);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    $data = $priorityList = array();
@@ -604,7 +600,7 @@ class GalleryToolkitHelper_medium {
 	    list ($ret, $toolkit, $mimeType) =
 		GalleryCoreApi::getToolkitByOperation($mimeType, $operationName);
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 
 	    if (!isset($toolkit)) {
@@ -637,7 +633,7 @@ class GalleryToolkitHelper_medium {
 	    list ($ret, $isSupported, $outputMimeType) =
 		GalleryToolkitHelper_medium::isSupportedOperationSequence($mimeType, $operations);
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	}
 
@@ -653,7 +649,7 @@ class GalleryToolkitHelper_medium {
 		    GalleryToolkitHelper_medium::isSupportedOperationSequence(
 			$mimeType, $tmpOperations);
 		if ($ret) {
-		    return array($ret, null, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 		if ($isSupported) {
 		    $operations = $tmpOperations;
@@ -668,7 +664,7 @@ class GalleryToolkitHelper_medium {
 	/* If the output type isn't viewable, then try to turn it into a form that *is* viewable. */
 	list ($ret, $isViewable) = GalleryCoreApi::isViewableMimeType($outputMimeType);
 	if ($ret) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 	if (!$isViewable) {
 	    foreach (array($operations . ';convert-to-image/jpeg',
@@ -680,7 +676,7 @@ class GalleryToolkitHelper_medium {
 		    GalleryToolkitHelper_medium::isSupportedOperationSequence(
 			$mimeType, $tmpOperations);
 		if ($ret) {
-		    return array($ret, null, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 		if ($isSupported) {
 		    $operations = $tmpOperations;
@@ -711,7 +707,7 @@ class GalleryToolkitHelper_medium {
 		list ($ret, $toolkit) =
 		    GalleryCoreApi::getToolkitByOperation($source->getMimeType(), $matches[1]);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
 		if (isset($toolkit)) {

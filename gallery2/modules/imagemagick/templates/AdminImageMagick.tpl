@@ -1,5 +1,5 @@
 {*
- * $Revision$
+ * $Revision: 1.37 $
  * If you want to customize this file, do not edit it directly since future upgrades
  * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
  * version.  Gallery will look for that file first and use it if it exists.
@@ -138,7 +138,7 @@
   </p>
   {if !empty($form.error.version.vulnerable)}
   <p class="giWarning">
-    {g->text text="Warning: This version of %s has a %sknown vulnerability%s that can be exploited to cause infinite loops. You may wish to upgrade. This determination may be inaccurate for %sDebian%s and %sMandrake%s." arg1=$AdminImageMagick.version.0 arg2="<a href=\"http://nvd.nist.gov/nvd.cfm?cvename=CVE-2005-1739\">" arg3="</a>" arg4="<a href=\"http://packages.debian.org/stable/graphics/imagemagick\">" arg5="</a>" arg6="<a href=\"http://wwwnew.mandriva.com/security/advisories?name=MDKSA-2005:107\">" arg7="</a>"}
+    {g->text text="Warning: This version of %s has a %sknown vulnerability%s that can be exploited to cause infinite loops. You may wish to upgrade. This determination may be inaccurate for %sDebian%s." arg1=$AdminImageMagick.version.0 arg2="<a href=\"http://nvd.nist.gov/nvd.cfm?cvename=CVE-2005-1739\">" arg3="</a>" arg4="<a href=\"http://packages.debian.org/stable/graphics/imagemagick\">" arg5="</a>"}
   </p>
   <input type="checkbox" id="cbForceSave" name="{g->formVar var="form[forceSave]"}"/>
   <label for="cbForceSave">

@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: CreateThumbnailOption.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.11 $ $Date: 2006/01/13 03:39:31 $
  * @package GalleryCore
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -53,9 +55,10 @@ class CreateThumbnailOption extends ItemAddOption {
      * @see ItemAddOption::handleRequestAfterAdd
      */
     function handleRequestAfterAdd($form, $items) {
-	$errors = $warnings = $itemIds = array();
+	$errors = array();
 	foreach ($items as $item) {
 	    $itemIds[] = $item->getId();
+	    $warnings[] = array();
 	}
 	if (empty($form['CreateThumbnailOption']['createThumbnail'])) {
 	    return array(null, $errors, $warnings);
@@ -63,7 +66,7 @@ class CreateThumbnailOption extends ItemAddOption {
 
 	list ($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds($itemIds);
 	if ($ret) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	foreach ($items as $item) {
@@ -73,7 +76,7 @@ class CreateThumbnailOption extends ItemAddOption {
 		list ($ret) =
 		    GalleryCoreApi::rebuildDerivativeCacheIfNotCurrent($thumbnail->getId());
 		if ($ret) {
-		    return array($ret, null, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 	    }
 	}

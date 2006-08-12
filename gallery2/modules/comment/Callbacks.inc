@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: Callbacks.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.4 $ $Date: 2006/01/10 04:39:11 $
  * @package Comment
  * @author Bharat Mediratta <bharat@menalto.com>
  */
@@ -33,14 +35,16 @@ class CommentCallbacks {
 	    $itemId = $params['itemId'];
 	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
-	    list ($ret, $permissions) = GalleryCoreApi::getPermissions($item->getId(), $userId);
+	    list ($ret, $permissions) =
+		GalleryCoreApi::fetchPermissionsForItems(array($itemId), $userId);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
-	    if (!isset($permissions['comment.view'])) {
+
+	    if (!isset($permissions[$itemId]['comment.view'])) {
 		return null;
 	    }
 
@@ -50,13 +54,13 @@ class CommentCallbacks {
 	    list ($ret, $comments) =
 		GalleryCommentHelper::fetchComments($item->getId(), $viewMax, ORDER_DESCENDING);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    list ($ret, $counts) =
 		GalleryCommentHelper::fetchCommentCounts(array($item->getId()));
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    $commenters = array();
@@ -76,7 +80,7 @@ class CommentCallbacks {
 		    list ($ret, $commentersList) =
 			GalleryCoreApi::loadEntitiesById(array_keys($commenters));
 		    if ($ret) {
-			return $ret;
+			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		}
 
@@ -85,6 +89,11 @@ class CommentCallbacks {
 		}
 	    } else {
 		$totalComments = 0;
+	    }
+
+	    list ($ret, $permissions) = GalleryCoreApi::getPermissions($item->getId());
+	    if ($ret) {
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    foreach (array('delete' => 'comment.delete',
@@ -105,31 +114,9 @@ class CommentCallbacks {
 	    $block['comment']['LoadComments'] = $LoadComments;
 
 	    return null;
-
-	case 'AddComment':
-	    /* Load our item */
-	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($params['itemId']);
-	    if ($ret) {
-		return $ret;
-	    }
-
-	    GalleryCoreApi::requireOnce('modules/comment/classes/GalleryCommentHelper.class');
-	    $form =& $smarty->_tpl_vars['form'];
-	    list ($ret, $AddComment) = GalleryCommentHelper::getAddComment($item, $form);
-	    if ($ret) {
-		if ($ret->getErrorCode() & ERROR_PERMISSION_DENIED) {
-		    return null;
-		}
-		return $ret;
-	    }
-
-	    $block =& $smarty->_tpl_vars['block'];
-	    $block['comment']['AddComment'] = $AddComment;
-
-	    return null;
 	}
 
-	return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
+	return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
     }
 }
 ?>

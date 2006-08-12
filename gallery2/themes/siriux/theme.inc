@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: theme.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,15 +20,15 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
- * @package SiriuxTheme
+ * @version $Revision: 1.12 $ $Date: 2006/03/22 03:52:38 $
+ * @package Gallery
  * @author Nico Kaiser <nico@siriux.net>
  */
 
 /**
- * This implements the siriux.net gallery theme
+ * This implements the standard gallery theme
  *
- * @package SiriuxTheme
+ * @package GalleryTheme
  * @subpackage Theme
  */
 class SiriuxTheme extends GalleryTheme {
@@ -40,9 +42,9 @@ class SiriuxTheme extends GalleryTheme {
 	$this->setId('siriux');
 	$this->setName($gallery->i18n('Siriux'));
 	$this->setDescription($gallery->i18n('Siriux.net Gallery theme'));
-	$this->setVersion('1.1.1');
+	$this->setVersion('1.1.0');
 	$this->setRequiredCoreApi(array(7, 0));
-	$this->setRequiredThemeApi(array(2, 4));
+	$this->setRequiredThemeApi(array(2, 2));
 	$this->setStandardSettings(
 	    array('perPage' => 9,
 		  'contentWidth' => 700,
@@ -67,7 +69,7 @@ class SiriuxTheme extends GalleryTheme {
 		  'thumbnails', 'pageNavigator', 'jumpRange'),
 	     $childIds);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Override some navigator settings */
@@ -84,7 +86,7 @@ class SiriuxTheme extends GalleryTheme {
 	list ($ret, $preferences) =
 	    GalleryCoreApi::fetchDerivativePreferencesForItem($item->getId());
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	foreach ($preferences as $preference) {
 	    if ($preference['derivativeType'] == DERIVATIVE_TYPE_IMAGE_THUMBNAIL &&
@@ -105,7 +107,7 @@ class SiriuxTheme extends GalleryTheme {
 	    array('owner', 'parents', 'systemLinks', 'itemLinks', 'permissions',
 		  'itemLinksDetailed', 'itemNavigator', 'imageViews'));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Override some navigator settings */
@@ -127,7 +129,7 @@ class SiriuxTheme extends GalleryTheme {
 	$ret = $this->loadCommonTemplateData(
 	    $template, $item, $params, array('parents', 'systemLinks'));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Add in our extra stuff */
@@ -145,7 +147,7 @@ class SiriuxTheme extends GalleryTheme {
 	$ret = $this->loadCommonTemplateData(
 	    $template, $item, $params, array('parents', 'systemLinks'));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Add in our extra stuff */
@@ -169,7 +171,7 @@ class SiriuxTheme extends GalleryTheme {
 	$ret = $this->loadCommonTemplateData(
 	    $template, $item, $params, array('parents', 'systemLinks'));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, 'theme.tpl');
@@ -181,7 +183,7 @@ class SiriuxTheme extends GalleryTheme {
     function getSettings($itemId=null) {
 	list ($ret, $settings, $params) = parent::getSettings($itemId);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Add in our custom settings */

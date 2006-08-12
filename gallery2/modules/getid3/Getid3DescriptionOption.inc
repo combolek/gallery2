@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: Getid3DescriptionOption.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.2 $ $Date: 2006/01/24 03:35:42 $
  * @package Getid3
  * @subpackage UserInterface
  * @author Don Willingham <donwillingham@users.sf.net>
@@ -40,7 +42,7 @@ class Getid3DescriptionOption extends ItemAddOption {
 	list ($ret, $addOption) =
 	     GalleryCoreApi::getPluginParameter('module', 'getid3', 'addOption');
 	if ($ret) {
-	    return array($ret, false);
+	    return array($ret->wrap(__FILE__, __LINE__), false);
 	}
 	return array(null, $addOption > 0);
     }
@@ -57,7 +59,7 @@ class Getid3DescriptionOption extends ItemAddOption {
 	list ($ret, $addOption) =
 	    GalleryCoreApi::getPluginParameter('module', 'getid3', 'addOption');
 	if ($ret) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	/* Copy the array because we will change it with do / while / array_splice */
@@ -75,10 +77,11 @@ class Getid3DescriptionOption extends ItemAddOption {
 	    }
 	    list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($itemIds);
 	    if ($ret) {
-	        return array($ret, null, null);
+	        return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 
 	    for ($i = 0; $i < count($currentItems); $i++) {
+	        $warnings[] = array();
 	        if ($currentItems[$i]->getMimeType() == 'audio/mpeg') {
 	            $itemId = $currentItems[$i]->getId();
 
@@ -89,7 +92,7 @@ class Getid3DescriptionOption extends ItemAddOption {
 	                );
 	            if ($ret) {
 	                GalleryCoreApi::releaseLocks($lockId);
-	                return array($ret, null, null);
+	                return array($ret->wrap(__FILE__, __LINE__), null, null);
 	            }
 
 	            $mustSave = false;
@@ -105,7 +108,7 @@ class Getid3DescriptionOption extends ItemAddOption {
 	                $ret = $currentItems[$i]->save();
 	                if ($ret) {
 	                    GalleryCoreApi::releaseLocks($lockId);
-	                    return array($ret, null, null);
+	                    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	                }
 	            }
 	        }
@@ -113,7 +116,7 @@ class Getid3DescriptionOption extends ItemAddOption {
 
 	    $ret = GalleryCoreApi::releaseLocks($lockId);
 	    if ($ret) {
-	        return array($ret, null, null);
+	        return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	} while (!empty($itemsInBatches));
 

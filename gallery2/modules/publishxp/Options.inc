@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: Options.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -24,7 +26,7 @@
  * within Gallery.  The two options supported are for whether the file extension
  * should be used in the title and if the captions should be set automatically.
  *
- * @version $Revision$ $Date$
+ * @version $Revision: 1.8 $ $Date: 2006/01/13 15:39:38 $
  * @package PublishXp
  * @author Timothy Webb <tiwebb@cisco.com>
  */
@@ -86,7 +88,7 @@ class OptionsView extends GalleryView {
 	    }
 
 	    if (empty($form['albumId'])) {
-		return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+		return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	    }
 	}
 
@@ -97,14 +99,14 @@ class OptionsView extends GalleryView {
 	} else {
 	    list ($ret, $optionInstances) = ItemAddOption::getAllAddOptions();
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
 	/* Now let all options load their template data */
 	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($form['albumId']);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$Options['options'] = array();
@@ -112,7 +114,7 @@ class OptionsView extends GalleryView {
 	    list ($ret, $entry['file'], $entry['l10Domain']) =
 		$option->loadTemplate($template, $form, $item);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    if (!empty($entry['file'])) {
 		$Options['options'][] = $entry;

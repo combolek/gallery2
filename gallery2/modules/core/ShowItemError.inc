@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ShowItemError.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.7 $ $Date: 2006/01/10 04:39:20 $
  * @package GalleryCore
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -41,7 +43,7 @@ class ShowItemErrorView extends GalleryView {
 
 	list ($ret, $item, $wasSpecified) = $this->_getItem();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$problem = GalleryUtilities::getRequestVariables('problem');
@@ -51,7 +53,7 @@ class ShowItemErrorView extends GalleryView {
 	    if ($wasSpecified) {
 		list ($ret, $themeId) = GalleryCoreApi::fetchThemeId($item);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		if (GalleryUtilities::isA($item, 'GalleryDataItem')) {
@@ -62,13 +64,13 @@ class ShowItemErrorView extends GalleryView {
 
 		list ($ret, $canEdit) = GalleryCoreApi::hasItemPermission($targetId, 'core.edit');
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    } else {
 		list ($ret, $themeId) =
 		    GalleryCoreApi::getPluginParameter('module', 'core', 'default.theme');
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		$targetId = null;
@@ -77,7 +79,7 @@ class ShowItemErrorView extends GalleryView {
 
 	    list ($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    $template->setVariable('ShowItemError',

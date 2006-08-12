@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: GdToolkitTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.18 $ $Date: 2006/01/10 04:40:12 $
  * @package Gd
  * @subpackage PHPUnit
  * @author Ernesto Baschny <ernst@baschny.de>
@@ -61,7 +63,7 @@ class GdToolkitTest extends GalleryTestCase {
 	$ret = $this->_markPluginParametersForCleanup('module', 'gd');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Reset to the defaults -- tearDown will undo this */
@@ -69,7 +71,7 @@ class GdToolkitTest extends GalleryTestCase {
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'gd', $key, $value);
 	    if ($ret) {
 		print $ret->getAsHtml();
-		return $this->failWithStatus($ret);
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	}
 
@@ -99,7 +101,7 @@ class GdToolkitTest extends GalleryTestCase {
 
 	    list ($ret, $isSupported) = GdToolkitHelper::isGdVersionSupported(null, $gd);
 	    if ($ret) {
-		return $this->failWithStatus($ret);
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    if (!$isSupported) {
 		continue;
@@ -107,7 +109,7 @@ class GdToolkitTest extends GalleryTestCase {
 
 	    list ($ret, $mimeTypes) = GdToolkitHelper::discoverMimeTypes($gd);
 	    if ($ret) {
-		return $this->failWithStatus($ret);
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
 	    foreach ($mimeTypes as $mimeType) {
@@ -122,39 +124,11 @@ class GdToolkitTest extends GalleryTestCase {
 							  '/valid/thumbnail.ext',
 							  array(100, 100));
 		    if ($ret) {
-			return $this->failWithStatus($ret);
+			return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 		    }
 		    $this->assertEquals(
 			$this->_gdFunctionality->getOutputFileData('/valid/thumbnail.ext'),
 			array('x' => '100', 'y' => '100', 'mimeType' => $mimeType));
-		}
-
-		if (GdToolkitHelper::isOperationSupported('scale', $gd)) {
-		    list ($ret, $mimeType) =
-			$this->_toolkit->performOperation($mimeType, 'scale',
-							  '600x400.ext',
-							  '/valid/thumbnail.ext',
-							  array('75%'));
-		    if ($ret) {
-			return $this->failWithStatus($ret);
-		    }
-		    $this->assertEquals(
-			$this->_gdFunctionality->getOutputFileData('/valid/thumbnail.ext'),
-			array('x' => '450', 'y' => '300', 'mimeType' => $mimeType));
-		}
-
-		if (GdToolkitHelper::isOperationSupported('resize', $gd)) {
-		    list ($ret, $mimeType) =
-			$this->_toolkit->performOperation($mimeType, 'resize',
-							  '600x400.ext',
-							  '/valid/thumbnail.ext',
-							  array('150%', 500));
-		    if ($ret) {
-			return $this->failWithStatus($ret);
-		    }
-		    $this->assertEquals(
-			$this->_gdFunctionality->getOutputFileData('/valid/thumbnail.ext'),
-			array('x' => '900', 'y' => '500', 'mimeType' => $mimeType));
 		}
 
 		if (GdToolkitHelper::isOperationSupported('crop', $gd)) {
@@ -164,7 +138,7 @@ class GdToolkitTest extends GalleryTestCase {
 							  '/valid/cropped.ext',
 							  array('24.667', '23.5', '51.375', '52'));
 		    if ($ret) {
-			return $this->failWithStatus($ret);
+			return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 		    }
 		    $this->assertEquals(
 			$this->_gdFunctionality->getOutputFileData('/valid/cropped.ext'),
@@ -182,7 +156,7 @@ class GdToolkitTest extends GalleryTestCase {
 							  '/valid/rotated.ext',
 							  array(90), $context);
 		    if ($ret) {
-			return $this->failWithStatus($ret);
+			return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 		    }
 		    $this->assertEquals(
 			$this->_gdFunctionality->getOutputFileData('/valid/rotated.ext'),
@@ -199,7 +173,7 @@ class GdToolkitTest extends GalleryTestCase {
 							  '/valid/converted.jpeg',
 							  array());
 		    if ($ret) {
-			return $this->failWithStatus($ret);
+			return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 		    }
 		    $this->assertEquals(
 			$this->_gdFunctionality->getOutputFileData('/valid/converted.jpeg'),
@@ -219,7 +193,7 @@ class GdToolkitTest extends GalleryTestCase {
 			      'top-right', /* alignment type */
 			      0, 0)); /* image alignment x, y */
 		    if ($ret) {
-			return $this->failWithStatus($ret);
+			return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 		    }
 		    $this->assertEquals(
 			$this->_gdFunctionality->getOutputFileData('/valid/composited.ext'),
@@ -241,7 +215,7 @@ class GdToolkitTest extends GalleryTestCase {
 			      'manual', /* alignment type */
 			      99, 99)); /* image alignment x, y */
 		    if ($ret) {
-			return $this->failWithStatus($ret);
+			return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 		    }
 		}
 
@@ -253,7 +227,7 @@ class GdToolkitTest extends GalleryTestCase {
 							  '/valid/compressed.jpg',
 							  array(150));
 		    if ($ret) {
-			return $this->failWithStatus($ret);
+			return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 		    }
 		    $this->assertEquals(
 			$this->_gdFunctionality->getOutputFileData('/valid/compressed.jpg'),
@@ -284,7 +258,7 @@ class GdToolkitTest extends GalleryTestCase {
 	    list ($ret, $isSupported) =
 		GdToolkitHelper::isGdVersionSupported(null, $this->_gdFunctionality);
 	    if ($ret) {
-		return $this->failWithStatus($ret);
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    if (!$isSupported) {
 		continue;
@@ -293,7 +267,7 @@ class GdToolkitTest extends GalleryTestCase {
 	    list ($ret, $results) =
 		$this->_toolkit->getProperty('image/gif', 'dimensions', '300x300.gif');
 	    if ($ret) {
-		return $this->failWithStatus($ret);
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $this->assertEquals(array(300, 300), $results);
 
@@ -385,7 +359,7 @@ class GdToolkitTest extends GalleryTestCase {
 
 	    list ($ret, $results) = GdToolkitHelper::discoverMimeTypes($this->_gdFunctionality);
 	    if ($ret) {
-		return $this->failWithStatus($ret);
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $this->assertEquals($environment['mimeTypes'],
 				$results,
@@ -403,13 +377,13 @@ class GdToolkitTest extends GalleryTestCase {
 	    list ($ret, $isSupported) =
 		GdToolkitHelper::isGdVersionSupported(null, $this->_gdFunctionality);
 	    if ($ret) {
-		return $this->failWithStatus($ret);
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
 	    list ($ret, $results) =
 		GdToolkitHelper::getOperationsAndProperties($this->_gdFunctionality);
 	    if ($ret) {
-		return $this->failWithStatus($ret);
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    if (!$isSupported) {
 		/* No support, so the function should return empty maps */
@@ -435,7 +409,7 @@ class GdToolkitTest extends GalleryTestCase {
 		    'params' => array(
 			array(
 			    'type' => 'int',
-			    'description' => 'target width (# pixels or #% of full size)'
+			    'description' => 'target width'
 			    ),
 			array(
 			    'type' => 'int',
@@ -451,7 +425,7 @@ class GdToolkitTest extends GalleryTestCase {
 		    'params' => array(
 			array(
 			    'type' => 'int',
-			    'description' => 'target width (# pixels or #% of full size)'
+			    'description' => 'target width'
 			    ),
 			array(
 			    'type' => 'int',
@@ -467,11 +441,11 @@ class GdToolkitTest extends GalleryTestCase {
 		    'params' => array(
 			array(
 			    'type' => 'int',
-			    'description' => 'target width (# pixels or #% of full size)'
+			    'description' => 'target width'
 			    ),
 			array(
 			    'type' => 'int',
-			    'description' => 'target height (# pixels or #% of full size)'
+			    'description' => 'target height'
 			    )
 			),
 		    'description' => 'Resize the image to the target dimensions',
@@ -543,7 +517,6 @@ class GdToolkitTest extends GalleryTestCase {
 	    $this->assertEquals($expectedOperations, $results['operations'],
 				'(operations) Environment ' . $environment['name']);
 
-	    $environment['mimeTypes'][] = 'application/x-shockwave-flash';
 	    $this->assertEquals(array(
 		'dimensions' => array(
 		    'type' => 'int,int',

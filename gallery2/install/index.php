@@ -10,7 +10,7 @@
  *
  * ----------------------------------------------------------------------------
  *
- * $Id$
+ * $Id: index.php,v 1.73.2.1 2006/08/08 00:00:00 mindless Exp $
  *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
@@ -103,12 +103,8 @@ if (!empty($sessionId)) {
     }
 }
 
-if (@ini_get('session.save_handler') == 'user') {
-    /*
-     * Escape hatch to avoid conflicting with an application specific session handler, which can
-     * happen in the case where Gallery2 is installed in a subdir of some other app.
-     */
-    @ini_set('session.save_handler', 'files');
+if (@ini_get('session.save_handler') != 'files') {
+    @ini_set('session.save_handler','files');
     session_start();
 } else if (!ini_get('session.auto_start')) {
     session_start();
@@ -222,24 +218,14 @@ function processAutoCompleteRequest() {
 	$path = stripslashes($path);
     }
 
-    if (is_dir($path)) {
-	$match = '';
-    } else {
-	$match = basename($path);
-	$matchLength = strlen($match);
-	$path = dirname($path);
-	if (!is_dir($path)) {
-	    return;
-	}
-    }
-
+    /* Find all matching paths */
     $dirList = array();
-    if ($dir = opendir($path)) {
+    if (file_exists($path) && is_dir($path) && ($dir = opendir($path))) {
 	if ($path{strlen($path)-1} != DIRECTORY_SEPARATOR) {
 	    $path .= DIRECTORY_SEPARATOR;
 	}
 	while (($file = readdir($dir)) !== false) {
-	    if ($file == '.' || $file == '..' || ($match && strncmp($file, $match, $matchLength))) {
+	    if ($file == '.' || $file == '..') {
 		continue;
 	    }
 	    $file = $path . $file;
@@ -295,6 +281,24 @@ function populateDataDirectory($dataBase) {
 	if (!is_writeable($dir)) {
 	    return false;
 	}
+
+	if ($key == 'locks') {
+	    for ($i = 0; $i <= 9; $i++) {
+		if (!file_exists("$dir/$i")) {
+		    if (!mkdir("$dir/$i", 0755)) {
+			return false;
+		    }
+		}
+
+		for ($j = 0; $j <= 9; $j++) {
+		    if (!file_exists("$dir/$i/$j")) {
+			if (!mkdir("$dir/$i/$j", 0755)) {
+			    return false;
+			}
+		    }
+		}
+	    }
+	}
     }
 
     return secureStorageFolder($dataBase);
@@ -333,7 +337,7 @@ function secureStorageFolder($dataBase) {
 /* Returns something like https://example.com */
 function getBaseUrl() {
     /* Can't use GalleryUrlGenerator::makeUrl since it's an object method */
-    if (!($hostName = GalleryUtilities::getServerVar('HTTP_X_FORWARDED_HOST'))) {
+    if (!($hostName = GalleryUtilities::getServerVar('HTTP_X_FORWARDED_SERVER'))) {
 	$hostName = GalleryUtilities::getServerVar('HTTP_HOST');
     }
     $protocol = (GalleryUtilities::getServerVar('HTTPS') == 'on') ? 'https' : 'http';

@@ -3,44 +3,36 @@
 # This script traverses the Gallery tree and creates a manifest file that
 # contains a list of checksums for files in the distribution.  The installer
 # verifies the integrity of the files before proceeding.
+# The Debug module also uses this file to figure out whether or not it's
+# safe to show you the contents of the file in stack traces.
 #
 use strict;
 use File::Basename;
 use Cwd;
 use String::CRC32;
-my $quiet = 0;
-foreach my $i (0 .. $#ARGV) {
-    if ('-q' == $ARGV[$i]) {
-	$quiet = 1;
-    }
-}
-sub quietprint {
-    if (!$quiet) {
-	my $string = shift;
-	print STDERR $string;
-    }
-}
+
 $| = 1;
 
 chdir(dirname($0) . '/../../..');
 my $basedir = cwd();
 
-# Get a list of every file committed to Subversion.
+# Get a list of every file committed to CVS.
 #
 my @entries = ();
-quietprint("Finding all files...");
-&listSvn(\@entries);
-quietprint("\n");
+print STDERR "Finding all files...";
+&parseCvs($basedir, \@entries);
+print STDERR "\n";
 
 # Strip base dir, sort
-quietprint("Sorting...");
+print STDERR "Sorting...";
+map(s{$basedir/}{}, @entries);
 @entries = sort @entries;
-quietprint("\n");
+print STDERR "\n";
 
 # Split into sections
 #
 my %sections;
-quietprint("Separating into sections...");
+print STDERR "Separating into sections...";
 foreach my $file (@entries) {
   if ($file =~ m{^((modules|layouts|themes)/.*?)/}) {
     push(@{$sections{"$1/MANIFEST"}}, $file);
@@ -48,25 +40,15 @@ foreach my $file (@entries) {
     push(@{$sections{'MANIFEST'}}, $file);
   }
 }
-quietprint("\n");
+print STDERR "\n";
 
 # Now generate the checksum files
 #
-quietprint("Generating checksums...");
+print STDERR "Generating checksums...";
 my $changed = 0;
 my $total = 0;
 foreach my $manifest (keys %sections) {
-  my @old_lines = ();
-  my $oldContent = '';
-  my $oldRevision = '';
-  if (open(FD, "<$manifest")) {
-    @old_lines = <FD>;
-    close(FD);
-    $oldRevision = $1 if ($old_lines[0] =~ /Revision(: \d+\s*)\$/);
-    $oldContent = join('', @old_lines);
-  }
   open(my $out, ">$manifest.new") or die;
-  print $out '# $Revision' . "$oldRevision\$\n";
   print $out "# File crc32 crc32(crlf) size size(crlf)  or  R File\n";
   my @entries = @{$sections{$manifest}};
   my %deleted;
@@ -103,7 +85,13 @@ foreach my $manifest (keys %sections) {
       print $out "$file\t$cksum\t$cksum_crlf\t$size\t$size_crlf\n";
     }
   }
-  if (@old_lines) {
+  my $oldContent = '';
+  if (open(FD, "<$manifest")) {
+    my @old_lines = <FD>;
+
+    $oldContent = join('', @old_lines);
+    close(FD);
+
     foreach (@old_lines) {
       next if /^\#/;
       if (/^R\t(.*)$/) {
@@ -128,11 +116,11 @@ foreach my $manifest (keys %sections) {
   $changed += replaceIfNecessary($oldContent, $manifest, "$manifest.new");
   $total++;
 
-  quietprint(".");
+  print STDERR ".";
 }
-quietprint("\n");
-quietprint(sprintf("Completed in %d seconds\n", time - $^T));
-quietprint(sprintf("Manifests changed: $changed (total: $total)\n"));
+print STDERR "\n";
+printf(STDERR "Completed in %d seconds\n", time - $^T);
+printf(STDERR "Manifests changed: $changed (total: $total)\n");
 
 sub replaceIfNecessary {
   my ($oldContent, $oldFile, $newFile) = @_;
@@ -150,25 +138,42 @@ sub replaceIfNecessary {
   }
 }
 
-sub listSvn {
+sub parseCvs {
+  my $activeDir = shift;
   my $entries = shift;
-  my %binaryList = ();
+
+  my $cvsDir = "$activeDir/CVS";
+  die "missing $cvsDir" unless (-d $cvsDir);
+
   local *FD;
-  open(FD, "svn propget --non-interactive -R svn:mime-type |") or die;
+  open(FD, "<$cvsDir/Entries") or die;
   while (<FD>) {
-    split / - /;
-    $binaryList{$_[0]} = 1;
-  }
-  close FD;
-  open(FD, "svn status --non-interactive -v -q |") or die;
-  while (<FD>) {
-    die "\n$_" unless /^(.).....\s*\d+\s+\d+\s+\S+\s+(.*)$/;
-    die "\n$2" unless (-e $2);
-    next unless (-f $2);
-    die "Check $1 status for $2" if ($1 ne ' ' and $1 ne 'D' and $1 ne 'M');
-    quietprint("Warning: $2 is locally modified\n") if ($1 eq 'M');
-    push(@$entries,
-      sprintf("%s%s@@%d", ($1 eq 'D' ? 'deleted:' : ''), $2, exists($binaryList{$2})));
+    next if /^D$/;
+
+    if (m|^D/([^/]*)/|) {
+      my $target = "$activeDir/$1";
+      if (-d $target) {
+	&parseCvs($target, $entries);
+      } if (-f $target) {
+	die "$target not a dir" if (! -d $target);
+      } else {
+	# CVS doesn't always get rid of D/ entries when the dir is
+	# pruned.  Ignore.
+      }
+    } elsif (m|/([^/]*)/([^/]*)/|) {
+      next if m{/MANIFEST$};
+      my $target;
+      if ($2 =~ '^-') {
+	# Deleted file
+	$target = "deleted:$activeDir/$1";
+      } else {
+	$target = "$activeDir/$1";
+	die "$target not a file" if (! -f $target);
+      }
+      push(@$entries, sprintf("%s@@%d", $target, m/-kb/));
+    } else {
+      die "Can't parse: $_";
+    }
   }
   close FD;
 }

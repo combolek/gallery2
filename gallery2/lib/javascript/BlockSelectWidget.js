@@ -1,4 +1,6 @@
 /*
+ * $RCSfile: BlockSelectWidget.js,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -91,27 +93,17 @@ function bsw_BlockPreference(key, blockId, values) {
     };
 
     this.toString = function() {
-	var result = '["' + this.blockId + '",{';
-	var count = 0;
+	var result = "[" + this.blockId;
 	for (var paramName in this.parameters) {
 	    var paramValue = this.parameters[paramName];
 	    var defaultValue =
 		bsw_WIDGET_BLOCKS[key][blockId]['parameters'][paramName]['defaultValue'];
-	    var paramType = bsw_WIDGET_BLOCKS[key][blockId]['parameters'][paramName]['type'];
 	    if (paramValue != defaultValue) {
-		if (count++) {
-		    result += ',';
-		}
-
-		result += '"' + paramName + '":';
-		if (paramType == 'text') {
-		    result += '"' + paramValue.replace(/\"/g,'\\"') + '"';
-		} else {
-		    result += paramValue;
-		}
+		result += " " + paramName + "=" + paramValue;
 	    }
 	}
-	result += '}]';
+
+	result += "]";
 
 	return result;
     };
@@ -163,15 +155,7 @@ function bsw_addUserBlockPreference(key, blockId, values) {
 function bsw_initAdminForm(key, parameterText, valueText) {
     var availableEl = document.getElementById("blocksAvailableList_" + key);
     var usedEl = document.getElementById("blocksUsedList_" + key);
-
-    /*
-     * Undo the " -> &quot; coercion that we had to do in order to embed the
-     * serialized value into a string value in HTML.
-     */
-    var valueEl = document.getElementById("albumBlockValue_" + key);
-    valueEl.value = valueEl.value.replace('&quot;', '"');
-    var usedBlockString = valueEl.value;
-
+    var usedBlockString = document.getElementById("albumBlockValue_" + key).value;
     bsw_createBlockPrefsFromString(key, usedBlockString);
     bsw_resizeBlocksUsedList(key);
     bsw_selectNone(key);
@@ -189,7 +173,7 @@ function bsw_reInitAdminForm(key) {
     if (bsw_UPDATE_LEVEL == 0) {
 	var usedBlockString = document.getElementById("albumBlockValue_" + key).value;
 	bsw_USER_BLOCK_POSITIONS[key] = new Array();
-	bsw_createBlockPrefsFromString(key, unescape(usedBlockString));
+	bsw_createBlockPrefsFromString(key, usedBlockString);
 	bsw_selectNone(key);
     }
 }
@@ -505,13 +489,6 @@ function bsw_getValueElement(paramName, blockPref, block) {
 	returnElement.selectedIndex = -1;
 
 	returnElement.onchange = function() { bsw_updatePrefValue(block.key, elementType, this); };
-    } else if (elementType == 'text') {
-	returnElement = document.createElement("input");
-	returnElement.type = 'text';
-	callback = new Function('document.getElementById("' + id + '").value = "' +
-				prefValue.replace(/\"/g, '\\"') + '";');
-	returnElement.value = prefValue;
-	returnElement.onchange = function() { bsw_updatePrefValue(block.key, elementType, this); };
     }
 
     returnElement.id = id;
@@ -538,11 +515,8 @@ function bsw_updatePrefValue(key, varType, element) {
     var paramValue;
     if (varType == 'boolean') {
 	paramValue = element.checked;
-    } else if(varType == 'choice') {
-	paramValue = element.options[element.selectedIndex].value;
     } else {
-	/* text */
-	paramValue = element.value;
+	paramValue = element.options[element.selectedIndex].value;
     }
 
     blockPref.setParameterValue(paramName, paramValue);
@@ -566,6 +540,9 @@ function bsw_updateVarOverrides(key, blockPref) {
     }
 }
 
+/* Create a regexp pattern that will pull out all of the block definitions */
+var BLOCK_REGEXP = /\[[^\]]+\]/g;
+
 /**
  * Given a string value as stored in the gallery database, create block
  * preference objects with the supplied values.
@@ -580,10 +557,24 @@ function bsw_createBlockPrefsFromString(key, stringValue) {
 
     /* Now clear out the block array */
     bsw_USER_BLOCKS[key] = new Array();
-    eval('var blockData = ' + stringValue);
 
-    for (var i = 0; i < blockData.length; i++) {
-	bsw_addUserBlockPreference(key, blockData[i][0], blockData[i][1]);
+    var result = stringValue.match(BLOCK_REGEXP);
+    if (result == null) {
+	return;
+    }
+
+    /* At this point we have a bunch of matches with the enclosing []'s */
+    for (var i = 0; i < result.length; i++) {
+	var bits = result[i].substring(1, result[i].length - 1).split(" ");
+
+        var blockId = bits[0];
+	var prefValues = new Array();
+	for (var bitIndex = 1; bitIndex < bits.length; bitIndex++) {
+	    var paramBits = bits[bitIndex].split("=");
+	    prefValues[paramBits[0]] = paramBits[1];
+	}
+
+	bsw_addUserBlockPreference(key, blockId, prefValues);
     }
 }
 
@@ -593,9 +584,8 @@ function bsw_createBlockPrefsFromString(key, stringValue) {
  */
 function bsw_updateAlbumBlockValue(key) {
     var albumValueEl = document.getElementById("albumBlockValue_" + key);
-    var newValue = '[';
+    var value = "";
 
-    var count = 0;
     for (var i = 0; i < bsw_USER_BLOCK_POSITIONS[key].length; i++) {
 	var blockPrefId = bsw_USER_BLOCK_POSITIONS[key][i];
 	var blockPref = bsw_USER_BLOCKS[key][blockPrefId];
@@ -605,19 +595,16 @@ function bsw_updateAlbumBlockValue(key) {
 	 * when the old block string contained blocks that are no longer in the master list.
 	 */
 	if (bsw_WIDGET_BLOCKS[key][blockPref.blockId]) {
-	    if (count++) {
-		newValue += ',';
-	    }
-	    newValue += blockPref.toString();
+	    value += blockPref.toString() + " ";
 	}
     }
-    newValue += ']';
 
     /*
      * Don't change it unless we really need to, to avoid unnecessarily
      * propagating onchange events which can lead to recursive calls back
      * to bsw_updateAlbumBlockValue()
      */
+    var newValue = value.substring(0, value.length - 1);
     if (albumValueEl.value != newValue) {
 	albumValueEl.value = newValue;
 	if (albumValueEl.onchange) {

@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ItemAddPublishXp.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -25,7 +27,7 @@
  * register Gallery as a publisher in XP, it doesn't actually do any of the
  * processing of images.
  *
- * @version $Revision$ $Date$
+ * @version $Revision: 1.5 $ $Date: 2006/01/13 15:39:38 $
  * @package PublishXp
  * @author Timothy Webb <tiwebb@cisco.com>
  */
@@ -44,7 +46,7 @@ class ItemAddPublishXp extends ItemAddPlugin {
     function getTitle() {
 	list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'publishxp');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	return array(null, $module->translate('Windows XP'));
     }

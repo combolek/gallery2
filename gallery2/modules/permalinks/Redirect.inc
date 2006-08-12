@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: Redirect.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.3 $ $Date: 2006/01/10 04:41:21 $
  * @package Permalinks
  * @subpackage UserInterface
  * @author Pierre-Luc Paour <gallery@paour.com>
@@ -41,16 +43,15 @@ class RedirectController extends GalleryController {
     function handleRequest(&$form) {
 	$alias = GalleryUtilities::getRequestVariables('filename');
 	if (empty($alias)) {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	}
 
 	list ($ret, $itemId) = PermalinksMapHelper::fetchItemIdForAlias($alias);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	GalleryUtilities::putRequestVariable('itemId', $itemId);
-	GalleryUtilities::putRequestVariable('view', 'core.ShowItem');
 
 	$results = array('delegate' => array('view' => 'core.ShowItem'),
 			 'status' => array(),

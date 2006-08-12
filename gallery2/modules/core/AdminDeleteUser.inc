@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: AdminDeleteUser.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.31 $ $Date: 2006/01/17 01:52:01 $
  * @package GalleryCore
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -61,7 +63,7 @@ class AdminDeleteUserController extends GalleryController {
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$results = $status = $error = array();
@@ -77,9 +79,9 @@ class AdminDeleteUserController extends GalleryController {
 
 	    /* Get the anonymous user for checks */
 	    list ($ret, $anonymousUserId) =
-		GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
+			GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
 	    if ($ret) {
-		return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    /*
@@ -90,41 +92,42 @@ class AdminDeleteUserController extends GalleryController {
 		    GalleryCoreApi::fetchUserByUserName($form['text']['newOwner']);
 		if ($ret) {
 		    if (!($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    } else { /* the user was spelled incorrectly, return an error page */
 			$error[] = 'form[error][text][noSuchUser]';
 		    }
 		} else if ($newOwner->getId() == $userId) {
 		    /* new Owner = deleted user, doesn't make sense */
 		    $error[] = 'form[error][text][newOwnerIsDeletedUser]';
-		} else if ($newOwner->getId() == $anonymousUserId) {
+		} else if($newOwner->getId() == $anonymousUserId) {
 		    $error[] = 'form[error][text][newOwnerIsGuest]';
 		}
 	    } else { /* new owner field is empty, set the default new owner: 'admin' */
 		$activeUserId = $gallery->getActiveUserId(); /* activeUser = site admin */
 		list ($ret, $newOwner) = GalleryCoreApi::loadEntitiesById($activeUserId);
 		if ($ret) {
-		    return array($ret, null);
-		}
+		    return array($ret->wrap(__FILE__, __LINE__), null);
+	   	}
 	    }
 
 	    /* Verify the user exists */
 	    list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    /* Get all items by the User */
 	    list ($ret, $itemIds) = GalleryCoreApi::fetchAllItemIdsByOwnerId($user->getId());
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    /*
-	     * Only continue to delete the user if we have no errors and if we don't try
-	     * to delete the anonymous user or the active user.  In theory we should never
-	     * get to this point unless we're operating on a valid user, so don't bother
-	     * sending errors back in case we can't delete.
+	     * Only continue to delete the user if we have no errors
+	     * and if we don't try to delete the anonymous user or the active user.
+	     * In theory we should never get to this point unless we're
+	     * operating on a valid user, so don't bother sending errors back
+	     * in case we can't delete.
 	     */
 	    if (empty($error) && $userId != $anonymousUserId
 			&& $userId != $gallery->getActiveUserId()
@@ -143,14 +146,14 @@ class AdminDeleteUserController extends GalleryController {
 		     */
 		    $ret = GalleryCoreApi::deleteUserItems($user->getId());
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		}
 
 		/* Assign a new owner for the (remaining) items */
 		$ret = GalleryCoreApi::remapOwnerId($user->getId(), $newOwner->getId());
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		} /* /if !empty($itemIds) */
@@ -158,7 +161,7 @@ class AdminDeleteUserController extends GalleryController {
 		/* Delete the user */
 		$ret = GalleryCoreApi::deleteEntityById($user->getId());
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		/* Request a redirect to the confirmation screen */
@@ -195,13 +198,13 @@ class AdminDeleteUserView extends GalleryView {
     function loadTemplate(&$template, &$form) {
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$userId = GalleryUtilities::getRequestVariables('userId');
 	list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if ($form['formName'] != 'AdminDeleteUser') {
@@ -215,7 +218,7 @@ class AdminDeleteUserView extends GalleryView {
 	/* Get all items / the item count of the oldUser */
 	list ($ret, $itemIds) = GalleryCoreApi::fetchAllItemIdsByOwnerId($user->getId());
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$AdminDeleteUser['numberOfItems'] = count($itemIds);
 

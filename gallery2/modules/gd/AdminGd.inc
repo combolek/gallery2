@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: AdminGd.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.13 $ $Date: 2006/01/17 01:52:01 $
  * @package Gd
  * @author Ernesto Baschny <ernst@baschny.de>
  */
@@ -37,7 +39,7 @@ class AdminGdController extends GalleryController {
     function handleRequest($form) {
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$error = $status = array();
@@ -45,16 +47,16 @@ class AdminGdController extends GalleryController {
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'gd',
 						      'jpegQuality', $form['jpegQuality']);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'gd');
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    list ($ret, $isActive) = $module->isActive();
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    $redirect['view'] = 'core.SiteAdmin';
@@ -62,14 +64,14 @@ class AdminGdController extends GalleryController {
 		$redirect['subView'] = 'gd.AdminGd';
 		$status['saved'] = 1;
 	    } else {
-		$redirect['subView'] = 'core.AdminPlugins';
+		$redirect['subView'] = 'core.AdminModules';
 	    }
 	} else if (isset($form['action']['reset'])) {
 	    $redirect['view'] = 'core.SiteAdmin';
 	    $redirect['subView'] = 'gd.AdminGd';
 	} else if (isset($form['action']['cancel'])) {
 	    $redirect['view'] = 'core.SiteAdmin';
-	    $redirect['subView'] = 'core.AdminPlugins';
+	    $redirect['subView'] = 'core.AdminModules';
 	}
 
 	if (!empty($redirect)) {
@@ -97,7 +99,7 @@ class AdminGdView extends GalleryView {
     function loadTemplate(&$template, &$form) {
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Load our default values if we didn't just come from this form. */
@@ -106,7 +108,7 @@ class AdminGdView extends GalleryView {
 		list ($ret, $form[$key]) =
 		    GalleryCoreApi::getPluginParameter('module', 'gd', $key);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
 	    $form['formName'] = 'AdminGd';
@@ -119,15 +121,15 @@ class AdminGdView extends GalleryView {
 
 	list ($ret, $gdVersion) = GdToolkitHelper::discoverGdVersion();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $isGdBundled) = GdToolkitHelper::isBundled();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $isGdVersionSupported) = GdToolkitHelper::isGdVersionSupported($gdVersion);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$minGdVersion = GdToolkitHelper::minGdVersion();
 
@@ -135,17 +137,17 @@ class AdminGdView extends GalleryView {
 	if ($isGdVersionSupported) {
 	    list($ret, $mimeTypes) = GdToolkitHelper::discoverMimeTypes();
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'gd');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $isActive) = $module->isActive();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$AdminGd = array();

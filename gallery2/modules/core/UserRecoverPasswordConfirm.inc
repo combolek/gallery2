@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: UserRecoverPasswordConfirm.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.7 $ $Date: 2006/01/10 04:39:21 $
  * @package GalleryCore
  * @subpackage UserInterface
  * @author Jay Rossiter <cryptographite@users.sf.net>
@@ -66,7 +68,7 @@ class UserRecoverPasswordConfirmController extends GalleryController {
 	    if (empty($error)) {
 		list ($ret, $user) = GalleryCoreApi::fetchUserByUsername($form['userName']);
 		if ($ret && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		/*
 		 * Check the database to see if a previous request.
@@ -77,7 +79,7 @@ class UserRecoverPasswordConfirmController extends GalleryController {
 		list ($ret, $requestExpires) = UserRecoverPasswordHelper_simple::getRequestExpires(
 		    $form['userName'], $form['authString']);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		if ($user && !empty($requestExpires)) {
@@ -90,24 +92,24 @@ class UserRecoverPasswordConfirmController extends GalleryController {
 		    } else if (!empty($user)) {
 			list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($user->getId());
 			if ($ret) {
-			    return array($ret, null);
+			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 
 			list ($ret, $user) = $user->refresh();
 			if ($ret) {
-			    return array($ret, null);
+			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 
 			$user->changePassword($form['password1']);
 
 			$ret = $user->save();
 			if ($ret) {
-			    return array($ret, null);
+			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 
 			$ret = GalleryCoreApi::releaseLocks($lockId);
 			if ($ret) {
-			    return array($ret, null);
+			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 
 			$status['passwordRecovered'] = 1;
@@ -171,7 +173,7 @@ class UserRecoverPasswordConfirmView extends GalleryView {
 	list ($ret, $requestExpires) = UserRecoverPasswordHelper_simple::getRequestExpires(
 	    $form['userName'], $form['authString']);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (empty($requestExpires)) {

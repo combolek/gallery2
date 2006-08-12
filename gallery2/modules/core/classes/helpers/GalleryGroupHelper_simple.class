@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: GalleryGroupHelper_simple.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.8 $ $Date: 2006/01/10 04:39:23 $
  * @package GalleryCore
  * @author Bharat Mediratta <bharat@menalto.com>
  */
@@ -83,7 +85,7 @@ class GalleryGroupHelper_simple {
 			     array('limit' => array('count' => $count,
 						    'offset' => $offset)));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$groupnames = array();
@@ -123,7 +125,7 @@ class GalleryGroupHelper_simple {
 
 	list ($ret, $searchResults) = $gallery->search($query, $data);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$groupnames = array();
@@ -152,17 +154,17 @@ class GalleryGroupHelper_simple {
         ';
 	list ($ret, $searchResults) = $gallery->search($query, array($groupName));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if ($searchResults->resultCount() == 0) {
-	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
+	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__), null);
 	} else {
 	    $result = $searchResults->nextResult();
 	    $id = $result[0];
 	    list ($ret, $group) = GalleryCoreApi::loadEntitiesById($id);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    return array(null, $group);

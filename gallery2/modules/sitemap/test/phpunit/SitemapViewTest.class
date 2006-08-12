@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: SitemapViewTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.7 $ $Date: 2006/02/15 16:49:24 $
  * @package Sitemap
  * @subpackage PHPUnit
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -50,7 +52,7 @@ class SitemapViewTest extends GalleryTestCase {
 	    $this->_getRootId(), array('modificationTimestamp' => 123456789));
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($this->_root);
 
@@ -58,7 +60,7 @@ class SitemapViewTest extends GalleryTestCase {
 	    list ($ret, $this->_item[$i]) = $this->_createRandomDataItem($this->_root->getId());
 	    if ($ret) {
 		print $ret->getAsHtml();
-		return $this->failWithStatus($ret);
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	}
 
@@ -75,35 +77,49 @@ class SitemapViewTest extends GalleryTestCase {
 	$ret = $this->_view->renderSitemap($this->_root->getId());
 	if ($ret) {
 	    ob_end_clean();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$results = ob_get_contents();
 	ob_end_clean();
 
-	$expected =
-	    "Header: Content-type: application/xhtml+xml\n" .
-	    "<?xml version='1.0' encoding='UTF-8'?>\n" .
-	    "<urlset xmlns=\"http://www.google.com/schemas/sitemap/0.84\" " .
-	    "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" " .
-	    "xsi:schemaLocation=\"http://www.google.com/schemas/sitemap/0.84 " .
-	    "http://www.google.com/schemas/sitemap/0.84/sitemap.xsd\">\n" .
-	    sprintf(
-		"<url><loc>url:%d</loc><lastmod>2009-02-13T23:31:30+00:00</lastmod></url>\n",
-		$this->_root->getId()) .
-	    sprintf(
-		"<url><loc>url:%d</loc><lastmod>2009-02-13T23:31:30+00:00</lastmod></url>\n",
-		$this->_item[0]->getId()) .
-	    sprintf(
-		"<url><loc>url:%d</loc><lastmod>2009-02-13T23:31:30+00:00</lastmod></url>\n",
-		$this->_item[1]->getId()) .
-	    sprintf(
-		"<url><loc>url:%d</loc><lastmod>2009-02-13T23:31:30+00:00</lastmod></url>\n",
-		$this->_item[2]->getId()) .
-	    "</urlset>";
+	if (GalleryUtilities::isA($platform, 'WinNtPlatform')) {
+	    /*
+	     * Windows generates a localized timezone string and it's not
+	     * controllable by the locale. Use preg_match
+	     */
+	    $timeZone = '.+';
+	} else {
+	    $timeZone = '\\+00:00';
+	}
 
-	$this->assertEquals(split("\n", $expected),
-			    split("\n", $results));
+	$expectedRegexp =
+		  "{Header: Content-type: application/xhtml\\+xml\n" .
+		  "<\\?xml version='1.0' encoding='UTF-8'\\?>\n" .
+		  "<urlset xmlns=\"http://www.google.com/schemas/sitemap/0.84\" " .
+		   "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" " .
+		   "xsi:schemaLocation=\"http://www.google.com/schemas/sitemap/0.84 " .
+		   "http://www.google.com/schemas/sitemap/0.84/sitemap.xsd\">\n" .
+		  sprintf(
+		      "<url><loc>url:%d</loc><lastmod>2009-02-13T23:31:30%s</lastmod></url>\n",
+		      $this->_root->getId(), $timeZone) .
+		  sprintf(
+		      "<url><loc>url:%d</loc><lastmod>2009-02-13T23:31:30%s</lastmod></url>\n",
+		      $this->_item[0]->getId(), $timeZone) .
+		  sprintf(
+		      "<url><loc>url:%d</loc><lastmod>2009-02-13T23:31:30%s</lastmod></url>\n",
+		      $this->_item[1]->getId(), $timeZone) .
+		  sprintf(
+		      "<url><loc>url:%d</loc><lastmod>2009-02-13T23:31:30%s</lastmod></url>\n",
+		      $this->_item[2]->getId(), $timeZone) .
+		 "</urlset>}";
+
+	$this->assert($matched = preg_match($expectedRegexp, $results)
+	);
+	if (!$matched) {
+	    /* Show some failure details */
+	    $this->assertEquals($expectedRegexp, $results, 'failure details: expected = regexp');
+	}
     }
 
     function _listing($entity) {

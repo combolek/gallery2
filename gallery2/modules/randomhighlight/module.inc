@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: module.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.41 $ $Date: 2006/03/22 03:52:34 $
  * @package RandomHighlight
  * @author Alan Harder <alan.harder@sun.com>
  */
@@ -51,13 +53,13 @@ class RandomHighlightModule extends GalleryModule {
 	list ($ret, $params) =
 	    GalleryCoreApi::fetchAllPluginParameters('module', 'randomhighlight');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	foreach (array('duration' => 7200 /* 2 hours */) as $key => $value) {
 	    if (!isset($params[$key])) {
 		$ret = $this->setParameter($key, $value);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	}
@@ -80,12 +82,12 @@ class RandomHighlightModule extends GalleryModule {
 		    AND [GalleryEntity::onLoadHandlers] IS NULL';
 		$ret = $storage->execute($query);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 		list ($ret, $handlers) = $storage->getFunctionSql('CONCAT',
 		    array('[GalleryEntity::onLoadHandlers]', "'RandomHighlight|'"));
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 		$query = 'UPDATE [GalleryEntity]
 		    SET [::entityType] = \'GalleryDerivativeImage\',
@@ -94,7 +96,7 @@ class RandomHighlightModule extends GalleryModule {
 		    AND [GalleryEntity::onLoadHandlers] IS NOT NULL';
 		$ret = $storage->execute($query);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
 	    case '0.9.0':
@@ -131,13 +133,13 @@ class RandomHighlightModule extends GalleryModule {
 	    'GalleryOnLoadHandler', 'RandomHighlightModule', 'RandomHighlight',
 	    'modules/randomhighlight/module.inc', 'randomhighlight', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'GalleryOnLoadHandler', 'RandomHighlightModule', 'RandomHighlightPrivate',
 	    'modules/randomhighlight/module.inc', 'randomhighlight', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::registerFactoryImplementation(
@@ -145,7 +147,7 @@ class RandomHighlightModule extends GalleryModule {
 	    'modules/randomhighlight/RandomHighlightOption.inc', 'randomhighlight',
 	    array('ItemEditAlbum'));
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -181,7 +183,7 @@ class RandomHighlightModule extends GalleryModule {
 	/* Acquire information whether we need to choose a new highlight */
 	list ($ret, $duration) = $this->getParameter('duration');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$isOld = (time() - $thumbnail->getModificationTimestamp() > $duration);
 	$canSee = true;
@@ -190,12 +192,12 @@ class RandomHighlightModule extends GalleryModule {
 	    list ($ret, $highlight) =
 		GalleryCoreApi::loadEntitiesById($thumbnail->getDerivativeSourceId());
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    list ($ret, $canSee) =
 		GalleryCoreApi::hasItemPermission($highlight->getParentId(), 'core.view');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 	$viewName = GalleryUtilities::getRequestVariables('view');
@@ -207,14 +209,14 @@ class RandomHighlightModule extends GalleryModule {
 	    /* Lock and refresh to ensure another request didn't just update highlight */
 	    list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($id);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    /* ->refresh() will load the onLoad handler again, thus use the GDC $loop variable */
 	    GalleryDataCache::put("randomhighlight:load-$id", true);
 	    list ($ret, $refresh) = $thumbnail->refresh();
 	    if ($ret) {
 		GalleryCoreApi::releaseLocks($lockId);
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    if ($refresh->getSerialNumber() == $thumbnail->getSerialNumber()) {
 		$picknew = true;
@@ -225,17 +227,17 @@ class RandomHighlightModule extends GalleryModule {
 	    list ($ret, $album) = GalleryCoreApi::loadEntitiesById($thumbnail->getParentId());
 	    if ($ret) {
 		GalleryCoreApi::releaseLocks($lockId);
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    list ($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($album);
 	    if ($ret) {
 		GalleryCoreApi::releaseLocks($lockId);
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    list ($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds($childIds);
 	    if ($ret) {
 		GalleryCoreApi::releaseLocks($lockId);
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    if (empty($thumbnails)) {
 		GalleryCoreApi::releaseLocks($lockId);
@@ -248,7 +250,7 @@ class RandomHighlightModule extends GalleryModule {
 		    list ($ret, $highlight) =
 			GalleryCoreApi::loadEntitiesById($thumbnail->getDerivativeSourceId());
 		    if ($ret) {
-			return $ret;
+			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		}
 		/* $thumbnails array is indexed by itemIds */
@@ -262,16 +264,17 @@ class RandomHighlightModule extends GalleryModule {
 	    $highlight = $thumbnails[$itemId];
 
 	    /* Check if we have selected a public item for the highlight */
-	    list ($ret, $guestId) = GalleryCoreApi::getAnonymousUserId();
+	    list ($ret, $guestId) =
+		GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
 	    if ($ret) {
 		GalleryCoreApi::releaseLocks($lockId);
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    list ($ret, $isPublic) =
 		GalleryCoreApi::hasItemPermission($itemId, 'core.view', $guestId);
 	    if ($ret) {
 		GalleryCoreApi::releaseLocks($lockId);
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $onLoadHandlers = $thumbnail->getOnLoadHandlers();
 	    $thumbnail->setOnLoadHandlers(
@@ -283,18 +286,18 @@ class RandomHighlightModule extends GalleryModule {
 	    $thumbnail->save();
 	    if ($ret) {
 		GalleryCoreApi::releaseLocks($lockId);
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $ret = GalleryCoreApi::expireDerivativeTreeBySourceIds(array($thumbnail->getId()));
 	    if ($ret) {
 		GalleryCoreApi::releaseLocks($lockId);
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 	if (isset($lockId)) {
 	    $ret = GalleryCoreApi::releaseLocks($lockId);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 

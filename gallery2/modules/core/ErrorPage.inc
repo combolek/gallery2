@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ErrorPage.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -17,16 +19,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.4 $ $Date: 2006/03/08 05:51:45 $
  * @package GalleryCore
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
  */
 
 /**
- * This view prepares all the information the theme requires to render an error page.
+ * This view prepares all the information the theme requires to render
+ * an error page.
  *
  * @package GalleryCore
  * @subpackage UserInterface
@@ -38,13 +40,6 @@ class ErrorPageView extends GalleryView {
     }
 
     /**
-     * @see GalleryView::getViewType
-     */
-    function getViewType() {
-	return VIEW_TYPE_ERROR;
-    }
-
-    /**
      * @see GalleryView::loadTemplate
      */
     function loadTemplate(&$template, &$form) {
@@ -52,23 +47,14 @@ class ErrorPageView extends GalleryView {
 
 	$ErrorPage = array();
 
-	$error = $this->_error;
-	if (empty($error)) {
-	    $session =& $gallery->getSession();
-	    $error = $session->get('core.error');
-	    if (!empty($error)) {
-		GalleryCoreApi::requireOnce('modules/core/classes/GalleryStatus.class');
-		$error = unserialize($error);
-	    }
-	}
-
 	list ($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
-	if ($gallery->getDebug() || $isAdmin) {
-	    $ErrorPage['stackTrace'] = $error->getAsHtml($isAdmin);
+	$ErrorPage['isAdmin'] = (!$ret && $isAdmin);
+	if ($gallery->getDebug() || $ErrorPage['isAdmin']) {
+	    $ErrorPage['stackTrace'] = $this->_error->getAsHtml($isAdmin);
 	}
 
-	/* Landing page for errors */
-	$errorCode = $ErrorPage['errorCode'] = $error->getErrorCode();
+	/* Landing page for errors.. */
+	$errorCode = $this->_error->getErrorCode();
 	if ($errorCode & ERROR_OBSOLETE_DATA) {
 	    $ErrorPage['code']['obsoleteData'] = true;
 	}
@@ -81,11 +67,8 @@ class ErrorPageView extends GalleryView {
 	if ($errorCode & ERROR_PLATFORM_FAILURE) {
 	    $ErrorPage['code']['platformFailure'] = true;
 	}
-	if ($errorCode & ERROR_MISSING_OBJECT) {
-	    $ErrorPage['code']['missingObject'] = true;
-	}
 
-	if ($isAdmin) {
+	if ($ErrorPage['isAdmin']) {
 	    $ErrorPage['phpversion'] = phpversion();
 	    $ErrorPage['php_uname'] = php_uname();
 	    $ErrorPage['php_sapi_name'] = php_sapi_name();
@@ -113,98 +96,8 @@ class ErrorPageView extends GalleryView {
 
 	$template->javascript('lib/javascript/BlockToggle.js');
 	$template->setVariable('ErrorPage', $ErrorPage);
-	return array(null, array('body' => 'modules/core/templates/ErrorPage.tpl'));
-    }
-
-    /**
-     * Entry point from main.php
-     *
-     * @param object GalleryStatus
-     * @param mixed GalleryMain result, if available
-     * @param boolean (default true) false if Gallery has not initialized (can't use theme system)
-     * @static
-     */
-    function errorHandler($error, $g2Data=null, $initOk=true) {
-	global $gallery;
-	$failsafe = false;
-	if (!$initOk) {
-	    $failsafe = true;
-	}
-
-	/* Return HTTP 404 status for ERROR_MISSING_OBJECT */
-	if ($error->getErrorCode() & ERROR_MISSING_OBJECT) {
-	    header('HTTP/1.0 404 Not Found');
-	}
-
-	/* Post Gallery::Error event */
-	$event = GalleryCoreApi::newEvent('Gallery::Error');
-	$event->setData(array('error' => $error));
-	list ($ret, $data) = GalleryCoreApi::postEvent($event);
-	if ($ret) {
-	    $failsafe = true;
-	}
-
-	if (!$failsafe) {
-	    list ($ret, $themeId) =
-		GalleryCoreApi::getPluginParameter('module', 'core', 'default.theme');
-	    if ($ret) {
-		$failsafe = true;
-	    }
-	}
-
-	if (!$failsafe) {
-	    list ($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeId);
-	    if ($ret) {
-		$failsafe = true;
-	    }
-	    $templateAdapter =& $gallery->getTemplateAdapter();
-	    $templateAdapter->setTheme($theme);
-	}
-
-	if (!$failsafe) {
-	    list ($ret, $view) = GalleryView::loadView('core.ErrorPage');
-	    if ($ret) {
-		$failsafe = true;
-	    }
-	}
-
-	if (!$failsafe) {
-	    $dummyForm = array();
-	    GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
-	    $template = new GalleryTemplate(dirname(dirname(dirname(__FILE__))));
-	    $view->setError($error);
-	    list ($ret, $results) = $view->loadTemplate($template, $dummyForm);
-	    if ($ret) {
-		$failsafe = true;
-	    }
-
-	    $t =& $template->getVariableByReference('theme');
-	    $t['errorTemplate'] = $results['body'];
-	}
-
-	if (!$failsafe) {
-	    $template->setVariable('l10Domain', 'modules_core');
-	    list ($ret, $templatePath) = $theme->showErrorPage($template);
-	    if ($ret) {
-		$failsafe = true;
-	    }
-	}
-
-	if (!$failsafe) {
-	    $template->setVariable('l10Domain', 'themes_' . $themeId);
-	    $ret = $template->display("themes/$themeId/templates/$templatePath");
-	    if ($ret) {
-		$failsafe = true;
-	    }
-	}
-
-	if ($failsafe) {
-	    /* A catastrophic failure has occurred so just dump the error out to the browser */
-	    print '<h2>Error</h2>' . $error->getAsHtml(false);
-	    if ($gallery->getDebug() == 'buffered') {
-		print '<h3>Debug Output</h3><pre>' . $gallery->getDebugBuffer() . '</pre>';
-	    }
-	}
+	return array(null,
+		     array('body' => 'modules/core/templates/ErrorPage.tpl'));
     }
 }
 ?>

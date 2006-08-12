@@ -1,4 +1,4 @@
-# $Id$
+# $Id: strings.raw,v 1.18 2006/01/20 19:06:54 mindless Exp $
 
 /* module.inc */
 gettext("EXIF/IPTC")
@@ -242,9 +242,6 @@ gettext("Item Summary")
 gettext("Item Description")
 gettext("When photos are added to Gallery check for IPTC Keywords and apply to:")
 gettext("Item Keywords")
-gettext("When photos are added should we rotate them based on EXIF orientation data?")
-gettext("Rotate pictures automatically")
-gettext("Preserve Original on Rotating")
 gettext("Save")
 
 /* templates/blocks/ExifInfo.tpl */

@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ModifyCart.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.12 $ $Date: 2006/01/10 04:38:59 $
  * @package Cart
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -45,7 +47,7 @@ class ModifyCartController extends GalleryController {
     function handleRequest($form) {
 	list ($ret, $cartItemIds) = CartHelper::fetchCartItemCounts();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$error = array();
@@ -75,7 +77,7 @@ class ModifyCartController extends GalleryController {
 		/* Update the cart values */
 		$ret = CartHelper::setCartItemCounts($cartItemIds);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		$status['cartModified'] = 1;
 		break;
@@ -84,7 +86,7 @@ class ModifyCartController extends GalleryController {
 		/* Empty the cart */
 		$ret = CartHelper::setCartItemCounts(array());
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		$status['cartModified'] = 1;
 		break;
@@ -97,7 +99,7 @@ class ModifyCartController extends GalleryController {
 		    GalleryCoreApi::newFactoryInstanceById('CartPluginInterface_1_0',
 							   $form['pluginId']);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		if (!isset($cartPlugin)) {
@@ -107,7 +109,7 @@ class ModifyCartController extends GalleryController {
 		/* Pass in only the types the plugin supports */
 		list ($ret, $itemList) = GalleryCoreApi::loadEntitiesById(array_keys($cartItemIds));
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		$fulfillmentCart = array();
@@ -123,7 +125,7 @@ class ModifyCartController extends GalleryController {
 
 		list ($ret, $redirect) = $cartPlugin->fulfillCart($fulfillmentCart);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		/* Remove the fulfilled items */
@@ -134,7 +136,7 @@ class ModifyCartController extends GalleryController {
 		/* Save the modified cart */
 		$ret = CartHelper::setCartItemCounts($cartItemIds);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		if (!isset($redirect['href'])) {

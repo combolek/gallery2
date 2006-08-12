@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: AdminModulesControllerTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.26 $ $Date: 2005/08/23 03:49:33 $
  * @package GalleryCore
  * @subpackage PHPUnit
  * @author Jozef Selesi <selesi at gmail dot com>
@@ -258,7 +260,7 @@ class AdminRepositoryControllerTest extends GalleryControllerTestCase {
 
 	$ret = $mockAdapter->runCallbacks();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assertEquals(array('0.25', '0.5', '0.75', '1', '1',
@@ -304,7 +306,7 @@ class AdminRepositoryControllerTestRepository {
 
     function getRemaining() {
 	return 'Error count: ' . $_GET['TestRepository']['errorCount'] . "\nRemaining requests: "
-	     . print_r($_GET['TestRepository']['replies'], true);
+	     . UnitTestPlatform::sprint_r($_GET['TestRepository']['replies']);
     }
 
     function _makeReply($function, $request) {
@@ -316,9 +318,9 @@ class AdminRepositoryControllerTestRepository {
 	$_GET['TestRepository']['errorCount']++;
 	printf("Unhandled reply<br/>\n");
 	printf("Received:<br/>\nFunction: %s<br/>\nRequest: <pre>%s</pre><br/>\n",
-	       $function, print_r($request, true));
+	       $function, UnitTestPlatform::sprint_r($request));
 	printf("Expected:<br/>\nFunction: %s<br/>\nRequest: <pre>%s</pre><br/>\n",
-	       $expected[0], print_r($expected[1], true));
+	       $expected[0], UnitTestPlatform::sprint_r($expected[1]));
     }
 
     function _parametersMatch($expected, $actual) {
@@ -336,6 +338,18 @@ class AdminRepositoryControllerTestRepository {
 	    }
 	}
 	return ($i == count($actual));
+    }
+
+    /**
+     * Like print_r($value, 1)
+     * @static
+     */
+    function sprint_r($value) {
+	ob_start();
+	print_r($value);
+	$buf = ob_get_contents();
+	ob_end_clean();
+	return $buf;
     }
 
     /* Everything below this is a function from GalleryRepository. */

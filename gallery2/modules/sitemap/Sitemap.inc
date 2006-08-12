@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: Sitemap.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.3 $ $Date: 2006/01/13 03:39:51 $
  * @package Sitemap
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -48,12 +50,12 @@ class SitemapView extends GalleryView {
  	list ($ret, $rootId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
 	if ($ret) {
- 	    return $ret;
+ 	    return $ret->wrap(__FILE__, __LINE__);
  	}
 
 	$ret = $this->renderSitemap($rootId);
  	if ($ret) {
- 	    return $ret;
+ 	    return $ret->wrap(__FILE__, __LINE__);
  	}
     }
 
@@ -88,27 +90,27 @@ class SitemapView extends GalleryView {
 
  	$queue = array($rootId);
 	while (!empty($queue)) {
-	    $gallery->guaranteeTimeLimit(30);
-
 	    $currentId = array_shift($queue);
 	    list ($ret, $newIds) =
 		GalleryCoreApi::fetchChildItemIdsWithPermission($currentId, 'core.view');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $queue = array_merge($queue, $newIds);
 
 	    /* TODO: load entities in chunks */
 	    list ($ret, $entity) = GalleryCoreApi::loadEntitiesById($currentId);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    printf("<url><loc>%s</loc><lastmod>%s</lastmod></url>\n",
  		   $urlGenerator->generateUrl(
  		       array('view' => 'core.ShowItem', 'itemId' => $currentId),
  		       array('forceSessionId' => false, 'forceFullUrl' => true)),
-		   gmstrftime("%Y-%m-%dT%H:%M:%S+00:00", $entity->getModificationTimestamp()));
+		   substr_replace(
+		       gmstrftime("%Y-%m-%dT%H:%M:%S%z", $entity->getModificationTimestamp()),
+		       ":", -2, 0));
 	}
 	print '</urlset>';
 

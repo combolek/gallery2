@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: RatingHelperTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.5 $ $Date: 2006/02/15 15:52:07 $
  * @package Rating
  * @subpackage PHPUnit
  * @author Don Seiler <don@seiler.us>
@@ -43,11 +45,10 @@ class RatingHelperTest extends GalleryTestCase {
 	global $gallery;
 	parent::setUp();
 
-	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId(),
-		array('orderBy' => 'RatingSortOrder', 'orderDirection' => ORDER_DESCENDING));
+	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($this->_album);
 
@@ -55,16 +56,16 @@ class RatingHelperTest extends GalleryTestCase {
 		'image/test', array(), __FILE__, 'GalleryPhotoItem');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	$numUsers = rand(3, 10);
+	$numUsers = rand(7, 17);
 	$this->_users = array();
 	for ($i=0; $i < $numUsers; $i++) {
 	    list ($ret, $this->_users[$i]) = $this->_createRandomUser();
 	    if ($ret) {
 		print $ret->getAsHtml();
-		return $this->failWithStatus($ret);
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
 	    /* Clean up test users */
@@ -84,7 +85,7 @@ class RatingHelperTest extends GalleryTestCase {
 
 	list ($ret, $languageCode) = $gallery->getActiveLanguageCode();
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	} else {
 	    /* Init a new translator so that we reset our locale */
 	    $translator = new GalleryTranslator();
@@ -104,7 +105,7 @@ class RatingHelperTest extends GalleryTestCase {
 	list ($ret, $RatingData) =
 	    RatingHelper::rateItem($this->_item->getId(), $testRating, $this->_users[0]->getId());
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	/* Check our own rating */
@@ -128,7 +129,7 @@ class RatingHelperTest extends GalleryTestCase {
 	list ($ret, $RatingData) =
 	    RatingHelper::rateItem($this->_item->getId(), $testRating, $this->_users[0]->getId());
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	/* There should be no rating */
@@ -146,7 +147,7 @@ class RatingHelperTest extends GalleryTestCase {
 	$gallery->_session = null;
 	$ret = $gallery->initSession();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	/* It should create a new persistent session */
 	$this->_becomeGuestUser();
@@ -155,7 +156,7 @@ class RatingHelperTest extends GalleryTestCase {
 	list ($ret, $guestId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$anonymousUserId = (int)$guestId;
 
@@ -164,13 +165,13 @@ class RatingHelperTest extends GalleryTestCase {
 	list ($ret, $RatingData) =
 	    RatingHelper::rateItem($this->_item->getId(), 3, $anonymousUserId);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(true, $gallery->_session->isPersistent(), 'is persistent');
 	list ($ret, $RatingData) =
 	    RatingHelper::rateItem($this->_item->getId(), $testRating, $anonymousUserId);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assertEquals($testRating, (int)$RatingData['userRating']);
@@ -183,7 +184,7 @@ class RatingHelperTest extends GalleryTestCase {
 	list ($ret, $RatingData) =
 	    RatingHelper::rateItem(-1, $testRating, $this->_users[0]->getId());
 	/* This *should* fail. */
-	$this->assert($ret, 'expected error');
+	$this->assert($ret);
 	if ($ret) {
 	    $this->assert($ret->getErrorCode() & ERROR_MISSING_OBJECT, 'Wrong error status');
 	}
@@ -197,7 +198,7 @@ class RatingHelperTest extends GalleryTestCase {
 	    list ($ret, $RatingData) =
 		RatingHelper::rateItem($this->_item->getId(), $testRating, $user->getId());
 	    if ($ret) {
-		return $this->failWithStatus($ret);
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $totalRating += $testRating;
 	    $votes++;
@@ -216,7 +217,7 @@ class RatingHelperTest extends GalleryTestCase {
 	list ($ret, $RatingData) = RatingHelper::fetchRatings(array($this->_item->getId()),
 		$this->_users[0]->getId());
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals($average, (double)$RatingData[$this->_item->getId()]['rating'],
 		'Average rating test failed.');
@@ -231,7 +232,7 @@ class RatingHelperTest extends GalleryTestCase {
 	list ($ret, $guestId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$anonymousUserId = (int)$guestId;
 
@@ -248,7 +249,7 @@ class RatingHelperTest extends GalleryTestCase {
 		$gallery->_session = null;
 		$ret = $gallery->initSession();
 		if ($ret) {
-		    return $this->failWithStatus($ret);
+		    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 		}
 		/* It should create a new persistent session */
 		$this->_becomeGuestUser();
@@ -259,7 +260,7 @@ class RatingHelperTest extends GalleryTestCase {
 	    list ($ret, $RatingData) =
 		RatingHelper::rateItem($this->_item->getId(), $testRating, $userId);
 	    if ($ret) {
-		return $this->failWithStatus($ret);
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $totalRating += $testRating;
 	    $votes++;
@@ -278,7 +279,7 @@ class RatingHelperTest extends GalleryTestCase {
 	list ($ret, $RatingData) = RatingHelper::fetchRatings(array($this->_item->getId()),
 							      $anonymousUserId);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals($average, (double)$RatingData[$this->_item->getId()]['rating'],
 			    'average for guest that has rated');
@@ -289,7 +290,7 @@ class RatingHelperTest extends GalleryTestCase {
 	$gallery->_session = null;
 	$ret = $gallery->initSession();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	/* It should create a new persistent session */
 	$this->_becomeGuestUser();
@@ -298,7 +299,7 @@ class RatingHelperTest extends GalleryTestCase {
 	list ($ret, $RatingData) = RatingHelper::fetchRatings(array($this->_item->getId()),
 							      $anonymousUserId);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals($average, (double)$RatingData[$this->_item->getId()]['rating'],
 		'Average rating test failed.');
@@ -309,14 +310,14 @@ class RatingHelperTest extends GalleryTestCase {
 	$session = new GallerySession();
 	$ret = $session->initEmpty(true, $anonymousUserId);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$gallery->_session = $session;
 	$this->assertEquals(true, $gallery->_session->isPersistent(), 'persistent');
 	list ($ret, $RatingData) = RatingHelper::fetchRatings(array($this->_item->getId()),
 							      $anonymousUserId);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert(!isset($RatingData['userRating']), 'no user rating');
     }
@@ -328,74 +329,77 @@ class RatingHelperTest extends GalleryTestCase {
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'rating');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$itemId = $this->_item->getId();
 
 	/* Verify we get a non empty item summary for the item */
 	$permissions[$itemId]['rating.view'] = 1;
+	//$template = new RatingDummyGalleryTemplate();
 	$template = new GalleryTemplate(dirname(__FILE__) . '/../../../..');
 	list ($ret, $content) = $module->getItemSummaries(array($this->_item), $permissions,
 		$template);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert(isset($content[$itemId]) && !empty($content[$itemId]),
 		'Did not get item summary');
+	/* Can't do this now that we're using real template
+	$this->assertEquals(array('modules/rating/rating.css'), $template->style,
+		'Style array does not match.');
+	$this->assertEquals(array('lib/javascript/XmlHttp.js', 'modules/rating/rating.js'),
+		$template->javascript,
+		'Javascript array does not match.');
+	*/
 
 	/* Get the item summary again, but without having the permissions */
 	unset($content);
 	unset($template);
+	//$template = new RatingDummyGalleryTemplate();
 	$template = new GalleryTemplate(dirname(__FILE__) . '/../../../..');
 	list ($ret, $content) = $module->getItemSummaries(array($this->_item),
 		array($itemId => array()), $template);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert(!isset($content[$itemId]), 'Got an item summary');
+
+	/* Do this again for kicks */
+	/* Can't do this now that we're using real template
+	$this->assertEquals(array('modules/rating/rating.css'), $template->style,
+		'Style array does not match.');
+	$this->assertEquals(array('lib/javascript/XmlHttp.js', 'modules/rating/rating.js'),
+		$template->javascript,
+		'Javascript array does not match.');
+	*/
+    }
+}
+
+
+/**
+ * @package Rating
+ * @subpackage PHPUnit
+ */
+class RatingDummyGalleryTemplate {
+    var $style = array();
+    var $javascript = array();
+    var $variables = array();
+
+    function style($tpl) {
+	$this->style[] = $tpl;
     }
 
-    function testSortOrder() {
-	$items = array($this->_item);
-	for ($i = 0; $i < 3; $i++) {
-	    list ($ret, $items[]) = $this->_createRandomDataItem($this->_album->getId(),
-		    'image/test', array(), __FILE__, 'GalleryPhotoItem');
-	    if ($ret) {
-		return $this->failWithStatus($ret);
-	    }
-	}
-	/* Four items: *, *****, * + random votes, ***** x3; order = 4 2 3 1 */
-	foreach ($items as $i => $item) {
-	    list ($ret) = RatingHelper::rateItem(
-		    $item->getId(), ($i % 2) ? 5 : 1, $this->_users[0]->getId());
-	    if ($ret) {
-		return $this->failWithStatus($ret);
-	    }
-	}
-	for ($i = 1; $i <= 2; $i++) {
-	    list ($ret) = RatingHelper::rateItem($items[3]->getId(), 5, $this->_users[$i]->getId());
-	    if ($ret) {
-		return $this->failWithStatus($ret);
-	    }
-	}
-	for ($i = 1; $i < count($this->_users); $i++) {
-	    $testRating = rand(1, 5);
-	    list ($ret) = RatingHelper::rateItem(
-		    $items[2]->getId(), $testRating, $this->_users[$i]->getId());
-	    if ($ret) {
-		return $this->failWithStatus($ret);
-	    }
-	}
+    function javascript($tpl) {
+	$this->javascript[] = $tpl;
+    }
 
-	list ($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($this->_album);
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
+    function setVariable($key, $value) {
+	$this->variables[$key] = $value;
+    }
 
-	$this->assertEquals(
-	    array($items[3]->getId(), $items[1]->getId(), $items[2]->getId(), $items[0]->getId()),
-	    $childIds, 'order of child ids');
+    function fetch($thing_to_fetch) {
+	return array(null, null);
     }
 }
 ?>

@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: NetPbmToolkitHelper.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.34.2.1 $ $Date: 2006/04/05 00:19:55 $
  * @package NetPbm
  * @author Bharat Mediratta <bharat@menalto.com>
  */
@@ -47,22 +49,22 @@ class NetPbmToolkitHelper {
 	list ($ret, $netPbmPath) =
 	    GalleryCoreApi::getPluginParameter('module', 'netpbm', 'path');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (empty($netPbmPath)) {
-	    return array(GalleryCoreApi::error(ERROR_MISSING_VALUE), null);
+	    return array(GalleryCoreApi::error(ERROR_MISSING_VALUE, __FILE__, __LINE__), null);
 	}
 
 	list ($ret, $tests, $mimeTypes) = NetPbmToolkitHelper::testBinaries($netPbmPath);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if ($saveParameters) {
 	    $ret = NetPbmToolkitHelper::saveParameters($tests);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
@@ -80,22 +82,22 @@ class NetPbmToolkitHelper {
 	$operations['convert-to-image/jpeg']['outputMimeType'] = 'image/jpeg';
 
 	/* Scale */
-	$operations['scale']['params'][] = array('type' => 'int', 'description' =>
-		$gallery->i18n('target width (# pixels or #% of full size)'));
-	$operations['scale']['params'][] = array('type' => 'int', 'description' =>
-		$gallery->i18n('(optional) target height, defaults to same as width'));
-	$operations['scale']['description'] =
-	    $gallery->i18n('Scale the image to the target size, maintain aspect ratio');
+	$operations['scale']['params'][] = array('type' => 'int',
+						 'description' => $gallery->i18n('target width'));
+	$operations['scale']['params'][] = array('type' => 'int',
+	    'description' => $gallery->i18n('(optional) target height, defaults to same as width'));
+	$operations['scale']['description'] = $gallery->i18n(
+	    'Scale the image to the target size, maintain aspect ratio');
 	$operations['scale']['mimeTypes'] = $mimeTypes;
 
 	/* Thumbnail is an alias for scale */
 	$operations['thumbnail'] = $operations['scale'];
 
 	/* Resize */
-	$operations['resize']['params'][] = array('type' => 'int', 'description' =>
-		$gallery->i18n('target width (# pixels or #% of full size)'));
-	$operations['resize']['params'][] = array('type' => 'int', 'description' =>
-		$gallery->i18n('target height (# pixels or #% of full size)'));
+	$operations['resize']['params'][] =
+	    array('type' => 'int', 'description' => $gallery->i18n('target width'));
+	$operations['resize']['params'][] =
+	    array('type' => 'int', 'description' => $gallery->i18n('target height'));
 	$operations['resize']['description'] =
 	    $gallery->i18n('Resize the image to the target dimensions');
 	$operations['resize']['mimeTypes'] = $mimeTypes;
@@ -155,11 +157,11 @@ class NetPbmToolkitHelper {
 	$properties['dimensions']['type'] = 'int,int';
 	$properties['dimensions']['description'] =
 	    $gallery->i18n('Get the width and height of the image');
-	$properties['dimensions']['mimeTypes'] = array_merge($mimeTypes,
-		array('image/x-portable-pixmap',
-		      'application/x-shockwave-flash')); /* Supported by php getimagesize */
+	$properties['dimensions']['mimeTypes'] =
+	    array_merge($mimeTypes, array('image/x-portable-pixmap'));
 
-	return array(null, array('operations' => $operations, 'properties' => $properties));
+	return array(null,
+		     array('operations' => $operations, 'properties' => $properties));
     }
 
     /**
@@ -185,7 +187,7 @@ class NetPbmToolkitHelper {
 	 * Else just hope that it's valid and use it.
 	 */
 	if (!$platform->isRestrictedByOpenBaseDir($jheadPath) && !@$platform->is_dir($jheadPath)) {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PATH), null, null);
+	    return array(GalleryCoreApi::error(ERROR_BAD_PATH, __FILE__, __LINE__), null, null);
 	}
 	$tests = array();
 	$fullPath = $jheadPath . 'jhead';
@@ -232,7 +234,7 @@ class NetPbmToolkitHelper {
 	 * Else just hope that it's valid and use it.
 	 */
 	if (!$isRestrictedPath && !@$platform->is_dir($netPbmPath)) {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PATH), null, null);
+	    return array(GalleryCoreApi::error(ERROR_BAD_PATH, __FILE__, __LINE__), null, null);
 	}
 
 	$binaryData = array(
@@ -278,7 +280,7 @@ class NetPbmToolkitHelper {
 			/* Only used for translation, so ignore version mismatch during upgrade */
 			list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'netpbm', true);
 			if ($ret) {
-			    return array($ret, null, null);
+			    return array($ret->wrap(__FILE__, __LINE__), null, null);
 			}
 		    }
 		    $tests[] = array(
@@ -322,7 +324,7 @@ class NetPbmToolkitHelper {
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'netpbm', $key,
 						      isset($binary[$key]) ? $binary[$key] : $key);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 	return null;

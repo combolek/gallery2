@@ -1,5 +1,5 @@
 {*
- * $Revision$
+ * $Revision: 1.43 $
  * If you want to customize this file, do not edit it directly since future upgrades
  * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
  * version.  Gallery will look for that file first and use it if it exists.
@@ -17,16 +17,16 @@
     <td id="gsSidebarCol"><div id="gsSidebar" class="gcBorder1">
       <div class="gbBlock">
 	<h2> {g->text text="Admin Options"} </h2>
-	<ul id="gbSiteAdminLinks">
+	<ul>
 	  {foreach from=$SiteAdmin.subViewGroups item=group}
 	  <li> <span>{$group.0.groupLabel}</span>
 	    <ul>
 	      {foreach from=$group item=choice}
-		<li class="gbAdminLink {g->linkId view=$choice.view.subView}">
-		{if !empty($choice.selected)}
+		<li class="gbAdminLink {g->linkId urlParams=$choice}">
+		{if ($SiteAdmin.subViewName == $choice.view)}
 		  {$choice.name}
 		{else}
-		  <a href="{g->url params=$choice.view}">
+		  <a href="{g->url arg1="view=core.SiteAdmin" arg2="subView=`$choice.view`"}">
 		    {$choice.name}
 		  </a>
 		{/if}

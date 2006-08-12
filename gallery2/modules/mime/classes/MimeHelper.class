@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: MimeHelper.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -20,7 +22,7 @@
 
 /**
  * @package Mime
- * @version $Revision$ $Date$
+ * @version $Revision: 1.4 $ $Date: 2006/01/10 04:40:47 $
  * @author Felix Rabinovich <Felix@Rabinovich.org>
  */
 
@@ -43,11 +45,18 @@ class MimeHelper {
      * @static
      */
     function getMimeTypeMap() {
-	list ($ret, $searchResults) = GalleryCoreApi::getMapEntry('GalleryMimeTypeMap',
-	    array('mimeType', 'extension', 'viewable'), array(),
-	    array('orderBy' => array('mimeType' => ORDER_ASCENDING)));
+        global $gallery;
+
+        $query = '
+            SELECT [GalleryMimeTypeMap::mimeType],
+                [GalleryMimeTypeMap::extension],
+                [GalleryMimeTypeMap::viewable]
+            FROM [GalleryMimeTypeMap]
+            ORDER BY [GalleryMimeTypeMap::mimeType]
+        ';
+        list ($ret, $searchResults) = $gallery->search($query);
         if ($ret) {
-            return array($ret, null);
+            return array($ret->wrap(__FILE__, __LINE__), null);
         }
         while ($result = $searchResults->nextResult()) {
             $MimeTypeMap['ext'][$result[0]][] = $result[1];

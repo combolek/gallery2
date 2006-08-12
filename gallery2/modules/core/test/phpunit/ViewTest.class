@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ViewTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.12 $ $Date: 2006/01/10 04:39:36 $
  * @package GalleryCore
  * @subpackage PHPUnit
  * @author Ernesto Baschny <ernst@baschny.de>
@@ -47,7 +49,7 @@ class ViewTest extends GalleryTestCase {
     function testLoadViewSuccess() {
 	list ($ret, $view) = GalleryView::loadView('core.ShowItem');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
 
@@ -67,21 +69,19 @@ class ViewTest extends GalleryTestCase {
 	 */
 	list ($ret, $view) = GalleryView::loadView('viewtest.ViewTestConfig');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
 
     function testGetItem() {
-	global $gallery;
-
 	list ($ret, $view) = GalleryView::loadView('core.ShowItemError');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $album) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($album);
 
@@ -89,7 +89,7 @@ class ViewTest extends GalleryTestCase {
 
 	list ($ret, $item, $wasSpecified) = $view->_getItem();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert($wasSpecified, 'itemId specified');
 	$this->assertEquals($album->getId(), $item->getId(), 'itemId');
@@ -98,7 +98,7 @@ class ViewTest extends GalleryTestCase {
 
 	list ($ret, $item, $wasSpecified) = $view->_getItem();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert(!$wasSpecified, 'not specified');
 	$this->assertEquals($this->_getRootId(), $item->getId(), 'root album by default');
@@ -106,25 +106,15 @@ class ViewTest extends GalleryTestCase {
 	/* ShowItem view returns wasSpecified==true even when root album selected by default */
 	list ($ret, $view) = GalleryView::loadView('core.ShowItem');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $item, $wasSpecified) = $view->_getItem();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert($wasSpecified, 'ShowItem specified');
 	$this->assertEquals($this->_getRootId(), $item->getId(), 'ShowItem root album by default');
-
-	/* Override default album */
-	$gallery->setConfig('defaultAlbumId', $album->getId());
-	GalleryUtilities::removeRequestVariable('itemId');
-
-	list ($ret, $item) = $view->_getItem();
-	if ($ret) {
-	    return $this->failWithStatus($ret);
-	}
-	$this->assertEquals($album->getId(), $item->getId(), 'Alternate default album');
     }
 }
 

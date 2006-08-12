@@ -1,5 +1,5 @@
 {*
- * $Revision$
+ * $Revision: 1.12 $
  * If you want to customize this file, do not edit it directly since future upgrades
  * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
  * version.  Gallery will look for that file first and use it if it exists.
@@ -48,25 +48,21 @@
 {/if}
 
 <div class="gbMarkupBar">
-  <input type="button" class="inputTypeButton" tabindex="32767"
-	 value="{g->text text="B <!-- Button label for Bold -->"}"
+  <input type="button" class="inputTypeButton"
+  	 value="{g->text text="B <!-- Button label for Bold -->"}"
 	 onclick="openOrCloseTextElement('{$element}', 'b', this)"
 	 style="font-weight: bold;"/>
-  <input type="button" class="inputTypeButton" tabindex="32767"
-	 value="{g->text text="i <!-- Button label for italic -->"}"
+  <input type="button" class="inputTypeButton"
+  	 value="{g->text text="i <!-- Button label for italic -->"}"
 	 onclick="openOrCloseTextElement('{$element}', 'i', this)"
 	 style="font-style: italic; padding-left: 1px; padding-right: 4px"/>
-  <input type="button" class="inputTypeButton" tabindex="32767"
-	 value="{g->text text="list"}"
+  <input type="button" class="inputTypeButton" value="{g->text text="list"}"
 	 onclick="openOrCloseTextElement('{$element}', 'list', this)"/>
-  <input type="button" class="inputTypeButton" tabindex="32767"
-	 value="{g->text text="bullet"}"
+  <input type="button" class="inputTypeButton" value="{g->text text="bullet"}"
 	 onclick="appendTextElement('{$element}', '*', this)"/>
-  <input type="button" class="inputTypeButton" tabindex="32767"
-	 value="{g->text text="url"}"
+  <input type="button" class="inputTypeButton" value="{g->text text="url"}"
 	 onclick="appendUrlElement('{$element}', this)"/>
-  <input type="button" class="inputTypeButton" tabindex="32767"
-	 value="{g->text text="image"}"
+  <input type="button" class="inputTypeButton" value="{g->text text="image"}"
 	 onclick="appendImageElement('{$element}', this)"/>
 </div>
 {/if}

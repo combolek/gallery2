@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: AdminImageMagick.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.35 $ $Date: 2006/01/17 01:52:02 $
  * @package ImageMagick
  * @author Bharat Mediratta <bharat@menalto.com>
  */
@@ -39,7 +41,7 @@ class AdminImageMagickController extends GalleryController {
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$error = $status = array();
@@ -63,7 +65,7 @@ class AdminImageMagickController extends GalleryController {
 		    if ($ret->getErrorCode() & ERROR_BAD_PATH) {
 			$error[] = 'form[error][path][badPath]';
 		    } else {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		} else {
 		    $failCount = 0;
@@ -84,7 +86,7 @@ class AdminImageMagickController extends GalleryController {
 		list ($ret, $version, $vulnerable) =
 		    ImageMagickToolkitHelper::discoverVersion($form['path']);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		if (empty($form['forceSave']) && $vulnerable) {
 		    $error[] = 'form[error][version][vulnerable]';
@@ -95,46 +97,46 @@ class AdminImageMagickController extends GalleryController {
 		list ($ret, $params) =
 		    GalleryCoreApi::fetchAllPluginParameters('module', 'imagemagick');
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		$ret = GalleryCoreApi::setPluginParameter(
 		    'module', 'imagemagick', 'path', $form['path']);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		$ret = GalleryCoreApi::setPluginParameter(
 		    'module', 'imagemagick', 'versionOk', '1');
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		/* Save some platform specific ImageMagick parameters */
 		$ret = ImageMagickToolkitHelper::savePlatformParameters();
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		$ret = GalleryCoreApi::setPluginParameter(
 		    'module', 'imagemagick', 'jpegQuality', $form['jpegQuality']);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		if ($params['cmykSupport'] != 'none') {
 		    $ret = GalleryCoreApi::setPluginParameter(
 			'module', 'imagemagick', 'cmykSupport', $form['cmykSupport']);
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		}
 
 		list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'imagemagick');
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		list ($ret, $isActive) = $module->isActive();
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		/*
 		 * If path or cmykSupport has changed and the module is active then
@@ -144,7 +146,7 @@ class AdminImageMagickController extends GalleryController {
 				  $params['cmykSupport'] != $form['cmykSupport'])) {
 		    list ($ret) = $module->reactivate();
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		}
 
@@ -153,7 +155,7 @@ class AdminImageMagickController extends GalleryController {
 		    $redirect['subView'] = 'imagemagick.AdminImageMagick';
 		    $status['saved'] = 1;
 		} else {
-		    $redirect['subView'] = 'core.AdminPlugins';
+		    $redirect['subView'] = 'core.AdminModules';
 		    $status['configured'] = 'imagemagick';
 		}
 	    }
@@ -162,7 +164,7 @@ class AdminImageMagickController extends GalleryController {
 	    $redirect['subView'] = 'imagemagick.AdminImageMagick';
 	} else if (isset($form['action']['cancel'])) {
 	    $redirect['view'] = 'core.SiteAdmin';
-	    $redirect['subView'] = 'core.AdminPlugins';
+	    $redirect['subView'] = 'core.AdminModules';
 	}
 
 	if (!empty($redirect)) {
@@ -193,7 +195,7 @@ class AdminImageMagickView extends GalleryView {
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Load our default values if we didn't just come from this form. */
@@ -202,7 +204,7 @@ class AdminImageMagickView extends GalleryView {
 		list ($ret, $form[$key]) =
 		    GalleryCoreApi::getPluginParameter('module', 'imagemagick', $key);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
 	    $form['formName'] = 'AdminImageMagick';
@@ -236,7 +238,7 @@ class AdminImageMagickView extends GalleryView {
 			$testResults = array();
 			$form['error']['path']['bad'] = 1;
 		    } else {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		} else {
 		    $success = true;
@@ -251,13 +253,13 @@ class AdminImageMagickView extends GalleryView {
 			list ($ret, $mimeTypes) =
 			    ImageMagickToolkitHelper::discoverMimeTypes($form['path']);
 			if ($ret) {
-			    return array($ret, null);
+			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 
 			list ($ret, $version, $vulnerable) =
 			    ImageMagickToolkitHelper::discoverVersion($form['path']);
 			if ($ret) {
-			    return array($ret, null);
+			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 			if ($vulnerable) {
 			    $form['error']['version']['vulnerable'] = true;
@@ -271,17 +273,17 @@ class AdminImageMagickView extends GalleryView {
 	if (!empty($form['error']['version']['vulnerable']) && empty($version)) {
 	    list ($ret, $version) = ImageMagickToolkitHelper::discoverVersion($form['path']);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'imagemagick');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $isActive) = $module->isActive();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$AdminImageMagick = array();

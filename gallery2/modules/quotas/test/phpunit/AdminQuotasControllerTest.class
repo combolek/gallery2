@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: AdminQuotasControllerTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.7 $ $Date: 2006/01/10 04:41:49 $
  * @package Quotas
  * @subpackage PHPUnit
  * @author Robert Balousek <volksport@users.sf.net>
@@ -38,7 +40,7 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
     function testGroupQuotaCreate() {
 	list ($ret, $group) = $this->_createRandomGroup();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($group);
 
@@ -58,7 +60,7 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
     function testUserQuotaCreate() {
 	list ($ret, $user) = $this->_createRandomUser();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($user);
 
@@ -79,7 +81,7 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 	/* Normal */
 	list ($ret, $group) = $this->_createRandomGroup();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($group);
 
@@ -125,7 +127,7 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 	/* Normal */
 	list ($ret, $user) = $this->_createRandomUser();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($user);
 
@@ -171,7 +173,7 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 	/* Normal */
 	list ($ret, $group) = $this->_createRandomGroup();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($group);
 
@@ -217,7 +219,7 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 	/* Normal */
 	list ($ret, $user) = $this->_createRandomUser();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($user);
 
@@ -263,7 +265,7 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 	$ret = GalleryCoreApi::addMapEntry(
 	    'QuotasMap', array('userOrGroupId' => $userOrGroupId, 'quotaSize' => $quota));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
 
@@ -271,7 +273,7 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 	$ret = GalleryCoreApi::removeMapEntry(
 	    'QuotasMap', array('userOrGroupId' => $userOrGroupId));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
 }

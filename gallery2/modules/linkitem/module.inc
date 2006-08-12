@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: module.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.9 $ $Date: 2006/03/22 03:52:32 $
  * @package LinkItem
  * @author Alan Harder <alan.harder@sun.com>
  */
@@ -30,9 +32,9 @@ class LinkItemModule extends GalleryModule /* and GalleryEventListener */ {
 	$this->setId('linkitem');
 	$this->setName($gallery->i18n('Link Items'));
 	$this->setDescription($gallery->i18n('Create links to other albums or external urls'));
-	$this->setVersion('1.1.0');
+	$this->setVersion('1.0.4');
 	$this->setGroup('display', $gallery->i18n('Display'));
-	$this->setCallbacks('registerEventListeners|getSiteAdminViews');
+	$this->setCallbacks('registerEventListeners');
 	$this->setRequiredCoreApi(array(7, 0));
 	$this->setRequiredModuleApi(array(3, 0));
     }
@@ -49,37 +51,14 @@ class LinkItemModule extends GalleryModule /* and GalleryEventListener */ {
 	list ($success) = GalleryUtilities::guaranteeDirExists($imageDir);
 	if (!$success) {
 	    return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
-					 "Unable to create directory: $imageDir");
+					"Unable to create directory: $imageDir");
 	}
 
 	$imageFile = "$imageDir${slash}arrow.png";
 	if (!$platform->is_file($imageFile) &&
 	    !$platform->copy(dirname(__FILE__) . "${slash}images${slash}arrow.png", $imageFile)) {
 	    return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
-					 "Unable to copy arrow.png to $imageDir");
-	}
-
-	if (!empty($currentVersion) && version_compare($currentVersion, '1.0.4', '<=')) {
-	    $storage =& $gallery->getStorage();
-	    $ret = $storage->configureStore($this->getId(), array('GalleryLinkItem:1.0'));
-	    if ($ret) {
-		return $ret;
-	    }
-	}
-
-	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'linkitem');
-	if ($ret) {
-	    return $ret;
-	}
-	foreach (array('arrowWatermark' => 1, 'urlSnapshot' => 0,
-		    'snapshotExec' => 'khtml2png --width %WIDTH% --height %HEIGHT% %URL% %OUTFILE%')
-		 as $key => $value) {
-	    if (!isset($params[$key])) {
-		$ret = $this->setParameter($key, $value);
-		if ($ret) {
-		    return $ret;
-		}
-	    }
+					"Unable to copy arrow.png to $imageDir");
 	}
 
 	return null;
@@ -93,28 +72,21 @@ class LinkItemModule extends GalleryModule /* and GalleryEventListener */ {
 	    'GalleryEntity', 'GalleryLinkItem', 'GalleryLinkItem',
 	    'modules/linkitem/classes/GalleryLinkItem.class', 'linkitem', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'ItemAddPlugin', 'ItemAddLinkItem', 'ItemAddLinkItem',
 	    'modules/linkitem/ItemAddLinkItem.inc', 'linkitem', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'ItemEditOption', 'LinkItemOption', 'LinkItemOption',
 	    'modules/linkitem/LinkItemOption.inc', 'linkitem', array('ItemEditItem'));
 	if ($ret) {
-	    return $ret;
-	}
-
-	$ret = GalleryCoreApi::registerFactoryImplementation(
-	    'GalleryToolkit', 'LinkItemToolkit', 'LinkItemToolkit',
-	    'modules/linkitem/classes/LinkItemToolkit.class', 'linkitem', null);
-	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -135,36 +107,6 @@ class LinkItemModule extends GalleryModule /* and GalleryEventListener */ {
     }
 
     /**
-     * @see GalleryModule::activate()
-     */
-    function activate($postActivationEvent=true) {
-	global $gallery;
-
-	$ret = GalleryCoreApi::registerToolkitOperation(
-		'LinkItemToolkit', array('gallery/linkitem'), 'convert-to-image/jpeg', array(),
-		$gallery->i18n('Get image for linkitem thumbnail'), 'image/jpeg');
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	list ($ret, $redirect) = parent::activate($postActivationEvent);
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	return array(null, $redirect);
-    }
-
-    /**
-     * @see GalleryModule::getSiteAdminViews()
-     */
-    function getSiteAdminViews() {
-	return array(null,
-		     array(array('name' => $this->translate('Link Items'),
-				 'view' => 'linkitem.LinkItemSiteAdmin')));
-    }
-
-    /**
      * Delete links to an album if the album is deleted.
      * @see GalleryEventListener::handleEvent
      */
@@ -182,12 +124,12 @@ class LinkItemModule extends GalleryModule /* and GalleryEventListener */ {
 	    ';
 	    list ($ret, $searchResults) = $gallery->search($query, array((string)$entity->getId()));
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    while ($result = $searchResults->nextResult()) {
 		$ret = GalleryCoreApi::deleteEntityById($result[0]);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
 	}

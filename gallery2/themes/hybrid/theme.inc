@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: theme.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,8 +20,8 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
- * @package HybridTheme
+ * @version $Revision: 1.12 $ $Date: 2006/03/22 03:52:37 $
+ * @package Gallery
  * @author Alan Harder <alan.harder@sun.com>
  */
 
@@ -27,7 +29,7 @@
  * This implements gallery theme combining thumb-view, image-view
  * and slideshow into a single dynamic page.
  *
- * @package HybridTheme
+ * @package GalleryTheme
  * @subpackage Theme
  */
 class HybridTheme extends GalleryTheme {
@@ -40,10 +42,11 @@ class HybridTheme extends GalleryTheme {
 
 	$this->setId('hybrid');
 	$this->setName($gallery->i18n('Hybrid'));
-	$this->setDescription($gallery->i18n('Combined album/image/slideshow dynamic view'));
-	$this->setVersion('1.1.1');
+	$this->setDescription(
+	    $gallery->i18n('Combined album/image/slideshow dynamic view'));
+	$this->setVersion('1.1.0');
 	$this->setRequiredCoreApi(array(7, 0));
-	$this->setRequiredThemeApi(array(2, 4));
+	$this->setRequiredThemeApi(array(2, 2));
 	$this->setStandardSettings(array(
 	    'rows' => 30, 'columns' => 2,
 	    'albumFrame' => '', 'itemFrame' => '', 'colorpack' => '',
@@ -69,7 +72,7 @@ class HybridTheme extends GalleryTheme {
     function getSettings($itemId=null) {
 	list ($ret, $settings, $params) = parent::getSettings($itemId);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Add in our custom settings */
@@ -119,7 +122,7 @@ class HybridTheme extends GalleryTheme {
 	global $gallery;
 	$urlGenerator =& $gallery->getUrlGenerator();
 
-	$data = array('parents', 'systemLinks', 'itemLinks', 'childCount',
+	$data = array('parents', 'systemLinks', 'itemLinks',
 		      'itemSummaries', 'childItemLinksDetailed', 'permissions', 'jumpRange');
 	if ($params['showSize']) {
 	    $data[] = 'descendentCount';
@@ -132,14 +135,14 @@ class HybridTheme extends GalleryTheme {
 	}
 	$ret = $this->loadCommonTemplateData($template, $item, $params, $data, $childIds);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$theme =& $template->getVariableByReference('theme');
 
 	list ($ret, $imageWidths, $imageHeights) =
 	    $this->_buildItemList($childIds, $theme['children']);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$theme['imageWidths'] = implode(',', $imageWidths);
@@ -177,7 +180,7 @@ class HybridTheme extends GalleryTheme {
 	    /* Render this item */
 	    list ($ret, $image) = GalleryCoreApi::loadEntitiesById($renderId);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $template->setVariable('theme', array('item' => (array)$item,
 						  'image' => (array)$image));
@@ -189,13 +192,13 @@ class HybridTheme extends GalleryTheme {
 	    $ret = $this->loadCommonTemplateData($template, $item, $params,
 						 array('owner', 'viewCount'));
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $theme =& $template->getVariableByReference('theme');
 	    list ($ret, $thumbnail) =
 		GalleryCoreApi::fetchThumbnailsByItemIds(array($item->getId()));
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    if (!empty($thumbnail)) {
 		$theme['thumbnail'] = (array)$thumbnail[$item->getId()];
@@ -207,13 +210,13 @@ class HybridTheme extends GalleryTheme {
 	/* Otherwise, redirect to parent with initial view of this item  */
 	list ($ret, $parent) = GalleryCoreApi::loadEntitiesById($item->getParentId());
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$theme =& $template->getVariableByReference('theme');
 	list ($ret, $childIds) =
 	    GalleryCoreApi::fetchChildItemIds($parent, null, null, $theme['actingUserId']);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$perPage = $this->getPageSize($params);
 	$page = 1;
@@ -238,7 +241,7 @@ class HybridTheme extends GalleryTheme {
 	$ret = $this->loadCommonTemplateData(
 	    $template, $item, $params, array('parents', 'systemLinks'));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, 'theme.tpl');
@@ -251,7 +254,7 @@ class HybridTheme extends GalleryTheme {
 	$ret = $this->loadCommonTemplateData(
 	    $template, $item, $params, array('parents', 'systemLinks'));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, 'theme.tpl');
@@ -271,7 +274,7 @@ class HybridTheme extends GalleryTheme {
 	$ret = $this->loadCommonTemplateData(
 	    $template, $item, $params, array('parents', 'systemLinks'));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, 'theme.tpl');
@@ -286,26 +289,26 @@ class HybridTheme extends GalleryTheme {
 	if (!empty($childIds)) {
 	    $ret = GalleryCoreApi::studyPermissions($childIds);
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    list ($ret, $childItems) = GalleryCoreApi::loadEntitiesById($childIds);
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    list ($ret, $preferredFullImages) =
 		GalleryCoreApi::fetchPreferredsByItemIds($childIds);
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    list ($ret, $resizedImages) =
 		GalleryCoreApi::fetchResizesByItemIds($childIds);
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    list ($ret, $thumbnails) =
 		GalleryCoreApi::fetchThumbnailsByItemIds($childIds);
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	}
 	$i = -1;
@@ -317,7 +320,7 @@ class HybridTheme extends GalleryTheme {
 		    list ($ret, $thumbnails[$childId]) =
 			GalleryCoreApi::rebuildDerivativeCache($thumbnails[$childId]->getId());
 		    if ($ret) {
-			return array($ret, null, null);
+			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 		}
 		$children[$i]['thumbnail'] = (array)$thumbnails[$childId];
@@ -329,7 +332,7 @@ class HybridTheme extends GalleryTheme {
 
 	    list ($ret, $permissions) = GalleryCoreApi::getPermissions($childId);
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 
 	    $images = array();
@@ -359,7 +362,7 @@ class HybridTheme extends GalleryTheme {
 			&& !($image->getWidth() && $image->getHeight())) {
 		    list ($ret, $image) = GalleryCoreApi::rebuildDerivativeCache($image->getId());
 		    if ($ret) {
-			return array($ret, null, null);
+			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 		}
 		$image = (array)$image;

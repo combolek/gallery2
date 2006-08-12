@@ -1,4 +1,4 @@
-# $Id$
+# $Id: bg.po,v 1.11 2006/03/22 04:18:33 mindless Exp $
 #
 # Gallery - a web based photo album viewer and editor
 # Copyright (C) 2000-2006 Bharat Mediratta
@@ -23,7 +23,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Core 1.1.10\n"
+"Project-Id-Version: Gallery: Core 1.1.0\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2003-02-11 03:09-0800\n"
 "PO-Revision-Date: 2005-08-13 11:42-0500\n"
@@ -90,6 +90,24 @@ msgstr[1] "%d седмици"
 msgid "<none>"
 msgstr ""
 
+msgid "install"
+msgstr "инсталиране"
+
+msgid "upgrade"
+msgstr "обновяване"
+
+msgid "configure"
+msgstr "конфигуриране"
+
+msgid "activate"
+msgstr "активиране"
+
+msgid "uninstall"
+msgstr "премахване"
+
+msgid "deactivate"
+msgstr "деактивиране"
+
 msgid "No acceleration"
 msgstr ""
 
@@ -97,9 +115,6 @@ msgid "Partial acceleration"
 msgstr ""
 
 msgid "Full acceleration"
-msgstr ""
-
-msgid "Themes"
 msgstr ""
 
 msgid "Performing Maintenance Tasks"
@@ -118,21 +133,6 @@ msgstr "обновяване"
 
 msgid "Download"
 msgstr ""
-
-msgid "install"
-msgstr "инсталиране"
-
-msgid "upgrade"
-msgstr "обновяване"
-
-msgid "activate"
-msgstr "активиране"
-
-msgid "uninstall"
-msgstr "премахване"
-
-msgid "deactivate"
-msgstr "деактивиране"
 
 msgid "Inherit settings from parent album"
 msgstr "Използват се настройките на по-горния албум"
@@ -200,12 +200,6 @@ msgid "Deleting old fast-download cache"
 msgstr "Изтриите временните файлове на базата данни"
 
 msgid "Converting MySQL data to UTF8"
-msgstr ""
-
-msgid "Updating panorama items"
-msgstr ""
-
-msgid "Optimizing AccessSubscriberMap table"
 msgstr ""
 
 msgid "Site Admins"
@@ -279,21 +273,14 @@ msgid_plural "%d kilobytes"
 msgstr[0] "%d килобайт"
 msgstr[1] "%d килобайта"
 
-#, c-format
-msgid "Input file %s exceeds maximum permitted file size"
-msgstr ""
+msgid "From Local Server"
+msgstr "От Локалния Сървър"
 
-#, c-format
-msgid "Input file %s exceeds file size specified in the form"
-msgstr ""
+msgid "Photo"
+msgstr "Снимка"
 
-#, c-format
-msgid "Input file %s was only partially uploaded"
-msgstr ""
-
-#, c-format
-msgid "Input file %s was not uploaded. Error %d"
-msgstr ""
+msgid "From Web Page"
+msgstr "От Web Страница"
 
 msgid "Gallery Item Administration"
 msgstr ""
@@ -354,9 +341,6 @@ msgstr "Общи"
 
 msgid "Movie Size"
 msgstr "Големина на Филма"
-
-msgid "Photo"
-msgstr "Снимка"
 
 msgid "Thumbnail cropped successfully"
 msgstr ""
@@ -525,10 +509,16 @@ msgstr "Вашите Настройки"
 msgid "Logout"
 msgstr "Изход"
 
-msgid "Plugins"
-msgstr ""
+msgid "Modules"
+msgstr "Модули"
 
 msgid "Repository"
+msgstr ""
+
+msgid "Themes"
+msgstr ""
+
+msgid "Display"
 msgstr ""
 
 msgid "Users"
@@ -545,9 +535,6 @@ msgstr "Приоритети"
 
 msgid "Graphics Toolkits"
 msgstr "Графични Програми"
-
-msgid "Defaults"
-msgstr "Презададени Настройки"
 
 msgid "Account Settings"
 msgstr "Потребителски Настройки"
@@ -876,9 +863,11 @@ msgstr ""
 msgid "spreadsheet"
 msgstr ""
 
-#, fuzzy
-msgid "file"
-msgstr "Файл"
+msgid "Unknown"
+msgstr ""
+
+msgid "unknown"
+msgstr ""
 
 #, c-format
 msgid ""
@@ -952,9 +941,6 @@ msgstr ""
 
 msgid "core"
 msgstr "ядро"
-
-msgid "unknown"
-msgstr ""
 
 msgid "Gallery version"
 msgstr "Версия на Галерията"
@@ -1083,6 +1069,53 @@ msgstr "Нови директории"
 msgid "New files"
 msgstr "Нови файлове"
 
+msgid "Local Server Upload Paths"
+msgstr "Пътеки към локални на сървъра директории за качване"
+
+msgid ""
+"Specify the legal directories on the local server where a user can store files and then "
+"upload them into Gallery using the <i>Upload from Local Server</i> feature.  The paths you "
+"enter here and all the files and directories under those paths will be available to any "
+"Gallery user who has upload privileges, so you should limit this to directories that won't "
+"contain sensitive data (eg. /tmp or /usr/ftp/incoming)"
+msgstr ""
+"Посочете локални директории на сървъра, кадето потребителя може да съхранява файлове и след "
+"това да ги качва в Галерията използвайки функцията '<i>Качване от Локалния Сървър</i>'. "
+"Пътеките които въведете тук и всички файлове и директории под тях, ще бъдат на разположение "
+"за всеки потребител на Галерията който има привилегията 'Качване на файлове'. Поради това е "
+"добре да ограничите тези пътеки до директории които не съдържат важна информация (например /"
+"tmp или /usr/ftp/incoming)"
+
+msgid "Path"
+msgstr "Пътека към директорията"
+
+msgid "Action"
+msgstr "Действие"
+
+msgid "remove"
+msgstr "премахване"
+
+msgid "Add"
+msgstr "Добавете"
+
+msgid "You must enter a directory to add."
+msgstr ""
+
+msgid "open_basedir documentation"
+msgstr ""
+
+#, c-format
+msgid ""
+"Your webserver is configured to prevent you from accessing that directory.  Please refer to "
+"the %s and consult your webserver administrator."
+msgstr ""
+
+msgid "The webserver does not have permissions to read that directory."
+msgstr ""
+
+msgid "The path you specified is not a valid directory."
+msgstr ""
+
 msgid "Session Settings"
 msgstr ""
 
@@ -1177,9 +1210,6 @@ msgid ""
 "<b>have to clear their browser cookie cache</b>. If they do not, they will experience "
 "login / logout / lost session problems."
 msgstr ""
-
-msgid "Path"
-msgstr "Пътека към директорията"
 
 msgid "Invalid cookie path"
 msgstr ""
@@ -1404,9 +1434,6 @@ msgstr ""
 msgid "Add Member"
 msgstr ""
 
-msgid "Add"
-msgstr "Добавете"
-
 msgid "You must enter a username."
 msgstr ""
 
@@ -1478,9 +1505,6 @@ msgstr ""
 msgid "Edit Group (by list)"
 msgstr "Променете Групата (по списък)"
 
-msgid "Action"
-msgstr "Действие"
-
 msgid "edit"
 msgstr "променете"
 
@@ -1529,6 +1553,82 @@ msgid "run now"
 msgstr ""
 
 msgid "Last Run Details:"
+msgstr ""
+
+msgid "Gallery Modules"
+msgstr "Модули на Галерията"
+
+#, c-format
+msgid "Successfully installed and auto-configured module %s"
+msgstr "Модула %s е успешно инсталиран и автоматично конфигуриран"
+
+#, c-format
+msgid "Successfully installed module %s"
+msgstr "Модула %s е успешно инсталиран"
+
+#, c-format
+msgid "Successfully configured module %s"
+msgstr "Модула %s е успешно конфигуриран"
+
+#, c-format
+msgid "Successfully upgraded module %s"
+msgstr "Модула %s е успешно обновен"
+
+#, c-format
+msgid "Successfully activated module %s"
+msgstr "Модула %s е успешно активиран"
+
+#, c-format
+msgid "Successfully deactivated module %s"
+msgstr "Модула %s е успешно деактивиран"
+
+#, c-format
+msgid "Successfully uninstalled module %s"
+msgstr "Модула %s е успешно премахнат"
+
+msgid ""
+"Gallery features come as separate modules.  You can download and install modules to add more "
+"features to your Gallery, or you can disable features if you don't want to use them.  In "
+"order to use a feature, you must install, configure (if necessary) and activate it.  If you "
+"don't wish to use a feature, you can deactivate it."
+msgstr ""
+
+msgid "Module Name"
+msgstr "Име на Модула"
+
+msgid "Version"
+msgstr "Версия"
+
+msgid "Installed"
+msgstr "Инсталиран"
+
+msgid "Actions"
+msgstr "Действия"
+
+msgid "Status: Not Installed"
+msgstr ""
+
+msgid "Status: Active"
+msgstr ""
+
+msgid "Status: Inactive"
+msgstr ""
+
+msgid "Status: Upgrade Required (Inactive)"
+msgstr ""
+
+msgid "Status: Incompatible Module (Inactive)"
+msgstr ""
+
+msgid "Incompatible module!"
+msgstr ""
+
+#, c-format
+msgid "Core API Required: %s (available: %s)"
+msgstr ""
+
+#, c-format
+msgid "Module API Required: %s (available: %s)"
 msgstr ""
 
 msgid "Confirm module uninstall"
@@ -1613,94 +1713,6 @@ msgstr ""
 msgid "Clear Saved Pages"
 msgstr ""
 
-msgid "Status: Inactive"
-msgstr ""
-
-#, fuzzy
-msgid "__PLUGIN__ deactivated"
-msgstr "деактивиране"
-
-msgid "Status: Active"
-msgstr ""
-
-msgid "__PLUGIN__ activated"
-msgstr ""
-
-msgid "Status: Not Installed"
-msgstr ""
-
-msgid "__PLUGIN__ uninstalled"
-msgstr ""
-
-msgid "Status: Upgrade Required (Inactive)"
-msgstr ""
-
-msgid "Status: Incompatible Plugin (Inactive)"
-msgstr ""
-
-msgid "Status: Inactive (Configuration Required)"
-msgstr ""
-
-msgid "__PLUGIN__ needs configuration"
-msgstr ""
-
-#, fuzzy
-msgid "Gallery Plugins"
-msgstr "Модули на Галерията"
-
-msgid ""
-"Gallery features come as separate plugins.  You can download and install plugins to add more "
-"features to your Gallery, or you can disable features if you don't want to use them.  In "
-"order to use a feature, you must install, configure (if necessary) and activate it.  If you "
-"don't wish to use a feature, you can deactivate it."
-msgstr ""
-
-#, fuzzy
-msgid "up to date"
-msgstr "Дата:"
-
-#, fuzzy
-msgid "disabled"
-msgstr "Неуспешно изградени: %d"
-
-#, fuzzy
-msgid "upgrade required"
-msgstr "(необходимо)"
-
-#, fuzzy
-msgid "not installed"
-msgstr "премахване"
-
-msgid "incompatible"
-msgstr ""
-
-#, fuzzy
-msgid "Plugin Name"
-msgstr "Пълно Име"
-
-msgid "Version"
-msgstr "Версия"
-
-msgid "Installed"
-msgstr "Инсталиран"
-
-msgid "Actions"
-msgstr "Действия"
-
-msgid "Incompatible plugin!"
-msgstr ""
-
-#, c-format
-msgid "Core API Required: %s (available: %s)"
-msgstr ""
-
-#, c-format
-msgid "Plugin API Required: %s (available: %s)"
-msgstr ""
-
-msgid "configure"
-msgstr "конфигуриране"
-
 msgid "Please make sure that your internet connection is set up properly or try again later."
 msgstr ""
 
@@ -1712,9 +1724,6 @@ msgstr ""
 
 msgid "Common Tasks"
 msgstr ""
-
-msgid "Modules"
-msgstr "Модули"
 
 msgid "Warning: Experimental feature!"
 msgstr ""
@@ -1817,14 +1826,18 @@ msgstr ""
 msgid "Theme Name"
 msgstr "Име"
 
-msgid "Module Name"
-msgstr "Име на Модула"
-
 #, fuzzy
 msgid "Latest"
 msgstr "последна"
 
 msgid "Incompatible Plugin"
+msgstr ""
+
+msgid "Incompatible plugin!"
+msgstr ""
+
+#, c-format
+msgid "Plugin API Required: %s (available: %s)"
 msgstr ""
 
 msgid "No packages have been selected."
@@ -1932,6 +1945,25 @@ msgstr "Презададените настройки на албума за успешно записани"
 
 msgid "Restored theme settings"
 msgstr "Настройките на стила са възстановени"
+
+msgid "All Themes"
+msgstr "Всички стилове"
+
+msgid "Defaults"
+msgstr "Презададени Настройки"
+
+msgid "Status: Incompatible Theme (Inactive)"
+msgstr ""
+
+msgid "Incompatible theme!"
+msgstr ""
+
+#, c-format
+msgid "Theme API Required: %s (available: %s)"
+msgstr ""
+
+msgid "(default)"
+msgstr ""
 
 msgid ""
 "These are default display settings for albums in your gallery.  They can be overridden in "
@@ -2212,6 +2244,141 @@ msgstr ""
 
 msgid "Assign caption to:"
 msgstr ""
+
+msgid ""
+"Transfer files that are already on your server into your Gallery.  The files must already "
+"have been uploaded to your server some other way (like FTP) and must be placed in a "
+"directory where they are accessibly by any element on the server.  If you're on Unix this "
+"means that the files and the directory the files are in should have modes of at least 755."
+msgstr ""
+
+msgid ""
+"For security purposes, you can't use this feature until the Gallery Site Administrator "
+"configures a set of legal upload directories."
+msgstr ""
+
+msgid "Server Path"
+msgstr ""
+
+msgid "You must enter a directory."
+msgstr ""
+
+msgid ""
+"The directory you entered is invalid.  Make sure that the directory is readable by all users."
+msgstr ""
+
+msgid ""
+"The directory you entered is illegal.  It must be a sub directory of one of the directories "
+"listed below."
+msgstr ""
+
+msgid "An item with the same name already exists."
+msgstr ""
+
+msgid "Legal Directories"
+msgstr ""
+
+msgid "modify"
+msgstr ""
+
+msgid "Recent Directories"
+msgstr ""
+
+msgid "Find Files"
+msgstr ""
+
+#, c-format
+msgid "Directory: %s"
+msgstr ""
+
+msgid "File name"
+msgstr ""
+
+msgid "Type"
+msgstr "Тип"
+
+msgid "Size"
+msgstr "Големина"
+
+msgid "Use Symlink"
+msgstr ""
+
+#, c-format
+msgid "%d byte"
+msgid_plural "%d bytes"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Parent Directory"
+msgstr ""
+
+msgid "Directory"
+msgstr ""
+
+msgid "(Un)check all known types"
+msgstr ""
+
+msgid "(Un)check symlinks"
+msgstr ""
+
+msgid "for selected items"
+msgstr ""
+
+msgid "Copy base filenames to:"
+msgstr ""
+
+msgid "Add Files"
+msgstr "Добавете Файлове"
+
+msgid "Start Over"
+msgstr ""
+
+msgid ""
+"Import files into Gallery from another website.  Enter a URL below to a web page anywhere on "
+"the net and Gallery will allow you to upload any media files that it finds on that page.  "
+"Note that if you're entering a URL to a directory, you should end the URL with a trailing "
+"slash (eg, http://example.com/directory/). "
+msgstr ""
+
+msgid "URL"
+msgstr "Адрес"
+
+msgid "You must enter a URL to a web page"
+msgstr ""
+
+msgid "The URL entered must begin with http://"
+msgstr ""
+
+msgid "The web page you specified is unavailable"
+msgstr ""
+
+msgid "Nothing to add found from this URL"
+msgstr ""
+
+msgid "Nothing added since no items were selected"
+msgstr ""
+
+msgid "Recent URLs"
+msgstr ""
+
+#, c-format
+msgid "URL: %s"
+msgstr ""
+
+msgid "change"
+msgstr ""
+
+#, c-format
+msgid "%d url found"
+msgid_plural "%d urls found"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "(Un)check all"
+msgstr ""
+
+msgid "Add URLs"
+msgstr "Добавете Адреси"
 
 msgid "No Thumbnail"
 msgstr ""
@@ -2516,10 +2683,6 @@ msgid ""
 "There are no graphics toolkits enabled that support this type of item, so we cannot create "
 "or modify a thumbnail."
 msgstr ""
-
-#, fuzzy
-msgid "Unable to create a thumbnail for this item"
-msgstr "Трябва да въведете име за този елемент."
 
 msgid ""
 "In order for Gallery to properly display this movie, it has to know the movie's width and "
@@ -2831,9 +2994,6 @@ msgstr "Собственика е успешно променен"
 msgid ""
 "This album has an automatic sort order specified, so you cannot change the order of items "
 "manually.  You must remove the automatic sort order to continue."
-msgstr ""
-
-msgid "change"
 msgstr ""
 
 msgid "Change the order of the items in this album."
@@ -3227,9 +3387,6 @@ msgstr "%d. %s"
 msgid "Size: "
 msgstr ""
 
-msgid "Unknown"
-msgstr ""
-
 msgid "Full size: "
 msgstr ""
 
@@ -3259,30 +3416,6 @@ msgstr ""
 
 msgid "Unit test theme"
 msgstr ""
-
-#~ msgid "Successfully installed and auto-configured module %s"
-#~ msgstr "Модула %s е успешно инсталиран и автоматично конфигуриран"
-
-#~ msgid "Successfully installed module %s"
-#~ msgstr "Модула %s е успешно инсталиран"
-
-#~ msgid "Successfully configured module %s"
-#~ msgstr "Модула %s е успешно конфигуриран"
-
-#~ msgid "Successfully upgraded module %s"
-#~ msgstr "Модула %s е успешно обновен"
-
-#~ msgid "Successfully activated module %s"
-#~ msgstr "Модула %s е успешно активиран"
-
-#~ msgid "Successfully deactivated module %s"
-#~ msgstr "Модула %s е успешно деактивиран"
-
-#~ msgid "Successfully uninstalled module %s"
-#~ msgstr "Модула %s е успешно премахнат"
-
-#~ msgid "All Themes"
-#~ msgstr "Всички стилове"
 
 #~ msgid "HDTV 16x9"
 #~ msgstr "HDTV Екран 16x9"

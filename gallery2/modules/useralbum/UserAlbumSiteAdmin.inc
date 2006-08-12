@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: UserAlbumSiteAdmin.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.12 $ $Date: 2006/01/17 01:52:04 $
  * @package UserAlbum
  * @author Alan Harder <alan.harder@sun.com>
  */
@@ -35,7 +37,7 @@ class UserAlbumSiteAdminController extends GalleryController {
     function handleRequest($form) {
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$status = array();
@@ -43,14 +45,14 @@ class UserAlbumSiteAdminController extends GalleryController {
 	    foreach (array('create', 'view', 'fullSize', 'targetLocation') as $key) {
 		$ret = GalleryCoreApi::setPluginParameter('module', 'useralbum', $key, $form[$key]);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
 	    foreach (array('loginRedirect', 'homeLink') as $key) {
 		$ret = GalleryCoreApi::setPluginParameter('module', 'useralbum', $key,
 							  isset($form[$key]) ? 1 : 0);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
 	    $status['saved'] = 1;
@@ -78,7 +80,7 @@ class UserAlbumSiteAdminView extends GalleryView {
     function loadTemplate(&$template, &$form) {
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if ($form['formName'] != 'UserAlbumSiteAdmin') {
@@ -88,25 +90,25 @@ class UserAlbumSiteAdminView extends GalleryView {
 		list ($ret, $form[$key]) =
 		    GalleryCoreApi::getPluginParameter('module', 'useralbum', $key);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
 	}
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'useralbum');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	/* Get ids of all all albums where we can add new album items */
 	list ($ret, $albumIds) =
 	    GalleryCoreApi::fetchAllItemIds('GalleryAlbumItem', 'core.addAlbumItem');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Load all the album entities */
 	list ($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$g2AlbumTree = GalleryUtilities::createAlbumTree($albums);
 
@@ -114,7 +116,7 @@ class UserAlbumSiteAdminView extends GalleryView {
 	    'createList' => array('immediate' => $module->translate('When user is created'),
 				  'access' => $module->translate('When first accessed')),
 	    'viewList' => array('everybody' => $module->translate('Everybody'),
-				'allusers' => $module->translate('Registered Users'),
+				'allusers' => $module->translate('All Users'),
 				'user' => $module->translate('User Only')),
 	    'sizeList' => array('1' => $module->translate('Yes'),
 				'0' => $module->translate('No')),

@@ -1,5 +1,5 @@
 {*
- * $Revision$
+ * $Revision: 1.4 $
  * If you want to customize this file, do not edit it directly since future upgrades
  * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
  * version.  Gallery will look for that file first and use it if it exists.
@@ -14,11 +14,11 @@ function pick(idx) {
     return;
   }
   var o = document.getElementById('title');
-  o.value = document.getElementById('ttl_' + idx).value;
+  o.value = document.getElementById('ttl_' + idx).innerHTML;
   o = document.getElementById('summary');
-  o.value = document.getElementById('sum_' + idx).value;
+  o.value = document.getElementById('sum_' + idx).innerHTML;
   o = document.getElementById('description');
-  o.value = document.getElementById('dsc_' + idx).value;
+  o.value = document.getElementById('dsc_' + idx).innerHTML;
   index = idx;
   isChanged = 0;
 }
@@ -29,13 +29,11 @@ function changed() { isChanged = 1; }
 {counter start=-1 assign=idx}
 {foreach from=$form.languageList key=language item=label}{counter assign=idx}
 {if isset($form.languageData[$language])}
-<input id="ttl_{$idx}" type="hidden" value="{$form.languageData[$language].title}"/>
-<input id="sum_{$idx}" type="hidden" value="{$form.languageData[$language].summary}"/>
-<input id="dsc_{$idx}" type="hidden" value="{$form.languageData[$language].description}"/>
+<div id="ttl_{$idx}">{$form.languageData[$language].title}</div>
+<div id="sum_{$idx}">{$form.languageData[$language].summary}</div>
+<div id="dsc_{$idx}">{$form.languageData[$language].description}</div>
 {else}
-<input id="ttl_{$idx}" type="hidden" value=""/>
-<input id="sum_{$idx}" type="hidden" value=""/>
-<input id="dsc_{$idx}" type="hidden" value=""/>
+<div id="ttl_{$idx}"></div><div id="sum_{$idx}"></div><div id="dsc_{$idx}"></div>
 {/if}
 {/foreach}
 </div>

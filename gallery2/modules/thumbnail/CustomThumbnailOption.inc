@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: CustomThumbnailOption.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.13 $ $Date: 2006/02/06 20:41:20 $
  * @package Thumbnail
  * @subpackage UserInterface
  * @author Alan Harder <alan.harder@sun.com>
@@ -50,7 +52,7 @@ class CustomThumbnailOption extends ItemEditOption {
 	/* Is this item already using a custom thumbnail.. */
 	list ($ret, $thumbnailImage) = ThumbnailHelper::fetchThumbnail($item->getId());
 	if ($ret) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 	if (isset($thumbnailImage)) {
 	    $thumbnailImage = (array)$thumbnailImage;
@@ -68,7 +70,7 @@ class CustomThumbnailOption extends ItemEditOption {
 	/* Check toolkit support for jpeg thumbnails */
 	list ($ret, $mimeList) = GalleryCoreApi::getToolkitOperationMimeTypes('thumbnail');
 	if ($ret) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	$template->setVariable('CustomThumbnailOption',
@@ -90,7 +92,7 @@ class CustomThumbnailOption extends ItemEditOption {
 	if (!empty($form['tmp_name'][1])) {
 	    list ($ret, $lockId) = GalleryCoreApi::acquireReadLock(array($item->getId()));
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 
 	    list ($ret, $thumbnailId) = ThumbnailHelper::addItem(
@@ -99,37 +101,37 @@ class CustomThumbnailOption extends ItemEditOption {
 		$error[] = 'form[CustomThumbnailOption][error][imageMime]';
 	    } else if ($ret) {
 		GalleryCoreApi::releaseLocks($lockId);
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 
 	    if (empty($error)) {
 		$ret = ThumbnailHelper::applyThumbnail($item, $thumbnailId);
 		if ($ret) {
 		    GalleryCoreApi::releaseLocks($lockId);
-		    return array($ret, null, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 	    }
 
 	    $ret = GalleryCoreApi::releaseLocks($lockId);
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	} else if (isset($form['CustomThumbnailOption']['delete'])) {
 	    list ($ret, $thumbnailImage) = ThumbnailHelper::fetchThumbnail($item->getId());
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    if (!isset($thumbnailImage)) {
-		return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT),
+		return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__),
 			     null, null);
 	    }
 	    $ret = GalleryCoreApi::deleteEntityById($thumbnailImage->getId());
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    $ret = ThumbnailHelper::restoreThumbnail($item);
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	}
 

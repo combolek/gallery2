@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: MultiLangHelper.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.7 $ $Date: 2006/01/21 10:23:10 $
  * @package MultiLang
  * @author Alan Harder <alan.harder@sun.com>
  */
@@ -40,12 +42,18 @@ class MultiLangHelper {
      * @static
      */
     function getItemData($itemId) {
-	list ($ret, $searchResults) = GalleryCoreApi::getMapEntry('MultiLangItemMap',
-	    array('language', 'title', 'summary', 'description'), 
-	    array('itemId' => (int)$itemId));
-	
+	global $gallery;
+
+	$query = '
+	SELECT [MultiLangItemMap::language], [MultiLangItemMap::title],
+	       [MultiLangItemMap::summary], [MultiLangItemMap::description]
+	FROM [MultiLangItemMap]
+	WHERE [MultiLangItemMap::itemId] = ?
+	';
+
+	list ($ret, $searchResults) = $gallery->search($query, array((int)$itemId));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$data = array();
@@ -71,7 +79,7 @@ class MultiLangHelper {
 	$itemId = $item->getId();
 	list ($ret, $data) = MultiLangHelper::getItemData($itemId);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if (empty($title) && empty($summary) && empty($description)) {
@@ -81,23 +89,23 @@ class MultiLangHelper {
 		    'MultiLangItemMap',
 		    array('itemId' => $itemId, 'language' => $language));
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 		if (count($data) == 1) {
 		    /* Last multilang data deleted; remove onLoadHandler */
 		    list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($itemId);
 		    if ($ret) {
-			return $ret;
+			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		    $item->removeOnLoadHandler('MultiLang');
 		    $item->save();
 		    if ($ret) {
 			GalleryCoreApi::releaseLocks($lockId);
-			return $ret;
+			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		    $ret = GalleryCoreApi::releaseLocks($lockId);
 		    if ($ret) {
-			return $ret;
+			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		}
 	    }
@@ -109,7 +117,7 @@ class MultiLangHelper {
 		    array('itemId' => $itemId, 'language' => $language),
 		    array('title' => $title, 'summary' => $summary, 'description' => $description));
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    } else {
 		$ret = GalleryCoreApi::addMapEntry(
@@ -117,23 +125,23 @@ class MultiLangHelper {
 		    array('itemId' => $itemId, 'language' => $language,
 			  'title' => $title, 'summary' => $summary, 'description' => $description));
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 		if (empty($data)) {
 		    /* First multilang data for this item; add onLoadHandler */
 		    list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($itemId);
 		    if ($ret) {
-			return $ret;
+			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		    $item->addOnLoadHandler('MultiLang');
 		    $item->save();
 		    if ($ret) {
 			GalleryCoreApi::releaseLocks($lockId);
-			return $ret;
+			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		    $ret = GalleryCoreApi::releaseLocks($lockId);
 		    if ($ret) {
-			return $ret;
+			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		}
 	    }
@@ -145,7 +153,7 @@ class MultiLangHelper {
 	    $event->setData(array('userId' => null, 'itemId' => $item->getParentId()));
 	    list ($ret) = GalleryCoreApi::postEvent($event);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
@@ -163,12 +171,12 @@ class MultiLangHelper {
 	global $gallery;
 	list ($ret, $language) = $gallery->getActiveLanguageCode();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	list ($ret, $data) = MultiLangHelper::getItemData($item->getId());
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if (isset($data[$language])) {

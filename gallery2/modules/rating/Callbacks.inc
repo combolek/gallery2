@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: Callbacks.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.3 $ $Date: 2006/01/10 17:07:48 $
  * @package Rating
  * @author  Don Seiler <don@seiler.us>
  */
@@ -33,14 +35,14 @@ class RatingCallbacks {
 	    $itemId = $params['itemId'];
 	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    list ($ret, $allowAlbumRating) = GalleryCoreApi::getPluginParameter('module',
 		    'rating',
 		    'allowAlbumRating');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    if (GalleryUtilities::isA($item, 'GalleryAlbumItem') && !$allowAlbumRating) {
@@ -51,7 +53,7 @@ class RatingCallbacks {
 		    'rating.view',
 		    $userId);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    if (!$permission) {
@@ -62,7 +64,7 @@ class RatingCallbacks {
 	    GalleryCoreApi::requireOnce('modules/rating/classes/RatingHelper.class');
 	    list ($ret, $RatingData) = RatingHelper::fetchRatings(array($itemId), $userId);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    if (!isset($RatingData[$itemId])) {
@@ -87,7 +89,7 @@ class RatingCallbacks {
 		    'rating.add',
 		    $userId);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $RatingData[$itemId]['canRate'] = ($permission ? true : false);
 	    $RatingSummary = array('ratingValues' => array(1, 2, 3, 4, 5), 'firstCall' => true);
@@ -100,7 +102,7 @@ class RatingCallbacks {
 	    return null;
 	}
 
-	return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
+	return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
     }
 }
 ?>

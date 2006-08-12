@@ -1,4 +1,4 @@
-# $Id$
+# $Id: eu.po,v 1.14 2006/03/23 19:59:35 mindless Exp $
 #
 # Gallery - a web based photo album viewer and editor
 # Copyright (C) 2000-2006 Bharat Mediratta
@@ -20,10 +20,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Core 1.1.10\n"
+"Project-Id-Version: Gallery: Core 1.1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-10-31 14:44+0100\n"
-"PO-Revision-Date: 2006-05-19 13:03+0200\n"
+"PO-Revision-Date: 2006-02-19 11:14+0100\n"
 "Last-Translator: Piarres Beobide <pi@beobide.net>\n"
 "Language-Team: librezale.org <librezale@librezale.org>\n"
 "MIME-Version: 1.0\n"
@@ -86,6 +86,24 @@ msgstr[1] "%d aste"
 msgid "<none>"
 msgstr "<bat ere ez>"
 
+msgid "install"
+msgstr "instalatu"
+
+msgid "upgrade"
+msgstr "bertsio-berritu"
+
+msgid "configure"
+msgstr "konfiguratu"
+
+msgid "activate"
+msgstr "gaitu"
+
+msgid "uninstall"
+msgstr "desinstalatu"
+
+msgid "deactivate"
+msgstr "ezgaitu"
+
 msgid "No acceleration"
 msgstr "Azeleraziorik ez"
 
@@ -94,9 +112,6 @@ msgstr "Azelerazio ertaina"
 
 msgid "Full acceleration"
 msgstr "Azelerazio osoa"
-
-msgid "Themes"
-msgstr "Gaiak"
 
 msgid "Performing Maintenance Tasks"
 msgstr "Sistema Mantenua Egiten"
@@ -113,21 +128,6 @@ msgstr "Eguneratu"
 
 msgid "Download"
 msgstr "Deskargatu"
-
-msgid "install"
-msgstr "instalatu"
-
-msgid "upgrade"
-msgstr "bertsio-berritu"
-
-msgid "activate"
-msgstr "gaitu"
-
-msgid "uninstall"
-msgstr "desinstalatu"
-
-msgid "deactivate"
-msgstr "ezgaitu"
 
 msgid "Inherit settings from parent album"
 msgstr "Erabili direktorio gurasoaren ezarpenak"
@@ -195,12 +195,6 @@ msgstr "Deskarga-azkar katxea garbitzen"
 msgid "Converting MySQL data to UTF8"
 msgstr "MySQL datuak UTF-8 bihurtzen"
 
-msgid "Updating panorama items"
-msgstr ""
-
-msgid "Optimizing AccessSubscriberMap table"
-msgstr ""
-
 msgid "Site Admins"
 msgstr "Gune Kudeatzaileak"
 
@@ -218,7 +212,7 @@ msgstr "Hau zure galeriaren orrialde nagusia da"
 
 #, c-format
 msgid "Upgrading permissions (%d items complete, %d remaining)"
-msgstr "Baimenak eguneratzen (%d elementu buruturik, %d falta dira)"
+msgstr ""
 
 msgid "Detecting broken derivatives, loading "
 msgstr "Hautsitako eratorriak atzematen, kargatzen "
@@ -272,21 +266,14 @@ msgid_plural "%d kilobytes"
 msgstr[0] "kilobyte %d"
 msgstr[1] "%d kilobyte"
 
-#, c-format
-msgid "Input file %s exceeds maximum permitted file size"
-msgstr ""
+msgid "From Local Server"
+msgstr "Zerbitzari Lokaletik"
 
-#, c-format
-msgid "Input file %s exceeds file size specified in the form"
-msgstr ""
+msgid "Photo"
+msgstr "Argazkia"
 
-#, c-format
-msgid "Input file %s was only partially uploaded"
-msgstr ""
-
-#, c-format
-msgid "Input file %s was not uploaded. Error %d"
-msgstr ""
+msgid "From Web Page"
+msgstr "Web orrialdetik"
 
 msgid "Gallery Item Administration"
 msgstr "Galeria elementu kudeaketa"
@@ -320,8 +307,9 @@ msgstr "&laquo; lehenetsitako gaia &raquo;"
 msgid "Recreating resized images"
 msgstr "Taimanaz aldaturiko irudiak berriz sortzen"
 
+#, fuzzy
 msgid "Rebuilding resized images..."
-msgstr "Taimanaz aldaturiko irudiak berriz sortzen..."
+msgstr "Taimanaz aldaturiko irudiak berriz sortzen"
 
 msgid "Rebuilding thumbnails..."
 msgstr "Argazkitxoak birsortzen..."
@@ -347,9 +335,6 @@ msgstr "Orokorra"
 
 msgid "Movie Size"
 msgstr "Pelikula Tamaina"
-
-msgid "Photo"
-msgstr "Argazkia"
 
 msgid "Thumbnail cropped successfully"
 msgstr "Argazkia behar bezala zatiturik"
@@ -518,11 +503,17 @@ msgstr "Zure Kontua"
 msgid "Logout"
 msgstr "Saioa amaitu"
 
-msgid "Plugins"
-msgstr "Plugin-ak"
+msgid "Modules"
+msgstr "Moduluak"
 
 msgid "Repository"
 msgstr "Errepositorioa"
+
+msgid "Themes"
+msgstr "Gaiak"
+
+msgid "Display"
+msgstr "Bistaratu"
 
 msgid "Users"
 msgstr "Erabiltzaileak"
@@ -538,9 +529,6 @@ msgstr "Tresna-joko lehentasuna"
 
 msgid "Graphics Toolkits"
 msgstr "Tresna-joko Grafikoak"
-
-msgid "Defaults"
-msgstr "Lehenetsiak"
 
 msgid "Account Settings"
 msgstr "Kontu ezarpenak"
@@ -878,8 +866,11 @@ msgstr "Kalkulu-orria"
 msgid "spreadsheet"
 msgstr "kalkulu-orria"
 
-msgid "file"
-msgstr "fitxategia"
+msgid "Unknown"
+msgstr "Ezezaguna"
+
+msgid "unknown"
+msgstr "ezezaguna"
 
 #, c-format
 msgid ""
@@ -963,9 +954,6 @@ msgstr "Sistema xehetasunak eskuratu; G2 laguntza foroan kopiatu/itsasi egiteko 
 msgid "core"
 msgstr "muina"
 
-msgid "unknown"
-msgstr "ezezaguna"
-
 msgid "Gallery version"
 msgstr "Gallery bertsioa"
 
@@ -987,18 +975,9 @@ msgstr "Sistema eragilea"
 msgid "Default theme"
 msgstr "Gai lehenetsia"
 
-msgid "gettext"
-msgstr "gettext"
-
 #, fuzzy
-msgid "enabled"
-msgstr "ezgaitua"
-
-msgid "disabled"
-msgstr "ezgaitua"
-
 msgid "Locale"
-msgstr "Lokalea"
+msgstr "Eskala"
 
 msgid "Browser"
 msgstr "Nabigatzailea"
@@ -1043,6 +1022,9 @@ msgstr "Lehenetsiriko hizkuntza"
 
 msgid "Check Browser Preference"
 msgstr "Nabigatzaile Hobespenak Arakatu"
+
+msgid "gettext"
+msgstr "gettext"
 
 #, c-format
 msgid ""
@@ -1098,6 +1080,54 @@ msgstr "Direktorio berriak"
 
 msgid "New files"
 msgstr "Fitxategi berriak"
+
+msgid "Local Server Upload Paths"
+msgstr "Zerbitzari Lokal Igoera Bidea"
+
+msgid ""
+"Specify the legal directories on the local server where a user can store files and then "
+"upload them into Gallery using the <i>Upload from Local Server</i> feature.  The paths you "
+"enter here and all the files and directories under those paths will be available to any "
+"Gallery user who has upload privileges, so you should limit this to directories that won't "
+"contain sensitive data (eg. /tmp or /usr/ftp/incoming)"
+msgstr ""
+"<i>Zerbitzari lokaletik igo</i> aukera erabiliaz igotzeko argazkiak gordetzeko erabiloko den "
+"Zerbizari lokaleko direkotrio legala ezarri.  Hemen emandako bideak eta bere fitxategi eta "
+"azpidirektorioek fitxategiak igotzeko baimena duen edozein erabiltzailerentzat eskuragarriak "
+"izan behar dira, beraz datu sensiblerik ez duen direkotorio batetan ezarri beharko zenuke "
+"(Adib /tmp edo /usr/ftp/incoming)"
+
+msgid "Path"
+msgstr "Bidea"
+
+msgid "Action"
+msgstr "Ekintza"
+
+msgid "remove"
+msgstr "ezabatu"
+
+msgid "Add"
+msgstr "Gehitu"
+
+msgid "You must enter a directory to add."
+msgstr "Gehitzeko direktorioa bat idatzi behar duzu."
+
+msgid "open_basedir documentation"
+msgstr "open_basedir dokumentazioa"
+
+#, c-format
+msgid ""
+"Your webserver is configured to prevent you from accessing that directory.  Please refer to "
+"the %s and consult your webserver administrator."
+msgstr ""
+"Zure web zerbitzaria direktorio honetara sartzen ez usteko konfiguraturik dago.  Joan %s-ra "
+"eta zure web zerbiztari kudeatzailearekin."
+
+msgid "The webserver does not have permissions to read that directory."
+msgstr "Web zerbitzariak ez du direktorio hau irakurtzeko baimenik."
+
+msgid "The path you specified is not a valid directory."
+msgstr "Emandako bidea ez da baliozko direktorio bat."
 
 msgid "Session Settings"
 msgstr "Saio Ezarpenak"
@@ -1227,9 +1257,6 @@ msgstr ""
 "<b>nabigatzaileko cookie katxea ezabatu</b> behar dute. Ez ezabatu ezkero saio hasiera / "
 "amaiera/ galera arazoak izan ditzakete."
 
-msgid "Path"
-msgstr "Bidea"
-
 msgid "Invalid cookie path"
 msgstr "Cookie bide baliogabea"
 
@@ -1265,6 +1292,7 @@ msgstr "Blokeo sistema"
 msgid "Helper Processes"
 msgstr "LAguntza Prozesua"
 
+#, fuzzy
 msgid ""
 "Some Gallery modules will use programs on your server to do image processing, archiving and "
 "other operations.  These programs can be very computationally intensive and can impact the "
@@ -1465,9 +1493,6 @@ msgstr "Ezin duzu zure burua talde honetatik ezabatu."
 msgid "Add Member"
 msgstr "Kidea Gehitu"
 
-msgid "Add"
-msgstr "Gehitu"
-
 msgid "You must enter a username."
 msgstr "Erabiltzaile-izena idatzi behar duzu."
 
@@ -1539,9 +1564,6 @@ msgstr "Ezin duzu erabiltzaile talde hau editatu"
 msgid "Edit Group (by list)"
 msgstr "Taldea Editatu (Zerrendatik)"
 
-msgid "Action"
-msgstr "Ekintza"
-
 msgid "edit"
 msgstr "editatu"
 
@@ -1591,6 +1613,87 @@ msgstr "orain abiarazi"
 
 msgid "Last Run Details:"
 msgstr "Azken Abiarazte Xehetasunak:"
+
+msgid "Gallery Modules"
+msgstr "Gallery Moduluak"
+
+#, c-format
+msgid "Successfully installed and auto-configured module %s"
+msgstr "%s modulua behar bezala instaltu eta auto-konfiguratu da"
+
+#, c-format
+msgid "Successfully installed module %s"
+msgstr "%s Modulua behar bezala instalatuta da"
+
+#, c-format
+msgid "Successfully configured module %s"
+msgstr "%s Modulua behar bezala konfiguratu da"
+
+#, c-format
+msgid "Successfully upgraded module %s"
+msgstr "%s Modulua behar bezala eguneratu da"
+
+#, c-format
+msgid "Successfully activated module %s"
+msgstr "%s Modulua behar bezala gaitu da"
+
+#, c-format
+msgid "Successfully deactivated module %s"
+msgstr "%s Modulua behar bezala ezgaitu da"
+
+#, c-format
+msgid "Successfully uninstalled module %s"
+msgstr "%s Modulua behar bezala desinstalatu da"
+
+msgid ""
+"Gallery features come as separate modules.  You can download and install modules to add more "
+"features to your Gallery, or you can disable features if you don't want to use them.  In "
+"order to use a feature, you must install, configure (if necessary) and activate it.  If you "
+"don't wish to use a feature, you can deactivate it."
+msgstr ""
+"Gallery ezaugarriak modulu ezberdinak bezala banatzen dira.  Zuk zure galeriari ezaugarriak "
+"gehitzeko moduluak deskargatu eta instaltu ditzakezu, edo ezaugarriak ezgaitu ditzakezu "
+"erabili nahi ez izan ezkero.  Ezaugarri bat behar bezala erabilzteko berau instalatu, "
+"konfiguratu (beharrezkoa bada) eta gaitu egin behar duzu.  Ezaugarri bat ez erabili nahi "
+"izan ezkero berau ezgaitu egin dezakezu."
+
+msgid "Module Name"
+msgstr "Modulu Izena"
+
+msgid "Version"
+msgstr "Bertsioa"
+
+msgid "Installed"
+msgstr "Instalaturik"
+
+msgid "Actions"
+msgstr "Ekintzak"
+
+msgid "Status: Not Installed"
+msgstr "Egoera: Ez indatalatua"
+
+msgid "Status: Active"
+msgstr "Egoera: Gaiturik"
+
+msgid "Status: Inactive"
+msgstr "Egoera Ezgaiturik"
+
+msgid "Status: Upgrade Required (Inactive)"
+msgstr "Egoera: Bertsio-berritzea Beharrezkoa (ezgaiturik)"
+
+msgid "Status: Incompatible Module (Inactive)"
+msgstr "Egoera: Modulu bateraezina (ezgaiturik)"
+
+msgid "Incompatible module!"
+msgstr "Moduu baterezina!"
+
+#, c-format
+msgid "Core API Required: %s (available: %s)"
+msgstr "Miun API-a beharrezkoa: %s (%s eskuragarri)"
+
+#, c-format
+msgid "Module API Required: %s (available: %s)"
+msgstr "Modulu API-a beharrezkoa: %s (%s eskuragarri)"
 
 msgid "Confirm module uninstall"
 msgstr "Berretsi modulu desinstalazioa"
@@ -1683,89 +1786,6 @@ msgstr "Iraungitze epea:"
 msgid "Clear Saved Pages"
 msgstr "Gordetako Orrialdeak Garbitu"
 
-msgid "Status: Inactive"
-msgstr "Egoera Ezgaiturik"
-
-msgid "__PLUGIN__ deactivated"
-msgstr "__PLUGIN__ ezgaitua"
-
-msgid "Status: Active"
-msgstr "Egoera: Gaiturik"
-
-msgid "__PLUGIN__ activated"
-msgstr "__PLUGIN__ gaitua"
-
-msgid "Status: Not Installed"
-msgstr "Egoera: Ez indatalatua"
-
-msgid "__PLUGIN__ uninstalled"
-msgstr "__PLUGIN__ ezinstalaturik"
-
-msgid "Status: Upgrade Required (Inactive)"
-msgstr "Egoera: Bertsio-berritzea Beharrezkoa (ezgaiturik)"
-
-msgid "Status: Incompatible Plugin (Inactive)"
-msgstr "Egoera: Plugin bateraezina (ezgaiturik)"
-
-msgid "Status: Inactive (Configuration Required)"
-msgstr "Egoera: Ezgaitua (Konfigurazioa beharrezkoa)"
-
-msgid "__PLUGIN__ needs configuration"
-msgstr "__PLUGIN__ konfigurazioa behar du"
-
-msgid "Gallery Plugins"
-msgstr "Gallery Plugin-ak"
-
-msgid ""
-"Gallery features come as separate plugins.  You can download and install plugins to add more "
-"features to your Gallery, or you can disable features if you don't want to use them.  In "
-"order to use a feature, you must install, configure (if necessary) and activate it.  If you "
-"don't wish to use a feature, you can deactivate it."
-msgstr ""
-"Gallery ezaugarriak modulu ezberdinak bezala banatzen dira.  Zuk zure galeriari ezaugarriak "
-"gehitzeko moduluak deskargatu eta instaltu ditzakezu, edo ezaugarriak ezgaitu ditzakezu "
-"erabili nahi ez izan ezkero.  Ezaugarri bat behar bezala erabilzteko berau instalatu, "
-"konfiguratu (beharrezkoa bada) eta gaitu egin behar duzu.  Ezaugarri bat ez erabili nahi "
-"izan ezkero berau ezgaitu egin dezakezu."
-
-msgid "up to date"
-msgstr "Eguneratua"
-
-msgid "upgrade required"
-msgstr "bertsio-eguneraketa beharrezkoa"
-
-msgid "not installed"
-msgstr "desinstalatua"
-
-msgid "incompatible"
-msgstr "baterezina"
-
-msgid "Plugin Name"
-msgstr "Plugin Izena"
-
-msgid "Version"
-msgstr "Bertsioa"
-
-msgid "Installed"
-msgstr "Instalaturik"
-
-msgid "Actions"
-msgstr "Ekintzak"
-
-msgid "Incompatible plugin!"
-msgstr "Plugin baterezina!"
-
-#, c-format
-msgid "Core API Required: %s (available: %s)"
-msgstr "Miun API-a beharrezkoa: %s (%s eskuragarri)"
-
-#, c-format
-msgid "Plugin API Required: %s (available: %s)"
-msgstr "Plugin API-a beharrezkoa: %s (%s eskuragarri)"
-
-msgid "configure"
-msgstr "konfiguratu"
-
 msgid "Please make sure that your internet connection is set up properly or try again later."
 msgstr ""
 "Ziurtatu zaitez zure interneteriko konexioa martxan dagoela edo saiatu zaitez beranduago."
@@ -1778,9 +1798,6 @@ msgstr "Dagoeneko plugin guztiak eguneraturik daude."
 
 msgid "Common Tasks"
 msgstr "Ataza Orokorrak"
-
-msgid "Modules"
-msgstr "Moduluak"
 
 msgid "Warning: Experimental feature!"
 msgstr "Kontuz: Ezaugarri esperimentala!"
@@ -1905,14 +1922,18 @@ msgstr ""
 msgid "Theme Name"
 msgstr "Gai izena"
 
-msgid "Module Name"
-msgstr "Modulu Izena"
-
 msgid "Latest"
 msgstr "Azkena"
 
 msgid "Incompatible Plugin"
 msgstr "Plugin baterezina"
+
+msgid "Incompatible plugin!"
+msgstr "Plugin baterezina!"
+
+#, c-format
+msgid "Plugin API Required: %s (available: %s)"
+msgstr "Plugin API-a beharrezkoa: %s (%s eskuragarri)"
 
 msgid "No packages have been selected."
 msgstr "Ez duzu paketerik aukeratu."
@@ -2029,6 +2050,25 @@ msgstr "Lehenetsiriko album ezarpenak behar bezala gorde dira"
 
 msgid "Restored theme settings"
 msgstr "Gai ezarpenak berreskuraturik"
+
+msgid "All Themes"
+msgstr "Gai Guztiak"
+
+msgid "Defaults"
+msgstr "Lehenetsiak"
+
+msgid "Status: Incompatible Theme (Inactive)"
+msgstr "Egoera: Gai bateraezina (ezgaiturik)"
+
+msgid "Incompatible theme!"
+msgstr "Gai bateraezina!"
+
+#, c-format
+msgid "Theme API Required: %s (available: %s)"
+msgstr "Gai API-a beharrezkoa: %s (%s eskuragarri)"
+
+msgid "(default)"
+msgstr "(lehenetsia)"
 
 msgid ""
 "These are default display settings for albums in your gallery.  They can be overridden in "
@@ -2334,6 +2374,157 @@ msgstr "Ezarri elementu tituluak hemendik:"
 
 msgid "Assign caption to:"
 msgstr "Ezarri epigafeak hemen:"
+
+msgid ""
+"Transfer files that are already on your server into your Gallery.  The files must already "
+"have been uploaded to your server some other way (like FTP) and must be placed in a "
+"directory where they are accessibly by any element on the server.  If you're on Unix this "
+"means that the files and the directory the files are in should have modes of at least 755."
+msgstr ""
+"Transferitutako fitxategiak dagoeneko zure zerbiztarian Gallery barnean daude.  Fitxategiak "
+"zerbiztarira beste era batetara (FTP kasu) igo dira eta zerbiztariko edozein elementurentzat "
+"eskuragarri diren direktorio batetan kokatu behar dira. Unix sistema batetan bazaude honek "
+"fitxategiek beintzat 755 baimenak izan behar dituztela esan nahi du."
+
+msgid ""
+"For security purposes, you can't use this feature until the Gallery Site Administrator "
+"configures a set of legal upload directories."
+msgstr ""
+"Segurtasun arrazoiak direla eta, ezin duzu ezaugarri bat erabili Galleria Kudeatzaileak "
+"legeko igoera direktorio bat ezarri arte."
+
+msgid "Server Path"
+msgstr "Zerbitzaria Bidea"
+
+msgid "You must enter a directory."
+msgstr "Direktorio bat idatzi behar duzu."
+
+msgid ""
+"The directory you entered is invalid.  Make sure that the directory is readable by all users."
+msgstr ""
+"Emandako direktorioa baliogabea da. Ziurtatu direktorioa erabiltzaile guztiek irakur "
+"dezaketela."
+
+msgid ""
+"The directory you entered is illegal.  It must be a sub directory of one of the directories "
+"listed below."
+msgstr ""
+"Emandako direktorioa legez kanpokoa da. Behean zerrendaturiko direktorioen azpi-direktorio "
+"bat izan behar da."
+
+msgid "An item with the same name already exists."
+msgstr "Izen horretako elementu bat badago dagoeneko."
+
+msgid "Legal Directories"
+msgstr "Direktorio Legalak"
+
+msgid "modify"
+msgstr "eraldatu"
+
+msgid "Recent Directories"
+msgstr "Azkenetariko Direktorioak"
+
+msgid "Find Files"
+msgstr "Fitxategiak Bilatu"
+
+#, c-format
+msgid "Directory: %s"
+msgstr "Direktorioa: %s"
+
+msgid "File name"
+msgstr "Fitxategi-izena"
+
+msgid "Type"
+msgstr "Mota"
+
+msgid "Size"
+msgstr "Tamaina"
+
+msgid "Use Symlink"
+msgstr "Lotura sinbolikoak erabili"
+
+#, c-format
+msgid "%d byte"
+msgid_plural "%d bytes"
+msgstr[0] "byte %d"
+msgstr[1] "%d byte"
+
+msgid "Parent Directory"
+msgstr "Direktorio gurasoa"
+
+msgid "Directory"
+msgstr "Direktorioa"
+
+msgid "(Un)check all known types"
+msgstr "(Des)markatu mota ezagun guztiak"
+
+msgid "(Un)check symlinks"
+msgstr "Loturaa sinbolikoak (des)markatu"
+
+msgid "for selected items"
+msgstr "hautatutako elementuentzat"
+
+msgid "Copy base filenames to:"
+msgstr "Kopiatu oinarri fitxategi izenak hona:"
+
+msgid "Add Files"
+msgstr "Fitxategiak gehitu"
+
+msgid "Start Over"
+msgstr "Hemen hasi"
+
+msgid ""
+"Import files into Gallery from another website.  Enter a URL below to a web page anywhere on "
+"the net and Gallery will allow you to upload any media files that it finds on that page.  "
+"Note that if you're entering a URL to a directory, you should end the URL with a trailing "
+"slash (eg, http://example.com/directory/). "
+msgstr ""
+"Fitxategiak Gallery-ra beste webgune batetatik inportatu.  Behean webgune baten URL idatzi "
+"eta Gallery-k hor arkitzen duen edozein irudi/filma galeriara igotzeko auekra emango dizu."
+"Kontutan izan direktorio baten URL idatzi ezkero, bidea barra ('/') batez amaitu behar "
+"duzua. (Adibidez http://adibide.com/direktorioa/).      Note that if you're entering a URL "
+"to a directory, you should end the URL with a trailing slash (eg, http://example.com/"
+"directory/). "
+
+msgid "URL"
+msgstr "URL-a"
+
+msgid "You must enter a URL to a web page"
+msgstr "Web orrialde baten URL-a idatzi behar duzu"
+
+msgid "The URL entered must begin with http://"
+msgstr "URL-a http://-rekin hasi behar da"
+
+msgid "The web page you specified is unavailable"
+msgstr "Ezarritako web orrialdea ez dago eskuragarri"
+
+msgid "Nothing to add found from this URL"
+msgstr "Ez da ezer aurkitu URL horretan"
+
+msgid "Nothing added since no items were selected"
+msgstr "Ezer ez gehiturik ez bait dago hautaturiko elementurik"
+
+msgid "Recent URLs"
+msgstr "Azkenetariko URL-ak"
+
+#, c-format
+msgid "URL: %s"
+msgstr "URL-a: %s"
+
+msgid "change"
+msgstr "eraldatu"
+
+#, c-format
+msgid "%d url found"
+msgid_plural "%d urls found"
+msgstr[0] "url %d aurkiturik"
+msgstr[1] "%d url aurkiturik"
+
+msgid "(Un)check all"
+msgstr "(Des)markatu denak"
+
+msgid "Add URLs"
+msgstr "Gehitu URL-ak"
 
 msgid "No Thumbnail"
 msgstr "Argazkitxorik Ez"
@@ -2652,9 +2843,6 @@ msgstr ""
 "Ez dago elemntu mota hau onartzen duen trsna-sprta grafikorik instalaturik, beraz ezingo da "
 "argazkitxoa sortu edo eraldatu."
 
-msgid "Unable to create a thumbnail for this item"
-msgstr "Ezin da elementu honentzat argazkitxoa sortu"
-
 msgid ""
 "In order for Gallery to properly display this movie, it has to know the movie's width and "
 "height.  If you have installed a graphics toolkit that can handle movie types, then these "
@@ -2698,10 +2886,6 @@ msgstr "Itxura Erlazioa: "
 
 msgid "Crop"
 msgstr "Ebaki"
-
-#, fuzzy
-msgid "Undo Changes"
-msgstr "Aldatu"
 
 msgid "Reset to default"
 msgstr "Berrezarri lehenetsia"
@@ -2776,11 +2960,6 @@ msgstr "Hau beste argazki batetara lotura bat da, beraz ezin duzu jatorrizkoa al
 
 msgid "There are links to this photo, so you cannot change the original"
 msgstr "Hemen argazki honetara loturak daude, beraz ezin duzu jatorrizkoa aldatu"
-
-msgid ""
-"There is no toolkit support to modify the original so operations may only be applied to the "
-"copies"
-msgstr ""
 
 msgid "Preserve Original Photo"
 msgstr "Jatorrizko Argazkia Mantendu"
@@ -3011,9 +3190,6 @@ msgstr ""
 "Album honek ordenatze automatikoa ezarririk du, beraz ezin duzu gauzen ordena eskuz aldatu.  "
 "Ordenatze automatikoa ezgaitu behar duzu aurrera jarraitzeko."
 
-msgid "change"
-msgstr "eraldatu"
-
 msgid "Change the order of the items in this album."
 msgstr "Album honetako elementuen ordena aldatu."
 
@@ -3189,16 +3365,18 @@ msgid "Account settings saved successfully"
 msgstr "Kontu ezarpenak behar bezala gorde dira"
 
 msgid "(required, password required for change)"
-msgstr "(beharrezkoa, pasahitza beharrezkoa aldaketarentzat)"
+msgstr ""
 
 msgid "(suggested, password required for change)"
-msgstr "(gomendatua, pasahitza beharrezkoa aldaketarentzat)"
+msgstr ""
 
+#, fuzzy
 msgid "(required to change the e-mail address)"
-msgstr "(beharrezko ePosta helbidea aldatzeko)"
+msgstr "Baliozo eposta helbide bat idatzi behar duzu"
 
+#, fuzzy
 msgid "You must enter your current password to change the e-mail address"
-msgstr "Zure pasahitza idatzi behar duzu ePosta helbidea aldatzeko"
+msgstr "Zure pasahitza idatzu behar duzu"
 
 msgid "Recover a lost or forgotten password"
 msgstr "Galdu edo ahaztutako pasahitza berreskuratu"
@@ -3444,9 +3622,6 @@ msgstr "%d. %s"
 msgid "Size: "
 msgstr "Tamaina: "
 
-msgid "Unknown"
-msgstr "Ezezaguna"
-
 msgid "Full size: "
 msgstr "Tamaina osoa: "
 
@@ -3476,276 +3651,6 @@ msgstr "[proba] A bigarren baimena"
 
 msgid "Unit test theme"
 msgstr "Unitate proba gaia"
-
-#~ msgid "From Local Server"
-#~ msgstr "Zerbitzari Lokaletik"
-
-#~ msgid "From Web Page"
-#~ msgstr "Web orrialdetik"
-
-#~ msgid "Integrity Check"
-#~ msgstr "Integritate Egiaztapena"
-
-#~ msgid "Check data integrity and report any inconsistencies."
-#~ msgstr "Datu integritatea egiaztatu eta edozein kontraesanen berri eman."
-
-#~ msgid "Loading all entities"
-#~ msgstr "Entitate guztiak kargatzen"
-
-#~ msgid "Checking for orphaned entity data"
-#~ msgstr "Entitate humezurtz datuen bila egiaztatzen"
-
-#~ msgid "Checking for orphaned item data"
-#~ msgstr "Elementu humezurtz datuen bila egiaztatzen"
-
-#~ msgid "Checking for orphaned plugin data"
-#~ msgstr "Plugin humezurtz datuen bila egiaztatzen"
-
-#~ msgid "Checked %d entities"
-#~ msgstr "%d entitate egiazturik"
-
-#~ msgid "Failed to load entity ids: %s"
-#~ msgstr "Huts entitate id-ak kargatzerakoan: %s"
-
-#~ msgid "Orphaned data in table %s with missing parent entity; ids: %s"
-#~ msgstr "%s taulan datu umezurtzak aurkiturik guraso entitatea falta delarik; id-ak: %s"
-
-#~ msgid "Orphaned data in table %s with no row in %s table; ids: %s"
-#~ msgstr "%s taulan datu umezurtzak aurkiturik lerrorik gabe %s taulan; id-ak: %s"
-
-#~ msgid "Orphaned data in table %s with missing derivative source; ids: %s"
-#~ msgstr "%s taulan datu umezurtzak aurkiturik ituruburu eraldaketa falta delarik; id-ak: %s"
-
-#~ msgid "Unknown plugin: %s %s"
-#~ msgstr "Plugin ezezaguna: %s %s"
-
-#~ msgid "Local Server Upload Paths"
-#~ msgstr "Zerbitzari Lokal Igoera Bidea"
-
-#~ msgid ""
-#~ "Specify the legal directories on the local server where a user can store files and then "
-#~ "upload them into Gallery using the <i>Upload from Local Server</i> feature.  The paths "
-#~ "you enter here and all the files and directories under those paths will be available to "
-#~ "any Gallery user who has upload privileges, so you should limit this to directories that "
-#~ "won't contain sensitive data (eg. /tmp or /usr/ftp/incoming)"
-#~ msgstr ""
-#~ "<i>Zerbitzari lokaletik igo</i> aukera erabiliaz igotzeko argazkiak gordetzeko erabiloko "
-#~ "den Zerbizari lokaleko direkotrio legala ezarri.  Hemen emandako bideak eta bere "
-#~ "fitxategi eta azpidirektorioek fitxategiak igotzeko baimena duen edozein "
-#~ "erabiltzailerentzat eskuragarriak izan behar dira, beraz datu sensiblerik ez duen "
-#~ "direkotorio batetan ezarri beharko zenuke (Adib /tmp edo /usr/ftp/incoming)"
-
-#~ msgid "remove"
-#~ msgstr "ezabatu"
-
-#~ msgid "You must enter a directory to add."
-#~ msgstr "Gehitzeko direktorioa bat idatzi behar duzu."
-
-#~ msgid "open_basedir documentation"
-#~ msgstr "open_basedir dokumentazioa"
-
-#~ msgid ""
-#~ "Your webserver is configured to prevent you from accessing that directory.  Please refer "
-#~ "to the %s and consult your webserver administrator."
-#~ msgstr ""
-#~ "Zure web zerbitzaria direktorio honetara sartzen ez usteko konfiguraturik dago.  Joan %s-"
-#~ "ra eta zure web zerbiztari kudeatzailearekin."
-
-#~ msgid "The webserver does not have permissions to read that directory."
-#~ msgstr "Web zerbitzariak ez du direktorio hau irakurtzeko baimenik."
-
-#~ msgid "The path you specified is not a valid directory."
-#~ msgstr "Emandako bidea ez da baliozko direktorio bat."
-
-#~ msgid ""
-#~ "Transfer files that are already on your server into your Gallery.  The files must already "
-#~ "have been uploaded to your server some other way (like FTP) and must be placed in a "
-#~ "directory where they are accessibly by any element on the server.  If you're on Unix this "
-#~ "means that the files and the directory the files are in should have modes of at least 755."
-#~ msgstr ""
-#~ "Transferitutako fitxategiak dagoeneko zure zerbiztarian Gallery barnean daude.  "
-#~ "Fitxategiak zerbiztarira beste era batetara (FTP kasu) igo dira eta zerbiztariko edozein "
-#~ "elementurentzat eskuragarri diren direktorio batetan kokatu behar dira. Unix sistema "
-#~ "batetan bazaude honek fitxategiek beintzat 755 baimenak izan behar dituztela esan nahi du."
-
-#~ msgid ""
-#~ "For security purposes, you can't use this feature until the Gallery Site Administrator "
-#~ "configures a set of legal upload directories."
-#~ msgstr ""
-#~ "Segurtasun arrazoiak direla eta, ezin duzu ezaugarri bat erabili Galleria Kudeatzaileak "
-#~ "legeko igoera direktorio bat ezarri arte."
-
-#~ msgid "Server Path"
-#~ msgstr "Zerbitzaria Bidea"
-
-#~ msgid "You must enter a directory."
-#~ msgstr "Direktorio bat idatzi behar duzu."
-
-#~ msgid ""
-#~ "The directory you entered is invalid.  Make sure that the directory is readable by all "
-#~ "users."
-#~ msgstr ""
-#~ "Emandako direktorioa baliogabea da. Ziurtatu direktorioa erabiltzaile guztiek irakur "
-#~ "dezaketela."
-
-#~ msgid ""
-#~ "The directory you entered is illegal.  It must be a sub directory of one of the "
-#~ "directories listed below."
-#~ msgstr ""
-#~ "Emandako direktorioa legez kanpokoa da. Behean zerrendaturiko direktorioen azpi-"
-#~ "direktorio bat izan behar da."
-
-#~ msgid "An item with the same name already exists."
-#~ msgstr "Izen horretako elementu bat badago dagoeneko."
-
-#~ msgid "Legal Directories"
-#~ msgstr "Direktorio Legalak"
-
-#~ msgid "modify"
-#~ msgstr "eraldatu"
-
-#~ msgid "Recent Directories"
-#~ msgstr "Azkenetariko Direktorioak"
-
-#~ msgid "Find Files"
-#~ msgstr "Fitxategiak Bilatu"
-
-#~ msgid "Directory: %s"
-#~ msgstr "Direktorioa: %s"
-
-#~ msgid "File name"
-#~ msgstr "Fitxategi-izena"
-
-#~ msgid "Type"
-#~ msgstr "Mota"
-
-#~ msgid "Size"
-#~ msgstr "Tamaina"
-
-#~ msgid "Use Symlink"
-#~ msgstr "Lotura sinbolikoak erabili"
-
-#~ msgid "%d byte"
-#~ msgid_plural "%d bytes"
-#~ msgstr[0] "byte %d"
-#~ msgstr[1] "%d byte"
-
-#~ msgid "Parent Directory"
-#~ msgstr "Direktorio gurasoa"
-
-#~ msgid "Directory"
-#~ msgstr "Direktorioa"
-
-#~ msgid "(Un)check all known types"
-#~ msgstr "(Des)markatu mota ezagun guztiak"
-
-#~ msgid "(Un)check symlinks"
-#~ msgstr "Loturaa sinbolikoak (des)markatu"
-
-#~ msgid "for selected items"
-#~ msgstr "hautatutako elementuentzat"
-
-#~ msgid "Copy base filenames to:"
-#~ msgstr "Kopiatu oinarri fitxategi izenak hona:"
-
-#~ msgid "Add Files"
-#~ msgstr "Fitxategiak gehitu"
-
-#~ msgid "Start Over"
-#~ msgstr "Hemen hasi"
-
-#~ msgid ""
-#~ "Import files into Gallery from another website.  Enter a URL below to a web page anywhere "
-#~ "on the net and Gallery will allow you to upload any media files that it finds on that "
-#~ "page.  Note that if you're entering a URL to a directory, you should end the URL with a "
-#~ "trailing slash (eg, http://example.com/directory/). "
-#~ msgstr ""
-#~ "Fitxategiak Gallery-ra beste webgune batetatik inportatu.  Behean webgune baten URL "
-#~ "idatzi eta Gallery-k hor arkitzen duen edozein irudi/filma galeriara igotzeko auekra "
-#~ "emango dizu.Kontutan izan direktorio baten URL idatzi ezkero, bidea barra ('/') batez "
-#~ "amaitu behar duzua. (Adibidez http://adibide.com/direktorioa/).      Note that if you're "
-#~ "entering a URL to a directory, you should end the URL with a trailing slash (eg, http://"
-#~ "example.com/directory/). "
-
-#~ msgid "URL"
-#~ msgstr "URL-a"
-
-#~ msgid "You must enter a URL to a web page"
-#~ msgstr "Web orrialde baten URL-a idatzi behar duzu"
-
-#~ msgid "The URL entered must begin with http://"
-#~ msgstr "URL-a http://-rekin hasi behar da"
-
-#~ msgid "The web page you specified is unavailable"
-#~ msgstr "Ezarritako web orrialdea ez dago eskuragarri"
-
-#~ msgid "Nothing to add found from this URL"
-#~ msgstr "Ez da ezer aurkitu URL horretan"
-
-#~ msgid "Nothing added since no items were selected"
-#~ msgstr "Ezer ez gehiturik ez bait dago hautaturiko elementurik"
-
-#~ msgid "Recent URLs"
-#~ msgstr "Azkenetariko URL-ak"
-
-#~ msgid "URL: %s"
-#~ msgstr "URL-a: %s"
-
-#~ msgid "%d url found"
-#~ msgid_plural "%d urls found"
-#~ msgstr[0] "url %d aurkiturik"
-#~ msgstr[1] "%d url aurkiturik"
-
-#~ msgid "(Un)check all"
-#~ msgstr "(Des)markatu denak"
-
-#~ msgid "Add URLs"
-#~ msgstr "Gehitu URL-ak"
-
-#~ msgid "Display"
-#~ msgstr "Bistaratu"
-
-#~ msgid "Successfully installed and auto-configured module %s"
-#~ msgstr "%s modulua behar bezala instaltu eta auto-konfiguratu da"
-
-#~ msgid "Successfully installed module %s"
-#~ msgstr "%s Modulua behar bezala instalatuta da"
-
-#~ msgid "Successfully configured module %s"
-#~ msgstr "%s Modulua behar bezala konfiguratu da"
-
-#~ msgid "Successfully upgraded module %s"
-#~ msgstr "%s Modulua behar bezala eguneratu da"
-
-#~ msgid "Successfully activated module %s"
-#~ msgstr "%s Modulua behar bezala gaitu da"
-
-#~ msgid "Successfully deactivated module %s"
-#~ msgstr "%s Modulua behar bezala ezgaitu da"
-
-#~ msgid "Successfully uninstalled module %s"
-#~ msgstr "%s Modulua behar bezala desinstalatu da"
-
-#~ msgid "Incompatible module!"
-#~ msgstr "Moduu baterezina!"
-
-#~ msgid "Module API Required: %s (available: %s)"
-#~ msgstr "Modulu API-a beharrezkoa: %s (%s eskuragarri)"
-
-#~ msgid "All Themes"
-#~ msgstr "Gai Guztiak"
-
-#~ msgid "Status: Incompatible Theme (Inactive)"
-#~ msgstr "Egoera: Gai bateraezina (ezgaiturik)"
-
-#~ msgid "Incompatible theme!"
-#~ msgstr "Gai bateraezina!"
-
-#~ msgid "Theme API Required: %s (available: %s)"
-#~ msgstr "Gai API-a beharrezkoa: %s (%s eskuragarri)"
-
-#~ msgid "(default)"
-#~ msgstr "(lehenetsia)"
 
 #~ msgid "G2.1-RC-1: Hit Me"
 #~ msgstr "G2.1-RC-1: Ni jo"

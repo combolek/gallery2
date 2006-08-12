@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: module.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.41.2.1 $ $Date: 2006/04/05 22:10:57 $
  * @package CustomField
  * @author Alan Harder <alan.harder@sun.com>
  */
@@ -38,10 +40,10 @@ class CustomFieldModule extends GalleryModule {
 	$this->setId('customfield');
 	$this->setName($gallery->i18n('Custom Fields'));
 	$this->setDescription($gallery->i18n('Create custom data fields for Gallery items'));
-	$this->setVersion('1.0.7');
+	$this->setVersion('1.0.6');
 	$this->setGroup('data', $gallery->i18n('Extra Data'));
 	$this->setCallbacks('registerEventListeners|getSiteAdminViews|getItemSummaries');
-	$this->setRequiredCoreApi(array(7, 10));
+	$this->setRequiredCoreApi(array(7, 0));
 	$this->setRequiredModuleApi(array(3, 0));
     }
 
@@ -55,7 +57,7 @@ class CustomFieldModule extends GalleryModule {
 	    $storage =& $gallery->getStorage();
 	    $ret = $storage->configureStore($this->getId(), array('CustomFieldMap:1.0'));
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
@@ -89,7 +91,7 @@ class CustomFieldModule extends GalleryModule {
 
 	list ($ret, $data) = CustomFieldHelper::fetchFieldValues($items, 'summary');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	foreach ($data as $itemId => $fields) {
@@ -113,7 +115,7 @@ class CustomFieldModule extends GalleryModule {
 	    'ItemEditPlugin', 'CustomFieldItemEdit', 'CustomFieldItemEdit',
 	    'modules/customfield/CustomFieldItemEdit.inc', 'customfield', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Register interface implementation */
@@ -121,7 +123,7 @@ class CustomFieldModule extends GalleryModule {
 	    'CustomFieldInterface_1_0', 'CustomFieldHelper', 'CustomField',
 	    'modules/customfield/classes/CustomFieldHelper.class', 'customfield', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Register search implementation */
@@ -129,7 +131,7 @@ class CustomFieldModule extends GalleryModule {
 	    'GallerySearchInterface_1_0', 'CustomFieldSearch', 'CustomField',
 	    'modules/customfield/classes/CustomFieldSearch.class', 'customfield', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;

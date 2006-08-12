@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: UserRecoverPassword.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.15 $ $Date: 2006/02/19 18:47:05 $
  * @package GalleryCore
  * @subpackage UserInterface
  * @author Jay Rossiter <cryptographite@users.sf.net>
@@ -77,7 +79,7 @@ class UserRecoverPasswordController extends GalleryController {
 		    list ($ret, $pluginInstances) =
 			GalleryCoreApi::getAllFactoryImplementationIds('GalleryValidationPlugin');
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
 		    foreach (array_keys($pluginInstances) as $pluginId) {
@@ -85,7 +87,7 @@ class UserRecoverPasswordController extends GalleryController {
 			    GalleryCoreApi::newFactoryInstanceById('GalleryValidationPlugin',
 								   $pluginId);
 			if ($ret) {
-			    return array($ret, null);
+			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 		    }
 		}
@@ -94,7 +96,7 @@ class UserRecoverPasswordController extends GalleryController {
 		foreach ($pluginInstances as $plugin) {
 		    list ($ret, $pluginErrors, $continue) = $plugin->performValidation($form);
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
 		    $error = array_merge($error, $pluginErrors);
@@ -112,7 +114,7 @@ class UserRecoverPasswordController extends GalleryController {
 	    if (empty($error)) {
 		list ($ret, $user) = GalleryCoreApi::fetchUserByUsername($form['userName']);
 		if ($ret && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		if (isset($user) && $user->getEmail() != '') {
@@ -134,7 +136,7 @@ class UserRecoverPasswordController extends GalleryController {
 		    list ($ret, $lastRequest) = UserRecoverPasswordHelper_simple::getRequestExpires(
 			$user->getUserName(), null);
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
 		    /*
@@ -161,7 +163,7 @@ class UserRecoverPasswordController extends GalleryController {
 				  'authString' => $authString,
 				  'requestExpires' => $requestExpires));
 			if ($ret) {
-			    return array($ret, null);
+			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 			$shouldSendEmail = true;
 		    }
@@ -192,7 +194,7 @@ class UserRecoverPasswordController extends GalleryController {
 			/* Load core for translation */
 			list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 			if ($ret) {
-			    return array($ret, null);
+			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 
 			/* Send the user email based on our confirmation template */
@@ -201,7 +203,7 @@ class UserRecoverPasswordController extends GalleryController {
 			    $tplData, '', $user->getEmail(),
 			    $module->translate('Password Recovery'));
 			if ($ret) {
-			    return array($ret, null);
+			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 		    }
 
@@ -266,7 +268,7 @@ class UserRecoverPasswordView extends GalleryView {
 	list ($ret, $allPluginIds) =
 	    GalleryCoreApi::getAllFactoryImplementationIds('GalleryValidationPlugin');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Let each plugin load its template data */
@@ -275,12 +277,12 @@ class UserRecoverPasswordView extends GalleryView {
 	    list ($ret, $plugin) =
 		GalleryCoreApi::newFactoryInstanceById('GalleryValidationPlugin', $pluginId);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    list ($ret, $data['file'], $data['l10Domain']) = $plugin->loadTemplate($form);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    if (isset($data['file'])) {

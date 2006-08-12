@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: RewriteUrlGeneratorTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -17,22 +19,20 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.26 $ $Date: 2006/01/11 20:20:19 $
  * @package Rewrite
  * @subpackage PHPUnit
  * @author Douglas Cau <douglas@cau.se>
  */
 
-GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteUrlGenerator.class');
-
 /**
- * Rewrite URL generator helper tests
+ * Rewrite URL Generator Helper tests
  *
  * @package Rewrite
  * @subpackage PHPUnit
  */
+GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteUrlGenerator.class');
 class RewriteUrlGeneratorTest extends GalleryTestCase {
 
     function RewriteUrlGeneratorTest($methodName) {
@@ -46,14 +46,14 @@ class RewriteUrlGeneratorTest extends GalleryTestCase {
 	$ret = $this->_markPluginParametersForCleanup('module', 'rewrite');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'rewrite', 'shortUrls',
 	    serialize(array('php.Unit' => array('pattern' => 'p/%test%'))));
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$_SERVER['HTTP_HOST'] = 'example.com';
@@ -65,7 +65,7 @@ class RewriteUrlGeneratorTest extends GalleryTestCase {
 	$ret = $this->_urlGenerator->init('phpunit_test.php');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
 
@@ -85,7 +85,7 @@ class RewriteUrlGeneratorTest extends GalleryTestCase {
 	$urlGenerator = new RewriteUrlGenerator();
 	$ret = $urlGenerator->init('phpunit_test.php');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assert(!$urlGenerator->_error);

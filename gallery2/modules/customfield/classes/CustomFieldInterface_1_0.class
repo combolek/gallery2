@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: CustomFieldInterface_1_0.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.5 $ $Date: 2006/01/10 04:39:36 $
  * @package CustomField
  * @author Alan Harder <alan.harder@sun.com>
  */
@@ -41,7 +43,7 @@ class CustomFieldInterface_1_0 {
      *               array(string duplicate field names))
      */
     function createCustomFields($fieldNames, $containerId=0) {
-	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED),
+	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED, __FILE__, __LINE__),
 		     null);
     }
 
@@ -53,7 +55,7 @@ class CustomFieldInterface_1_0 {
      * @return object GalleryStatus a status code
      */
     function setCustomFieldValues($itemId, $data) {
-	return GalleryCoreApi::error(ERROR_UNIMPLEMENTED);
+	return GalleryCoreApi::error(ERROR_UNIMPLEMENTED, __FILE__, __LINE__);
     }
 }
 ?>

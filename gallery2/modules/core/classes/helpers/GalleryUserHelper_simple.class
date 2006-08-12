@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: GalleryUserHelper_simple.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.17 $ $Date: 2006/01/13 23:57:47 $
  * @package GalleryCore
  * @author Bharat Mediratta <bharat@menalto.com>
  */
@@ -38,7 +40,7 @@ class GalleryUserHelper_simple {
      *
      * @param int item id
      * @param string permission id
-     * @return object GalleryStatus success if the user has permission,
+     * @return object GalleryStatus success if the user is an administrator
      *                              ERROR_PERMISSION_DENIED if not.
      * @static
      */
@@ -48,7 +50,7 @@ class GalleryUserHelper_simple {
 	list ($ret, $hasPermission) =
 	    GalleryUserHelper_simple::hasItemPermission($itemId, $permission);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if (!$hasPermission) {
@@ -85,7 +87,7 @@ class GalleryUserHelper_simple {
 
 	list ($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds($permission, $userId);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (empty($aclIds)) {
 	    return array(null, false);
@@ -96,11 +98,24 @@ class GalleryUserHelper_simple {
 	 * TODO: We could get and cache the accessListId here, and then do a
 	 * hash lookup to see if it's in our valid aclid list.
 	 */
-	list ($ret, $searchResults) = GalleryCoreApi::getMapEntry('GalleryAccessSubscriberMap',
-	    array('itemId'), array('itemId' => (int)$itemId, 'accessListId' => $aclIds),
-	    array('limit' => array('count' => 1)));
+	$query = sprintf('
+	SELECT
+	  [GalleryAccessSubscriberMap::itemId]
+	FROM
+	  [GalleryAccessSubscriberMap]
+	WHERE
+	  [GalleryAccessSubscriberMap::itemId] = ?
+	  AND
+	  [GalleryAccessSubscriberMap::accessListId] IN (%s)
+	', $aclMarkers);
+
+	$data = array((int)$itemId);
+	$data = array_merge($data, $aclIds);
+
+	list($ret, $searchResults) =
+	    $gallery->search($query, $data, array('limit' => array('count' => 1)));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$hasPermission = ($searchResults->resultCount() > 0);

@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: Callbacks.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.4 $ $Date: 2006/02/19 11:17:41 $
  * @package Rss
  * @author Pierre-Luc Paour
  */
@@ -35,12 +37,10 @@ class RssCallbacks {
 		/* we're called during preload, so we have to find the params another way */
 		$blocks = $smarty->_tpl_vars['theme']['params']['sidebarBlocks'];
 
-		if (isset($blocks)) {
-		    foreach ($blocks as $block) {
-			if ($block[0] == 'rss.RssBlock') {
-			    $params = $block[1];
-			    break;
-			}
+		foreach ($blocks as $block) {
+		    if ($block[0] == 'rss.RssBlock') {
+			$params = $block[1];
+			break;
 		    }
 		}
 
@@ -54,7 +54,7 @@ class RssCallbacks {
 	    if (!isset($feeds)) {
 		list($ret, $feeds) = RssMapHelper::fetchFeedNames((int) $params['number']);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 
@@ -65,7 +65,7 @@ class RssCallbacks {
 	    return null;
 	}
 
-	return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
+	return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
     }
 }
 ?>

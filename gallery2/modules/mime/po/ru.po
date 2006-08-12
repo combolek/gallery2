@@ -1,4 +1,4 @@
-# $Id$
+# $Id: ru.po,v 1.6 2006/03/22 04:20:01 mindless Exp $
 #
 # Gallery - a web based photo album viewer and editor
 # Copyright (C) 2000-2006 Bharat Mediratta
@@ -22,7 +22,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: MIME Maintenance 1.1.0\n"
+"Project-Id-Version: Gallery: MIME Maintenance 1.0.3\n"
 "POT-Creation-Date: 2003-10-19 05:10+0200\n"
 "PO-Revision-Date: 2006-03-17 13:11+0300\n"
 "Last-Translator: Konstantin Ivanov <Continental@vollen.ru>\n"
@@ -33,9 +33,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Language: Russian\n"
 "X-Poedit-Country: RUSSIAN FEDERATION\n"
-
-msgid "This type of file not allowed; item will not be added."
-msgstr ""
 
 msgid "MIME Maintenance"
 msgstr "Поддержка MIME "
@@ -49,33 +46,11 @@ msgstr "Дополнительные Данные"
 msgid "MIME Types"
 msgstr "MIME Типы"
 
-#, fuzzy
-msgid "Settings saved successfully"
-msgstr "Записи MIME успешно сохранены"
-
 msgid "MIME entry saved successfully"
 msgstr "Записи MIME успешно сохранены"
 
 msgid "MIME entry deleted"
 msgstr "Записи MIME удалены"
-
-msgid "Allow all uploads"
-msgstr ""
-
-msgid "Block upload of types selected below"
-msgstr ""
-
-msgid "Only allow uploads of types selected below"
-msgstr ""
-
-msgid "Save"
-msgstr "Сохранить"
-
-msgid "Reset"
-msgstr ""
-
-msgid "Add new MIME type"
-msgstr "Добавить новый MIME тип"
 
 msgid "Extensions"
 msgstr "Расширения"
@@ -92,11 +67,8 @@ msgstr "редактировать"
 msgid "delete"
 msgstr "удалить"
 
-msgid "Allow Upload"
-msgstr ""
-
-msgid "Block Upload"
-msgstr ""
+msgid "Add new MIME type"
+msgstr "Добавить новый MIME тип"
 
 #, c-format
 msgid "Edit MIME type: %s"
@@ -123,17 +95,16 @@ msgstr "Это расширение уже используется и не мо
 msgid "You must specify at least one extension."
 msgstr "Вы должны указать по крайней мере одно расширение."
 
+msgid "Save"
+msgstr "Сохранить"
+
 msgid "Apply"
 msgstr "Применить"
 
 msgid "Cancel"
 msgstr "Отменить"
 
-#, fuzzy, c-format
-msgid ""
-"Warning: Adding and allowing upload of any of the following mime types could leave you open "
-"to %sCross Site Scripting%s security vulnerabilities."
-msgstr ""
-"Предупреждение: Добавление любого из следующих mime-типов может привести к открытию доступа %"
-"sМежсайтового исполнения сценариев%s, что является одной из уязвимостей, уменьшающей степень "
-"защиты."
+#, c-format
+msgid "Warning: Adding any of the following mime types could leave you open to %sCross Site Scripting%s security vulnerabilities."
+msgstr "Предупреждение: Добавление любого из следующих mime-типов может привести к открытию доступа %sМежсайтового исполнения сценариев%s, что является одной из уязвимостей, уменьшающей степень защиты."
+

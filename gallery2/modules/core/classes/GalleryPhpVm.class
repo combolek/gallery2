@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: GalleryPhpVm.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.14 $ $Date: 2006/01/31 03:28:13 $
  * @package GalleryCore
  * @author Bharat Mediratta <bharat@menalto.com>
  */
@@ -207,20 +209,6 @@ class GalleryPhpVm {
      */
     function getAllHeaders() {
 	return getallheaders();
-    }
-
-    /**
-     * Send mail
-     *
-     * @param string to
-     * @param string subject
-     * @param string message
-     * @param string addition headers (optional)
-     * @param string additional parameters (optional)
-     * @return bool true if the mail was successfully accepted for delivery
-     */
-    function mail($to, $subject, $message, $additionalHeaders=null, $additionalParameters=null) {
-	return mail($to, $subject, $message, $additionalHeaders, $additionalParameters);
     }
 }
 ?>

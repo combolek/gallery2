@@ -328,10 +328,6 @@ table.gbDataTable th {
     background-color: #fff;
 }
 
-.gbBusy {
-    background-color: #78D478 !important;
-}
-
 .gbOdd {
     background-color: #eee;
 }
@@ -383,39 +379,26 @@ div.gbTabBar span.o {
     background-image: url('../matrix/images/tab_right_on.jpg');
 }
 
-.autoCompleteShadow {
-    position: absolute;
-    margin: .3em;
-    z-index: 5;
-    background: #a0a0a0;
+.autoCompleteBackground {
+    border: 1px solid #ccc;
+    border-top-style: none;
+    margin: 0;
 }
 
-.autoCompleteContainer {
-    position: relative;
-    bottom: 4px;
-    right: 4px;
-    border: 1px solid #404040;
-    background: #fff;
-    overflow: hidden;
-    display: none;
+.autoCompleteHighlight {
+    text-decoration: underline;
 }
 
-.autoCompleteContainer ul {
-    position: relative;
-    padding: 5px 0;
-    list-style: none;
+.autoCompleteNotSelected {
+    background-color: #eee;
+    padding: 3px 4px 3px 17px;
 }
 
-.autoCompleteContainer li {
-    padding: 0 5px;
-    cursor: default;
-    white-space: nowrap;
-    display: list-item;
+.autoCompleteSelected {
+    background-color: #ffc;
+    padding: 3px 4px 3px 17px;
 }
 
-.autoCompleteContainer li.highlight {
-    background: #eee;
-}
 
 #gallery .gbMarkupBar input {
     font-size: 1.1em;
@@ -435,30 +418,6 @@ div.gbTabBar span.o {
 .giSearchHighlight {
     font-weight: bold;
     background-color: #ff6;
-}
-
-
-#gbPluginStatusUpdates {
-  position: absolute;
-  font-size: 1.5em;
-  display: none;
-  background: #999;
-}
-
-#gbPluginStatusUpdates div.giSuccess {
-  background: #5c0;
-  color: white;
-  padding: 15px;
-  width: 350px;
-  text-align: center;
-}
-
-#gbPluginStatusUpdates div.giWarning {
-  background: #c50;
-  color: white;
-  padding: 15px;
-  width: 350px;
-  text-align: center;
 }
 
 
@@ -518,22 +477,22 @@ div.gbNavigator div.next-and-last.no-previous {
 
 div.gbNavigator a.first {
   padding-left: 27px;
-  background: url('images/nav_first.gif') left no-repeat;
+  background: url("images/nav_first.gif") left no-repeat;
 }
 
 div.gbNavigator a.previous {
   padding-left: 27px;
-  background: url('images/nav_prev.gif') left no-repeat;
+  background: url("images/nav_prev.gif") left no-repeat;
 }
 
 div.gbNavigator a.next {
   padding-right: 27px;
-  background: url('images/nav_next.gif') right no-repeat;
+  background: url("images/nav_next.gif") right no-repeat;
 }
 
 div.gbNavigator a.last {
   padding-right: 27px;
-  background: url('images/nav_last.gif') right no-repeat;
+  background: url("images/nav_last.gif") right no-repeat;
 }
 
 div.gbNavigator div.first-and-previous img {
@@ -565,19 +524,19 @@ div.gbNavigator div.next-and-last img {
 
 #gallery.rtl div.gbNavigator a.first {
   padding: 0 27px 0 0;
-  background: url('images/nav_last.gif') right no-repeat;
+  background: url("images/nav_last.gif") right no-repeat;
 }
 #gallery.rtl div.gbNavigator a.previous {
   padding: 0 27px 0 0;
-  background: url('images/nav_next.gif') right no-repeat;
+  background: url("images/nav_next.gif") right no-repeat;
 }
 #gallery.rtl div.gbNavigator a.next {
   padding: 0 0 0 27px;
-  background: url('images/nav_prev.gif') left no-repeat;
+  background: url("images/nav_prev.gif") left no-repeat;
 }
 #gallery.rtl div.gbNavigator a.last {
   padding: 0 0 0 27px;
-  background: url('images/nav_first.gif') left no-repeat;
+  background: url("images/nav_first.gif") left no-repeat;
 }
 #gallery.rtl div.gbNavigator div.first-and-previous img {
   padding: 0 0 0 0.5em;
@@ -700,4 +659,3 @@ td.bsw_BlockCommands {
 #gsThumbMatrix .giRatingAverageContainer {
     margin: auto;
 }
-

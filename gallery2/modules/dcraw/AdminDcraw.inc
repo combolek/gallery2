@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: AdminDcraw.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.8 $ $Date: 2006/01/17 01:52:01 $
  * @package Dcraw
  * @author Bharat Mediratta <bharat@menalto.com>
  */
@@ -37,7 +39,7 @@ class AdminDcrawController extends GalleryController {
     function handleRequest($form) {
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$error = $status = array();
@@ -52,7 +54,7 @@ class AdminDcrawController extends GalleryController {
 		    if ($ret->getErrorCode() & ERROR_BAD_PATH) {
 			$error[] = 'form[error][path][badPath]';
 		    } else {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		} else {
 		    $failCount = 0;
@@ -75,17 +77,17 @@ class AdminDcrawController extends GalleryController {
 			 as $key => $value) {
 		    $ret = GalleryCoreApi::setPluginParameter('module', 'dcraw', $key, $value);
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		}
 
 		list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'dcraw');
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		list ($ret, $isActive) = $module->isActive();
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		$redirect['view'] = 'core.SiteAdmin';
@@ -93,7 +95,7 @@ class AdminDcrawController extends GalleryController {
 		    $redirect['subView'] = 'dcraw.AdminDcraw';
 		    $status['saved'] = 1;
 		} else {
-		    $redirect['subView'] = 'core.AdminPlugins';
+		    $redirect['subView'] = 'core.AdminModules';
 		    $status['configured'] = 'dcraw';
 		}
 	    }
@@ -102,7 +104,7 @@ class AdminDcrawController extends GalleryController {
 	    $redirect['subView'] = 'dcraw.AdminDcraw';
 	} else if (isset($form['action']['cancel'])) {
 	    $redirect['view'] = 'core.SiteAdmin';
-	    $redirect['subView'] = 'core.AdminPlugins';
+	    $redirect['subView'] = 'core.AdminModules';
 	}
 
 	if (!empty($redirect)) {
@@ -132,7 +134,7 @@ class AdminDcrawView extends GalleryView {
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Load our default values if we didn't just come from this form. */
@@ -142,7 +144,7 @@ class AdminDcrawView extends GalleryView {
 	    list ($ret, $form['path']) =
 		GalleryCoreApi::getPluginParameter('module', 'dcraw', 'path');
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
@@ -163,7 +165,7 @@ class AdminDcrawView extends GalleryView {
 			$testResults = array();
 			$form['error']['path']['bad'] = 1;
 		    } else {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		} else {
 		    $success = true;
@@ -184,11 +186,11 @@ class AdminDcrawView extends GalleryView {
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'dcraw');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $isActive) = $module->isActive();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$AdminDcraw = array();

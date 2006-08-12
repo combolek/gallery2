@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: MailHelper_simple.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.8 $ $Date: 2006/01/10 04:39:23 $
  * @package GalleryCore
  * @author Jay Rossiter <cryptographite@users.sf.net>
  */
@@ -54,14 +56,12 @@ class MailHelper_simple {
 	    $template->setVariable($key, $value);
 	}
 
-	/* Default translation domain if none given */
-	if (!isset($data['l10Domain'])) {
-	    $template->setVariable('l10Domain', 'modules_core');
-	}
+	/* Set the translation domain */
+	$template->setVariable('l10Domain', 'modules_core');
 
 	list($ret, $emailText) = $template->fetch('gallery:' . $file);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* If no from address is given, try and get the SMTP from address */
@@ -69,7 +69,7 @@ class MailHelper_simple {
 	    list ($ret, $smtpFrom) =
 		GalleryCoreApi::getPluginParameter('module', 'core', 'smtp.from');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    if (!empty($smtpFrom)) {
@@ -93,9 +93,6 @@ class MailHelper_simple {
 	if (strpos(strtolower($headers), 'content-type:') === false) {
 	    $headers = "Content-Type: text/plain; charset=\"utf-8\"\r\n" . $headers;
 	}
-
-	/* Add the date; not all mailers will do this for us */
-	$headers = 'Date: ' . date("r") . "\r\n" . $headers;
 
 	$platform =& $gallery->getPlatform();
 	foreach(explode(',', $to) as $mailTo) {

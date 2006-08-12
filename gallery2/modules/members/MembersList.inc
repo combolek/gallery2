@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: MembersList.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.15 $ $Date: 2006/01/10 04:40:36 $
  * @package Members
  * @subpackage UserInterface
  * @author Robert Balousek <rbalousek@hotmail.com>
@@ -42,7 +44,7 @@ class MembersListView extends GalleryView {
 	list ($ret, $result) =
 	    GalleryMembersHelper::canViewMembersModule($gallery->getActiveUserId());
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (!$result) {
 	    return array(null,
@@ -57,6 +59,18 @@ class MembersListView extends GalleryView {
 	    $MembersList = array();
 	}
 
+	/* Bring in the root album information for the breadcrumb */
+	list ($ret, $rootAlbumId) =
+	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+	list ($ret, $rootAlbum) = GalleryCoreApi::loadEntitiesById($rootAlbumId);
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+	$MembersList['rootAlbum'] = (array)$rootAlbum;
+
 	if (!isset($form['list']['page']) || $form['list']['page'] < 1) {
 	    $form['list']['page'] = 1;
 	}
@@ -64,13 +78,13 @@ class MembersListView extends GalleryView {
 	list ($ret, $groupId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.allUserGroup');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Fetch the user count every time we reload */
 	list ($ret, $totalUserCount) = GalleryCoreApi::fetchUserCount(null, $groupId);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$form['list']['count'] = $totalUserCount;
@@ -91,12 +105,12 @@ class MembersListView extends GalleryView {
 								     $form['list']['pageSize'],
 								     $form['list']['startingUser']);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $users) = GalleryCoreApi::loadEntitiesById(array_keys($userNames));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$MembersList['users'] = array();
@@ -111,7 +125,7 @@ class MembersListView extends GalleryView {
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'members');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$template->title($module->translate('Members List'));

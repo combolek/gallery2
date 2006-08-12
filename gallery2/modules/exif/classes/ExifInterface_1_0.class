@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ExifInterface_1_0.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.7 $ $Date: 2006/01/10 04:39:49 $
  * @package Exif
  * @author Alan Harder <alan.harder@sun.com>
  */
@@ -42,7 +44,7 @@ class ExifInterface_1_0 {
      *               array( id => array(property=>value,...) ))
      */
     function getMetaData($itemIds, $properties=array()) {
-	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED),
+	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED, __FILE__, __LINE__),
 		     null);
     }
 }

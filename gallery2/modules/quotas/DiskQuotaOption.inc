@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: DiskQuotaOption.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.7 $ $Date: 2006/01/13 03:39:48 $
  * @package Quotas
  * @subpackage UserInterface
  * @author Robert Balousek <volksport@users.sf.net>
@@ -54,24 +56,24 @@ class DiskQuotaOption extends ItemAddOption {
         list ($ret, $quotaExists, $userDiskQuota) =
             GalleryQuotasHelper::getUserDiskQuota($gallery->getActiveUserId());
         if ($ret) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
         }
 
         /* if user has a quota */
 	if ($quotaExists) {
 	    $excludedIds = array();
-	    foreach ($items as $item) {
-		$excludedIds[] = $item->getId();
+	    for ($j = 0; $j < count($items); $j++) {
+		$excludedIds[] = $items[$j]->getId();
 	    }
 	    list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'quotas');
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
-	    foreach ($items as $i => $item) {
+	    for ($i = 0; $i < count($items); $i++) {
 		$warnings[$i] = array();
 
 		/* we should come here only if we are adding a data item, not sub-album */
-		$albumId = $item->getParentId();
+		$albumId = $items[$i]->getParentId();
 
 		/* calculate the item ids of the newly added items */
 		array_shift($excludedIds);
@@ -80,7 +82,7 @@ class DiskQuotaOption extends ItemAddOption {
 		list ($ret, $userDiskUsage) = GalleryQuotasHelper::getUserDiskUsage(
 		    $gallery->getActiveUserId(), $excludedIds);
 		if ($ret) {
-		    return array($ret, null, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 
 		/* make disk usage into KB */
@@ -90,7 +92,7 @@ class DiskQuotaOption extends ItemAddOption {
 		    list ($ret, $userDiskQuotaHumanReadable, $userDiskQuotaHumanReadableUnit) =
 			GalleryQuotasHelper::humanReadableFromKilobytes($userDiskQuota);
 		    if ($ret) {
-			return array($ret, null, null);
+			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 		    $warnings[$i][] = $module->translate(
 			array('text' => 'Warning: You have reached your disk quota (%s %s), ' .
@@ -99,17 +101,17 @@ class DiskQuotaOption extends ItemAddOption {
 			      'arg2' => $userDiskQuotaHumanReadableUnit));
 
 		    $gallery->addShutdownAction(
-			array('GalleryCoreApi', 'deleteEntityById'), array($item->getId()));
+			array('GalleryCoreApi', 'deleteEntityById'), array($items[$i]->getId()));
 		} else {
-		    list ($ret, $userDiskQuotaHumanReadable, $userDiskQuotaHumanReadableUnit) =
+		    list ($ret, $userDiskQuotaHumanReadable, $userDiskQuotaHumanReadableUnit) = 
 			GalleryQuotasHelper::humanReadableFromKilobytes($userDiskQuota);
 		    if ($ret) {
-			return array($ret, null, null);
+			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
-		    list ($ret, $userDiskUsageHumanReadable, $userDiskUsageHumanReadableUnit) =
+		    list ($ret, $userDiskUsageHumanReadable, $userDiskUsageHumanReadableUnit) = 
 			GalleryQuotasHelper::humanReadableFromKilobytes($userDiskUsage);
 		    if ($ret) {
-			return array($ret, null, null);
+			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 
 		    $warnings[$i][] = $module->translate(
@@ -123,5 +125,6 @@ class DiskQuotaOption extends ItemAddOption {
         }
 	return array(null, $errors, $warnings);
     }
+
 }
 ?>

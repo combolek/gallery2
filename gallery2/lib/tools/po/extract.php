@@ -1,6 +1,8 @@
 #!/usr/bin/php -f
 <?php
 /*
+ * $RCSfile: extract.php,v $
+ *
  * PHP script to extract strings from all the files and print
  * to stdout for use with xgettext.
  *
@@ -23,7 +25,7 @@
  *
  * Copyright 2002-2006 Bharat Mediratta <bharat@menalto.com>
  *
- * $Id$
+ * $Id: extract.php,v 1.21 2006/02/27 21:44:21 mindless Exp $
  */
 
 if (!empty($_SERVER['SERVER_NAME'])) {
@@ -103,7 +105,14 @@ function extractStrings($filename) {
     $strings["\n/* $filename */"] = array();
     $startSize = count($strings);
     $localStrings = array();
-    $data = file_get_contents($filename);
+    if (function_exists('file_get_contents')) {
+	$data = file_get_contents($filename);
+    } else {
+	$fd = fopen($filename, 'r');
+	$fileSize = filesize($filename);
+	$data = $fileSize == 0 ? '' : fread($fd, $fileSize);
+	fclose($fd);
+    }
 
     /*
      * grab phrases for translate( or i18n( or _( calls; capture string parameter enclosed

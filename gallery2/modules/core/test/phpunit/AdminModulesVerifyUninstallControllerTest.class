@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: AdminModulesVerifyUninstallControllerTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.8 $ $Date: 2006/03/06 18:42:07 $
  * @package GalleryCore
  * @subpackage PHPUnit
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -56,7 +58,7 @@ class AdminModulesVerifyUninstallControllerTest extends GalleryControllerTestCas
 
 	$results = $this->handleRequest();
 	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'core.AdminPlugins'),
+						      'subView' => 'core.AdminModules'),
 				  'status' => array('uninstalled' =>
 						    'AdminModulesVerifyUninstall Controller Test'),
 				  'error' => array()),
@@ -64,7 +66,7 @@ class AdminModulesVerifyUninstallControllerTest extends GalleryControllerTestCas
 	$this->assert($this->_testModule->wasCalled('uninstall'), 'uninstall not called');
     }
 
-    /* Uninstall a module that is active */
+    /* Uninstall a module that is active (should fail silently) */
     function testUninstallActiveModule() {
 	GalleryUtilities::putRequestVariable('moduleId',
 					     'AdminModulesVerifyUninstallControllerTest');
@@ -72,30 +74,11 @@ class AdminModulesVerifyUninstallControllerTest extends GalleryControllerTestCas
 	$this->_testModule->_isActive = true;
 
 	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'core.AdminPlugins'),
-				  'status' => array('uninstalled' =>
-						    'AdminModulesVerifyUninstall Controller Test'),
-				  'error' => array()),
-			    $results);
-	$this->assert($this->_testModule->wasCalled('deactivate'), 'deactivate not called');
-	$this->assert($this->_testModule->wasCalled('uninstall'), 'uninstall not called');
-    }
-
-    /* Uninstall a module that can't be deactived (should fail with a redirect) */
-    function testUninstallModuleThatCantBeDeactivated() {
-	GalleryUtilities::putRequestVariable('moduleId',
-					     'AdminModulesVerifyUninstallControllerTest');
-	GalleryUtilities::putRequestVariable('form[action][uninstall]', '1');
-	$this->_testModule->_isActive = true;
-	$this->_testModule->_deactivate = array(null, array('view' => 'some.Error'));
-
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'some.Error'),
+	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin',
+						      'subView' => 'core.AdminModules'),
 				  'status' => array(),
 				  'error' => array()),
 			    $results);
-	$this->assert($this->_testModule->wasCalled('deactivate'), 'deactivate not called');
 	$this->assert(!$this->_testModule->wasCalled('uninstall'), 'uninstall called');
     }
 }
@@ -133,17 +116,6 @@ class AdminModulesVerifyUninstallControllerTestModule {
     function uninstall() {
 	$this->_setCalled('uninstall');
 	return null;
-    }
-
-    function deactivate() {
-	$this->_setCalled('deactivate');
-	$singleton =& $this->getSingleton();
-	if (isset($singleton->_deactivate)) {
-	    list ($ret, $result) = $singleton->_deactivate;
-	    return array($ret, $result);
-	} else {
-	    return array(null, array());
-	}
     }
 
     function _setCalled($function) {

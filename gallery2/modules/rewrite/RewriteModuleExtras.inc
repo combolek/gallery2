@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: RewriteModuleExtras.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 /**
  * @package Rewrite
- * @version $Revision$ $Date$
+ * @version $Revision: 1.38 $ $Date: 2006/03/22 03:52:35 $
  * @author Douglas Cau <douglas@cau.se>
  */
 
@@ -53,7 +55,7 @@ class RewriteModuleExtras {
 		     as $key => $value) {
 		$ret = $module->setParameter($key, $value);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	    break;
@@ -79,21 +81,21 @@ class RewriteModuleExtras {
 	case '0.9.0':
 	case '0.9.1':
 	case '0.9.2':
-	    /* Reset Gallery location, needs to be reconfigured */
+	    /* Reset Gallery location, needs to be reconfigured. */
 	    foreach (array('galleryLocation' => '',
 			   'embeddedLocation' => '',
 			   'embeddedHtaccess' => '')
 		     as $key => $value) {
 		$ret = $module->setParameter($key, $value);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 
 	    /* The module needs to be reconfigured */
 	    list ($ret) = $module->deactivate();
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	case '0.9.3':
@@ -102,15 +104,15 @@ class RewriteModuleExtras {
 		     as $key => $value) {
 		$ret = $module->setParameter($key, $value);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 
 	case '0.9.5':
 	    /*
-	     * Previously we changed all module:View names to module.View.  Since we no longer store
-	     * view names in the active rules list, and the old table is deleted in version 1.1.0 we
-	     * no longer need to do this.
+	     * Previously we changed all module:View names to module.View. Since we no longer
+	     * store view names in the active rules list, and the old table is deleted in version
+	     * 1.1.0 we no longer need to do this.
 	     */
 
 	case '0.9.6':
@@ -122,7 +124,7 @@ class RewriteModuleExtras {
 		     as $key => $value) {
 		$ret = $module->setParameter($key, $value);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 
@@ -150,15 +152,15 @@ class RewriteModuleExtras {
 	    ';
 
 	    /*
-	     * If this is an upgrade from beta 2 we dont have a RewriteMap.  Previous to 0.9.3 rules
-	     * were static, therefore leave $activeRules empty.  It'll get populated with the
-	     * default rules when activate() is called.
+	     * If this is an upgrade from Beta 2 we dont have a RewriteMap. Previous to 0.9.3
+	     * rules were static, therefore leave $activeRules empty. It'll get populated
+	     * with the default rules when activate() is called.
 	     */
 	    $activeRules = array();
 	    if (version_compare($currentVersion, '0.9.3', '>=')) {
 		list ($ret, $searchResults) = $gallery->search($query);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
 		while ($result = $searchResults->nextResult()) {
@@ -185,7 +187,7 @@ class RewriteModuleExtras {
 		     as $key) {
 		list ($ret, $value) = $module->getParameter($key);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
 		$params['modrewrite.' . $key] = $value;
@@ -193,21 +195,21 @@ class RewriteModuleExtras {
 
 	    list ($ret, $value) = $module->getParameter('accessList');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $params['accessList'] = $value;
 
 	    /* Cleanup: Remove all old params */
 	    $ret = GalleryCoreApi::removeAllPluginParameters('module', $module->getId());
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    /* Set the new params */
 	    foreach ($params as $key => $value) {
 		$ret = $module->setParameter($key, $value);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 
@@ -217,14 +219,7 @@ class RewriteModuleExtras {
 	    /* GalleryCoreApi 7.0 and GalleryModule 3.0 */
 	case '1.1.2':
 	case '1.1.3':
-	case '1.1.4':
-	case '1.1.5':
-	    /*
-	     * Support rewrite rules with 'match' => array('controller' => 'webdav.WebDav').  Check
-	     * if 'match' is subset of URL params, instead of indexing by "$view|$subView".  Means
-	     * adding 'match' to $shortUrls.
-	     */
-
+	    
 	case 'end of upgrade path':
 	    break;
 
@@ -241,31 +236,31 @@ class RewriteModuleExtras {
      */
     function handleDeactivatePlugin($module, $pluginId) {
 	list ($ret, $activeRules) = $module->getParameter('activeRules');
-	if ($ret) {
-	    return $ret;
+    	if ($ret) {
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$activeRules = unserialize($activeRules);
 
 	/* Don't update the rules if not necissary */
 	if (isset($activeRules[$pluginId])) {
-	    GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
+    	    GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
 	    list ($ret, $rewriteParser) = RewriteHelper::getRewriteParser();
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    /* Save the old patterns for later use if module gets reactivated */
 	    $ret = $module->setParameter('history.' . $pluginId,
 		serialize($activeRules[$pluginId]));
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    unset($activeRules[$pluginId]);
 
 	    /* Try to activate the new rules */
 	    list ($ret) = $rewriteParser->saveActiveRules($activeRules, $module);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
@@ -278,7 +273,7 @@ class RewriteModuleExtras {
     function handleUninstallPlugin($module, $pluginId) {
 	$ret = $module->removeParameter('history.' . $pluginId);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -291,27 +286,27 @@ class RewriteModuleExtras {
 	/* Get saved patterns */
 	list ($ret, $plugin) = GalleryCoreApi::loadPlugin('module', $pluginId);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$rules = $plugin->getRewriteRules();
 
 	list ($ret, $history) = $module->getParameter('history.' . $pluginId);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$ret = $module->removeParameter('history.' . $pluginId);
 	if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if (!empty($history)) {
 	    $history = unserialize($history);
 	    list ($ret, $activeRules) = $module->getParameter('activeRules');
-	    if ($ret) {
-		return $ret;
+    	    if ($ret) {
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $activeRules = unserialize($activeRules);
-	    $originalSize = count($activeRules);
+	    $originalSize = sizeof($activeRules);
 
 	    $seen = array();
 	    foreach (array_keys($activeRules) as $moduleId) {
@@ -328,16 +323,16 @@ class RewriteModuleExtras {
 	    }
 
 	    /* Only update the active rules if we added something */
-	    if (count($activeRules) > $originalSize) {
+	    if (sizeof($activeRules) > $originalSize) {
 		GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
 		list ($ret, $rewriteParser) = RewriteHelper::getRewriteParser();
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
 		list ($ret) = $rewriteParser->saveActiveRules($activeRules, $module);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	}

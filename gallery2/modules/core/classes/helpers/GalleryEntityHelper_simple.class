@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: GalleryEntityHelper_simple.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.15 $ $Date: 2006/01/12 12:03:05 $
  * @package GalleryCore
  * @author Bharat Mediratta <bharat@menalto.com>
  */
@@ -45,7 +47,7 @@ class GalleryEntityHelper_simple {
 	$gallery->guaranteeTimeLimit(5);
 
 	if (empty($ids)) {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	}
 
 	if (is_array($ids)) {
@@ -79,7 +81,7 @@ class GalleryEntityHelper_simple {
 	    /* Load the entities from our persistent store */
 	    list ($ret, $missing) = $storage->loadEntities($missing);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
@@ -88,7 +90,7 @@ class GalleryEntityHelper_simple {
 	    $id = $entity->getId();
 	    list ($ret, $classFile) = $entity->getClassFile();
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    GalleryDataCache::putToDisk(array('type' => 'entity', 'itemId' => $id),
 					$entity, array($classFile));
@@ -99,7 +101,7 @@ class GalleryEntityHelper_simple {
 	foreach ($onLoad as $id) {
 	    $ret = $cached[$id]->onLoad();
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    GalleryDataCache::put("GalleryEntityHelper::loadEntitiesById($id)", $cached[$id]);
 	}
@@ -129,10 +131,11 @@ class GalleryEntityHelper_simple {
     function loadEntityByExternalId($externalId, $entityType) {
 	global $gallery;
 
-	list ($ret, $results) = GalleryCoreApi::getMapEntry('ExternalIdMap',
-	    array('entityId'), array('externalId' => $externalId, 'entityType' => $entityType));
+	$query = 'SELECT [ExternalIdMap::entityId] FROM [ExternalIdMap] ' .
+		 'WHERE [ExternalIdMap::externalId] = ? AND [ExternalIdMap::entityType] = ?';
+	list ($ret, $results) = $gallery->search($query, array($externalId, $entityType));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (!($result = $results->nextResult())) {
 	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__,
@@ -141,7 +144,7 @@ class GalleryEntityHelper_simple {
 
 	list ($ret, $entity) = GalleryEntityHelper_simple::loadEntitiesById($result[0]);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, $entity);

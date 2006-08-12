@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: MockLockSystem.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.1 $ $Date: 2005/10/11 01:43:39 $
  * @package Picasa
  * @author Waldemar Schlackow <waldemar@opencodes.org>
  */
@@ -88,7 +90,7 @@ class MockLockSystem extends GalleryLockSystem {
     function refreshLocks($freshUntil) {
 	return null;
     }
-
+    
     /**
      * Return the ids of all the locks we hold
      *
@@ -96,7 +98,7 @@ class MockLockSystem extends GalleryLockSystem {
      */
     function getLockIds() {
         return array();
-    }
+    }    
 
 }
 ?>

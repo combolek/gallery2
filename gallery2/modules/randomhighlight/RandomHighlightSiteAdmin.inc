@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: RandomHighlightSiteAdmin.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.6 $ $Date: 2006/01/17 01:52:03 $
  * @package RandomHighlight
  * @author Alan Harder <alan.harder@sun.com>
  */
@@ -35,7 +37,7 @@ class RandomHighlightSiteAdminController extends GalleryController {
     function handleRequest($form) {
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$status = $error = array();
@@ -50,7 +52,7 @@ class RandomHighlightSiteAdminController extends GalleryController {
 		$ret = GalleryCoreApi::setPluginParameter(
 		    'module', 'randomhighlight', 'duration', round($form['duration'] * 60));
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		$status['saved'] = 1;
 	    }
@@ -79,7 +81,7 @@ class RandomHighlightSiteAdminView extends GalleryView {
     function loadTemplate(&$template, &$form) {
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if ($form['formName'] != 'RandomHighlightSiteAdmin') {
@@ -87,7 +89,7 @@ class RandomHighlightSiteAdminView extends GalleryView {
 	    list ($ret, $duration) =
 		GalleryCoreApi::getPluginParameter('module', 'randomhighlight', 'duration');
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    /* String conversion here may use comma as fraction separator, based on locale */
 	    $form['duration'] = (string)round($duration / 60, 2);

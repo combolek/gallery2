@@ -1,5 +1,5 @@
 {*
- * $Revision$
+ * $Revision: 1.4 $
  * If you want to customize this file, do not edit it directly since future upgrades
  * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
  * version.  Gallery will look for that file first and use it if it exists.
@@ -40,7 +40,7 @@
           {g->block type="core.Navigator" navigator=$theme.navigator reverseOrder=true}
         </div>
         {/if}
-
+        
         <div id="gsImageViewContainer" style="width: {$image.width}px">
           <div id="gsImageView" class="gbBlock">
             {if !empty($theme.imageViews)}
@@ -50,21 +50,9 @@
                 {g->text text="Download %s" arg1=$theme.sourceImage.itemTypeName.1}
               </a>
               {/capture}
-
-	      {if $image.viewInline}
-		{if count($theme.imageViews) > 1}
-		  {if $theme.imageViewsIndex==1 && count($theme.imageViews)==2}
-		    <a href="{g->url params=$theme.pageUrl arg1="itemId=`$theme.item.id`"}">
-		  {else}
-		    {assign var="imageViewsLink" value=$theme.imageViewsIndex+1}
-		    {if $imageViewsLink==count($theme.imageViews)}
-		      {assign var="imageViewsLink" value=$theme.imageViewsIndex-1}
-		    {/if}
-		    <a href="{g->url params=$theme.pageUrl arg1="itemId=`$theme.item.id`"
-				     arg2="imageViewsIndex=`$imageViewsLink`"}">
-		  {/if}
-		{/if}
-		{if isset($theme.photoFrame)}
+    
+              {if ($image.viewInline)}
+                {if isset($theme.photoFrame)}
                   {g->container type="imageframe.ImageFrame" frame=$theme.photoFrame
                                 width=$image.width height=$image.height}
                     {g->image id="%ID%" item=$theme.item image=$image
@@ -73,9 +61,6 @@
                 {else}
                   {g->image item=$theme.item image=$image fallback=$smarty.capture.fallback}
                 {/if}
-	        {if count($theme.imageViews) > 1}
-		  </a>
-		{/if}
               {else}
                 {$smarty.capture.fallback}
               {/if}
@@ -92,13 +77,13 @@
             </a>
           </div>
           {/if}
-
+    
           {* Show any other photo blocks (comments, exif etc) *}
           {foreach from=$theme.params.photoBlocks item=block}
             {g->block type=$block.0 params=$block.1}
           {/foreach}
         </div>
-
+        
         {if !empty($theme.navigator)}
         <div class="gbBlock gcBackground2 gbNavigator">
           {g->block type="core.Navigator" navigator=$theme.navigator reverseOrder=true}
@@ -107,7 +92,7 @@
 
         {g->block type="core.GuestPreview" class="gbBlock"}
 
-        {* Our emergency edit link, if the user removes all blocks containing edit links *}
+        {* Our emergency edit link, if the user all blocks containing edit links *}
         {g->block type="core.EmergencyEditItemLink" class="gbBlock"
                 checkSidebarBlocks=true
                 checkPhotoBlocks=true}

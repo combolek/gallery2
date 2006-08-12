@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: AdminNetPbm.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.49 $ $Date: 2006/01/17 01:52:02 $
  * @package NetPbm
  * @author Bharat Mediratta <bharat@menalto.com>
  */
@@ -39,7 +41,7 @@ class AdminNetPbmController extends GalleryController {
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$status = $error = array();
@@ -65,7 +67,7 @@ class AdminNetPbmController extends GalleryController {
 		    if ($ret->getErrorCode() & ERROR_BAD_PATH) {
 			$error[] = 'form[error][path][badPath]';
 		    } else {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		} else if (empty($mimeTypes)) {
 		    /* At least one mime type must be supported, else this path is invalid */
@@ -80,7 +82,7 @@ class AdminNetPbmController extends GalleryController {
 		    if ($ret->getErrorCode() & ERROR_BAD_PATH) {
 			$error[] = 'form[error][jheadPath][badPath]';
 		    } else {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		} else {
 		    $successCount = 0;
@@ -97,14 +99,14 @@ class AdminNetPbmController extends GalleryController {
 		$ret = GalleryCoreApi::setPluginParameter(
 		    'module', 'netpbm', 'path', $form['path']);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		/* Set the image quality */
 		$ret = GalleryCoreApi::setPluginParameter(
 		    'module', 'netpbm', 'jpegQuality', $form['jpegQuality']);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		/* Set the jhead binary name */
@@ -112,22 +114,22 @@ class AdminNetPbmController extends GalleryController {
 		$ret = GalleryCoreApi::setPluginParameter(
 		    'module', 'netpbm', 'jheadPath', $jheadPath);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		/* Save binaries to use for this netpbm path */
 		$ret = NetPbmToolkitHelper::saveParameters($testResults);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'netpbm');
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		list ($ret, $isActive) = $module->isActive();
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		$redirect['view'] = 'core.SiteAdmin';
@@ -135,7 +137,7 @@ class AdminNetPbmController extends GalleryController {
 		    $redirect['subView'] = 'netpbm.AdminNetPbm';
 		    $status['saved'] = 1;
 		} else {
-		    $redirect['subView'] = 'core.AdminPlugins';
+		    $redirect['subView'] = 'core.AdminModules';
 		    $status['configured'] = 'netpbm';
 		}
 	    }
@@ -144,7 +146,7 @@ class AdminNetPbmController extends GalleryController {
 	    $redirect['subView'] = 'netpbm.AdminNetPbm';
 	} else if (isset($form['action']['cancel'])) {
 	    $redirect['view'] = 'core.SiteAdmin';
-	    $redirect['subView'] = 'core.AdminPlugins';
+	    $redirect['subView'] = 'core.AdminModules';
 	}
 
 	if (!empty($redirect)) {
@@ -175,7 +177,7 @@ class AdminNetPbmView extends GalleryView {
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Load our default values if we didn't just come from this form. */
@@ -184,7 +186,7 @@ class AdminNetPbmView extends GalleryView {
 		list ($ret, $form[$key]) =
 		    GalleryCoreApi::getPluginParameter('module', 'netpbm', $key);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
 	    $form['formName'] = 'AdminNetPbm';
@@ -221,7 +223,7 @@ class AdminNetPbmView extends GalleryView {
 		    if ($ret->getErrorCode() & ERROR_BAD_PATH) {
 			$form['error']['path']['badPath'] = 1;
 		    } else {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		} else {
 		    foreach ($tests as $test) {
@@ -241,7 +243,7 @@ class AdminNetPbmView extends GalleryView {
 		    if ($ret->getErrorCode() & ERROR_BAD_PATH) {
 			$form['error']['jheadPath']['badPath'] = 1;
 		    } else {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		} else {
 		    foreach ($jheadTests as $test) {
@@ -254,11 +256,11 @@ class AdminNetPbmView extends GalleryView {
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'netpbm');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $isActive) = $module->isActive();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$AdminNetPbm = array();

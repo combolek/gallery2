@@ -1,4 +1,4 @@
-# $Id$
+# $Id: it.po,v 1.5 2006/03/22 04:20:01 mindless Exp $
 #
 # Gallery - a web based photo album viewer and editor
 # Copyright (C) 2000-2006 Bharat Mediratta
@@ -19,18 +19,15 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: MIME Maintenance 1.1.0\n"
+"Project-Id-Version: Gallery: MIME Maintenance 1.0.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-10-11 17:40+0000\n"
-"PO-Revision-Date: 2006-06-08 12:17+0100\n"
+"PO-Revision-Date: 2005-10-11 17:38+0100\n"
 "Last-Translator: Ermanno Baschiera <ebaschiera@gmail.com>\n"
 "Language-Team: Italian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-msgid "This type of file not allowed; item will not be added."
-msgstr "Questo tipo di file non &egrave; permesso; l'oggetto non verr&agrave; aggiunto."
 
 msgid "MIME Maintenance"
 msgstr "Manutenzione MIME"
@@ -44,32 +41,11 @@ msgstr "Dati Extra"
 msgid "MIME Types"
 msgstr "Tipi MIME"
 
-msgid "Settings saved successfully"
-msgstr "Configurazione salvata con successo"
-
 msgid "MIME entry saved successfully"
 msgstr "Entry MIME salvata con successo"
 
 msgid "MIME entry deleted"
 msgstr "Entry MIME eliminata"
-
-msgid "Allow all uploads"
-msgstr "Permetti tutti gli upload"
-
-msgid "Block upload of types selected below"
-msgstr "Blocca l'upload dei tipi selezionati qui sotto"
-
-msgid "Only allow uploads of types selected below"
-msgstr "Permetti l'upload solo dei tipi selezionati qui sotto"
-
-msgid "Save"
-msgstr "Salva"
-
-msgid "Reset"
-msgstr "Resetta"
-
-msgid "Add new MIME type"
-msgstr "Aggiungi nuovo tipo MIME"
 
 msgid "Extensions"
 msgstr "Estensioni"
@@ -86,11 +62,8 @@ msgstr "modifica"
 msgid "delete"
 msgstr "elimina"
 
-msgid "Allow Upload"
-msgstr "Permetti Upload"
-
-msgid "Block Upload"
-msgstr "Impedisci Upload"
+msgid "Add new MIME type"
+msgstr "Aggiungi nuovo tipo MIME"
 
 #, c-format
 msgid "Edit MIME type: %s"
@@ -117,6 +90,9 @@ msgstr "Questa estensione &egrave; gi&agrave; in uso e non pu&ograve; essere riu
 msgid "You must specify at least one extension."
 msgstr "Devi specificare almeno una estensione."
 
+msgid "Save"
+msgstr "Salva"
+
 msgid "Apply"
 msgstr "Applica"
 
@@ -124,6 +100,7 @@ msgid "Cancel"
 msgstr "Annulla"
 
 #, c-format
-msgid "Warning: Adding and allowing upload of any of the following mime types could leave you open to %sCross Site Scripting%s security vulnerabilities."
-msgstr "Attenzione: Aggiungere e permettere l'upload di alcuni dei seguenti tipi mime potrebbe esporti alle vulnerabilit&agrave; di sicurezza chiamate %sCross Site Scripting%s."
-
+msgid ""
+"Warning: Adding any of the following mime types could leave you open to %sCross Site "
+"Scripting%s security vulnerabilities."
+msgstr ""

@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: GalleryEntity.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 /**
  * @package GalleryCore
- * @version $Revision$ $Date$
+ * @version $Revision: 1.54 $ $Date: 2006/01/29 00:16:18 $
  * @author Bharat Mediratta <bharat@menalto.com>
  */
 
@@ -186,7 +188,7 @@ class GalleryEntity extends GalleryPersistent {
 	$storage =& $gallery->getStorage();
 	$ret = $storage->newEntity($this);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Set the creation time on this entity */
@@ -220,7 +222,7 @@ class GalleryEntity extends GalleryPersistent {
 
 	$ret = $this->resetOriginalValues(true);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -238,14 +240,14 @@ class GalleryEntity extends GalleryPersistent {
 	global $gallery;
 
 	if (get_class($this) != get_class($entity)) {
-	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
 	/* Follow our usual creation process (same as create() above) */
 	$storage =& $gallery->getStorage();
 	$ret = $storage->newEntity($this);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Set the creation time on this entity */
@@ -261,7 +263,7 @@ class GalleryEntity extends GalleryPersistent {
 
 	$ret = $this->resetOriginalValues(true);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -274,7 +276,7 @@ class GalleryEntity extends GalleryPersistent {
      * @param integer (optional) ACL id to assign for new entity (used by subclasses)
      * @return object GalleryStatus a status code
      */
-    function save($postEvent=true, $setAclId=null) {
+    function save($postEvent=true, $setAclId=0) {
 	global $gallery;
 
 	/*
@@ -283,14 +285,15 @@ class GalleryEntity extends GalleryPersistent {
 	 */
 	if (!GalleryCoreApi::isWriteLocked($this->getId())
 		&& !$this->testPersistentFlag(STORAGE_FLAG_NEWLY_CREATED)) {
-	    return GalleryCoreApi::error(ERROR_LOCK_REQUIRED);
+	    return GalleryCoreApi::error(ERROR_LOCK_REQUIRED, __FILE__, __LINE__);
 	}
 
-	if (isset($setAclId) && $this->testPersistentFlag(STORAGE_FLAG_NEWLY_CREATED)) {
-	    $ret = GalleryCoreApi::addMapEntry('GalleryAccessSubscriberMap',
+	if ($this->testPersistentFlag(STORAGE_FLAG_NEWLY_CREATED)) {
+	    $ret = GalleryCoreApi::addMapEntry(
+		'GalleryAccessSubscriberMap',
 		array('itemId' => $this->getId(), 'accessListId' => $setAclId));
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
@@ -304,7 +307,7 @@ class GalleryEntity extends GalleryPersistent {
 		$event->setEntity($this);
 		list ($ret) = GalleryCoreApi::postEvent($event);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 
@@ -313,7 +316,7 @@ class GalleryEntity extends GalleryPersistent {
 
 	    $ret = $storage->saveEntity($this);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    /* Update our caches */
@@ -332,7 +335,7 @@ class GalleryEntity extends GalleryPersistent {
 		    sprintf('GalleryEntityHelper::loadEntitiesById(%s)', $this->getId()), $this);
 		list ($ret, $classFile) = $this->getClassFile();
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 		GalleryDataCache::putToDisk(array('type' => 'entity', 'itemId' => $this->getId()),
 					    $this, array($classFile));
@@ -354,7 +357,7 @@ class GalleryEntity extends GalleryPersistent {
 	/* Are we trying to refresh an object that isn't in the database? */
 	if ($this->testPersistentFlag(STORAGE_FLAG_DELETED) ||
 	    $this->testPersistentFlag(STORAGE_FLAG_NEWLY_CREATED)) {
-	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT),
+	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__),
 			 null);
 	}
 
@@ -362,7 +365,7 @@ class GalleryEntity extends GalleryPersistent {
 
 	list ($ret, $freshEntity) = $storage->refreshEntity($this);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, $freshEntity);
@@ -377,31 +380,31 @@ class GalleryEntity extends GalleryPersistent {
 	global $gallery;
 
 	if (!GalleryCoreApi::isWriteLocked($this->getId())) {
-	    return GalleryCoreApi::error(ERROR_LOCK_REQUIRED);
+	    return GalleryCoreApi::error(ERROR_LOCK_REQUIRED, __FILE__, __LINE__);
 	}
 
 	$event = GalleryCoreApi::newEvent('GalleryEntity::delete');
 	$event->setEntity($this);
 	list ($ret) = GalleryCoreApi::postEvent($event);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::removePluginParametersForItemId($this->getId());
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::removeMapEntry(
 	    'GalleryAccessSubscriberMap', array('itemId' => $this->getId()));
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$storage =& $gallery->getStorage();
 	$ret = $storage->deleteEntity($this);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	GalleryDataCache::remove(
@@ -424,12 +427,12 @@ class GalleryEntity extends GalleryPersistent {
 	if (!empty($linkId)) {
 	    list ($ret, $this->linkedEntity) = GalleryCoreApi::loadEntitiesById($linkId);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    list ($ret, $data) = GalleryCoreApi::describeEntity($this->entityType);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    $target = $this->entityType;
@@ -463,7 +466,7 @@ class GalleryEntity extends GalleryPersistent {
 		list ($ret, $handler) =
 		    GalleryCoreApi::newFactoryInstanceById('GalleryOnLoadHandler', $handlerId);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 		if (isset($handler)) {
 		    /* GalleryOnLoadHandlerInterface_1_0::onLoad(&$entity, $duringUpgrade)
@@ -487,7 +490,7 @@ class GalleryEntity extends GalleryPersistent {
 		     */
 		    $ret = $handler->onLoad($this, $isDuringInstallOrUpgrade);
 		    if ($ret) {
-			return $ret;
+			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		}
 	    }
@@ -584,7 +587,7 @@ class GalleryEntity extends GalleryPersistent {
 	 */
 	list ($ret, $data) = GalleryCoreApi::describeEntity($this->entityType);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	foreach ($data[$this->entityType]['linked'] as $memberName) {

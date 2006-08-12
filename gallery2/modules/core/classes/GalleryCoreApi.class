@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: GalleryCoreApi.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.121.2.1 $ $Date: 2006/04/05 00:19:52 $
  * @package GalleryCore
  * @author Bharat Mediratta <bharat@menalto.com>
  */
@@ -51,17 +53,10 @@ class GalleryCoreApi {
      *
      * @return array major number, minor number
      *
-     * TODO: for next major version bump:
-     * - remove GallerySession::getSessionId
-     * - remove GalleryPlatform::recursiveFixDirPermissions
-     * - remove GalleryUtilities::htmlEntityDecode
-     * - remove GalleryStatus::wrap
-     * - change GalleryCoreApi::error to only take error code and error message
-     * - remove GalleryCapabilities (major bump of embed api too?)
-     * - remove 'link' entry in Gallery.class constructor
+     * TODO: remove GalleryPlatform::recursiveFixDirPermissions on next major version bump
      */
     function getApiVersion() {
-	return array(7, 10);
+	return array(7, 3);
     }
 
     /**
@@ -69,7 +64,7 @@ class GalleryCoreApi {
      *
      * @param string the class type (eg. 'GalleryGraphics')
      * @param string the class name (eg. 'NetPbmGraphics')
-     * @param string an implementation id (eg. 'NetPBM')
+     * @param string an implementatin id (eg. 'NetPBM')
      * @param string the relative path to the implementation file
      *               (eg. 'modules/netpbm/classes/NetPbmGraphics.class')
      * @param string the id of the module containing the implementation (eg. 'netpbm')
@@ -127,8 +122,8 @@ class GalleryCoreApi {
      */
     function newFactoryInstanceById($classType, $id) {
 	GalleryCoreApi::requireOnce(
-	    'modules/core/classes/helpers/GalleryFactoryHelper_simple.class');
-	return GalleryFactoryHelper_simple::newInstanceById($classType, $id);
+	    'modules/core/classes/helpers/GalleryFactoryHelper_medium.class');
+	return GalleryFactoryHelper_medium::newInstanceById($classType, $id);
     }
 
     /**
@@ -491,7 +486,7 @@ class GalleryCoreApi {
      *
      * @param int item id
      * @param string permission id
-     * @return object GalleryStatus success if the user has permission,
+     * @return object GalleryStatus success if the user is an administrator
      *                              ERROR_PERMISSION_DENIED if not.
      * @static
      */
@@ -655,8 +650,8 @@ class GalleryCoreApi {
      */
     function convertPermissionBitsToIds($permissionBits, $compress=false) {
 	GalleryCoreApi::requireOnce(
-	    'modules/core/classes/helpers/GalleryPermissionHelper_simple.class');
-	return GalleryPermissionHelper_simple::convertBitsToIds($permissionBits, $compress);
+	    'modules/core/classes/helpers/GalleryPermissionHelper_medium.class');
+	return GalleryPermissionHelper_medium::convertBitsToIds($permissionBits, $compress);
     }
 
     /**
@@ -670,8 +665,8 @@ class GalleryCoreApi {
      */
     function fetchPermissionsForItems($itemIds, $userId=null) {
 	GalleryCoreApi::requireOnce(
-	    'modules/core/classes/helpers/GalleryPermissionHelper_simple.class');
-	return GalleryPermissionHelper_simple::fetchPermissionsForItems($itemIds, $userId);
+	    'modules/core/classes/helpers/GalleryPermissionHelper_medium.class');
+	return GalleryPermissionHelper_medium::fetchPermissionsForItems($itemIds, $userId);
     }
 
     /**
@@ -685,8 +680,8 @@ class GalleryCoreApi {
      */
     function getPermissions($itemId, $userId=null) {
 	GalleryCoreApi::requireOnce(
-	    'modules/core/classes/helpers/GalleryPermissionHelper_simple.class');
-	return GalleryPermissionHelper_simple::getPermissions($itemId, $userId);
+	    'modules/core/classes/helpers/GalleryPermissionHelper_medium.class');
+	return GalleryPermissionHelper_medium::getPermissions($itemId, $userId);
     }
 
     /**
@@ -699,8 +694,8 @@ class GalleryCoreApi {
      */
     function studyPermissions($itemIds, $userId=null) {
 	GalleryCoreApi::requireOnce(
-	    'modules/core/classes/helpers/GalleryPermissionHelper_simple.class');
-	return GalleryPermissionHelper_simple::studyPermissions($itemIds, $userId);
+	    'modules/core/classes/helpers/GalleryPermissionHelper_medium.class');
+	return GalleryPermissionHelper_medium::studyPermissions($itemIds, $userId);
     }
 
     /**
@@ -1016,8 +1011,8 @@ class GalleryCoreApi {
      */
     function fetchThumbnailsByItemIds($ids) {
 	GalleryCoreApi::requireOnce(
-	    'modules/core/classes/helpers/GalleryDerivativeHelper_simple.class');
-	return GalleryDerivativeHelper_simple::fetchThumbnailsByItemIds($ids);
+	    'modules/core/classes/helpers/GalleryDerivativeHelper_medium.class');
+	return GalleryDerivativeHelper_medium::fetchThumbnailsByItemIds($ids);
     }
 
     /**
@@ -1137,26 +1132,6 @@ class GalleryCoreApi {
 	    'modules/core/classes/helpers/GalleryDerivativeHelper_advanced.class');
 	return GalleryDerivativeHelper_advanced::adjustDependentDerivatives($id, $operation,
 									    $reverse);
-    }
-
-    /**
-     * Use the given operation as a transform for each derivative that depends on the target
-     *
-     * @param the operation to be executed
-     * @param argument of the operations
-     * @param boolean whether to preserve original
-     * @param object the item to perfrom the operation on
-     * @param optional object the preferred derivative to execute the operation on
-     * @param optional serialNumber
-     * @return object GalleryStatus a status code
-     * @static
-     */
-    function applyToolkitOperation($operation, $args, $preserveOriginal,
-				   &$item, $preferred=null, $serialNumber=null) {
-	GalleryCoreApi::requireOnce(
-	    'modules/core/classes/helpers/GalleryDerivativeHelper_advanced.class');
-	return GalleryDerivativeHelper_advanced::applyToolkitOperation($operation,
-				$args, $preserveOriginal, $item, $preferred, $serialNumber);
     }
 
     /**
@@ -1339,8 +1314,8 @@ class GalleryCoreApi {
      */
     function fetchItemViewCount($itemId) {
 	GalleryCoreApi::requireOnce(
-	    'modules/core/classes/helpers/GalleryItemAttributesHelper_simple.class');
-	return GalleryItemAttributesHelper_simple::fetchViewCount($itemId);
+	    'modules/core/classes/helpers/GalleryItemAttributesHelper_advanced.class');
+	return GalleryItemAttributesHelper_advanced::fetchViewCount($itemId);
     }
 
     /**
@@ -1352,8 +1327,8 @@ class GalleryCoreApi {
      */
     function fetchItemViewCounts($itemIds) {
 	GalleryCoreApi::requireOnce(
-	    'modules/core/classes/helpers/GalleryItemAttributesHelper_simple.class');
-	return GalleryItemAttributesHelper_simple::fetchViewCounts($itemIds);
+	    'modules/core/classes/helpers/GalleryItemAttributesHelper_medium.class');
+	return GalleryItemAttributesHelper_medium::fetchViewCounts($itemIds);
     }
 
     /**
@@ -1479,8 +1454,8 @@ class GalleryCoreApi {
      */
     function fetchParentSequence($itemId) {
 	GalleryCoreApi::requireOnce(
-	    'modules/core/classes/helpers/GalleryItemAttributesHelper_simple.class');
-	return GalleryItemAttributesHelper_simple::fetchParentSequence($itemId);
+	    'modules/core/classes/helpers/GalleryItemAttributesHelper_medium.class');
+	return GalleryItemAttributesHelper_medium::fetchParentSequence($itemId);
     }
 
     /**
@@ -1551,14 +1526,13 @@ class GalleryCoreApi {
      *
      * @access public
      * @param string an item type (eg, 'GalleryAlbumItem')
-     * @param int an optional user id (default is the current user)
      * @return array object GalleryStatus a status code
      *               int a count
      * @static
      */
-    function fetchItemIdCount($itemType, $permission='core.view', $userId=null) {
+    function fetchItemIdCount($itemType, $permission='core.view') {
 	GalleryCoreApi::requireOnce('modules/core/classes/helpers/GalleryItemHelper_simple.class');
-	return GalleryItemHelper_simple::fetchItemIdCount($itemType, $permission, $userId);
+	return GalleryItemHelper_simple::fetchItemIdCount($itemType, $permission);
     }
 
     /**
@@ -1568,7 +1542,7 @@ class GalleryCoreApi {
      * bit set.  This allows us to cascade permission updates.
      *
      * @access public
-     * @param int item id
+     * @param array item ids
      * @param string permission id
      * @return array object GalleryStatus a status code
      *               array a list of ids
@@ -1780,15 +1754,14 @@ class GalleryCoreApi {
     /**
      * Is the active user in the admin group?
      *
-     * @param int an optional user id (default is the current user)
      * @return array object GalleryStatus a status code
      *               bool true if yes
      * @static
      */
-    function isUserInSiteAdminGroup($userId=null) {
+    function isUserInSiteAdminGroup() {
 	GalleryCoreApi::requireOnce(
 	    'modules/core/classes/helpers/GalleryUserGroupHelper_simple.class');
-	return GalleryUserGroupHelper_simple::isUserInSiteAdminGroup($userId);
+	return GalleryUserGroupHelper_simple::isUserInSiteAdminGroup();
     }
 
     /**
@@ -1894,8 +1867,8 @@ class GalleryCoreApi {
      */
     function fetchGroupsForUser($userId, $count=null, $offset=null) {
 	GalleryCoreApi::requireOnce(
-	    'modules/core/classes/helpers/GalleryUserGroupHelper_simple.class');
-	return GalleryUserGroupHelper_simple::fetchGroupsForUser($userId, $count, $offset);
+	    'modules/core/classes/helpers/GalleryUserGroupHelper_medium.class');
+	return GalleryUserGroupHelper_medium::fetchGroupsForUser($userId, $count, $offset);
     }
 
     /**
@@ -2012,20 +1985,6 @@ class GalleryCoreApi {
 	    'modules/core/classes/helpers/GalleryToolkitHelper_medium.class');
 	return GalleryToolkitHelper_medium::unregisterOperation($toolkitId, $operationName,
 								$mimeTypes);
-    }
-
-    /**
-     * Unregister all operations and properties provided by toolkits implemented
-     * by the given module.
-     *
-     * @param string the id of the module
-     * @return object GalleryStatus a status code
-     * @static
-     */
-    function unregisterToolkitsByModuleId($moduleId) {
-	GalleryCoreApi::requireOnce(
-	    'modules/core/classes/helpers/GalleryToolkitHelper_medium.class');
-	return GalleryToolkitHelper_medium::unregisterToolkitsByModuleId($moduleId);
     }
 
     /**
@@ -2614,31 +2573,6 @@ class GalleryCoreApi {
     }
 
     /**
-     * Build query to select items in a given sort order
-     *
-     * @param string base table to query
-     * @param string name of id column in this table
-     * @param string where clause for query
-     * @param string order for results
-     * @param string order direction for results
-     * @param string a class to restrict children to (eg 'GalleryAlbumItem'; can be null)
-     * @param string a required permission (can be null)
-     * @param boolean whether to restrict to linkable items only
-     * @param int the userid we're doing this for
-     * @return array object GalleryStatus a status code
-     *               string query
-     *               array data items for query (not including any ? marks in baseQuery)
-     */
-    function buildItemQuery($baseTable, $baseIdColumn, $baseQuery, $orderBy, $orderDirection,
-			    $class, $requiredPermission, $linkableOnly, $userId) {
-	GalleryCoreApi::requireOnce(
-	    'modules/core/classes/helpers/GalleryChildEntityHelper_simple.class');
-	return GalleryChildEntityHelper_simple::buildItemQuery($baseTable, $baseIdColumn,
-		$baseQuery, $orderBy, $orderDirection, $class, $requiredPermission,
-		$linkableOnly, $userId);
-    }
-
-    /**
      * Convert a file extension to a mime type
      *
      * @param string a file extension
@@ -2804,8 +2738,8 @@ class GalleryCoreApi {
      * Currently it returns gallery2/ and gallery2/plugins/.
      */
      function getPluginBaseDirs() {
-	 GalleryCoreApi::requireOnce(
-	     'modules/core/classes/helpers/GalleryPluginHelper_simple.class');
+	GalleryCoreApi::requireOnce(
+	    'modules/core/classes/helpers/GalleryPluginHelper_simple.class');
 	return GalleryPluginHelper_simple::getPluginBaseDirs();
     }
 
@@ -2913,19 +2847,18 @@ class GalleryCoreApi {
     }
 
     /**
-     * Return an error status.
-     *
-     * Starting in GalleryCoreApi 7.4 we ignore the filename and line number.  You still need to
-     * provide them if you want to provide an error message.  Next major API bump we'll remove the
-     * fileName and lineNumber arguments.
+     * Return an error status
      *
      * @return object GalleryStatus an error status
      * @static
      */
-    function error($errorCode, $fileName='ignored', $lineNumber='ignored', $errorMessage=null) {
+    function error($errorCode, $fileName, $lineNumber, $errorMessage=null) {
 	GalleryCoreApi::requireOnce('modules/core/classes/GalleryStatus.class');
-	$status = new GalleryStatus(GALLERY_ERROR | $errorCode, $errorMessage);
-	$status->setStackTrace(debug_backtrace());
+	$status =
+	    new GalleryStatus(GALLERY_ERROR | $errorCode, $fileName, $lineNumber, $errorMessage);
+	if (function_exists('debug_backtrace')) {
+	    $status->setStackTrace(debug_backtrace());
+	}
 	return $status;
     }
 
@@ -2941,42 +2874,15 @@ class GalleryCoreApi {
 	global $gallery;
 
 	if (sizeof($match) == 0 || sizeof($change) == 0) {
-	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
 	$storage =& $gallery->getStorage();
 	$ret = $storage->updateMapEntry($mapName, $match, $change);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	return null;
-    }
-
-    /**
-     * Get entries in a map that match a criteria and return selected fields
-     *
-     * @param string the map we're working on
-     * @param array the columns to return
-     * @param array the entries to match
-     * @param array optional arguments (eg, limit, orderBy)
-     *              array('limit' => array('count' => #, 'offset' => #),
-     *                    'orderBy' => array(columnName => ORDER_ASCENDING|ORDER_DESCENDING, ...))
-     * @return object GalleryStatus a status code
-     */
-    function getMapEntry($mapName, $select, $match=array(), $optional=array()) {
-	global $gallery;
-
-	if (empty($mapName) || empty($select) || !is_array($match) || !is_array($optional)) {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
-	}
-
-	$storage =& $gallery->getStorage();
-	list ($ret, $searchResults) = $storage->getMapEntry($mapName, $select, $match, $optional);
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	return array(null, $searchResults);
     }
 
     /**
@@ -2991,13 +2897,13 @@ class GalleryCoreApi {
 	global $gallery;
 
 	if (sizeof($data) == 0) {
-	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
 	$storage =& $gallery->getStorage();
 	$ret = $storage->removeMapEntry($mapName, $data);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	return null;
     }
@@ -3016,7 +2922,7 @@ class GalleryCoreApi {
 	$storage =& $gallery->getStorage();
 	$ret = $storage->addMapEntry($mapName, $data);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	return null;
     }
@@ -3033,7 +2939,7 @@ class GalleryCoreApi {
 	$storage =& $gallery->getStorage();
 	$ret = $storage->removeAllMapEntries($mapName);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	return null;
     }
@@ -3053,7 +2959,7 @@ class GalleryCoreApi {
 	$storage =& $gallery->getStorage();
 	list ($ret, $entityInfo) = $storage->describeMap($mapName, $tryAllModules);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, $entityInfo);
@@ -3073,7 +2979,7 @@ class GalleryCoreApi {
 	$storage =& $gallery->getStorage();
 	list ($ret, $entityInfo) = $storage->describeEntity($entityName, $tryAllModules);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, $entityInfo);
@@ -3104,129 +3010,6 @@ class GalleryCoreApi {
 	GalleryCoreApi::requireOnce(
 	    'modules/core/classes/helpers/GalleryEntityHelper_medium.class');
 	return GalleryEntityHelper_medium::createFastDownloadFile($entity, $runEvenInUnitTest);
-    }
-
-    /**
-     * Get id of the album to display by default.
-     *
-     * @return array object GalleryStatus a status code
-     *               int album id
-     */
-    function getDefaultAlbumId() {
-	global $gallery;
-	$id = $gallery->getConfig('defaultAlbumId');
-	if (empty($id)) {
-	    list ($ret, $id) =
-		GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	}
-	return array(null, $id);
-    }
-
-    /**
-     * Get id of the guest user.
-     *
-     * @return array object GalleryStatus a status code
-     *               int user id
-     */
-    function getAnonymousUserId() {
-	global $gallery;
-	$id = $gallery->getConfig('anonymousUserId');
-	if (empty($id)) {
-	    list ($ret, $id) =
-		GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	}
-	return array(null, $id);
-    }
-
-    /**
-     * Is the user a guest?
-     *
-     * @param int id of user (default is current user)
-     * @return array object GalleryStatus a status code
-     *               boolean true if anonymous
-     */
-    function isAnonymousUser($userId=null) {
-	if (empty($userId)) {
-	    global $gallery;
-	    $userId = $gallery->getActiveUserId();
-	}
-	list ($ret, $anonymousId) = GalleryCoreApi::getAnonymousUserId();
-	if ($ret) {
-	    return array($ret, null);
-	}
-	return array(null, $userId == $anonymousId);
-    }
-
-    /**
-     * Remove the given sort order from any thing in the framework that uses it
-     * (albums and the default sort order).
-     *
-     * @param string the sort order
-     * @return object GalleryStatus a status code
-     */
-    function deleteSortOrder($sortOrder) {
-	GalleryCoreApi::requireOnce(
-	    'modules/core/classes/helpers/GalleryItemHelper_advanced.class');
-	return GalleryItemHelper_advanced::deleteSortOrder($sortOrder);
-    }
-
-    /**
-     * Remove the given renderer from all items that are using it.
-     *
-     * @param string the renderer class name
-     * @return object GalleryStatus a status code
-     */
-    function deleteRenderer($rendererClassName) {
-	GalleryCoreApi::requireOnce(
-	    'modules/core/classes/helpers/GalleryItemHelper_advanced.class');
-	return GalleryItemHelper_advanced::deleteRenderer($rendererClassName);
-    }
-
-    /**
-     * Load template data for a theme settings form
-     *
-     * @param string themeId; if empty, site default theme is used
-     * @param int itemId
-     * @param object GalleryTemplate template
-     * @param array form
-     * @return object GalleryStatus a status code
-     */
-    function loadThemeSettingsForm($themeId, $itemId, &$template, &$form) {
-	GalleryCoreApi::requireOnce('modules/core/classes/helpers/GalleryThemeHelper_medium.class');
-	return GalleryThemeHelper_medium::loadThemeSettingsForm(
-		$themeId, $itemId, $template, $form);
-    }
-
-    /**
-     * Load the block configuration files from every module
-     *
-     * @return array object GalleryStatus a status code
-     *               array block configurations
-     */
-    function loadAvailableBlocks() {
-	GalleryCoreApi::requireOnce('modules/core/classes/helpers/GalleryThemeHelper_medium.class');
-	return GalleryThemeHelper_medium::loadAvailableBlocks();
-    }
-
-    /**
-     * Handle theme settings form submission
-     *
-     * @param string themeId; if empty, site default theme is used
-     * @param int itemId
-     * @param array form values
-     * @return array object GalleryStatus a status code
-     *               array error messages
-     *               string localized status message
-     */
-    function handleThemeSettingsRequest($themeId, $itemId, $form) {
-	GalleryCoreApi::requireOnce('modules/core/classes/helpers/GalleryThemeHelper_medium.class');
-	return GalleryThemeHelper_medium::handleThemeSettingsRequest($themeId, $itemId, $form);
     }
 }
 ?>

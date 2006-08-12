@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: AdminFfmpegControllerTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.18 $ $Date: 2006/01/21 10:10:35 $
  * @package Ffmpeg
  * @subpackage PHPUnit
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -42,14 +44,14 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 	$ret = $this->_markPluginParametersForCleanup('module', 'ffmpeg');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $this->_movie) =
 	    $this->_createRandomDataItem($this->_getRootId(), 'video/mpeg');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($this->_movie);
 
@@ -58,7 +60,7 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 	    'convert-to-image/jpeg;thumbnail|150');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->_savePlatform =& $gallery->getPlatform();
@@ -81,7 +83,7 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 	/* Verify the settings went in properly */
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'ffmpeg');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals('/validPath/ffmpeg', $params['path']);
 	$this->assertEquals('0', $params['useWatermark']);
@@ -103,7 +105,7 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 	/* Verify the settings went in properly */
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'ffmpeg');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals('/validPath/ffmpeg', $params['path']);
 	$this->assertEquals('1', $params['useWatermark']);
@@ -125,7 +127,7 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 	/* Verify the settings went in properly */
 	list ($ret, $path) = GalleryCoreApi::getPluginParameter('module', 'ffmpeg', 'path');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals('/incompletePath/ffmpeg', $path);
     }
@@ -146,7 +148,7 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 
 	$results = $this->handleRequest();
 	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'core.AdminPlugins'),
+						      'subView' => 'core.AdminModules'),
 				  'status' => array(),
 				  'error' => array()),
 			    $results);
@@ -214,12 +216,12 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 
 	$ret = $this->_saveThumbnailOps();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $path) = GalleryCoreApi::getPluginParameter('module', 'ffmpeg', 'path');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	GalleryUtilities::putRequestVariable('form[path]', $path);
@@ -235,7 +237,7 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $thumbnail) = $this->_thumbnail->refresh();
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assertEquals('convert-to-image/jpeg;thumbnail|150;composite|plugins_data/modules/' .
@@ -255,7 +257,7 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $thumbnail) = $this->_thumbnail->refresh();
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assertEquals('convert-to-image/jpeg;thumbnail|150',
@@ -263,7 +265,7 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 
 	$ret = $this->_restoreThumbnailOps();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
 
@@ -277,7 +279,7 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 	  AND [GalleryEntity::entityType] = \'GalleryMovieItem\'';
 	list ($ret, $searchResults) = $gallery->search($query);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$this->_thumbnailOps = array();
 	while ($result = $searchResults->nextResult()) {
@@ -292,25 +294,25 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 	}
 	list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock(array_keys($this->_thumbnailOps));
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	list ($ret, $thumbnails) =
 	    GalleryCoreApi::loadEntitiesById(array_keys($this->_thumbnailOps));
 	if ($ret) {
 	    GalleryCoreApi::releaseLocks($lockId);
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	foreach ($thumbnails as $thumbnail) {
 	    $thumbnail->setDerivativeOperations($this->_thumbnailOps[$thumbnail->getId()]);
 	    $ret = $thumbnail->save();
 	    if ($ret) {
 		GalleryCoreApi::releaseLocks($lockId);
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 	$ret = GalleryCoreApi::releaseLocks($lockId);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	return null;
     }

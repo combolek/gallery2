@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ThumbnailToolkitTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.8 $ $Date: 2006/01/10 04:43:09 $
  * @package Thumbnail
  * @subpackage PHPUnit
  * @author Alan Harder <alan.harder@sun.com>
@@ -46,18 +48,18 @@ class ThumbnailToolkitTest extends GalleryTestCase {
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'thumbnail');
 	if ($ret || !isset($module)) {
-	    $this->failWithStatus($ret);
+	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	list ($ret, $toolkit) =
 	    GalleryCoreApi::newFactoryInstance('GalleryToolkit', 'ThumbnailToolkit');
 	if ($ret || !isset($toolkit)) {
-	    $this->failWithStatus($ret);
+	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $id) = ThumbnailHelper::addItem('test/fakemime', null, 'unittest.jpg',
 	    dirname(__FILE__) . '/../../images/G2video.jpg', 'image/jpeg');
 	if ($ret || !isset($id)) {
-	    $this->failWithStatus($ret);
+	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->_toolkit = $toolkit;
@@ -68,7 +70,7 @@ class ThumbnailToolkitTest extends GalleryTestCase {
 	global $gallery;
 	$ret = GalleryCoreApi::deleteEntityById($this->_itemId);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$platform =& $gallery->getPlatform();
 	$ret = $platform->unlink(
@@ -79,7 +81,7 @@ class ThumbnailToolkitTest extends GalleryTestCase {
 	$ret = GalleryCoreApi::unregisterToolkitOperation('Thumbnail',
 	    'convert-to-image/jpeg', array('test/fakemime'));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	parent::tearDown();
     }

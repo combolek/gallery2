@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: ArchiveUploadSiteAdmin.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.8 $ $Date: 2006/01/17 01:52:00 $
  * @package ArchiveUpload
  * @author Alan Harder <alan.harder@sun.com>
  */
@@ -37,7 +39,7 @@ class ArchiveUploadSiteAdminController extends GalleryController {
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$status = $error = array();
@@ -73,28 +75,28 @@ class ArchiveUploadSiteAdminController extends GalleryController {
 		$ret = GalleryCoreApi::setPluginParameter(
 				       'module', 'archiveupload', 'unzipPath', $form['unzipPath']);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'archiveupload');
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		list ($ret, $isActive) = $module->isActive();
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		if ($isActive) {
 		    $redirectSubview = 'archiveupload.ArchiveUploadSiteAdmin';
 		    $status['saved'] = 1;
 		} else {
-		    $redirectSubview = 'core.AdminPlugins';
+		    $redirectSubview = 'core.AdminModules';
 		    $status['configured'] = 'archiveupload';
 		}
 	    }
 	} else if (isset($form['action']['cancel'])) {
-	    $redirectSubview = 'core.AdminPlugins';
+	    $redirectSubview = 'core.AdminModules';
 	} else if (isset($form['action']['reset'])) {
 	    $redirectSubview = 'archiveupload.ArchiveUploadSiteAdmin';
 	}
@@ -125,7 +127,7 @@ class ArchiveUploadSiteAdminView extends GalleryView {
     function loadTemplate(&$template, &$form) {
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if ($form['formName'] != 'ArchiveUploadSiteAdmin') {
@@ -134,18 +136,18 @@ class ArchiveUploadSiteAdminView extends GalleryView {
 		list ($ret, $form[$key]) =
 		    GalleryCoreApi::getPluginParameter('module', 'archiveupload', $key);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
 	}
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'archiveupload');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $isActive) = $module->isActive();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$form['isConfigure'] = !$isActive;
 

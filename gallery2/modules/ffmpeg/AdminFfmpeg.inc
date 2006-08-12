@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: AdminFfmpeg.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.24 $ $Date: 2006/02/14 03:57:41 $
  * @package Ffmpeg
  * @author Bharat Mediratta <bharat@menalto.com>
  */
@@ -39,7 +41,7 @@ class AdminFfmpegController extends GalleryController {
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$status = $error = array();
@@ -88,7 +90,7 @@ class AdminFfmpegController extends GalleryController {
 			if ($ret->getErrorCode() & ERROR_BAD_PATH) {
 			    $error[] = 'form[error][path][badPath]';
 			} else {
-			    return array($ret, null);
+			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 		    } else {
 			$failCount = 0;
@@ -116,7 +118,7 @@ class AdminFfmpegController extends GalleryController {
 		      AND [GalleryEntity::entityType] = \'GalleryMovieItem\'';
 		    $ret = $this->_processThumbnails($query, '_addWatermark');
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		    $status['added'] = 1;
 		} else if (isset($form['removeWatermark']) && $form['removeWatermark']) {
@@ -127,7 +129,7 @@ class AdminFfmpegController extends GalleryController {
 			  LIKE \'%composite|%filmreel.png%\'';
 		    $ret = $this->_processThumbnails($query, '_removeWatermark');
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		    $status['removed'] = 1;
 		}
@@ -135,22 +137,22 @@ class AdminFfmpegController extends GalleryController {
 		$ret = GalleryCoreApi::setPluginParameter('module', 'ffmpeg',
 							  'path', $form['path']);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		$ret = GalleryCoreApi::setPluginParameter('module', 'ffmpeg',
 		    'useWatermark', (isset($form['useWatermark']) &&
 				     $form['useWatermark']) ? 1 : 0);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'ffmpeg');
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		list ($ret, $isActive) = $module->isActive();
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		$redirect['view'] = 'core.SiteAdmin';
@@ -158,7 +160,7 @@ class AdminFfmpegController extends GalleryController {
 		    $redirect['subView'] = 'ffmpeg.AdminFfmpeg';
 		    $status['saved'] = 1;
 		} else {
-		    $redirect['subView'] = 'core.AdminPlugins';
+		    $redirect['subView'] = 'core.AdminModules';
 		    $status['configured'] = 'ffmpeg';
 		}
 	    }
@@ -167,7 +169,7 @@ class AdminFfmpegController extends GalleryController {
 	    $redirect['subView'] = 'ffmpeg.AdminFfmpeg';
 	} else if (isset($form['action']['cancel'])) {
 	    $redirect['view'] = 'core.SiteAdmin';
-	    $redirect['subView'] = 'core.AdminPlugins';
+	    $redirect['subView'] = 'core.AdminModules';
 	}
 
 	if (!empty($redirect)) {
@@ -186,7 +188,7 @@ class AdminFfmpegController extends GalleryController {
 	global $gallery;
 	list ($ret, $searchResults) = $gallery->search($query);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$ids = array();
 	while ($result = $searchResults->nextResult()) {
@@ -196,24 +198,24 @@ class AdminFfmpegController extends GalleryController {
 	    $idSet = array_splice($ids, 0, 100);
 	    list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($idSet);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    list ($ret, $thumbnails) = GalleryCoreApi::loadEntitiesById($idSet);
 	    if ($ret) {
 		GalleryCoreApi::releaseLocks($lockId);
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    foreach ($thumbnails as $thumbnail) {
 		$this->$operation($thumbnail);
 		$ret = $thumbnail->save();
 		if ($ret) {
 		    GalleryCoreApi::releaseLocks($lockId);
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	    $ret = GalleryCoreApi::releaseLocks($lockId);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 	return null;
@@ -249,7 +251,7 @@ class AdminFfmpegView extends GalleryView {
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Load our default values if we didn't just come from this form. */
@@ -258,7 +260,7 @@ class AdminFfmpegView extends GalleryView {
 		list ($ret, $form[$key]) =
 		    GalleryCoreApi::getPluginParameter('module', 'ffmpeg', $key);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
 	    $form['formName'] = 'AdminFfmpeg';
@@ -284,7 +286,7 @@ class AdminFfmpegView extends GalleryView {
 			$form['error']['path']['badPath'] = 1;
 			$tests = $mimeTypes = array();
 		    } else {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		}
 
@@ -298,16 +300,16 @@ class AdminFfmpegView extends GalleryView {
 
 	list ($ret, $toolkit) = GalleryCoreApi::getToolkitByOperation('image/jpeg', 'composite');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'ffmpeg');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $isActive) = $module->isActive();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$AdminFfmpeg = array();

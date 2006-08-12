@@ -1,5 +1,5 @@
 {*
- * $Revision$
+ * $Revision: 1.11 $
  * If you want to customize this file, do not edit it directly since future upgrades
  * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
  * version.  Gallery will look for that file first and use it if it exists.
@@ -50,12 +50,12 @@
 {/if}
 
 {* Navigation image map *}
-{if $theme.params.enableImageMap && !empty($image.width) && !empty($image.height)}
+{if $theme.params.enableImageMap}
 <map id="prevnext" name="prevnext">
 {if isset($theme.navigator.back)}
   <area shape="rect" coords="0,0,{math equation="round(x/2-1)" x=$image.width},{$image.height}"
    href="{g->url params=$theme.navigator.back.urlParams}"
-   alt="{$theme.item.title|markup:strip|default:$theme.item.pathComponent}"
+   alt="{$theme.item.title|default:$theme.item.pathComponent|markup:strip}"
    onmouseover="document.getElementById('prevArrow').style.visibility='visible'"
    onmouseout="document.getElementById('prevArrow').style.visibility='hidden'"/>
 {/if}
@@ -63,7 +63,7 @@
   <area shape="rect" coords="{math equation="round(x/2)"
 				   x=$image.width},0,{$image.width},{$image.height}"
    href="{g->url params=$theme.navigator.next.urlParams}"
-   alt="{$theme.item.title|markup:strip|default:$theme.item.pathComponent}"
+   alt="{$theme.item.title|default:$theme.item.pathComponent|markup:strip}"
    onmouseover="document.getElementById('nextArrow').style.visibility='visible'"
    onmouseout="document.getElementById('nextArrow').style.visibility='hidden'"/>
 {/if}
@@ -113,6 +113,6 @@
 {* Guest preview mode *}
 {g->block type="core.GuestPreview" class="gbBlock"}
 
-{* Our emergency edit link, if the user removes all blocks containing edit links *}
+{* Our emergency edit link, if the user all blocks containing edit links *}
 {g->block type="core.EmergencyEditItemLink" class="gbBlock" checkPhotoBlocks=true}
 

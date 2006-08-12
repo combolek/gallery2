@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: External.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.20 $ $Date: 2006/02/23 09:41:13 $
  * @package ImageBlock
  * @author Alan Harder <alan.harder@sun.com>
  */
@@ -52,15 +54,17 @@ class ExternalView extends GalleryView {
     function renderImmediate($status, $error) {
 	GalleryCoreApi::requireOnce('modules/imageblock/classes/ImageBlockHelper.class');
 	global $gallery;
+	$SlideShow = array();
+	$startId = null;
 
 	/* Force UrlGenerator to not add session id into urls.. */
 	$session =& $gallery->getSession();
 	$session->_isUsingCookies = true;
 
 	$frameIds = array();
-	$params = array('maxSize' => null, 'exactSize' => null);
-	foreach (array('blocks', 'show', 'itemId', 'maxSize', 'exactSize',
-		       'link', 'linkTarget', 'itemFrame', 'albumFrame') as $key) {
+	$params = array('maxSize' => null);
+	foreach (array('blocks', 'show', 'itemId', 'maxSize',
+		       'linkTarget', 'itemFrame', 'albumFrame') as $key) {
 	    $tmp = GalleryUtilities::getRequestVariables($key);
 	    if (!empty($tmp)) {
 		$params[$key] = $tmp;
@@ -79,7 +83,7 @@ class ExternalView extends GalleryView {
 
 	$ret = ImageBlockHelper::loadImageBlocks($template, $params);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if (!empty($frameIds)) {
@@ -88,13 +92,13 @@ class ExternalView extends GalleryView {
 	    list ($ret, $imageframe) =
 		GalleryCoreApi::newFactoryInstance('ImageFrameInterface_1_1');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    if (isset($imageframe)) {
 		$ret = $imageframe->init($template, $frameIds);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	}

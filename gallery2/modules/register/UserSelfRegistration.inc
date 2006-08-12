@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: UserSelfRegistration.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.18 $ $Date: 2006/02/09 05:02:27 $
  * @package SelfRegistration
  * @subpackage UserInterface
  * @author Sebastian Eichner <mailsp@sebastian-eichner.de>
@@ -65,7 +67,7 @@ class UserSelfRegistrationController extends GalleryController {
 	    list ($ret, $level) =
 		GalleryCoreApi::getPluginParameter('module', 'register', 'validation.level');
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    if ($level == 'OFF') {
 		$pluginInstances = array();
@@ -75,7 +77,7 @@ class UserSelfRegistrationController extends GalleryController {
 		list ($ret, $pluginInstances) =
 		    GalleryCoreApi::getAllFactoryImplementationIds('GalleryValidationPlugin');
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		foreach (array_keys($pluginInstances) as $pluginId) {
@@ -83,7 +85,7 @@ class UserSelfRegistrationController extends GalleryController {
 			GalleryCoreApi::newFactoryInstanceById('GalleryValidationPlugin',
 							       $pluginId);
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		}
 	    }
@@ -92,7 +94,7 @@ class UserSelfRegistrationController extends GalleryController {
 	    foreach ($pluginInstances as $plugin) {
 		list ($ret, $pluginErrors, $continue) = $plugin->performValidation($form);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		$error = array_merge($error, $pluginErrors);
@@ -106,18 +108,18 @@ class UserSelfRegistrationController extends GalleryController {
 		list ($ret, $user) =
 		    GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryPendingUser');
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		if (!isset($user)) {
-		    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT),
+		    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__),
 				 null);
 		}
 
 		$ret = $user->create($form['userName']);
 		if ($ret) {
 		    if (!($ret->getErrorCode() & ERROR_COLLISION)) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
 		    /* Set our error status and fall back to the view */
@@ -125,12 +127,11 @@ class UserSelfRegistrationController extends GalleryController {
 		} else {
 		    $user->setEmail($form['email']);
 		    $user->setFullName($form['fullName']);
-		    GalleryUtilities::unsanitizeInputValues($form['password1'], false);
-		    $user->changePassword($form['password1']);
+		    $user->changePassword(GalleryUtilities::htmlEntityDecode($form['password1']));
 
 		    $ret = $user->save();
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
 		    /*
@@ -140,14 +141,14 @@ class UserSelfRegistrationController extends GalleryController {
 		    list($ret, $params) =
 			GalleryCoreApi::fetchAllPluginParameters('module', 'register');
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
 		    if ($params['confirmation'] == 'email') {
 			/* send confirmation email */
 			$ret = GalleryPendingUserHelper::sendConfirmationEmail($user);
 			if ($ret) {
-			    return array($ret, null);
+			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 			$redirect['pending'] = true;
 			$redirect['sentConfirmationEmail'] = true;
@@ -155,7 +156,7 @@ class UserSelfRegistrationController extends GalleryController {
 			/* turn the pending user into a real user right now */
 			$ret = GalleryPendingUserHelper::createGalleryUser($user);
 			if ($ret) {
-			    return array($ret, null);
+			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 		    } else { /* confirmation == 'admin' */
 			$redirect['pending'] = true;
@@ -164,7 +165,7 @@ class UserSelfRegistrationController extends GalleryController {
 		    if ($params['emailadmins']) {
 			$ret = GalleryPendingUserHelper::sendAdminEmail($user);
 			if ($ret) {
-			    return array($ret, null);
+			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 		    }
 
@@ -228,7 +229,7 @@ class UserSelfRegistrationView extends GalleryView {
 	list ($ret, $allPluginIds) =
 	    GalleryCoreApi::getAllFactoryImplementationIds('GalleryValidationPlugin');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Let each plugin load its template data */
@@ -237,12 +238,12 @@ class UserSelfRegistrationView extends GalleryView {
 	    list ($ret, $plugin) =
 		GalleryCoreApi::newFactoryInstanceById('GalleryValidationPlugin', $pluginId);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    list ($ret, $data['file'], $data['l10Domain']) = $plugin->loadTemplate($form);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    if (isset($data['file'])) {

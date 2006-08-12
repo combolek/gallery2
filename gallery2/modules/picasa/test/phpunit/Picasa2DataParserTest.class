@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: Picasa2DataParserTest.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -15,10 +17,10 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.5 $ $Date: 2005/10/07 01:16:30 $
  * @package Picasa
  * @subpackage PHPUnit
  * @author Waldemar Schlackow <gallery@schlackow.de>
@@ -43,7 +45,7 @@ class Picasa2DataParserTest extends GalleryControllerTestCase {
 	$testRawXml = '<?xml encoding="utf-8" ?>';
 	list ($ret, $picasaXmlArray) = Picasa2DataParser::getXmlArray($testRawXml);
 	/*if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}*/
 	$this->assertEquals($ret->_errorMessage, 'Error parsing XML.');
     }
@@ -57,7 +59,7 @@ class Picasa2DataParserTest extends GalleryControllerTestCase {
 	    '<albumItemCount>2</albumItemCount></album></albumName>';
 	list ($ret, $picasaXmlArray) = Picasa2DataParser::getXmlArray($testRawXml);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$expected = array('album' => array ('open' => array ('content' => 'GalleryTest'),
 	    'albumName' => array ('albumItemCount' => '2')));
@@ -101,7 +103,7 @@ class Picasa2DataParserTest extends GalleryControllerTestCase {
             '</album>';
         list ($ret, $picasaXmlArray) = Picasa2DataParser::getXmlArray($testRawXml);
         if ($ret) {
-            return $this->failWithStatus($ret);
+            return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
         }
         $expected = array('album' =>
             array(
@@ -177,7 +179,7 @@ class Picasa2DataParserTest extends GalleryControllerTestCase {
         );
         list ($ret, $albumArray) = Picasa2DataParser::getAlbumFromArray($testPicasaXmlArray);
         if ($ret) {
-            return $this->failWithStatus($ret);
+            return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
         }
         $expected = array (
             'albumName' => 'GalleryTest',

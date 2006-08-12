@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: SiteAdmin.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,7 +21,7 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.49 $ $Date: 2006/01/17 01:52:01 $
  * @package GalleryCore
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -43,97 +45,54 @@ class SiteAdminView extends GalleryView {
 	/* Make sure we have adequate permissions */
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
+
+	/* Bring in the root album information for the breadcrumb */
+	list ($ret, $rootAlbumId) =
+	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+	list ($ret, $rootAlbum) = GalleryCoreApi::loadEntitiesById($rootAlbumId);
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+	$rootAlbumData = (array)$rootAlbum;
 
 	/* Load the module list */
 	list ($ret, $moduleStatus) = GalleryCoreApi::fetchPluginStatus('module');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Get a list of all the admin views for each module */
 	$subViewChoices = array();
 	ksort($moduleStatus);
 
-	/*
-	 * We show all site admin links to the Modules page because it will hide any links for
-	 * modules that are not active.
-	 */
-	$subView = GalleryUtilities::getRequestVariables('subView');
-	$showAllSiteAdminViews = ($subView == 'core.AdminPlugins');
-
 	foreach ($moduleStatus as $moduleId => $status) {
-	    if (empty($status['active']) && !$showAllSiteAdminViews) {
+	    if (empty($status['active'])) {
 		continue;
 	    }
 
 	    /* Get the selected module's admin view */
-	    if (in_array('getSiteAdminViews', explode('|', $status['callbacks'])) ||
-		$showAllSiteAdminViews) {
-		if ($showAllSiteAdminViews) {
-		    list($ret, $module) =
-			GalleryCoreApi::loadPlugin('module', $moduleId, true, false);
-		} else {
-		    list($ret, $module) = GalleryCoreApi::loadPlugin('module', $moduleId);
-		    if ($ret) {
-			if ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH) {
-			    continue;
-			}
-			return array($ret, null);
+	    if (in_array('getSiteAdminViews', explode('|', $status['callbacks']))) {
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', $moduleId);
+		if ($ret) {
+		    if ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH) {
+			continue;
 		    }
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		list ($ret, $moduleViews) = $module->getSiteAdminViews();
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		$group = $module->getGroup();
-		/**
-		 * Pre 2.2, we only accepted a 'view', which we made the subView to
-		 * core.SiteAdmin.  In 2.2, we now let them specify extra parameters
-		 * so we create a separate 'view' which contains all the url parameters
-		 * to form a complete SiteAdmin view (except that we force view to
-		 * be core.SiteAdmin).
-		 *
-		 * TODO: change the API to allow the module to return this form directly
-		 * so that we don't have to massage it like this.
-		 */
-		$currentSubView = GalleryUtilities::getRequestVariables('subView');
 		foreach (array_keys($moduleViews) as $i) {
-		    $outer = array('name' => $moduleViews[$i]['name']);
-		    if (isset($moduleViews[$i]['group'])) {
-			$outer['group'] = $moduleViews[$i]['group'];
-			unset($moduleViews[$i]['group']);
-			$outer['groupLabel'] = $moduleViews[$i]['groupLabel'];
-			unset($moduleViews[$i]['groupLabel']);
-		    } else {
-			$outer['group'] = $group['group'];
-			$outer['groupLabel'] = $group['groupLabel'];
-		    }
-
-		    $inner = $moduleViews[$i];
-		    unset($inner['name']);
-		    $inner['subView'] = $inner['view'];
-		    $inner['view'] = 'core.SiteAdmin';
-		    $outer['view'] = $inner;
-
-		    if ($inner['subView'] == $currentSubView) {
-			/* This is probably our selected view */
-			$selected = true;
-			foreach ($inner as $key => $value) {
-			    if ($key == 'view') {
-				continue;
-			    }
-			    if (GalleryUtilities::getRequestVariables($key) != $value) {
-				$selected = false;
-				break;
-			    }
-			}
-			$outer['selected'] = $selected;
-		    }
-		    $moduleViews[$i] = $outer;
+		    $moduleViews[$i] = array_merge($group, $moduleViews[$i]);
 		}
 
 		$subViewChoices = array_merge($subViewChoices, $moduleViews);
@@ -177,26 +136,20 @@ class SiteAdminView extends GalleryView {
 	/* If we have a specific sub view, render it now */
 	$subViewName = GalleryUtilities::getRequestVariables('subView');
 	if ($subViewName == 'core.SiteAdmin') {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
-	} else if (empty($subViewName)) {
+	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
+	}
+	if (empty($subViewName)) {
 	    $subViewName = 'core.AdminCore';
-	} else if ($subViewName == 'core.AdminModules') {
-	    /*
-	     * In 2.2, we changed core.AdminModules and core.AdminPlugins.  Remap the name
-	     * here to avoid breaking any existing modules.
-	     * TODO: Remove this when GalleryCoreApi is at 8.0+
-	     */
-	    $subViewName = 'core.AdminPlugins';
 	}
 
 	list ($ret, $subView) = GalleryView::loadView($subViewName);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $results) = $subView->loadTemplate($template, $form);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Our sub view may have set some hints, like the encoding type */
@@ -210,15 +163,16 @@ class SiteAdminView extends GalleryView {
 	$urlGenerator =& $gallery->getUrlGenerator();
 	list ($ret, $navigationLinks) = $urlGenerator->getNavigationLinks();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Set up my view parameters */
+	$SiteAdmin['rootAlbum'] = $rootAlbumData;
 	$SiteAdmin['navigationLinks'] = $navigationLinks;
 	$SiteAdmin['subViewGroups'] = $subViewGroups;
 	$SiteAdmin['subViewName'] = $subViewName;
@@ -242,7 +196,7 @@ class SiteAdminView extends GalleryView {
 	}
 	list ($ret, $subView) = GalleryView::loadView($subViewName);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $description) = $subView->getViewDescription();
@@ -251,7 +205,7 @@ class SiteAdminView extends GalleryView {
 	}
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Fallback if subView doesn't have a name */

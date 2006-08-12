@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: RssSiteAdmin.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,8 +20,8 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
- * @package Rss
+ * @version $Revision: 1.4 $ $Date: 2006/02/23 04:37:56 $
+ * @package RSS
  * @author Jonatan Heyman <http://heyman.info>
  * @author Pierre-Luc Paour
  * @author Daniel Grund <http://www.photogrund.nl>
@@ -29,7 +31,7 @@ GalleryCoreApi::requireOnce('modules/rss/classes/RssMapHelper.class');
 GalleryCoreApi::requireOnce('modules/rss/classes/RssHelper.class');
 
 /**
- * @package Rss
+ * @package RSS
  * @subpackage UserInterface
  */
 class RssSiteAdminController extends GalleryController {
@@ -42,7 +44,7 @@ class RssSiteAdminController extends GalleryController {
 	/* Make sure the user has permission to do this operation */
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$status = $results = $error = array();
@@ -73,7 +75,7 @@ class RssSiteAdminController extends GalleryController {
 			$ret = GalleryCoreApi::setPluginParameter('module', 'rss',
 								  $setting, $form[$setting]);
 			if ($ret) {
-			    return array($ret, null);
+			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 		    }
 
@@ -83,12 +85,11 @@ class RssSiteAdminController extends GalleryController {
 				   'allowPhotos',
 				   'allowPhotosRecurse',
 				   'allowCommentsPhoto',
-				   'allowCommentsAlbum',
-				   'allowCommentsRecursive') as $setting) {
+				   'allowCommentsAlbum') as $setting) {
 			$ret = GalleryCoreApi::setPluginParameter('module', 'rss', $setting,
 			    (isset($form[$setting]) && $form[$setting]) ? 1 : 0);
 			if ($ret) {
-			    return array($ret, null);
+			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 		    }
 
@@ -107,7 +108,7 @@ class RssSiteAdminController extends GalleryController {
 			$ret = GalleryCoreApi::setPluginParameter('module', 'rss',
 								  $setting, $form[$setting]);
 			if ($ret) {
-			    return array($ret, null);
+			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 		    }
 
@@ -119,7 +120,7 @@ class RssSiteAdminController extends GalleryController {
 	} else if (isset($form['action']['delete'])) {
 	    $ret = RssMapHelper::deleteFeed($form['action']['delete']);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    $mode = 'list';
@@ -140,7 +141,7 @@ class RssSiteAdminController extends GalleryController {
 }
 
 /**
- * @package Rss
+ * @package RSS
  * @subpackage UserInterface
  */
 class RssSiteAdminView extends GalleryView {
@@ -155,7 +156,7 @@ class RssSiteAdminView extends GalleryView {
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$RssSiteAdmin['mode'] = GalleryUtilities::getRequestVariables('mode');
@@ -166,22 +167,22 @@ class RssSiteAdminView extends GalleryView {
 	/* fetch module parameters and save them in form variable */
 	list ($ret, $param) = GalleryCoreApi::fetchAllPluginParameters('module', 'rss');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	foreach ($param as $key => $value) {
 	    $form[$key] = $value;
 	}
-
+	
 	if ($RssSiteAdmin['mode'] == 'list') {
 	    /* fetch all feed definitions */
 	    list ($ret, $feeds) = RssMapHelper::fetchFeedsForItem();
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    list ($ret, $RssSiteAdmin['types']) = RssHelper::getFeedTypeTranslation();
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    if (!empty($feeds)) {
@@ -193,7 +194,7 @@ class RssSiteAdminView extends GalleryView {
 
 		list ($ret, $items) = GalleryCoreApi::loadEntitiesById($itemIds);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		for ($i = 0; $i < sizeof($feeds); $i++) {

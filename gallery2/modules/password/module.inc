@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: module.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -18,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.4 $ $Date: 2006/03/22 03:52:33 $
  * @package Password
  * @author Alan Harder <alan.harder@sun.com>
  * @author Jess Martin <jmartin@cs.unc.edu>
@@ -54,13 +56,13 @@ class PasswordModule extends GalleryModule /* and GalleryEventListener */ {
     function upgrade($currentVersion) {
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'password');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	foreach (array('validation.level' => 'MEDIUM') as $key => $value) {
 	    if (!isset($params[$key])) {
 		$ret = $this->setParameter($key, $value);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	}
@@ -83,28 +85,28 @@ class PasswordModule extends GalleryModule /* and GalleryEventListener */ {
 	    'GalleryOnLoadHandler', 'PasswordModule', 'Password',
 	    'modules/password/module.inc', 'password', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'ItemEditOption', 'PasswordOption', 'PasswordOption',
 	    'modules/password/PasswordOption.inc', 'password', array('ItemEditItem'));
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'PasswordInterface_1_0', 'PasswordHelper', 'Password',
 	    'modules/password/classes/PasswordHelper.class', 'password', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'CaptchaAdminOption', 'PasswordCaptchaAdminOption', 'PasswordCaptchaAdminOption',
 	    'modules/password/classes/PasswordCaptchaAdminOption.class', 'password', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -132,7 +134,7 @@ class PasswordModule extends GalleryModule /* and GalleryEventListener */ {
 	    ';
 	list ($ret, $searchResults) = $gallery->search($query);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	while ($result = $searchResults->nextResult()) {
 	    $itemIds[] = $result[0];
@@ -141,19 +143,19 @@ class PasswordModule extends GalleryModule /* and GalleryEventListener */ {
 	while (!empty($itemIds)) {
 	    list ($ret, $items) = GalleryCoreApi::loadEntitiesById(array_splice($itemIds, 0, 100));
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    foreach ($items as $item) {
 		$ret = PasswordHelper::removePassword($item);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	}
 
 	$ret = parent::uninstall();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	return null;
     }
@@ -167,7 +169,7 @@ class PasswordModule extends GalleryModule /* and GalleryEventListener */ {
 	if ($view == 'core.ShowItem' && $itemId == $item->getId() && !$duringUpgrade) {
 	    list ($ret, $permissions) = GalleryCoreApi::getPermissions($itemId);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    if (!isset($permissions['core.viewResizes'])
 		    && !isset($permissions['core.viewSource'])) {
@@ -175,12 +177,12 @@ class PasswordModule extends GalleryModule /* and GalleryEventListener */ {
 		    list ($ret, $hiddenInterface) =
 			GalleryCoreApi::newFactoryInstance('HiddenInterface_1_0');
 		    if ($ret) {
-			return $ret;
+			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		    if (isset($hiddenInterface)) {
 			list ($ret, $isHidden) = $hiddenInterface->isHidden($item);
 			if ($ret) {
-			    return $ret;
+			    return $ret->wrap(__FILE__, __LINE__);
 			}
 		    }
 		}
@@ -190,7 +192,7 @@ class PasswordModule extends GalleryModule /* and GalleryEventListener */ {
 		    $session =& $gallery->getSession();
 		    $ret = $session->start();
 		    if ($ret) {
-			return $ret;
+			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		    $session->doNotUseTempId();
 		    $urlGenerator =& $gallery->getUrlGenerator();
@@ -217,14 +219,14 @@ class PasswordModule extends GalleryModule /* and GalleryEventListener */ {
 	    GalleryCoreApi::requireOnce('modules/password/classes/PasswordHelper.class');
 	    $ret = PasswordHelper::handleMoveItem($item);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	} else if (GalleryUtilities::isA($item, 'GalleryItem')
 		&& $item->testPersistentFlag(STORAGE_FLAG_NEWLY_CREATED)) {
 	    GalleryCoreApi::requireOnce('modules/password/classes/PasswordHelper.class');
 	    $ret = PasswordHelper::handleNewItem($item);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 	return array(null, null);

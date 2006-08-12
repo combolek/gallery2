@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: module.inc,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -19,10 +21,9 @@
  */
 /**
  * @package Exif
- * @version $Revision$ $Date$
+ * @version $Revision: 1.57 $ $Date: 2006/03/22 03:52:30 $
  * @author Bharat Mediratta <bharat@menalto.com>
  * @author Georg Rehfeld <rehfeld@georg-rehfeld.de>
- * @author Jozsef R.Nagy <jozsef.rnagy@site.hu>
  */
 
 /**
@@ -40,10 +41,10 @@ class ExifModule extends GalleryModule {
 	$this->setId('exif');
 	$this->setName($gallery->i18n('EXIF/IPTC'));
 	$this->setDescription($gallery->i18n('Extract EXIF/IPTC data from JPEG photos'));
-	$this->setVersion('1.0.8'); /* Update upgrade() function below too */
+	$this->setVersion('1.0.6'); /* Update upgrade() function below too */
 	$this->setGroup('data', $gallery->i18n('Extra Data'));
 	$this->setCallbacks('getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 10));
+	$this->setRequiredCoreApi(array(7, 0));
 	$this->setRequiredModuleApi(array(3, 0));
     }
 
@@ -58,18 +59,18 @@ class ExifModule extends GalleryModule {
 	    GalleryCoreApi::requireOnce('modules/exif/classes/ExifHelper.class');
 	    $ret = ExifHelper::setDefaultProperties(EXIF_SUMMARY);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    $ret = ExifHelper::setDefaultProperties(EXIF_DETAILED);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    /* Import IPTC keywords into item keywords, see comment below for reason. */
 	    $ret = $this->setParameter('addOption', IPTC_ITEM_KEYWORDS);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	} else {
 	    switch ($currentVersion) {
@@ -77,7 +78,7 @@ class ExifModule extends GalleryModule {
 	    case '0.8.3':
 		$ret = $this->setParameter('addOption', '0');
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
 	    case '0.8.4':
@@ -97,21 +98,21 @@ class ExifModule extends GalleryModule {
 		GalleryCoreApi::requireOnce('modules/exif/classes/ExifHelper.class');
 		$ret = ExifHelper::addDefaultIptcProperties(EXIF_SUMMARY);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
 		$ret = ExifHelper::addDefaultIptcProperties(EXIF_DETAILED);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
 		list($ret, $addOption) = $this->getParameter('addOption');
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 		$ret = $this->setParameter('addOption', $addOption | IPTC_ITEM_KEYWORDS);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
 	    case '0.9.2':
@@ -129,9 +130,6 @@ class ExifModule extends GalleryModule {
 	    case '1.0.3':
 	    case '1.0.4':
 	    case '1.0.5':
-	    case '1.0.6':
-		/* Rotate images based on exifdata */
-	    case '1.0.7':
 
 	    case 'end of upgrade path':
 		/*
@@ -157,21 +155,21 @@ class ExifModule extends GalleryModule {
 	    'ExifInterface_1_0', 'ExifExtractor', 'Exif',
 	    'modules/exif/classes/ExifExtractor.class', 'exif', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'GalleryToolkit', 'ExifToolkit', 'Exif',
 	    'modules/exif/classes/ExifToolkit.class', 'exif', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::registerFactoryImplementation('ItemAddOption',
 	    'ExifDescriptionOption', 'ExifDescriptionOption',
 	    'modules/exif/ExifDescriptionOption.inc', 'exif', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -190,12 +188,12 @@ class ExifModule extends GalleryModule {
 		'int',
 		$gallery->i18n('Get the origination timestamp'));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $redirect) = parent::activate($postActivationEvent);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, $redirect);

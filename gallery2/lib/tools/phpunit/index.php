@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: index.php,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -38,12 +40,12 @@ require_once('MockTemplateAdapter.class');
 function PhpUnitGalleryMain(&$testSuite, $filter) {
     $ret = GalleryInitFirstPass();
     if ($ret) {
-	return $ret;
+	return $ret->wrap(__FILE__, __LINE__);
     }
 
     $ret = GalleryInitSecondPass();
     if ($ret) {
-	return $ret;
+	return $ret->wrap(__FILE__, __LINE__);
     }
 
     /* Set the appropriate charset in our HTTP header */
@@ -57,14 +59,14 @@ function PhpUnitGalleryMain(&$testSuite, $filter) {
     $urlGenerator = new GalleryUrlGenerator();
     $ret = $urlGenerator->init('index.php');
     if ($ret) {
-	return $ret;
+	return $ret->wrap(__FILE__, __LINE__);
     }
     $urlDir = str_replace('lib/tools/phpunit/', '', $urlGenerator->getCurrentUrlDir());
     $path = substr($urlDir, strlen($urlGenerator->makeUrl('/')) - 1);
     $urlGenerator = new GalleryUrlGenerator();
     $ret = $urlGenerator->init($path . GALLERY_MAIN_PHP);
     if ($ret) {
-	return $ret;
+	return $ret->wrap(__FILE__, __LINE__);
     }
     $gallery->setUrlGenerator($urlGenerator);
 
@@ -75,7 +77,7 @@ function PhpUnitGalleryMain(&$testSuite, $filter) {
     $storage =& $gallery->getStorage();
     $ret = $storage->commitTransaction();
     if ($ret) {
-	return $ret;
+	return $ret->wrap(__FILE__, __LINE__);
     }
 
     list ($ret, $isSiteAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
@@ -91,7 +93,7 @@ function PhpUnitGalleryMain(&$testSuite, $filter) {
 	 */
 	list ($ret, $moduleStatusList) = GalleryCoreApi::fetchPluginStatus('module');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$suiteArray = array();
@@ -294,7 +296,7 @@ if (isset($_GET['filter'])) {
 $testSuite = new TestSuite();
 $ret = PhpUnitGalleryMain($testSuite, $filter);
 if ($ret) {
-    $ret = $ret;
+    $ret = $ret->wrap(__FILE__, __LINE__);
     print $ret->getAsHtml();
     print $gallery->getDebugBuffer();
     return;
@@ -302,7 +304,7 @@ if ($ret) {
 
 list ($ret, $moduleStatusList) = GalleryCoreApi::fetchPluginStatus('module');
 if ($ret) {
-    $ret = $ret;
+    $ret = $ret->wrap(__FILE__, __LINE__);
     print $ret->getAsHtml();
     return;
 }
@@ -315,7 +317,7 @@ if (!$session->isUsingCookies()) {
 
 list ($ret, $isSiteAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
 if ($ret) {
-    $ret = $ret;
+    $ret = $ret->wrap(__FILE__, __LINE__);
     print $ret->getAsHtml();
     return;
 }
@@ -347,7 +349,7 @@ include(dirname(__FILE__) . '/index.tpl');
 /* Compact any ACLs that were created during this test run */
 $ret = GalleryCoreApi::compactAccessLists();
 if ($ret) {
-    $ret = $ret;
+    $ret = $ret->wrap(__FILE__, __LINE__);
     print $ret->getAsHtml();
     return;
 }
@@ -355,6 +357,6 @@ if ($ret) {
 $storage =& $gallery->getStorage();
 $ret = $storage->commitTransaction();
 if ($ret) {
-    return $ret;
+    return $ret->wrap(__FILE__, __LINE__);
 }
 ?>

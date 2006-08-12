@@ -1,5 +1,7 @@
 <?php
 /*
+ * $RCSfile: MultisiteStep.class,v $
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -96,14 +98,6 @@ class MultisiteStep extends InstallStep {
 	/*
 	 * Show full filesystem path and the full URL to config file dir.
 	 */
-	$openBasedir = ini_get('open_basedir');
-	if (!empty($openBasedir)) {
-	    $separator = strncasecmp(PHP_OS, 'win', 3) ? ':' : ';';
-	    $templateData['openBasedir'] = explode($separator, $openBasedir);
-	} else {
-	    $templateData['openBasedir'] = array();
-	}
-
 	$templateData['isMultisite'] = $this->_isMultisite;
 	$templateData['configPath'] = $this->_configPath;
 	$templateData['galleryDir'] = $galleryDir;
@@ -165,8 +159,8 @@ class MultisiteStep extends InstallStep {
 	/* Copy config data from system checks step which will be used in the install log */
 	$gallery->setConfig('systemchecks.fileintegrity',
 			    $galleryStub->getConfig('systemchecks.fileintegrity'));
-	$gallery->setConfig('systemchecks.issvninstall',
-			    $galleryStub->getConfig('systemchecks.issvninstall'));
+	$gallery->setConfig('systemchecks.iscvsinstall',
+			    $galleryStub->getConfig('systemchecks.iscvsinstall'));
 	/* Replace galleryStub */
 	$galleryStub = $gallery;
     }
