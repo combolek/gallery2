@@ -53,6 +53,8 @@
 	      GalleryUtilities.hide("{"link"|elementId}");
 	      GalleryUtilities.hide("{"status"|elementId}");
 	      GalleryUtilities.show("{"form"|elementId}");
+	      YAHOO.util.Dom.get("{"textInput"|elementId}").focus();
+	      YAHOO.util.Dom.get("{"textInput"|elementId}").select();
 	    {rdelim}, EditItemBlock_{$templateId|replace:"-":"_"});
 
 	  {* Register template's submit function with submit buttons *}
