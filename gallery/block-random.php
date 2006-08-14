@@ -19,7 +19,6 @@
  *
  * $Id$
  */
-
 /*
  * This block selects a random photo for display.  It will only display photos
  * from albums that are visible to the public.  It will not display hidden
@@ -69,15 +68,13 @@ $i = 0;
 do { 
 	$success = doPhoto();
 	$i++;
-}
-while (empty($success) && $i < $gallery->app->blockRandomAttempts);
+} while (empty($success) && $i < $gallery->app->blockRandomAttempts);
 
 if (empty($success)) {
-	echo gTranslate('core', "No photo chosen.");
+	echo _("No photo chosen.");
 }
 
 function doPhoto() {
-    global $gallery;
 	$album = chooseAlbum();
 
 	if (!empty($album)) {
@@ -85,55 +82,25 @@ function doPhoto() {
 	}
 
 	if (!empty($index)) {
-	    $photo = $album->getPhoto($index);
-	    $id = $photo->getPhotoId();
-	    $caption = $photo->getCaption() ? $photo->getCaption() : '';
-	    $photoUrl = makeAlbumUrl($album->fields['name'], $id);
-	    $imageUrl = $album->getThumbnailTag($index);
-	    $albumUrl = makeAlbumUrl($album->fields['name']);
-	    $albumTitle = $album->fields['title'];
-	    $gallery->html_wrap['imageHref'] = $photoUrl;
-	    $gallery->html_wrap['imageTag'] = $imageUrl;
-	    $gallery->html_wrap['borderColor'] = $gallery->app->blockRandomFrameBorderColor;
-	    $gallery->html_wrap['borderWidth'] = $gallery->app->blockRandomFrameBorderWidth;
-
-	    switch($gallery->app->blockRandomFrame) {
-	        case 'albumImageFrame' :
-	            $frame = $album->fields['image_frame'];
-	        break;
-	        case 'albumThumbFrame' :
-	            $frame = $album->fields['thumb_frame'];
-	        break;
-	        case 'mainThumbFrame':
-	            $frame = $gallery->app->gallery_thumb_frame_style;
-	        break;
-	        default:
-	            $frame = $gallery->app->blockRandomFrame;
-	        break;
-	    }
-	    $gallery->html_wrap['frame'] = $frame;
-	    $gallery->html_wrap['imageWidth'] = $photo->thumbnail->raw_width;
-	    $gallery->html_wrap['imageHeight'] = $photo->thumbnail->raw_height;
-	    $gallery->html_wrap['attr'] = '';
-
-	    echo "\n<div class=\"g-random-block\">";
-	    echo "\n  <div class=\"g-random-block-photo\">";
-
-	    includeLayout('inline_imagewrap.inc');
-	    
-	    if (!in_array($frame, array('dots', 'solid')) &&
-	      !fs_file_exists(dirname(__FILE__) . "/layout/frames/$frame/frame.def")) {
-	        echo "\n<br>";
-	    }
-	    echo $caption;
-
-	    echo "\n  </div>";
-	    printf ("\n  ". gTranslate('core', "From album: %s"), "<a href=\"$albumUrl\">$albumTitle</a>");
-	    echo "\n</div>";
-
-	    return true;
+		$id = $album->getPhotoId($index);
+		$caption = $album->getCaption($index) ? '<br>'. $album->getCaption($index) : '';
+		$photoUrl = makeAlbumUrl($album->fields['name'], $id);
+		$imageUrl = $album->getThumbnailTag($index);
+		$albumUrl = makeAlbumUrl($album->fields['name']);
+		$albumTitle = $album->fields['title'];
+?>
+  <div class="random-block">
+    <div class="random-block-photo">
+    <a href="<?php echo $photoUrl; ?>"><?php echo $imageUrl; ?></a>
+    <?php echo $caption; ?>
+    
+    </div>
+    <?php printf (_("From album: %s"), "<a href=\"$albumUrl\">$albumTitle</a>"); ?>
+  </div>
+<?php
+		return 1;
 	} else {
-	    return false;
+		return 0;
 	}
 }
 

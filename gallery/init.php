@@ -26,7 +26,7 @@
 $sensitiveList = array('gallery', 'GALLERY_EMBEDDED_INSIDE', 'GALLERY_EMBEDDED_INSIDE_TYPE', 'GLOBALS');
 foreach ($sensitiveList as $sensitive) {
     if (!empty($_REQUEST[$sensitive])) {
-        print gTranslate('core', "Security violation") ."\n";
+        print _("Security violation") ."\n";
         exit;
     }
 }
@@ -36,7 +36,7 @@ foreach ($sensitiveList as $sensitive) {
 * In v1.2, we know that we'll have lots and lots of warnings if
 * error reporting is turned all the way up.  We'll fix this in v2.0
 */
-//error_reporting(E_ALL & ~E_NOTICE);
+error_reporting(E_ALL & ~E_NOTICE);
 
 /*
 *  Seed the randomization pool once, instead of doing it every place
@@ -66,14 +66,6 @@ if (fs_file_exists(dirname(__FILE__) . "/config.php")) {
      * take a long time) we reset the counter to 0 so that a longer execution can occur.
     */
     set_time_limit($gallery->app->timeLimit);
-}
-
-$gallerySanity = gallerySanityCheck();
-
-/* Make sure that Gallery is set up properly */
-if ($gallerySanity != NULL) {
-    header("Location: " . makeGalleryHeaderUrl('setup/index.php'));
-    exit;
 }
 
 /*
@@ -112,7 +104,7 @@ if (!empty($gallery->app->geeklog_dir) && $gallery->app->geeklog_dir == "/path/t
 
 // Verify that the geeklog_dir isn't overwritten with a remote exploit
 if (!empty($gallery->app->geeklog_dir) && !realpath($gallery->app->geeklog_dir)) {
-    print gTranslate('core', "Security violation") ."\n";
+    print _("Security violation") ."\n";
     exit;
 } elseif (!empty($gallery->app->geeklog_dir)) {
     $GALLERY_EMBEDDED_INSIDE='GeekLog';
@@ -186,6 +178,15 @@ require(dirname(__FILE__) . "/classes/Comment.php");
 
 if (!isset($GALLERY_NO_SESSIONS)) {
     require(dirname(__FILE__) . "/session.php");
+}
+
+$gallerySanity = gallerySanityCheck();
+
+/* Make sure that Gallery is set up properly */
+if ($gallerySanity != NULL) {
+    initLanguage();
+    include_once(dirname(__FILE__) . "/includes/errors/$gallerySanity");
+    exit;
 }
 
 if (isset($GALLERY_EMBEDDED_INSIDE)) {
@@ -397,7 +398,7 @@ if (isset($GALLERY_EMBEDDED_INSIDE)) {
                 $gallery->session->mambo->mosConfig_lang     = $mosConfig_lang;
                 $gallery->session->mambo->MOS_GALLERY_PARAMS = $MOS_GALLERY_PARAMS;
             } else {
-                echo 'init.php: ' . gTranslate('core', "Gallery seems to be inside Mambo, but we couldn't get the necessary info.");
+                echo 'init.php: ' . _("Gallery seems to be inside Mambo, but we couldn't get the necessary info.");
                 exit;
             }
 
@@ -556,10 +557,9 @@ if (!empty($gallery->session->albumName)) {
     $ret = $gallery->album->load($gallery->session->albumName);
     if (!$ret) {
         $gallery->session->albumName = "";
-    }
-    else {
+    } else {
         if ($gallery->album->versionOutOfDate()) {
-            include_once(dirname(__FILE__) . "/popups/upgrade_album.php");
+            include_once(dirname(__FILE__) . "/upgrade_album.php");
             exit;
         }
     }

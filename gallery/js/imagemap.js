@@ -1,8 +1,3 @@
-/**
- * Gallery SVN ID:
- * $Id$
-*/
-
   var minX;
   var minY;
   var width;

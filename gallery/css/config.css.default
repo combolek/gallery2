@@ -1,26 +1,26 @@
 /*
   $Id$
- 
+
   Gallery - a web based photo album viewer and editor
   Copyright (C) 2000-2006 Bharat Mediratta
- 
+
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
   the Free Software Foundation; either version 2 of the License, or (at
   your option) any later version.
- 
+
   This program is distributed in the hope that it will be useful, but
   WITHOUT ANY WARRANTY; without even the implied warranty of
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
   General Public License for more details.
- 
+
   You should have received a copy of the GNU General Public License
   along with this program; if not, write to the Free Software
   Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
 
-*/ 
+*/
 
-body { 
+body {
     margin-top: 10px; margin-left: 20px; margin-right: 20px;
     color: #000000;
     background-image: url(../images/simplex-bkg.gif);
@@ -35,7 +35,7 @@ body {
 
 .sitedesc {
     background-color: #FCFCF3;
-    margin-top:5px; padding:5px;
+    margin-top:10px; padding:5px;
     border: 1px solid #000000;
 }
 
@@ -67,7 +67,7 @@ div#top {
 		}
 
 .success        { font-weight:bold; background-color: green; color: #FFFFFF ;
-		  width: 150px; padding:2px; 
+		  width: 150px; padding:2px;
 		}
 
 .successpct	{ font-weight:bold; background-color: green; color: #FFFFFF ;
@@ -80,7 +80,7 @@ div#top {
 
 
 .warning        { font-weight:bold; background-color: #FFFF33; color: #000000 ;
-		  width: 150px; padding:2px; 
+		  width: 150px; padding:2px;
 		}
 
 .warninglong    { font-weight:bold; background-color: #FFFF33; color: #000000 ;
@@ -88,7 +88,7 @@ div#top {
 		}
 
 .warningpct	{ font-weight:bold; background-color: #FFFF33; color: #000000 ;
-		  padding:2px; 
+		  padding:2px;
 		}
 
 .separator {
@@ -100,17 +100,17 @@ div#top {
 
 
 .subgroup {
-    text-align: center;
+    text-align:center;
     font-size: 16px; font-weight: bold;
-    background-color: #5e78dd; color:#FFFFFF;
-    padding: 2px;
+    background-color: #9191FF; color:#FFFFFF;
+    padding:2px;
     width: 60%;
-    margin-top: -5px; margin-bottom: 5px;
+    margin-top: -10px; margin-bottom: 5px;
 }
 
 .inner {
-    margin-bottom: 7px;
-    border-bottom: 3px double #000000;
+    padding: 5px; margin-bottom:15px;
+    border-style: solid; border-color: #000000; border-width:1px;
 }
 
 .shortdesc {
@@ -128,25 +128,46 @@ div#top {
     font-weight: bold;
 }
 
-.attention	{ font-size: 1.1em; font-weight:bold; 
+.attention	{ font-size: 1.1em; font-weight:bold;
 		  color:red ;
 		}
 
 a:link		{ color: #000099;
 		}
 
-a:visited, a:hover {
-    color: #409D27;
+a:visited,
+a:hover		{ color: #409D27;
+		}
+.littlered	{ font-size: 10px; color:red; vertical-align:top;
+		}
+
+.g-tabset {
+    width: 100%;
+    font-weight: bold;
+    border-bottom: 1px solid black;
+    margin: 2px 0;
 }
 
+.g-tabset a {
+    margin: -2px 0 -1px 2px;
+    white-space: nowrap;
+    text-decoration: none;
+    color: #000;
+    background-color: #FCFCF3;
+    padding: 2px 0.5em;
+    display: block;
+    border: 1px solid #000;
+    -moz-border-radius-topleft: 10px;
+    -moz-border-radius-topright: 10px;
+}
 
-.install {
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 3em;
-	margin-bottom: 3em;
-	padding: 10px;
-	border: 1px solid #cccccc;
-	width: 750px;
-	background: #F1F1F1;
+.g-tabset a:hover {
+    text-decoration: none;
+   background-color: #e9e9ff;
+}
+
+.g-tabset a.tab-hi {
+    color: #fff;
+    background: #66a;
+    border-bottom: 1px solid #66a;
 }

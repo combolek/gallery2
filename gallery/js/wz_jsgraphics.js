@@ -1,8 +1,3 @@
-/**
- * Gallery SVN ID:
- * $Id$
-*/
-
 /* This notice must be untouched at all times.
 
 wz_jsgraphics.js    v. 2.33

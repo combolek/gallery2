@@ -1,8 +1,3 @@
-/**
- * Gallery SVN ID:
- * $Id$
-*/
-
 function gallery_toggle(id) {
 	var img;
 	var elem;

@@ -41,7 +41,10 @@ function getRequestVar($str) {
         if (!isset($_REQUEST[$str])) {
             return null;
         }
-        $ret = &$_REQUEST[$str];
+        $ret = & $_REQUEST[$str];
+        //echo "\n<br>- Checking:". htmlspecialchars($str);
+        $ret = sanitizeInput($ret);
+
         if (get_magic_quotes_gpc() && !is_array($ret)) {
             $ret = stripslashes($ret);
         }
@@ -361,34 +364,28 @@ function correctPseudoUsers(&$array, $ownerUid) {
 	}
 }
 
-/**
- * Checks wether our Gallery configuration is configured
- *
- * @return mixed    NULL, 'unconfigured', 'reconfigure'
- */
 function gallerySanityCheck() {
-	global $gallery, $GALLERY_OK;
+	global $gallery;
+	global $GALLERY_OK;
 
-    if (!empty($gallery->backup_mode)) {
-        return NULL;
-    }
+       	if (!empty($gallery->backup_mode)) {
+	       	return NULL;
+       	}
 
 	setGalleryPaths();
 
 	if (!fs_file_exists(GALLERY_CONFDIR . "/config.php") ||
-        broken_link(GALLERY_CONFDIR . "config.php") ||
-        !$gallery->app) {
-
-        $GALLERY_OK = false;
-		return 'unconfigured';
+                broken_link(GALLERY_CONFDIR . "config.php") ||
+                !$gallery->app) {
+		$GALLERY_OK = false;
+		return "unconfigured.php";
 	}
 
 	if ($gallery->app->config_version != $gallery->config_version) {
 		$GALLERY_OK = false;
-		return 'reconfigure';
+		return "reconfigure.php";
 	}
 	$GALLERY_OK = true;
-
 	return NULL;
 }
 
@@ -588,7 +585,7 @@ function getExif($file) {
                 break;
             }
             $path = $gallery->app->use_exif;
-            list($return, $status) = @exec_internal(fs_import_filename($path, 1) .' -v ' .
+            list($return, $status) = @exec_internal(fs_import_filename($path, 1) .' '. //. ' -v ' .
             fs_import_filename($file, 1));
 
             $unwantedFields = array('File name');
@@ -676,7 +673,7 @@ function doCommand($command, $args = array(), $returnTarget = '', $returnArgs = 
 		$args["return"] = urlencode(makeGalleryHeaderUrl($returnTarget, $returnArgs));
 	}
 	$args["cmd"] = $command;
-	return makeGalleryUrl('popups/do_command.php', $args);
+	return makeGalleryUrl("do_command.php", $args);
 }
 
 function breakString($buf, $desired_len=40, $space_char=' ', $overflow=5) {
@@ -942,7 +939,7 @@ function createZip($folderName = '', $zipName = '', $deleteSource = true) {
         debugMessage(gTranslate('core', "No Support for creating Zips"), __FILE__, __LINE__, 2);
         return false;
     } else {
-        debugMessage(sprintf(gTranslate('core', "Creating Zip file with %s"), $tool), __FILE__, __LINE__, 2);
+        debugMessage(sprintf(gTranslate('core', "Creating Zipfile with %s"), $tool), __FILE__, __LINE__, 2);
     }
 
     $tmpDir = $gallery->app->tmpDir .'/'. uniqid(rand());
@@ -956,7 +953,7 @@ function createZip($folderName = '', $zipName = '', $deleteSource = true) {
 
     if(! fs_mkdir($tmpDir)) {
         echo gallery_error(
-          sprintf(gTranslate('core', "Your temp folder is not writeable! Please check permissions of this dir: %s"),
+          sprintf(gTranslate('core', "Your tempfolder is not writeable! Please check permissions of this dir: %s"),
           $gallery->app->tmpDir));
         return false;
     }
@@ -965,7 +962,7 @@ function createZip($folderName = '', $zipName = '', $deleteSource = true) {
     /* Switch to the folder that content is going to be zipped */
     chdir($folderName);
 
-    $cmd = fs_import_filename($gallery->app->zip) ." -r $fullZipName *";
+			$cmd = fs_import_filename($gallery->app->zip) ." -r $fullZipName *";
 
     if (! exec_wrapper($cmd)) {
 	   echo gallery_error("Zipping failed");
@@ -975,7 +972,7 @@ function createZip($folderName = '', $zipName = '', $deleteSource = true) {
     }
     else {
        /* Go back */
-       chdir($currentDir);
+        chdir($currentDir);
 	   if($deleteSource) {
 	       rmdirRecursive($folderName);
 	   }
@@ -1136,20 +1133,17 @@ function processNewImage($file, $ext, $name, $caption, $setCaption = '', $extra_
             if (empty($caption)) {
                 switch ($setCaption) {
                     case 0:
-            			$caption = '';
-            		break;
-
+			$caption = '';
+		    break;
                     case 1:
                     default:
                         /* Use filename */
                         $caption = strtr($originalFilename, '_', ' ');
                     break;
-
                     case 2:
                         /* Use file cration date */
                         $caption = strftime($dateTimeFormat, filectime($file));
                     break;
-
                     case 3:
                         /* Use capture date */
                         $caption = strftime($dateTimeFormat, getItemCaptureDate($file));
@@ -1397,31 +1391,6 @@ function where_i_am() {
     return $location;
 }
 
-// Returns the CVS version as a string, NULL if file can't be read, or ""
-// if version can't be found.
-function getCVSVersion($file) {
-
-    $path= dirname(__FILE__) . "/$file";
-    if (!fs_file_exists($path)) {
-        return NULL;
-    }
-    if (!fs_is_readable($path)) {
-        return NULL;
-    }
-    $contents=file($path);
-    foreach ($contents as $line) {
-        if (ereg("\\\x24\x49\x64: [A-Za-z_.0-9]*,v ([0-9.]*) .*\x24$", trim($line), $matches) ||
-        ereg("\\\x24\x49\x64: [A-Za-z_.0-9]*,v ([0-9.]*) .*\x24 ", trim($line), $matches)) {
-            if ($matches[1]) {
-                return $matches[1];
-            }
-        }
-
-    }
-    return '';
-}
-
-
 // Returns the SVN revision  as a string, NULL if file can't be read, or ""
 // if version can't be found.
 function getSVNRevision($file) {
@@ -1446,7 +1415,6 @@ function getSVNRevision($file) {
     }
     return '';
 }
-
 
 /* Return -1 if old version is greater than new version, 0 if they are the
    same and 1 if new version is greater.
@@ -1618,26 +1586,21 @@ function calcVAdivDimension($frame, $iHeight, $iWidth, $borderwidth) {
 		break;
 
 		case "solid":
-			$divCellWidth = $thumbsize + $borderwidth + 3;
-			$divCellAdd =  $borderwidth + 3;
-		break;
-
-		case "siriux":
-			$divCellWidth = $thumbsize + 15;
-			$divCellAdd =  15;
+			$divCellWidth = $thumbsize + $borderwidth +3;
+			$divCellAdd =  $borderwidth +3;
 		break;
 
 		default: // use frames directory or fallback to none.
-    		if(array_key_exists($frame, available_frames())) {
-    		    require(dirname(__FILE__) . "/layout/frames/$frame/frame.def");
+		    if(array_key_exists($frame, available_frames())) {
+			require(dirname(__FILE__) . "/html_wrap/frames/$frame/frame.def");
 
-    		    $divCellWidth = $thumbsize + $widthTL + $widthTR;
-    		    $divCellAdd = $heightTT + $heightBB;
-    		}
-    		else {
-    		    $divCellWidth = $thumbsize + 3;
-    		    $divCellAdd =  3;
-    		}
+			$divCellWidth = $thumbsize + $widthTL + $widthTR;
+			$divCellAdd = $heightTT + $heightBB;
+		    }
+		    else {
+			$divCellWidth = $thumbsize + 3;
+			$divCellAdd =  3;
+		    }
 		break;
 	} // end of switch
 
@@ -1802,6 +1765,7 @@ function array_sort_by_fields(&$data, $sortby, $order = 'asc', $caseSensitive = 
 	$order = ($order == 'asc') ? 1 : -1;
 
 	if (empty($sort_funcs[$sortby])) {
+
 	    if ($special) {
 		$a = "\$a->fields[\"$sortby\"]";
 		$b = "\$b->fields[\"$sortby\"]";
@@ -1813,8 +1777,6 @@ function array_sort_by_fields(&$data, $sortby, $order = 'asc', $caseSensitive = 
 
 	    if ($caseSensitive) {
 			$code = "
-	    $a = removeAccessKey($a);
-	    $b = removeAccessKey($b);
 	    if( $a == $b ) {
 	        return 0;
 	    };
@@ -1826,8 +1788,6 @@ function array_sort_by_fields(&$data, $sortby, $order = 'asc', $caseSensitive = 
 		}
 	    else {
 			$code = "
-	    $a = removeAccessKey($a);
-	    $b = removeAccessKey($b);
 	    if(strtoupper($a) == strtoupper($b)) {
 	        return 0;
 	    };
@@ -1875,8 +1835,8 @@ function createTempAlbum($albumItemNames = array(), $dir = '') {
 
     if(! fs_mkdir($dir)) {
         echo gallery_error(
-          sprintf(gTranslate('core', "Gallery was unable to create a tempory subfolder in your temp folder. Please check permissions of this dir: %s"),
-          $gallery->app->tmpDir));
+          sprintf(gTranslate('core', "Gallery was unable to create a tempory subfolder in your tempdir. Please check permissions of this dir: %s"),
+        $gallery->app->tmpDir));
         return false;
     }
 
