@@ -50,20 +50,19 @@ class ErrorPageView extends GalleryView {
     function loadTemplate(&$template, &$form) {
 	global $gallery;
 
-	$ErrorPage = array();
-
-	$error = $this->_error;
-	if (empty($error)) {
+	if (empty($this->_error)) {
 	    $session =& $gallery->getSession();
-	    $error = $session->get('core.error');
-	    if (!empty($error)) {
+	    $this->_error = $session->get('core.error');
+	    if (!empty($this->_error)) {
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryStatus.class');
-		$error = unserialize($error);
+		$this->_error = unserialize($error);
 	    }
 	}
+	$error = $this->_error;
 
 	list ($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
-	if ($gallery->getDebug() || $isAdmin) {
+	$ErrorPage = array('isAdmin' => !$ret && $isAdmin);
+	if ($gallery->getDebug() || $ErrorPage['isAdmin']) {
 	    $ErrorPage['stackTrace'] = $error->getAsHtml($isAdmin);
 	}
 
@@ -85,7 +84,7 @@ class ErrorPageView extends GalleryView {
 	    $ErrorPage['code']['missingObject'] = true;
 	}
 
-	if ($isAdmin) {
+	if ($ErrorPage['isAdmin']) {
 	    $ErrorPage['phpversion'] = phpversion();
 	    $ErrorPage['php_uname'] = php_uname();
 	    $ErrorPage['php_sapi_name'] = php_sapi_name();
