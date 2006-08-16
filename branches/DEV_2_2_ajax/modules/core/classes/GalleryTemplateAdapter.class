@@ -270,31 +270,31 @@ class GalleryTemplateAdapter {
     }
 
     /**
-     * Return a transformed element name.  Useful for accessing a form element in JavaScript.
+     * Return a prefixed form variable name.  Useful for accessing form variables in JavaScript.
      *
      * @param array key => value attributes
-     * @return string form variable name
+     * @return string prefixed form variable name
      */
     function formVar($params) {
 	return GalleryUtilities::prefixFormVariable($params['var']);
     }
 
     /**
-     * Serialize arrays as form variables by looping over the block content for each Gallery form
-     * variable & value in the array.
+     * Serialize arrays as form variables by looping over the block content for each form variable
+     * name & value in the array.
      *
      * Takes two parameters: name & value of the form variable.  Parameter names correspond to
-     * template variable names in which the Gallery form variable & value is set each iteration.
+     * template variable names in which the form variable name & value are set on each iteration.
      *
      * eg. {g->formVars foo="form[exampleVar]" bar=$exampleArray}
      *     <input type="hidden" name="{$foo}" value="{$bar}"/>
      *     {/g->formVars}
      *
      * @param array key => value attributes
-     * @param string contents of template block
+     * @param string template block content
      * @param object Smarty the smarty instance
      * @param boolean evaluate template block again
-     * @return string content
+     * @return string HTML content
      */
     function formVars($params, $content, &$smarty, &$repeat) {
 	static $save, $nameVar, $valueVar, $valueKeys, $valueValues;
@@ -367,6 +367,10 @@ class GalleryTemplateAdapter {
      * @see GalleryTemplateAdapter::image
      */
     function _image($params, &$smarty) {
+	if (isset($params['params'])) {
+	    $params = $params['params'];
+	}
+
 	/*
 	 * Cases:
 	 * - Item can render itself
@@ -511,7 +515,7 @@ class GalleryTemplateAdapter {
      * Include our AutoCompletion template.
      *
      * @param array params
-     * @param string content
+     * @param string template block content
      * @param object Smarty the smarty instance
      */
     function autoComplete($params, $content, &$smarty) {
@@ -849,6 +853,39 @@ class GalleryTemplateAdapter {
     }
 
     /**
+     * Include a module's container in the current Smarty page.  The only required param is 'type'
+     * which should be of the form <module>.<blockname>, eg. "core.LoginBlock".  Any other
+     * parameters get passed on to the block itself.
+     *
+     * This is like block() except it wraps actual content
+     *
+     * @param array('type' => <block descriptor>, ...)
+     * @param string evaluated block content
+     * @param reference to Smarty
+     * @return string HTML content
+     */
+    function container($params, $content, &$smarty) {
+
+	/* Guard template vars so that the include doesn't pollute our namespace */
+	static $save = array();
+	if (!isset($content)) {
+	    array_push($save, $smarty->_tpl_vars);
+	}
+
+	list ($ret, $output) = $this->_block($params, $content, $smarty);
+	if ($ret) {
+	    /* What can we do here? */
+	    $output = '[container error]';
+	}
+
+	if (isset($content)) {
+	    $smarty->_tpl_vars = array_pop($save);
+	}
+
+	return $output;
+    }
+
+    /**
      * Common parts of block & container
      *
      * @param array('type' => <block descriptor>, ...)
@@ -901,39 +938,6 @@ class GalleryTemplateAdapter {
     }
 
     /**
-     * Include a module's container in the current Smarty page.  The only required param is 'type'
-     * which should be of the form <module>.<blockname>, eg. "core.LoginBlock".  Any other
-     * parameters get passed on to the block itself.
-     *
-     * This is like block() except it wraps actual content
-     *
-     * @param array('type' => <block descriptor>, ...)
-     * @param string evaluated block content
-     * @param reference to Smarty
-     * @return string HTML content
-     */
-    function container($params, $content, &$smarty) {
-
-	/* Guard template vars so that the include doesn't pollute our namespace */
-	static $save = array();
-	if (!isset($content)) {
-	    array_push($save, $smarty->_tpl_vars);
-	}
-
-	list ($ret, $output) = $this->_block($params, $content, $smarty);
-	if ($ret) {
-	    /* What can we do here? */
-	    $output = '[container error]';
-	}
-
-	if (isset($content)) {
-	    $smarty->_tpl_vars = array_pop($save);
-	}
-
-	return $output;
-    }
-
-    /**
      * Callback to a module to get it to preload some data for the template.  The only required
      * param is 'type' which should be of the form <module>.<blockname>, eg. "core.LoginBlock".  Any
      * other parameters get passed on to the block itself.
@@ -974,7 +978,7 @@ class GalleryTemplateAdapter {
      * Add the content to our trailer block
      *
      * @param array
-     * @param string content
+     * @param string template block content
      * @param object Smarty the smarty instance
      * @return string HTML content
      */
