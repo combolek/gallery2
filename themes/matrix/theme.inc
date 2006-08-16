@@ -126,7 +126,7 @@ class MatrixTheme extends GalleryTheme {
      */
     function showAdminPage(&$template, $item, $params, $templateFile) {
 	$ret = $this->loadCommonTemplateData(
-	    $template, $item, $params, array('parents', 'systemLinks'));
+	    $template, $item, $params, array('parents', 'systemLinks', 'permissions'));
 	if ($ret) {
 	    return array($ret, null);
 	}

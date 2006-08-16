@@ -51,6 +51,10 @@ class RotatePhotoBlockView extends GalleryView {
 	$template->setVariable('templateId', $templateId);
 	$template->setVariable('RotatePhotoBlock', $RotatePhotoBlock);
 
+	/* Preloads */
+	GalleryCoreApi::requireOnce('modules/core/Preloads.inc');
+	CorePreloads::preload($template, 'RotatePhotoBlock', array());
+
 	return array(null, array('body' => 'modules/core/templates/RotatePhotoBlock.tpl'));
     }
 }

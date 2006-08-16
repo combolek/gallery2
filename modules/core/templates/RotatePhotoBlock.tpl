@@ -6,10 +6,7 @@
  *}
 <div class="{$class}">
   {assign smarty.Gallery.image.ids.0="image"|elementId}
-  {g->image item=$RotatePhotoBlock.item
-    image=$RotatePhotoBlock.image
-    class=$RotatePhotoBlock.class
-    id=$RotatePhotoBlock.id}
+  {g->image params=$RotatePhotoBlock}
 
   {assign smarty.RotatePhotoBlock.status=null}
   {assign smarty.RotatePhotoBlock.form=null}
@@ -52,42 +49,59 @@
 	  <input class="inputTypeSubmit" id="{"rotate90Input"|elementId}" name="{"form[action][rotate][90]"|formVar}" type="submit" value="{g->text text="90&deg;"}"/>
 	</form>
 
-	<script type="text/javascript">
-	  // <![CDATA[
+	{if !empty($head.javascript['lib/javascript/RotatePhotoBlock.js'])}
+	  <script type="text/javascript">
+	    // <![CDATA[
 
-	  var RotatePhotoBlock_{$templateId|replace:"-":"_"} = new RotatePhotoBlock();
-	  {if !empty($templateId)}
-	    RotatePhotoBlock_{$templateId|replace:"-":"_"}.templateId = "{$templateId}";
-	  {/if}
+	    var RotatePhotoBlock_{$templateId|replace:"-":"_"} = new RotatePhotoBlock();
+	    {if !empty($templateId)}
+	      RotatePhotoBlock_{$templateId|replace:"-":"_"}.templateId = "{$templateId}";
+	    {/if}
 
-	  {* Register template's submit function with submit buttons *}
-	  YAHOO.util.Event.addListener(["{"rotate-90Input"|elementId}",
-	      "{"rotate180Input"|elementId}",
-	      "{"rotate90Input"|elementId}"], "click", function(event, self) {ldelim}
-		  RotatePhotoBlock_{$templateId|replace:"-":"_"}.submit(
-		    {ldelim}item: {ldelim}id: {$RotatePhotoBlock.item.id}{rdelim},
-		      image: {ldelim}id: {$RotatePhotoBlock.image.id}{rdelim},
-		      class: "{$smarty.Gallery.image.classes.1}",
-		      id: "{$smarty.Gallery.image.ids.1}"{rdelim},
-		    YAHOO.util.Event.getTarget(event), self);
-		  YAHOO.util.Event.preventDefault(event);
-		{rdelim}, RotatePhotoBlock_{$templateId|replace:"-":"_"});
+	    {* Register template's submit function with submit buttons *}
+	    YAHOO.util.Event.addListener(["{"rotate-90Input"|elementId}",
+		"{"rotate180Input"|elementId}",
+		"{"rotate90Input"|elementId}"], "click", function(event, self) {ldelim}
+		    RotatePhotoBlock_{$templateId|replace:"-":"_"}.submit(
+		      {ldelim}RotatePhotoBlock: {ldelim}class: "{$smarty.Gallery.image.classes.1}",
+			id: "{$smarty.Gallery.image.ids.1}",
+			item: {ldelim}id: {$RotatePhotoBlock.item.id}{rdelim},
+			image: {ldelim}id: {$RotatePhotoBlock.image.id}{rdelim}{if !empty($RotatePhotoBlock.maxSize)},
+			maxSize: {$RotatePhotoBlock.maxSize}{/if}{rdelim}{rdelim},
+		      YAHOO.util.Event.getTarget(event), self);
 
-	  new YAHOO.widget.Tooltip("{"workingTooltip"|elementId}", {ldelim}context: "{"working"|elementId}"{rdelim});
-	  new YAHOO.widget.Tooltip("{"successTooltip"|elementId}", {ldelim}context: "{"success"|elementId}"{rdelim});
-	  new YAHOO.widget.Tooltip("{"warningTooltip"|elementId}", {ldelim}context: "{"warning"|elementId}"{rdelim});
-	  new YAHOO.widget.Tooltip("{"errorTooltip"|elementId}", {ldelim}context: "{"error"|elementId}"{rdelim});
+		    YAHOO.util.Event.preventDefault(event);
+		  {rdelim}, RotatePhotoBlock_{$templateId|replace:"-":"_"});
 
-	  // ]]>
-	</script>
+	    {* Register template's request handler with custom request event *}
+	    GalleryUtilities.requestEvent.subscribe(
+	      RotatePhotoBlock_{$templateId|replace:"-":"_"}.handleRequest,
+	      RotatePhotoBlock_{$templateId|replace:"-":"_"});
+
+	    {* Register template's response handler with custom response event *}
+	    GalleryUtilities.responseEvent.subscribe(
+	      RotatePhotoBlock_{$templateId|replace:"-":"_"}.handleResponse,
+	      RotatePhotoBlock_{$templateId|replace:"-":"_"});
+
+	    {* TODO Move to init function *}
+	    new YAHOO.widget.Tooltip("{"workingTooltip"|elementId}", {ldelim}context: "{"working"|elementId}"{rdelim});
+	    new YAHOO.widget.Tooltip("{"successTooltip"|elementId}", {ldelim}context: "{"success"|elementId}"{rdelim});
+	    new YAHOO.widget.Tooltip("{"warningTooltip"|elementId}", {ldelim}context: "{"warning"|elementId}"{rdelim});
+	    new YAHOO.widget.Tooltip("{"errorTooltip"|elementId}", {ldelim}context: "{"error"|elementId}"{rdelim});
+
+	    // ]]>
+	  </script>
+	{/if}
       {/capture}
 
-      {capture assign="smarty.RotatePhotoBlock.links.0.script"}RotatePhotoBlock_{$templateId|replace:"-":"_"}.submit({ldelim}item: {ldelim}id: {$RotatePhotoBlock.item.id}{rdelim}, image: {ldelim}id: {$RotatePhotoBlock.image.id}{rdelim}, class: '{$smarty.Gallery.image.classes.1}', id: '{$smarty.Gallery.image.ids.1}'{rdelim}, YAHOO.util.Dom.get('{"rotate-90Input"|elementId}'), RotatePhotoBlock_{$templateId|replace:"-":"_"}){/capture}
-      {capture assign="smarty.RotatePhotoBlock.links.0.text"}{g->text text="Rotate -90&deg;"}{/capture}
-      {capture assign="smarty.RotatePhotoBlock.links.1.script"}RotatePhotoBlock_{$templateId|replace:"-":"_"}.submit({ldelim}item: {ldelim}id: {$RotatePhotoBlock.item.id}{rdelim}, image: {ldelim}id: {$RotatePhotoBlock.image.id}{rdelim}, class: '{$smarty.Gallery.image.classes.1}', id: '{$smarty.Gallery.image.ids.1}'{rdelim}, YAHOO.util.Dom.get('{"rotate180Input"|elementId}'), RotatePhotoBlock_{$templateId|replace:"-":"_"}){/capture}
-      {capture assign="smarty.RotatePhotoBlock.links.1.text"}{g->text text="Rotate 180&deg;"}{/capture}
-      {capture assign="smarty.RotatePhotoBlock.links.2.script"}RotatePhotoBlock_{$templateId|replace:"-":"_"}.submit({ldelim}item: {ldelim}id: {$RotatePhotoBlock.item.id}{rdelim}, image: {ldelim}id: {$RotatePhotoBlock.image.id}{rdelim}, class: '{$smarty.Gallery.image.classes.1}', id: '{$smarty.Gallery.image.ids.1}'{rdelim}, YAHOO.util.Dom.get('{"rotate90Input"|elementId}'), RotatePhotoBlock_{$templateId|replace:"-":"_"}){/capture}
-      {capture assign="smarty.RotatePhotoBlock.links.2.text"}{g->text text="Rotate 90&deg;"}{/capture}
+      {if !empty($head.javascript['lib/javascript/RotatePhotoBlock.js'])}
+	{capture assign="smarty.RotatePhotoBlock.links.0.script"}RotatePhotoBlock_{$templateId|replace:"-":"_"}.submit({ldelim}RotatePhotoBlock: {ldelim}class: '{$smarty.Gallery.image.classes.1}', id: '{$smarty.Gallery.image.ids.1}', item: {ldelim}id: {$RotatePhotoBlock.item.id}{rdelim}, image: {ldelim}id: {$RotatePhotoBlock.image.id}{rdelim}{if !empty($RotatPhotoBlock.maxSize)}, maxSize: {$RotatePhotoBlock.maxSize}{/if}{rdelim}{rdelim}, YAHOO.util.Dom.get('{"rotate-90Input"|elementId}'), RotatePhotoBlock_{$templateId|replace:"-":"_"}){/capture}
+	{capture assign="smarty.RotatePhotoBlock.links.0.text"}{g->text text="Rotate -90&deg;"}{/capture}
+	{capture assign="smarty.RotatePhotoBlock.links.1.script"}RotatePhotoBlock_{$templateId|replace:"-":"_"}.submit({ldelim}RotatePhotoBlock: {ldelim}class: '{$smarty.Gallery.image.classes.1}', id: '{$smarty.Gallery.image.ids.1}', item: {ldelim}id: {$RotatePhotoBlock.item.id}{rdelim}, image: {ldelim}id: {$RotatePhotoBlock.image.id}{rdelim}{if !empty($RotatPhotoBlock.maxSize)}, maxSize: {$RotatePhotoBlock.maxSize}{/if}{rdelim}{rdelim}, YAHOO.util.Dom.get('{"rotate180Input"|elementId}'), RotatePhotoBlock_{$templateId|replace:"-":"_"}){/capture}
+	{capture assign="smarty.RotatePhotoBlock.links.1.text"}{g->text text="Rotate 180&deg;"}{/capture}
+	{capture assign="smarty.RotatePhotoBlock.links.2.script"}RotatePhotoBlock_{$templateId|replace:"-":"_"}.submit({ldelim}RotatePhotoBlock: {ldelim}class: '{$smarty.Gallery.image.classes.1}', id: '{$smarty.Gallery.image.ids.1}', item: {ldelim}id: {$RotatePhotoBlock.item.id}{rdelim}, image: {ldelim}id: {$RotatePhotoBlock.image.id}{rdelim}{if !empty($RotatPhotoBlock.maxSize)}, maxSize: {$RotatePhotoBlock.maxSize}{/if}{rdelim}{rdelim}, YAHOO.util.Dom.get('{"rotate90Input"|elementId}'), RotatePhotoBlock_{$templateId|replace:"-":"_"}){/capture}
+	{capture assign="smarty.RotatePhotoBlock.links.2.text"}{g->text text="Rotate 90&deg;"}{/capture}
+      {/if}
     {*/if*}
   {/if}
 </div>
@@ -95,15 +109,14 @@
 {* Ajax callback output *}
 {if GalleryUtilities::isCallback()}
   {capture append="smarty.output"}
-    YAHOO.util.Dom.get("{"hidden"|elementId}").innerHTML = '{g->image item=$RotatePhotoBlock.item
-        image=$RotatePhotoBlock.image
-	class=$RotatePhotoBlock.class
-	id="hiddenImage"|elementId}';
+    {assign RotatePhotoBlock.id="hiddenImage"|elementId}
+    {capture assign="RotatePhotoBlock.html"}{g->image params=$RotatePhotoBlock}{/capture}
+    YAHOO.util.Dom.get("{"hidden"|elementId}").innerHTML = "{$RotatePhotoBlock.html|replace:"\"":"\\\""}";
     var hiddenImage = YAHOO.util.Dom.get("{"hiddenImage"|elementId}");
     YAHOO.util.Event.addListener(hiddenImage, "load", function(event, self) {ldelim}
-	var image = YAHOO.util.Dom.get("{$RotatePhotoBlock.id}");
+	var image = YAHOO.util.Dom.get("{$smarty.Gallery.image.ids.2}");
 	image.parentNode.replaceChild(hiddenImage, image);
-	hiddenImage.id = "{$RotatePhotoBlock.id}";
+	hiddenImage.id = "{$smarty.Gallery.image.ids.2}";
 
 	GalleryUtilities.hide("{"working"|elementId}");
 
@@ -133,8 +146,8 @@
 	  GalleryUtilities.show("{"error"|elementId}");
 	{/if}
 
-	/* Center status over image */
-	GalleryUtilities.center("{"status"|elementId}", "{$RotatePhotoBlock.id}");
+	{* Center status over image *}
+	GalleryUtilities.center("{"status"|elementId}", "{$smarty.Gallery.image.ids.2}");
       {rdelim}, RotatePhotoBlock_{$templateId|replace:"-":"_"});
 
     YAHOO.util.Dom.batch(

@@ -4,43 +4,45 @@
  * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
  * version.  Gallery will look for that file first and use it if it exists.
  *}
-<script>
-  // <![CDATA[
 
-  {**
-   * Template's client-side variables & functions
-   *}
-  var ItemEditItem = {ldelim}
-    setOriginationTimestamp: function() {ldelim}
-      var form = YAHOO.util.Dom.get("{"form"|elementId:"ItemAdmin"}");
-      {g->formVars name="form[originationTimestampSplit]" value=$ItemEditItem.originationTimestampSplit}
-	form.elements["{$name}"].value = "{$value}";
-      {/g->formVars}
-    {rdelim}
-  {rdelim};
+{if !empty($head.javascript['lib/javascript/ItemEditItem.js'])}
+  <script>
+    // <![CDATA[
 
-  {* Register template's submit function with submit buttons *}
-  YAHOO.util.Event.addListener(["{"saveInput"|elementId}", "{"undoInput"|elementId}"], "click", ItemAdmin.submit, ItemAdmin);
+    ItemEditItem.prototype.setOriginationTimestamp = function() {ldelim}
+	var form = YAHOO.util.Dom.get("{"form"|elementId:"ItemAdmin"}");
+	{g->formVars name="form[originationTimestampSplit]" value=$ItemEditItem.originationTimestampSplit}
+	  form.elements["{$name}"].value = "{$value}";
+	{/g->formVars}
+      {rdelim}
 
-  {* Ajax callback output *}
-  {if GalleryUtilities::isCallback()}
-    {capture append="smarty.output"}
-      {if empty($form.error.title.missingRootTitle)}
-	GalleryUtilities.hide("{"errorMissingRootTitle"|elementId}");
-      {else}
-	GalleryUtilities.show("{"errorMissingRootTitle"|elementId}");
-      {/if}
+    var ItemEditItem_{$templateId|replace:"-":"_"} = new ItemEditItem();
+    {if !empty($templateId)}
+      ItemEditItem_{$templateId|replace:"-":"_"}.templateId = "{$templateId}";
+    {/if}
 
-      {if empty($form.error.originationTimestamp.invalid)}
-	GalleryUtilities.hide("{"errorOriginationTimestampInvalid"|elementId}");
-      {else}
-	GalleryUtilities.show("{"errorOriginationTimestampInvalid"|elementId}");
-      {/if}
-    {/capture}
-  {/if}
+    {* Register template's submit function with submit buttons *}
+    YAHOO.util.Event.addListener(["{"saveInput"|elementId}",
+	"{"undoInput"|elementId}"], "click", function(event, self) {ldelim}
+	ItemAdmin_{$templateId|replace:"-":"_"}.submit({ldelim}{rdelim},
+	  YAHOO.util.Event.getTarget(event), self);
 
-  // ]]>
-</script>
+	YAHOO.util.Event.preventDefault(event);
+      {rdelim}, ItemAdmin_{$templateId|replace:"-":"_"});
+
+    {* Register template's request handler with custom request event *}
+    GalleryUtilities.requestEvent.subscribe(
+      ItemEdit_{$templateId|replace:"-":"_"}.handleRequest,
+      ItemAdmin_{$templateId|replace:"-":"_"});
+
+    {* Register template's response handler with custom response event *}
+    GalleryUtilities.responseEvent.subscribe(
+      ItemEdit_{$templateId|replace:"-":"_"}.handleResponse,
+      ItemAdmin_{$templateId|replace:"-":"_"});
+
+    // ]]>
+  </script>
+{/if}
 
 <div class="gbBlock">
   {if $ItemEditItem.can.changePathComponent}
@@ -51,15 +53,9 @@
 	{g->text text="The name of this item on your hard disk.  It must be unique in this album.  Only use alphanumeric characters, underscores or dashes."}
       </p>
 
-      {strip}
-	{foreach from=$ItemAdmin.parents item=parent}
-	  {if empty($parent.parentId)}
-	    /
-	  {else}
-	    {$parent.pathComponent}/
-	  {/if}
-	{/foreach}
-      {/strip}
+      {foreach from=$ItemAdmin.parents item=parent}
+	{if empty($parent.parentId)}/{else}{$parent.pathComponent}/{/if}
+      {/foreach}
       <input name="{"form[pathComponent]"|formVar}" size="40" type="text" value="{$form.pathComponent}"/>
 
       <div class="giError" id="{"errorPathComponentInvalid"|elementId}"{if empty($form.error.pathComponent.invalid)} style="display: none"{/if}>
@@ -178,7 +174,7 @@
 
   {if !empty($ItemEditItem.originationTimestamp)}
     <p>
-      {g->text text="Use the original capture date and time from file information (e.g. Exif tag):"}
+      {g->text text="Use the original capture date and time from file information (eg. Exif tag):"}
       <br/>
       <a href="javascript:ItemEditItem.setOriginationTimestamp()"> {g->date timestamp=$ItemEditItem.originationTimestamp style="datetime"} </a>
     </p>
@@ -233,7 +229,6 @@
 	{/if}
       {/capture}
     {/if}
-
   </div>
 {/if}
 
@@ -246,3 +241,20 @@
   <input class="inputTypeSubmit" id="{"saveInput"|elementId}" name="{"form[action][save]"|formVar}" type="submit" value="{g->text text="Save"}"/>
   <input class="inputTypeSubmit" id="{"undoInput"|elementId}" name="{"form[action][undo]"|formVar}" type="submit" value="{g->text text="Reset"}"/>
 </div>
+
+{* Ajax callback output *}
+{if GalleryUtilities::isCallback()}
+  {capture append="smarty.output"}
+    {if empty($form.error.title.missingRootTitle)}
+      GalleryUtilities.hide("{"errorMissingRootTitle"|elementId}");
+    {else}
+      GalleryUtilities.show("{"errorMissingRootTitle"|elementId}");
+    {/if}
+
+    {if empty($form.error.originationTimestamp.invalid)}
+      GalleryUtilities.hide("{"errorOriginationTimestampInvalid"|elementId}");
+    {else}
+      GalleryUtilities.show("{"errorOriginationTimestampInvalid"|elementId}");
+    {/if}
+  {/capture}
+{/if}

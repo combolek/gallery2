@@ -68,7 +68,7 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 	} else if (isset($form['action']['rotate'][90])) {
 	    $operation = 'rotate';
 	    $args = array(90);
-	} else if (isset($form['action']['revertToOriginal'])) {
+	} else if (isset($form['action']['revert'])) {
 	    if (!empty($preferred)) {
 		/*
 		 * Pull out the rotate and resize operations and let our change ripple down the
@@ -246,6 +246,7 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 	$template->javascript('lib/yui/yahoo-min.js');
 	$template->javascript('lib/yui/dom-min.js');
 	$template->javascript('lib/yui/event-min.js');
+	$template->javascript('lib/javascript/GalleryUtilities.js');
 	$template->javascript('lib/javascript/ItemEditRotateAndScalePhoto.js');
 
 	return array(null, 'modules/core/templates/ItemEditRotateAndScalePhoto.tpl',

@@ -51,6 +51,10 @@ class EditItemBlockView extends GalleryView {
 	$template->setVariable('templateId', $templateId);
 	$template->setVariable('EditItemBlock', $EditItemBlock);
 
+	/* Preloads */
+	GalleryCoreApi::requireOnce('modules/core/Preloads.inc');
+	CorePreloads::preload($template, 'EditItemBlock', array());
+
 	return array(null, array('body' => 'modules/core/templates/EditItemBlock.tpl'));
     }
 }

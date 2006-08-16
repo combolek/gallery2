@@ -4,6 +4,55 @@
  * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
  * version.  Gallery will look for that file first and use it if it exists.
  *}
+
+{if !empty($head.javascript['lib/javascript/ItemEditRotateAndScalePhoto.js'])}
+  <script>
+    // <![CDATA[
+
+    var ItemEditRotateAndScalePhoto_{$templateId|replace:"-":"_"} = new ItemEditRotateAndScalePhoto();
+    {if !empty($templateId)}
+      ItemEditRotateAndScalePhoto_{$templateId|replace:"-":"_"}.templateId = "{$templateId}";
+    {/if}
+
+    {* Register template's submit function with submit buttons *}
+    YAHOO.util.Event.addListener(["{"rotate-90Input"|elementId}",
+	"{"rotate180Input"|elementId}",
+	"{"rotate90Input"|elementId}",
+	"{"resizeInput"|elementId}",
+	"{"revertInput"|elementId}"], "click", function(event, self) {ldelim}
+	ItemAdmin_{$templateId|replace:"-":"_"}.submit(
+	  {ldelim}RotatePhotoBlock: {ldelim}class: "{$smarty.Gallery.image.classes.1}",
+	    id: "{$smarty.Gallery.image.ids.1}",
+	    item: {ldelim}id: {$theme.item.id}{rdelim},
+	    image: {ldelim}id: {$ItemAdmin.thumbnail.id}{rdelim},
+	    maxSize: 130{rdelim}{rdelim},
+	  YAHOO.util.Event.getTarget(event), self);
+
+	YAHOO.util.Event.preventDefault(event);
+      {rdelim}, ItemAdmin_{$templateId|replace:"-":"_"});
+
+    {* Register template's request handler with custom request event *}
+    GalleryUtilities.requestEvent.subscribe(
+      RotatePhotoBlock_{$templateId|replace:"-":"_"}.handleRequest,
+      ItemAdmin_{$templateId|replace:"-":"_"});
+
+    GalleryUtilities.requestEvent.subscribe(
+      ItemEdit_{$templateId|replace:"-":"_"}.handleRequest,
+      ItemAdmin_{$templateId|replace:"-":"_"});
+
+    {* Register template's response handler with custom response event *}
+    GalleryUtilities.responseEvent.subscribe(
+      RotatePhotoBlock_{$templateId|replace:"-":"_"}.handleResponse,
+      ItemAdmin_{$templateId|replace:"-":"_"});
+
+    GalleryUtilities.responseEvent.subscribe(
+      ItemEdit_{$templateId|replace:"-":"_"}.handleResponse,
+      ItemAdmin_{$templateId|replace:"-":"_"});
+
+    // ]]>
+  </script>
+{/if}
+
 <div class="gbBlock">
   <h3> {g->text text="Rotate"} </h3>
 
@@ -58,8 +107,8 @@
   {include file="gallery:`$option.file`" l10Domain=$option.l10Domain}
 {/foreach}
 
-{if !empty($ItemEditRotateAndScalePhoto.editPhoto.can.rotate) ||
-    !empty($ItemEditRotateAndScalePhoto.editPhoto.can.resize)}
+{if !empty($ItemEditRotateAndScalePhoto.editPhoto.can.rotate)
+    || !empty($ItemEditRotateAndScalePhoto.editPhoto.can.resize)}
   <div class="gbBlock" id="{"preserveOriginal"|elementId}"{if !empty($ItemEditRotateAndScalePhoto.editPhoto.hasPreferredSource)} style="display: none"{/if}>
     <h3> {g->text text="Preserve Original"} </h3>
 
@@ -79,9 +128,9 @@
     {/if}
   </div>
   {capture append="ItemEditRotateAndScalePhoto.update"}
-    if (ItemEditRotateAndScalePhoto != null &&
-	ItemEditRotateAndScalePhoto.editPhoto != null) {ldelim}
-      if (ItemEditRotateAndScalePhoto.editPhoto.hasPreferredSource) {ldelim}
+    if (params.ItemEditRotateAndScalePhoto != null
+        && params.ItemEditRotateAndScalePhoto.editPhoto != null) {ldelim}
+      if (params.ItemEditRotateAndScalePhoto.editPhoto.hasPreferredSource) {ldelim}
 	GalleryUtilities.hide("{"preserveOriginal"|elementId}");
       {rdelim} else {ldelim}
 	GalleryUtilities.show("{"preserveOriginal"|elementId}");
@@ -96,12 +145,12 @@
       {g->text text="You are using a copy of the original photo that has been scaled or rotated.  The original photo is still available, but is no longer being used.  Any changes you make will be applied to the copy instead."}
     </p>
 
-    <input class="inputTypeSubmit" id="{"revertInput"|elementId}" name="{"form[action][revertToOriginal]"|formVar}" type="submit" value="{g->text text="Restore original"}"/>
+    <input class="inputTypeSubmit" id="{"revertInput"|elementId}" name="{"form[action][revert]"|formVar}" type="submit" value="{g->text text="Restore original"}"/>
   </div>
   {capture append="ItemEditRotateAndScalePhoto.update"}
-    if (ItemEditRotateAndScalePhoto != null &&
-	ItemEditRotateAndScalePhoto.editPhoto != null) {ldelim}
-      if (!ItemEditRotateAndScalePhoto.editPhoto.hasPreferredSource) {ldelim}
+    if (params.ItemEditRotateAndScalePhoto != null
+        && params.ItemEditRotateAndScalePhoto.editPhoto != null) {ldelim}
+      if (!params.ItemEditRotateAndScalePhoto.editPhoto.hasPreferredSource) {ldelim}
 	GalleryUtilities.hide("{"modifiedPhoto"|elementId}");
       {rdelim} else {ldelim}
 	GalleryUtilities.show("{"modifiedPhoto"|elementId}");
@@ -115,24 +164,12 @@
     // <![CDATA[
 
     {* Update template's dynamic elements *}
-    ItemEditRotateAndScalePhoto.update = function(ItemEditRotateAndScalePhoto) {ldelim}
-      {* TODO
-      var update = ItemEditRotateAndScalePhoto.update;
-      update();
-      *}
+    ItemEditRotateAndScalePhoto_{$templateId|replace:"-":"_"}.update =
+      function(params) {ldelim}
+	ItemEditRotateAndScalePhoto.prototype.update(params);
 
-      {$ItemEditRotateAndScalePhoto.update}
-    {rdelim}
-
-    {* Register template's submit function with submit buttons *}
-    YAHOO.util.Event.addListener(["{"rotate-90Input"|elementId}",
-	"{"rotate180Input"|elementId}",
-	"{"rotate90Input"|elementId}",
-	"{"resizeInput"|elementId}",
-	"{"revertInput"|elementId}"], "click", function(event, self) {ldelim}
-	ItemAdmin.submit({ldelim}{rdelim}, YAHOO.util.Event.getTarget(event), self);
-	YAHOO.util.Event.preventDefault(event);
-      {rdelim}, ItemAdmin);
+	{$ItemEditRotateAndScalePhoto.update}
+      {rdelim}
 
     // ]]>
   </script>
@@ -154,7 +191,9 @@
     {/if}
 
     {* |var_export is cheaper than |json *}
-    ItemEditRotateAndScalePhoto.update({ldelim}editPhoto: {ldelim}hasPreferredSource:
-      {$ItemEditRotateAndScalePhoto.editPhoto.hasPreferredSource|var_export}{rdelim}{rdelim});
+    ItemEditRotateAndScalePhoto_{$templateId|replace:"-":"_"}.update(
+      {ldelim}ItemEditRotateAndScalePhoto: {ldelim}editPhoto: {ldelim}hasPreferredSource:
+        {$ItemEditRotateAndScalePhoto.editPhoto.hasPreferredSource|var_export}
+      {rdelim}{rdelim}{rdelim});
   {/capture}
 {/if}

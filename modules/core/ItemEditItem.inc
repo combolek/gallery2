@@ -380,6 +380,8 @@ class ItemEditItem extends ItemEditPlugin {
 	$template->javascript('lib/yui/yahoo-min.js');
 	$template->javascript('lib/yui/dom-min.js');
 	$template->javascript('lib/yui/event-min.js');
+	$template->javascript('lib/javascript/GalleryUtilities.js');
+	$template->javascript('lib/javascript/ItemEditItem.js');
 
 	return array(null, 'modules/core/templates/ItemEditItem.tpl', 'modules_core');
     }
