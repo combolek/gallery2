@@ -41,50 +41,64 @@
 	  </div>
 	</form>
 
-	<script type="text/javascript">
-	  // <![CDATA[
+	{if !empty($head.javascript['lib/javascript/EditItemBlock.js'])}
+	  <script type="text/javascript">
+	    // <![CDATA[
 
-	  var EditItemBlock_{$templateId|replace:"-":"_"} = new EditItemBlock();
-	  {if !empty($templateId)}
-	    EditItemBlock_{$templateId|replace:"-":"_"}.templateId = "{$templateId}";
-	  {/if}
+	    var EditItemBlock_{$templateId|replace:"-":"_"} = new EditItemBlock();
+	    {if !empty($templateId)}
+	      EditItemBlock_{$templateId|replace:"-":"_"}.templateId = "{$templateId}";
+	    {/if}
 
-	  YAHOO.util.Event.addListener("{"link"|elementId}", "click", function(event, self) {ldelim}
-	      GalleryUtilities.hide("{"link"|elementId}");
-	      GalleryUtilities.hide("{"status"|elementId}");
-	      GalleryUtilities.show("{"form"|elementId}");
-	      YAHOO.util.Dom.get("{"textInput"|elementId}").focus();
-	      YAHOO.util.Dom.get("{"textInput"|elementId}").select();
-	    {rdelim}, EditItemBlock_{$templateId|replace:"-":"_"});
-
-	  {* Register template's submit function with submit buttons *}
-	  YAHOO.util.Event.addListener("{"saveInput"|elementId}",
-	    "click", function(event, self) {ldelim}
-		EditItemBlock_{$templateId|replace:"-":"_"}.submit(
-		  {ldelim}item: {ldelim}id: {$EditItemBlock.item.id}{rdelim},
-		    property: "{$EditItemBlock.property}"{rdelim},
-		  YAHOO.util.Event.getTarget(event), self);
-		YAHOO.util.Event.preventDefault(event);
-	      {rdelim}, EditItemBlock_{$templateId|replace:"-":"_"});
-
-	  YAHOO.util.Event.addListener("{"undoInput"|elementId}",
-	    "click", function(event, self) {ldelim}
-	        YAHOO.util.Dom.get("{"link"|elementId}").title = "{g->text text="Click to edit"}";
+	    YAHOO.util.Event.addListener("{"link"|elementId}", "click", function(event, self) {ldelim}
+		GalleryUtilities.hide("{"link"|elementId}");
 		GalleryUtilities.hide("{"status"|elementId}");
-		GalleryUtilities.hide("{"form"|elementId}");
-		GalleryUtilities.show("{"link"|elementId}");
-		YAHOO.util.Event.preventDefault(event);
+		GalleryUtilities.show("{"form"|elementId}");
+		YAHOO.util.Dom.get("{"textInput"|elementId}").focus();
+		YAHOO.util.Dom.get("{"textInput"|elementId}").select();
 	      {rdelim}, EditItemBlock_{$templateId|replace:"-":"_"});
 
-	  new YAHOO.widget.Tooltip("{"linkTooltip"|elementId}", {ldelim}context: "{"link"|elementId}"{rdelim});
+	    {* Register template's submit function with submit buttons *}
+	    YAHOO.util.Event.addListener("{"saveInput"|elementId}",
+	      "click", function(event, self) {ldelim}
+		  EditItemBlock_{$templateId|replace:"-":"_"}.submit(
+		    {ldelim}EditItemBlock: {ldelim}item: {ldelim}id: {$EditItemBlock.item.id}{rdelim},
+		      property: "{$EditItemBlock.property}"{rdelim}{rdelim},
+		    YAHOO.util.Event.getTarget(event), self);
 
-	  new YAHOO.widget.Tooltip("{"workingTooltip"|elementId}", {ldelim}context: "{"working"|elementId}"{rdelim});
-	  new YAHOO.widget.Tooltip("{"successTooltip"|elementId}", {ldelim}context: "{"success"|elementId}"{rdelim});
-	  new YAHOO.widget.Tooltip("{"warningTooltip"|elementId}", {ldelim}context: "{"warning"|elementId}"{rdelim});
-	  new YAHOO.widget.Tooltip("{"errorTooltip"|elementId}", {ldelim}context: "{"error"|elementId}"{rdelim});
+		  YAHOO.util.Event.preventDefault(event);
+		{rdelim}, EditItemBlock_{$templateId|replace:"-":"_"});
 
-	  // ]]>
-	</script>
+	    YAHOO.util.Event.addListener("{"undoInput"|elementId}",
+	      "click", function(event, self) {ldelim}
+		  YAHOO.util.Dom.get("{"link"|elementId}").title = "{g->text text="Click to edit"}";
+		  GalleryUtilities.hide("{"status"|elementId}");
+		  GalleryUtilities.hide("{"form"|elementId}");
+		  GalleryUtilities.show("{"link"|elementId}");
+		  YAHOO.util.Event.preventDefault(event);
+		{rdelim}, EditItemBlock_{$templateId|replace:"-":"_"});
+
+	    {* Register template's request handler with custom request event *}
+	    GalleryUtilities.requestEvent.subscribe(
+	      EditItemBlock_{$templateId|replace:"-":"_"}.handleRequest,
+	      EditItemBlock_{$templateId|replace:"-":"_"});
+
+	    {* Register template's response handler with custom response event *}
+	    GalleryUtilities.responseEvent.subscribe(
+	      EditItemBlock_{$templateId|replace:"-":"_"}.handleResponse,
+	      EditItemBlock_{$templateId|replace:"-":"_"});
+
+	    {* TODO Move to init function *}
+	    new YAHOO.widget.Tooltip("{"linkTooltip"|elementId}", {ldelim}context: "{"link"|elementId}"{rdelim});
+
+	    new YAHOO.widget.Tooltip("{"workingTooltip"|elementId}", {ldelim}context: "{"working"|elementId}"{rdelim});
+	    new YAHOO.widget.Tooltip("{"successTooltip"|elementId}", {ldelim}context: "{"success"|elementId}"{rdelim});
+	    new YAHOO.widget.Tooltip("{"warningTooltip"|elementId}", {ldelim}context: "{"warning"|elementId}"{rdelim});
+	    new YAHOO.widget.Tooltip("{"errorTooltip"|elementId}", {ldelim}context: "{"error"|elementId}"{rdelim});
+
+	    // ]]>
+	  </script>
+	{/if}
       {/if}
     {/if}
   </div>
@@ -96,14 +110,14 @@
     YAHOO.util.Dom.get("{"value"|elementId}").innerHTML =
       "{$EditItemBlock.item[$EditItemBlock.property]|markup|entitytruncate:256}";
 
-    GalleryUtilities.hide("{"working"|elementId}");
-
     {if empty($status.editMessage) && empty($status.warning) && empty($form.error)}
       YAHOO.util.Dom.get("{"link"|elementId}").title = "{g->text text="Click to edit"}";
       GalleryUtilities.hide("{"status"|elementId}");
     {else}
       GalleryUtilities.show("{"status"|elementId}");
     {/if}
+
+    GalleryUtilities.hide("{"working"|elementId}");
 
     {if empty($status.editMessage)}
       GalleryUtilities.hide("{"success"|elementId}");

@@ -24,14 +24,17 @@ function RotatePhotoBlock() {
 }
 
 /**
- * Submit template's form using Ajax
+ * Handle custom request event
  *
- * @param {Object} scope from which to import new values
- * @param {Element} target of event which triggered the form's submision
- * @param {Object} self reference, since function will be executed in scope of the event target
+ * @param {String} type of custom event
+ * @param {Array} {Object} connection object
+ *                {Object} parameters
+ *                {Element} target of event which triggered the form's submission
+ *                {Object} template object which made Ajax callback request
+ * @param {Object} self reference
  */
-RotatePhotoBlock.prototype.submit = function(RotatePhotoBlock, target, self) {
-    if (!GalleryUtilities.isCallbackSupported()) {
+RotatePhotoBlock.prototype.handleRequest = function(type, args, self) {
+    if (args[3] != self) {
       return;
     }
 
@@ -45,14 +48,14 @@ RotatePhotoBlock.prototype.submit = function(RotatePhotoBlock, target, self) {
       });
 
     /* Give immediate feedback if possible */
-    if (target.name == GalleryUtilities.formVar("form[action][rotate][-90]")) {
-      YAHOO.util.Dom.get(RotatePhotoBlock.id).style.filter =
+    if (args[2].name == GalleryUtilities.formVar("form[action][rotate][-90]")) {
+      YAHOO.util.Dom.get(args[1].RotatePhotoBlock.id).style.filter =
 	"progid:DXImageTransform.Microsoft.BasicImage(rotation=3)";
-    } else if (target.name == GalleryUtilities.formVar("form[action][rotate][180]")) {
-      YAHOO.util.Dom.get(RotatePhotoBlock.id).style.filter =
+    } else if (args[2].name == GalleryUtilities.formVar("form[action][rotate][180]")) {
+      YAHOO.util.Dom.get(args[1].RotatePhotoBlock.id).style.filter =
 	"progid:DXImageTransform.Microsoft.BasicImage(rotation=2)";
-    } else if (target.name == GalleryUtilities.formVar("form[action][rotate][90]")) {
-      YAHOO.util.Dom.get(RotatePhotoBlock.id).style.filter =
+    } else if (args[2].name == GalleryUtilities.formVar("form[action][rotate][90]")) {
+      YAHOO.util.Dom.get(args[1].RotatePhotoBlock.id).style.filter =
 	"progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
     }
 
@@ -70,63 +73,82 @@ RotatePhotoBlock.prototype.submit = function(RotatePhotoBlock, target, self) {
     /* Center status over image */
     GalleryUtilities.center(
       GalleryUtilities.elementId("status", "RotatePhotoBlock", self.templateId),
-      RotatePhotoBlock.id);
+      args[1].RotatePhotoBlock.id);
 
     /* TODO Make prettier */
     YAHOO.util.Dom.setStyle(
       GalleryUtilities.elementId("status", "RotatePhotoBlock", self.templateId), "opacity", 0.8);
+  }
 
-    var connection;
+/**
+ * Handle custom response event
+ *
+ * @param {String} type of custom event
+ * @param {Array} {Object} response object
+ *                {Object} parameters
+ *                {Element} target of event which triggered the form's submission
+ *                {Object} template object which triggered the request
+ * @param {Object} self reference
+ */
+RotatePhotoBlock.prototype.handleResponse = function(type, args, self) {
+    if (args[3] != self) {
+      return;
+    }
 
-    /* Register with all callback responses */
-    GalleryUtilities.responseEvent.subscribe(function(type, args) {
-	var response = args[0];
-	if (response.tId == connection.tId) {
+    var form = YAHOO.util.Dom.get(
+      GalleryUtilities.elementId("form", "RotatePhotoBlock", self.templateId));
 
-	  /* Enable template's form */
-	  YAHOO.util.Dom.batch(form.elements, function(element) {
-	      element.disabled = "";
-	    });
-
-	  if (!GalleryUtilities.isResponseSuccessful(response)) {
-	    GalleryUtilities.hide(
-	      GalleryUtilities.elementId("working", "RotatePhotoBlock", self.templateId));
-	    GalleryUtilities.hide(
-	      GalleryUtilities.elementId("success", "RotatePhotoBlock", self.templateId));
-	    GalleryUtilities.hide(
-	      GalleryUtilities.elementId("warning", "RotatePhotoBlock", self.templateId));
-	    GalleryUtilities.show(
-	      GalleryUtilities.elementId("error", "RotatePhotoBlock", self.templateId));
-	    GalleryUtilities.show(
-	      GalleryUtilities.elementId("status", "RotatePhotoBlock", self.templateId));
-
-	      /* Center status over image */
-	      GalleryUtilities.center(
-		GalleryUtilities.elementId("status", "RotatePhotoBlock", self.templateId),
-		RotatePhotoBlock.id);
-	  }
-	}
+    /* Enable template's form */
+    YAHOO.util.Dom.batch(form.elements, function(element) {
+	element.disabled = "";
       });
+
+    if (!GalleryUtilities.isResponseSuccessful(args[0])) {
+      GalleryUtilities.hide(
+	GalleryUtilities.elementId("working", "RotatePhotoBlock", self.templateId));
+      GalleryUtilities.hide(
+	GalleryUtilities.elementId("success", "RotatePhotoBlock", self.templateId));
+      GalleryUtilities.hide(
+	GalleryUtilities.elementId("warning", "RotatePhotoBlock", self.templateId));
+      GalleryUtilities.show(
+	GalleryUtilities.elementId("error", "RotatePhotoBlock", self.templateId));
+      GalleryUtilities.show(
+	GalleryUtilities.elementId("status", "RotatePhotoBlock", self.templateId));
+
+      /* Center status over image */
+      GalleryUtilities.center(
+	GalleryUtilities.elementId("status", "RotatePhotoBlock", self.templateId),
+	args[1].RotatePhotoBlock.id);
+    }
+  }
+
+/**
+ * Submit template's form using Ajax
+ *
+ * @param {Object} parameters
+ * @param {Element} target of event which triggered the form's submision
+ * @param {Object} self reference, since function will be executed in scope of the event target
+ */
+RotatePhotoBlock.prototype.submit = function(params, target, self) {
+    if (!GalleryUtilities.isCallbackSupported()) {
+      return;
+    }
+
+    var form = YAHOO.util.Dom.get(
+      GalleryUtilities.elementId("form", "RotatePhotoBlock", self.templateId));
 
     /* Serialize form elements */
     var args = GalleryUtilities.serializeForm(form, target);
-    args.push(GalleryUtilities.formVar("callback") + "=callback");
+    args.push([GalleryUtilities.formVar("callback"), "callback"]);
 
-    args.push(GalleryUtilities.formVar("delegate[view]") + "=core.RotatePhotoBlock");
+    args.push([GalleryUtilities.formVar("delegate[view]"), "core.RotatePhotoBlock"]);
 
     if (self.templateId != null) {
-      args.push(GalleryUtilities.formVar("delegate[templateId]") + "=" + self.templateId);
+      args.push([GalleryUtilities.formVar("delegate[templateId]"), self.templateId]);
     }
 
-    args.push(GalleryUtilities.formVar("delegate[RotatePhotoBlock][item][id]") + "="
-      + RotatePhotoBlock.item.id);
-    args.push(GalleryUtilities.formVar("delegate[RotatePhotoBlock][image][id]") + "="
-      + RotatePhotoBlock.image.id);
-    args.push(GalleryUtilities.formVar("delegate[RotatePhotoBlock][class]") + "="
-      + RotatePhotoBlock.class);
-    args.push(GalleryUtilities.formVar("delegate[RotatePhotoBlock][id]") + "="
-      + RotatePhotoBlock.id);
+    args = args.concat(GalleryUtilities.formVars("delegate[RotatePhotoBlock]", params.RotatePhotoBlock));
 
     /* Make Ajax callback request */
-    connection = GalleryUtilities.callbackRequest(form.action, args);
+    GalleryUtilities.callbackRequest(form.action, args, params, target, self);
   }

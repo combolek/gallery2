@@ -219,7 +219,7 @@ class ItemEditView extends GalleryView {
 	}
 	if (!empty($thumbnails)) {
 	    list ($ret, $thumbnail) = GalleryCoreApi::rebuildDerivativeCacheIfNotCurrent(
-						      $thumbnails[$itemId]->getId());
+	        $thumbnails[$itemId]->getId());
 	    if ($ret) {
 		/* Ignore thumbnail errors so we can edit items with broken thumbnail */
 	    }
@@ -314,6 +314,8 @@ class ItemEditView extends GalleryView {
 	$template->setVariable('controller', 'core.ItemEdit');
 	$template->javascript('lib/yui/yahoo-min.js');
 	$template->javascript('lib/yui/dom-min.js');
+	$template->javascript('lib/javascript/GalleryUtilities.js');
+	$template->javascript('lib/javascript/ItemEdit.js');
 
 	return array(null, array('body' => 'modules/core/templates/ItemEdit.tpl'));
     }

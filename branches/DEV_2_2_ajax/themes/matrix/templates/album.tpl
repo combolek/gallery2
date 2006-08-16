@@ -88,9 +88,9 @@
 			height=$child.thumbnail.height}
 		      <a href="{$linkUrl}"> {g->block type="core.RotatePhotoBlock"
 		        templateId=$child.id
+			RotatePhotoBlock.class="giThumbnail"
 			RotatePhotoBlock.item=$child
-			RotatePhotoBlock.image=$child.thumbnail
-			RotatePhotoBlock.class="giThumbnail"} {$smarty.RotatePhotoBlock.status} </a>
+			RotatePhotoBlock.image=$child.thumbnail} {$smarty.RotatePhotoBlock.status} </a>
 		    {/g->container}
 
 		    <span style="display: none"> {$smarty.RotatePhotoBlock.form} </span>

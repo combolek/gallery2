@@ -59,16 +59,6 @@ class ItemAdminView extends GalleryView {
 	    if ($ret) {
 		return array($ret, null);
 	    }
-
-	    list ($width, $height) = GalleryUtilities::shrinkDimensionsToFit($thumbnail->getWidth(),
-		$thumbnail->getHeight(), 130);
-
-	    $thumbnailData = array('src' => $urlGenerator->generateUrl(array(
-		    'view' => 'core.DownloadItem',
-		    'itemId' => $thumbnail->getId(),
-		    'serialNumber' => $thumbnail->getSerialNumber())),
-		'width' => $width,
-		'height' => $height);
 	}
 
 	/* Load the module list */
@@ -184,11 +174,10 @@ class ItemAdminView extends GalleryView {
 
 	$ItemAdmin['navigationLinks'] = $navigationLinks;
 	$ItemAdmin['viewBodyFile'] = $results['body'];
-	$ItemAdmin['item'] = (array)$item;
 	$ItemAdmin['parents'] = $parents;
 	$ItemAdmin['parent'] = 	empty($parents) ? null : $parents[sizeof($parents) - 1];
 	$ItemAdmin['itemType'] = $itemType;
-	$ItemAdmin['thumbnail'] = $thumbnailData;
+	$ItemAdmin['thumbnail'] = (array)$thumbnail;
 	$ItemAdmin['subViewChoices'] = $subViewChoices;
 	$ItemAdmin['viewL10Domain'] = $subView->getL10Domain();
 	$ItemAdmin['isSiteAdmin'] = $isSiteAdmin;
@@ -202,6 +191,11 @@ class ItemAdminView extends GalleryView {
 	$template->javascript('lib/yui/event-min.js');
 	$template->javascript('lib/javascript/GalleryUtilities.js');
 	$template->javascript('lib/javascript/ItemAdmin.js');
+
+	/* Preloads */
+	GalleryCoreApi::requireOnce('modules/core/Preloads.inc');
+	CorePreloads::preload($template, 'EditItemBlock', array());
+	CorePreloads::preload($template, 'RotatePhotoBlock', array());
 
 	return array(null, array('body' => 'modules/core/templates/ItemAdmin.tpl'));
     }
