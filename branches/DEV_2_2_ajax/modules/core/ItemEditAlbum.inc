@@ -80,10 +80,10 @@ class ItemEditAlbum extends ItemEditPlugin {
 			return array($ret, null, null, null);
 		    }
 		}
+
 		/* Add the thumbnail size back in */
 		$ret = GalleryCoreApi::addDerivativePreference(0, $item->getId(),
-		    DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
-		    'thumbnail|' . $form['thumbnail']['size']);
+		    DERIVATIVE_TYPE_IMAGE_THUMBNAIL, 'thumbnail|' . $form['thumbnail']['size']);
 		if ($ret) {
 		    return array($ret, null, null, null);
 		}
@@ -98,8 +98,8 @@ class ItemEditAlbum extends ItemEditPlugin {
 		    }
 
 		    $ret = GalleryCoreApi::addDerivativePreference($i, $item->getId(),
-			DERIVATIVE_TYPE_IMAGE_RESIZE, 'scale|' .
-			$form['resizes'][$i]['width'] . ',' . $form['resizes'][$i]['height']);
+			DERIVATIVE_TYPE_IMAGE_RESIZE, 'scale|' . $form['resizes'][$i]['width']
+			. ',' . $form['resizes'][$i]['height']);
 		    if ($ret) {
 			return array($ret, null, null, null);
 		    }
@@ -111,7 +111,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 		/* Use appropriate settings in descendent albums */
 		if (!empty($changeTypes) && !empty($subAlbumIds)) {
 		    $ret = GalleryCoreApi::removeDerivativePreferenceForItemType(
-			    $subAlbumIds, $changeTypes);
+			$subAlbumIds, $changeTypes);
 		    if ($ret) {
 			return array($ret, null, null, null);
 		    }
@@ -130,9 +130,9 @@ class ItemEditAlbum extends ItemEditPlugin {
 			    }
 
 			    $ret = GalleryCoreApi::addDerivativePreference($i, $subAlbumIds,
-				DERIVATIVE_TYPE_IMAGE_RESIZE, 'scale|' .
-				$form['resizes'][$i]['width'] . ',' .
-				$form['resizes'][$i]['height']);
+				DERIVATIVE_TYPE_IMAGE_RESIZE, 'scale|'
+				. $form['resizes'][$i]['width'] . ','
+				. $form['resizes'][$i]['height']);
 			    if ($ret) {
 				return array($ret, null, null, null);
 			    }
@@ -383,7 +383,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 	 * For the progress bar feedback we will assume that the number of deleted items is the same
 	 * as the number of created
 	 */
-	$total = sizeof($childIds) * 2;
+	$total = count($childIds) * 2;
 	$runningTotal = 0;
 	$step = min(200, intval($total / 20));
 	$batchSize = 100;
@@ -437,92 +437,91 @@ class ItemEditAlbum extends ItemEditPlugin {
 		    continue;
 		}
 
+		$albumId = $child->getParentId();
+		if (empty($resizes[$albumId])) {
+		    /* Keep resizes for albums in memory */
+		    list ($ret, $preferences) =
+			GalleryCoreApi::fetchDerivativePreferencesForItem($albumId);
+		    if ($ret) {
+			return $ret;
+		    }
+
+		    foreach ($preferences as $preference) {
+			if ($preference['derivativeType'] == DERIVATIVE_TYPE_IMAGE_RESIZE
+				&& preg_match('/(?:resize|scale)\|(\d+)(?:,(\d+))?/',
+					      $preference['derivativeOperations'], $matches)) {
+			    $width = $matches[1];
+			    $height = empty($matches[2]) ? $width : $matches[2];
+			    $resizes[$albumId][] =
+				array('operations' => $preference['derivativeOperations'],
+				      'width' => $width, 'height' => $height);
+			}
+		    }
+		    if (empty($resizes[$albumId])) {
+			return GalleryCoreApi::error(ERROR_MISSING_OBJECT);
+		    }
+		}
+
 		list ($ret, $source) = GalleryCoreApi::fetchPreferredSource($child);
 		if ($ret) {
 		    return $ret;
 		}
+		$mimeType = $source->getMimeType();
 
-		/* Make sure that we have a toolkit before adding back the resizes */
-		list ($ret, $toolkit, $outputMimeType) =
-		    GalleryCoreApi::getToolkitByOperation($source->getMimeType(), 'scale');
-		if ($ret) {
-		    return $ret;
-		}
-
-		if (isset($toolkit)) {
-		    $albumId = $child->getParentId();
-		    if (empty($resizes[$albumId])) {
-			/* Keep resizes for albums in memory */
-			list ($ret, $preferences) =
-			    GalleryCoreApi::fetchDerivativePreferencesForItem($albumId);
+		for ($i = 0; $i < count($resizes[$albumId]); $i++) {
+		    if (!isset($resizes[$albumId][$i][$mimeType])) {
+			list ($ret, $resizes[$albumId][$i][$mimeType]['operations'],
+				    $resizes[$albumId][$i][$mimeType]['outputMimeType']) =
+			    GalleryCoreApi::makeSupportedViewableOperationSequence(
+				$mimeType, $resizes[$albumId][$i]['operations'], false);
 			if ($ret) {
 			    return $ret;
 			}
+		    }
+		    $resize = $resizes[$albumId][$i];
 
-			foreach ($preferences as $preference) {
-			    if (preg_match('/(?:resize|scale)\|(\d+)(?:,(\d+))?/',
-					   $preference['derivativeOperations'],
-					   $matches)) {
-				$width = $matches[1];
-				$height = empty($matches[2]) ? $width : $matches[2];
-			    }
-
-			    if ($preference['derivativeType'] == DERIVATIVE_TYPE_IMAGE_RESIZE
-				    && !empty($width)) {
-				$resizes[$albumId][] =
-				    array('width' => $width, 'height' => $height);
-			    }
-			}
+		    /* Validate toolkit support before adding back the resizes */
+		    if (empty($resize[$mimeType]['operations'])) {
+			continue;
 		    }
 
-		    if (empty($resizes[$albumId])) {
+		    /* Special case to make sure that we don't upsample photos */
+		    if (GalleryUtilities::isA($child, 'GalleryPhotoItem')
+			    && $child->getWidth() <= $resize['width']
+			    && $child->getHeight() <= $resize['height']) {
+			continue;
+		    }
+
+		    list ($ret, $derivative) = GalleryCoreApi::newFactoryInstanceByHint(
+					       'GalleryDerivative', $source->getEntityType());
+		    if ($ret) {
+			return $ret;
+		    }
+		    if (empty($derivative)) {
 			return GalleryCoreApi::error(ERROR_MISSING_OBJECT);
 		    }
 
-		    $resize = $resizes[$albumId];
-		    for ($i = 0; $i < sizeof($resize); $i++) {
-			/* Special case to make sure that we don't upsample photos */
-			if (GalleryUtilities::isA($child, 'GalleryPhotoItem')) {
-			    if ($child->getWidth() <= $resize[$i]['width']
-				    && $child->getHeight() <= $resize[$i]['height']) {
-				continue;
-			    }
-			}
+		    $ret = $derivative->create($child->getId(), DERIVATIVE_TYPE_IMAGE_RESIZE);
+		    if ($ret) {
+			return $ret;
+		    }
 
-			list ($ret, $derivative) =
-			    GalleryCoreApi::newFactoryInstanceByHint('GalleryDerivative',
-								     $source->getEntityType());
-			if ($ret) {
-			    return $ret;
-			}
+		    $derivative->setDerivativeSourceId($source->getId());
+		    $derivative->setDerivativeOperations($resize[$mimeType]['operations']);
+		    $derivative->setMimeType($resize[$mimeType]['outputMimeType']);
 
-			if (!isset($derivative)) {
-			    return GalleryCoreApi::error(ERROR_MISSING_OBJECT);
-			}
+		    $ret = GalleryCoreApi::estimateDerivativeDimensions($derivative, $source);
+		    if ($ret) {
+			return $ret;
+		    }
 
-			$ret = $derivative->create($child->getId(), DERIVATIVE_TYPE_IMAGE_RESIZE);
-			if ($ret) {
-			    return $ret;
-			}
-
-			$derivative->setMimeType($outputMimeType);
-			$derivative->setDerivativeSourceId($source->getId());
-			$derivative->setDerivativeOperations('scale|' .
-			    $resize[$i]['width'] . ',' . $resize[$i]['height']);
-
-			$ret = GalleryCoreApi::estimateDerivativeDimensions($derivative, $source);
-			if ($ret) {
-			    return $ret;
-			}
-
-			$ret = $derivative->save();
-			if ($ret) {
-			    return $ret;
-			}
+		    $ret = $derivative->save();
+		    if ($ret) {
+			return $ret;
 		    }
 		}
 	    }
-	    $runningTotal += (sizeof($currentChildIds) * 2);
+	    $runningTotal += (count($currentChildIds) * 2);
 
 	    $ret = $storage->checkPoint();
 	    if ($ret) {
@@ -646,14 +645,13 @@ class ItemEditAlbum extends ItemEditPlugin {
 			return $ret;
 		    }
 
-		    $operation = preg_replace('/((^|;)thumbnail)\|\d+/',
-					      '$1|' . $thumbnailSize,
+		    $operation = preg_replace('/((^|;)thumbnail)\|\d+/', '$1|' . $thumbnailSize,
 					      $thumbnail->getDerivativeOperations());
 		} else {
 		    /*
 		     * There is no thumbnail yet (maybe the file was uploaded when there was no
 		     * graphic toolkit).  Build new thumbnail from source if its a GalleryDataItem
-		     * (with mimeType)
+		     * (with mimeType).
 		     */
 		    if (!GalleryUtilities::isA($child, 'GalleryDataItem')) {
 			/* Its an album or something else, we can't make a thumbnail */
