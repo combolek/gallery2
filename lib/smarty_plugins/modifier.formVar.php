@@ -23,13 +23,14 @@
  * -------------------------------------------------------------
  * Type:     modifier
  * Name:     formVar
- * Purpose:  Return a transformed element name.  Useful for accessing a form element in JavaScript.
+ * Purpose:  Return a prefixed form variable name.  Useful for accessing form variables in
+ *           JavaScript.
  *
- * @param string element name
- * @return string transformed element name
+ * @param string form variable name
+ * @return string prefixed form variable name
  * -------------------------------------------------------------
  */
-function smarty_modifier_formVar($string) {
-    return GalleryUtilities::prefixFormVariable($string);
+function smarty_modifier_formVar($key) {
+    return GalleryUtilities::prefixFormVariable($key);
 }
 ?>
