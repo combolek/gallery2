@@ -242,6 +242,7 @@ class AdminRepositoryView extends GalleryView {
      */
     function loadTemplate(&$template, &$form) {
 	global $gallery;
+	$platform =& $gallery->getPlatform();
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
@@ -261,13 +262,11 @@ class AdminRepositoryView extends GalleryView {
 	    /* Make sure the plugins directory is properly set up. */
 	    list ($isSetUp, $errorMessage) = GalleryRepository::createPluginsDirectory();
 	    if (!$isSetUp) {
-		$platform =& $gallery->getPlatform();
-
 		$redirect['view'] = 'core.SiteAdmin';
 		$redirect['subView'] = 'core.AdminRepositorySetup';
 		$AdminRepository['galleryBaseDirectory'] =
 		    $platform->realpath(dirname(__FILE__) . '/../..');
-		$template->setVariable('errorMessage', $errorMessage);
+		$AdminRepository['errorMessage'] = $errorMessage;
 
 		return array(null,
 			     array('body' => 'modules/core/templates/AdminRepositorySetup.tpl'));
@@ -289,7 +288,7 @@ class AdminRepositoryView extends GalleryView {
 	    $coreApis['core'] = explode('.', $coreApiVersion);
 	    $coreApis['module'] = explode('.', $moduleApiVersion);
 	    $coreApis['theme'] = explode('.', $themeApiVersion);
-	    $template->setVariable('showIncompatible', 1);
+	    $AdminRepository['showIncompatible'] = 1;
 	}
 
 	if ($localIndexExists) {
@@ -304,15 +303,14 @@ class AdminRepositoryView extends GalleryView {
 
 	    /* TODO: merge these group-wise instead of just appending themes to groups */
 	    $browseData = array_merge($browseData['module'], $browseData['theme']);
-
-	    $template->setVariable('browseData', $browseData);
+	    $AdminRepository['browseData'] = $browseData;
 
 	    /* Get local index meta data. */
 	    list ($ret, $indexMetaData) = $repository->getIndexMetaData();
 	    if ($ret) {
 		return array($ret, null);
 	    }
-	    $template->setVariable('indexMetaData', $indexMetaData);
+	    $AdminRepository['indexMetaData'] = $indexMetaData;
 
 	    /* Get core upgrade info. */
 	    list ($ret, $isCoreUpgradeAvailable, $apiVersions) =
@@ -321,11 +319,11 @@ class AdminRepositoryView extends GalleryView {
 		return array($ret, null);
 	    }
 	    if ($isCoreUpgradeAvailable) {
-		$template->setVariable('latestCoreApiVersion', $apiVersions['core']);
-		$template->setVariable('latestThemeApiVersion', $apiVersions['theme']);
-		$template->setVariable('latestModuleApiVersion', $apiVersions['module']);
+		$AdminRepository['latestCoreApiVersion'] = $apiVersions['core'];
+		$AdminRepository['latestThemeApiVersion'] = $apiVersions['theme'];
+		$AdminRepository['latestModuleApiVersion'] = $apiVersions['module'];
 	    }
-	    $template->setVariable('coreUpgradeAvailable', $isCoreUpgradeAvailable);
+	    $AdminRepository['coreUpgradeAvailable'] = $isCoreUpgradeAvailable;
 	}
 
 	/* Render the HTML body */
