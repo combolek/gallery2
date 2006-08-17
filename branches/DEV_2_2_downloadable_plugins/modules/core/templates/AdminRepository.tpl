@@ -45,15 +45,15 @@
 </div>
 
 <div class="gbBlock gcBackground1">
-  <input type="submit" class="inputTypeSubmit" name="{g->formVar var="form[action][update]"}" value="{if isset($indexMetaData)}{g->text text="Update Plugin List"}{else}{g->text text="Download Plugin List"}{/if}"/>
-  {if isset($indexMetaData)}
-  {capture assign="updateDate"}{g->date style="datetime" timestamp=$indexMetaData.timestamp}{/capture}
+  <input type="submit" class="inputTypeSubmit" name="{g->formVar var="form[action][update]"}" value="{if isset($AdminRepository.indexMetaData)}{g->text text="Update Plugin List"}{else}{g->text text="Download Plugin List"}{/if}"/>
+  {if isset($AdminRepository.indexMetaData)}
+  {capture assign="updateDate"}{g->date style="datetime" timestamp=$AdminRepository.indexMetaData.timestamp}{/capture}
   {g->text text="(last updated: %s)" arg1=$updateDate}
   {/if}
 </div>
 
-{if isset($indexMetaData)}
-  {if $coreUpgradeAvailable}
+{if isset($AdminRepository.indexMetaData)}
+  {if $AdminRepository.coreUpgradeAvailable}
 <div class="gbBlock">
   <h3>{g->text text="Upgrade Gallery"}</h3>
   <p class="giDescription">
@@ -71,23 +71,23 @@
 {/if}
 
 <div class="gbBlock">
-  {if isset($browseData)}
+  {if isset($AdminRepository.browseData)}
   <p class="giDescription">
-    {if $coreUpgradeAvailable}
-      {if $showIncompatible}
+    {if $AdminRepository.coreUpgradeAvailable}
+      {if isset($AdminRepository.showIncompatible)}
         {g->text text="Incompatible plugins are marked with an exclamation icon."}
       {else}
 	{capture name="listLink"}<a href="{g->url arg1="view=core.SiteAdmin"
 	  arg2="subView=core.AdminRepository"
-	  arg3="coreApi=`$latestCoreApiVersion`" arg4="themeApi=`$latestThemeApiVersion`"
-	  arg5="moduleApi=`$latestModuleApiVersion`" arg6="showIncompatible=true"}">{/capture}
+	  arg3="coreApi=`$AdminRepository.latestCoreApiVersion`" arg4="themeApi=`$AdminRepository.latestThemeApiVersion`"
+	  arg5="moduleApi=`$AdminRepository.latestModuleApiVersion`" arg6="showIncompatible=true"}">{/capture}
 	{g->text text="A new core module version is available. There may be plugins that are incompatible with the installed core module, which are not shown here. You can view a %scomplete list%s of plugins, including incompatible ones, which are marked with a red icon." arg1=$smarty.capture.listLink arg2="</a>"}
       {/if}
     {/if}
   </p>
   <table class="gbDataTable">
     {assign var="group" value=""}
-    {foreach from=$browseData key=pluginId item=plugin}
+    {foreach from=$AdminRepository.browseData key=pluginId item=plugin}
       {if $group != $plugin.groupLabel}
 	{if !empty($group)}
 	  <tr><td> &nbsp; </td></tr>
@@ -166,7 +166,7 @@
   {/if}
 </div>
 
-{if isset($indexMetaData)}
+{if isset($AdminRepository.indexMetaData)}
 <div class="gbBlock">
   <h3>{g->text text="Upgrade All Plugins"}</h3>
   <p class="giDescription">
