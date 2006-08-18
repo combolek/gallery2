@@ -326,6 +326,11 @@ class AdminRepositoryView extends GalleryView {
 	    $AdminRepository['coreUpgradeAvailable'] = $isCoreUpgradeAvailable;
 	}
 
+	$baseName = dirname(dirname(dirname(__FILE__)));
+	$AdminRepository['writeable'] = array(
+	    'modules' => $platform->is_writeable("$baseName/modules"),
+	    'themes' => $platform->is_writeable("$baseName/themes"));
+
 	/* Render the HTML body */
 	$template->setVariable('AdminRepository', $AdminRepository);
 	$template->setVariable('controller', 'core.AdminRepository');
