@@ -109,7 +109,7 @@ class KeyAlbumModule extends GalleryModule {
 	    if ($item->getKeywords()) {
 		$itemId = $item->getId();
 		$summaries[$itemId] = $this->translate('Keywords:');
-		foreach (preg_split('/\s+/', $item->getKeywords()) as $keyword) {
+		foreach (preg_split('/[\s,;]+/', $item->getKeywords()) as $keyword) {
 		    $summaries[$itemId] .= ' <a href="' . $urlGenerator->generateUrl(
 			array('view' => 'keyalbum.KeywordAlbum', 'keyword' => $keyword,
 			      'highlightId' => $itemId)) . '">' . $keyword . '</a>';
@@ -127,6 +127,7 @@ class KeyAlbumModule extends GalleryModule {
 		array('comment' => $this->translate('Keyword Album'),
 		      'match' => array('view' => 'keyalbum.KeywordAlbum'),
 		      'pattern' => 'key/%keyword%',
+		      'help' => $this->translate('Short URL for Keyword Albums'),
 		      'keywords' => array(
 			  'keyword' => array('pattern' => '([^?/]+)',
 			      'help' => $this->translate('Keyword to use for dynamic album')))
