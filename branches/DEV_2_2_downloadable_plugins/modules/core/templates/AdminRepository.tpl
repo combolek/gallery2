@@ -44,6 +44,27 @@
   </p>
 </div>
 
+{if !$AdminRepository.writeable.modules || !$AdminRepository.writeable.themes}
+<div class="gbBlock">
+  <h3>{g->text text="Configure your Gallery"}</h3>
+  <p class="giDescription">
+    {g->text text="Before you can proceed, you have to change some permissions so that Gallery can install plugins for you.  It's easy.  Just execute the following in a shell or via your ftp client:"}
+  </p>
+  <p class="gcBackground1" style="border-width: 1px; border-style: dotted; padding: 4px">
+    <b>
+      cd gallery2<br/>
+      {if !$AdminRepository.writeable.modules}chmod 777 modules<br/>{/if}
+      {if !$AdminRepository.writeable.themes}chmod 777 themes<br/>{/if}
+    </b>
+  </p>
+  <p class="giDescription">
+    {g->text text="If you have trouble changing permissions, ask your system administrator for assistance.  When you've fixed the permissions, click the Continue button to proceed."}
+  </p>
+</div>
+<div class="gbBlock gcBackground1">
+  <input class="inputTypeSubmit" type="button" onclick="document.location='{g->url arg1="view=core.SiteAdmin" arg2="subView=core.AdminRepository"}'" value="{g->text text="Continue"}" />
+</div>
+{else}
 <div class="gbBlock gcBackground1">
   <input type="submit" class="inputTypeSubmit" name="{g->formVar var="form[action][update]"}" value="{if isset($AdminRepository.indexMetaData)}{g->text text="Update Plugin List"}{else}{g->text text="Download Plugin List"}{/if}"/>
   {if isset($AdminRepository.indexMetaData)}
@@ -178,3 +199,4 @@
   <input type="submit" class="inputTypeSubmit" name="{g->formVar var="form[action][upgradeAll]"}" value="{g->text text="Upgrade All"}"/>
 </div>
 {/if}
+{/if} {* modules/themes are writeable *}
