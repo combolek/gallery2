@@ -17,23 +17,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package AjaxianTheme
- * @author Ross Shannon <ross.shannon@gmail.com>
- */
 
 /**
- * This implements the DHTML-enabled slideshow theme
- *
- * @package AjaxianTheme
- * @subpackage Theme
+ * DHTML-enabled slideshow theme
+ * @package Themes
+ * @subpackage Ajaxian
+ * @author Ross Shannon <ross.shannon@gmail.com>
+ * @version $Revision$ $Date$
  */
 class AjaxianTheme extends GalleryTheme {
 
-    /**
-     * Constructor
-     */
     function AjaxianTheme() {
 	global $gallery;
 

@@ -18,6 +18,10 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+/**
+ * Install complete
+ * @package Install
+ */
 class FinishedStep extends InstallStep {
     function stepName() {
 	return _('Finish Installation');
@@ -25,7 +29,7 @@ class FinishedStep extends InstallStep {
 
     function loadTemplateData(&$templateData) {
 	global $galleryStub;
-	
+
 	$templateData['isMultisite'] = $galleryStub->getConfig('isMultisite');
 	$templateData['galleryDir'] = basename($_SESSION['configPath']);
 	$templateData['bodyFile'] = 'Finished.html';

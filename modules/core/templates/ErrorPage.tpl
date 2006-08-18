@@ -26,9 +26,7 @@
       <p class="giDescription">
 	{g->text text="Your change cannot be completed because somebody else has made a conflicting change to the same item.  Use the back button in your browser to go back to the page you were on, then <b>reload that page</b> and try your change again."}
       </p>
-      <a href="javascript:history.back()">
-	{g->text text="Go back and try again"}
-      </a>
+      <a href="javascript:history.back()"> {g->text text="Go back and try again"} </a>
       <p class="giDescription" style="margin-top: 0.5em">
 	{g->text text="Alternatively, you can return to the main Gallery page and resume browsing."}
       </p>
@@ -61,90 +59,88 @@
     {/if}
 
     <p class="giDescription">
-      <a href="{g->url}">{g->text text="Back to the Gallery"}</a>
+      <a href="{g->url}"> {g->text text="Back to the Gallery"} </a>
     </p>
   </div>
 
   {if !empty($ErrorPage.stackTrace)}
-  <div class="gbBlock">
-    <h3>
-      {g->text text="Error Detail"}
-      <span id="trace-toggle" class="giBlockToggle gcBackground1 gcBorder2"
-       style="border-width: 1px" onclick="BlockToggle('giStackTrace', 'trace-toggle')">
-	{if $ErrorPage.isAdmin}-{else}+{/if}
-      </span>
-    </h3>
-    <div id="giStackTrace" style="margin-left: 0.8em{if !$ErrorPage.isAdmin}; display:none{/if}">
-      {$ErrorPage.stackTrace}
+    <div class="gbBlock">
+      <h3>
+	{g->text text="Error Detail"}
+	<span id="trace-toggle" class="giBlockToggle gcBackground1 gcBorder2"
+	 style="border-width: 1px" onclick="BlockToggle('giStackTrace', 'trace-toggle')"> {if $ErrorPage.isAdmin}-{else}+{/if} </span>
+      </h3>
+      <div id="giStackTrace" style="margin-left: 0.8em{if !$ErrorPage.isAdmin}; display: none{/if}">
+	{$ErrorPage.stackTrace}
+      </div>
     </div>
-  </div>
   {/if}
 
   {if $ErrorPage.isAdmin}
-  <div class="gbBlock">
-    <h3> {g->text text="System Information"} </h3>
-    <table class="gbDataTable"><tr>
-      <td>
-	{g->text text="Gallery version"}
-      </td><td>
-	{$ErrorPage.version}
-      </td>
-    </tr><tr>
-      <td>
-	{g->text text="PHP version"}
-      </td><td>
-	{$ErrorPage.phpversion} {$ErrorPage.php_sapi_name}
-      </td>
-     </tr><tr>
-      <td>
-	{g->text text="Webserver"}
-      </td><td>
-	{$ErrorPage.webserver}
-      </td>
-    </tr>
-    {if isset($ErrorPage.dbType)}
-    <tr>
-      <td>
-	{g->text text="Database"}
-      </td><td>
-	{$ErrorPage.dbType} {$ErrorPage.dbVersion}
-      </td>
-    </tr>
-    {/if}
-    {if isset($ErrorPage.toolkits)}
-    <tr>
-      <td>
-	{g->text text="Toolkits"}
-      </td><td>
-	{$ErrorPage.toolkits}
-      </td>
-    </tr>
-    {/if}
-    <tr>
-      <td>
-	{g->text text="Operating system"}
-      </td><td>
-	{$ErrorPage.php_uname}
-      </td>
-    </tr><tr>
-      <td>
-	{g->text text="Browser"}
-      </td><td>
-	{$ErrorPage.browser}
-      </td>
-    </tr></table>
-  </div>
+    <div class="gbBlock">
+      <h3> {g->text text="System Information"} </h3>
+      <table class="gbDataTable"><tr>
+	<td>
+	  {g->text text="Gallery version"}
+	</td><td>
+	  {$ErrorPage.version}
+	</td>
+      </tr><tr>
+	<td>
+	  {g->text text="PHP version"}
+	</td><td>
+	  {$ErrorPage.phpversion} {$ErrorPage.php_sapi_name}
+	</td>
+       </tr><tr>
+	<td>
+	  {g->text text="Webserver"}
+	</td><td>
+	  {$ErrorPage.webserver}
+	</td>
+      </tr>
+      {if isset($ErrorPage.dbType)}
+      <tr>
+	<td>
+	  {g->text text="Database"}
+	</td><td>
+	  {$ErrorPage.dbType} {$ErrorPage.dbVersion}
+	</td>
+      </tr>
+      {/if}
+      {if isset($ErrorPage.toolkits)}
+      <tr>
+	<td>
+	  {g->text text="Toolkits"}
+	</td><td>
+	  {$ErrorPage.toolkits}
+	</td>
+      </tr>
+      {/if}
+      <tr>
+	<td>
+	  {g->text text="Operating system"}
+	</td><td>
+	  {$ErrorPage.php_uname}
+	</td>
+      </tr><tr>
+	<td>
+	  {g->text text="Browser"}
+	</td><td>
+	  {$ErrorPage.browser}
+	</td>
+      </tr></table>
+    </div>
   {/if}
 
   {if isset($ErrorPage.debug)}
-  <div class="gbBlock">
-    {include file="gallery:templates/debug.tpl"}
-  </div>
+    <div class="gbBlock">
+      {include file="gallery:templates/debug.tpl"}
+    </div>
   {/if}
 
   {if isset($ErrorPage.profile)}
-  <div class="gbBlock">
-    {include file="gallery:templates/profile.tpl"}
-  </div>
+    <div class="gbBlock">
+      {include file="gallery:templates/profile.tpl"}
+    </div>
   {/if}
 </div>

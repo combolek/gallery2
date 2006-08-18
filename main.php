@@ -17,6 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+/**
+ * Main handler for all Gallery pages/requests
+ * @package Gallery
+ */
+
 include(dirname(__FILE__) . '/bootstrap.inc');
 
 /*
@@ -83,7 +88,7 @@ function GalleryMain($embedded=false) {
     global $gallery;
 
     /* Process the request */
-    list($ret, $g2Data) = _GalleryMain($embedded);
+    list ($ret, $g2Data) = _GalleryMain($embedded);
     if (!$ret) {
 	$gallery->performShutdownActions();
 
@@ -114,9 +119,9 @@ function GalleryMain($embedded=false) {
 	    'Not automatically redirecting you to the next page because we\'re in debug mode<br/>';
 	printf('<a href="%s">Continue to the next page</a>', $g2Data['redirectUrl']);
 	print '<hr/>';
-	print "<pre>";
+	print '<pre>';
 	print $gallery->getDebugBuffer();
-	print "</pre>";
+	print '</pre>';
     }
 
     return $g2Data;
@@ -124,15 +129,16 @@ function GalleryMain($embedded=false) {
 
 /**
  * Process our request
+ *
  * @return array object GalleryStatus a status code
- *               array[]
+ *               array
  */
 function _GalleryMain($embedded=false) {
     global $gallery;
     $urlGenerator =& $gallery->getUrlGenerator();
 
     /* Figure out the target view/controller */
-    list($controllerName, $viewName) = GalleryUtilities::getRequestVariables('controller', 'view');
+    list ($controllerName, $viewName) = GalleryUtilities::getRequestVariables('controller', 'view');
     $gallery->debug("controller $controllerName, view $viewName");
 
     /* Check if core module needs upgrading */
@@ -362,14 +368,14 @@ function _GalleryMain($embedded=false) {
 	    if ($ret) {
 		return array($ret, null);
 	    }
-	    /* From now on, don't add navid / sessionId to URLs if there's no persistent session */
+	    /* From now on, don't add navId/sessionId to URLs if there's no persistent session */
 	    $session->doNotUseTempId();
 	}
 
 	/*
-	 * If this is an immediate view, it will send its own output directly.  This is
-	 * used in the situation where we want to send back data that's not controlled by the
-	 * layout.  That's usually something that's not user-visible like a binary file.
+	 * If this is an immediate view, it will send its own output directly.  This is used in the
+	 * situation where we want to send back data that's not controlled by the layout.  That's
+	 * usually something that's not user-visible like a binary file.
 	 */
 	$data = array();
 	if ($view->isImmediate()) {
@@ -387,12 +393,13 @@ function _GalleryMain($embedded=false) {
 	    if ($ret) {
 		return array($ret, null);
 	    }
+
 	    if (isset($results['redirect']) || isset($results['redirectUrl'])) {
 		if (isset($results['redirectUrl'])) {
 		    $redirectUrl = $results['redirectUrl'];
 		} else {
 		    $redirectUrl = $urlGenerator->generateUrl($results['redirect'],
-		    					      array('forceFullUrl' => true));
+							      array('forceFullUrl' => true));
 		}
 
 		return array(null, _GalleryMain_doRedirect($redirectUrl, $template));
@@ -495,9 +502,9 @@ function _GalleryMain_doRedirect($redirectUrl, $template=null, $controller=null)
      * UserLogin returnUrls don't have a sessionId in the URL to replace, make sure there's a
      * sessionId in the redirectUrl for users that don't use cookies
      */
-    if (!$session->isUsingCookies() && $session->isPersistent() &&
-	    strpos($redirectUrl, $session->getKey()) === false) {
-        $redirectUrl = GalleryUrlGenerator::appendParamsToUrl($redirectUrl,
+    if (!$session->isUsingCookies() && $session->isPersistent()
+	    && strpos($redirectUrl, $session->getKey()) === false) {
+	$redirectUrl = GalleryUrlGenerator::appendParamsToUrl($redirectUrl,
 	    array($session->getKey() => $session->getId()));
     }
 
@@ -519,17 +526,17 @@ function _GalleryMain_doRedirect($redirectUrl, $template=null, $controller=null)
 	if (in_array($controller, array('core.Logout', 'core.UserLogin', 'publishxp.Login'))) {
 	    /* Check if it's IIS and if the version is < 6.0 */
 	    $webserver = GalleryUtilities::getServerVar('SERVER_SOFTWARE');
-	    if (!empty($webserver) &&
-		    preg_match('|^Microsoft-IIS/(\d)\.\d$|', trim($webserver), $matches) &&
-		    $matches[1] < 6) {
+	    if (!empty($webserver)
+		    && preg_match('|^Microsoft-IIS/(\d)\.\d$|', trim($webserver), $matches)
+		    && $matches[1] < 6) {
 		/*
 		 * It is IIS and it's a version with this bug, check if GALLERYSID is already in the
 		 * URL, else append it
 		 */
 		$session =& $gallery->getSession();
 		$sessionParamString =
-		    GalleryUtilities::prefixFormVariable(urlencode($session->getKey())) . '=' .
-		    urlencode($session->getId());
+		    GalleryUtilities::prefixFormVariable(urlencode($session->getKey())) . '='
+		    . urlencode($session->getId());
 		if ($session->isPersistent() && !strstr($redirectUrl, $sessionParamString)) {
 		    $redirectUrl .= (strpos($redirectUrl, '?') === false) ? '?' : '&';
 		    $redirectUrl .= $sessionParamString;
@@ -540,10 +547,11 @@ function _GalleryMain_doRedirect($redirectUrl, $template=null, $controller=null)
 	/* Use our PHP VM for testability */
 	$phpVm = $gallery->getPhpVm();
 	$phpVm->header("Location: $redirectUrl");
+
 	return array('isDone' => true);
-    } else {
-	return array('isDone' => true, 'redirectUrl' => $redirectUrl, 'template' => $template);
     }
+
+    return array('isDone' => true, 'redirectUrl' => $redirectUrl, 'template' => $template);
 }
 
 function _GalleryMain_errorHandler($error, $g2Data=null, $initOk=true) {
