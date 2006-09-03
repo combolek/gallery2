@@ -17,19 +17,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Ecard
- * @subpackage UserInterface
- * @author Nico Kaiser <nico@siriux.net>
- * @author Dariush Molavi <dari@nukedgallery.net>
- */
 
 /**
  * Confirmation page
- *
  * @package Ecard
  * @subpackage userInterface
+ * @author Nico Kaiser <nico@siriux.net>
+ * @author Dariush Molavi <dari@nukedgallery.net>
+ * @version $Revision$ $Date$
  */
 class ConfirmationView extends GalleryView {
 
@@ -42,9 +37,7 @@ class ConfirmationView extends GalleryView {
 	    return array($ret, null);
 	}
 
-	$Confirmation = array('itemId' => $item->getId());
-	$template->setVariable('Confirmation', $Confirmation);
-
+	$template->setVariable('Confirmation', array('itemId' => $item->getId()));
 	return array(null, array('body' => 'modules/ecard/templates/Confirmation.tpl'));
     }
 }

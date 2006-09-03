@@ -17,22 +17,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package GalleryCore
- * @author Bharat Mediratta <bharat@menalto.com>
- */
 
-/**
- * Load the parent class
- */
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryEntity.class');
 
 /**
  * Representation of a group of users
  *
- * A group is a set of GalleryUsers that can be treated as if they were a
- * single user.  This is very useful for managing permissions.
+ * A group is a set of GalleryUsers that can be treated as if they were a single user.
+ * This is very useful for managing permissions.
  *
  * @g2 <class-name>GalleryGroup</class-name>
  * @g2 <parent-class-name>GalleryEntity</parent-class-name>
@@ -44,25 +36,26 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryEntity.class');
  *
  * @package GalleryCore
  * @subpackage Classes
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision$ $Date$
  */
 class GalleryGroup extends GalleryEntity {
 
     /**
      * The group type
+     * @var int
      *
      * @g2 <member>
      * @g2   <member-name>groupType</member-name>
      * @g2   <member-type>INTEGER</member-type>
      * @g2   <required/>
      * @g2 </member>
-     *
-     * @var int $groupType
-     * @access public
      */
     var $groupType;
 
     /**
      * The group name
+     * @var string
      *
      * @g2 <member>
      * @g2   <member-name>groupName</member-name>
@@ -70,11 +63,9 @@ class GalleryGroup extends GalleryEntity {
      * @g2   <member-size>MEDIUM</member-size>
      * @g2   <unique/>
      * @g2 </member>
-     *
-     * @var string $groupName
-     * @access public
      */
     var $groupName;
+
 
     /**
      * Create a new instance of this GalleryGroup in the persistent store
@@ -95,7 +86,7 @@ class GalleryGroup extends GalleryEntity {
 	WHERE
 	  [GalleryGroup::groupName] = ?
 	';
-	list($ret, $results) =
+	list ($ret, $results) =
 	    $gallery->search($query, array($groupName),
 			     array('limit' => array('count' => 1)));
 	if ($ret) {
@@ -119,11 +110,9 @@ class GalleryGroup extends GalleryEntity {
     }
 
     /**
-     * Delete this GalleryGroup
+     * Delete this GalleryGroup.
+     * Do some bookkeeping, like removing any user/group mappings.
      *
-     * Do some bookkeeping, like removing any user/group mappings
-     *
-     * @access public
      * @return object GalleryStatus a status code
      */
     function delete() {
@@ -132,7 +121,7 @@ class GalleryGroup extends GalleryEntity {
 	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
 					 'Special groups cannot be deleted!');
 	}
-	
+
 	$ret = GalleryCoreApi::removeAllUsersFromGroup($this->getId());
 	if ($ret) {
 	    return $ret;
@@ -167,7 +156,7 @@ class GalleryGroup extends GalleryEntity {
     }
 
     /**
-     * @see GalleryEntity::getClassName()
+     * @see GalleryEntity::getClassName
      */
     function getClassName() {
 	return 'GalleryGroup';

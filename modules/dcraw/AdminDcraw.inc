@@ -17,17 +17,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Dcraw
- * @author Bharat Mediratta <bharat@menalto.com>
- */
 
 GalleryCoreApi::requireOnce('modules/dcraw/classes/DcrawToolkitHelper.class');
 
 /**
+ * Settings for dcraw
  * @package Dcraw
  * @subpackage UserInterface
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision$ $Date$
  */
 class AdminDcrawController extends GalleryController {
 
@@ -119,8 +117,7 @@ class AdminDcrawController extends GalleryController {
 }
 
 /**
- * @package Dcraw
- * @subpackage UserInterface
+ * Settings for dcraw
  */
 class AdminDcrawView extends GalleryView {
 
@@ -203,9 +200,7 @@ class AdminDcrawView extends GalleryView {
 
 	$template->setVariable('AdminDcraw', $AdminDcraw);
 	$template->setVariable('controller', 'dcraw.AdminDcraw');
-
-	return array(null,
-		     array('body' => 'modules/dcraw/templates/AdminDcraw.tpl'));
+	return array(null, array('body' => 'modules/dcraw/templates/AdminDcraw.tpl'));
     }
 }
 ?>

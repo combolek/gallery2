@@ -17,19 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package GalleryCore
- * @subpackage UserInterface
- * @author Bharat Mediratta <bharat@menalto.com>
- */
 
 /**
  * This controller will handle changes made to the user-group mapping
- *
  * @package GalleryCore
  * @subpackage UserInterface
- *
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision$ $Date$
  */
 class AdminEditGroupUsersController extends GalleryController {
 
@@ -160,10 +154,6 @@ class AdminEditGroupUsersController extends GalleryController {
 
 /**
  * This view will show the possibilities of user-group mappings for a specified group.
- *
- * @package GalleryCore
- * @subpackage UserInterface
- *
  */
 class AdminEditGroupUsersView extends GalleryView {
 
@@ -255,8 +245,7 @@ class AdminEditGroupUsersView extends GalleryView {
 
 	$template->setVariable('AdminEditGroupUsers', $AdminEditGroupUsers);
 	$template->setVariable('controller', 'core.AdminEditGroupUsers');
-	return array(null,
-		     array('body' => 'modules/core/templates/AdminEditGroupUsers.tpl'));
+	return array(null, array('body' => 'modules/core/templates/AdminEditGroupUsers.tpl'));
     }
 }
 ?>

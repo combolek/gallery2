@@ -17,12 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package GalleryCore
- * @subpackage PHPUnit
- * @author Bharat Mediratta <bharat@menalto.com>
- */
 
 GalleryCoreApi::requireOnce('modules/core/PluginCallback.inc');
 
@@ -30,6 +24,8 @@ GalleryCoreApi::requireOnce('modules/core/PluginCallback.inc');
  * PluginCallback tests
  * @package GalleryCore
  * @subpackage PHPUnit
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision$ $Date$
  */
 class PluginCallbackTest extends GalleryTestCase {
 
@@ -288,19 +284,28 @@ class PluginCallbackTest extends GalleryTestCase {
 	$this->assert(!$this->_testPlugin->wasCalled('deactivate'), 'deactivate was called');
     }
 
-    /* Uninstall a module that is inactive (should send us to the confirm page) */
-    function testUninstallModule() {
+    function testUninstallActiveModule() {
+	GalleryUtilities::putRequestVariable('pluginType', 'module');
+	GalleryUtilities::putRequestVariable('pluginId', 'PluginCallbackControllerTest');
+	$this->_testPlugin->setResult('isActive', array(null, true));
+	$this->_testPlugin->setResult('deactivate', null);
+	$this->_testPlugin->setResult('uninstall', null);
+	$result = $this->_handleCallback('uninstall');
+
+	$this->assertEquals(array('status' => 'success'), $result);
+	$this->assert($this->_testPlugin->wasCalled('deactivate'), 'deactivate was called');
+	$this->assert($this->_testPlugin->wasCalled('uninstall'), 'uninstall was called');
+    }
+
+    function testUninstallInactiveModule() {
 	GalleryUtilities::putRequestVariable('pluginType', 'module');
 	GalleryUtilities::putRequestVariable('pluginId', 'PluginCallbackControllerTest');
 	$this->_testPlugin->setResult('isActive', array(null, false));
+	$this->_testPlugin->setResult('uninstall', null);
 	$result = $this->_handleCallback('uninstall');
 
-	$this->assertEquals(array('status' => 'redirect',
-				  'redirect' => array(
-				      'view' => 'core.SiteAdmin',
-				      'subView' => 'core.AdminModulesVerifyUninstall',
-				      'moduleId' => 'PluginCallbackControllerTest')),
-			    $result);
+	$this->assertEquals(array('status' => 'success'), $result);
+	$this->assert($this->_testPlugin->wasCalled('uninstall'), 'uninstall was called');
     }
 
     /* Uninstall a theme that is inactive */

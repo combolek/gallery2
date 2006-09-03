@@ -17,21 +17,22 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
  * Empty view used when the photo is successfully uploaded.
- *
  * Each photo is uploaded via a seperate HTTP request.  The initial response from
  * this page is to return JavaScript code that instructs Windows how to upload
  * the photos.  Subsequent requests from Windows include the photo data and text.
  * This page processes the data and applies the options to be used while uploading.
  *
- * @version $Revision$ $Date$
  * @package PublishXp
+ * @subpackage UserInterface
  * @author Timothy Webb <tiwebb@cisco.com>
+ * @version $Revision$ $Date$
  */
 class UploadedItemView extends GalleryView {
     /**
-     * @see GalleryView::loadTemplate()
+     * @see GalleryView::loadTemplate
      */
     function loadTemplate(&$template, &$form) {
 	return array(null, array());

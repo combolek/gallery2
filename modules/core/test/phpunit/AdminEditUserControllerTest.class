@@ -17,17 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package GalleryCore
- * @subpackage PHPUnit
- * @author Bharat Mediratta <bharat@menalto.com>
- */
 
 /**
  * AdminEditUser controller tests
  * @package GalleryCore
  * @subpackage PHPUnit
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision$ $Date$
  */
 class AdminEditUserControllerTest extends GalleryControllerTestCase {
 
@@ -85,6 +81,7 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 	GalleryUtilities::putRequestVariable('form[language]', 'language');
 	GalleryUtilities::putRequestVariable('form[password1]', '');
 	GalleryUtilities::putRequestVariable('form[password2]', '');
+	GalleryUtilities::putRequestVariable('form[locked]', '');
 
 	$results = $this->handleRequest();
 	$this->assertEquals(
@@ -104,6 +101,7 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 	GalleryUtilities::putRequestVariable('form[language]', 'language');
 	GalleryUtilities::putRequestVariable('form[password1]', '');
 	GalleryUtilities::putRequestVariable('form[password2]', '');
+	GalleryUtilities::putRequestVariable('form[locked]', '');
 
 	$results = $this->handleRequest();
 	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
@@ -123,6 +121,7 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 	GalleryUtilities::putRequestVariable('form[language]', 'language');
 	GalleryUtilities::putRequestVariable('form[password1]', '');
 	GalleryUtilities::putRequestVariable('form[password2]', '');
+	GalleryUtilities::putRequestVariable('form[locked]', '');
 
 	$results = $this->handleRequest();
 	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin',
@@ -141,6 +140,7 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 	GalleryUtilities::putRequestVariable('form[language]', '');
 	GalleryUtilities::putRequestVariable('form[password1]', 'x');
 	GalleryUtilities::putRequestVariable('form[password2]', '');
+	GalleryUtilities::putRequestVariable('form[locked]', '');
 
 	$results = $this->handleRequest();
 	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin',
@@ -179,6 +179,7 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 	GalleryUtilities::putRequestVariable('form[language]', 'language');
 	GalleryUtilities::putRequestVariable('form[password1]', $password);
 	GalleryUtilities::putRequestVariable('form[password2]', $password);
+	GalleryUtilities::putRequestVariable('form[locked]', '');
 
 	$results = $this->handleRequest();
 	$this->assertEquals(
@@ -206,6 +207,7 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 	GalleryUtilities::putRequestVariable('form[language]', $this->_user[0]->getLanguage());
 	GalleryUtilities::putRequestVariable('form[password1]', '');
 	GalleryUtilities::putRequestVariable('form[password2]', '');
+	GalleryUtilities::putRequestVariable('form[locked]', '');
 
 	$results = $this->handleRequest();
 	$this->assertEquals(
@@ -221,6 +223,63 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 
 	$this->assertEquals($userName, $user->getUserName());
 	$this->assertEquals($fullName, $user->getFullName());
+    }
+
+    function testEditUserSetLocked() {
+	list ($ret, $user) = $this->_user[0]->refresh();
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	$userName = $this->_user[0]->getUserName();
+	$fullName = $this->_user[0]->getFullName();
+
+	GalleryUtilities::putRequestVariable('userId', $this->_user[0]->getId());
+	GalleryUtilities::putRequestVariable('form[action][save]', 1);
+	GalleryUtilities::putRequestVariable('form[userName]', $userName);
+	GalleryUtilities::putRequestVariable('form[fullName]', $fullName);
+	GalleryUtilities::putRequestVariable('form[email]', $this->_user[0]->getEmail());
+	GalleryUtilities::putRequestVariable('form[language]', $this->_user[0]->getLanguage());
+	GalleryUtilities::putRequestVariable('form[password1]', '');
+	GalleryUtilities::putRequestVariable('form[password2]', '');
+	GalleryUtilities::putRequestVariable('form[locked]', 'on');
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
+						      'subView' => 'core.AdminUsers'),
+				  'status' => array('modifiedUser' => $userName),
+				  'error' => array()),
+			    $results);
+
+	list ($ret, $user) = $this->_user[0]->refresh();
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$this->assertEquals(true, $user->isLocked());
+
+	GalleryUtilities::putRequestVariable('userId', $this->_user[0]->getId());
+	GalleryUtilities::putRequestVariable('form[action][save]', 1);
+	GalleryUtilities::putRequestVariable('form[userName]', $userName);
+	GalleryUtilities::putRequestVariable('form[fullName]', $fullName);
+	GalleryUtilities::putRequestVariable('form[email]', $this->_user[0]->getEmail());
+	GalleryUtilities::putRequestVariable('form[language]', $this->_user[0]->getLanguage());
+	GalleryUtilities::putRequestVariable('form[password1]', '');
+	GalleryUtilities::putRequestVariable('form[password2]', '');
+	GalleryUtilities::putRequestVariable('form[locked]', '');
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
+						      'subView' => 'core.AdminUsers'),
+				  'status' => array('modifiedUser' => $userName),
+				  'error' => array()),
+			    $results);
+
+	list ($ret, $user) = $this->_user[0]->refresh();
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$this->assertEquals(false, $user->isLocked());
     }
 }
 ?>

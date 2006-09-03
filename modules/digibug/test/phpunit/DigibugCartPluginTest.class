@@ -17,18 +17,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Digibug
- * @subpackage PHPUnit
- * @author Alan Harder <alan.harder@sun.com>
- */
 
 /**
  * Test Digibug cart plugin
  *
  * @package Digibug
  * @subpackage PHPUnit
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision$ $Date$
  */
 class DigibugCartPluginTest extends GalleryTestCase {
 
@@ -122,15 +118,15 @@ class DigibugCartPluginTest extends GalleryTestCase {
 	$returnUrl = $urlGenerator->generateUrl(array('view' => 'cart.ViewCart'),
 						array('forceFullUrl' => true));
 	$this->assertEquals(
-		array('view' => 'digibug.PrintPhotos', 'returnUrl' => $returnUrl),
+		array('view' => 'digibug.DigibugPrintPhotos', 'returnUrl' => $returnUrl),
 		$urlParams);
 
 	$session =& $gallery->getSession();
 	$printCart = $session->get('digibug.cart');
 	$this->assertEquals($cartItemIds, $printCart, 'cart');
 
-	/* Render PrintPhotos view to test processing of cart items */
-	list ($ret, $view) = GalleryView::loadView('digibug.PrintPhotos');
+	/* Render DigibugPrintPhotos view to test processing of cart items */
+	list ($ret, $view) = GalleryView::loadView('digibug.DigibugPrintPhotos');
 	if ($ret) {
 	    $this->failWithStatus($ret);
 	} else {

@@ -19,18 +19,11 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * This controller will handle the changes in the permission of an item
  * @package GalleryCore
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
- */
-
-/**
- * This controller will handle the changes in the permission of an item
- *
- * @package GalleryCore
- * @subpackage UserInterface
- *
+ * @version $Revision$ $Date$
  */
 class ItemPermissionsController extends GalleryController {
 
@@ -380,9 +373,6 @@ class ItemPermissionsController extends GalleryController {
 
 /**
  * This view will prompt for permission settings of an item
- *
- * @package GalleryCore
- * @subpackage UserInterface
  */
 class ItemPermissionsView extends GalleryView {
 
@@ -488,8 +478,7 @@ class ItemPermissionsView extends GalleryView {
 	 * of the permission registry.  They may be permission associated with
 	 * modules that are not currently active.
 	 */
-	$userPermissions = array();
-	$groupPermissions = array();
+	$userPermissions = $groupPermissions = array();
 	foreach ($permissions as $permission) {
 	    $permissionId = $permission['permission'];
 	    if (!empty($permission['userId']) && isset($allPermissions[$permissionId])) {
@@ -539,7 +528,6 @@ class ItemPermissionsView extends GalleryView {
 	$can['changeOwner'] = $isAdmin;
 	$can['applyToSubItems'] = $item->getCanContainChildren();
 
-	/* Render the HTML body */
 	$ItemPermissions['owner'] = (array)$owner;
 	$ItemPermissions['can'] = $can;
 	$ItemPermissions['userPermissions'] = $userPermissions;
@@ -548,13 +536,11 @@ class ItemPermissionsView extends GalleryView {
 
 	$template->setVariable('ItemPermissions', $ItemPermissions);
 	$template->setVariable('controller', 'core.ItemPermissions');
-
-	return array(null,
-		     array('body' => 'modules/core/templates/ItemPermissions.tpl'));
+	return array(null, array('body' => 'modules/core/templates/ItemPermissions.tpl'));
     }
 
     /**
-     * @see GalleryView::getViewDescription()
+     * @see GalleryView::getViewDescription
      */
     function getViewDescription() {
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
@@ -569,9 +555,8 @@ class ItemPermissionsView extends GalleryView {
 
 	$itemTypeNames = $item->itemTypeName(true);
 
-	return array(null,
-		     $core->translate(array('text' => 'edit %s permissions',
-					    'arg1' => $itemTypeNames[1])));
+	return array(null, $core->translate(array('text' => 'edit %s permissions',
+						  'arg1' => $itemTypeNames[1])));
     }
 }
 ?>

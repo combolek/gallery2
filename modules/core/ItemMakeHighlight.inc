@@ -17,18 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package GalleryCore
- * @subpackage UserInterface
- * @author Ernesto Baschny <ernst@baschny.de>
- */
 
 /**
  * This controller will make an item the highlight for its parent
- *
  * @package GalleryCore
  * @subpackage UserInterface
+ * @author Ernesto Baschny <ernst@baschny.de>
+ * @version $Revision$ $Date$
  */
 class ItemMakeHighlightController extends GalleryController {
 
@@ -68,10 +63,7 @@ class ItemMakeHighlightController extends GalleryController {
 }
 
 /**
- * This view will prompt for files to add as children to an album.
- *
- * @package GalleryCore
- * @subpackage UserInterface
+ * This view will prompt for which ancestor album to set the highlight
  */
 class ItemMakeHighlightView extends GalleryView {
 
@@ -107,16 +99,13 @@ class ItemMakeHighlightView extends GalleryView {
 	    $parentList[] = (array)$parent;
 	}
 
-	/* Render the HTML body */
 	$template->setVariable('ItemMakeHighlight', array('parentList' => $parentList));
 	$template->setVariable('controller', 'core.ItemMakeHighlight');
-
-	return array(null,
-		     array('body' => 'modules/core/templates/ItemMakeHighlight.tpl'));
+	return array(null, array('body' => 'modules/core/templates/ItemMakeHighlight.tpl'));
     }
 
     /**
-     * @see GalleryView::getViewDescription()
+     * @see GalleryView::getViewDescription
      */
     function getViewDescription() {
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');

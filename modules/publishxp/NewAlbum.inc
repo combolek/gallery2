@@ -17,19 +17,20 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
  * Controller to create a new album for the photos.
+ * Allows the user to create a new album underneath the parent they selected.  The user can
+ * specify the name, title, and summary for the album.  The user is redirected back to the select
+ * album page after creating the album with the newly created album automatically selected.
  *
- * Allows the user to create a new album underneath the parent they selected.
- * The user can specify the name, title, and summary for the album.  The user
- * is redirected back to the select album page after creating the album with
- * the newly created album automatically selected.
- *
- * @version $Revision$ $Date$
  * @package PublishXp
+ * @subpackage UserInterface
  * @author Timothy Webb <tiwebb@cisco.com>
+ * @version $Revision$ $Date$
  */
 class NewAlbumController extends GalleryController {
+
     /**
      * @see GalleryController::handleRequest
      */
@@ -49,7 +50,7 @@ class NewAlbumController extends GalleryController {
 		$error[] = 'form[error][title][missing]';
 	    }
 	    if (empty($error)) {
-		list($ret, $newAlbum) = GalleryCoreApi::createAlbum(
+		list ($ret, $newAlbum) = GalleryCoreApi::createAlbum(
 		    $form['parentId'], $form['pathComponent'], $form['title'],
 		    $form['summary'], $form['description'], null);
 		if ($ret) {
@@ -81,14 +82,9 @@ class NewAlbumController extends GalleryController {
 
 /**
  * View to create a new album for the photos.
- *
- * Allows the user to create a new album underneath the parent they selected.
- * The user can specify the name, title, and summary for the album.  The user
- * is redirected back to the select album page after creating the album with
- * the newly created album automatically selected.
- *
- * @package PublishXp
- * @subpackage UserInterface
+ * Allows the user to create a new album underneath the parent they selected.  The user can
+ * specify the name, title, and summary for the album.  The user is redirected back to the select
+ * album page after creating the album with the newly created album automatically selected.
  */
 class NewAlbumView extends GalleryView {
     /**
@@ -116,13 +112,13 @@ class NewAlbumView extends GalleryView {
 	    return array($ret, null);
 	}
 
-	list($ret, $parent) = GalleryCoreApi::loadEntitiesById($form['parentId']);
+	list ($ret, $parent) = GalleryCoreApi::loadEntitiesById($form['parentId']);
 	if ($ret) {
 	    return array($ret, null);
 	}
 
 	/* Load the item's parents */
-	list($ret, $parents) = GalleryCoreApi::fetchParents($parent, 'core.view');
+	list ($ret, $parents) = GalleryCoreApi::fetchParents($parent, 'core.view');
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -138,9 +134,8 @@ class NewAlbumView extends GalleryView {
 	$template->setVariable('controller', 'publishxp.NewAlbum');
 	$template->head('modules/publishxp/templates/Head.tpl');
 
-	return array(null,
-		     array('body' => 'modules/publishxp/templates/NewAlbum.tpl',
-			   'useFullScreen' => true));
+	return array(null, array('body' => 'modules/publishxp/templates/NewAlbum.tpl',
+				 'useFullScreen' => true));
     }
 }
 ?>

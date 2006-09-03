@@ -19,18 +19,11 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * This controller will handle the creation of a group
  * @package GalleryCore
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
- */
-
-/**
- * This controller will handle the creation of a group
- *
- * @package GalleryCore
- * @subpackage UserInterface
- *
+ * @version $Revision$ $Date$
  */
 class AdminCreateGroupController extends GalleryController {
 
@@ -107,9 +100,6 @@ class AdminCreateGroupController extends GalleryController {
 
 /**
  * This view will prompt for data to create a new group
- *
- * @package GalleryCore
- * @subpackage UserInterface
  */
 class AdminCreateGroupView extends GalleryView {
 

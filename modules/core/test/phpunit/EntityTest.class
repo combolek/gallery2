@@ -17,18 +17,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package GalleryCore
- * @subpackage PHPUnit
- * @author Alan Harder <alan.harder@sun.com>
- */
 
 /**
  * Test Entity functionality
  *
  * @package GalleryCore
  * @subpackage PHPUnit
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision$ $Date$
  */
 class EntityTest extends GalleryTestCase {
 
@@ -434,7 +430,7 @@ class EntityTestEntity extends GalleryEntity {
     }
 
     /**
-     * @see GalleryEntity::getClassName()
+     * @see GalleryEntity::getClassName
      */
     function getClassName() {
 	return 'EntityTestEntity';
@@ -445,10 +441,6 @@ class EntityTestEntity extends GalleryEntity {
     }
 }
 
-/**
- * @package GalleryCore
- * @subpackage PHPUnit
- */
 class EntityTestOnLoadHandler {
     function onLoad(&$entity, $duringUpgrade) {
 	if (!$duringUpgrade) {
@@ -465,8 +457,6 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryEventListener.class');
 
 /**
  * Dummy event listener
- * @package GalleryCore
- * @subpackage PHPUnit
  */
 class EntityTestEventListener extends GalleryEventListener {
     var $_event = null;

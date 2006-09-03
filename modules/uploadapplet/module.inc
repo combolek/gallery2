@@ -17,12 +17,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
- * @version $Revision$ $Date$
  * @package UploadApplet
  * @author Pierre-Luc Paour <paour@users.sourceforge.net>
+ * @version $Revision$ $Date$
  */
-
 class UploadAppletModule extends GalleryModule {
 
     function UploadAppletModule() {
@@ -33,12 +33,12 @@ class UploadAppletModule extends GalleryModule {
 	$this->setVersion('1.0.4');
 	$this->setGroup('import', $gallery->i18n('Import'));
 	$this->setCallbacks('getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 0));
+	$this->setRequiredCoreApi(array(7, 4));
 	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
-     * @see GalleryPlugin::upgrade()
+     * @see GalleryPlugin::upgrade
      */
     function upgrade($currentVersion) {
 	global $gallery;
@@ -68,7 +68,7 @@ class UploadAppletModule extends GalleryModule {
     }
 
     /**
-     * @see GalleryModule::performFactoryRegistrations()
+     * @see GalleryModule::performFactoryRegistrations
      */
     function performFactoryRegistrations() {
 	$ret = GalleryCoreApi::registerFactoryImplementation(
@@ -82,12 +82,11 @@ class UploadAppletModule extends GalleryModule {
     }
 
     /**
-     * @see GalleryModule::getSiteAdminViews()
+     * @see GalleryModule::getSiteAdminViews
      */
     function getSiteAdminViews() {
-	return array(null,
-		     array(array('name' => $this->translate('Upload Applet'),
-				 'view' => 'uploadapplet.UploadAppletSiteAdmin')));
+	return array(null, array(array('name' => $this->translate('Upload Applet'),
+				       'view' => 'uploadapplet.UploadAppletSiteAdmin')));
     }
 }
 ?>

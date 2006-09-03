@@ -17,81 +17,60 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package GalleryCore
- * @author Bharat Mediratta <bharat@menalto.com>
- */
 
 /**
- * Plugin meta-info container
- *
- * This is a container for information about a given plugin.
+ * Plugin meta-info container.  This is a container for information about a given plugin.
  *
  * @package GalleryCore
  * @subpackage Classes
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision$ $Date$
+ * @abstract
  */
 class GalleryPlugin {
 
-    /*
-     * ****************************************
-     *                 Members
-     * ****************************************
-     */
-
     /**
      * The id of this plugin
-     *
-     * @var string _id
+     * @var string
      * @access private
      */
     var $_id;
 
     /**
      * The name of this plugin
-     *
-     * @var string _name
+     * @var string
      * @access private
      */
     var $_name;
 
     /**
      * The description of this plugin
-     *
-     * @var string _description
+     * @var string
      * @access private
      */
     var $_description;
 
     /**
      * The version of this plugin
-     *
-     * @var string _version
+     * @var string
      * @access private
      */
     var $_version;
 
     /**
      * The version of the Core API required by this plugin
-     *
-     * @var array _requiredCoreApi
+     * @var array
      * @access private
      */
     var $_requiredCoreApi;
 
     /**
      * The localization domain for this plugin
-     *
-     * @var string _l10Domain
+     * @var string
      * @access private
      */
     var $_l10Domain;
 
-    /*
-     * ****************************************
-     *                 Methods
-     * ****************************************
-     */
 
     /**
      * Localize the given content.
@@ -132,19 +111,14 @@ class GalleryPlugin {
      *
      * @param mixed a single string, or an array of parameters
      * @return string the localized value
-     * @see Gallery::i18n()
+     * @see Gallery::i18n
      */
     function translate($params) {
 	global $gallery;
-
-	if (!is_array($params)) {
-	    $params = array('text' => $params);
-	}
-
 	$translator =& $gallery->getTranslator();
 	if (!isset($translator)) {
 	    /* No translator! (could be an old module calling translate() from constructor) */
-	    return 'Translation error: ' . $params['text'];
+	    return 'Translation error: ' . print_r($params, true);
 	}
 	list ($ret, $content) =
 	    $translator->translateDomain($this->getPluginType() . 's_' . $this->getId(), $params);
@@ -152,7 +126,7 @@ class GalleryPlugin {
 	    if ($gallery->getDebug()) {
 		$gallery->debug($ret->getAsHtml());
 	    }
-	    return 'Translation error: ' . $params['text'];
+	    return 'Translation error: ' . print_r($params, true);
 	} else {
 	    return $content;
 	}
@@ -161,7 +135,7 @@ class GalleryPlugin {
     /**
      * Activate this plugin
      *
-     * @param bool should we post an activation event?  Normally true, but the
+     * @param boolean should we post an activation event?  Normally true, but the
      *             upgrader may choose to suppress this event so that it can
      *             reactivate a module without causing a ripple effect.
      * @return array object GalleryStatus a status code
@@ -412,7 +386,7 @@ class GalleryPlugin {
     function isActive() {
 	global $gallery;
 
-	list($ret, $pluginStatus) = GalleryCoreApi::fetchPluginStatus($this->getPluginType());
+	list ($ret, $pluginStatus) = GalleryCoreApi::fetchPluginStatus($this->getPluginType());
 	if ($ret) {
 	    return array($ret, null);
 	}

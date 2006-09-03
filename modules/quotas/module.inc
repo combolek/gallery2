@@ -17,16 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Quotas
- * @author Robert Balousek <volksport@users.sf.net>
- */
 
 /**
  * The implementation of the core-module
  *
  * @package Quotas
+ * @author Robert Balousek <volksport@users.sf.net>
+ * @version $Revision$ $Date$
  */
 class QuotasModule extends GalleryModule {
 
@@ -39,12 +36,12 @@ class QuotasModule extends GalleryModule {
 	$this->setVersion('1.0.6');
 	$this->setGroup('gallery', $gallery->i18n('Gallery'));
 	$this->setCallbacks('registerEventListeners|getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 0));
+	$this->setRequiredCoreApi(array(7, 4));
 	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
-     * @see GalleryModule::upgrade()
+     * @see GalleryModule::upgrade
      */
     function upgrade($currentVersion) {
 	global $gallery;
@@ -61,7 +58,7 @@ class QuotasModule extends GalleryModule {
     }
 
     /**
-     * @see GalleryModule::registerEventListeners()
+     * @see GalleryModule::registerEventListeners
      */
     function registerEventListeners() {
 	GalleryCoreApi::registerEventListener('GalleryEntity::delete', new QuotasModule());
@@ -77,7 +74,7 @@ class QuotasModule extends GalleryModule {
     }
 
     /**
-     * @see GalleryModule::performFactoryRegistrations()
+     * @see GalleryModule::performFactoryRegistrations
      */
     function performFactoryRegistrations() {
 	$ret = GalleryCoreApi::registerFactoryImplementation(

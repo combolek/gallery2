@@ -17,15 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package NewItems
- * @author Alan Harder <alan.harder@sun.com>
- */
 
 /**
+ * Settings for New Items
  * @package NewItems
  * @subpackage UserInterface
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision$ $Date$
  */
 class NewItemsSiteAdminController extends GalleryController {
 
@@ -91,8 +89,7 @@ class NewItemsSiteAdminController extends GalleryController {
 }
 
 /**
- * @package NewItems
- * @subpackage UserInterface
+ * Settings for New Items
  */
 class NewItemsSiteAdminView extends GalleryView {
 
@@ -131,8 +128,7 @@ class NewItemsSiteAdminView extends GalleryView {
 	$form['isDefault'] = strpos($default, 'NewItems') !== false;
 
 	$template->setVariable('controller', 'newitems.NewItemsSiteAdmin');
-	return array(null,
-		     array('body' => 'modules/newitems/templates/NewItemsSiteAdmin.tpl'));
+	return array(null, array('body' => 'modules/newitems/templates/NewItemsSiteAdmin.tpl'));
     }
 }
 ?>

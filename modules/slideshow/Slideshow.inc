@@ -17,20 +17,18 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Slideshow
- * @author Alan Harder <alan.harder@sun.com>
- */
 
 /**
+ * Display the slideshow
  * @package Slideshow
  * @subpackage UserInterface
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision$ $Date$
  */
 class SlideshowView extends GalleryView {
 
     /**
-     * @see GalleryView::loadTemplate()
+     * @see GalleryView::loadTemplate
      */
     function loadTemplate(&$template, &$form) {
 	global $gallery;
@@ -81,9 +79,8 @@ class SlideshowView extends GalleryView {
 	    $template->title($module->translate('Slideshow'));
 	}
 
-	return array(null,
-		     array('body' => 'modules/slideshow/templates/Slideshow.tpl',
-			   'useFullScreen' => true));
+	return array(null, array('body' => 'modules/slideshow/templates/Slideshow.tpl',
+				 'useFullScreen' => true));
     }
 
     /**
@@ -241,8 +238,7 @@ class SlideshowView extends GalleryView {
 		}
 	    }
 	}
-	return array(null,
-		     $itemList, isset($start) ? $start : 0);
+	return array(null, $itemList, isset($start) ? $start : 0);
     }
 }
 ?>

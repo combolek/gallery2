@@ -17,18 +17,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Rating
- * @subpackage PHPUnit
- * @author Alan Harder <alan.harder@sun.com>
- */
 
 /**
  * Test RatingAlbum view
  *
  * @package Rating
  * @subpackage PHPUnit
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision$ $Date$
  */
 class RatingAlbumTest extends GalleryTestCase {
 
@@ -87,6 +83,11 @@ class RatingAlbumTest extends GalleryTestCase {
     }
 
     function testLoadThemeAndSettingsForAlbum() {
+	$ret = GalleryCoreApi::setPluginParameter('module', 'rating', 'description', 'test desc');
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
 	GalleryUtilities::putRequestVariable('limit', '4');
 
 	list ($ret, $theme, $params, $item) = $this->_view->loadThemeAndParameters();
@@ -98,6 +99,7 @@ class RatingAlbumTest extends GalleryTestCase {
 	$this->assert(is_array($params), 'theme settings');
 	$this->assert(GalleryUtilities::isA($item, 'GalleryDynamicAlbum'), 'item');
 	$this->assert(!isset($item->parent), 'item parent');
+	$this->assertEquals('test desc', $item->getDescription(), 'description');
     }
 
     function testLoadThemeAndSettingsForItem() {

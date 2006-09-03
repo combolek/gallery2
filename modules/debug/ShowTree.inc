@@ -17,18 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
- * @version $Revision$ $Date$
+ * This view will show a tree of elements starting with the current item
  * @package Debug
  * @subpackage UserInterface
  * @author Ernesto Baschny <ernst@baschny.de>
- */
-
-/**
- * This controller will show a tree of elements starting with the current item
- *
- * @package Debug
- * @subpackage UserInterface
+ * @version $Revision$ $Date$
  */
 class ShowTreeView extends GalleryView {
 
@@ -98,7 +93,6 @@ class ShowTreeView extends GalleryView {
 	    $entityTable[$entity->getId()] = (array)$entity;
 	}
 
-	/* Render the HTML body */
 	$ShowTree = array();
 	$ShowTree['parentIds'] = $parentIds;
 	$ShowTree['childIds'] = $childIds;
@@ -113,8 +107,7 @@ class ShowTreeView extends GalleryView {
 	}
 
 	$template->title($module->translate('Gallery Debug'));
-	return array(null,
-		     array('body' => 'modules/debug/templates/ShowTree.tpl'));
+	return array(null, array('body' => 'modules/debug/templates/ShowTree.tpl'));
     }
 }
 ?>

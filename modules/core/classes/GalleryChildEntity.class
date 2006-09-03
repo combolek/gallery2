@@ -17,22 +17,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package GalleryCore
- * @author Bharat Mediratta <bharat@menalto.com>
- */
 
-/**
- * Load the parent class
- */
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryEntity.class');
 
 /**
  * An entity that can be the child of another entity.
- *
- * This object performs all of the basic functions required in all
- * Gallery objects.
+ * This object performs all of the basic functions required in all Gallery objects.
  *
  * @g2 <class-name>GalleryChildEntity</class-name>
  * @g2 <parent-class-name>GalleryEntity</parent-class-name>
@@ -44,11 +34,14 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryEntity.class');
  *
  * @package GalleryCore
  * @subpackage Classes
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision$ $Date$
  */
 class GalleryChildEntity extends GalleryEntity {
 
     /**
      * The id of the parent of this GalleryChildEntity
+     * @var int
      *
      * @g2 <member>
      * @g2   <member-name>parentId</member-name>
@@ -56,11 +49,9 @@ class GalleryChildEntity extends GalleryEntity {
      * @g2   <indexed/>
      * @g2   <required/>
      * @g2 </member>
-     *
-     * @var int $parentId
-     * @access public
      */
     var $parentId;
+
 
     /**
      * Create this item in our persistent store
@@ -87,7 +78,7 @@ class GalleryChildEntity extends GalleryEntity {
     }
 
     /**
-     * @see GalleryEntity::createLink()
+     * @see GalleryEntity::createLink
      */
     function createLink($entity, $parentId) {
 	global $gallery;
@@ -123,8 +114,7 @@ class GalleryChildEntity extends GalleryEntity {
     }
 
     /**
-     * Create a root level item
-     *
+     * Create a root level item.
      * This is a special case; every other GalleryChildEntry will have a
      * parent.  But the root items don't have one.
      */
@@ -163,7 +153,7 @@ class GalleryChildEntity extends GalleryEntity {
     }
 
     /**
-     * @see GalleryEntity::getClassName()
+     * @see GalleryEntity::getClassName
      */
     function getClassName() {
 	return 'GalleryChildEntity';

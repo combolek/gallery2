@@ -17,22 +17,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package GalleryCore
- * @author Bharat Mediratta <bharat@menalto.com>
- */
 
-/**
- * Load the parent class
- */
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryDerivative.class');
 
 /**
- * A DataContainer for images
- *
- * A container for a single image.  This image may or may not be
- * cacheable (depending on whether or not it's a derivative image).
+ * A GalleryDerivative for images.
+ * eg. for thumbnails and resizes.
  *
  * @g2 <class-name>GalleryDerivativeImage</class-name>
  * @g2 <parent-class-name>GalleryDerivative</parent-class-name>
@@ -44,37 +34,36 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryDerivative.class');
  *
  * @package GalleryCore
  * @subpackage Classes
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision$ $Date$
  */
 class GalleryDerivativeImage extends GalleryDerivative {
 
     /**
      * The width of the image.
+     * @var int
      *
      * @g2 <member>
      * @g2   <member-name>width</member-name>
      * @g2   <member-type>INTEGER</member-type>
      * @g2 </member>
-     *
-     * @var int $width
-     * @access public
      */
     var $width;
 
     /**
      * The height of the image.
+     * @var int
      *
      * @g2 <member>
      * @g2   <member-name>height</member-name>
      * @g2   <member-type>INTEGER</member-type>
      * @g2 </member>
-     *
-     * @var int $height
-     * @access public
      */
     var $height;
 
+
     /**
-     * @see GalleryDerivative::canBeViewedInline()
+     * @see GalleryDerivative::canBeViewedInline
      */
     function canBeViewedInline() {
 	return true;
@@ -114,7 +103,7 @@ class GalleryDerivativeImage extends GalleryDerivative {
 	      AND ([GalleryChildEntity::id] = [GalleryDerivative::id])
 	    ';
 
-	    list($ret, $searchResults) =
+	    list ($ret, $searchResults) =
 		$gallery->search($query, array($parentId, $derivativeType));
 	    if ($ret) {
 		return $ret;
@@ -145,20 +134,16 @@ class GalleryDerivativeImage extends GalleryDerivative {
 
     /**
      * Rebuild the cache.
+     * Break apart the derivative commands and feed them into the appropriate graphics toolkits
+     * to perform the transformation necessary to create this derivative from its source.
      *
-     * Only applicable if isDerative() returns true.  Break apart the
-     * derivative commands and feed them into the appropriate graphics toolkits
-     * to perform the transformation necessary to create this derivative from
-     * its source.
-     *
-     * @access public
      * @return object GalleryStatus a status code
      */
     function rebuildCache() {
 	global $gallery;
 
 	/* Figure out our target path */
-	list($ret, $destPath) = $this->fetchPath();
+	list ($ret, $destPath) = $this->fetchPath();
 	if ($ret) {
 	    return $ret;
 	}
@@ -189,10 +174,10 @@ class GalleryDerivativeImage extends GalleryDerivative {
     }
 
     /**
-     * @see GalleryDerivative::render()
+     * @see GalleryDerivative::render
      */
     function render($format, $item, $params) {
- 	global $gallery;
+	global $gallery;
 
 	switch($format) {
 	case 'HTML':
@@ -245,7 +230,7 @@ class GalleryDerivativeImage extends GalleryDerivative {
     }
 
     /**
-     * @see GalleryEntity::getClassName()
+     * @see GalleryEntity::getClassName
      */
     function getClassName() {
 	return 'GalleryDerivativeImage';

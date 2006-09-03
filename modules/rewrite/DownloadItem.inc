@@ -19,20 +19,14 @@
  */
 
 /**
- * @version $Revision$ $Date$
- * @package Rewrite
- * @subpackage UserInterface
- * @author Alan Harder <alan.harder@sun.com>
- */
-
-/**
  * Send a binary item as HTML instead.
- *
  * This allows viewing via direct URL (browser will see it is HTML), but not using images directly
  * in a <img> tag on another site.
  *
  * @package Rewrite
  * @subpackage UserInterface
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision$ $Date$
  */
 class DownloadItemView extends GalleryView {
 

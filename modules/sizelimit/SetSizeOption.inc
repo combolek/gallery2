@@ -17,22 +17,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
+GalleryCoreApi::requireOnce('modules/sizelimit/classes/SizeLimitHelper.class');
+
 /**
- * @version $Revision$ $Date$
+ * ItemAdd option using the size limit values to resize gallery images when uploaded.
  * @package SizeLimit
  * @subpackage UserInterface
  * @author Felix Rabinovich <felix@rabinovich.org>
+ * @version $Revision$ $Date$
  */
-
-/**
- * This ItemAddOption uses the size limit values and resizes
- * gallery item when the image is uploaded.
- *
- * @package SizeLimit
- * @subpackage UserInterface
- */
-GalleryCoreApi::requireOnce('modules/sizelimit/classes/SizeLimitHelper.class');
-
 class SetSizeOption extends ItemAddOption {
 
     /**

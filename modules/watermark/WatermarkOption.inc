@@ -17,19 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
- * @version $Revision$ $Date$
+ * This ItemAddOption allows the user to pick a watermark to apply to the image upon upload.
  * @package Watermark
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
- */
-
-/**
- * This ItemAddOption allows the user to pick a watermark to apply
- * to the image upon upload.
- *
- * @package Watermark
- * @subpackage UserInterface
+ * @version $Revision$ $Date$
  */
 class WatermarkOption extends ItemAddOption {
 

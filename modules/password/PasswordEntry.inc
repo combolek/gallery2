@@ -17,23 +17,18 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Password
- * @author Alan Harder <alan.harder@sun.com>
- * @author Jess Martin <jmartin@cs.unc.edu>
- */
 
 /**
- * Controller to allow user to enter a password.
- *
+ * Verify password entry
  * @package Password
  * @subpackage UserInterface
+ * @author Alan Harder <alan.harder@sun.com>
+ * @author Jess Martin <jmartin@cs.unc.edu>
+ * @version $Revision$ $Date$
  */
 class PasswordEntryController extends GalleryController {
     /**
      * ValidationPlugin instances to use when handling this request.  Only used by test code.
-     *
      * @var array $_plugins (array of GalleryValidationPlugin)
      * @access private
      */
@@ -72,7 +67,7 @@ class PasswordEntryController extends GalleryController {
 	    }
 
 	    /* Check the password entered against the actual password */
-	    list($ret, $hashedPassword) = GalleryCoreApi::getPluginParameter(
+	    list ($ret, $hashedPassword) = GalleryCoreApi::getPluginParameter(
 		    'module', 'password', 'password', $itemId);
 	    if ($ret) {
 		return array($ret, null);
@@ -150,9 +145,6 @@ class PasswordEntryController extends GalleryController {
 
 /**
  * View that shows user a password entry box, allowing them to the enter the password for an item.
- *
- * @package Password
- * @subpackage UserInterface
  */
 class PasswordEntryView extends GalleryView {
     /**
@@ -175,7 +167,7 @@ class PasswordEntryView extends GalleryView {
     }
 
     /**
-     * @see GalleryView::getViewDescription()
+     * @see GalleryView::getViewDescription
      */
     function getViewDescription() {
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'password');

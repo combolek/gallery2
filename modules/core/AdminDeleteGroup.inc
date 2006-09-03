@@ -19,18 +19,11 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * This controller will handle the deletion of a group
  * @package GalleryCore
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
- */
-
-/**
- * This controller will handle the deletion of a group
- *
- * @package GalleryCore
- * @subpackage UserInterface
- *
+ * @version $Revision$ $Date$
  */
 class AdminDeleteGroupController extends GalleryController {
 
@@ -64,7 +57,7 @@ class AdminDeleteGroupController extends GalleryController {
 	    if ($ret) {
 		return array($ret, null);
 	    }
-	    
+
 	    /* Request a redirect to the confirmation screen */
 	    $redirect['view'] = 'core.SiteAdmin';
 	    $redirect['subView'] = 'core.AdminGroups';
@@ -85,10 +78,7 @@ class AdminDeleteGroupController extends GalleryController {
 }
 
 /**
- * This view will prompt for confirmation ot delete a group
- *
- * @package GalleryCore
- * @subpackage UserInterface
+ * This view will prompt for confirmation to delete a group
  */
 class AdminDeleteGroupView extends GalleryView {
 
@@ -107,7 +97,7 @@ class AdminDeleteGroupView extends GalleryView {
 	    return array($ret, null);
 	}
 
-        if ($form['formName'] != 'AdminDeleteGroup') {
+	if ($form['formName'] != 'AdminDeleteGroup') {
 	    /* First time around initialize our form */
 	    $form['groupName'] = $group->getGroupName();
 	    $form['formName'] = 'AdminDeleteGroup';

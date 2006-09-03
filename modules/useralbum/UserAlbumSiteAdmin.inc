@@ -17,15 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package UserAlbum
- * @author Alan Harder <alan.harder@sun.com>
- */
 
 /**
+ * Settings for User Albums
  * @package UserAlbum
  * @subpackage UserInterface
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision$ $Date$
  */
 class UserAlbumSiteAdminController extends GalleryController {
 
@@ -67,8 +65,7 @@ class UserAlbumSiteAdminController extends GalleryController {
 }
 
 /**
- * @package UserAlbum
- * @subpackage UserInterface
+ * Settings for User Albums
  */
 class UserAlbumSiteAdminView extends GalleryView {
 
@@ -123,8 +120,7 @@ class UserAlbumSiteAdminView extends GalleryView {
 
 	$template->setVariable('UserAlbumSiteAdmin', $UserAlbumSiteAdmin);
 	$template->setVariable('controller', 'useralbum.UserAlbumSiteAdmin');
-	return array(null,
-		     array('body' => 'modules/useralbum/templates/UserAlbumSiteAdmin.tpl'));
+	return array(null, array('body' => 'modules/useralbum/templates/UserAlbumSiteAdmin.tpl'));
     }
 }
 ?>

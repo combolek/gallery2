@@ -19,17 +19,11 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * This view will prompt for confirmation on the deletion of an item
  * @package GalleryCore
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
- */
-
-/**
- * This view will prompt for confirmation on the deletion of an item
- *
- * @package GalleryCore
- * @subpackage UserInterface
+ * @version $Revision$ $Date$
  */
 class ItemDeleteConfirmationView extends GalleryView {
 
@@ -37,14 +31,11 @@ class ItemDeleteConfirmationView extends GalleryView {
      * @see GalleryView::loadTemplate
      */
     function loadTemplate(&$template, &$form) {
-	global $gallery;
-
-	return array(null,
-		     array('body' => 'modules/core/templates/ItemDeleteConfirmation.tpl'));
+	return array(null, array('body' => 'modules/core/templates/ItemDeleteConfirmation.tpl'));
     }
 
     /**
-     * @see GalleryView::getViewDescription()
+     * @see GalleryView::getViewDescription
      */
     function getViewDescription() {
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');

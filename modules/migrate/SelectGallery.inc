@@ -17,27 +17,21 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Migrate
- * @subpackage UserInterface
- * @author Jesse Mullan <jmullan@visi.com>
- */
 
-/**
- * Required classes
- */
 GalleryCoreApi::requireOnce('modules/migrate/classes/Gallery1DataParser.class');
 GalleryCoreApi::requireOnce('modules/migrate/classes/G1MigrateHelper.class');
 
 /**
- * @version $Revision$ $Date$
+ * First step of migration process
  * @package Migrate
  * @subpackage UserInterface
+ * @author Jesse Mullan <jmullan@visi.com>
+ * @version $Revision$ $Date$
  */
 class SelectGalleryController extends GalleryController {
+
     /**
-     * @see GalleryController::handleRequest()
+     * @see GalleryController::handleRequest
      */
     function handleRequest($form) {
 	global $gallery;
@@ -48,8 +42,7 @@ class SelectGalleryController extends GalleryController {
 	    return array($ret, null);
 	}
 
-	$error = array();
-	$status = array();
+	$error = $status = array();
 
 	if (isset($form['action']['select'])) {
 	    if (empty($form['albumsPath'])) {
@@ -111,9 +104,7 @@ class SelectGalleryController extends GalleryController {
 }
 
 /**
- * @version $Revision$ $Date$
- * @package Migrate
- * @subpackage UserInterface
+ * First step of migration process
  */
 class SelectGalleryView extends GalleryView {
     /**
@@ -157,10 +148,9 @@ class SelectGalleryView extends GalleryView {
 	$SelectGallery['hasToolkit'] = $hasToolkit;
 	$SelectGallery['mapCount'] = $mapCount;
 
-	$template->setVariable('controller', 'migrate.SelectGallery');
 	$template->setVariable('SelectGallery', $SelectGallery);
-	return array(null,
-		     array('body' => 'modules/migrate/templates/SelectGallery.tpl'));
+	$template->setVariable('controller', 'migrate.SelectGallery');
+	return array(null, array('body' => 'modules/migrate/templates/SelectGallery.tpl'));
     }
 }
 ?>

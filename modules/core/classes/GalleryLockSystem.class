@@ -17,11 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package GalleryCore
- * @author Bharat Mediratta <bharat@menalto.com>
- */
 
 /**
  * This is an interface for all locking systems.  You must extend it and
@@ -29,31 +24,32 @@
  *
  * @package GalleryCore
  * @subpackage Classes
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision$ $Date$
  * @abstract
  */
 class GalleryLockSystem {
 
     /**
-     * Information about all the locks we currently hold
-     *
-     * @var array of (lockId => array('lockId' => lock id, 'type' => LOCK_READ or LOCK_WRITE,
-     *                                'ids' => array of locked object id => additional data))
+     * Information about all the locks we currently hold.
+     * array of (lockId => array('lockId' => lock id, 'type' => LOCK_READ or LOCK_WRITE,
+     *                           'ids' => array of locked object id => additional data))
+     * @var array
      * @access protected
      */
     var $_locks;
 
     /**
-     * List of locks that are pending release
-     *
-     * @var array of (lockId => array('lockId' => lock id, 'type' => LOCK_READ or LOCK_WRITE,
-     *                                'ids' => array of locked object id => additional data))
+     * List of locks that are pending release.
+     * array of (lockId => array('lockId' => lock id, 'type' => LOCK_READ or LOCK_WRITE,
+     *                           'ids' => array of locked object id => additional data))
+     * @var array
      * @access protected
      */
     var $_releaseQueue;
 
-    /**
-     * Constructor
-     */
+
     function GalleryLockSystem() {
 	$this->_locks = $this->_releaseQueue = array();
     }

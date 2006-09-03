@@ -17,15 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Fotokasten
- * @author Alan Harder <alan.harder@sun.com>
- */
 
 /**
+ * Settings for Fotokasten
  * @package Fotokasten
  * @subpackage UserInterface
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision$ $Date$
  */
 class FotokastenSiteAdminController extends GalleryController {
 
@@ -56,7 +54,19 @@ class FotokastenSiteAdminController extends GalleryController {
 		}
 		$status['saved'] = 1;
 	    }
+	} else if (isset($form['action']['useGalleryId'])) {
+	    foreach (array('affiliateId' => FOTOKASTEN_GALLERY_AFFILIATE_ID,
+			   'affiliateIdPass' => FOTOKASTEN_GALLERY_AFFILIATE_PASSWORD)
+		     as $key => $value) {
+		$ret = GalleryCoreApi::setPluginParameter(
+		    'module', 'fotokasten', $key, $value);
+		if ($ret) {
+		    return array($ret, null);
+		}
+	    }
+	    $status['usingGalleryId'] = 1;
 	}
+
 
 	$method = empty($error) ? 'redirect' : 'delegate';
 	$results[$method]['view'] = 'core.SiteAdmin';
@@ -69,8 +79,7 @@ class FotokastenSiteAdminController extends GalleryController {
 }
 
 /**
- * @package Fotokasten
- * @subpackage UserInterface
+ * Settings for Fotokasten
  */
 class FotokastenSiteAdminView extends GalleryView {
 
@@ -94,9 +103,13 @@ class FotokastenSiteAdminView extends GalleryView {
 	    }
 	}
 
+	$FotokastenSiteAdmin = array();
+	$FotokastenSiteAdmin['usingDefaultGalleryAffiliateId'] =
+	    ($form['affiliateId'] == FOTOKASTEN_GALLERY_AFFILIATE_ID);
+
+	$template->setVariable('FotokastenSiteAdmin', $FotokastenSiteAdmin);
 	$template->setVariable('controller', 'fotokasten.FotokastenSiteAdmin');
-	return array(null,
-		     array('body' => 'modules/fotokasten/templates/FotokastenSiteAdmin.tpl'));
+	return array(null, array('body' => 'modules/fotokasten/templates/FotokastenSiteAdmin.tpl'));
     }
 }
 ?>
