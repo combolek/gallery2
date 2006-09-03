@@ -17,17 +17,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
- * @version $Revision$ $Date$
+ * Settings for Captcha
  * @package Captcha
+ * @subpackage UserInterface
  * @author Stefan Ioachim <stefanioachim@gmail.com>
  * @author Bharat Mediratta <bharat@menalto.com>
  * @author Alan Harder <alan.harder@sun.com>
- */
-
-/**
- * @package Captcha
- * @subpackage UserInterface
+ * @version $Revision$ $Date$
  */
 class CaptchaSiteAdminController extends GalleryController {
 
@@ -105,10 +103,10 @@ class CaptchaSiteAdminController extends GalleryController {
 }
 
 /**
- * @package Captcha
- * @subpackage UserInterface
+ * Settings for Captcha
  */
 class CaptchaSiteAdminView extends GalleryView {
+
     /**
      * @see GalleryView::loadTemplate
      */

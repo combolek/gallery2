@@ -17,15 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package ZipCart
- * @author Alan Harder <alan.harder@sun.com>
- */
 
 /**
+ * Settings for Zip Cart
  * @package ZipCart
  * @subpackage UserInterface
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision$ $Date$
  */
 class ZipCartAdminController extends GalleryController {
 
@@ -119,8 +117,7 @@ class ZipCartAdminController extends GalleryController {
 }
 
 /**
- * @package ZipCart
- * @subpackage UserInterface
+ * Settings for Zip Cart
  */
 class ZipCartAdminView extends GalleryView {
 
@@ -163,8 +160,7 @@ class ZipCartAdminView extends GalleryView {
 
 	$template->setVariable('ZipCartAdmin', $ZipCartAdmin);
 	$template->setVariable('controller', 'zipcart.ZipCartAdmin');
-	return array(null,
-		     array('body' => 'modules/zipcart/templates/ZipCartAdmin.tpl'));
+	return array(null, array('body' => 'modules/zipcart/templates/ZipCartAdmin.tpl'));
     }
 }
 ?>

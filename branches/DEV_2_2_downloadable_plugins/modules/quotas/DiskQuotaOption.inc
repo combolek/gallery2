@@ -17,47 +17,40 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Quotas
- * @subpackage UserInterface
- * @author Robert Balousek <volksport@users.sf.net>
- */
 
 /**
  * This ItemAddOption enforces disk quotas
- *
  * @package Quotas
  * @subpackage UserInterface
+ * @author Robert Balousek <volksport@users.sf.net>
+ * @version $Revision$ $Date$
  */
-
 class DiskQuotaOption extends ItemAddOption {
 
     /**
      * @see ItemAddOption::isAppropriate
      */
     function isAppropriate() {
-        return array(null, true);
+	return array(null, true);
     }
 
     /**
      * @see ItemAddOption::handleRequestAfterAdd
      */
     function handleRequestAfterAdd($form, $items) {
+	global $gallery;
 	GalleryCoreApi::requireOnce('modules/quotas/classes/GalleryQuotasHelper.class');
 
-	global $gallery;
-	$warnings = array();
-	$errors = array();
+	$warnings = $errors = array();
 
 	/* user's disk quota in KB */
-        list ($ret, $quotaExists, $userDiskQuota) =
-            GalleryQuotasHelper::getUserDiskQuota($gallery->getActiveUserId());
-        if ($ret) {
+	list ($ret, $quotaExists, $userDiskQuota) =
+	    GalleryQuotasHelper::getUserDiskQuota($gallery->getActiveUserId());
+	if ($ret) {
 	    return array($ret, null, null);
-        }
+	}
 
-        /* if user has a quota */
+	/* if user has a quota */
 	if ($quotaExists) {
 	    $excludedIds = array();
 	    foreach ($items as $item) {
@@ -120,7 +113,7 @@ class DiskQuotaOption extends ItemAddOption {
 			      'arg4' => $userDiskQuotaHumanReadableUnit));
 		}
 	    }
-        }
+	}
 	return array(null, $errors, $warnings);
     }
 }

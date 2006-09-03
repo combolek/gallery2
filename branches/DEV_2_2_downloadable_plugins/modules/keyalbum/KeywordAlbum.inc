@@ -17,15 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package KeyAlbum
- * @author Alan Harder <alan.harder@sun.com>
- */
 
 /**
+ * Dynamic album view using a query on keywords
  * @package KeyAlbum
  * @subpackage UserInterface
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision$ $Date$
  */
 class KeywordAlbumView extends GalleryView {
 
@@ -82,6 +80,7 @@ class KeywordAlbumView extends GalleryView {
 	if ($ret) {
 	    return array($ret, null, null, null);
 	}
+	$item->setDescription($moduleParams['description']);
 
 	if (empty($moduleParams['themeId'])) {
 	    list ($ret, $theme) = $this->loadThemeForItem();
@@ -187,7 +186,7 @@ class KeywordAlbumView extends GalleryView {
     }
 
     /**
-     * @see GalleryView::getViewDescription()
+     * @see GalleryView::getViewDescription
      */
     function getViewDescription() {
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'keyalbum');

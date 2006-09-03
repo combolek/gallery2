@@ -17,22 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @package GalleryCore
- * @version $Revision$ $Date$
- * @author Bharat Mediratta <bharat@menalto.com>
- */
 
-/**
- * Load the parent class
- */
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryPersistent.class');
 
 /**
- * A GalleryEntity is a stateful representation of an entity in the persistent
- * store.  You can load, modify, save and delete it.  Any modifications made to
- * this entity will live in memory until you commit the changes to the store
- * (hence, it's stateful).
+ * A GalleryEntity is a stateful representation of an entity in the persistent store.  You can
+ * load, modify, save and delete it.  Any modifications made to this entity will live in memory
+ * until you commit the changes to the store (hence, it's stateful).
  *
  * @g2 <class-name>GalleryEntity</class-name>
  * @g2 <parent-class-name>GalleryPersistent</parent-class-name>
@@ -43,11 +34,14 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryPersistent.class');
  *
  * @package GalleryCore
  * @subpackage Classes
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision$ $Date$
  */
 class GalleryEntity extends GalleryPersistent {
 
     /**
      * The id of this item
+     * @var int
      *
      * @g2 <member>
      * @g2   <member-name>id</member-name>
@@ -55,14 +49,12 @@ class GalleryEntity extends GalleryPersistent {
      * @g2   <id/>
      * @g2   <primary/>
      * @g2 </member>
-     *
-     * @var int $id
-     * @access public
      */
     var $id;
 
     /**
      * Date and time this item was created, in seconds since the epoch.
+     * @var int
      *
      * @g2 <member>
      * @g2   <member-name>creationTimestamp</member-name>
@@ -70,14 +62,12 @@ class GalleryEntity extends GalleryPersistent {
      * @g2   <indexed/>
      * @g2   <required/>
      * @g2 </member>
-     *
-     * @var int $creationTimestamp
-     * @access public
      */
     var $creationTimestamp;
 
     /**
      * Does this entity type support linking?
+     * @var boolean
      *
      * @g2 <member>
      * @g2   <member-name>isLinkable</member-name>
@@ -85,36 +75,30 @@ class GalleryEntity extends GalleryPersistent {
      * @g2   <indexed/>
      * @g2   <required/>
      * @g2 </member>
-     *
-     * @var boolean $isLinkable
-     * @access public
      */
     var $isLinkable;
 
     /**
      * The id of the target entity this entity is linked to
+     * @var int
      *
      * @g2 <member>
      * @g2   <member-name>linkId</member-name>
      * @g2   <member-type>INTEGER</member-type>
      * @g2   <indexed/>
      * @g2 </member>
-     *
-     * @var int $linkId
-     * @access public
      */
     var $linkId;
 
     /**
      * The target entity this entity is linked to
-     *
-     * @var int $linkedEntity
-     * @access public
+     * @var object GalleryEntity
      */
     var $linkedEntity;
 
     /**
      * Date and time this item was last modified, in seconds since the epoch.
+     * @var int
      *
      * @g2 <member>
      * @g2   <member-name>modificationTimestamp</member-name>
@@ -122,15 +106,13 @@ class GalleryEntity extends GalleryPersistent {
      * @g2   <indexed/>
      * @g2   <required/>
      * @g2 </member>
-     *
-     * @var int $modificationTimestamp
-     * @access public
      */
     var $modificationTimestamp;
 
     /**
      * The serial number of this object in the persistent store.  This value
      * will help us to avoid collisions.
+     * @var int
      *
      * @g2 <member>
      * @g2   <member-name>serialNumber</member-name>
@@ -138,15 +120,13 @@ class GalleryEntity extends GalleryPersistent {
      * @g2   <indexed/>
      * @g2   <required/>
      * @g2 </member>
-     *
-     * @var int $serialNumber
-     * @access public
      */
     var $serialNumber;
 
     /**
      * The actual type of this object.  This will allow the storage class to
      * correctly load this object from the database.
+     * @var string
      *
      * @g2 <member>
      * @g2   <member-name>entityType</member-name>
@@ -154,25 +134,21 @@ class GalleryEntity extends GalleryPersistent {
      * @g2   <member-size>SMALL</member-size>
      * @g2   <required/>
      * @g2 </member>
-     *
-     * @var string $entityType
-     * @access public
      */
     var $entityType;
 
     /**
      * Handlers to run when this entity is loaded.
+     * @var string
      *
      * @g2 <member>
      * @g2   <member-name>onLoadHandlers</member-name>
      * @g2   <member-type>STRING</member-type>
      * @g2   <member-size>MEDIUM</member-size>
      * @g2 </member>
-     *
-     * @var string $onLoadHandlers
-     * @access public
      */
     var $onLoadHandlers;
+
 
     /**
      * Create a new instance of this GalleryEntity in the persistent store
@@ -546,7 +522,6 @@ class GalleryEntity extends GalleryPersistent {
 
     /**
      * Return the name of this type of item.
-     *
      * Subclasses must override this to provide their own type names.
      *
      * @param boolean if the name is to be translated using the current language
@@ -559,8 +534,7 @@ class GalleryEntity extends GalleryPersistent {
 
     /**
      * Return true if this entity is linked to another
-     *
-     * @return true if yes
+     * @return boolean
      */
     function isLinked() {
 	$linkedEntity = $this->getLinkedEntity();
@@ -604,6 +578,7 @@ class GalleryEntity extends GalleryPersistent {
      * Return the case sensitive name of this entity class.  This is exactly what get_class()
      * would return in PHP5.  PHP4 is case-insensitive though so we must rely on it being set
      * in each entity.  The framework uses this as an index into entity related tables.
+     * @return string
      */
     function getClassName() {
 	return 'GalleryEntity';

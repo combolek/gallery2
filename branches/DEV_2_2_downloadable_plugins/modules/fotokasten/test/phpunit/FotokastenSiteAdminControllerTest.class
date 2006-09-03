@@ -17,18 +17,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Fotokasten
- * @subpackage PHPUnit
- * @author Alan Harder <alan.harder@sun.com>
- */
 
 /**
  * FotokastenSiteAdmin controller tests
  *
  * @package Fotokasten
  * @subpackage PHPUnit
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision$ $Date$
  */
 class FotokastenSiteAdminControllerTest extends GalleryControllerTestCase {
 
@@ -76,6 +72,29 @@ class FotokastenSiteAdminControllerTest extends GalleryControllerTestCase {
 	}
 	$this->assertEquals('1234', $params['affiliateId'], 'affiliateId');
 	$this->assertEquals('abcde12345', $params['affiliateIdPass'], 'affiliateIdPass');
+    }
+
+    function testFotokastenSiteAdminControllerUseGalleryId() {
+	GalleryUtilities::putRequestVariable('form[affiliateId]', 'anything');
+	GalleryUtilities::putRequestVariable('form[affiliateIdPass]', 'anything');
+	GalleryUtilities::putRequestVariable('form[action][useGalleryId]', '1');
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
+						'subView' => 'fotokasten.FotokastenSiteAdmin'),
+				  'status' => array('usingGalleryId' => 1),
+				  'error' => array()),
+			    $results);
+
+	list ($ret, $params) =
+	    GalleryCoreApi::fetchAllPluginParameters('module', 'fotokasten');
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	$this->assertEquals(
+	    FOTOKASTEN_GALLERY_AFFILIATE_ID, $params['affiliateId'], 'affiliateId');
+	$this->assertEquals(
+	    FOTOKASTEN_GALLERY_AFFILIATE_PASSWORD, $params['affiliateIdPass'], 'affiliateIdPass');
     }
 
     function testFotokastenSiteAdminControllerSaveBadId() {

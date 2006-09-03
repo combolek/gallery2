@@ -18,45 +18,35 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * This is Gallery's templating class.  It hides the details of the implementation (eg, Smarty)
+ * and provides a unified means of handling internationalization.
  * @package GalleryCore
+ * @subpackage Classes
  * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision$ $Date$
  */
 
 /**
- * The current protocol version of the template data.  Whenever the template
- * library changes, bump this number to trigger a complete rebuild of all
- * compiled templates.
+ * The current protocol version of the template data.  Whenever the template library changes,
+ * bump this number to trigger a complete rebuild of all compiled templates.
  */
 define('TEMPLATE_DATA_VERSION', 10);
 
 /**
- * This is Gallery's templating class.  It hides the details of the
- * implementation (eg, Smarty) and provides a unified means of handling
- * internationalization.
- *
- * @package GalleryCore
- * @subpackage Classes
+ * This is Gallery's templating class.  It hides the details of the implementation (eg, Smarty)
+ * and provides a unified means of handling internationalization.
  */
 class GalleryTemplate {
 
-    /*
-     * ****************************************
-     *                 Members
-     * ****************************************
-     */
-
     /**
      * The Smarty instance
-     *
-     * @var object Smarty $_smarty
+     * @var object Smarty
      * @access private
      */
     var $_smarty;
 
     /**
      * The directory containing our template files
-     *
      * @var string
      * @access private
      */
@@ -64,21 +54,12 @@ class GalleryTemplate {
 
     /**
      * A directory where the templates will be written into.
-     *
      * @var string
      * @access private
      */
     var $_compiledTemplateDir;
 
-    /*
-     * ****************************************
-     *                 Methods
-     * ****************************************
-     */
 
-    /**
-     * Constructor
-     */
     function GalleryTemplate($templateDir, $initSmarty=true) {
 	global $gallery;
 	$this->_templateDir = $templateDir;
@@ -201,7 +182,7 @@ class GalleryTemplate {
 	}
 	$this->_smarty->compile_dir = $this->_compiledTemplateDir;
 
-	list($ret, $html) = $this->_smarty->fetch($templateName);
+	list ($ret, $html) = $this->_smarty->fetch($templateName);
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -294,6 +275,7 @@ class GalleryTemplate {
      *
      * @return object Smarty
      * @static
+     * @access private
      */
     function _getSmarty() {
 	global $gallery;
@@ -396,8 +378,10 @@ class GalleryTemplate {
      *   1.  /foo/local/bar.tpl  (if it exists)
      *   2.  /foo/bar.tpl        (whether or not it exists)
      *
-     * @return string
+     * @param string base template name
+     * @return string template to use
      * @static
+     * @access private
      */
     function _getActualTemplateName($templateName) {
 	global $gallery;

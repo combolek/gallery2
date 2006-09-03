@@ -19,54 +19,35 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * Internationalization and Localization utilities
  * @package GalleryCore
  * @subpackage Classes
  * @author Bharat Mediratta <bharat@menalto.com>
- */
-
-/**
- * Internationalization and Localization utilities
- *
- * @package GalleryCore
- * @subpackage Classes
+ * @version $Revision$ $Date$
  */
 class GalleryTranslator {
-    /*
-     * ****************************************
-     *                 Members
-     * ****************************************
-     */
 
     /**
      * Keep track of the gettext domains we've already bound
-     *
+     * @var array
      * @access private
-     * @var array $_boundDomains
      */
     var $_boundDomains;
 
     /**
      * Currently selected locale
-     *
+     * @var string
      * @access private
-     * @var string $_languageCode
      */
     var $_languageCode;
 
     /**
      * Does the active language read right-to-left?
-     *
+     * @var boolean
      * @access private
-     * @var boolean $_isRightToLeft
      */
     var $_isRightToLeft;
 
-    /*
-     * ****************************************
-     *                 Methods
-     * ****************************************
-     */
 
     function GalleryTranslator() {
 	$this->_boundDomains = array();
@@ -74,7 +55,6 @@ class GalleryTranslator {
 
     /**
      * Can we translate?
-     *
      * @return boolean
      * @static
      */
@@ -84,7 +64,6 @@ class GalleryTranslator {
 
     /**
      * Can we make plural translations?
-     *
      * @return boolean
      * @static
      */
@@ -94,7 +73,6 @@ class GalleryTranslator {
 
     /**
      * Does the active language read right-to-left?
-     *
      * @return boolean
      */
     function isRightToLeft() {
@@ -102,7 +80,8 @@ class GalleryTranslator {
     }
 
     /**
-     * Return our language data
+     * Return our language data.
+     * @todo Move this information into a configuration file
      *
      * @return array array['language code']['country code'] = array('description', 'right-to-left'?)
      *         array array('country' => 'default language code',
@@ -115,7 +94,6 @@ class GalleryTranslator {
 	static $defaultCountry = array();
 
 	if (empty($supportedLanguages)) {
-	    /* TODO: Move this information into a configuration file */
 	    /* English */
 	    $supportedLanguages['en']['US']['description'] = 'English (US)';
 	    $supportedLanguages['en']['GB']['description'] = 'English (UK)';
@@ -322,11 +300,11 @@ class GalleryTranslator {
      * Attempt to set the requested locale.  Try fallbacks and character sets if needed to find a
      * valid locale.
      *
-     * @access private
      * @param mixed category
      * @param string locale
      * @return string locale selected or boolean false if none
      * @static
+     * @access private
      */
     function _setlocale($category, $locale) {
 	global $gallery;
@@ -447,31 +425,33 @@ class GalleryTranslator {
     }
 
     /**
-     * Localize the given text
-     *
+     * Localize the given text.
      * Expected inputs are of the form:
      *
      * Example 1:
-     *  $data['text'] = 'Some text to localize with %d arguments'
-     *  $data['arg1'] = 5;
+     *  $data['text'] = 'Some %s text to localize with %d arguments'
+     *  $data['arg1'] = 'fun';
+     *  $data['arg2'] = 2;  or  $data['args'] = array('fun', 2);
      *
      *  localized:  'Some text to localize with 5 arguments'
      *
      * Example 2:
      *  $data['one'] = 'You have %d orange'
      *  $data['many'] = 'You have %d oranges'
-     *  $data['count'] = 3 (or 1);
+     *  $data['count'] = $data['arg1'] = 3;  (or 1)
      *
      * localized:  'You have 3 oranges' (or 'You have 1 orange')
      *
-     * @param string the domain (eg. a module id)
-     * @param string a directory
+     * @param string the domain (eg. pluginType . 's_' . pluginId)
      * @param mixed a single string, or an array of parameters
      * @return array object GalleryStatus a status code
      *               string the localized value
      */
     function translateDomain($domain, $data) {
 	global $gallery;
+	if (!is_array($data)) {
+	    $data = array('text' => $data);
+	}
 
 	/* Validate our parameters */
 	if (!(isset($data['text'])
@@ -533,7 +513,7 @@ class GalleryTranslator {
 	}
 
 	$i = 1;
-	$args = array();
+	$args = isset($data['args']) ? $data['args'] : array();
 	while (isset($data['arg' . $i])) {
 	    $args[] = $data['arg' . $i];
 	    $i++;
@@ -545,9 +525,8 @@ class GalleryTranslator {
 	}
 
 	/* If we have arguments, then feed the localized string and the arguments into sprintf */
-	if (sizeof($args) > 0) {
-	    array_unshift($args, $localized);
-	    $localized = call_user_func_array('sprintf', $args);
+	if (count($args) > 0) {
+	    $localized = vsprintf($localized, $args);
 	}
 
 	/*

@@ -17,32 +17,31 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
  * Provide the user the option of downloading the Windows registry file.
+ * This plugin is only responsible for building the config file to allow the user to register
+ * Gallery as a publisher in XP, it doesn't actually do any of the processing of images.
  *
- * This ItemAdd plugin enables Windows XP users to directly upload photos.
- * This class is only responsible for building the UI to allow the user to
- * register Gallery as a publisher in XP, it doesn't actually do any of the
- * processing of images.
- *
- * @version $Revision$ $Date$
  * @package PublishXp
+ * @subpackage UserInterface
  * @author Timothy Webb <tiwebb@cisco.com>
+ * @version $Revision$ $Date$
  */
 class ItemAddPublishXp extends ItemAddPlugin {
+
     /**
      * @see ItemAddPlugin::loadTemplate
      */
     function loadTemplate(&$template, &$form, $item) {
-	return array(null,
-		     'modules/publishxp/templates/ItemAddPublishXp.tpl', 'modules_publishxp');
+	return array(null, 'modules/publishxp/templates/ItemAddPublishXp.tpl', 'modules_publishxp');
     }
 
     /**
      * @see ItemAddPlugin::getTitle
      */
     function getTitle() {
-	list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'publishxp');
+	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'publishxp');
 	if ($ret) {
 	    return array($ret, null);
 	}

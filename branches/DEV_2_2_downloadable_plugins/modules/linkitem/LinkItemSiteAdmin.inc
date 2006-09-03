@@ -17,15 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package LinkItem
- * @author Alan Harder <alan.harder@sun.com>
- */
 
 /**
+ * Settings for Link Items
  * @package LinkItem
  * @subpackage UserInterface
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision$ $Date$
  */
 class LinkItemSiteAdminController extends GalleryController {
 
@@ -67,8 +65,7 @@ class LinkItemSiteAdminController extends GalleryController {
 }
 
 /**
- * @package LinkItem
- * @subpackage UserInterface
+ * Settings for Link Items
  */
 class LinkItemSiteAdminView extends GalleryView {
 

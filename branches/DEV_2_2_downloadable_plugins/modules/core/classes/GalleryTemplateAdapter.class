@@ -17,11 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package GalleryCore
- * @author Bharat Mediratta <bharat@menalto.com>
- */
 
 /**
  * This class is a glue layer between the templating system and our various
@@ -29,18 +24,20 @@
  *
  * @package GalleryCore
  * @subpackage Classes
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision$ $Date$
  */
 class GalleryTemplateAdapter {
 
     /**
      * The number of times our block callbacks have been executed
-     * @var array _callCount
+     * @var array
+     * @access private
      */
     var $_callCount;
 
     /**
      * The active theme
-     *
      * @var object GalleryTheme
      * @access private
      */
@@ -49,31 +46,26 @@ class GalleryTemplateAdapter {
     /**
      * Aggregation of text that we want to output at the bottom of the page,
      * useful for when we need to put javascript at the bottom.
-     *
-     * @var string $_trailer
+     * @var string
      * @access private
      */
     var $_trailer;
 
     /**
      * Registered callbacks that will get executed during the trailer.
-     *
-     * @var array $_trailerCallbacks
+     * @var array
      * @access private
      */
     var $_trailerCallbacks = array();
 
     /**
      * Current state of the progress bar.
-     *
-     * @var array $_progressBarStats
+     * @var array
      * @access private
      */
     var $_progressBarStats;
 
-    /**
-     * Constructor
-     */
+
     function GalleryTemplateAdapter() {
 	$this->_callCount = array();
 	$this->_theme = null;
@@ -95,9 +87,8 @@ class GalleryTemplateAdapter {
      *************************************************************/
 
     /**
-     * @see GalleryUrlGenerator::generateUrl()
-     *
      * Return a valid Gallery URL, standalone or embedded.
+     * @see GalleryUrlGenerator::generateUrl
      *
      * @param array data in key/value pairs
      * @return string a URL
@@ -182,11 +173,10 @@ class GalleryTemplateAdapter {
 
     /**
      * Return a valid Gallery date.
-     *
      * @todo This needs to be refactored.
      *
      * @param array data in key/value pairs
-     * @return string a URL
+     * @return string date
      */
     function date($params, &$smarty) {
 	global $gallery;
@@ -214,7 +204,7 @@ class GalleryTemplateAdapter {
     }
 
     /**
-     * @see GalleryTranslator::translate()
+     * @see GalleryTranslator::translate
      */
     function text($params, &$smarty) {
 	global $gallery;
@@ -229,8 +219,7 @@ class GalleryTemplateAdapter {
 	$translator =& $gallery->getTranslator();
 	list ($ret, $text) = $translator->translateDomain($domain, $params);
 	if ($ret) {
-	    return $ret->getAsHtml();
-	    return "[Translation error]";
+	    return '[Translation error: ' . print_r($params, true) . ']';
 	}
 
 	if (!empty($params['forJavascript'])) {
@@ -241,8 +230,8 @@ class GalleryTemplateAdapter {
     }
 
     /**
-     * Return a checkbox asking whether to chenge the value in descendents
-     * Useful when we are trying to change a value recursively
+     * Return a checkbox asking whether to chenge the value in descendents.
+     * Useful when we are trying to change a value recursively.
      *
      * @param array key => value attributes
      * @return HTML content
@@ -258,7 +247,7 @@ class GalleryTemplateAdapter {
 	$translator =& $gallery->getTranslator();
 	list ($ret, $text) = $translator->translateDomain($domain, $params);
 	if ($ret) {
-	    return '[Translation error]';
+	    return '[Translation error: ' . print_r($params, true) . ']';
 	}
 
 	return '<input type="checkbox" id="' . $params['module'] . '_ChangeInDescendents" name="'
@@ -268,8 +257,7 @@ class GalleryTemplateAdapter {
     }
 
     /**
-     * Return a transformed element name, useful when we're trying to use
-     * Javascript to access a form element.
+     * Return a transformed element name.
      *
      * @param array key => value attributes
      * @return HTML content
@@ -280,12 +268,11 @@ class GalleryTemplateAdapter {
 
     /**
      * Delegate to the appropriate item class to render an image.
+     * @todo Figure out a more graceful way to deal with errors here.
      *
      * @param array containing item, image, maxSize, fallback, and any img attributes
      * @param object Smarty the smarty instance
      * @return string HTML content
-     *
-     * TODO: Figure out a more graceful way to deal with errors here.
      */
     function image($params, &$smarty) {
 	list ($ret, $html) = $this->_image($params, $smarty);
@@ -298,9 +285,8 @@ class GalleryTemplateAdapter {
 
     /**
      * Implementation of image() that can return an error.
-     *
-     * @access private
      * @see GalleryTemplateAdapter::image
+     * @access private
      */
     function _image($params, &$smarty) {
 	/*
@@ -541,6 +527,9 @@ class GalleryTemplateAdapter {
 	return $string;
     }
 
+    /**
+     * Return attributes for container of all Gallery content.
+     */
     function mainDivAttributes($params, &$smarty) {
 	global $gallery;
 
@@ -566,6 +555,23 @@ class GalleryTemplateAdapter {
 	return 'id="gallery"' . $classes;
     }
 
+    /**
+     * Return active language code in format used with HTML lang attribute.
+     */
+    function language($params, &$smarty) {
+	global $gallery;
+	list ($ret, $languageCode) = $gallery->getActiveLanguageCode();
+	if ($ret || empty($languageCode)) {
+	    return '';
+	}
+	return strtr($languageCode, '_', '-');
+    }
+
+    /**
+     * Render logo button image.
+     * @param array('type' => logo type)
+     * @return HTML content
+     */
     function logoButton($params, &$smarty) {
 	global $gallery;
 	$urlGenerator =& $gallery->getUrlGenerator();
@@ -662,6 +668,9 @@ class GalleryTemplateAdapter {
 	}
     }
 
+    /**
+     * Show debug output.
+     */
     function debug($params, &$smarty) {
 	global $gallery;
 	$debug = $gallery->getDebug();
@@ -694,7 +703,7 @@ class GalleryTemplateAdapter {
      *   include => file to include inside the theme's templates/ dir
      *   url  => url to a file inside the themes dir
      *
-     * @params array('include' => ..., 'url' => ...)
+     * @param array('include' => ..., 'url' => ...)
      * @param reference to Smarty
      */
     function theme($params, &$smarty) {
@@ -737,7 +746,7 @@ class GalleryTemplateAdapter {
      * required param is 'type' which should be of the form <module>.<blockname>
      * eg: "core.LoginBlock".  Any other parameters get passed on to the block itself.
      *
-     * @params array('type' => <block descriptor>, ...)
+     * @param array('type' => <block descriptor>, ...)
      * @param reference to Smarty
      */
     function block($params, &$smarty) {
@@ -776,7 +785,7 @@ class GalleryTemplateAdapter {
      *
      * This is like block() except it wraps actual content.
      *
-     * @params array('type' => <block descriptor>, ...)
+     * @param array('type' => <block descriptor>, ...)
      * @param reference to Smarty
      */
     function container($params, $content, &$smarty) {
@@ -810,7 +819,7 @@ class GalleryTemplateAdapter {
      * param is 'type' which should be of the form <module>.<blockname> eg: "core.LoginBlock".
      * Any other parameters get passed on to the block itself.
      *
-     * @params array('type' => <block descriptor>, ...)
+     * @param array('type' => <block descriptor>, ...)
      * @param reference to Smarty
      */
     function callback($params, &$smarty) {
@@ -866,6 +875,9 @@ class GalleryTemplateAdapter {
 	$this->_trailerCallbacks[] = array('function' => $callback, 'args' => $args);
     }
 
+    /**
+     * Render trailer output
+     */
     function trailer($params, &$smarty) {
 	print $this->_trailer;
 
@@ -897,6 +909,9 @@ class GalleryTemplateAdapter {
 		$smarty->_tpl_vars[$widthVar], $smarty->_tpl_vars[$heightVar], $params['maxSize']);
     }
 
+    /**
+     * Update progress bar
+     */
     function updateProgressBar($title, $description, $percentComplete) {
 	static $coreModule;
 	if (!isset($coreModule)) {
@@ -953,15 +968,24 @@ class GalleryTemplateAdapter {
 	return null;
     }
 
+    /**
+     * Reset progress bar timing stats.
+     */
     function resetProgressBarStats() {
 	$this->_progressBarStats = array();
     }
 
+    /**
+     * Display error progress bar.
+     */
     function errorProgressBar($status) {
 	printf('<script type="text/javascript">errorProgressBar("%s");</script>',
 	       $status->getAsHtml());
     }
 
+    /**
+     * Complete progress bar.
+     */
     function completeProgressBar($continueUrl) {
 	$continueUrl = str_replace('&amp;', '&', $continueUrl);
 	printf('<script type="text/javascript">completeProgressBar("%s");</script>', $continueUrl);

@@ -19,18 +19,11 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * This controller will handle changing a user password
  * @package GalleryCore
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
- */
-
-/**
- * This controller will handle changes made to an user
- *
- * @package GalleryCore
- * @subpackage UserInterface
- *
+ * @version $Revision$ $Date$
  */
 class UserChangePasswordController extends GalleryController {
 
@@ -45,7 +38,7 @@ class UserChangePasswordController extends GalleryController {
 	if ($ret) {
 	    return array($ret, null);
 	}
-	if ($isAnonymous) {
+	if ($isAnonymous || $user->isLocked()) {
 	    return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED), null);
 	}
 
@@ -134,11 +127,7 @@ class UserChangePasswordController extends GalleryController {
 }
 
 /**
- * This view will show a form to change user options
- *
- * @package GalleryCore
- * @subpackage UserInterface
- *
+ * This view will show a form to change a password
  */
 class UserChangePasswordView extends GalleryView {
 
@@ -146,19 +135,25 @@ class UserChangePasswordView extends GalleryView {
      * @see GalleryView::loadTemplate
      */
     function loadTemplate(&$template, &$form) {
+        global $gallery;
+
 	/* Load the form with user data the first time around. */
 	if ($form['formName'] != 'UserChangePassword') {
 	    $form['formName'] = 'UserChangePassword';
 	}
 
-	/* Render the HTML body */
+	$user = $gallery->getActiveUser();
+
+        if ($user->isLocked()) {
+            return array(null, array('body' => 'modules/core/templates/UserLocked.tpl'));
+        }
+
 	$template->setVariable('controller', 'core.UserChangePassword');
-	return array(null,
-		     array('body' => 'modules/core/templates/UserChangePassword.tpl'));
+	return array(null, array('body' => 'modules/core/templates/UserChangePassword.tpl'));
     }
 
     /**
-     * @see GalleryView::getViewDescription()
+     * @see GalleryView::getViewDescription
      */
     function getViewDescription() {
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');

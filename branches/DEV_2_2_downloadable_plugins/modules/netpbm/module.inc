@@ -17,18 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package NetPbm
- * @author Bharat Mediratta <bharat@menalto.com>
- */
 
 /**
- * NetPBM Graphics Module
- *
- * This module provides the NetPBM graphics toolkit for Gallery
- *
+ * NetPBM Graphics Module.
+ * This module provides the NetPBM graphics toolkit for Gallery.
  * @package NetPbm
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision$ $Date$
  */
 class NetPbmModule extends GalleryModule {
 
@@ -41,12 +36,12 @@ class NetPbmModule extends GalleryModule {
 	$this->setVersion('1.1.0');
 	$this->setGroup('toolkits', $gallery->i18n('Graphics Toolkits'));
 	$this->setCallbacks('getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 0));
+	$this->setRequiredCoreApi(array(7, 4));
 	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
-     * @see GalleryModule::upgrade()
+     * @see GalleryModule::upgrade
      */
     function upgrade($currentVersion) {
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'netpbm');
@@ -67,7 +62,7 @@ class NetPbmModule extends GalleryModule {
     }
 
     /**
-     * @see GalleryModule::performFactoryRegistrations()
+     * @see GalleryModule::performFactoryRegistrations
      */
     function performFactoryRegistrations() {
 	/* Register our graphics class with the factory */
@@ -126,7 +121,7 @@ class NetPbmModule extends GalleryModule {
 	    $paths[] = "C:\\netpbm\\";
 	    $paths[] = "C:\\jhead\\";
 	    $paths[] = "C:\\cygwin\\bin\\";
-	} else if (GalleryUtilities::isA($platform, 'UnixPlatform')){
+	} else if (GalleryUtilities::isA($platform, 'UnixPlatform')) {
 	    foreach (explode(':', getenv('PATH')) as $path) {
 		$path = trim($path);
 		if (empty($path)) {
@@ -200,7 +195,7 @@ class NetPbmModule extends GalleryModule {
     }
 
     /**
-     * @see GalleryModule::activate()
+     * @see GalleryModule::activate
      */
     function activate($postActivationEvent=true) {
 	/* Load any classes we require */
@@ -258,7 +253,7 @@ class NetPbmModule extends GalleryModule {
     }
 
     /**
-     * @see GalleryModule::needsConfiguration()
+     * @see GalleryModule::needsConfiguration
      */
     function needsConfiguration() {
 	/* This module requires all fields to be filled out before it can be activated. */
@@ -277,7 +272,7 @@ class NetPbmModule extends GalleryModule {
     }
 
     /**
-     * @see GalleryModule::getSiteAdminViews()
+     * @see GalleryModule::getSiteAdminViews
      */
     function getSiteAdminViews() {
 	return array(null,
@@ -286,7 +281,7 @@ class NetPbmModule extends GalleryModule {
     }
 
     /**
-     * @see GalleryModule::getConfigurationView()
+     * @see GalleryModule::getConfigurationView
      */
     function getConfigurationView() {
 	return 'netpbm.AdminNetPbm';

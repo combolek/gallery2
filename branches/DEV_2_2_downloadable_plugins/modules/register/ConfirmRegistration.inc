@@ -19,18 +19,11 @@
  */
 
 /**
- * @version $Revision$ $Date$
- * @package SelfRegistration
+ * This controller will handle the confirmation-link that is sent in the confirmation email
+ * @package Registration
  * @subpackage UserInterface
  * @author Sebastian Eichner <mailsp@sebastian-eichner.de>
- */
-
-/**
- * This controller will handle the confirmation-link that is sent in the confirmation email
- *
- * @package SelfRegistration
- * @subpackage UserInterface
- *
+ * @version $Revision$ $Date$
  */
 class ConfirmRegistrationController extends GalleryController {
 
@@ -84,9 +77,6 @@ class ConfirmRegistrationController extends GalleryController {
 
 /**
  * This view shows a confirmation that the users account was activated
- *
- * @package SelfRegistration
- * @subpackage UserInterface
  */
 class ConfirmRegistrationView extends GalleryView {
 
@@ -95,8 +85,7 @@ class ConfirmRegistrationView extends GalleryView {
      */
     function loadTemplate(&$template, &$form) {
 	$template->setVariable('controller', 'register.ConfirmRegistration');
-	return array(null,
-		     array('body' => 'modules/register/templates/ConfirmRegistration.tpl'));
+	return array(null, array('body' => 'modules/register/templates/ConfirmRegistration.tpl'));
     }
 }
 ?>

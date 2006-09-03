@@ -17,19 +17,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package GalleryCore
- * @subpackage PHPUnit
- * @author Bharat Mediratta <bharat@menalto.com>
- */
+
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryTheme.class');
 
 /**
  * AdminThemes controller tests
- *
  * @package GalleryCore
  * @subpackage PHPUnit
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision$ $Date$
  */
 class AdminThemesControllerTest extends GalleryControllerTestCase {
 
@@ -140,18 +136,12 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 }
 
 /**
- * Required classes
- */
-/**
  * Test Theme that fails to validate settings
- *
- * @package GalleryCore
- * @subpackage PHPUnit
  */
 class TestThemeId1Theme extends GalleryTheme {
 
     /**
-     * @see GalleryTheme::getSettings()
+     * @see GalleryTheme::getSettings
      */
     function getSettings($itemId=0) {
 	$settings = array();
@@ -190,9 +180,6 @@ class TestThemeId1Theme extends GalleryTheme {
 
 /**
  * Test Theme that successfully validates settings
- *
- * @package GalleryCore
- * @subpackage PHPUnit
  */
 class TestThemeId2Theme extends GalleryTheme {
 
@@ -216,7 +203,7 @@ class TestThemeId2Theme extends GalleryTheme {
     }
 
     /**
-     * @see GalleryTheme::getSettings()
+     * @see GalleryTheme::getSettings
      */
     function getSettings($itemId=0) {
 	$settings = array();
@@ -248,9 +235,6 @@ class TestThemeId2Theme extends GalleryTheme {
 
 /**
  * Test theme
- *
- * @package GalleryCore
- * @subpackage PHPUnit
  */
 class AdminThemesControllerTestTheme {
 

@@ -17,16 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package UserAlbum
- * @author Alan Harder <alan.harder@sun.com>
- */
 
 /**
  * Create a private top level album for new users.
  *
  * @package UserAlbum
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision$ $Date$
  */
 class UserAlbumModule extends GalleryModule /* and GalleryEventListener */ {
 
@@ -38,12 +35,12 @@ class UserAlbumModule extends GalleryModule /* and GalleryEventListener */ {
 	$this->setVersion('1.0.3');
 	$this->setGroup('gallery', $gallery->i18n('Gallery'));
 	$this->setCallbacks('registerEventListeners|getSiteAdminViews|getSystemLinks');
-	$this->setRequiredCoreApi(array(7, 0));
+	$this->setRequiredCoreApi(array(7, 4));
 	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
-     * @see GalleryModule::registerEventListeners()
+     * @see GalleryModule::registerEventListeners
      */
     function registerEventListeners() {
 	$listener = new UserAlbumModule();
@@ -53,14 +50,14 @@ class UserAlbumModule extends GalleryModule /* and GalleryEventListener */ {
     }
 
     /**
-     * @see GalleryModule::upgrade()
+     * @see GalleryModule::upgrade
      */
     function upgrade($currentVersion) {
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'useralbum');
 	if ($ret) {
 	    return $ret;
 	}
-	list($ret, $rootId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
+	list ($ret, $rootId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
 	if ($ret) {
 	    return $ret;
 	}
@@ -79,7 +76,7 @@ class UserAlbumModule extends GalleryModule /* and GalleryEventListener */ {
     }
 
     /**
-     * @see GalleryModule::getSiteAdminViews()
+     * @see GalleryModule::getSiteAdminViews
      */
     function getSiteAdminViews() {
 	return array(null,

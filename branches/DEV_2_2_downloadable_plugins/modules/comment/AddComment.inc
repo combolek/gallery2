@@ -17,19 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
- * @version $Revision$ $Date$
+ * Add a comment to an item
  * @package Comment
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
- */
-
-/**
- * Add a comment to an item.
- *
- * @package Comment
- * @subpackage UserInterface
- *
+ * @version $Revision$ $Date$
  */
 class AddCommentController extends GalleryController {
     /**
@@ -41,7 +35,7 @@ class AddCommentController extends GalleryController {
     var $_pluginInstances;
 
     /**
-     * @see GalleryController::handleRequest()
+     * @see GalleryController::handleRequest
      */
     function handleRequest($form) {
 	global $gallery;
@@ -180,10 +174,6 @@ class AddCommentController extends GalleryController {
 
 /**
  * This view will show a form to add a new comment to an item
- *
- * @package Comment
- * @subpackage UserInterface
- *
  */
 class AddCommentView extends GalleryView {
 
@@ -207,7 +197,7 @@ class AddCommentView extends GalleryView {
 	$template->setVariable('AddComment', $AddComment);
 	$template->setVariable('controller', 'comment.AddComment');
 
-	list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'comment');
+	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'comment');
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -219,7 +209,7 @@ class AddCommentView extends GalleryView {
     }
 
     /**
-     * @see GalleryView::getViewDescription()
+     * @see GalleryView::getViewDescription
      */
     function getViewDescription() {
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'comment');

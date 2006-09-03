@@ -17,21 +17,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Ecard
- * @subpackage UserInterface
- * @author Nico Kaiser <nico@siriux.net>
- * @author Dariush Molavi <dari@nukedgallery.net>
- */
 
 GalleryCoreApi::requireOnce('modules/ecard/classes/EcardHelper.class');
 
 /**
  * Send photo as eCard
- *
  * @package Ecard
  * @subpackage UserInterface
+ * @author Nico Kaiser <nico@siriux.net>
+ * @author Dariush Molavi <dari@nukedgallery.net>
+ * @version $Revision$ $Date$
  */
 class SendEcardController extends GalleryController {
 
@@ -44,7 +39,7 @@ class SendEcardController extends GalleryController {
     var $_pluginInstances;
 
     /**
-     * @see GalleryController::handleRequest()
+     * @see GalleryController::handleRequest
      */
     function handleRequest($form) {
 	global $gallery;
@@ -112,7 +107,7 @@ class SendEcardController extends GalleryController {
 	if (isset($form['action']['send']) && empty($error)) {
 	    GalleryCoreApi::requireOnce('lib/pear/mime.php');
 
-            list ($ret, $config) = GalleryCoreApi::fetchAllPluginParameters('module', 'ecard');
+	    list ($ret, $config) = GalleryCoreApi::fetchAllPluginParameters('module', 'ecard');
 	    if ($ret) {
 		return array($ret, null);
 	    }
@@ -120,7 +115,7 @@ class SendEcardController extends GalleryController {
 	    /* Get current item */
 	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	    if ($ret) {
-                return array($ret, null);
+		return array($ret, null);
 	    }
 
 	    list ($ret, $resize) = EcardHelper::getSmallestSize($itemId);
@@ -132,7 +127,7 @@ class SendEcardController extends GalleryController {
 		return array($ret, null);
 	    }
 
-            /* Get pseudo filename and attach image */
+	    /* Get pseudo filename and attach image */
 	    list ($ret, $filename) = GalleryUtilities::getPseudoFileName($item);
 	    if ($ret) {
 		return array($ret, null);
@@ -172,7 +167,7 @@ class SendEcardController extends GalleryController {
 	    $platform =& $gallery->getPlatform();
 
 	    $messagePlain = $platform->file_get_contents(
-	        dirname(__FILE__) . '/templates/Message.txt');
+		    dirname(__FILE__) . '/templates/Message.txt');
 	    $messagePlain = EcardHelper::replaceKeywords($messagePlain, $dataPlain);
 	    $mime->setTXTBody($messagePlain);
 
@@ -192,12 +187,12 @@ class SendEcardController extends GalleryController {
 	    }
 
 	    $body = $mime->get(array(
-	        'html_charset'  => 'UTF-8',
-                'text_charset'  => 'UTF-8',
-                'text_encoding' => '8bit',
-                'head_charset'  => 'UTF-8'
-                )
-            );
+		'html_charset'  => 'UTF-8',
+		'text_charset'  => 'UTF-8',
+		'text_encoding' => '8bit',
+		'head_charset'  => 'UTF-8'
+		)
+	    );
 
 	    $tmp = array('From' => $headers['from']);
 	    if (isset($headers['bcc'])) {
@@ -217,7 +212,7 @@ class SendEcardController extends GalleryController {
 	    /* Put sender data into session */
 	    $session->put('ecard.from', $form['from']);
 	    if (isset($form['fromName'])) {
-	        $session->put('ecard.fromName', $form['fromName']);
+		$session->put('ecard.fromName', $form['fromName']);
 	    }
 
 	    /* Send the user to a confirmation page, for now */
@@ -256,11 +251,9 @@ class SendEcardController extends GalleryController {
 
 /**
  * This view will show an eCard form
- *
- * @package Ecard
- * @subpackage UserInterface
  */
 class SendEcardView extends GalleryView {
+
     /**
      * @see GalleryView::loadTemplate
      */
@@ -363,12 +356,11 @@ class SendEcardView extends GalleryView {
 	}
 
 	$template->title($module->translate('Send eCard'));
-
 	return array(null, array('body' => 'modules/ecard/templates/SendEcard.tpl'));
     }
 
     /**
-     * @see GalleryView::getViewDescription()
+     * @see GalleryView::getViewDescription
      */
     function getViewDescription() {
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'ecard');

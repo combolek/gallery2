@@ -17,17 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package GalleryCore
- * @subpackage PHPUnit
- * @author Bharat Mediratta <bharat@menalto.com>
- */
 
 /**
  * ItemEditPhoto controller tests
  * @package GalleryCore
  * @subpackage PHPUnit
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision$ $Date$
  */
 class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 
@@ -318,19 +314,14 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
     }
 }
 
-/**
- * Required by our test toolkit
- */
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
 
 /**
  * Test toolkit
- * @package GalleryCore
- * @subpackage PHPUnit
  */
 class ItemEditPhotoPluginTestToolkit extends GalleryToolkit {
     /**
-     * @see GalleryToolkit::performOperation()
+     * @see GalleryToolkit::performOperation
      * Dummy operation
      */
     function performOperation($mimeType, $operationName, $sourceFilename,
@@ -350,7 +341,7 @@ class ItemEditPhotoPluginTestToolkit extends GalleryToolkit {
     }
 
     /**
-     * @see GalleryToolkit::mergeOperations()
+     * @see GalleryToolkit::mergeOperations
      * Dummy operation
      */
     function mergeOperations($operation1, $args1, $operation2, $args2) {

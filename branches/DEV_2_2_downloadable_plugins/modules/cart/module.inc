@@ -17,16 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Cart
- * @author Bharat Mediratta <bharat@menalto.com>
- */
 
 /**
  * The implementation of the cart module
  *
  * @package Cart
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision$ $Date$
  */
 class CartModule extends GalleryModule {
 
@@ -39,12 +36,12 @@ class CartModule extends GalleryModule {
 	$this->setVersion('1.0.4'); /* Update upgrade() function below too */
 	$this->setGroup('commerce', $gallery->i18n('Commerce'));
 	$this->setCallbacks('getItemLinks');
-	$this->setRequiredCoreApi(array(7, 0));
+	$this->setRequiredCoreApi(array(7, 4));
 	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
-     * @see GalleryModule::upgrade()
+     * @see GalleryModule::upgrade
      */
     function upgrade($currentVersion) {
 	global $gallery;
@@ -137,7 +134,7 @@ class CartModule extends GalleryModule {
     }
 
     /**
-     * @see GalleryModule::getItemLinks()
+     * @see GalleryModule::getItemLinks
      */
     function getItemLinks($items, $wantsDetailedLinks, $permissions) {
 	$links = array();

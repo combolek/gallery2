@@ -17,17 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$
- * @package GalleryCore
- * @subpackage PHPUnit
- * @author Bharat Mediratta <bharat@menalto.com>
- */
 
 /**
  * Test CoreModule functionality
  * @package GalleryCore
  * @subpackage PHPUnit
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision$ $Date$
  */
 class CoreModuleTest extends GalleryTestCase {
     var $_module;
@@ -139,6 +135,8 @@ class CoreModuleTest extends GalleryTestCase {
     }
 
     function testGetSystemLinks() {
+        global $gallery;
+
 	list ($ret, $content) = $this->_module->getSystemLinks();
 	if ($ret) {
 	    return $this->failWithStatus($ret);
@@ -159,7 +157,72 @@ class CoreModuleTest extends GalleryTestCase {
 		      'params' => array('controller' => 'core.Logout',
 					'return' => 1))
 		  ),
-	    $content);
+	    $content, 'Admin User');
+
+
+        list ($ret, $this->_user1) =
+            $this->_createUser(array('hashedPassword' => GalleryUtilities::md5Salt('TestPassword'),
+                                     'email' => 'test2@email.com',
+                                     'fullName' => 'Test User 2',
+                                     'language' => 'te',
+                                     'locked' => 0));
+        if ($ret) {
+            return $this->failWithStatus($ret);
+        }
+
+        $this->_markForCleanup($this->_user1);
+
+        $gallery->setActiveUser($this->_user1);
+
+	list ($ret, $content) = $this->_module->getSystemLinks();
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$this->assertEquals(
+	    array('YourAccount' => array(
+		      'text' => $this->_module->translate('Your Account'),
+		      'params' => array('view' => 'core.UserAdmin',
+					'subView' => 'core.UserPreferences',
+					'return' => 1)),
+		  'Logout' => array(
+		      'text' => $this->_module->translate('Logout'),
+		      'params' => array('controller' => 'core.Logout',
+					'return' => 1))
+		  ),
+	    $content, 'Normal User');
+
+        list ($ret, $this->_user2) =
+            $this->_createUser(array('hashedPassword' => GalleryUtilities::md5Salt('TestPassword'),
+                                     'email' => 'test2@email.com',
+                                     'fullName' => 'Test User 2',
+                                     'language' => 'te',
+                                     'locked' => 1));
+        if ($ret) {
+            return $this->failWithStatus($ret);
+        }
+
+        $this->_markForCleanup($this->_user2);
+
+        $gallery->setActiveUser($this->_user2);
+
+	list ($ret, $content) = $this->_module->getSystemLinks();
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$this->assertEquals(
+	    array('YourAccount' => array(
+		      'text' => $this->_module->translate('Your Account'),
+		      'params' => array('view' => 'core.UserAdmin',
+					'subView' => 'core.UserPreferences',
+					'return' => 1)),
+		  'Logout' => array(
+		      'text' => $this->_module->translate('Logout'),
+		      'params' => array('controller' => 'core.Logout',
+					'return' => 1))
+		  ),
+	    $content, 'Locked User');
     }
 
     function testSetModuleParameter() {

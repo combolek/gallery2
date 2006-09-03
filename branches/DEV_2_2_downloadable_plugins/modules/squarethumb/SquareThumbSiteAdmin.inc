@@ -17,15 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package SquareThumb
- * @author Alan Harder <alan.harder@sun.com>
- */
 
 /**
+ * Settings for square thumbnails
  * @package SquareThumb
  * @subpackage UserInterface
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision$ $Date$
  */
 class SquareThumbSiteAdminController extends GalleryController {
 
@@ -67,8 +65,7 @@ class SquareThumbSiteAdminController extends GalleryController {
 }
 
 /**
- * @package SquareThumb
- * @subpackage UserInterface
+ * Settings for square thumbnails
  */
 class SquareThumbSiteAdminView extends GalleryView {
 

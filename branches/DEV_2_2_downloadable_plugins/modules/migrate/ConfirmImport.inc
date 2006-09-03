@@ -17,20 +17,18 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
- * @version $Revision$ $Date$
+ * Perform G1 migration
  * @package Migrate
  * @subpackage UserInterface
  * @author Jesse Mullan <jmullan@visi.com>
- */
-
-/**
- * @package Migrate
- * @subpackage UserInterface
+ * @version $Revision$ $Date$
  */
 class ConfirmImportController extends GalleryController {
+
     /**
-     * @see GalleryController::handleRequest()
+     * @see GalleryController::handleRequest
      */
     function handleRequest($form) {
 	global $gallery;
@@ -397,7 +395,7 @@ class ConfirmImportController extends GalleryController {
 			}
 		    }
 		}
-	    } else if (in_array($album['parentAlbumName'], array_keys($finishedAlbums))){
+	    } else if (in_array($album['parentAlbumName'], array_keys($finishedAlbums))) {
 		/* if the album's parent has already been imported, import it into the parent */
 		$targetAlbumID = $finishedAlbums[$album['parentAlbumName']];
 		$isHiddenAlbum = isset($hiddenAlbums[$album['name']]);
@@ -508,7 +506,7 @@ class ConfirmImportController extends GalleryController {
 		// $newAlbumInstance->settheme
 		if (isset($album['last_mod_time']) && $album['last_mod_time']) {
 		    if (isset($album['clicks_date']) && $album['clicks_date'] > 0 &&
-			    $album['clicks_date'] < $album['last_mod_time']){
+			    $album['clicks_date'] < $album['last_mod_time']) {
 			$newAlbumInstance->setCreationTimestamp($album['clicks_date']);
 			$newAlbumInstance->setOriginationTimestamp($album['clicks_date']);
 		    } else {
@@ -931,10 +929,10 @@ class ConfirmImportController extends GalleryController {
 		    $newItem->setKeywords(GalleryCoreApi::convertToUtf8(
 				$importAlbumItem->keywords, $sourceEncoding));
 
-		    if (isset($importAlbumItem->uploadDate)){
+		    if (isset($importAlbumItem->uploadDate)) {
 			$newItem->setCreationTimestamp($importAlbumItem->uploadDate);
 		    }
-		    if (isset($importAlbumItem->itemCaptureDate)){
+		    if (isset($importAlbumItem->itemCaptureDate)) {
 			/* Before 1.4.5-cvs-b106 this was an associative array */
 			if (is_array($importAlbumItem->itemCaptureDate)) {
 			    $newItem->setOriginationTimestamp(
@@ -947,7 +945,7 @@ class ConfirmImportController extends GalleryController {
 			} else {
 			    $newItem->setOriginationTimestamp($importAlbumItem->itemCaptureDate);
 			}
-		    } else if (isset($importAlbumItem->uploadDate)){
+		    } else if (isset($importAlbumItem->uploadDate)) {
 			$newItem->setOriginationTimestamp($importAlbumItem->uploadDate);
 		    }
 		    if (isset($album['clicks_date']) && $album['clicks_date']>0) {
@@ -966,7 +964,7 @@ class ConfirmImportController extends GalleryController {
 			    isset($importAlbumItem->image->thumb_width) &&
 			    isset($importAlbumItem->image->thumb_height) &&
 			    $importAlbumItem->image->thumb_width > 0 &&
-			    $importAlbumItem->image->thumb_height > 0){
+			    $importAlbumItem->image->thumb_height > 0) {
 
 			/* Load the thumbnail */
 			$thumbnails = array();
@@ -1120,17 +1118,17 @@ class ConfirmImportController extends GalleryController {
 			    $commenterId = $guestUserId;
 			    /* Try to set the correct comment owner. */
 			    if (strcmp($importComment->UID, 'everybody')) {
-			    	/* It is not the guest user. Get the corresponding G2 userId */
-			    	$validCommentUid = Gallery1DataParser::isValidUid(
-			    		$albumsPath, $importComment->UID);
-			    	$g1CommenterId = $importComment->UID;
-			    	if (!$validCommentUid){	
-			    	    /* Fallback to the album owner. */
+				/* It is not the guest user. Get the corresponding G2 userId */
+				$validCommentUid = Gallery1DataParser::isValidUid(
+					$albumsPath, $importComment->UID);
+				$g1CommenterId = $importComment->UID;
+				if (!$validCommentUid) {	
+				    /* Fallback to the album owner. */
 				    $validCommentUid = Gallery1DataParser::isValidUid(
-				            $albumsPath, $album['owner']);
+					    $albumsPath, $album['owner']);
 				    $g1CommenterId = $album['owner'];
-			    	}
-				if ($validCommentUid){
+				}
+				if ($validCommentUid) {
 				    list ($ret, $commentG1User) =
 					Gallery1DataParser::getUserFieldsByUid(
 						$albumsPath, $g1CommenterId);
@@ -1148,7 +1146,7 @@ class ConfirmImportController extends GalleryController {
 					    return $ret;
 					}
 				    } else {
-				        $commenterId = $commentG2User->getId();
+					$commenterId = $commentG2User->getId();
 				    }
 				}
 			    }
@@ -1176,11 +1174,11 @@ class ConfirmImportController extends GalleryController {
 			    $comment->setHost(empty($importComment->IPNumber) ?
 				    'unknown' : $importComment->IPNumber);
 			    if ($commenterId == $guestUserId) {
-			    	/* 
-			    	 * We do not have a name field for comments in G2 yet. 
-			    	 * We just copy the commenter name from G1 into the comment 
-			    	 * subject field of G2.
-			    	 */
+				/* 
+				 * We do not have a name field for comments in G2 yet. 
+				 * We just copy the commenter name from G1 into the comment 
+				 * subject field of G2.
+				 */
 				$comment->setSubject(
 					GalleryCoreApi::convertToUtf8($importComment->name,
 					    $sourceEncoding));
@@ -1505,8 +1503,7 @@ class ConfirmImportController extends GalleryController {
 
 
 /**
- * @package Migrate
- * @subpackage UserInterface
+ * Confirm selections before performing G1 migration
  */
 class ConfirmImportView extends GalleryView {
 
@@ -1576,7 +1573,7 @@ class ConfirmImportView extends GalleryView {
 	    $titles[$albumName] =
 		GalleryCoreApi::convertToUtf8($album['title'], $form['sourceEncoding']);
 
-	    if (!$platform->isLegalPathComponent($albumName)){
+	    if (!$platform->isLegalPathComponent($albumName)) {
 		$illegalAlbumNames[$albumName] = $platform->legalizePathComponent($albumName);
 	    } else {
 		$illegalAlbumNames[$albumName] = false;
@@ -1631,10 +1628,10 @@ class ConfirmImportView extends GalleryView {
 	$ConfirmImport['targetAlbum'] = (array)$targetAlbum;
 	$ConfirmImport['titles'] = $titles;
 	$ConfirmImport['canHide'] = isset($hiddenInterface);
-	$template->setVariable('controller', 'migrate.ConfirmImport');
+
 	$template->setVariable('ConfirmImport', $ConfirmImport);
-	return array(null,
-		     array('body' => 'modules/migrate/templates/ConfirmImport.tpl'));
+	$template->setVariable('controller', 'migrate.ConfirmImport');
+	return array(null, array('body' => 'modules/migrate/templates/ConfirmImport.tpl'));
     }
 }
 ?>

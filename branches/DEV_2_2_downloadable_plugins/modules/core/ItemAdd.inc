@@ -17,24 +17,17 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
- * @version $Revision$ $Date$
+ * This controller will handle the addition of new items in the gallery
  * @package GalleryCore
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
- */
-
-/**
- * This controller will handle the addition of an item as a children to
- * another item.
- *
- * @package GalleryCore
- * @subpackage UserInterface
+ * @version $Revision$ $Date$
  */
 class ItemAddController extends GalleryController {
     /**
-     * ItemAddOption instances to use when handling this request.  Only used by
-     * test code.
+     * ItemAddOption instances to use when handling this request.  Only used by test code.
      *
      * @var array (optionId => object ItemAddOption) $_optionInstances
      * @access private
@@ -312,10 +305,7 @@ class ItemAddController extends GalleryController {
 }
 
 /**
- * This view will prompt for files to add as children to an album.
- *
- * @package GalleryCore
- * @subpackage UserInterface
+ * This view will show the selected plugin for adding items to the gallery
  */
 class ItemAddView extends GalleryView {
 
@@ -448,7 +438,7 @@ class ItemAddView extends GalleryView {
     }
 
     /**
-     * @see GalleryView::getViewDescription()
+     * @see GalleryView::getViewDescription
      */
     function getViewDescription() {
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
@@ -461,11 +451,9 @@ class ItemAddView extends GalleryView {
 
 
 /**
- * Interface for plugins to the ItemAdd view and controller
+ * Interface for plugins to the ItemAdd view and controller.
  * Plugins provide alternate ways to add items into Gallery.
- *
- * @package GalleryCore
- * @subpackage UserInterface
+ * @abstract
  */
 class ItemAddPlugin {
 
@@ -523,12 +511,9 @@ class ItemAddPlugin {
 
 /**
  * Interface for options to the ItemAdd view and controller.
- * Options allow us to provide extra UI in the views and extra
- * processing in the controller so that we can add new functionality
- * like watermarking, quotas, etc to every ItemAddPlugin
- *
- * @package GalleryCore
- * @subpackage UserInterface
+ * Options allow us to provide extra UI in the views and extra processing in the controller so
+ * that we can add new functionality like watermarking, quotas, etc to every ItemAddPlugin
+ * @abstract
  */
 class ItemAddOption {
 
@@ -584,7 +569,7 @@ class ItemAddOption {
     }
 
     /**
-     * Let the plugin handle the incoming request.  We expect the $item to be locked.
+     * Let the plugin handle the incoming request.  We expect the $items to be locked.
      * @see GalleryController::handleRequest
      *
      * @param array the form values

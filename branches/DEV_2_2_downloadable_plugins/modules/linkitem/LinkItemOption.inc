@@ -19,18 +19,11 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * ItemEditOption for editing the target of a LinkItem
  * @package LinkItem
  * @subpackage UserInterface
  * @author Alan Harder <alan.harder@sun.com>
- */
-
-/**
- * ItemEditOption for editing the target of a LinkItem
- *
- * @package LinkItem
- * @subpackage UserInterface
- *
+ * @version $Revision$ $Date$
  */
 class LinkItemOption extends ItemEditOption {
 
@@ -50,9 +43,7 @@ class LinkItemOption extends ItemEditOption {
 	    $form['LinkItemOption']['link'] = $item->getLink();
 	}
 
-	return array(null,
-		    'modules/linkitem/templates/LinkItemOption.tpl',
-		    'modules_linkitem');
+	return array(null, 'modules/linkitem/templates/LinkItemOption.tpl', 'modules_linkitem');
     }
 
     /**

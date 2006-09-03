@@ -17,19 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package GalleryCore
- * @subpackage UserInterface
- * @author Bharat Mediratta <bharat@menalto.com>
- */
 
 /**
  * This controller will handle changes made to a group
- *
  * @package GalleryCore
  * @subpackage UserInterface
- *
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision$ $Date$
  */
 class AdminEditGroupController extends GalleryController {
 
@@ -124,9 +118,6 @@ class AdminEditGroupController extends GalleryController {
 
 /**
  * This view will show options available to groups
- *
- * @package GalleryCore
- * @subpackage UserInterface
  */
 class AdminEditGroupView extends GalleryView {
 
@@ -156,8 +147,7 @@ class AdminEditGroupView extends GalleryView {
 	$template->setVariable('AdminEditGroup', $AdminEditGroup);
 	$template->setVariable('controller', 'core.AdminEditGroup');
 
-	return array(null,
-		     array('body' => 'modules/core/templates/AdminEditGroup.tpl'));
+	return array(null, array('body' => 'modules/core/templates/AdminEditGroup.tpl'));
     }
 }
 ?>

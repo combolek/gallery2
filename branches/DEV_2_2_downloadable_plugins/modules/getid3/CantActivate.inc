@@ -17,18 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Getid3
- * @subpackage UserInterface
- * @author Bharat Mediratta <bharat@menalto.com>
- */
 
 /**
  * Show this view if the module can't be activated.
- *
  * @package Getid3
  * @subpackage UserInterface
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision$ $Date$
  */
 class CantActivateView extends GalleryView {
 
@@ -36,8 +31,7 @@ class CantActivateView extends GalleryView {
      * @see GalleryView::loadTemplate
      */
     function loadTemplate(&$template, &$form) {
-	return array(null,
-		     array('body' => 'modules/getid3/templates/CantActivate.tpl'));
+	return array(null, array('body' => 'modules/getid3/templates/CantActivate.tpl'));
     }
 }
 ?>

@@ -19,17 +19,11 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * This controller will handle the deletion of an item
  * @package GalleryCore
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
- */
-
-/**
- * This controller will handle the deletion of an item
- *
- * @package GalleryCore
- * @subpackage UserInterface
+ * @version $Revision$ $Date$
  */
 class ItemDeleteSingleController extends GalleryController {
 
@@ -41,8 +35,7 @@ class ItemDeleteSingleController extends GalleryController {
 
 	$itemId = GalleryUtilities::getRequestVariables('itemId');
 
-	$status = array();
-	$error = array();
+	$status = $error = array();
 	if (isset($form['action']['delete'])) {
 	    /* Get the root album id, so we don't try to delete it */
 	    list ($ret, $rootId) =
@@ -103,9 +96,6 @@ class ItemDeleteSingleController extends GalleryController {
 
 /**
  * This view will prompt for confirmation on the deletion of an item
- *
- * @package GalleryCore
- * @subpackage UserInterface
  */
 class ItemDeleteSingleView extends GalleryView {
 
@@ -122,7 +112,7 @@ class ItemDeleteSingleView extends GalleryView {
 	    $form['formName'] = 'ItemDeleteSingle';
 	}
 
-	list($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -138,16 +128,14 @@ class ItemDeleteSingleView extends GalleryView {
 	$ItemDeleteSingle['itemTypeNames'] = $item->itemTypeName();
 	$ItemDeleteSingle['childCount'] = $childCount;
 
-	$template->setVariable('controller', 'core.ItemDeleteSingle');
 	$template->setVariable('ItemDeleteSingle', $ItemDeleteSingle);
-
-	return array(null,
-		     array('body' => 'modules/core/templates/ItemDeleteSingle.tpl'));
+	$template->setVariable('controller', 'core.ItemDeleteSingle');
+	return array(null, array('body' => 'modules/core/templates/ItemDeleteSingle.tpl'));
 
     }
 
     /**
-     * @see GalleryView::getViewDescription()
+     * @see GalleryView::getViewDescription
      */
     function getViewDescription() {
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');

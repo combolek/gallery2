@@ -117,7 +117,7 @@ class Getid3Helper {
     }
 
     function getId3ArchiveRecurse($results, $fileArray, $nameprefix='') {
-	foreach(array_keys($fileArray) as $filename) {
+	foreach (array_keys($fileArray) as $filename) {
 	    /* Only prepend a non-empty nameprefix and '/' to filename */
 	    if ($nameprefix == '') {
 		$prefixedname = $filename;
@@ -290,7 +290,7 @@ class Getid3Helper {
      * @param string the property name (eg "ShutterSpeedValue")
      * @param string the value (eg "25/10000 sec")
      * @return string the result (eg "1/400 sec")
-     * @TODO(donw) Implement postProcessValue
+     * @todo (donw) Implement postProcessValue
      */
     function postProcessValue($property, $value) {
 	global $gallery;

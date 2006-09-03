@@ -17,23 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package GalleryCore
- * @author Bharat Mediratta <bharat@menalto.com>
- */
 
-/**
- * Load the parent class
- */
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryItem.class');
 
 /**
- * A subclass of GalleryItem for containing groups of GalleryItems
- *
- * A GalleryItem that has certain extra properties relating to
- * displaying item groups and is allowed to contain other
- * GalleryItems.
+ * A subclass of GalleryItem for containing groups of GalleryItems.
+ * A GalleryItem that has certain extra properties relating to displaying item groups and is
+ * allowed to contain other GalleryItems.
  *
  * @g2 <class-name>GalleryAlbumItem</class-name>
  * @g2 <parent-class-name>GalleryItem</parent-class-name>
@@ -45,55 +35,51 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryItem.class');
  *
  * @package GalleryCore
  * @subpackage Classes
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision$ $Date$
  */
 class GalleryAlbumItem extends GalleryItem {
 
     /**
      * The theme to use for this item
+     * @var string
      *
      * @g2 <member>
      * @g2   <member-name>theme</member-name>
      * @g2   <member-type>STRING</member-type>
      * @g2   <member-size>SMALL</member-size>
      * @g2 </member>
-     *
-     * @var string $theme
-     * @access public
      */
     var $theme;
 
     /**
      * Specify the name of the field that we're using to order children
+     * @var string
      *
      * @g2 <member>
      * @g2   <member-name>orderBy</member-name>
      * @g2   <member-type>STRING</member-type>
      * @g2   <member-size>MEDIUM</member-size>
      * @g2 </member>
-     *
-     * @var int $orderBy
-     * @access public
      */
     var $orderBy;
 
     /**
      * Specify the order direction that we're applying to the orderBy field
+     * @var string
      *
      * @g2 <member>
      * @g2   <member-name>orderDirection</member-name>
      * @g2   <member-type>STRING</member-type>
      * @g2   <member-size>SMALL</member-size>
      * @g2 </member>
-     *
-     * @var int $orderDirection
-     * @access public
      */
     var $orderDirection;
 
+
     /**
-     * Create a new instance of this AlbumItem in the persistent store
-     *
-     * Also create the album directory on the filesystem
+     * Create a new instance of this AlbumItem in the persistent store.
+     * Also create the album directory on the filesystem.
      *
      * @param int the id of the parent of this object
      * @return object GalleryStatus a status code
@@ -116,12 +102,12 @@ class GalleryAlbumItem extends GalleryItem {
 	/* Albums can contain children */
 	$this->setCanContainChildren(true);
 
-	list($ret, $parent) = GalleryCoreApi::loadEntitiesById($parentId);
+	list ($ret, $parent) = GalleryCoreApi::loadEntitiesById($parentId);
 	if ($ret) {
 	    return $ret;
 	}
 
-	list($ret, $parentPath) = $parent->fetchPath();
+	list ($ret, $parentPath) = $parent->fetchPath();
 	if ($ret) {
 	    return $ret;
 	}
@@ -178,7 +164,6 @@ class GalleryAlbumItem extends GalleryItem {
 
     /**
      * Create a new root level album
-     *
      * @return object GalleryStatus a status code
      */
     function createRoot() {
@@ -227,14 +212,13 @@ class GalleryAlbumItem extends GalleryItem {
 
     /**
      * Internal function to create the album directory
-     *
      * @access private
      */
     function _createDir($albumDir) {
 	global $gallery;
 	$platform =& $gallery->getPlatform();
 
-	list($ret, $perm) = GalleryCoreApi::getPluginParameter(
+	list ($ret, $perm) = GalleryCoreApi::getPluginParameter(
 	    'module', 'core', 'permissions.directory');
 	if ($ret) {
 	    return $ret;
@@ -255,7 +239,6 @@ class GalleryAlbumItem extends GalleryItem {
 
     /**
      * Can this item contain other file system items?
-     *
      * Always returns true -- AlbumItems contain other GalleryItems
      *
      * @return true if this item can contain other file system items
@@ -265,11 +248,9 @@ class GalleryAlbumItem extends GalleryItem {
     }
 
     /**
-     * Delete this AlbumItem
+     * Delete this AlbumItem.
+     * Delete all children and then remove the album directory.
      *
-     * Delete all children and then remove the album directory
-     *
-     * @access public
      * @return object GalleryStatus a status code
      */
     function delete() {
@@ -288,7 +269,7 @@ class GalleryAlbumItem extends GalleryItem {
 	}
 
 	/* Get my path */
-	list($ret, $path) = $this->fetchPath();
+	list ($ret, $path) = $this->fetchPath();
 	if ($ret) {
 	    return $ret;
 	}
@@ -302,13 +283,18 @@ class GalleryAlbumItem extends GalleryItem {
 	    }
 	}
 
+	$storage =& $gallery->getStorage();
+	$ret = $storage->checkPoint();
+	if ($ret) {
+	    return $ret;
+	}
+
 	return null;
     }
 
     /**
      * Rename this album
      *
-     * @access public
      * @param string the path component
      * @return object GalleryStatus a status code
      */
@@ -337,7 +323,7 @@ class GalleryAlbumItem extends GalleryItem {
 	/*
 	 * Get the current path
 	 */
-	list($ret, $currentPath) = $this->fetchPath();
+	list ($ret, $currentPath) = $this->fetchPath();
 	if ($ret) {
 	    return $ret;
 	}
@@ -445,7 +431,7 @@ class GalleryAlbumItem extends GalleryItem {
     }
 
     /**
-     * @see GalleryEntity::getClassName()
+     * @see GalleryEntity::getClassName
      */
     function getClassName() {
 	return 'GalleryAlbumItem';

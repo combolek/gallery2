@@ -19,21 +19,13 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * This controller will handle the recovery of passwords that have
+ * been lost or forgotten by the user.
  * @package GalleryCore
  * @subpackage UserInterface
  * @author Jay Rossiter <cryptographite@users.sf.net>
+ * @version $Revision$ $Date$
  */
-
-/**
- * This controller will handle the recovery of passwords that have
- * been lost or forgotten by the user.
- *
- * @package GalleryCore
- * @subpackage UserInterface
- *
- */
-
 class UserRecoverPasswordAdminController extends GalleryController {
 
     /**
@@ -139,11 +131,7 @@ class UserRecoverPasswordAdminController extends GalleryController {
 }
 
 /**
- * This view prompts for login information
- *
- * @package GalleryCore
- * @subpackage UserInterface
- *
+ * This view shows information about password recovery
  */
 class UserRecoverPasswordAdminView extends GalleryView {
 
@@ -190,8 +178,7 @@ class UserRecoverPasswordAdminView extends GalleryView {
 	$UserRecoverPasswordAdmin['status'] = $status;
 	$template->setVariable('UserRecoverPasswordAdmin', $UserRecoverPasswordAdmin);
 	$template->setVariable('controller', 'core.UserRecoverPasswordAdmin');
-	return array(null,
-		     array('body' => 'modules/core/templates/UserRecoverPasswordAdmin.tpl'));
+	return array(null, array('body' => 'modules/core/templates/UserRecoverPasswordAdmin.tpl'));
     }
 
     /**

@@ -19,16 +19,11 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * This controller locates (and creates if needed) a user album and jumps to its view.
  * @package UserAlbum
+ * @subpackage UserInterface
  * @author Alan Harder <alan.harder@sun.com>
- */
-
-/**
- * This controller locates (and creates if needed) a user album
- * and jumps to its view.
- *
- * @package UserAlbum
+ * @version $Revision$ $Date$
  */
 class UserAlbumController extends GalleryController {
 

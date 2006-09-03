@@ -17,16 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Digibug
- * @author Alan Harder <alan.harder@sun.com>
- */
 
 /**
  * Photo printing at digibug.com
  *
  * @package Digibug
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision$ $Date$
  */
 class DigibugModule extends GalleryModule {
 
@@ -142,7 +139,7 @@ class DigibugModule extends GalleryModule {
 		    GalleryUtilities::isA($item, 'GalleryPhotoItem')) {
 		$links[$itemId][] =
 		    array('text' => $this->translate('Print on Digibug.com'),
-			  'params' => array('view' => 'digibug.PrintPhotos',
+			  'params' => array('view' => 'digibug.DigibugPrintPhotos',
 					    'itemId' => $itemId, 'returnUrl' => '%CURRENT_URL%'));
 	    }
 	}

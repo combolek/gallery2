@@ -17,15 +17,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
- * @version $Revision$ $Date$
  * @package Rating
  * @author  Don Seiler <don@seiler.us>
+ * @version $Revision$ $Date$
  */
 class RatingCallbacks {
 
-    /**
-     */
     function callback($params, &$smarty, $callback, $userId) {
 
 	switch ($callback) {
@@ -36,28 +35,37 @@ class RatingCallbacks {
 		return $ret;
 	    }
 
-	    list ($ret, $allowAlbumRating) = GalleryCoreApi::getPluginParameter('module',
-		    'rating',
-		    'allowAlbumRating');
+	    if (GalleryUtilities::isA($item, 'GalleryAlbumItem')) {
+		$albumId = $itemId;
+		list ($ret, $allowAlbumRating) =
+		    GalleryCoreApi::getPluginParameter('module', 'rating', 'allowAlbumRating');
+		if ($ret) {
+		    return $ret;
+		}
+		if (!$allowAlbumRating) {
+		    return null;
+		}
+	    } else {
+		$albumId = $item->getParentId();
+	    }
+
+	    list ($ret, $enabled) =
+		GalleryCoreApi::getPluginParameter('module', 'rating', 'enabled', $albumId);
 	    if ($ret) {
 		return $ret;
 	    }
-
-	    if (GalleryUtilities::isA($item, 'GalleryAlbumItem') && !$allowAlbumRating) {
+	    if (!$enabled) {
 		return null;
 	    }
 
-	    list ($ret, $permission) = GalleryCoreApi::hasItemPermission($itemId,
-		    'rating.view',
-		    $userId);
+	    list ($ret, $permission) =
+		GalleryCoreApi::hasItemPermission($itemId, 'rating.view', $userId);
 	    if ($ret) {
 		return $ret;
 	    }
-
 	    if (!$permission) {
 		return null;
 	    }
-
 
 	    GalleryCoreApi::requireOnce('modules/rating/classes/RatingHelper.class');
 	    list ($ret, $RatingData) = RatingHelper::fetchRatings(array($itemId), $userId);
@@ -95,7 +103,6 @@ class RatingCallbacks {
 	    $block =& $smarty->_tpl_vars['block'];
 	    $block['rating']['RatingData'] = $RatingData[$itemId];
 	    $block['rating']['RatingSummary'] = $RatingSummary;
-
 
 	    return null;
 	}

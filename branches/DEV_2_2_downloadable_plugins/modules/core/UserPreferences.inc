@@ -19,18 +19,11 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * This controller will handle changes made to a user
  * @package GalleryCore
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
- */
-
-/**
- * This controller will handle changes made to an user
- *
- * @package GalleryCore
- * @subpackage UserInterface
- *
+ * @version $Revision$ $Date$
  */
 class UserPreferencesController extends GalleryController {
 
@@ -83,6 +76,11 @@ class UserPreferencesController extends GalleryController {
 		return array($ret, null);
 	    }
 
+            /* Locked users are not allowed to edit themselves */
+            if ($user->isLocked()) {
+                GalleryCoreApi::releaseLocks($lockId);
+                return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED), null);
+            }
 
 	    /* email is required for non-anonymous but optional for administrators */
 	    if (empty($form['email']) && !$isAdmin) {
@@ -148,17 +146,12 @@ class UserPreferencesController extends GalleryController {
 	$results['status'] = $status;
 	$results['error'] = $error;
 
-
 	return array(null, $results);
     }
 }
 
 /**
  * This view will show a form to change user options
- *
- * @package GalleryCore
- * @subpackage UserInterface
- *
  */
 class UserPreferencesView extends GalleryView {
 
@@ -177,6 +170,11 @@ class UserPreferencesView extends GalleryView {
 	}
 
 	$user = $gallery->getActiveUser();
+
+        /* Locked users aren't allowed to edit themselves - display message */
+        if ($user->isLocked()) {
+            return array(null, array('body' => 'modules/core/templates/UserLocked.tpl'));
+        }
 
 	/* Load the form with user data the first time around. */
 	if ($form['formName'] != 'UserPreferences') {
@@ -206,15 +204,13 @@ class UserPreferencesView extends GalleryView {
 	$UserPreferences['translationsSupported'] = $translator->canTranslate();
 	$UserPreferences['languageList'] = $languageList;
 
-	/* Render the HTML body */
 	$template->setVariable('UserPreferences', $UserPreferences);
 	$template->setVariable('controller', 'core.UserPreferences');
-	return array(null,
-		     array('body' => 'modules/core/templates/UserPreferences.tpl'));
+	return array(null, array('body' => 'modules/core/templates/UserPreferences.tpl'));
     }
 
     /**
-     * @see GalleryView::getViewDescription()
+     * @see GalleryView::getViewDescription
      */
     function getViewDescription() {
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
