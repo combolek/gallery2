@@ -17,16 +17,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Comment
- * @author Johannes Schmittat <Johannes@Schmittat.com>
- * @author Alan Harder <alan.harder@sun.com>
- */
 
 /**
+ * Settings for comments
  * @package Comment
  * @subpackage UserInterface
+ * @author Johannes Schmittat <Johannes@Schmittat.com>
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision$ $Date$
  */
 class CommentSiteAdminController extends GalleryController {
 
@@ -72,8 +70,7 @@ class CommentSiteAdminController extends GalleryController {
 }
 
 /**
- * @package Comment
- * @subpackage UserInterface
+ * Settings for comments
  */
 class CommentSiteAdminView extends GalleryView {
 

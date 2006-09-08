@@ -5,7 +5,7 @@
  * version.  Gallery will look for that file first and use it if it exists.
  *}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html>
+<html lang="{g->language}">
   <head>
     {* Let Gallery print out anything it wants to put into the <head> element *}
     {g->head}
@@ -30,9 +30,8 @@
   <body class="gallery">
     <div {g->mainDivAttributes}>
       {*
-       * Some module views (eg slideshow) want the full screen.  So for those, we
-       * don't draw a header, footer, navbar, etc.  Those views are responsible for
-       * drawing everything.
+       * Some module views (eg slideshow) want the full screen.  So for those, we don't draw
+       * a header, footer, navbar, etc.  Those views are responsible for drawing everything.
        *}
       {if $theme.useFullScreen}
 	{include file="gallery:`$theme.moduleTemplate`" l10Domain=$theme.moduleL10Domain}
@@ -67,9 +66,8 @@
     </div>
 
     {*
-     * Give Gallery a chance to output any cleanup code, like javascript that
-     * needs to be run at the end of the <body> tag.  If you take this out, some
-     * code won't work properly.
+     * Give Gallery a chance to output any cleanup code, like javascript that needs to be run
+     * at the end of the <body> tag.  If you take this out, some code won't work properly.
      *}
     {g->trailer}
 

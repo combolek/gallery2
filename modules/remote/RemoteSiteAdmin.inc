@@ -17,15 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Remote
- * @author Alan Harder <alan.harder@sun.com>
- */
 
 /**
+ * Settings for Remote
  * @package Remote
  * @subpackage UserInterface
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision$ $Date$
  */
 class RemoteSiteAdminController extends GalleryController {
 
@@ -60,8 +58,7 @@ class RemoteSiteAdminController extends GalleryController {
 }
 
 /**
- * @package Remote
- * @subpackage UserInterface
+ * Settings for Remote
  */
 class RemoteSiteAdminView extends GalleryView {
 
@@ -89,8 +86,7 @@ class RemoteSiteAdminView extends GalleryView {
 	}
 
 	$template->setVariable('controller', 'remote.RemoteSiteAdmin');
-	return array(null,
-		     array('body' => 'modules/remote/templates/RemoteSiteAdmin.tpl'));
+	return array(null, array('body' => 'modules/remote/templates/RemoteSiteAdmin.tpl'));
     }
 }
 ?>

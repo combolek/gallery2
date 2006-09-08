@@ -17,15 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Members
- * @author Robert Balousek <rbalousek@hotmail.com>
- */
 
 /**
+ * Settings for Members
  * @package Members
  * @subpackage UserInterface
+ * @author Robert Balousek <rbalousek@hotmail.com>
+ * @version $Revision$ $Date$
  */
 class AdminMembersController extends GalleryController {
 
@@ -68,8 +66,7 @@ class AdminMembersController extends GalleryController {
 }
 
 /**
- * @package Members
- * @subpackage UserInterface
+ * Settings for Members
  */
 class AdminMembersView extends GalleryView {
 
@@ -114,11 +111,10 @@ class AdminMembersView extends GalleryView {
 					$groupIds[0] => $module->translate('Site Admins'));
 	$members['emailViews'] = array(true => $module->translate('Show Email Addresses'),
 				       false => $module->translate("Don't Show Email Addresses"));
+
 	$template->setVariable('Members', $members);
 	$template->setVariable('controller', 'members.AdminMembers');
-
-	return array(null,
-		     array('body' => 'modules/members/templates/AdminMembers.tpl'));
+	return array(null, array('body' => 'modules/members/templates/AdminMembers.tpl'));
     }
 }
 ?>

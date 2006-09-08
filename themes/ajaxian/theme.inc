@@ -17,23 +17,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package AjaxianTheme
- * @author Ross Shannon <ross.shannon@gmail.com>
- */
 
 /**
- * This implements the DHTML-enabled slideshow theme
- *
- * @package AjaxianTheme
- * @subpackage Theme
+ * DHTML-enabled slideshow theme
+ * @package Themes
+ * @subpackage Ajaxian
+ * @author Ross Shannon <ross.shannon@gmail.com>
+ * @version $Revision$ $Date$
  */
 class AjaxianTheme extends GalleryTheme {
 
-    /**
-     * Constructor
-     */
     function AjaxianTheme() {
 	global $gallery;
 
@@ -41,7 +34,7 @@ class AjaxianTheme extends GalleryTheme {
 	$this->setName($gallery->i18n('Ajaxian'));
 	$this->setDescription($gallery->i18n('DHTML-enabled Slideshow theme'));
 	$this->setVersion('0.9.4');
-	$this->setRequiredCoreApi(array(7, 1));
+	$this->setRequiredCoreApi(array(7, 10));
 	$this->setRequiredThemeApi(array(2, 4));
 	$this->setStandardSettings(
 	    array('rows' => 3, 'columns' => 8,

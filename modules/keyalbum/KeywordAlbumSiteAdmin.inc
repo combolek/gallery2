@@ -17,15 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package KeyAlbum
- * @author Alan Harder <alan.harder@sun.com>
- */
 
 /**
+ * Settings for Keyword Albums
  * @package KeyAlbum
  * @subpackage UserInterface
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision$ $Date$
  */
 class KeywordAlbumSiteAdminController extends GalleryController {
 
@@ -59,7 +57,8 @@ class KeywordAlbumSiteAdminController extends GalleryController {
 			   'orderBy' => (empty($form['presort']) ? '' : $form['presort'] . '|')
 					. $form['orderBy'],
 			    'orderDirection' => $form['orderDirection'],
-			    'summaryLinks' => $form['summaryLinks'])
+			    'summaryLinks' => $form['summaryLinks'],
+			    'description' => $form['description'])
 		    as $key => $value) {
 		$ret = GalleryCoreApi::setPluginParameter('module', 'keyalbum', $key, $value);
 		if ($ret) {
@@ -80,8 +79,7 @@ class KeywordAlbumSiteAdminController extends GalleryController {
 }
 
 /**
- * @package KeyAlbum
- * @subpackage UserInterface
+ * Settings for Keyword Albums
  */
 class KeywordAlbumSiteAdminView extends GalleryView {
 
@@ -95,7 +93,8 @@ class KeywordAlbumSiteAdminView extends GalleryView {
 	}
 
 	if ($form['formName'] != 'KeywordAlbumSiteAdmin') {
-	    foreach (array('themeId', 'orderBy', 'orderDirection', 'summaryLinks') as $key) {
+	    foreach (array('themeId', 'orderBy', 'orderDirection', 'summaryLinks', 'description')
+		    as $key) {
 		list ($ret, $form[$key]) =
 		    GalleryCoreApi::getPluginParameter('module', 'keyalbum', $key);
 		if ($ret) {
@@ -174,8 +173,7 @@ class KeywordAlbumSiteAdminView extends GalleryView {
 
 	$template->setVariable('KeywordAlbumSiteAdmin', $KeywordAlbumSiteAdmin);
 	$template->setVariable('controller', 'keyalbum.KeywordAlbumSiteAdmin');
-	return array(null,
-		     array('body' => 'modules/keyalbum/templates/KeywordAlbumSiteAdmin.tpl'));
+	return array(null, array('body' => 'modules/keyalbum/templates/KeywordAlbumSiteAdmin.tpl'));
     }
 }
 ?>

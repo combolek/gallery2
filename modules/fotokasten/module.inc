@@ -17,16 +17,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Fotokasten
- * @author Ioana Ciocanescu <service@fotokasten.de>
- */
+
+define('FOTOKASTEN_GALLERY_AFFILIATE_ID', '1927');
+define('FOTOKASTEN_GALLERY_AFFILIATE_PASSWORD', 'f12a65d90445f95b90e5fd30c75ee74e');
 
 /**
  * Print photos on fotokasten.de
  *
  * @package Fotokasten
+ * @author Ioana Ciocanescu <service@fotokasten.de>
+ * @version $Revision$ $Date$
  */
 class FotokastenModule extends GalleryModule {
 
@@ -39,12 +39,12 @@ class FotokastenModule extends GalleryModule {
 	$this->setVersion('1.0.4');
 	$this->setGroup('commerce', $this->translate('Commerce'));
 	$this->setCallbacks('getSiteAdminViews|getItemLinks');
-	$this->setRequiredCoreApi(array(7, 0));
+	$this->setRequiredCoreApi(array(7, 4));
 	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
-     * @see GalleryModule::upgrade()
+     * @see GalleryModule::upgrade
      */
     function upgrade($currentVersion) {
 	global $gallery;
@@ -54,8 +54,8 @@ class FotokastenModule extends GalleryModule {
 	if ($ret) {
 	    return $ret;
 	}
-	foreach (array('affiliateId' => '1927',
-		       'affiliateIdPass' => 'f12a65d90445f95b90e5fd30c75ee74e')
+	foreach (array('affiliateId' => FOTOKASTEN_GALLERY_AFFILIATE_ID,
+		       'affiliateIdPass' => FOTOKASTEN_GALLERY_AFFILIATE_PASSWORD)
 		as $key => $value) {
 	    if (!isset($params[$key])) {
 		$ret = $this->setParameter($key, $value);
@@ -90,7 +90,7 @@ class FotokastenModule extends GalleryModule {
     }
 
     /**
-     * @see GalleryModule::performFactoryRegistrations()
+     * @see GalleryModule::performFactoryRegistrations
      */
     function performFactoryRegistrations() {
 	$ret = GalleryCoreApi::registerFactoryImplementation(
@@ -104,7 +104,7 @@ class FotokastenModule extends GalleryModule {
     }
 
     /**
-     * @see GalleryModule::getSiteAdminViews()
+     * @see GalleryModule::getSiteAdminViews
      */
     function getSiteAdminViews() {
 	return array(null,
@@ -113,7 +113,7 @@ class FotokastenModule extends GalleryModule {
     }
 
     /**
-     * @see GalleryModule::getItemLinks()
+     * @see GalleryModule::getItemLinks
      */
     function getItemLinks($items, $wantsDetailedLinks, $permissions) {
 	$links = array();

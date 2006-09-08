@@ -17,11 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Search
- * @author Bharat Mediratta <bharat@menalto.com>
- */
 
 /**
  * Search Module
@@ -29,6 +24,8 @@
  * This module provides support for searching the Gallery
  *
  * @package Search
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision$ $Date$
  */
 class SearchModule extends GalleryModule {
 
@@ -41,7 +38,7 @@ class SearchModule extends GalleryModule {
 	$this->setVersion('1.0.3');
 	$this->setGroup('gallery', $gallery->i18n('Gallery'));
 	$this->setCallbacks('');
-	$this->setRequiredCoreApi(array(7, 0));
+	$this->setRequiredCoreApi(array(7, 4));
 	$this->setRequiredModuleApi(array(3, 0));
     }
 }

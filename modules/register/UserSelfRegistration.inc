@@ -17,18 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package SelfRegistration
- * @subpackage UserInterface
- * @author Sebastian Eichner <mailsp@sebastian-eichner.de>
- */
 
 /**
  * This controller will handle the registration of a user
- *
- * @package SelfRegistration
+ * @package Registration
  * @subpackage UserInterface
+ * @author Sebastian Eichner <mailsp@sebastian-eichner.de>
+ * @version $Revision$ $Date$
  */
 class UserSelfRegistrationController extends GalleryController {
 
@@ -36,9 +31,7 @@ class UserSelfRegistrationController extends GalleryController {
      * @see GalleryController::handleRequest
      */
     function handleRequest($form) {
-	GalleryCoreApi::requireOnce(
-	    'modules/register/classes/GalleryPendingUserHelper.class');
-	global $gallery;
+	GalleryCoreApi::requireOnce('modules/register/classes/GalleryPendingUserHelper.class');
 
 	$results = $status = $error = array();
 	if (isset($form['action']['cancel'])) {
@@ -137,7 +130,7 @@ class UserSelfRegistrationController extends GalleryController {
 		     * send a confirmation email if activated in module settings
 		     * otherwise create the "real" user right now
 		     */
-		    list($ret, $params) =
+		    list ($ret, $params) =
 			GalleryCoreApi::fetchAllPluginParameters('module', 'register');
 		    if ($ret) {
 			return array($ret, null);
@@ -202,9 +195,6 @@ class UserSelfRegistrationController extends GalleryController {
 
 /**
  * This view will prompt for data to create a new user
- *
- * @package SelfRegistration
- * @subpackage UserInterface
  */
 class UserSelfRegistrationView extends GalleryView {
 
@@ -212,8 +202,6 @@ class UserSelfRegistrationView extends GalleryView {
      * @see GalleryView::loadTemplate
      */
     function loadTemplate(&$template, &$form) {
-	global $gallery;
-
 	if ($form['formName'] != 'UserSelfRegistration') {
 	    /* First time around, set our defaults here. */
 	    $form['userName'] = '';
@@ -252,9 +240,7 @@ class UserSelfRegistrationView extends GalleryView {
 
 	$template->setVariable('UserSelfRegistration', $UserSelfRegistration);
 	$template->setVariable('controller', 'register.UserSelfRegistration');
-
-	return array(null,
-		     array('body' => 'modules/register/templates/UserSelfRegistration.tpl'));
+	return array(null, array('body' => 'modules/register/templates/UserSelfRegistration.tpl'));
     }
 }
 ?>

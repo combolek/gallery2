@@ -19,17 +19,11 @@
  */
 
 /**
- * @version $Revision$ $Date$
- * @package SelfRegistration
+ * This view will show a registration confirmation for the user
+ * @package Registration
  * @subpackage UserInterface
  * @author Sebastian Eichner <mailsp@sebastian-eichner.de>
- */
-
-/**
- * This view will show a registration confirmation for the user
- *
- * @package SelfRegistration
- * @subpackage UserInterface
+ * @version $Revision$ $Date$
  */
 class SelfRegistrationSuccessView extends GalleryView {
 
@@ -43,6 +37,7 @@ class SelfRegistrationSuccessView extends GalleryView {
 	$SelfRegistrationSuccess = array();
 	$SelfRegistrationSuccess['pending'] = $pending;
 	$SelfRegistrationSuccess['sentConfirmationEmail'] = $sentConfirmationEmail;
+	$template->setVariable('controller', 'register.UserSelfRegistration');
 	$template->setVariable('SelfRegistrationSuccess', $SelfRegistrationSuccess);
 	return array(null,
 		     array('body' => 'modules/register/templates/SelfRegistrationSuccess.tpl'));

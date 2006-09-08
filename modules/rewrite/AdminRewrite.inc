@@ -17,20 +17,18 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @package Rewrite
- * @version $Revision$ $Date$
- * @author Douglas Cau <douglas@cau.se>
- */
 
 /**
+ * Settings for URL Rewrite
  * @package Rewrite
  * @subpackage UserInterface
+ * @author Douglas Cau <douglas@cau.se>
+ * @version $Revision$ $Date$
  */
 class AdminRewriteController extends GalleryController {
 
     /**
-     * @see GalleryController::handleRequest()
+     * @see GalleryController::handleRequest
      */
     function handleRequest(&$form) {
 	$error = $status = $seen = array();
@@ -161,8 +159,7 @@ class AdminRewriteController extends GalleryController {
 }
 
 /**
- * @package Rewrite
- * @subpackage UserInterface
+ * Settings for URL Rewrite
  */
 class AdminRewriteView extends GalleryView {
 
@@ -210,7 +207,7 @@ class AdminRewriteView extends GalleryView {
 
 	switch ($AdminRewrite['mode']) {
 	case 'rules':
-	    list($ret, $activeRules) = GalleryCoreApi::getPluginParameter(
+	    list ($ret, $activeRules) = GalleryCoreApi::getPluginParameter(
 		'module', 'rewrite', 'activeRules');
 	    if ($ret) {
 		return array($ret, null);
@@ -243,7 +240,7 @@ class AdminRewriteView extends GalleryView {
 			    continue;
 			}
 
-		    	/* If we dont have old form data, populate the array with db info */
+			/* If we dont have old form data, populate the array with db info */
 			if ($form['formName'] != 'AdminRewrite') {
 			    $form['rules'][$moduleId][$ruleId]['pattern'] =
 				isset($activeRules[$moduleId][$ruleId])
@@ -336,11 +333,8 @@ class AdminRewriteView extends GalleryView {
 
 	$template->setVariable('AdminRewrite', $AdminRewrite);
 	$template->setVariable('controller', 'rewrite.AdminRewrite');
-
 	$template->javascript('lib/javascript/BlockToggle.js');
-
-	return array(null,
-	    array('body' => 'modules/rewrite/templates/AdminRewrite.tpl'));
+	return array(null, array('body' => 'modules/rewrite/templates/AdminRewrite.tpl'));
     }
 }
 ?>

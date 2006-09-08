@@ -17,24 +17,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package HybridTheme
- * @author Alan Harder <alan.harder@sun.com>
- */
 
 /**
- * This implements gallery theme combining thumb-view, image-view
- * and slideshow into a single dynamic page.
- *
- * @package HybridTheme
- * @subpackage Theme
+ * Theme combining thumb-view, image-view and slideshow into a single dynamic page
+ * @package Themes
+ * @subpackage Hybrid
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision$ $Date$
  */
 class HybridTheme extends GalleryTheme {
 
-    /**
-     * Constructor
-     */
     function HybridTheme() {
 	global $gallery;
 
@@ -42,7 +34,7 @@ class HybridTheme extends GalleryTheme {
 	$this->setName($gallery->i18n('Hybrid'));
 	$this->setDescription($gallery->i18n('Combined album/image/slideshow dynamic view'));
 	$this->setVersion('1.1.1');
-	$this->setRequiredCoreApi(array(7, 0));
+	$this->setRequiredCoreApi(array(7, 10));
 	$this->setRequiredThemeApi(array(2, 4));
 	$this->setStandardSettings(array(
 	    'rows' => 30, 'columns' => 2,
@@ -64,7 +56,7 @@ class HybridTheme extends GalleryTheme {
     }
 
     /**
-     * @see GalleryTheme::getSettings()
+     * @see GalleryTheme::getSettings
      */
     function getSettings($itemId=null) {
 	list ($ret, $settings, $params) = parent::getSettings($itemId);

@@ -17,15 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Permalinks
- * @author Pierre-Luc Paour <gallery@paour.com>
- */
 
 /**
+ * Post-activation message about URL rewrite
  * @package Permalinks
  * @subpackage UserInterface
+ * @author Pierre-Luc Paour <gallery@paour.com>
+ * @version $Revision$ $Date$
  */
 class ActivationWarningView extends GalleryView {
 
@@ -33,8 +31,8 @@ class ActivationWarningView extends GalleryView {
      * @see GalleryView::loadTemplate
      */
     function loadTemplate(&$template, &$form) {
-	return array(null,
-		     array('body' => 'modules/permalinks/templates/ActivationWarning.tpl'));
+	$template->setVariable('controller', 'permalinks.PermalinksSiteAdmin');
+	return array(null, array('body' => 'modules/permalinks/templates/ActivationWarning.tpl'));
      }
 }
 ?>

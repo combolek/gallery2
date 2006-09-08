@@ -17,24 +17,17 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package ClassicTheme
- * @author Bharat Mediratta <bharat@menalto.com>
- * @author Alan Harder <alan.harder@sun.com>
- */
 
 /**
- * This implements the standard gallery theme
- *
- * @package ClassicTheme
- * @subpackage Theme
+ * Theme with columns for thumbnails, item info and subalbum links
+ * @package Themes
+ * @subpackage Classic
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision$ $Date$
  */
 class ClassicTheme extends GalleryTheme {
 
-    /**
-     * Constructor
-     */
     function ClassicTheme() {
 	global $gallery;
 
@@ -42,8 +35,8 @@ class ClassicTheme extends GalleryTheme {
 	$this->setName($gallery->i18n('Classic'));
 	$this->setDescription($gallery->i18n('Classic Gallery2 root album look and feel'));
 	$this->setVersion('1.1.1');
+	$this->setRequiredCoreApi(array(7, 10));
 	$this->setRequiredThemeApi(array(2, 4));
-	$this->setRequiredCoreApi(array(7, 0));
 	$this->setStandardSettings(
 	    array('rows' => 10, 'columns' => 1,
 		  'showImageOwner' => 0, 'showAlbumOwner' => 1,
@@ -66,7 +59,7 @@ class ClassicTheme extends GalleryTheme {
     }
 
     /**
-     * @see GalleryTheme::getSettings()
+     * @see GalleryTheme::getSettings
      */
     function getSettings($itemId=null) {
 	list ($ret, $settings, $params) = parent::getSettings($itemId);

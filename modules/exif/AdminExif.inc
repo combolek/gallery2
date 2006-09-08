@@ -17,22 +17,17 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
+GalleryCoreApi::requireOnce('modules/exif/classes/ExifHelper.class');
+
 /**
- * @version $Revision$ $Date$
+ * Settings for Exif
  * @package Exif
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
  * @author Georg Rehfeld <rehfeld@georg-rehfeld.de>
  * @author Jozsef R.Nagy <jozsef.rnagy@site.hu>
- */
-
-GalleryCoreApi::requireOnce('modules/exif/classes/ExifHelper.class');
-
-/**
- * This controller will handle the setting of Exif module options
- *
- * @package Exif
- * @subpackage UserInterface
+ * @version $Revision$ $Date$
  */
 class AdminExifController extends GalleryController {
 
@@ -343,10 +338,7 @@ class AdminExifController extends GalleryController {
 }
 
 /**
- * This view will prompt for general Gallery settings
- *
- * @package Exif
- * @subpackage UserInterface
+ * Settings for Exif
  */
 class AdminExifView extends GalleryView {
 
@@ -421,11 +413,9 @@ class AdminExifView extends GalleryView {
 	$AdminExif['summaryList'] = $summaryList;
 	$AdminExif['detailedList'] = $detailedList;
 
-	$template->setVariable('controller', 'exif.AdminExif');
 	$template->setVariable('AdminExif', $AdminExif);
-
-	return array(null,
-		     array('body' => 'modules/exif/templates/AdminExif.tpl'));
+	$template->setVariable('controller', 'exif.AdminExif');
+	return array(null, array('body' => 'modules/exif/templates/AdminExif.tpl'));
     }
 }
 ?>

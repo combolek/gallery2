@@ -17,18 +17,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Remote
- * @subpackage PHPUnit
- * @author Bharat Mediratta <bharat@menalto.com>
- */
 
 /**
  * GalleryRemote controller tests
  *
  * @package Remote
  * @subpackage PHPUnit
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision$ $Date$
  */
 class GalleryRemoteControllerTest extends GalleryControllerTestCase {
 
@@ -38,15 +34,13 @@ class GalleryRemoteControllerTest extends GalleryControllerTestCase {
 
     function setUp() {
 	global $gallery;
-
 	parent::setUp();
 
 	/* Create a new user */
-	list ($ret, $this->_user) = $this->_createRandomUser();
+	list ($ret, $this->_user) = $this->_createRandomUser(null, 'pass&word');
 	if ($ret) {
 	    return $this->failWithStatus($ret);
 	}
-
 	$this->_markForCleanup($this->_user);
 
 	list ($ret, $this->_rootAlbum) = $this->_createRandomAlbum($this->_getRootId());
@@ -66,7 +60,7 @@ class GalleryRemoteControllerTest extends GalleryControllerTestCase {
 
 	GalleryUtilities::putRequestVariable('form[cmd]', 'login');
 	GalleryUtilities::putRequestVariable('form[uname]', $this->_user->getUserName());
-	GalleryUtilities::putRequestVariable('form[password]', 'password');
+	GalleryUtilities::putRequestVariable('form[password]', 'pass&word');
 
 	$results = $this->handleRequest();
 	$this->assertEquals(array(), $results['error'], 'error');
@@ -324,7 +318,7 @@ class GalleryRemoteControllerTest extends GalleryControllerTestCase {
 	/* root
 	    + 0
 	      + 1 (read-only)
-	        + 2
+		+ 2
 		  + 3 (read-only, should not appear)
 	      + 4
 	 */
@@ -408,7 +402,7 @@ class GalleryRemoteControllerTest extends GalleryControllerTestCase {
 	/* root
 	    + 0
 	      + 1 (read-only)
-	        + 2
+		+ 2
 		  + 3 (read-only, should not appear)
 	      + 4
 	 */
@@ -723,11 +717,11 @@ class GalleryRemoteControllerTest extends GalleryControllerTestCase {
 	$this->assertEquals($this->_code['SUCCESS'], (int)$response->getProperty('status'));
 
 	/* Make sure the the view count is 1 */
-	list($ret, $imageViewCount) = GalleryCoreApi::fetchItemViewCount($image->getId());
+	list ($ret, $imageViewCount) = GalleryCoreApi::fetchItemViewCount($image->getId());
 	if ($ret) {
 	    return $ret;
 	}
-	list($ret, $albumViewCount) = GalleryCoreApi::fetchItemViewCount($album->getId());
+	list ($ret, $albumViewCount) = GalleryCoreApi::fetchItemViewCount($album->getId());
 	if ($ret) {
 	    return $ret;
 	}

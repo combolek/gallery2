@@ -19,16 +19,12 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * ItemEditAlbum controller tests
+ *
  * @package GalleryCore
  * @subpackage PHPUnit
  * @author Bharat Mediratta <bharat@menalto.com>
- */
-
-/**
- * ItemEditAlbum controller tests
- * @package GalleryCore
- * @subpackage PHPUnit
+ * @version $Revision$ $Date$
  */
 class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 
@@ -532,8 +528,8 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 	}
 
 	/*
-	 * Also check the grandchild album - to make sure that descendents don't
-	 * just return children
+	 * Also check the grandchild album - to make sure that descendents don't just return
+	 * children
 	 */
 	list ($ret, $this->_grandchildAlbum) = $this->_createRandomAlbum(
 	    $this->_childAlbum->getId());
@@ -677,11 +673,9 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
 
 /**
  * Mock data item
- *
- * @package GalleryCore
- * @subpackage PHPUnit
  */
 class ItemEditAlbumPluginTestDataItem extends GalleryDataItem {
+
     /**
      * @see GalleryEntity::getClassName
      */
@@ -692,9 +686,6 @@ class ItemEditAlbumPluginTestDataItem extends GalleryDataItem {
 
 /**
  * Mock toolkit
- *
- * @package GalleryCore
- * @subpackage PHPUnit
  */
 class ItemEditAlbumPluginTestToolkit extends GalleryToolkit {
 }

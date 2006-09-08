@@ -17,17 +17,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package ImageMagick
- * @author Bharat Mediratta <bharat@menalto.com>
- */
 
 GalleryCoreApi::requireOnce('modules/imagemagick/classes/ImageMagickToolkitHelper.class');
 
 /**
+ * Settings for ImageMagick
  * @package ImageMagick
  * @subpackage UserInterface
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision$ $Date$
  */
 class AdminImageMagickController extends GalleryController {
 
@@ -179,8 +177,7 @@ class AdminImageMagickController extends GalleryController {
 }
 
 /**
- * @package ImageMagick
- * @subpackage UserInterface
+ * Settings for ImageMagick
  */
 class AdminImageMagickView extends GalleryView {
 
@@ -299,9 +296,7 @@ class AdminImageMagickView extends GalleryView {
 
 	$template->setVariable('AdminImageMagick', $AdminImageMagick);
 	$template->setVariable('controller', 'imagemagick.AdminImageMagick');
-
-	return array(null,
-		     array('body' => 'modules/imagemagick/templates/AdminImageMagick.tpl'));
+	return array(null, array('body' => 'modules/imagemagick/templates/AdminImageMagick.tpl'));
     }
 }
 ?>

@@ -19,22 +19,16 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * This controller will handle the changes made to a comment
  * @package Comment
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
- */
-
-/**
- * This controller will handle the changes made to a comment
- *
- * @package Comment
- * @subpackage UserInterface
+ * @version $Revision$ $Date$
  */
 class EditCommentController extends GalleryController {
 
     /**
-     * @see GalleryController::handleRequest()
+     * @see GalleryController::handleRequest
      */
     function handleRequest($form) {
 	global $gallery;
@@ -93,7 +87,7 @@ class EditCommentController extends GalleryController {
 	    }
 
 	    if (empty($form['subject'])) {
-		$error[] = 'form[error][subject][missing]';
+		$form['subject'] = '';
 	    }
 
 	    if (empty($form['comment'])) {
@@ -175,7 +169,7 @@ class EditCommentController extends GalleryController {
 	    }
 
 	    if (empty($form['subject'])) {
-		$error[] = 'form[error][subject][missing]';
+		$form['subject'] = '';
 	    }
 
 	    if (empty($form['comment'])) {
@@ -206,10 +200,6 @@ class EditCommentController extends GalleryController {
 
 /**
  * This view shows a form to edit a comment
- *
- * @package Comment
- * @subpackage UserInterface
- *
  */
 class EditCommentView extends GalleryView {
 

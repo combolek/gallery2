@@ -17,15 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package AlbumSelect
- * @author Alan Harder <alan.harder@sun.com>
- */
 
 /**
+ * Settings for Album Select
  * @package AlbumSelect
  * @subpackage UserInterface
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision$ $Date$
  */
 class AlbumSelectSiteAdminController extends GalleryController {
 
@@ -66,8 +64,7 @@ class AlbumSelectSiteAdminController extends GalleryController {
 }
 
 /**
- * @package AlbumSelect
- * @subpackage UserInterface
+ * Settings for Album Select
  */
 class AlbumSelectSiteAdminView extends GalleryView {
 

@@ -17,11 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Gd
- * @author Ernesto Baschny <ernst@baschny.de>
- */
 
 /**
  * Gd Graphics Module
@@ -29,6 +24,8 @@
  * This module provides the Gd graphics toolkit for Gallery
  *
  * @package Gd
+ * @author Ernesto Baschny <ernst@baschny.de>
+ * @version $Revision$ $Date$
  */
 class GdModule extends GalleryModule {
 
@@ -41,12 +38,12 @@ class GdModule extends GalleryModule {
 	$this->setVersion('1.1.0');
 	$this->setGroup('toolkits', $gallery->i18n('Graphics Toolkits'));
 	$this->setCallbacks('getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 0));
+	$this->setRequiredCoreApi(array(7, 4));
 	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
-     * @see GalleryModule::upgrade()
+     * @see GalleryModule::upgrade
      */
     function upgrade($currentVersion) {
 	if (!isset($currentVersion)) {
@@ -61,7 +58,7 @@ class GdModule extends GalleryModule {
     }
 
     /**
-     * @see GalleryModule::performFactoryRegistrations()
+     * @see GalleryModule::performFactoryRegistrations
      */
     function performFactoryRegistrations() {
 	/* Register our graphics class with the factory */
@@ -153,7 +150,7 @@ class GdModule extends GalleryModule {
 	 */
 	GalleryCoreApi::requireOnce('modules/gd/classes/GdToolkitHelper.class');
 
-	list($ret, $isSupported) = GdToolkitHelper::isGdVersionSupported();
+	list ($ret, $isSupported) = GdToolkitHelper::isGdVersionSupported();
 	if ($ret) {
 	    return array($ret, null);
 	}

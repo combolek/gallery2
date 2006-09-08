@@ -17,15 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Rating
- * @author  Don Seiler <don@seiler.us>
- */
 
 /**
+ * Settings for Ratings
  * @package Rating
  * @subpackage UserInterface
+ * @author  Don Seiler <don@seiler.us>
+ * @version $Revision$ $Date$
  */
 class RatingSiteAdminController extends GalleryController {
 
@@ -65,7 +63,8 @@ class RatingSiteAdminController extends GalleryController {
 			   'orderBy' => (empty($form['presort']) ? '' : $form['presort'] . '|')
 					. $form['orderBy'],
 			   'orderDirection' => $form['orderDirection'],
-			   'minLimit' => $form['minLimit'])
+			   'minLimit' => $form['minLimit'],
+			   'description' => $form['description'])
 		    as $key => $value) {
 		$ret = GalleryCoreApi::setPluginParameter('module', 'rating', $key, $value);
 		if ($ret) {
@@ -86,8 +85,7 @@ class RatingSiteAdminController extends GalleryController {
 }
 
 /**
- * @package Rating
- * @subpackage UserInterface
+ * Settings for Ratings
  */
 class RatingSiteAdminView extends GalleryView {
 
@@ -103,8 +101,8 @@ class RatingSiteAdminView extends GalleryView {
 	}
 
 	if ($form['formName'] != 'RatingSiteAdmin') {
-	    foreach (array('allowAlbumRating', 'themeId', 'orderBy', 'orderDirection', 'minLimit')
-		    as $key) {
+	    foreach (array('allowAlbumRating', 'themeId', 'orderBy', 'orderDirection', 'minLimit',
+			   'description') as $key) {
 		list ($ret, $form[$key]) =
 		    GalleryCoreApi::getPluginParameter('module', 'rating', $key);
 		if ($ret) {

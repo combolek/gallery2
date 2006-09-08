@@ -17,22 +17,21 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Rss
- * @author Jonatan Heyman <http://heyman.info>,
- * @author Pierre-Luc Paour
- * @author Daniel Grund <http://www.photogrund.nl>
- */
 
 GalleryCoreApi::requireOnce('modules/rss/classes/RssMapHelper.class');
 GalleryCoreApi::requireOnce('modules/rss/classes/RssHelper.class');
 
 /**
+ * Edit RSS feed settings
  * @package Rss
  * @subpackage UserInterface
+ * @author Jonatan Heyman <http://heyman.info>,
+ * @author Pierre-Luc Paour
+ * @author Daniel Grund <http://www.photogrund.nl>
+ * @version $Revision$ $Date$
  */
 class EditFeedController extends GalleryController {
+
     /**
      * @see GalleryController::handleRequest
      */
@@ -192,9 +191,6 @@ class EditFeedController extends GalleryController {
 
 /**
  * This view will show a form to generate an URL to an RSS feed.
- *
- * @package Rss
- * @subpackage UserInterface
  */
 class EditFeedView extends GalleryView {
     /**
@@ -341,8 +337,7 @@ class EditFeedView extends GalleryView {
 	$template->setVariable('EditFeed', $EditFeed);
 	$template->setVariable('param', $param);
 	$template->setVariable('controller', 'rss.EditFeed');
-	return array(null,
-	    array('body' => 'modules/rss/templates/EditFeed.tpl'));
+	return array(null, array('body' => 'modules/rss/templates/EditFeed.tpl'));
     }
 }
 ?>

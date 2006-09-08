@@ -17,11 +17,18 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+/**
+ * Static helper methods for use by NokiaUpload views and controllers.
+ * @package NokiaUpload
+ * @subpackage Classes
+ * @author Jerome Rannikko <jeromer@hotpop.com>
+ * @version $Revision$ $Date$
+ * @static
+ */
 
 /**
  * Error codes and other constants for NokiaUpload module.
- * These are defined in the Image Upload Server API document
- * available at forum.nokia.com.
+ * These are defined in the Image Upload Server API document available at forum.nokia.com.
  */
 define('NOKIAUPLOAD_ERR_NOERR', '0');
 define('NOKIAUPLOAD_ERR_UNKNOWN', '1');
@@ -34,23 +41,15 @@ define('NOKIAUPLOAD_ERR_AUTH', '2');
 define('NOKIAUPLOAD_ERR_DIRCREATE', '2');
 
 /* Upload (section 5.5) */
-define('NOKIAUPLOAD_ERR_NOSPACE', '2'); /* Not enough space left in server. */
-define('NOKIAUPLOAD_ERR_TOOBIG', '3');  /* Too large image. */
+define('NOKIAUPLOAD_ERR_NOSPACE', '2'); /* Not enough space left in server */
+define('NOKIAUPLOAD_ERR_TOOBIG', '3');  /* Too large image */
 
 /* Directory Listing (section 5.6) */
 define('NOKIAUPLOAD_ERR_DIRLIST', '2');
 
 /**
- * @version $Revision$ $Date$
- * @package NokiaUpload
- * @author Jerome Rannikko <jeromer@hotpop.com>
- */
-
-/**
  * Static helper methods for use by NokiaUpload views and controllers.
- *
- * @package NokiaUpload
- * @subpackage Helpers
+ * @static
  */
 class ImageUploadHelper {
 
@@ -92,14 +91,14 @@ class ImageUploadHelper {
 	$gallery->setActiveUser($user);
 
 	/* Add user to the mobile users' group if s/he isn't yet a member of it. */
-	list($ret, $groupId) =
+	list ($ret, $groupId) =
 	    GalleryCoreApi::getPluginParameter('module', 'nokiaupload', 'id.mobileGroup');
 	if ($ret) {
 	    $gallery->debug("ERROR: Couldn't get Mobile Group id.\n" . $ret->getAsText());
 	    return $status;
 	}
 
-	list($ret, $isMember) = GalleryCoreApi::isUserInGroup($user->getId(), $groupId);
+	list ($ret, $isMember) = GalleryCoreApi::isUserInGroup($user->getId(), $groupId);
 	if ($ret) {
 	    $gallery->debug("ERROR: GalleryCoreApi::isUserInGroup failed.\n" . $ret->getAsText());
 	    return $status;
@@ -196,7 +195,7 @@ class ImageUploadHelper {
 	/* If the client didn't give the parent id we need to use our own upload album. */
 	if (empty($parentId)) {
 	    $gallery->debug("Parent album id not given by client. Trying our own upload album.");
-	    list($ret, $parentId) =
+	    list ($ret, $parentId) =
 		GalleryCoreApi::getPluginParameter('module', 'nokiaupload', 'id.uploadAlbum');
 	    if ($ret) {
 		$gallery->debug("ERROR: Couldn't get id.uploadAlbum parameter.\n" .
@@ -275,7 +274,7 @@ class ImageUploadHelper {
 
 	/* We don't allow other (mobile) users to add anything to our personal album.
 	 * If we get an error here it doesn't really matter so we don't check for errors. */
-	list($ret, $groupId) =
+	list ($ret, $groupId) =
 	    GalleryCoreApi::getPluginParameter('module', 'nokiaupload', 'id.mobileGroup');
 	if (!$ret) {
 	    $ret = GalleryCoreApi::removeGroupPermission($instance->getId(), $groupId,
@@ -398,7 +397,7 @@ class ImageUploadHelper {
 	$status['success'] = NOKIAUPLOAD_ERR_DIRLIST;
 
 	/* Get all album ids where we have addDataItem permission. */
-	list($ret, $albumIds) = GalleryCoreApi::fetchAllItemIds('GalleryAlbumItem',
+	list ($ret, $albumIds) = GalleryCoreApi::fetchAllItemIds('GalleryAlbumItem',
 								'core.addDataItem');
 	if ($ret || count($albumIds) < 1) {
 	    $gallery->debug("ERROR: No albums with addDataItem permission.\n" . $ret->getAsText());
@@ -406,7 +405,7 @@ class ImageUploadHelper {
 	}
 
 	/* Load albums and get their names. */
-	list($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds);
+	list ($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds);
 	if ($ret) {
 	    $gallery->debug(
 		"ERROR: GalleryCoreApi::loadEntitiesById failed.\n" . $ret->getAsText());
@@ -601,9 +600,7 @@ class ImageUploadHelper {
 
     /**
      * Write the contents of _POST and _GET to debug log.
-     *
      * @param string optional message
-     * @static
      */
     function logRequest($message='') {
 	global $gallery;

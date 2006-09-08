@@ -18,29 +18,22 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-/**
- * @version $Revision$ $Date$
- * @package Migrate
- * @author Jesse Mullan <jmullan@visi.com>
- */
 
-/**
- * Required classes
- */
 GalleryCoreApi::requireOnce('modules/migrate/classes/Gallery1DataParser.class');
 
 /**
+ * Form to prepare G1 migration
  * @package Migrate
  * @subpackage UserInterface
+ * @author Jesse Mullan <jmullan@visi.com>
+ * @version $Revision$ $Date$
  */
 class ChooseObjectsController extends GalleryController {
+
     /**
-     * @see GalleryController::handleRequest()
+     * @see GalleryController::handleRequest
      */
     function handleRequest($form) {
-	global $gallery;
-
-	/* Verify that active user is an admin */
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
 	    return array($ret, null);
@@ -79,8 +72,7 @@ class ChooseObjectsController extends GalleryController {
 }
 
 /**
- * @package Migrate
- * @subpackage UserInterface
+ * Form to prepare G1 migration
  */
 class ChooseObjectsView extends GalleryView {
 
@@ -177,15 +169,14 @@ class ChooseObjectsView extends GalleryView {
 	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 	}
 
-	$existingUsers = array();
-	$newUsers = array();
-	list($ret, $allUsers) = Gallery1DataParser::getUserUids($albumsPath);
+	$existingUsers = $newUsers = array();
+	list ($ret, $allUsers) = Gallery1DataParser::getUserUids($albumsPath);
 	if ($ret) {
 	    return array($ret, null);
 	}
 
-	foreach($allUsers as $uid => $userName) {
-	    list($ret, $testUser) = GalleryCoreApi::fetchUserByUsername($userName);
+	foreach ($allUsers as $uid => $userName) {
+	    list ($ret, $testUser) = GalleryCoreApi::fetchUserByUsername($userName);
 	    if ($ret && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
 		return array($ret, 'Your userdb.dat includes '
 			     . $userName . ' but doesn\'t include the associated file: ' . $uid);
@@ -253,25 +244,25 @@ class ChooseObjectsView extends GalleryView {
 	$ChooseObjects['availableEncodings'] = $availableEncodings;
 	$ChooseObjects['possibleEncodingMatch'] = $possibleEncodingMatch;
 	$ChooseObjects['customFieldsActive'] = isset($customFieldInterface);
+
 	$template->setVariable('ChooseObjects', $ChooseObjects);
 	$template->setVariable('controller', 'migrate.ChooseObjects');
-
-	return array(null,
-		     array('body' => 'modules/migrate/templates/ChooseObjects.tpl'));
+	return array(null, array('body' => 'modules/migrate/templates/ChooseObjects.tpl'));
     }
 
     /**
      * Extract all G1 albums and turn it into a depth tree suitable for display
      * in a hierarchical format.
+     * @access private
      */
     function _createG1AlbumTree($albumsPath) {
 
-	list($ret, $albumList) = Gallery1DataParser::getAlbumList($albumsPath);
+	list ($ret, $albumList) = Gallery1DataParser::getAlbumList($albumsPath);
 	if ($ret) {
 	    return array($ret, null);
 	}
 
-	list($ret, $hierarchy) = Gallery1DataParser::getAlbumHierarchy($albumsPath);
+	list ($ret, $hierarchy) = Gallery1DataParser::getAlbumHierarchy($albumsPath);
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -287,7 +278,6 @@ class ChooseObjectsView extends GalleryView {
 
     /**
      * Recursively walk a parent/child map and build the depth tree.
-     *
      * @access private
      */
     function _createG1DepthTree(&$albumList, $albumName, $hierarchy, $depth=0) {

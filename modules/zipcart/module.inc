@@ -17,16 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package ZipCart
- * @author Alan Harder <alan.harder@sun.com>
- */
 
 /**
  * Cart plugin to download all images in a zip file
  *
  * @package ZipCart
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision$ $Date$
  */
 class ZipCartModule extends GalleryModule {
 
@@ -39,12 +36,12 @@ class ZipCartModule extends GalleryModule {
 	$this->setVersion('1.0.5');
 	$this->setGroup('commerce', $gallery->i18n('Commerce'));
 	$this->setCallbacks('getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 0));
+	$this->setRequiredCoreApi(array(7, 4));
 	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
-     * @see GalleryModule::performFactoryRegistrations()
+     * @see GalleryModule::performFactoryRegistrations
      */
     function performFactoryRegistrations() {
 	/* Register our cart plugin */
@@ -109,7 +106,7 @@ class ZipCartModule extends GalleryModule {
 	    $paths[] = 'C:\\apps\Zip\\zip.exe';
 	    $paths[] = 'C:\\Zip\\zip.exe';
 	    $paths[] = 'C:\\cygwin\\bin\\zip.exe';
-	} else if (GalleryUtilities::isA($platform, 'UnixPlatform')){
+	} else if (GalleryUtilities::isA($platform, 'UnixPlatform')) {
 	    foreach (explode(':', getenv('PATH')) as $path) {
 		$path = trim($path);
 		if (empty($path)) {

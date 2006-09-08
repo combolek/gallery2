@@ -17,19 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
- * @version $Revision$ $Date$
+ * This plugin will handle the addition of an items from the server filesystem.
  * @package ItemAdd
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
- */
-
-/**
- * This controller will handle the addition of an item as a children to
- * another item.
- *
- * @package ItemAdd
- * @subpackage UserInterface
+ * @version $Revision$ $Date$
  */
 class ItemAddFromServer extends ItemAddPlugin {
 
@@ -59,8 +53,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 	$this->_platform =& $gallery->getPlatform();
 	$this->_dirSep = $this->_platform->getDirectorySeparator();
 
-	$status = array();
-	$error = array();
+	$status = $error = array();
 
 	if (isset($form['action']['addFromLocalServer'])
 		&& (!empty($form['localServerFiles']) || !empty($form['localServerDirectories']))) {
@@ -475,16 +468,16 @@ class ItemAddFromServer extends ItemAddPlugin {
 	}
 
 	/* Do we have permission to add subalbums */
-        list ($ret, $canAddAlbum) = GalleryCoreApi::hasItemPermission($item->getId(),
-            'core.addAlbumItem');
-        if ($ret) {
-            return array($ret, null, null);
-        }
+	list ($ret, $canAddAlbum) = GalleryCoreApi::hasItemPermission($item->getId(),
+		'core.addAlbumItem');
+	if ($ret) {
+	    return array($ret, null, null);
+	}
 	$ItemAddFromServer = array('pathSeparator' => $slash,
 				   'localServerDirList' => $localServerDirList,
 				   'localServerFileCount' =>
 				     isset($localServerFileCount) ? $localServerFileCount : null,
-                                   'canAddAlbum' => $canAddAlbum);
+				   'canAddAlbum' => $canAddAlbum);
 
 	if (!empty($form['localServerFiles'])) {
 	    usort($form['localServerFiles'], array($this, '_sortFiles'));

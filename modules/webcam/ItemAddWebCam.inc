@@ -17,15 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package WebCam
- * @author Alan Harder <alan.harder@sun.com>
- */
 
 /**
+ * ItemAdd plugin to add a new webcam image
  * @package WebCam
  * @subpackage UserInterface
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision$ $Date$
  */
 class ItemAddWebCam extends ItemAddPlugin {
 
@@ -141,8 +139,7 @@ class ItemAddWebCam extends ItemAddPlugin {
 	    }
 	}
 
-	return array(null,
-		     'modules/webcam/templates/ItemAddWebCam.tpl', 'modules_webcam');
+	return array(null, 'modules/webcam/templates/ItemAddWebCam.tpl', 'modules_webcam');
     }
 
     /**

@@ -17,18 +17,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package GalleryCore
- * @subpackage PHPUnit
- * @author Bharat Mediratta <bharat@menalto.com>
- */
 
 /**
  * Test Item functionality
  *
  * @package GalleryCore
  * @subpackage PHPUnit
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision$ $Date$
  */
 class ItemTest extends GalleryTestCase {
 
@@ -490,7 +486,7 @@ class ItemTest extends GalleryTestCase {
 	/* Verification */
 	$this->assert(in_array($album->getId(), $ids), 'parent album not returned');
 	$itemCount = 1;
-	foreach($items as $item) {
+	foreach ($items as $item) {
 	    $this->assert(in_array($item->getId(), $ids), 'child '.$item->getId() .' not returned');
 	    $itemCount++;
 	}
@@ -1705,21 +1701,15 @@ class ItemTestToolkit extends GalleryToolkit {
 
 }
 
-/**
- * Required classes
- */
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryMovieItem.class');
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryRenderer.class');
 
 /**
  * Test movie item
- *
- * @package GalleryCore
- * @subpackage PHPUnit
  */
 class ItemTestMovieItem extends GalleryMovieItem {
     /**
-     * @see GalleryEntity::getClassName()
+     * @see GalleryEntity::getClassName
      */
     function getClassName() {
 	return 'ItemTestMovieItem';
@@ -1728,20 +1718,17 @@ class ItemTestMovieItem extends GalleryMovieItem {
 
 /**
  * Test renderer
- *
- * @package GalleryCore
- * @subpackage PHPUnit
  */
 class ItemTestRenderer extends GalleryRenderer {
     /**
-     * @see GalleryRenderer::canBeViewedInline()
+     * @see GalleryRenderer::canBeViewedInline
      */
     function canBeViewedInline($item) {
 	return (substr($item->getMimeType(), 0, 5) == 'test/');
     }
 
     /**
-     * @see GalleryRenderer::render()
+     * @see GalleryRenderer::render
      */
     function render($format, $entity, $item, $params) {
 	return null;

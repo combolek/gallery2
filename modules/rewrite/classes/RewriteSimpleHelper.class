@@ -17,17 +17,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @package Rewrite
- * @version $Revision$ $Date$
- * @author Douglas Cau <douglas@cau.se>
- */
 
 /**
  * This class provides basic URL keyword functions
- *
  * @package Rewrite
  * @subpackage Classes
+ * @author Douglas Cau <douglas@cau.se>
+ * @version $Revision$ $Date$
+ * @static
  */
 class RewriteSimpleHelper {
 
@@ -38,7 +35,7 @@ class RewriteSimpleHelper {
      * @return object GalleryStatus a status code
      */
     function loadItemIdFromPath() {
-	list($path, $itemId) = GalleryUtilities::getRequestVariables('path', 'itemId');
+	list ($path, $itemId) = GalleryUtilities::getRequestVariables('path', 'itemId');
 
 	if (!empty($path) && empty($itemId)) {
 	    if (substr($path, -5) == '.html') {

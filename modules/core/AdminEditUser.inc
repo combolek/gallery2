@@ -17,19 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package GalleryCore
- * @subpackage UserInterface
- * @author Bharat Mediratta <bharat@menalto.com>
- */
 
 /**
  * This controller will handle changes made to an user
- *
  * @package GalleryCore
  * @subpackage UserInterface
- *
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision$ $Date$
  */
 class AdminEditUserController extends GalleryController {
 
@@ -50,9 +44,7 @@ class AdminEditUserController extends GalleryController {
 	    return array($ret, null);
 	}
 
-	/*
-	 * We treat anonymous users differently, so see if we're editing the anonymous user.
-	 */
+	/* We treat anonymous users differently, so see if we're editing the anonymous user */
 	list ($ret, $anonymousUserId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
 	if ($ret) {
@@ -129,6 +121,7 @@ class AdminEditUserController extends GalleryController {
 
 		$user->setUserName(trim($form['userName']));
 		$user->setFullname(trim($form['fullName']));
+                $user->setLocked(!empty($form['locked']) ? 1 : 0);
 		if (!$isAnonymous) {
 		    $user->setEmail($form['email']);
 		    $user->setLanguage($form['language']);
@@ -170,10 +163,6 @@ class AdminEditUserController extends GalleryController {
 
 /**
  * This view will show a form to change user options
- *
- * @package GalleryCore
- * @subpackage UserInterface
- *
  */
 class AdminEditUserView extends GalleryView {
 
@@ -194,6 +183,11 @@ class AdminEditUserView extends GalleryView {
 	    return array($ret, null);
 	}
 
+        list ($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup($userId);
+        if ($ret) {
+            return array($ret, null);
+        }
+
 	/* Load the form with user data the first time around. */
 	if ($form['formName'] != 'AdminEditUser') {
 	    $form['userName'] = $user->getUserName();
@@ -201,6 +195,7 @@ class AdminEditUserView extends GalleryView {
 	    $form['email'] = $user->getEmail();
 	    $form['language'] = $user->getLanguage();
 	    $form['formName'] = 'AdminEditUser';
+            $form['locked'] = $user->isLocked();
 	}
 
 	/* Email is not required for the anonymous user */
@@ -209,9 +204,13 @@ class AdminEditUserView extends GalleryView {
 	if ($ret) {
 	    return array($ret, null);
 	}
+
 	$show['email'] = ($userId != $anonymousUserId);
 	$show['language'] = ($userId != $anonymousUserId);
 	$show['password'] = ($userId != $anonymousUserId);
+
+        /* Only show the lock option if the user being edited is not an admin */
+        $show['locked'] = !$isAdmin;
 
 	if ($show['language']) {
 	    /* Set up our language selection list */
@@ -240,8 +239,7 @@ class AdminEditUserView extends GalleryView {
 
 	$template->setVariable('AdminEditUser', $AdminEditUser);
 	$template->setVariable('controller', 'core.AdminEditUser');
-	return array(null,
-		     array('body' => 'modules/core/templates/AdminEditUser.tpl'));
+	return array(null, array('body' => 'modules/core/templates/AdminEditUser.tpl'));
     }
 }
 ?>

@@ -19,24 +19,17 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * This controller will handle changing the order of items in an album.
+ *
  * @package GalleryCore
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
- */
-
-/**
- * This controller will handle moving one or more items from one album to
- * another.
- *
- * @package GalleryCore
- * @subpackage UserInterface
- *
+ * @version $Revision$ $Date$
  */
 class ItemReorderController extends GalleryController {
 
     /**
-     * Reorder items in an album
+     * @see GalleryController::handleRequest
      */
     function handleRequest($form) {
 	global $gallery;
@@ -76,8 +69,8 @@ class ItemReorderController extends GalleryController {
 		    return array($ret, null);
 		}
 
-		if ($entities[0]->getParentId() != $itemId ||
-			$entities[1]->getParentId() != $itemId) {
+		if ($entities[0]->getParentId() != $itemId
+			|| $entities[1]->getParentId() != $itemId) {
 		    return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED), null);
 		}
 	    }
@@ -165,10 +158,7 @@ class ItemReorderController extends GalleryController {
 }
 
 /**
- * This view will prompt for which item to reorder and what is the target
- *
- * @package GalleryCore
- * @subpackage UserInterface
+ * This view will prompt for how to change the order of items in the album
  */
 class ItemReorderView extends GalleryView {
 

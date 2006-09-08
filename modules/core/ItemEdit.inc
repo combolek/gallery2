@@ -19,17 +19,12 @@
  */
 
 /**
- * @version $Revision$ $Date$
- * @package GalleryCore
- * @subpackage UserInterface
- * @author Bharat Mediratta <bharat@menalto.com>
- */
-
-/**
  * This controller will handle the editing of an item
  *
  * @package GalleryCore
  * @subpackage UserInterface
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision$ $Date$
  */
 class ItemEditController extends GalleryController {
 
@@ -187,9 +182,6 @@ class ItemEditController extends GalleryController {
 
 /**
  * This view will show options to edit an item
- *
- * @package GalleryCore
- * @subpackage UserInterface
  */
 class ItemEditView extends GalleryView {
 
@@ -346,8 +338,7 @@ class ItemEditView extends GalleryView {
 /**
  * Interface for plugins to the ItemEdit view and controller
  *
- * @package GalleryCore
- * @subpackage UserInterface
+ * @abstract
  */
 class ItemEditPlugin {
 
@@ -411,6 +402,7 @@ class ItemEditPlugin {
      * @param array mime types
      * @return array object GalleryStatus a status code
      *               bool true if any of the mime types are supported
+     * @access protected
      */
     function _checkForOperation($operation, $mimeTypes) {
 	foreach (array_unique($mimeTypes) as $mimeType) {
@@ -433,8 +425,7 @@ class ItemEditPlugin {
  * in the views and extra processing in the controller so that we can add new functionality to
  * various ItemEditPlugins.
  *
- * @package GalleryCore
- * @subpackage UserInterface
+ * @abstract
  */
 class ItemEditOption {
 

@@ -17,32 +17,25 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Replica
- * @subpackage UserInterface
- * @author Bharat Mediratta <bharat@menalto.com>
- */
 
 /**
  * This controller will handle replicating one item from one album to another.
- *
  * @package Replica
  * @subpackage UserInterface
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision$ $Date$
  */
 class ItemCreateReplicaSingleController extends GalleryController {
 
     /**
-     * Replicate the selected item into the destination album, if all the
-     * permissions are set correctly.
+     * @see GalleryController::handleRequest
      */
     function handleRequest($form) {
 	global $gallery;
 
 	$itemId = GalleryUtilities::getRequestVariables('itemId');
 
-	$status = array();
-	$error = array();
+	$status = $error = array();
 	if (isset($form['action']['link'])) {
 	    if (empty($form['destination'])) {
 		$error[] = 'form[error][destination][empty]';
@@ -161,10 +154,6 @@ class ItemCreateReplicaSingleController extends GalleryController {
 
 /**
  * This view lets you choose where you want to put the new replica
- *
- * @package Replica
- * @subpackage UserInterface
- *
  */
 class ItemCreateReplicaSingleView extends GalleryView {
 
@@ -210,7 +199,7 @@ class ItemCreateReplicaSingleView extends GalleryView {
     }
 
     /**
-     * @see GalleryView::getViewDescription()
+     * @see GalleryView::getViewDescription
      */
     function getViewDescription() {
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'replica');

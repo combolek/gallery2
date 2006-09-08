@@ -19,17 +19,11 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * This view will allow users to view the member list
  * @package Members
  * @subpackage UserInterface
  * @author Robert Balousek <rbalousek@hotmail.com>
- */
-
-/**
- * This view will allow users to view the member list
- *
- * @package Members
- * @subpackage UserInterface
+ * @version $Revision$ $Date$
  */
 class MembersListView extends GalleryView {
 
@@ -37,7 +31,7 @@ class MembersListView extends GalleryView {
      * @see GalleryView::loadTemplate
      */
     function loadTemplate(&$template, &$form) {
-    	global $gallery;
+	global $gallery;
 	GalleryCoreApi::requireOnce('modules/members/classes/GalleryMembersHelper.class');
 	list ($ret, $result) =
 	    GalleryMembersHelper::canViewMembersModule($gallery->getActiveUserId());
@@ -45,8 +39,7 @@ class MembersListView extends GalleryView {
 	    return array($ret, null);
 	}
 	if (!$result) {
-	    return array(null,
-			 array('redirect' => array('view' => 'core.ShowItem')));
+	    return array(null, array('redirect' => array('view' => 'core.ShowItem')));
 	}
 
 	if ($form['formName'] != 'MembersList') {
@@ -106,7 +99,6 @@ class MembersListView extends GalleryView {
 
 	$form['list']['totalUserCount'] = $totalUserCount;
 
-	/* Render the HTML body */
 	$template->setVariable('MembersList', $MembersList);
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'members');
@@ -115,8 +107,7 @@ class MembersListView extends GalleryView {
 	}
 
 	$template->title($module->translate('Members List'));
-	return array(null,
-		     array('body' => 'modules/members/templates/MembersList.tpl'));
+	return array(null, array('body' => 'modules/members/templates/MembersList.tpl'));
     }
 }
 ?>

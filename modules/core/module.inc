@@ -19,15 +19,10 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * The implementation of the core-module
  * @package GalleryCore
  * @author Bharat Mediratta <bharat@menalto.com>
- */
-
-/**
- * The implementation of the core-module
- *
- * @package GalleryCore
+ * @version $Revision$ $Date$
  */
 class CoreModule extends GalleryModule {
 
@@ -39,7 +34,7 @@ class CoreModule extends GalleryModule {
 	$this->setGalleryVersion('2.2-svn');
 
 	/* Don't forget to update CoreModuleExtras::upgrade and _prepareConfigUpgrade too! */
-	$this->setVersion('1.1.15');
+	$this->setVersion('1.1.16');
 
 	$this->setDescription($gallery->i18n('Gallery 2 Core Module'));
 	$this->setGroup('gallery', $gallery->i18n('Gallery'));
@@ -251,10 +246,11 @@ class CoreModule extends GalleryModule {
 							  'subView' => 'core.UserLogin',
 							  'return' => 1));
 	    } else {
-		$links['YourAccount'] = array('text' => $this->translate('Your Account'),
-					      'params' => array('view' => 'core.UserAdmin',
-								'subView' => 'core.UserPreferences',
-								'return' => 1));
+                $user = $gallery->getActiveUser();
+                $links['YourAccount'] = array('text' => $this->translate('Your Account'),
+                                              'params' => array('view' => 'core.UserAdmin',
+                                                                'subView' => 'core.UserPreferences',
+                                                                'return' => 1));
 		$links['Logout'] = array('text' => $this->translate('Logout'),
 					 'params' => array('controller' => 'core.Logout',
 							   'return' => 1));
@@ -343,10 +339,12 @@ class CoreModule extends GalleryModule {
 	    }
 
 	    if (!$isAnonymous) {
-		$views[] = array('name' => $this->translate('Account Settings'),
-				 'view' => 'core.UserPreferences');
-		$views[] = array('name' => $this->translate('Change Password'),
-				 'view' => 'core.UserChangePassword');
+                if (!$user->isLocked()) {
+                    $views[] = array('name' => $this->translate('Account Settings'),
+                                     'view' => 'core.UserPreferences');
+                    $views[] = array('name' => $this->translate('Change Password'),
+                                     'view' => 'core.UserChangePassword');
+                }
 	    } else {
 		$views[] = array('name' => $this->translate('Login'),
 				 'view' => 'core.UserLogin');
