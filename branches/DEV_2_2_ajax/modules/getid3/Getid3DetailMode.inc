@@ -17,19 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
- * @version $Revision$ $Date$
+ * This controller will switch the ItemDetails mode in the session and return to the previous page
  * @package Getid3
  * @subpackage UserInterface
  * @author Don Willingham <donwillingham@users.sf.net>
- */
-
-/**
- * This controller will switch the ItemDetails mode in the session
- * and return to the previous page
- *
- * @package Getid3
- * @subpackage UserInterface
+ * @version $Revision$ $Date$
  */
 class Getid3DetailModeController extends GalleryController {
 
@@ -55,6 +49,5 @@ class Getid3DetailModeController extends GalleryController {
 
 	return array(null, $results);
     }
-
 }
 ?>

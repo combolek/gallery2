@@ -17,16 +17,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package RandomHighlight
- * @author Alan Harder <alan.harder@sun.com>
- */
 
 /**
  * RandomHighlight module - periodically change the album highlight
- *
  * @package RandomHighlight
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision$ $Date$
  */
 class RandomHighlightModule extends GalleryModule {
 
@@ -38,12 +34,12 @@ class RandomHighlightModule extends GalleryModule {
 	$this->setVersion('1.0.3'); /* Update upgrade() function below too */
 	$this->setGroup('display', $gallery->i18n('Display'));
 	$this->setCallbacks('getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 0));
+	$this->setRequiredCoreApi(array(7, 4));
 	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
-     * @see GalleryModule::upgrade()
+     * @see GalleryModule::upgrade
      */
     function upgrade($currentVersion) {
 	global $gallery;
@@ -124,7 +120,7 @@ class RandomHighlightModule extends GalleryModule {
     }
 
     /**
-     * @see GalleryModule::performFactoryRegistrations()
+     * @see GalleryModule::performFactoryRegistrations
      */
     function performFactoryRegistrations() {
 	$ret = GalleryCoreApi::registerFactoryImplementation(
@@ -152,14 +148,14 @@ class RandomHighlightModule extends GalleryModule {
     }
 
     /**
-     * @see GalleryModule::getOnLoadHandlerIds()
+     * @see GalleryModule::getOnLoadHandlerIds
      */
     function getOnLoadHandlerIds() {
 	return array('RandomHighlight', 'RandomHighlightPrivate');
     }
 
     /**
-     * @see GalleryModule::getSiteAdminViews()
+     * @see GalleryModule::getSiteAdminViews
      */
     function getSiteAdminViews() {
 	return array(null,
@@ -220,7 +216,7 @@ class RandomHighlightModule extends GalleryModule {
 		$picknew = true;
 	    }
 	}
-	
+
 	if ($picknew) {
 	    list ($ret, $album) = GalleryCoreApi::loadEntitiesById($thumbnail->getParentId());
 	    if ($ret) {

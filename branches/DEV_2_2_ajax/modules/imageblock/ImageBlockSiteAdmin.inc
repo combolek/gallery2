@@ -17,15 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package ImageBlock
- * @author Alan Harder <alan.harder@sun.com>
- */
 
 /**
+ * Settings for Image Block
  * @package ImageBlock
  * @subpackage UserInterface
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision$ $Date$
  */
 class ImageBlockSiteAdminController extends GalleryController {
 
@@ -74,8 +72,7 @@ class ImageBlockSiteAdminController extends GalleryController {
 }
 
 /**
- * @package ImageBlock
- * @subpackage UserInterface
+ * Settings for Image Block
  */
 class ImageBlockSiteAdminView extends GalleryView {
 
@@ -124,8 +121,7 @@ class ImageBlockSiteAdminView extends GalleryView {
 
 	$template->setVariable('ImageBlockSiteAdmin', $ImageBlockSiteAdmin);
 	$template->setVariable('controller', 'imageblock.ImageBlockSiteAdmin');
-	return array(null,
-		     array('body' => 'modules/imageblock/templates/ImageBlockSiteAdmin.tpl'));
+	return array(null, array('body' => 'modules/imageblock/templates/ImageBlockSiteAdmin.tpl'));
     }
 }
 ?>

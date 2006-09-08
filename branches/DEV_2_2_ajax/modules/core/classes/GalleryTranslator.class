@@ -17,54 +17,37 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package GalleryCore
- * @author Bharat Mediratta <bharat@menalto.com>
- */
 
 /**
  * Internationalization and Localization utilities
- *
  * @package GalleryCore
  * @subpackage Classes
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision$ $Date$
  */
 class GalleryTranslator {
-    /*
-     * ****************************************
-     *                 Members
-     * ****************************************
-     */
 
     /**
      * Keep track of the gettext domains we've already bound
-     *
-     * @var array $_boundDomains
+     * @var array
      * @access private
      */
     var $_boundDomains;
 
     /**
      * Currently selected locale
-     *
-     * @var string $_languageCode
+     * @var string
      * @access private
      */
     var $_languageCode;
 
     /**
      * Does the active language read right-to-left?
-     *
-     * @var boolean $_isRightToLeft
+     * @var boolean
      * @access private
      */
     var $_isRightToLeft;
 
-    /*
-     * ****************************************
-     *                 Methods
-     * ****************************************
-     */
 
     function GalleryTranslator() {
 	$this->_boundDomains = array();
@@ -72,7 +55,6 @@ class GalleryTranslator {
 
     /**
      * Can we translate?
-     *
      * @return boolean
      * @static
      */
@@ -82,7 +64,6 @@ class GalleryTranslator {
 
     /**
      * Can we make plural translations?
-     *
      * @return boolean
      * @static
      */
@@ -92,7 +73,6 @@ class GalleryTranslator {
 
     /**
      * Does the active language read right-to-left?
-     *
      * @return boolean
      */
     function isRightToLeft() {
@@ -100,7 +80,8 @@ class GalleryTranslator {
     }
 
     /**
-     * Return our language data
+     * Return our language data.
+     * @todo Move this information into a configuration file
      *
      * @return array array['language code']['country code'] = array('description', 'right-to-left'?)
      *         array array('country' => 'default language code',
@@ -113,7 +94,6 @@ class GalleryTranslator {
 	static $defaultCountry = array();
 
 	if (empty($supportedLanguages)) {
-	    /* TODO: Move this information into a configuration file */
 	    /* English */
 	    $supportedLanguages['en']['US']['description'] = 'English (US)';
 	    $supportedLanguages['en']['GB']['description'] = 'English (UK)';
@@ -274,7 +254,6 @@ class GalleryTranslator {
 
     /**
      * Return the list of languages that we support.
-     * Return our language data
      *
      * @return array['language code']['country code'] =
      *              array('description', 'right-to-left'?)
@@ -306,10 +285,7 @@ class GalleryTranslator {
 	/* If we're using gettext, try to bind to a language */
 	if (function_exists('dgettext')) {
 	    $this->_isRightToLeft = isset($data['right-to-left']);
-	    /*
-	     * Some systems only require LANG, others (like Mandrake) seem to require
-	     * LANGUAGE also.
-	     */
+	    /* Some systems only require LANG, some (like Mandrake) seem to require LANGUAGE also */
 	    putenv("LANG=${languageCode}");
 	    putenv("LANGUAGE=${languageCode}");
 
@@ -321,8 +297,8 @@ class GalleryTranslator {
     }
 
     /**
-     * Attempt to set the requested locale.
-     * Try fallbacks and character sets if needed to find a valid locale.
+     * Attempt to set the requested locale.  Try fallbacks and character sets if needed to find a
+     * valid locale.
      *
      * @param mixed category
      * @param string locale
@@ -342,8 +318,8 @@ class GalleryTranslator {
 	    return $ret;
 	}
 	/*
-	 * Try appending some character set names; some systems (like FreeBSD) need this.
-	 * Some require a format with hyphen (e.g. gentoo) and others without (e.g. FreeBSD).
+	 * Try appending some character set names; some systems (like FreeBSD) need this.  Some
+	 * require a format with hyphen (eg. Gentoo) and others without (eg. FreeBSD).
 	 */
 	foreach (array('UTF-8', 'UTF8', 'utf8',
 		       'ISO8859-1', 'ISO8859-2', 'ISO8859-5', 'ISO8859-7', 'ISO8859-9',
@@ -427,8 +403,8 @@ class GalleryTranslator {
     }
 
     /**
-     * Examine the incoming request and try to figure out what languages the
-     * browser will accept.  Take the first one that we can support.
+     * Examine the incoming request and try to figure out what languages the browser will accept.
+     * Take the first one that we can support.
      *
      * @return null or a language code in the <language>_<COUNTRY> format, eg: en_US
      * @static
@@ -449,37 +425,38 @@ class GalleryTranslator {
     }
 
     /**
-     * Localize the given content
-     *
+     * Localize the given text.
      * Expected inputs are of the form:
      *
      * Example 1:
-     *  $data['text'] = 'Some text to localize with %d arguments'
-     *  $data['arg1'] = 5;
+     *  $data['text'] = 'Some %s text to localize with %d arguments'
+     *  $data['arg1'] = 'fun';
+     *  $data['arg2'] = 2;  or  $data['args'] = array('fun', 2);
      *
      *  localized:  'Some text to localize with 5 arguments'
      *
      * Example 2:
-     *  $data['one'] =   'You have %d orange'
-     *  $data['many'] =  'You have %d oranges'
-     *  $data['count'] = 3 (or 1);
+     *  $data['one'] = 'You have %d orange'
+     *  $data['many'] = 'You have %d oranges'
+     *  $data['count'] = $data['arg1'] = 3;  (or 1)
      *
-     * localized:  'You have 3 oranges'  (or 'You have 1 orange')
+     * localized:  'You have 3 oranges' (or 'You have 1 orange')
      *
-     * @param string the domain (eg, a module id)
-     * @param string a directory
+     * @param string the domain (eg. pluginType . 's_' . pluginId)
      * @param mixed a single string, or an array of parameters
      * @return array object GalleryStatus a status code
      *               string the localized value
      */
     function translateDomain($domain, $data) {
 	global $gallery;
+	if (!is_array($data)) {
+	    $data = array('text' => $data);
+	}
 
 	/* Validate our parameters */
-	if (!(isset($data['text']) ||
-	      (isset($data['one']) && isset($data['many']) && isset($data['count'])))) {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER),
-			 null);
+	if (!(isset($data['text'])
+		|| (isset($data['one']) && isset($data['many']) && isset($data['count'])))) {
+	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 	}
 
 	if (function_exists('dgettext') && $this->_languageCode != 'en_US') {
@@ -501,22 +478,19 @@ class GalleryTranslator {
 	    }
 
 	    /*
-	     * We have to have dngettext (which is only available > PHP 4.2.0,
-	     * according to the PHP manual) in order to do pluralization
-	     * translations.  If we don't have have dngettext() we try to
-	     * gracefully degrade to using dgettext().
+	     * We have to have dngettext (which is only available > PHP 4.2.0, according to the PHP
+	     * manual) in order to do pluralization translations.  If we don't have have dngettext()
+	     * we try to gracefully degrade to using dgettext().
 	     */
 	    if (isset($data['one'])) {
 		if (function_exists('dngettext')) {
 		    $localized = dngettext($domain, $data['one'], $data['many'], $data['count']);
 		} else {
 		    /*
-		     * It would make more sense to fall back to $data['many']
-		     * here, since the odds are better that it will be more
-		     * applicable.  However, due to the way that we do the
-		     * pluralization, the keys will be organized by the
-		     * $data['one'] entry so there won't be a $data['many'] key
-		     * for dgettext() to use.  :-(
+		     * It would make more sense to fall back to $data['many'] here, since the odds
+		     * are better that it will be more applicable.  However, due to the way that we
+		     * do the pluralization, the keys will be organized by the $data['one'] entry so
+		     * there won't be a $data['many'] key for dgettext() to use.  :-(
 		     */
 		    $localized = dgettext($domain, $data['one']);
 		}
@@ -539,7 +513,7 @@ class GalleryTranslator {
 	}
 
 	$i = 1;
-	$args = array();
+	$args = isset($data['args']) ? $data['args'] : array();
 	while (isset($data['arg' . $i])) {
 	    $args[] = $data['arg' . $i];
 	    $i++;
@@ -550,18 +524,14 @@ class GalleryTranslator {
 	    }
 	}
 
-	/*
-	 * If we have arguments, then feed the localized string and the
-	 * arguments into sprintf.
-	 */
-	if (sizeof($args) > 0) {
-	    array_unshift($args, $localized);
-	    $localized = call_user_func_array('sprintf', $args);
+	/* If we have arguments, then feed the localized string and the arguments into sprintf */
+	if (count($args) > 0) {
+	    $localized = vsprintf($localized, $args);
 	}
 
 	/*
-	 * This is a useful debug routine.  Uncomment it to have every
-	 * string prefixed with the domain it was localized in.
+	 * This is a useful debug routine.  Uncomment it to have every string prefixed with the
+	 * domain it was localized in.
 	 */
 	//$localized = "<font size=1 color=#C33>$domain:</font>$localized";
 

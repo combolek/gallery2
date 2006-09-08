@@ -17,109 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Gallery
- * @subpackage PHPUnit
- * @author Bharat Mediratta <bharat@menalto.com>
- */
-
-/**
- * Event listener that tracks how many entities were created and destroyed
- * during the test.  We can use this to track to see if a test is leaking
- * entities (ie, not doing proper cleanup).
- *
- * @package GalleryCore
- * @subpackage PHPUnit
- */
-class EntityCounterEventListener /* extends GalleryEventListener */ {
-
-    function EntityCounterEventListener() {
-	$this->_count = 0;
-	$this->_ids = array();
-    }
-
-    function handleEvent($event) {
-	switch ($event->getEventName()) {
-	case 'GalleryEntity::delete':
-	    $entity = $event->getEntity();
-	    $this->_count--;
-	    break;
-
-	case 'GalleryEntity::save':
-	    $entity = $event->getEntity();
-	    if ($entity->testPersistentFlag(STORAGE_FLAG_NEWLY_CREATED)) {
-		$this->_count++;
-		$this->_ids[$entity->getClassName()][] = $entity->getId();
-	    }
-	    break;
-	}
-
-	return array(null, null);
-    }
-
-    function getRecentEntityId($className) {
-	return $this->_ids[$className][sizeof($this->_ids[$className])-1];
-    }
-
-    function setCount($count) {
-	$this->_count = $count;
-    }
-
-    function getCount() {
-	return $this->_count;
-    }
-}
-
-/**
- * Event listener wrapper for unit tests.  Some event listeners are
- * disabled by default for unit tests, but you can use
- * GalleryTestCase::_registerTestEventListener() to register one with
- * this listener, which will do dispatching for you.
- *
- * @package GalleryCore
- * @subpackage PHPUnit
- */
-class TestEventListener /* extends GalleryEventListener */ {
-
-    function TestEventListener() {
-	$this->_eventListeners = array();
-    }
-
-    function reset() {
-	foreach (array_keys($this->_eventListeners) as $eventName) {
-	    $this->_eventListeners[$eventName] = array();
-	}
-    }
-
-    function registerEventListener($eventName, &$listener) {
-	if (!isset($this->_eventListeners[$eventName])) {
-	    GalleryCoreApi::registerEventListener($eventName, $this);
-	    $this->_eventListeners[$eventName] = array();
-	}
-	$this->_eventListeners[$eventName][] =& $listener;
-    }
-
-    function handleEvent($event) {
-	$result = array();
-	$list = $this->_eventListeners[$event->getEventName()];
-	for ($i = 0; $i < count($list); $i++) {
-	    list ($ret, $data) = $list[$i]->handleEvent($event);
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	    if (isset($data)) {
-		$result[] = $data;
-	    }
-	}
-	return array(null, $result);
-    }
-}
 
 /**
  * Gallery specific version of PHPUnit's TestCase class.
  * @package Gallery
  * @subpackage PHPUnit
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision$ $Date$
  */
 class GalleryTestCase extends TestCase {
 
@@ -371,17 +275,17 @@ class GalleryTestCase extends TestCase {
 	return (int)$this->_rootAlbumId;
     }
 
-    /** @param object GalleryEntity to delete in tearDown */
+    /** @param object GalleryEntity $entity to delete in tearDown */
     function _markForCleanup($entity) {
 	$this->_cleanup['entity'][] = $entity;
     }
 
-    /** @param string module id to unregister from factory in tearDown */
+    /** @param string $moduleId to unregister from factory in tearDown */
     function _markFactoryModuleForCleanup($moduleId) {
 	$this->_cleanup['factoryModuleId'][] = $moduleId;
     }
 
-    /** @param string id of toolkit to unregister in tearDown */
+    /** @param string $toolkitId to unregister in tearDown */
     function _markToolkitForCleanup($toolkitId) {
 	$this->_cleanup['toolkitId'][] = $toolkitId;
     }
@@ -389,9 +293,9 @@ class GalleryTestCase extends TestCase {
     /**
      * Store plugin parameters to be restored in tearDown
      *
-     * @param string pluginType
-     * @param string pluginId
-     * @return GalleryStatus
+     * @param string $pluginType
+     * @param string $pluginId
+     * @return object GalleryStatus
      */
     function _markPluginParametersForCleanup($pluginType, $pluginId) {
 	list($ret, $pluginParams) =
@@ -424,11 +328,11 @@ class GalleryTestCase extends TestCase {
     /**
      * Create a random album
      *
-     * @param int the id of the parent album
-     * @param array (optional) fields to set in the new instance (field => value, ..)
+     * @param int $parentId the id of the parent album
+     * @param array $fields (optional) fields to set in the new instance (field => value, ..)
      * @return array object GalleryStatus a status code
      *               object GalleryAlbumItem
-     * @access private
+     * @access protected
      */
     function _createRandomAlbum($parentId, $fields=array()) {
 	global $gallery;
@@ -484,14 +388,14 @@ class GalleryTestCase extends TestCase {
     /**
      * Create a random data item
      *
-     * @param int the id of the parent album
-     * @param string (optional) mime type (default application/unknown)
-     * @param array (optional) fields
-     * @param string (optional) data file (default __FILE__)
-     * @param string (optional) class to instantiate (default from factory)
+     * @param int $parentId the id of the parent album
+     * @param string $mimeType (optional) mime type (default application/unknown)
+     * @param array $fields (optional) fields to set in the new instance (field => value, ..)
+     * @param string $inputFile (optional) data file (default __FILE__)
+     * @param string $itemClass (optional) class to instantiate (default from factory)
      * @return array object GalleryStatus a status code
      *               object GalleryDataItem
-     * @access private
+     * @access protected
      */
     function _createRandomDataItem($parentId, $mimeType='application/unknown',
 				   $fields=array(), $inputFile=__FILE__,
@@ -563,11 +467,11 @@ class GalleryTestCase extends TestCase {
     /**
      * Create a random link item
      *
-     * @param int the id of the parent album
-     * @param object GalleryItem target item
+     * @param int $parentId the id of the parent album
+     * @param object GalleryItem $targetItem target item
      * @return array object GalleryStatus a status code
      *               object GalleryDataItem
-     * @access private
+     * @access protected
      */
     function _createLinkedItem($parentId, $targetItem) {
 	global $gallery;
@@ -609,10 +513,11 @@ class GalleryTestCase extends TestCase {
     /**
      * Create a random user
      *
-     * @param string (optional) suffix to add on username
+     * @param string $userTag (optional) suffix to add on username
+     * @param string $password (optional)
      * @return array object GalleryStatus a status code
      *               object GalleryUser
-     * @access private
+     * @access protected
      */
     function _createRandomUser($userTag=null, $password='password') {
 	list ($ret, $user) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryUser');
@@ -648,10 +553,10 @@ class GalleryTestCase extends TestCase {
     /**
      * Create a random group
      *
-     * @param string (optional) suffix to add on group name
+     * @param string $groupTag (optional) suffix to add on group name
      * @return array object GalleryStatus a status code
      *               object GalleryGroup
-     * @access private
+     * @access protected
      */
     function _createRandomGroup($groupTag=null) {
 	list ($ret, $group) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryGroup');
@@ -846,6 +751,10 @@ class GalleryTestCase extends TestCase {
 		 . ") !== $obj2 type (" . gettype($obj2) . ')';
 	}
 
+	if (is_object($obj1)) {
+	    $obj1 = (array)$obj1;
+	    $obj2 = (array)$obj2;
+	}
 	if (is_array($obj1)) {
 	    $keys1 = array_keys($obj1);
 	    $keys2 = array_keys($obj2);
@@ -889,6 +798,90 @@ class GalleryTestCase extends TestCase {
 	    }
 	}
 	return null;
+    }
+}
+
+/**
+ * Event listener that tracks how many entities were created and destroyed during the test.
+ * We can use this to track to see if a test is leaking entities (ie, not doing proper cleanup).
+ */
+class EntityCounterEventListener /* extends GalleryEventListener */ {
+
+    function EntityCounterEventListener() {
+	$this->_count = 0;
+	$this->_ids = array();
+    }
+
+    function handleEvent($event) {
+	switch ($event->getEventName()) {
+	case 'GalleryEntity::delete':
+	    $entity = $event->getEntity();
+	    $this->_count--;
+	    break;
+
+	case 'GalleryEntity::save':
+	    $entity = $event->getEntity();
+	    if ($entity->testPersistentFlag(STORAGE_FLAG_NEWLY_CREATED)) {
+		$this->_count++;
+		$this->_ids[$entity->getClassName()][] = $entity->getId();
+	    }
+	    break;
+	}
+
+	return array(null, null);
+    }
+
+    function getRecentEntityId($className) {
+	return $this->_ids[$className][sizeof($this->_ids[$className])-1];
+    }
+
+    function setCount($count) {
+	$this->_count = $count;
+    }
+
+    function getCount() {
+	return $this->_count;
+    }
+}
+
+/**
+ * Event listener wrapper for unit tests.  Some event listeners are disabled by default for
+ * unit tests, but you can use GalleryTestCase::_registerTestEventListener() to register one
+ * with this listener, which will do dispatching for you.
+ */
+class TestEventListener /* extends GalleryEventListener */ {
+
+    function TestEventListener() {
+	$this->_eventListeners = array();
+    }
+
+    function reset() {
+	foreach (array_keys($this->_eventListeners) as $eventName) {
+	    $this->_eventListeners[$eventName] = array();
+	}
+    }
+
+    function registerEventListener($eventName, &$listener) {
+	if (!isset($this->_eventListeners[$eventName])) {
+	    GalleryCoreApi::registerEventListener($eventName, $this);
+	    $this->_eventListeners[$eventName] = array();
+	}
+	$this->_eventListeners[$eventName][] =& $listener;
+    }
+
+    function handleEvent($event) {
+	$result = array();
+	$list = $this->_eventListeners[$event->getEventName()];
+	for ($i = 0; $i < count($list); $i++) {
+	    list ($ret, $data) = $list[$i]->handleEvent($event);
+	    if ($ret) {
+		return array($ret, null);
+	    }
+	    if (isset($data)) {
+		$result[] = $data;
+	    }
+	}
+	return array(null, $result);
     }
 }
 ?>

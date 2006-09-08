@@ -17,15 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Panorama
- * @author Alan Harder <alan.harder@sun.com>
- */
 
 /**
+ * Show image in panorama viewer
  * @package Panorama
  * @subpackage UserInterface
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision$ $Date$
  */
 class PanoramaView extends GalleryView {
 
@@ -33,7 +31,6 @@ class PanoramaView extends GalleryView {
      * @see GalleryView::loadTemplate
      */
     function loadTemplate(&$template, &$form) {
-	global $gallery;
 	GalleryCoreApi::requireOnce('modules/panorama/classes/PanoramaHelper.class');
 
 	list ($ret, $item) = $this->_getItem();

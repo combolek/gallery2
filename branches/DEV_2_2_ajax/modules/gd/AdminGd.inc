@@ -17,17 +17,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Gd
- * @author Ernesto Baschny <ernst@baschny.de>
- */
 
 GalleryCoreApi::requireOnce('modules/gd/classes/GdToolkitHelper.class');
 
 /**
+ * Settings for GD
  * @package Gd
  * @subpackage UserInterface
+ * @author Ernesto Baschny <ernst@baschny.de>
+ * @version $Revision$ $Date$
  */
 class AdminGdController extends GalleryController {
 
@@ -86,8 +84,7 @@ class AdminGdController extends GalleryController {
 }
 
 /**
- * @package Gd
- * @subpackage UserInterface
+ * Settings for GD
  */
 class AdminGdView extends GalleryView {
 
@@ -133,7 +130,7 @@ class AdminGdView extends GalleryView {
 
 	$mimeTypes = array();
 	if ($isGdVersionSupported) {
-	    list($ret, $mimeTypes) = GdToolkitHelper::discoverMimeTypes();
+	    list ($ret, $mimeTypes) = GdToolkitHelper::discoverMimeTypes();
 	    if ($ret) {
 		return array($ret, null);
 	    }
@@ -159,8 +156,7 @@ class AdminGdView extends GalleryView {
 
 	$template->setVariable('AdminGd', $AdminGd);
 	$template->setVariable('controller', 'gd.AdminGd');
-	return array(null,
-		     array('body' => 'modules/gd/templates/AdminGd.tpl'));
+	return array(null, array('body' => 'modules/gd/templates/AdminGd.tpl'));
     }
 }
 ?>

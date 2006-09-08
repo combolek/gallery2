@@ -17,61 +17,38 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package GalleryCore
- * @author Bharat Mediratta <bharat@menalto.com>
- */
 
 /**
- * Storage for event information
- *
  * This is a container for information about a specific event
- *
  * @package GalleryCore
  * @subpackage Classes
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision$ $Date$
  */
 class GalleryEvent {
 
-    /*
-     * ****************************************
-     *                 Members
-     * ****************************************
-     */
-
     /**
      * Event name
-     *
-     * @var string $_eventName
+     * @var string
      * @access private
      */
     var $_eventName;
 
     /**
      * Target entity
-     *
-     * @var string $_entity
+     * @var object GalleryEntity
      * @access private
      */
     var $_entity;
 
     /**
      * Event specific data
-     *
-     * @var string $_data
+     * @var mixed
      * @access private
      */
     var $_data;
 
-    /*
-     * ****************************************
-     *                 Methods
-     * ****************************************
-     */
 
-    /**
-     * Constructor
-     */
     function GalleryEvent() {
 	$this->setEventName(null);
 	$this->setEntity(null);

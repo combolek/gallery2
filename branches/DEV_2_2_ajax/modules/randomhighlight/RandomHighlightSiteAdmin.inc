@@ -17,15 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package RandomHighlight
- * @author Alan Harder <alan.harder@sun.com>
- */
 
 /**
+ * Settings for Random Highlight
  * @package RandomHighlight
  * @subpackage UserInterface
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision$ $Date$
  */
 class RandomHighlightSiteAdminController extends GalleryController {
 
@@ -68,8 +66,7 @@ class RandomHighlightSiteAdminController extends GalleryController {
 }
 
 /**
- * @package RandomHighlight
- * @subpackage UserInterface
+ * Settings for Random Highlight
  */
 class RandomHighlightSiteAdminView extends GalleryView {
 

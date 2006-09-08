@@ -17,17 +17,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Watermark
- * @author Bharat Mediratta <bharat@menalto.com>
- */
 
 GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
 
 /**
+ * Edit default placement and settings for a watermark image
  * @package Watermark
  * @subpackage UserInterface
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision$ $Date$
  */
 class UserWatermarkEditController extends GalleryController {
 
@@ -45,8 +43,7 @@ class UserWatermarkEditController extends GalleryController {
 }
 
 /**
- * @package Watermark
- * @subpackage UserInterface
+ * Edit default placement and settings for a watermark image
  */
 class UserWatermarkEditView extends GalleryView {
 
@@ -60,8 +57,7 @@ class UserWatermarkEditView extends GalleryView {
 	    return array($ret, null);
 	}
 
-	return array(null,
-		     array('body' => 'modules/watermark/templates/UserWatermarkEdit.tpl'));
+	return array(null, array('body' => 'modules/watermark/templates/UserWatermarkEdit.tpl'));
     }
 }
 ?>

@@ -17,20 +17,20 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
  * Generates the Windows registry file for web publishing.
+ * This is an immediate view which generates the registry file for Windows.  The information in
+ * the registry file informs Windows that there is a web service which supports uploading media.
  *
- * This is an immediate view which generates the registry file for Windows.
- * The information in the registry file informs Windows that there is a web service
- * which supports uploading media.
- *
- * @version $Revision$ $Date$
  * @package PublishXp
  * @author Timothy Webb <tiwebb@cisco.com>
+ * @version $Revision$ $Date$
  */
 class DownloadRegistryFileView extends GalleryView {
+
     /**
-     * @see GalleryView::isImmediate()
+     * @see GalleryView::isImmediate
      */
     function isImmediate() {
 	return true;
@@ -38,10 +38,8 @@ class DownloadRegistryFileView extends GalleryView {
 
     /**
      * Renders the Windows registry file.
-     *
-     * Generates the registry file to be downloaded and installed on Windows
-     * systems.  The gallery name and hostname are used as part of the web service
-     * for publishing.
+     * Generates the registry file to be downloaded and installed on Windows systems.
+     * The gallery name and hostname are used as part of the web service for publishing.
      *
      * @see GalleryView::renderImmediate
      */
@@ -53,11 +51,11 @@ class DownloadRegistryFileView extends GalleryView {
 	$domain = $urlGenerator->getHostName();
 
 	/* Get the name of the gallery */
-	list($ret, $rootId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
+	list ($ret, $rootId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
 	if ($ret) {
 	    return $ret;
 	}
-	list($ret, $root) = GalleryCoreApi::loadEntitiesById($rootId);
+	list ($ret, $root) = GalleryCoreApi::loadEntitiesById($rootId);
 	if ($ret) {
 	    return $ret;
 	}
@@ -68,8 +66,8 @@ class DownloadRegistryFileView extends GalleryView {
 	header("Content-Type: application/octet-stream");
 	header("Content-Disposition: filename=install_registry.reg");
 
-        GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
-        $template = new GalleryTemplate(dirname(__FILE__) . '/../..');
+	GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
+	$template = new GalleryTemplate(dirname(__FILE__) . '/../..');
 	$template->setVariable('l10Domain', 'modules_publishxp');
 
 	$DownloadRegistryFile['title'] = $title;

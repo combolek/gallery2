@@ -17,22 +17,20 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Ffmpeg
- * @author Bharat Mediratta <bharat@menalto.com>
- */
 
 GalleryCoreApi::requireOnce('modules/ffmpeg/classes/FfmpegToolkitHelper.class');
 
 /**
+ * Settings for ffmpeg
  * @package Ffmpeg
  * @subpackage UserInterface
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision$ $Date$
  */
 class AdminFfmpegController extends GalleryController {
 
     /**
-     * @see GalleryController::handleRequest()
+     * @see GalleryController::handleRequest
      */
     function handleRequest(&$form) {
 	global $gallery;
@@ -236,8 +234,7 @@ class AdminFfmpegController extends GalleryController {
 }
 
 /**
- * @package Ffmpeg
- * @subpackage UserInterface
+ * Settings for ffmpeg
  */
 class AdminFfmpegView extends GalleryView {
 
@@ -324,8 +321,7 @@ class AdminFfmpegView extends GalleryView {
 
 	$template->setVariable('AdminFfmpeg', $AdminFfmpeg);
 	$template->setVariable('controller', 'ffmpeg.AdminFfmpeg');
-	return array(null,
-		     array('body' => 'modules/ffmpeg/templates/AdminFfmpeg.tpl'));
+	return array(null, array('body' => 'modules/ffmpeg/templates/AdminFfmpeg.tpl'));
     }
 }
 ?>

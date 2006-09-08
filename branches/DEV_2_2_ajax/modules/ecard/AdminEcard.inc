@@ -17,18 +17,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Ecard
- * @author Nico Kaiser <nico@siriux.net>
- * @author Dariush Molavi <dari@nukedgallery.net>
- */
 
- /**
- * This controller will handle the setting of Ecard module options
- *
+/**
+ * Settings for eCards
  * @package Ecard
  * @subpackage UserInterface
+ * @author Nico Kaiser <nico@siriux.net>
+ * @author Dariush Molavi <dari@nukedgallery.net>
+ * @version $Revision$ $Date$
  */
 class AdminEcardController extends GalleryController {
 
@@ -72,10 +68,7 @@ class AdminEcardController extends GalleryController {
 }
 
 /**
- * This view will prompt for Ecard module settings
- *
- * @package Ecard
- * @subpackage UserInterface
+ * Settings for eCards
  */
 class AdminEcardView extends GalleryView {
 
@@ -112,7 +105,6 @@ class AdminEcardView extends GalleryView {
 
 	$template->setVariable('AdminEcard', $AdminEcard);
 	$template->setVariable('controller', 'ecard.AdminEcard');
-
 	return array(null, array('body' => 'modules/ecard/templates/AdminEcard.tpl'));
     }
 }

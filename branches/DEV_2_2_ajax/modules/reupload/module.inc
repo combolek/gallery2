@@ -17,16 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Reupload
- * @author Piotr P. Karwasz <piotr.karwasz@ens.fr>
- */
 
 /**
  * Reupload a file without destroying metadata information
  *
  * @package Reupload
+ * @author Piotr P. Karwasz <piotr.karwasz@ens.fr>
+ * @version $Revision$ $Date$
  */
 class ReuploadModule extends GalleryModule {
 
@@ -38,12 +35,12 @@ class ReuploadModule extends GalleryModule {
 	$this->setVersion('1.0.2');
 	$this->setGroup('data', $gallery->i18n('Extra Data'));
 	$this->setCallbacks('');
-	$this->setRequiredCoreApi(array(7, 0));
+	$this->setRequiredCoreApi(array(7, 4));
 	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
-     * @see GalleryModule::performFactoryRegistrations()
+     * @see GalleryModule::performFactoryRegistrations
      */
     function performFactoryRegistrations() {
 	$ret = GalleryCoreApi::registerFactoryImplementation(

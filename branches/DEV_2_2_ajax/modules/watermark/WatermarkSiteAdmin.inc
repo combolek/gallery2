@@ -17,15 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Watermark
- * @author Alan Harder <alan.harder@sun.com>
- */
 
 /**
+ * Manage watermarks available for all users
  * @package Watermark
  * @subpackage UserInterface
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision$ $Date$
  */
 class WatermarkSiteAdminController extends GalleryController {
 
@@ -103,8 +101,7 @@ class WatermarkSiteAdminController extends GalleryController {
 }
 
 /**
- * @package Watermark
- * @subpackage UserInterface
+ * Manage watermarks available for all users
  */
 class WatermarkSiteAdminView extends GalleryView {
 

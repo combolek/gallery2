@@ -17,31 +17,20 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Remote
- * @subpackage UserInterface
- * @author Pierre-Luc Paour <paour@users.sourceforge.net>
- */
 
-/**
- * Required classes
- */
 GalleryCoreApi::requireOnce('modules/remote/classes/GalleryRemoteProperties.class');
 GalleryCoreApi::requireOnce('modules/remote/classes/GalleryRemoteConstants.class');
 
 /**
- * This controller fields requests from Gallery Remote and perform any required changes
+ * This controller fields requests from Gallery Remote and performs any required changes
  * to the data model.
- *
  * @package Remote
- * @subpackage UserInterface
+ * @author Pierre-Luc Paour <paour@users.sourceforge.net>
+ * @version $Revision$ $Date$
  */
 class GalleryRemoteController extends GalleryController {
     /**
-     * ItemAddOption instances to use when handling this request.  Only used by
-     * test code.
-     *
+     * ItemAddOption instances to use when handling this request.  Only used by test code.
      * @var array (optionId => object ItemAddOption) $_optionInstances
      * @access private
      */
@@ -59,14 +48,14 @@ class GalleryRemoteController extends GalleryController {
     }
 
     /**
-     * @see GalleryController::isAllowedInEmbedOnly()
+     * @see GalleryController::isAllowedInEmbedOnly
      */
     function isAllowedInEmbedOnly() {
 	return true;
     }
 
     /**
-     * @see GalleryController::handleRequest()
+     * @see GalleryController::handleRequest
      */
     function handleRequest($form) {
 	global $gallery;
@@ -203,7 +192,8 @@ class GalleryRemoteController extends GalleryController {
 		return $ret;
 	    }
 
-	    $password = isset($form['password']) ? $form['password'] : '';
+	    $password = isset($form['password'])
+		? GalleryUtilities::htmlEntityDecode($form['password']) : '';
 	    if ($user != null && $user->isCorrectPassword($password)) {
 		/* login successful */
 		$gallery->setActiveUser($user);
@@ -495,9 +485,31 @@ class GalleryRemoteController extends GalleryController {
 	$summary = isset($form['extrafield.Summary'])?$form['extrafield.Summary']:NULL;
 	$description = isset($form['extrafield.Description'])?$form['extrafield.Description']:NULL;
 
+	/*
+	 * Don't use uploaded files, because the framework cannot safely copy them.
+	 * Move it to our temporary directory first.
+	 */
+	$platform =& $gallery->getPlatform();
+	if ($platform->is_uploaded_file($file['tmp_name'])) {
+	    $tmpFile = $platform->move_uploaded_file($file['tmp_name']);
+	    if (!$tmpFile) {
+		return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE);
+	    }
+	    $needToDeleteTmpFile = true;
+	} else {
+	    $tmpFile = $file['tmp_name'];
+	    $needToDeleteTmpFile = false;
+	}
+
 	list ($ret, $newItem) = GalleryCoreApi::addItemToAlbum(
-	    $file['tmp_name'], basename($itemName), $title,
+	    $tmpFile, basename($itemName), $title,
 	    $summary, $description, $mimeType, $parentId);
+
+	/* Get rid of the tmp file if necessary */
+	if ($needToDeleteTmpFile) {
+	    @$platform->unlink($tmpFile);
+	}
+
 	if ($ret) {
 	    return $ret;
 	}
@@ -1066,28 +1078,25 @@ class GalleryRemoteController extends GalleryController {
 
 /**
  * This is an immediate view that emits well formed Gallery Remote protocol 2 output
- *
- * @package Remote
- * @subpackage UserInterface
  */
 class GalleryRemoteView extends GalleryView {
 
     /**
-     * @see GalleryView::isImmediate()
+     * @see GalleryView::isImmediate
      */
     function isImmediate() {
 	return true;
     }
 
     /**
-     * @see GalleryView::isAllowedInEmbedOnly()
+     * @see GalleryView::isAllowedInEmbedOnly
      */
     function isAllowedInEmbedOnly() {
 	return true;
     }
 
     /**
-     * @see GalleryView::isImmediate()
+     * @see GalleryView::renderImmediate
      */
     function renderImmediate($status, $error) {
 	if (!headers_sent()) {

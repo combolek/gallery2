@@ -17,23 +17,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package FloatrixTheme
- * @author Bharat Mediratta <bharat@menalto.com>
- */
 
 /**
- * This implements the standard gallery theme
- *
- * @package FloatrixTheme
- * @subpackage Theme
+ * Variable column theme based on Matrix
+ * @package Themes
+ * @subpackage Floatrix
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision$ $Date$
  */
 class FloatrixTheme extends GalleryTheme {
 
-    /**
-     * Constructor
-     */
     function FloatrixTheme() {
 	global $gallery;
 
@@ -41,7 +34,7 @@ class FloatrixTheme extends GalleryTheme {
 	$this->setName($gallery->i18n('Floatrix'));
 	$this->setDescription($gallery->i18n('Variable column theme based on Matrix'));
 	$this->setVersion('1.0.3');
-	$this->setRequiredCoreApi(array(7, 0));
+	$this->setRequiredCoreApi(array(7, 10));
 	$this->setRequiredThemeApi(array(2, 4));
 	$this->setStandardSettings(
 	    array('perPage' => 12,

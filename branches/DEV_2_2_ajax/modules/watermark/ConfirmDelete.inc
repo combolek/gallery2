@@ -17,15 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Watermark
- * @author Alan Harder <alan.harder@sun.com>
- */
 
 /**
+ * Delete a watermark
  * @package Watermark
  * @subpackage UserInterface
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision$ $Date$
  */
 class ConfirmDeleteController extends GalleryController {
 
@@ -62,8 +60,7 @@ class ConfirmDeleteController extends GalleryController {
 }
 
 /**
- * @package Watermark
- * @subpackage UserInterface
+ * Confirm delete of a watermark
  */
 class ConfirmDeleteView extends GalleryView {
 
@@ -93,8 +90,7 @@ class ConfirmDeleteView extends GalleryView {
 				     'count' => count($itemIds)));
 	$template->setVariable('controller', 'watermark.ConfirmDelete');
 
-	return array(null,
-		     array('body' => 'modules/watermark/templates/ConfirmDelete.tpl'));
+	return array(null, array('body' => 'modules/watermark/templates/ConfirmDelete.tpl'));
     }
 }
 ?>

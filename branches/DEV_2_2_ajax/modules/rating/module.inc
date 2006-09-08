@@ -17,18 +17,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @package Rating
- * @version $Revision$ $Date$
- * @author  Don Seiler <don@seiler.us>
- */
 
 /**
- * Rating
- *
  * Provides item rating mechanism for Gallery2
- *
  * @package Rating
+ * @author  Don Seiler <don@seiler.us>
+ * @version $Revision$ $Date$
  */
 class RatingModule extends GalleryModule {
 
@@ -42,18 +36,18 @@ class RatingModule extends GalleryModule {
 	$this->setCallbacks('getSiteAdminViews|getItemSummaries|registerEventListeners');
 	$this->setGroup('data', $gallery->i18n('Extra Data'));
 	$this->setRequiredCoreApi(array(7, 10));
-	$this->setRequiredModuleApi(array(3, 0));
+	$this->setRequiredModuleApi(array(3, 2));
     }
 
     /**
-     * @see GalleryModule::registerEventListeners()
+     * @see GalleryModule::registerEventListeners
      */
     function registerEventListeners() {
 	GalleryCoreApi::registerEventListener('GalleryEntity::delete', new RatingModule());
     }
 
     /**
-     * @see GalleryModule::performFactoryRegistrations()
+     * @see GalleryModule::performFactoryRegistrations
      */
     function performFactoryRegistrations() {
 	$ret = GalleryCoreApi::registerFactoryImplementation('ItemEditOption', 'RatingItemEdit',
@@ -74,7 +68,7 @@ class RatingModule extends GalleryModule {
     }
 
     /**
-     * @see GalleryModule::getItemSummaries()
+     * @see GalleryModule::getItemSummaries
      */
     function getItemSummaries($items, $permissions, &$template) {
 	global $gallery;
@@ -188,7 +182,7 @@ class RatingModule extends GalleryModule {
     }
 
     /**
-     * @see GalleryModule::upgrade()
+     * @see GalleryModule::upgrade
      */
     function upgrade($currentVersion) {
 	global $gallery;
@@ -247,7 +241,7 @@ class RatingModule extends GalleryModule {
 	    return $ret;
 	}
 	foreach (array('allowAlbumRating' => 0, 'themeId' => '', 'orderBy' => 'RatingSortOrder',
-		       'orderDirection' => ORDER_DESCENDING, 'minLimit' => 2)
+		       'orderDirection' => ORDER_DESCENDING, 'minLimit' => 2, 'description' => '')
 		as $key => $value) {
 	    if (!isset($params[$key])) {
 		$this->setParameter($key, $value);
@@ -274,12 +268,11 @@ class RatingModule extends GalleryModule {
     }
 
     /**
-     * @see GalleryModule::getSiteAdminViews()
+     * @see GalleryModule::getSiteAdminViews
      */
     function getSiteAdminViews() {
-	return array(null,
-		array(array('name' => $this->translate('Rating'),
-			'view' => 'rating.RatingSiteAdmin')));
+	return array(null, array(array('name' => $this->translate('Rating'),
+				       'view' => 'rating.RatingSiteAdmin')));
     }
 
     /**

@@ -17,17 +17,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package CustomField
- * @author Alan Harder <alan.harder@sun.com>
- */
 
 GalleryCoreApi::requireOnce('modules/customfield/classes/CustomFieldHelper.class');
 
 /**
+ * Settings for custom fields
  * @package CustomField
  * @subpackage UserInterface
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision$ $Date$
  */
 class CustomFieldSiteAdminController extends GalleryController {
 
@@ -57,8 +55,7 @@ class CustomFieldSiteAdminController extends GalleryController {
 }
 
 /**
- * @package CustomField
- * @subpackage UserInterface
+ * Settings for custom fields
  */
 class CustomFieldSiteAdminView extends GalleryView {
 

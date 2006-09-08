@@ -19,17 +19,12 @@
  */
 
 /**
- * @version $Revision$ $Date$
- * @package GalleryCore
- * @subpackage UserInterface
- * @author Bharat Mediratta <bharat@menalto.com>
- */
-
-/**
  * Plugin for editing data common to all items
  *
  * @package GalleryCore
  * @subpackage UserInterface
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision$ $Date$
  */
 class ItemEditItem extends ItemEditPlugin {
 

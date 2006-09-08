@@ -18,22 +18,15 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+GalleryCoreApi::requireOnce('modules/core/classes/helpers/UserRecoverPasswordHelper_simple.class');
+
 /**
- * @version $Revision$ $Date$
+ * This controller will handle the recovery of passwords that have been lost or forgotten
+ * by the user.
  * @package GalleryCore
  * @subpackage UserInterface
  * @author Jay Rossiter <cryptographite@users.sf.net>
- */
-
-GalleryCoreApi::requireOnce(
-    'modules/core/classes/helpers/UserRecoverPasswordHelper_simple.class');
-
-/**
- * This controller will handle the recovery of passwords that have
- * been lost or forgotten by the user.
- *
- * @package GalleryCore
- * @subpackage UserInterface
+ * @version $Revision$ $Date$
  */
 class UserRecoverPasswordConfirmController extends GalleryController {
 
@@ -43,9 +36,7 @@ class UserRecoverPasswordConfirmController extends GalleryController {
     function handleRequest($form) {
 	global $gallery;
 
-	$status = array();
-	$results = array();
-	$error = array();
+	$status = $results = $error = array();
 
 	if (isset($form['action']['submit'])) {
 	    if (empty($form['userName'])) {
@@ -70,9 +61,8 @@ class UserRecoverPasswordConfirmController extends GalleryController {
 		}
 		/*
 		 * Check the database to see if a previous request.
-		 * If a request exists, check the timestamp to see if a new
-		 * request can be generated, or if they will be denied
-		 * because the window is too small.
+		 * If a request exists, check the timestamp to see if a new request can be
+		 * generated, or if they will be denied because the window is too small.
 		 */
 		list ($ret, $requestExpires) = UserRecoverPasswordHelper_simple::getRequestExpires(
 		    $form['userName'], $form['authString']);
@@ -144,11 +134,7 @@ class UserRecoverPasswordConfirmController extends GalleryController {
 }
 
 /**
- * This view prompts for login information
- *
- * @package GalleryCore
- * @subpackage UserInterface
- *
+ * This view shows information about password recovery
  */
 class UserRecoverPasswordConfirmView extends GalleryView {
 

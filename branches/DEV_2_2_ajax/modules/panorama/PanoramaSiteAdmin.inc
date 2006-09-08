@@ -17,15 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Panorama
- * @author Alan Harder <alan.harder@sun.com>
- */
 
 /**
+ * Settings for Panorama
  * @package Panorama
  * @subpackage UserInterface
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision$ $Date$
  */
 class PanoramaSiteAdminController extends GalleryController {
 
@@ -72,8 +70,7 @@ class PanoramaSiteAdminController extends GalleryController {
 }
 
 /**
- * @package Panorama
- * @subpackage UserInterface
+ * Settings for Panorama
  */
 class PanoramaSiteAdminView extends GalleryView {
 
@@ -105,8 +102,7 @@ class PanoramaSiteAdminView extends GalleryView {
 	}
 
 	$template->setVariable('controller', 'panorama.PanoramaSiteAdmin');
-	return array(null,
-		     array('body' => 'modules/panorama/templates/PanoramaSiteAdmin.tpl'));
+	return array(null, array('body' => 'modules/panorama/templates/PanoramaSiteAdmin.tpl'));
     }
 }
 ?>

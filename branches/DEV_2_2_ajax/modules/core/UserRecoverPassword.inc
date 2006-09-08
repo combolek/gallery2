@@ -17,22 +17,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
+GalleryCoreApi::requireOnce('modules/core/classes/helpers/UserRecoverPasswordHelper_simple.class');
+
 /**
- * @version $Revision$ $Date$
+ * This controller will handle the recovery of passwords that have been lost or forgotten
+ * by the user.
  * @package GalleryCore
  * @subpackage UserInterface
  * @author Jay Rossiter <cryptographite@users.sf.net>
- */
-
-GalleryCoreApi::requireOnce(
-    'modules/core/classes/helpers/UserRecoverPasswordHelper_simple.class');
-
-/**
- * This controller will handle the recovery of passwords that have
- * been lost or forgotten by the user.
- *
- * @package GalleryCore
- * @subpackage UserInterface
+ * @version $Revision$ $Date$
  */
 class UserRecoverPasswordController extends GalleryController {
     /**
@@ -237,11 +231,7 @@ class UserRecoverPasswordController extends GalleryController {
 }
 
 /**
- * This view prompts for login information
- *
- * @package GalleryCore
- * @subpackage UserInterface
- *
+ * This view shows information about password recovery
  */
 class UserRecoverPasswordView extends GalleryView {
 
@@ -290,8 +280,7 @@ class UserRecoverPasswordView extends GalleryView {
 
 	$template->setVariable('UserRecoverPassword', $UserRecoverPassword);
 	$template->setVariable('controller', 'core.UserRecoverPassword');
-	return array(null,
-		     array('body' => 'modules/core/templates/UserRecoverPassword.tpl'));
+	return array(null, array('body' => 'modules/core/templates/UserRecoverPassword.tpl'));
     }
 }
 ?>

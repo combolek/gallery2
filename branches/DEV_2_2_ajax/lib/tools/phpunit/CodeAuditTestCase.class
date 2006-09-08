@@ -17,20 +17,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package GalleryCore
- * @subpackage PHPUnit
- * @author Bharat Mediratta <bharat@menalto.com>
- */
 
 /**
- * A framework for scanning all of our source files for specific
- * patterns.  Subclasses must override the checkFile() method
- * to implement their own checks.
+ * A framework for scanning all of our source files for specific patterns.
+ * Subclasses must override the checkFile() method to implement their own checks.
  *
- * @package GalleryCore
+ * @package Gallery
  * @subpackage PHPUnit
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision$ $Date$
  */
 class CodeAuditTestCase extends GalleryTestCase {
 
@@ -82,14 +77,19 @@ class CodeAuditTestCase extends GalleryTestCase {
 		switch ($xmlValues[$entry]['attributes'][$KIND]) {
 		case 'dir':
 		    if (!empty($xmlValues[$entry]['attributes']['NAME'])) {
+			if (empty($xmlValues[$entry]['attributes']['DELETED']) ||
+			    $xmlValues[$entry]['attributes']['DELETED'] != 'true') {
 			$dirs[] = $xmlValues[$entry]['attributes']['NAME'];
+			} else {
+			    print "Skipping deleted dir: " .
+				"$dirPath/{$xmlValues[$entry]['attributes']['NAME']}<br/>";
+			}
 		    }
 		    break;
 
 		case 'file':
 		    $file = $dirPath . '/' . $xmlValues[$entry]['attributes']['NAME'];
 		    if (empty($xmlValues[$entry]['attributes']['DELETED'])
-			    && preg_match('/\.(?:class|inc|php|tpl|po)$/', $file)
 			    && $this->shouldCheckFile($file)) {
 			$gallery->guaranteeTimeLimit(30);
 			$buf = $platform->file_get_contents($file);
@@ -132,7 +132,7 @@ class CodeAuditTestCase extends GalleryTestCase {
     /**
      * Overload this method in subclasses to run any tasks after the scan is complete.
      *
-     * @param bool true if the scan was halted early
+     * @param bool $halted true if the scan was halted early
      * @access protected
      */
     function finishScan($halted) {
@@ -147,9 +147,12 @@ class CodeAuditTestCase extends GalleryTestCase {
      */
     function shouldCheckFile($fileName) {
 	/*
-	 * By default we accept everything, with the exception that we only take
-	 * lib/tools/repository from the lib directory.
+	 * By default we accept php|inc|class|tpl|po extensions, with the exception that we only
+	 * take lib/tools/repository from the lib directory.
 	 */
+	if (!preg_match('{\.(?:php|inc|class|tpl|po)$}', $fileName)) {
+	    return false;
+	}
 	if (strpos($fileName, $this->_baseDir . '/lib/') === 0) {
 	    return strpos($fileName, $this->_baseDir . '/lib/tools/repository/') === 0;
 	}

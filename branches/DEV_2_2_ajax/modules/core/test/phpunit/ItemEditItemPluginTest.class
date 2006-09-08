@@ -17,17 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package GalleryCore
- * @subpackage PHPUnit
- * @author Bharat Mediratta <bharat@menalto.com>
- */
 
 /**
  * ItemEditItem controller tests
  * @package GalleryCore
  * @subpackage PHPUnit
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision$ $Date$
  */
 class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 
@@ -146,6 +142,34 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 	} else {
 	    $this->assert(false, 'thumbnail missing');
 	}
+    }
+    
+    function testMaliciousMarkup() {
+	/* Use valid inputs */
+	$newPathComponent = $this->_item[0]->getPathComponent() . rand();
+	GalleryUtilities::putRequestVariable('form[action][save]', 1);
+	GalleryUtilities::putRequestVariable('form[pathComponent]', $newPathComponent);
+	GalleryUtilities::putRequestVariable('form[title]', 
+	    'new[color="><script>alert(\'hi\')</script><"green]foo[/color] title');
+	GalleryUtilities::putRequestVariable('form[summary]', ' new summary ');
+	GalleryUtilities::putRequestVariable('form[keywords]', ' new keywords ');
+	GalleryUtilities::putRequestVariable('form[description]', ' new description ');
+	GalleryUtilities::putRequestVariable('form[serialNumber]',
+					     $this->_item[0]->getSerialNumber());
+	GalleryUtilities::putRequestVariable('form[thumbnail][size]', '400');
+
+	/* Perform the request and verify that we succeeded */
+	$results = $this->handleRequest($this->_item[0], $this->_preferred);
+	$this->assertEquals(array(array(), $this->_translate('Changes saved successfully')),
+				  $results);
+
+	list ($ret, $this->_item[0]) = $this->_item[0]->refresh();
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$this->assertEquals('new[color=&quot;&gt;&lt;script&gt;alert(\'hi\')&lt;/script&gt;&lt;' .
+	    '&quot;green]foo[/color] title', $this->_item[0]->getTitle());
     }
 
     function testInvalidPathComponent() {
@@ -620,19 +644,14 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
     }
 }
 
-/**
- * Required by our test toolkit
- */
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
 
 /**
  * Test toolkit
- * @package GalleryCore
- * @subpackage PHPUnit
  */
 class ItemEditItemPluginTestToolkit extends GalleryToolkit {
     /**
-     * @see GalleryToolkit::performOperation()
+     * @see GalleryToolkit::performOperation
      * Dummy operation
      */
     function performOperation($mimeType, $operationName, $sourceFilename,
@@ -652,7 +671,7 @@ class ItemEditItemPluginTestToolkit extends GalleryToolkit {
     }
 
     /**
-     * @see GalleryToolkit::mergeOperations()
+     * @see GalleryToolkit::mergeOperations
      * Dummy operation
      */
     function mergeOperations($operation1, $args1, $operation2, $args2) {

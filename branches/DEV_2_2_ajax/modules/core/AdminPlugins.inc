@@ -17,18 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
- * @version $Revision$ $Date$
+ * This view will show administration options for available plugins
  * @package GalleryCore
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
- */
-
-/**
- * This view will show administration possibilities for available modules
- *
- * @package GalleryCore
- * @subpackage UserInterface
+ * @version $Revision$ $Date$
  */
 class AdminPluginsView extends GalleryView {
 
@@ -58,15 +53,14 @@ class AdminPluginsView extends GalleryView {
 	    }
 
 	    /*
-	     * It's possible that we have some out-of-date plugins which haven't
-	     * been deactivated yet, since the deactivation only occurs when we try
-	     * to load the module.  Load all the active plugins now to force the
-	     * version check, then reload the plugin status when we're done to pick
-	     * up any changes we trigger.
+	     * It's possible that we have some out-of-date plugins which haven't been deactivated
+	     * yet, since the deactivation only occurs when we try to load the module.  Load all
+	     * the active plugins now to force the version check, then reload the plugin status
+	     * when we're done to pick up any changes we trigger.
 	     */
 	    foreach ($pluginStatus[$type] as $pluginId => $status) {
 		if (!empty($status['active'])) {
-		    list($ret, $module) = GalleryCoreApi::loadPlugin($type, $pluginId);
+		    list ($ret, $module) = GalleryCoreApi::loadPlugin($type, $pluginId);
 		    if ($ret && !($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH)) {
 			return array($ret, null);
 		    }
@@ -81,7 +75,7 @@ class AdminPluginsView extends GalleryView {
 
 	    GalleryCoreApi::requireOnce('modules/core/PluginCallback.inc');
 	    foreach ($pluginStatus[$type] as $pluginId => $status) {
-		list($ret, $plugin) = GalleryCoreApi::loadPlugin($type, $pluginId, true);
+		list ($ret, $plugin) = GalleryCoreApi::loadPlugin($type, $pluginId, true);
 		if ($ret) {
 		    return array($ret, null);
 		}
@@ -130,12 +124,14 @@ class AdminPluginsView extends GalleryView {
 	$template->setVariable('AdminPlugins', $AdminPlugins);
 	$template->setVariable('controller', 'core.AdminPlugins');
 	$template->javascript('lib/yui/yahoo-min.js');
-	$template->javascript('lib/yui/event-min.js');
 	$template->javascript('lib/yui/dom-min.js');
+	$template->javascript('lib/yui/event-min.js');
 	$template->javascript('lib/yui/connection-min.js');
+	$template->javascript('lib/yui/animation-min.js');
+	$template->javascript('lib/yui/container-min.js');
+	$template->javascript('modules/core/templates/AdminPlugins.js');
 
-	return array(null,
-		     array('body' => 'modules/core/templates/AdminPlugins.tpl'));
+	return array(null, array('body' => 'modules/core/templates/AdminPlugins.tpl'));
     }
 
     function pluginSort($a, $b) {

@@ -17,15 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package SelfRegistration
- * @author Sebastian Eichner <mailsp@sebastian-eichner.de>
- */
 
 /**
- * @package SelfRegistration
+ * Settings for Registration
+ * @package Registration
  * @subpackage UserInterface
+ * @author Sebastian Eichner <mailsp@sebastian-eichner.de>
+ * @version $Revision$ $Date$
  */
 class AdminSelfRegistrationController extends GalleryController {
 
@@ -78,7 +76,7 @@ class AdminSelfRegistrationController extends GalleryController {
 		}
 	    } else {
 		$userName = $pendingUser->getUserName();
-		list($ret, $lock) = GalleryCoreApi::acquireWriteLock(array($pendingUser->getId()));
+		list ($ret, $lock) = GalleryCoreApi::acquireWriteLock(array($pendingUser->getId()));
 		if ($ret) {
 		    return array($ret, null);
 		}
@@ -109,8 +107,7 @@ class AdminSelfRegistrationController extends GalleryController {
 }
 
 /**
- * @package SelfRegistration
- * @subpackage UserInterface
+ * Settings for Registration
  */
 class AdminSelfRegistrationView extends GalleryView {
 
@@ -125,9 +122,10 @@ class AdminSelfRegistrationView extends GalleryView {
 	    return array($ret, null);
 	}
 
-	list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'register');
-	if ($ret)
+	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'register');
+	if ($ret) {
 	    return array($ret, null);
+	}
 
 	/* Load our default values if we didn't just come from this form. */
 	if ($form['formName'] != 'AdminSelfRegistration') {
@@ -174,11 +172,10 @@ class AdminSelfRegistrationView extends GalleryView {
 	    'auto' => $module->translate('Accept without confirmation') );
 	$selfregistration['reallySendList'] = array(
 	    'true' => $module->translate('Yes'), 'false' => $module->translate('No') );
+
 	$template->setVariable('SelfRegistration', $selfregistration);
 	$template->setVariable('controller', 'register.AdminSelfRegistration');
-
-	return array(null,
-		     array('body' => 'modules/register/templates/AdminSelfRegistration.tpl'));
+	return array(null, array('body' => 'modules/register/templates/AdminSelfRegistration.tpl'));
     }
 }
 ?>

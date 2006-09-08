@@ -17,15 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Watermark
- * @author Bharat Mediratta <bharat@menalto.com>
- */
 
 /**
+ * Manage user watermarks
  * @package Watermark
  * @subpackage UserInterface
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision$ $Date$
  */
 class UserWatermarksController extends GalleryController {
 
@@ -33,6 +31,8 @@ class UserWatermarksController extends GalleryController {
      * @see GalleryController::handleRequest
      */
     function handleRequest($form) {
+        global $gallery;
+
 	GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
 	list ($ret, $isAnonymous) = GalleryCoreApi::isAnonymousUser();
 	if ($ret) {
@@ -43,7 +43,10 @@ class UserWatermarksController extends GalleryController {
 	if ($ret) {
 	    return array($ret, null);
 	}
-	if ($isAnonymous || !$isOn) {
+
+        $user = $gallery->getActiveUser();
+
+	if ($isAnonymous || $user->isLocked() || !$isOn) {
 	    return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED), null);
 	}
 
@@ -88,8 +91,7 @@ class UserWatermarksController extends GalleryController {
 }
 
 /**
- * @package Watermark
- * @subpackage UserInterface
+ * Manage user watermarks
  */
 class UserWatermarksView extends GalleryView {
 
@@ -109,7 +111,10 @@ class UserWatermarksView extends GalleryView {
 	if ($ret) {
 	    return array($ret, null);
 	}
-	if ($isAnonymous || !$isOn) {
+
+        $user = $gallery->getActiveUser();
+
+	if ($isAnonymous || $user->isLocked() || !$isOn) {
 	    return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED), null);
 	}
 
@@ -144,17 +149,13 @@ class UserWatermarksView extends GalleryView {
 	    $template->setVariable('UserAdmin', $UserAdmin);
 	}
 
-	$UserWatermarks = array();
-	$UserWatermarks['watermarks'] = $watermarks;
-
-	$template->setVariable('UserWatermarks', $UserWatermarks);
+	$template->setVariable('UserWatermarks', array('watermarks' => $watermarks));
 	$template->setVariable('controller', 'watermark.UserWatermarks');
-	return array(null,
-		     array('body' => 'modules/watermark/templates/UserWatermarks.tpl'));
+	return array(null, array('body' => 'modules/watermark/templates/UserWatermarks.tpl'));
     }
 
     /**
-     * @see GalleryView::getViewDescription()
+     * @see GalleryView::getViewDescription
      */
     function getViewDescription() {
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'watermark');

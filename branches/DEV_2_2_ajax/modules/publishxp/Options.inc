@@ -17,18 +17,20 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
  * Controller to set options on how photos are uploaded.
+ * Allows the user to specify options that control how the photos are created within Gallery.
+ * The two options supported are for whether the file extension should be used in the title
+ * and if the captions should be set automatically.
  *
- * Allows the user to specify options that control how the photos are created
- * within Gallery.  The two options supported are for whether the file extension
- * should be used in the title and if the captions should be set automatically.
- *
- * @version $Revision$ $Date$
  * @package PublishXp
+ * @subpackage UserInterface
  * @author Timothy Webb <tiwebb@cisco.com>
+ * @version $Revision$ $Date$
  */
 class OptionsController extends GalleryController {
+
     /**
      * @see GalleryController::handleRequest
      */
@@ -60,13 +62,9 @@ class OptionsController extends GalleryController {
 
 /**
  * View to set options on how photos are uploaded.
- *
- * Allows the user to specify options that control how the photos are created
- * within Gallery.  The two options supported are for whether the file extension
- * should be used in the title and if the captions should be set automatically.
- *
- * @package PublishXp
- * @subpackage UserInterface
+ * Allows the user to specify options that control how the photos are created within Gallery.
+ * The two options supported are for whether the file extension should be used in the title
+ * and if the captions should be set automatically.
  */
 class OptionsView extends GalleryView {
     /**
@@ -122,9 +120,8 @@ class OptionsView extends GalleryView {
 	$template->setVariable('Options', $Options);
 	$template->head('modules/publishxp/templates/Head.tpl');
 
-	return array(null,
-		     array('body' => 'modules/publishxp/templates/Options.tpl',
-			   'useFullScreen' => true));
+	return array(null, array('body' => 'modules/publishxp/templates/Options.tpl',
+				 'useFullScreen' => true));
     }
 }
 ?>

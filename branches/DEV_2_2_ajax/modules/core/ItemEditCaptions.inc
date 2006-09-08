@@ -19,18 +19,12 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * This controller will save many item captions at once.
  * @package GalleryCore
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
  * @author Changpeng Zhao
- */
-
-/**
- * This controller will save many item captions at once.
- *
- * @package GalleryCore
- * @subpackage UserInterface
+ * @version $Revision$ $Date$
  */
 class ItemEditCaptionsController extends GalleryController {
 
@@ -134,9 +128,6 @@ class ItemEditCaptionsController extends GalleryController {
 
 /**
  * This view will allow the user to edit many item captions at once.
- *
- * @package GalleryCore
- * @subpackage UserInterface
  */
 class ItemEditCaptionsView extends GalleryView {
 
@@ -232,16 +223,14 @@ class ItemEditCaptionsView extends GalleryView {
 	$ItemEditCaptions['page'] = $page;
 	$ItemEditCaptions['numPages'] = $numPages;
 
-	$template->setVariable('controller', 'core.ItemEditCaptions');
 	$template->setVariable('ItemEditCaptions', $ItemEditCaptions);
-
-	return array(null,
-		     array('body' => 'modules/core/templates/ItemEditCaptions.tpl'));
+	$template->setVariable('controller', 'core.ItemEditCaptions');
+	return array(null, array('body' => 'modules/core/templates/ItemEditCaptions.tpl'));
 
     }
 
     /**
-     * @see GalleryView::getViewDescription()
+     * @see GalleryView::getViewDescription
      */
     function getViewDescription() {
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');

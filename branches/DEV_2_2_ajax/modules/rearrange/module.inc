@@ -17,16 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Rearrange
- * @author Alan Harder <alan.harder@sun.com>
- */
 
 /**
  * The implementation of the Rearrange module
  *
  * @package Rearrange
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision$ $Date$
  */
 class RearrangeModule extends GalleryModule {
 
@@ -38,12 +35,12 @@ class RearrangeModule extends GalleryModule {
 	$this->setVersion('1.0.3');
 	$this->setGroup('gallery', $gallery->i18n('Gallery'));
 	$this->setCallbacks('getItemLinks|getItemAdminViews');
-	$this->setRequiredCoreApi(array(7, 0));
+	$this->setRequiredCoreApi(array(7, 4));
 	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
-     * @see GalleryModule::getItemLinks()
+     * @see GalleryModule::getItemLinks
      */
     function getItemLinks($items, $wantsDetailedLinks, $permissions) {
 	$links = array();
@@ -83,7 +80,7 @@ class RearrangeModule extends GalleryModule {
     }
 
     /**
-     * @see GalleryModule::getItemAdminViews();
+     * @see GalleryModule::getItemAdminViews
      */
     function getItemAdminViews($item) {
 	$views = array();

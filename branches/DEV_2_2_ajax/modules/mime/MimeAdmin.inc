@@ -17,15 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Mime
- * @author Felix Rabinovich <Felix@Rabinovich.org>
- */
 
 /**
+ * Settings for Mime types
  * @package Mime
- * @subpackage Administration
+ * @subpackage UserInterface
+ * @author Felix Rabinovich <Felix@Rabinovich.org>
+ * @version $Revision$ $Date$
  */
 class MimeAdminController extends GalleryController {
 
@@ -71,8 +69,7 @@ class MimeAdminController extends GalleryController {
 }
 
 /**
- * @package Mime
- * @subpackage Administration
+ * Settings for Mime types
  */
 class MimeAdminView extends GalleryView {
 
@@ -105,14 +102,14 @@ class MimeAdminView extends GalleryView {
 	}
 
 	$MimeAdmin = array();
-	foreach(array_keys($typeMap['ext']) as $mimeType) {
+	foreach (array_keys($typeMap['ext']) as $mimeType) {
 	    $ext = implode(', ', $typeMap['ext'][$mimeType]);
 	    $MimeAdmin[$mimeType]['ext'] = $ext;
 	    $MimeAdmin[$mimeType]['viewable'] = $typeMap['viewable'][$mimeType];
 	}
 
-	$template->setVariable('controller', 'mime.MimeAdmin');
 	$template->setVariable('MimeAdmin', $MimeAdmin);
+	$template->setVariable('controller', 'mime.MimeAdmin');
 	return array(null, array('body' => 'modules/mime/templates/MimeAdmin.tpl'));
     }
 }

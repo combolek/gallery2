@@ -19,17 +19,11 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * This controller will handle the deletion of items
  * @package GalleryCore
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
- */
-
-/**
- * This controller will handle the deletion of an item
- *
- * @package GalleryCore
- * @subpackage UserInterface
+ * @version $Revision$ $Date$
  */
 class ItemDeleteController extends GalleryController {
 
@@ -122,7 +116,7 @@ class ItemDeleteController extends GalleryController {
 	    }
 	} else if (isset($form['action']['next'])) {
 	    $page = GalleryUtilities::getRequestVariables('page');
-	    list($ret, $peerIds) =
+	    list ($ret, $peerIds) =
 		GalleryCoreApi::fetchChildItemIdsWithPermission($itemId, 'core.delete');
 	    if ($ret) {
 		return array($ret, null);
@@ -152,10 +146,7 @@ class ItemDeleteController extends GalleryController {
 }
 
 /**
- * This view will prompt for confirmation on the deletion of an item
- *
- * @package GalleryCore
- * @subpackage UserInterface
+ * This view will prompt for selecting items to delete
  */
 class ItemDeleteView extends GalleryView {
 
@@ -277,15 +268,13 @@ class ItemDeleteView extends GalleryView {
 	$ItemDelete['selectedIds'] = array_keys($selectedIds);
 	$ItemDelete['selectedIdCount'] = count($selectedIds);
 
-	$template->setVariable('controller', 'core.ItemDelete');
 	$template->setVariable('ItemDelete', $ItemDelete);
-
-	return array(null,
-		     array('body' => 'modules/core/templates/ItemDelete.tpl'));
+	$template->setVariable('controller', 'core.ItemDelete');
+	return array(null, array('body' => 'modules/core/templates/ItemDelete.tpl'));
     }
 
     /**
-     * @see GalleryView::getViewDescription()
+     * @see GalleryView::getViewDescription
      */
     function getViewDescription() {
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');

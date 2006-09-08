@@ -17,15 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Thumbnail
- * @author Alan Harder <alan.harder@sun.com>
- */
 
 /**
+ * Thumbnail manager
  * @package Thumbnail
  * @subpackage UserInterface
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision$ $Date$
  */
 class ThumbnailSiteAdminController extends GalleryController {
 
@@ -113,8 +111,7 @@ class ThumbnailSiteAdminController extends GalleryController {
 }
 
 /**
- * @package Thumbnail
- * @subpackage UserInterface
+ * Thumbnail manager
  */
 class ThumbnailSiteAdminView extends GalleryView {
 
@@ -172,8 +169,7 @@ class ThumbnailSiteAdminView extends GalleryView {
 	}
 
 	$template->setVariable('controller', 'thumbnail.ThumbnailSiteAdmin');
-	return array(null,
-		     array('body' => 'modules/thumbnail/templates/ThumbnailSiteAdmin.tpl'));
+	return array(null, array('body' => 'modules/thumbnail/templates/ThumbnailSiteAdmin.tpl'));
     }
 }
 ?>

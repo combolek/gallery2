@@ -17,16 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
- * @version $Revision$ $Date$
+ * Migration results
  * @package Migrate
  * @subpackage UserInterface
  * @author Jesse Mullan <jmullan@visi.com>
- */
-
-/**
- * @package Migrate
- * @subpackage UserInterface
+ * @version $Revision$ $Date$
  */
 class ImportResultsView extends GalleryView {
 
@@ -56,10 +53,10 @@ class ImportResultsView extends GalleryView {
 	$ImportResults = array();
 	$ImportResults['counts'] = $counts;
 	$ImportResults['status'] = $status;
+
 	$template->setVariable('ImportResults', $ImportResults);
 	$template->setVariable('controller', 'migrate.ImportResults');
-	return array(null,
-		     array('body' => 'modules/migrate/templates/ImportResults.tpl'));
+	return array(null, array('body' => 'modules/migrate/templates/ImportResults.tpl'));
     }
 }
 ?>

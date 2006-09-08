@@ -19,13 +19,6 @@
  */
 
 /**
- * @version $Revision$ $Date$
- * @package GalleryCore
- * @subpackage Classes
- * @author Bharat Mediratta <bharat@menalto.com>
- */
-
-/**
  * The current protocol version of the template data.  Whenever the template library changes, bump
  * this number to trigger a complete rebuild of all compiled templates.
  */
@@ -37,19 +30,16 @@ define('TEMPLATE_DATA_VERSION', 10);
  *
  * @package GalleryCore
  * @subpackage Classes
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision$ $Date$
  */
-class GalleryTemplate {
 
-    /*
-     * ****************************************
-     *                 Members
-     * ****************************************
-     */
+class GalleryTemplate {
 
     /**
      * The Smarty instance
      *
-     * @var object Smarty $_smarty
+     * @var object Smarty
      * @access private
      */
     var $_smarty;
@@ -70,15 +60,6 @@ class GalleryTemplate {
      */
     var $_compiledTemplateDir;
 
-    /*
-     * ****************************************
-     *                 Methods
-     * ****************************************
-     */
-
-    /**
-     * Constructor
-     */
     function GalleryTemplate($templateDir, $initSmarty=true) {
 	global $gallery;
 	$this->_templateDir = $templateDir;
@@ -206,7 +187,7 @@ class GalleryTemplate {
 	}
 	$this->_smarty->compile_dir = $this->_compiledTemplateDir;
 
-	list($ret, $html) = $this->_smarty->fetch($templateName);
+	list ($ret, $html) = $this->_smarty->fetch($templateName);
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -308,6 +289,7 @@ class GalleryTemplate {
      *
      * @return object Smarty
      * @static
+     * @access private
      */
     function _getSmarty() {
 	global $gallery;
@@ -408,8 +390,10 @@ class GalleryTemplate {
      *   1.  /foo/local/bar.tpl  (if it exists)
      *   2.  /foo/bar.tpl        (whether or not it exists)
      *
-     * @return string
+     * @param string base template name
+     * @return string template to use
      * @static
+     * @access private
      */
     function _getActualTemplateName($templateName) {
 	global $gallery;

@@ -17,27 +17,20 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package GalleryCore
- * @subpackage UserInterface
- * @author Jozef Selesi <selesi at gmail dot com>
- */
 
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryRepository.class');
 
 /**
  * This controller will handle an administration request for a module
- *
  * @package GalleryCore
  * @subpackage UserInterface
- *
+ * @author Jozef Selesi <selesi at gmail dot com>
+ * @version $Revision$ $Date$
  */
 class AdminRepositoryController extends GalleryController {
 
     /**
      * Repository.
-     *
      * @var object GalleryRepository
      * @access private
      */
@@ -199,7 +192,7 @@ class AdminRepositoryController extends GalleryController {
     /**
      * Download specified packages to the local repository cache and perform installation.
      *
-     * TODO: Show a summary page (or at least a link to it) which contains details about
+     * @todo Show a summary page (or at least a link to it) which contains details about
      * the exact tasks that were performed and any errors that were encountered.
      *
      * @param array packages
@@ -323,15 +316,11 @@ class AdminRepositoryController extends GalleryController {
 
 /**
  * This view will show all repository-related features.
- *
- * @package GalleryCore
- * @subpackage UserInterface
  */
 class AdminRepositoryView extends GalleryView {
 
     /**
      * Repository.
-     *
      * @var object GalleryRepository
      * @access private
      */
@@ -484,8 +473,7 @@ class AdminRepositoryView extends GalleryView {
 	$template->setVariable('AdminRepository', $AdminRepository);
 	$template->setVariable('controller', 'core.AdminRepository');
 
-	return array(null,
-		     array('body' => 'modules/core/templates/AdminRepository.tpl'));
+	return array(null, array('body' => 'modules/core/templates/AdminRepository.tpl'));
     }
 }
 ?>

@@ -17,23 +17,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package SiriuxTheme
- * @author Nico Kaiser <nico@siriux.net>
- */
 
 /**
- * This implements the siriux.net gallery theme
- *
- * @package SiriuxTheme
- * @subpackage Theme
+ * Siriux.net Gallery theme
+ * @package Themes
+ * @subpackage Siriux
+ * @author Nico Kaiser <nico@siriux.net>
+ * @version $Revision$ $Date$
  */
 class SiriuxTheme extends GalleryTheme {
 
-    /**
-     * Constructor
-     */
     function SiriuxTheme() {
 	global $gallery;
 
@@ -41,7 +34,7 @@ class SiriuxTheme extends GalleryTheme {
 	$this->setName($gallery->i18n('Siriux'));
 	$this->setDescription($gallery->i18n('Siriux.net Gallery theme'));
 	$this->setVersion('1.1.1');
-	$this->setRequiredCoreApi(array(7, 0));
+	$this->setRequiredCoreApi(array(7, 10));
 	$this->setRequiredThemeApi(array(2, 4));
 	$this->setStandardSettings(
 	    array('perPage' => 9,
@@ -176,7 +169,7 @@ class SiriuxTheme extends GalleryTheme {
     }
 
     /**
-     * @see GalleryTheme::getSettings()
+     * @see GalleryTheme::getSettings
      */
     function getSettings($itemId=null) {
 	list ($ret, $settings, $params) = parent::getSettings($itemId);

@@ -17,210 +17,172 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package GalleryCore
- * @author Bharat Mediratta <bharat@menalto.com>
- */
 
 /**
- * Global storage container and utility class for Gallery
- *
- * This is a container for global information required for gallery
- * operation, such as configuration, session, user, etc.
+ * Global storage container and utility class for Gallery.
+ * This is a container for global information required for Gallery operation, such as configuration,
+ * session, user, etc.
  *
  * @package GalleryCore
  * @subpackage Classes
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision$ $Date$
  */
 class Gallery {
 
-    /*
-     * ****************************************
-     *                 Members
-     * ****************************************
-     */
-
     /**
      * The active GalleryUser instance
-     *
-     * @var object GalleryUser $_activeUser
+     * @var object GalleryUser
      * @access private
      */
     var $_activeUser;
 
     /**
-     * Storage for all configuration variables, set in config.php.
-     * The values contained here can't be modified.  Well, they
-     * can be modified but they can't be saved so it's not a good
-     * idea.
-     *
-     * @var array $_config
+     * Storage for all configuration variables, set in config.php.  The values contained here can't
+     * be modified.  Well, they can be modified but they can't be saved so it's not a good idea.
+     * @var array
      * @access private
      */
     var $_config;
 
     /**
-     * The current debugging mode.  One of 'buffered', 'logged', 'immediate' or false
-     *
-     * @var string $_debug
+     * The current debugging mode.  One of 'buffered', 'logged', 'immediate' or false.
+     * @var string
      * @access private
      */
     var $_debug;
 
     /**
      * Where to send debug output (when the debugging mode is set to 'logged')
-     *
-     * @var bool $_debugLogFile
+     * @var string
      * @access private
      */
     var $_debugLogFile;
 
     /**
-     * A place to temporarily store debug output when the debugging mode is set
-     * to 'buffered'
-     *
-     * @var bool $_debugBuffer
+     * A place to temporarily store debug output when the debugging mode is set to 'buffered'
+     * @var string
      * @access private
      */
     var $_debugBuffer;
 
     /**
-     * A secondary debug buffer used to record debug output even if regular
-     * debug mode is disabled.
-     *
-     * @var string $_debugSnippet
+     * A secondary debug buffer used to record debug output even if regular debug mode is disabled.
+     * @var string
      * @access private
      */
     var $_debugSnippet = null;
 
     /**
      * Are we currently recording a debug snippet?
-     *
-     * @var bool $_debugSnippetActive
+     * @var boolean
      * @access private
      */
     var $_debugSnippetActive = false;
 
     /**
      * The active GalleryLockSystem implementation
+     * @var object GalleryLockSystem
+     * @access private
      */
     var $_lockSystem;
 
     /**
      * An instance of the GalleryPlatform class
-     *
-     * @var object GalleryPlatform $_platform
+     * @var object GalleryPlatform
      * @access private
      */
     var $_platform;
 
     /**
      * The current profiling mode.
-     *
-     * @var string $_profile
+     * @var string
      * @access private
      */
     var $_profile;
 
     /**
      * Storage for all session variables.
-     *
-     * @var object GallerySession $_session
+     * @var object GallerySession
      * @access private
      */
     var $_session;
 
     /**
      * The backend persistent store for the Gallery class
-     *
-     * @var object GalleryStorage $_storage
+     * @var object GalleryStorage
      * @access private
      */
     var $_storage;
 
     /**
-     * The adapter between the template system and any Gallery callbacks that
-     * we want to use during the template process.
-     *
-     * @var object GalleryTemplateAdapter $_templateAdapter
+     * The adapter between the template system and any Gallery callbacks that want to use in the
+     * template process.
+     * @var object GalleryTemplateAdapter
      * @access private
      */
     var $_templateAdapter;
 
     /**
      * Instance of the GalleryTranslator class
-     *
-     * @var object $_translator
+     * @var object GalleryTranslator
      * @access private
      */
     var $_translator;
 
     /**
      * Instance of the GalleryUrlGenerator class
-     *
-     * @var object $_urlGenerator
+     * @var object GalleryUrlGenerator
      * @access private
      */
     var $_urlGenerator;
 
     /**
      * The name of the current view
-     *
-     * @var string $_currentView
+     * @var string
      * @access private
      */
     var $_currentView = '';
 
     /**
      * The time at which we should cease whatever operation we're doing
-     *
-     * @var int $_timeLimit
+     * @var int
      * @access private
      */
     var $_timeLimit;
 
     /**
      * Actions to perform at the end of the request
-     *
-     * @var array $_shutdownActions
+     * @var array
      * @access private
      */
     var $_shutdownActions;
 
     /**
-     * A facade in front of the PHP virtual machine.  We use this as an abstraction layer to let
-     * us interpose mock objects between our code and the VM for testing purposes.  When we're not
-     * in a test environment, this is always an instance of GalleryPhpVm
-     *
+     * A facade in front of the PHP virtual machine.  We use this as an abstraction layer to let us
+     * interpose mock objects between our code and the VM for testing purposes.  When we're not in a
+     * test environment, this is always an instance of GalleryPhpVm.
      * @var object GalleryPhpVm
      * @access private
      */
     var $_phpVm = null;
 
-    /*
-     * ****************************************
-     *                 Methods
-     * ****************************************
-     */
 
-    /**
-     * Constructor
-     */
     function Gallery() {
 	$this->_activeUser = null;
 
-	/* Set up a shutdown function to release any hanging locks. */
+	/* Set up a shutdown function to release any hanging locks */
 	register_shutdown_function(array(&$this, '_shutdown'));
 
 	/* Default config settings (can be overridden via config.php or embedded environment) */
 	$this->_config = array(
-	    'login' => true,             /* Offer UserAdmin links (Login/Logout/Your Account) */
+	    'login' => true,		/* Offer UserAdmin links (Login/Logout/Your Account) */
 
 	    /* UrlGenerator parameters for redirect when ShowItem target is inaccessible */
 	    'loginRedirect' => array('view' => 'core.UserAdmin',
 				     'subView' => 'core.UserLogin', 'return' => true),
 
-	    'link' => true,              /* @deprecated - Allow item linking */
+	    'link' => true,		 /* @deprecated - Allow item linking */
 					 /* (now unused, there is a separate replica module */
 
 	    'showSidebarBlocks' => true, /* Can we allow themes to show the sidebar? */
@@ -233,7 +195,7 @@ class Gallery {
     }
 
     /**
-     * @see GalleryStorage::search()
+     * @see GalleryStorage::search
      */
     function search($query, $data=array(), $options=array()) {
 	$storage =& $this->getStorage();
@@ -246,9 +208,7 @@ class Gallery {
     }
 
     /**
-     * Set the id of the active user
-     *
-     * The active user is the user who is logged on in this session.
+     * Set the id of the active user.  The active user is the user who is logged on in this session.
      *
      * @param object GalleryUser the current user
      */
@@ -270,12 +230,10 @@ class Gallery {
     }
 
     /**
-     * Get the Id of the active user
+     * Get the Id of the active user.
+     * The active user is the user who is logged on in this session.
      *
-     * The active user is the user who is logged on in this
-     * session.
-     *
-     * @return int the id of the current User.
+     * @return int the id of the current user
      */
     function getActiveUserId() {
 	if (isset($this->_activeUser)) {
@@ -287,10 +245,8 @@ class Gallery {
     }
 
     /**
-     * Get the active user
-     *
-     * Cache the results of the first call and return that same value each
-     * time.
+     * Get the active user.
+     * Cache the results of the first call and return that same value each time.
      *
      * @return array object GalleryStatus a status code
      *               object GalleryUser the active user
@@ -340,7 +296,6 @@ class Gallery {
 
     /**
      * Initialize an empty session.
-     *
      */
     function initEmptySession() {
 	GalleryCoreApi::requireOnce('modules/core/classes/GallerySession.class');
@@ -349,9 +304,8 @@ class Gallery {
 
     /**
      * Get the Gallery session object.
-     *
-     * Return a reference to the unique Gallery session object.  Any changes
-     * made to this object will be saved in the session.
+     * Return a reference to the unique Gallery session object.  Any changes made to this object
+     * will be saved in the session.
      *
      * @return object GallerySession a session instance
      */
@@ -371,8 +325,7 @@ class Gallery {
 
     /**
      * Get the Gallery platform object.
-     *
-     * Return a copy of the unique Gallery platform object.
+     * Return a reference to the unique Gallery platform object.
      *
      * @return object GalleryPlatform the Gallery platform object
      */
@@ -427,7 +380,6 @@ class Gallery {
 
     /**
      * Perform any necessary shutdown tasks.
-     *
      * This should only be invoked as a register_shutdown callback.
      *
      * @access private
@@ -539,7 +491,7 @@ class Gallery {
     }
 
     /**
-     * Set the current View
+     * Set the current view
      *
      * @param string the view name
      */
@@ -548,7 +500,7 @@ class Gallery {
     }
 
     /**
-     * Get the current View
+     * Get the current view
      *
      * @return string the current view name
      */
@@ -634,8 +586,7 @@ class Gallery {
     /**
      * Guarantee that we have at least this many more seconds to work
      *
-     * After this function completes, we will be guaranteed to have at least
-     * this much more time to work.
+     * After this function completes, we will be guaranteed of at least this much more time to work.
      *
      * @param int a time interval in seconds, must be greater than 0
      */
@@ -653,10 +604,9 @@ class Gallery {
 	    set_time_limit($this->_timeLimit - $now);
 
 	    /*
-	     * Then make sure our locks stick around.  Even though this returns
-	     * a status code, we really don't want to make guaranteeTimeLimit()
-	     * return a status code since we want to keep it lightweight.  So
-	     * swallow the return code and don't sweat it for now.
+	     * Then make sure our locks stick around.  Even though this returns a status code, we
+	     * really don't want to make guaranteeTimeLimit() return a status code since we want to
+	     * keep it lightweight.  So swallow the return code and don't sweat it for now.
 	     */
 	    if (isset($this->_lockSystem)) {
 		$this->_lockSystem->refreshLocks($this->_timeLimit);
@@ -665,8 +615,8 @@ class Gallery {
     }
 
     /**
-     * Set the profiling state.  Pass in an array containing the different kinds of things that
-     * you want to profile.  Right now, we only do sql profiling so the only valid values are:
+     * Set the profiling state.  Pass in an array containing the different kinds of things that you
+     * want to profile.  Right now, we only do sql profiling so the only valid values are:
      *
      *   false             <-- no profiling
      *   array()           <-- no profiling
@@ -685,8 +635,8 @@ class Gallery {
     /**
      * Get the profiling state
      *
-     * @string profiling type
-     * @return bool
+     * @param string profiling type
+     * @return boolean
      */
     function isProfiling($type) {
 	return in_array($type, $this->_profile);
@@ -718,7 +668,6 @@ class Gallery {
 
     /**
      * Set the location of debugging output
-     *
      * @param string a filename
      */
     function setDebugLogFile($debugLogFile) {
@@ -727,7 +676,6 @@ class Gallery {
 
     /**
      * Get the debug state
-     *
      * @return mixed the debug state
      */
     function getDebug() {
@@ -742,7 +690,6 @@ class Gallery {
 
     /**
      * Get any buffered debug output
-     *
      * @return string the debug state
      */
     function getDebugBuffer() {
@@ -757,7 +704,7 @@ class Gallery {
     }
 
     /**
-     * Start recording a debug snippet.
+     * Start recording a debug snippet
      */
     function startRecordingDebugSnippet() {
 	$this->_debugSnippetActive = true;
@@ -777,7 +724,6 @@ class Gallery {
 
     /**
      * Output a debug message
-     *
      * @param string a message
      */
     function debug($msg) {
@@ -815,7 +761,7 @@ class Gallery {
      * Output a print_r style debug message
      *
      * @param mixed any object or value
-     * @param bool true if the output should be run through htmlentities()
+     * @param boolean true if the output should be run through htmlentities()
      */
     function debug_r($object, $escapeHtmlEntities=false) {
 	if (!empty($this->_debug)) {
@@ -842,17 +788,16 @@ class Gallery {
     }
 
     /**
-     * Mark a string as being internationalized.  This is a semaphore method; it
-     * does nothing but it allows us to easily identify strings that require
-     * translation.  Generally this is used to mark strings that will be stored
-     * in the database (like descriptions of permissions).
+     * Mark a string as being internationalized.  This is a semaphore method; it does nothing but it
+     * allows us to easily identify strings that require translation.  Generally this is used to
+     * mark strings that will be stored in the database (like descriptions of permissions).
      *
-     * Gallery uses GNU gettext for internationalization (i18n) and localization (l10n) of
-     * text presented to the user. Gettext needs to know about all places involving strings,
-     * that must be translated. Mark any place, where localization at runtime shall take place
-     * by using the function GalleryPlugin::translate().
+     * Gallery uses GNU gettext for internationalization (i18n) and localization (l10n) of text
+     * presented to the user.  Gettext needs to know about all places involving strings, that must
+     * be translated.  Mark any place, where localization at runtime shall take place by using the
+     * function GalleryPlugin::translate().
      *
-     * E.g. instead of:
+     * eg. instead of:
      *   print 'TEST to be displayed in different languages';
      * use (in any modules subclass of GalleryPlugin):
      *   print $this->translate('TEST to be displayed in different languages');
@@ -867,11 +812,11 @@ class Gallery {
      *   $message_to_be_localized = 'TEST to be displayed in different languages';
      *   print $this->translate($message_to_be_localized);
      *
-     * The translate() method is called in the right place for runtime handling, but there
-     * is no message at gettext preprocessing time to be given to the translation teams,
-     * just a variable name. Translation of the variable name would break the code! So all
-     * places potentially feeding this variable have to be marked to be given to translation
-     * teams, but not translated at runtime!
+     * The translate() method is called in the right place for runtime handling, but there is no
+     * message at gettext preprocessing time to be given to the translation teams, just a variable
+     * name. Translation of the variable name would break the code! So all places potentially
+     * feeding this variable have to be marked to be given to translation teams, but not translated
+     * at runtime!
      *
      * This method resolves all such cases. Simply mark the candidates:
      *   $message_to_be_localized = $gallery->i18n('TEST to be displayed in different languages');
@@ -900,7 +845,8 @@ class Gallery {
 	if (!empty($requestFileName) && $requestFileName != $filename) {
 	    return false;
 	}
-	/* Don't use GalleryPlatform here -- we're aiming for max speed */
+
+	/* Don't use GalleryPlatform here - we're aiming for max speed */
 	/* TODO: benchmark what it would cost us to use GalleryPlatform */
 	$base = $this->getConfig('data.gallery.base');
 	$path = $base . $relativePath;
@@ -916,8 +862,10 @@ class Gallery {
 		print fread($fd, 4096);
 	    }
 	    fclose($fd);
+
 	    return true;
 	}
+
 	return false;
     }
 
@@ -970,6 +918,7 @@ class Gallery {
 
     /**
      * Return our PHP virtual machine abstraction
+     *
      * @return object GalleryPhpVm
      */
     function getPhpVm() {

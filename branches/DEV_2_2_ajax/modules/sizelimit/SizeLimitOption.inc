@@ -18,21 +18,16 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-/**
- * @version $Revision$ $Date$
- * @package SizeLimit
- * @subpackage UserInterface
- * @author Felix Rabinovich <felix@rabinovich.org>
- */
+GalleryCoreApi::requireOnce('modules/sizelimit/classes/SizeLimitHelper.class');
 
 /**
  * This ItemEditOption allows the user to set size limits for an album.
  *
  * @package SizeLimit
  * @subpackage UserInterface
+ * @author Felix Rabinovich <felix@rabinovich.org>
+ * @version $Revision$ $Date$
  */
-GalleryCoreApi::requireOnce('modules/sizelimit/classes/SizeLimitHelper.class');
-
 class SizeLimitOption extends ItemEditOption {
 
     /**
@@ -47,8 +42,8 @@ class SizeLimitOption extends ItemEditOption {
      */
     function loadTemplate(&$template, &$form, $item, $thumbnail) {
 	/*
-	 * Get the parameters for this album;
-	 * we are assuming that both $height and $width are either in or out...
+	 * Get the parameters for this album; we are assuming that both $height and $width are
+	 * either in or out...
 	 */
 	$SizeLimitOption = array();
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(
@@ -96,7 +91,7 @@ class SizeLimitOption extends ItemEditOption {
 	$error = $warning = array();
 	$setOriginal = false;
 	if (empty($error) && isset($form['changeInDescendents']['sizelimit'])) {
-            /* TODO We only need subalbums Items that we can administer */
+            /* TODO We only need subalbums items that we can administer */
             list ($ret, $subAlbumIds) =
                 GalleryCoreApi::fetchDescendentAlbumItemIds($item);
             if ($ret) {
@@ -180,8 +175,8 @@ class SizeLimitOption extends ItemEditOption {
 
 	    case 'explicit':
 		/* Validate the input data */
-		if (!is_numeric($form['SizeLimitOption']['filesize']) ||
-			$form['SizeLimitOption']['filesize'] < 1) {
+		if (!is_numeric($form['SizeLimitOption']['filesize'])
+			|| $form['SizeLimitOption']['filesize'] < 1) {
 		    $error[] = 'form[error][SizeLimitOption][filesize][invalid]';
 		    break;
 		}
@@ -205,14 +200,15 @@ class SizeLimitOption extends ItemEditOption {
 		    return array($ret, null, null);
 		}
 	    }
-        }
+	}
+
 	if (empty($error) && isset($form['SizeLimitOption']['applyToDescendents'])) {
 	    list ($ret, $error, $warning) = $this->_applyToDescendents($form, $item);
 	    if ($ret) {
 		return array($ret, null, null);
 	    }
 
-	    list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'sizelimit');
+	    list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'sizelimit');
 	    if ($ret) {
 		return array($ret, null, null);
 	    }
@@ -224,21 +220,23 @@ class SizeLimitOption extends ItemEditOption {
 		return array($ret, null, null);
 	    }
 	}
+
 	return array(null, $error, $warning);
     }
 
     /**
      * Apply current settings to all qualified subitems
      *
+     * @access private
      * @param array of form variables
      * @param object album to apply settings
      * @return array object GalleryStatus a status code
      *               array errors, array warnings
-     * @access private
      */
     function _applyToDescendents($form, $album) {
 	global $gallery;
 	$templateAdapter =& $gallery->getTemplateAdapter();
+
 	$errors = $warnings = array();
 	if ($setDimensions = ($form['SizeLimitOption']['dimensionChoice'] == 'explicit')) {
 	    $dimensions = array($form['SizeLimitOption']['dimensions']['width'],
@@ -248,7 +246,7 @@ class SizeLimitOption extends ItemEditOption {
 	    $filesize = array($form['SizeLimitOption']['filesize']);
 	}
 
-	list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'sizelimit');
+	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'sizelimit');
 	if ($ret) {
 	    return array($ret, null, null);
 	}
@@ -256,9 +254,8 @@ class SizeLimitOption extends ItemEditOption {
 	$preserveOriginal = isset($form['SizeLimitOption']['keepOriginal']) &&
 	    $form['SizeLimitOption']['keepOriginal'];
 	/*
-	 * NOTE: we only need Descendent Data Items, so in the future we may
-	 *       want to create a separate function. But for now let's just
-	 *       eliminate everything else
+	 * NOTE: we only need descendent data items, so in the future we may want to create a
+	 * separate function.  But for now let's just eliminate everything else.
 	 */
 	list ($ret, $descendentIds) =
 	    GalleryCoreApi::fetchDescendentItemIds($album, null, null, 'core.edit');
@@ -274,8 +271,8 @@ class SizeLimitOption extends ItemEditOption {
 	$totalItems = count($descendentIds);
 
 	/*
-	 * Process these descendents in chunks since we may have thousands of
-	 * items and we don't want to give the database a heart attack.
+	 * Process these descendents in chunks since we may have thousands of items and we don't
+	 * want to give the database a heart attack.
 	 */
 	$chunkSize = 200;
 	$numberOfItemsResized = 0;
@@ -337,6 +334,7 @@ class SizeLimitOption extends ItemEditOption {
 		}
 	    }
 	}
+
 	return array(null, $errors, $warnings);
     }
 

@@ -17,24 +17,17 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package TileTheme
- * @author Alan Harder <alan.harder@sun.com>
- */
 
 /**
- * This implements a gallery theme with a tiled background image and image thumbnails
- * on top of it; Displays inline items ONLY; subalbums or other item types are NOT shown.
- *
- * @package TileTheme
- * @subpackage Theme
+ * Theme with a tiled background image and image thumbnails on top of it.
+ * Displays inline items ONLY; subalbums or other item types are NOT shown.
+ * @package Themes
+ * @subpackage Tile
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision$ $Date$
  */
 class TileTheme extends GalleryTheme {
 
-    /**
-     * Constructor
-     */
     function TileTheme() {
 	global $gallery;
 
@@ -43,7 +36,7 @@ class TileTheme extends GalleryTheme {
 	$this->setDescription($gallery->i18n('Tile view of background image and image ' .
 					     'thumbnails; subalbums/other items not shown'));
 	$this->setVersion('1.0.4');
-	$this->setRequiredCoreApi(array(7, 0));
+	$this->setRequiredCoreApi(array(7, 4));
 	$this->setRequiredThemeApi(array(2, 4));
 	$this->setStandardSettings(array('colorpack' => '',
 	    'sidebarBlocks' => serialize(array(

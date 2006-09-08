@@ -19,17 +19,11 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * This view will allow users to view a members uploaded items
  * @package Members
  * @subpackage UserInterface
  * @author Robert Balousek <rbalousek@hotmail.com>
- */
-
-/**
- * This view will allow users to view a members uploaded items
- *
- * @package Members
- * @subpackage UserInterface
+ * @version $Revision$ $Date$
  */
 class MembersItemsView extends GalleryView {
 
@@ -46,8 +40,7 @@ class MembersItemsView extends GalleryView {
 	    return array($ret, null);
 	}
 	if (!$result) {
-	    return array(null,
-			 array('redirect' => array('view' => 'core.ShowItem')));
+	    return array(null, array('redirect' => array('view' => 'core.ShowItem')));
 	}
 
 	if (!isset($form['list']['page']) || $form['list']['page'] < 1) {
@@ -71,15 +64,14 @@ class MembersItemsView extends GalleryView {
 	    return array($ret, null);
 	}
 
-	list($ret, $form['list']['count']) =
+	list ($ret, $form['list']['count']) =
 	    GalleryMembersHelper::fetchUserItemCount($user->getId());
 	if ($ret) {
 	    return array($ret, null);
 	}
 
 	if ($form['list']['count'] == 0) {
-	    return array(null,
-			 array('redirect' => array('view' => 'core.ShowItem')));
+	    return array(null, array('redirect' => array('view' => 'core.ShowItem')));
 	}
 
 	$form['list']['pageSize'] = $form['list']['count'] > 25 ? 25 : $form['list']['count'];
@@ -119,8 +111,7 @@ class MembersItemsView extends GalleryView {
 	}
 
 	$template->title($module->translate('Member Items'));
-	return array(null,
-		     array('body' => 'modules/members/templates/MembersItems.tpl'));
+	return array(null, array('body' => 'modules/members/templates/MembersItems.tpl'));
     }
 }
 ?>

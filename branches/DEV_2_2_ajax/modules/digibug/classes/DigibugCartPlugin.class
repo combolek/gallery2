@@ -17,18 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Digibug
- * @subpackage Classes
- * @author Alan Harder <alan.harder@sun.com>
- */
 
 /**
  * This is an implementation of the cart module's CartPluginInterface_1_0
- *
  * @package Digibug
  * @subpackage Classes
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision$ $Date$
  */
 class DigibugCartPlugin extends CartPluginInterface_1_0 {
     /**
@@ -61,7 +56,8 @@ class DigibugCartPlugin extends CartPluginInterface_1_0 {
 	$returnUrl = $urlGenerator->generateUrl(
 		array('view' => 'cart.ViewCart'), array('forceFullUrl' => true));
 
-	return array(null, array('view' => 'digibug.PrintPhotos', 'returnUrl' => $returnUrl));
+	return array(null,
+		     array('view' => 'digibug.DigibugPrintPhotos', 'returnUrl' => $returnUrl));
     }
 }
 ?>

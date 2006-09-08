@@ -17,18 +17,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Rating
- * @subpackage PHPUnit
- * @author Don Seiler <don@seiler.us>
- */
 
 /**
  * RatingSiteAdmin controller tests
  *
  * @package Rating
  * @subpackage PHPUnit
+ * @author Don Seiler <don@seiler.us>
+ * @version $Revision$ $Date$
  */
 class RatingSiteAdminControllerTest extends GalleryControllerTestCase {
 
@@ -66,12 +62,12 @@ class RatingSiteAdminControllerTest extends GalleryControllerTestCase {
 	GalleryUtilities::putRequestVariable('form[action][save]', 'Save');
 	GalleryUtilities::putRequestVariable('form[allowAlbumRating]', 'on');
 	GalleryUtilities::putRequestVariable('form[minLimit]', '1.5');
+	GalleryUtilities::putRequestVariable('form[description]', 'desc');
 	GalleryUtilities::putRequestVariable('form[orderBy]', 'title');
 	GalleryUtilities::putRequestVariable('form[orderDirection]', ORDER_ASCENDING);
 	GalleryUtilities::putRequestVariable('form[presort]', '');
 	GalleryUtilities::putRequestVariable('form[themeId]', 'ratingTest');
 	GalleryUtilities::putRequestVariable('form[currentThemeId]', 'ratingTest');
-	GalleryUtilities::putRequestVariable('form[key]', '');
 
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 	if ($ret) {
@@ -98,6 +94,7 @@ class RatingSiteAdminControllerTest extends GalleryControllerTestCase {
 	}
 	ksort($params);
 	$this->assertEquals(array('allowAlbumRating' => 1,
+				  'description' => 'desc',
 				  'orderBy' => 'title',
 				  'orderDirection' => ORDER_ASCENDING,
 				  'minLimit' => '1.5',
@@ -109,12 +106,12 @@ class RatingSiteAdminControllerTest extends GalleryControllerTestCase {
     function testDisableAlbumRatings() {
 	GalleryUtilities::putRequestVariable('form[action][save]', 'Save');
 	GalleryUtilities::putRequestVariable('form[minLimit]', '3,75');
+	GalleryUtilities::putRequestVariable('form[description]', '');
 	GalleryUtilities::putRequestVariable('form[orderBy]', 'RatingSortOrder');
 	GalleryUtilities::putRequestVariable('form[orderDirection]', ORDER_DESCENDING);
 	GalleryUtilities::putRequestVariable('form[presort]', 'albumsFirst');
 	GalleryUtilities::putRequestVariable('form[themeId]', 'ratingTest');
 	GalleryUtilities::putRequestVariable('form[currentThemeId]', 'ratingTest');
-	GalleryUtilities::putRequestVariable('form[key]', '');
 
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 	if ($ret) {
@@ -141,6 +138,7 @@ class RatingSiteAdminControllerTest extends GalleryControllerTestCase {
 	}
 	ksort($params);
 	$this->assertEquals(array('allowAlbumRating' => 0,
+				  'description' => '',
 				  'orderBy' => 'albumsFirst|RatingSortOrder',
 				  'orderDirection' => ORDER_DESCENDING,
 				  'minLimit' => '3.75',

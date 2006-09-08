@@ -17,15 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package WebCam
- * @author Alan Harder <alan.harder@sun.com>
- */
 
 /**
+ * Settings for Webcam images
  * @package WebCam
  * @subpackage UserInterface
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision$ $Date$
  */
 class WebCamSiteAdminController extends GalleryController {
 
@@ -67,8 +65,7 @@ class WebCamSiteAdminController extends GalleryController {
 }
 
 /**
- * @package WebCam
- * @subpackage UserInterface
+ * Settings for Webcam images
  */
 class WebCamSiteAdminView extends GalleryView {
 
@@ -93,8 +90,7 @@ class WebCamSiteAdminView extends GalleryView {
 	}
 
 	$template->setVariable('controller', 'webcam.WebCamSiteAdmin');
-	return array(null,
-		     array('body' => 'modules/webcam/templates/WebCamSiteAdmin.tpl'));
+	return array(null, array('body' => 'modules/webcam/templates/WebCamSiteAdmin.tpl'));
     }
 }
 ?>

@@ -18,6 +18,10 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+/**
+ * Install core module
+ * @package Install
+ */
 class InstallCoreModuleStep extends InstallStep {
     function stepName() {
 	return _('Install Gallery Core');
@@ -137,7 +141,7 @@ class InstallCoreModuleStep extends InstallStep {
 		    $gallery->debug('Core module installed successfully');
 		}
 
-	    	$template->renderStatusMessage(_('Installing the core module'), '', 0.8);
+		$template->renderStatusMessage(_('Installing the core module'), '', 0.8);
 		$gallery->guaranteeTimeLimit(180);
 
 		$gallery->debug('Activate core module');

@@ -18,16 +18,9 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-/**
- * @version $Revision$ $Date$
- * @package GalleryCore
- * @subpackage Classes
- * @author Ernesto Baschny <ernst@baschny.de>
- */
-
-/**
+/*
  * We extend the original Smarty class
- * (if Gallery is embedded in a CMS also using smarty it may be defined already)
+ * (if embedded in an application also using Smarty it may be defined already)
  */
 if (!class_exists('Smarty')) {
     GalleryCoreApi::requireOnce('lib/smarty/Smarty.class.php', true);
@@ -38,14 +31,10 @@ if (!class_exists('Smarty')) {
  *
  * @package GalleryCore
  * @subpackage Classes
+ * @author Ernesto Baschny <ernst@baschny.de>
+ * @version $Revision$ $Date$
  */
 class GallerySmarty extends Smarty {
-
-    /*
-     * ****************************************
-     *                 Members
-     * ****************************************
-     */
 
     /**
      * A GalleryStatus object from the last called fetch
@@ -56,18 +45,13 @@ class GallerySmarty extends Smarty {
     var $_firstGalleryStatus;
 
     /**
-     * The FILE and LINE of the last call to ???
+     * The FILE and LINE of the last call
      *
-     * @var array file number, line number
+     * @var array
      * @access private
      */
     var $_firstFileLine;
 
-    /*
-     * ****************************************
-     *                 Methods
-     * ****************************************
-     */
 
     /**
      * Fetch should also return a GalleryStatus object
@@ -78,8 +62,6 @@ class GallerySmarty extends Smarty {
      */
     function fetch($_smarty_tpl_file, $_smarty_cache_id=null,
 		   $_smarty_compile_id=null, $_smarty_display=false) {
-	global $gallery;
-
 	$this->_firstGalleryStatus = null;
 	$this->_firstFileLine = array(__FILE__, __LINE__);
 	$this->_smarty_vars['templateName'] = basename($_smarty_tpl_file, '.tpl');
@@ -103,8 +85,6 @@ class GallerySmarty extends Smarty {
      * @see Smarty::trigger_error
      */
     function trigger_error($error_msg, $error_type = E_USER_WARNING) {
-	global $gallery;
-
 	/* Store this error for later usage */
 	if (!$this->_firstGalleryStatus) {
 	    $this->_firstGalleryStatus = GalleryCoreApi::error(ERROR_BAD_PARAMETER,
@@ -120,8 +100,7 @@ class GallerySmarty extends Smarty {
      */
     function _smarty_include($params) {
 	$save = $this->_smarty_vars['templateName'];
-	$this->_smarty_vars['templateName'] = basename($params['smarty_include_tpl_file'],
-	    '.tpl');
+	$this->_smarty_vars['templateName'] = basename($params['smarty_include_tpl_file'], '.tpl');
 
 	parent::_smarty_include($params);
 	$this->_smarty_vars['templateName'] = $save;
