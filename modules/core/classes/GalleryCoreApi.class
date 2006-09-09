@@ -2718,7 +2718,8 @@ class GalleryCoreApi {
      * @param array optional arguments (eg, limit, orderBy)
      *              array('limit' => array('count' => #, 'offset' => #),
      *                    'orderBy' => array(columnName => ORDER_ASCENDING|ORDER_DESCENDING, ...))
-     * @return object GalleryStatus a status code
+     * @return array object GalleryStatus a status code
+     *               array the results
      */
     function getMapEntry($mapName, $select, $match=array(), $optional=array()) {
 	global $gallery;
