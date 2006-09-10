@@ -40,7 +40,8 @@
 <div class="gbBlock">
   <h3>{g->text text="Get More Plugins"}</h3>
   <p class="giDescription">
-    {g->text text="The Gallery Plugin Repository contains the latest modules and themes provided by the Gallery team.  You can download and install new plugins to try them out, then delete them if you don't like them.  You must periodically download a new plugin list from the Gallery server to find out about any available updates. No personal information is sent to the Gallery server at any time. On slower connections the process might take a minute or two."}
+    {capture name="noPersonalInfoTransmitted"}<b>{g->text text="No personal information about you or your Gallery installation is sent to the Gallery server at any time."}</b>{/capture}
+    {g->text text="The Gallery Plugin Repository contains the latest modules and themes provided by the Gallery team.  You can download and install new plugins to try them out, then delete them if you don't like them.  You must periodically download a new plugin list from the Gallery server to find out about any available updates. %s On slower connections the process might take a minute or two." arg1=$smarty.capture.noPersonalInfoTransmitted}
   </p>
 </div>
 

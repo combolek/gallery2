@@ -91,14 +91,8 @@ class AdminRepositoryDownloadController extends GalleryController {
 		$packages['base'] = 'download';
 	    }
 
-	    if (isset($form['downloadLanguages'])) {
-		foreach ($form['downloadLanguages'] as $language) {
-		    $packages['lang-' . $language] = 1;
-		}
-	    }
-
-	    if (isset($form['upgradeLanguages'])) {
-		foreach ($form['upgradeLanguages'] as $language) {
+	    if (isset($form['languages'])) {
+		foreach ($form['languages'] as $language) {
 		    $packages['lang-' . $language] = 1;
 		}
 	    }
@@ -169,7 +163,7 @@ class AdminRepositoryDownloadController extends GalleryController {
 	}
 
 	/* Download files. */
-	$titleText = $module->translate('Performing Maintenance Tasks');
+	$titleText = $module->translate('Downloading Files');
 	foreach ($files as $pluginType => $plugins) {
 	    foreach ($plugins as $pluginId => $pluginDownloadData) {
 		$packageUrls = $pluginDownloadData['files'];

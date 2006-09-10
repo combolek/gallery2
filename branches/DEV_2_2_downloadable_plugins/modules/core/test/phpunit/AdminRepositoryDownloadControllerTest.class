@@ -73,8 +73,7 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 	GalleryUtilities::putRequestVariable('form[pluginType]', 'module');
 	GalleryUtilities::putRequestVariable('form[pluginId]', 'testModule');
 	GalleryUtilities::putRequestVariable('form[upgradeBaseFiles]', 1);
-	GalleryUtilities::putRequestVariable('form[downloadLanguages]', array('en_US'));
-	GalleryUtilities::putRequestVariable('form[upgradeLanguages]', array('hu_HU'));
+	GalleryUtilities::putRequestVariable('form[languages]', array('en_US', 'hu_HU'));
 	GalleryUtilities::putRequestVariable('form[downloadTest]', 1);
 	GalleryUtilities::putRequestVariable('form[action][download]', '1');
 
