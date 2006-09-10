@@ -65,33 +65,64 @@ class RepositoryTest extends GalleryTestCase {
      * Test getAllUpgradeablePackages and getUpgradeInfo.
      */
     function testUpgrade() {
-	$testcases = array(array(
+	global $gallery;
+	$testcases = array(array( /* case 1 */
 	    'installedPackages' => array(
 		'base' => array('version' => '1.0.0', 'build' => '19710411131300')),
 	    'expectedUpgradeInfo' => array(
-		'downloadableLanguages' => array(
-		    'codes' => array('en_US', 'en_GB', 'pt_PT', 'pt_BR'),
-		    'names' => array('en_US', 'en_GB', 'pt_PT', 'pt_BR'))),
-	    'expectedPackages' => array()), array(
+		'base' => array(
+		    'newVersion' => '1.0.0',
+		    'currentVersion' => '1.0.0'),
+		'upgradeable' => false,
+		'languages' => array(
+		    'en_US' => array('name' => 'en_US', 'currentVersion' => NULL,
+				     'newVersion' => '33333', 'relation' => 'older'),
+		    'en_GB' => array('name' => 'en_GB', 'currentVersion' => NULL,
+				     'newVersion' => '33333', 'relation' => 'older'),
+		    'pt_PT' => array('name' => 'pt_PT', 'currentVersion' => NULL,
+				     'newVersion' => '33333', 'relation' => 'older'),
+		    'pt_BR' => array('name' => 'pt_BR', 'currentVersion' => NULL,
+				     'newVersion' => '33333', 'relation' => 'older'))),
+	    'expectedPackages' => array()), array( /* case 2 */
 
 	    'installedPackages' => array(
 		'base' => array('version' => '2.0.0', 'build' => '19710411131300')),
 	    'expectedUpgradeInfo' => array(
-		'downloadableLanguages' => array(
-		    'codes' => array('en_US', 'en_GB', 'pt_PT', 'pt_BR'),
-		    'names' => array('en_US', 'en_GB', 'pt_PT', 'pt_BR'))),
-	    'expectedPackages' => array()), array(
+		'base' => array(
+		    'newVersion' => '1.0.0',
+		    'currentVersion' => '2.0.0'),
+		'upgradeable' => false,
+		'languages' => array(
+		    'en_US' => array('name' => 'en_US', 'currentVersion' => NULL,
+				     'newVersion' => '33333', 'relation' => 'older'),
+		    'en_GB' => array('name' => 'en_GB', 'currentVersion' => NULL,
+				     'newVersion' => '33333', 'relation' => 'older'),
+		    'pt_PT' => array('name' => 'pt_PT', 'currentVersion' => NULL,
+				     'newVersion' => '33333', 'relation' => 'older'),
+		    'pt_BR' => array('name' => 'pt_BR', 'currentVersion' => NULL,
+				     'newVersion' => '33333', 'relation' => 'older'))),
+	    'expectedPackages' => array()), array( /* case 3 */
 
 	    'installedPackages' => array(
 		'base' => array('version' => '1.0.0', 'build' => '00001')),
 	    'expectedUpgradeInfo' => array(
+		'base' => array(
+		    'newVersion' => '1.0.0',
+		    'currentVersion' => '1.0.0'),
 		'isBaseUpgradeable' => 1,
-		'downloadableLanguages' => array(
-		    'codes' => array('en_US', 'en_GB', 'pt_PT', 'pt_BR'),
-		    'names' => array('en_US', 'en_GB', 'pt_PT', 'pt_BR'))),
+		'upgradeable' => true,
+		'languages' => array(
+		    'en_US' => array('name' => 'en_US', 'currentVersion' => NULL,
+				     'newVersion' => '33333', 'relation' => 'older'),
+		    'en_GB' => array('name' => 'en_GB', 'currentVersion' => NULL,
+				     'newVersion' => '33333', 'relation' => 'older'),
+		    'pt_PT' => array('name' => 'pt_PT', 'currentVersion' => NULL,
+				     'newVersion' => '33333', 'relation' => 'older'),
+		    'pt_BR' => array('name' => 'pt_BR', 'currentVersion' => NULL,
+				     'newVersion' => '33333', 'relation' => 'older'))),
 	    'expectedPackages' => array('module' => array('testModule' => array(
 		'base' => 1)),	'theme' => array('testTheme' => array(
-		'base' => 1)))), array(
+		'base' => 1)))), array( /* case 4 */
 
 	    'installedPackages' => array(
 		'base' => array('version' => '1.0.0', 'build' => '44444'),
@@ -99,16 +130,39 @@ class RepositoryTest extends GalleryTestCase {
 		'lang-en_GB' => array('version' => '22222', 'build' => '33333'),
 		'lang-pt_BR' => array('version' => '22222', 'build' => '33333'),
 		'lang-pt_PT' => array('version' => '22222', 'build' => '33333')),
-	    'expectedUpgradeInfo' => array(),
-	    'expectedPackages' => array()), array(
+	    'expectedUpgradeInfo' => array(
+		'base' => array(
+		    'newVersion' => '1.0.0',
+		    'currentVersion' => '1.0.0'),
+		'upgradeable' => false,
+		'languages' => array(
+		    'en_US' => array('name' => 'en_US', 'currentVersion' => '33333',
+				     'newVersion' => '33333', 'relation' => 'equal'),
+		    'en_GB' => array('name' => 'en_GB', 'currentVersion' => '33333',
+				     'newVersion' => '33333', 'relation' => 'equal'),
+		    'pt_PT' => array('name' => 'pt_PT', 'currentVersion' => '33333',
+				     'newVersion' => '33333', 'relation' => 'equal'),
+		    'pt_BR' => array('name' => 'pt_BR', 'currentVersion' => '33333',
+				     'newVersion' => '33333', 'relation' => 'equal'))),
+	    'expectedPackages' => array()), array( /* case 5 */
 
 	    'installedPackages' => array(),
 	    'expectedUpgradeInfo' => array(
+		'base' => array(
+		    'newVersion' => '1.0.0',
+		    'currentVersion' => NULL),
 		'isBaseDownloadable' => 1,
-		'downloadableLanguages' => array(
-		    'codes' => array('en_US', 'en_GB', 'pt_PT', 'pt_BR'),
-		    'names' => array('en_US', 'en_GB', 'pt_PT', 'pt_BR'))),
-	    'expectedPackages' => array()), array(
+		'upgradeable' => true,
+		'languages' => array(
+		    'en_US' => array('name' => 'en_US', 'currentVersion' => NULL,
+				     'newVersion' => '33333', 'relation' => 'older'),
+		    'en_GB' => array('name' => 'en_GB', 'currentVersion' => NULL,
+				     'newVersion' => '33333', 'relation' => 'older'),
+		    'pt_PT' => array('name' => 'pt_PT', 'currentVersion' => NULL,
+				     'newVersion' => '33333', 'relation' => 'older'),
+		    'pt_BR' => array('name' => 'pt_BR', 'currentVersion' => NULL,
+				     'newVersion' => '33333', 'relation' => 'older'))),
+	    'expectedPackages' => array()), array( /* case 6 */
 
 	    'installedPackages' => array(
 		'base' => array('version' => '1.0.0', 'build' => '44444'),
@@ -116,19 +170,29 @@ class RepositoryTest extends GalleryTestCase {
 		'lang-en_GB' => array('version' => '22222', 'build' => '22222'),
 		'lang-pt_PT' => array('version' => '22222', 'build' => '33333')),
 	    'expectedUpgradeInfo' => array(
-		'upgradeableLanguages' => array(
-		    'codes' => array('en_US', 'en_GB'),
-		    'names' => array('en_US', 'en_GB')),
-		'downloadableLanguages' => array(
-		    'codes' => array('pt_BR'),
-		    'names' => array('pt_BR'))),
+		'base' => array(
+		    'newVersion' => '1.0.0',
+		    'currentVersion' => '1.0.0'),
+		'upgradeable' => true,
+		'languages' => array(
+		    'en_US' => array('name' => 'en_US', 'currentVersion' => '00001',
+				     'newVersion' => '33333', 'relation' => 'older'),
+		    'en_GB' => array('name' => 'en_GB', 'currentVersion' => '22222',
+				     'newVersion' => '33333', 'relation' => 'older'),
+		    'pt_PT' => array('name' => 'pt_PT', 'currentVersion' => '33333',
+				     'newVersion' => '33333', 'relation' => 'equal'),
+		    'pt_BR' => array('name' => 'pt_BR', 'currentVersion' => NULL,
+				     'newVersion' => '33333', 'relation' => 'older'))),
 	    'expectedPackages' => array('module' => array(
 					    'testModule' => array(
 						'lang-en_US' => 1, 'lang-en_GB' => 1)),
 					'theme' => array(
 					    'testTheme' => array('lang-en_US' => 1)))));
 
+	$i = 0;
 	foreach ($testcases as $case) {
+	    $i++;
+
 	    $utilities = new RepositoryTestUtilities($case['installedPackages']);
 	    $repository = new GalleryRepository();
 	    $repository->_utilities = $utilities;
@@ -141,13 +205,16 @@ class RepositoryTest extends GalleryTestCase {
 	    }
 
 	    $this->assertEquals($case['expectedUpgradeInfo'], $upgradeInfo,
-		'Unexpected upgrade data.');
+		"Unexpected upgrade data in case $i");
 
 	    /*
 	     * Set up the platform so that it returns both testModule and testTheme only in the
-	     * first plugin base directory. This way there won't be duplication in the plugin list.
+	     * first plugin base directory. This way there won't be duplication in the plugin
+	     * list.
+	     *
+	     * When GalleryCoreApi::getPluginBaseDirs() goes away this can get simplified
+	     * considerably.
 	     */
-	    global $gallery;
 	    $platform = new UnitTestPlatform();
 	    foreach (array('module', 'theme') as $pluginType) {
 		$firstBaseDirectory = true;
@@ -173,7 +240,8 @@ class RepositoryTest extends GalleryTestCase {
 	    if ($ret) {
 		$this->failWithStatus($ret);
 	    }
-	    $this->assertEquals($case['expectedPackages'], $packages);
+	    $this->assertEquals(
+		$case['expectedPackages'], $packages, "package mismatch in case $i");
 	}
     }
 
@@ -282,7 +350,7 @@ class RepositoryTest extends GalleryTestCase {
 	    'isCompatible' => true,
 	    'isAvailable' => true,
 	    'installedPackages' => array(
-		'base' => array('version' => '1.0.0', 'build' => '44444')),
+		'base' => array('version' => '0.0.9', 'build' => '44444')),
 	    'expectedPluginList' => array(
 		'testModule' =>	array(
 		    'type' => 'module',
@@ -343,7 +411,10 @@ class RepositoryTest extends GalleryTestCase {
 				   'provided' => array('core' => '1.2', 'plugin' => '3.4')),
 		    'action' => ''))));
 
+	$i = 0;
 	foreach ($testCases as $case) {
+	    $i++;
+
 	    $utilities = new RepositoryTestUtilities($case['installedPackages']);
 	    $repository = new GalleryRepository();
 	    $repository->_utilities = $utilities;
@@ -368,7 +439,8 @@ class RepositoryTest extends GalleryTestCase {
 		$this->failWithStatus($ret);
 	    }
 
-	    $this->assertEquals($case['expectedPluginList'], $pluginList);
+	    $this->assertEquals($case['expectedPluginList'], $pluginList,
+				"mismatch in case $i");
 	}
 
 	$ret = $gallery->setActiveLanguageCode($saveLanguage);
