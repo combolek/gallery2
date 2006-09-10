@@ -114,7 +114,7 @@ class GalleryRepository {
      */
     function getPluginUpgradeInfo($pluginType, $pluginId) {
 	global $gallery;
-	$upgradeInfo = array();
+	$upgradeInfo = array('upgradeable' => false);
 
 	/* Get installed packages meta data. */
 	list ($ret, $installedPackages) =
@@ -136,26 +136,22 @@ class GalleryRepository {
 	if (isset($installedPackages['base'])) {
 	    $dataVersion = $installedPackages['base']['version'];
 	    $dataBuild = $installedPackages['base']['build'];
-
-	    /* Compare local base version with the one in the repository. */
-	    list ($ret, $relation) = $this->_utilities->compareVersions(
-		$dataVersion, $repositoryDataVersion, $dataBuild, $repositoryDataBuild);
-	    if ($ret) {
-		return array($ret, null);
-	    }
-
-	    if ($relation == 'older') {
-		$upgradeInfo['isBaseUpgradeable'] = 1;
-	    }
-	    $upgradeInfo['base']['currentVersion'] = $dataVersion;
 	} else {
-	    $upgradeInfo['isBaseDownloadable'] = 1;
-	    $upgradeInfo['base']['currentVersion'] = null;
+	    $dataVersion = null;
+	    $dataBuild = null;
 	}
 
-	$upgradeInfo['upgradeable'] =
-	    !empty($upgradeInfo['isBaseDownloadable']) ||
-	    !empty($upgradeInfo['isBaseUpgradeable']);
+	/* Compare local base version with the one in the repository. */
+	list ($ret, $upgradeInfo['base']['relation']) = $this->_utilities->compareVersions(
+	    $dataVersion, $repositoryDataVersion, $dataBuild, $repositoryDataBuild);
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	if ($upgradeInfo['base']['relation'] == 'older') {
+	    $upgradeInfo['upgradeable'] = 1;
+	}
+	$upgradeInfo['base']['currentVersion'] = $dataVersion;
 
 	/* Check if any languages have been updated. */
 	list ($ret, $languages) =
@@ -346,7 +342,8 @@ class GalleryRepository {
 		    return array($ret, null);
 		}
 
-		if (isset($upgradeInfo['isBaseUpgradeable'])) {
+		if ($upgradeInfo['base']['relation'] == 'older'
+		    && $upgradeInfo['base']['currentVersion']) {
 		    $packages[$pluginType][$pluginId]['base'] = 1;
 		}
 

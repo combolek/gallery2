@@ -20,17 +20,20 @@
   </p>
   <p>
     <h3> {g->text text="Base package"} </h3>
-    {if isset($AdminRepositoryDownload.upgradeData.isBaseDownloadable)}
-    <input type="hidden" name="{g->formVar var="form[downloadBaseFiles]"}" value="true" />
-    <input type="checkbox" checked="checked" disabled="true" />
-    {g->text text="%s (version %s)" arg1="<b>`$AdminRepositoryDownload.pluginName`</b>" arg2=$AdminRepositoryDownload.upgradeData.base.newVersion}
-    {elseif isset($AdminRepositoryDownload.upgradeData.isBaseUpgradeable)}
-    <input type="checkbox" name="{g->formVar var="form[upgradeBaseFiles]"}" />
-    {g->text text="%s (version: %s, currently installed: %s)" arg1="<b>`$AdminRepositoryDownload.pluginName`</b>" arg2=$AdminRepositoryDownload.upgradeData.base.newVersion arg3=$AdminRepositoryDownload.upgradeData.base.currentVersion}
+    {assign var="base" value=$AdminRepositoryDownload.upgradeData.base}
+    {if $base.relation == "older"}
+      {if empty($base.currentVersion)}
+        <input type="hidden" name="{g->formVar var="form[downloadBaseFiles]"}" value="true" />
+        <input type="checkbox" checked="checked" disabled="true" />
+        {g->text text="%s (version %s)" arg1="<b>`$AdminRepositoryDownload.pluginName`</b>" arg2=$base.newVersion}
+      {else}
+        <input type="checkbox" name="{g->formVar var="form[upgradeBaseFiles]"}" />
+        {g->text text="%s (version: %s, currently installed: %s)" arg1="<b>`$AdminRepositoryDownload.pluginName`</b>" arg2=$base.newVersion arg3=$base.currentVersion}
+      {/if}
     {else}
-    <input type="hidden" name="{g->formVar var="form[downloadBaseFiles]"}" value="true" />
-    <input type="checkbox" value="false" checked="checked" disabled="true" />
-    {g->text text="%s (currently installed version %s is up to date)" arg1="<b>`$AdminRepositoryDownload.pluginName`</b>" arg2=$AdminRepositoryDownload.upgradeData.base.currentVersion}
+      <input type="hidden" name="{g->formVar var="form[downloadBaseFiles]"}" value="true" />
+      <input type="checkbox" value="false" checked="checked" disabled="true" />
+      {g->text text="%s (currently installed version %s is up to date)" arg1="<b>`$AdminRepositoryDownload.pluginName`</b>" arg2=$base.currentVersion}
     {/if}
     <br />
   </p>
