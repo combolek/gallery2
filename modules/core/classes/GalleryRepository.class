@@ -160,6 +160,7 @@ class GalleryRepository {
 	    return array($ret, null);
 	}
 
+	$upgradeInfo['complete'] = $upgradeInfo['base']['currentVersion'];
 	foreach ($languages as $language => $revision) {
 	    list ($ret, $languageDescription) =
 		$this->_utilities->getLanguageDescription($language);
@@ -187,6 +188,8 @@ class GalleryRepository {
 	    if ($relation == 'older' && $currentVersion) {
 		$upgradeInfo['upgradeable'] = true;
 	    }
+
+	    $upgradeInfo['complete'] &= !empty($currentVersion);
 	}
 
 	return array(null, $upgradeInfo);
@@ -245,6 +248,8 @@ class GalleryRepository {
 
 		if ($upgradeInfo['upgradeable']) {
 		    $action = $gallery->i18n('upgrade');
+		} else if (!$upgradeInfo['complete']) {
+		    $action = $gallery->i18n('get more');
 		}
 
 		$localVersion = $plugin['localVersion'];

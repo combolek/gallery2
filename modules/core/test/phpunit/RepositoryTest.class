@@ -75,6 +75,7 @@ class RepositoryTest extends GalleryTestCase {
 		    'currentVersion' => '1.0.0',
 		    'relation' => 'newer'),
 		'upgradeable' => false,
+		'complete' => false,
 		'languages' => array(
 		    'en_US' => array('name' => 'en_US', 'currentVersion' => NULL,
 				     'newVersion' => '33333', 'relation' => 'older'),
@@ -94,6 +95,7 @@ class RepositoryTest extends GalleryTestCase {
 		    'currentVersion' => '2.0.0',
 		    'relation' => 'newer'),
 		'upgradeable' => false,
+		'complete' => false,
 		'languages' => array(
 		    'en_US' => array('name' => 'en_US', 'currentVersion' => NULL,
 				     'newVersion' => '33333', 'relation' => 'older'),
@@ -113,6 +115,7 @@ class RepositoryTest extends GalleryTestCase {
 		    'currentVersion' => '1.0.0',
 		    'relation' => 'older'),
 		'upgradeable' => true,
+		'complete' => false,
 		'languages' => array(
 		    'en_US' => array('name' => 'en_US', 'currentVersion' => NULL,
 				     'newVersion' => '33333', 'relation' => 'older'),
@@ -138,6 +141,7 @@ class RepositoryTest extends GalleryTestCase {
 		    'currentVersion' => '1.0.0',
 		    'relation' => 'equal'),
 		'upgradeable' => false,
+		'complete' => true,
 		'languages' => array(
 		    'en_US' => array('name' => 'en_US', 'currentVersion' => '33333',
 				     'newVersion' => '33333', 'relation' => 'equal'),
@@ -156,6 +160,7 @@ class RepositoryTest extends GalleryTestCase {
 		    'currentVersion' => NULL,
 		    'relation' => 'older'),
 		'upgradeable' => true,
+		'complete' => false,
 		'languages' => array(
 		    'en_US' => array('name' => 'en_US', 'currentVersion' => NULL,
 				     'newVersion' => '33333', 'relation' => 'older'),
@@ -178,6 +183,7 @@ class RepositoryTest extends GalleryTestCase {
 		    'currentVersion' => '1.0.0',
 		    'relation' => 'equal'),
 		'upgradeable' => true,
+		'complete' => false,
 		'languages' => array(
 		    'en_US' => array('name' => 'en_US', 'currentVersion' => '00001',
 				     'newVersion' => '33333', 'relation' => 'older'),
