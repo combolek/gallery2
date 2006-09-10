@@ -160,7 +160,7 @@ class GalleryRepository {
 	    return array($ret, null);
 	}
 
-	$upgradeInfo['complete'] = $upgradeInfo['base']['currentVersion'];
+	$upgradeInfo['complete'] = isset($upgradeInfo['base']['currentVersion']);
 	foreach ($languages as $language => $revision) {
 	    list ($ret, $languageDescription) =
 		$this->_utilities->getLanguageDescription($language);

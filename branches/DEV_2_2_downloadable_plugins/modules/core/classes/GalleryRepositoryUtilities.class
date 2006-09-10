@@ -188,7 +188,6 @@ class GalleryRepositoryUtilities {
      *		     boolean availability
      */
     function isPluginAvailable($pluginType, $pluginId) {
-	/* REVISIT: Cache plugin list/convert to hashtable for better performance? */
 	list ($ret, $plugins) = GalleryCoreApi::getAllPluginIds($pluginType);
 	if ($ret) {
 	    return array($ret, null);
