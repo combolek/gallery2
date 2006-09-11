@@ -174,7 +174,6 @@ class AdminRepositoryDownloadController extends GalleryController {
 		$totalUrls = count($packageUrls);
 
 		foreach ($packageUrls as $packageName => $relativePackageUrl) {
-		    /* Update progress bar. */
 		    $ret = $templateAdapter->updateProgressBar($titleText,
 			sprintf($module->translate('Downloading %s'), $pluginName),
 			$currentUrlIndex / $totalUrls);
@@ -226,6 +225,49 @@ class AdminRepositoryDownloadController extends GalleryController {
 			}
 		    }
 		}
+
+		/*
+		 * This next block is duplicated in PluginCallback.
+		 * @todo: Refactor this code duplication away
+		 */
+
+		$ret = $templateAdapter->updateProgressBar(
+		    $titleText, sprintf($module->translate('Activating %s'), $pluginName),
+		    $currentUrlIndex / $totalUrls);
+
+		list ($ret, $plugin) = GalleryCoreApi::loadPlugin($pluginType, $pluginId, true);
+		if ($ret) {
+		    $templateAdapter->errorProgressBar($ret);
+		    return $ret;
+		}
+
+		$ret = $plugin->installOrUpgrade();
+		if ($ret) {
+		    $templateAdapter->errorProgressBar($ret);
+		    return $ret;
+		}
+
+		if ($pluginType == 'module') {
+		    list ($ret, $autoConfigured) = $plugin->autoConfigure();
+		    if ($ret) {
+			$templateAdapter->errorProgressBar($ret);
+			return $ret;
+		    }
+		} else {
+		    /* Themes don't need this step */
+		    $autoConfigured = true;
+		}
+
+		if ($autoConfigured) {
+		    list ($ret, $redirect) = $plugin->activate();
+		    if ($ret) {
+			$templateAdapter->errorProgressBar($ret);
+			return $ret;
+		    }
+		    /* Ignore the redirect */
+		}
+
+		/*********************************************************/
 	    }
 	}
 
