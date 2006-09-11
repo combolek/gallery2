@@ -27,7 +27,7 @@
         <input type="checkbox" checked="checked" disabled="true" />
         {g->text text="%s (version %s)" arg1="<b>`$AdminRepositoryDownload.pluginName`</b>" arg2=$base.newVersion}
       {else}
-        <input type="checkbox" name="{g->formVar var="form[upgradeBaseFiles]"}" />
+        <input type="checkbox" name="{g->formVar var="form[upgradeBaseFiles]"}" value="true" checked="checked" />
         {g->text text="%s (version: %s, currently installed: %s)" arg1="<b>`$AdminRepositoryDownload.pluginName`</b>" arg2=$base.newVersion arg3=$base.currentVersion}
       {/if}
     {else}
