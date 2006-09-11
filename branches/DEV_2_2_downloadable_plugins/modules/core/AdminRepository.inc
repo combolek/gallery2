@@ -132,8 +132,8 @@ class AdminRepositoryController extends GalleryController {
      * @todo Show a summary page (or at least a link to it) which contains details about
      * the exact tasks that were performed and any errors that were encountered.
      *
-     * @param array packages
-     * @param string 'commonTasks', 'browseThemes' or 'browseModules'
+     * @param array $pluginData packages
+     * @param string $returnTab 'commonTasks', 'browseThemes' or 'browseModules'
      */
     function _scanPlugins() {
 	global $gallery;

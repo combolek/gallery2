@@ -80,7 +80,7 @@ class KeywordAlbumView extends GalleryView {
 	if ($ret) {
 	    return array($ret, null, null, null);
 	}
-	$item->setDescription($module->getDescription());
+	$item->setDescription($moduleParams['description']);
 
 	if (empty($moduleParams['themeId'])) {
 	    list ($ret, $theme) = $this->loadThemeForItem();
@@ -140,8 +140,8 @@ class KeywordAlbumView extends GalleryView {
 
     /**
      * Dynamic query for items
-     * @param int user id
-     * @param (optional) keyword for query; get from request if not specified
+     * @param int $userId
+     * @param string $keyword (optional) keyword for query; get from request if not specified
      * @return array object GalleryStatus a status code
      *               array of item ids
      * @static
