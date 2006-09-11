@@ -101,9 +101,10 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 
     function testPerformDownloadAndInstallation() {
 	global $gallery;
+	$testModule = 'AdminRepositoryDownloadControllerTest';
 
 	GalleryUtilities::putRequestVariable('form[pluginType]', 'module');
-	GalleryUtilities::putRequestVariable('form[pluginId]', 'testModule');
+	GalleryUtilities::putRequestVariable('form[pluginId]', $testModule);
 	GalleryUtilities::putRequestVariable('form[action][download]', '1');
 
 	/* Test regular download. */
@@ -113,10 +114,10 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 	$mockUrlGenerator = new AdminRepositoryDownloadControllerTestUrlGenerator();
 	$gallery->_urlGenerator =& $mockUrlGenerator;
 
-	$expectedPluginData = array('module' => array('testModule' => array(
+	$expectedPluginData = array('module' => array($testModule => array(
 	    'base' => 'upgrade', 'lang-en_US' => 1, 'lang-hu_HU' => 1)));
 
-	$pluginDownloadFileList = array('module' =>  array('testModule' => array(
+	$pluginDownloadFileList = array('module' =>  array($testModule => array(
 	    'name' => 'Test Module',
 	    'files' => array('descriptor' => 'testModule-descriptor',
 			     'lang-en_US' => 'en_US-package',
@@ -129,41 +130,41 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 			      array(null, $pluginDownloadFileList));
 	/* Descriptor. */
 	$repository->setReply('downloadAndUnpack',
-			      array('module', 'testModule', 'descriptor', 'testModule-descriptor'),
+			      array('module', $testModule, 'descriptor', 'testModule-descriptor'),
 			      array(null, 'descriptorContents'));
 	/* lang-en_US */
 	$repository->setReply('downloadAndUnpack',
-			      array('module', 'testModule', 'lang-en_US', 'en_US-package'),
+			      array('module', $testModule, 'lang-en_US', 'en_US-package'),
 			      array(null, array()));
 	$repository->setReply('verifyPackageIntegrity',
 			      array('lang-en_US', 'descriptorContents'),
 			      null);
 	$repository->setReply('getPackageVersionAndBuild',
-			      array('module', 'testModule', 'lang-en_US'),
+			      array('module', $testModule, 'lang-en_US'),
 			      array(null, 'en_US-version', 'en_US-build'));
 	$repository->setReply('updatePackageMetaData',
-			      array('module', 'testModule', 'lang-en_US',
+			      array('module', $testModule, 'lang-en_US',
 				    'en_US-version', 'en_US-build'),
 			      null);
 	/* lang-hu_HU */
 	$repository->setReply('downloadAndUnpack',
-			      array('module', 'testModule', 'lang-hu_HU', 'hu_HU-package'),
+			      array('module', $testModule, 'lang-hu_HU', 'hu_HU-package'),
 			      array(null, array()));
 	$repository->setReply('verifyPackageIntegrity',
 			      array('lang-hu_HU', 'descriptorContents'),
 			      null);
 	$repository->setReply('getPackageVersionAndBuild',
-			      array('module', 'testModule', 'lang-hu_HU'),
+			      array('module', $testModule, 'lang-hu_HU'),
 			      array(null, 'hu_HU-version', 'hu_HU-build'));
 	$repository->setReply('updatePackageMetaData',
-			      array('module', 'testModule', 'lang-hu_HU',
+			      array('module', $testModule, 'lang-hu_HU',
 				    'hu_HU-version', 'hu_HU-build'),
 			      null);
 	$this->_controller->_repository = $repository;
 
 	$ret = $this->_controller->performDownloadAndInstallation(
 	    array('module' => array(
-		      'testModule' => array(
+		      $testModule => array(
 			  'base' => 'upgrade',
 			  'lang-en_US' => 1,
 			  'lang-hu_HU' => 1))));
@@ -173,6 +174,11 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 
 	$this->assert($this->_controller->_repository->isComplete(),
 		      $this->_controller->_repository->getRemaining());
+
+	$this->assertEquals(array('installOrUpgrade' => 1,
+				  'autoConfigure' => 1,
+				  'activate' => 1),
+			    $_REQUEST['called']);
     }
 }
 
@@ -291,6 +297,23 @@ class AdminRepositoryDownloadControllerTestUrlGenerator {
 	    $buf[] = "$key=$value";
 	}
 	return implode(',', $buf);
+    }
+}
+
+class AdminRepositoryDownloadControllerTestModule {
+    function installOrUpgrade() {
+	$_REQUEST['called']['installOrUpgrade'] = 1;
+	return null;
+    }
+
+    function autoConfigure() {
+	$_REQUEST['called']['autoConfigure'] = 1;
+	return array(null, true);
+    }
+
+    function activate() {
+	$_REQUEST['called']['activate'] = 1;
+	return array(null, array());
     }
 }
 ?>
