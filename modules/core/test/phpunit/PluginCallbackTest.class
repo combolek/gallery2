@@ -42,6 +42,7 @@ class PluginCallbackTest extends GalleryTestCase {
 
 	$this->_testPlugin = new PluginCallbackControllerTestPlugin();
 	$this->_callback = new PluginCallbackView();
+	$this->_callback->_repository = new PluginCallbackTestRepository();
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'core');
 	if ($ret) {
@@ -87,6 +88,9 @@ class PluginCallbackTest extends GalleryTestCase {
 		      'autoConfigure not called');
 	$this->assert($this->_testPlugin->wasCalled('activate'),
 		      'activate not called');
+	$this->assert($this->_callback->_repository->wasCalled(
+			  'scanPlugin', array('module', 'PluginCallbackControllerTest')),
+		      'GalleryRepository::scanPlugin was not called correctly');
     }
 
     function testInstallTheme() {
@@ -122,6 +126,9 @@ class PluginCallbackTest extends GalleryTestCase {
 		      'autoConfigure not called');
 	$this->assert($this->_testPlugin->wasCalled('activate'),
 		      'activate not called');
+	$this->assert($this->_callback->_repository->wasCalled(
+			  'scanPlugin', array('module', 'PluginCallbackControllerTest')),
+		      'GalleryRepository::scanPlugin was not called correctly');
     }
 
     function testUpgradeTheme() {
@@ -588,6 +595,24 @@ class PluginCallbackControllerTestPlugin {
 	return $string;
     }
 }
+
+class PluginCallbackTestRepository {
+    var $_wasCalled;
+
+    function scanPlugin($pluginType, $pluginId) {
+	$this->_wasCalled['scanPlugin'][] = array($pluginType, $pluginId);
+    }
+
+    function wasCalled($function, $args) {
+	if (!isset($this->_wasCalled[$function])) {
+	    return false;
+	}
+
+	$call = array_pop($this->_wasCalled[$function]);
+	return ($call == $args);
+    }
+}
+
 class PluginCallbackControllerTestModule extends PluginCallbackControllerTestPlugin { }
 class PluginCallbackControllerTestTheme extends PluginCallbackControllerTestPlugin { }
 
