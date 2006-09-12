@@ -227,6 +227,17 @@ class AdminRepositoryDownloadController extends GalleryController {
 		}
 
 		/*
+		 * Our plugin status caches are no longer valid because we've just installed some
+		 * new code.  Load the status and ignore the cache which forces a cache update.
+		 * @todo: add a real cache flushing method in the api instead
+		 */
+		list ($ret, $status) = GalleryCoreApi::fetchPluginStatus($pluginType, true);
+		if ($ret) {
+		    $templateAdapter->errorProgressBar($ret);
+		    return $ret;
+		}
+
+		/*
 		 * This next block is duplicated in PluginCallback.
 		 * @todo: Refactor this code duplication away
 		 */
