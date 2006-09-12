@@ -43,6 +43,7 @@ class RepositoryTest extends GalleryTestCase {
 	global $gallery;
 	$this->_galleryStorage =& $gallery->_storage;
 	$this->_testStorage =& RepositoryTestStorage::getSingleton();
+	$this->_testStorage->reset();
 	$gallery->_storage =& $this->_testStorage;
 
 	/* Prepare test index. */
@@ -484,11 +485,12 @@ class RepositoryTest extends GalleryTestCase {
 	if ($ret) {
 	    $this->failWithStatus($ret);
 	}
-	$this->assertEquals(array('GalleryPluginPackageMap' => array('pluginType' => 'module',
-								     'pluginId' => 'testModule',
-								     'packageName' => 'package',
-								     'packageVersion' => 'version',
-								     'packageBuild' => 'build')),
+	$this->assertEquals(array('GalleryPluginPackageMap' => array(
+				      array('pluginType' => 'module',
+					    'pluginId' => 'testModule',
+					    'packageName' => 'package',
+					    'packageVersion' => 'version',
+					    'packageBuild' => 'build'))),
 			    $this->_testStorage->getAddedMapData(),
 			    'Invalid data added.');
 
@@ -508,12 +510,12 @@ class RepositoryTest extends GalleryTestCase {
 	if ($ret) {
 	    $this->failWithStatus($ret);
 	}
-	$this->assertEquals(array('GalleryPluginPackageMap' =>
-				  array('match' => array('pluginType' => 'module',
-							 'pluginId' => 'testModule',
-							 'packageName' => 'package'),
-					'change' => array('packageVersion' => 'version',
-							  'packageBuild' => 'build'))),
+	$this->assertEquals(array('GalleryPluginPackageMap' => array(
+				      array('match' => array('pluginType' => 'module',
+							     'pluginId' => 'testModule',
+							     'packageName' => 'package'),
+					    'change' => array('packageVersion' => 'version',
+							      'packageBuild' => 'build')))),
 			    $this->_testStorage->getUpdatedMapData(),
 			    'Wrong data updated.');
 
@@ -670,6 +672,81 @@ class RepositoryTest extends GalleryTestCase {
 	}
 
 	$this->assert($platform->isComplete(), $platform->getRemaining());
+    }
+
+    function testScanPlugin() {
+	global $gallery;
+
+	$repository = new GalleryRepository();
+	$repository->_utilities = new RepositoryTestUtilitiesForScanPlugin();
+
+	$platform = new UnitTestPlatform();
+	$platform->setReply(
+	    'glob',
+	    array(dirname(dirname(dirname(dirname(__FILE__)))) . "/RepositoryTest/po/*.po", null),
+	    array('po/aa.po', 'po/bb_BB.po'));
+	$gallery->setPlatform($platform);
+
+	$ret = $repository->scanPlugin('module', 'RepositoryTest');
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$this->assertEquals(
+	    array('GalleryPluginPackageMap' => array(
+		      array('match' => array(
+				'pluginType' => 'module',
+				'pluginId' => 'RepositoryTest')))),
+	    $this->_testStorage->getRemovedMapData());
+
+	$this->assertEquals(
+	    array('GalleryPluginPackageMap' => array(
+		      array('pluginType' => 'module',
+			    'pluginId' => 'RepositoryTest',
+			    'packageName' => 'base',
+			    'packageVersion' => '1.0',
+			    'packageBuild' => '11111'),
+		      array('pluginType' => 'module',
+			    'pluginId' => 'RepositoryTest',
+			    'packageName' => 'lang-aa',
+			    'packageVersion' => '22222',
+			    'packageBuild' => '33333'),
+		      array('pluginType' => 'module',
+			    'pluginId' => 'RepositoryTest',
+			    'packageName' => 'lang-bb_BB',
+			    'packageVersion' => '22222',
+			    'packageBuild' => '44444'))),
+	    $this->_testStorage->getAddedMapData());
+
+	$this->assert($platform->isComplete(), $platform->getRemaining());
+    }
+}
+
+class RepositoryTestModule {
+    function getVersion() {
+	return '1.0';
+    }
+}
+
+class RepositoryTestUtilitiesForScanPlugin {
+    function getFirstBytesFromFile($filename, $bytes) {
+	$matches = array('RepositoryTest/MANIFEST' => '11111',
+			 'po/strings.raw' => '22222',
+			 'po/aa.po' => '33333',
+			 'po/bb_BB.po' => '44444');
+	foreach ($matches as $match => $revision) {
+	    if (strpos($filename, $match) !== false) {
+		return array(null, $revision);
+	    }
+	}
+
+	return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
+					  "Unexpected filename: $filename"), null);
+    }
+
+    function extractRevision($tag) {
+	/* getFirstBytesFromFile returns just a revision id; no munging necessary */
+	return array(null, $tag);
     }
 }
 
