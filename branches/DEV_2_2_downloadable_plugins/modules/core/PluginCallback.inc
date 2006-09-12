@@ -28,6 +28,11 @@
  * @version $Revision$ $Date$
  */
 class PluginCallbackView extends GalleryView {
+    /**
+     * @var object GalleryRepository
+     * @access private
+     */
+    var $_repository;
 
     /**
      * @see GalleryView::isImmediate
@@ -239,6 +244,18 @@ class PluginCallbackView extends GalleryView {
 	    } else {
 		$result['status'] = 'success';
 	    }
+
+	    if (empty($this->_repository)) {
+		GalleryCoreApi::requireOnce('modules/core/classes/GalleryRepository.class');
+		$this->_repository = new GalleryRepository();
+		$this->_repository->init();
+	    }
+
+	    $ret = $this->_repository->scanPlugin($pluginType, $pluginId);
+	    if ($ret) {
+		return $ret;
+	    }
+
 	    break;
 
 	case 'uninstall':
