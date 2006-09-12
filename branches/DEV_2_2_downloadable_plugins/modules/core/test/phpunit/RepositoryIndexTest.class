@@ -216,9 +216,9 @@ class RepositoryIndexTest extends GalleryTestCase {
 	    $timestampWritten = true;
 
 	    $updateTimestamp = $this->_testStorage->_updatedMapData
-		['GalleryPluginParameterMap']['change']['parameterValue'];
+		['GalleryPluginParameterMap'][0]['change']['parameterValue'];
 	} else if (isset($this->_testStorage->_addedMapData['GalleryPluginParameterMap'])) {
-	    $addedData = $this->_testStorage->_addedMapData['GalleryPluginParameterMap'];
+	    $addedData = $this->_testStorage->_addedMapData['GalleryPluginParameterMap'][0];
 
 	    if (isset($addedData['parameterName'])
 		    && $addedData['parameterName'] == 'repository.updateTime') {

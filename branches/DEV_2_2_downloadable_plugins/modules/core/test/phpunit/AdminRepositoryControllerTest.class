@@ -53,6 +53,7 @@ class AdminRepositoryControllerTest extends GalleryControllerTestCase {
 	$repository = new AdminRepositoryControllerTestRepository();
 	$repository->setReply('init', array(), null);
 	$repository->setReply('downloadIndex', array(), null);
+	$repository->setReply('scanPlugins', array(), null);
 	$this->_controller->_repository = $repository;
 
 	$results = $this->handleRequest();
@@ -181,6 +182,10 @@ class AdminRepositoryControllerTestRepository {
 
     function downloadIndex() {
 	return $this->_makeReply('downloadIndex', array());
+    }
+
+    function scanPlugins() {
+	return $this->_makeReply('scanPlugins', array());
     }
 
     function getAllUpgradeablePackages() {

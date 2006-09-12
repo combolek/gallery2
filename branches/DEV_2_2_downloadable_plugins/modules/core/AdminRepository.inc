@@ -73,7 +73,7 @@ class AdminRepositoryController extends GalleryController {
 	    }
 
 	    /* Scan all plugins. */
-	    $ret = $this->_scanPlugins();
+	    $ret = $repository->scanPlugins();
 	    if ($ret) {
 		$status['error'] = $ret->getErrorMessage();
 	    }
@@ -123,100 +123,6 @@ class AdminRepositoryController extends GalleryController {
 	$results['error'] = $error;
 
 	return array(null, $results);
-    }
-
-    /**
-     * Scan all installed plugins and update GalleryPluginPackageMap with a complete
-     * listing of everything that's installed.
-     *
-     * @todo Show a summary page (or at least a link to it) which contains details about
-     * the exact tasks that were performed and any errors that were encountered.
-     *
-     * @param array $pluginData packages
-     * @param string $returnTab 'commonTasks', 'browseThemes' or 'browseModules'
-     */
-    function _scanPlugins() {
-	global $gallery;
-
-	/* Start from a clean slate.  Inefficient, but very convenient. */
-	$ret = GalleryCoreApi::removeAllMapEntries('GalleryPluginPackageMap');
-	if ($ret) {
-	    return $ret;
-	}
-
-	$platform =& $gallery->getPlatform();
-	$util = new GalleryRepositoryUtilities();
-	foreach (array('module', 'theme') as $type) {
-	    list ($ret, $pluginStatus) = GalleryCoreApi::fetchPluginStatus($type, true);
-	    if ($ret) {
-		return $ret;
-	    }
-
-	    foreach ($pluginStatus as $pluginId => $status) {
-		list($ret, $plugin) = GalleryCoreApi::loadPlugin($type, $pluginId, true);
-		if ($ret) {
-		    return $ret;
-		}
-
-		$pluginDir = sprintf(
-		    '%s/%ss/%s', dirname(dirname(dirname(__FILE__))), $type, $pluginId);
-		list ($ret, $tag) = $util->getFirstBytesFromFile("$pluginDir/MANIFEST", 128);
-		if ($ret) {
-		    return $ret;
-		}
-
-		list ($ret, $revision) = $util->extractRevision($tag);
-		if ($ret) {
-		    return $ret;
-		}
-
-		$ret = GalleryCoreApi::addMapEntry(
-		    'GalleryPluginPackageMap',
-		    array('pluginType' => $type,
-			  'pluginId' => $pluginId,
-			  'packageName' => 'base',
-			  'packageVersion' => $plugin->getVersion(),
-			  'packageBuild' => $revision));
-		if ($ret) {
-		    return $ret;
-		}
-
-		list ($ret, $tag) = $util->getFirstBytesFromFile("$pluginDir/po/strings.raw", 128);
-		if ($ret) {
-		    return $ret;
-		}
-		list ($ret, $stringsRevision) = $util->extractRevision($tag);
-		if ($ret) {
-		    return $ret;
-		}
-
-		$poFiles = $platform->glob("$pluginDir/po/*.po");
-		if ($poFiles) {
-		    foreach ($poFiles as $file) {
-			list ($ret, $tag) = $util->getFirstBytesFromFile($file, 128);
-			if ($ret) {
-			    return $ret;
-			}
-
-			list ($ret, $revision) = $util->extractRevision($tag);
-			if ($ret) {
-			    return $ret;
-			}
-			$ret = GalleryCoreApi::addMapEntry(
-			    'GalleryPluginPackageMap',
-			    array('pluginType' => $type,
-				  'pluginId' => $pluginId,
-				  'packageName' => (
-				      'lang-' . GalleryUtilities::getFileBase(basename($file))),
-				  'packageVersion' => $stringsRevision,
-				  'packageBuild' => $revision));
-			if ($ret) {
-			    return $ret;
-			}
-		    }
-		}
-	    }
-	}
     }
 }
 

@@ -605,6 +605,119 @@ class GalleryRepository {
     }
 
     /**
+     * Scan all installed plugins and update GalleryPluginPackageMap with a complete
+     * listing of everything that's installed.
+     *
+     * @todo Show a summary page (or at least a link to it) which contains details about
+     * the exact tasks that were performed and any errors that were encountered.
+     */
+    function scanPlugins() {
+	global $gallery;
+
+	foreach (array('module', 'theme') as $pluginType) {
+	    list ($ret, $pluginStatus) = GalleryCoreApi::fetchPluginStatus($pluginType, true);
+	    if ($ret) {
+		return $ret;
+	    }
+
+	    foreach ($pluginStatus as $pluginId => $status) {
+		$gallery->guaranteeTimeLimit(30);
+
+		$ret = $this->scanPlugin($pluginType, $pluginId);
+		if ($ret) {
+		    return $ret;
+		}
+	    }
+	}
+    }
+
+    /**
+     * Scan one plugin and update its entries in the GalleryPluginPackageMap.
+     *
+     * @param $pluginType the plugin type ('module' or 'theme')
+     * @param $pluginId the plugin id (eg 'albumselect' or 'cart')
+     * @return object GalleryStatus a status code
+     */
+    function scanPlugin($pluginType, $pluginId) {
+	global $gallery;
+
+	/* Erase all data for this plugin */
+	$ret = GalleryCoreApi::removeMapEntry(
+	    'GalleryPluginPackageMap', array('pluginType' => $pluginType, 'pluginId' => $pluginId));
+	if ($ret) {
+	    return $ret;
+	}
+
+	$platform =& $gallery->getPlatform();
+	$g2base = dirname(dirname(dirname(dirname(__FILE__))));
+
+	list($ret, $plugin) = GalleryCoreApi::loadPlugin($pluginType, $pluginId, true);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$pluginDir = sprintf('%s/%ss/%s', $g2base, $pluginType, $pluginId);
+	list ($ret, $tag) = $this->_utilities->getFirstBytesFromFile("$pluginDir/MANIFEST", 128);
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $revision) = $this->_utilities->extractRevision($tag);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = GalleryCoreApi::addMapEntry(
+	    'GalleryPluginPackageMap',
+	    array('pluginType' => $pluginType,
+		  'pluginId' => $pluginId,
+		  'packageName' => 'base',
+		  'packageVersion' => $plugin->getVersion(),
+		  'packageBuild' => $revision));
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $tag) =
+	    $this->_utilities->getFirstBytesFromFile("$pluginDir/po/strings.raw", 128);
+	if ($ret) {
+	    return $ret;
+	}
+	list ($ret, $stringsRevision) = $this->_utilities->extractRevision($tag);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$poFiles = $platform->glob("$pluginDir/po/*.po");
+	if ($poFiles) {
+	    foreach ($poFiles as $file) {
+		list ($ret, $tag) = $this->_utilities->getFirstBytesFromFile($file, 128);
+		if ($ret) {
+		    return $ret;
+		}
+
+		list ($ret, $revision) = $this->_utilities->extractRevision($tag);
+		if ($ret) {
+		    return $ret;
+		}
+		$ret = GalleryCoreApi::addMapEntry(
+		    'GalleryPluginPackageMap',
+		    array('pluginType' => $pluginType,
+			  'pluginId' => $pluginId,
+			  'packageName' => (
+			      'lang-' . GalleryUtilities::getFileBase(basename($file))),
+			  'packageVersion' => $stringsRevision,
+			  'packageBuild' => $revision));
+		if ($ret) {
+		    return $ret;
+		}
+	    }
+	}
+
+	return null;
+    }
+
+    /**
      * @see GalleryRepositoryIndex::existsInCache
      */
     function localIndexExists() {
