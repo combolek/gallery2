@@ -99,7 +99,6 @@ class CaptchaValidationPlugin extends GalleryValidationPlugin {
 	    /* Generate a new code */
 	    global $gallery;
 	    list ($usec, $sec) = explode(' ', microtime());
-	    srand((float)$sec + ((float)$usec * 100000));
 	    $random_num = rand();
 	    $datekey = date('H i s');
 	    $rcode = hexdec(md5(GalleryUtilities::getServerVar('HTTP_USER_AGENT')
@@ -119,7 +118,7 @@ class CaptchaValidationPlugin extends GalleryValidationPlugin {
     /**
      * Determine if captcha validation should be enforced
      *
-     * @param array options
+     * @param array $options
      * @return array object GalleryStatus a status code
      *               boolean true to validate
      *               int current failure count, if applicable

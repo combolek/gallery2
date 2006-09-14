@@ -78,8 +78,8 @@ class GalleryTemplate {
     /**
      * Assign a template key/value pair
      *
-     * @param string the key
-     * @param mixed the value
+     * @param string $key
+     * @param mixed $value
      */
     function setVariable($key, $value=null) {
 	$this->_smarty->assign($key, $value);
@@ -88,8 +88,8 @@ class GalleryTemplate {
     /**
      * Retrieve a template value
      *
-     * @param string the key
-     * @param mixed the value
+     * @param string $key
+     * @return mixed value
      */
     function getVariable($key) {
 	return $this->_smarty->get_template_vars($key);
@@ -98,8 +98,8 @@ class GalleryTemplate {
     /**
      * Retrieve a reference to a template value
      *
-     * @param string the key
-     * @param mixed the value
+     * @param string $key
+     * @return mixed value
      */
     function &getVariableByReference($key) {
 	return $this->_smarty->get_template_vars($key);
@@ -108,8 +108,8 @@ class GalleryTemplate {
     /**
      * Return true if the given variable is set
      *
-     * @param string the key
-     * @return boolean true or false
+     * @param string $key
+     * @return boolean
      */
     function hasVariable($key) {
 	$templateVars = $this->_smarty->get_template_vars();
@@ -119,8 +119,8 @@ class GalleryTemplate {
     /**
      * Assign a template key/value pair
      *
-     * @param string the key
-     * @param mixed the value
+     * @param string $key
+     * @param mixed $value
      */
     function setVariableByReference($key, &$value) {
 	$this->_smarty->assign_by_ref($key, $value);
@@ -129,8 +129,9 @@ class GalleryTemplate {
     /**
      * Add a template to include in the <head> section
      *
-     * @param string template path
-     * @param string (optional) localization domain; default={1stdir}_{2nddir} from template path
+     * @param string $tpl template path
+     * @param string $l10Domain (optional) localization domain
+     *               default={1stdir}_{2nddir} from template path
      */
     function head($tpl, $l10Domain=null) {
 	$head =& $this->getVariableByReference('head');
@@ -144,7 +145,7 @@ class GalleryTemplate {
     /**
      * Set the title to include in the <head> section
      *
-     * @param string localized title
+     * @param string $title localized title
      */
     function title($title) {
 	$head =& $this->getVariableByReference('head');
@@ -154,7 +155,7 @@ class GalleryTemplate {
     /**
      * Add a stylesheet to include in the <head> section
      *
-     * @param string stylesheet path relative to gallery2 dir
+     * @param string $path stylesheet path relative to gallery2 dir
      */
     function style($path) {
 	$head =& $this->getVariableByReference('head');
@@ -164,7 +165,7 @@ class GalleryTemplate {
     /**
      * Add a JavaScript to include in the <head> section
      *
-     * @param string script path relative to gallery2 dir
+     * @param string $path script path relative to gallery2 dir
      */
     function javascript($path) {
 	$head =& $this->getVariableByReference('head');
@@ -174,7 +175,7 @@ class GalleryTemplate {
     /**
      * Render the properly localized template
      *
-     * @param string the template name
+     * @param string $templateName
      * @return array object GalleryStatus the status of the call
      *               string the HTML content
      */
@@ -197,7 +198,7 @@ class GalleryTemplate {
     /**
      * Display the properly localized template
      *
-     * @param string the template name
+     * @param string $templateName
      * @return object GalleryStatus the status of the call
      */
     function display($templateName) {
@@ -328,15 +329,16 @@ class GalleryTemplate {
 	return $smarty;
     }
 
-    /**
-     * Returns the base directory of the specified template.  This is required to support loading
-     * templates from g2data/plugins
-     *
-     * @author Jozef Selesi (selesi at gmail dot com)
-     * @param string Template to get base directory for.
-     * @param object Smarty object.
-     */
-    function resourceGetTemplateBaseDir($templateName, &$smarty) {
+   /**
+    * Returns the base directory of the specified template.  This is required to support loading
+    * templates from g2data/plugins.
+    *
+    * @author Jozef Selesi (selesi at gmail dot com)
+    *
+    * @param string $templateName Template to get base directory for.
+    * @param object Smarty $smarty
+    */
+   function resourceGetTemplateBaseDir($templateName, &$smarty) {
 	if(preg_match('/^(module|theme)s\/(.+)(\/.+)/iU', $templateName, $pluginId)) {
 	    return GalleryCoreApi::getPluginBaseDir($pluginId[1], $pluginId[2]) . '/';
 	} else {
@@ -390,7 +392,7 @@ class GalleryTemplate {
      *   1.  /foo/local/bar.tpl  (if it exists)
      *   2.  /foo/bar.tpl        (whether or not it exists)
      *
-     * @param string base template name
+     * @param string $templateName base template name
      * @return string template to use
      * @static
      * @access private
