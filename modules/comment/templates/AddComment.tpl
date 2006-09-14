@@ -42,9 +42,11 @@
     <input type="text" id="subject" size="60" class="gcBackground1"
 	   name="{g->formVar var="form[subject]"}" value="{$form.subject}"
 	   onfocus="this.className=''" onblur="this.className='gcBackground1'"/>
+    {if empty($inBlock)}
     <script type="text/javascript">
       document.getElementById('addCommentForm')['{g->formVar var="form[subject]"}'].focus();
     </script>
+    {/if}
 
     <h4>
       {g->text text="Comment"}
@@ -75,7 +77,9 @@
       name="{g->formVar var="form[action][preview]"}" value="{g->text text="Preview"}"/>
     <input type="submit" class="inputTypeSubmit"
       name="{g->formVar var="form[action][add]"}" value="{g->text text="Save"}"/>
+    {if empty($inBlock)}
     <input type="submit" class="inputTypeSubmit"
       name="{g->formVar var="form[action][cancel]"}" value="{g->text text="Cancel"}"/>
+    {/if}
   </div>
 </form>

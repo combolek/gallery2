@@ -20,7 +20,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Gallery: Fotokasten 1.0.4\n"
-"POT-Creation-Date: 2003-02-11 03:09-0800\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2006-09-12 10:52-0700\n"
 "PO-Revision-Date: 2006-02-27 00:16+0200\n"
 "Last-Translator: Goker ISIK <admin@ansolon.com>\n"
 "Language-Team: Turkish <admin@ansolon.org>\n"
@@ -55,6 +56,10 @@ msgstr "Fotokasten Ayarları"
 msgid "Settings saved successfully"
 msgstr "Ayarlar başarıyla kaydedildi."
 
+#, fuzzy
+msgid "Using Gallery Affiliate Id"
+msgstr "Üye Id:"
+
 msgid "Enter affiliate settings."
 msgstr "Üye ayarlarını girin."
 
@@ -70,12 +75,29 @@ msgstr "Üye Şifresi:"
 msgid "Missing value"
 msgstr "Kayıp değer"
 
+msgid ""
+"You're currently using the default Gallery affiliate id.  This means that the Gallery "
+"project will receive a small commission for each print made from your website."
+msgstr ""
+
+msgid "You have specified your own affiliate id."
+msgstr ""
+
+#, c-format
+msgid ""
+"For more information on Fotokasten affiliates, please contact Fotokasten directly via their "
+"website at %s."
+msgstr ""
+
 msgid "Save"
 msgstr "Kaydet"
 
 msgid "Reset"
 msgstr "Sıfırla"
 
-msgid "Use Defaults"
-msgstr "Varsayılanları Kullan"
+#, fuzzy
+msgid "Use Gallery Affiliate Id"
+msgstr "Üye Id:"
 
+#~ msgid "Use Defaults"
+#~ msgstr "Varsayılanları Kullan"
