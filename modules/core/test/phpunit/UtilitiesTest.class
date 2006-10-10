@@ -47,6 +47,8 @@ class UtilitiesTest extends GalleryTestCase {
 	foreach (array('HTTP_X_FORWARDED_FOR', 'HTTP_CLIENT_IP', 'REMOTE_ADDR') as $key) {
 	    unset($_SERVER[$key]);
 	}
+
+	$_REQUEST['phpVmHeaders'] = array();
     }
 
     function tearDown() {
@@ -205,6 +207,26 @@ class UtilitiesTest extends GalleryTestCase {
 	    }
 	}
 	$this->assertEquals($expectedValues, GalleryUtilities::getAllRequestVariables());
+    }
+
+    function testSetResponseHeader() {
+	global $gallery;
+
+	/* Use the PHP VM to record the headers */
+	$gallery->_phpVm = new UtilitiesTestSetResponseHeaderPhpVm();
+
+	GalleryUtilities::setResponseHeader('HTTP/1.0 123 Foo');
+	GalleryUtilities::setResponseHeader('HTTP/1.0 123 Bar', false);
+
+	/* Verify the result */
+	$this->assertEquals('HTTP/1.0 123 Foo', $_REQUEST['phpVmHeaders']['status'],
+	    'Wrong response header');
+
+	GalleryUtilities::setResponseHeader('HTTP/1.0 123 Bar');
+
+	/* Verify the result */
+	$this->assertEquals('HTTP/1.0 123 Bar', $_REQUEST['phpVmHeaders']['status'],
+	    'Wrong response header');
     }
 
     function testSanitizeInputValue1() {
@@ -1136,6 +1158,7 @@ class UtilitiesTest extends GalleryTestCase {
     /* Check some edge cases of _registerCookieAttr */
     function testRegisterCookieAttr() {
 	global $gallery;
+
 	/* Test cases */
 	$tests = array();
 	/* 1. add one, successfully */
@@ -1200,10 +1223,10 @@ class UtilitiesTest extends GalleryTestCase {
 	/* Foreach test case (tC), run the test */
 	foreach (array(true, false) as $addSlashes) {
 	    if ($addSlashes) {
-		$gallery->_phpVm = $phpVm = new UtilitiesTestAddSlashesPhpVm();
+		$gallery->_phpVm = new UtilitiesTestAddSlashesPhpVm();
 		$addSlashesInfo = 'addslashes, ';
 	    } else {
-		$gallery->_phpVm = $phpVm = new UtilitiesTestDoNotAddSlashesPhpVm();
+		$gallery->_phpVm = new UtilitiesTestDoNotAddSlashesPhpVm();
 		$addSlashesInfo = 'do not addslashes, ';
 	    }
 
@@ -1247,13 +1270,14 @@ class UtilitiesTest extends GalleryTestCase {
     }
 
     function testGuaranteeDirExistsLoop() {
+	global $gallery;
+
 	/*
 	 * Ensure no infinite loop if getPluginParameter call from guaranteeDirExists results in
 	 * another guaranteeDirExists call (from GalleryDataCache)
 	 */
 	GalleryDataCache::setFileCachingEnabled(true);
 	GalleryDataCache::reset();
-	global $gallery;
 	$gallery->setConfig('data.gallery.cache', '/testcache/');
 
 	list ($success, $created) = GalleryUtilities::guaranteeDirExists('/test/one/two');
@@ -1268,13 +1292,14 @@ class UtilitiesTest extends GalleryTestCase {
     }
 
     function testGuaranteeDirExistsLoop2() {
+	global $gallery;
+
 	/*
 	 * Ensure mkdir of same dir isn't performed twice if guaranteeDirExists is called and the
 	 * nested call from getPluginParameter actually creates the original dir that was requested
 	 */
 	GalleryDataCache::setFileCachingEnabled(true);
 	GalleryDataCache::reset();
-	global $gallery;
 	$gallery->setConfig('data.gallery.cache', '/testcache/');
 
 	list ($success, $created) =
@@ -1284,6 +1309,25 @@ class UtilitiesTest extends GalleryTestCase {
 
 	$this->assertEquals(array('/testcache/module/core/0/0' => ''), $this->_mkdir,
 			    'mkdir for cache, but without specific perms');
+    }
+
+    /* 
+     * For a given path /a/b/c/d, file_exists() returns false for /a/b/c/d and /a/b/c and true for
+     * /a/b if we don't have read+execute permission on /a/b.
+     * In case we don't have r+w for the root directory /, we are in an infinite loop unless we
+     * check the result of dirname($dir).
+     * Another common case: open_basedir.
+     * Also note that dirname(__FILE__) returns the filename without path if any parent folder
+     * is missing the read permission.
+     */
+    function testGuaranteeDirExistsLoop3() {
+	global $gallery;
+
+	/* Assume we don't have r+w permission for the root directory '/'. */
+	list ($success, $created) = GalleryUtilities::guaranteeDirExists('/noread/permission');
+	/* Basically we verify that the function finishes / that there is no infinite loop. */
+	$this->assert(!$success, 'guaranteeDirExists');
+	$this->assertEquals(array(), $created);
     }
 
     function testRoundToString() {
@@ -1478,6 +1522,30 @@ class UtilitiesTest extends GalleryTestCase {
 	    'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789=)(/&%',
 	    GalleryUtilities::strToUpper('abcdefghijklmnopqrstuvwxyz0123456789=)(/&%'));
     }
+
+    /**
+     * The readManifest() code doesn't use GalleryPlatform and is hard to test.  So this test is
+     * useful for when we're refactoring this code.  Delete /tmp/manifest.txt and run the test
+     * once and it'll capture the current manifest.  Subsequent runs will compare it against that
+     * golden version, so you can refactor the manifest code till you're happy.  But don't leave
+     * this test uncommented as otherwise it will break on the next manifest update.
+     */
+    /*
+    function testReadManifest() {
+	$actual = GalleryUtilities::readManifest();
+	$cmpFile = '/tmp/manifest.txt';
+	if (!file_exists($cmpFile)) {
+	    $fd = fopen($cmpFile, 'wb');
+	    fwrite($fd, $actual);
+	    fclose($fd);
+	    $expected = $actual;
+	} else {
+	    $expected = unserialize(file_get_contents($cmpFile));
+	}
+
+	$this->assertEquals(serialize($expected), serialize($actual));
+    }
+    */
 }
 
 /**
@@ -1533,6 +1601,9 @@ class UtilitiesTestPlatform {
 
 	case '/test/one':
 	case '/test/one/two':
+	case '/noread/permission':
+	case '/noread':
+	case '/':
 	    return false;
 	}
 
@@ -1605,6 +1676,17 @@ class UtilitiesTestAddSlashesPhpVm extends GalleryPhpVm {
 class UtilitiesTestDoNotAddSlashesPhpVm extends GalleryPhpVm {
     function get_magic_quotes_gpc() {
 	return false;
+    }
+}
+
+class UtilitiesTestSetResponseHeaderPhpVm extends GalleryPhpVm {
+    function header($header, $replace=null) {
+	$key = 'status';
+	if (strncasecmp($header, 'HTTP/', 5)) {
+	    $key = strtolower(substr($header, 0, strpos($header, ':')));
+	}
+
+	$_REQUEST['phpVmHeaders'][$key] = $header;
     }
 }
 ?>

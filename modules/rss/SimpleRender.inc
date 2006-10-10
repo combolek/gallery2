@@ -51,7 +51,7 @@ class SimpleRenderView extends RenderView {
 	    return null;
 	}
 
-	list ($ret, $item) = $this->_getItem();
+	list ($ret, $item) = $this->getItem();
 	if ($ret) {
 	    return $ret;
 	}
@@ -61,7 +61,7 @@ class SimpleRenderView extends RenderView {
 	/* set feed type */
 	if (GalleryUtilities::isA($item, 'GalleryAlbumItem')) {
 	    $params['feedType'] = $params['sfAlbumType'];
-	} elseif(GalleryUtilities::isA($item, 'GalleryDataItem')) {
+	} else if (GalleryUtilities::isA($item, 'GalleryDataItem')) {
 	    $params['feedType'] = 'commentsPhoto';
 	}
 

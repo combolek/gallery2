@@ -417,21 +417,19 @@ class Gallery {
 	    case 'mysql':
 	    case 'mysqlt':
 	    case 'mysqli':
-		GalleryCoreApi::requireOnce(
-			'modules/core/classes/GalleryStorage/MySqlStorage.class', true);
+		GalleryCoreApi::requireOnce('modules/core/classes/GalleryStorage.class');
 		$this->_storage = new MySqlStorage($config);
 		break;
 
 	    case 'postgres':
 	    case 'postgres7':
 		GalleryCoreApi::requireOnce(
-			'modules/core/classes/GalleryStorage/PostgreSqlStorage.class', true);
+			'modules/core/classes/GalleryStorage/PostgreSqlStorage.class');
 		$this->_storage = new PostgreSqlStorage($config);
 		break;
 
 	    case 'db2':
-		GalleryCoreApi::requireOnce(
-			'modules/core/classes/GalleryStorage/Db2Storage.class', true);
+		GalleryCoreApi::requireOnce('modules/core/classes/GalleryStorage/Db2Storage.class');
 		$this->_storage = new Db2Storage($config);
 		break;
 
@@ -440,21 +438,20 @@ class Gallery {
 	    case 'oci8po':
 	    case 'oracle':
 		GalleryCoreApi::requireOnce(
-			'modules/core/classes/GalleryStorage/OracleStorage.class', true);
+			'modules/core/classes/GalleryStorage/OracleStorage.class');
 		$this->_storage = new OracleStorage($config);
 		break;
 
 	    case 'ado_mssql':
 		GalleryCoreApi::requireOnce(
-			'modules/core/classes/GalleryStorage/MSSqlStorage.class', true);
+			'modules/core/classes/GalleryStorage/MSSqlStorage.class');
 		$this->_storage = new MSSqlStorage($config);
 		break;
 
 	    default:
 		$this->debug('Unknown storage type');
 		$this->debug_r($config);
-		GalleryCoreApi::requireOnce(
-			'modules/core/classes/GalleryStorage.class', true);
+		GalleryCoreApi::requireOnce('modules/core/classes/GalleryStorage.class', true);
 		$this->_storage = new GalleryStorage($config);
 	    }
 	}
@@ -664,6 +661,9 @@ class Gallery {
 	    ini_set('short_open_tag', false);
 	    ini_set('allow_call_time_pass_reference', false);
 	}
+	if (isset($this->_storage)) {
+	    $this->_storage->setDebug((bool)$debug);
+	}
     }
 
     /**
@@ -709,6 +709,9 @@ class Gallery {
     function startRecordingDebugSnippet() {
 	$this->_debugSnippetActive = true;
 	$this->_debugSnippet = '';
+	if (isset($this->_storage) && !$this->_debug) {
+	    $this->_storage->setDebug(true);
+	}
     }
 
     /**
@@ -719,6 +722,9 @@ class Gallery {
 	$this->_debugSnippetActive = false;
 	$tmp = $this->_debugSnippet;
 	$this->_debugSnippet = '';
+	if (isset($this->_storage) && !$this->_debug) {
+	    $this->_storage->setDebug(false);
+	}
 	return $tmp;
     }
 
@@ -823,9 +829,10 @@ class Gallery {
      *   print $this->translate($message_to_be_localized);
      *
      * @param string $value
+     * @param boolean $cFormat (optional) hint for gettext whether to use c-format
      * @return string the same value
      */
-    function i18n($value) {
+    function i18n($value, $cFormat=null) {
 	return $value;  /* Just pass the value through */
     }
 
@@ -923,7 +930,7 @@ class Gallery {
      */
     function getPhpVm() {
 	if (!isset($this->_phpVm)) {
-	    GalleryCoreApi::requireOnce('modules/core/classes/GalleryPhpVm.class', true);
+	    GalleryCoreApi::requireOnce('modules/core/classes/GalleryPhpVm.class');
 	    $this->_phpVm = new GalleryPhpVm();
 	}
 	return $this->_phpVm;

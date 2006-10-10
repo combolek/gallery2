@@ -203,6 +203,14 @@ class SendEcardController extends GalleryController {
 	    foreach ($mime->headers($tmp) as $key => $value) {
 		$hdrs .= $key . ': ' . $value . "\n";
 	    }
+	    for ($buf = '', $i = 0; $i < strlen($headers['subject']); $i++) {
+		$val = ord($headers['subject']{$i});
+		$buf .= ($val > 127) ? '=' . dechex($val) : $headers['subject']{$i};
+	    }
+	    if ($buf != $headers['subject']) {
+		/* Encode subject for UTF-8 display if any extended characters are present */
+		$headers['subject'] = '=?utf-8?q?' . $buf . '?=';
+	    }
 	    $success = $platform->mail($headers['to'], $headers['subject'], $body, $hdrs);
 	    if (!$success) {
 		return array(GalleryCoreApi::error(ERROR_UNKNOWN, __FILE__, __LINE__,
@@ -262,7 +270,7 @@ class SendEcardView extends GalleryView {
 	$session =& $gallery->getSession();
 
 	/* Load our item */
-	list ($ret, $item) = $this->_getItem();
+	list ($ret, $item) = $this->getItem();
 	if ($ret) {
 	    return array($ret, null);
 	}

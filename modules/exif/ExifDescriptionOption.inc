@@ -46,10 +46,9 @@ class ExifDescriptionOption extends ItemAddOption {
      * @see ItemAddOption::handleRequestAfterAdd
      */
     function handleRequestAfterAdd($form, $items) {
-	$errors = array();
-	$warnings = array();
 	GalleryCoreApi::requireOnce('modules/exif/classes/ExifExtractor.class');
 	GalleryCoreApi::requireOnce('modules/exif/classes/ExifHelper.class');
+	$errors = $warnings = $needed = array();
 
 	list ($ret, $addOption) =
 	    GalleryCoreApi::getPluginParameter('module', 'exif', 'addOption');
@@ -58,7 +57,6 @@ class ExifDescriptionOption extends ItemAddOption {
 	}
 
 	/* Check if we need to get/process any exifdata */
-	$needed = array();
 	if (($addOption & EXIF_ITEM_SUMMARY) || ($addOption & EXIF_ITEM_DESCRIPTION)) {
 	    $needed[] = 'IPTC/Caption';
 	    $needed[] = 'ImageDescription';
@@ -66,6 +64,9 @@ class ExifDescriptionOption extends ItemAddOption {
 	}
 	if ($addOption & IPTC_ITEM_KEYWORDS) {
 	    $needed[] = 'IPTC/Keywords';
+	}
+	if ($addOption & IPTC_ITEM_TITLE) {
+	    $needed[] = 'IPTC/ObjectName';
 	}
 	if ($addOption & EXIF_ITEM_ROTATE) {
 	    $needed[] = 'Orientation';
@@ -115,16 +116,22 @@ class ExifDescriptionOption extends ItemAddOption {
 			}
 		    }
 
-		    if (!empty($exifData[$itemId]['IPTC/Keywords']['value']) && $addOption
-									& IPTC_ITEM_KEYWORDS) {
-			$iptcKeywords = $exifData[$itemId]['IPTC/Keywords']['value'];
-			    $currentItems[$i]->setKeywords($iptcKeywords);
-			    $mustSave = true;
+		    if ($addOption & IPTC_ITEM_KEYWORDS
+			    && !empty($exifData[$itemId]['IPTC/Keywords']['value'])) {
+			$currentItems[$i]->setKeywords(
+				$exifData[$itemId]['IPTC/Keywords']['value']);
+			$mustSave = true;
+		    }
+
+		    if ($addOption & IPTC_ITEM_TITLE
+			    && !empty($exifData[$itemId]['IPTC/ObjectName']['value'])) {
+			$currentItems[$i]->setTitle($exifData[$itemId]['IPTC/ObjectName']['value']);
+			$mustSave = true;
 		    }
 
 		    /* rotate item based on exifdata */
-		    if (!empty($exifData[$itemId]['Orientation']['value']) && $addOption
-									& EXIF_ITEM_ROTATE) {
+		    if ($addOption & EXIF_ITEM_ROTATE
+			    && !empty($exifData[$itemId]['Orientation']['value'])) {
 
 			$orientation = $exifData[$itemId]['Orientation']['value'];
 			$args = array();
@@ -157,8 +164,14 @@ class ExifDescriptionOption extends ItemAddOption {
 			$preserveOriginal = ($addOption & EXIF_ITEM_ROTATE_PRESERVE) ? 1 : 0;
 
 			if (!empty($args)) {
-			    $ret = GalleryCoreApi::applyToolkitOperation($operation, $args,
-						$preserveOriginal, $currentItems[$i]);
+			    list ($ret, $preferred) =
+				GalleryCoreApi::fetchPreferredsByItemIds(array($itemId));
+			    if ($ret) {
+				return array($ret, null, null);
+			    }
+			    $ret = GalleryCoreApi::applyToolkitOperation(
+				    $operation, $args, $preserveOriginal, $currentItems[$i],
+				    empty($preferred) ? null : $preferred[$itemId]);
 			    if ($ret) {
 				return array($ret, null, null);
 			    }

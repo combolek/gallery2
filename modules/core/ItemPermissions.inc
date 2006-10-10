@@ -548,7 +548,7 @@ class ItemPermissionsView extends GalleryView {
 	    return array($ret, null);
 	}
 
-	list ($ret, $item) = $this->_getItem();
+	list ($ret, $item) = $this->getItem();
 	if ($ret) {
 	    return array($ret, null);
 	}

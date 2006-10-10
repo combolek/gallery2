@@ -10,7 +10,9 @@
 
 {if !empty($status.error)}
 <div class="gbBlock"><h2 class="giError">
-  {$status.error}
+  {foreach from=$status.error item=error}
+  {$error}<br/>
+  {/foreach}
   {g->text text="Please make sure that your internet connection is set up properly or try again later."}
 </h2></div>
 {/if}
@@ -21,73 +23,125 @@
     {g->text text="The repository index has been successfully updated."}
   {elseif isset($status.noUpgradeAvailable)}
     {g->text text="All plugins are already up-to-date."}
+  {elseif !empty($status.updated)}
+    {foreach from=$status.updated item=item}
+    <p>
+      {g->text text="%s plugin updated." arg1=$item}
+    </p>
+    {/foreach}
+  {/if}
+  {if !empty($status.languagePacksDeleted)}
+    <p>
+      {g->text one="%d language pack deleted." many="%d language packs deleted."
+               count=$status.languagePacksDeleted arg1=$status.languagePacksDeleted}
+    </p>
   {/if}
 </h2></div>
 {/if}
 
 <div class="gbTabBar">
-  {if ($AdminRepository.mode == 'commonTasks')}
-    <span class="giSelected o"><span>
-	{g->text text="Common Tasks"}
-    </span></span>
-  {else}
-    <span class="o"><span>
-      <a href="{g->url arg1="view=core.SiteAdmin" arg2="subView=core.AdminRepository"
-		       arg3="mode=commonTasks"}">{g->text text="Common Tasks"}</a>
-    </span></span>
-  {/if}
+  <span class="o"><span>
+    <a href="{g->url arg1="view=core.SiteAdmin" arg2="subView=core.AdminPlugins"}">
+      {g->text text="Plugins"}
+    </a>
+  </span></span>
 
-  {if ($AdminRepository.mode == 'browseModules')}
-    <span class="giSelected o"><span>
-      {g->text text="Modules"}
-    </span></span>
-  {else}
-    <span class="o"><span>
-      <a href="{g->url arg1="view=core.SiteAdmin" arg2="subView=core.AdminRepository"
-		       arg3="mode=browseModules"}">{g->text text="Modules"}</a>
-    </span></span>
-  {/if}
-
-  {if ($AdminRepository.mode == 'browseThemes')}
-    <span class="giSelected o"><span>
-      {g->text text="Themes"}
-    </span></span>
-  {else}
-    <span class="o"><span>
-      <a href="{g->url arg1="view=core.SiteAdmin" arg2="subView=core.AdminRepository"
-		       arg3="mode=browseThemes"}">{g->text text="Themes"}</a>
-    </span></span>
-  {/if}
+  <span class="giSelected o"><span>
+    {g->text text="Get More Plugins"}
+  </span></span>
 </div>
 
-{if ($AdminRepository.mode == 'commonTasks')}
 <div class="gbBlock">
-  <h3>{g->text text="Warning: Experimental feature!"}</h3>
   <p class="giDescription">
-    {g->text text="The repository features are currently experimental, and no actual repository has been set up yet, so none of these features will work at this time."}
+    {capture name="noPersonalInfoTransmitted"}<b>{g->text text="No personal information about you or your Gallery installation is sent to the Gallery server at any time."}</b>{/capture}
+    {g->text text="Download and install new plugins quickly and easily.  If you decide you don't like a plugin, you can delete it from your Gallery.  There are multiple different plugin repositories, you can choose which ones you want to use (it's ok to use all of them at once).  Once you've chosen, you must periodically download the latest plugin list to find out about available updates. %s On slower connections the process might take a minute or two." arg1=$smarty.capture.noPersonalInfoTransmitted}
   </p>
-  <h3>{g->text text="Update Index"}</h3>
+
+  <div id="AdminRepository_Configure" style="height: 0px; opacity: 0; overflow: hidden;">
+    <input id="repositories_released" type="checkbox" name="{g->formVar var="form[repositories][released]"}" {if !empty($form.repositories.released)}checked="checked"{/if}  value="released">
+    <label for="repositories_released">
+    {g->text text="Officially Released Gallery Project plugins (%srecommended%s)" arg1="<b>" arg2="</b>"}
+    {if !empty($AdminRepository.indexMetaData.released.timestamp)}
+    {capture assign="updateDate"}{g->date style="datetime" timestamp=$AdminRepository.indexMetaData.released.timestamp}{/capture}
+    <i>{g->text text="last updated on %s" arg1=$updateDate}</i>
+    {/if}
+    </label>
+    </input>
+    <br/>
+
+    <input id="repositories_experimental" type="checkbox" name="{g->formVar var="form[repositories][experimental]"}" {if !empty($form.repositories.experimental)}checked="checked"{/if}  value="experimental">
+    <label for="repositories_experimental">
+    {g->text text="Experimental Gallery Project plugins (%scool new features, might be buggy%s)" arg1="<b>" arg2="</b>"}
+    {if !empty($AdminRepository.indexMetaData.experimental.timestamp)}
+    {capture assign="updateDate"}{g->date style="datetime" timestamp=$AdminRepository.indexMetaData.experimental.timestamp}{/capture}
+    <i>{g->text text="last updated on %s" arg1=$updateDate}</i>
+    {/if}
+    </label>
+    </input>
+    <br/>
+
+    <input id="repositories_community" type="checkbox" name="{g->formVar var="form[repositories][community]"}" {if !empty($form.repositories.community)}checked="checked"{/if}  value="community">
+    <label for="repositories_community">
+    {g->text text="Community plugins (%suse at your own risk!%s)" arg1="<b>" arg2="</b>"}
+    {if !empty($AdminRepository.indexMetaData.community.timestamp)}
+    {capture assign="updateDate"}{g->date style="datetime" timestamp=$AdminRepository.indexMetaData.community.timestamp}{/capture}
+    <i>{g->text text="last updated on %s" arg1=$updateDate}</i>
+    {/if}
+    </label>
+    </input>
+    <br/>
+
+    <p>
+      <input id="AdminRepository_saveRepositoryList" type="button" class="inputTypeSubmit" onclick="if (validateRepositoryList()) {ldelim} saveRepositoryList();  closeRepositoryList() {rdelim}" value="{g->text text="Save"}"/>
+      <input id="AdminRepository_closeRepositoryList" type="reset" class="inputTypeSubmit" onclick="closeRepositoryList()" value="{g->text text="Cancel"}"/>
+    </p>
+  </div>
+  <script type="text/javascript">
+    var postUrl = '{g->url}';
+    var commandArg = '{g->formVar var="command"}';
+    var viewArg = '{g->formVar var="view"}';
+    var repositoryArgs = [
+      '{g->formVar var="form[repositories][released]"}',
+      '{g->formVar var="form[repositories][experimental]"}',
+      '{g->formVar var="form[repositories][community]"}' ];
+
+    var repositoryMessageTitle = '{g->text text="Repository Error"}';
+    var repositoryMessageBody = '{g->text text="You must select at least one repository."}';
+    var repositoryMessageOkButton = '{g->text text="Ok"}';
+    var formElements = document.getElementById("siteAdminForm").elements;
+  </script>
+</div>
+
+{if !$AdminRepository.writeable.modules || !$AdminRepository.writeable.themes}
+<div class="gbBlock">
+  <h3>{g->text text="Configure your Gallery"}</h3>
   <p class="giDescription">
-    {g->text text="The Gallery repository contains the latest modules and themes extensively tested by the Gallery team. The repository index contains information about available plugins, such as the latest versions, available languages and compatibility. The index must be synchronized periodically with the Gallery server so you are informed about any available updates. No personal information is sent to the Gallery server during updating. On slower connections the process might take a minute or two."}
+    {g->text text="Before you can proceed, you have to change some permissions so that Gallery can install plugins for you.  It's easy.  Just execute the following in a shell or via your ftp client:"}
   </p>
-  {if isset($indexMetaData)}
+  <p class="gcBackground1" style="border-width: 1px; border-style: dotted; padding: 4px">
+    <b>
+      cd gallery2<br/>
+      {if !$AdminRepository.writeable.modules}chmod 777 modules<br/>{/if}
+      {if !$AdminRepository.writeable.themes}chmod 777 themes<br/>{/if}
+    </b>
+  </p>
   <p class="giDescription">
-    {capture assign="updateDate"}{g->date style="datetime" timestamp=$indexMetaData.timestamp}{/capture}
-    {g->text text="As of the last update on %s, the repository contains %s modules and %s themes. Its contents can be viewed on the Modules and Themes tabs." arg1=$updateDate arg2=$indexMetaData.moduleCount arg3=$indexMetaData.themeCount}
+    {g->text text="If you have trouble changing permissions, ask your system administrator for assistance.  When you've fixed the permissions, click the Continue button to proceed."}
   </p>
-  {else}
-  <p class="giDescription">
-    {g->text text="The index has never been updated. Click on the Update button to see what updates are available."}
-  </p>
-  {/if}
 </div>
 
 <div class="gbBlock gcBackground1">
-  <input type="submit" class="inputTypeSubmit" name="{g->formVar var="form[action][update]"}" value="{g->text text="Update"}"/>
+  <input class="inputTypeSubmit" type="button" onclick="document.location='{g->url arg1="view=core.SiteAdmin" arg2="subView=core.AdminRepository"}'" value="{g->text text="Continue"}" />
+</div>
+{else}
+
+<div class="gbBlock gcBackground1">
+  <input type="submit" class="inputTypeSubmit" name="{g->formVar var="form[action][update]"}" value="{if isset($AdminRepository.indexMetaData)}{g->text text="Update Plugin List"}{else}{g->text text="Download Plugin List"}{/if}"/>
+  <input id="AdminRepository_showRepositoryList" type="button" class="inputTypeSubmit" onclick="showRepositoryList()" value="{g->text text="Show Repository List"}"/>
 </div>
 
-  {if isset($indexMetaData)}
-    {if $coreUpgradeAvailable}
+{if isset($AdminRepository.indexMetaData)}
+  {if $AdminRepository.coreUpgradeAvailable}
 <div class="gbBlock">
   <h3>{g->text text="Upgrade Gallery"}</h3>
   <p class="giDescription">
@@ -101,64 +155,58 @@
     </ol>
   </p>
 </div>
-    {else}
-<div class="gbBlock">
-  <h3>{g->text text="Gallery Up-To-Date"}</h3>
-  <p class="giDescription">
-    {g->text text="Gallery cannot be upgraded through this interface. When a new version becomes available, upgrade instructions will be presented here."}
-</div>
-    {/if}
-
-<div class="gbBlock">
-  <h3>{g->text text="Upgrade All Plugins"}</h3>
-  <p class="giDescription">
-    {g->text text="Gallery can automatically upgrade your themes and modules to the latest available versions. No new plugins will be downloaded."}
-  </p>
-</div>
-
-<div class="gbBlock gcBackground1">
-  <input type="submit" name="{g->formVar var="form[action][upgradeAll]"}" value="{g->text text="Upgrade All"}"/>
-</div>
   {/if}
 {/if}
 
-{if ($AdminRepository.mode == 'browseThemes' || $AdminRepository.mode == 'browseModules')}
 <div class="gbBlock">
-  {if !isset($browseData)}
+  {if isset($AdminRepository.browseData)}
   <p class="giDescription">
-    {g->text text="Once the repository index has been downloaded, a list of available plugins will be presented. It can be downloaded by clicking on the Update button on the Common Tasks tab."}
-  </p>
-  {else}
-  <p class="giDescription">
-    {g->text text="The following plugins are available. Click on the action beside the plugin you're interested in to see what's available in the repository."}
-    {if $coreUpgradeAvailable}
-      {if $showIncompatible}
+    {if $AdminRepository.coreUpgradeAvailable}
+      {if isset($AdminRepository.showIncompatible)}
         {g->text text="Incompatible plugins are marked with an exclamation icon."}
       {else}
 	{capture name="listLink"}<a href="{g->url arg1="view=core.SiteAdmin"
-	  arg2="subView=core.AdminRepository" arg3="mode=`$AdminRepository.mode`"
-	  arg4="coreApi=`$latestCoreApiVersion`" arg5="themeApi=`$latestThemeApiVersion`"
-	  arg6="moduleApi=`$latestModuleApiVersion`" arg7="showIncompatible=true"}">{/capture}
+	  arg2="subView=core.AdminRepository"
+	  arg3="coreApi=`$AdminRepository.latestCoreApiVersion`" arg4="themeApi=`$AdminRepository.latestThemeApiVersion`"
+	  arg5="moduleApi=`$AdminRepository.latestModuleApiVersion`" arg6="showIncompatible=true"}">{/capture}
 	{g->text text="A new core module version is available. There may be plugins that are incompatible with the installed core module, which are not shown here. You can view a %scomplete list%s of plugins, including incompatible ones, which are marked with a red icon." arg1=$smarty.capture.listLink arg2="</a>"}
       {/if}
     {/if}
   </p>
+
+  {capture name=legend}
+  <div class="AdminPlugins_legend">
+    <span class="icon-plugin-upgrade" style="margin-right: 10px; vertical-align: top">
+      {g->text text="upgrade available"}
+    </span>
+
+    <span class="icon-plugin-locked" style="margin-right: 10px; vertical-align: top">
+      {g->text text="locked"}
+    </span>
+
+    <span class="icon-plugin-incompatible" style="margin-right: 10px; vertical-align: top">
+      {g->text text="incompatible"}
+    </span>
+  </div>
+  {/capture}
+  {$smarty.capture.legend}
+
   <table class="gbDataTable">
     {assign var="group" value=""}
-    {foreach from=$browseData key=pluginId item=plugin}
+    {foreach from=$AdminRepository.browseData key=pluginId item=plugin}
       {if $group != $plugin.groupLabel}
 	{if !empty($group)}
-	  <tr><td> &nbsp; </td></tr>
+	<tr><td> &nbsp; </td></tr>
 	{/if}
 	<tr>
 	  <th colspan="6"><h2>{$plugin.groupLabel}</h2></th>
 	</tr><tr>
 	  <th> &nbsp; </th>
-    {if $plugin.type == 'themes'}
+          {if $plugin.type == 'themes'}
 	  <th> {g->text text="Theme Name"} </th>
-    {else}
+          {else}
 	  <th> {g->text text="Module Name"} </th>
-    {/if}
+          {/if}
 	  <th> {g->text text="Latest"} </th>
 	  <th> {g->text text="Installed"} </th>
 	  <th> {g->text text="Description"} </th>
@@ -169,10 +217,11 @@
 
       <tr class="{cycle values="gbEven,gbOdd"}">
 	<td>
-	  {if !$plugin.isCompatible}
-	  <img src="{g->url href="modules/core/data/module-incompatible.gif"}" width="13"
-	       height="13" alt="{g->text text="Incompatible Plugin"}" />
-	  {/if}
+	  <div style="height: 16px" class="icon-plugin-{if
+	   $plugin.locked}locked" title="{g->text text="Locked Plugin"}"
+	  {elseif !$plugin.isCompatible}incompatible" title="{g->text text="Incompatible Plugin"}"
+	  {elseif $plugin.isUpgradeable}upgrade title="{g->text text="Upgrade Available"}"
+	  {else}download"{/if}/>
 	</td>
 
 	<td>
@@ -208,19 +257,38 @@
 	</td>
 
 	<td>
-	  {if !empty($plugin.action) && $plugin.isCompatible}
-	    {strip}
-		<a href="{g->url arg1="view=core.SiteAdmin" arg2="subView=core.AdminRepository" arg3="mode=download" arg4="pluginType=`$plugin.type`" arg5="pluginId=`$pluginId`"}">
-		  {$plugin.action}
-		</a>
-	    {/strip}
-	  {else}
-	    &nbsp;
-	  {/if}
+          {if $plugin.locked || !$plugin.isCompatible}
+            &nbsp;
+          {else}{strip}
+          <a href="{g->url arg1="view=core.SiteAdmin" arg2="subView=core.AdminRepositoryDownload" arg3="pluginType=`$plugin.type`" arg4="pluginId=`$pluginId`"}">
+	  {if $plugin.isUpgradeable}
+	    {g->text text="upgrade"}
+          {elseif !$plugin.localVersion}
+	    {g->text text="download"}
+          {else}
+	    {g->text text="modify"}
+          {/if}
+	  </a>{/strip}
+          {/if}
 	</td>
       </tr>
     {/foreach}
   </table>
+  {$smarty.capture.legend}
   {/if}
+
+</div>
+
+{if isset($AdminRepository.indexMetaData)}
+<div class="gbBlock">
+  <h3>{g->text text="Upgrade All Plugins"}</h3>
+  <p class="giDescription">
+    {g->text text="Gallery can automatically upgrade your themes and modules to the latest available versions. No new plugins will be downloaded."}
+  </p>
+</div>
+
+<div class="gbBlock gcBackground1">
+  <input type="submit" class="inputTypeSubmit" name="{g->formVar var="form[action][upgradeAll]"}" value="{g->text text="Upgrade All"}"/>
 </div>
 {/if}
+{/if} {* modules/themes are writeable *}

@@ -58,7 +58,7 @@ class ShowItemView extends GalleryView {
      */
     function loadTemplate(&$template, &$form) {
 	global $gallery;
-	list ($ret, $item, $wasSpecified) = $this->_getItem(true);
+	list ($ret, $item, $wasSpecified) = $this->getItem(true);
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -110,11 +110,11 @@ class ShowItemView extends GalleryView {
     }
 
     /**
-     * @see GalleryView::_getItem
+     * @see GalleryView::getItem
      */
-    function _getItem($getOriginalSpecified=false) {
+    function getItem($getOriginalSpecified=false) {
 	static $originalSpecified;
-	list ($ret, $item, $wasSpecified) = parent::_getItem();
+	list ($ret, $item, $wasSpecified) = parent::getItem();
 	if ($ret) {
 	    return array($ret, null, null);
 	}
@@ -133,7 +133,7 @@ class ShowItemView extends GalleryView {
      * @see GalleryView::getViewDescription
      */
     function getViewDescription() {
-	list ($ret, $item) = $this->_getItem();
+	list ($ret, $item) = $this->getItem();
 	if ($ret) {
 	    return array($ret, null);
 	}

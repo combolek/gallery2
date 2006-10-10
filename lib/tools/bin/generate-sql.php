@@ -1211,7 +1211,7 @@ class MSSqlGenerator extends BaseGenerator {
 		'STRING-SMALL' => 'NVARCHAR(32)',
 		'STRING-MEDIUM' => 'NVARCHAR(128)',
 		'STRING-LARGE' => 'NVARCHAR(255)',
-		'TEXT-SMALL' => 'NVARCHAR(4000)',
+		'TEXT-SMALL' => 'NVARCHAR(MAX)',
 		'TEXT-' => 'NVARCHAR(MAX)',
 		'TEXT-MEDIUM' => 'NVARCHAR(MAX)',
 		'TEXT-LARGE' => 'NVARCHAR(MAX)',

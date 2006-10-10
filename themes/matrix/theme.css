@@ -384,81 +384,25 @@ div.gbTabBar span.o {
 }
 
 .autoCompleteShadow {
-    position: absolute;
-    margin: .3em;
-    z-index: 5;
-    background: #a0a0a0;
+    background-color: #a0a0a0;
 }
 
 .autoCompleteContainer {
-    position: relative;
-    bottom: 4px;
-    right: 4px;
     border: 1px solid #404040;
-    background: #fff;
-    overflow: hidden;
-    display: none;
+    background-color: #fff;
 }
 
-.autoCompleteContainer ul {
-    position: relative;
-    padding: 5px 0;
-    list-style: none;
-}
-
-.autoCompleteContainer li {
-    padding: 0 5px;
-    cursor: default;
-    white-space: nowrap;
-    display: list-item;
-}
-
-.autoCompleteContainer li.highlight {
-    background: #eee;
+.autoCompleteContainer li.yui-ac-highlight {
+    background-color: #eee;
 }
 
 #gallery .gbMarkupBar input {
     font-size: 1.1em;
 }
 
-
-#ProgressBar #progressDone {
-    background-color: #fd6704;
-    border: thin solid #ddd;
-}
-
-#ProgressBar #progressToGo {
-    background-color: #eee;
-    border: thin solid #ddd;
-}
-
 .giSearchHighlight {
     font-weight: bold;
     background-color: #ff6;
-}
-
-
-#gbPluginStatusUpdates {
-  position: absolute;
-  font-size: 1.5em;
-  display: none;
-  background: #999;
-}
-
-#gbPluginStatusUpdates div.giSuccess {
-  background: #5c0;
-  color: white;
-  padding: 15px;
-  width: 350px;
-  text-align: center;
-}
-
-#gbPluginStatusUpdates div.giWarning {
-  background: #c50;
-  color: white;
-  padding: 15px;
-  width: 350px;
-  text-align: center;
 }
 
 

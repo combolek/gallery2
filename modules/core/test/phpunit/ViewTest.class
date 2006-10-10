@@ -81,7 +81,7 @@ class ViewTest extends GalleryTestCase {
 
 	GalleryUtilities::putRequestVariable('itemId', $album->getId());
 
-	list ($ret, $item, $wasSpecified) = $view->_getItem();
+	list ($ret, $item, $wasSpecified) = $view->getItem();
 	if ($ret) {
 	    return $this->failWithStatus($ret);
 	}
@@ -90,7 +90,7 @@ class ViewTest extends GalleryTestCase {
 
 	GalleryUtilities::removeRequestVariable('itemId');
 
-	list ($ret, $item, $wasSpecified) = $view->_getItem();
+	list ($ret, $item, $wasSpecified) = $view->getItem();
 	if ($ret) {
 	    return $this->failWithStatus($ret);
 	}
@@ -103,7 +103,7 @@ class ViewTest extends GalleryTestCase {
 	    return $this->failWithStatus($ret);
 	}
 
-	list ($ret, $item, $wasSpecified) = $view->_getItem();
+	list ($ret, $item, $wasSpecified) = $view->getItem();
 	if ($ret) {
 	    return $this->failWithStatus($ret);
 	}
@@ -114,11 +114,26 @@ class ViewTest extends GalleryTestCase {
 	$gallery->setConfig('defaultAlbumId', $album->getId());
 	GalleryUtilities::removeRequestVariable('itemId');
 
-	list ($ret, $item) = $view->_getItem();
+	list ($ret, $item) = $view->getItem();
 	if ($ret) {
 	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals($album->getId(), $item->getId(), 'Alternate default album');
+    }
+    
+    function testGetItemOnlyReturnsItems() {
+	global $gallery;
+
+	list ($ret, $view) = GalleryView::loadView('core.ShowItemError');
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	GalleryUtilities::putRequestVariable('itemId', $gallery->getActiveUserId());
+
+	list ($ret, $item, $wasSpecified) = $view->getItem();
+	$this->assert($ret, 'getItem() should return an error if the itemId is the id of a user.');
+	$this->assert($ret->getErrorCode() & ERROR_MISSING_OBJECT, 'ERROR_MISSING_OBJECT');
     }
 }
 

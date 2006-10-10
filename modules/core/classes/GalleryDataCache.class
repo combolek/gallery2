@@ -549,7 +549,7 @@ class GalleryDataCache {
      *
      * @param int $id the item id
      * @param string $permission
-     * @return boolean 
+     * @return boolean
      */
     function hasPermission($id, $permission) {
 	global $gallery;
@@ -623,9 +623,6 @@ class GalleryDataCache {
 
 	$key = md5(serialize($keyData) . '|' . $extraKey . '|' . implode(",", $aclIds));
 	$userId = $gallery->getActiveUserId();
-
-	GalleryCoreApi::requireOnce(
-	    'modules/core/classes/GalleryStorage/GallerySqlFragment.class');
 
 	list ($ret, $results) = GalleryCoreApi::getMapEntry('GalleryCacheMap',
 	    array('value'),
@@ -709,7 +706,7 @@ class GalleryDataCache {
 	if ($ret) {
 	    return $ret;
 	}
-	
+
 	return null;
     }
 
@@ -794,7 +791,7 @@ class GalleryDataCache {
 
 	return array(null, $extraKey);
     }
-    
+
     /**
      * Delete value of obsolete cache data.
      *
@@ -827,15 +824,17 @@ class GalleryDataCache {
 
 	/* Use UPDATE instead of DELETE since UPDATE is faster and we reuse the rows. */
 	$storage =& $gallery->getStorage();
-	$query = 'UPDATE [GalleryCacheMap] SET [GalleryCacheMap::value] = NULL ';
 
-	if($isAnonymous){
-	    $query .= 'WHERE [GalleryCacheMap::userId] = ? AND [GalleryCacheMap::timestamp] < ?';
+	if ($isAnonymous) {
+	    $userIdForSql = (int)$anonymousUserId;
 	} else {
-	    $query .= 'WHERE [GalleryCacheMap::userId] <> ? AND [GalleryCacheMap::timestamp] < ?';
+	    $userIdForSql = new GallerySqlFragment('<> ?', (int)$anonymousUserId);
 	}
-	
-	$ret = $storage->execute($query, array((int)$anonymousUserId, (int)$cutoff));
+
+	list ($ret, $results) = GalleryCoreApi::updateMapEntry('GalleryCacheMap',
+		array('userId' => $userIdForSql,
+		      'timestamp' => new GallerySqlFragment('< ?', (int)$cutoff)),
+		array('value' => null));
 	if ($ret) {
 	    return $ret;
 	}

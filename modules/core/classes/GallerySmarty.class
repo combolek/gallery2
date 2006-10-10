@@ -23,12 +23,11 @@
  * (if embedded in an application also using Smarty it may be defined already)
  */
 if (!class_exists('Smarty')) {
-    GalleryCoreApi::requireOnce('lib/smarty/Smarty.class.php', true);
+    GalleryCoreApi::requireOnce('lib/smarty/Smarty.class.php');
 }
 
 /**
- * A wrapper around Smarty that uses Gallery's error handling
- *
+ * A wrapper around Smarty that uses Gallery's error handling.
  * @package GalleryCore
  * @subpackage Classes
  * @author Ernesto Baschny <ernst@baschny.de>
@@ -37,25 +36,14 @@ if (!class_exists('Smarty')) {
 class GallerySmarty extends Smarty {
 
     /**
-     * A GalleryStatus object from the last called fetch
-     *
+     * A GalleryStatus object from the last called fetch.
      * @var object GalleryStatus
      * @access private
      */
     var $_firstGalleryStatus;
 
     /**
-     * The FILE and LINE of the last call
-     *
-     * @var array
-     * @access private
-     */
-    var $_firstFileLine;
-
-
-    /**
-     * Fetch should also return a GalleryStatus object
-     *
+     * Fetch should also return a GalleryStatus object.
      * @see Smarty::fetch
      * @return array object GalleryStatus the return status
      *               string the output from the template
@@ -80,22 +68,19 @@ class GallerySmarty extends Smarty {
     }
 
     /**
-     * Make trigger_error behave more Gallery-like
-     *
+     * Make trigger_error behave more Gallery-like.
      * @see Smarty::trigger_error
      */
     function trigger_error($error_msg, $error_type = E_USER_WARNING) {
 	/* Store this error for later usage */
 	if (!$this->_firstGalleryStatus) {
-	    $this->_firstGalleryStatus = GalleryCoreApi::error(ERROR_BAD_PARAMETER,
-		$this->_firstFileLine[0], $this->_firstFileLine[1], sprintf('Smarty error: %s',
-		$error_msg, $error_type));
+	    $this->_firstGalleryStatus = GalleryCoreApi::error(ERROR_BAD_PARAMETER, null, null,
+		sprintf('Smarty error: %s', $error_msg, $error_type));
 	}
     }
 
     /**
-     * Maintain the name of the current template
-     *
+     * Maintain the name of the current template.
      * @see Smarty::_smarty_include
      */
     function _smarty_include($params) {

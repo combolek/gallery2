@@ -134,6 +134,7 @@ class CoreModuleExtras {
 			   'acceleration' => serialize(array('guest' => array('type' => 'none'),
 							     'user' => array('type' => 'none'))),
 			   'validation.level' => 'MEDIUM',
+			   'core.repositories' => serialize(array('released' => 1)),
 			   ) as $key => $value) {
 		if (!isset($param[$key])) {
 		    $ret = $module->setParameter($key, (string)$value);
@@ -2095,7 +2096,7 @@ class CoreModuleExtras {
 				    "<IfModule mod_access.c>\n" .
 				    "Order allow,deny\n" .
 				    "Deny from all\n" .
-				    "</IfModule>\n";    
+				    "</IfModule>\n";
 		fwrite($fh, $htaccessContents);
 		fclose($fh);
 	    }
@@ -2105,6 +2106,22 @@ class CoreModuleExtras {
 	    if ($ret) {
 		return $ret;
 	    }
+
+        case '1.1.16':
+	    /* Initialize multiple repositories */
+	    $ret = $module->setParameter('core.repositories', serialize(array('released' => 1)));
+	    if ($ret) {
+		return $ret;
+	    }
+
+            /* Locked plugins */
+	    $ret = $storage->configureStore($module->getId(), array('GalleryPluginPackageMap:1.0'));
+	    if ($ret) {
+		return $ret;
+	    }
+
+	case '1.1.17':
+	    /* Rolled SessionAuthPlugin into GallerySession.class, so force a factory update */
 
 	case 'end of upgrade path':
 	    /*
@@ -2370,6 +2387,7 @@ $gallery->setConfig(\'baseUri\', \'\');';
 	case '1.1.13':
 	case '1.1.14':
 	case '1.1.15':
+	case '1.1.16':
 
 	case 'end of upgrade path':
 	    /*
@@ -2813,7 +2831,6 @@ $gallery->setConfig(\'baseUri\', \'\');';
 	$regs[] = array('MaintenanceTask', 'SetOriginationTimestampTask', 'class', null);
 	$regs[] = array('MaintenanceTask', 'DeleteSessionsTask', 'class', null);
 	$regs[] = array('CaptchaAdminOption', 'CoreCaptchaAdminOption', 'class', null);
-	$regs[] = array('GalleryAuthPlugin', 'SessionAuthPlugin', 'class', null);
 
 	/*
 	 * Unlike other modules, the core module doesn't get deactivated so its factory
@@ -2836,6 +2853,15 @@ $gallery->setConfig(\'baseUri\', \'\');';
 	    if ($ret) {
 		return $ret;
 	    }
+	}
+
+	/* Special cases */
+	$ret = GalleryCoreApi::registerFactoryImplementation(
+	    'GalleryAuthPlugin', 'SessionAuthPlugin', 'SessionAuthPlugin',
+	    'modules/core/classes/GallerySession.class',
+	    'core', null, 4);
+	if ($ret) {
+	    return $ret;
 	}
 
 	return null;

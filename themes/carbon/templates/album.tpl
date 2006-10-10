@@ -21,28 +21,28 @@
 	      {if (isset($links) || isset($theme.itemLinks))}
 		{if !isset($links)}{assign var="links" value=$theme.itemLinks}{/if}
 
-		{foreach from=$links item=link}
-		  {if $link.moduleId == "cart"}
+		{foreach from=$links item=itemLink}
+		  {if $itemLink.moduleId == "cart"}
 		  <td class="gsActionIcon">
-		    <div class="buttonCart"><a href="{g->url params=$link.params}"
-		     title="{$link.text}"></a></div>
+		    <div class="buttonCart"><a href="{g->url params=$itemLink.params}"
+		     title="{$itemLink.text}"></a></div>
 		  </td>
-		  {elseif $link.moduleId == "comment"}
-		    {if $link.params.view == "comment.AddComment" }
+		  {elseif $itemLink.moduleId == "comment"}
+		    {if $itemLink.params.view == "comment.AddComment" }
 		    <td class="gsActionIcon">
-		      <div class="buttonAddComment"><a href="{g->url params=$link.params}"
-		       title="{$link.text}"></a></div>
+		      <div class="buttonAddComment"><a href="{g->url params=$itemLink.params}"
+		       title="{$itemLink.text}"></a></div>
 		    </td>
-		    {elseif $link.params.view == "comment.ShowAllComments"}
+		    {elseif $itemLink.params.view == "comment.ShowAllComments"}
 		    <td class="gsActionIcon">
-		      <div class="buttonViewComments"><a href="{g->url params=$link.params}"
-		       title="{$link.text}"></a></div>
+		      <div class="buttonViewComments"><a href="{g->url params=$itemLink.params}"
+		       title="{$itemLink.text}"></a></div>
 		    </td>
 		    {/if}
-		  {elseif $link.moduleId == "slideshow"}
+		  {elseif $itemLink.moduleId == "slideshow"}
 		  <td class="gsActionIcon">
-		    <div class="buttonViewSlideshow"><a href="{g->url params=$link.params}"
-		     title="{$link.text}"></a></div>
+		    <div class="buttonViewSlideshow"><a href="{g->url params=$itemLink.params}"
+		     title="{$itemLink.text}"></a></div>
 		  </td>
 		  {/if}
 		{/foreach}
@@ -157,7 +157,7 @@
 			      <img src="{g->url href="themes/carbon/images/album.gif"}" alt=""/>
 			    </td>
 			    <td>
-			      <p class="giTitle">{g->text text="%s" arg1=$child.title|markup}</p>
+			      <p class="giTitle">{$child.title|markup}</p>
 			    </td>
 			  </tr>
 			</table>
@@ -172,20 +172,27 @@
 		      </p>
 		      {/if}
 
-		      {if ($child.canContainChildren && $theme.params.showAlbumOwner) ||
-			  (!$child.canContainChildren && $theme.params.showImageOwner)}
-		      {assign var="showOwner" value=true}
+		      {if !$theme.params.itemDetails}
+			{g->block type="core.ItemInfo"
+				  item=$child
+				  showSummaries=true
+				  class="giInfo"}
 		      {else}
-		      {assign var="showOwner" value=false}
+			{if ($child.canContainChildren && $theme.params.showAlbumOwner) ||
+			    (!$child.canContainChildren && $theme.params.showImageOwner)}
+			{assign var="showOwner" value=true}
+			{else}
+			{assign var="showOwner" value=false}
+			{/if}
+			{g->block type="core.ItemInfo"
+				  item=$child
+				  showDate=true
+				  showOwner=$showOwner
+				  showSize=true
+				  showViewCount=true
+				  showSummaries=true
+				  class="giInfo"}
 		      {/if}
-		      {g->block type="core.ItemInfo"
-				item=$child
-				showDate=true
-				showOwner=$showOwner
-				showSize=true
-				showViewCount=true
-				showSummaries=true
-				class="giInfo"}
 		    </td>
 		    {/foreach}
 

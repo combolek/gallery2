@@ -23,7 +23,6 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryRepositoryUtilities.cla
 
 /**
  * Test repository utilities functionality
- *
  * @package GalleryCore
  * @subpackage PHPUnit
  * @author Jozef Selesi <selesi at gmail dot com>
@@ -104,33 +103,12 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 	}
     }
 
-    function testExtractTimestamp() {
-	$utilities = new GalleryRepositoryUtilities();
-
-	$testCases = array(
-	    '2005/08/13 13:13:00' => '20050813131300',
-	    'blah2005/08/13 13:13:00blah' => '20050813131300',
-	    '2005-08-13 13:13+0100' => '20050813141300',
-	    '2005-08-13 13:13+0000' => '20050813131300',
-	    '2005-08-13 13:13-0000' => '20050813131300',
-	    '2005-08-13 13:00-0130' => '20050813113000',
-	    '2005-08-13 23:00+0200' => '20050814010000');
-
-	foreach ($testCases as $case => $result) {
-	    list ($ret, $timestamp) = $utilities->extractTimestamp($case);
-	    if ($ret) {
-		$this->failWithStatus($ret);
-	    }
-	    $this->assertEquals($result, $timestamp, "Testcase: $case");
-	}
-    }
-
     function testExtractRevision() {
 	$utilities = new GalleryRepositoryUtilities();
 
 	$testCases = array(
-	    '# $' . 'Id: extract.php,v 1.11 2005/08/14 02:59:08 jozefs Exp $' => '1.11',
-	    ',v 3.4.56.68 123' => '3.4.56.68');
+	    '$' . 'Id: it.po 13690 2006-05-19 18:01:46Z mindless $' => '13690',
+	    '$' . 'Revision: 210 $' => '210');
 
 	foreach ($testCases as $case => $result) {
 	    list ($ret, $revision) = $utilities->extractRevision($case);
@@ -188,12 +166,9 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 
 	$stringsPath = sprintf('%stestPlugins/testModule/po/strings.raw',
 		GalleryCoreApi::getPluginBaseDir('testPlugin', 'testModule'));
-	$stringsContents = ',v 1.23 2005';
+	$stringsContents = '# $' . 'Id: strings.raw 13933 2006-07-08 23:55:12Z bharat $';
 
 	$platform = new UnitTestPlatform();
-	$platform->setReply('file_exists', array('fuzzy' => '{config.php$}'), true);
-	$platform->setReply('file_exists', array('fuzzy' => '{index.testPlugins$}'), true);
-	$platform->setReply('file', array('fuzzy' => '{index.testPlugins$}', false), array());
 	$platform->setReply('file_exists', array($stringsPath), true);
 	$platform->setReply('fopen', array($stringsPath, 'r', 0), 'handle');
 	$platform->setReply('fread', array('handle', 128), $stringsContents);
@@ -205,7 +180,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 	if ($ret) {
 	    $this->failWithStatus($ret);
 	}
-	$this->assertEquals('1.23', $revision, 'Incorrect revision returned.');
+	$this->assertEquals('13933', $revision, 'Incorrect revision returned.');
     }
 
     function testIsPluginAvailable() {
@@ -337,25 +312,27 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 
     function testGetPluginPackages() {
 	$this->_testStorage->reset();
-	$this->_testStorage->setSearchResults(array(
-	    array('package1', '1.23', '19700411131300'),
-	    array('package2', '3.45', '19710411131300')));
+	$this->_testStorage->setSearchResults(
+	    array(array(0, '1.23', '19700411131300', 'pkg1'),
+		  array(1, '3.45', '19710411131300', 'pkg2')));
 
 	$utilities = new GalleryRepositoryUtilities();
 	list ($ret, $packages) = $utilities->getPluginPackages('module', 'testModule');
 	if ($ret) {
 	    $this->failWithStatus($ret);
 	}
-	$this->assertEquals(array('package1' => array('version' => '1.23',
-						      'build' => '19700411131300'),
-				  'package2' => array('version' => '3.45',
-						      'build' => '19710411131300')),
-			    $packages);
+	$this->assertEquals(
+	    array('pkg1' => array('locked' => 0, 'version' => '1.23', 'build' => '19700411131300'),
+		  'pkg2' => array('locked' => 1, 'version' => '3.45', 'build' => '19710411131300')),
+	    $packages);
 
-	/* The following assertion isn't really necessary. */
+	/*
+	 * Make sure we executed the right query.  In a perfect world, this would be
+	 * part of the setSearchResults() call above.
+	 */
 	$expectedQuery = array(
 		'map' => 'GalleryPluginPackageMap',
-		'select' => array('packageName', 'packageVersion', 'packageBuild'),
+		'select' => array('locked', 'packageVersion', 'packageBuild', 'packageName'),
 		'where' => array('pluginType' => 'module', 'pluginId' => 'testModule'));
 	$searches = $this->_testStorage->getSearches();
 	$this->assertEquals($expectedQuery, $searches[0]);
@@ -374,6 +351,116 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 	    $this->failWithStatus($ret);
 	}
 	$this->assertEquals('someVersion', $version);
+    }
+
+    function testDownloadFileWithoutGzinflate() {
+	global $gallery;
+	$gallery->_phpVm = new RepositoryUtilitiesTestPhpVm(false);
+	$utilities = new GalleryRepositoryUtilities();
+
+	/*
+	 * Sigh.  It would be really nice if we could mock up GalleryCoreApi::fetchWebPage()
+	 * instead of mocking the platform.
+	 */
+	$platform = new UnitTestPlatform();
+	$platform->setReply('fsockopen', array('example.com', 80, null, null, 1), 'fd');
+	$platform->setReply(
+	    'fwrite',
+	    array('fd', "GET /repository/index HTTP/1.0\r\nHost: example.com\r\n\r\n", null),
+	    true);
+	$platform->setReply('fflush', array('fd'), null);
+	$platform->setReply('fgets', array('fd', 4096), "HTTP/1.1 200 OK\r\n");
+	$platform->setReply('feof', array('fd'), false);
+	$platform->setReply('fgets', array('fd', 4096), "\r\n");
+	$platform->setReply('feof', array('fd'), false);
+	$platform->setReply('fread', array('fd', 4096), 'data');
+	$platform->setReply('feof', array('fd'), true);
+	$platform->setReply('fclose', array('fd'), null);
+	$gallery->setPlatform($platform);
+
+	$this->assertEquals(
+	    array(true, 'data'),
+	    $utilities->downloadFile('http://example.com/repository/index'));
+	$this->assert($platform->isComplete(), $platform->getRemaining());
+    }
+
+    function testDownloadFileWithGzinflate() {
+	global $gallery;
+	$gallery->_phpVm = new RepositoryUtilitiesTestPhpVm(true);
+	$utilities = new GalleryRepositoryUtilities();
+
+	/*
+	 * Sigh.  It would be really nice if we could mock up GalleryCoreApi::fetchWebPage()
+	 * instead of mocking the platform.
+	 */
+	$platform = new UnitTestPlatform();
+	$platform->setReply('fsockopen', array('example.com', 80, null, null, 1), 'fd');
+	$platform->setReply(
+	    'fwrite',
+	    array('fd', "GET /repository/index.gz HTTP/1.0\r\nHost: example.com\r\n\r\n", null),
+	    true);
+	$platform->setReply('fflush', array('fd'), null);
+	$platform->setReply('fgets', array('fd', 4096), "HTTP/1.1 200 OK\r\n");
+	$platform->setReply('feof', array('fd'), false);
+	$platform->setReply('fgets', array('fd', 4096), "\r\n");
+	$platform->setReply('feof', array('fd'), false);
+	$platform->setReply('fread', array('fd', 4096), 'data');
+	$platform->setReply('feof', array('fd'), true);
+	$platform->setReply('fclose', array('fd'), null);
+	$gallery->setPlatform($platform);
+
+	$this->assertEquals(
+	    array(true, 'uncompressed-data'),
+	    $utilities->downloadFile('http://example.com/repository/index'));
+	$this->assert($platform->isComplete(), $platform->getRemaining());
+    }
+
+    function testDownloadFileWithGzinflateButIgnoringCompression() {
+	global $gallery;
+	$gallery->_phpVm = new RepositoryUtilitiesTestPhpVm(true);
+	$utilities = new GalleryRepositoryUtilities();
+
+	/*
+	 * Sigh.  It would be really nice if we could mock up GalleryCoreApi::fetchWebPage()
+	 * instead of mocking the platform.
+	 */
+	$platform = new UnitTestPlatform();
+	$platform->setReply('fsockopen', array('example.com', 80, null, null, 1), 'fd');
+	$platform->setReply(
+	    'fwrite',
+	    array('fd', "GET /repository/index HTTP/1.0\r\nHost: example.com\r\n\r\n", null),
+	    true);
+	$platform->setReply('fflush', array('fd'), null);
+	$platform->setReply('fgets', array('fd', 4096), "HTTP/1.1 200 OK\r\n");
+	$platform->setReply('feof', array('fd'), false);
+	$platform->setReply('fgets', array('fd', 4096), "\r\n");
+	$platform->setReply('feof', array('fd'), false);
+	$platform->setReply('fread', array('fd', 4096), 'data');
+	$platform->setReply('feof', array('fd'), true);
+	$platform->setReply('fclose', array('fd'), null);
+	$gallery->setPlatform($platform);
+
+	$this->assertEquals(
+	    array(true, 'data'),
+	    $utilities->downloadFile('http://example.com/repository/index', true));
+	$this->assert($platform->isComplete(), $platform->getRemaining());
+    }
+}
+
+class RepositoryUtilitiesTestPhpVm extends GalleryPhpVm {
+    function RepositoryUtilitiesTestPhpVm($gzinflateExists) {
+	$this->_gzinflateExists = $gzinflateExists;
+    }
+
+    function function_exists($func) {
+	if ($func == 'gzinflate') {
+	    return $this->_gzinflateExists;
+	}
+	return function_exists($func);
+    }
+
+    function gzinflate($data) {
+	return "uncompressed-$data";
     }
 }
 

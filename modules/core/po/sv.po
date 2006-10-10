@@ -28,10 +28,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Core 1.1.15\n"
+"Project-Id-Version: Gallery: Core 1.1.18\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2003-02-11 03:09-0800\n"
-"PO-Revision-Date: 2006-08-12 18:10+0200\n"
+"PO-Revision-Date: 2006-10-02 18:40+0200\n"
 "Last-Translator: Anders Lindquist <andersl@saaf.se>\n"
 "Language-Team: Swedish <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -107,21 +107,31 @@ msgstr "Full acceleration"
 msgid "Themes"
 msgstr "Teman"
 
-msgid "Performing Maintenance Tasks"
-msgstr "Utför Systemunderhåll"
+msgid "Updating Repository Index"
+msgstr "Uppdaterar lagerkatalogsindexet"
+
+msgid "Scanning plugins"
+msgstr "Genomsöker pluginerna"
+
+msgid "Done."
+msgstr "Klar"
+
+msgid "Updating Packages"
+msgstr "Uppdaterar Paketen"
 
 #, c-format
 msgid "Downloading %s"
 msgstr "Laddar ned %s"
 
-msgid "Done."
-msgstr "Klar"
+#, c-format
+msgid "Activating %s"
+msgstr "Aktiverar %s"
 
-msgid "Upgrade"
-msgstr "uppgradera"
+msgid "Deleting Language Packs"
+msgstr "Raderar språk paketen"
 
-msgid "Download"
-msgstr "Laddar ned"
+msgid "Update complete."
+msgstr "Uppdateringen Slutförd"
 
 msgid "install"
 msgstr "installera"
@@ -323,9 +333,8 @@ msgstr "&laquo; förvalt tema &raquo;"
 msgid "Recreating resized images"
 msgstr "Återskapa storleksändrade bilder"
 
-#, fuzzy
 msgid "Preparing..."
-msgstr "Bearbetar..."
+msgstr "Förbereder..."
 
 msgid "Rebuilding resized images..."
 msgstr "Återskapar storleksändrade bilder..."
@@ -522,9 +531,6 @@ msgstr "Logga ut"
 msgid "Plugins"
 msgstr "Pluginer"
 
-msgid "Repository"
-msgstr "Förvaringsplats"
-
 msgid "Users"
 msgstr "Användare"
 
@@ -597,6 +603,10 @@ msgid ""
 msgstr ""
 "Ta bort alla ståndaktiga sessioner i enlighet med nuvarande sessions expierings "
 "inställningar."
+
+#, c-format
+msgid "Deleted %d sessions."
+msgstr "Tog bort %d användarsessioner."
 
 msgid "Delete database cache"
 msgstr "Töm databascache"
@@ -676,13 +686,11 @@ msgstr "Titel"
 msgid "Owner"
 msgstr "Ägare"
 
-#, fuzzy
 msgid "Dynamic Album"
-msgstr "Redigera Album"
+msgstr "Dynamiskt Album"
 
-#, fuzzy
 msgid "dynamic album"
-msgstr "Redigera Album"
+msgstr "dynamiskt album"
 
 msgid "Group"
 msgstr "Grupp"
@@ -702,18 +710,6 @@ msgstr "film"
 msgid "photo"
 msgstr "foto"
 
-msgid "download"
-msgstr "nedladdning"
-
-msgid "Plugins directory does not exist."
-msgstr "Plugin katalogen finns inte."
-
-msgid ""
-"Couldn't create plugins subdirectory. Make sure the webserver has write permissions in it."
-msgstr ""
-"Kunde inte skapa plugin katalogen. Kontrollera att web servern har skrivrättigheter i "
-"katalogen."
-
 msgid "Couldn't create repository cache path."
 msgstr "Kunde inte skapa lagerkatalogen."
 
@@ -721,6 +717,15 @@ msgid ""
 "Couldn't create cache subdirectory. Make sure the web server has write permissions in it."
 msgstr ""
 "Kunde inte skapa cache katalog, kontrollera att web servern har skrivrättigheter i katalogen."
+
+msgid "Officially Release Repository"
+msgstr "Officiellt release lager"
+
+msgid "Experimental Repository"
+msgstr "Experimentelt, modullager"
+
+msgid "Community Repository"
+msgstr "Användargrupp förvaringsplats"
 
 #, c-format
 msgid "Error downloading index from '%s'."
@@ -824,6 +829,18 @@ msgstr "Block att visa på albumsidorna"
 
 msgid "Blocks to show on photo pages"
 msgstr "Block att visa på fotosidorna"
+
+msgid "Thumbnail links in dynamic albums"
+msgstr "Miniatyrbildslänkar i dynamiska album"
+
+msgid "Browse dynamic album"
+msgstr "Bläddra i dynamiskt album"
+
+msgid "Jump to original album"
+msgstr "Hoppa till orginal albumet"
+
+msgid "Separate link to original album"
+msgstr "Separat länk till orginal albumet"
 
 msgid "View Samples"
 msgstr "Visa Prover"
@@ -997,6 +1014,10 @@ msgstr "Locale"
 
 msgid "Browser"
 msgstr "Webbläsare"
+
+#, c-format
+msgid "Rows in %s table = %d"
+msgstr "Rader i %s tabellen = %d"
 
 msgid "Successfully saved theme settings"
 msgstr "Sparade temainställningar framgångsrikt"
@@ -1493,6 +1514,14 @@ msgstr "E-postadress"
 msgid "(suggested)"
 msgstr "(föreslagen)"
 
+msgid "Lock Account"
+msgstr "Lås Konto"
+
+msgid ""
+"Locked users are unable to edit their own account information. (Password, Name, Email, etc.)"
+msgstr ""
+"Låsta användare kan inte redigera sin egen konto information. (Lösenord, Namn, E-port, mm.)"
+
 msgid "Group Management"
 msgstr "Grupphantering"
 
@@ -1588,20 +1617,6 @@ msgstr "kör nu"
 
 msgid "Last Run Details:"
 msgstr "Detaljer För Senaste Körning:"
-
-msgid "Confirm module uninstall"
-msgstr "Bekräfta avinstallation av modul"
-
-#, c-format
-msgid "Do you really want to uninstall the %s module?"
-msgstr "Vill du verkligen avinstallera modulen %s?"
-
-msgid "This will also remove any permissions and clean up any data created by this module."
-msgstr ""
-"Detta kommer också att ta bort rättigheter och städa upp temporära data skapad av denna modul"
-
-msgid "Uninstall"
-msgstr "Avinstallera"
 
 msgid "Performance Tuning"
 msgstr "Prestanda inställningar"
@@ -1708,10 +1723,62 @@ msgid "Status: Inactive (Configuration Required)"
 msgstr "Status: Inaktiv (Konfigurering Behövs"
 
 msgid "__PLUGIN__ needs configuration"
-msgstr "__PLUGIN__ beföver konfigureras"
+msgstr "__PLUGIN__ behöver konfigureras"
+
+msgid "__PLUGIN__ deleted"
+msgstr "__PLUGIN__ borttagen"
+
+msgid "Warning!"
+msgstr "Varning!"
+
+msgid "Do you really want to uninstall __PLUGIN__?"
+msgstr "Vill du verkligen avinstallera __PLUGIN__?"
+
+msgid ""
+"This plugin will be uninstalled, but its files will be kept so that you can reinstall it."
+msgstr ""
+"Den här pluginen kommer att avinstalleras, men dess filer kommer att behållas så att du kan "
+"återinstallera den igen."
+
+msgid "Yes"
+msgstr "Ja"
+
+msgid "No"
+msgstr "Nej"
+
+msgid "Do you really want to delete __PLUGIN__?"
+msgstr "Vill du verkligen avinstallera __PLUGIN__?"
+
+msgid "This plugin will be uninstalled and its files will be deleted."
+msgstr "Den här pluginen kommer att avistalleras och dess filer kommer att raderas."
+
+msgid "disabled(__COUNT__)"
+msgstr ""
+
+#, fuzzy
+msgid "up to date(__COUNT__)"
+msgstr "Aktuell version"
+
+#, fuzzy
+msgid "not installed(__COUNT__)"
+msgstr "ej installerad"
+
+#, fuzzy
+msgid "upgrade required(__COUNT__)"
+msgstr "uppgradering krävs"
+
+#, fuzzy
+msgid "incompatible(__COUNT__)"
+msgstr "inkompatibel"
+
+msgid "Failed to completely delete __PLUGIN__"
+msgstr "Lyckades inte fullständigt ta bort __PLUGIN__"
 
 msgid "Gallery Plugins"
 msgstr "Gallery:s Pluginer"
+
+msgid "Get More Plugins"
+msgstr "Hämta fler Pluginer"
 
 msgid ""
 "Gallery features come as separate plugins.  You can download and install plugins to add more "
@@ -1724,18 +1791,6 @@ msgstr ""
 "vill använda dem.  För att kunna använda en egenskap så måste du installera, konfigurera (om "
 "nödvändigt) och aktivera den.  Om du inte önskar att använda en egenskap så kan du "
 "avaktivera den."
-
-msgid "up to date"
-msgstr "Aktuell version"
-
-msgid "upgrade required"
-msgstr "uppgradering krävs"
-
-msgid "not installed"
-msgstr "ej installerad"
-
-msgid "incompatible"
-msgstr "inkompatibel"
 
 msgid "Plugin Name"
 msgstr "Pluginens Namn"
@@ -1763,6 +1818,21 @@ msgstr "Plugin API obligatorisk: %s (tillgänglig: %s)"
 msgid "configure"
 msgstr "konfigurera"
 
+msgid "up to date"
+msgstr "Aktuell version"
+
+msgid "upgrade required"
+msgstr "uppgradering krävs"
+
+msgid "not installed"
+msgstr "ej installerad"
+
+msgid "incompatible"
+msgstr "inkompatibel"
+
+msgid "Repository"
+msgstr "Förvaringsplats"
+
 msgid "Please make sure that your internet connection is set up properly or try again later."
 msgstr "Kontrollera att din internetförbindelse fungerar eller försök igen senare."
 
@@ -1772,57 +1842,91 @@ msgstr "Index till lagret har uppdaterats."
 msgid "All plugins are already up-to-date."
 msgstr "Alla plugin moduler är redan uppdaterade."
 
-msgid "Common Tasks"
-msgstr "Vanliga uppgifter"
+#, c-format
+msgid "%s plugin updated."
+msgstr "%s plugin uppdaterad."
 
-msgid "Modules"
-msgstr "Moduler"
-
-msgid "Warning: Experimental feature!"
-msgstr "Varning: experimentell feature!"
-
-msgid ""
-"The repository features are currently experimental, and no actual repository has been set up "
-"yet, so none of these features will work at this time."
-msgstr ""
-"Repository (förvaringsplats) funktionen är förnärvarande experimentell, och inget repository "
-"har satts upp än, så inga av dessa funktioner kommer att fungera nu."
-
-msgid "Update Index"
-msgstr "Uppdatera Index"
+#, c-format
+msgid "%d language pack deleted."
+msgid_plural "%d language packs deleted."
+msgstr[0] "%d språkpaket raderat"
+msgstr[1] "%d språkpaket raderade"
 
 msgid ""
-"The Gallery repository contains the latest modules and themes extensively tested by the "
-"Gallery team. The repository index contains information about available plugins, such as the "
-"latest versions, available languages and compatibility. The index must be synchronized "
-"periodically with the Gallery server so you are informed about any available updates. No "
-"personal information is sent to the Gallery server during updating. On slower connections "
-"the process might take a minute or two."
-msgstr ""
-"Gallerys repository innehåller de senaste modulerna och teman som är utförligt testade av "
-"Gallery teamet. Repository indexet innehåller information om tillgängliga plugins, som "
-"senaste versioner, tillgängliga språk och kompabilitet. Indexet måste synkroniseras "
-"periodvis med Gallery servern så att du blir informerad när nya versioner blir tillgängliga. "
-"Ingen personlig information skickas till Gallery servern under uppdateringen. Vid långsam "
-"förbindelse kan uppdateringen ta en minut eller två."
+"No personal information about you or your Gallery installation is sent to the Gallery server "
+"at any time."
+msgstr "Ingen personlig information om din Gallery installation skickas till Gallery servern."
 
 #, c-format
 msgid ""
-"As of the last update on %s, the repository contains %s modules and %s themes. Its contents "
-"can be viewed on the Modules and Themes tabs."
+"Download and install new plugins quickly and easily.  If you decide you don't like a plugin, "
+"you can delete it from your Gallery.  There are multiple different plugin repositories, you "
+"can choose which ones you want to use (it's ok to use all of them at once).  Once you've "
+"chosen, you must periodically download the latest plugin list to find out about available "
+"updates. %s On slower connections the process might take a minute or two."
 msgstr ""
-"Efter den senaste uppdateringen av %s, så innehåller fillagret %s moduler och %s teman. "
-"Innehållet kan ses under Moduler och Tema flikarna."
+"Ladda ner och installera nya pluginer snabbt och enkelt. Om du inte tycker om en plugin, så "
+"kan du radera den från ditt galleri. Det finns flera olika pluginlager, du kan välja vilka "
+"du vill använda dig av (det går att använda allihopa på samma gång). När du har valt, så "
+"måste du periodvis ladda ner de senaste pluginerna för att se om det finns någon uppdatering "
+"tillgänglig. %s Vid långsamma förbindelser så kan det ta en minute eller två."
+
+#, c-format
+msgid "Officially Released Gallery Project plugins (%srecommended%s)"
+msgstr "Officiellt releasad Gallery projekt pluginer (%srekomenderad%s)"
+
+#, c-format
+msgid "last updated on %s"
+msgstr "senast uppdaterad %s"
+
+#, c-format
+msgid "Experimental Gallery Project plugins (%scool new features, might be buggy%s)"
+msgstr "Experimentel Gallery projekt plugin (%scoola nya funktioner, kan vara buggiga%s)"
+
+#, c-format
+msgid "Community plugins (%suse at your own risk!%s)"
+msgstr "Användargrupp plugin (%sanvänd på egen risk!%s)"
+
+#, fuzzy
+msgid "Repository Error"
+msgstr "Förvaringsplats"
+
+#, fuzzy
+msgid "You must select at least one repository."
+msgstr "Du måste markera en användare att ta bort."
+
+msgid "Ok"
+msgstr ""
+
+msgid "Configure your Gallery"
+msgstr "Konfigurera ditt Gallery"
 
 msgid ""
-"The index has never been updated. Click on the Update button to see what updates are "
-"available."
+"Before you can proceed, you have to change some permissions so that Gallery can install "
+"plugins for you.  It's easy.  Just execute the following in a shell or via your ftp client:"
 msgstr ""
-"Indexet har alldrig uppdaterats. Klicka på Uppdatera knappen för att se vilka uppdateringar "
-"som är tillgängliga."
+"Innan du kan fortsätta, så måste du ändra på vissa rättigheter för att Gallery skall kunna "
+"installera pluginer åt dig. Det är enkelt. Utför bara följande kommandon i ett kommandoskal "
+"eller via din ftp klienten:"
 
-msgid "Update"
-msgstr "Uppdatera"
+msgid ""
+"If you have trouble changing permissions, ask your system administrator for assistance.  "
+"When you've fixed the permissions, click the Continue button to proceed."
+msgstr ""
+"Om du har problem med att ändra rättigheter, be din systemadministratör om hjälp. När du har "
+"rättat till rättigheterna, tryck på fortsätt knappen för att komma vidare."
+
+msgid "Continue"
+msgstr "Fortsätt"
+
+msgid "Update Plugin List"
+msgstr "Uppdatera Pluginlistan"
+
+msgid "Download Plugin List"
+msgstr "Ladda ned Pluginlistan"
+
+msgid "Show Repository List"
+msgstr "Visa förvaringsplatslista"
 
 msgid "Upgrade Gallery"
 msgstr "Uppgradera Gallery"
@@ -1849,15 +1953,48 @@ msgstr "%sLadda ner%s Gallery's kärna"
 msgid "Read the %supgrade instructions%s and perform the upgrade"
 msgstr "Läs %supgraderings instruktionerna%s och utför upgraderingen"
 
-msgid "Gallery Up-To-Date"
-msgstr "Gallery Up-To-Date"
+msgid "Incompatible plugins are marked with an exclamation icon."
+msgstr "Ej kompatibla pluginer är markerade med ett utropstecken."
 
+#, c-format
 msgid ""
-"Gallery cannot be upgraded through this interface. When a new version becomes available, "
-"upgrade instructions will be presented here."
+"A new core module version is available. There may be plugins that are incompatible with the "
+"installed core module, which are not shown here. You can view a %scomplete list%s of "
+"plugins, including incompatible ones, which are marked with a red icon."
 msgstr ""
-"Gallery kan inte uppgraderas med detta gränssnitt. När en ny version blir tillgänglig, "
-"kommer uppgraderings instruktioner att återfinnas här."
+"En ny kärnmoduls version är tillgänglig. Det kan finnas pluginer som är inkompatibla med den "
+"installerade kärnmodulen, som inte visas här. Du kan se en %skomplett lista%s med pluginer, "
+"inclusive inkompatibla pluginer, som är markerade med en röd ikon."
+
+msgid "upgrade available"
+msgstr "Uppdatering tillgänglig"
+
+msgid "locked"
+msgstr "låst"
+
+msgid "Theme Name"
+msgstr "Temanamn"
+
+msgid "Module Name"
+msgstr "Modulnamn"
+
+msgid "Latest"
+msgstr "sista"
+
+msgid "Locked Plugin"
+msgstr "Låst plugin"
+
+msgid "Incompatible Plugin"
+msgstr "Inkompatibel Plugin!"
+
+msgid "Upgrade Available"
+msgstr "Uppgradering tillgänglig"
+
+msgid "download"
+msgstr "nedladdning"
+
+msgid "modify"
+msgstr "modifiera"
 
 msgid "Upgrade All Plugins"
 msgstr "Uppgradera Alla Plugins"
@@ -1872,134 +2009,68 @@ msgstr ""
 msgid "Upgrade All"
 msgstr "Uppgradera Allt"
 
-msgid ""
-"Once the repository index has been downloaded, a list of available plugins will be "
-"presented. It can be downloaded by clicking on the Update button on the Common Tasks tab."
-msgstr ""
-"När repository index har blivit nerladdad, kommer en lista av tillgängliga plugins att "
-"presenteras. Den kan laddas ner genom att klicka på Uppdatera knappen under Vanliga "
-"uppgifter fliken."
-
-msgid ""
-"The following plugins are available. Click on the action beside the plugin you're interested "
-"in to see what's available in the repository."
-msgstr ""
-"Följande pluginer är tillgängliga. Klicka på knappen brevid pluginen du är intresserad av "
-"för att se om den är tillgänglig i repositoryt."
-
-msgid "Incompatible plugins are marked with an exclamation icon."
-msgstr "Ej kompatibla pluginer är markerade med ett utropstecken."
-
 #, c-format
-msgid ""
-"A new core module version is available. There may be plugins that are incompatible with the "
-"installed core module, which are not shown here. You can view a %scomplete list%s of "
-"plugins, including incompatible ones, which are marked with a red icon."
-msgstr ""
-"En ny kärnmoduls version är tillgänglig. Det kan finnas pluginer som är inkompatibla med den "
-"installerade kärnmodulen, som inte visas här. Du kan se en %skomplett lista%s med pluginer, "
-"inclusive inkompatibla pluginer, som är markerade med en röd ikon."
-
-msgid "Theme Name"
-msgstr "Temanamn"
-
-msgid "Module Name"
-msgstr "Modulnamn"
-
-msgid "Latest"
-msgstr "sista"
-
-msgid "Incompatible Plugin"
-msgstr "Inkompatibel Plugin!"
+msgid "Download %s"
+msgstr "Ladda ned %s"
 
 msgid "No packages have been selected."
 msgstr "Inget paket har valts"
 
-msgid "Base Files"
-msgstr "Grundfilnamn"
-
 msgid ""
-"The base files required for the theme to work and the English (US) translation will be "
-"downloaded."
+"Download a package in order to use this plugin.  You can upgrade by choosing a newer version "
+"of the package to download.  Language packages are optional, You only need to download the "
+"ones that you want to use on your site."
 msgstr ""
-"Grundfilerna som krävs för att temat skall fungera samt den Engelska (US) översättningsfilen "
-"kommer att laddas ner."
+"Ladda ner ett packet för att kunna använda denna plugin. Du kan uppgradera genom att välja "
+"en nyare version av paketet. Språkpaket är frivilliga. Du behöver bara ladda ner de "
+"språkpaket som du vill använda på din webbsite."
 
-msgid "Upgrade Base Files"
-msgstr "Upgraderar GrundFilerna"
-
-msgid "You can upgrade the base module files."
-msgstr "Du kan upgradera grundmodulens filer."
-
-msgid "Upgrade base files"
-msgstr "Upgradera grundfilerna"
-
-msgid "Base Files Up-To-Date"
-msgstr "Grundfilerna är Up-To-Date"
-
-msgid "This plugin's base files are up-to-date."
-msgstr "Den här pluginen's grundfiler är av senaste version."
-
-msgid "Updated Translations"
-msgstr "Updatera Översättningarna"
-
-msgid ""
-"Below is a list of translations that have been updated since they were last downloaded. "
-"Select the ones you want to download."
-msgstr ""
-"Nedanför är en lista av översättningar som har blivit updaterade sen dom sisst laddades ned. "
-"Välj vilka du vill ladda ned."
-
-msgid "Additional Languages"
-msgstr "Ytterligare Språk"
-
-msgid ""
-"Below is a list of languages this plugin has been translated to. Select the ones you want "
-"included in addition to the ones already downloaded."
-msgstr ""
-"Nedanför är en lista på språk som den här pluginen har blivit översatt till. Välj vilka du "
-"vill ha ytterligare förutom de du redan har laddat ned."
-
-msgid "Unit Tests"
-msgstr "Enhetstest"
-
-msgid ""
-"This plugin has unit tests available for download, which are useful for Gallery developers. "
-"All of the module's features are available without the tests."
-msgstr ""
-"Den här pluginen har en enhetstest tillgänglig för nedladdning, som är användbar för Gallery "
-"utvecklare. Alla funktioner hos modulen är tillgängliga utan test funktionen."
-
-msgid "Download unit tests"
-msgstr "Ladda ned enhetstester"
-
-msgid "Gallery Repository Setup"
-msgstr "Gallery version"
-
-msgid "Warning:"
-msgstr "Varning:"
+msgid "Base Packages"
+msgstr "Baspaket"
 
 #, c-format
-msgid ""
-"In order to download plugins from the Gallery repository, a special directory needs to be "
-"created where Gallery will store the data. Under your Gallery base directory, create a "
-"directory called '%s' and allow the web server to write into it by appropriately setting the "
-"permissions."
-msgstr ""
-"För att kunna ladda ner pluginer från Gallery:s fillager, så måste en speciell filkatalog "
-"skapas där Gallery kan lagra sina filer. Under Gallerys baskatalog, skapa en katalog kallad "
-"'%s' och tillåt webbservern att skriva till katalogen genom att tilldela katalogen rätt "
-"access."
+msgid "%s: version %s (build %s)"
+msgstr "%s: version %s (build %s)"
 
-msgid "Instructions for Unix-type platforms:"
-msgstr "Instruktioner för plattformar av Unix-typ"
+#, c-format
+msgid "%s: version %s (build %s) %sdowngrading is not supported!%s"
+msgstr "%s: version %s (build %s) %snergradering är inte understött!%s"
 
-msgid ""
-"Refreshing this page will take you to the Repository if the directory has been successfully "
-"created."
-msgstr ""
-"Återladdning av denna sida kommer att ta dig till repositoryt om katalogen har skapats på "
-"rätt sätt."
+#, c-format
+msgid "%sCurrently Installed%s: version %s (build %s)"
+msgstr "%sDen installerade%s versionen %s (build %s)"
+
+msgid "Language Packages"
+msgstr "Språk paket"
+
+#, c-format
+msgid "(%sselect all%s%sselect none%s)"
+msgstr "(%svälj allt%s%svälj inget%s)"
+
+#, c-format
+msgid "%s version %s (upgrading from %s)"
+msgstr "%s version %s (upgradering från %s)"
+
+#, c-format
+msgid "%s version %s"
+msgstr "%s version %s"
+
+#, c-format
+msgid "%s version %s (%snewer version %s is installed%s)"
+msgstr "%s version %s (%snyare version %s är installerad%s)"
+
+#, c-format
+msgid "%s version %s (currently installed)"
+msgstr "%s version %s (förnärvande installerad)"
+
+msgid "No compatible language packages available"
+msgstr "Det finns inga kompatibla språkpaket tillgängliga"
+
+msgid "You must select a base package before choosing language packs."
+msgstr "Du måste välja ett baspaket innan du väljer språkpaket."
+
+msgid "Update"
+msgstr "Uppdatera"
 
 msgid "Gallery Themes"
 msgstr "Galleryteman"
@@ -2210,7 +2281,7 @@ msgstr ""
 "filsystemet t.ex. genom att ha hämtat tillbaka något från säkerhetskopieringen."
 
 msgid "Item not found."
-msgstr ""
+msgstr "Objektet kan inte lokaliseras."
 
 msgid "An error has occurred."
 msgstr "Ett fel har uppstått"
@@ -2399,7 +2470,7 @@ msgid "Next Page"
 msgstr "Nästa Sida"
 
 msgid "Deletion Complete"
-msgstr "Borttagning Komplett"
+msgstr "Färdig med Borttagning"
 
 msgid "Item successfully deleted"
 msgstr "Objekt framgångsrikt borttaget"
@@ -3033,6 +3104,13 @@ msgstr "url"
 msgid "image"
 msgstr "bild"
 
+msgid "color"
+msgstr "färg"
+
+#, c-format
+msgid "You can also use the <a href=\"%s\" target=\"_new\">color name</a> for example: %s"
+msgstr "Du kan också använda <a href=\"%s\" target=\"_new\">färgnamn</a> till exempel: %s"
+
 msgid "Configuration Error: Missing Theme"
 msgstr "Konfigurationsfel: Tema saknas"
 
@@ -3132,6 +3210,20 @@ msgstr "Verifiera Nytt Lösenord"
 
 msgid "You must enter your new password again!"
 msgstr "Du måste skriva in ditt nya lösenord igen!"
+
+msgid ""
+"This account is not allowed to modify account settings.  Please contact your Gallery "
+"administrator"
+msgstr ""
+"Det här kontot har inte tillåtelse att modifiera konto inställningar. Kontakta din Gallery "
+"administratör"
+
+msgid ""
+"Your administrator has locked this account, preventing changes from being made to the "
+"account information."
+msgstr ""
+"Systemadministratören har låst detta konto, så inga förändringar av kontoinformationen kan "
+"utföras."
 
 msgid "Login to your account"
 msgstr "Logga in på ditt konto"
@@ -3257,7 +3349,7 @@ msgstr ""
 "angett ett nytt lösenord kommer du till inloggnings sidan."
 
 msgid "Recover Password for Username"
-msgstr "återhämta Lösenord för Användare"
+msgstr "Återhämta Lösenord för Användare"
 
 msgid "You must enter a username to recover the password for."
 msgstr "Du måste skriva in ett användrnamnet som återhämtning skall göras för."
@@ -3451,49 +3543,5 @@ msgstr "[test] En andra rättighet"
 msgid "Unit test theme"
 msgstr "Tema för unittest"
 
-#~ msgid "create link"
-#~ msgstr "skapa länk"
-
-#~ msgid "link an item"
-#~ msgstr "länka ett objekt"
-
-#~ msgid "Create Link"
-#~ msgstr "Skapa Länk"
-
-#~ msgid "Link Album"
-#~ msgstr "Länka Album"
-
-#~ msgid "Link Photo"
-#~ msgstr "Länka Foto"
-
-#~ msgid "Link Movie"
-#~ msgstr "Länka Film"
-
-#~ msgid "Link %s"
-#~ msgstr "Länka %s"
-
-#~ msgid "Link an Item"
-#~ msgstr "Länka ett Objekt"
-
-#~ msgid "Successfully linked %d item"
-#~ msgid_plural "Successfully linked %d items"
-#~ msgstr[0] "Länkade framgångsrikt %d objekt"
-#~ msgstr[1] "Länkade framgångsrikt %d objekt"
-
-#~ msgid "This album contains no items to link."
-#~ msgstr "Detta album innehåller inga objekt att länka."
-
-#~ msgid "Choose the items you want to link"
-#~ msgstr "Välj de objekt du vill länka"
-
-#~ msgid "No sources chosen"
-#~ msgstr "Ingen källa vald"
-
-#~ msgid "Choose a new album for the link"
-#~ msgstr "Välj ett nytt album för länken"
-
-#~ msgid "Link"
-#~ msgstr "Länka"
-
-#~ msgid "Successfully linked"
-#~ msgstr "Länkade framgångsrikt"
+#~ msgid "Hide Repository List"
+#~ msgstr "Dölj förvaringsplatslista"

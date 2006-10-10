@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-GalleryCoreApi::requireOnce('modules/core/classes/GalleryStorage.class', true);
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryStorage.class');
 
 /**
  * MSSQL extension of the GalleryStorage class.
@@ -86,7 +86,7 @@ class MSSqlStorage extends GalleryStorage {
 	    break;
 
 	case 'RAND':
-	    $sql = sprintf('RAND(%s)', empty($args) ? '' : $args[0]);
+	    $sql = sprintf('NEWID()');
 	    break;
 
 	case 'LIMIT':

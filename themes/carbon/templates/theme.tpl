@@ -32,13 +32,27 @@
        *}
       {if $theme.useFullScreen}
 	{include file="gallery:`$theme.moduleTemplate`" l10Domain=$theme.moduleL10Domain}
+      {elseif $theme.pageType == 'progressbar'}
+	<div id="gsHeader">
+          {if !empty($theme.params.logoImageLocation)}
+	  <img src="{$theme.params.logoImageLocation}" alt=""/>
+          {else}
+	  <img src="{g->url href="images/galleryLogo_sm.gif"}" width="107" height="48" alt=""/>
+          {/if}
+	</div>
+	{g->theme include="progressbar.tpl"}
       {else}
       <div id="gsHeader">
 	<table width="100%" cellspacing="0" cellpadding="0">
 	  <tr>
 	    <td align="left" valign="top" width="50%">
-	      <a href="{g->url}"><img src="{g->url href="images/galleryLogo_sm.gif"}"
-	       width="107" height="48" alt=""/></a>
+	      <a href="{g->url}">
+		{if !empty($theme.params.logoImageLocation)}
+		<img src="{$theme.params.logoImageLocation}" alt=""/>
+		{else}
+		<img src="{g->url href="images/galleryLogo_sm.gif"}" width="107" height="48" alt=""/>
+		{/if}
+              </a>
 	    </td>
 	    <td align="right" valign="top">
 	      {g->theme include="ads.tpl"}
@@ -59,9 +73,11 @@
 		    order="core.SiteAdmin core.YourAccount core.Login core.Logout"
 		    separator="&laquo;"
 		    othersAt=4}
+	  {if $theme.pageType != 'admin'}
 	  <span class="block-core-SystemLink">
 	    <a href="javascript: toggleSidebar('sidebar')">{g->text text="Sidebar"}</a>
 	  </span>
+	  {/if}
 	</div>
 
 	<div class="gbBreadCrumb">
@@ -78,8 +94,6 @@
 	{g->theme include="admin.tpl"}
       {elseif $theme.pageType == 'module'}
 	{g->theme include="module.tpl"}
-      {elseif $theme.pageType == 'progressbar'}
-	{g->theme include="progressbar.tpl"}
       {/if}
 
       <div id="gsFooter" class="gcBorder1">

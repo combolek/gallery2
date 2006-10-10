@@ -87,6 +87,16 @@ class GalleryPhpVm {
     }
 
     /**
+     * Calculates the crc32 polynomial of a string
+     *
+     * @param string $string the value to be checksummed
+     * @return a signed integer checksum
+     */
+    function crc32($string) {
+	return crc32($string);
+    }
+
+    /**
      * Query language and locale information
      *
      * @param int $item
@@ -218,6 +228,21 @@ class GalleryPhpVm {
      */
     function mail($to, $subject, $message, $additionalHeaders=null, $additionalParameters=null) {
 	return mail($to, $subject, $message, $additionalHeaders, $additionalParameters);
+    }
+
+    /**
+     * Inflate a deflated string
+     *
+     * @param string data compresed by gzdeflate
+     * @param int (optional) maximum length to decode
+     * @return string uncompressed data
+     */
+    function gzinflate($data, $length=null) {
+	if (isset($length)) {
+	    return gzinflate($data, $length);
+	} else {
+	    return gzinflate($data);
+	}
     }
 }
 ?>
