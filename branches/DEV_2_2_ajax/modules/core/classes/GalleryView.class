@@ -328,7 +328,7 @@ class GalleryView {
      *               object GalleryItem an item
      *               boolean true if item was specified, false if default was used
      */
-    function _getItem() {
+    function getItem() {
 	global $gallery;
 	$itemId = (int)GalleryUtilities::getRequestVariables('itemId');
 	$wasSpecified = true;
@@ -347,8 +347,25 @@ class GalleryView {
 	if ($ret) {
 	    return array($ret, null, null);
 	}
+	
+	if (!GalleryUtilities::isA($item, 'GalleryItem')) {
+	    /* Invalid itemId given, return MISSING_OBJECT to get standard error page */
+	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null, null);
+	}
 
 	return array(null, $item, $wasSpecified);
+    }
+    
+    /**
+     * Return the current item, as specified in the itemId request variable.
+     *
+     * @return array object GalleryStatus a status code
+     *               object GalleryItem an item
+     *               boolean true if item was specified, false if default was used
+     * @deprecated Please use getItem() instead.
+     */
+    function _getItem() {
+	return $this->getItem();
     }
 
     /**
@@ -360,13 +377,9 @@ class GalleryView {
      *               object GalleryEntity item context
      */
     function loadThemeAndParameters() {
-	list ($ret, $item, $wasSpecified) = $this->_getItem();
+	list ($ret, $item, $wasSpecified) = $this->getItem();
 	if ($ret) {
 	    return array($ret, null, null, null);
-	}
-	if (!GalleryUtilities::isA($item, 'GalleryItem')) {
-	    /* Invalid itemId given, return MISSING_OBJECT to get standard error page */
-	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null, null, null);
 	}
 
 	list ($ret, $theme) = $this->loadThemeForItem($wasSpecified ? $item : null);

@@ -29,15 +29,19 @@ class KeyAlbumCallbacks {
 
 	switch ($callback) {
 	case 'LoadKeywords':
-	    $onlyPublic = $params['onlyPublic'];
-	    $param = 'allKeywords' . ($onlyPublic ? '.public' : '');
+	    $onlyPublic = (bool)$params['onlyPublic'];
+	    $sizeLimit = (int)$params['sizeLimit'];
+	    $param = 'allKeywords' . ($onlyPublic ? '.public' : '')
+		. ($sizeLimit ? '.' . $sizeLimit : '');
 	    list ($ret, $lastUpdated) =
 		GalleryCoreApi::getPluginParameter('module', 'keyalbum', $param . '.time');
 	    if ($ret) {
 		return $ret;
 	    }
+	    /* Cache keyword list for one day */
 	    if (time() - $lastUpdated > 3600 * 24) {
-		$ret = KeyAlbumCallbacks::_findAllKeywords($onlyPublic);
+		$ret = KeyAlbumCallbacks::_findAllKeywords($param, $onlyPublic, $sizeLimit,
+							   $params['maxCloudFontEnlargement']);
 		if ($ret) {
 		    return $ret;
 		}
@@ -49,7 +53,7 @@ class KeyAlbumCallbacks {
 	    }
 
 	    $block =& $smarty->_tpl_vars['block'];
-	    $block['keyalbum']['keywords'] = unserialize($keywords);
+	    $block['keyalbum']['keywords'] = !empty($keywords) ? unserialize($keywords) : array();
 
 	    return null;
 	}
@@ -59,11 +63,14 @@ class KeyAlbumCallbacks {
 
     /**
      * Get all unique keywords and store in a module parameter.
+     * @param string $param save result to this plugin paramter
      * @param boolean $onlyPublic true to only get keywords from public items
+     * @param int $sizeLimit max number of keywords (least common are dropped; 0 = no limit)
+     * @param int $maxWeight max value for font enlargement in keyword cloud
      * @return object GalleryStatus a status code
      * @static
      */
-    function _findAllKeywords($onlyPublic) {
+    function _findAllKeywords($param, $onlyPublic, $sizeLimit, $maxWeight) {
 	global $gallery;
 
 	$query = '
@@ -72,7 +79,7 @@ class KeyAlbumCallbacks {
 	FROM
 	  [GalleryItem]
 	';
-	$aclIds = array();
+	$keywords = $aclIds = array();
 	if ($onlyPublic) {
 	    list ($ret, $guestId) = GalleryCoreApi::getAnonymousUserId();
 	    if ($ret) {
@@ -97,17 +104,34 @@ class KeyAlbumCallbacks {
 	if ($ret) {
 	    return $ret;
 	}
+	$maxCount = 1;
 	while ($result = $searchResults->nextResult()) {
 	    if ($result[0]) {
 		foreach (preg_split('/[\s,;]+/', $result[0]) as $keyword) {
-		    $keywords[$keyword] = true;
+		    if (!isset($keywords[$keyword])) {
+			$keywords[$keyword] = array('name' => $keyword, 'count' => 1);
+		    } else if (++$keywords[$keyword]['count'] > $maxCount) {
+			$maxCount = $keywords[$keyword]['count'];
+		    }
 		}
 	    }
 	}
-	$keywords = array_keys($keywords);
-	sort($keywords);
+	if ($sizeLimit > 0 && count($keywords) > $sizeLimit) {
+	    /* Sort by frequency and drop least common */
+	    uasort($keywords, create_function('$a,$b', '$c = $a[\'count\']; $d = $b[\'count\']; '
+						    . 'return $c > $d ? -1 : ($c == $d ? 0 : 1);'));
 
-	$param = 'allKeywords' . ($onlyPublic ? '.public' : '');
+	    array_splice($keywords, $sizeLimit);
+	}
+	ksort($keywords);
+	$keywords = array_values($keywords);
+
+	/* Compute weights, used for font enlargement in keyword cloud */
+	foreach ($keywords as $i => $keyword) {
+	    $keywords[$i]['weight'] = round($keyword['count'] / $maxCount * $maxWeight);
+	    unset($keywords[$i]['count']);
+	}
+
 	$ret = GalleryCoreApi::setPluginParameter('module', 'keyalbum',
 						  $param, serialize($keywords));
 	if ($ret) {

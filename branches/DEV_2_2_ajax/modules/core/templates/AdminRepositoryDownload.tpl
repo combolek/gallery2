@@ -5,95 +5,106 @@
  * version.  Gallery will look for that file first and use it if it exists.
  *}
 <div class="gbBlock gcBackground1">
-  <h2> {$actionText} {$pluginName} </h2>
+  <h2> {g->text text="Download %s" arg1=$AdminRepositoryDownload.pluginName} </h2>
 </div>
 
-{if isset($form.packages.empty)}
-<div class="giError">
-  {g->text text="No packages have been selected."}
+{if isset($form.error)}
+<div class="gbBlock">
+  <h2 class="giError">
+    {if isset($form.error.nothingSelected)}
+      {g->text text="No packages have been selected."}
+    {/if}
+  </h2>
 </div>
 {/if}
 
-{if isset($upgradeData.isBaseDownloadable)}
-<div class="gbBlock">
-  <h3>{g->text text="Base Files"}</h3>
-  <p class="giDescription">
-    {g->text text="The base files required for the theme to work and the English (US) translation will be downloaded."}
-    <input type="hidden" name="{g->formVar var="form[downloadBaseFiles]"}" value="true" />
-  </p>
-</div>
-{/if}
+<script type="text/javascript">
+// <![CDATA[
+  var allSources = [];
+{foreach from=$AdminRepositoryDownload.upgradeData item=item}
+  allSources.push('{$item.repository}');
+{/foreach}
+// ]]>
+</script>
 
-{if isset($upgradeData.isBaseUpgradeable)}
 <div class="gbBlock">
-  <h3>{g->text text="Upgrade Base Files"}</h3>
   <p class="giDescription">
-    {g->text text="You can upgrade the base module files."}
+    {g->text text="Download a package in order to use this plugin.  You can upgrade by choosing a newer version of the package to download.  Language packages are optional, You only need to download the ones that you want to use on your site."}
   </p>
+  <h2> {g->text text="Base Packages"} </h2>
+  {foreach from=$AdminRepositoryDownload.upgradeData item=item}
   <p>
-    <input type="checkbox" name="{g->formVar var="form[upgradeBaseFiles]"}" />{g->text text="Upgrade base files"}
-    {if isset($upgradeData.upgradeablePackages.test)}
-    <input type="hidden" name="{g->formVar var="form[downloadTest]"}" value="true" />
+    {if $item.base.relation == "older"}
+      <input type="radio" onchange="showLanguagePacks('{$item.repository}')" name="{g->formVar var="form[base]"}" value="{$item.repository}:{$item.base.newBuild}"/>
+      {g->text text="%s: version %s (build %s)" arg1="<b>`$item.repositoryName`</b>" arg2=$item.base.newVersion arg3=$item.base.newBuild}
+    {elseif $item.base.relation == "newer"}
+      <input type="radio" value="false" disabled="disabled" />
+      {g->text text="%s: version %s (build %s) %sdowngrading is not supported!%s" arg1="<b>`$item.repositoryName`</b>" arg2=$item.base.newVersion arg3=$item.base.newBuild arg4="<b>" arg5="</b>"}
+    {else}
+      <input type="radio" onchange="showLanguagePacks('{$item.repository}')" name="{g->formVar var="form[base]"}" value="{$item.repository}:{$item.base.newBuild}" checked="checked"/>
+      {g->text text="%sCurrently Installed%s: version %s (build %s)" arg1="<b>" arg2="</b>" arg3=$item.base.newVersion arg4=$item.base.newBuild}
+      {assign var="currentlyInstalled" value=$item.repository}
     {/if}
   </p>
-</div>
-{/if}
+  {/foreach}
 
-{if !$upgradeData.isBaseDownloadable && !$upgradeData.isBaseUpgradeable}
-<div class="gbBlock">
-  <h3>{g->text text="Base Files Up-To-Date"}</h3>
-  <p class="giDescription">
-    {g->text text="This plugin's base files are up-to-date."}
-  </p>
+  <h2> {g->text text="Language Packages"} </h2>
+  {foreach from=$AdminRepositoryDownload.upgradeData item=item}
+  <div style="position: relative; left: 25px">
+    <div class="languagePacks" id="{$item.repository}_languagePacks"
+	 style="{if empty($currentlyInstalled) || $item.repository != $currentlyInstalled}display: none{/if}">
+      <p id="{$item.repository}_languages">
+        {if !empty($item.languages)}
+        {g->text text="(%sselect all%s%sselect none%s)"
+	   arg1="<a id=\"`$item.repository`_selectAllLink\" href=\"javascript:selectAll('`$item.repository`')\">"
+	   arg2="</a>"
+	   arg3="<a style=\"display: none\" id=\"`$item.repository`_selectNoneLink\" href=\"javascript:selectNone('`$item.repository`')\">"
+	   arg4="</a>"}
+        {foreach from=$item.languages key=code item=pack}
+        <br/>
+	{counter assign="langId"}
+	{capture assign="label"}
+	{assign var="checked" value=""}
+	<label for="lang_{$langId}">
+	{if $pack.relation == "older" && $pack.currentBuild}
+	  {g->text text="%s version %s (upgrading from %s)"
+	      arg1="<b>`$pack.name`</b>" arg2=$pack.newBuild arg3=$pack.currentBuild}
+          {if !empty($AdminRepositoryDownload.installedLanguages.$code)}
+	  {assign var="checked" value="checked"}
+	  {/if}
+	{elseif $pack.relation == "older"}
+	  {g->text text="%s version %s" arg1="<b>`$pack.name`</b>" arg2=$pack.newBuild}
+	{elseif $pack.relation == "newer"}
+	  {g->text text="%s version %s (%snewer version %s is installed%s)"
+	      arg1="<b>`$pack.name`</b>" arg2=$pack.newBuild arg3="<b>" arg4=$pack.currentBuild arg5="</b>"}
+	{else}
+	  {g->text text="%s version %s (currently installed)" arg1="<b>`$pack.name`</b>" arg2=$pack.newBuild}
+	  {assign var="checked" value="checked"}
+	{/if}
+	</label>
+	{/capture}
+	  <input type="hidden" name="{g->formVar var="form[languagesAvailable][]"}" value="{$item.repository}:{$code}"/>
+	  <input id="lang_{$langId}" type="checkbox" name="{g->formVar var="form[languages][]"}"
+	    value="{$item.repository}:{$code}:{$pack.newBuild}" {if !empty($checked)}checked="{$checked}"{/if}/>
+	{$label}
+        {/foreach}
+        {else} {* !empty($item.languages) *}
+          <i>{g->text text="No compatible language packages available"}</i>
+        {/if}
+      </p>
+    </div>
+  </div>
+  {/foreach}
+  {if !isset($currentlyInstalled)}
+  <div style="position: relative; left: 25px" id="languageListPlaceholder">
+    <i>{g->text text="You must select a base package before choosing language packs."}</i>
+  </div>
+  {/if}
 </div>
-{/if}
-
-{if isset($upgradeData.upgradeableLanguages)}
-<div class="gbBlock">
-  <h3>{g->text text="Updated Translations"}</h3>
-  <p class="giDescription">
-    {g->text text="Below is a list of translations that have been updated since they were last downloaded. Select the ones you want to download."}
-  </p>
-  <p>
-    {capture name="formVariableName"}{g->formVar var="form[upgradeLanguages]"}{/capture} 
-    {html_checkboxes name="`$smarty.capture.formVariableName`" separator="<br />"
-      values=$upgradeData.upgradeableLanguages.codes
-      output=$upgradeData.upgradeableLanguages.names}
-  </p>
-</div>
-{/if}
-
-{if isset($upgradeData.downloadableLanguages)}
-<div class="gbBlock">
-  <h3>{g->text text="Additional Languages"}</h3>
-  <p class="giDescription">
-    {g->text text="Below is a list of languages this plugin has been translated to. Select the ones you want included in addition to the ones already downloaded."}
-  </p>
-  <p>
-    {capture name="formVariableName"}{g->formVar var="form[downloadLanguages]"}{/capture} 
-    {html_checkboxes name="`$smarty.capture.formVariableName`" separator="<br />"
-      values=$upgradeData.downloadableLanguages.codes
-      output=$upgradeData.downloadableLanguages.names}
-  </p>
-</div>
-{/if}
-
-{if isset($upgradeData.downloadablePackages.test)}
-<div class="gbBlock">
-  <h3>{g->text text="Unit Tests"}</h3>
-  <p class="giDescription">
-    {g->text text="This plugin has unit tests available for download, which are useful for Gallery developers. All of the module's features are available without the tests."}
-  </p>
-  <p>
-    <input type="checkbox" name="{g->formVar var="form[downloadTest]"}" value="true" />{g->text text="Download unit tests"}
-  </p>
-</div>
-{/if}
 
 <div class="gbBlock gcBackground1">
-  <input type="submit" name="{g->formVar var="form[action][download]"}" value="{$actionText}"/>
-  <input type="submit" name="{g->formVar var="form[action][cancel]"}" value="{g->text text="Cancel"}"/>
-  <input type="hidden" name="{g->formVar var="form[pluginType]"}" value="{$pluginType}" />
-  <input type="hidden" name="{g->formVar var="form[pluginId]"}" value="{$pluginId}" />
-  <input type="hidden" name="{g->formVar var="mode"}" value="download" />
+  <input class="inputTypeSubmit" type="submit" name="{g->formVar var="form[action][download]"}" value="{g->text text="Update"}"/>
+  <input class="inputTypeSubmit" type="submit" name="{g->formVar var="form[action][cancel]"}" value="{g->text text="Cancel"}"/>
+  <input type="hidden" name="{g->formVar var="form[pluginType]"}" value="{$AdminRepositoryDownload.pluginType}" />
+  <input type="hidden" name="{g->formVar var="form[pluginId]"}" value="{$AdminRepositoryDownload.pluginId}" />
 </div>

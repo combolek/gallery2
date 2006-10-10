@@ -45,24 +45,23 @@ class ErrorPageView extends GalleryView {
     function loadTemplate(&$template, &$form) {
 	global $gallery;
 
-	if (empty($this->_error)) {
-	    $session =& $gallery->getSession();
-	    $this->_error = $session->get('core.error');
-	    if (!empty($this->_error)) {
-		GalleryCoreApi::requireOnce('modules/core/classes/GalleryStatus.class');
-		$this->_error = unserialize($error);
-	    }
-	}
-	$error = $this->_error;
-
 	list ($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
 	$ErrorPage = array('isAdmin' => !$ret && $isAdmin);
+
+	if (empty($this->_error)) {
+	    $session =& $gallery->getSession();
+	    $errorCode = $session->get('core.error.code');
+	    $errorTrace = $session->get('core.error.trace');
+	} else {
+	    $errorCode = $this->_error->getErrorCode();
+	    $errorTrace = $this->_error->getAsHtml($ErrorPage['isAdmin']);
+	}
+
 	if ($gallery->getDebug() || $ErrorPage['isAdmin']) {
-	    $ErrorPage['stackTrace'] = $error->getAsHtml($isAdmin);
+	    $ErrorPage['stackTrace'] = $errorTrace;
 	}
 
 	/* Landing page for errors */
-	$errorCode = $ErrorPage['errorCode'] = $error->getErrorCode();
 	if ($errorCode & ERROR_OBSOLETE_DATA) {
 	    $ErrorPage['code']['obsoleteData'] = true;
 	}
@@ -128,7 +127,7 @@ class ErrorPageView extends GalleryView {
 	/* Post Gallery::Error event */
 	$event = GalleryCoreApi::newEvent('Gallery::Error');
 	$event->setData(array('error' => $error));
-	list ($ret, $data) = GalleryCoreApi::postEvent($event);
+	list ($ret, $eventResults) = GalleryCoreApi::postEvent($event);
 	if ($ret) {
 	    $failsafe = true;
 	}
@@ -165,6 +164,13 @@ class ErrorPageView extends GalleryView {
 	    GalleryUtilities::setResponseHeader('HTTP/1.0 404 Not Found', false);
 	} else {
 	    GalleryUtilities::setResponseHeader('HTTP/1.0 500 Internal Server Error', false);
+	}
+
+	foreach ($eventResults as $eventResult) {
+	    if (!empty($eventResult['suppressBody'])) {
+		/* One of our error handlers has dealt with the output */
+		return;
+	    }
 	}
 
 	if (!$failsafe) {

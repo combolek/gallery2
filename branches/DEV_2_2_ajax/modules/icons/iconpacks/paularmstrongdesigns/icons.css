@@ -74,7 +74,7 @@ li.giSelected {
   background: url(../../../../themes/matrix/images/key7-16-bw.gif) left center no-repeat;
 }
 .gbLink-core_UserPreferences {
-  background: url(../../../../themes/matrix/images/userinfo.png) left center no-repeat;
+  background: url(../../../core/data/userinfo.png) left center no-repeat;
 }
 .gbLink-core_AdminUsers {
   background: url(users.gif) left center no-repeat;
@@ -196,8 +196,15 @@ li.giSelected {
 }
 
 /* Display */
+.gbLink-dynamicalbum_DynamicAlbumSiteAdmin, .gbLink-dynamicalbum_UpdatesAlbum,
+.gbLink-dynamicalbum_PopularAlbum, .gbLink-dynamicalbum_RandomAlbum {
+  background: url(dynamic_album.gif) left center no-repeat;
+}
 .gbLink-icons_IconsSiteAdmin {
   background: url(icon_module.gif) left center no-repeat;
+}
+.gbLink-keyalbum_KeywordAlbumSiteAdmin {
+  background: url(keyword_album.gif) left center no-repeat;
 }
 .gbLink-linkitem_LinkItemSiteAdmin {
   background: url(create_link.gif) left center no-repeat;

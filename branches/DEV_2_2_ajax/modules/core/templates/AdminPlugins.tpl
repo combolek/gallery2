@@ -6,49 +6,52 @@
  *}
 <script type="text/javascript">
   //<![CDATA[
-  var pluginNames = {ldelim} "module" : {ldelim} {rdelim}, "theme" : {ldelim} {rdelim} {rdelim}
+  var pluginData = {ldelim} "module" : {ldelim} {rdelim}, "theme" : {ldelim} {rdelim} {rdelim};
   {foreach name=names from=$AdminPlugins.plugins item=plugin}
-  pluginNames["{$plugin.type}"]["{$plugin.id}"] = "{$plugin.name}";
+  pluginData["{$plugin.type}"]["{$plugin.id}"] = {ldelim} "name" : "{$plugin.name}", "deletable" : {$plugin.deletable}, "state" : "{$plugin.state}" {rdelim};
   {/foreach}
 
   var stateData = {ldelim}
     "inactive" : {ldelim}
-      "img.src" : "{g->url href="modules/core/data/module-inactive.gif"}",
-      "img.alt" : "{g->text text="Status: Inactive"}",
-      "actions" : {ldelim} "activate": 1, "uninstall" : 1 {rdelim},
+      "class" : "icon-plugin-inactive",
+      "text" : "{g->text text="Status: Inactive"}",
+      "actions" : {ldelim} "activate": 1, "uninstall" : 1, "delete" : 1 {rdelim},
       "callback": "copyVersionToInstalledVersion",
       "message" : {ldelim} "type" : "giSuccess", "text" : "{g->text text="__PLUGIN__ deactivated"}" {rdelim}
     {rdelim},
     "active" : {ldelim}
-      "img.src" : "{g->url href="modules/core/data/module-active.gif"}",
-      "img.alt" : "{g->text text="Status: Active"}",
-      "actions" : {ldelim} "deactivate": 1, "uninstall" : 1  {rdelim},
+      "class" : "icon-plugin-active",
+      "text" : "{g->text text="Status: Active"}",
+      "actions" : {ldelim} "deactivate": 1, "uninstall" : 1, "delete" : 1  {rdelim},
       "callback": "copyVersionToInstalledVersion",
       "message" : {ldelim} "type" : "giSuccess", "text" : "{g->text text="__PLUGIN__ activated"}" {rdelim}
     {rdelim},
     "uninstalled" : {ldelim}
-      "img.src" : "{g->url href="modules/core/data/module-install.gif"}",
-      "img.alt" : "{g->text text="Status: Not Installed"}",
-      "actions" : {ldelim} "install": 1 {rdelim},
+      "class" : "icon-plugin-uninstall",
+      "text" : "{g->text text="Status: Not Installed"}",
+      "actions" : {ldelim} "install": 1, "delete" : 1 {rdelim},
       "callback": "eraseInstalledVersion",
       "message" : {ldelim} "type" : "giSuccess", "text" : "{g->text text="__PLUGIN__ uninstalled"}" {rdelim}
     {rdelim},
     "unupgraded" : {ldelim}
-      "img.src" : "{g->url href="modules/core/data/module-upgrade.gif"}",
-      "img.alt" : "{g->text text="Status: Upgrade Required (Inactive)"}",
+      "class" : "icon-plugin-upgrade",
+      "text" : "{g->text text="Status: Upgrade Required (Inactive)"}",
       "actions" : {ldelim} "upgrade": 1 {rdelim}
     {rdelim},
     "incompatible" : {ldelim}
-      "img.src" : "{g->url href="modules/core/data/module-incompatible.gif"}",
-      "img.alt" : "{g->text text="Status: Incompatible Plugin (Inactive)"}",
+      "class" : "icon-plugin-incompatible",
+      "text" : "{g->text text="Status: Incompatible Plugin (Inactive)"}",
       "actions" : {ldelim} {rdelim}
     {rdelim},
     "unconfigured" : {ldelim}
-      "img.src" : "{g->url href="modules/core/data/module-inactive.gif"}",
-      "img.alt" : "{g->text text="Status: Inactive (Configuration Required)"}",
-      "actions" : {ldelim} "configure" : 1, "uninstall" : 1 {rdelim},
+      "class" : "icon-plugin-inactive",
+      "text" : "{g->text text="Status: Inactive (Configuration Required)"}",
+      "actions" : {ldelim} "configure" : 1, "uninstall" : 1, "delete" : 1 {rdelim},
       "callback": "copyVersionToInstalledVersion",
       "message" : {ldelim} "type" : "giWarning", "text" : "{g->text text="__PLUGIN__ needs configuration"}" {rdelim}
+    {rdelim},
+    "deleted" : {ldelim}
+      "message" : {ldelim} "type" : "giSuccess", "text" : "{g->text text="__PLUGIN__ deleted"}" {rdelim}
     {rdelim}
   {rdelim};
   var errorPageUrl = '{g->url arg1="view=core.ErrorPage" htmlEntities=0}';
@@ -56,14 +59,33 @@
     "header" : '{g->text text="Warning!"}',
     "body"   : '{g->text text="Do you really want to uninstall __PLUGIN__?"}' +
 	       '<br/>' +
-               '{g->text text="This will also remove any permissions and clean up any data created by this module."}',
+               '{g->text text="This plugin will be uninstalled, but its files will be kept so that you can reinstall it."}',
     "yes"    : '{g->text text="Yes"}',
     "no"     : '{g->text text="No"}'
   {rdelim};
 
+  var deletePrompt = {ldelim}
+    "header" : '{g->text text="Warning!"}',
+    "body"   : '{g->text text="Do you really want to delete __PLUGIN__?"}' +
+	       '<br/>' +
+               '{g->text text="This plugin will be uninstalled and its files will be deleted."}',
+    "yes"    : '{g->text text="Yes"}',
+    "no"     : '{g->text text="No"}'
+  {rdelim};
+
+  var legendStrings = {ldelim}
+    "inactive"     : '{g->text text="disabled(__COUNT__)"}',
+    "active"       : '{g->text text="up to date(__COUNT__)"}',
+    "uninstalled"  : '{g->text text="not installed(__COUNT__)"}',
+    "unupgraded"   : '{g->text text="upgrade required(__COUNT__)"}',
+    "incompatible" : '{g->text text="incompatible(__COUNT__)"}'
+  {rdelim};
+
+  var failedToDeleteMessage = '{g->text text="Failed to completely delete __PLUGIN__"}';
+
   {literal}
   var contexts = {"module": {}, "theme": {}};
-  var allActions = ["install", "configure", "upgrade", "activate", "deactivate", "uninstall"];
+  var allActions = ["install", "configure", "upgrade", "activate", "deactivate", "uninstall", "delete"];
 
   YAHOO.util.Event.addListener(window, "scroll", updateStatusPosition, false);
   {/literal}
@@ -76,41 +98,24 @@
   <h2> {g->text text="Gallery Plugins"} </h2>
 </div>
 
+<div class="gbTabBar">
+  <span class="giSelected o"><span>
+    {g->text text="Plugins"}
+  </span></span>
+
+  <span class="o"><span>
+    <a href="{g->url arg1="view=core.SiteAdmin" arg2="subView=core.AdminRepository"}">
+      {g->text text="Get More Plugins"}
+    </a>
+  </span></span>
+</div>
+
 <div class="gbBlock">
   <p class="giDescription">
     {g->text text="Gallery features come as separate plugins.  You can download and install plugins to add more features to your Gallery, or you can disable features if you don't want to use them.  In order to use a feature, you must install, configure (if necessary) and activate it.  If you don't wish to use a feature, you can deactivate it."}
   </p>
 
-  {capture name=legend}
-  <div style="width: 100%; text-align: right">
-    <img src="{g->url href="modules/core/data/module-active.gif"}" width="13" height="13" alt="" />
-    <span style="margin-right: 10px; vertical-align: top">
-      {g->text text="up to date"}
-    </span>
-
-    <img src="{g->url href="modules/core/data/module-inactive.gif"}" width="13" height="13" alt="" />
-    <span style="margin-right: 10px; vertical-align: top">
-      {g->text text="disabled"}
-    </span>
-
-    <img src="{g->url href="modules/core/data/module-upgrade.gif"}" width="13" height="13" alt="" />
-    <span style="margin-right: 10px; vertical-align: top">
-      {g->text text="upgrade required"}
-    </span>
-
-    <img src="{g->url href="modules/core/data/module-install.gif"}" width="13" height="13" alt="" />
-    <span style="margin-right: 10px; vertical-align: top">
-      {g->text text="not installed"}
-    </span>
-
-    <img src="{g->url href="modules/core/data/module-incompatible.gif"}" width="13" height="13" alt="" />
-    <span style="margin-right: 10px; vertical-align: top">
-      {g->text text="incompatible"}
-    </span>
-  </div>
-  {/capture}
-  {$smarty.capture.legend}
-
+  {include file="gallery:modules/core/templates/AdminPluginsLegend.tpl" legendId="top"}
   <table class="gbDataTable">
     {assign var="group" value=""}
     {foreach from=$AdminPlugins.plugins item=plugin}
@@ -132,8 +137,8 @@
       {assign var="group" value=$plugin.group}
 
       <tr id="plugin-row-{$plugin.type}-{$plugin.id}" class="{cycle values="gbEven,gbOdd"}">
-	<td style="display: relative;">
-	  <img id="plugin-icon-{$plugin.type}-{$plugin.id}" src="" width="13" height="13" alt="" />
+	<td style="position: relative;">
+	  <div id="plugin-icon-{$plugin.type}-{$plugin.id}" style="height: 16px"></div>
 	</td>
 
 	<td>
@@ -198,8 +203,13 @@
               </a> |
             </span>
             <span id="action-uninstall-{$plugin.type}-{$plugin.id}" style="display: none">
-              <a style="cursor: pointer" onclick="verifyUninstall('{$plugin.type}', '{$plugin.id}', '{g->url arg1="view=core.PluginCallback" arg2="pluginId=`$plugin.id`" arg3="pluginType=`$plugin.type`" arg4="command=uninstall"}')">
+              <a style="cursor: pointer" onclick="verify(uninstallPrompt, '{$plugin.type}', '{$plugin.id}', '{g->url arg1="view=core.PluginCallback" arg2="pluginId=`$plugin.id`" arg3="pluginType=`$plugin.type`" arg4="command=uninstall"}')">
                 {g->text text="uninstall"}
+              </a>
+            </span>
+            <span id="action-delete-{$plugin.type}-{$plugin.id}" style="display: none">
+              | <a style="cursor: pointer" onclick="verify(deletePrompt, '{$plugin.type}', '{$plugin.id}', '{g->url arg1="view=core.PluginCallback" arg2="pluginId=`$plugin.id`" arg3="pluginType=`$plugin.type`" arg4="command=delete"}')">
+                {g->text text="delete"}
               </a>
             </span>
 	  {/if}
@@ -208,5 +218,6 @@
       </tr>
     {/foreach}
   </table>
-  {$smarty.capture.legend}
+  {include file="gallery:modules/core/templates/AdminPluginsLegend.tpl" legendId="bottom"}
+  <script type="text/javascript"> updateStateCounts(); </script>
 </div>

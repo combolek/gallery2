@@ -1,6 +1,6 @@
 # $Revision$
 # File crc32 crc32(crlf) size size(crlf)  or  R File
-modules/panorama/Panorama.inc	1042087891	3570707990	2294	2366
+modules/panorama/Panorama.inc	2407182337	819015507	2293	2365
 modules/panorama/PanoramaOption.inc	872002579	3055792289	3392	3491
 modules/panorama/PanoramaSiteAdmin.inc	3212946291	4105485908	3213	3321
 modules/panorama/classes/PanoramaHelper.class	2961096483	61033425	2751	2846
@@ -13,16 +13,17 @@ modules/panorama/locale/cs/LC_MESSAGES/modules_panorama.mo	3454599255	3454599255
 modules/panorama/locale/da/LC_MESSAGES/modules_panorama.mo	1147133233	1147133233	2545	2545
 modules/panorama/locale/de/LC_MESSAGES/modules_panorama.mo	3235794768	3235794768	2699	2699
 modules/panorama/locale/eu/LC_MESSAGES/modules_panorama.mo	174902548	174902548	2505	2505
-modules/panorama/locale/fr/LC_MESSAGES/modules_panorama.mo	40806833	40806833	2723	2723
+modules/panorama/locale/fr/LC_MESSAGES/modules_panorama.mo	1312289051	1312289051	2951	2951
 modules/panorama/locale/is/LC_MESSAGES/modules_panorama.mo	1138109521	1138109521	419	419
 modules/panorama/locale/it/LC_MESSAGES/modules_panorama.mo	2670652339	2670652339	2702	2702
 modules/panorama/locale/ja/LC_MESSAGES/modules_panorama.mo	4088587398	4088587398	1833	1833
 modules/panorama/locale/lt/LC_MESSAGES/modules_panorama.mo	1391330869	1391330869	2693	2693
 modules/panorama/locale/nl/LC_MESSAGES/modules_panorama.mo	870927349	870927349	2648	2648
-modules/panorama/locale/no/LC_MESSAGES/modules_panorama.mo	3511596796	3511596796	2506	2506
+modules/panorama/locale/no/LC_MESSAGES/modules_panorama.mo	157340520	157340520	2712	2712
 modules/panorama/locale/pl/LC_MESSAGES/modules_panorama.mo	3056667952	3056667952	2791	2791
 modules/panorama/locale/pt_BR/LC_MESSAGES/modules_panorama.mo	900370768	900370768	2835	2835
 modules/panorama/locale/ru/LC_MESSAGES/modules_panorama.mo	1099155253	1099155253	3640	3640
+modules/panorama/locale/sk/LC_MESSAGES/modules_panorama.mo	895977758	895977758	793	793
 modules/panorama/locale/sr/LC_MESSAGES/modules_panorama.mo	1897171435	1897171435	2617	2617
 modules/panorama/locale/sv/LC_MESSAGES/modules_panorama.mo	2124298337	2124298337	2841	2841
 modules/panorama/locale/tr/LC_MESSAGES/modules_panorama.mo	1063577317	1063577317	1578	1578
@@ -36,16 +37,17 @@ modules/panorama/po/cs.po	250198970	4229020635	4261	4375
 modules/panorama/po/da.po	124717370	1960985734	4252	4368
 modules/panorama/po/de.po	2652923731	2694556955	4472	4587
 modules/panorama/po/eu.po	4055522494	3522375569	3559	3660
-modules/panorama/po/fr.po	3824634001	604438324	4338	4452
+modules/panorama/po/fr.po	424209053	2797867514	3835	3937
 modules/panorama/po/is.po	2109204478	1042785581	2577	2669
 modules/panorama/po/it.po	2711649034	4088643742	4306	4419
 modules/panorama/po/ja.po	3064131858	3590478861	3320	3417
 modules/panorama/po/lt.po	3353365518	2352784916	4408	4524
 modules/panorama/po/nl.po	691163433	3329481603	4321	4435
-modules/panorama/po/no.po	3985315055	2380282959	3620	3720
+modules/panorama/po/no.po	1258306845	2978753171	3664	3755
 modules/panorama/po/pl.po	1999497650	1147695123	4351	4464
 modules/panorama/po/pt_BR.po	2686138890	4128795493	4531	4648
 modules/panorama/po/ru.po	78469716	2924440045	5653	5772
+modules/panorama/po/sk.po	4240646765	688981348	2930	3029
 modules/panorama/po/sr.po	2050487477	1449188222	4193	4305
 modules/panorama/po/strings.raw	3491594557	1037076065	1395	1425
 modules/panorama/po/sv.po	3129943598	831916563	3882	3987
@@ -57,7 +59,7 @@ modules/panorama/templates/Panorama.tpl	166106410	3392951436	506	521
 modules/panorama/templates/PanoramaOption.tpl	3384374798	2669406534	746	765
 modules/panorama/templates/PanoramaSiteAdmin.tpl	2965125925	3577445021	2368	2430
 modules/panorama/test/phpunit/PanoramaHelperTest.class	650758990	1645439915	4866	5031
-modules/panorama/test/phpunit/PanoramaOptionTest.class	3787122491	3639748993	5584	5746
+modules/panorama/test/phpunit/PanoramaOptionTest.class	4246954627	336717713	5505	5666
 modules/panorama/test/phpunit/PanoramaSiteAdminControllerTest.class	1172781866	696047150	3273	3368
 R	modules/panorama/PanoramaItemEdit.inc
 R	modules/panorama/classes/Entities.inc

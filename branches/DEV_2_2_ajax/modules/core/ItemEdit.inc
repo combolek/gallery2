@@ -19,8 +19,7 @@
  */
 
 /**
- * This controller will handle the editing of an item
- *
+ * This controller will handle the editing of an item.
  * @package GalleryCore
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -34,19 +33,26 @@ class ItemEditController extends GalleryController {
     function handleRequest($form) {
 	global $gallery;
 
-	list ($itemId, $editPlugin, $delegate) = GalleryUtilities::getRequestVariables('itemId',
-	    'editPlugin', 'delegate');
+	$itemId = (int)GalleryUtilities::getRequestVariables('itemId');
+	$editPlugin = GalleryUtilities::getRequestVariables('editPlugin');
+	$delegate = GalleryUtilities::getRequestVariables('delegate');
 	if (!empty($delegate)) {
 	    $results['delegate'] = $delegate;
 	}
-
-	/* Make sure we have permission do edit this item */
-	$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.edit');
+	
+	/* Load the item */
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	if ($ret) {
 	    return array($ret, null);
 	}
 
-	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
+	if (!GalleryUtilities::isA($item, 'GalleryItem')) {
+	    /* Invalid itemId given, return MISSING_OBJECT to get standard error page */
+	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
+	}
+
+	/* Make sure we have permission to edit this item */
+	$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.edit');
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -63,7 +69,7 @@ class ItemEditController extends GalleryController {
 	}
 
 	/* Load the thumbnail */
-	list ($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds(array($itemId));
+	list ($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds(array($item->getId()));
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -136,7 +142,7 @@ class ItemEditController extends GalleryController {
 		$results['redirect'] = array('view' => 'core.ItemAdmin',
 					     'subView' => 'core.ItemEdit',
 					     'editPlugin' => $editPlugin,
-					     'itemId' => $itemId);
+					     'itemId' => $item->getId());
 	    } else {
 		$results['delegate'] = array('view' => 'core.ItemAdmin',
 					     'subView' => 'core.ItemEdit',
@@ -181,7 +187,7 @@ class ItemEditController extends GalleryController {
 }
 
 /**
- * This view will show options to edit an item
+ * This view will show options to edit an item.
  */
 class ItemEditView extends GalleryView {
 
@@ -191,21 +197,21 @@ class ItemEditView extends GalleryView {
     function loadTemplate(&$template, &$form) {
 	global $gallery;
 
-	list ($itemId, $editPlugin) = GalleryUtilities::getRequestVariables('itemId', 'editPlugin');
-
-	/* Make sure we have permission do edit this item */
-	$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.edit');
+	$editPlugin = GalleryUtilities::getRequestVariables('editPlugin');
+	
+	list ($ret, $item, $wasSpecified) = $this->getItem();
 	if ($ret) {
 	    return array($ret, null);
 	}
 
-	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
+	/* Make sure we have permission to edit this item */
+	$ret = GalleryCoreApi::assertHasItemPermission($item->getId(), 'core.edit');
 	if ($ret) {
 	    return array($ret, null);
 	}
 
 	/* Load the thumbnail */
-	list ($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds(array($itemId));
+	list ($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds(array($item->getId()));
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -236,6 +242,10 @@ class ItemEditView extends GalleryView {
 		$pluginInstances[$pluginId] = $plugin;
 	    }
 	}
+	
+	/* Define the first edit plugin as the default in case we need to fall back. */
+	$editPluginIds = array_keys($pluginInstances);
+	$defaultEditPlugin = $editPluginIds[0];
 
 	/*
 	 * If the plugin is empty get it from the session.  If it's empty there, default to the
@@ -246,9 +256,12 @@ class ItemEditView extends GalleryView {
 	if (empty($editPlugin)) {
 	    $editPlugin = $session->get($editPluginSessionKey);
 	    if (empty($editPlugin) || !in_array($editPlugin, array_keys($pluginInstances))) {
-		$ids = array_keys($pluginInstances);
-		$editPlugin = $ids[0];
+		$editPlugin = $defaultEditPlugin;
 	    }
+	}
+	/* Input validation of the given editPlugin id. */
+	if (!isset($pluginInstances[$editPlugin])) {
+	    $editPlugin = $defaultEditPlugin;
 	}
 	$session->put($editPluginSessionKey, $editPlugin);
 
@@ -318,7 +331,7 @@ class ItemEditView extends GalleryView {
     function getViewDescription() {
 	global $gallery;
 
-	list ($ret, $item) = $this->_getItem();
+	list ($ret, $item) = $this->getItem();
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -336,15 +349,13 @@ class ItemEditView extends GalleryView {
 }
 
 /**
- * Interface for plugins to the ItemEdit view and controller
- *
+ * Interface for plugins to the ItemEdit view and controller.
  * @abstract
  */
 class ItemEditPlugin {
 
     /**
      * Does this plugin support the given item type?
-     *
      * @param object GalleryItem $item
      * @param object GalleryDerivative $thumbnail item's thumbnail
      * @return boolean true if it's supported
@@ -354,8 +365,7 @@ class ItemEditPlugin {
     }
 
     /**
-     * Load the template with data from this plugin
-     *
+     * Load the template with data from this plugin.
      * @param object GalleryTemplate $template
      * @param array $form the form values
      * @param object GalleryItem $item
@@ -370,8 +380,7 @@ class ItemEditPlugin {
     }
 
     /**
-     * Let the plugin handle the incoming request
-     *
+     * Let the plugin handle the incoming request.
      * @param array $form the form values
      * @param object GalleryItem $item
      * @param object GalleryDerivative $preferred item's preferred derivative, if there is one
@@ -386,8 +395,7 @@ class ItemEditPlugin {
     }
 
     /**
-     * Return a localized title for this plugin, suitable for display to the user
-     *
+     * Return a localized title for this plugin, suitable for display to the user.
      * @return array object GalleryStatus a status code
      *               string localized title
      */
@@ -396,8 +404,7 @@ class ItemEditPlugin {
     }
 
     /**
-     * Check to see if a given operation is available for any of a set of mime types
-     *
+     * Check to see if a given operation is available for any of a set of mime types.
      * @param string $operation the operation (eg. 'rotate' or 'scale')
      * @param array $mimeTypes
      * @return array object GalleryStatus a status code
@@ -424,14 +431,12 @@ class ItemEditPlugin {
  * Interface for options to the ItemEdit view and controller.  Options allow us to provide extra UI
  * in the views and extra processing in the controller so that we can add new functionality to
  * various ItemEditPlugins.
- *
  * @abstract
  */
 class ItemEditOption {
 
     /**
-     * Return all the available option plugins
-     *
+     * Return all the available option plugins.
      * @param string $editPlugin name of ItemEditPlugin
      * @param object GalleryItem $item
      * @param object GalleryDerivative $thumbnail
@@ -468,8 +473,7 @@ class ItemEditOption {
     }
 
     /**
-     * Load the template with data from this plugin
-     *
+     * Load the template with data from this plugin.
      * @param object GalleryTemplate $template
      * @param array $form the form values
      * @param object GalleryItem $item
@@ -484,7 +488,6 @@ class ItemEditOption {
 
     /**
      * Let the plugin handle the incoming request.  We expect the $item to be locked.
-     *
      * @param array $form the form values
      * @param object GalleryItem $item reference to the item
      * @param object GalleryDerivative $preferred reference to preferred derivative
@@ -499,7 +502,6 @@ class ItemEditOption {
 
     /**
      * Is this option appropriate at this time?
-     *
      * @param object GalleryItem $item
      * @param object GalleryDerivative $thumbnail
      * @return array object GalleryStatus a status code
@@ -511,7 +513,6 @@ class ItemEditOption {
 
     /**
      * Will this task run so long that it requires a progress bar?
-     *
      * @param array $form the state of the current form
      * @return boolean
      */

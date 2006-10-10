@@ -79,7 +79,7 @@ class RepositoryPackageTest extends GalleryTestCase {
      */
     function testCreateSinglePackage() {
 	global $gallery;
-	
+
 	$testDescriptor = new RepositoryPackageTestDescriptor();
 	$expectedPackagePath = sprintf('%s%s-%s-%s-%s.package', 'someoutputdir/',
 	    $testDescriptor->getPluginType(), $testDescriptor->getPluginVersion(),
@@ -113,7 +113,7 @@ class RepositoryPackageTest extends GalleryTestCase {
 
     function testCreateAllPackages() {
 	global $gallery;
-	
+
 	$this->_package->_descriptor = new RepositoryPackageTestDescriptor();
 
 	$platform = new UnitTestPlatform();
@@ -173,13 +173,33 @@ class RepositoryPackageTest extends GalleryTestCase {
     /**
      * Test if getRandomString returns a string of the specified length.
      */
-    function testGetRandomString() {
-	$length = rand(0, 50);
-	$randomString = RepositoryPackage::getRandomString($length);
+    function testGetPackageHash() {
+	global $gallery;
 
-	$this->assert(is_string($randomString), 'Returned value is not a string.');
-	$this->assert(strlen($randomString) == $length,
-	    'Returned string is not of specified length.');
+	$gallery->_phpVm = new RepositoryPackageTestPhpVm();
+	$testPackage = new RepositoryPackageTestPackage();
+
+	$this->assertEquals(
+	    'mock-filename',
+	    $testPackage->getPackageHash('package-type', 20));
+
+	$this->assertEquals(
+	    'moc',
+	    $testPackage->getPackageHash('package-type', 3));
+    }
+}
+
+class RepositoryPackageTestPhpVm {
+    function md5($input) {
+	return $input;
+    }
+}
+
+class RepositoryPackageTestPackage extends RepositoryPackage {
+    function getPackageFilename($packageType) {
+	if ($packageType == 'package-type') {
+	    return 'mock-filename';
+	}
     }
 }
 

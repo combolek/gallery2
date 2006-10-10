@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: Gallery: Upgrader 2.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-15 09:31+0100\n"
-"PO-Revision-Date: 2006-07-28 22:24+0100\n"
+"PO-Revision-Date: 2006-09-28 14:36+0100\n"
 "Last-Translator: Sverre M. Vikan <sverre AT urven DOT net>\n"
 "Language-Team: Norwegian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -399,6 +399,10 @@ msgstr "Gallerys kjernemodul er hjertet i Gallery. Du kan oppgradere de fleste a
 msgid "Currently installed"
 msgstr "For tiden installert"
 
+#, c-format
+msgid "Core Module version: %s (Gallery %s)"
+msgstr "Kjernemodulversjon: %s (Gallery %s)"
+
 msgid "New version"
 msgstr "Ny versjon"
 
@@ -519,3 +523,4 @@ msgstr "Velg språk:"
 
 msgid "Go"
 msgstr "Gå"
+

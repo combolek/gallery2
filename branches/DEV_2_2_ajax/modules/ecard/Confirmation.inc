@@ -21,7 +21,7 @@
 /**
  * Confirmation page
  * @package Ecard
- * @subpackage userInterface
+ * @subpackage UserInterface
  * @author Nico Kaiser <nico@siriux.net>
  * @author Dariush Molavi <dari@nukedgallery.net>
  * @version $Revision$ $Date$
@@ -32,7 +32,7 @@ class ConfirmationView extends GalleryView {
      * @see GalleryView::loadTemplate
      */
     function loadTemplate(&$template, &$form) {
-	list ($ret, $item) = $this->_getItem();
+	list ($ret, $item) = $this->getItem();
 	if ($ret) {
 	    return array($ret, null);
 	}

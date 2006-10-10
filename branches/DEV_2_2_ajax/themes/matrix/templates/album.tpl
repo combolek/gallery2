@@ -62,21 +62,25 @@
 	  <table id="gsThumbMatrix"><tr valign="top">
 	    {foreach from=$theme.children item=child}
 
-	      {* Move to a new row *}
-	      {if $childrenInColumnCount == $theme.params.columns}
+              {* Move to a new row *}
+              {if $childrenInColumnCount == $theme.params.columns}
 		</tr><tr valign="top">
 		{assign childrenInColumnCount=0}
-	      {/if}
+              {/if}
 
 	      {assign childrenInColumnCount=`$childrenInColumnCount+1`}
 	      <td class="{if $child.canContainChildren}giAlbumCell gcBackground1{else}giItemCell{/if}" style="width: {$theme.columnWidthPct}%">
 		<div>
-		  {if $child.canContainChildren || $child.entityType == 'GalleryLinkItem'}
+		  {if ($child.canContainChildren || $child.entityType == 'GalleryLinkItem')}
 		    {assign frameType="albumFrame"}
 		    {capture assign="linkUrl"}{g->url arg1="view=core.ShowItem" arg2="itemId=`$child.id`"}{/capture}
 		  {else}
 		    {assign frameType="itemFrame"}
-		    {capture assign="linkUrl"}{g->url params=$theme.pageUrl arg1="itemId=`$child.id`"}{/capture}
+		    {if $theme.params.dynamicLinks == 'jump'}
+		      {capture assign=linkUrl}{g->url arg1="view=core.ShowItem" arg2="itemId=`$child.id`"}{/capture}
+		    {else}
+		      {capture assign=linkUrl}{g->url params=$theme.pageUrl arg1="itemId=`$child.id`"}{/capture}
+		    {/if}
 		  {/if}
 
 		  {if empty($child.thumbnail)}
@@ -155,11 +159,10 @@
 
       {g->block type="core.GuestPreview" class="gbBlock"}
 
-<<<<<<< .working
       {* Our emergency edit link, if the user removes all blocks containing edit links *}
       {g->block type="core.EmergencyEditItemLink" class="gbBlock" checkBlocks="sidebar,album"}
 
-      {* Show any other album blocks (comments, etc) *}
+      {* Show any other album blocks (comments, etc.) *}
       {foreach from=$theme.params.albumBlocks item=block}
 	{g->block type=$block.0 params=$block.1}
       {/foreach}

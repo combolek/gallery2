@@ -768,22 +768,37 @@ class ConfirmImportController extends GalleryController {
 		    GalleryCoreApi::releaseLocks($importLockIds);
 		    return $ret;
 		}
-		list ($ret, $settings) = $theme->getSettings($newAlbumInstanceId);
+		list ($ret, $settings, $params) = $theme->getSettings($newAlbumInstanceId);
 		if ($ret) {
 		    GalleryCoreApi::releaseLocks($importLockIds);
 		    return $ret;
 		}
 
-		$ret = $theme->setParameter('rows', $album['rows'], $newAlbumInstanceId);
-		if ($ret) {
-		    GalleryCoreApi::releaseLocks($importLockIds);
-		    return $ret;
-		}
+		/* Only set page size if needed. */
+		if (!empty($params['perPage'])) {
+		    /* Gallery 1 has no perPage value. Thus multiply rows and cols. */
+		    $perPage = $album['rows'] * $album['cols'];
+		    if ($params['perPage'] != $perPage) {
+			$ret = $theme->setParameter('perPage', $perPage, $newAlbumInstanceId);
+			if ($ret) {
+			    GalleryCoreApi::releaseLocks($importLockIds);
+			    return $ret;
+			}
+		    }
+		} else if (isset($params['rows']) && isset($params['columns'])
+			&& ($params['rows'] != $album['rows']
+			|| $params['columns'] != $album['cols'])) {
+		    $ret = $theme->setParameter('rows', $album['rows'], $newAlbumInstanceId);
+		    if ($ret) {
+			GalleryCoreApi::releaseLocks($importLockIds);
+			return $ret;
+		    }
 
-		$ret = $theme->setParameter('columns', $album['cols'], $newAlbumInstanceId);
-		if ($ret) {
-		    GalleryCoreApi::releaseLocks($importLockIds);
-		    return $ret;
+		    $ret = $theme->setParameter('columns', $album['cols'], $newAlbumInstanceId);
+		    if ($ret) {
+			GalleryCoreApi::releaseLocks($importLockIds);
+			return $ret;
+		    }
 		}
 
 		if (isset($newAlbumInstanceId)) {
@@ -1269,12 +1284,24 @@ class ConfirmImportController extends GalleryController {
 			}
 		    }
 		}
+		/* Checkpoint (keep open files down, save item). */
+		$ret = $storage->checkPoint();
+		if ($ret) {
+		    return $ret;
+		}
 	    }
 	    $ret = $templateAdapter->updateProgressBar($importPhotosMessage,
 		    $album['name'], $numberOfItemsImported / $totalItemsToImport);
 	    if ($ret) {
 		return $ret;
 	    }
+	    
+	    /* Checkpoint (keep open files down, save album). */
+	    $ret = $storage->checkPoint();
+	    if ($ret) {
+		return $ret;
+	    }
+	    
 	    $album = null;
 	    /* $i keeps track of how many passes we make over the data */
 	    $i++;
@@ -1294,6 +1321,7 @@ class ConfirmImportController extends GalleryController {
 
 	//$albumHighlight[$newAlbumInstanceId]=$importAlbumItem->isAlbumName;
 	//$finishedAlbums[$album['name']] = $newAlbumInstanceId;
+	$checkPointCounter = 0;
 	foreach ($albumHighlight as $highlightRecipientId => $nameOfAlbumToHighlight) {
 	    if (isset($finishedAlbums[$nameOfAlbumToHighlight]) &&
 		$finishedAlbums[$nameOfAlbumToHighlight]) {
@@ -1309,6 +1337,14 @@ class ConfirmImportController extends GalleryController {
 		    $item->getId(), $finishedAlbums[$nameOfAlbumToHighlight]);
 		if ($ret) {
 		    GalleryCoreApi::releaseLocks($importLockIds);
+		    return $ret;
+		}
+		$checkPointCounter++;
+	    }
+	    if ($checkPointCounter % 20 == 0) {
+		/* Checkpoint (keep open files down, save thumbnail). */
+		$ret = $storage->checkPoint();
+		if ($ret) {
 		    return $ret;
 		}
 	    }
@@ -1366,6 +1402,13 @@ class ConfirmImportController extends GalleryController {
 			return $ret;
 		    }
 		}
+		
+		/* Checkpoint (keep nr of open files down, save thumbnails). */
+		$ret = $storage->checkPoint();
+		if ($ret) {
+		    return $ret;
+		}
+		
 		GalleryDataCache::reset();
 	    }
 	}

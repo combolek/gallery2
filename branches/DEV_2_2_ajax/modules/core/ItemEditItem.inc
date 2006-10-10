@@ -19,8 +19,7 @@
  */
 
 /**
- * Plugin for editing data common to all items
- *
+ * Plugin for editing data common to all items.
  * @package GalleryCore
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -51,14 +50,17 @@ class ItemEditItem extends ItemEditPlugin {
 	    $platform =& $gallery->getPlatform();
 
 	    foreach (array('title', 'summary', 'keywords', 'description') as $key) {
-		if (!empty($form[$key])) {
+		if (!empty($form[$key]) && is_string($form[$key])) {
 		    $form[$key] = trim($form[$key]);
+		} else {
+		    $form[$key] = null;
 		}
 	    }
 
 	    if (!$isRootAlbum && isset($form['pathComponent'])) {
-		if (empty($form['pathComponent'])) {
+		if (empty($form['pathComponent']) || !is_string($form['pathComponent'])) {
 		    $error[] = 'form[error][pathComponent][missing]';
+		    $form['pathComponent'] = '';
 		} else if (!$platform->isLegalPathComponent($form['pathComponent'])) {
 		    $error[] = 'form[error][pathComponent][invalid]';
 		}
@@ -301,6 +303,12 @@ class ItemEditItem extends ItemEditPlugin {
 						 $thumbnail->getDerivativeOperations(),
 						 $matches)) {
 		$form['thumbnail']['size'] = $matches[1];
+	    }
+	}
+
+	foreach (array('title', 'description', 'summary', 'pathComponent') as $key) {
+	    if (!empty($form[$key]) && !is_string($form[$key])) {
+		$form[$key] = '';
 	    }
 	}
 

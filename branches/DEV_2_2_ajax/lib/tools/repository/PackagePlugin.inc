@@ -88,6 +88,7 @@ class PackagePluginControllerAndView extends RepositoryControllerAndView {
      * @return object GalleryStatus a status code
      */
     function packagePlugins() {
+	global $gallery;
 	$pluginsPackaged = 0;
 
 	/* Set default filter if none is provided. */
@@ -102,6 +103,7 @@ class PackagePluginControllerAndView extends RepositoryControllerAndView {
 	}
 
 	foreach ($plugins as $pluginId => $plugin) {
+	    $gallery->guaranteeTimeLimit(60);
 	    if (preg_match($filter, $pluginId)) {
 		list ($ret, $pluginInfo) = $this->doPackagePlugin($plugin['type'], $pluginId);
 		if ($ret) {
@@ -123,7 +125,7 @@ class PackagePluginControllerAndView extends RepositoryControllerAndView {
 	global $gallery;
 	$outputDir = $gallery->getConfig('repository.path');
 
-	list ($ret, $plugin) = GalleryCoreApi::loadPlugin($pluginType, $pluginId);
+	list ($ret, $plugin) = GalleryCoreApi::loadPlugin($pluginType, $pluginId, true);
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -141,25 +143,34 @@ class PackagePluginControllerAndView extends RepositoryControllerAndView {
 	    return array($ret, null);
 	}
 
-	$ret = $descriptor->writeToDisk();
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	$package = new RepositoryPackage();
-	$ret = $package->init($descriptor, $descriptor->getOutputDir());
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	list ($ret, $packagesWritten) = $package->writeAllPackagesToDisk();
-	if ($ret) {
-	    return array($ret, null);
-	}
-
+	$integrityErrors = $descriptor->checkIntegrity();
 	$pluginInfo = array('pluginId' => $descriptor->getPluginId(),
-			    'outputDir' => $descriptor->getOutputDir(),
-			    'packageInfo' => $packagesWritten);
+			    'outputDir' => $descriptor->getOutputDir());
+
+	if (empty($integrityErrors)) {
+	    $ret = $descriptor->writeToDisk(false, true);
+	    if ($ret) {
+		return array($ret, null);
+	    }
+
+	    $package = new RepositoryPackage();
+	    $ret = $package->init($descriptor, $descriptor->getOutputDir());
+	    if ($ret) {
+		return array($ret, null);
+	    }
+
+	    list ($ret, $packagesWritten) = $package->writeAllPackagesToDisk(false, true);
+	    if ($ret) {
+		return array($ret, null);
+	    }
+
+	    $pluginInfo['packageInfo'] = $packagesWritten;
+	    $pluginInfo['errors'] = array();
+	} else {
+	    $pluginInfo['packageInfo'] = array('packagesWritten' => array(),
+					       'packagesSkipped' => array());
+	    $pluginInfo['errors'] = $integrityErrors;
+	}
 
 	return array(null, $pluginInfo);
     }

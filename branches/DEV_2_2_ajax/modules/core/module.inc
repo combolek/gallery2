@@ -34,14 +34,14 @@ class CoreModule extends GalleryModule {
 	$this->setGalleryVersion('2.2-svn');
 
 	/* Don't forget to update CoreModuleExtras::upgrade and _prepareConfigUpgrade too! */
-	$this->setVersion('1.1.16');
+	$this->setVersion('1.1.18');
 
 	$this->setDescription($gallery->i18n('Gallery 2 Core Module'));
 	$this->setGroup('gallery', $gallery->i18n('Gallery'));
 	$this->setCallbacks('registerEventListeners'
 	    . '|getItemLinks|getSystemLinks'
 	    . '|getSiteAdminViews|getUserAdminViews|getItemAdminViews');
-	$this->setRequiredCoreApi(array(7, 10));
+	$this->setRequiredCoreApi(array(7, 11));
 	$this->setRequiredModuleApi(array(3, 1));
     }
 
@@ -268,11 +268,6 @@ class CoreModule extends GalleryModule {
 			    'view' => 'core.AdminCore'),
 		      array('name' => $this->translate('Plugins'),
 			    'view' => 'core.AdminPlugins'),
-		      /*
-		       * Downloadable plugins isn't ready yet
-		      array('name' => $this->translate('Repository'),
-			    'view' => 'core.AdminRepository'),
-		       */
 		      array('name' => $this->translate('Users'),
 			    'view' => 'core.AdminUsers'),
 		      array('name' => $this->translate('Groups'),

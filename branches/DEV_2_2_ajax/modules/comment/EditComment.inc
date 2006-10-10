@@ -34,6 +34,8 @@ class EditCommentController extends GalleryController {
 	global $gallery;
 
 	list ($itemId, $commentId) = GalleryUtilities::getRequestVariables('itemId', 'commentId');
+	$itemId = (int) $itemId;
+	$commentId = (int) $commentId;
 
 	/* Make sure we have permission to edit a comment */
 	$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'comment.edit');
@@ -66,28 +68,19 @@ class EditCommentController extends GalleryController {
 		}
 	    }
 
-	    $longDate = null;
-	    if (empty($form['date'])) {
-		$error[] = 'form[error][date][missing]';
-	    } else {
-		/*
-		 * Verify that the date is at least 2 characters long.
-		 * This is to get around an apparent bug in strtotime
-		 * which seems to read single characters as valid dates
-		 * (with the exception of 'j')
-		 */
-		if (strlen($form['date']) < 2) {
-		    $longDate = -1;
-		} else {
-		    $longDate = strtotime($form['date']);
-		}
-		if ($longDate == -1 || $longDate === false) {
-		    $error[] = 'form[error][date][invalid]';
-		}
-	    }
-
 	    if (empty($form['subject'])) {
 		$form['subject'] = '';
+	    }
+
+	    list($ret, $isAnonymousUser) = 
+		GalleryCoreApi::isAnonymousUser(isset($commenter) ?
+						$commenter->getId() : $comment->getCommenterId());
+	    if ($ret) {
+		return array($ret, null);
+	    }
+
+	    if (empty($form['author']) || !$isAnonymousUser) {
+		$form['author'] = '';
 	    }
 
 	    if (empty($form['comment'])) {
@@ -121,7 +114,7 @@ class EditCommentController extends GalleryController {
 		$comment->setHost($form['host']);
 		$comment->setSubject($form['subject']);
 		$comment->setComment($form['comment']);
-		$comment->setDate($longDate);
+		$comment->setAuthor($form['author']);
 		$ret = $comment->save();
 		if ($ret) {
 		    return array($ret, null);
@@ -148,28 +141,12 @@ class EditCommentController extends GalleryController {
 		}
 	    }
 
-	    $longDate = null;
-	    if (empty($form['date'])) {
-		$error[] = 'form[error][date][missing]';
-	    } else {
-		/*
-		 * Verify that the date is at least 2 characters long.
-		 * This is to get around an apparent bug in strtotime
-		 * which seems to read single characters as valid dates
-		 * (with the exception of 'j')
-		 */
-		if (strlen($form['date']) < 2) {
-		    $longDate = -1;
-		} else {
-		    $longDate = strtotime($form['date']);
-		}
-		if ($longDate == -1 || $longDate === false) {
-		    $error[] = 'form[error][date][invalid]';
-		}
-	    }
-
 	    if (empty($form['subject'])) {
 		$form['subject'] = '';
+	    }
+
+	    if (empty($form['author'])) {
+		$form['author'] = '';
 	    }
 
 	    if (empty($form['comment'])) {
@@ -211,7 +188,7 @@ class EditCommentView extends GalleryView {
 	$platform =& $gallery->getPlatform();
 
 	/* Load our item */
-	list ($ret, $item) = $this->_getItem();
+	list ($ret, $item) = $this->getItem();
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -222,7 +199,7 @@ class EditCommentView extends GalleryView {
 	    return array($ret, null);
 	}
 
-	$commentId = GalleryUtilities::getRequestVariables('commentId');
+	$commentId = (int) GalleryUtilities::getRequestVariables('commentId');
 
 	/* Load the specific comment */
 	list ($ret, $comment) = GalleryCoreApi::loadEntitiesById($commentId);
@@ -241,20 +218,24 @@ class EditCommentView extends GalleryView {
 	if ($ret) {
 	    return array($ret, null);
 	}
-
+	
+	list($ret, $isAnonymousUser) = GalleryCoreApi::isAnonymousUser($comment->getCommenterId());
+	if ($ret) {
+	    return array($ret, null);
+	}
+	
 	if ($form['formName'] != 'EditComment') {
 	    $form['commenterName'] = $commenter->getUserName();
 	    $form['host'] = $comment->getHost();
 	    $form['comment'] = $comment->getComment();
 	    $form['subject'] = $comment->getSubject();
+	    $form['author'] = $comment->getAuthor();
 	    $form['formName'] = 'EditComment';
-
-	    /* XXX: this needs internationalization */
-	    $form['date'] = $platform->strftime('%D %T', $comment->getDate());
 	}
 
 	$EditComment['comment'] = (array)$comment;
 	$EditComment['itemId'] = $item->getId();
+	$EditComment['isGuestComment'] = $isAnonymousUser;
 
 	$template->setVariable('EditComment', $EditComment);
 	$template->setVariable('controller', 'comment.EditComment');

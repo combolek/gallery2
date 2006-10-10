@@ -36,6 +36,7 @@
     {g->text text="Continue..."}
   </a>
 </div>
+&nbsp;{* Makes text updates appear in IE6 *}
 
 {*
  * After the template is sent to the browser, Gallery will send a
@@ -71,7 +72,7 @@
   function completeProgressBar(url) {
     var link = document.getElementById('progressContinueLink');
     link.href = url;
-    link.style.display = 'block';
+    link.style.display = 'inline';
   }
 
   function errorProgressBar(html) {
