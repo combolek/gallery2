@@ -35,7 +35,7 @@ class ThumbnailModule extends GalleryModule {
 	$this->setId('thumbnail');
 	$this->setName($gallery->i18n('Thumbnail Manager'));
 	$this->setDescription($gallery->i18n('Set default thumbnails for non-image items'));
-	$this->setVersion('1.0.7'); /* Update upgrade() function below too */
+	$this->setVersion('1.0.8'); /* Update ThumbnailModuleExtras::upgrade also! */
 	$this->setGroup('display', $gallery->i18n('Display'));
 	$this->setCallbacks('getSiteAdminViews|registerEventListeners');
 	$this->setRequiredCoreApi(array(7, 4));
@@ -46,150 +46,10 @@ class ThumbnailModule extends GalleryModule {
      * @see GalleryModule::upgrade
      */
     function upgrade($currentVersion) {
-	global $gallery;
-
-	$platform =& $gallery->getPlatform();
-	$slash = $platform->getDirectorySeparator();
-	$thumbnailDir = $gallery->getConfig('data.gallery.plugins_data') . 'modules' .
-	    $slash . 'thumbnail' . $slash;
-
-	if (!isset($currentVersion)) {
-	    $currentVersion = '0';
-	}
-
-	switch ($currentVersion) {
-	case '0':
-	    /* Initial install */
-	    list ($success) = GalleryUtilities::guaranteeDirExists($thumbnailDir);
-	    if (!$success) {
-		return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
-					    "Unable to create directory: $thumbnailDir");
-	    }
-	    break;
-
-	case '0.8.1':
-	case '0.8.2':
-	    /* Assign parent to existing ThumbnailImage entities */
-	    list ($ret, $rootId) =
-		GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
-	    if ($ret) {
-		return $ret;
-	    }
-
-	    $storage =& $gallery->getStorage();
-	    $ret = $storage->configureStore($this->getId(), array('ThumbnailImage:1.0'));
-	    if ($ret) {
-		return $ret;
-	    }
-
-	    $query = '
-	    INSERT INTO [GalleryChildEntity] SELECT [ThumbnailImage::id], ' . (int)$rootId . '
-	    FROM [ThumbnailImage]
-	    ';
-	    $ret = $storage->execute($query);
-	    if ($ret) {
-		return $ret;
-	    }
-
-	case '0.8.3':
-	case '0.8.4':
-	case '0.8.5':
-	case '0.8.6':
-	case '0.8.7':
-	case '0.8.8':
-	case '0.9.1':
-	    /* Move thumbnail dir from g2data/ to g2data/plugins_data */
-	    $oldDir = $gallery->getConfig('data.gallery.base') . 'thumbnail' . $slash;
-	    if ($platform->is_dir($oldDir)) {
-		if (!$platform->rename($oldDir, $thumbnailDir)) {
-		    return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
-						"Unable to move $oldDir to $thumbnailDir");
-		}
-	    } else {
-		list ($success) = GalleryUtilities::guaranteeDirExists($thumbnailDir);
-		if (!$success) {
-		    return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
-						"Unable to create $thumbnailDir");
-		}
-	    }
-
-	case '0.9.2':
-	case '0.9.3':
-	    /* Now allow thumbnail for root album; remove parent for mime type thumbnails */
-	    list ($ret, $rootId) =
-		GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
-	    if ($ret) {
-		return $ret;
-	    }
-	    $query = '
-	    SELECT
-	      [ThumbnailImage::id]
-	    FROM
-	      [ThumbnailImage], [GalleryChildEntity]
-	    WHERE
-	      [ThumbnailImage::id] = [GalleryChildEntity::id]
-	      AND
-	      [GalleryChildEntity::parentId] = ?
-	    ';
-	    list ($ret, $results) = $gallery->search($query, array((int)$rootId));
-	    if ($ret) {
-		return $ret;
-	    }
-	    $ids = array();
-	    while ($result = $results->nextResult()) {
-		$ids[] = (int)$result[0];
-	    }
-
-	    GalleryCoreApi::requireOnce('modules/thumbnail/classes/ThumbnailImage.class');
-	    if (!empty($ids)) {
-		list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($ids);
-		if ($ret) {
-		    return $ret;
-		}
-
-		list ($ret, $thumbs) = GalleryCoreApi::loadEntitiesById($ids);
-		if ($ret) {
-		    return $ret;
-		}
-
-		foreach ($thumbs as $thumb) {
-		    $thumb->setParentId(0);
-		    $ret = $thumb->save();
-		    if ($ret) {
-			GalleryCoreApi::releaseLocks($lockId);
-			return $ret;
-		    }
-		}
-
-		$ret = GalleryCoreApi::releaseLocks($lockId);
-		if ($ret) {
-		    return $ret;
-		}
-	    }
-
-	case '0.9.4':
-	case '0.9.5':
-	case '0.9.6':
-	case '0.9.7':
-	case '0.9.8':
-	case '1.0.0':
-	case '1.0.1':
-	case '1.0.2':
-	case '1.0.3':
-	case '1.0.4':
-	case '1.0.5':
-	case '1.0.6':
-
-	case 'end of upgrade path':
-	    /*
-	     * Leave this bogus case at the end of the legitimate case statements so that we
-	     * always properly terminate our upgrade path with a break.
-	     */
-	    break;
-
-	default:
-	    return GalleryCoreApi::error(ERROR_BAD_PLUGIN, __FILE__, __LINE__,
-					sprintf('Unknown module version %s', $currentVersion));
+	GalleryCoreApi::requireOnce('modules/thumbnail/ThumbnailModuleExtras.inc');
+	$ret = ThumbnailModuleExtras::upgrade($this, $currentVersion);
+	if ($ret) {
+	    return $ret;
 	}
 
 	return null;
@@ -241,51 +101,10 @@ class ThumbnailModule extends GalleryModule {
      * @see GalleryModule::activate
      */
     function activate($postActivationEvent=true) {
-	GalleryCoreApi::requireOnce('modules/thumbnail/classes/ThumbnailHelper.class');
-
-	/* Register toolkit operation for any mime type settings already in the database */
-	list ($ret, $mimeTypeMap) = ThumbnailHelper::fetchMimeTypeMap();
+	GalleryCoreApi::requireOnce('modules/thumbnail/ThumbnailModuleExtras.inc');
+	list ($ret, $ignored) = ThumbnailModuleExtras::activate($postActivationEvent);
 	if ($ret) {
 	    return array($ret, null);
-	}
-	if (!empty($mimeTypeMap)) {
-	    $ret = ThumbnailHelper::registerToolkitOperation(array_keys($mimeTypeMap));
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	}
-
-	/* Set some defaults if not already supported */
-	list ($ret, $toolkitMime) = ThumbnailHelper::fetchToolkitSupport();
-	if ($ret) {
-	    return array($ret, null);
-	}
-	$itemId = array();
-	GalleryCoreApi::requireOnce('modules/thumbnail/classes/ThumbnailImage.class');
-	foreach (array(
-	    'G2audio.jpg' => array('audio/mpeg', 'audio/x-wav', 'audio/x-aiff',
-				   'audio/midi', 'audio/basic', 'audio/x-ms-wma'),
-	    'G2video.jpg' => array('video/mpeg', 'video/quicktime', 'video/x-msvideo',
-				   'video/x-ms-asf', 'video/x-ms-wmv', 'video/x-flv')
-	    ) as $mimeImage => $mimeList) {
-	    foreach ($mimeList as $mime) {
-		if (!isset($toolkitMime[$mime])) {
-		    if (!isset($itemId[$mimeImage])) {
-			list ($ret, $itemId[$mimeImage]) = ThumbnailHelper::addItem($mime, null,
-			    $mimeImage, dirname(__FILE__) . '/images/' . $mimeImage, 'image/jpeg',
-			    array('width' => 400, 'height' => 352),
-			    new ThumbnailImage());
-			if ($ret) {
-			    return array($ret, null);
-			}
-		    } else {
-			$ret = ThumbnailHelper::updateItem($itemId[$mimeImage], $mime);
-			if ($ret) {
-			    return array($ret, null);
-			}
-		    }
-		}
-	    }
 	}
 
 	list ($ret, $redirect) = parent::activate($postActivationEvent);
@@ -303,37 +122,24 @@ class ThumbnailModule extends GalleryModule {
 	GalleryCoreApi::requireOnce('modules/thumbnail/classes/ThumbnailHelper.class');
 	global $gallery;
 
-	/* Remove custom thumbnails from items */
-	$query = '
-	SELECT [GalleryChildEntity::parentId]
-	  FROM [GalleryChildEntity], [ThumbnailImage]
-	 WHERE [GalleryChildEntity::id] = [ThumbnailImage::id]
-	   AND [GalleryChildEntity::parentId] > 0
-	';
-	list ($ret, $searchResults) = $gallery->search($query);
+	list ($ret, $containerId) = $this->getParameter('id.container');
 	if ($ret) {
 	    return $ret;
 	}
-	while ($result = $searchResults->nextResult()) {
-	    $itemIds[] = (int)$result[0];
-	}
-	while (!empty($itemIds)) {
-	    list ($ret, $items) = GalleryCoreApi::loadEntitiesById(array_splice($itemIds, 0, 100));
-	    if ($ret) {
-		return $ret;
-	    }
-	    foreach ($items as $item) {
-		$ret = ThumbnailHelper::restoreThumbnail($item);
-		if ($ret) {
-		    return $ret;
-		}
-	    }
-	}
+	$containerId = (int)$containerId;
 
+	/* Also deletes ThumbnailImage entities and restores thumbnails for the affected items. */
 	$ret = parent::uninstall();
 	if ($ret) {
 	    return $ret;
 	}
+
+	/* Remove the thumbnail container. */
+	$ret = GalleryCoreApi::deleteEntityById($containerId);
+	if ($ret) {
+	    return $ret;
+	}
+	
 	return null;
     }
 
@@ -367,7 +173,11 @@ class ThumbnailModule extends GalleryModule {
 		return array($ret, null);
 	    }
 	    if (GalleryUtilities::isA($source, 'ThumbnailImage')) {
+		/* Prevent that we try to restore the thumbnail during the deletion. */
+		$key = 'ThumbnailImage::delete';
+		GalleryDataCache::put($key, $entity->getId());
 		$ret = GalleryCoreApi::deleteEntityById($source->getId());
+		GalleryDataCache::remove($key);
 		if ($ret) {
 		    return array($ret, null);
 		}

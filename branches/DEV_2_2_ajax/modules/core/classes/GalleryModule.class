@@ -75,6 +75,7 @@ class GalleryModule extends GalleryPlugin {
      * - Drop the redirect url from GalleryPlugin::deactivate() (also requires a
      *   major bump in GalleryTheme)
      * - Remove TYPE=DB_TABLE_TYPE replacement in MySqlStorage::_getSqlReplacements
+     * - change signature of getItemlinks() in all modules (add new parameter) 
      *
      * @return array major number, minor number
      */
@@ -274,6 +275,7 @@ class GalleryModule extends GalleryPlugin {
 	  FROM [GalleryEntity]
 	 WHERE [GalleryEntity::entityType] IN (' . GalleryUtilities::makeMarkers($types) . ')
 	';
+	$gallery->guaranteeTimeLimit(120);
 	list ($ret, $searchResults) = $gallery->search($query, $types);
 	if ($ret) {
 	    return $ret;
@@ -286,6 +288,7 @@ class GalleryModule extends GalleryPlugin {
 		return $ret;
 	    }
 	    if (!(++$i % 20)) {
+		$gallery->guaranteeTimeLimit(120);
 		$ret = $storage->checkPoint();
 		if ($ret) {
 		    return $ret;
@@ -381,7 +384,7 @@ class GalleryModule extends GalleryPlugin {
      *               boolean was module able to autoconfigure
      */
     function autoConfigure() {
-	/* By default we dont't need any configuration */
+	/* By default we don't need any configuration */
 	return array(null, true);
     }
 

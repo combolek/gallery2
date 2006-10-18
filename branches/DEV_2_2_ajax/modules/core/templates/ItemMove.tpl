@@ -44,13 +44,12 @@
 
   <script type="text/javascript">
     //<![CDATA[
-    // Validation code.  This Javascript snippet validates the source and destination
-    // information to make sure that you don't attempt to do something that you shouldn't,
-    // ie, it will help you to avoid the situation where you try to move an item into
-    // an album where you don't have the right permissions.	 This is only a hint to the
-    // UI -- we perform the same permission checks on the server side (so circumventing
-    // or disabling this javascript won't allow you to do something that you don't have
-    // permission to do anyway).
+    // Validation code.  This Javascript snippet validates the source and destination information
+    // to make sure that you don't attempt to do something that you shouldn't, ie, it will help
+    // you to avoid the situation where you try to move an item into an album where you don't have
+    // the right permissions.  This is only a hint to the UI -- we perform the same permission
+    // checks on the server side (so circumventing or disabling this javascript won't allow you to
+    // do something that you don't have permission to do anyway).
 
     // The user can add data items to these albums
     permission = new Array();
@@ -135,7 +134,7 @@
     <tr>
       <td align="center">
 	{if isset($peer.thumbnail)}
-	  <a href="{g->url arg1="view=core.ShowItem" arg2="itemId=`$peerItemId`"}">
+	  <a id="thumb_{$peerItemId}" href="{g->url arg1="view=core.ShowItem" arg2="itemId=`$peerItemId`"}">
 	    {g->image item=$peer image=$peer.thumbnail maxSize=50 class="giThumbnail"}
 	  </a>
 	{else}
@@ -186,6 +185,18 @@
       </td>
     </tr>
     {/foreach}
+    <script type="text/javascript">
+      //<![CDATA[
+      {foreach from=$ItemMove.peers item=peer}
+      {assign var="peerItemId" value=$peer.id}
+      {if isset($peer.thumbnail)}
+      new YAHOO.widget.Tooltip("gTooltip", {ldelim}
+          context: "thumb_{$peerItemId}", text: '{g->image item=$peer image=$peer.thumbnail class="giThumbnail"}',
+          showDelay: 250 {rdelim});
+      {/if}
+      {/foreach}
+      //]]>
+    </script>
   </table>
   <input type="hidden" name="{g->formVar var="page"}" value="{$ItemMove.page}"/>
   <input type="hidden" name="{g->formVar var="form[numPerPage]"}" value="{$ItemMove.numPerPage}"/>

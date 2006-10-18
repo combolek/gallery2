@@ -24,6 +24,8 @@
  * @version $Revision$ $Date$
  */
 
+require_once(dirname(__FILE__) . '/modules/core/classes/GalleryUtilities.class');
+
 function GalleryInitFirstPass($params=array()) {
     global $gallery;
 
@@ -38,7 +40,6 @@ function GalleryInitFirstPass($params=array()) {
     $galleryBase = dirname(__FILE__) . '/';
     require_once($galleryBase . 'modules/core/classes/GalleryCoreApi.class');
     GalleryCoreApi::requireOnce('modules/core/classes/GalleryConstants.class');
-    GalleryCoreApi::requireOnce('modules/core/classes/GalleryUtilities.class');
     GalleryCoreApi::requireOnce('modules/core/classes/GalleryCapabilities.class');
     GalleryCoreApi::requireOnce('modules/core/classes/GalleryView.class');
     GalleryCoreApi::requireOnce('modules/core/classes/GalleryModule.class');
@@ -176,7 +177,6 @@ function GalleryInitSecondPass() {
     }
 
     if (!isset($user)) {
-
 	/* Missing user, be anonymous */
 	list ($ret, $userId) = GalleryCoreApi::getAnonymousUserId();
 	if ($ret) {

@@ -19,7 +19,7 @@
  */
 
 /**
- * This plugin will handle applying operations to a photo
+ * This plugin will handle applying operations to a photo.
  * @package GalleryCore
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -126,7 +126,10 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 	}
 
 	$preserveOriginal = isset($form['preserveOriginal']);
-	$serialNumber = $form['serialNumber'];
+
+	if ($form['serialNumber'] != $item->getSerialNumber()) {
+	    return array(GalleryCoreApi::error(ERROR_OBSOLETE_DATA), null, null, null);
+	}
 
 	/* If we have a command, then apply it to the correct object */
 	if (!empty($operation)) {
