@@ -160,20 +160,23 @@ class AdminRepositoryController extends GalleryController {
     function updatePluginStatus($pluginStatus, $repositories) {
 	global $gallery;
 	$templateAdapter =& $gallery->getTemplateAdapter();
-
-	/* Erase all plugin data, so that a full scan drops old entries*/
-	$ret = GalleryCoreApi::removeAllMapEntries('GalleryPluginPackageMap');
-	if ($ret) {
-	    return $ret;
-	}
+	$platform =& $gallery->getPlatform();
 
 	$status = array();
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 	if ($ret) {
 	    return $ret;
 	}
+	$heading = $module->translate('Updating Repository Index');
+	$templateAdapter->updateProgressBar($heading, '', 0);
 
-	/* Update the index. */
+	/* Erase all plugin data, so that a full scan drops old entries */
+	$ret = GalleryCoreApi::removeAllMapEntries('GalleryPluginPackageMap');
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* Update the index */
 	$currentProgress = 0;
 	$indexWeight = 5;
 	$increment = 1.0 / ($indexWeight * count($repositories) + count($pluginStatus['module']) +
@@ -186,8 +189,7 @@ class AdminRepositoryController extends GalleryController {
 		$message = '';
 	    }
 
-	    $templateAdapter->updateProgressBar(
-		$module->translate('Updating Repository Index'), $message, $currentProgress);
+	    $templateAdapter->updateProgressBar($heading, $message, $currentProgress);
 	    $ret = $repository->downloadIndex();
 	    if ($ret) {
 		$status['error'][] = $ret->getErrorMessage();
@@ -195,12 +197,14 @@ class AdminRepositoryController extends GalleryController {
 	    $currentProgress += $indexWeight * $increment;
 	}
 
-	$message = $module->translate('Scanning plugins');
+	$heading = $module->translate('Scanning plugins');
+	$sSlash = 's' . $platform->getDirectorySeparator();
 	foreach (array('module', 'theme') as $pluginType) {
 	    foreach (array_keys($pluginStatus[$pluginType]) as $pluginId) {
 		$gallery->guaranteeTimeLimit(30);
 
-		$templateAdapter->updateProgressBar($message, $pluginId, $currentProgress);
+		$templateAdapter->updateProgressBar(
+			$heading, $pluginType . $sSlash . $pluginId, $currentProgress);
 		$ret = $repository->scanPlugin($pluginType, $pluginId);
 		if ($ret) {
 		    return $ret;
@@ -209,12 +213,8 @@ class AdminRepositoryController extends GalleryController {
 	    }
 	}
 
-	$ret = $templateAdapter->updateProgressBar(
-	    'Update Plugin List', $module->translate('Done.'), 1);
-	if ($ret) {
-	    $templateAdapter->errorProgressBar($ret);
-	    return $ret;
-	}
+	$templateAdapter->updateProgressBar(
+	    $module->translate('Update Plugin List'), $module->translate('Done.'), 1);
 
 	$redirect['view'] = 'core.SiteAdmin';
 	$redirect['subView'] = 'core.AdminRepository';

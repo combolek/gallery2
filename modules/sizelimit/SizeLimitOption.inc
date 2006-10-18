@@ -22,7 +22,6 @@ GalleryCoreApi::requireOnce('modules/sizelimit/classes/SizeLimitHelper.class');
 
 /**
  * This ItemEditOption allows the user to set size limits for an album.
- *
  * @package SizeLimit
  * @subpackage UserInterface
  * @author Felix Rabinovich <felix@rabinovich.org>
@@ -214,19 +213,14 @@ class SizeLimitOption extends ItemEditOption {
 	    }
 
 	    $templateAdapter =& $gallery->getTemplateAdapter();
-	    $ret = $templateAdapter->updateProgressBar(
-	    	$module->translate('Resize complete'), '', 1);
-	    if ($ret) {
-		return array($ret, null, null);
-	    }
+	    $templateAdapter->updateProgressBar($module->translate('Resize complete'), '', 1);
 	}
 
 	return array(null, $error, $warning);
     }
 
     /**
-     * Apply current settings to all qualified subitems
-     *
+     * Apply current settings to all qualified subitems.
      * @param array $form form variables
      * @param object GalleryAlbumItem $album to apply settings
      * @return array object GalleryStatus a status code
@@ -263,11 +257,7 @@ class SizeLimitOption extends ItemEditOption {
 	    return array($ret, null, null);
 	}
 
-	$ret = $templateAdapter->updateProgressBar($module->translate('Resize Status'), '', 0);
-	if ($ret) {
-	    return array($ret, null, null);
-	}
-
+	$templateAdapter->updateProgressBar($module->translate('Resize Status'), '', 0);
 	$totalItems = count($descendentIds);
 
 	/*
@@ -286,12 +276,9 @@ class SizeLimitOption extends ItemEditOption {
 	    }
 	    foreach ($descendents as $item) {
 		$numberOfItemsResized++;
-		$ret = $templateAdapter->updateProgressBar(
+		$templateAdapter->updateProgressBar(
 		    $module->translate('Resizing photo'), $item->getTitle(),
 		    $numberOfItemsResized / $totalItems);
-		if ($ret) {
-		    return array($ret, null, null);
-		}
 		if (!GalleryUtilities::isExactlyA($item, 'GalleryPhotoItem')) {
 		    continue;
 		}

@@ -21,7 +21,6 @@
 /**
  * This class is a glue layer between the templating system and our various callbacks that generate
  * URLs, localized text, dates, themed widgets, etc.
- *
  * @package GalleryCore
  * @subpackage Classes
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -30,16 +29,14 @@
 class GalleryTemplateAdapter {
 
     /**
-     * The number of times our block callbacks have been executed
-     *
+     * The number of times our block callbacks have been executed.
      * @var array
      * @access private
      */
     var $_callCount;
 
     /**
-     * The active theme
-     *
+     * The active theme.
      * @var object GalleryTheme
      * @access private
      */
@@ -48,7 +45,6 @@ class GalleryTemplateAdapter {
     /**
      * Aggregation of text that we want to output at the bottom of the page, useful for when we need
      * to put JavaScript at the bottom.
-     *
      * @var string
      * @access private
      */
@@ -56,7 +52,6 @@ class GalleryTemplateAdapter {
 
     /**
      * Registered callbacks that will get executed during the trailer.
-     *
      * @var array
      * @access private
      */
@@ -64,12 +59,10 @@ class GalleryTemplateAdapter {
 
     /**
      * Current state of the progress bar.
-     *
      * @var array
      * @access private
      */
     var $_progressBarStats;
-
 
     function GalleryTemplateAdapter() {
 	$this->_callCount = array();
@@ -79,8 +72,7 @@ class GalleryTemplateAdapter {
     }
 
     /**
-     * Set the theme
-     *
+     * Set the theme.
      * @param object GalleryTheme $theme
      */
     function setTheme($theme) {
@@ -93,7 +85,6 @@ class GalleryTemplateAdapter {
 
     /**
      * Return a valid Gallery URL, standalone or embedded.
-     *
      * @param array $params data in key/value pairs
      * @param object Smarty $smarty the smarty instance
      * @return string a URL
@@ -124,7 +115,6 @@ class GalleryTemplateAdapter {
      * Return any hidden form variables that we want to embed in this form based on the current
      * session and request context.  We use this to pass the special "return" variable forward, for
      * example.
-     *
      * @param array $params data in key/value pairs
      * @param object Smarty $smarty the smarty instance
      * @return a series of XHTML 1.0 compliant <input> elements
@@ -181,7 +171,6 @@ class GalleryTemplateAdapter {
 
     /**
      * Return a valid Gallery date.
-     *
      * @param array $params data in key/value pairs
      * @param object Smarty $smarty the smarty instance
      * @return string date
@@ -242,7 +231,6 @@ class GalleryTemplateAdapter {
     /**
      * Return a checkbox asking whether to chenge the value in descendents.  Useful when we are
      * trying to change a value recursively.
-     *
      * @param array $params key => value attributes
      * @param object Smarty $smarty the smarty instance
      * @return string HTML content
@@ -269,7 +257,6 @@ class GalleryTemplateAdapter {
 
     /**
      * Return a prefixed form variable name.  Useful for accessing form variables in JavaScript.
-     *
      * @param array $params key => value attributes
      * @return string prefixed form variable name
      */
@@ -342,7 +329,6 @@ class GalleryTemplateAdapter {
 
     /**
      * Delegate to the appropriate item class to render an image.
-     *
      * @param array $params containing item, image, maxSize, fallback, and any img attributes
      * @param object Smarty $smarty the smarty instance
      * @return string HTML content
@@ -359,7 +345,6 @@ class GalleryTemplateAdapter {
 
     /**
      * Implementation of image that can return an error.
-     *
      * @see GalleryTemplateAdapter::image
      * @access private
      */
@@ -460,8 +445,7 @@ class GalleryTemplateAdapter {
     }
 
     /**
-     * Render head content
-     *
+     * Render head content.
      * @param array $params
      * @param object Smarty $smarty the smarty instance
      * @return string HTML content
@@ -510,7 +494,6 @@ class GalleryTemplateAdapter {
 
     /**
      * Include our AutoCompletion template.
-     *
      * @param array $params params
      * @param string $content template block content
      * @param object Smarty $smarty the smarty instance
@@ -537,7 +520,6 @@ class GalleryTemplateAdapter {
 
     /**
      * Include form inputs for dimensions.
-     *
      * @param array $params params
      * @param object Smarty $smarty the smarty instance
      */
@@ -562,7 +544,6 @@ class GalleryTemplateAdapter {
     /**
      * Add hidden form elements to select a default submit button that is used if enter is pressed
      * in a text input.  Include this before any submit buttons are added to the form.
-     *
      * @param array $params params
      * @param object Smarty $smarty the smarty instance
      */
@@ -583,8 +564,7 @@ class GalleryTemplateAdapter {
 
     /**
      * This takes an array and looks for view, subview, and controller to make a link id (being used
-     * as a CSS class)
-     *
+     * as a CSS class).
      * @param array $params the items to make a css class out of
      * @return string the id of the css class
      */
@@ -677,7 +657,6 @@ class GalleryTemplateAdapter {
 
     /**
      * Render logo button image.
-     *
      * @param array $params ('type' => logo type)
      * @param object Smarty $smarty the smarty instance
      * @return HTML content
@@ -812,7 +791,6 @@ class GalleryTemplateAdapter {
      * Perform a theme related function.  Possible parameters are:
      *   include => file to include inside the theme's templates/ directory
      *   url => URL to a file inside the themes directory
-     *
      * @param array $params ('include' => ..., 'url' => ...)
      * @param object Smarty $smarty the smarty instance
      */
@@ -855,7 +833,6 @@ class GalleryTemplateAdapter {
      * Include a module's block in the current Smarty page.  The only required param is 'type' which
      * should be of the form <module>.<blockname>, eg. "core.LoginBlock".  Any other parameters get
      * passed on to the block itself.
-     *
      * @param array $params ('type' => <block descriptor>, ...)
      * @param object Smarty $smarty the smarty instance
      * @return string HTML content
@@ -879,7 +856,7 @@ class GalleryTemplateAdapter {
      * which should be of the form <module>.<blockname>, eg. "core.LoginBlock".  Any other
      * parameters get passed on to the block itself.
      *
-     * This is like block() except it wraps actual content
+     * This is like block() except it wraps actual content.
      *
      * @param array $params ('type' => <block descriptor>, ...)
      * @param string $content template block content
@@ -908,8 +885,7 @@ class GalleryTemplateAdapter {
     }
 
     /**
-     * Common parts of block & container
-     *
+     * Common parts of block and container.
      * @param array $params ('type' => <block descriptor>, ...)
      * @param string $content evaluated block content
      * @param object Smarty $smarty the smarty instance
@@ -963,7 +939,6 @@ class GalleryTemplateAdapter {
      * Callback to a module to get it to preload some data for the template.  The only required
      * param is 'type' which should be of the form <module>.<blockname>, eg. "core.LoginBlock".  Any
      * other parameters get passed on to the block itself.
-     *
      * @param array $params ('type' => <block descriptor>, ...)
      * @param object Smarty $smarty the smarty instance
      */
@@ -997,8 +972,7 @@ class GalleryTemplateAdapter {
     }
 
     /**
-     * Add the content to our trailer block
-     *
+     * Add the content to our trailer block.
      * @param array $params
      * @param string $content template block content
      * @param object Smarty $smarty the smarty instance
@@ -1013,7 +987,6 @@ class GalleryTemplateAdapter {
 
     /**
      * Register a callback function to be executed when we run the trailer.
-     *
      * @param callback $callback suitable to be used as an input for call_user_func()
      * @param array $args for callback
      */
@@ -1022,7 +995,7 @@ class GalleryTemplateAdapter {
     }
 
     /**
-     * Render trailer output
+     * Render trailer output.
      */
     function trailer($params, &$smarty) {
 	print $this->_trailer;
@@ -1032,12 +1005,18 @@ class GalleryTemplateAdapter {
 	    if (is_array($ret)) {
 		$ret = $ret[0];
 	    }
+	    if ($ret) {
+		/* If progress bar is in use, report error via its interface */
+		global $gallery;
+		if ($gallery->getCurrentView() == 'core.ProgressBar') {
+		    $this->errorProgressBar($ret);
+		}
+	    }
 	}
     }
 
     /**
      * Use GalleryUtilities::shrinkDimensionsToFit to scale template vars to new target size.
-     *
      * @param array $params args; should contain widthVar, heightVar, maxSize keys
      * @param object Smarty $smarty the smarty instance
      */
@@ -1058,14 +1037,26 @@ class GalleryTemplateAdapter {
     }
 
     /**
-     * Update progress bar
+     * Update progress bar.
+     * @param string $title top heading
+     * @param string $description subheading
+     * @param float $percentComplete from 0 to 1
      */
     function updateProgressBar($title, $description, $percentComplete) {
 	static $coreModule;
 	if (!isset($coreModule)) {
 	    list ($ret, $coreModule) = GalleryCoreApi::loadPlugin('module', 'core');
 	    if ($ret) {
-		return $ret;
+		/*
+		 * Unlikely this will ever be used.. but do update it if exact form of
+		 * translate() calls (with text+arg1+arg2) in this function ever change.
+		 */
+		eval('class GalleryTemplateAdapterFallbackCoreModule {
+		    function translate($x) {
+			return sprintf($x[\'text\'], $x[\'arg1\'], $x[\'arg2\']);
+		    }
+		}');
+		$coreModule = new GalleryTemplateAdapterFallbackCoreModule();
 	    }
 	}
 
@@ -1108,11 +1099,10 @@ class GalleryTemplateAdapter {
 	    array('text' => 'Memory used: %s, total: %s',
 		  'arg1' => $memoryUsed,
 		  'arg2' => $memoryTotal));
-	printf('<script type="text/javascript">' .
-	       'updateProgressBar("%s", "%s", "%s", "%s", "%s");</script>',
+	printf('<script type="text/javascript">'
+		. 'updateProgressBar("%s", "%s", "%s", "%s", "%s");</script>',
 	       $title, $description, $percentComplete, $timeRemaining, $memoryInfo);
 	flush();
-	return null;
     }
 
     /**
@@ -1124,10 +1114,21 @@ class GalleryTemplateAdapter {
 
     /**
      * Display error progress bar.
+     * @param object GalleryStatus $status
      */
     function errorProgressBar($status) {
-	printf('<script type="text/javascript">errorProgressBar("%s");</script>',
-	       $status->getAsHtml());
+	global $gallery;
+	list ($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
+	if ($ret) {
+	    $isAdmin = false;
+	}
+	if ($gallery->getDebug() || $isAdmin) {
+	    $status = $status->getAsHtml($isAdmin);
+	} else {
+	    $status = 'Error ('
+		    . implode(', ', $status->getErrorCodeConstants($status->getErrorCode())) . ')';
+	}
+	printf('<script type="text/javascript">errorProgressBar("%s");</script>', $status);
     }
 
     /**
