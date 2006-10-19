@@ -154,12 +154,38 @@ class CoreModuleExtras {
 	    }
 	    $gallery->guaranteeTimeLimit(180);
 
-	    /* Activate the Matrix theme */
-	    $gallery->debug('Load Matrix theme');
-	    list ($ret, $theme) = GalleryCoreApi::loadPlugin('theme', 'matrix');
+	    /* Activate the default theme */
+	    $gallery->debug('Load default theme');
+	    list ($ret, $themeList) = GalleryCoreApi::fetchPluginStatus('theme');
 	    if ($ret) {
-		$gallery->debug(sprintf('Error: Failed to load matrix theme, this is the error ' .
-				'stack trace; %s', $ret->getAsText()));
+		return $ret;
+	    }
+	    $defaultThemeId = 'matrix';
+	    if (empty($themeList[$defaultThemeId]['available'])) {
+		$gallery->debug(sprintf('Warning: %s theme is not available. Trying to fall ' .
+			'back to another theme.', $defaultThemeId));
+		$defaultThemeId = null;
+		foreach ($themeList as $themeId => $themeInfo) {
+		    if (!empty($themeInfo['available'])) {
+			$defaultThemeId = $themeId;
+			break;
+		    }
+		}
+		if (empty($defaultThemeId)) {
+		    return GalleryCoreApi::error(ERROR_UNKNOWN, __FILE__, __LINE__,
+				'There is no theme available!');
+		}
+		$ret = $module->setParameter('default.theme', $defaultThemeId);
+		if ($ret) {
+		    return $ret;
+		}
+	    }
+	    $gallery->debug(sprintf('Using %s as default theme', $defaultThemeId));
+
+	    list ($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $defaultThemeId);
+	    if ($ret) {
+		$gallery->debug(sprintf('Error: Failed to load %s theme, this is the error ' .
+				'stack trace; %s', $defaultThemeId, $ret->getAsText()));
 		return $ret;
 	    }
 
@@ -170,11 +196,11 @@ class CoreModuleExtras {
 	    }
 	    $gallery->guaranteeTimeLimit(180);
 
-	    $gallery->debug('InstallOrUpgrade Matrix theme');
+	    $gallery->debug('InstallOrUpgrade default theme');
 	    $ret = $theme->installOrUpgrade();
 	    if ($ret) {
-		$gallery->debug(sprintf('Error: Failed to installOrUpgrade matrix theme, this is ' .
-				'the error stack trace; %s', $ret->getAsText()));
+		$gallery->debug(sprintf('Error: Failed to installOrUpgrade %s theme, this is ' .
+				'the error stack trace; %s', $defaultThemeId, $ret->getAsText()));
 		return $ret;
 	    }
 
@@ -185,11 +211,11 @@ class CoreModuleExtras {
 	    }
 	    $gallery->guaranteeTimeLimit(180);
 
-	    $gallery->debug('Activate Matrix theme');
+	    $gallery->debug('Activate default theme');
 	    list ($ret, $ignored) = $theme->activate(false);
 	    if ($ret) {
-		$gallery->debug(sprintf('Error: Failed to activate matrix theme, this is ' .
-				'the error stack trace; %s', $ret->getAsText()));
+		$gallery->debug(sprintf('Error: Failed to activate %s theme, this is ' .
+				'the error stack trace; %s', $defaultThemeId, $ret->getAsText()));
 		return $ret;
 	    }
 
@@ -2122,6 +2148,8 @@ class CoreModuleExtras {
 
 	case '1.1.17':
 	    /* Rolled SessionAuthPlugin into GallerySession.class, so force a factory update */
+	case '1.1.18':
+	    /* Added PHP display_errors ini setting to config.php */
 
 	case 'end of upgrade path':
 	    /*
@@ -2323,7 +2351,7 @@ $gallery->setConfig(\'mode.maintenance\', false);
 	case '1.0.12':
 	case '1.0.13':
 	    /* Add config parameter: 'baseUri' */
-	    $add[] =
+	    $configChanges[] = array('remove' => array(), 'edit' => array(), 'add' => array(
 '
 /*
  * This setting can be used to override Gallery\'s auto-detection of the domain-name,
@@ -2336,9 +2364,7 @@ $gallery->setConfig(\'mode.maintenance\', false);
  *   override the protocol + host + path + file:
  *           $gallery->setConfig(\'baseUri\', \'https://example.com:8080/gallery2/index.php\');
  */
-$gallery->setConfig(\'baseUri\', \'\');';
-
-	    $configChanges[] = array('remove' => array(), 'add' => $add, 'edit' => array());
+$gallery->setConfig(\'baseUri\', \'\');'));
 
 	case '1.0.14':
 	case '1.0.15':
@@ -2346,6 +2372,7 @@ $gallery->setConfig(\'baseUri\', \'\');';
 	     * Normalize the config path 'data.gallery.base' (add a trailing slash if necessary).
 	     * Escape the backslashes and quotes two times since we feed preg_replace with it.
 	     */
+	    $edit = array();
 	    $tmp = strtr($gallery->getConfig('data.gallery.base'),
 			 array('\\' => '\\\\\\\\', "'" => "\\\\'"));
 	    $edit['regexp'] = '{\$gallery->setConfig\(\'data\.gallery\.base\',.*?;}s';
@@ -2389,6 +2416,18 @@ $gallery->setConfig(\'baseUri\', \'\');';
 	case '1.1.15':
 	case '1.1.16':
 	case '1.1.17':
+	case '1.1.18':
+	    /* Add PHP display_errors setting */
+	    $configChanges[] = array('remove' => array(), 'edit' => array(), 'add' => array(
+'
+/*
+ * When display_errors is enabled, PHP errors are printed to the output.
+ * For production web sites, you\'re strongly encouraged to turn this feature off,
+ * and use error logging instead.
+ * During development, you should set the value to 1 to ensure that you notice PHP
+ * warnings and notices that are not covered in unit tests (e.g. template issues).
+ */
+@ini_set(\'display_errors\', 0);'));
 
 	case 'end of upgrade path':
 	    /*
