@@ -21,6 +21,7 @@
 /*
  * Authors: Jens Tkotz, Bharat Mediratta
  */
+define('G2_SUPPORT_URL_FRAGMENT', '../../support/');
 require_once(dirname(__FILE__) . '/../../support/security.inc');
 ini_set('magic_quotes_runtime', false);
 set_time_limit(0);
@@ -98,12 +99,14 @@ function parsePoFiles($poFiles) {
 	 *
 	 * Untranslated:
 	 *   msgid "foo"
+	 *   msgid_plural "foos"
 	 *   msgstr[0] ""
 	 *   msgstr[1] ""
 	 *   msgstr[2] ""
 	 *
 	 * Translated:
 	 *   msgid "foo"
+	 *   msgid_plural "foos"
 	 *   msgstr[0] "bar1"
 	 *   msgstr[1] "bar2"
 	 *   msgstr[2] "bar3"
@@ -194,7 +197,7 @@ function parsePoFiles($poFiles) {
 	     */
 	    if (!empty($msgId)) {
 		if (preg_match('/^msgstr/', $line)) {
-		    if (preg_match('/^msgstr\s*""\s*$/', $line)) {
+		    if (preg_match('/^msgstr[\d\[\]]*\s*""\s*$/', $line)) {
 			$lastLineWasEmptyMsgStr = 1;
 		    } else {
 			if ($nextIsFuzzy) {

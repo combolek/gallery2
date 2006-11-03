@@ -176,15 +176,19 @@ class LockTest extends GalleryTestCase {
 	    $parentId = $this->_subAlbums[$i]->getId();
 	}
 
-	list ($ret, $lockId) = GalleryCoreApi::acquireReadLockParents($this->_subAlbums[2]->getId());
+	list ($ret, $lockId) =
+	    GalleryCoreApi::acquireReadLockParents($this->_subAlbums[2]->getId());
 	if ($ret) {
 	    return $this->failWithStatus($ret);
 	}
 
 	/* Verify that they're all locked except the item itself */
-	$this->assert(!GalleryCoreApi::isReadLocked($this->_subAlbums[2]->getId()), "$lockSystem: a2");
-	$this->assert(GalleryCoreApi::isReadLocked($this->_subAlbums[1]->getId()), "$lockSystem: a1");
-	$this->assert(GalleryCoreApi::isReadLocked($this->_subAlbums[0]->getId()), "$lockSystem: a0");
+	$this->assert(!GalleryCoreApi::isReadLocked($this->_subAlbums[2]->getId()),
+		      "$lockSystem: a2");
+	$this->assert(GalleryCoreApi::isReadLocked($this->_subAlbums[1]->getId()),
+		      "$lockSystem: a1");
+	$this->assert(GalleryCoreApi::isReadLocked($this->_subAlbums[0]->getId()),
+		      "$lockSystem: a0");
 	$this->assert(GalleryCoreApi::isReadLocked($this->_album->getId()), "$lockSystem: p");
 	$this->assert(GalleryCoreApi::isReadLocked($this->_getRootId()), "$lockSystem: r");
 
@@ -608,6 +612,54 @@ class LockTest extends GalleryTestCase {
 	}
     }
 
+    function testReadReadAgainThenWrite() {
+	return $this->_tryAllLockSystems('testReadReadAgainThenWrite');
+    }
+
+    /* Acquire a write lock when item is in multiple locks in the release queue */
+    function _testReadReadAgainThenWrite($lockSystem) {
+	global $gallery;
+	$storage =& $gallery->getStorage();
+
+	$itemId = $this->_item->getId();
+	list ($ret, $lockId) = GalleryCoreApi::acquireReadLock($itemId);
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$ret = GalleryCoreApi::releaseLocks($lockId);
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	list ($ret, $lockId) = GalleryCoreApi::acquireReadLock($itemId);
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$ret = GalleryCoreApi::releaseLocks($lockId);
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$this->assert(count($gallery->_lockSystem->_releaseQueue) == 2
+		      || !$storage->isTransactional(), "$lockSystem: release read lock");
+
+	list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($itemId);
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	/* Had to release that read locks in order to get new write lock */
+	$this->assert(empty($gallery->_lockSystem->_releaseQueue),
+		      "$lockSystem: release queue should be empty");
+
+	$ret = GalleryCoreApi::releaseLocks($lockId);
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+    }
+
     function testIntegerLockId() {
 	return $this->_tryAllLockSystems('testIntegerLockId');
     }
@@ -620,7 +672,7 @@ class LockTest extends GalleryTestCase {
 	    return $this->failWithStatus($ret);
 	}
 
-	$this->assert(is_int($lockId));
+	$this->assert(is_int($lockId), "$lockSystem: lock id is not an integer");
 
 	$ret = GalleryCoreApi::releaseLocks($lockId);
 	if ($ret) {

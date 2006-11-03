@@ -770,48 +770,15 @@ class GalleryUtilities {
     }
 
     /**
-     * A multibyte safe version of substr() for UTF-8.
+     * mb_substr() for UTF-8, with PHP fallback. Truncates incomplete HTML entity at end of result.
      * @param string $string the input string containing raw UTF-8
      * @param int $start
      * @param int $length
      * @return string a multibyte safe substring of input value
+     * @deprecated Please use GalleryCoreApi::utf8Substring instead
      */
     function utf8Substring($string, $start, $length) {
-	static $hasMbSubstr;
-	if (!isset($hasMbSubstr)) {
-	    $hasMbSubstr = function_exists('mb_substr');
-	}
-
-	if ($hasMbSubstr) {
-	    return mb_substr($string, $start, $length, 'UTF-8');
-	} else {
-	    return GalleryUtilities::_phpUtf8Substring($string, $start, $length);
-	}
-    }
-
-    /**
-     * A multibyte safe version of substr() for UTF-8.
-     *
-     * Convert UTF-8 to Unicode entities, run our entity safe substr() routine on that, then convert
-     * it back to unicode when we're done.
-     *
-     * This is going to be a whole lot slower than mb_substr, so we should use that instead,
-     * whenever we can.
-     *
-     * Note: this function treats all HTML entities like &amp; as single characters, but mb_substr
-     * would treat this as 5 characters.
-     *
-     * @param string $string the input string containing raw UTF-8
-     * @param int $start
-     * @param int $length
-     * @return string a multibyte safe substring of input value
-     * @access private
-     */
-    function _phpUtf8Substring($string, $start, $length) {
-	$string = GalleryUtilities::utf8ToUnicodeEntities($string);
-	list ($len, $string) = GalleryUtilities::entitySubstr($string, $start, $length);
-	$string = GalleryUtilities::unicodeEntitiesToUtf8($string);
-	return $string;
+	return GalleryCoreApi::utf8Substring($string, $start, $length);
     }
 
     /**
@@ -1650,6 +1617,33 @@ class GalleryUtilities {
      */
     function strToUpper($string) {
 	return strtr($string, 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+    }
+
+    /**
+     * Checks whether the given HTTP header is safe.
+     *
+     * PHP versions before PHP 4.4.2 / PHP 5.1.2 allowed for HTTP header injection (HTTP RS).
+     * This function ensures that servers running older PHP versions are protected as well.
+     *
+     * @param string $header 
+     * @return bool true if the given header is safe
+     */
+    function isSafeHttpHeader($header) {
+	if (!is_string($header)) {
+	    return false;
+	}
+
+	/* Don't allow plain occurrences of CR or LF */
+	if (strpos($header, chr(13)) !== false || strpos($header, chr(10)) !== false) {
+	    return false;
+	}
+
+	/* Don't allow (x times) url encoded versions of CR or LF */
+	if (preg_match('/%(25)*(0a|0d)/i', $header)) {
+	    return false;
+	}
+
+	return true;
     }
 }
 ?>

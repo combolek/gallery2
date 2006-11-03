@@ -294,6 +294,11 @@ class Getid3Helper {
      */
     function postProcessValue($property, $value) {
 	global $gallery;
+
+	if (!is_numeric($value)) {
+	    GalleryUtilities::sanitizeInputValues($value, false);
+	}
+
 	switch ($property) {
 	case 'DateTime':
 	    /* If it is already a timestamp, as a string */

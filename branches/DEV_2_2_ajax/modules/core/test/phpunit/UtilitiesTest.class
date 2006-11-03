@@ -892,55 +892,17 @@ class UtilitiesTest extends GalleryTestCase {
 	    GalleryUtilities::utf8ToUnicodeEntities("accentu\xc3\xa9s. \xc3\xa7\xc3\xa0 donne"));
     }
 
+    /**
+     * @todo Remove this test on next core API bump
+     */
     function testUtf8Substring() {
 	/* Russian */
 	$utf8 = ("\xd0\xa0\xd1\x83\xd1\x81\xd1\x81\xd0\xba\xd0" .
 		 "\xb8\xd0\xb9\xd0\x97\xd0\xb4\xd1\x80\xd0\xb0" .
 		 "\xd0\xb2\xd1\x81\xd1\x82\xd0\xb2\xd1\x83");
-	$this->assertEquals("\xd0\xa0",
-			    GalleryUtilities::utf8Substring($utf8, 0, 1),
-			    'standard version');
-	$this->assertEquals("\xd0\xa0",
-			    GalleryUtilities::_phpUtf8Substring($utf8, 0, 1),
-			    'php version');
 	$this->assertEquals("\xd0\xa0\xd1\x83\xd1\x81\xd1\x81",
 			    GalleryUtilities::utf8Substring($utf8, 0, 4),
-			    'standard version');
-	$this->assertEquals("\xd0\xa0\xd1\x83\xd1\x81\xd1\x81",
-			    GalleryUtilities::_phpUtf8Substring($utf8, 0, 4),
-			    'php version');
-
-	/* Hebrew */
-	$utf8 = ("\xd7\x90\xd7\xa0\xd7\x99 \xd7\x99\xd7\x9b\xd7\x95\xd7" .
-		 "\x9c \xd7\x9c\xd7\x90\xd7\x9b\xd7\x95\xd7\x9c \xd7\x96" .
-		 "\xd7\x9b\xd7\x95\xd7\x9b\xd7\x99\xd7\xaa \xd7\x95\xd7" .
-		 "\x96\xd7\x94 \xd7\x9c\xd7\x90 \xd7\x9e\xd7\x96\xd7\x99");
-	$this->assertEquals("\xd7\x90",
-			    GalleryUtilities::utf8Substring($utf8, 0, 1),
-			    'standard version');
-	$this->assertEquals("\xd7\x90",
-			    GalleryUtilities::_phpUtf8Substring($utf8, 0, 1),
-			    'php version');
-	$this->assertEquals("\xd7\x90\xd7\xa0\xd7\x99 ",
-			    GalleryUtilities::utf8Substring($utf8, 0, 4),
-			    'standard version');
-	$this->assertEquals("\xd7\x90\xd7\xa0\xd7\x99 ",
-			    GalleryUtilities::_phpUtf8Substring($utf8, 0, 4),
-			    'php version');
-
-	/* Test some special characters */
-	$utf8 = 'apo\'strophe.jpg "quotes"';
-	$this->assertEquals('apo\'strophe.jpg "quotes"',
-			    GalleryUtilities::utf8Substring($utf8, 0, 24),
-			    'standard version');
-	$this->assertEquals('apo\'strophe.jpg "quotes"',
-			    GalleryUtilities::_phpUtf8Substring($utf8, 0, 24),
-			    'php version');
-
-	/* Other html entities count as single chars in phpUtf8Substring but not in mb_substr */
-	$this->assertEquals('&aacute;bc',
-			    GalleryUtilities::_phpUtf8Substring('&aacute;bcde', 0, 3),
-			    'php version');
+			    '4 chars (ru), standard version');
     }
 
     function testIsEmbedded() {
@@ -984,21 +946,21 @@ class UtilitiesTest extends GalleryTestCase {
 	/* Normal */
 	$key = 'foo' . rand(1,9999);
 	$_COOKIE[$key] = 'foo';
-	$_SERVER['HTTP_COOKIE'] .= !empty($this->_originalServerHttpCookie) ? ' ; ' : '';
+	$_SERVER['HTTP_COOKIE'] .= !empty($this->_saveServerHttpCookie) ? ' ; ' : '';
 	$_SERVER['HTTP_COOKIE'] .= $key . '=foo';
 	GalleryUtilities::fixCookieVars(false, true);
 	$this->assertEquals('foo', GalleryUtilities::getCookieVar($key));
 
 	/* Missing */
 	unset($_COOKIE[$key]);
-	$_SERVER['HTTP_COOKIE'] = $this->_originalServerHttpCookie;
+	$_SERVER['HTTP_COOKIE'] = $this->_saveServerHttpCookie;
 	GalleryUtilities::fixCookieVars(false, true);
 	$this->assertEquals(null, GalleryUtilities::getCookieVar($key));
 
 	/* Malicious value */
 	$val = '<script>bar</script>';
 	$_COOKIE[$key] = $val;
-	$_SERVER['HTTP_COOKIE'] = $this->_originalServerHttpCookie;
+	$_SERVER['HTTP_COOKIE'] = $this->_saveServerHttpCookie;
 	$_SERVER['HTTP_COOKIE'] .= !empty($_SERVER['HTTP_COOKIE']) ? ' ; ' : '';
 	$_SERVER['HTTP_COOKIE'] .= $key . '=' . urlencode($val);
 	GalleryUtilities::fixCookieVars(false, true);
@@ -1011,7 +973,7 @@ class UtilitiesTest extends GalleryTestCase {
 	$val1 = 'bar' . $rand;
 	$val2 = 'bar' . ($rand + 3000);
 	$_COOKIE[$key] = $val2;
-	$_SERVER['HTTP_COOKIE'] = $this->_originalServerHttpCookie;
+	$_SERVER['HTTP_COOKIE'] = $this->_saveServerHttpCookie;
 	$delimiter = !empty($_SERVER['HTTP_COOKIE']) ? ' ; ' : '';
 	$_SERVER['HTTP_COOKIE'] = $key . '=' . $val1 . ' ; ' . $key .'=' .$val2 . $delimiter .
 	    $_SERVER['HTTP_COOKIE'];
@@ -1038,8 +1000,8 @@ class UtilitiesTest extends GalleryTestCase {
 	$val1 = 'bar' . $rand;
 	$val2 = 'bar' . ($rand + 3000);
 	/* Define cookie with $val1 to be the one with higher precedence (more specific path) */
-	$_SERVER['HTTP_COOKIE'] = $this->_originalServerHttpCookie;
-	$_COOKIE = $this->_originalCookie;
+	$_SERVER['HTTP_COOKIE'] = $this->_saveServerHttpCookie;
+	$_COOKIE = $this->_saveCookie;
 	$_SERVER['HTTP_COOKIE'] .= !empty($_SERVER['HTTP_COOKIE']) ? ' ; ' : '';
 	$_SERVER['HTTP_COOKIE'] .= "$key=" . urlencode($val1) . '; $key=' . urlencode($val2);
 	/* Set $_COOKIE as php would, with the wrong cookie value for our key */
@@ -1065,17 +1027,17 @@ class UtilitiesTest extends GalleryTestCase {
 	 * Even if we can't live with that case, test what happens if $_SERVER['HTTP_COOKIE']
 	 * does not exist
 	 */
-	$_COOKIE = $this->_originalCookie;
+	$_COOKIE = $this->_saveCookie;
 	unset($_SERVER['HTTP_COOKIE']);
 	GalleryUtilities::fixCookieVars(true);
-	$this->assertEquals($_COOKIE, $this->_originalCookie,
+	$this->assertEquals($_COOKIE, $this->_saveCookie,
 			    'HTTP_COOKIE unset test: $_COOKIE was modified!');
 
 	/*
 	 * Check if $_SERVER['HTTP_COOKIE'] is set (more as a feedback once we know that there are
 	 * still login/auth problems)
 	 */
-	$this->assertEquals(empty($this->_originalCookie), empty($this->_originalServerHttpCookie),
+	$this->assertEquals(empty($this->_saveCookie), empty($this->_saveServerHttpCookie),
 			    'HTTP_COOKIE not set although $_COOKIE is nonempty!');
 
 	/*
@@ -1528,6 +1490,27 @@ class UtilitiesTest extends GalleryTestCase {
 	$this->assertEquals(
 	    'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789=)(/&%',
 	    GalleryUtilities::strToUpper('abcdefghijklmnopqrstuvwxyz0123456789=)(/&%'));
+    }
+
+    function testIsSafeHttpHeader() {
+	$test = array();
+	$test[] = array(true, chr(9));
+	/* Carriage return */
+	$test[] = array(false, chr(13));
+	$test[] = array(true, '%2500');
+	/* An arbitrary level of url encoding of the line feed (newline) character */
+	$test[] = array(false, urlencode(urlencode(urlencode(urlencode(chr(10))))));
+	$test[] = array(true, '');
+	$test[] = array(false, 'X-Foo: test' . chr(10) . 'bar');
+	$test[] = array(false, chr(13) . chr(10));
+	$test[] = array(false, '%0d');
+	$test[] = array(false, '%0D');
+	$i = 0;
+	foreach ($test as $testCase) {
+	    $i++;
+	    list ($expected, $header) = $testCase;
+	    $this->assertEquals($expected, GalleryUtilities::isSafeHttpHeader($header), "Case $i");
+	}
     }
 
     /**

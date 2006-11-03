@@ -38,8 +38,8 @@ class ItemEditAlbum extends ItemEditPlugin {
 	$requiresProgressBar = false;
 	if (isset($form['action']['undo'])) {
 	    /*
-	     * Take no action and we'll be redirected back to the same page
-	     * which will reset the form
+	     * Take no action and we'll be redirected back to the same page which will reset the
+	     * form
 	     */
 	} else if (isset($form['action']['save'])) {
 	    /* Validate the input data */
@@ -356,6 +356,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 	$resizePrefs = array();
 	while (!empty($childIds)) {
 	    $currentChildIds = array_splice($childIds, 0, $batchSize);
+
 	    /* Load the children */
 	    list ($ret, $childItems) = GalleryCoreApi::loadEntitiesById($currentChildIds);
 	    if ($ret) {
@@ -457,6 +458,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 			$newResizes[] = $resize;
 		    }
 		}
+
 		/* Add new resizes, using existing derivative entities until we run out */
 		foreach ($newResizes as $resize) {
 		    if (!empty($resizesTable[$childId])) {
@@ -502,6 +504,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 			}
 			$lockId = null;
 		    }
+
 		    /* Build if requested */
 		    if (!empty($form['buildResizes'])) {
 			list ($ret) = GalleryCoreApi::rebuildDerivativeCacheIfNotCurrent(
@@ -511,6 +514,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 			}
 		    }
 		}
+
 		/* Remove any leftover resizes */
 		if  (isset($resizesTable[$childId])) {
 		    foreach ($resizesTable[$childId] as $resize) {
@@ -574,11 +578,13 @@ class ItemEditAlbum extends ItemEditPlugin {
 	$thumbnailSizes = $thumbnailBuild = array();
 	while (!empty($childIds)) {
 	    $currentChildIds = array_splice($childIds, 0, $batchSize);
+
 	    /* Load the children */
 	    list ($ret, $childItems) = GalleryCoreApi::loadEntitiesById($currentChildIds);
 	    if ($ret) {
 		return $ret;
 	    }
+
 	    /* Load the thumbnail of the children */
 	    list ($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds($currentChildIds);
 	    if ($ret) {
@@ -750,14 +756,14 @@ class ItemEditAlbum extends ItemEditPlugin {
 	    }
 	}
 
-	$redirect = array('view' => 'core.ItemAdmin', 'subView' => 'core.ItemEdit',
-			  'itemId' => $item->getId());
+	if (!isset($form['recreateResizes'])) {
+	    /* Don't show "Complete" yet if there is another task */
+	    $redirect = array('view' => 'core.ItemAdmin', 'subView' => 'core.ItemEdit',
+			      'itemId' => $item->getId());
 
-	$urlGenerator =& $gallery->getUrlGenerator();
-	$templateAdapter->completeProgressBar($urlGenerator->generateUrl(
-	    array('view' => 'core.ItemAdmin',
-		'subView' => 'core.ItemEdit',
-		'itemId' => $item->getId())));
+	    $urlGenerator =& $gallery->getUrlGenerator();
+	    $templateAdapter->completeProgressBar($urlGenerator->generateUrl($redirect));
+	}
 
 	return null;
     }

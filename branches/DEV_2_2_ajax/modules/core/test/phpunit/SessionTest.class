@@ -687,7 +687,7 @@ class SessionTest extends GalleryTestCase {
 	$session = $gallery->_session;
 	$isUsingCookies = $session->isUsingCookies();
 
-	foreach (array('1234', '()/&*(*KJKHJGGWJJ*)/çBDKH*(ç071B', '../oops.txt') as $sid) {
+	foreach (array('1234', '()/&*(*KJKHJGGWJJ*)/ï¿½BDKH*(ï¿½071B', '../oops.txt') as $sid) {
 	    /* Test an illegal sessionId */
 	    $_COOKIE[SESSION_ID_PARAMETER] = $sid;
 	    $_SERVER['HTTP_COOKIE'] = SESSION_ID_PARAMETER . '=' . $sid;
@@ -816,8 +816,11 @@ class SessionTest extends GalleryTestCase {
 	$session->_sessionId = '1234';
 	$this->assertEquals('1234', $session->getId(), 'session id set');
 	$session->_sessionId = '';
+	$this->assertEquals(SESSION_TEMP_ID, $session->getId(), 'temp id 2');
+
+	$session = new GallerySession();
 	$session->doNotUseTempId();
-	$this->assertEquals('', $session->getId(), 'do not use temp id');
+	$this->assertEquals(null, $session->getId(), 'do not use temp id');
 	$session->_sessionId = '1234';
 	$this->assertEquals('1234', $session->getId(), 'session id set 2');
     }
@@ -867,7 +870,7 @@ class SessionTest extends GalleryTestCase {
 	if (isset($headers['set-cookie'])) {
 	    $cookie = $headers['set-cookie'];
 	    $this->assertEquals(1,
-	    			preg_match('{' . $session->getKey() . '=;}', $cookie),
+				preg_match('{' . $session->getKey() . '=;}', $cookie),
 				'Wrong cookie value in: "' . $cookie . '"');
 	}
 
@@ -1908,7 +1911,7 @@ class SessionTest extends GalleryTestCase {
 	if (isset($headers['set-cookie'])) {
 	    $cookie = $headers['set-cookie'];
 	    $this->assertEquals(1,
-	    			preg_match('{' . $session->getKey() . '=' . $sid . ';}', $cookie),
+				preg_match('{' . $session->getKey() . '=' . $sid . ';}', $cookie),
 				'Wrong cookie value in: "' . $cookie . '"');
 	    /* Expiration date should be set */
 	    $this->assertEquals(
@@ -2164,8 +2167,8 @@ class SessionTest extends GalleryTestCase {
 	    $entry = array('id' => $sid,
 			   'userId' => 10,
 			   'remoteIdentifier' => serialize(array()),
-			   'creationTimestamp' => time() - 100,
-			   'modificationTimestamp' => time() - 50,
+			   'creationTimestamp' => $now - 100,
+			   'modificationTimestamp' => $now - 50,
 			   'data' => serialize($data));
 	    $ret = GalleryCoreApi::addMapEntry('GallerySessionMap', $entry);
 	    if ($ret) {
@@ -2217,7 +2220,7 @@ class SessionTest extends GalleryTestCase {
 	    $debugHeaders = ob_get_contents();
 	    ob_end_clean();
 	    $this->assert(isset($headers['set-cookie']),
-	    		  $expireBy . ': Set-Cookie header not sent.  These are the headers: '
+			  $expireBy . ': Set-Cookie header not sent.  These are the headers: '
 			  . $debugHeaders);
 	    if (isset($headers['set-cookie'])) {
 		$cookie = $headers['set-cookie'];

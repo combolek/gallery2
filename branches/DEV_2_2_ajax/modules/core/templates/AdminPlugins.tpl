@@ -128,8 +128,8 @@
 	</tr><tr>
 	  <th> &nbsp; </th>
 	  <th> {g->text text="Plugin Name"} </th>
-	  <th> {g->text text="Version"} </th>
 	  <th> {g->text text="Installed"} </th>
+	  <th> {g->text text="Version"} </th>
 	  <th> {g->text text="Description"} </th>
 	  <th> {g->text text="Actions"} </th>
 	</tr>
@@ -141,16 +141,26 @@
 	  <div id="plugin-icon-{$plugin.type}-{$plugin.id}" style="height: 16px"></div>
 	</td>
 
-	<td>
+	<td id="plugin-{$plugin.type}-{$plugin.id}-name">
+	  {if empty($plugin.screenshot)}
 	  {$plugin.name}
-	</td>
-
-	<td id="plugin-{$plugin.type}-{$plugin.id}-version" align="center">
-	  {$plugin.version}
+	  {else}
+	  <span class="gTooltipTarget">{$plugin.name}</span>
+	  <script type="text/javascript">
+	    new YAHOO.widget.Tooltip("gTooltip", {ldelim}
+		context: "plugin-{$plugin.type}-{$plugin.id}-name",
+		text: '<img src="{g->url href="`$plugin.screenshot`"}">',
+		showDelay: 250 {rdelim});
+          </script>
+	  {/if}
 	</td>
 
 	<td id="plugin-{$plugin.type}-{$plugin.id}-installedVersion" align="center">
 	  {$plugin.installedVersion}
+	</td>
+
+	<td id="plugin-{$plugin.type}-{$plugin.id}-version" align="center">
+	  {$plugin.version}
 	</td>
 
 	<td>

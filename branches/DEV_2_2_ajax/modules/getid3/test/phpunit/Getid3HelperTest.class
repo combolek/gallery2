@@ -378,7 +378,8 @@ class Getid3HelperTest extends GalleryTestCase {
 	$verifiedCount = 0;
 	for ($i = 0; $i < sizeof($id3Data); $i++) {
 	    if ($id3Data[$i]['title'] == 'Audio Bit Rate') {
-		$this->assert(abs(205.3466 - $id3Data[$i]['value']) < 0.01, "value $i");
+		$value = abs(205.3466 - $id3Data[$i]['value']);
+		$this->assert($value < 0.01, "value $value");
 		$verifiedCount++;
 	    }
 	}
@@ -438,6 +439,18 @@ class Getid3HelperTest extends GalleryTestCase {
 	$getid3Keys = Getid3Helper::getGetid3Keys();
 	$this->assertEquals(24, sizeof($getid3Keys));
 	$this->assert(isset($getid3Keys['Genre']));
+    }
+
+    function testPostProcessValueDoesSanitize() {
+	$originalValue = 'A text with \ some backslashes \\.';
+	$this->assertEquals($originalValue,
+			    ExifHelper::postProcessValue('SomeValue', $originalValue),
+			    'backslash');
+
+	$this->assertEquals('&lt;ScRiPt foo=bar&gt;blah&lt;/SCRIPT&gt;',
+			    ExifHelper::postProcessValue('SomeValue',
+							 '<ScRiPt foo=bar>blah</SCRIPT>'),
+			    'html');
     }
 }
 ?>

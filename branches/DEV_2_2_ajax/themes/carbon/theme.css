@@ -166,6 +166,15 @@ body.gallery { background-color: #333; }
   font-family: "Trebuchet MS", Arial, Verdana, Helvetica, sans-serif;
 }
 
+#gallery input, #gallery textarea {
+  color: #888;
+}
+
+#gallery input:focus, #gallery textarea:focus {
+  background-color: #fff;
+  color: #333;
+}
+
 #gallery input.inputTypeSubmit, #gallery input.inputTypeButton {  /* No input[type=submit] in IE */
   color: #333;
   background-color: #eee;
@@ -208,8 +217,6 @@ body.gallery { background-color: #333; }
   font-size: 0.9em;
   color: #888;
 }
-
-.giInfo span.summary { display: block; }
 
 .giSuccess, .giWarning, .giError  { font-weight: bold; }
 
@@ -514,6 +521,12 @@ td.gbNavigatorPhoto { padding: 5px; }
 .gcPopupBackground { background-color: #666; }
 
 a .alt { display: none; }
+
+#microThumbCurrent img {
+  border: 1px solid #ddd;
+  filter: alpha(opacity=40); /* IE's opacity*/
+  opacity:.4;
+}
 
 .buttonClose a {
   display: block;
