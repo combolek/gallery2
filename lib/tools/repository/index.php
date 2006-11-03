@@ -21,6 +21,8 @@
  /**
  * @package RepositoryTools
  */
+define('G2_SUPPORT_URL_FRAGMENT', '../../support/');
+
 include('../../support/security.inc');
 include('../../../bootstrap.inc');
 require_once('../../../init.inc');
@@ -39,6 +41,12 @@ function RepositoryToolsMain() {
 
     global $gallery;
 
+
+    list ($ret, $isSiteAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
+    if ($ret) {
+	return $ret;
+    }
+
     GalleryCoreApi::requireOnce(
 	'lib/tools/repository/classes/RepositoryControllerAndView.class');
 
@@ -47,17 +55,24 @@ function RepositoryToolsMain() {
     $gallery->setConfig('repository.path', $repositoryPath);
     $gallery->setConfig('repository.templates', 'lib/tools/repository/templates/');
 
-    /* Verify our repository structure exists */
-    $platform =& $gallery->getPlatform();
-    foreach (array($repositoryPath,
-		   $repositoryPath . '/modules',
-		   $repositoryPath . '/themes') as $path) {
-	if (!$platform->file_exists($path)) {
-	    if (!$platform->mkdir($path)) {
-		return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
-					    "Unable to create directory: $path");
+    if ($isSiteAdmin) {
+	/* Verify our repository structure exists */
+	$platform =& $gallery->getPlatform();
+	foreach (array($repositoryPath,
+		       $repositoryPath . '/modules',
+		       $repositoryPath . '/themes') as $path) {
+	    if (!$platform->file_exists($path)) {
+		if (!$platform->mkdir($path)) {
+		    return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
+						 "Unable to create directory: $path");
+		}
 	    }
 	}
+
+	/* Load controller. */
+	$controllerName = GalleryUtilities::getRequestVariables('controller');
+	$methodName = GalleryUtilities::getRequestVariables('action');
+	$controllerPath = sprintf('%s/%s.inc', dirname(__FILE__), $controllerName);
     }
 
     /* Configure our url Generator for repository mode. */
@@ -68,13 +83,8 @@ function RepositoryToolsMain() {
     }
     $gallery->setUrlGenerator($urlGenerator);
 
-    /* Load controller. */
-    $controllerName = GalleryUtilities::getRequestVariables('controller');
-    $methodName = GalleryUtilities::getRequestVariables('action');
-    $controllerPath = sprintf('%s/%s.inc', dirname(__FILE__), $controllerName);
-
     $platform =& $gallery->getPlatform();
-    if (!$platform->file_exists($controllerPath)) {
+    if (!$isSiteAdmin || !$platform->file_exists($controllerPath)) {
 	/* Set default controller. */
 	$controllerName = 'MainPage';
 	$controllerPath = sprintf('%s/%s.inc', dirname(__FILE__), $controllerName);
@@ -105,13 +115,6 @@ if ($ret) {
     $ret = $ret;
     print $ret->getAsHtml();
     print $gallery->getDebugBuffer();
-    return;
-}
-
-list ($ret, $isSiteAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
-if ($ret) {
-    $ret = $ret;
-    print $ret->getAsHtml();
     return;
 }
 ?>

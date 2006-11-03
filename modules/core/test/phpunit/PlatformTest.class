@@ -19,7 +19,7 @@
  */
 
 /**
- * Test Platform functionality
+ * Test platform functionality.
  * @package GalleryCore
  * @subpackage PHPUnit
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -181,14 +181,6 @@ class PlatformTest extends GalleryTestCase {
 	$this->assert(!$this->_platform->isLegalPathComponent('The!QuickBrownFox'));
     }
 
-    function testgetLegalPathCharacters() {
-	$this->assertEquals('ABCDEFGHIJKLMNOPQRSTUVWXYZ' .
-			    'abcdefghijklmnopqrstuvwxyz' .
-			    '0123456789' .
-			    '# _.-',
-			    $this->_platform->getLegalPathCharacters());
-    }
-
     function testLegalizePathComponent() {
 	$this->assertEquals('The_Quick_',
 			    $this->_platform->legalizePathComponent('The!Quick$'));
@@ -204,23 +196,72 @@ class PlatformTest extends GalleryTestCase {
 			    $this->_platform->legalizePathComponent('test.php.jpg'));
     }
 
+    function testPathComponentLegalCharactersConserved() {
+	$this->assertEquals(true,
+			    $this->_platform->isLegalPathComponent('TheQuickBrownFox'));
+	$this->assertEquals('TheQuickBrownFox',
+			    $this->_platform->legalizePathComponent('TheQuickBrownFox'));
+    }
+
+    function testPathComponentIllegalCharactersToUnderscores() {
+	$this->assertEquals(false,
+			    $this->_platform->isLegalPathComponent('The Quick!Brown#Fox'));
+	$this->assertEquals('The Quick_Brown#Fox',
+			    $this->_platform->legalizePathComponent('The Quick!Brown#Fox'));
+    }
+
+    function testPathComponentDotInFileBaseToUnderscore() {
+	$this->assertEquals(false,
+			    $this->_platform->isLegalPathComponent('test.php.jpg'));
+	$this->assertEquals('test_php.jpg',
+			    $this->_platform->legalizePathComponent('test.php.jpg'));
+    }
+
+    function testPathComponentDotRecognizedExtensionConserved() {
+	$this->assertEquals(true,
+			    $this->_platform->isLegalPathComponent('test.jpg'));
+	$this->assertEquals('test.jpg',
+			    $this->_platform->legalizePathComponent('test.jpg'));
+    }
+
+    function testPathComponentDotUnrecognizedExtensionToUnderscore() {
+	$this->assertEquals(false,
+			    $this->_platform->isLegalPathComponent('test.foo'));
+	$this->assertEquals('test_foo',
+			    $this->_platform->legalizePathComponent('test.foo'));
+    }
+
+    function testPathComponentDotPhpExtensionToUnderscore() {
+	$this->assertEquals(false,
+			    $this->_platform->isLegalPathComponent('test.php'));
+	$this->assertEquals('test_php',
+			    $this->_platform->legalizePathComponent('test.php'));
+    }
+
+    function testPathComponentDotUnderscoreToUnderscoreUnderscore() {
+	$this->assertEquals(false,
+			    $this->_platform->isLegalPathComponent('._test'));
+	$this->assertEquals('__test',
+			    $this->_platform->legalizePathComponent('._test'));
+    }
+
+    /**
+     * Make sure executing a bogus path fails.
+     *
+     * XXX: This is a pretty weak test.  It's hard to improve it without actually shipping a
+     * known-good script though.
+     */
     function testExec() {
-	/*
-	 * Make sure executing a bogus path fails.
-	 *
-	 * XXX: This is a pretty weak test.  It's hard to improve it without
-	 * actually shipping a known-good script though
-	 */
 	$results = $this->_platform->exec(array(array('/bogus/path')));
 	$this->assertEquals(false, $results[0]);
     }
 
+    /**
+     * Make sure files are written with correct permissions by exec, copy, symlink,
+     * atomicWrite; test chmod.
+     */
     function testPermissions() {
 	if (GalleryUtilities::isA($this->_platform, 'UnixPlatform')) {
-	    /*
-	     * Make sure files are written with correct permissions by
-	     * exec, copy, symlink, atomicWrite; test chmod
-	     */
 	    if ($this->_markPluginParametersForCleanup('module', 'core')) {
 		return;
 	    }
@@ -614,7 +655,7 @@ class PlatformTest extends GalleryTestCase {
     }
 
     /**
-     * Try opening a socket to the current web server
+     * Try opening a socket to the current web server.
      */
     function testFsockopen() {
 	$fd = $this->_platform->fsockopen($_SERVER['SERVER_NAME'], $_SERVER['SERVER_PORT'],
@@ -624,7 +665,7 @@ class PlatformTest extends GalleryTestCase {
     }
 
     /**
-     * Try opening a socket to a bogus web server
+     * Try opening a socket to a bogus web server.
      */
     function testFsockopenBadHost() {
 	/* We know this is going to bomb so unset PHPunit's error handler */
@@ -636,7 +677,7 @@ class PlatformTest extends GalleryTestCase {
     }
 
     /**
-     * Verify that we can write a few bytes to a file
+     * Verify that we can write a few bytes to a file.
      */
     function testOpenWriteAndClose() {
 	$fd = $this->_platform->fopen($this->_destFile, 'wb');
@@ -674,9 +715,9 @@ class PlatformTest extends GalleryTestCase {
 
     function testAtomicWrite() {
 	/*
-	 * We should test if our operations are really concurrent-safe,
-	 * but we cannot do that without having multiple processes accessing
-	 * the same file, which is not possible in our test-framework (yet)
+	 * We should test if our operations are really concurrent-safe, but we cannot do that
+	 * without having multiple processes accessing the same file, which is not possible in our
+	 * test-framework (yet)
 	 */
 	$testData1 = "this is a test\nmultiline\ntest";
 	$this->assert($this->_platform->atomicWrite($this->_destFile, $testData1, 'wb'),
@@ -684,7 +725,7 @@ class PlatformTest extends GalleryTestCase {
 	$output = implode('', $this->_platform->file($this->_destFile));
 	$this->assertEquals($testData1, $output);
 
-	/* Now write another text to the same file and see if its ok */
+	/* Now write another text to the same file and see if it's ok */
 	$testData2 = "this is a test\nmultiline\ntest\nmore\ntext";
 	$this->assert($this->_platform->atomicWrite($this->_destFile, $testData2, 'wb'),
 		      'write 2 failed');
@@ -772,6 +813,7 @@ class PlatformTest extends GalleryTestCase {
 }
 
 class PlatformTestPhpVm extends GalleryPhpVm {
+
     function PlatformTestPhpVm($iniVal, &$test) {
 	$this->_iniVal = $iniVal;
 	$this->_test =& $test;
@@ -796,9 +838,11 @@ class PlatformTestPhpVm extends GalleryPhpVm {
 
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryPlatform/UnixPlatform.class');
 class PlatformTestOpenBaseDirUnixPlatform extends UnixPlatform {
+
     function setRealpathData($realpathData) {
 	$this->_realpathData = $realpathData;
     }
+
     function setCwd($path) {
 	$this->_cwd = $path;
     }
@@ -806,6 +850,7 @@ class PlatformTestOpenBaseDirUnixPlatform extends UnixPlatform {
     function realpath($path) {
 	return isset($this->_realpathData[$path]) ? $this->_realpathData[$path] : false;
     }
+
     function getcwd() {
 	return isset($this->_cwd) ? $this->_cwd : parent::getcwd();
     }
@@ -813,9 +858,11 @@ class PlatformTestOpenBaseDirUnixPlatform extends UnixPlatform {
 
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryPlatform/WinNtPlatform.class');
 class PlatformTestOpenBaseDirWinNtPlatform extends WinNtPlatform {
+
     function setRealpathData($realpathData) {
 	$this->_realpathData = $realpathData;
     }
+
     function setCwd($path) {
 	$this->_cwd = $path;
     }
@@ -823,6 +870,7 @@ class PlatformTestOpenBaseDirWinNtPlatform extends WinNtPlatform {
     function realpath($path) {
 	return isset($this->_realpathData[$path]) ? $this->_realpathData[$path] : false;
     }
+
     function getcwd() {
 	return isset($this->_cwd) ? $this->_cwd : parent::getcwd();
     }

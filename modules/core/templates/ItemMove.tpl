@@ -188,10 +188,14 @@
     <script type="text/javascript">
       //<![CDATA[
       {foreach from=$ItemMove.peers item=peer}
-      {assign var="peerItemId" value=$peer.id}
-      {if isset($peer.thumbnail)}
+      {if isset($peer.resize)}
+      {* force and alt/longdesc parameter here so that we avoid issues with single quotes in the title/description *}
       new YAHOO.widget.Tooltip("gTooltip", {ldelim}
-          context: "thumb_{$peerItemId}", text: '{g->image item=$peer image=$peer.thumbnail class="giThumbnail"}',
+          context: "thumb_{$peer.id}", text: '{g->image item=$peer image=$peer.resize class="giThumbnail" maxSize=640 alt="" longdesc=""}',
+          showDelay: 250 {rdelim});
+      {elseif isset($peer.thumbnail)}
+      new YAHOO.widget.Tooltip("gTooltip", {ldelim}
+          context: "thumb_{$peer.id}", text: '{g->image item=$peer image=$peer.thumbnail class="giThumbnail" alt="" longdesc=""}',
           showDelay: 250 {rdelim});
       {/if}
       {/foreach}

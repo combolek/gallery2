@@ -4,24 +4,23 @@
  * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
  * version.  Gallery will look for that file first and use it if it exists.
  *}
-
-{* If more than one link & $useDropdown is set use a dropdown.  Otherwise render as links. *}
-{if (isset($links) || isset($theme.itemLinks))}
+{if !isset($links)}
+  {assign var="links" value=$theme.itemLinks}
+{/if}
+{if !empty($links)}
   {if empty($item)}
-    {assign item=$theme.item}
-  {/if}
-  {if empty($links)}
-    {assign links=$theme.itemLinks}
-  {/if}
-  {if !isset($useDropdown)}
-    {assign useDropdown=true}
+    {assign var="item" value=$theme.item}
   {/if}
   {if !isset($lowercase)}
-    {assign lowercase=false}
+    {assign var="lowercase" value=false}
+  {/if}
+  {if !isset($useDropdown)}
+    {assign var="useDropdown" value=true}
   {/if}
 
-  {if count($links) > 1 && $useDropdown}
-    <div class="{$class}">
+  <div class="{$class}">
+    {* If more than one link and $useDropdown is true, use a dropdown.  Otherwise render as links. *}
+    {if count($links) > 1 && $useDropdown}
       <select onchange="var value = this.value; this.options[0].selected = true; eval(value)">
 	<option value="">
 	  {if $item.canContainChildren}
@@ -30,7 +29,7 @@
 	    {g->text text="&laquo; item actions &raquo;"}
 	  {/if}
 	</option>
-	{foreach from=$links item=link}
+	{foreach from=$links item="link"}
 	  <option value="{if isset($link.script)}{$link.script}{else}window.location = '{g->url params=$link.params}'{/if}"{if !empty($link.selected)} selected="selected"{/if}>
 	    {if $lowercase}
 	      {$link.text|lower}
@@ -40,11 +39,9 @@
 	  </option>
 	{/foreach}
       </select>
-    </div>
-  {elseif count($links) > 0}
-    <div class="{$class}">
-      {foreach from=$links item=link}
-	<a class="gbAdminLink {g->linkid urlParams=$link.params}" href="{if isset($link.script)}javascript:{$link.script}{else}{g->url params=$link.params}{/if}">
+    {else}
+      {foreach from=$links item="link"}
+	<a class="gbAdminLink {g->linkid urlParams=$link.params}" href="{g->url params=$link.params}"{if isset($link.script)} onclick="{$link.script}"{/if}{if isset($link.attrs)} {$link.attrs}{/if}>
 	  {if $lowercase}
 	    {$link.text|lower}
 	  {else}
@@ -52,6 +49,6 @@
 	  {/if}
 	</a>
       {/foreach}
-    </div>
-  {/if}
+    {/if}
+  </div>
 {/if}

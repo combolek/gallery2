@@ -47,7 +47,7 @@
 	  {g->container type="core.EditItemBlock"
 	      EditItemBlock.item=$theme.item
 	      EditItemBlock.property="title}
-	    <h3> {$EditItemBlock.value} </h3>
+	    <h3> {$EditItemBlock.value|wordwrap:10:"<span style=\"font-size: 0px\"> </span>":true} </h3>
 	  {/g->container}
 	</div>
       {/if}

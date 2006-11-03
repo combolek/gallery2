@@ -27,26 +27,33 @@ define('TEMPLATE_DATA_VERSION', 10);
 /**
  * This is Gallery's templating class.  It hides the details of the implementation (eg. Smarty) and
  * provides a unified means of handling internationalization.
- *
  * @package GalleryCore
  * @subpackage Classes
  * @author Bharat Mediratta <bharat@menalto.com>
  * @version $Revision$ $Date$
  */
 
+/**
+ * The current protocol version of the template data.  Whenever the template library changes,
+ * bump this number to trigger a complete rebuild of all compiled templates.
+ */
+define('TEMPLATE_DATA_VERSION', 11);
+
+/**
+ * This is Gallery's templating class.  It hides the details of the implementation (eg. Smarty) and
+ * provides a unified means of handling internationalization.
+ */
 class GalleryTemplate {
 
     /**
-     * The Smarty instance
-     *
+     * The Smarty instance.
      * @var object Smarty
      * @access private
      */
     var $_smarty;
 
     /**
-     * The directory containing our template files
-     *
+     * The directory containing our template files.
      * @var string
      * @access private
      */
@@ -54,7 +61,6 @@ class GalleryTemplate {
 
     /**
      * A directory where the templates will be written into.
-     *
      * @var string
      * @access private
      */
@@ -76,8 +82,7 @@ class GalleryTemplate {
     }
 
     /**
-     * Assign a template key/value pair
-     *
+     * Assign a template key/value pair.
      * @param string $key
      * @param mixed $value
      */
@@ -86,8 +91,7 @@ class GalleryTemplate {
     }
 
     /**
-     * Retrieve a template value
-     *
+     * Retrieve a template value.
      * @param string $key
      * @return mixed value
      */
@@ -96,8 +100,7 @@ class GalleryTemplate {
     }
 
     /**
-     * Retrieve a reference to a template value
-     *
+     * Retrieve a reference to a template value.
      * @param string $key
      * @return mixed value
      */
@@ -106,8 +109,7 @@ class GalleryTemplate {
     }
 
     /**
-     * Return true if the given variable is set
-     *
+     * Return true if the given variable is set.
      * @param string $key
      * @return boolean
      */
@@ -117,8 +119,7 @@ class GalleryTemplate {
     }
 
     /**
-     * Assign a template key/value pair
-     *
+     * Assign a template key/value pair.
      * @param string $key
      * @param mixed $value
      */
@@ -127,8 +128,7 @@ class GalleryTemplate {
     }
 
     /**
-     * Add a template to include in the <head> section
-     *
+     * Add a template to include in the <head> section.
      * @param string $tpl template path
      * @param string $l10Domain (optional) localization domain
      *               default={1stdir}_{2nddir} from template path
@@ -143,8 +143,7 @@ class GalleryTemplate {
     }
 
     /**
-     * Set the title to include in the <head> section
-     *
+     * Set the title to include in the <head> section.
      * @param string $title localized title
      */
     function title($title) {
@@ -153,8 +152,7 @@ class GalleryTemplate {
     }
 
     /**
-     * Add a stylesheet to include in the <head> section
-     *
+     * Add a stylesheet to include in the <head> section.
      * @param string $path stylesheet path relative to gallery2 dir
      */
     function style($path) {
@@ -163,8 +161,7 @@ class GalleryTemplate {
     }
 
     /**
-     * Add a JavaScript to include in the <head> section
-     *
+     * Add a JavaScript to include in the <head> section.
      * @param string $path script path relative to gallery2 dir
      */
     function javascript($path) {
@@ -173,8 +170,7 @@ class GalleryTemplate {
     }
 
     /**
-     * Render the properly localized template
-     *
+     * Render the properly localized template.
      * @param string $templateName
      * @return array object GalleryStatus the status of the call
      *               string the HTML content
@@ -196,8 +192,7 @@ class GalleryTemplate {
     }
 
     /**
-     * Display the properly localized template
-     *
+     * Display the properly localized template.
      * @param string $templateName
      * @return object GalleryStatus the status of the call
      */
@@ -273,8 +268,7 @@ class GalleryTemplate {
     }
 
     /**
-     * Hack until Smarty modifier signature includes &$smarty
-     *
+     * Hack until Smarty modifier signature includes &$smarty.
      * @return object reference to the current Smarty object
      */
     function &getSmarty() {
@@ -287,7 +281,6 @@ class GalleryTemplate {
      * instance of Smarty, but now we build it every time we need it.  Theoretically we shouldn't be
      * creating more than one GalleryTemplate and hence, more than one Smarty instance per request.
      * However, having it as a static object makes it less testable.
-     *
      * @return object Smarty
      * @static
      * @access private
@@ -324,22 +317,33 @@ class GalleryTemplate {
 						    'resourceGetSecure',
 						    'resourceGetTrusted'));
 
+	$smarty->register_prefilter(array('GalleryTemplate', 'preFilter'));
+
 	$smarty->assign('head', array('tpl' => array(), 'style' => array()));
 
 	return $smarty;
     }
 
-   /**
-    * Returns the base directory of the specified template.  This is required to support loading
-    * templates from g2data/plugins.
-    *
-    * @author Jozef Selesi (selesi at gmail dot com)
-    *
-    * @param string $templateName Template to get base directory for.
-    * @param object Smarty $smarty
-    */
-   function resourceGetTemplateBaseDir($templateName, &$smarty) {
-	if(preg_match('/^(module|theme)s\/(.+)(\/.+)/iU', $templateName, $pluginId)) {
+    /**
+     * Remove leading whitespace when compiling tpl to produce smaller html page sizes.
+     * @param string $source tpl content
+     * @param object GallerySmarty smarty
+     * @return string processed tpl content ready for compilation
+     * @static
+     */
+    function preFilter($source, &$smarty) {
+	return preg_replace('/^\s+/m', '', $source);
+    }
+
+    /**
+     * Returns the base directory of the specified template.  This is required to support loading
+     * templates from g2data/plugins.
+     * @param string $templateName Template to get base directory for
+     * @param object Smarty $smarty
+     * @author Jozef Selesi (selesi at gmail dot com)
+     */
+    function resourceGetTemplateBaseDir($templateName, &$smarty) {
+	if (preg_match('/^(module|theme)s\/(.+)(\/.+)/iU', $templateName, $pluginId)) {
 	    return GalleryCoreApi::getPluginBaseDir($pluginId[1], $pluginId[2]) . '/';
 	} else {
 	    return $smarty->template_dir . '/';
@@ -350,7 +354,6 @@ class GalleryTemplate {
      * This is basically the same as the file: resource except that we look for a template called
      * "local/foo.tpl" first and use that instead, if it exists.  This allows users to override
      * templates with our own copies without modifying the original.
-     *
      * @see http://smarty.php.net/manual/en/template.resources.php
      */
     function resourceGetTemplate($templateName, &$templateSource, &$smarty) {
@@ -366,7 +369,6 @@ class GalleryTemplate {
      * This is basically the same as the file: resource except that we look for a template called
      * "local/foo.tpl" first and use that instead, if it exists.  This allows users to override
      * templates with our own copies without modifying the original.
-     *
      * @see http://smarty.php.net/manual/en/template.resources.php
      */
     function resourceGetTimestamp($templateName, &$templateTimestamp, &$smarty) {

@@ -104,18 +104,21 @@
 
 		{g->block type="core.ItemLinks" item=$child links=$child.itemLinks}
 
-		{g->container type="core.EditItemBlock"
-		    templateId="title-`$child.id`"
-		    EditItemBlock.item=$child
-		    EditItemBlock.property="title"}
-		  <p class="giTitle">
-		    {if $child.canContainChildren}
-		      {g->text text="Album: %s" arg1=$EditItemBlock.value}
-		    {else}
-		      {$EditItemBlock.value}
-		    {/if}
-		  </p>
-		{/g->container}
+		{if !empty($child.title)}
+		  {g->container type="core.EditItemBlock"
+		      templateId="title-`$child.id`"
+		      EditItemBlock.item=$child
+		      EditItemBlock.property="title"}
+		    <p class="giTitle">
+		      {* Add prefix for albums unless imageframe will differentiate *}
+		      {if $child.canContainChildren && (!isset($theme.params.albumFrame) || $theme.params.albumFrame == $theme.params.itemFrame)}
+			{g->text text="Album: %s" arg1=$EditItemBlock.value}
+		      {else}
+			{$EditItemBlock.value}
+		      {/if}
+		    </p>
+		  {/g->container}
+		{/if}
 
 		{g->container type="core.EditItemBlock"
 		    templateId="summary-`$child.id`"
