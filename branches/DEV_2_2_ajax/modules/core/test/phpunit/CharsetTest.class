@@ -40,7 +40,7 @@ class CharsetTest extends GalleryTestCase {
         /* Assert that we're not accidentaly using mb_ functions in our fallback */
 	$mbFuncOverload = (int) ini_get('mbstring.func_overload');
 	$this->assert(!($mbFuncOverload & 2), 'mb function overload str functions. ' .
-		'Please disable mbstring.func_overload to test PHP fallback.');    
+		'Please disable mbstring.func_overload to test PHP fallback.');
     }
 
     function testConvertToUtf8UsingIconv() {
@@ -145,6 +145,22 @@ class CharsetTest extends GalleryTestCase {
 
 	$this->assertEquals(chr(245),
 			    GalleryCoreApi::convertFromUtf8(chr(195) . chr(181), 'ISO-8859-1'));
+    }
+
+    function testWindowsAndCodePageAreSynonyms() {
+	global $gallery;
+
+	/* Force it to use our PHP charset tables */
+	$phpVm = new CharsetTestPhpVm();
+	$phpVm->setFunctionExists('iconv', false);
+	$phpVm->setFunctionExists('mb_convert_encoding', false);
+	$phpVm->setFunctionExists('recode_string', false);
+	$gallery->_phpVm = $phpVm;
+
+	$this->assertEquals("\xe2\x80\xa0", GalleryCoreApi::convertToUtf8(chr(134), 'Windows-1252'),
+			    'Windows-1252');
+	$this->assertEquals("\xe2\x80\xa0", GalleryCoreApi::convertToUtf8(chr(134), 'CP1252'),
+			    'CP1252');
     }
 
     /* Iconv fails, so we use mb_convert_encoding instead */
@@ -515,6 +531,18 @@ class CharsetTest extends GalleryTestCase {
 	$this->assertEquals('67890- ', GalleryCoreApi::utf8Substring($utf8, 5, 9), 'entity');
     }
 
+    function testUtf8SubstringOfOneCharacter() {
+	$this->assertEquals('t', GalleryCoreApi::utf8Substring('t', 0, 24), 'standard version');
+	$this->assertEquals('t', GalleryCharsetHelper_medium::phpUtf8Substring('t', 0, 24),
+			    'php version');
+    }
+
+    function testUtf8SubstringOfNumber() {
+	$this->assertEquals('15', GalleryCoreApi::utf8Substring(15, 0, 24), 'standard version');
+	$this->assertEquals('15', GalleryCharsetHelper_medium::phpUtf8Substring(15, 0, 24),
+			    'php version');
+    }
+
     function testUtf8Strcut() {
 	/* Russian */
 	$utf8 = ("\xd0\xa0\xd1\x83\xd1\x81\xd1\x81\xd0\xba\xd0" .
@@ -566,6 +594,18 @@ class CharsetTest extends GalleryTestCase {
 	/* Test incomplete html entity at end of string is truncated */
 	$utf8 = '1234567890- &amp;';
 	$this->assertEquals('67890- ', GalleryCoreApi::utf8Strcut($utf8, 5, 9), 'entity');
+    }
+
+    function testUtf8StrcutOfOneCharacter() {
+	$this->assertEquals('t', GalleryCoreApi::utf8Strcut('t', 0, 24), 'standard version');
+	$this->assertEquals('t', GalleryCharsetHelper_medium::phpUtf8Strcut('t', 0, 24),
+			    'php version');
+    }
+
+    function testUtf8StrcutOfNumber() {
+	$this->assertEquals('15', GalleryCoreApi::utf8Strcut(15, 0, 24), 'standard version');
+	$this->assertEquals('15', GalleryCharsetHelper_medium::phpUtf8Strcut(15, 0, 24),
+			    'php version');
     }
 }
 

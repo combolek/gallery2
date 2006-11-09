@@ -4,7 +4,7 @@
  * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
  * version.  Gallery will look for that file first and use it if it exists.
  *}
-{if !isset($links)}
+{if !isset($links) && isset($theme.itemLinks)}
   {assign var="links" value=$theme.itemLinks}
 {/if}
 {if !empty($links)}
@@ -41,13 +41,7 @@
       </select>
     {else}
       {foreach from=$links item="link"}
-	<a class="gbAdminLink {g->linkid urlParams=$link.params}" href="{g->url params=$link.params}"{if isset($link.script)} onclick="{$link.script}"{/if}{if isset($link.attrs)} {$link.attrs}{/if}>
-	  {if $lowercase}
-	    {$link.text|lower}
-	  {else}
-	    {$link.text}
-	  {/if}
-	</a>
+	<a class="gbAdminLink {g->linkid urlParams=$link.params}" href="{g->url params=$link.params}"{if isset($link.script)} onclick="{$link.script}"{/if}{if isset($link.attrs)} {$link.attrs}{/if}>{if $lowercase}{$link.text|lower}{else}{$link.text}{/if}</a>
       {/foreach}
     {/if}
   </div>
