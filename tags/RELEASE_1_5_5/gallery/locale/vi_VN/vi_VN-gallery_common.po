@@ -1,0 +1,1483 @@
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2006 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# $Id$
+#
+#
+# @version      1.5.2
+# @package	Languagepack
+# @subpackage	Vietnamese
+# @author	A.L.T <leanh AT airland DOT kiev DOT ua>, 2003-2005
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery 1.5.2-cvs\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2006-08-14 10:02+0200\n"
+"PO-Revision-Date: 2005-05-17 12:30+0300\n"
+"Last-Translator: A.L.T <leanh AT airland DOT kiev DOT ua>\n"
+"Language-Team: AIRLAND <admin AT airland DOT kiev DOT ua>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../includes/definitions/albumProperties.php:30
+msgid "Texts"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:34
+msgid "Album Summary"
+msgstr "Tóm lược Album"
+
+#: ../includes/definitions/albumProperties.php:41
+msgid "Album Title"
+msgstr "Tựa đề Album"
+
+#: ../includes/definitions/albumProperties.php:54
+msgid "Layout"
+msgstr "Sắp đặt"
+
+#: ../includes/definitions/albumProperties.php:58
+#, fuzzy
+msgid "Background Image (URL)"
+msgstr "Ảnh nền"
+
+#: ../includes/definitions/albumProperties.php:64
+msgid "Font"
+msgstr "Font"
+
+#: ../includes/definitions/albumProperties.php:70
+msgid "Rows"
+msgstr "Hàng"
+
+#: ../includes/definitions/albumProperties.php:76
+msgid "Columns"
+msgstr "Cột"
+
+#: ../includes/definitions/albumProperties.php:82
+msgid "Borders"
+msgstr "Viền"
+
+#: ../includes/definitions/albumProperties.php:89
+#, fuzzy
+msgid "Colors"
+msgstr "Đóng"
+
+#: ../includes/definitions/albumProperties.php:92
+msgid "Background Color"
+msgstr "Màu nền"
+
+#: ../includes/definitions/albumProperties.php:98
+msgid "Text Color"
+msgstr "Màu chữ"
+
+#: ../includes/definitions/albumProperties.php:104
+msgid "Link Color"
+msgstr "Màu liên kết"
+
+#: ../includes/definitions/albumProperties.php:110
+#, fuzzy
+msgid "Border Color"
+msgstr "Màu viền"
+
+#: ../includes/definitions/albumProperties.php:117
+msgid "Frames"
+msgstr "Khung"
+
+#: ../includes/definitions/albumProperties.php:120
+msgid "Album Frame"
+msgstr "Khung album"
+
+#: ../includes/definitions/albumProperties.php:127
+msgid "Thumb Frame"
+msgstr "Khung ảnh thumb"
+
+#: ../includes/definitions/albumProperties.php:134
+msgid "Image Frame"
+msgstr "Khung ảnh"
+
+#: ../includes/definitions/albumProperties.php:147
+#, fuzzy
+msgid "Slideshow"
+msgstr "trình diễn ảnh"
+
+#: ../includes/definitions/albumProperties.php:151
+msgid "Slideshow Type"
+msgstr "Kiểu trình diễn ảnh"
+
+#: ../includes/definitions/albumProperties.php:153
+#: ../includes/definitions/albumProperties.php:201
+#: ../includes/definitions/albumProperties.php:215
+msgid "Off"
+msgstr "Tắt"
+
+#: ../includes/definitions/albumProperties.php:153
+msgid "Ordered"
+msgstr "Thứ tự"
+
+#: ../includes/definitions/albumProperties.php:153
+msgid "Random"
+msgstr "Ngẫu nhiên"
+
+#: ../includes/definitions/albumProperties.php:157
+msgid "Include sub-albums in slideshow"
+msgstr "Bao gồm các album nhánh trong trình diễn ảnh"
+
+#: ../includes/definitions/albumProperties.php:159
+#: ../includes/definitions/albumProperties.php:165
+#: ../includes/definitions/albumProperties.php:239
+#: ../includes/definitions/albumProperties.php:245
+#: ../includes/definitions/albumProperties.php:251
+#: ../includes/definitions/albumProperties.php:257
+#: ../includes/definitions/albumProperties.php:286
+#: ../includes/definitions/albumProperties.php:322
+#: ../includes/definitions/albumProperties.php:367
+#: ../includes/definitions/albumProperties.php:373
+#: ../includes/definitions/albumProperties.php:379
+#: ../includes/definitions/albumProperties.php:385
+#: ../includes/definitions/albumProperties.php:395
+#: ../includes/definitions/albumProperties.php:401
+#: ../includes/definitions/albumProperties.php:443
+#: ../includes/definitions/albumProperties.php:455
+msgid "Yes"
+msgstr "Đồng ý"
+
+#: ../includes/definitions/albumProperties.php:159
+#: ../includes/definitions/albumProperties.php:165
+#: ../includes/definitions/albumProperties.php:239
+#: ../includes/definitions/albumProperties.php:245
+#: ../includes/definitions/albumProperties.php:251
+#: ../includes/definitions/albumProperties.php:257
+#: ../includes/definitions/albumProperties.php:286
+#: ../includes/definitions/albumProperties.php:322
+#: ../includes/definitions/albumProperties.php:367
+#: ../includes/definitions/albumProperties.php:373
+#: ../includes/definitions/albumProperties.php:379
+#: ../includes/definitions/albumProperties.php:385
+#: ../includes/definitions/albumProperties.php:395
+#: ../includes/definitions/albumProperties.php:401
+#: ../includes/definitions/albumProperties.php:443
+#: ../includes/definitions/albumProperties.php:455
+msgid "No"
+msgstr "Không"
+
+#: ../includes/definitions/albumProperties.php:163
+msgid "Allow slideshow to loop"
+msgstr "Cho phép trình diễn ảnh lặp lại"
+
+#: ../includes/definitions/albumProperties.php:169
+msgid "Slideshow Length"
+msgstr "Độ dài trình diễn ảnh"
+
+#: ../includes/definitions/albumProperties.php:182
+msgid "Sizes"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:186
+msgid "Thumbnail size"
+msgstr "Cỡ thumbnail"
+
+#: ../includes/definitions/albumProperties.php:193
+msgid "The ratio in which the thumbnails are made.<br>This affects only new thumbs. For existing use 'rebuild thumbs'"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:195
+msgid "As the original image"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:195
+msgid "Square thumbs"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:199
+msgid "Maximum dimensions of intermediate sized images"
+msgstr "Kích thước lớn nhất của ảnh trung gian"
+
+#: ../includes/definitions/albumProperties.php:206
+msgid "Maximum file size of intermediate sized JPEG/PNG images in kilobytes (0 or blank for no size restriction)"
+msgstr "Dung lượng kilobytes lớn nhất của ảnh JPEG/PNG trung gian (ghi 0 hoặc để trống để không chỉnh)"
+
+#: ../includes/definitions/albumProperties.php:213
+msgid "Maximum dimensions of full sized images"
+msgstr "Kích thước lớn nhất của ảnh cỡ đầy đủ"
+
+#: ../includes/definitions/albumProperties.php:215
+#, php-format
+msgid "%d (%d MPix)"
+msgstr "%d (%d MêgaPixel)"
+
+#: ../includes/definitions/albumProperties.php:220
+msgid "Maximum file size of full sized JPEG/PNG images in kilobytes (0 or blank for no size restriction)"
+msgstr "Dung lượng kilobytes lớn nhất của ảnh JPEG/PNG cỡ đầy đủ (ghi 0 hoặc để trống để không chỉnh)"
+
+#: ../includes/definitions/albumProperties.php:233
+#, fuzzy
+msgid "Display"
+msgstr "chạy"
+
+#: ../includes/definitions/albumProperties.php:237
+msgid "Display click counter for this album?"
+msgstr "Hiển thị nhấn bộ đếm cho album này?"
+
+#: ../includes/definitions/albumProperties.php:243
+msgid "Display owners name with caption"
+msgstr "Hiển thị tên người sở hữu với chú thích"
+
+#: ../includes/definitions/albumProperties.php:249
+msgid "Display clickable image dimensions"
+msgstr "Cho phép nhấn chuột trên ảnh để thay đổi kích cỡ"
+
+#: ../includes/definitions/albumProperties.php:255
+msgid "Display EXIF data?"
+msgstr "Hiển thị dữ liệu EXIF?"
+
+#: ../includes/definitions/albumProperties.php:268
+#, fuzzy
+msgid "Services"
+msgstr "Dịch vụ in ấn"
+
+#: ../includes/definitions/albumProperties.php:272
+msgid "Which photo printing services<br>do you want to let visitors use?"
+msgstr "Dịch vụ in ấn nào<br> bạn muốn người xem sử dụng?"
+
+#: ../includes/definitions/albumProperties.php:284
+msgid "Enable Ecards ?"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:297
+msgid "Poll Properties"
+msgstr "Cấu hình bình chọn"
+
+#: ../includes/definitions/albumProperties.php:301
+#, fuzzy
+msgid "Who can vote?"
+msgstr "Ai có thể bình chọn"
+
+#: ../includes/definitions/albumProperties.php:302
+msgid "This enables/disable voting and if enabled it controlles who can vote."
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:303
+msgid "Logged in"
+msgstr "Đã đăng nhập"
+
+#: ../includes/definitions/albumProperties.php:303
+msgid "Everybody"
+msgstr "Mọi người"
+
+#: ../includes/definitions/albumProperties.php:303
+msgid "Nobody"
+msgstr "Không ai cả"
+
+#: ../includes/definitions/albumProperties.php:307
+msgid "Type of poll for this album"
+msgstr "Kiểu bình chọn cho album này"
+
+#: ../includes/definitions/albumProperties.php:309
+msgid "Rank"
+msgstr "Nút chọn"
+
+#: ../includes/definitions/albumProperties.php:309
+msgid "Critique"
+msgstr "Hộp chọn"
+
+#: ../includes/definitions/albumProperties.php:313
+msgid "Number of voting options"
+msgstr "Số lượng lựa chọn cho bình chọn"
+
+#: ../includes/definitions/albumProperties.php:320
+msgid "Show results of voting to all visitors?"
+msgstr "Hiển thị kết quả bình chọn cho mọi khách viếng thăm?"
+
+#: ../includes/definitions/albumProperties.php:326
+msgid "Number of lines of results graph to display on the album page"
+msgstr "Số lượng hình biểu thị kết quả hiện trên trang album"
+
+#: ../includes/definitions/albumProperties.php:333
+msgid "Orientation of vote choices"
+msgstr "Hướng sắp đặt của bình chọn"
+
+#: ../includes/definitions/albumProperties.php:335
+msgid "Horizontal"
+msgstr "Ngang"
+
+#: ../includes/definitions/albumProperties.php:335
+msgid "Vertical"
+msgstr "Dọc"
+
+#: ../includes/definitions/albumProperties.php:340
+msgid "Vote hint"
+msgstr "Gợi ý bình chọn"
+
+#: ../includes/definitions/albumProperties.php:347
+#, fuzzy
+msgid "Voting Options"
+msgstr "Tùy chọn QT"
+
+#: ../includes/definitions/albumProperties.php:351
+msgid "Displayed Value"
+msgstr "Giá trị hiển thị"
+
+#: ../includes/definitions/albumProperties.php:351
+msgid "Points"
+msgstr "Điểm"
+
+#: ../includes/definitions/albumProperties.php:361
+msgid "Misc"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:365
+msgid "Add new items at beginning of album"
+msgstr "Các mục/ảnh mới sẽ được thêm vào từ phía đầu album"
+
+#: ../includes/definitions/albumProperties.php:371
+msgid "Show <i>Return to</i> link"
+msgstr "Hiển thị liên kết <i>Quay lại</i>"
+
+#: ../includes/definitions/albumProperties.php:377
+msgid "Offer visitors ability to specify<br>preference for full-size or resized images"
+msgstr "Cho người xem chỉ định ảnh<br>cỡ trọn vẹn hoặc ảnh thu cỡ"
+
+#: ../includes/definitions/albumProperties.php:383
+msgid "Auto fit-to-window for<br>images without a resized copy"
+msgstr "Tự động chỉnh ảnh vừa vào cửa sổ<br>mà không cần chỉnh lại cỡ"
+
+#: ../includes/definitions/albumProperties.php:390
+msgid "Permissions"
+msgstr "Quyền hạn"
+
+#: ../includes/definitions/albumProperties.php:393
+msgid "Allow item owners to modify their images"
+msgstr "Cho phép người sở hữu mục/ảnh được sửa ảnh của họ"
+
+#: ../includes/definitions/albumProperties.php:399
+msgid "Allow item owners to delete their images"
+msgstr "Cho phép người sở hữu mục/ảnh được xóa ảnh của họ"
+
+#: ../includes/definitions/albumProperties.php:411
+msgid "Custom Fields"
+msgstr "Mẫu theo ý"
+
+#: ../includes/definitions/albumProperties.php:420
+msgid "Number of user defined custom fields"
+msgstr "Số lượng mẫu chỉ định theo ý người dùng"
+
+#: ../includes/definitions/albumProperties.php:438
+msgid "Microthumbs"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:441
+msgid "Use microthumb photo navigation"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:443
+#, fuzzy
+msgid "both"
+msgstr "Cả hai"
+
+#: ../includes/definitions/albumProperties.php:447
+msgid "Microthumb style"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:449
+#, fuzzy
+msgid "Fixed"
+msgstr "Lỗi"
+
+#: ../includes/definitions/albumProperties.php:449
+msgid "Dynamic"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:453
+msgid "Show first & last microthumb"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:459
+#, fuzzy
+msgid "Number of previous thumbs"
+msgstr "Số lượng lựa chọn cho bình chọn"
+
+#: ../includes/definitions/albumProperties.php:465
+#, fuzzy
+msgid "Number of next thumbs"
+msgstr "Số lượng lựa chọn cho bình chọn"
+
+#: ../includes/definitions/albumProperties.php:471
+msgid "Position of microthumb navigation bar"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:473
+msgid "Top"
+msgstr "Đỉnh"
+
+#: ../includes/definitions/albumProperties.php:474
+msgid "Both"
+msgstr "Cả hai"
+
+#: ../includes/definitions/albumProperties.php:475
+msgid "Bottom"
+msgstr "Đáy"
+
+#: ../includes/definitions/albumProperties.php:479
+msgid "Height of microthumbs in navigation bar"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:486
+msgid "Bonus to height of current microthumb (pixels)"
+msgstr ""
+
+#: ../includes/definitions/services.php:45
+msgid "mPUSH is a photo service that adds the ability to send thumbnail images to your, or a friend's, cellphone for a small fee."
+msgstr "mPUSH là một dịch vụ ảnh có thể gửi ảnh thumbnail tới điện thoại của bạn hoặc bạn bè với lệ phí thấp."
+
+#: ../lib/Form.php:69
+msgid "Check All"
+msgstr "Kiểm tra tất cả"
+
+#: ../lib/Form.php:71
+msgid "Clear All"
+msgstr "Xóa tất cả"
+
+#: ../lib/Form.php:73
+msgid "Invert Selection"
+msgstr "Xoay ngược lựa chọn"
+
+#: ../lib/Form.php:238
+msgid "Colorpicker"
+msgstr ""
+
+#: ../lib/colorpicker.php:42
+msgid "Color Picker"
+msgstr ""
+
+#: ../lib/colorpicker.php:54
+msgid "The Options window has closed. Exiting."
+msgstr ""
+
+#: ../lib/colorpicker.php:60
+msgid "This window must be called from an Options window"
+msgstr ""
+
+#: ../lib/content.php:41
+msgid "Empty"
+msgstr "Trống"
+
+#: ../lib/content.php:45
+#, php-format
+msgid "edit %s"
+msgstr "soạn %s"
+
+#: ../lib/content.php:63
+msgid "No Caption"
+msgstr "Không có chú thích"
+
+#: ../lib/content.php:67
+msgid "edit"
+msgstr "soạn"
+
+#: ../lib/content.php:98
+msgid "add comment"
+msgstr "thêm lời bình"
+
+#: ../lib/content.php:114
+msgid "Add your comment"
+msgstr "Thêm lời bình của bạn"
+
+#: ../lib/content.php:117
+msgid "Commenter:"
+msgstr "Người bình:"
+
+#: ../lib/content.php:135
+msgid "Message:"
+msgstr "Thông điệp:"
+
+#: ../lib/content.php:139
+#, fuzzy
+msgid "Post comment"
+msgstr "lời bình cuối"
+
+#: ../lib/content.php:299
+#, fuzzy, php-format
+msgid "1 view"
+msgid_plural "%d views"
+msgstr[0] "1 lần"
+msgstr[1] "%d lần"
+
+#: ../lib/content.php:324 ../lib/content.php:349
+#, fuzzy
+msgid "Sub-albums:"
+msgstr "Album nhánh"
+
+#: ../lib/content.php:432
+msgid "EXIF Data"
+msgstr "Dữ liệu EXIF"
+
+#: ../lib/content.php:434
+msgid "Display of EXIF data enabled, but no data found."
+msgstr ""
+
+#: ../lib/content.php:590
+#, fuzzy
+msgid "Search:"
+msgstr "Tìm&nbsp;kiếm"
+
+#: ../lib/content.php:630 ../lib/content.php:649
+msgid "Not closing this window because debug mode is on"
+msgstr "Không đóng cửa sổ này vì trình gỡ rối đang bật"
+
+#: ../lib/content.php:677
+#, fuzzy, php-format
+msgid "Problem including file %s"
+msgstr "Có vấn đề khi thêm %s:"
+
+#: ../lib/content.php:816
+msgid "Select Album"
+msgstr "Chọn Album"
+
+#: ../lib/content.php:822
+msgid "Move to top level"
+msgstr ""
+
+#: ../lib/content.php:840
+msgid "current location"
+msgstr "vị trí hiện tại"
+
+#: ../lib/content.php:886
+#, fuzzy
+msgid "Current location"
+msgstr "vị trí hiện tại"
+
+#: ../lib/content.php:889
+#, fuzzy
+msgid "This album itself"
+msgstr "Album này không có gì"
+
+#: ../lib/content.php:913
+#, php-format
+msgid "Last comment %s."
+msgstr "Lời bình cuối %s."
+
+#: ../lib/content.php:936 ../lib/content.php:939
+msgid "No Skin"
+msgstr "Không kiểu dáng"
+
+#: ../lib/content.php:941
+#, fuzzy
+msgid "The original look and feel."
+msgstr "<dt>%s</dt><dd>Dùng kiểu dáng nguyên gốc.</dd>"
+
+#: ../lib/content.php:988 ../lib/content.php:992
+msgid "unknown"
+msgstr "không&nbsp;rõ"
+
+#: ../lib/content.php:996
+#, fuzzy, php-format
+msgid "Version: %s"
+msgstr "Ok! Phiên bản: %s"
+
+#: ../lib/content.php:998
+#, fuzzy, php-format
+msgid "Last Update: %s"
+msgstr "Cập nhật lần cuối"
+
+#: ../lib/content.php:1016 ../lib/content.php:1022
+msgid "None"
+msgstr "Không"
+
+#: ../lib/content.php:1017 ../lib/content.php:1023
+msgid "Dots"
+msgstr "Gạch"
+
+#: ../lib/content.php:1018 ../lib/content.php:1024
+msgid "Solid"
+msgstr "Khối"
+
+#: ../lib/content.php:1022
+msgid "No frames"
+msgstr "Không dùng khung"
+
+#: ../lib/content.php:1023
+msgid "Just a simple dashed border around the thumb."
+msgstr "Viền mảnh xung quanh ảnh thumb."
+
+#: ../lib/content.php:1024
+msgid "Just a simple solid border around the thumb."
+msgstr "Viền đậm xung quanh ảnh thumb."
+
+#: ../lib/content.php:1046
+#, php-format
+msgid "Skipping %s."
+msgstr "Bỏ qua %s."
+
+#: ../lib/content.php:1052
+#, php-format
+msgid "Can't open %s"
+msgstr "Không thể mở %s"
+
+#: ../lib/content.php:1127 ../lib/content.php:1147
+msgid "Not valid yet"
+msgstr "Chưa chính xác"
+
+#: ../lib/imageManipulation.php:36
+#, php-format
+msgid "Resizing Image: %s"
+msgstr "Chỉnh cỡ ảnh: %s"
+
+#: ../lib/imageManipulation.php:67
+msgid "No resizing required"
+msgstr "Không yêu cầu chỉnh cỡ"
+
+#: ../lib/imageManipulation.php:94
+#, php-format
+msgid "target file size %d kbytes"
+msgstr "dung lượng file chọn %d kbytes"
+
+#: ../lib/imageManipulation.php:103 ../lib/imageManipulation.php:130
+#, php-format
+msgid "-> file size %d kbytes"
+msgstr "-> cỡ file %d kbytes"
+
+#: ../lib/imageManipulation.php:104
+#, php-format
+msgid "trying quality %d%%"
+msgstr "thử chất lượng %d%%"
+
+#: ../lib/imageManipulation.php:131
+msgid "Done."
+msgstr "Kết&nbsp;thúc."
+
+#: ../lib/imageManipulation.php:223 ../lib/imageManipulation.php:459
+#: ../lib/imageManipulation.php:511 ../lib/imageManipulation.php:793
+msgid "You have no graphics package configured for use!"
+msgstr "Bạn không có ứng dụng sử lý graphic nào đã được cấu hình để sử dụng!"
+
+#: ../lib/imageManipulation.php:227
+msgid "No watermark name specified!"
+msgstr "Không có ảnh chèn nào được chỉ định!"
+
+#: ../lib/imageManipulation.php:477
+#, fuzzy
+msgid "Cropping Image"
+msgstr "Ảnh chèn"
+
+#: ../lib/imageManipulation.php:541
+#, php-format
+msgid "Generating squared Version to %dpx"
+msgstr ""
+
+#: ../lib/imageManipulation.php:562
+#, fuzzy
+msgid "No Cropping Done"
+msgstr "Không có chú thích"
+
+#: ../lib/imageManipulation.php:572
+#, php-format
+msgid "Call to %s failed in %s for file %s!"
+msgstr "Truy xuất tới %s bị lỗi trong %s cho file %s!"
+
+#: ../lib/imageManipulation.php:576
+#, php-format
+msgid "File %s type %d."
+msgstr "File %s loại %d."
+
+#: ../lib/imageManipulation.php:613 ../lib/imageManipulation.php:637
+#, php-format
+msgid "Files with type %s are not supported by Gallery with netPBM"
+msgstr ""
+
+#: ../lib/imageManipulation.php:686
+#, fuzzy, php-format
+msgid "Compressing image: %s"
+msgstr "Chỉnh cỡ ảnh: %s"
+
+#: ../lib/imageManipulation.php:691
+msgid "Not all necessary params for resizing given."
+msgstr ""
+
+#: ../lib/imageManipulation.php:692
+#, php-format
+msgid "Resizing params: src: %s, dest : %s, targetSize: %s"
+msgstr ""
+
+#: ../lib/imageManipulation.php:735
+msgid "Unable to preserve EXIF data (jhead not installed)"
+msgstr "Không thể nhận dữ liệu EXIF (jhead không được cài đặt)"
+
+#: ../lib/imageManipulation.php:778
+#, fuzzy
+msgid "Using IM high quality"
+msgstr "%d của %d ImageMagick binaries đã thấy."
+
+#: ../lib/imageManipulation.php:782
+#, fuzzy
+msgid "Not using IM high quality"
+msgstr "%d của %d ImageMagick binaries đã thấy."
+
+#: ../lib/lang.php:747
+msgid "Upload Date"
+msgstr "Ngày tải lên"
+
+#: ../lib/lang.php:748
+msgid "Capture Date"
+msgstr "Ngày gửi"
+
+#: ../lib/lang.php:749
+msgid "Image Size"
+msgstr "Kích cỡ ảnh"
+
+#: ../lib/lang.php:750
+msgid "Additional EXIF Data"
+msgstr "Thông tin EXIF bổ sung"
+
+#: ../lib/lang.php:758
+msgid "title"
+msgstr "tiêu đề"
+
+#: ../lib/lang.php:759
+msgid "Title"
+msgstr "Tiêu đề"
+
+#: ../lib/lang.php:760
+msgid "Description"
+msgstr "Chi tiết"
+
+#: ../lib/lang.php:761
+msgid "description"
+msgstr "chi tiết"
+
+#: ../lib/lang.php:762
+msgid "Alt Text / onMouseOver"
+msgstr "Chữ hiển thị khi chỉ chuột / đưa chuột qua"
+
+#: ../lib/mail.php:43
+#, php-format
+msgid "Note: This is an automatically generated email message sent from the %s website.  If you have received this in error, please ignore this message."
+msgstr "Chú ý: Đây là email tin được tự động tạo ra gửi đến từ website %s. Nếu khi bạn nhận và có lỗi, hãy bỏ qua nó."
+
+#: ../lib/mail.php:45
+#, php-format
+msgid "Report abuse to %s"
+msgstr "Báo cáo tới %s"
+
+#: ../lib/mail.php:71
+msgid "Email not sent as it is disabled for this gallery"
+msgstr "Email không được gửi vì chức năng gửi email không hiệu lực cho thư viện ảnh"
+
+#: ../lib/mail.php:77
+#, php-format
+msgid "Email not sent to %s as it is not a valid address"
+msgstr "Email không được gửi tới %s vì đó là địa chỉ không hợp lệ"
+
+#: ../lib/mail.php:84
+#, fuzzy
+msgid "Email not sent as no reciepient address provided"
+msgstr "Email không được gửi vì không cung cấp địa chỉ"
+
+#: ../lib/mail.php:95
+#, php-format
+msgid "Sender address %s is invalid, using %s."
+msgstr "Địa chỉ người gửi %s không hợp lệ, sử dụng %s."
+
+#: ../lib/mail.php:126
+msgid "This is a HTML mail, please have a look at the Attachment."
+msgstr ""
+
+#: ../lib/mail.php:164
+#, fuzzy, php-format
+msgid ""
+"Hi !!FULLNAME!!,\n"
+"\n"
+"Congratulations.  You have just been subscribed to %s at %s.  Your account name is !!USERNAME!!.  Please visit the gallery soon, and create a password by clicking this link:\n"
+"\n"
+"!!NEWPASSWORDLINK!!\n"
+"\n"
+"Gallery @ %s Administrator."
+msgstr ""
+"Chào !!FULLNAME!!,  \n"
+"\n"
+"Xin chức mừng.  Bạn đã ghi danh vào %s tại %s.  Tên tài khoản của bạn là !!USERNAME!!. Xin hãy sớm ghé thăm thư viện ảnh, và tạo một mật khẩu khi nhấn liên kết này:\n"
+"\n"
+"!!NEWPASSWORDLINK!!\n"
+"\n"
+"Thư viện ảnh @ %s Ban quản trị."
+
+#: ../lib/mail.php:173 ../lib/mail.php:175
+msgid "gallery title"
+msgstr "tiêu đề thư viện ảnh"
+
+#: ../lib/mail.php:174
+msgid "gallery URL"
+msgstr "URL thư viện ảnh"
+
+#: ../lib/mail.php:190
+msgid "The Url to your Gallery."
+msgstr ""
+
+#: ../lib/mail.php:191
+msgid "Title of your Gallery."
+msgstr ""
+
+#: ../lib/mail.php:192
+#, fuzzy
+msgid "Admin email(s)"
+msgstr "Trợ giúp QT"
+
+#: ../lib/mail.php:193
+msgid "Password for the newly created user."
+msgstr ""
+
+#: ../lib/mail.php:194 ../lib/setup.php:1484 ../lib/setup.php:1486
+#: ../lib/setup.php:1490 ../lib/setup.php:1498
+msgid "Username"
+msgstr "Tên truy cập"
+
+#: ../lib/mail.php:195
+#, fuzzy
+msgid "Fullname"
+msgstr "Tên đầy đủ"
+
+#: ../lib/mail.php:196
+#, fuzzy
+msgid "Will be replaced by a link the new user can click on to create a new password."
+msgstr "%s sẽ được thay thế bằng một liên kết để thành viên mới có thể nhấn để tạo một mật khẩu mới"
+
+#: ../lib/mail.php:233
+#, fuzzy, php-format
+msgid "New comment for %s"
+msgstr "xem lời bình"
+
+#: ../lib/mail.php:242
+#, php-format
+msgid "A new comment has been added to Gallery: %s"
+msgstr ""
+
+#: ../lib/mail.php:244
+#, php-format
+msgid "The comment was added by %s to this %s in this %s."
+msgstr ""
+
+#: ../lib/mail.php:246
+#, fuzzy
+msgid "Item"
+msgstr "mục/ảnh"
+
+#: ../lib/mail.php:247
+msgid "Album"
+msgstr "Album"
+
+#: ../lib/mail.php:248
+#, fuzzy
+msgid "*** Begin comment ***"
+msgstr "tìm lời bình nhảm nhí"
+
+#: ../lib/mail.php:250
+#, fuzzy
+msgid "***End comment ***"
+msgstr "tìm lời bình nhảm nhí"
+
+#: ../lib/mail.php:251
+msgid "If you no longer wish to receive emails about this image, follow the links above and ensure that 'Email me when comments are added' is unchecked in both the photo and album page (You'll need to login first)."
+msgstr ""
+
+#: ../lib/mail.php:254
+#, fuzzy, php-format
+msgid "New comment for %s."
+msgstr "xem lời bình"
+
+#: ../lib/mail.php:263
+#, php-format
+msgid "FAILED"
+msgstr "LỖI"
+
+#: ../lib/mail.php:273
+msgid "Email activity"
+msgstr "Kích hoạt Email"
+
+#: ../lib/messages.php:26
+msgid "Error:"
+msgstr "Lỗi:"
+
+#: ../lib/messages.php:73
+#, php-format
+msgid "Generated by %s v%s"
+msgstr "Được tạo bằng %s v%s"
+
+#: ../lib/messages.php:75
+#, php-format
+msgid "Powered by %s v%s"
+msgstr "Powered by %s v%s"
+
+#: ../lib/setup.php:140
+msgid "Please retype your password here"
+msgstr "Hãy ghi lại mật khẩu của bạn ở đây"
+
+#: ../lib/setup.php:154 ../lib/setup.php:1088
+msgid "Name"
+msgstr "Tên"
+
+#: ../lib/setup.php:155 ../lib/setup.php:1088
+msgid "Value"
+msgstr "Giá&nbsp;trị"
+
+#: ../lib/setup.php:184 ../lib/setup.php:227
+#, fuzzy
+msgid "No content"
+msgstr "Nội dung RSS"
+
+#: ../lib/setup.php:354
+#, fuzzy, php-format
+msgid "Missing value: %s"
+msgstr "Mất giá trị"
+
+#: ../lib/setup.php:372
+#, fuzzy
+msgid "<b>exec()</b> is enabled on this server."
+msgstr "<b>exec()</b> không bị tắt trên hệ thống này."
+
+#: ../lib/setup.php:390
+msgid "I can read your <b>.htaccess</b> file."
+msgstr "Đã đọc thấy file <b>.htaccess</b>."
+
+#: ../lib/setup.php:412
+#, php-format
+msgid "PHP v%s is OK."
+msgstr "PHP v%s tốt."
+
+#: ../lib/setup.php:428
+msgid "<b>mod_rewrite</b> is enabled."
+msgstr "<b>mod_rewrite</b> có hiệu lực."
+
+#: ../lib/setup.php:451
+msgid "Can't find <i>jhead</i>"
+msgstr "Không thấy <i>jhead</i>"
+
+#: ../lib/setup.php:453
+msgid "<b>jhead</b> binary located."
+msgstr "Đã thấy <b>jhead</b> binary."
+
+#: ../lib/setup.php:491
+msgid "Without pnmcomp and pamcomp gallery will not be able to watermark images, unless you use ImageMagick and have the composite binary installed."
+msgstr "Nếu không có pnmcomp và pamcomp thư viện ảnh sẽ không thể tạo ảnh chèn cho ảnh, ngoại trừ bạn dùng ImageMagick và có binary kết hợp đã được cài đặt."
+
+#: ../lib/setup.php:499
+msgid "NetPBM not being used in this installation."
+msgstr "NetPBM sẽ không sử dụng được trong quá trình cài đặt này."
+
+#: ../lib/setup.php:504 ../lib/setup.php:599
+msgid "Cannot verify this path (it's not in your open_basedir list)."
+msgstr "Không thể kiểm tra đường dẫn này (không có trong danh sách open_basedir của bạn)."
+
+#: ../lib/setup.php:538 ../lib/setup.php:616
+#, php-format
+msgid "Missing optional binary %s. %s"
+msgstr "Không có binary tùy chọn %s. %s"
+
+#: ../lib/setup.php:541 ../lib/setup.php:619
+#, php-format
+msgid "Can't find %s!"
+msgstr "Không thấy %s!"
+
+#: ../lib/setup.php:547 ../lib/setup.php:625
+#, php-format
+msgid "%s is not executable!"
+msgstr "%s không có khả năng thực thi!"
+
+#: ../lib/setup.php:557 ../lib/setup.php:564
+#, php-format
+msgid "%d of %d NetPBM binaries located."
+msgstr "%d của %d NetPBM binaries đã thấy."
+
+#: ../lib/setup.php:588
+msgid "Without composite gallery will not be able to watermark images, except you use NetPBM and have the pnmcomp binary installed."
+msgstr "Nếu không có composite thư viện ảnh sẽ không thể tạo ảnh chèn ảnh, ngoại trừ bạn dùng NetPBM và có binary pnmcomp đã được cài đặt."
+
+#: ../lib/setup.php:594
+msgid "ImageMagick not being used in this installation."
+msgstr "ImageMagick sẽ không sử dụng được trong quá trình cài đặt này."
+
+#: ../lib/setup.php:635 ../lib/setup.php:642
+#, php-format
+msgid "%d of %d ImageMagick binaries located."
+msgstr "%d của %d ImageMagick binaries đã thấy."
+
+#: ../lib/setup.php:664
+msgid "Can't find <i>jpegtran</i>!"
+msgstr "Không thấy <i>jpegtran</i>!"
+
+#: ../lib/setup.php:666
+msgid "<b>jpegtran</b> binary located."
+msgstr "Đã thấy <b>jpegtran</b> binary."
+
+#: ../lib/setup.php:677
+msgid "PHP has <b>GNU gettext</b> support."
+msgstr "PHP có <b>GNU gettext</b> trợ giúp."
+
+#: ../lib/setup.php:679
+msgid "PHP does not have <b>GNU gettext</b> support."
+msgstr "PHP không có <b>GNU gettext</b> trợ giúp."
+
+#: ../lib/setup.php:693
+msgid "No languages found."
+msgstr "Không thấy ngôn ngữ nào."
+
+#: ../lib/setup.php:695
+msgid "It seems you didn't download any additional languages. This is not a problem! Gallery will appear just in English. Note: If this is not true, check that all files in locale folder are readable for the webserver, or contact the Gallery Team."
+msgstr "Có vẻ như bạn không lấy về thêm ngôn ngữ nào.  Không thành vấn đề ! Thư viện ảnh sẽ hiển thị bằng tiếng Anh. Lưu ý: Nếu không đúng, hãy kiểm tra tất cả các file trong thư mục locale có thể cho phép máy chủ web đọc được, hoặc liên hệ với nhóm thiết kế Thư viện ảnh."
+
+#: ../lib/setup.php:698
+#, php-format
+msgid "%d languages are available.  If you are missing a language please visit the %sGallery download page%s."
+msgstr "%d ngôn ngữ có sẵn.  Nếu bạn mất một ngôn ngữ nào hãy vào %sTrang cung cấp cho Thư viện ảnh%s."
+
+#: ../lib/setup.php:721
+#, php-format
+msgid "You can check for more recent versions by visiting %s."
+msgstr "Bạn có thể kiểm tra để biết thêm các phiên bản mới khi ghé thăm %s."
+
+#: ../lib/setup.php:722
+#, php-format
+msgid "This version of %s was released on %s."
+msgstr "Phiên bản này của %s đã được phát hành vào %s."
+
+#: ../lib/setup.php:725
+#, php-format
+msgid "This is a development build of %s that was released on %s."
+msgstr "Đây là bản phát triển của %s đã được phát hành vào %s."
+
+#: ../lib/setup.php:734
+msgid "Please check regularly for updates."
+msgstr "Xin hãy thường xuyên kiểm tra để cập nhật."
+
+#: ../lib/setup.php:753
+msgid "All gallery locales are available on this host."
+msgstr "Tất cả các locale cho Thư viện ảnh là có sẵn trên hệ thống này."
+
+#: ../lib/setup.php:756
+#, php-format
+msgid "There are %d locales that Gallery was unable to locate. You may need to select manually date formats. "
+msgstr "Có %d locale mà Thư viện ảnh không thể định dạng được. Bạn cần tự chọn chúng tới giá trị chính xác."
+
+#: ../lib/setup.php:762
+#, php-format
+msgid "Dates in %d languages may not be formatted properly, because the corresponding locales are missing. You may need to select manually the date formats for these."
+msgstr "Dạng thức ngày tháng của ngôn ngữ %d có thể không định dạng đúng, bởi locale tương thích bị mất. Bạn cần phải tự chọn dạng thức ngày giờ cho chúng."
+
+#: ../lib/setup.php:767
+#, php-format
+msgid "We were unable to detect any locales.  However, your PHP installation is configured with the %s restriction so this may be interfering with the way that we detect locales.  Unfortunately this means the date format will not change for different languages.  However, it is OK to continue."
+msgstr "Chúng tôi không thể dò tìm bất cứ locale nào.  Tuy nhiên, máy chủ của bạn được cấu hình với giới hạn %s nên có thể nó trùng với cách chúng tôi dò tìm locale.  Đáng tiếc là dạng thức ngày tháng sẽ không thay đổi trên những ngôn ngữ khác nhau.  Tuy nhiên, vẫn tốt để tiếp tục."
+
+#: ../lib/setup.php:771
+#, php-format
+msgid "We were unable to detect any system locales. Multi-language functions will be disabled. Please install the corresponding locales or ask your administrator to do this. This problem is known on %s systems. In this case please have a look at this %sDebian locale HowTo%s."
+msgstr "Chúng tôi không thể dò tìm bất cứ locale hệ thống nào. Chức năng đa ngôn ngữ sẽ bị tắt. Xin hãy cài đặt locale tương thích hoặc hỏi nhà cung cấp để làm điều đó. Vấn đề này được biết đến trên hệ thống %s. Trong trường hợp này xin hãy xem tại %sDebian locale HowTo%s."
+
+#: ../lib/setup.php:773
+msgid "Only the default locale for this machine is available, so date format will not change for different languages."
+msgstr "Chỉ locale mặc định cho hệ thống máy này là có sẵn nên dạng thức ngày tháng sẽ không thay đổi trên những ngôn ngữ khác nhau."
+
+#: ../lib/setup.php:932 ../lib/setup.php:1012
+msgid "Advanced"
+msgstr "Nâng cao"
+
+#: ../lib/setup.php:932
+#, php-format
+msgid "<b>System</b> locale selection required"
+msgstr "<b>Hệ thống</b> locale được yêu cầu lựa chọn"
+
+#: ../lib/setup.php:933
+msgid "There is more than one suitable <b>system</b> locale installed on your machine for the following languages.  Please chose the one you think is most suitable."
+msgstr "Có hơn một loại <b>hệ thống</b> locale phù hợp được cài đặt trên hệ thống máy chủ của bạn cho những ngôn ngữ sau.  Xin hãy chọn một cái mà bạn cho là phù hợp nhất."
+
+#: ../lib/setup.php:935 ../lib/setup.php:1015
+msgid "This is <b>only</b> for date & time format. You only need to edit the languages you enabled above"
+msgstr "Chỉ dành cho định dạng ngày tháng và thời gian. Bạn chỉ cần biên soạn những ngôn ngữ mà bạn đã chọn ở trên"
+
+#: ../lib/setup.php:946 ../lib/setup.php:970
+msgid "System locale"
+msgstr "Hệ thống locale"
+
+#: ../lib/setup.php:1012
+#, php-format
+msgid "<b>System</b> locale problems"
+msgstr "<b>Hệ thống</b> locale có vấn đề"
+
+#: ../lib/setup.php:1013
+msgid "There are no apparently suitable <b>system</b> locales installed on your machine for the following languages.  Please choose the one you think is most suitable."
+msgstr "Không có <b>hệ thống</b> locale phù hợp nào được cài đặt trên hệ thống máy của bạn cho những ngôn ngữ sau.  Xin hãy chọn một cái mà bạn nghĩ phù hợp nhất."
+
+#: ../lib/setup.php:1056
+msgid "<b>safe_mode</b> is off."
+msgstr "<b>safe_mode</b> đang tắt."
+
+#: ../lib/setup.php:1068
+msgid "<b>magic_quotes</b> are off."
+msgstr "<b>magic_quotes</b> đang tắt."
+
+#: ../lib/setup.php:1086
+#, php-format
+msgid "In %s, missing %s in row %d with %s %s."
+msgstr "Trong %s, mất %s ở hàng %d với %s %s."
+
+#: ../lib/setup.php:1087 ../lib/setup.php:1096 ../lib/setup.php:1101
+msgid "Vote words and values"
+msgstr "Từ bình chọn và giá trị"
+
+#: ../lib/setup.php:1095
+#, php-format
+msgid "In %s, blank in row %d."
+msgstr "Trong %s, bị trống trong hàng %d."
+
+#: ../lib/setup.php:1100
+#, php-format
+msgid "In %s, for name %s (row %d) value %s should be a positive whole number"
+msgstr "Trong %s, cho tên %s (hàng %d) giá trị %s phải là một số dương"
+
+#: ../lib/setup.php:1122
+msgid "<b>register_globals</b> is off."
+msgstr "<b>register_globals</b> đang tắt."
+
+#: ../lib/setup.php:1292
+msgid "Your passwords do not match!"
+msgstr "Mật khẩu của bạn chưa đúng!"
+
+#: ../lib/setup.php:1303
+msgid "OK"
+msgstr "OK"
+
+#: ../lib/setup.php:1308
+msgid "Valid admin email address given."
+msgstr "Đưa ra địa chỉ email QT hợp lệ."
+
+#: ../lib/setup.php:1315
+msgid "You must specify valid admin email addresses"
+msgstr "Bạn phải ghi địa chỉ email QT hợp lệ"
+
+#: ../lib/setup.php:1323
+#, php-format
+msgid "%s is not a valid email address."
+msgstr "%s là địa chỉ email không hợp lệ."
+
+#: ../lib/setup.php:1332
+msgid "Valid sender email address given."
+msgstr "Đưa ra địa chỉ email người gửi hợp lệ."
+
+#: ../lib/setup.php:1334
+msgid "You must specify a valid sender email address"
+msgstr "Bạn phải ghi địa chỉ email người gửi hợp lệ"
+
+#: ../lib/setup.php:1337
+#, php-format
+msgid "You must include %s in your welcome email"
+msgstr "Bạn phải bao gồm cả %s trong email chào mừng"
+
+#: ../lib/setup.php:1342
+#, php-format
+msgid "You must include %s or %s in your welcome email"
+msgstr "Bạn phải bao gồm cả %s hoặc %s trong email chào mừng"
+
+#: ../lib/setup.php:1366
+#, php-format
+msgid "The following files are out of date, corrupted or missing:<br>&nbsp;&nbsp;&nbsp;&nbsp;%s."
+msgstr "Những file sau đây đã quá cũ, hư hỏng hoặc mất<br>&nbsp;&nbsp;&nbsp;&nbsp;%s."
+
+#: ../lib/setup.php:1368
+msgid "This should be fixed before proceeding"
+msgstr "Cần phải sửa lỗi trước khi tiếp tục"
+
+#: ../lib/setup.php:1369 ../lib/setup.php:1373
+#, php-format
+msgid "Look at %sCheck Versions%s for more details."
+msgstr "Hãy xem %sKiểm tra Phiên bản%s để biết chi tiết hơn."
+
+#: ../lib/setup.php:1372
+#, fuzzy, php-format
+msgid "%d files are more recent than expected.  This is OK if you are using pre-release, beta, SVN or modified code."
+msgstr "%d files là mới gần đây hơn so với yêu cầu.  Không vấn đề gì khi bạn sử dụng phiên bản giới thiệu trước, beta, CVS hoặc thay đổi mã."
+
+#: ../lib/setup.php:1377
+#, php-format
+msgid "All tested files up-to-date."
+msgstr "Tất cả file được kiểm tra đúng hạn."
+
+#: ../lib/setup.php:1379
+#, php-format
+msgid "All %d tested files up-to-date."
+msgstr "Tất cả %d file được kiểm tra đúng hạn."
+
+#: ../lib/setup.php:1388
+#, php-format
+msgid "this is new in version %s"
+msgstr "tính năng mới trong phiên bản %s"
+
+#: ../lib/setup.php:1393
+#, php-format
+msgid "Return to %s."
+msgstr "Quay lại %s."
+
+#: ../lib/setup.php:1394
+msgid "Configuration Wizard"
+msgstr "Thuật cấu hình"
+
+#: ../lib/setup.php:1443
+#, php-format
+msgid "You must enter a password for the %s account."
+msgstr "Bạn phải ghi một mật khẩu cho tài khoản %s."
+
+#: ../lib/setup.php:1448
+#, php-format
+msgid "It seems you've already configured Gallery, because there is one admin account, but its not called %s."
+msgstr "Có vẻ như bạn đã cấu hình cho Thư viện ảnh, bởi vì đã có một tài khoản QT, nhưng không được gọi là %s."
+
+#: ../lib/setup.php:1451
+#, php-format
+msgid "It seems you've already configured Gallery, because there are %d admin accounts, but no user called %s."
+msgstr "Có vẻ như bạn đã cấu hình cho Thư viện ảnh, bởi vì đã có tài khoản QT %d, nhưng không ai có tên là %s."
+
+#: ../lib/setup.php:1453
+#, php-format
+msgid "You don't have to enter a password.  But if you do, Gallery will create an administrator account called %s with that password."
+msgstr "Bạn không phải ghi mật khẩu.  Nhưng nếu bạn vẫn ghi, Thư viện ảnh sẽ tạo một tài khoản quản trị có tên %s với mật khẩu đó."
+
+#: ../lib/setup.php:1462
+#, php-format
+msgid "It seems you've already configured Gallery, because the %s user exists.  You don't have to enter a password.  But if you do, Gallery will change the password for the %s user."
+msgstr "Có vẻ như bạn đã cấu hình cho Thư viện ảnh, bởi vì thành viên %s đã có.  Bạn không nhất thiết phải ghi lại mật khẩu.  Nhưng nếu bạn vẫn ghi, thì Thư viện ảnh sẽ đổi mật khẩu đó cho thành viên tên %s."
+
+#: ../lib/setup.php:1469
+msgid "Admin password"
+msgstr "Mật khẩu quản trị"
+
+#: ../lib/setup.php:1484 ../lib/setup.php:1486 ../lib/setup.php:1488
+#: ../lib/setup.php:1496
+msgid "Full Name"
+msgstr "Tên đầy đủ"
+
+#: ../lib/setup.php:1492
+msgid "Full name that you can click on to send email (mailto:)"
+msgstr "Tên đầy đủ mà bạn có thể nhấn chuột vào và gửi mail (mailto:)"
+
+#: ../lib/setup.php:1494
+msgid "Username that you can click on to send email (mailto:)"
+msgstr "Tên truy cập mà bạn có thể nhấn chuột vào và gửi mail (mailto:)"
+
+#: ../lib/setup.php:1496 ../lib/setup.php:1498
+msgid "email address"
+msgstr "địa chỉ email"
+
+#: ../lib/setup.php:1518
+msgid "File missing or unreadable.  Please install then re-run this test."
+msgstr "File không có hoặc không thể đọc được.  Hãy cài đặt và chạy lại thử nghiệm này."
+
+#: ../lib/setup.php:1522
+#, php-format
+msgid "Please ensure that %s is the latest version."
+msgstr "Hãy chắc chắn rằng %s là phiên bản mới nhất."
+
+#: ../lib/setup.php:1527
+#, php-format
+msgid "Testing status of %d files."
+msgstr "Kiểm tra trạng thái của %d files."
+
+#: ../lib/setup.php:1534
+#, php-format
+msgid "Cannot read file %s."
+msgstr "Không đọc được file %s."
+
+#: ../lib/setup.php:1536
+msgid "File missing or unreadable."
+msgstr "File không có hoặc không thể đọc được."
+
+#: ../lib/setup.php:1556
+#, php-format
+msgid "Version information not found in %s.  File must be old version or corrupted."
+msgstr "Thông tin phiên bản không thấy trong %s.  File đã quá cũ hoặc hỏng hóc."
+
+#: ../lib/setup.php:1558
+msgid "Missing version"
+msgstr "Không thấy số phiên bản"
+
+#: ../lib/setup.php:1567
+#, php-format
+msgid "Problem with %s.  Expected version %s (or greater) but found %s."
+msgstr "Có vấn đề với %s.  Phiên bản yêu cầu %s (hoặc mới hơn) nhưng thấy %s."
+
+#: ../lib/setup.php:1569
+#, php-format
+msgid "Expected version %s (or greater) but found %s."
+msgstr "Phiên bản yêu cầu %s (hoặc mới hơn) nhưng thấy %s."
+
+#: ../lib/setup.php:1573
+#, php-format
+msgid "%s OK.  Actual version (%s) more recent than expected version (%s)"
+msgstr "%s tốt.  Phiên bản thực tế (%s) mới hơn so với phiên bản yêu cầu (%s)"
+
+#: ../lib/setup.php:1575
+#, php-format
+msgid "Expected version %s but found %s."
+msgstr "Phiên bản yêu cầu %s nhưng thấy %s."
+
+#: ../lib/setup.php:1579
+#, php-format
+msgid "%s OK"
+msgstr "%s tốt"
+
+#: ../lib/setup.php:1581
+#, php-format
+msgid "Found expected version %s."
+msgstr "Thấy phiên bản yêu cầu %s."
+
+#: ../lib/setup.php:1711
+msgid "This email will be sent when new accounts are created."
+msgstr "Email này sẽ được gửi khi có tài khoản mới được tạo."
+
+#: ../lib/setup.php:1712
+#, fuzzy
+msgid "Leaving this field empty sets Gallery to use the default message (see below) which can be translated, or use your own welcome message."
+msgstr "Hãy để mẫu này trống để sử dụng tin mặc định mà có thể được dịch sang những ngôn ngữ khác.  Tin mặc định là:"
+
+#: ../lib/setup.php:1713
+#, fuzzy
+msgid "The following placeholder can be used:"
+msgstr "Những file sau là đúng hạn."
+
+#: ../lib/setup.php:1776
+#, php-format
+msgid "File %s does not exist."
+msgstr "File %s không tồn tại."
+
+#: ../lib/setup.php:1785
+#, php-format
+msgid "Expected status: %s, but actually received status %s."
+msgstr "Trạng thái yêu cầu: %s, nhưng trạng thái nhận thực tế %s."
+
+#: ../lib/setup.php:1798
+msgid "can't detect version on Windows"
+msgstr "không thể nhận ra phiên bản trên Windows"
+
+#: ../lib/setup.php:1809
+#, php-format
+msgid "OK!  Version: %s"
+msgstr "Ok! Phiên bản: %s"
+
+#: ../lib/valchecks.php:46
+msgid "The given frame is not valid."
+msgstr ""
+
+#: ../lib/valchecks.php:54
+msgid "Value was set to given default. Because the original value is not a in the allowed amount of choices."
+msgstr ""
+
+#: ../lib/valchecks.php:57
+msgid "The given value is not in the allowed amount of choices."
+msgstr ""
+
+#: ../lib/valchecks.php:88
+msgid "Value was set to given default. Because the original value is not numeric."
+msgstr ""
+
+#: ../lib/valchecks.php:90
+msgid "The given Value is not numeric."
+msgstr ""
+
+#: ../lib/valchecks.php:96
+msgid "Value was set to given default. Because the original value is not a valid Integer"
+msgstr ""
+
+#: ../lib/valchecks.php:98
+msgid "The given Value not a valid Integer."
+msgstr ""
+
+#: ../lib/valchecks.php:109
+msgid "Value was set to given default. Because the original value is not a valid text"
+msgstr ""
+
+#: ../lib/valchecks.php:112
+msgid "Value was corrected, because the original value is not a valid text"
+msgstr ""
+
+#: ../lib/voting.php:215
+msgid "Vote"
+msgstr "Bình chọn"
+
+#: ../lib/voting.php:253
+#, fuzzy
+msgid "(Total points in brackets)"
+msgstr "Điểm tổng cộng trong ngoặc"
+
+#: ../lib/voting.php:257
+#, fuzzy
+msgid "(Average points in brackets)"
+msgstr "Điểm trung bình trong ngoặc"
+
+#: ../lib/voting.php:276
+#, php-format
+msgid "Album: %s"
+msgstr "Album: %s"
+
+#: ../lib/voting.php:305
+#, php-format
+msgid "1 voter"
+msgid_plural "%d voters"
+msgstr[0] "1 người bình chọn"
+msgstr[1] "%d người bình chọn"
+
+#: ../lib/voting.php:318
+#, php-format
+msgid "Result from one voter"
+msgid_plural "Result of %d voters"
+msgstr[0] "Kết quả từ một người bình chọn."
+msgstr[1] "Kết quả từ %d người bình chọn."
+
+#: ../lib/voting.php:329
+#, php-format
+msgid "%s: %s points; "
+msgstr "%s: %s điểm; "
+
+#: ../lib/voting.php:334
+#, php-format
+msgid "Key - %s"
+msgstr "Thang điểm - %s"
+
+#: ../lib/voting.php:360
+msgid "Poll results:"
+msgstr "Kết quả bình chọn:"
+
+#: ../lib/voting.php:363
+msgid "No votes"
+msgstr "Không bình chọn"
+
+#: ../lib/voting.php:367
+#, php-format
+msgid "Number %d overall."
+msgstr "Số lượng %d toàn bộ."
+
+#: ../lib/voting.php:371
+#, php-format
+msgid "%s: %s"
+msgstr "%s: %s"
+
+#: ../lib/voting.php:372
+#, php-format
+msgid "one vote"
+msgid_plural "%d votes"
+msgstr[0] "một bình chọn"
+msgstr[1] "%d bình chọn"
+
+#~ msgid "No votes so far."
+#~ msgstr "Không có bình chọn nào."
