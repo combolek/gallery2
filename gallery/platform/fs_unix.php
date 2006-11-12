@@ -2,17 +2,17 @@
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
- *
+ * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
- *
+ * 
  * This program is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
@@ -41,7 +41,7 @@ function fs_copy($source, $dest) {
 function fs_exec($cmd, &$results, &$status, $debugfile="") {
 	if (!empty($debugfile)) {
 		$cmd = "($cmd) 2>$debugfile";
-	}
+	} 
 	return exec($cmd, $results, $status);
 }
 
@@ -66,29 +66,18 @@ function fs_fopen($filename, $mode, $use_include_path=0) {
 	return fopen($filename, $mode, $use_include_path);
 }
 
-/**
- * Wrapper for file_get_contents() as it was implemented in PHP 4.3.0 and minimum for G1 is 4.1.0
- * http://de.php.net/manual/en/function.file-get-contents.php
- *
- * @param string $filename
- * @return string $content
- */
 function fs_file_get_contents($filename) {
-    $content = '';
-
-    if (function_exists("file_get_contents")) {
-        $content = @file_get_contents($filename);
-    }
-    else {
-        if ($fd = fs_fopen($fname, "rb")) {
-            while (!feof($fd)) {
-                $content .= fread($fd, 65536);
-            }
-            fclose($fd);
-        }
-    }
-
-    return $content;
+        if (function_exists("file_get_contents")) {
+                $tmp = @file_get_contents($filename);
+        } else {
+                if ($fd = fs_fopen($fname, "rb")) {
+                        while (!feof($fd)) {
+                                $tmp .= fread($fd, 65536);
+                        }
+                        fclose($fd);
+                }
+        }       
+        return $tmp;
 }
 
 function fs_is_dir($filename) {
@@ -110,11 +99,11 @@ function fs_is_writable($filename) {
 function fs_opendir($path) {
     $dir_handle = @opendir($path);
     if ($dir_handle) {
-	   return $dir_handle;
+	return $dir_handle;
     }
     else {
-	   echo "\<br>". gallery_error(sprintf(gTranslate('core', "Gallery was not able to open dir: %s. <br>Please check permissions and existence"), $path));
-	   return false;
+	echo "\<br>". gallery_error(sprintf(_("Gallery was not able to open dir: %s. <br>Please check permissions and existence"), $path));
+	return false;
     }
 }
 
@@ -141,7 +130,7 @@ function fs_import_filename($filename, $for_exec = true) {
     if ($for_exec) {
 	$filename = escapeshellarg($filename); // Might as well use the function PHP provides!
     }
-
+	
     return $filename;
 }
 
@@ -177,20 +166,5 @@ function fs_mkdir($dirname, $perms = 0700) {
     }
 
     return $result;
-}
-
-/**
- * Is file hidden ? Means it starts with a .
- * @param   $filename   string
- * @return              boolean
- * @author  Jens Tkotz <jens@peino.de>
-*/
-function fs_fileIsHidden($filename) {
-    if($filename{0} == '.') {
-        return true;
-    }
-    else {
-        return false;
-    }
 }
 ?>

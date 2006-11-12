@@ -62,13 +62,15 @@ function bestDate($album) {
 }
 
 function getThumbs($album) {
-	$photos = '';
+	$tags = "border=0 vspace=2 hspace=0 align=top";
+	
+	$photos = "";
 	$photoCount = $album->numPhotos(1);
 	
 	for ($i = 1; $i <= $photoCount; $i += 1) {
 		$photo = $album->getPhoto($i);
 		if (!$photo->isHidden() && !$photo->isMovie() && $photo->thumbnail) {
-			$imgtag = $album->getThumbnailTag($i);
+			$imgtag = $album->getThumbnailTag($i, 0, $tags);
 			$photos .= "<a href=\"" . makeAlbumUrl($album->fields['name'], $i) . "\">" . $imgtag . "</a>\n";
 		}
 	}
@@ -77,16 +79,18 @@ function getThumbs($album) {
 }
 
 function getThumbsAndCaptions($album) {
-	$photos = '';
+	$tags = "border=0 vspace=2 hspace=0 align=top";
+	
+	$photos = "";
 	$photoCount = $album->numPhotos(1);
 	
 	for ($i = 1; $i <= $photoCount; $i += 1) {
 		$photo = $album->getPhoto($i);
 		if (!$photo->isHidden() && !$photo->isMovie() && is_object($photo->thumbnail)) {
-			$imgtag = $album->getThumbnailTag($i);
+			$imgtag = $album->getThumbnailTag($i, 0, $tags);
 			$caption = $photo->getCaption();
-			$photos .= "<a href=\"" . makeAlbumUrl($album->fields['name'], $i) . "\">" . $imgtag . "</a>";
-			$photos .= $caption . "<br>\n";
+			$photos .= "<a href=\"" . makeAlbumUrl($album->fields['name'], $i) .
+"\">" . $imgtag . "</a>$caption<br />\n";
 		}
 	}
 	
@@ -257,10 +261,10 @@ if (isset($ha)) {
 	$channel_image_height = $ha["pb:height"];
 }
 
-$total_str = gTranslate('core', "1 album", "%s albums", $numAlbums, gTranslate('core', "no albums"));
-$image_str = gTranslate('core', "1 photo", "%s photos", $numPhotos, gTranslate('core', "no photos"));
+$total_str = gTranslate('core', "1 album", "%s albums", $numAlbums, _("no albums"));
+$image_str = gTranslate('core', "1 photo", "%s photos", $numPhotos, _("no photos"));
 
-$description = sprintf(gTranslate('core', "%s in %s"), $image_str, $total_str);
+$description = sprintf(_("%s in %s"), $image_str, $total_str);
 
 header("Content-Type: application/xml");
 

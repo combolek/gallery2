@@ -26,7 +26,7 @@
 $sensitiveList = array('gallery', 'GALLERY_EMBEDDED_INSIDE', 'GALLERY_EMBEDDED_INSIDE_TYPE', 'GLOBALS');
 foreach ($sensitiveList as $sensitive) {
     if (!empty($_REQUEST[$sensitive])) {
-        print gTranslate('core', "Security violation") ."\n";
+        echo "Security violation! Override attempt.\n";
         exit;
     }
 }
@@ -36,7 +36,7 @@ foreach ($sensitiveList as $sensitive) {
 * In v1.2, we know that we'll have lots and lots of warnings if
 * error reporting is turned all the way up.  We'll fix this in v2.0
 */
-//error_reporting(E_ALL & ~E_NOTICE);
+error_reporting(E_ALL & ~E_NOTICE);
 
 /*
 *  Seed the randomization pool once, instead of doing it every place
@@ -68,14 +68,6 @@ if (fs_file_exists(dirname(__FILE__) . "/config.php")) {
     set_time_limit($gallery->app->timeLimit);
 }
 
-$gallerySanity = gallerySanityCheck();
-
-/* Make sure that Gallery is set up properly */
-if ($gallerySanity != NULL) {
-    header("Location: " . makeGalleryHeaderUrl('setup/index.php'));
-    exit;
-}
-
 /*
  *  We TRY to make sure that register_globals is disabled.  If the user has not disabled
  *  register_globals in their php.ini, we try to emulate its functionality by unsetting all
@@ -101,8 +93,7 @@ if (file_exists(dirname(__FILE__) . "/lib/devel.php")) {
 }
 
 /*
- * Now we can catch if were are in GeekLog
- * We also include the common lib file as we need it in initLanguage()
+ * Now we can catch if were are in GeekLog and if yes, include the common lib file.
  *
  * If the old example path is still set, remove it.
 */
@@ -112,9 +103,10 @@ if (!empty($gallery->app->geeklog_dir) && $gallery->app->geeklog_dir == "/path/t
 
 // Verify that the geeklog_dir isn't overwritten with a remote exploit
 if (!empty($gallery->app->geeklog_dir) && !realpath($gallery->app->geeklog_dir)) {
-    print gTranslate('core', "Security violation") ."\n";
+    print _("Security violation. Geeklog Dir is invalid.") ."\n";
     exit;
-} elseif (!empty($gallery->app->geeklog_dir)) {
+}
+elseif (!empty($gallery->app->geeklog_dir)) {
     $GALLERY_EMBEDDED_INSIDE='GeekLog';
     $GALLERY_EMBEDDED_INSIDE_TYPE = 'GeekLog';
 
@@ -128,7 +120,8 @@ if (!empty($gallery->app->geeklog_dir) && !realpath($gallery->app->geeklog_dir))
 if (isset($gallery->app->devMode) && $gallery->app->devMode == 'yes') {
     ini_set("display_errors", "1");
     error_reporting(E_ALL);
-} else {
+}
+else {
     error_reporting(E_ALL & ~E_NOTICE);
 }
 
@@ -170,6 +163,9 @@ if(isset($gallery->app)) {
 */
 set_magic_quotes_runtime(0);
 
+// We need to init the language before we include the files below, as they contain gettext calls.
+initLanguage();
+
 /* Load classes and session information
  * Note: Some classes and libs are loaded in util.php
 */
@@ -186,6 +182,14 @@ require(dirname(__FILE__) . "/classes/Comment.php");
 
 if (!isset($GALLERY_NO_SESSIONS)) {
     require(dirname(__FILE__) . "/session.php");
+}
+
+$gallerySanity = gallerySanityCheck();
+
+/* Make sure that Gallery is set up properly */
+if ($gallerySanity != NULL) {
+    include_once(dirname(__FILE__) . "/includes/errors/$gallerySanity");
+    exit;
 }
 
 if (isset($GALLERY_EMBEDDED_INSIDE)) {
@@ -220,7 +224,9 @@ if (isset($GALLERY_EMBEDDED_INSIDE)) {
                 $gallery->session->username = $user_info["uname"];
                 $gallery->user = $gallery->userDB->getUserByUsername($gallery->session->username);
             }
+
             break;
+
         case 'phpnuke':
             /* we're in phpnuke */
             include_once(dirname(__FILE__) . "/classes/Database.php");
@@ -276,7 +282,9 @@ if (isset($GALLERY_EMBEDDED_INSIDE)) {
                 $gallery->session->username = $user_info[$gallery->database{'fields'}{'uname'}];
                 $gallery->user = $gallery->userDB->getUserByUsername($gallery->session->username);
             }
+
             break;
+
         case 'nsnnuke':
             /* we're in nsnnuke */
             include_once(dirname(__FILE__) . "/classes/Database.php");
@@ -323,9 +331,11 @@ if (isset($GALLERY_EMBEDDED_INSIDE)) {
                 $gallery->session->username = $user_info[$gallery->database{'fields'}{'uname'}];
                 $gallery->user = $gallery->userDB->getUserByUsername($gallery->session->username);
             }
+
             break;
+
         case 'phpBB2':
-        //print_r($GLOBALS['board_config']['version']);
+            //print_r($GLOBALS['board_config']['version']);
             include_once(dirname(__FILE__) . "/classes/Database.php");
             include_once(dirname(__FILE__) . "/classes/database/mysql/Database.php");
             include_once(dirname(__FILE__) . "/classes/phpbb/UserDB.php");
@@ -357,7 +367,9 @@ if (isset($GALLERY_EMBEDDED_INSIDE)) {
             elseif ($gallery->session->username) {
                 $gallery->user = $gallery->userDB->getUserByUsername($gallery->session->username);
             }
+
             break;
+
         case 'mambo':
         case 'joomla':
             include_once(dirname(__FILE__) . '/classes/Database.php');
@@ -384,7 +396,8 @@ if (isset($GALLERY_EMBEDDED_INSIDE)) {
                 $mosConfig_dbprefix	= $gallery->session->mambo->mosConfig_dbprefix;
                 $mosConfig_lang		= $gallery->session->mambo->mosConfig_lang;
                 $MOS_GALLERY_PARAMS	= $gallery->session->mambo->MOS_GALLERY_PARAMS;
-            } elseif (!empty($mosConfig_db)) {
+            }
+            elseif (!empty($mosConfig_db)) {
                 $gallery->session->mambo->mosRoot = dirname($_SERVER['PHP_SELF']);
                 if (substr($gallery->session->mambo->mosRoot, -1) != '/') {
                     $gallery->session->mambo->mosRoot .= '/';
@@ -396,15 +409,15 @@ if (isset($GALLERY_EMBEDDED_INSIDE)) {
                 $gallery->session->mambo->mosConfig_dbprefix = $mosConfig_dbprefix;
                 $gallery->session->mambo->mosConfig_lang     = $mosConfig_lang;
                 $gallery->session->mambo->MOS_GALLERY_PARAMS = $MOS_GALLERY_PARAMS;
-            } else {
-                echo 'init.php: ' . gTranslate('core', "Gallery seems to be inside Mambo, but we couldn't get the necessary info.");
+            }
+            else {
+                echo 'init.php: ' . _("Gallery seems to be inside Mambo, but we couldn't get the necessary info.");
                 exit;
             }
 
             $gallery->database{'mambo'} = new MySQL_Database($mosConfig_host, $mosConfig_user, $mosConfig_password, $mosConfig_db);
             $gallery->database{'user_prefix'} = $mosConfig_dbprefix;
-            $gallery->database{'fields'} =
-            array (
+            $gallery->database{'fields'} = array (
                 'name'  => 'name',
                 'uname' => 'username',
                 'email' => 'email',
@@ -479,10 +492,10 @@ if (isset($GALLERY_EMBEDDED_INSIDE)) {
             include_once(dirname(__FILE__) . "/classes/nsnnuke/User.php");
 
             $gallery->database{"cpgnuke"} = new MySQL_Database(
-                $GLOBALS['dbhost'],
-                $GLOBALS['dbuname'],
-                $GLOBALS['dbpass'],
-                $GLOBALS['dbname']);
+            $GLOBALS['dbhost'],
+            $GLOBALS['dbuname'],
+            $GLOBALS['dbpass'],
+            $GLOBALS['dbname']);
 
             if (isset($GLOBALS['user_prefix'])) {
                 $gallery->database{"user_prefix"} = $GLOBALS['prefix'] . '_';
@@ -494,7 +507,8 @@ if (isset($GALLERY_EMBEDDED_INSIDE)) {
             $gallery->database{"admin_prefix"} = $GLOBALS['prefix'] . 'b_';
 
             /* Select the appropriate field names */
-            $gallery->database{'fields'} = array (
+            $gallery->database{'fields'} =
+            array (
                 'name'  => 'name',
                 'uname' => 'username',
                 'email' => 'user_email',
@@ -532,26 +546,30 @@ else {
 
 /* If there's no specific user, they are the special Everybody user */
 if (!isset($gallery->user) || empty($gallery->user)) {
-    if (!$gallery->userDB->isInitialized()) {
-        echo infoBox(array(array(
-                'type' => 'error',
-                'text' => "Fatal error: UserDB failed to initialize!"
-            )));
+    if (empty($gallery->userDB)) {
+        exit("Fatal error: UserDB failed to initialize!");
     }
     $gallery->user = $gallery->userDB->getEverybody();
     $gallery->session->username = "";
 }
 
-/* Now we init the language
- * Its done after initializing the user.
+/**
+ * It maybe, that the user has a different language then the default.
+ * So we reinit the language after initializing the user.
 */
-initLanguage();
+if (!empty($gallery->user)) {
+    $userlanguage = $gallery->user->getDefaultLanguage();
+
+    if($userlanguage != $gallery->language) {
+        initLanguage(true, $userlanguage);
+    }
+}
 
 if (!isset($gallery->session->offline)) {
     $gallery->session->offline = FALSE;
 }
 
-if ($gallery->userDB->isInitialized() && $gallery->userDB->versionOutOfDate()) {
+if ($gallery->userDB->versionOutOfDate()) {
     include_once(dirname(__FILE__) . "/upgrade_users.php");
     exit;
 }
@@ -562,10 +580,9 @@ if (!empty($gallery->session->albumName)) {
     $ret = $gallery->album->load($gallery->session->albumName);
     if (!$ret) {
         $gallery->session->albumName = "";
-    }
-    else {
+    } else {
         if ($gallery->album->versionOutOfDate()) {
-            include_once(dirname(__FILE__) . "/popups/upgrade_album.php");
+            include_once(dirname(__FILE__) . "/upgrade_album.php");
             exit;
         }
     }

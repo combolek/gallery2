@@ -39,7 +39,7 @@ class Album {
     function Album() {
         global $gallery;
 
-        $this->fields["title"] = gTranslate('core', "Untitled");
+        $this->fields["title"] = _("Untitled");
         $this->fields["description"] = "";
         $this->fields["summary"]="";
         $this->fields["nextname"] = "aaa";
@@ -97,8 +97,7 @@ class Album {
             $value = trim($value);
             if (empty($value)) {
                 unset($this->fields["extra_fields"][$key]);
-            }
-            else {
+            } else {
                 $this->fields["extra_fields"][$key] = $value;
             }
         }
@@ -155,8 +154,6 @@ class Album {
         $this->fields["email_me"] = array();
         $this->fields["ecards"] = $gallery->app->default["ecards"];
 
-        $this->fields['highlightIndex'] = 1;
-
         // Seed new albums with the appropriate version.
         $this->version = $gallery->album_version;
     }
@@ -179,7 +176,7 @@ class Album {
             return $photo->lastCommentDate();
         }
     }
-
+    
     function lastCommentDate($verbose = "yes") {
         global $gallery;
         if (!$gallery->user->canViewComments($this)) {
@@ -240,7 +237,7 @@ class Album {
 
         if ($addChild == true) {
             $parentAlbumsArray[] = array(
-                'prefixText' => gTranslate('core', "Album"),
+                'prefixText' => _("Album"),
                 'title' => $this->fields['title'],
                 'url' => makeAlbumUrl($this->fields['name']));
         }
@@ -252,7 +249,7 @@ class Album {
           $depth < 30 &&
           ($currentAlbum->fields['returnto'] != 'no' || $ignoreReturnto == true)) {
             $parentAlbumsArray[] = array(
-    	        'prefixText' => gTranslate('core', "Album"),
+    	        'prefixText' => _("Album"),
     	        'title' => $parentAlbum->fields['title'],
     	        'url' => makeAlbumUrl($parentAlbum->fields['name']));
             $depth++;
@@ -264,8 +261,8 @@ class Album {
          */
         if (!isset($parentAlbum) && $currentAlbum->fields['returnto'] != 'no'){
             $parentAlbumsArray[] = array(
-                'prefixText' => gTranslate('core', "Gallery"),
-                'title' => clearGalleryTitle(),
+                'prefixText' => _("Gallery"),
+                'title' => $gallery->app->galleryTitle,
                 'url' => makeGalleryUrl("albums.php"));
         }
 
@@ -286,13 +283,10 @@ class Album {
 
     function versionOutOfDate() {
         global $gallery;
-
         if (strcmp($this->version, $gallery->album_version)) {
-            return true;
+            return 1;
         }
-	else {
-           return false;
-       }
+        return 0;
     }
 
     /**
@@ -301,7 +295,6 @@ class Album {
      */
     function integrityCheck() {
         global $gallery;
-
         $gallery->album = $this;
 
         if (!$this->transient->photosloaded) {
@@ -309,15 +302,14 @@ class Album {
         }
 
         if (!strcmp($this->version, $gallery->album_version)) {
-            print gTranslate('core', "Album up to date.") ." <br>";
+            print _("Album up to date.") ." <br>";
             return 0;
         }
 
-        print gTranslate('core', "Upgrading album properties...");
+        print _("Upgrading album properties...");
         my_flush();
 
         $changed = 0;
-
         $this->fields["last_quality"] = $gallery->app->jpegImageQuality;
         $check = array(
             'thumb_size',
@@ -364,7 +356,7 @@ class Album {
         foreach ($check as $field) {
             if (!isset($this->fields[$field]) && isset($gallery->app->default[$field])) {
                 $this->fields[$field] = $gallery->app->default[$field];
-                $changed = true;
+                $changed = 1;
             }
         }
 
@@ -377,30 +369,30 @@ class Album {
                 foreach ($this->fields['perms']['canRead'] as $uid => $p) {
                     $this->fields['perms']['canViewFullImages'][$uid] = $p;
                 }
-                $changed = true;
+                $changed = 1;
             }
         }
         if ($this->version < 10) {
             if (empty($this->fields['summary'])) {
                 $this->fields['summary']='';
-                $changed = true;
+                $changed = 1;
             }
             if (empty($this->fields['extra_fields']) || !is_array($this->fields['extra_fields'])) {
                 $this->fields['extra_fields']=array();
-                $changed = true;
+                $changed = 1;
             }
         }
         if ($this->version < 16) {
             if (empty($this->fields['votes'])) {
                 $this->fields['votes']=array();
-                $changed = true;
+                $changed = 1;
             }
         }
         if ($this->version < 17) {
             foreach ($this->fields['votes'] as $key => $value) {
                 unset($this->fields['votes'][$key]);
                 $this->fields['votes']["item.$key"]=$value;
-                $changed = true;
+                $changed = 1;
             }
         }
 
@@ -459,13 +451,13 @@ class Album {
             global $albumDB;
             $albumDB->renameAlbum($oldName, $newName);
             $albumDB->save();
-            printf(gTranslate('core', "Renaming album from %s to %s..."), $oldName, $newName);
+            printf(_("Renaming album from %s to %s..."), $oldName, $newName);
 
             // AlbumDB will set this value .. but it will be set in a different
             // instance of this album, so we have to do it here also so that
             // when *this* instance gets saved the value is right
             $this->fields["name"] = $newName;
-            $changed = true;
+            $changed = 1;
         }
 
         /* Rebuild highlight */
@@ -478,7 +470,7 @@ class Album {
 
         if ($this->version < 29) {
             $this->fields['guid'] = genGUID();
-            $changed = true;
+            $changed = 1;
         }
 
         if ($this->version < 30) {
@@ -504,7 +496,7 @@ class Album {
                     $this->fields['print_photos']['shutterfly']['checked'] = 'checked';
                 }
                 unset($this->fields['print_photos']['ezprints']);
-                $changed = true;
+                $changed = 1;
             }
         }
         // In gallery 1.5.1 the Structure for print services was 'de-suck-ified' (quoted B.M.W.)
@@ -527,88 +519,48 @@ class Album {
             $changed = true;
         }
 
-        /* Move highlight-Index into album data */
-        if ($this->version < 38 && $this->numPhotos(1) > 0) {
-        	$highlightIndex = $this->getHighlight(true);
-			$this->setHighlight($highlightIndex);
-			$changed = true;
-        }
-
-        static $configWritten = false;
-        if ($this->version < 39) {
-            $translation1 = gTranslate('core', "description");
-            $translation2 = gTranslate('core', "Description");
-            $removeFields = array('description', 'Description', $translation1, $translation2);
-
-            if(!empty($this->fields['extra_fields'])) {
-                foreach($this->fields['extra_fields'] as $key => $fieldname) {
-                    if(in_array($fieldname, $removeFields)) {
-                        unset($this->fields['extra_fields'][$key]);
-                    }
-                }
-            }
-
-            if(!$configWritten) {
-                $configFile = dirname(dirname(__FILE__)) .'/config.php';
-
-                $config = fs_file_get_contents($configFile);
-                $pattern = '/(description|Description|$translation1|$translation2)\ *,?/';
-                $replacement = '';
-                $newconfig = preg_replace($pattern, '', $config);
-
-                if ($fd = fs_fopen($configFile, "w")) {
-                    fwrite($fd, $newconfig);
-                    fclose($fd);
-                }
-                $configWritten = true;
-            }
-            $changed = true;
-        }
-
         /* Special case for EXIF :-( */
         if (!$this->fields["use_exif"]) {
             if (!empty($gallery->app->use_exif)) {
                 $this->fields["use_exif"] = "yes";
-            }
-            else {
+            } else {
                 $this->fields["use_exif"] = "no";
             }
-            $changed = true;
+            $changed = 1;
         }
 
         /* Special case for serial number */
         if (!$this->fields["serial_number"]) {
             $this->fields["serial_number"] = 0;
-            $changed = true;
+            $changed = 1;
         }
+
+        print _("done").".<br>";
 
         /* Check all items */
         $count = $this->numPhotos(1);
-        if($count > 0) {
-            $onePercent = 100/$count;
-            for ($i = 1; $i <= $count; $i++) {
-                set_time_limit(30);
-                $status = sprintf(gTranslate('core', "Upgrading item %d of %d . . . "), $i, $count);
-                echo "\n<script type=\"text/javascript\">updateProgressBar('albumProgessbar', '$status',". ceil($i * $onePercent) .")</script>";
-                my_flush();
+        for ($i = 1; $i <= $count; $i++) {
+            set_time_limit(30);
+            print sprintf(_("Upgrading item %d of %d . . . "), $i, $count);
+            my_flush();
 
-                $photo = &$this->getPhoto($i);
-                if ($photo->integrityCheck($this->getAlbumDir())) {
-                    $changed = true;
-                    $this->updateSerial = 1;
-                }
+            $photo = &$this->getPhoto($i);
+            if ($photo->integrityCheck($this->getAlbumDir())) {
+                $changed = 1;
+                $this->updateSerial = 1;
             }
+
+            print _("done").".<br>";
         }
 
         if (strcmp($this->version, $gallery->album_version)) {
             $this->version = $gallery->album_version;
-            $changed = true;
+            $changed = 1;
         }
 
         if ($changed) {
             $this->updateSerial = 1;
         }
-
         return $changed;
     }
 
@@ -616,7 +568,6 @@ class Album {
         $this->updateSerial = 1;
 
         shuffle($this->photos);
-        $this->resetHighlightIndex();
     }
 
     /**
@@ -653,7 +604,7 @@ class Album {
         } elseif (!strcmp($sort, "comment")) {
             $func = "sortByComment";
         }
-
+        
         if ($albumsFirst != "") {
             //echo "presort by $func with order $order";
             usort($this->photos, array('Album', 'sortByType'));
@@ -662,7 +613,6 @@ class Album {
             usort($this->photos, array('Album', $func));
         }
 
-        $this->resetHighlightIndex();
     }
 
     /**
@@ -674,10 +624,10 @@ class Album {
 
         $objA = (object)$a;
         $objB = (object)$b;
-
+        
         $aIsAlbum = $objA->isAlbum();
         $bIsAlbum = $objB->isAlbum();
-
+        
         if ($aIsAlbum == $bIsAlbum) {
             return Album::$func($a, $b);
         } elseif ($aIsAlbum < $bIsAlbum) {
@@ -686,7 +636,7 @@ class Album {
             return -1 * $albumsFirst;
         }
     }
-
+    
     function sortByUpload($a, $b) {
         global $order;
 
@@ -847,33 +797,25 @@ class Album {
         return 0;
     }
 
-    function getHighlight($verbose = false) {
-    	debugMessage(sprintf(gTranslate('core', "Getting highlight of album with name: %s"), $this->fields['name'])
-    		, __FILE__, __LINE__, 3);
-
+    function getHighlight() {
+        debugMessage(_("Getting highlight"), __FILE__, __LINE__, 3);
+        
         if ($this->numPhotos(1) == 0) {
             return null;
         }
 
-        if(!$verbose) {
-        	return $this->fields['highlightIndex'];
+        for ($i = 1; $i <= $this->numPhotos(1); $i++) {
+            $photo = $this->getPhoto($i);
+            if ($photo->isHighlight()) {
+                return $i;
+            }
         }
-        else {
-	        for ($i = 1; $i <= $this->numPhotos(1); $i++) {
-	            $photo = $this->getPhoto($i);
-	            if ($photo->isHighlight()) {
-	                return $i;
-	            }
-	        }
-	        // If no highligh was found (?!) return 1
-	        debugMessage(gTranslate('core', "No Highlight was found !"), __FILE__, __LINE__, 3);
-	        return 1;
-        }
+        return 1;
     }
 
     function getHighlightSize() {
         global $gallery;
-
+        
         $parentAlbum = $this->getParentAlbum(FALSE);
         if (isset($parentAlbum)) {
             $size = $parentAlbum->fields["thumb_size"];
@@ -883,31 +825,15 @@ class Album {
         return $size;
     }
 
-    function setHighlight($index, $verbose = true) {
-        debugMessage(gTranslate('core', "Setting highlight"), __FILE__, __LINE__, 3);
-
-        if($verbose) {
-            $this->updateSerial = 1;
-            $numPhotos = $this->numPhotos(1);
-
-            for ($i = 1; $i <= $numPhotos; $i++) {
-                $photo = &$this->getPhoto($i);
-                $photo->setHighlight($this->getAlbumDir(), $i == $index, $this);
-            }
-        }
-
-        $this->fields['highlightIndex'] = $index;
-    }
-
     /**
-     * Returns ratio of highlight,
+     * Returns ratio of highlight, 
      * which is either thumb ratio of parent album, or value from config if root.
      * @return string   $size
      * @author Jens Tkotz <jens@peino.de>
      */
     function getHighlightRatio() {
         global $gallery;
-
+        
         $parentAlbum = $this->getParentAlbum(FALSE);
         if (isset($parentAlbum)) {
             $ratio = getPropertyDefault('thumb_ratio', $parentAlbum, false);
@@ -916,8 +842,20 @@ class Album {
         }
         return $ratio;
     }
+    
+    function setHighlight($index) {
+        debugMessage(_("Setting highlight"), __FILE__, __LINE__, 3);
+        
+        $this->updateSerial = 1;
+        $numPhotos = $this->numPhotos(1);
 
-    function load($name, $loadphotos = true) {
+        for ($i = 1; $i <= $numPhotos; $i++) {
+            $photo = &$this->getPhoto($i);
+            $photo->setHighlight($this->getAlbumDir(), $i == $index, $this);
+        }
+    }
+
+    function load($name, $loadphotos=TRUE) {
         global $gallery;
 
         $this->transient->photosloaded = FALSE;
@@ -936,7 +874,7 @@ class Album {
             if (!$this->loadFromFile("$dir/album.dat.bak") &&
             !$this->loadFromFile("$dir/album.bak")) {
                 /* Uh oh */
-                return false;
+                return 0;
             }
         }
 
@@ -946,15 +884,12 @@ class Album {
             if ($loadphotos) {
                 $this->loadPhotos($dir);
             }
-        }
-        else {
+        } else {
             $this->transient->photosloaded = TRUE;
         }
-
         $this->fields["name"] = $name;
         $this->updateSerial = 0;
-
-        return true;
+        return 1;
     }
 
 
@@ -1063,12 +998,10 @@ class Album {
             if ($success) {
                 $this->fields["photos_separate"] = TRUE;
                 unset ($this->photos);
-            }
-            else {
+            } else {
                 $success = FALSE;
             }
-        }
-        else {
+        } else {
             $success = TRUE;
         }
 
@@ -1103,7 +1036,7 @@ class Album {
         // send email
         if ($gallery->app->emailOn == 'yes' && $success && $msg) {
             if (!is_array($msg)) {
-                echo gallery_error(gTranslate('core', "msg should be an array!"));
+                echo gallery_error(_("msg should be an array!"));
                 vd($msg);
                 return $success;
             }
@@ -1112,7 +1045,7 @@ class Album {
             if (!empty($to)) {
                 $text = '';
                 $msg_str = call_user_func_array('sprintf', $msg);
-                $subject = sprintf(gTranslate('core', "Changes to Album: %s"), $this->fields['name']);
+                $subject = sprintf(_("Changes to Album: %s"), $this->fields['name']);
                 $logmsg = sprintf("Change to %s: %s.", makeAlbumHeaderUrl($this->fields['name']), $msg_str);
 
                 $text .= '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">';
@@ -1120,27 +1053,27 @@ class Album {
                 $text .= "\n  <head>";
                 $text .= "\n  <title>$subject</title>";
                 $text .= "\n  </head>\n<body>\n<p>";
-                $text .= sprintf(gTranslate('core', "A change has been made to Album: %s by %s (IP %s).  The change is: %s"),
+                $text .= sprintf(_("A change has been made to Album: %s by %s (IP %s).  The change is: %s"),
                   '<a href="'. makeAlbumHeaderUrl($this->fields['name']) .'">'. $this->fields['name'] .'</a>',
-                  $gallery->user->printableName($gallery->app->name_display),
+                $gallery->user->printableName($gallery->app->comments_display_name),
                   $_SERVER['REMOTE_ADDR'],
                 $msg_str);
 
-                $text .= "\n<p>". gTranslate('core', "If you no longer wish to receive emails about this image, follow the links above and ensure that 'Email me when other changes are made' is unchecked (You'll need to login first).");
+                $text .= "\n<p>". _("If you no longer wish to receive emails about this image, follow the links above and ensure that 'Email me when other changes are made' is unchecked (You'll need to login first).");
                 $text .= "\n</p>\n</body>\n</html>";
 
 
                 gallery_mail($to, $subject, $text, $logmsg, true, NULL, false, true);
 
             } else if (isDebugging()) {
-                print "\n<br>". gTranslate('core', "Operation was done successfully. Emailing is on, but no email was sent as no valid email address was found");
+                print "\n<br>". _("Operation was done successfully. Emailing is on, but no email was sent as no valid email address was found");
             }
         }
 /*
 	if (!$success) {
-	    echo gTranslate('core', "Save failed");
+	    echo _("Save failed");
 	} else {
-	    echo gTranslate('core', "Save OK");
+	    echo _("Save OK");
 	}
 */
         return $success;
@@ -1190,29 +1123,29 @@ class Album {
         rmdir($dir);
     }
 
-    function resizePhoto($index, $target, $filesize = 0, $pathToResized = '') {
+    function resizePhoto($index, $target, $filesize=0, $pathToResized="") {
         $this->updateSerial = 1;
 
         $photo = &$this->getPhoto($index);
         if (!$photo->isMovie()) {
             $photo->resize($this->getAlbumDir(), $target, $filesize, $pathToResized);
         } else {
-            echo gTranslate('core', "Skipping Movie");
+            echo ("Skipping Movie");
         }
     }
 
-    function resizeAllPhotos($target,$filesize = 0,$pathToResized = '', $recursive = false) {
+    function resizeAllPhotos($target,$filesize=0,$pathToResized="", $recursive=false) {
         for ($i=1; $i <= $this->numPhotos(1); $i++) {
             if ($this->isAlbum($i) && $recursive == true) {
                 $nestedAlbum = new Album();
                 $nestedAlbum->load($this->getAlbumName($i));
                 $np = $nestedAlbum->numPhotos(1);
-                echo "\n<br>". sprintf (gTranslate('core', "Entering album %s, processing %d photos"), $this->getAlbumName($i), $np);
+                echo "\n<br>". sprintf (_("Entering album %s, processing %d photos"), $this->getAlbumName($i), $np);
                 $nestedAlbum->resizeAllPhotos($target,$filesize=0,$pathToResized="", $recursive);
                 $nestedAlbum->save();
             }
             else {
-                echo "<br>". sprintf(gTranslate('core', "Processing element %d..."), $i);
+                echo "<br>". sprintf(_("Processing element %d..."), $i);
                 my_flush();
                 $this->resizePhoto($i, $target, $filesize=0, $pathToResized="");
             }
@@ -1225,8 +1158,8 @@ class Album {
         $this->updateSerial = 1;
         $dir = $this->getAlbumDir();
 
-        echo debugMessage(gTranslate('core', "Doing the naming of the physical file."), __FILE__, __LINE__);
-
+        echo debugMessage(_("Doing the naming"), __FILE__, __LINE__);
+        
         if ($gallery->app->default["useOriginalFileNames"] == 'yes') {
             $name = $originalFilename;
             // check to see if a file by that name already exists
@@ -1245,8 +1178,7 @@ class Album {
                     }
                 }
             }
-        }
-        else {
+        } else {
             $name = $this->newPhotoName();
             // do filename checking here, too... users could introduce a duplicate 3 letter
             // name if they switch original file names on and off.
@@ -1259,47 +1191,34 @@ class Album {
         $newFile = "$dir/$name.$tag";
         fs_copy($file, $newFile);
 
-        echo debugMessage(gTranslate('core', "Image Preprocessing"), __FILE__, __LINE__);
+        echo debugMessage(_("Image Preprocessing"), __FILE__, __LINE__);
         /* Do any preprocessing necessary on the image file */
         preprocessImage($dir, "$name.$tag");
 
         /* Resize original image if necessary */
-        echo debugMessage("&nbsp;&nbsp;&nbsp;". gTranslate('core', "Resizing/compressing original file"), __FILE__, __LINE__,1);
-
+        echo debugMessage("&nbsp;&nbsp;&nbsp;". _('Resizing/compressing original image'), __FILE__, __LINE__,1);
         if (isImage($tag)) {
             resize_image($newFile, $newFile, $this->fields['max_size'], $this->fields['max_file_size'], true, false);
-        }
-        elseif (isMovie($tag)) {
-            processingMsg(gTranslate('core', "File is a movie, no resizing done."));
-        }
-        else {
-            processingMsg(sprintf(gTranslate('core', "Invalid filetype: %s. Skipping."), $tag));
+        } else {
+            processingMsg(_('Cannot resize/compress this filetype'));
         }
 
         /* Add the photo to the photo list */
         $item = new AlbumItem();
-        $status = $item->setPhoto($dir, $name, $tag, $this->fields["thumb_size"], $this, $pathToThumb);
-
-        if (!$status) {
+        $err = $item->setPhoto($dir, $name, $tag, $this->fields["thumb_size"], $this, $pathToThumb);
+        if ($err) {
             if (fs_file_exists($newFile)) {
                 fs_unlink($newFile);
             }
-            $errorMsg = infobox(array(array(
-                    'type' => 'error',
-                    'text' => gTranslate('core', "Item not added.")
-            )));
-
-            return array($status, $errorMsg);
-        }
-        else {
+            return $err;
+        } else {
             $item->setCaption("$caption");
             /* Only try to get Capture Date if file could have it.
-             * Otherwise use file creation time
+            ** Otherwise use file creation time
             */
             if(hasExif($tag)) {
                 $originalItemCaptureDate = getItemCaptureDate($file);
-            }
-            else {
+            } else {
                 $originalItemCaptureDate = filemtime($file);
             }
 
@@ -1318,7 +1237,7 @@ class Album {
         $this->photos[] = $item;
 
         /* If this is the only photo, make it the highlight */
-        if ($this->numPhotos(1) == 1 && !isMovie($tag)) {
+        if ($this->numPhotos(1) == 1 && !$item->isMovie()) {
             $this->setHighlight(1);
         }
 
@@ -1336,19 +1255,19 @@ class Album {
             if ($w > $this->fields["resize_size"] ||
               $h > $this->fields["resize_size"] ||
               $this->fields["resize_file_size"] > 0) {
-                processingMsg("- " . sprintf(gTranslate('core', "Resizing %s"), $name));
+                processingMsg("- " . sprintf(_("Resizing %s"), $name));
                 $this->resizePhoto($index,
                 $this->fields["resize_size"],
                 $this->fields["resize_file_size"]);
             }
         }
 
-        $index = $this->numPhotos(1);
-
         /* auto-rotate the photo if needed */
-        echo debugMessage(gTranslate('core', "Check if image needs to be rotated"), __FILE__, __LINE__);
-        if ($exifRotate && hasExif($tag) &&
-          !empty($gallery->app->autorotate) && $gallery->app->autorotate == 'yes'  &&
+        $index = $this->numPhotos(1);
+        
+        echo debugMessage(_("Doing the naming"), __FILE__, __LINE__);
+        if ($exifRotate && hasExif($tag) && 
+          !empty($gallery->app->autorotate) && $gallery->app->autorotate == 'yes'  && 
             (!empty($gallery->app->use_exif) && $gallery->app->use_exif ||
             (!empty($gallery->app->exiftags) && $gallery->app->exiftags))
         ){
@@ -1357,32 +1276,27 @@ class Album {
 
             if (isset($exifData['Orientation'])) {
                 $orientation = trim($exifData['Orientation']);
-            }
-            else if (isset($exifData['Image Orientation'])) {
+            } else if (isset($exifData['Image Orientation'])) {
                 $orientation = trim($exifData['Image Orientation']);
-            }
-            else {
+            } else {
                 $orientation = '';
             }
 
             $photo = $this->getPhoto($index);
             switch ($orientation) {
                 case "Right-Hand, Top":    // exiftags
-                case "Top, Right-Hand":
                 case "rotate 90":          // jhead
-                    $rotate = '90';
+                    $rotate = -90;
                 break;
 
-                case "Right-Hand, Bottom": // exiftags
-                case "Bottom, Right-Hand":
+                case "Bottom, Right-Hand": // exiftags
                 case "rotate 180":	   // jhead
-                    $rotate = '180';
+                    $rotate = 180;
                 break;
 
                 case "Left-Hand, Bottom":  // exiftags
-                case "Bottom, Left-Hand":
                 case "rotate 270":	   // jhead
-                    $rotate = '90';
+                    $rotate = 90;
                 break;
 
                 case "flip horizontal":
@@ -1408,10 +1322,7 @@ class Album {
 
             if ($rotate) {
                 $this->rotatePhoto($index, $rotate, true);
-                processingMsg(gTranslate('core', "Photo auto-rotated/transformed"));
-            }
-            else {
-            	processingMsg(gTranslate('core', "Photo NOT auto-rotated/transformed"));
+                processingMsg("- ". _("Photo auto-rotated/transformed"));
             }
         }
         /* move to the beginning if needed */
@@ -1419,19 +1330,14 @@ class Album {
             $this->movePhoto($this->numPhotos(1), 0);
         }
         if (isImage($tag) && strlen($wmName)) {
-            processingMsg("- ". gTranslate('core', "Watermarking Image"));
+            processingMsg("- ". _("Watermarking Image"));
             $photo->watermark($this->getAlbumDir(),
             $wmName, '', $wmAlign, $wmAlignX, $wmAlignY, 0, 0, $wmSelect);
         }
 
         $this->fields['guid'] = genGUID();
 
-        $statusMsg = infobox(array(array(
-                    'type' => 'success',
-                    'text' => gTranslate('core', "Item successfully added.")
-            )));
-
-        return array(true, $statusMsg);
+        return 0;
     }
 
     function addNestedAlbum($albumName) {
@@ -1522,16 +1428,13 @@ class Album {
                 }
             }
         }
-        else {
-            $this->resetHighlightIndex();
-        }
     }
 
     function newPhotoName() {
         return $this->fields["nextname"]++;
     }
 
-    function getPreviewTag($index, $size = 0, $attrs = array()) {
+    function getPreviewTag($index, $size=0, $attrs="") {
         if ($index === null) {
             return '';
         }
@@ -1545,7 +1448,7 @@ class Album {
         }
     }
 
-    function getThumbnailTag($index, $size = 0, $attrs = array()) {
+    function getThumbnailTag($index, $size=0, $attrs="") {
         if ($index === null) {
             return '';
         }
@@ -1557,8 +1460,8 @@ class Album {
             return $photo->getThumbnailTag($this->getAlbumDirURL("thumb"), $size, $attrs);
         }
     }
-
-    function getThumbnailTagById($id, $size = 0, $attrs = array()) {
+    
+    function getThumbnailTagById($id, $size=0, $attrs="") {
         return $this->getThumbnailTag($this->getPhotoIndex($id), $size, $attrs);
     }
 
@@ -1580,40 +1483,23 @@ class Album {
         return array($album, $photo);
     }
 
-    function getHighlightAsThumbnailTag($size = 0, $attrs = array()) {
+    function getHighlightAsThumbnailTag($size = 0, $attrs = '') {
         list ($album, $photo) = $this->getHighlightedItem();
         if ($photo) {
             return $photo->getThumbnailTag($album->getAlbumDirURL('highlight'), $size, $attrs);
         } else {
-            return '<span class="g-title">'. gTranslate('core', "No highlight!") .'</span>';
+            return '<span class="title">'. gTranslate('core', "No highlight!") .'</span>';
         }
     }
 
-    function getHighlightTag($size = 0, $attrs = array()) {
+    function getHighlightTag($size = 0, $attrs = '', $alttext = '') {
         $index = $this->getHighlight();
-
         if (isset($index)) {
             $photo = $this->getPhoto($index);
-            return $photo->getHighlightTag($this->getAlbumDirURL('highlight'), $size, $attrs);
+            return $photo->getHighlightTag($this->getAlbumDirURL('highlight'), $size, $attrs, $alttext);
+        } else {
+            return '<span class="title">'. gTranslate('core', "No highlight!") .'</span>';
         }
-        else {
-            return '<span class="g-title">'. gTranslate('core', "No highlight!") .'</span>';
-        }
-    }
-
-    /**
-     * Resets the highlight index field.
-     *
-     */
-    function resetHighlightIndex() {
-        if ($this->numPhotos(1) == 0) {
-            return;
-        }
-
-        $highlightIndex = $this->getHighlight(true);
-        $this->setHighlight($highlightIndex, false);
-
-        return;
     }
 
     function getPhotoTag($index, $full, $attrs) {
@@ -1757,7 +1643,7 @@ class Album {
         $numItemsTotal = $numAlbums + $numPhotos;
         return (array($numItemsTotal, $numAlbums, $numPhotos));
     }
-
+    
     function numVisibleItems($user, $returnVisibleItems=false) {
         $uuid = $user->getUid();
 
@@ -1804,10 +1690,7 @@ class Album {
     }
 
     function &getPhoto($index) {
-        global $global_notice_messages;
-        if (!isset($global_notice_messages)) {
-            $global_notice_messages = array();
-        }
+	global $errortext;
 
         if ($index >= 1 && $index <= sizeof($this->photos)) {
             $photo = & $this->photos[$index-1];
@@ -1819,16 +1702,10 @@ class Album {
                 sizeof($this->photos)
             );
             echo debugMessage($errortext, __FILE__, __LINE__);
-
-            $global_notice_messages[] = array(
-                'type' => 'error',
-                'text' => $errortext
-            );
-
             $photo = false;
         }
 
-        return $photo;
+	return $photo;
     }
 
     function getPhotoIndex($id) {
@@ -1865,58 +1742,6 @@ class Album {
         $photo->setCaption($caption);
     }
 
-    function createCaption($index, $captionType, $recursive = 'no') {
-        $np = $this->numPhotos(1);
-        echo "\n<h3>" . sprintf(_("Recreating %d captions..."), $np) .'</h3>';
-        for ($i = 1; $i <= $np; $i++) {
-            debugMessage(sprintf(_("Processing image %d..."), $i), __FILE__, __LINE__);
-            if ($this->isAlbum($i)) {
-                if($recursive == 'yes') {
-                    $nestedAlbum = new Album();
-                    $nestedAlbum->load($this->getAlbumName($i));
-
-                    $npn = $nestedAlbum->numPhotos(1);
-                    echo "<br>". sprintf(gTranslate('core', "Entering album %s, processing %d photos"), $this->getAlbumName($i), $npn);
-                    $nestedAlbum->createCaption(false, $captionType, $recursive);
-                    $nestedAlbum->save();
-                }
-            }
-            else {
-                $photo = $this->getPhoto($i);
-                $photo->createCaption($this->getAlbumDir("full"), $captionType);
-            }
-        }
-        if($this->save()) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
-    /**
-     * Returns the description of an album item
-     *
-     * @param integer $index
-     * @return string
-     * @author Jens Tkotz <jens@peino.de>
-     */
-    function getDescription($index) {
-        $photo = $this->getPhoto($index);
-        return $photo->getDescription();
-    }
-
-    /**
-     * Sets the description of an album item
-     *
-     * @param integer   $index
-     * @param string    $description
-     */
-    function setDescription($index, $description) {
-        $photo = &$this->getPhoto($index);
-        $photo->setDescription($description);
-    }
-
     function getItemOwner($index) {
         $photo = $this->getPhoto($index);
         return $photo->getOwner();
@@ -1931,7 +1756,7 @@ class Album {
         $photo = $this->getPhoto($index);
         return $photo->getRank();
     }
-
+    
     function setRank($index, $rank) {
         $photo = &$this->getPhoto($index);
         $photo->setRank($rank);
@@ -2006,7 +1831,6 @@ class Album {
         $this->updateSerial = 1;
         $photo = &$this->getPhoto($index);
         $retval = $photo->rotate($this->getAlbumDir(), $direction, $this->fields["thumb_size"], $this, $clearexifrotate);
-
         if (!$retval) {
             return $retval;
         }
@@ -2082,7 +1906,7 @@ class Album {
                 $nestedAlbum->load($this->getAlbumName($i));
 
                 $np = $nestedAlbum->numPhotos(1);
-                echo "<br>". sprintf(gTranslate('core', "Entering album %s, processing %d photos"), $this->getAlbumName($i), $np);
+                echo "<br>". sprintf(_("Entering album %s, processing %d photos"), $this->getAlbumName($i), $np);
                 $nestedAlbum->makeThumbnailRecursive($index);
                 $nestedAlbum->save();
 
@@ -2094,7 +1918,7 @@ class Album {
                 }
             }
             else {
-                echo("<br> ". sprintf(gTranslate('core', "Processing image %d..."), $i));
+                echo("<br> ". sprintf(_("Processing image %d..."), $i));
                 my_flush();
                 $this->makeThumbnail($i);
             }
@@ -2105,8 +1929,6 @@ class Album {
         /* Pull photo out */
         $photo = array_splice($this->photos, $index-1, 1);
         array_splice($this->photos, $newIndex, 0, $photo);
-
-        $this->resetHighlightIndex();
     }
 
     function rearrangePhotos($newOrder) {
@@ -2128,8 +1950,6 @@ class Album {
             }
         }
         $this->photos = $newList;
-
-        $this->resetHighlightIndex();
     }
 
     function isMovie($id) {
@@ -2149,13 +1969,13 @@ class Album {
     	if($uid == $this->getItemOwner($index)) {
     		return true;
     	}
-
+    	
     	$everybody = $gallery->userDB->getEverybody();
     	$everybodyUid = $everybody->getUid();
     	if($this->getItemOwner($index) == $everybodyUid) {
     		return true;
     	}
-
+    	
     	$nobody = $gallery->userDB->getNobody();
     	$nobodyUid = $nobody->getUid();
     	if ($uid == $nobodyUid) {
@@ -2252,7 +2072,7 @@ class Album {
         $photo->resetItemClicks();
     }
 
-    function getExif($index, $forceRefresh = false) {
+    function getExif($index, $forceRefresh=0) {
         global $gallery;
 
         if (empty($gallery->app->use_exif)) {
@@ -2261,14 +2081,13 @@ class Album {
 
         $dir = $this->getAlbumDir();
         $photo =& $this->getPhoto($index);
-
         list ($status, $exif, $needToSave) = $photo->getExif($dir, $forceRefresh);
 
         if ($status != 0) {
             // An error occurred.
             return array(
             	'junk1' => '',
-            	'Error' => sprintf(gTranslate('core', "Error getting EXIF data. Expected Status 0, got %s."),$status),
+            	'Error' => sprintf(_("Error getting EXIF data. Expected Status 0, got %s."),$status),
             	'status' => $status);
         }
 
@@ -2283,11 +2102,11 @@ class Album {
 
     function getCreationDate() {
     	global $gallery;
-
+    	
     	if(!empty($this->fields['creation_date'])) {
         	$creationDate = $this->fields['creation_date'];
     	}
-
+    	
         if (isset($creationDate)) {
         	return strftime($gallery->app->dateString,$creationDate);
         }
@@ -2295,7 +2114,7 @@ class Album {
         	return false;
         }
     }
-
+    
     function getLastModificationDate() {
         global $gallery;
         $dir = $this->getAlbumDir();
@@ -2384,7 +2203,7 @@ class Album {
             }
         }
     }
-
+    
     function setNestedPollProperties() {
         for ($i=1; $i <= $this->numPhotos(1); $i++) {
             if ($this->isAlbum($i)) {
@@ -2606,17 +2425,17 @@ class Album {
     // -------------
     function isOwner($uid) {
     	global $gallery;
-
+       
     	if($uid == $this->fields["owner"]) {
     		return true;
     	}
-
+    	
     	$everybody = $gallery->userDB->getEverybody();
     	$everybodyUid = $everybody->getUid();
     	if($this->fields["owner"] == $everybodyUid) {
     		return true;
     	}
-
+    	
     	return false;
     }
 
@@ -2628,38 +2447,30 @@ class Album {
         global $gallery;
         return $gallery->userDB->getUserByUid($this->fields["owner"]);
     }
-
-    /**
-     * Returns an array with the names of all extrafields for itemes defined in an album
-     *
-     * @param boolean $all  if false, all fields except the AltText field.
-     * @return array
-     */
+    
     function getExtraFields($all = true) {
-        $extra_fields = array();
-
         if ($all) {
-            $extra_fields = $this->fields['extra_fields'];
-        }
-        else {
-            foreach($this->fields['extra_fields'] as $value) {
+            return $this->fields["extra_fields"];
+        } else {
+            $return = array();
+            foreach($this->fields["extra_fields"] as $value) {
                 if ($value != 'AltText') {
-                    $extra_fields[] = $value;
+                    $return[]=$value;
                 }
             }
+            return $return;
         }
-        return $extra_fields;
     }
 
     function setExtraFields($extra_fields) {
-        $this->fields['extra_fields'] = $extra_fields;
+        $this->fields["extra_fields"] = $extra_fields;
     }
 
     /**
      * Returns the values of an extrafield from a photo.
-     * @param   integer     $index  albumitemIndex
-     * @param   string      $field  fieldname
-     * @return	string      $fieldvalue
+     * @param   $index		integer	albumitemIndex
+     * @param   $field		string	fieldname
+     * @return	$fieldvalue	string
      */
     function getExtraField($index, $field) {
        $photo = $this->getPhoto($index);
@@ -2721,23 +2532,29 @@ class Album {
 
     function getCaptionName($index) {
         global $gallery;
-
         if (!$this->getItemOwnerDisplay()) {
             return '';
         }
-
         $nobody = $gallery->userDB->getNobody();
         $nobodyUid = $nobody->getUid();
         $everybody = $gallery->userDB->getEverybody();
         $everybodyUid = $everybody->getUid();
 
-        $owner = $gallery->userDB->getUserByUid($this->getItemOwner($index));
+        $user = $gallery->userDB->getUserByUid($this->getItemOwner($index));
 
-        if ( !$owner) {
+        if ( !$user) {
+            return '';
+        }
+        if ( !strcmp($user->getUid(), $nobodyUid) || !strcmp($user->getUid(), $everybodyUid) ) {
             return '';
         }
 
-	return '('. showOwner($owner) .')';
+        $fullName = $user->getFullname();
+        if (empty($fullName)) {
+            return ' - '. $user->getUsername();
+        } else {
+            return ' - '. $user->getFullname() .' ('. $user->getUsername() .')';
+        }
     }
 
     /**
@@ -2806,8 +2623,8 @@ class Album {
         }
         for ($i = sizeof($nv_pairs); $i<$this->getPollScale() ; $i++) {
             if ($this->getPollType() == "rank") {
-                $nv_pairs[$i]["name"] = sprintf(gTranslate('core', "#%d"),($i));
-                $nv_pairs[$i]["value"] = $this->getPollScale()-$i+1;
+                $nv_pairs[$i]["name"]=sprintf(_("#%d"),($i));
+                $nv_pairs[$i]["value"]=$this->getPollScale()-$i+1;
             }
             else {
                 $nv_pairs[$i]["name"]=$i;
@@ -2833,7 +2650,7 @@ class Album {
             return "Do you like this? (1=love it)";
         }
     }
-
+    
     /* Returns true if votes can be moved with images between $this and $album */
     function pollsCompatible($album) {
         if ($this->fields["poll_type"] != "critique") {
@@ -2934,7 +2751,6 @@ class Album {
         global $gallery;
         $emails = array();
         $uids = array();
-	$messages = array();
 
         /* First check if someone assigned to "type" for this album */
         if (isset($this->fields['email_me'][$type])) {
@@ -2968,30 +2784,13 @@ class Album {
                 continue;
             }
 
-	    $email = $user->getEmail();
-            if (check_email($email)) {
-                $emails[] = $email;
-            } else {
-		if(empty($email)) {
-		    $text = sprintf(gTranslate('core', "Problem: Skipping %s (UID %s) because no email address was set."),
-				$user->getUsername(), $uid);
-		}
-		else {
-		    $text = sprintf(gTranslate('core', "Problem: Skipping %s (UID %s) because email address: '%s' is not valid."),
-                                $user->getUsername(), $uid, $email);
-		}
-
-                $messages[] = array('type' => 'error', 'text' => $text);
+            if (check_email($user->getEmail())) {
+                $emails[] = $user->getEmail();
+            } else if (isDebugging()) {
+                echo gallery_error( sprintf(_("Email problem: skipping %s (UID %s) because email address %s is not valid."),
+                $user->getUsername(), $uid, $user->getEmail()));
             }
         }
-
-	if(isDebugging() && !empty($messages)) {
-	    if(!headers_sent()) {
-		printPopupStart(gTranslate('core', "Email problems"));
-	    }
-	    echo infoBox($messages);
-	}
-
         return array_unique($emails);
     }
 
@@ -3069,22 +2868,22 @@ class Album {
         }
         return $albumItemNames;
     }
-
+    
     /**
      *
     */
     function getAlbumSize($user = NULL, $full = false, $visibleOnly = false, $recursive = false) {
-
+        
         $albumSize = 0;
         $albumItemNames = $this->getAlbumItemNames($user, $full, $visibleOnly, $recursive);
         $justPureFileNames  = array_flaten($albumItemNames);
-
+        
         foreach ($justPureFileNames as $absoluteFileName) {
             $albumSize += fs_filesize($absoluteFileName);
         }
-
+                    
         return $albumSize;
-    }
+    }        
 
     /**
      * Adds an imagearea to an album item

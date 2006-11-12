@@ -60,11 +60,9 @@ function getGalleryBaseUrl() {
     }
     elseif(where_i_am() == 'config') {
         $base = '..';
-    }
-    elseif (defined('GALLERY_URL')) {
+    } elseif (defined('GALLERY_URL')) {
         $base = GALLERY_URL;
-    }
-    else {
+    } else {
         $base = '.';
     }
 
@@ -91,11 +89,11 @@ function makeGalleryUrl($target = '', $args = array()) {
 	global $GALLERY_MODULENAME;
 	global $modpath;
 
-	if (empty($GALLERY_MODULENAME) &&
-	    $GALLERY_EMBEDDED_INSIDE == 'nuke' &&
-	    !empty($modpath)) {
-	    $GALLERY_MODULENAME = basename(dirname($modpath));
-	}
+        if (empty($GALLERY_MODULENAME)
+          && $GALLERY_EMBEDDED_INSIDE =='nuke'
+          && !empty($modpath)) {
+            $GALLERY_MODULENAME = basename(dirname($modpath));
+        }
 
 	/* Needed for phpBB2 */
 	global $userdata;
@@ -109,9 +107,9 @@ function makeGalleryUrl($target = '', $args = array()) {
 
 	$url = '';
 	$prefix = '';
-	$isSetupUrl = (stristr($target, 'setup')) ? true : false;
+	$isSetupUrl = (stristr($target,"setup")) ? true : false;
 
-	if(isset($gallery->app->photoAlbumURL) && !urlIsRelative($gallery->app->photoAlbumURL)) {
+	if(!urlIsRelative($gallery->app->photoAlbumURL)) {
 		$gUrl = parse_url($gallery->app->photoAlbumURL);
 		$urlprefix = $gUrl['scheme'] .'://'. $gUrl['host'];
 	}
@@ -124,13 +122,6 @@ function makeGalleryUrl($target = '', $args = array()) {
 
 	/* Add the folder to the url when *Nuke is not direct in the main folder */
 	$addpath = substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], '/'));
-
-	if (stristr($target, 'help') === false) {
-	    if((isset($args['type']) && $args['type'] == 'popup') ||
-	        !empty($args['gallery_popup'])) {
-    		$target = "popups/$target";
-	    }
-	}
 
 	if( isset($GALLERY_EMBEDDED_INSIDE) && !$isSetupUrl && where_i_am() != 'config') {
 		switch ($GALLERY_EMBEDDED_INSIDE_TYPE) {
@@ -203,16 +194,16 @@ function makeGalleryUrl($target = '', $args = array()) {
 				if ((isset($args['type']) && $args['type'] == 'popup') ||
 					(!empty($args['gallery_popup']))) {
 					$target = 'index.php';
-				}
-				else {
+				} else {
 					if (!empty($gallery->session->mambo->mosRoot)) {
 						$url = $urlprefix . $gallery->session->mambo->mosRoot . 'index.php';
-					}
-					else {
-						$url = 'index.php';
+					} else {
+						$url ='index.php';
 					}
 				}
 			break;
+
+
 
 			// Maybe something went wrong, we do nothing as URL we be build later.
 			default:
@@ -229,15 +220,13 @@ function makeGalleryUrl($target = '', $args = array()) {
 		foreach ($args as $key => $value) {
 			if ($i++) {
 				$url .= "&";  // should replace with &amp; for validatation
-			}
-			else {
+			} else {
 				$url .= "?";
 			}
 
 			if (! is_array($value)) {
 				$url .= "$key=$value";
-			}
-			else {
+			} else {
 				$j = 0;
 				foreach ($value as $subkey => $subvalue) {
 					if ($j++) {
@@ -251,17 +240,18 @@ function makeGalleryUrl($target = '', $args = array()) {
 	return htmlspecialchars($url);
 }
 
-function makeGalleryHeaderUrl($target, $args = array()) {
+function makeGalleryHeaderUrl($target, $args=array()) {
 	$url = makeGalleryUrl($target, $args);
 	return unhtmlentities($url);
 }
 
-/**
+/*
  * makeAlbumUrl is a wrapper around makeGalleryUrl.  You tell it what
  * album (and optional photo id) and it does the rest.  You can also
  * specify additional key/value pairs in the optional third argument.
-*/
-function makeAlbumUrl($albumName = '', $photoId = '', $args = array()) {
+ */
+
+function makeAlbumUrl($albumName="", $photoId="", $args=array()) {
 	global $GALLERY_EMBEDDED_INSIDE, $GALLERY_EMBEDDED_INSIDE_TYPE;
 	global $gallery;
 
@@ -269,11 +259,11 @@ function makeAlbumUrl($albumName = '', $photoId = '', $args = array()) {
 	if ( $gallery->app->feature["rewrite"] == 1 &&
 		(! $GALLERY_EMBEDDED_INSIDE || $GALLERY_EMBEDDED_INSIDE_TYPE == 'GeekLog')) {
 		if ($albumName) {
-			$target = urlencode($albumName);
+			$target = urlencode ($albumName);
 
 			// Can't have photo without album
 			if ($photoId) {
-				$target .= '/'. urlencode($photoId);
+				$target .= "/".urlencode ($photoId);
 			}
 		} else {
 			$target = "albums.php";
@@ -283,7 +273,7 @@ function makeAlbumUrl($albumName = '', $photoId = '', $args = array()) {
 			$args["set_albumName"] = urlencode ($albumName);
 			if ($photoId) {
 				$target = "view_photo.php";
-				$args["id"] = urlencode($photoId);
+				$args["id"] = urlencode ($photoId);
 			} else {
 				$target = "view_album.php";
 			}
@@ -317,21 +307,19 @@ function getImagePath($name, $skinname = '') {
     $retUrl = '';
 
     if (!$skinname) {
-        $skinname = $gallery->app->skinname;
+	$skinname = $gallery->app->skinname;
     }
 
     /* We cant use makeGalleryUrl() here, as Gallery could be embedded. */
     $base = getGalleryBaseUrl();
-    $defaultname = dirname(dirname(__FILE__)). "/images/$name";
-    $defaultURL = "$base/images/$name";
+    $defaultname = "$base/images/$name";
     $fullname = dirname(dirname(__FILE__)) . "/skins/$skinname/images/$name";
     $fullURL = "$base/skins/$skinname/images/$name";
 
     if (fs_file_exists($fullname) && !broken_link($fullname)) {
     	$retUrl = $fullURL;
-    }
-    elseif (fs_file_exists($defaultname) && !broken_link($defaultname)) {
-    	$retUrl = $defaultURL;
+    } else {
+    	$retUrl = $defaultname;
     }
 
     return $retUrl;
@@ -385,126 +373,22 @@ function broken_link($file) {
     if (fs_is_link($file)) {
         return !fs_is_file($file);
     } else {
-        return false;
+        return 0;
     }
 }
 
-function galleryLink($url, $text='', $attrList = array(), $icon = '', $addBrackets = false, $accesskey = true) {
-    static $accessKeyUsed = array();
+function galleryLink($url, $content, $attrList = array()) {
+	$attrs = generateAttrs($attrList);
 
-    $html = '';
-    $altText = $text;
-
-    if($accesskey && empty($attrList['accesskey']) && !empty($text)) {
-        if(is_int($text) && $text < 10) {
-            $attrList['accesskey'] = $text;
-            $altText = $text;
-        }
-        else {
-            $pos = strpos($text, '_');
-
-            if ($pos !== false) {
-                $attrList['accesskey'] = substr($text,$pos+1,1);
-                $altText = substr_replace($text, '', $pos,1);
-                $text = substr_replace($text, '<span class="g-accesskey">'. $attrList['accesskey'] .'</span>', $pos,2);
-            }
-        }
-    }
-
-    if (!empty($attrList['altText'])) {
-        $altText = $attrList['altText'];
-        unset($attrList['altText']);
-    }
-
-    if(isset($attrList['accesskey'])) {
-        if(!isset($accessKeyUsed[$attrList['accesskey']])) {
-            $accessKeyUsed[$attrList['accesskey']] = true;
-        }
-        else {
-            unset($attrList['accesskey']);
-        }
-    }
-
-    $attrs = generateAttrs($attrList);
-
-    if(!empty($icon)) {
-        $content = getIconText($icon, $text, '', $addBrackets, $altText);
+	if (!empty($url)) {
+        $html = "<a href=\"$url\"$attrs>$content</a>\n";
     }
     else {
-        if($addBrackets) {
-            $content = '['. $text .']';
-        } else {
-            $content = $text;
-        }
+        $html = "<a$attrs>$content</a>\n";
     }
 
-    if (!empty($url)) {
-        $html .= "<a href=\"$url\"$attrs>$content</a>\n";
-    }
-    else {
-        $html .= "<a$attrs>$content</a>\n";
-    }
-
-    return $html;
+	return $html;
 }
 
-
-function galleryIconLink($url, $icon, $text, $iconMode = '', $attrList = array()) {
-    global $gallery;
-    static $accessKeyUsed = array();
-
-    $html = '';
-    $altText = '';
-
-    $accesskey = isset($attrList['accesskey']) ? $attrList['accesskey'] : getAccessKey($text);
-    $iconMode = !empty($iconMode) ? $iconMode : $gallery->app->useIcons;
-
-    if(!isset($accessKeyUsed[$accesskey])) {
-        $attrList['accesskey'] = $accesskey;
-        $accessKeyUsed[$accesskey] = true;
-    }
-
-    if($iconMode == 'yes') {
-        $altText = $text;
-    }
-
-    if(!empty($accesskey) && $iconMode != 'both') {
-        $altText .= ' '. sprintf(gtranslate('common', "(Accesskey '%s')"), $accesskey);
-    }
-
-    $addBrackets = ($iconMode == 'no') ? true : false;
-
-    $content = getIconText($icon, $text, $iconMode, $addBrackets, $altText, true);
-
-    $attrs = generateAttrs($attrList);
-
-    if (!empty($url)) {
-        $html .= "<a href=\"$url\"$attrs>$content</a>";
-    }
-    else {
-        $html .= "<a$attrs>$content</a>";
-    }
-
-    return $html;
-}
-/**
- * This function extract the complete inner Text of the first link inside $link
- * E.g. '<a href="foo.bar"><div class="text">Jens</div></a>'
- * would return '<div class="text">Jens</div>'
- *
- * @param string $link
- * @return string
- * @author Jens Tkotz <jens@peino.de>
- */
-function extractLinkText($link) {
-    $hits = preg_match('{<a(?:\s*[^>]*>)(.*?)</a>}si', $link, $matches);
-
-    if($hits == 0) {
-        return $link;
-    }
-    else {
-        return $matches[1];
-    }
-}
 
 ?>

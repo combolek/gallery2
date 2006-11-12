@@ -38,6 +38,7 @@ see http://www.gnu.org/copyleft/lesser.html
 */
 
 
+
 ////////////////  GLOBAL TOOPTIP CONFIGURATION  /////////////////////
 var ttAbove       = false;        // tooltip above mousepointer? Alternative: true
 var ttBgColor     = "#e6ecff";

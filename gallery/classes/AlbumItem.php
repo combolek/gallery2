@@ -26,7 +26,6 @@ class AlbumItem {
     var $thumbnail;
     var $preview;
     var $caption;
-    var $description;
     var $hidden;
     var $highlight;
     var $highlightImage;
@@ -76,7 +75,7 @@ class AlbumItem {
         }
     }
 
-    function setItemCaptureDate($itemCaptureDate = '') {
+    function setItemCaptureDate($itemCaptureDate="") {
         global $gallery;
         /* Before 1.4.5-cvs-b106 this was an associative array */
 
@@ -98,42 +97,36 @@ class AlbumItem {
         // need to set this value for old photos that don't yet contain it.
         if (!$this->itemCaptureDate) {
             return 0;
-        }
-        else {
+        } else {
             return $this->itemCaptureDate;
         }
     }
 
-    function getExif($dir, $forceRefresh = false) {
+    function getExif($dir, $forceRefresh = 0) {
         global $gallery;
-
         $file = $dir . "/" . $this->image->name . "." . $this->image->type;
-
-        echo debugMessage(sprintf(gTranslate('core', "Getting Exif of file '%s'"), $file), __FILE__, __LINE__);
 
         /*
         * If we don't already have the exif data, get it now.
         * Otherwise return what we have.
         */
-        $needToSave = false;
+        $needToSave = 0;
         if ($gallery->app->cacheExif != 'yes') {
             if (empty($this->exifData) || $forceRefresh) {
                 /* Cache the current EXIF data and update the item capture date */
                 list($status, $this->exifData) = getExif($file);
-                $this->setItemCaptureDate($this->exifData);
-                $needToSave = true;
-            }
-            else {
+                $this->setItemCaptureDate();
+                $needToSave = 1;
+            } else {
                 /* We have a cached value and are not forcing a refresh */
                 $status = 0;
             }
             $returnExifData = $this->exifData;
-        }
-        else {
+        } else {
             /* If the data is cached but the feature is disabled, remove the cache */
             if (!empty($this->exifData)) {
                 unset($this->exifData);
-                $needToSave = true;
+                $needToSave = 1;
             }
             list($status, $returnExifData) = getExif($file);
         }
@@ -221,39 +214,6 @@ class AlbumItem {
             $changed = 1;
         }
 
-        /* Move extrafield 'description', 'Description' or the translated Version into $description */
-        if ($this->version < 39 && !empty($this->extraFields)) {
-            $description = '';
-
-            $translation1 = gTranslate('core', "description");
-            $translation2 = gTranslate('core', "Description");
-
-            if(!empty($this->extraFields['description'])) {
-                $description .= $this->extraFields['description'];
-                unset($this->extraFields['description']);
-            }
-
-            if(!empty($this->extraFields['Description'])) {
-                $description .= $this->extraFields['Description'];
-                unset($this->extraFields['Description']);
-            }
-
-            if(!empty($this->extraFields[$translation1])) {
-                $description .= $this->extraFields[$translation1];
-                unset($this->extraFields[$translation1]);
-            }
-
-            if(!empty($this->extraFields[$translation2])) {
-                $description .= $this->extraFields[$translation2];
-                unset($this->extraFields[$translation2]);
-            }
-
-            if($description != '') {
-                $this->description = $description;
-                $changed = 1;
-            }
-        }
-
         if ($this->image) {
             if ($this->image->integrityCheck($dir)) {
                 $changed = 1;
@@ -277,12 +237,10 @@ class AlbumItem {
                 }
             }
         }
-
         if (strcmp($this->version, $gallery->album_version)) {
             $this->version = $gallery->album_version;
             $changed = 1;
         }
-
         return $changed;
     }
 
@@ -500,7 +458,7 @@ class AlbumItem {
     function getFileSize($full = 0) {
         global $gallery;
         $stat = fs_stat($this->image->getPath($gallery->album->getAlbumDir(), $full));
-
+        
         if (is_array($stat)) {
             return $stat[7];
         } else {
@@ -525,9 +483,7 @@ class AlbumItem {
 
         $name = $this->image->name;
         $type = $this->image->type;
-
         $retval = rotate_image("$dir/$name.$type", "$dir/$name.$type", $direction, $type);
-
         if ($clearexifrotate && isset($gallery->app->use_exif) && ($type === 'jpg' || $type === 'jpeg')) {
             $path = $gallery->app->use_exif;
             exec_internal(fs_import_filename($path, 1) . " -norot '$dir/$name.$type'");
@@ -536,7 +492,6 @@ class AlbumItem {
         if (!$retval) {
             return $retval;
         }
-
         list($w, $h) = getDimensions("$dir/$name.$type");
         $this->image->setRawDimensions($w, $h);
 
@@ -549,15 +504,13 @@ class AlbumItem {
 
             list($w, $h) = getDimensions("$dir/$name.sized.$type");
             $this->image->setDimensions($w, $h);
-        }
-        else {
+        } else {
             $this->image->setDimensions($w, $h);
         }
 
         /* Reset the thumbnail to the default before regenerating thumb */
         $this->image->setThumbRectangle(0, 0, 0, 0);
         $this->makeThumbnail($dir, $thumb_size, $album);
-
         return 1;
     }
 
@@ -645,7 +598,7 @@ class AlbumItem {
         * Sanity: make sure we can handle the file first.
         */
         if (!isMovie($tag) && !valid_image("$dir/$name.$tag")) {
-            return sprintf(gTranslate('core',"Invalid image: %s"), "$name.$tag");
+            return _("Invalid image") .": $name.$tag";
         }
 
         /* Set our image. */
@@ -653,41 +606,29 @@ class AlbumItem {
         $this->image->setFile($dir, $name, $tag);
 
         $ret = $this->makeThumbnail($dir, $thumb_size, $album, $pathToThumb);
-
         return $ret;
     }
 
-     function makeThumbnail($dir, $thumb_size, &$album, $pathToThumb = '') {
+    function makeThumbnail($dir, $thumb_size, &$album, $pathToThumb = '') {
         global $gallery;
         $name = $this->image->name;
         $tag = $this->image->type;
 
         $ratio = isset($album->fields["thumb_ratio"]) ? $album->fields["thumb_ratio"] : 0;
 
-        echo debugMessage(gTranslate('core', "Generating thumbnail."),__FILE__, __LINE__);
+        echo debugMessage(_("Generating thumbnail."),__FILE__, __LINE__);
+
+        debugMessage(sprintf(_("Saved Dimensions: x:%d y: %d"),
+          $this->image->raw_width, $this->image->raw_height), __FILE__, __LINE__, 3);
 
         if ($this->isMovie()) {
             /* Use a preset thumbnail */
-            if(realpath($gallery->app->movieThumbnail)) {
-                fs_copy($gallery->app->movieThumbnail, "$dir/$name.thumb.jpg");
-            }
-            else {
-                echo infobox(array(array(
-                    'type' => 'error',
-                    'text' => sprintf(gTranslate('core', "Defined thumbnail does not exist. %s"),
-                                '<br>'. $gallery->app->movieThumbnail)
-                )));
-                return false;
-            }
-
+            fs_copy($gallery->app->movieThumbnail, "$dir/$name.thumb.jpg");
             $this->thumbnail = new Image;
             $this->thumbnail->setFile($dir, "$name.thumb", "jpg");
             list($w, $h) = getDimensions("$dir/$name.thumb.jpg");
             $this->thumbnail->setDimensions($w, $h);
-        }
-        else {
-            debugMessage(sprintf(gTranslate('core', "Saved Dimensions: x:%d y: %d"),
-                $this->image->raw_width, $this->image->raw_height), __FILE__, __LINE__, 3);
+        } else {
             /* Make thumbnail (first crop it spec) */
             if ($pathToThumb) {
                 $ret = copy($pathToThumb,"$dir/$name.thumb.$tag");
@@ -711,8 +652,7 @@ class AlbumItem {
                     	$gallery->app->thumbJpegImageQuality
                     );
                 }
-            }
-            else {
+            } else {
                 if(!empty($ratio)) {
                     $ret = cropImageToRatio(
                     	"$dir/$name.$tag",
@@ -730,8 +670,7 @@ class AlbumItem {
                         	true,
                         	$gallery->app->thumbJpegImageQuality
                         );
-                    }
-                    else {
+                    } else {
                         $ret = resize_image(
                         	"$dir/$name.$tag",
                         	"$dir/$name.thumb.$tag",
@@ -744,7 +683,7 @@ class AlbumItem {
                     }
                 }
                 else {
-                    debugMessage(gTranslate('core', "Generating normal thumbs"), __FILE__, __LINE__);
+                    debugMessage(_("Generating normal thumbs"), __FILE__, __LINE__);
                     // no resizing, use ratio for thumb as for the image itself;
                     $ret = resize_image(
                     	"$dir/$name.$tag",
@@ -770,18 +709,18 @@ class AlbumItem {
                     $this->setHighlight($dir, 1, $album);
                 }
             } else {
-                return gTranslate('core', "Unable to make thumbnail") ." ($ret)";
+                return _("Unable to make thumbnail") ." ($ret)";
             }
         }
 
-        return true;
+        return 0;
     }
 
-    function getPreviewTag($dir, $size = 0, $attrs = array()) {
+    function getPreviewTag($dir, $size = 0, $attrs = '') {
         if ($this->preview) {
             return $this->preview->getTag($dir, 0, $size, $attrs);
         } else {
-            return "<i>". gTranslate('core', "No preview") ."</i>";
+            return "<i>". _("No preview") ."</i>";
         }
     }
 
@@ -791,7 +730,6 @@ class AlbumItem {
 	 */
     function getAlttext() {
         $alttext = '';
-
         if (!empty($this->extraFields['AltText'])) {
             $alttext = $this->extraFields['AltText'];
         } elseif (!empty($this->caption)) {
@@ -801,49 +739,41 @@ class AlbumItem {
         return $alttext;
     }
 
-    function getThumbnailTag($dir, $size = 0, $attrs = array()) {
+    function getThumbnailTag($dir, $size = 0, $attrs = '') {
         // Prevent non-integer data from being passed
         $size = (int)$size;
 
-        if(empty($attrs['alt'])) {
-        	$attrs['alt'] = $this->getAlttext();
-        }
-
         if ($this->thumbnail) {
-            return $this->thumbnail->getTag($dir, false, $size, $attrs);
+            return $this->thumbnail->getTag($dir, 0, $size, $attrs, $this->getAlttext());
         } else {
-            return "<i>". gTranslate('core', "No thumbnail") ."</i>";
+            return "<i>". _("No thumbnail") ."</i>";
         }
     }
 
-    function getHighlightTag($dir, $size = 0, $attrs = array()) {
+    function getHighlightTag($dir, $size = 0, $attrs = '', $alttext = '') {
         // Prevent non-integer data from being passed
         $size = (int)$size;
 
         if (is_object($this->highlightImage)) {
-            if (empty($attrs['alt'])) {
-                $attrs['alt'] = $this->getAlttext();
+            if (!isset($alttext)) {
+                $alltext=$this->getAlttext();
             }
-            return $this->highlightImage->getTag($dir, 0, $size, $attrs);
-        }
-        else {
-            return '<span class="g-title">'. gTranslate('core', "Requested item has no highlight!") .'</span>';
+
+            return $this->highlightImage->getTag($dir, 0, $size, $attrs, $alttext);
+        } else {
+            return "<i>". _("No highlight") ."</i>";
         }
     }
 
-    function getPhotoTag($dir, $full = false, $attrs) {
-    	if (empty($attrs['alt'])) {
-    		$attrs['alt'] = $this->getAlttext();
-    	}
-
+    function getPhotoTag($dir, $full = 0, $attrs) {
         if ($this->image) {
-            return $this->image->getTag($dir, $full, 0, $attrs);
+            return $this->image->getTag($dir, $full, '', $attrs, $this->getAlttext());
         } else {
             return "about:blank";
         }
     }
 
-    function getPhotoPath($dir, $full = false) {
+    function getPhotoPath($dir, $full = 0) {
         if ($this->image) {
             return $this->image->getPath($dir, $full);
         } else {
@@ -853,9 +783,9 @@ class AlbumItem {
 
     /**
 	 * @param	$full		boolean
-	 * @return	$imageName	string
+	 * @return	$imageName	string 
 	 * @author	Jens Tkotz<jens@peino.de
-	 */
+	 */ 
     function getImageName($full = false) {
         if($this->image) {
             $imageName = $this->image->getImageName($full);
@@ -891,50 +821,12 @@ class AlbumItem {
         }
     }
 
+    function setCaption($cap) {
+        $this->caption = $cap;
+    }
+
     function getCaption() {
         return $this->caption;
-    }
-
-    function setCaption($caption) {
-        $this->caption = $caption;
-    }
-
-    function createCaption($dir, $captionType) {
-        global $gallery;
-        $dateTimeFormat = $gallery->app->dateTimeString;
-        $path = $this->image->getPath($dir, true);
-
-        switch ($captionType) {
-            case 0:
-                $caption = '';
-                break;
-
-            case 1:
-            default:
-                /* Use filename */
-                $caption = strtr($this->image->name, '_', ' ');
-                break;
-
-            case 2:
-                /* Use file cration date */
-                $caption = strftime($dateTimeFormat, filectime($path));
-                break;
-
-            case 3:
-                /* Use capture date */
-                $caption = strftime($dateTimeFormat, getItemCaptureDate($path));
-                break;
-        }
-
-        $this->setCaption($caption);
-    }
-
-    function getDescription() {
-        return $this->description;
-    }
-
-    function setDescription($description) {
-        $this->description = $description;
     }
 
     function isAlbum() {

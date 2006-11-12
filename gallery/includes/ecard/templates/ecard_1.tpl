@@ -31,6 +31,7 @@
         <th align="left" valign="top" scope="col"><%ecard_message%></th>
       </tr>
     </table>
+    <!--powered by <a href="http://www.ibps-friedrichs.de/" target="_blank">http://www.ibps-friedrichs.de</a> -->
   </body>
 </html>
 

@@ -1,5 +1,3 @@
-// Gallery SVN ID $Id: Album.php 13535 2006-04-27 09:45:51Z jenst $
-
 *******************************************************
 * File: phpBB2/includes/page_header.php
 *******************************************************
@@ -43,6 +41,16 @@ Again add:
 *******************************************************
 * File: phpBB2/templates/subSilver/overall_header.tpl
 *******************************************************
+
+Find:
+ @import url("templates/subSilver/formIE.css"); 
+ -->
+ </style>
+
+After add:
+ <link rel="stylesheet" href="modules/gallery/css/base.css.default" type="text/css">
+ <link rel="stylesheet" href="modules/gallery/css/embedded_style.css.default" type="text/css">
+
 
 Find: 				<table cellspacing="0" cellpadding="2" border="0">
  					<tr> 

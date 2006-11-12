@@ -1,6 +1,6 @@
 <?php
 /**
- * Gallery SVN ID:
+ * Gallery SVN info
  * $Id$
 */
 ?>
@@ -97,20 +97,20 @@ function MultiSelector(list_target, max, fieldname, withCaption){
     this.addListRow = function( element ){
 
         var line = document.createElement('div');
-        line.style.textAlign = 'right';
+        line.style.textAlign='right';
         if(! (this.count % 2)) {
-        	line.style.backgroundColor = 'white';
-        	line.style.color = 'black';
+        	line.style.backgroundColor='white';
+		line.style.color='black';
         }
         var filenameCaptionDiv = document.createElement('div');
-        filenameCaptionDiv.style.textAlign = 'left';
+        filenameCaptionDiv.style.textAlign='left';
 
         line.appendChild(filenameCaptionDiv);
 
         // Delete button
         var deleteButton = document.createElement('input');
         deleteButton.type = 'button';
-        deleteButton.value = '<?php echo gTranslate('core', "Delete"); ?>';
+        deleteButton.value = '<?php echo _("Delete"); ?>';
 
         // Caption field
         var caption = document.createElement('input');
@@ -147,13 +147,13 @@ function MultiSelector(list_target, max, fieldname, withCaption){
 
         if(withCaption) {
             // Set row value
-            filenameCaptionDiv.innerHTML = '<b>'+ element.value +'<\/b><br><?php echo gTranslate('core', "Caption:"); ?> ';
+            filenameCaptionDiv.innerHTML = '<b>'+ element.value +'</b><br><?php echo _("Caption:"); ?> ';
             // Add caption
             filenameCaptionDiv.appendChild(caption);
         }
         else {
             // Set row value
-            filenameCaptionDiv.innerHTML = '<b>'+ element.value +'<\/b>';
+            filenameCaptionDiv.innerHTML = '<b>'+ element.value +'</b>';
         }
 
         // Add button

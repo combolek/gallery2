@@ -24,30 +24,15 @@
 class AlbumDB {
     var $albumList;
     var $albumOrder;
-    var $initialized;
 
-    function AlbumDB($loadphotos = true) {
+    function AlbumDB($loadphotos=TRUE) {
         global $gallery;
-
         $changed = 0;
-        $this->initialized = false;
 
         $dir = $gallery->app->albumDir;
 
-        $allowedInvalidAlbums = array('CVS', 'SVN', '_vti_cnf', 'lost+found');
-
-        if(!fs_is_dir($dir)) {
-            echo infoBox(array(array(
-                'type' => 'error',
-                'text' => sprintf("Albumdir (%s) not found! Please check the path to the albums folder in your config.php.",
-                    $dir)
-            )));
-
-            return false;
-        }
-
         $tmp = getFile("$dir/albumdb.dat");
-        if (strcmp($tmp, '')) {
+        if (strcmp($tmp, "")) {
             $this->albumOrder = unserialize($tmp);
 
             // albumdb.dat is corrupt, rebuild it
@@ -55,37 +40,31 @@ class AlbumDB {
                 $this->albumOrder = array();
             }
             $changed = 1;
-        }
-        else {
+        } else {
             $this->albumOrder = array();
         }
 
         $this->albumList = array();
         $this->brokenAlbums = array();
         $this->outOfDateAlbums = array();
-
-        /* Loop through all albums already found in the albumdb.dat */
         $i = 0;
         while ($i < sizeof($this->albumOrder)) {
             $name = $this->albumOrder[$i];
             if (ereg("^\.", $name)) { // how did this get here??
-                array_splice($this->albumOrder, $i, 1);
-                $changed = 1;
-            }
-            else if (fs_is_dir("$dir/$name")) {
+            array_splice($this->albumOrder, $i, 1);
+            $changed = 1;
+            } else if (fs_is_dir("$dir/$name")) {
                 $album = new Album;
                 if ($album->load($name,$loadphotos)) {
                     array_push($this->albumList, $album);
                     if ($album->versionOutOfDate()) {
                         array_push($this->outOfDateAlbums, $name);
                     }
-                }
-                else if (!in_array($name, $allowedInvalidAlbums)) {
+                } else if ($name != 'CVS') {
                     array_push($this->brokenAlbums, $name);
                 }
                 $i++;
-            }
-            else {
+            } else {
                 /* Couldn't find the album -- delete it from order */
                 array_splice($this->albumOrder, $i, 1);
                 $changed = 1;
@@ -96,7 +75,7 @@ class AlbumDB {
             while ($file = readdir($fd)) {
                 if (!ereg("^\.", $file) &&
                 fs_is_dir("$dir/$file") &&
-                !in_array($file, $allowedInvalidAlbums) &&
+                strcmp($file, "_vti_cnf") &&
                 !in_array($file, $this->albumOrder)) {
                     $album = new Album;
                     $album->load($file,$loadphotos);
@@ -111,41 +90,29 @@ class AlbumDB {
         if ($changed) {
             $this->save();
         }
-
-        $this->initialized = true;
     }
 
-    /**
-	 * Returns wether the AlbumDB was succesfully initialized or not
-	 *
-	 * @return boolean     true if succesfully initialized.
-	 * @author Jens Tkotz <jens@peino.de>
-	 */
-	function isInitialized() {
-        return $this->initialized === true;
-	}
-
     function sortByField($fieldname = '', $order = 'desc') {
-        $tmpOrder = array();
+	$tmpOrder = array();
 
-        if(!empty($fieldname)) {
-            if($fieldname == 'name') {
-                if($order == 'asc') {
-                    sort($this->albumOrder);
-                }
-                else {
-                    rsort($this->albumOrder);
-                }
-            }
-            else {
-                array_sort_by_fields($this->albumList, $fieldname , $order, true, false, true);
-                foreach ($this->albumList as $album) {
-                    $tmpOrder[] = $album->fields["name"];
-                }
-                $this->albumOrder = $tmpOrder;
-            }
-            $this->save();
-        }
+	if(!empty($fieldname)) {
+	    if($fieldname == 'name') {
+		if($order == 'asc') {
+		    sort($this->albumOrder);
+		}
+		else {
+		    rsort($this->albumOrder);
+		}
+	    }
+	    else {
+		array_sort_by_fields($this->albumList, $fieldname , $order, true, false, true);
+		foreach ($this->albumList as $album) {
+		    $tmpOrder[] = $album->fields["name"];
+		}
+		$this->albumOrder = $tmpOrder;
+	    }
+	    $this->save();
+	}
     }
 
     function renameAlbum($oldName, $newName) {
@@ -358,26 +325,21 @@ class AlbumDB {
 
     function numAccessibleItems($user) {
         global $gallery;
-
         $numPhotos = $numAlbums = $numTopAlbums = 0;
         foreach ($this->albumList as $album) {
             if ($user->canReadAlbum($album)) {
                 $numAlbums++;
-
                 if ($album->isRoot()) {
                     $numTopAlbums++;
                 }
-
                 if (empty($gallery->app->slowPhotoCount) || $gallery->app->slowPhotoCount == "no") {
                     $numPhotos += $album->fields["cached_photo_count"];
-                }
-                else {
+                } else {
                     $album->load($album->fields['name']);
                     $numPhotos += $album->numPhotos(1,1);
                 }
             }
         }
-
         return array($numPhotos, $numAlbums, $numTopAlbums);
     }
 

@@ -19,12 +19,12 @@
 // | Authors: Many @ Sitepointforums Advanced PHP Forums                  |
 // +----------------------------------------------------------------------+
 //
-// $Id: States.php 13349 2006-03-28 10:54:53Z jenst $
+// $Id$
 //
 /**
 * Parsing states.
 * @package XML_HTMLSax3
-* @version $Id: States.php 13349 2006-03-28 10:54:53Z jenst $
+* @version $Id$
 */
 /**
 * Define parser states

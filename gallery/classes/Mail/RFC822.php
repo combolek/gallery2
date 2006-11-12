@@ -1,5 +1,10 @@
 <?php
 /**
+ * Gallery SVN info
+ * $Id$
+*/
+
+/**
 * RFC 822 Email address list validation Utility
 *
 * What is it?
@@ -18,9 +23,9 @@
 *
 * @author  Richard Heyes <richard@phpguru.org>
 * @author  Chuck Hagenbuch <chuck@horde.org>
-* @version Revision: 9767
+* @version $Revision$
 * @package Mail
-* Gallery SVN ID $Id$
+* 
 */
 
 class Mail_RFC822
