@@ -25,14 +25,14 @@
  * Name:     elementId
  * Purpose:  Make an HTML element id
  *
- * Element ids in Gallery contain 1) the element id, 2) the template basename - to avoid
- * conflicts between different templates included in the same HTML page - & optionally 3) a
- * template id - to avoid conflicts between the same template, if included more than once like
- * an item block on an album page.
+ * Element ids in Gallery contain 1) the element id, 2) the template basename (to avoid conflicts
+ * between different templates included in the same HTML page) and optionally 3) a template id (to
+ * avoid conflicts between the same template, if included more than once, like an item block on an
+ * album page).
  *
- * The template name & id may be specified in the first & second arguments, or either may be omitted.
- * If the template name is omitted, it is filled in automatically with the basename of the current
- * template.  If the template name & id are omitted, the template id is filled in with the
+ * The template name and id may be specified in the first and second arguments, or either may be
+ * omitted.  If the template name is omitted, it is filled in automatically with the basename of the
+ * current template.  If the template name and id are omitted, the template id is filled in with the
  * {$templateId} template variable, if present.
  *
  * @param string element id
@@ -42,27 +42,28 @@
  * -------------------------------------------------------------
  */
 function smarty_modifier_elementId($elementId, $templateName=null, $templateId=null) {
-    $components = array();
+    $args = array();
     if (!empty($elementId)) {
-	$components[] = $elementId;
+	$args[] = $elementId;
     }
 
     if (empty($templateName)) {
-	$smarty =& GalleryTemplate::getSmarty();
+	/* Ideally $smarty would be passed in the modifier signature */
+	$smarty =& GallerySmarty::getSmarty();
 
 	/* TODO Use $this->_current_file, but it's only available at compile time */
 	$templateName = $smarty->_smarty_vars['templateName'];
 
-	if (empty($templateId)) {
+	if (empty($templateId) && !empty($smarty->_tpl_vars['templateId'])) {
 	    $templateId = $smarty->_tpl_vars['templateId'];
 	}
     }
-    $components[] = $templateName;
+    $args[] = $templateName;
 
     if (!empty($templateId)) {
-	$components[] = $templateId;
+	$args[] = $templateId;
     }
 
-    return implode('-', $components);
+    return implode('-', $args);
 }
 ?>
