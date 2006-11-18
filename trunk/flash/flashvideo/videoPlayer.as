@@ -100,7 +100,7 @@ bigPlay._y = h/2;
 
 // Setup the netConnection //
 
-var autoStart;
+//var autoStart;
 if (autoStart == undefined){
 	autoStart = "true";
 }
