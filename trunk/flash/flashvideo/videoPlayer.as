@@ -1,6 +1,6 @@
 ﻿/*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,280 +16,372 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+import flash.net.FileReference;
 import flash.external.*;
+import flash.filters.GlowFilter;
+import mx.transitions.Tween;
+import mx.transitions.easing.*;
 
-// setup initial visibility
-xp_button._visible = true;
-xp_button_off._visible = false;
-replay_orb._visible = false;
-controlBar._visible = true;
+// Declare some variables
+var home:MovieClip = this;  // here we are basically renaming _root timeline to home so we can refer to it even if we have loaded this movie dynamically into another swf - avoids _root confusion.
+var que:Object;
+var isBig:Boolean = false;
+var inPlay:Boolean = false;
+var curVol:Number = 75; // current volume
+var w:Number = 480;
+var h:Number = 160;
+var nw:Number; // new width
+var nh:Number;  // new height
+var ds:Number = 15.5;  // padding for dropshadow
+var swidth:Number;  // scrubber width
+var pstart:Number;  // scrubber startx
+var tH:Number;  // total height
+var tW:Number;  // total width
+var mH:Number = System.capabilities.screenResolutionY*.80;  // max height
+var mW:Number = System.capabilities.screenResolutionX*.90;  // max width
+var isPlaying:Boolean = false;
+var plf1:GlowFilter = new GlowFilter(0xD0D0D0,100,5,5,3,3,false,false);
+var plf2:GlowFilter = new GlowFilter(0x3399FF,100,5,5,3,3,false,false);
+var myFileReference:FileReference = new FileReference();
 
+// set some defaults for external vars
+if(htmlDiv == undefined) {
+	var htmlDiv:String = "flashvideo";
+}
+// our sb(short buffer) & lb(long buffer) can be defined externally via flashVars as part of our bufferfix
+if(sb == undefined) {
+	var sb:Number = 10;
+}
+if(lb == undefined) {
+	var lb:Number = 20;
+}
+
+if(allowDl == undefined){
+	var allowDl = "true";
+}
+if(allowDl == "true"){
+	cBar.dlIcon._visible = true;
+} else {
+	cBar.dlIcon._visible = false;
+}
+if(langDownload == undefined) {
+	var langDownload:String = "Download";
+}
+if(langLarge == undefined) {
+	var langLarge:String = "Large";
+}
+if(langNormal == undefined) {
+	var langNormal:String = "Normal";
+}
+
+Stage.align = "TL";
+Stage.scaleMode = "noScale";
+Stage.addListener(home);
+bigPlay._visible = true;
+cBar.pauser._visible = false;
+scrubber._x = ds;
+pl._width = 0;
+resizeAll();
+
+function saveIt() {
+	var ext:String;
+	strPos = que.title.lastIndexOf(".");
+	strExt = que.title.substring(strPos,que.title.length);
+	if(strExt == ".flv"){
+		ext = "";
+	} else {
+		ext = ".flv"
+	}
+	myFileReference.download(que.flvUrl, que.title + ext);
+};
+
+home.onResize = function() {
+	home.setSize(Stage.width, Stage.height);
+	resizeAll();
+};
+
+function doResize() {
+    ExternalInterface.call("divResize",htmlDiv, nw, nh);
+};
+
+function getNewSize() {
+		var ratio = Math.round(que.Height)/Math.round(que.Width);
+		if(w < 480){
+			w = 480;
+			Math.round(que.Height);
+			getNewSize();
+			break;
+		}
+		nw = ds + 8 + w + ds + 5;
+		nh = ds + 8 + h + 20 + cBar._height + ds;
+		if (nw > mW)
+		{
+			w = w - 10;
+			h = w * ratio;
+			getNewSize();
+			break;
+		}
+		if (nh > mH)
+		{
+			w = w - 10;
+			h = w * ratio;
+			getNewSize();
+			break;
+		}
+	doResize();
+};
+
+function resizeAll() {
+	playerBack._height = h + 20;
+	cBarBack._height = 70;
+	tH = playerBack._height + cBarBack._height;
+	tW = 8 + w + 8;
+	playerBack._width = tW;
+	playerBack._x = ds;
+	playerBack._y = ds;
+	Shadow._width = tW;
+	Shadow._height = tH + 2;
+	Shadow._x = ds;
+	Shadow._y = ds;
+	cBarBack._width = tW;
+	cBarBack._yscale = 100;
+	cBarBack._x = ds;
+	cBarBack._y = playerBack._y + playerBack._height;
+	playerMask._width = tW;
+	playerMask._height = tH;
+	playerMask._x = ds;
+	playerMask._y = ds;
+	if(isPlaying){
+		if(isBig){
+			theVideo._width = w;
+			theVideo._height = h;
+			theVideo._x = ds + 8;
+			theVideo._y = ds + 8;
+		} else {
+			theVideo._width = Math.round(que.Width);
+			theVideo._height = Math.round(que.Height);
+			theVideo._x = (ds + 8) + (w/2 - (Math.round(que.Width)/2));
+			theVideo._y = (ds + 8) + (h/2 - (Math.round(que.Height)/2));
+		}
+	} else {
+		theVideo._width = w;
+		theVideo._height = h;
+		theVideo._x = ds + 8;
+		theVideo._y = ds + 8;
+	}
+	previewLoader.setSize(Math.round(160/(h/w)),160);
+	previewLoader._x = ds + 8 + w/2 - (previewLoader.width/2);
+	previewLoader._y = ds + 9;
+	vFrame._width = w + 6;
+	vFrame._height = h + 6;
+	vFrame._x = ds + 6;
+	vFrame._y = ds + 6;
+	vMask._width = w + 6;
+	vMask._height = h + 6;
+	vMask._x = ds + 6;
+	vMask._y = ds + 6;
+	cBar._width = 490;
+	cBar._yscale = 100;
+	cBar._x = ds;
+	cBar._y = playerBack._y + playerBack._height;
+	scrubberBar._width = tW;
+	scrubberBar._yscale = 100;
+	scrubberBar._x = ds;
+	scrubberBar._y = ds + 8 + h + 8;
+	pl._y = scrubberBar._y;
+	pl._x = ds;
+	pl._yscale = 100;
+	scrubberMask._x = ds;
+	scrubberMask._y = scrubberBar._y;
+	scrubberMask._width = tW;
+	scrubberMask._yscale = 100;
+	scrubber._xscale = 100;
+	scrubber._yscale = 100;
+	scrubber._y = (ds + 8 + h + 8) - (scrubber._height/2);
+	bigPlay._x = ds + 13 + w/2;
+	bigPlay._y = ds + 8 + h/2;
+}; // whew! end resizeAll
 //======================================================
 //===================VIDEO SETUP=======================
 //======================================================
 
 
-Stage.align = "TL";
-Stage.scaleMode = "noScale";
-Stage.addListener(this);
-resizeAll();
-var ow = Stage.width; //original width got to get this up here before we change it
-var oh = Stage.height; //original height
-
-
-function resizeAll() {
-
-var w = Stage.width;
-var h = Stage.height;
-
-// Resize theVideo //
-theVideo._width = w;
-theVideo._height = h;
-theVideo._x = 0;
-theVideo._y = 0;
-
-// Resize buffclip //
-bufferclip._xscale = 100;
-bufferclip._yscale = 100;
-bufferclip._x = w/2;
-bufferclip._y = h/2;
-
-// expander button //
-xp_button._xscale = 100;
-xp_button._yscale = 100;
-xp_button._x = w - 8;
-xp_button._y = 5;
-
-// despander button //
-xp_button_off._xscale = 100;
-xp_button_off._yscale = 100;
-xp_button_off._x = w - 8;
-xp_button_off._y = 5;
-
-// Scale and position the controlBar //
-controlBar._width = w * .90;
-controlBar._yscale = noscale;
-controlBar._x = (w - controlBar._width) /2;
-controlBar._y = h - 30;
-
-// Scale and position cBon //
-cBon._width = w-20;
-cBon._height = h-20;
-cBon._x = 10;
-cBon._y = 10;
-
-// Scale and position cBoff //
-cBoff._width = w;
-cBoff._height = h;
-cBoff._x = 0;
-cBoff._y = h;
-
-// Scale and position replay_ani //
-
-replay_orb._height = 40;
-replay_orb._width = 40;
-replay_orb._x = w/2;
-replay_orb._y = h/2;
-
-// bigPlay button
-bigPlay._xscale = 100;
-bigPlay._yscale = 100;
-bigPlay._x = w/2;
-bigPlay._y = h/2;
-} //end resizeAll
-
-// Setup the netConnection //
-
-//var autoStart;
-if (autoStart == undefined){
-	autoStart = "true";
-}
-var lb:Number; // long buffer
-var sb:Number; // short buffer
-var firstPass:Boolean = true;
-
-if (lb == undefined) {
-	lb = 15;
-}
-if (sb == undefined) {
-	sb = 3;
-}
-
 var nc:NetConnection = new NetConnection();
 nc.connect(null);
 
 var ns:NetStream = new NetStream(nc);
-
 ns.setBufferTime(sb);
-var dur:Number;
-
-ns["onMetaData"] = function(obj) {
-	dur = obj.duration;
-	np.timetext.text = Math.floor(dur/60) + " minutes, " + Math.round(dur%60) + " seconds";
-}
-
-ns.onStatus = function(obj) {
-
-	if(obj.code.indexOf("Stop")!=-1) {
-		replay_orb._visible = true;
-		bufferclip._visible = false;
-	}
-	if(obj.code == "NetStream.Buffer.Empty") {
-		if(replay_orb._visible){
-			bufferclip._visible = false;
-		}else{
-			bufferclip._visible = true;
-		}
-		ns.setBufferTime(sb);
-	}
-	if (obj.code == "NetStream.Buffer.Full") {
-		bufferclip._visible = false;
-		ns.setBufferTime(lb);
-	}
-		if(Math.round(dur%60) <= sb) {
-		bufferclip._visible = false;
-	}
-}
 theVideo.smoothing = true;
 theVideo.deblocking = true;
 theVideo.attachVideo(ns);
 
-if (autoStart == "true"){
-	ns.play(streamName);	
-	bigPlay._visible = false;
-} else {
-	_root.controlBar.plabel.gotoAndStop(2);
-	_root.createEmptyMovieClip("thumbLoader", this.getNextHighestDepth());
-	thumbLoader.loadMovie(thumbUrl);
-	bigPlay._visible = true;
-	bufferclip._visible = false;
-}
-	
+
+ns.onStatus = function(obj) {	
+	if(obj.code.indexOf("Stop")!=-1) {
+		pr._x = ds;
+		delete home.onEnterFrame;
+		theVideo._visible = false;
+		bigPlay._visible = true;
+		previewLoader._visible = true;
+		inPlay = false;
+		isPlaying = false;
+		togglePlayPause();
+		cBar.VideoXMLDescription.text = que.title;
+		cBar.Time.TimeCounter.text = "0:00:00/0:00:00";
+		scrubber._x = ds;
+		w = 480;
+		h = 160;
+		getNewSize();
+	}
+	if (obj.code == "NetStream.Buffer.Full") {
+		ns.setBufferTime(lb);
+		bufferclip._visible = false;
+	}
+	if(obj.code == "NetStream.Buffer.Empty") {
+		bufferclip._visible = true;
+	}
+};
 
 
-//======================================================
+Flv = function(title, flvUrl, Width, Height, thumbUrl) {
+	this.title = title;
+	this.flvUrl = flvUrl;
+	this.Width = Width;
+	this.Height = Height;
+	this.thumbUrl = thumbUrl;
+};
+
+home["flv"] = new Flv(title, flvUrl, Width, Height, thumbUrl);
+
+
+que = home["flv"];
+
+cBar.VideoXMLDescription.text = que.title;
+previewLoader.scaleContent = true;
+previewLoader.contentPath = que.thumbUrl;
 
 //==========================================================
 //====================VIDEO CONTROLS======================
 //==========================================================
+bigPlay.onRelease = function():Void {
+	playIt();
+};
 
-xp_button.onRelease = function() {
-	nw = System.capabilities.screenResolutionX*.90; // new width
-	nh = Math.round((oh/ow)*nw); // new height
-	if(nh>=nw){
-		nw = System.capabilities.screenResolutionY*.80; // new width
-		nh = Math.round((oh/ow)*nw); // new height
+function playIt() {
+	w = Math.round(que.Width);
+	h = Math.round(que.Height);
+	getNewSize();
+	theVideo._visible = true;
+	bigPlay._visible = false;
+	previewLoader._visible = false;
+	pl._width = 0;
+	inPlay = true;
+	isPlaying = true;
+	trace(w+":"+h);
+	ns.play(que.flvUrl);
+	togglePlayPause();	
+	if(isBig == true) {
+		isBig = false;
 	}
-	xp_button._visible = false;
-	fullscreen = true;
-	xp_button_off._visible = true;
-	doResize(nw,nh);
-}
+	cBar.VideoXMLDescription.text = que.title;
+	getNewSize();
+	home.onEnterFrame = updater;
+};
 
-xp_button_off.onRelease = function() {
-	xp_button_off._visible = false;
-	fullscreen = false;
-	xp_button._visible = true;
-	doResize(ow,oh);
-}
-
-//replay_ani //
-var rpl = _root.replay_orb.orb;
-rpl.onRelease = function() {
-	ns.seek(0);
-	ns.pause(false);
-	replay_orb._visible = false;
-}
-
-//controlBar Toggle //
-var cbHide = function(){
-	setTimeout(hidecontrolBar, 2000);
-}
-function hidecontrolBar () {
-    controlBar._visible = false;
-	xp_button_off._visible = false; 
-	xp_button._visible = false;
-}
-
-cbHide();
-cBon.onRollOver = function() {
-	controlBar._visible = true;
-	if (fullscreen == true) {
-		xp_button_off._visible = true;
-	} else {
-		xp_button._visible = true;
-	}
-}
-
-cBon.onRelease = function() {
-	ns.pause();
-}
-
-cBoff.onRollOver = function() {
-	controlBar._visible = false;
-	xp_button_off._visible = false; 
-	xp_button._visible = false;
-}
-
-
-var scr = _root.controlBar.scrubber;
-var pr = scr.progres;
-var ld = scr.loader;
-var cb = _root.controlBar;
-var pl = scr.perload;
-
-var swidth = scr.back._width;
-
-var pstart = pr._x;
+swidth = tW;
+pstart = scrubber._x;
 
 var dur:Number;
+var pos:Number;
+var vidTime:Object = new Object();
 
 ns["onMetaData"] = function(obj) {
 	dur = obj.duration;
-	np.timetext.text = Math.floor(dur/60) + " minutes, " + Math.round(dur%60) + " seconds";
-}
+	vidTime.hrs = Math.floor((dur/60)/60);
+	vidTime.mins = checkDigits(Math.floor(dur/60 - vidTime.hrs*60));
+	vidTime.sec = checkDigits(Math.round(dur%60));
+	cBar.Time.TimeCounter.text = vidTime.hrs + ":" + vidTime.mins + ":" + vidTime.sec;
+};
 
-_root.onEnterFrame = videoUpdate;
+function checkDigits(toCheck) {  // append 0 to times < 10
+	return (toCheck < 10) ? toCheck = "0" + toCheck : toCheck; 
+};
+
+
 var loadInt = setInterval(loadFunction,50);
 
 function loadFunction() {
+	var swidthx:Number = tW;
 	var lprog = ns.bytesLoaded / ns.bytesTotal;
-	if(lprog < 1) {
-		pl._x = ld._x + ld._width - 20;
-		pl.perload.text = Math.round(lprog * 100) + "%";
+	if(pl._width <= swidthx - 5) {
+		pl.filters = [plf1];
 		pl._visible = true;
-		ld._width = swidth * lprog;
-	}
-	else {
-		pl._visible = false;
-		ld._width = swidth;
+		pl.perload.text = Math.round(lprog * 100) + "%";
+		pl._width = swidthx * lprog;
+	} else {
+		pl._width = swidthx;
+		pl.filters = [plf2];
+		var tw:Tween = new Tween(pl,"_alpha",Strong.easeOut,100,100,1,true);
+		tw.onMotionStopped = function() {
+			pl._visible = false;
+		}
 		clearInterval(loadInt);
-	}
-}
+	}		
+};
 
-function videoUpdate() {	
+
+function updater() {
+	swidth = tW - scrubber._width;
 	var prog = ns.time / dur;
-	pr._x = -258.5 + (swidth * prog);
-}
+	scrubber._x = pstart + (swidth * prog);
+	var rem = dur - ns.time;   
+    var seconds = checkDigits(Math.floor(rem%60));
+	var minutes:Number = checkDigits(Math.floor((rem/60)%60));
+	var hours:Number = Math.floor((rem/60)/60);
+	vidTime.hrs = Math.floor((dur/60)/60);
+	vidTime.mins = checkDigits(Math.floor(dur/60 - vidTime.hrs*60));
+	vidTime.sec = checkDigits(Math.round(dur%60));
+	cBar.Time.TimeCounter.text = hours+":"+minutes+":"+seconds+"/"+vidTime.hrs + ":" + vidTime.mins + ":" + vidTime.sec;
+};
 
-cb.replayer.onRelease = function() {
-	ns.seek(0);
-	ns.pause(false);
-	replay_orb._visible = false;
-	cb.plabel.gotoAndStop(1);
-}
+
+cBar.player.onRelease = function() {
+	if(inPlay == false){
+		playIt();
+	} else {
+		isPlaying = true;
+		ns.pause();
+		togglePlayPause();
+	}		
+};
+
+cBar.pauser.onRelease = function() {
+	isPlaying = false;
+	ns.pause();
+	togglePlayPause();
+};
+
+function togglePlayPause() {
+	if(isPlaying == false) {
+		cBar.player._visible = true;
+		cBar.pauser._visible = false;
+	} else {
+		cBar.player._visible = false;
+		cBar.pauser._visible = true;
+	}
+};
 
 var rewInt;
 
-cb.rewinder.onPress = function() {
+cBar.rewinder.onPress = function() {
 	rewInt = setInterval(rewind,200);
 	ns.pause(true);
-}
+};
 
-cb.rewinder.onRelease = cb.rewinder.onReleaseOutside = function() {
+cBar.rewinder.onRelease = cBar.rewinder.onReleaseOutside = function() {
 	clearInterval(rewInt);
 	ns.pause(false);
-}
+};
 
 function rewind() {
 	ns.seek(ns.time-18);
@@ -297,50 +389,17 @@ function rewind() {
 		clearInterval(rewInt);
 	    ns.pause(false);
 	}
-}
-
-cb.player.onRelease = function() {
-	if (autoStart == "false"){
-		ns.play(streamName);
-		autoStart = true;
-		cb.plabel.play();	
-	} else {
-		ns.pause();
-		cb.plabel.play();
-	}
-}
-
-bigPlay.onRollOver = function() {
-	bigPlay._alpha = 50;
-}
-bigPlay.onRollOut = function() {
-	bigPlay._alpha = 80;
-}
-
-bigPlay.onRelease = function() {
-		ns.play(streamName);
-		autoStart = true;
-		cb.plabel.play();
-		bigPlay._visible = false;
-}
-
-
-cb.stopper.onRelease = function() {
-	ns.seek(0);
-	ns.pause(true);
-	cb.plabel.gotoAndStop(2);
-}
+};
 
 var ffInt;
 
-
-cb.fforwarder.onPress = function() {
+cBar.fforwarder.onPress = function() {
 	ffInt = setInterval(ff,200);
-}
+};
 
-cb.fforwarder.onRelease = cb.fforwarder.onReleaseOutside = function() {
+cBar.fforwarder.onRelease = cBar.fforwarder.onReleaseOutside = function() {
 	clearInterval(ffInt);
-}
+};
 
 function ff() {
 	if(ns.time / dur < .95) {
@@ -349,80 +408,209 @@ function ff() {
 	else {
 		clearInterval(ffInt);
 	}
-}
+};
 
-pr.scrubba.onPress = function() {
-        ns.pause(true);
-	_root.onEnterFrame = scrubba;
-	pr.startDrag(false,-258.5,pr._y,-258.5+ld._width-4,pr._y);
-}
+scrubber.onPress = function() {
+    ns.pause(true);
+	home.onEnterFrame = scrubba;
+	scrubber.startDrag(false,pstart,scrubberBar._y - (scrubber._height/2),(pstart + swidth),scrubberBar._y - (scrubber._height/2));	
+};
 
-pr.scrubba.onRelease = pr.scrubba.onReleaseOutside = function() {
-    _root.onEnterFrame = videoUpdate;
-	ns.pause(false);
-	pr.stopDrag();
-}
+scrubber.onRelease = scrubber.onReleaseOutside = function() {
+    home.onEnterFrame = updater;
+	if(isPlaying == true){
+		ns.pause(false);
+	}
+	scrubber.stopDrag();
+	removeTip();
+};
+
+scrubber.onRollOver = function() {
+	showTip("0:00");
+	timeUpdater();
+};
+
+scrubber.onRollOut = function() {
+	clearInterval(time_interval);
+	removeTip();
+};
 
 function scrubba() {
-	var p = (pr._x - pstart) / swidth;
+	var p = (scrubber._x - pstart) / swidth;
+	currentPlayTime = p * dur;
 	ns.seek(p * dur);
-}
+};
 
-//==========================================================
+function timeUpdater() {
+	var time_interval:Number = setInterval(checkTime, 500);
+};
 
+function checkTime() {
+    var ns_seconds:Number = ns.time;   
+    var seconds = checkDigits(Math.floor(ns_seconds%60));
+	var minutes:Number = checkDigits(Math.floor((ns_seconds/60)%60));
+	var hours:Number = Math.floor((ns_seconds/60)/60);
+    home.tooltip.datext.text =  hours+":"+minutes+":"+seconds;
+};
 
 //======================================================
 //==============SOUND CONTROL===========================
 //======================================================
-
-_root.createEmptyMovieClip("vidsound",_root.getNextHighestDepth());
+home.createEmptyMovieClip("vidsound",home.getNextHighestDepth());
 vidsound.attachAudio(ns);
+var sou = new Sound(vidsound);  // create our sound object
 
-var sou:Sound = new Sound(vidsound);
-sou.setVolume(75);
+sou.setVolume(curVol);
+var startxs = -63;
 
-var startxs = controlBar.vol._x;
-
-controlBar.vol._x = startxs+(70*.75);
-
-controlBar.vol.onPress = function() {
-	this.startDrag(false,startxs - 2,this._y,startxs+72,this._y);
+cBar.Volume.volHandle._x = startxs + (cBar.Volume.volBack._width * .75);
+cBar.Volume.volMask._x = cBar.Volume.volHandle._x;
+cBar.muteOn._visible = false;
+cBar.Volume.volPer._visible = false;
+cBar.Volume.volPer._x = cBar.Volume.volHandle._x + 71;
+cBar.Volume.volPer._y = cBar.Volume.volHandle._y - 10;
+cBar.Volume.volHandle.onPress = function() {
+	cBar.Volume.volPer._visible = true;
+	this.startDrag(false,startxs - 10,this._y,startxs+cBar.Volume.volBack._width-12,this._y);
+	cBar.Volume.volMask._x = cBar.Volume.volHandle._x + 1;
+	cBar.muteOn._visible = false;
 	this.onEnterFrame = voller;
-}
+};
 
-controlBar.vol.onRelease = controlBar.vol.onReleaseOutside = function() {
+cBar.Volume.volHandle.onRelease = cBar.Volume.volHandle.onReleaseOutside = function() {
 	this.stopDrag();
+	cBar.Volume.volPer._visible = false;
 	delete this.onEnterFrame;
-}
+};
 
 function voller() {
-	var perc = ((controlBar.vol._x-(startxs-2)) / (74));
+	var perc = ((cBar.Volume.volHandle._x -(startxs - 10)) / (198));
 	sou.setVolume(Math.ceil(perc*100));
-}
+	curVol = Math.ceil(perc*100);
+	cBar.Volume.volPer.volText.text = sou.getVolume();
+	cBar.Volume.volPer._x = cBar.Volume.volHandle._x + 71;
+	cBar.Volume.volPer._y = cBar.Volume.volHandle._y - 10;
+	cBar.Volume.volMask._x = cBar.Volume.volHandle._x + 1;
 
+};
 
-function pauseIt() {
-	ns.pause();
-}
+cBar.mute.onRelease = function() {
+	if(sou.getVolume() == 0){
+		sou.setVolume(curVol);
+		cBar.muteOn._visible = false;
+	} else {
+		sou.setVolume(0);
+		cBar.muteOn._visible = true;
+	}
+};
 
-function replayIt() {
-	ns.seek(0);
-}
+//======================================================
+//==============TOOL TIPS===============================
+//======================================================
 
-function visit() {
-	getURL("http://gallery.menalto.com", "_blank");
-}
+infoTip._visible = false;
 
-function onResize() {
-	this.setSize(Stage.width, Stage.height);
-	resizeAll();
-}
+function showInfo(info) {
+	home.attachMovie("infoTip","infoTip",home.getNextHighestDepth());
+	home.infoTip.infoText.text = info;
+	home.infoTip.onEnterFrame = function() {
+		if(home._xmouse <= Stage.width/2) {
+			this._x = Math.round(home._xmouse + 25);
+		} else {
+			this._x = Math.round(home._xmouse - 25);
+		}
+		this._y = Math.round(home._ymouse - 5);
+		home.infoTip._visible = true;
+	}
+};
 
-function doResize(nw,nh) {
-    ExternalInterface.call("divResize","videoDiv", nw,nh);
-	onResize();
-}
+function removeInfo() {
+	home.infoTip._visible = false;
+	delete home.infoTip.onEnterFrame;
+	delete home.infoTip;
+};
 
+function showTip(datext) {
+	home.attachMovie("tooltip","tooltip",home.getNextHighestDepth());
+	home.tooltip.datext.text = datext;
+	home.tooltip.onEnterFrame = function() {
+		if(home._xmouse <= Stage.width/2) {
+			this._x = Math.round(home._xmouse + 25);
+		} else {
+			this._x = Math.round(home._xmouse - 25);
+		}
+		this._y = Math.round(home._ymouse - 5);
+		home.tooltip._visible = true;
+	}
+};
 
+function removeTip() {
+	home.tooltip._visible = false;
+	delete home.tooltip.onEnterFrame;
+	delete home.tooltip;
+};
 
+home.tooltip._visible = false;
 
+//fullscreen button
+cBar.fsb.onRollOver = function() {
+	this._alpha = 50;
+	if (isBig) {
+		showInfo(langNormal);
+	} else {
+		showInfo(langLarge);
+	}
+};
+
+cBar.fsb.onRollOut = function() {
+	this._alpha = 100;
+	removeInfo();
+};
+
+cBar.fsb.onRelease = function() {
+	var ratio = h/w;
+	if(isPlaying) {
+		if (isBig) {
+			w = Math.round(que.Width);
+			h = Math.round(que.Height);
+			isBig = false;
+		} else {
+			w = mW;
+			h = w * ratio;
+			isBig = true;
+		}
+		getNewSize();
+	}
+};
+
+cBar.dlIcon.onRollOver = function() {
+	this._alpha = 50;
+	showInfo(langDownload);
+};
+
+cBar.dlIcon.onRollOut = function() {
+	this._alpha = 100;
+	removeInfo();
+};
+
+cBar.dlIcon.onRelease = function() {
+	saveIt();
+};
+
+function galleryLink(){ 
+	getUrl("http://gallery.menalto.com/", "_blank"); 
+};
+
+function fywLink(){ 
+	getUrl("http://www.flashyourweb.com/", "_blank"); 
+};
+
+var theMenu:ContextMenu = new ContextMenu(); 
+theMenu.hideBuiltInItems(); 
+_root.menu = theMenu; 
+
+var i1:ContextMenuItem = new ContextMenuItem("Copyright (C) 2000-2007 Bharat Mediratta",galleryLink); 
+theMenu.customItems[0] = i1; 
+
+var i2:ContextMenuItem = new ContextMenuItem("Player provided by Flash Your Web",fywLink,true); 
+theMenu.customItems[1] = i2;
