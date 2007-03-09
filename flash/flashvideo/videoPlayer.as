@@ -108,7 +108,7 @@ function getNewSize() {
 		var ratio = Math.round(que.Height)/Math.round(que.Width);
 		if(w < 480){
 			w = 480;
-			Math.round(que.Height);
+			h = w * ratio;
 			getNewSize();
 			break;
 		}
