@@ -27,7 +27,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Core 1.2.4\n"
+"Project-Id-Version: Gallery: Core 1.2.0\n"
 "POT-Creation-Date: 2003-02-11 03:09-0800\n"
 "PO-Revision-Date: 2006-11-07 03:21+0100\n"
 "Last-Translator: Andy Staudacher <ast@gmx.ch>\n"
@@ -136,10 +136,6 @@ msgstr "Aktiviere %s"
 msgid "Deleting Language Packs"
 msgstr "Lösche Sprackpakete"
 
-#, fuzzy
-msgid "Synchronizing Language Packs"
-msgstr "Lösche Sprackpakete"
-
 msgid "Update completed with errors."
 msgstr "Die Aktualisierung wurde mit Fehlern beendet."
 
@@ -229,10 +225,6 @@ msgstr "Aktualisiere Panorama Elemente"
 
 msgid "Optimizing AccessSubscriberMap table"
 msgstr "Optimiere die AccessSubscriberMap Tabelle"
-
-#, fuzzy
-msgid "Upgrading Plugin Translations"
-msgstr "Aktualisierte Übersetzungen"
 
 msgid "Site Admins"
 msgstr "Site-Administratoren"
@@ -1950,22 +1942,12 @@ msgstr ""
 "Sie die Liste der Plugins erneut herunter."
 
 #, c-format
-msgid "Failed to download the following packages for the %s plugin:"
-msgstr ""
-
-#, fuzzy, c-format
 msgid ""
-"Failed to install the %s plugin because the following files/directories could not be "
+"Failed to download the %s plugin because the following files/directories could not be "
 "modified:"
 msgstr ""
 "Das %s Plugin konnte nicht heruntergeladen werden, da die folgenden Dateien/Verzeichnisse "
 "nicht verändert werden können:"
-
-#, c-format
-msgid ""
-"Some plugins could not be automatically upgraded because they are in use.  Please return to "
-"the %sPlugins%s page and click the upgrade link for each of the following plugins:"
-msgstr ""
 
 msgid "The repository index has been successfully updated."
 msgstr "Der Index des Erweiterungen-Katalogs wurde erfolgreich aktualisiert."
@@ -2257,10 +2239,6 @@ msgstr "mit"
 
 msgid "New albums"
 msgstr "Neue Alben"
-
-#, c-format
-msgid "To activate more themes visit the %sPlugins%s page."
-msgstr ""
 
 msgid "Save Defaults"
 msgstr "Speichere Voreinstellungen"
@@ -3987,6 +3965,9 @@ msgstr "Verweise zu angrenzenden Alben/Photos"
 
 #~ msgid "This plugin's base files are up-to-date."
 #~ msgstr "Die Basis-Dateien dieser Erweiterung sind auf dem neusten Stand."
+
+#~ msgid "Updated Translations"
+#~ msgstr "Aktualisierte Übersetzungen"
 
 #~ msgid ""
 #~ "Below is a list of translations that have been updated since they were last downloaded. "

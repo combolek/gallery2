@@ -387,15 +387,17 @@ class GalleryTemplateAdapter {
 	}
 
 	/* Style */
-	foreach ($head['style'] as $path => $unused) {
+	foreach ($head['style'] as $path) {
 	    $output[] = sprintf('<link rel="stylesheet" type="text/css" href="%s"/>' . "\n",
 				$urlGenerator->generateUrl(array('href' => $path)));
 	}
 
 	/* Javascript */
-	foreach ($head['javascript'] as $path => $unused) {
-	    $output[] = sprintf('<script type="text/javascript" src="%s"></script>' . "\n",
-				$urlGenerator->generateUrl(array('href' => $path)));
+	if (isset($head['javascript'])) {
+	    foreach ($head['javascript'] as $path) {
+		$output[] = sprintf('<script type="text/javascript" src="%s"></script>' . "\n",
+			$urlGenerator->generateUrl(array('href' => $path)));
+	    }
 	}
 
 	/* Tpl to include. */
@@ -683,7 +685,7 @@ class GalleryTemplateAdapter {
 	    if (!$isAdminOrShowAll) {
 		return;
 	    }
-	    return; /* sprintf(
+	    return sprintf(
 		    '%s<img src="%s" alt="%s" title="%s" style="%s" width="80" height="15"/>%s',
 		    $useLink ? '' : '',
 		    $urlGenerator->generateUrl(
@@ -691,7 +693,7 @@ class GalleryTemplateAdapter {
 		    $core->translate('G2.2: Double Double'),
 		    $core->translate('G2.2: Double Double'),
 		    'border-style: none',
-		    $useLink ? '' : ''); */
+		    $useLink ? '' : '');
 	}
     }
 

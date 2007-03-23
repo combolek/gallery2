@@ -22,7 +22,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Core 1.2.4\n"
+"Project-Id-Version: Gallery: Core 1.2.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-11-04 20:08+0100\n"
 "PO-Revision-Date: 2007-03-11 14:44+0100\n"
@@ -131,10 +131,6 @@ msgid "Deleting Language Packs"
 msgstr "Nyelvi csomagok törlése"
 
 #, fuzzy
-msgid "Synchronizing Language Packs"
-msgstr "Nyelvi csomagok törlése"
-
-#, fuzzy
 msgid "Update completed with errors."
 msgstr "Feltöltés sikeres"
 
@@ -225,10 +221,6 @@ msgstr "Panoráma elemek frissítése"
 
 msgid "Optimizing AccessSubscriberMap table"
 msgstr ""
-
-#, fuzzy
-msgid "Upgrading Plugin Translations"
-msgstr "Jogok frissítése"
 
 msgid "Site Admins"
 msgstr "Oldal adminisztrátorok"
@@ -1849,21 +1841,11 @@ msgid ""
 msgstr ""
 
 #, c-format
-msgid "Failed to download the following packages for the %s plugin:"
-msgstr ""
-
-#, fuzzy, c-format
 msgid ""
-"Failed to install the %s plugin because the following files/directories could not be "
+"Failed to download the %s plugin because the following files/directories could not be "
 "modified:"
 msgstr ""
 "Nem sikerült a %s modult letölteni, mert a következő fájlok/könyvtárak nem módosíthatók:"
-
-#, c-format
-msgid ""
-"Some plugins could not be automatically upgraded because they are in use.  Please return to "
-"the %sPlugins%s page and click the upgrade link for each of the following plugins:"
-msgstr ""
 
 msgid "The repository index has been successfully updated."
 msgstr ""
@@ -2134,10 +2116,6 @@ msgstr "szélesség"
 
 msgid "New albums"
 msgstr "Új albumok"
-
-#, c-format
-msgid "To activate more themes visit the %sPlugins%s page."
-msgstr ""
 
 msgid "Save Defaults"
 msgstr "Alapértelmezések mentése"

@@ -28,7 +28,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Core 1.2.4\n"
+"Project-Id-Version: Gallery: Core 1.2.0\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2003-02-11 03:09-0800\n"
 "PO-Revision-Date: 2007-03-08 08:30+0100\n"
@@ -137,10 +137,6 @@ msgstr "Aktiverar %s"
 msgid "Deleting Language Packs"
 msgstr "Raderar språkpaketen"
 
-#, fuzzy
-msgid "Synchronizing Language Packs"
-msgstr "Raderar språkpaketen"
-
 msgid "Update completed with errors."
 msgstr "Uppdateringen slutförd med felaktigheter."
 
@@ -230,10 +226,6 @@ msgstr "Uppdaterar panorama objekt"
 
 msgid "Optimizing AccessSubscriberMap table"
 msgstr "Optimerar <i>AccessSubscriberMap</i> tabellen"
-
-#, fuzzy
-msgid "Upgrading Plugin Translations"
-msgstr "Uppgraderar rättigheter"
 
 msgid "Site Admins"
 msgstr "Siteadministratörer"
@@ -1919,21 +1911,11 @@ msgstr ""
 "igen."
 
 #, c-format
-msgid "Failed to download the following packages for the %s plugin:"
-msgstr ""
-
-#, fuzzy, c-format
 msgid ""
-"Failed to install the %s plugin because the following files/directories could not be "
+"Failed to download the %s plugin because the following files/directories could not be "
 "modified:"
 msgstr ""
 "Lyckades inte ladda ner pluginen %s, pga att följande filer/kataloger inte kunde modifieras:"
-
-#, c-format
-msgid ""
-"Some plugins could not be automatically upgraded because they are in use.  Please return to "
-"the %sPlugins%s page and click the upgrade link for each of the following plugins:"
-msgstr ""
 
 msgid "The repository index has been successfully updated."
 msgstr "Index till fillagret har uppdaterats."
@@ -2212,10 +2194,6 @@ msgstr "med"
 
 msgid "New albums"
 msgstr "Nya album"
-
-#, c-format
-msgid "To activate more themes visit the %sPlugins%s page."
-msgstr ""
 
 msgid "Save Defaults"
 msgstr "Spara standardvärdena"

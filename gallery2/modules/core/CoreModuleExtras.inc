@@ -2125,50 +2125,6 @@ class CoreModuleExtras {
 	case '1.1.31':
 	    /* 2.2 Release! */
 
-	case '1.2.0':
-	    /* Added GalleryCoreApi::getCodeBasePath */
-
-	case '1.2.1':
-	    /* Add support for g2data/locale hierarchy */
-	    foreach (array('module', 'theme') as $pluginType) {
-		list ($ret, $pluginList[$pluginType]) =
-		    GalleryCoreApi::fetchPluginList($pluginType);
-		if ($ret) {
-		    return $ret;
-		}
-	    }
-
-	    $totalOperations = count($pluginList['module']) + count($pluginList['theme']);
-	    $currentOperation = 0;
-	    $upgradingMessageText = $module->translate('Upgrading Plugin Translations');
-	    foreach (array('module', 'theme') as $pluginType) {
-		foreach ($pluginList[$pluginType] as $pluginId => $ignored) {
-		    $gallery->guaranteeTimeLimit(30);
-
-		    $ret = $statusMonitor->renderStatusMessage(
-			$upgradingMessageText, $pluginId,
-			++$currentOperation / $totalOperations);
-		    if ($ret) {
-			return $ret;
-		    }
-
-		    $ret = GalleryCoreApi::installTranslationsForPlugin($pluginType, $pluginId);
-		    if ($ret) {
-			return $ret;
-		    }
-		}
-	    }
-
-	    $ret = $statusMonitor->renderStatusMessage($upgradingMessageText, '', 1);
-	    if ($ret) {
-		return $ret;
-	    }
-
-	case '1.2.2':
-	    /* Move modules/core/locale/ hierarchy into po/ */
-	case '1.2.3':
-            /* Added template version number */
-
 	case 'end of upgrade path':
 	    /*
 	     * Leave this bogus case at the end of the legitimate case statements so that we always
@@ -2479,10 +2435,6 @@ if (!isset($gallery) || !method_exists($gallery, \'setConfig\')) {
 ';
 	    $configChanges[] = array('remove' => $remove, 'add' => array(), 'edit' => array($edit));
 	case '1.1.31':
-	case '1.2.0':
-	case '1.2.1':
-	case '1.2.2':
-	case '1.2.3':
 
 	case 'end of upgrade path':
 	    /*

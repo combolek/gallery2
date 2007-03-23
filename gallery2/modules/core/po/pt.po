@@ -19,7 +19,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Core 1.2.4\n"
+"Project-Id-Version: Gallery: Core 1.2.0\n"
 "POT-Creation-Date: 2003-09-18 12:00+0900\n"
 "PO-Revision-Date: 2007-03-14 15:53+0100\n"
 "Last-Translator: Hugo Cruz <hugo.cruz@netcabo.pt>\n"
@@ -131,10 +131,6 @@ msgid "Deleting Language Packs"
 msgstr "Linguagem de defeito"
 
 #, fuzzy
-msgid "Synchronizing Language Packs"
-msgstr "Linguagem de defeito"
-
-#, fuzzy
 msgid "Update completed with errors."
 msgstr "Upload Completo"
 
@@ -233,10 +229,6 @@ msgstr ""
 
 msgid "Optimizing AccessSubscriberMap table"
 msgstr ""
-
-#, fuzzy
-msgid "Upgrading Plugin Translations"
-msgstr "permissões"
 
 #, fuzzy
 msgid "Site Admins"
@@ -1962,19 +1954,9 @@ msgid ""
 msgstr ""
 
 #, c-format
-msgid "Failed to download the following packages for the %s plugin:"
-msgstr ""
-
-#, c-format
 msgid ""
-"Failed to install the %s plugin because the following files/directories could not be "
+"Failed to download the %s plugin because the following files/directories could not be "
 "modified:"
-msgstr ""
-
-#, c-format
-msgid ""
-"Some plugins could not be automatically upgraded because they are in use.  Please return to "
-"the %sPlugins%s page and click the upgrade link for each of the following plugins:"
 msgstr ""
 
 msgid "The repository index has been successfully updated."
@@ -2246,10 +2228,6 @@ msgstr "Largura"
 #, fuzzy
 msgid "New albums"
 msgstr "mover album"
-
-#, c-format
-msgid "To activate more themes visit the %sPlugins%s page."
-msgstr ""
 
 #, fuzzy
 msgid "Save Defaults"

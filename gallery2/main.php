@@ -17,10 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * Main handler for all Gallery pages/requests.
- * @package Gallery
- */
 
 include(dirname(__FILE__) . '/bootstrap.inc');
 
@@ -89,7 +85,7 @@ if ($gallery->isEmbedded()) {
 
 /**
  * Main handler for all Gallery pages/requests.
- * @return array
+ * @package Gallery
  */
 function GalleryMain($embedded=false) {
     global $gallery;

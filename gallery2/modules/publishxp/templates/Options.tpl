@@ -8,12 +8,10 @@
  enctype="{$UserAdmin.enctype|default:"application/x-www-form-urlencoded"}">
   <div>
     <script type="text/javascript">
-      // <![CDATA[
-      setSubtitle("{g->text text="Set options for the photos to be added." forJavascript=true}");
+      setSubtitle("{g->text text="Set options for the photos to be added."}");
       setOnBackUrl("{g->url arg1="view=publishxp.SelectAlbum" arg2="albumId=`$form.albumId`" htmlEntities=false}");
       setSubmitOnNext(true);
       setButtons(true, true, false);
-      // ]]>
     </script>
     {g->hiddenFormVars}
     <input type="hidden" name="{g->formVar var="controller"}" value="publishxp.Options"/>

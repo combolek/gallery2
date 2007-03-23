@@ -9,7 +9,7 @@
   <div>      
     <script type="text/javascript">
       // <![CDATA[
-      setSubtitle("{g->text text="Specify the name and title for the new album." forJavascript=true}");
+      setSubtitle("{g->text text="Specify the name and title for the new album."}");
       setSubmitOnNext(true);
       setOnBackUrl("{g->url arg1="view=publishxp.SelectAlbum" htmlEntities=false}");
       setButtons(true, true, false);

@@ -73,7 +73,7 @@ class GalleryTheme extends GalleryPlugin {
      * @return array major number, minor number
      */
     function getApiVersion() {
-	return array(2, 6);
+	return array(2, 5);
     }
 
     /**
@@ -617,11 +617,6 @@ class GalleryTheme extends GalleryPlugin {
 	    }
 	}
 
-	$ret = parent::installOrUpgrade();
-	if ($ret) {
-	    return $ret;
-	}
-
 	if ($gallery->getDebug()) {
 	    $gallery->debug('GalleryTheme::installOrUpgrade finished successfully');
 	}
@@ -730,7 +725,6 @@ class GalleryTheme extends GalleryPlugin {
 	$theme =& $template->getVariableByReference('theme');
 
 	$urlGenerator =& $gallery->getUrlGenerator();
-        $theme['themeId'] = $this->getId();
 	$theme['themeUrl'] =
 	    $urlGenerator->generateUrl(array('href' => 'themes/' . $this->getId()));
 	if (!isset($theme['pageUrl'])) {
