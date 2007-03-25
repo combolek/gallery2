@@ -72,13 +72,9 @@ class GalleryCoreApi {
      * - remove GalleryUtilities::utf8Substring (moved to GalleryCoreApi)
      * - remove lib/wz_dragdrop/ (currently used by G2.1's watermark module)
      * - refactor renderer code (methods: getRenderer and render, GalleryEntity vs GalleryItem)
-     * - remove support for {modules,themes}/.../locale dirs from lib/tools/po scripts
-     *   from GalleryTranslatorHelper_medium::installTranslationsForPlugin,
-     *   and from getPackageNames() in lib/tools/repository/classes/RepositoryDescriptor.class
-     * - remove resourceGetTemplateBaseDir from GalleryTemplate class
      */
     function getApiVersion() {
-	return array(7, 20);
+	return array(7, 18);
     }
 
     /**
@@ -3074,48 +3070,6 @@ class GalleryCoreApi {
 	GalleryCoreApi::requireOnce(
 		'modules/core/classes/helpers/GalleryEntityHelper_medium.class');
 	return GalleryEntityHelper_medium::getExternalAccessMemberList($entityName);
-    }
-
-    /**
-     * Copy the translations for a given plugin into our locale hierarchy.
-     *
-     * @param string $pluginType 'module' or 'theme'
-     * @param string $pluginId the id of the plugin
-     * @return object GalleryStatus a status code
-     */
-    function installTranslationsForPlugin($pluginType, $pluginId) {
-	GalleryCoreApi::requireOnce(
-		'modules/core/classes/helpers/GalleryTranslatorHelper_medium.class');
-	GalleryTranslatorHelper_medium::installTranslationsForPlugin($pluginType, $pluginId);
-    }
-
-    /**
-     * Remove the translations for a given plugin from our locale hierarchy.
-     *
-     * @param string $pluginType 'module' or 'theme'
-     * @param string $pluginId the id of the plugin
-     * @return object GalleryStatus a status code
-     */
-    function removeTranslationsForPlugin($pluginType, $pluginId) {
-	GalleryCoreApi::requireOnce(
-		'modules/core/classes/helpers/GalleryTranslatorHelper_medium.class');
-	GalleryTranslatorHelper_medium::removeTranslationsForPlugin($pluginType, $pluginId);
-    }
-
-    /**
-     * Get the local path to the Gallery code base path (not URL or web root).  Optionally append a
-     * relative path.
-     * @param string $relativePath (optional) Relative path to append to the code base path.
-     * @return string local path to the Gallery code base.  If the optional parameter has not been
-     *                supplied the return value will have the trailing slash appended.
-     */
-    function getCodeBasePath($relativePath=null) {
-        static $codeBaseDirectory;
-        if (!isset($codeBaseDirectory)) {
-	    $codeBaseDirectory = dirname(dirname(dirname(dirname(__FILE__)))) . DIRECTORY_SEPARATOR;
-        }
-
-        return ($relativePath == null) ? $codeBaseDirectory : $codeBaseDirectory . $relativePath;
     }
 }
 ?>

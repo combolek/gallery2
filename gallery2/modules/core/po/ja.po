@@ -21,7 +21,7 @@
 # - Kennichi Uehara <ken.w3m+nospam@gmail.com>
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Core 1.2.4\n"
+"Project-Id-Version: Gallery: Core 1.2.0\n"
 "POT-Creation-Date: 2005-08-06 00:53+0900\n"
 "PO-Revision-Date: 2007-03-15 15:18+0900\n"
 "Last-Translator: Yosuke Suzuki <yosuke.suzuki@gmail.com>\n"
@@ -124,10 +124,6 @@ msgid "Deleting Language Packs"
 msgstr "言語パックを削除中"
 
 #, fuzzy
-msgid "Synchronizing Language Packs"
-msgstr "言語パックを削除中"
-
-#, fuzzy
 msgid "Update completed with errors."
 msgstr "アップデートは完了したが、エラーが発生しました"
 
@@ -217,10 +213,6 @@ msgstr "パノラマアイテムをアップデート"
 
 msgid "Optimizing AccessSubscriberMap table"
 msgstr "AccessSubscriberMap テーブルを最適化する"
-
-#, fuzzy
-msgid "Upgrading Plugin Translations"
-msgstr "パーミッションをアップグレード"
 
 msgid "Site Admins"
 msgstr "サイト管理者"
@@ -1874,19 +1866,9 @@ msgid ""
 msgstr ""
 
 #, c-format
-msgid "Failed to download the following packages for the %s plugin:"
-msgstr ""
-
-#, c-format
 msgid ""
-"Failed to install the %s plugin because the following files/directories could not be "
+"Failed to download the %s plugin because the following files/directories could not be "
 "modified:"
-msgstr ""
-
-#, c-format
-msgid ""
-"Some plugins could not be automatically upgraded because they are in use.  Please return to "
-"the %sPlugins%s page and click the upgrade link for each of the following plugins:"
 msgstr ""
 
 msgid "The repository index has been successfully updated."
@@ -2151,10 +2133,6 @@ msgstr "with"
 
 msgid "New albums"
 msgstr "新しいアルバム"
-
-#, c-format
-msgid "To activate more themes visit the %sPlugins%s page."
-msgstr ""
 
 msgid "Save Defaults"
 msgstr "デフォルトを保存"

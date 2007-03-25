@@ -20,7 +20,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Core 1.2.4\n"
+"Project-Id-Version: Gallery: Core 1.2.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-10-31 14:44+0100\n"
 "PO-Revision-Date: 2007-03-14 14:45+0100\n"
@@ -132,10 +132,6 @@ msgid "Deleting Language Packs"
 msgstr "Lehenetsiriko hizkuntza"
 
 #, fuzzy
-msgid "Synchronizing Language Packs"
-msgstr "Lehenetsiriko hizkuntza"
-
-#, fuzzy
 msgid "Update completed with errors."
 msgstr "Igoera burutua"
 
@@ -226,10 +222,6 @@ msgstr ""
 
 msgid "Optimizing AccessSubscriberMap table"
 msgstr ""
-
-#, fuzzy
-msgid "Upgrading Plugin Translations"
-msgstr "Itzulpenak eguneraturik"
 
 msgid "Site Admins"
 msgstr "Gune Kudeatzaileak"
@@ -1922,19 +1914,9 @@ msgid ""
 msgstr ""
 
 #, c-format
-msgid "Failed to download the following packages for the %s plugin:"
-msgstr ""
-
-#, c-format
 msgid ""
-"Failed to install the %s plugin because the following files/directories could not be "
+"Failed to download the %s plugin because the following files/directories could not be "
 "modified:"
-msgstr ""
-
-#, c-format
-msgid ""
-"Some plugins could not be automatically upgraded because they are in use.  Please return to "
-"the %sPlugins%s page and click the upgrade link for each of the following plugins:"
 msgstr ""
 
 msgid "The repository index has been successfully updated."
@@ -2212,10 +2194,6 @@ msgstr "honekin"
 
 msgid "New albums"
 msgstr "Album berriak"
-
-#, c-format
-msgid "To activate more themes visit the %sPlugins%s page."
-msgstr ""
 
 #, fuzzy
 msgid "Save Defaults"
@@ -3878,6 +3856,9 @@ msgstr "Ondoko album/argazkietara loturak"
 
 #~ msgid "This plugin's base files are up-to-date."
 #~ msgstr "Plugin hauen oinarri fitxategiak eguneraturik daude."
+
+#~ msgid "Updated Translations"
+#~ msgstr "Itzulpenak eguneraturik"
 
 #~ msgid ""
 #~ "Below is a list of translations that have been updated since they were last downloaded. "

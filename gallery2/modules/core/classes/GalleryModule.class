@@ -62,12 +62,6 @@ class GalleryModule extends GalleryPlugin {
      */
     var $_requiredModuleApi;
 
-    /**
-     * The version of the templates associated with this plugin
-     * @var int
-     * @access private
-     */
-    var $_templateVersion;
 
     /**
      * Return the major and minor version of the GalleryModule API.
@@ -81,14 +75,13 @@ class GalleryModule extends GalleryPlugin {
      * - Drop the redirect url from GalleryPlugin::deactivate() (also requires a
      *   major bump in GalleryTheme)
      * - Remove TYPE=DB_TABLE_TYPE replacement in MySqlStorage::_getSqlReplacements
-     * - change signature of getItemlinks() in all modules (add new parameter)
+     * - change signature of getItemlinks() in all modules (add new parameter) 
      * - Remove rewrite v1.1.8 version checks in webdav, watermark, httpauth, ... (look for todo)
-     * - Change ->_templateVersion = x to ->setTemplateVersion(x) in module constructors
      *
      * @return array major number, minor number
      */
     function getApiVersion() {
-	return array(3, 6);
+	return array(3, 5);
     }
 
     /**
@@ -178,7 +171,6 @@ class GalleryModule extends GalleryPlugin {
 					$this->getId()));
 	    }
 	    $data = array('_version' => $this->getVersion(),
-			  '_templateVersion' => $this->getTemplateVersion(),
 			  '_callbacks' => $this->getCallbacks(),
 			  '_requiredCoreApi' => join(',', $this->getRequiredCoreApi()),
 			  '_requiredModuleApi' => join(',', $this->getRequiredModuleApi()));
@@ -230,7 +222,7 @@ class GalleryModule extends GalleryPlugin {
 	    if (GalleryDataCache::containsKey($cacheKey)) {
 		/*
 		 * The changes must be committed before the non-transactional optimize() can be
-		 * executed.
+		 * executed. 
 		 */
 		$ret = $storage->checkPoint();
 		if ($ret) {
@@ -244,11 +236,6 @@ class GalleryModule extends GalleryPlugin {
 		}
 		GalleryDataCache::remove($cacheKey);
 	    }
-	}
-
-	$ret = parent::installOrUpgrade();
-	if ($ret) {
-	    return $ret;
 	}
 
 	if ($gallery->getDebug()) {
@@ -591,14 +578,6 @@ class GalleryModule extends GalleryPlugin {
 	}
 	return array('group' => $this->_group['group'],
 		     'groupLabel' => $this->translate($this->_group['groupLabel']));
-    }
-
-    function setTemplateVersion($version) {
-	$this->_templateVersion = $version;
-    }
-
-    function getTemplateVersion() {
-	return (int)$this->_templateVersion;
     }
 
     function getCallbacks() {

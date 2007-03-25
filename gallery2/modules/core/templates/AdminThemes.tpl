@@ -94,13 +94,6 @@
       </select>
     </td>
   </tr></table>
-
-  <p class="giDescription">
-    {capture assign="pluginsLink"}<a href="{g->url arg1="view=core.SiteAdmin"
-     arg2="subView=core.AdminPlugins"}">{/capture}
-    {g->text text="To activate more themes visit the %sPlugins%s page."
-	     arg1=$pluginsLink arg2="</a>"}
-  </p>
 </div>
 
 <div class="gbBlock gcBackground1">
@@ -233,18 +226,18 @@
 		{foreach from=$AdminThemes.availableBlocks key=moduleId item=blocks}
 		  {foreach from=$blocks key=blockName item=block}
 		    block = bsw_addAvailableBlock("{$setting.key}", "{$moduleId}.{$blockName}",
-			    "{g->text text=$block.description l10Domain="modules_$moduleId" forJavascript=true}");
+			    "{g->text text=$block.description l10Domain="modules_$moduleId"}");
 		    {if !empty($block.vars)}
 		      {foreach from=$block.vars key=varKey item=varInfo}
 			tmp = new Array();
 			{if ($varInfo.type == 'choice')}
 			  {foreach from=$varInfo.choices key=choiceKey item=choiceValue}
 			    tmp["{$choiceKey}"] = "{g->text text=$choiceValue
-							    l10Domain="modules_$moduleId" forJavascript=true}";
+							    l10Domain="modules_$moduleId"}";
 			  {/foreach}
 			{/if}
 			block.addVariable("{$varKey}", "{$varInfo.default}",
-			  "{g->text text=$varInfo.description l10Domain="modules_$moduleId" forJavascript=true}",
+			  "{g->text text=$varInfo.description l10Domain="modules_$moduleId"}",
 			  "{$varInfo.type}", tmp);
 	                {if !empty($varInfo.overrides)}
 	                {foreach from=$varInfo.overrides item=override}
@@ -256,8 +249,8 @@
 		  {/foreach}
 		{/foreach}
 		{* Now initialize the form with the album block values *}
-		bsw_initAdminForm("{$setting.key}", "{g->text text="Parameter" forJavascript=true}",
-						    "{g->text text="Value" forJavascript=true}");
+		bsw_initAdminForm("{$setting.key}", "{g->text text="Parameter"}",
+						    "{g->text text="Value"}");
 		// ]]>
 	      </script>
 	    {/if}

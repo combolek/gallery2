@@ -8,11 +8,9 @@
  id="publishXpForm">
   <div>
     <script type="text/javascript">
-      // <![CDATA[
-       setSubtitle("{g->text text="Login to your account" forJavascript=true}");
+       setSubtitle("{g->text text="Login to your account"}");
        setSubmitOnNext(true);
        setButtons(false, true, false);
-      // ]]>
     </script>
 
     {g->hiddenFormVars}

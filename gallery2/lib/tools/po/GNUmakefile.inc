@@ -78,43 +78,32 @@ install: update
 	echo "Updating $(PO)"; \
 	for LOCALE in `ls $(PO).po | grep -v messages.po | sed 's/\.[^.]*$$//g'`; do \
 	    if test -z "$${QUIET}"; then echo $${LOCALE}; fi; \
-	    if test -d ../locale; then \
-		if ! $(TOOLDIR)/po/shtool mkdir -p ../locale/$${LOCALE}/LC_MESSAGES; then \
-		    echo "Could not create directory: ../locale/$${LOCALE}/LC_MESSAGES"; \
-		    exit 1; \
-		fi; \
-		MO_FILE=../locale/$${LOCALE}/LC_MESSAGES/$(APPLICATION).mo; \
-            elif test "$(APPLICATION)" = "gallery2_install" \
-	           || test "$(APPLICATION)" = "gallery2_upgrade";  then \
-		if ! $(TOOLDIR)/po/shtool mkdir -p ../../locale/$${LOCALE}/LC_MESSAGES; then \
-		    echo "Could not create directory: ../../locale/$${LOCALE}/LC_MESSAGES"; \
-		    exit 1; \
-		fi; \
-		MO_FILE=../../locale/$${LOCALE}/LC_MESSAGES/$(APPLICATION).mo; \
-	    else \
-		MO_FILE=$${LOCALE}.mo; \
-	    fi; \
-	    php -f $(TOOLDIR)/po/trim-po.php `pwd`/$${LOCALE}.po > tmp.po; \
-	    if test "$(OSTYPE)" = "solaris"; then \
-		if {MSGFMTSOL} $${MO_FILE} tmp.po; then \
-		    if test -n "$${QUIET}"; then \
-			echo -n '.'; \
+	    if $(TOOLDIR)/po/shtool mkdir -p ../locale/$${LOCALE}/LC_MESSAGES; then \
+		php -f $(TOOLDIR)/po/trim-po.php `pwd`/$${LOCALE}.po > tmp.po; \
+		if test "$(OSTYPE)" = "solaris"; then \
+		    if {MSGFMTSOL} ../locale/$${LOCALE}/LC_MESSAGES/$(APPLICATION).mo tmp.po; then \
+			if test -n "$${QUIET}"; then \
+			    echo -n '.'; \
+			fi \
+		    else \
+			echo -n "Fail: $${LOCALE}"; \
+			FAIL=1; \
 		    fi \
 		else \
-		    echo -n "Fail: $${LOCALE}"; \
-		    FAIL=1; \
-		fi \
-	    else \
-		if $(MSGFMT) $${MO_FILE} tmp.po; then \
-		    if test -n "$${QUIET}"; then \
-			echo -n '.'; \
+		    if $(MSGFMT) ../locale/$${LOCALE}/LC_MESSAGES/$(APPLICATION).mo tmp.po; then \
+			if test -n "$${QUIET}"; then \
+			    echo -n '.'; \
+			fi \
+		    else \
+			echo -n "Fail: $${LOCALE}"; \
+			FAIL=1; \
 		    fi \
-		else \
-		    echo -n "Fail: $${LOCALE}"; \
-		    FAIL=1; \
-		fi \
+		fi; \
+		$(RM) tmp.po; \
+	    else \
+		echo "Could not create locale directory for $${LOCALE}."; \
+		FAIL=1; \
 	    fi; \
-	    $(RM) tmp.po; \
 	    if test -z "$${QUIET}"; then echo; fi; \
 	done; \
 	if test $${FAIL} -gt 0; then exit 1; fi;

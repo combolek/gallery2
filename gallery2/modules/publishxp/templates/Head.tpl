@@ -12,7 +12,7 @@
 // <![CDATA[
   var onBackUrl = null;
   var submitOnNext = false;
-  var title="{g->text text="Upload to Gallery" forJavascript=true}";
+  var title="{g->text text="Upload to Gallery"}";
 
   {*
    * If you enable XpDebug, you get Back/Next buttons for all browsers, not

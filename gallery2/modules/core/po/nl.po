@@ -23,7 +23,7 @@
 # Gidie <gidie at users.sourceforge REMOVE THIS dot net>, 2005
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Core 1.2.4\n"
+"Project-Id-Version: Gallery: Core 1.2.0\n"
 "POT-Creation-Date: 2003-02-11 03:09-0800\n"
 "PO-Revision-Date: 2007-03-14 15:43+0100\n"
 "Last-Translator: Buut <buut at users.sourceforge Remove - This dot net>\n"
@@ -133,10 +133,6 @@ msgid "Deleting Language Packs"
 msgstr "Standaard taal"
 
 #, fuzzy
-msgid "Synchronizing Language Packs"
-msgstr "Standaard taal"
-
-#, fuzzy
 msgid "Update completed with errors."
 msgstr "Upload Klaar"
 
@@ -227,10 +223,6 @@ msgstr ""
 
 msgid "Optimizing AccessSubscriberMap table"
 msgstr ""
-
-#, fuzzy
-msgid "Upgrading Plugin Translations"
-msgstr "Vertalingen Bijgewerkt"
 
 msgid "Site Admins"
 msgstr "Site Beheer"
@@ -1940,19 +1932,9 @@ msgid ""
 msgstr ""
 
 #, c-format
-msgid "Failed to download the following packages for the %s plugin:"
-msgstr ""
-
-#, c-format
 msgid ""
-"Failed to install the %s plugin because the following files/directories could not be "
+"Failed to download the %s plugin because the following files/directories could not be "
 "modified:"
-msgstr ""
-
-#, c-format
-msgid ""
-"Some plugins could not be automatically upgraded because they are in use.  Please return to "
-"the %sPlugins%s page and click the upgrade link for each of the following plugins:"
 msgstr ""
 
 msgid "The repository index has been successfully updated."
@@ -2230,10 +2212,6 @@ msgstr "met"
 
 msgid "New albums"
 msgstr "Nieuwe albums"
-
-#, c-format
-msgid "To activate more themes visit the %sPlugins%s page."
-msgstr ""
 
 #, fuzzy
 msgid "Save Defaults"
@@ -3919,6 +3897,9 @@ msgstr "Linken naar album/foto gelijken"
 
 #~ msgid "This plugin's base files are up-to-date."
 #~ msgstr "Deze plugins basis bestanden zijn bijgewerkt."
+
+#~ msgid "Updated Translations"
+#~ msgstr "Vertalingen Bijgewerkt"
 
 #~ msgid ""
 #~ "Below is a list of translations that have been updated since they were last downloaded. "

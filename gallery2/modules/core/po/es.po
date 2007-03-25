@@ -22,7 +22,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Core 1.2.4\n"
+"Project-Id-Version: Gallery: Core 1.2.0\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2005-10-25 17:54+0200\n"
 "PO-Revision-Date: 2007-01-23 17:31+0100\n"
@@ -130,10 +130,6 @@ msgid "Deleting Language Packs"
 msgstr "Borrando Paquetes de Idioma"
 
 #, fuzzy
-msgid "Synchronizing Language Packs"
-msgstr "Borrando Paquetes de Idioma"
-
-#, fuzzy
 msgid "Update completed with errors."
 msgstr "Actualización completa."
 
@@ -223,10 +219,6 @@ msgstr "Actualizando elementos de panorama"
 
 msgid "Optimizing AccessSubscriberMap table"
 msgstr "Optimizando tabla AccessSubscriberMap"
-
-#, fuzzy
-msgid "Upgrading Plugin Translations"
-msgstr "Actualizando permisos"
 
 msgid "Site Admins"
 msgstr "Administradores del Sitio"
@@ -1924,19 +1916,9 @@ msgid ""
 msgstr ""
 
 #, c-format
-msgid "Failed to download the following packages for the %s plugin:"
-msgstr ""
-
-#, c-format
 msgid ""
-"Failed to install the %s plugin because the following files/directories could not be "
+"Failed to download the %s plugin because the following files/directories could not be "
 "modified:"
-msgstr ""
-
-#, c-format
-msgid ""
-"Some plugins could not be automatically upgraded because they are in use.  Please return to "
-"the %sPlugins%s page and click the upgrade link for each of the following plugins:"
 msgstr ""
 
 msgid "The repository index has been successfully updated."
@@ -2221,10 +2203,6 @@ msgstr "con"
 
 msgid "New albums"
 msgstr "Nuevos álbumes"
-
-#, c-format
-msgid "To activate more themes visit the %sPlugins%s page."
-msgstr ""
 
 msgid "Save Defaults"
 msgstr "Guardar cómo predeterminada"

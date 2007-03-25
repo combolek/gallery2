@@ -281,7 +281,7 @@ class RepositoryDescriptor extends RepositoryObject {
 	} else if (preg_match('#^(locale/|po/)[^G]#', $path) && $path != 'po/strings.raw') {
 	    if (preg_match('#locale/([^/]*)#', $path, $localeId)) {
 		$packages[] = 'lang-' . $localeId[1];
-	    } else if (preg_match('#po/(.*?)\.[pm]o#', $path, $localeId)) {
+	    } else if (preg_match('#po/(.*?)\.po#', $path, $localeId)) {
 		$packages[] = 'lang-' . $localeId[1];
 	    }
 	} else {
@@ -335,12 +335,16 @@ class RepositoryDescriptor extends RepositoryObject {
     function getPackages() {
 	$packageTypes = array();
 
-	if (!empty($this->_data['files'])) {
-	    foreach ($this->_data['files'] as $file => $info) {
-		$packageTypes = array_merge($packageTypes, $info['packages']);
+	if (!empty($this->_data['directories'])) {
+	    foreach ($this->_data['directories'] as $dir => $directoryMetaData) {
+		foreach ($this->_data['directories'][$dir]['packages'] as $package) {
+		    if (!in_array($package, $packageTypes)) {
+			$packageTypes[] = $package;
+		    }
+		}
 	    }
 	}
-	$packageTypes = array_unique($packageTypes);
+
 	sort($packageTypes);
 	return $packageTypes;
     }

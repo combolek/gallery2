@@ -31,12 +31,11 @@ class RandomHighlightModule extends GalleryModule {
 	$this->setId('randomhighlight');
 	$this->setName($gallery->i18n('Random Highlight'));
 	$this->setDescription($gallery->i18n('Periodically change the album highlight'));
-	$this->setVersion('1.0.7'); /* Update upgrade() function below too */
-	$this->_templateVersion = 1;
+	$this->setVersion('1.0.6'); /* Update upgrade() function below too */
 	$this->setGroup('display', $gallery->i18n('Display'));
 	$this->setCallbacks('getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 20));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setRequiredCoreApi(array(7, 4));
+	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
@@ -110,9 +109,6 @@ class RandomHighlightModule extends GalleryModule {
 	    case '1.0.3':
 	    case '1.0.4':
 	    case '1.0.5':
-	    case '1.0.6':
-	    case '1.0.6.1':
-		/* .mo file migration */
 
 	    case 'end of upgrade path':
 		break;
@@ -264,8 +260,7 @@ class RandomHighlightModule extends GalleryModule {
 		/* Hopefully most items have a thumbnail; pick n ids at a time until we find one */
 		$data = array(DERIVATIVE_TYPE_IMAGE_THUMBNAIL, $thumbnail->getDerivativeSourceId());
 		for ($i = 0; !empty($itemIds) && $i < $n; $i++) {
-		    $oneItemIdAsArray = array_splice($itemIds, rand(0, count($itemIds) - 1), 1);
-		    $data[] = array_shift($oneItemIdAsArray);
+		    $data[] = array_shift(array_splice($itemIds, rand(0, count($itemIds) - 1), 1));
 		}
 		list ($ret, $searchResults) = $gallery->search(
 		    $query . GalleryUtilities::makeMarkers(count($data) - 2) . ')', $data);

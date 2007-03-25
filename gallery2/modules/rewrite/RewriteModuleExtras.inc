@@ -335,9 +335,6 @@ class RewriteModuleExtras {
 	    }
 
 	case '1.1.12':
-	case '1.1.13':
-	case '1.1.13.1':
-	    /* .mo file migration */
 
 	case 'end of upgrade path':
 	    break;

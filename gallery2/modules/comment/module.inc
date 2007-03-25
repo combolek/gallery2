@@ -35,13 +35,12 @@ class CommentModule extends GalleryModule {
 	$this->setId('comment');
 	$this->setName($gallery->i18n('Comments'));
 	$this->setDescription($gallery->i18n('User commenting system'));
-	$this->setVersion('1.1.4'); /* Update upgrade() function below too */
-	$this->_templateVersion = 1;
+	$this->setVersion('1.1.3'); /* Update upgrade() function below too */
 	$this->setGroup('data', $gallery->i18n('Extra Data'));
 	$this->setCallbacks('registerEventListeners|getItemLinks|getItemSummaries|' .
 			    'getSiteAdminViews|getItemAdminViews');
-	$this->setRequiredCoreApi(array(7, 20));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setRequiredCoreApi(array(7, 5));
+	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
@@ -148,8 +147,6 @@ class CommentModule extends GalleryModule {
 	    }
 
 	case '1.1.2':
-	case '1.1.3':
-	    /* .mo file migration */
 
 	case 'end of upgrade path':
 	    /*

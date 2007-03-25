@@ -448,7 +448,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 	    'showAll' => false,
 	    'isCompatible' => false,
 	    'isAvailable' => true,
-	    'expectedPlugins' => array('theme' => array()),
+	    'expectedPlugins' => array(),
 	    'expectedVersion' => false), array(
 
 	    'pluginType' => 'module',
@@ -467,10 +467,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 		'testTheme' => $this->_sampleIndex['themes']['testTheme'])),
 	    'expectedVersion' => false));
 
-	$i = 0;
 	foreach ($testCases as $case) {
-	    $i++;
-
 	    $this->_index->_utilities =	new RepositoryIndexTestUtilities(
 		array(), $case['isAvailable'], $case['isCompatible']);
 
@@ -485,12 +482,11 @@ class RepositoryIndexTest extends GalleryTestCase {
 	    if ($case['expectedVersion']) {
 		$case['expectedPlugins'][$pluginType][$pluginId]['localVersion'] = 'someVersion';
 	    }
-	    if (!empty($case['expectedPlugins'][$pluginType])) {
+	    if (!empty($case['expectedPlugins'])) {
 		$case['expectedPlugins'][$pluginType][$pluginId]['isCompatible'] =
 		    $case['isCompatible'];
 	    }
-
-	    $this->assertEquals($case['expectedPlugins'], $plugins, "Case $i");
+	    $this->assertEquals($case['expectedPlugins'], $plugins);
 	}
     }
 }
