@@ -21,8 +21,8 @@
  */
  
 /**
- * @version	 1.5.2
- * @package			Languagepack
+ * @version     1.5.2
+ * @package		Languagepack
  * @subpackage	German
  */
 
@@ -48,16 +48,16 @@
 /**
  * Aliases for languages which we substitte or send by NUKE, GeekLog or Mambo
  */
-	$nls['alias']['german'] =		   'de_DE' ;
-	$nls['alias']['deu'] =			  'de_DE' ;
-	$nls['alias']['de_LI'] =			'de_DE' ;
-	$nls['alias']['de_LU'] =			'de_DE' ;
-	$nls['alias']['de_CH'] =			'de_DE' ;
-	$nls['alias']['de_AT'] =			'de_DE' ;
-	$nls['alias']['de_DE.ISO8859-1'] =  'de_DE' ;
+	$nls['alias']['german'] =           'de_DE' ;
+	$nls['alias']['deu'] =              'de_DE' ;
+	$nls['alias']['de_LI'] =            'de_DE' ;
+	$nls['alias']['de_LU'] =            'de_DE' ;
+	$nls['alias']['de_CH'] =            'de_DE' ;
+	$nls['alias']['de_AT'] =            'de_DE' ;
+	$nls['alias']['de_DE.ISO8859-1'] =	'de_DE' ;
 	$nls['alias']['german_formal'] =	'de_DE' ;
-	$nls['alias']['germanf'] =		  'de_DE' ;
-	$nls['alias']['germani'] =		  'de_DE' ;
+	$nls['alias']['germanf'] =          'de_DE' ;
+	$nls['alias']['germani'] =          'de_DE' ;
 
 /**
  * phpNuke
@@ -68,5 +68,4 @@
  * postNuke
  */
 	$nls['postnuke']['de_DE'] = 'deu';
-
 ?>

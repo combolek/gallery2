@@ -22,14 +22,14 @@
 ?>
 <?php
 
-$gallery->version = '1.6-RC1-svn-b54';
-$gallery->config_version = 101;
-$gallery->album_version = 41;
+$gallery->version = '1.5.6';
+$gallery->config_version = 96;
+$gallery->album_version = 37;
 $gallery->user_version = 6;
 $gallery->url = "http://gallery.sourceforge.net";
 
 /* do not edit the date!! modified by SVN */
-$gallery->last_change = strtotime(substr('$Date$', 7, -21));
+$gallery->last_change = strtotime(substr('$Date$', 7, -20));
 /*
  * PostNuke version info
  */
@@ -45,9 +45,9 @@ $modversion['author'] = 'Bharat Mediratta'; // Author
 $modversion['contact'] = $gallery->url; // The Authors Website or Contact Email Address
 $modversion['admin'] = 0; // Leave at 0
 if (!isset($modname) && isset($name)) {
-	$modname = $name;
+    $modname = $name;
 } else {
-	$modname = '';
+    $modname = '';
 }
 $modversion['securityschema'] = array("$modname::" => '::'); // Permission Component
 ?>

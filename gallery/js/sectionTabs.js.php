@@ -1,26 +1,26 @@
 <?php
-
 /**
- * Gallery SVN ID:
+ * Gallery SVN info
  * $Id$
 */
 
 function insertSectionToggle() {
 ?>
-	<!-- This Javascript and the Tabs are inspired by the Horde Forms code -->
 
-	function configSection(inittab) {
+<!-- This Javascript and the Tabs are inspired by the Horde Forms code -->
 
-		this.toggle = function(id) {
-			document.getElementById(this.oldtab).style.display 	= 'none';
-			document.getElementById('tab_' + this.oldtab).className = '';
-			document.getElementById(id).style.display 		= 'inline';
-			document.getElementById('tab_' + id).className 		= 'g-activeTab';
+        function configSection(inittab) {
 
-			this.oldtab = id;
+                this.toggle = function(id) {
+                        document.getElementById(this.oldtab).style.display 	= 'none';
+                        document.getElementById('tab_' + this.oldtab).className = 'tab';
+                        document.getElementById(id).style.display 		= 'inline';
+                        document.getElementById('tab_' + id).className 		= 'tab-hi';
+
+                        this.oldtab=id;
 			document.getElementById('initialtab').value = id;
 			this.currentSectionNr= this.getTabByName(id);
-		}
+                }
 
 		this.getTabByNr = function(nr) {
 			for (var itemNr=0; itemNr <= Sections.length; itemNr++) {
@@ -31,7 +31,7 @@ function insertSectionToggle() {
 		}
 
 		this.getTabByName = function(name) {
-			for (var itemNr = 0; itemNr <= Sections.length; itemNr++) {
+			for (var itemNr=0; itemNr <= Sections.length; itemNr++) {
 				if (Sections[itemNr] == name) {
 					return (itemNr);
 				}
@@ -40,23 +40,23 @@ function insertSectionToggle() {
 
 		this.nextTab = function() {
 			if (this.currentSectionNr < Sections.length-1) {
-				nextTab = this.getTabByNr(this.currentSectionNr+1);
+				nextTab=this.getTabByNr(this.currentSectionNr+1);
 				this.toggle(nextTab);
 			}
 		}
 
 		this.prevTab = function() {
 			if (this.currentSectionNr >0) {
-				prevTab = this.getTabByNr(this.currentSectionNr-1);
+				prevTab=this.getTabByNr(this.currentSectionNr-1);
 				this.toggle(prevTab);
 			}
 		}
 
 		// Init Values
 
-		this.oldtab = inittab;
-		this.currentSectionNr = this.getTabByName(inittab);
+                this.oldtab=inittab;
+		this.currentSectionNr= this.getTabByName(inittab);
 
 	}
-	<?php
+<?php
 }

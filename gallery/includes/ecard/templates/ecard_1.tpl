@@ -1,6 +1,5 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <!-- $Id$ -->
-
 <html>
   <head>
     <title>Gallery E-C@rd</title>
@@ -32,6 +31,7 @@
         <th align="left" valign="top" scope="col"><%ecard_message%></th>
       </tr>
     </table>
+    <!--powered by <a href="http://www.ibps-friedrichs.de/" target="_blank">http://www.ibps-friedrichs.de</a> -->
   </body>
 </html>
 

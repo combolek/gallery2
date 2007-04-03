@@ -20,114 +20,82 @@
  * $Id$
  */
 ?>
-<?php
-	require_once(dirname(__FILE__) . '/init.php');
+<?php 
+    require_once(dirname(__FILE__) . '/init.php');
 
-	printPopupStart(gTranslate('config', "Check Versions"));
-
-	configLogin(basename(__FILE__));
+    echo doctype();
 ?>
-<script type="text/javascript" src="../js/toggle.js"></script>
+<html>
+<head>
+  <title> <?php echo gTranslate('config', "Check Versions"); ?> </title>
+  <?php common_header(); ?>
+  <style>
+	.shortdesc { width:30% }
+  </style>
+  <script type="text/javascript" src="../js/toggle.js"></script>
+  </head>
 
-<div class="g-sitedesc left"><?php
-	echo sprintf(gTranslate('config', "This page gives you information about the version of each necessary %s file. "),Gallery());
+<body dir="<?php echo $gallery->direction ?>">
+ <div class="header"><?php echo _("Check Versions") ?></div>
+<?php    configLogin(basename(__FILE__)); ?>
+
+<div class="sitedesc"><?php
+	echo sprintf(_("This page gives you information about the version of each necessary %s file. "),Gallery());
 	echo "\n<br>";
-	echo gTranslate('config', "If you see any errors, we highly suggest to get the actual version of those files.");
+	echo _("If you see any error(s), we highly suggest to get the actual version of those files.");
 ?></div>
 <br>
 <?php
 
-$versionStatus = checkVersions(false);
+list($oks, $errors, $warnings) = checkVersions(false);
 
 $tests = array(
-	'missing' => array(
-		'text' => gTranslate('config',
-				"One file is missing or corrupt.",
-				"%d files are missing or corrupt.",
-				count($versionStatus['missing']),
-				'', true),
-		'type' => 'error',
-		'hinttext' => sprintf(gTranslate('config', "There are problems with the following files.  Please correct them before configuring %s."), Gallery())
-	),
-	'older' => array(
-		'text' => gTranslate('config',
-				"One file is older than expected.",
-				"%d files are older than expected.",
-				count($versionStatus['older']),
-				'', true),
-		'type' => 'error',
-		'hinttext' => sprintf(gTranslate('config', "The following files are older than expected for this version of %s. Please update them as soon as possible."), Gallery())
-	),
-	'unkown' => array(
-		'text' => gTranslate('config',
-				"One file is not in the manifest file, but has a Version number.",
-				"%d files are not in the manifest file, but have a Version number.",
-				count($versionStatus['unkown']),
-				'',
-				true),
-		'type' => 'warning',
-		'hinttext' => sprintf(gTranslate('config', "There are problems with the following files.  Please correct them before configuring %s."), Gallery())
-	),
-	'newer' => array(
-		'text' => gTranslate('config',
-			"One file is more recent than expected.",
-			"%d files are more recent than expected.",
-			count($versionStatus['newer']),
-			'', true),
-		'type' => 'warning',
-		'hinttext' => sprintf(gTranslate('config', "The following files are more up-to-date than expected for this version of %s.  If you are using pre-release code, this is OK."), Gallery())
-	),
-	'ok' => array(
-		'text' => gTranslate('config',
-				"One file is up-to-date.",
-				"%d files are up-to-date.",
-				count($versionStatus['ok']),
-				gTranslate('config', "All files are up-to-date."),
-				true),
-		'type' => 'success',
-		'hinttext' => gTranslate('config', "The following files are up-to-date.")
-	),
+    'errors' => array(
+        'text' => gTranslate('config', "One file is missing, corrupt or older than expected.", "%d files are missing, corrupt or older than expected.",  count($errors), _("All files okay."), true),
+	'class' => 'errorpct',
+        'hinttext' => sprintf(_("There are problems with the following files.  Please correct them before configuring %s."), Gallery())
+    ),
+    'warnings' => array(
+        'text' => gTranslate('config', "One file is more recent than expected.", "%d files are more recent than expected.", count($warnings), _("All files okay."), true),
+	'class' => 'warningpct',
+        'hinttext' => sprintf(_("The following files are more up-to-date than expected for this version of %s.  If you are using pre-release code, this is OK."), Gallery())
+    ),
+    'oks' => array(
+        'text' => gTranslate('config', "One file is up-to-date.", "%d files are up-to-date.", count($oks),  _("All files are up-to-date."), true),
+	'class' => 'successpct',
+        'hinttext' => _("The following files are up-to-date.")
+    )
 );
 
 foreach($tests as $testname => $args) {
-	if  (!empty($versionStatus[$testname])) { ?>
-<div class="g-notice left">
-	<a href="#" style="float: left;" onClick="gallery_toggle('<?php echo $testname; ?>'); return false;"><?php echo gImage('expand.gif', gTranslate('config', "Show/hide more information"), array('id' => "toggleBut_$testname")); ?></a>
-	<?php echo infobox(array(array('type' => $args['type'], 'text' => $args['text'])), '', false); ?>
-  <div style="width:100%; display:none;" id="toggleFrame_<?php echo $testname; ?>">
-	<table>
+    if  ($$testname) { ?>
+<div class="inner">
+  <div style="white-space:nowrap;">
+    <a href="#" onClick="gallery_toggle('<?php echo $testname; ?>'); return false;"><?php echo gImage('expand.gif', _("Show/hide more information"), array('id' => "toogleBut_$testname")); ?></a>
+    <span class="<?php echo $args['class']; ?>"><?php echo $args['text']; ?></span>
+  </div>
+  <div style="width:100%; display:none;" id="toogleFrame_<?php echo $testname; ?>">
+    <table>
 	  <tr>
-		<td class="g-sitedesc" colspan="2"><?php echo $args['hinttext']; ?></td>
+        <td class="desc" colspan="2"><?php echo $args['hinttext']; ?></td>
 	  </tr>
 	  <?php
-	  foreach ($versionStatus[$testname] as $file => $result) {
-		echo "\n<tr>";
-		echo "\n\t<td class=\"g-shortdesc\">$file:</td>";
-		echo "\n\t<td class=\"g-desc\">$result</td>";
-		echo "\n</tr>";
+	  foreach ($$testname as $file => $result) {
+	    echo "\n<tr>";
+	    echo "\n\t<td class=\"shortdesc\">$file:</td>";
+	    echo "\n\t<td class=\"desc\">$result</td>";
+	    echo "\n</tr>";
 	  }
-	  ?>
-	  </table>
+      ?>
+      </table>
   </div>
 </div>
 <?php
-	}
-}
-
-if(!empty($versionStatus['fail'])) {
-	foreach($versionStatus['fail'] as $error => $message) {
-	echo infoBox(array(array(
-		'type' => 'error',
-		'text' => $message)));
-	}
+    }
 }
 ?>
 
-</div>
-
-<div class="center">
-	<?php echo returnToDiag(); ?><?php echo returnToConfig(); ?>
-</div>
+<p align="center"><?php echo returnToConfig(); ?></p>
 
 </body>
 </html>

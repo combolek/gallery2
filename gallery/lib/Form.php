@@ -135,10 +135,10 @@ function generateAttrs($attrList) {
  * @param array   $attrList	 Optional Attributs for the selectbox
  * @return string $html
  */
-function drawSelect($name, $options, $selected = '', $size = 1, $attrList = array()) {
-	$crlf = "\n\t";
-	$attrs = generateAttrs($attrList);
-	$html = "<select name=\"$name\" size=\"$size\"$attrs>" . $crlf;
+function drawSelect($name, $options, $selected, $size, $attrList = array(), $prettyPrinting = false) {
+    $crlf = ($prettyPrinting) ? "\n\t" : '';
+    $attrs = generateAttrs($attrList);
+    $buf = "<select name=\"$name\" size=\"$size\"$attrs>" . $crlf;
 
 	if(!empty($options)) {
 		foreach ($options as $value => $text) {
@@ -151,12 +151,12 @@ function drawSelect($name, $options, $selected = '', $size = 1, $attrList = arra
 			else if (!strcmp($value, $selected) || !strcmp($text, $selected) || $selected === '__ALL__') {
 				$sel = ' selected';
 			}
-			$html .= "<option value=\"$value\"$sel>$text</option>" . $crlf;
+			$buf .= "<option value=\"$value\"$sel>". $text ."</option>" . $crlf;
 		}
-	}
-	$html .= '</select>'. $crlf;
+    }
+    $buf .= '</select>'. $crlf;
 
-	return $html;
+    return $buf;
 }
 
 /**
@@ -168,29 +168,28 @@ function drawSelect($name, $options, $selected = '', $size = 1, $attrList = arra
  * @return string $html
  * @author Jens Tkotz
  */
-function drawSelect2($name, $options, $attrList = array()) {
-	$crlf = "\n\t";
+function drawSelect2($name, $options, $attrList = array(), $args = array()) {
+    $crlf = (isset($args['prettyPrinting'])) ? "\n\t" : '';
 
 	if (!isset($attrList['size'])) {
 		$attrList['size'] = 1;
 	}
 
-	$attrs = generateAttrs($attrList);
+    $attrs = generateAttrs($attrList);
 
-	$html = "$crlf<select name=\"$name\"$attrs>$crlf";
+    $buf = "$crlf<select name=\"$name\" $attrs>";
 
-	if(!empty($options)) {
-		foreach ($options as $option) {
-			$option['text'] = removeAccessKey($option['text']);
-			$sel = isset($option['selected']) ? ' selected' : '';
-			$disabled = ($option['value'] == null) ? 'disabled class="center" style="color: grey"' : '';
-			$html .= '<option value="'. $option['value'] ."\"$sel $disabled>". $option['text'] .'</option>' . $crlf;
-		}
-	}
+    if(!empty($options)) {
+        foreach ($options as $nr => $option) {
+            $sel = isset($option['selected']) ? ' selected' : '';
+            $optAttrs = isset($option['attrs']) ? generateAttrs($option['attrs']) : '';
+            $buf .= "\n\t". "<option $optAttrs value=\"". $option['value'] ."\" $sel>". $option['text'] ."</option>$crlf";
+        }
+    }
 
-	$html .= "</select>". $crlf;
+    $buf .= "</select>". $crlf;
 
-	return $html;
+    return $buf;
 }
 
 /**
@@ -288,7 +287,7 @@ function showColorpicker($attrs = array()) {
 		'gallery_popup' => true
 	);
 
-	$colorPickerUrl = makeGalleryUrl('colorpicker.php', $args);
+	$colorPickerUrl = makeGalleryUrl('lib/colorpicker.php', $args);
 	$imgColorpicker = '<img src="'. getImagePath('colorpicker.png') .'" height="16" alt="colorpicker">';
 
 	$html = "\n<table cellspacing=\"0\" style=\"margin-top: 1px\">";
@@ -300,60 +299,6 @@ function showColorpicker($attrs = array()) {
 	$html .= "\n</tr></table>\n";
 
 	return $html;
-}
-
-function showByteCalculator($id, $initValue = 0, $positionBelow = false, $changeable = true) {
-	if($changeable) {
-		$type = 'text';
-		$value = '';
-	}
-	else {
-		$type = 'fixedhidden';
-		$value = formatted_filesize($initValue);
-
-	}
-
-	$html = gInput($type, "${id}_niceBytes", null, false, $value, array('readonly' => 'readonly', 'id' => "${id}_niceBytes"));
-
-	if($changeable) {
-		$html .= "\n<a onClick=\"showByteCalculator('$id');\">";
-		$html .= gImage('icons/calc.png', '',  array('id' => "${id}_byteCalcIcon"));
-		$html .= "</a>\n";
-
-		$units = array(
-			1			=> gTranslate('common', "Byte"),
-			1024		=> gTranslate('common', "KB"),
-			1048576		=> gTranslate('common', "MB"),
-			1073741824	=> gTranslate('common', "GB"),
-		);
-
-		$html .= ($positionBelow) ? '<br>&nbsp;' : '';
-		$html .= "<fieldset id=\"${id}_byteCalcBox\" style=\"position: absolute; display: none; border: 1px solid black; width:215px; background: #fff;\">";
-		$html .= "\n<legend>". gTranslate('common', "Byte calculator") . '</legend>';
-		$html .= "\n<div>";
-		$html .= "\n<input id=\"${id}_mixedSize\" onkeyup=\"update('$id')\" value=\"$initValue\"> ";
-		$html .= drawSelect("${id}_unit", $units, '', 1, array('onchange' => "update('$id')", 'id' => "${id}_unit"));
-		$html .= "\n</div>";
-		$html .= "<div style=\"width:100%; text-align: right; margin-top: 2px;\">";
-		$html .= galleryLink('#', gTranslate('core', "_Close"), array('onclick' => "closeByteCalculator('$id')"));
-		$html .= "</div>";
-		$html .= "\n</fieldset>\n";
-
-		$html .= "\n<input type=\"hidden\" id=\"$id\" name=\"$id\" value=\"$initValue\">";
-		$html .= "<script type=\"text/javascript\">update('$id')</script>";
-	}
-
-	return $html;
-}
-
-function showChoice($label, $target, $args, $class = '') {
-	global $gallery;
-
-	if (empty($args['set_albumName'])) {
-		$args['set_albumName'] = $gallery->session->albumName;
-	}
-	$args['type'] = 'popup';
-	echo "\t<option class=\"$class\" value='" . makeGalleryUrl($target, $args) . "'>$label</option>\n";
 }
 
 function showChoice2($target, $args, $popup = true) {
@@ -389,119 +334,14 @@ function gSubmit($name, $value, $additionalAttrs = array()) {
 	}
 
 	$attrList['type'] = 'submit';
-	$attrList['accesskey'] = getAndRemoveAccessKey($value);
 	$attrList['value'] = $value;
 	$attrList['class'] = 'g-button';
 	$attrList['title'] = isset($additionalAttrs['title']) ? $additionalAttrs['title'] : $value;
-
-	if($attrList['accesskey'] != '') {
-	   $attrList['title'] .= ' '. sprintf(gtranslate('common', "(Accesskey '%s')"), $attrList['accesskey']);
-	}
 
 	$attrList = array_merge($attrList, $additionalAttrs);
 	$attrs = generateAttrs($attrList);
 
 	$html = "<input$attrs>\n";
-
-	return $html;
-}
-
-/**
- * Returns the HTML Code for an input element
- *
- * @param string $type				E.g. 'text', 'textarea', 'checkbox' et.c
- * @param string $name
- * @param string $label
- * @param boolean $tableElement		Wether the form field should be a table line
- * @param mixed $value
- * @param array $attrList			List of attributes for the form field
- * @param boolean $multiInput		If true, then multiple fields are dynamically added/removed
- * @param booelan $autocomplete
- * @return string $html
- * @author Jens Tkotz
- */
-function gInput($type, $name, $label = null, $tableElement = false, $value = null, $attrList = array(), $multiInput = false, $autocomplete = false) {
-	global $browser;
-
-	$attrList['name'] = $name;
-	$attrList['accesskey'] = getAndSetAccessKey($label);
-
-	if ($type != 'textarea' &&(!empty($value) || $value == 0)) {
-		$attrList['type'] = $type;
-		$attrList['value'] = $value;
-	}
-
-	if ($type == 'fixedhidden') {
-		$attrList['type'] = 'hidden';
-	}
-
-	if(!isset($attrList['class'])) {
-		switch ($type) {
-			case 'text':
-			case 'password':
-				$attrList['class'] = 'g-form-text';
-			break;
-		}
-	}
-
-	$attrs = generateAttrs($attrList);
-
-	if($autocomplete && isset($browser)) {
-		$input = initAutocompleteJS(
-			$label,
-			$name,
-			$attrList['id'],
-			$browser->hasFeature('xmlhttpreq')
-		);
-		$label = null;
-	}
-	elseif ($type == 'textarea') {
-			$input = "<textarea$attrs>$value</textarea>";
-	}
-	else {
-		$input = "<input$attrs>";
-	}
-
-	if ($type == 'fixedhidden') {
-		$input .= $value;
-	}
-
-	if($tableElement){
-		if($label) {
-			$html = "  <tr>\n";
-			$html .= "\t<td>$label</td>\n";
-			$html .= "\t<td>$input</td>\n";
-			$html .= "  </tr>\n";
-		}
-		else {
-			$html = "  <tr>\n";
-			$html = "\t<td>$input</td>\n";
-			$html .= "  </tr>\n";
-		}
-	}
-	else {
-		if($label) {
-			if($type == 'checkbox') {
-				$html = "  $input $label\n";
-			}
-			else {
-				$html = "  $label $input\n";
-			}
-		}
-		else {
-			$html = "  $input\n";
-		}
-	}
-
-	if($multiInput) {
-		$id = $attrList['id'];
-		$html .= gButton('addField', gTranslate('common', "Add field"), "${id}obj.newField()");
-		$html .= "\n<div id=\"${id}_Container\"></div>\n\n";
-
-		$html .= '<script language="JavaScript" type="text/javascript">';
-		$html .= "\n\tvar ${id}obj = new MultiInput('$id', '${id}_Container')";
-		$html .= "\n</script>\n";
-	}
 
 	return $html;
 }
@@ -509,36 +349,12 @@ function gInput($type, $name, $label = null, $tableElement = false, $value = nul
 function gButton($name, $value, $onClick, $additionalAttrs = array()) {
 	$attrList['name'] = $attrList['id'] = $name;
 	$attrList['type'] = 'button';
-	$attrList['accesskey'] = getAndRemoveAccessKey($value);
 	$attrList['value'] = $value;
 	$attrList['class'] = 'g-button';
 	$attrList['onClick'] = $onClick;
 	$attrList['title'] = isset($additionalAttrs['title']) ? $additionalAttrs['title'] : $value;
 
 	$attrList = array_merge($attrList, $additionalAttrs);
-
-	if($attrList['accesskey'] != '') {
-		$attrList['title'] .= ' '. sprintf(gtranslate('common', "(Accesskey '%s')"), $attrList['accesskey']);
-	}
-
-	$attrs = generateAttrs($attrList);
-
-	$html = "<input$attrs>\n";
-
-	return $html;
-}
-
-function gReset($name, $value, $additionalAttrs = array()) {
-	$attrList['name'] = $name;
-	$attrList['type'] = 'reset';
-	$attrList['accesskey'] = getAndRemoveAccessKey($value);
-	$attrList['value'] = $value;
-	$attrList['class'] = 'g-button';
-	$attrList['title'] = isset($additionalAttrs['title']) ? $additionalAttrs['title'] : $value;
-
-	if($attrList['accesskey'] != '') {
-		$attrList['title'] .= ' '. sprintf(gtranslate('common', "(Accesskey '%s')"), $attrList['accesskey']);
-	}
 
 	$attrs = generateAttrs($attrList);
 

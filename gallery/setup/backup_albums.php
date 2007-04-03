@@ -32,24 +32,28 @@ require_once(dirname(__FILE__) . '/init.php');
 
 list($backup, $force, $backup_method, $zip_path, $gzip_path, $tar_path, $xargs_path, 
 	$find_path, $target_files) =
-		getRequestVar(array('backup', 'force', 'backup_method', 'zip_path', 'gzip_path', 'tar_path', 
-		'xargs_path', 'find_path', 'target_files'));
+	    getRequestVar(array('backup', 'force', 'backup_method', 'zip_path', 'gzip_path', 'tar_path', 
+	    'xargs_path', 'find_path', 'target_files'));
 
 set_time_limit(600);
 $showForce = false;
-if (!empty($backup) || !empty($force)) {
-	$error_text = '';
+if (!empty($backup) || !empty($force))
+{
+	$error_text='';
 	switch ($backup_method) {
 		case "zip":
-			if (!fs_file_exists($zip_path)) {
+			if (!fs_file_exists($zip_path))
+			{
 				$error_text .= sprintf(_("Zip file \"%s\" does not exist or is not readable"), $zip_path) . "<br>";
 			}
 			break;
 		case "tgz":
-			if (!fs_file_exists($gzip_path)) {
+			if (!fs_file_exists($gzip_path))
+			{
 				$error_text .= sprintf(_("Gzip file \"%s\" does not exist or is not readable"), $gzip_path) . "<br>";
 			}
-			if (!fs_file_exists($tar_path)) {
+			if (!fs_file_exists($tar_path))
+			{
 				$error_text .= sprintf(_("Tar file \"%s\" does not exist or is not readable"), $tar_path) . "<br>";
 			}
 			if (!strcmp($target_files, "dat")) { 
@@ -62,22 +66,33 @@ if (!empty($backup) || !empty($force)) {
 			}
 	}
 
-	if (!empty($force) || strlen($error_text) == 0) {
+	if (!empty($force) || strlen($error_text) == 0)
+	{
 		backup();
 		exit;
 	} else {
-		if (ini_get('open_basedir')) {
+	    if (ini_get('open_basedir')) {
 		$error_text = sprintf(_("<b>Note:</b> Your webserver is configured with  the %sopen_basedir%s restriction.  This may make it difficult for Gallery to detect and verify your binaries, even if they exist and function properly.  If you know that the paths you entered are correct, you must click the \"force\" button.  We detected the following error(s):"),
  '<a href="http://www.php.net/manual/en/features.safe-mode.php#ini.open-basedir">', '</a>'). "<ul>$error_text</ul>";
 		$showForce = true;
-		}
+	    }
 	}
 } 
+?>
+<html>
+<head>
+  <title>Backup Albums</title>
+  <?php echo getStyleSheetLink() ?>
+</head>
+<body dir="<?php echo $gallery->direction; ?>">
 
-printPopupStart(gTranslate('config',"Backup album data"));
-
+<span class="popuphead"><?php echo _("Backup album data") ?></span>
+<p>
+<?php
 if (!empty($error_text)) {
-	echo gallery_error($error_text);
+?>
+<span class="error"><?php echo $error_text ?></span>
+<?php
 }
 
 if (!isset($backup_method)) { $backup_method="zip";}
@@ -135,28 +150,26 @@ echo makeFormIntro('backup_albums.php', array('name' => 'theform', ));
 </table>
 
 <p>
-<input type="submit" name="backup" value="<?php echo _("Backup") ?>" class="g-button">
+<input type="submit" name="backup" value=<?php echo  _("Backup") ?>>
 <?php if ($showForce) { ?>
-<input type="submit" name="force" value="<?php echo  _("Force Backup") ?>" class="g-button">
+<input type="submit" name="force" value=<?php echo  _("Force Backup") ?>>
 <?php } ?>
-<input type="button" value="<?php echo _("Cancel") ?>" onclick="parent.close()" class="g-button">
+<input type="button" value=<?php echo  _("Cancel") ?> onclick='parent.close()'>
 
 </form>
 <p>
 <hr>
-<div class="left">
-	<span class="g-title"><?php echo _("Notes") ?></span>
-	<ol>
-	<li> <?php echo _("To use this feature, copy this file from gallery/setup/ to gallery/backup_albums.php.") ?>
-	<li> <?php echo _("On Linux/Unix systems, tar/gzip is recommended.") ?>
-	<li> <?php echo _("On Windows system, choose zip backup, and ensure the path for the zip.exe is correct.") ?>
-	<li> <?php echo _("Zip file backup requires enough space in the temporary directory to create a zip file of entire backup.") ?>
-	<li> <?php echo _("Data files backup will <b>not</b> backup your images, and is recommended before upgrade.") ?>
-	<li> <?php echo _("If you choose a tar/gzip backup of data files only, you need to have correct paths for <b>xargs</b> and <b>find</b>, otherwise these are not needed.") ?>
-	<li> <?php echo _("This will take a while, please be patient. Hit \"Backup\" to begin, and when download is complete, hit \"Cancel\"") ?>
-	<li> <?php echo _("After you have finished backing up your Gallery, please <b>remove this file</b> from the gallery/ directory, to prevent visitors to your site from copying your entire gallery.") ?>
-	</ol>
-</div>
+<span class=title><?php echo _("Notes") ?></span>
+<ol>
+<li> <?php echo _("To use this feature, copy this file from gallery/setup/ to gallery/backup_albums.php.") ?>
+<li> <?php echo _("On Linux/Unix systems, tar/gzip is recommended.") ?>
+<li> <?php echo _("On Windows system, choose zip backup, and ensure the path for the zip.exe is correct.") ?>
+<li> <?php echo _("Zip file backup requires enough space in the temporary directory to create a zip file of entire backup.") ?>
+<li> <?php echo _("Data files backup will <b>not</b> backup your images, and is recommended before upgrade.") ?>
+<li> <?php echo _("If you choose a tar/gzip backup of data files only, you need to have correct paths for <b>xargs</b> and <b>find</b>, otherwise these are not needed.") ?>
+<li> <?php echo _("This will take a while, please be patient. Hit \"Backup\" to begin, and when download is complete, hit \"Cancel\"") ?>
+<li> <?php echo _("After you have finished backing up your Gallery, please <b>remove this file</b> from the gallery/ directory, to prevent visitors to your site from copying your entire gallery.") ?>
+</ol>
 </body>
 </html>
 
@@ -175,7 +188,7 @@ function backup() {
 		//echo ("$cmd<p>");
 	}
 	else if  (!strcmp($backup_method, "tgz") && 
-					!strcmp($target_files, "dat")) {
+	                !strcmp($target_files, "dat")) {
 		$cmd=fs_import_filename($find_path) . " " . $gallery->app->albumDir .
 			' -name .users -prune -o -name "*.dat" | ' . fs_import_filename($xargs_path) . 
 			' ' .  fs_import_filename($tar_path) .  " cf - " .

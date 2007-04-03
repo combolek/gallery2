@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * $Id$
- */
+*/
 ?>
 <?php
 
@@ -40,24 +40,28 @@ if (!$GALLERY_EMBEDDED_INSIDE) {
 ?>
 <html>
 <head>
-  <title><?php echo $gallery->app->galleryTitle ?> :: <?php echo gTranslate('core', "Search") ?></title>
+  <title><?php echo $gallery->app->galleryTitle ?> :: <?php echo _("Search") ?></title>
   <?php common_header(); ?>
 </head>
-<body>
+<body dir="<?php echo $gallery->direction ?>">
 <?php }
 
-includeTemplate("gallery.header");
+includeHtmlWrap("gallery.header");
 
-echo '<div class="right">';
 if (!empty($searchstring)) {
-	echo addSearchForm($searchstring);
+	echo addSearchForm($searchstring, langRight());
 }
-echo "\n</div>";
 
-$adminbox['commands'] = galleryLink(makeAlbumUrl(), gTranslate('core', "return to _gallery"), array(), '', true);
+$adminbox['text'] = '<span class="head">'. _("Search") .'</span>';
+$adminbox['commands'] = '[<a href="'. makeAlbumUrl() .'">'. _("return to gallery") .'</a>] ';
 
+$breadcrumb["text"][] = _("Gallery") .': <a class="bread" href="'. makeGalleryUrl("albums.php") . '">'.$gallery->app->galleryTitle .'</a>';
+
+includeLayout('navtablebegin.inc');
 includeLayout('adminbox.inc');
+includeLayout('navtablemiddle.inc');
 includeLayout('breadcrumb.inc');
+includeLayout('navtableend.inc');
 echo languageSelector();
 
 $albumDB = new AlbumDB();
@@ -87,6 +91,7 @@ if (!empty($searchstring)) {
 			// User is not allowed to search through see album
 			continue;
 		}
+
 		if ($searchAlbum->versionOutOfDate()) {
 			$skip[] = $searchAlbum;
 			continue;
@@ -120,16 +125,17 @@ if (!empty($searchstring)) {
 			$searchSummary = preg_replace($searchExpr, $searchRepl, $searchSummary); // cause search word to be bolded
 			$photoURL = makeAlbumUrl($searchAlbum->fields['name']);
 
-			$text[] = '<div class="g-shortdesc"><a href="'. $photoURL .'">'. $searchTitle .'</a></div>';
+			$text[] = '<div class="desc"><a href="'. $photoURL .'">'. $searchTitle .'</a></div>';
 
 			if(!empty($searchDescription)) {
-				$text[] = '<div class="g-longdesc">'. $searchDescription . '</div>';
-			}
-			if ($matchSummary)  { // only print summary if it matches
-				$text[] = '<div class="g-longdesc">'. $searchSummary .'</div>';
+				$text[] = '<div class="desc">'. $searchDescription . '</div>';
 			}
 
-			$searchResult['albums'][] = array(
+			if ($matchSummary)  { // only print summary if it matches
+				$text[] = '<div class="desc">'. $searchSummary .'</div>';
+			}
+
+			$searchResult['albums'][]=array(
 				'photolink' => $searchAlbum->getHighlightTag($thumbSize),
 				'photoURL'	=> $photoURL,
 				'Text'		=> $text
@@ -137,6 +143,7 @@ if (!empty($searchstring)) {
 		}
 
 		/* now search for photos .. */
+
 		$numPhotos = $searchAlbum->numPhotos(1);
 		for ($j = 1; $j <= $numPhotos; $j++) {
 			if ($searchAlbum->isHidden($j)) {
@@ -144,40 +151,36 @@ if (!empty($searchstring)) {
 			}
 
 			$photo = $searchAlbum->getPhoto($j);
-			$searchCaption = gTranslate('core', "Caption: ") . $photo->getCaption();
-			$searchCaption .= $searchAlbum->getCaptionName($j);
-			$searchKeywords = $photo->getKeywords();
-			if(empty($photo->isAlbumName)) {
-				$searchName = $photo->image->name;
-			}
-			else {
-				$searchName = $photo->isAlbumName;
-			}
-			
+
+			/* Search through comments */
 			$commentMatch = 0;
 			$commentText = '';
-			if ($searchAlbum->canViewComments($uid) ||  $gallery->user->isAdmin()) {
+			if ($searchAlbum->canViewComments($uid) || $gallery->user->isAdmin()) {
 				for ($k = 1; $k <= $searchAlbum->numComments($j); $k++) {
 					// check to see if there are any comment matches
 					$comment = $searchAlbum->getComment($j, $k);
 					$searchComment = $comment->getName();
+
 					if ($gallery->user->isAdmin()) {
 						$searchComment .= " @ ".$comment->getIPNumber();
 					}
 					$searchComment .= ": ".$comment->getCommentText();
+
 					if (eregi($searchstring, $searchComment)) {
 						if (!$commentMatch) {
-							$commentText = gTranslate('core', "Matching Comments").":<br>";
+							$commentText = _("Matching Comments").":<br>";
 							$commentMatch = 1;
 						}
+
 						$searchComment = preg_replace($searchExpr, $searchRepl, $searchComment);
 						$commentText .= "\n". $searchComment . "<br><br>";
 					}
 				}
 			}
 
-			$extraFieldsText = '';
+			/* Search through extrafields */
 			$extraFieldsMatch = 0;
+			$extraFieldsText = '';
 			foreach ($searchAlbum->getExtraFields() as $field) {
 				$fieldValue=$searchAlbum->getExtraField($j, $field);
 				if (eregi($searchstring, $fieldValue)) {
@@ -187,9 +190,28 @@ if (!empty($searchstring)) {
 				}
 			}
 
+			/* Search through caption */
+			$searchCaption = _("Caption: ") . $photo->getCaption();
+			$searchCaption .= $searchAlbum->getCaptionName($j);
 			$captionMatch = eregi($searchstring, $searchCaption);
-			$keywordMatch = eregi($searchstring, $searchKeywords);
-			$nameMatch = eregi($searchstring, $searchName);
+
+			/* Search through keywords */
+			$searchKeywords = $photo->getKeywords();
+			if(!empty($searchKeywords)) {
+				$keywordMatch = eregi($searchstring, $searchKeywords);
+			}
+			else {
+				$keywordMatch = false;
+			}
+
+			/* Search through imagename */
+			if(!empty($photo->image->name)) {
+				$searchName = $photo->image->name;
+				$nameMatch = eregi($searchstring, $searchName);
+			}
+			else {
+				$nameMatch = false;
+			}
 
 			unset($text);
 
@@ -199,14 +221,16 @@ if (!empty($searchstring)) {
 				$searchCaption = preg_replace($searchExpr, $searchRepl, $searchCaption);
 				$searchKeywords = preg_replace($searchExpr, $searchRepl, $searchKeywords);
 
-				$text[] = '<div class="g-shortdesc">'. gTranslate('core', "From Album") .":&nbsp;&nbsp;".
-					$parentURLString .
-					"<a href=\"" .
+				$text[] = '<div class="desc">'. _("From Album") .":&nbsp;&nbsp;".
+				$parentURLString .
+				"<a href=\"" .
 					makeAlbumUrl($searchAlbum->fields['name']) . "\">" .
-					$searchAlbum->fields['title'] . "</a></div>";
-				$text[] = '<div class="g-longdesc">'. $searchCaption .'</div>';
+					$searchAlbum->fields['title'] .
+				"</a></div>";
+
+				$text[] = '<div class="desc">'. $searchCaption .'</div>';
 				if ($keywordMatch) { // only display Keywords if there was a keyword match
-					$text[] = '<div class="g-small">'. gTranslate('core', "KEYWORDS") .":&nbsp;&nbsp; $searchKeywords</div><br>";
+					$text[] = '<div class="fineprint">'. _("KEYWORDS") .":&nbsp;&nbsp; $searchKeywords</div><br>";
 				}
 				$text[] = $commentText;
 				$text[] = $extraFieldsText;
@@ -214,7 +238,7 @@ if (!empty($searchstring)) {
 				$searchResult['images'][]=array(
 					'photolink'	=> $searchAlbum->getThumbnailTag($j, $thumbSize),
 					'photoURL'	=> makeAlbumUrl($searchAlbum->fields['name'], $id),
-					'Text'	=> $text
+					'Text'		=> $text
 				);
 			}
 		}
@@ -224,35 +248,36 @@ if (!empty($searchstring)) {
 	/* Now we show what we found ;) */
 	$resultTexts = array(
 		'albums' => array(
-			'found' => sprintf(gTranslate('core', "Albums containing %s"), "\"$origstr\""),
-			'none'  => gTranslate('core', "No Album Matches")
+			'found' => sprintf(_("Albums containing %s"), "\"$origstr\""),
+			'none'	=> _("No Album Matches")
 		),
 		'images' => array(
-			'found' => sprintf(gTranslate('core', "Photos containing %s in caption, comment or name."), "\"$origstr\""),
-			'none'  => gTranslate('core', "No Photo Matches")
+			'found'	=> sprintf(_("Photos containing %s in caption, comment or name."), "\"$origstr\""),
+			'none'	=> _("No Photo Matches")
 		)
 	);
 
 	foreach ($resultTexts as $key => $text) {
 		if (!empty($searchResult[$key])) {
-			echo '<div class="g-albumdesc-cell">' .$text['found'] ."</div>\n";
-			echo '<table cellspacing="0" cellpadding="0">';
+			echo '<div class="vasummary">' .$text['found'] . '</div>';
+			echo '<table width="'. $navigator['fullWidth'] . $navigator['widthUnits'] .'" border="0" cellspacing="0" cellpadding="0">';
 			foreach ($searchResult[$key] as $searchdraw) {
 				$searchdraw["bordercolor"] = $borderColor;
 				$searchdraw["top"] = true;
 				includeLayout('searchdraw.inc');
 			}
-			echo "</table><br>\n";
-		} else {
-			echo '<div class="g-longdesc">'. $text['none'] . '</div>';
+			echo '</table>';
+		}
+		else {
+			echo '<div class="desc">'. $text['none'] . '</div>';
 		}
 	}
 
 	if (sizeof($skip) > 0) {
-		echo gallery_error(sprintf(gTranslate('core', "Some albums not searched as they require upgrading to the latest version of %s first."),Gallery()));
+		echo gallery_error(sprintf(_("Some albums not searched as they require upgrading to the latest version of %s first."),Gallery()));
 		if ($gallery->user->isAdmin()) {
 			print "<br>";
-			echo popup_link(gTranslate('core', "Upgrade all albums."), "upgrade_album.php");
+			echo popup_link(_("Upgrade all albums."), "upgrade_album.php");
 			print "<br>(";
 			$join_text='';
 			foreach($skip as $album) {
@@ -268,17 +293,15 @@ if (!empty($searchstring)) {
 }
 else {
 	/* No searchstring was given */
-	echo "\n<p align=\"center\">";
-	echo gTranslate('core', "Search the Gallery's Album and Photo titles, descriptions and comments.");
-	echo "\n</p>\n";
-	echo '<div class="right">'. addSearchForm($searchstring) . "\n</div>";
+	echo "\n<div align=\"center\">";
+	echo _("Search the Gallery's Album and Photo titles, descriptions and comments.");
+	echo "\n<br>";
+	echo addSearchForm($searchstring, 'center');
+	echo "</div>";
 }
 
 echo '<hr width="100%">';
-
-includeTemplate('info_donation-block');
-
-includeTemplate('overall.footer');
+includeHtmlWrap("gallery.footer");
 
 if (!$GALLERY_EMBEDDED_INSIDE) {
 ?>
