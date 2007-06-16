@@ -19,9 +19,9 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Image Block 1.1.2\n"
-"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2007-06-14 17:24-0700\n"
+"Project-Id-Version: Gallery: Image Block 1.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-05-21 15:51+0000\n"
 "PO-Revision-Date: 2005-09-05 16:47+0100\n"
 "Last-Translator: José Ricardo\n"
 "Language-Team: Brazilian Portuguese <gallery-devel@lists.sourceforge.net>\n"
@@ -38,6 +38,24 @@ msgstr "Foto ou Álbum Aleatório, Mais Recente ou Mais Visto"
 
 msgid "Blocks"
 msgstr "Blocos"
+
+msgid "Picture of the Day"
+msgstr "Foto do dia"
+
+msgid "Picture of the Week"
+msgstr "Foto da semana"
+
+msgid "Picture of the Month"
+msgstr "Foto do mês"
+
+msgid "Album of the Day"
+msgstr "Álbum do dia"
+
+msgid "Album of the Week"
+msgstr "Álbum da semana"
+
+msgid "Album of the Month"
+msgstr "Álbum da semana"
 
 #, fuzzy
 msgid "Random Image"
@@ -74,24 +92,6 @@ msgid "Most Viewed Album"
 msgid_plural "Most Viewed Albums"
 msgstr[0] "Álbum mais visto"
 msgstr[1] "Álbum mais visto"
-
-msgid "Picture of the Day"
-msgstr "Foto do dia"
-
-msgid "Picture of the Week"
-msgstr "Foto da semana"
-
-msgid "Picture of the Month"
-msgstr "Foto do mês"
-
-msgid "Album of the Day"
-msgstr "Álbum do dia"
-
-msgid "Album of the Week"
-msgstr "Álbum da semana"
-
-msgid "Album of the Month"
-msgstr "Álbum da semana"
 
 msgid "Date:"
 msgstr "Data:"
@@ -277,7 +277,7 @@ msgid "Monthly album"
 msgstr "Álbum mensal"
 
 msgid "Number of items"
-msgstr "Número de ítens"
+msgstr ""
 
 msgid "Use default settings"
 msgstr "Usar configurações padrão"
@@ -296,3 +296,12 @@ msgstr "Mostrar contador de visitas"
 
 msgid "Show owner"
 msgstr "Mostrar dono"
+
+#~ msgid "Scale images to this maximum size"
+#~ msgstr "Redimensionar imagens para este número máximo"
+
+#~ msgid "Random/Popular"
+#~ msgstr "Casuale/Famoso"
+
+#~ msgid "Image Blocks"
+#~ msgstr "Blocchi Immagine"

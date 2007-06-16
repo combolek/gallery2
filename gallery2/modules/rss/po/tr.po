@@ -19,9 +19,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: RSS 1.1.4\n"
-"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2007-06-14 17:42-0700\n"
+"Project-Id-Version: Gallery: RSS 1.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-02-19 16:14+0100\n"
 "PO-Revision-Date: 2006-09-20 00:53+0200\n"
 "Last-Translator: Ishak Goker ISIK <admin@ansolon.com>\n"
 "Language-Team: Turkish <admin@ansolon.org>\n"
@@ -65,10 +65,6 @@ msgstr "Bu Foto için RSS Besleme"
 msgid "RSS Feed for this Movie"
 msgstr "Bu Film için RSS Besleme"
 
-#, c-format
-msgid "RSS Feed for this %s"
-msgstr "%s için RSS Besleme"
-
 msgid "Configure RSS Feeds"
 msgstr "RSS Beslemeleri yapılandır"
 
@@ -87,9 +83,9 @@ msgstr ""
 msgid "Short URL for Configurable RSS Feeds"
 msgstr ""
 
-#, fuzzy, c-format
-msgid "In album %s"
-msgstr "Albümler İçin"
+#, c-format
+msgid "RSS Feed for this %s"
+msgstr "%s için RSS Besleme"
 
 msgid "Items in an album"
 msgstr "Albümdeki ögeler"
@@ -109,13 +105,9 @@ msgstr "Öge için yorumlar"
 msgid "Comments for an album and its subalbums"
 msgstr "Albüm ve altalbümleri için yorumlar"
 
-#, fuzzy
-msgid "Random items in an album"
-msgstr "Albümdeki ögeler"
-
-#, fuzzy
-msgid "Random items in an album and its subalbums"
-msgstr "Albümdeki ve altalbümlerinedeki ögeler"
+#, c-format
+msgid "In album <a href=\"%s\">%s</a>"
+msgstr ""
 
 msgid "RSS Feeds"
 msgstr "RSS Beslemeleri"
@@ -198,14 +190,6 @@ msgstr "Bu albüm için yorumlar"
 msgid "Comments for this album and its subalbums"
 msgstr "Bu albüm ve altalbümleri için yorumlar"
 
-#, fuzzy
-msgid "Random pictures inside this album"
-msgstr "Bu albümdeki ögeler"
-
-#, fuzzy
-msgid "Random pictures inside this album and its subalbums"
-msgstr "Bu albümün ögeler ve altalbümleri"
-
 msgid "Comments for this item"
 msgstr "Bu öge için yorumlar"
 
@@ -275,7 +259,7 @@ msgid "This adds a main image to the feed, corresponding to the thumbnail for th
 msgstr ""
 
 msgid "Invalid value"
-msgstr "Geçersiz değer"
+msgstr ""
 
 msgid "Use enclosures"
 msgstr ""
@@ -285,20 +269,6 @@ msgstr ""
 
 msgid ""
 "This adds an enclosure to each image in the feed, that contains the full resolution image"
-msgstr ""
-
-msgid "Use Media RSS"
-msgstr ""
-
-msgid "Include Media RSS tags"
-msgstr ""
-
-msgid ""
-"This adds Media RSS tags to the feed, which allows media-oriented clients to display the "
-"feed in a more useful fashion"
-msgstr ""
-
-msgid "about Media RSS"
 msgstr ""
 
 msgid "Cloud tag (RSS 2.0)"
@@ -397,14 +367,6 @@ msgstr "Beslemedeki maksimum öge sayısı"
 msgid "Invalid maximum number"
 msgstr "Geçersiz maksimum sayı"
 
-#, fuzzy
-msgid "Maximum age for items in feeds"
-msgstr "Beslemedeki maksimum öge sayısı"
-
-#, fuzzy
-msgid "Invalid maximum age number"
-msgstr "Geçersiz maksimum sayı"
-
 msgid "Default ttl"
 msgstr "Varayılan ttl"
 
@@ -460,27 +422,14 @@ msgstr ""
 msgid "Slower"
 msgstr "Yavaşça"
 
-msgid "Allow RSS feeds of comments of a photo"
+msgid "Allow RSS feeds comments of a photo"
 msgstr ""
 
-#, fuzzy
-msgid "Allow RSS feeds of comments of an album"
-msgstr "Albüm için yorumlar"
-
-#, fuzzy
-msgid "Allow RSS feeds of comments for an album and its subalbums"
-msgstr "Albüm ve altalbümleri için yorumlar"
-
-msgid "Allow RSS feeds of random photos inside an album"
+msgid "Allow RSS feeds comments of an album"
 msgstr ""
 
-#, fuzzy
-msgid "Allow RSS feeds of random photos inside an album and its subalbums"
-msgstr "Bu albüm ve altalbümleri için yorumlar"
-
-#, fuzzy
-msgid "Slowest"
-msgstr "Yavaşça"
+msgid "Allow RSS feeds comments for an album and its subalbums"
+msgstr ""
 
 msgid "Save Settings"
 msgstr "Ayarları Kaydet"

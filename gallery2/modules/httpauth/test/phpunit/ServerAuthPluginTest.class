@@ -35,15 +35,13 @@ class ServerAuthPluginTest extends GalleryTestCase {
 
     function setUp() {
 	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	/* Create test user */
 	list ($ret, $this->_user) = $this->_createRandomUser();
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($this->_user);
 	$_SERVER['AUTH_TYPE'] = 'Test';
@@ -63,10 +61,7 @@ class ServerAuthPluginTest extends GalleryTestCase {
 	    $this->failWithStatus($ret);
 	}
 
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
+	parent::tearDown();
     }
 
     function testValidUser() {
@@ -77,7 +72,7 @@ class ServerAuthPluginTest extends GalleryTestCase {
 
 	list ($ret, $user) = $this->_plugin->getUser();
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals($this->_user, $user);
@@ -89,7 +84,7 @@ class ServerAuthPluginTest extends GalleryTestCase {
 
 	list ($ret, $user) = $this->_plugin->getUser();
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(null, $user);

@@ -17,6 +17,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+/**
+ * URL rewrite helper.
+ * @package Rewrite
+ * @subpackage Classes
+ * @author Douglas Cau <douglas@cau.se>
+ * @version $Revision$
+ * @static
+ */
 
 /* General status codes */
 define('REWRITE_STATUS_OK', 0);
@@ -28,10 +36,6 @@ define('REWRITE_STATUS_EMPTY_VALUE', 5);
 
 /**
  * URL rewrite helper.
- * @package Rewrite
- * @subpackage Classes
- * @author Douglas Cau <douglas@cau.se>
- * @version $Revision$
  * @static
  */
 class RewriteHelper {
@@ -106,35 +110,24 @@ class RewriteHelper {
 	    return array($ret, null, null, null, null);
 	}
 
-	list ($ret, $modules) = GalleryCoreApi::fetchPluginStatus('module');
-	if ($ret) {
-	    return array($ret, null, null, null, null);
-	}
-
 	$regexRules = array();
 	$shortUrls = array();
 	foreach (array_keys($activeRules) as $moduleId) {
-	    $module = null;
 	    if (isset($upgradeModule) && $upgradeModule->getId() == $moduleId) {
 		/* Avoid PLUGIN_VERSION_MISMATCH during upgrade by passing in module */
 		$module = $upgradeModule;
-	    } else if (isset($modules[$moduleId]) && !empty($modules[$moduleId]['available'])
-		    && isset($modules[$moduleId]['active'])) {
-		/* Ignore version mismatch to ensure that we don't deactivate any modules */
-		list ($ret, $module) = GalleryCoreApi::loadPlugin('module', $moduleId, true, true);
+	    } else {
+		list ($ret, $module) = GalleryCoreApi::loadPlugin('module', $moduleId);
 		if ($ret) {
+		    if ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH) {
+			/*
+			 * Add CONFIGURATION_REQUIRED code to more gracefully abort upgrade if a
+			 * dependent module for one of our rules also needs upgrading.
+			 */
+			$ret->addErrorCode(ERROR_CONFIGURATION_REQUIRED);
+		    }
 		    return array($ret, null, null, null, null);
 		}
-	    }
-
-	    if (!isset($module) || !GalleryCoreApi::isPluginCompatibleWithApis($module)) {
-		/* Remove rules for modules that are incompatible or unavailable */
-		$ret = RewriteHelper::setHistoryForModule($moduleId, $activeRules[$moduleId]);
-		if ($ret) {
-		    return array($ret, null, null, null, null);
-		}
-		unset($activeRules[$moduleId]);
-		continue;
 	    }
 
 	    $rules = $module->getRewriteRules();
@@ -348,7 +341,7 @@ class RewriteHelper {
 
     /**
      * Comparison function used to order regex rules.  Order rules from most specific to least
-     * specific.
+     * specific.  
      * @param array $a first rule to compare
      * @param array $b second rule to compare
      * @return int an integer less than, equal to, or greater than zero if the first rule is

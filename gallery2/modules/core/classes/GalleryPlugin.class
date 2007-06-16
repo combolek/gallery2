@@ -76,17 +76,20 @@ class GalleryPlugin {
      * Localize the given content.
      *
      * Gallery uses GNU gettext for internationalization (i18n) and localization (l10n) of
-     * text presented to the user. Gettext needs to know about all places involving strings
-     * that must be translated. Mark any place where localization at runtime shall take place
+     * text presented to the user. Gettext needs to know about all places involving strings,
+     * that must be translated. Mark any place, where localization at runtime shall take place
      * by using this function.
      *
      * E.g. instead of:
      *   print 'TEST to be displayed in different languages';
-     * use (in any subclass of GalleryPlugin):
+     * use (in any modules subclass of GalleryPlugin):
      *   print $this->translate('TEST to be displayed in different languages');
      * and you are all set for pure literals. The translation teams will receive that literal
      * string as a job to translate and will translate it (when the message is clear enough).
      * At runtime the message is then localized when printed.
+     * The input string can contain a hint to assist translators:
+     *   print $this->translate('TT <!-- abbreviation for Translation Test -->');
+     * The hint portion of the string will not be printed.
      *
      * But consider this case:
      *   $message_to_be_localized = 'TEST to be displayed in different languages';
@@ -106,19 +109,12 @@ class GalleryPlugin {
      * The i18n() method does nothing, but feeding translators with that new string.
      * This method does the runtime job, thanks to GNU gettext.
      *
-     * Input parameters may also include $params['hint'] which is text to appear in the po file to
-     * assist translators, but is not text to be translated.  Example:
-     *   print $this->translate(array('text' => 'TT', 'hint' => 'Abbreviation for ToolTip'));
-     * Input parameters may also include $params['cFormat'] (boolean value) which tells gettext
-     * whether or not to use "c-format" for this string (it may guess wrong for "5% faster",
-     * for example).
-     *
      * @param mixed $params a single string, or an array of parameters
+     * @param boolean $cFormat (optional) hint for gettext whether to use c-format
      * @return string the localized value
-     * @see GalleryTranslator::translateDomain
      * @see Gallery::i18n
      */
-    function translate($params) {
+    function translate($params, $cFormat=null) {
 	global $gallery;
 	$translator =& $gallery->getTranslator();
 	if (!isset($translator)) {
@@ -140,15 +136,14 @@ class GalleryPlugin {
     /**
      * Activate this plugin
      *
-     * @param boolean $postActivationEvent (optional) should we post an activation event?  Normally
-     *                true, but the upgrader may choose to suppress this event so that it can
-     *                reactivate a module without causing a ripple effect.
+     * @param boolean $postActivationEvent should we post an activation event?  Normally true,
+     *             but the upgrader may choose to suppress this event so that it can
+     *             reactivate a module without causing a ripple effect.
      * @return array object GalleryStatus a status code
      *               array redirect info for error page (empty for success)
      */
     function activate($postActivationEvent=true) {
 	global $gallery;
-	$platform =& $gallery->getPlatform();
 
 	$pluginType = $this->getPluginType();
 	$pluginId = $this->getId();
@@ -180,14 +175,12 @@ class GalleryPlugin {
 	}
 
 	/* Flush the cache */
-	$this->_flushPluginCache();
-	GalleryDataCache::removeFromDisk(array('type' => 'local-url-map'));
+	GalleryDataCache::remove("GalleryPluginHelper::fetchPluginStatus($pluginType)");
+	GalleryDataCache::removeFromDisk(array('type' => $pluginType,
+					       'itemId' => 'GalleryPluginHelper_fetchPluginStatus',
+					       'id' => '_all'));
 
-	$templateCacheDir = $gallery->getConfig('data.smarty.templates_c');
-	if ($platform->file_exists($templateCacheDir)) {
-	    /* Ignore errors */
-	    $platform->recursiveRmdir($templateCacheDir);
-	}
+	GalleryDataCache::remove("GalleryPluginHelper::fetchPluginList($pluginType)");
 
 	if ($postActivationEvent) {
 	    if ($gallery->getDebug()) {
@@ -218,8 +211,8 @@ class GalleryPlugin {
      * Modules and themes can be forcibly deactivated during the upgrade process and it's
      * important that this doesn't leave the app in a broken state.
      *
-     * @param bool $postDeactivationEvent (optional) should we post a deactivation event?  Normally
-     *             true, but the upgrader may choose to suppress this event so that it can
+     * @param bool $postDeactivationEvent should we post a deactivation event?  Normally true,
+     *             but the upgrader may choose to suppress this event so that it can
      *             reactivate a module without causing a ripple effect.
      * @return array object GalleryStatus a status code
      *               array redirect info for error page (empty for success)
@@ -237,7 +230,12 @@ class GalleryPlugin {
 	    return array($ret, null);
 	}
 
-	$this->_flushPluginCache();
+	/* Flush the cache */
+	GalleryDataCache::remove("GalleryPluginHelper::fetchPluginStatus($pluginType)");
+	GalleryDataCache::removeFromDisk(array('type' => $pluginType,
+					       'itemId' => 'GalleryPluginHelper_fetchPluginStatus',
+					       'id' => '_all'));
+	GalleryDataCache::remove("GalleryPluginHelper::fetchPluginList($pluginType)");
 
 	if ($postDeactivationEvent) {
 	    $ret = $this->_postDeactivationEvent();
@@ -354,22 +352,6 @@ class GalleryPlugin {
 	    $platform->recursiveRmdir($dataDir);
 	}
 
-	if ($gallery->getDebug()) {
-	    $gallery->debug(sprintf('Removing translations for %s plugin', $this->getId()));
-	}
-	$ret = GalleryCoreApi::removeTranslationsForPlugin($this->getPluginType(), $this->getId());
-	if ($ret) {
-	    return $ret;
-	}
-
-	$ret = GalleryCoreApi::removeMapEntry('GalleryPluginMap',
-	    array('pluginType' => $this->getPluginType(), 'pluginId' => $this->getId()));
-	if ($ret) {
-	    return $ret;
-	}
-
-	$this->_flushPluginCache();
-
 	$event = GalleryCoreApi::newEvent('Gallery::UninstallPlugin');
 	$event->setData(array('pluginType' => $this->getPluginType(),
 			      'pluginId' => $this->getId()));
@@ -391,65 +373,7 @@ class GalleryPlugin {
      * @return object GalleryStatus a status code
      */
     function installOrUpgrade() {
-	global $gallery;
-
-	/**
-	 * Remove old translations before installing new ones so that if any translations
-	 * got removed we don't wind up with old copies hanging around.
-	 *
-	 * @todo keep track of which translations didn't get updated and remove them
-	 *       instead of using this heavy approach.
-	 */
-	if ($gallery->getDebug()) {
-	    $gallery->debug(sprintf('Removing translations for %s plugin', $this->getId()));
-	}
-	$ret = GalleryCoreApi::removeTranslationsForPlugin($this->getPluginType(), $this->getId());
-	if ($ret) {
-	    return $ret;
-	}
-
-	if ($gallery->getDebug()) {
-	    $gallery->debug(sprintf('Installing translations for %s plugin', $this->getId()));
-	}
-	$ret = GalleryCoreApi::installTranslationsForPlugin($this->getPluginType(), $this->getId());
-	if ($ret) {
-	    return $ret;
-	}
-
-	list ($ret, $searchResult) = GalleryCoreApi::getMapEntry('GalleryPluginMap',
-	    array('pluginId'),
-	    array('pluginType' => $this->getPluginType(), 'pluginId' => $this->getId()));
-	if ($ret) {
-	    return $ret;
-	}
-
-	if (!$searchResult->resultCount()) {
-	    $ret = GalleryCoreApi::addMapEntry(
-		'GalleryPluginMap',
-		array('pluginType' => $this->getPluginType(),
-		      'pluginId' => $this->getId(),
-		      'active' => 0));
-	    if ($ret) {
-		return $ret;
-	    }
-	}
-
-	$this->_flushPluginCache();
-
 	return null;
-    }
-
-    /**
-     * Flush plugin-related caches.
-     */
-    function _flushPluginCache() {
-	/* Flush the cache */
-	$pluginType = $this->getPluginType();
-	GalleryDataCache::remove("GalleryPluginHelper::fetchPluginStatus($pluginType)");
-	GalleryDataCache::removeFromDisk(array('type' => $pluginType,
-					       'itemId' => 'GalleryPluginHelper_fetchPluginStatus',
-					       'id' => '_all'));
-	GalleryDataCache::remove("GalleryPluginHelper::fetchPluginList($pluginType)");
     }
 
     /**

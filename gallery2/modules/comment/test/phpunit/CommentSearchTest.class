@@ -35,14 +35,11 @@ class CommentSearchTest extends GalleryTestCase {
     function setUp() {
 	global $gallery;
 
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	list ($ret, $moduleStatusList) = GalleryCoreApi::fetchPluginStatus('module');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	if (empty($moduleStatusList['search']['active'])) {
@@ -52,7 +49,7 @@ class CommentSearchTest extends GalleryTestCase {
 	list ($ret, $groupId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.everybodyGroup');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->_randomKey = "a" . rand(1,100000) . "z";
@@ -61,7 +58,7 @@ class CommentSearchTest extends GalleryTestCase {
 	for ($j = 0; $j < 4; $j++) {
 	    list ($ret, $this->_item[$j]) = $this->_createRandomDataItem($this->_getRootId());
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 
 	    $this->_markForCleanup($this->_item[$j]);
@@ -71,7 +68,8 @@ class CommentSearchTest extends GalleryTestCase {
 		list ($ret, $this->_comment[$j][$i]) =
 		    GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryComment');
 		if ($ret) {
-		    return $ret;
+		    print $ret->getAsHtml();
+		    return $this->failWithStatus($ret);
 		}
 
 		$this->assert(isset($this->_comment[$j][$i]), 'Missing comment instance');
@@ -86,13 +84,15 @@ class CommentSearchTest extends GalleryTestCase {
 		$this->_comment[$j][$i]->setDate(time());
 		$ret = $this->_comment[$j][$i]->save();
 		if ($ret) {
-		    return $ret;
+		    print $ret->getAsHtml();
+		    return $this->failWithStatus($ret);
 		}
 	    }
 
 	    $ret = GalleryCoreApi::removeItemPermissions($this->_item[$j]->getId());
 	    if ($ret) {
-		return $ret;
+		print $ret->getAsHtml();
+		return $this->failWithStatus($ret);
 	    }
 
 	    switch($j) {
@@ -101,7 +101,8 @@ class CommentSearchTest extends GalleryTestCase {
 							       $gallery->getActiveUserId(),
 							       'core.view');
 		if ($ret) {
-		    return $ret;
+		    print $ret->getAsHtml();
+		    return $this->failWithStatus($ret);
 		}
 		break;
 
@@ -109,7 +110,8 @@ class CommentSearchTest extends GalleryTestCase {
 		$ret = GalleryCoreApi::addGroupPermission($this->_item[$j]->getId(),
 								$groupId, 'comment.view');
 		if ($ret) {
-		    return $ret;
+		    print $ret->getAsHtml();
+		    return $this->failWithStatus($ret);
 		}
 		break;
 
@@ -118,13 +120,15 @@ class CommentSearchTest extends GalleryTestCase {
 							 $gallery->getActiveUserId(),
 							 'comment.view');
 		if ($ret) {
-		    return $ret;
+		    print $ret->getAsHtml();
+		    return $this->failWithStatus($ret);
 		}
 		$ret = GalleryCoreApi::addUserPermission($this->_item[$j]->getId(),
 							 $gallery->getActiveUserId(),
 							 'core.view');
 		if ($ret) {
-		    return $ret;
+		    print $ret->getAsHtml();
+		    return $this->failWithStatus($ret);
 		}
 		break;
 
@@ -132,12 +136,14 @@ class CommentSearchTest extends GalleryTestCase {
 		$ret = GalleryCoreApi::addGroupPermission($this->_item[$j]->getId(),
 							  $groupId, 'comment.view');
 		if ($ret) {
-		    return $ret;
+		    print $ret->getAsHtml();
+		    return $this->failWithStatus($ret);
 		}
 		$ret = GalleryCoreApi::addGroupPermission($this->_item[$j]->getId(),
 							  $groupId, 'core.view');
 		if ($ret) {
-		    return $ret;
+		    print $ret->getAsHtml();
+		    return $this->failWithStatus($ret);
 		}
 		break;
 	    }
@@ -147,14 +153,16 @@ class CommentSearchTest extends GalleryTestCase {
 	    GalleryCoreApi::newFactoryInstance('GallerySearchInterface_1_0',
 					       'GalleryCommentSearch');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assert(isset($this->_commentSearch), 'Missing GalleryCommentSearch instance');
 
 	list ($ret, $this->_module) = GalleryCoreApi::loadPlugin('module', 'comment');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->_user = $gallery->getActiveUser();
@@ -163,7 +171,7 @@ class CommentSearchTest extends GalleryTestCase {
     function testFetchSearchModuleInfo() {
 	list ($ret, $info) = $this->_commentSearch->getSearchModuleInfo();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assert(isset($info['name']), 'name missing');
@@ -180,7 +188,7 @@ class CommentSearchTest extends GalleryTestCase {
 	list ($ret, $results) =
 	    $this->_commentSearch->search(array('comments' => 1), $this->_randomKey);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$subject = $this->_module->translate('Subject');
@@ -241,7 +249,7 @@ class CommentSearchTest extends GalleryTestCase {
 					  1,
 					  2);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$subject = $this->_module->translate('Subject');
@@ -282,7 +290,7 @@ class CommentSearchTest extends GalleryTestCase {
 	    $this->_commentSearch->search(array('comments' => 1),
 					  'some string that will never show up');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(array('start' => 0,

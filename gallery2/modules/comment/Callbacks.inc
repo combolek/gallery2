@@ -30,7 +30,7 @@ class CommentCallbacks {
 	switch ($callback) {
 	case 'LoadComments':
 	    $itemId = $params['itemId'];
-	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
+	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	    if ($ret) {
 		return $ret;
 	    }
@@ -73,7 +73,7 @@ class CommentCallbacks {
 		/* Load all the commenters */
 		if (sizeof($commenters) > 0) {
 		    list ($ret, $commentersList) =
-			GalleryCoreApi::loadEntitiesById(array_keys($commenters), 'GalleryUser');
+			GalleryCoreApi::loadEntitiesById(array_keys($commenters));
 		    if ($ret) {
 			return $ret;
 		    }
@@ -107,7 +107,7 @@ class CommentCallbacks {
 
 	case 'AddComment':
 	    /* Load our item */
-	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($params['itemId'], 'GalleryItem');
+	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($params['itemId']);
 	    if ($ret) {
 		return $ret;
 	    }

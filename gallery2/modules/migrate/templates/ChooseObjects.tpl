@@ -1,6 +1,8 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
 <div class="gbBlock gcBackground1">
   <h2> {g->text text="Select Albums and Users"} </h2>
@@ -120,7 +122,7 @@
 	<option value="{$album.data.id}"{if $form.destinationAlbumID==$album.data.id}
 	 selected="selected"{/if}>
 	  {"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"|repeat:$album.depth}--
-	  {$album.data.title|markup:strip|default:$album.data.pathComponent}
+	  {$album.data.title|default:$album.data.pathComponent}
 	</option>
       {/foreach}
     </select>
@@ -146,7 +148,7 @@
     <input type="checkbox" id="cbUrlRedirect"{if !empty($form.urlRedirect)} checked="checked"{/if}
      name="{g->formVar var="form[urlRedirect]"}"/>
     <label for="cbUrlRedirect">
-      {g->text text="Record G1-&gt;G2 mappings during import"}
+      {g->text text="Record G1->G2 mappings during import"}
     </label>
   </div>
 

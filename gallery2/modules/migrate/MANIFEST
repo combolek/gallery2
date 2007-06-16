@@ -1,7 +1,7 @@
 # $Revision$
 # File crc32 crc32(crlf) size size(crlf)  or  R File
-modules/migrate/ChooseObjects.inc	397011003	3101878787	10476	10774
-modules/migrate/ConfirmImport.inc	2334922699	982766464	53256	54925
+modules/migrate/ChooseObjects.inc	188693865	2584288041	10456	10754
+modules/migrate/ConfirmImport.inc	1630662926	3820412812	53139	54803
 modules/migrate/ImportResults.inc	669419838	3243342838	1878	1940
 modules/migrate/Redirect.inc	2924892877	4269103105	5269	5452
 modules/migrate/SelectGallery.inc	1137944366	70270949	4561	4717
@@ -13,81 +13,79 @@ modules/migrate/classes/GalleryStorage/schema.tpl	718445156	924914594	4403	4532
 modules/migrate/classes/GalleryStorage/xml-src/A_G1MigrateMap_1.0.xml	154188244	1531417013	514	535
 modules/migrate/classes/Maps.inc	906922067	2250256382	389	393
 modules/migrate/classes/Maps.xml	801749121	997731207	785	815
-modules/migrate/module.inc	3034588538	498208157	4354	4496
+modules/migrate/locale/af/LC_MESSAGES/modules_migrate.mo	2620744833	2620744833	13911	13911
+modules/migrate/locale/ar/LC_MESSAGES/modules_migrate.mo	2735572839	2735572839	910	910
+modules/migrate/locale/ca/LC_MESSAGES/modules_migrate.mo	998623386	998623386	872	872
+modules/migrate/locale/cs/LC_MESSAGES/modules_migrate.mo	3443477911	3443477911	14332	14332
+modules/migrate/locale/da/LC_MESSAGES/modules_migrate.mo	45395589	45395589	846	846
+modules/migrate/locale/de/LC_MESSAGES/modules_migrate.mo	1089541108	1089541108	14925	14925
+modules/migrate/locale/en_GB/LC_MESSAGES/modules_migrate.mo	3733974255	3733974255	1251	1251
+modules/migrate/locale/es/LC_MESSAGES/modules_migrate.mo	178111755	178111755	14873	14873
+modules/migrate/locale/eu/LC_MESSAGES/modules_migrate.mo	1611987975	1611987975	13749	13749
+modules/migrate/locale/fi/LC_MESSAGES/modules_migrate.mo	683293663	683293663	14059	14059
+modules/migrate/locale/fr/LC_MESSAGES/modules_migrate.mo	2605635649	2605635649	15075	15075
+modules/migrate/locale/ga/LC_MESSAGES/modules_migrate.mo	3059844307	3059844307	2939	2939
+modules/migrate/locale/hu/LC_MESSAGES/modules_migrate.mo	4185389962	4185389962	849	849
+modules/migrate/locale/is/LC_MESSAGES/modules_migrate.mo	3643974500	3643974500	461	461
+modules/migrate/locale/it/LC_MESSAGES/modules_migrate.mo	2786215509	2786215509	14591	14591
+modules/migrate/locale/ja/LC_MESSAGES/modules_migrate.mo	21110927	21110927	14193	14193
+modules/migrate/locale/ko/LC_MESSAGES/modules_migrate.mo	3272345476	3272345476	962	962
+modules/migrate/locale/lt/LC_MESSAGES/modules_migrate.mo	2653800170	2653800170	964	964
+modules/migrate/locale/nl/LC_MESSAGES/modules_migrate.mo	412032123	412032123	14507	14507
+modules/migrate/locale/no/LC_MESSAGES/modules_migrate.mo	3352621155	3352621155	13985	13985
+modules/migrate/locale/pl/LC_MESSAGES/modules_migrate.mo	433291772	433291772	14879	14879
+modules/migrate/locale/pt/LC_MESSAGES/modules_migrate.mo	2121740402	2121740402	2459	2459
+modules/migrate/locale/ro/LC_MESSAGES/modules_migrate.mo	3013886734	3013886734	916	916
+modules/migrate/locale/ru/LC_MESSAGES/modules_migrate.mo	803853412	803853412	20520	20520
+modules/migrate/locale/sk/LC_MESSAGES/modules_migrate.mo	3997792684	3997792684	912	912
+modules/migrate/locale/sr/LC_MESSAGES/modules_migrate.mo	387547577	387547577	13707	13707
+modules/migrate/locale/sv/LC_MESSAGES/modules_migrate.mo	105521783	105521783	14286	14286
+modules/migrate/locale/tr/LC_MESSAGES/modules_migrate.mo	2458752687	2458752687	4858	4858
+modules/migrate/locale/uk/LC_MESSAGES/modules_migrate.mo	47853209	47853209	868	868
+modules/migrate/locale/vi/LC_MESSAGES/modules_migrate.mo	285943574	285943574	890	890
+modules/migrate/locale/zh_CN/LC_MESSAGES/modules_migrate.mo	4008471262	4008471262	13011	13011
+modules/migrate/locale/zh_TW/LC_MESSAGES/modules_migrate.mo	986147669	986147669	13353	13353
+modules/migrate/module.inc	236784868	4007172055	4204	4339
 modules/migrate/po/GNUmakefile	1866879166	2808215985	98	103
-modules/migrate/po/af.mo	1138338251	1138338251	13909	13909
-modules/migrate/po/af.po	2737044383	656390409	15543	16021
-modules/migrate/po/ar.mo	1163830124	1163830124	910	910
-modules/migrate/po/ar.po	4292643122	3916359537	9500	9931
-modules/migrate/po/ca.mo	1307075538	1307075538	872	872
-modules/migrate/po/ca.po	2272815556	4245270975	9579	10013
-modules/migrate/po/cs.mo	4435964	4435964	13340	13340
-modules/migrate/po/cs.po	2300474629	3919183172	15938	16423
-modules/migrate/po/da.mo	3054956310	3054956310	846	846
-modules/migrate/po/da.po	2345641195	2453207614	9570	10005
-modules/migrate/po/de.mo	1002136559	1002136559	14923	14923
-modules/migrate/po/de.po	2224913199	2490711884	16441	16926
-modules/migrate/po/el.mo	2614356911	2614356911	11010	11010
-modules/migrate/po/el.po	1375387912	3623706457	15200	15645
-modules/migrate/po/en_GB.mo	3724631698	3724631698	1263	1263
-modules/migrate/po/en_GB.po	2855969001	3741780419	14744	15212
-modules/migrate/po/es.mo	3516718712	3516718712	14871	14871
-modules/migrate/po/es.po	2418472453	3812901403	16210	16692
-modules/migrate/po/eu.mo	1519261442	1519261442	13747	13747
-modules/migrate/po/eu.po	3440254462	1923637617	15149	15619
-modules/migrate/po/fi.mo	1983038368	1983038368	14057	14057
-modules/migrate/po/fi.po	790609549	2549543482	15417	15890
-modules/migrate/po/fr.mo	2943034871	2943034871	15070	15070
-modules/migrate/po/fr.po	2974647032	2337449839	16376	16858
-modules/migrate/po/ga.mo	2300292736	2300292736	2939	2939
-modules/migrate/po/ga.po	658364971	1587867803	12310	12790
-modules/migrate/po/hu.mo	3617079575	3617079575	849	849
-modules/migrate/po/hu.po	1475912143	3033632214	9502	9934
-modules/migrate/po/is.mo	2466595898	2466595898	461	461
-modules/migrate/po/is.po	1049040384	2742151149	9324	9755
-modules/migrate/po/it.mo	3029211884	3029211884	14589	14589
-modules/migrate/po/it.po	3735416738	3975505649	15810	16289
-modules/migrate/po/ja.mo	2864038515	2864038515	14213	14213
-modules/migrate/po/ja.po	1938996454	1549291559	16961	17428
-modules/migrate/po/ko.mo	2602148912	2602148912	962	962
-modules/migrate/po/ko.po	2733133476	3645012067	9498	9927
-modules/migrate/po/lt.mo	1364920081	1364920081	964	964
-modules/migrate/po/lt.po	729739957	1278900271	9679	10117
-modules/migrate/po/nl.mo	86349648	86349648	14505	14505
-modules/migrate/po/nl.po	4280516491	359162775	15942	16424
-modules/migrate/po/no.mo	732370862	732370862	13983	13983
-modules/migrate/po/no.po	1240134320	3605389077	15297	15772
-modules/migrate/po/pl.mo	2246387696	2246387696	14880	14880
-modules/migrate/po/pl.po	4225064073	2143557986	16192	16675
-modules/migrate/po/pt.mo	1413052261	1413052261	2459	2459
-modules/migrate/po/pt.po	461597354	3657518840	10653	11099
-modules/migrate/po/ro.mo	2582984279	2582984279	916	916
-modules/migrate/po/ro.po	817298823	2897705196	9565	10000
-modules/migrate/po/ru.mo	1505480028	1505480028	20521	20521
-modules/migrate/po/ru.po	1272110163	2857842175	21897	22388
-modules/migrate/po/sk.mo	1841164831	1841164831	912	912
-modules/migrate/po/sk.po	3667185894	2486603465	9700	10142
-modules/migrate/po/sr.mo	428251046	428251046	13441	13441
-modules/migrate/po/sr.po	295614185	2807246420	15474	15947
-modules/migrate/po/strings.raw	1060348487	964011291	7182	7308
-modules/migrate/po/sv.mo	645484697	645484697	14284	14284
-modules/migrate/po/sv.po	3936171210	1081139510	15871	16355
-modules/migrate/po/tr.mo	758910624	758910624	4870	4870
-modules/migrate/po/tr.po	1836097167	1412578891	11284	11725
-modules/migrate/po/uk.mo	1836340734	1836340734	868	868
-modules/migrate/po/uk.po	1933118586	1014083420	9800	10237
-modules/migrate/po/vi.mo	2313147890	2313147890	890	890
-modules/migrate/po/vi.po	1057353026	1457535839	9479	9910
-modules/migrate/po/zh_CN.mo	3666587745	3666587745	12094	12094
-modules/migrate/po/zh_CN.po	934475616	2842239971	14464	14922
-modules/migrate/po/zh_TW.mo	3192622837	3192622837	13345	13345
-modules/migrate/po/zh_TW.po	2061744116	2383485918	14405	14856
-modules/migrate/templates/ChooseObjects.tpl	476134929	3165585960	12550	12863
-modules/migrate/templates/ConfirmImport.tpl	1887959872	118518803	7539	7741
-modules/migrate/templates/Htaccess.tpl	315804661	3026101906	604	617
-modules/migrate/templates/ImportResults.tpl	3464180229	3087824611	2966	3070
-modules/migrate/templates/Redirect.tpl	1516422079	3421984818	2093	2134
-modules/migrate/templates/SelectGallery.tpl	1895754830	2863242112	3796	3905
+modules/migrate/po/af.po	6174136	2366302526	15552	16031
+modules/migrate/po/ar.po	1321480408	3206783764	9506	9938
+modules/migrate/po/ca.po	1031475604	3251430706	9585	10020
+modules/migrate/po/cs.po	2390297351	3876530168	15796	16280
+modules/migrate/po/da.po	808688670	1316091556	9576	10012
+modules/migrate/po/de.po	4230563937	3064755261	16450	16936
+modules/migrate/po/en_GB.po	2558274911	1496122420	14756	15226
+modules/migrate/po/es.po	3692493490	2153419492	16219	16702
+modules/migrate/po/eu.po	3374535275	1686210264	15318	15793
+modules/migrate/po/fi.po	1959796528	515106675	15475	15953
+modules/migrate/po/fr.po	3712298311	3162952632	16385	16867
+modules/migrate/po/ga.po	2738350899	3657296003	12366	12851
+modules/migrate/po/hu.po	1306395315	660128185	9508	9941
+modules/migrate/po/is.po	2292678948	2044930960	9330	9762
+modules/migrate/po/it.po	1477458407	1420974969	15982	16465
+modules/migrate/po/ja.po	2319049921	729346323	16958	17426
+modules/migrate/po/ko.po	104367594	2827979027	9504	9934
+modules/migrate/po/lt.po	3458406285	1124542238	9685	10124
+modules/migrate/po/nl.po	349600003	3386287889	16129	16616
+modules/migrate/po/no.po	4124493040	464914391	15309	15786
+modules/migrate/po/pl.po	2077108591	2756889776	16198	16682
+modules/migrate/po/pt.po	3698326890	1838105563	10706	11157
+modules/migrate/po/ro.po	4154318958	940013838	9571	10007
+modules/migrate/po/ru.po	3498379791	3649190372	22208	22705
+modules/migrate/po/sk.po	2780855767	1358153945	9706	10149
+modules/migrate/po/sr.po	23250867	335487059	15164	15633
+modules/migrate/po/strings.raw	2612233336	201831359	7185	7311
+modules/migrate/po/sv.po	231324559	1654444996	15880	16365
+modules/migrate/po/tr.po	2033304450	2718744999	11284	11726
+modules/migrate/po/uk.po	3616563055	4076992355	9806	10244
+modules/migrate/po/vi.po	884618590	2024908201	9485	9917
+modules/migrate/po/zh_CN.po	2918969827	2412489946	16074	16566
+modules/migrate/po/zh_TW.po	2294105	1919714572	14578	15033
+modules/migrate/templates/ChooseObjects.tpl	1012618171	1317500069	12690	13005
+modules/migrate/templates/ConfirmImport.tpl	4084677689	1943423797	7692	7896
+modules/migrate/templates/Htaccess.tpl	599537037	82553178	760	775
+modules/migrate/templates/ImportResults.tpl	1994117368	2388096568	3122	3228
+modules/migrate/templates/Redirect.tpl	333722750	3253620007	2249	2292
+modules/migrate/templates/SelectGallery.tpl	554559245	4307294	3932	4043
 modules/migrate/test/data/albums/.users/1054014347_1233740678	4175547258	4175547258	427	427
 modules/migrate/test/data/albums/.users/1057837115_2072132305	2087752347	2087752347	495	495
 modules/migrate/test/data/albums/.users/1057837154_228147420	2072020488	2072020488	463	463
@@ -174,10 +172,10 @@ modules/migrate/test/data/albums/no_NO/head_left.highlight.gif	4132014605	413201
 modules/migrate/test/data/albums/no_NO/head_left.thumb.gif	3374161353	3374161353	4155	4155
 modules/migrate/test/data/albums/no_NO/photos.dat	440007966	440007966	1416	1416
 modules/migrate/test/phpunit/ChooseObjectsControllerTest.class	2481044851	2023160184	4338	4438
-modules/migrate/test/phpunit/ConfirmImportControllerTest.class	54054343	1284352658	77690	79781
-modules/migrate/test/phpunit/Gallery1DataParserTest.class	3386084422	1136359086	10198	10543
-modules/migrate/test/phpunit/MigrateEventHandlerTest.class	592327348	863785858	4456	4613
-modules/migrate/test/phpunit/RedirectControllerTest.class	1562000444	583886517	8931	9198
+modules/migrate/test/phpunit/ConfirmImportControllerTest.class	917440711	865372834	80041	82124
+modules/migrate/test/phpunit/Gallery1DataParserTest.class	2638444038	3687349380	10388	10730
+modules/migrate/test/phpunit/MigrateEventHandlerTest.class	4071192089	2192004102	4689	4841
+modules/migrate/test/phpunit/RedirectControllerTest.class	1077062355	1759007749	8973	9234
 modules/migrate/test/phpunit/SelectGalleryControllerTest.class	3134069338	1380909214	2999	3084
 R	modules/migrate/classes/G1MigrateMap.class
 R	modules/migrate/classes/GalleryStorage/DatabaseStorage/schema/GNUmakefile
@@ -201,86 +199,54 @@ R	modules/migrate/classes/charsets.php
 R	modules/migrate/classes/interfaces/G1MigrateMap.inc
 R	modules/migrate/classes/interfaces/GNUmakefile
 R	modules/migrate/classes/interfaces
-R	modules/migrate/locale/af/LC_MESSAGES/modules_migrate.mo
-R	modules/migrate/locale/ar/LC_MESSAGES/modules_migrate.mo
-R	modules/migrate/locale/ca/LC_MESSAGES/modules_migrate.mo
-R	modules/migrate/locale/cs/LC_MESSAGES/modules_migrate.mo
 R	modules/migrate/locale/cs_CZ/LC_MESSAGES/modules_migrate.mo
 R	modules/migrate/locale/cs_CZ/LC_MESSAGES
 R	modules/migrate/locale/cs_CZ
-R	modules/migrate/locale/da/LC_MESSAGES/modules_migrate.mo
-R	modules/migrate/locale/de/LC_MESSAGES/modules_migrate.mo
 R	modules/migrate/locale/de_DE/LC_MESSAGES/modules_migrate.mo
 R	modules/migrate/locale/de_DE/LC_MESSAGES
 R	modules/migrate/locale/de_DE
-R	modules/migrate/locale/en_GB/LC_MESSAGES/modules_migrate.mo
-R	modules/migrate/locale/es/LC_MESSAGES/modules_migrate.mo
-R	modules/migrate/locale/eu/LC_MESSAGES/modules_migrate.mo
 R	modules/migrate/locale/eu_ES/LC_MESSAGES/modules_migrate.mo
 R	modules/migrate/locale/eu_ES/LC_MESSAGES
 R	modules/migrate/locale/eu_ES
-R	modules/migrate/locale/fi/LC_MESSAGES/modules_migrate.mo
 R	modules/migrate/locale/fi_FI/LC_MESSAGES/modules_migrate.mo
 R	modules/migrate/locale/fi_FI/LC_MESSAGES
 R	modules/migrate/locale/fi_FI
-R	modules/migrate/locale/fr/LC_MESSAGES/modules_migrate.mo
 R	modules/migrate/locale/fr_FR/LC_MESSAGES/modules_migrate.mo
 R	modules/migrate/locale/fr_FR/LC_MESSAGES
 R	modules/migrate/locale/fr_FR
-R	modules/migrate/locale/ga/LC_MESSAGES/modules_migrate.mo
 R	modules/migrate/locale/ga_IE/LC_MESSAGES/modules_migrate.mo
 R	modules/migrate/locale/ga_IE/LC_MESSAGES
 R	modules/migrate/locale/ga_IE
-R	modules/migrate/locale/hu/LC_MESSAGES/modules_migrate.mo
-R	modules/migrate/locale/is/LC_MESSAGES/modules_migrate.mo
 R	modules/migrate/locale/is_IS/LC_MESSAGES/modules_migrate.mo
 R	modules/migrate/locale/is_IS/LC_MESSAGES
 R	modules/migrate/locale/is_IS
-R	modules/migrate/locale/it/LC_MESSAGES/modules_migrate.mo
 R	modules/migrate/locale/it_IT/LC_MESSAGES/modules_migrate.mo
 R	modules/migrate/locale/it_IT/LC_MESSAGES
 R	modules/migrate/locale/it_IT
-R	modules/migrate/locale/ja/LC_MESSAGES/modules_migrate.mo
 R	modules/migrate/locale/ja_JP/LC_MESSAGES/modules_migrate.mo
 R	modules/migrate/locale/ja_JP/LC_MESSAGES
 R	modules/migrate/locale/ja_JP
-R	modules/migrate/locale/ko/LC_MESSAGES/modules_migrate.mo
-R	modules/migrate/locale/lt/LC_MESSAGES/modules_migrate.mo
-R	modules/migrate/locale/nl/LC_MESSAGES/modules_migrate.mo
 R	modules/migrate/locale/nl_NL/LC_MESSAGES/modules_migrate.mo
 R	modules/migrate/locale/nl_NL/LC_MESSAGES
 R	modules/migrate/locale/nl_NL
-R	modules/migrate/locale/no/LC_MESSAGES/modules_migrate.mo
 R	modules/migrate/locale/no_NO/LC_MESSAGES/modules_migrate.mo
 R	modules/migrate/locale/no_NO/LC_MESSAGES
 R	modules/migrate/locale/no_NO
-R	modules/migrate/locale/pl/LC_MESSAGES/modules_migrate.mo
-R	modules/migrate/locale/pt/LC_MESSAGES/modules_migrate.mo
 R	modules/migrate/locale/pt_PT/LC_MESSAGES/modules_migrate.mo
 R	modules/migrate/locale/pt_PT/LC_MESSAGES
 R	modules/migrate/locale/pt_PT
-R	modules/migrate/locale/ro/LC_MESSAGES/modules_migrate.mo
-R	modules/migrate/locale/ru/LC_MESSAGES/modules_migrate.mo
 R	modules/migrate/locale/ru_RU/LC_MESSAGES/modules_migrate.mo
 R	modules/migrate/locale/ru_RU/LC_MESSAGES
 R	modules/migrate/locale/ru_RU
-R	modules/migrate/locale/sk/LC_MESSAGES/modules_migrate.mo
-R	modules/migrate/locale/sr/LC_MESSAGES/modules_migrate.mo
 R	modules/migrate/locale/sr_YU/LC_MESSAGES/modules_migrate.mo
 R	modules/migrate/locale/sr_YU/LC_MESSAGES
 R	modules/migrate/locale/sr_YU
-R	modules/migrate/locale/sv/LC_MESSAGES/modules_migrate.mo
 R	modules/migrate/locale/sv_SE/LC_MESSAGES/modules_migrate.mo
 R	modules/migrate/locale/sv_SE/LC_MESSAGES
 R	modules/migrate/locale/sv_SE
-R	modules/migrate/locale/tr/LC_MESSAGES/modules_migrate.mo
 R	modules/migrate/locale/tr_TR/LC_MESSAGES/modules_migrate.mo
 R	modules/migrate/locale/tr_TR/LC_MESSAGES
 R	modules/migrate/locale/tr_TR
-R	modules/migrate/locale/uk/LC_MESSAGES/modules_migrate.mo
-R	modules/migrate/locale/vi/LC_MESSAGES/modules_migrate.mo
-R	modules/migrate/locale/zh_CN/LC_MESSAGES/modules_migrate.mo
-R	modules/migrate/locale/zh_TW/LC_MESSAGES/modules_migrate.mo
 R	modules/migrate/po/cs_CZ.po
 R	modules/migrate/po/de_DE.po
 R	modules/migrate/po/eu_ES.po

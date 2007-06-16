@@ -2,10 +2,6 @@
 
 /* AdminCore.inc */
 gettext("Gallery Email Test")
-ngettext("%d minute", "%d minutes") /* also in: AdminPerformance.inc */
-ngettext("%d hour", "%d hours") /* also in: AdminPerformance.inc */
-ngettext("%d day", "%d days") /* also in: AdminPerformance.inc */
-ngettext("%d week", "%d weeks") /* also in: AdminPerformance.inc */
 gettext("forever")
 gettext("High Priority (Me first!)")
 gettext("Low Priority (I want to share!)")
@@ -14,13 +10,13 @@ gettext("BBCode")
 gettext("Raw HTML")
 gettext("Database") /* also in: classes/SystemInfoTask.class templates/ErrorPage.tpl */
 gettext("File") /* also in: classes/GalleryUnknownItem.class templates/ItemAddFromBrowser.tpl */
+ngettext("%d minute", "%d minutes") /* also in: AdminPerformance.inc */
+ngettext("%d hour", "%d hours") /* also in: AdminPerformance.inc */
+ngettext("%d day", "%d days") /* also in: AdminPerformance.inc */
+ngettext("%d week", "%d weeks") /* also in: AdminPerformance.inc */
 
 /* AdminCreateUser.inc */
-gettext("&lt;none&gt;") /* also in: AdminEditUser.inc UserPreferences.inc */
-
-/* AdminEventLogViewerCallback.inc */
-gettext("Link") /* also in: templates/AdminEventLogViewer.tpl */
-gettext("Page %d of %d") /* also in: templates/blocks/Navigator.tpl */
+gettext("<none>") /* also in: AdminEditUser.inc UserPreferences.inc */
 
 /* AdminPerformance.inc */
 gettext("No acceleration") /* also in: templates/AdminPerformance.tpl */
@@ -42,7 +38,6 @@ gettext("Preparing %s")
 gettext("Downloading %s")
 gettext("Activating %s")
 gettext("Deleting Language Packs")
-gettext("Synchronizing Language Packs")
 gettext("Update completed with errors.")
 gettext("Update complete.")
 
@@ -57,6 +52,7 @@ gettext("Use these settings")
 
 /* CoreModuleExtras.inc */
 gettext("Installing the core module")
+gettext("key")
 gettext("All access")
 gettext("[core] View item")
 gettext("[core] View resized version(s)")
@@ -68,21 +64,14 @@ gettext("[core] Edit item")
 gettext("[core] Change item permissions")
 gettext("[core] Delete item")
 gettext("Upgrading permissions")
-gettext("Upgrading permissions (%d items complete, %d remaining)")
 gettext("Deleting old permission tables")
 gettext("Registered Users") /* also in: templates/AdminPerformance.tpl */
 gettext("All Users")
 gettext("Detecting broken derivatives")
-gettext("Detecting broken derivatives, loading (%d derivatives checked, %d remaining)")
-gettext("Detecting broken derivatives (%d derivatives checked, %d remaining)")
-gettext("Detecting broken derivatives, saving (%d derivatives checked, %d remaining)")
-gettext("Detecting broken derivatives, saving item %d of %d (%d derivatives complete, %d remaining)")
 gettext("Clearing fast-download cache")
 gettext("Deleting old fast-download cache")
-gettext("Deleting old session files (iteration %d)")
 gettext("Updating panorama items")
 gettext("Optimizing AccessSubscriberMap table")
-gettext("Upgrading Plugin Translations")
 gettext("Converting Schema Table")
 gettext("Loading Table Descriptions")
 gettext("Site Admins")
@@ -91,11 +80,14 @@ gettext("Guest")
 gettext("Gallery") /* also in: module.inc */
 gettext("This is the main page of your Gallery")
 gettext("Converting MySQL data to UTF8")
+gettext("Upgrading permissions (%d items complete, %d remaining)")
+gettext("Detecting broken derivatives, loading (%d derivatives checked, %d remaining)")
+gettext("Detecting broken derivatives (%d derivatives checked, %d remaining)")
+gettext("Detecting broken derivatives, saving (%d derivatives checked, %d remaining)")
+gettext("Detecting broken derivatives, saving item %d of %d (%d derivatives complete, %d remaining)")
+gettext("Deleting old session files (iteration %d)")
 
 /* ItemAdd.inc */
-gettext("Adding items")
-gettext("Processing items")
-gettext("Extracting archive")
 gettext("add items")
 
 /* ItemAddAlbum.inc */
@@ -106,22 +98,28 @@ gettext("add sub-album")
 gettext("add items confirmation")
 
 /* ItemAddFromBrowser.inc */
-gettext("Input file %s exceeds maximum permitted file size")
-gettext("Input file %s exceeds file size specified in the form")
-gettext("Input file %s was only partially uploaded")
-gettext("Input file %s was not uploaded. Error %d")
-ngettext("%d megabyte", "%d megabytes")
-ngettext("%d kilobytes", "%d kilobytes")
 gettext("Base filename")
 gettext("Caption") /* also in: templates/ItemAddFromBrowser.tpl */
 gettext("Blank")
 gettext("From Web Browser")
+ngettext("%d megabyte", "%d megabytes")
+ngettext("%d kilobytes", "%d kilobytes")
+gettext("Input file %s exceeds maximum permitted file size")
+gettext("Input file %s exceeds file size specified in the form")
+gettext("Input file %s was only partially uploaded")
+gettext("Input file %s was not uploaded. Error %d")
 
 /* ItemAdmin.inc */
 gettext("Gallery Item Administration")
 
 /* ItemDelete.inc */
 gettext("delete an item")
+
+/* ItemDeleteConfirmation.inc */
+gettext("delete confirmation")
+
+/* ItemDeleteSingle.inc */
+gettext("delete %s")
 
 /* ItemEdit.inc */
 gettext("edit %s")
@@ -130,10 +128,10 @@ gettext("edit %s")
 gettext("Settings saved successfully.")
 gettext("Apply resized image settings")
 gettext("Preparing...")
-gettext("Processing image %d of %d") /* also in: classes/BuildDerivativesTask.class */
 gettext("Apply thumbnail settings")
 gettext("Rebuilding thumbnails...")
 gettext("Album") /* also in: classes/GalleryAlbumItem.class */
+gettext("Processing image %d of %d") /* also in: classes/BuildDerivativesTask.class */
 
 /* ItemEditAnimation.inc */
 gettext("Changes saved successfully") /* also in: ItemEditItem.inc ItemEditMovie.inc ItemEditPhoto.inc */
@@ -219,22 +217,18 @@ gettext("Add Items") /* also in: templates/ItemAdd.tpl templates/ItemAddFromBrow
 gettext("Edit Album")
 gettext("Edit Photo")
 gettext("Edit Movie")
-gettext("Edit %s") /* also in: templates/ItemEdit.tpl */
 gettext("Add Album")
 gettext("Edit Permissions")
 gettext("View Permissions")
 gettext("Delete Album")
 gettext("Delete Photo")
 gettext("Delete Movie")
-gettext("Delete %s")
 gettext("Move Album")
 gettext("Move Photo")
 gettext("Move Movie")
-gettext("Move %s") /* also in: templates/ItemMoveSingle.tpl */
 gettext("Edit Captions") /* also in: templates/ItemEditCaptions.tpl */
 gettext("Make Highlight")
 gettext("Reorder Items")
-gettext("Delete Items") /* also in: templates/ItemDelete.tpl */
 gettext("Site Admin")
 gettext("Login") /* also in: classes/CoreCaptchaAdminOption.class templates/UserLogin.tpl templates/blocks/LoginBlock.tpl */
 gettext("Your Account")
@@ -243,33 +237,28 @@ gettext("Plugins") /* also in: templates/AdminPlugins.tpl templates/AdminReposit
 gettext("Users")
 gettext("Groups")
 gettext("Performance")
-gettext("Event Logs")
 gettext("Toolkit Priority") /* also in: templates/AdminToolkitPriority.tpl */
 gettext("Graphics Toolkits")
 gettext("Account Settings") /* also in: templates/UserLocked.tpl templates/UserPreferences.tpl */
 gettext("Change Password") /* also in: templates/UserChangePassword.tpl templates/UserRecoverPasswordConfirm.tpl */
+gettext("Edit %s") /* also in: templates/ItemEdit.tpl */
+gettext("Delete %s") /* also in: templates/ItemDeleteSingle.tpl */
+gettext("Move %s") /* also in: templates/ItemMoveSingle.tpl */
 
 /* classes/BuildDerivativesTask.class */
 gettext("Build all thumbnails/resizes")
 gettext("Ensure data files for all derivatives (thumbnails, etc) have been built and rebuild broken ones.")
 gettext("Build All Thumbnails/Resizes")
+gettext("Debug output for failed items:")
 gettext("Checked %d items")
 gettext("%d items built")
 gettext("%d items failed")
-gettext("Debug output for failed items:")
 
 /* classes/ConvertDatabaseToUtf8Task.class */
 gettext("Convert MySQL database to UTF8")
 gettext("If you created your database with MySQL 3.x and you upgrade to MySQL 4.x, you will experience scrambled characters until you convert your database to use UTF8.  This operation is harmless if your database is already converted, so it's safe to try it if you're unsure.  After using this, you should run the 'Delete database cache' task to get rid of any corruption in your cache.")
 gettext("Database successfully converted to UTF8")
 gettext("No conversion required")
-
-/* classes/DatabaseBackupTask.class */
-gettext("Backup the database")
-gettext("Backup all your Gallery data (item data, users, comments, etc.) to a single file in your storage folder.  The backup does not include the image files.  Before running the backup, your Gallery installation needs to be set into maintenance mode, as this is not done automatically.")
-gettext("Backing up Gallery Database")
-gettext("Exporting...")
-gettext("Database backup completed and the backup file is located at: %s")
 
 /* classes/DeleteSessionsTask.class */
 gettext("Delete user sessions")
@@ -284,7 +273,7 @@ gettext("Unable to delete directory: %s") /* also in: classes/FlushTemplatesTask
 
 /* classes/FlushTemplatesTask.class */
 gettext("Delete template cache")
-gettext("Gallery compiles template files and saves them for increased performance.  If you're experiencing problems that say <i>Smarty error</i> then you might try running this task.  Also run this if you add or remove any local/*.tpl or theme override so Smarty will find the right file.")
+gettext("Gallery compiles template files and saves them for increased performance.  If you're experiencing problems that say <i>Smarty error</i> then you might try running this task.  Also run this if you remove a local/*.tpl file so Smarty will switch back to the default tpl file.")
 gettext("Template cache deleted successfully")
 
 /* classes/GalleryAlbumItem.class */
@@ -303,7 +292,7 @@ gettext("Search summaries")
 gettext("Search titles")
 gettext("Description") /* also in: classes/GallerySortInterface_1_2.class templates/AdminPlugins.tpl templates/AdminRepository.tpl templates/ItemAddAlbum.tpl templates/ItemAddFromBrowser.tpl templates/ItemEditCaptions.tpl templates/ItemEditItem.tpl */
 gettext("Keywords") /* also in: classes/GallerySortInterface_1_2.class templates/ItemAddAlbum.tpl templates/ItemEditCaptions.tpl templates/ItemEditItem.tpl */
-gettext("Summary") /* also in: classes/GallerySortInterface_1_2.class templates/AdminEventLogViewer.tpl templates/ItemAddAlbum.tpl templates/ItemAddFromBrowser.tpl templates/ItemEditCaptions.tpl templates/ItemEditItem.tpl */
+gettext("Summary") /* also in: classes/GallerySortInterface_1_2.class templates/ItemAddAlbum.tpl templates/ItemAddFromBrowser.tpl templates/ItemEditCaptions.tpl templates/ItemEditItem.tpl */
 gettext("Title") /* also in: classes/GallerySortInterface_1_2.class templates/ItemAddAlbum.tpl templates/ItemEditCaptions.tpl templates/ItemEditItem.tpl */
 gettext("Owner") /* also in: templates/ItemPermissions.tpl */
 
@@ -353,10 +342,11 @@ gettext("Ascending")
 gettext("Descending")
 
 /* classes/GalleryTemplateAdapter.class */
-gettext("Powered by Gallery v%s")
 gettext("Validation disabled until you set allowSessionAccess in config.php")
 gettext("This page is valid XHTML 1.0")
 gettext("Donate to the Gallery project")
+gettext("G2.2: Double Double")
+gettext("Powered by Gallery v%s")
 gettext("Estimated time remaining: %d:%02d")
 gettext("Memory used: %s, total: %s")
 
@@ -397,8 +387,8 @@ gettext("spreadsheet")
 gettext("file")
 
 /* classes/GalleryUrlGenerator.class */
-gettext("Back to %s")
 gettext("Back")
+gettext("Back to %s")
 
 /* classes/GalleryUser.class */
 gettext("User")
@@ -427,7 +417,6 @@ gettext("System information")
 gettext("Get system details; useful for copy/paste into G2 support forum.")
 gettext("core")
 gettext("unknown")
-gettext("API = Core %s, Module %s, Theme %s, Embed %s")
 gettext("Gallery version") /* also in: templates/ErrorPage.tpl */
 gettext("PHP version") /* also in: templates/ErrorPage.tpl */
 gettext("Webserver") /* also in: templates/ErrorPage.tpl */
@@ -441,23 +430,6 @@ gettext("disabled") /* also in: templates/AdminPluginsLegend.tpl */
 gettext("Locale")
 gettext("Browser") /* also in: templates/ErrorPage.tpl */
 gettext("Rows in %s table = %d")
-
-/* classes/GalleryStorage/GalleryDatabaseExport.class */
-gettext("The %s \"%s\" is not installed and will not be backed up.")
-gettext("\"%s\" has no creation sql and will not be backed up.")
-gettext("Unable to load table description for \"%s\", no data will be exported.")
-
-/* classes/GalleryStorage/GalleryDatabaseImport.class */
-gettext("Unable to find the XML parser.  The PHP XML parsing extension must be loaded.  Terminating database import.")
-gettext("The exported file is not the correct version. Expecting %s recieved %s.")
-gettext("Unable to close import file: %s")
-gettext("Unable to open import file: %s")
-gettext("Import file doesn't exist: %s")
-gettext("Plugin %s is not currently available.")
-gettext("The available version of plugin \"%s\" may not be compatible with the imported version.")
-gettext("The currently installed core API version required by \"%s\" may not be compatible with the imported version.")
-gettext("The installed module API version required by \"%s\" may not be compatible with the imported version.")
-gettext("The installed theme API version required by \"%s\" is not compatible with the imported version.")
 
 /* classes/helpers/GalleryThemeHelper_medium.class */
 gettext("Successfully saved theme settings") /* also in: templates/AdminThemes.tpl */
@@ -480,7 +452,7 @@ gettext("Specify how dates and times are displayed by Gallery.  See %sphp.net%s 
 gettext("Style")
 gettext("Format")
 gettext("Sample")
-gettext("Date") /* also in: templates/AdminEventLogViewer.tpl */
+gettext("Date")
 gettext("Time")
 gettext("Date/Time")
 gettext("Filesystem Permissions")
@@ -548,7 +520,7 @@ gettext("Create User") /* also in: templates/AdminUsers.tpl */
 gettext("Delete A Group")
 gettext("Are you sure?") /* also in: templates/AdminDeleteUser.tpl templates/AdminMaintenance.tpl */
 gettext("This will completely remove %s from Gallery.  There is no undo!")
-gettext("Delete") /* also in: templates/AdminDeleteUser.tpl templates/AdminGroups.tpl templates/AdminUsers.tpl templates/ItemDelete.tpl */
+gettext("Delete") /* also in: templates/AdminDeleteUser.tpl templates/AdminGroups.tpl templates/AdminUsers.tpl templates/ItemDelete.tpl templates/ItemDeleteSingle.tpl */
 
 /* templates/AdminDeleteUser.tpl */
 gettext("Delete a User")
@@ -572,9 +544,9 @@ ngettext("Removed user '%s' from group '%s'", "Removed %s users from group '%s'"
 ngettext("This group contains %d user", "This group contains %d users")
 gettext("Members")
 gettext("&laquo; first") /* also in: templates/AdminGroups.tpl templates/AdminUsers.tpl */
-gettext("&laquo; back") /* also in: templates/AdminEventLogViewer.tpl templates/AdminGroups.tpl templates/AdminUsers.tpl */
+gettext("&laquo; back") /* also in: templates/AdminGroups.tpl templates/AdminUsers.tpl */
 gettext("Viewing page %d of %d") /* also in: templates/AdminGroups.tpl templates/AdminUsers.tpl */
-gettext("next &raquo;") /* also in: templates/AdminEventLogViewer.tpl templates/AdminGroups.tpl templates/AdminUsers.tpl */
+gettext("next &raquo;") /* also in: templates/AdminGroups.tpl templates/AdminUsers.tpl */
 gettext("last &raquo;") /* also in: templates/AdminGroups.tpl templates/AdminUsers.tpl */
 gettext("Filter") /* also in: templates/AdminGroups.tpl templates/AdminUsers.tpl */
 gettext("Clear") /* also in: templates/AdminGroups.tpl templates/AdminUsers.tpl */
@@ -601,19 +573,6 @@ gettext("Locked users are unable to edit their own account information. (Passwor
 gettext("Reset failed login count.")
 ngettext("%d failed login attempt since the last successful login.", "%d failed login attempts since the last successful login.")
 
-/* templates/AdminEventLogViewer.tpl */
-gettext("Recent Events")
-gettext("Type")
-gettext("Location")
-gettext("Client")
-gettext("No events have been reported yet.")
-gettext("Event Details")
-gettext("User Id")
-gettext("Referer")
-gettext("Details")
-gettext("no summary")
-gettext("An error occurred while retrieving the event log entry details.")
-
 /* templates/AdminGroups.tpl */
 gettext("Group Management")
 gettext("Removed group '%s'")
@@ -635,18 +594,8 @@ ngettext("%d group matches your filter", "%d groups match your filter")
 
 /* templates/AdminMaintenance.tpl */
 gettext("System Maintenance")
-gettext("Gallery must be in maintenance mode before the task can be run.")
 gettext("Completed %s task successfully.")
 gettext("The %s task failed to complete successfully.")
-gettext("Maintenance Mode has been turned on.")
-gettext("Maintenance Mode has been turned off.")
-gettext("Maintenance Mode")
-gettext("Restrict user access to the system while maintenance is being performed.")
-gettext("Maintenance Mode Url")
-gettext("The Maintenance Mode Url specifies where requests will be redirected when access to the site has been restricted by the administrator.")
-gettext("If left blank Gallery will display a default page with an administrator login link. This page will be themed when the code base is up to date, otherwise it will display a plain unstyled page.")
-gettext("For example: /maintenance.html")
-gettext("Set")
 gettext("Task name")
 gettext("Last run")
 gettext("Success/Fail")
@@ -673,9 +622,6 @@ gettext("Medium acceleration")
 gettext("High acceleration")
 gettext("Guest Users")
 gettext("Expires after:")
-gettext("Template Cache")
-gettext("For optimal performance, Gallery caches all templates.  If you would like to %scustomize your template files%s, you should disable template caching temporarily so that changes take effect immediately without clearing the template cache.")
-gettext("Enable template caching")
 gettext("Clear Saved Pages")
 
 /* templates/AdminPlugins.tpl */
@@ -690,12 +636,12 @@ gettext("Status: Incompatible Plugin (Inactive)")
 gettext("Status: Inactive (Configuration Required)")
 gettext("__PLUGIN__ needs configuration")
 gettext("__PLUGIN__ deleted")
-gettext("Warning!") /* also in: templates/ItemDeleteJs.tpl templates/ItemMove.tpl */
+gettext("Warning!")
 gettext("Do you really want to uninstall __PLUGIN__?")
 gettext("This will also remove any permissions and clean up any data created by this module.")
 gettext("This plugin will be uninstalled, but its files will be kept so that you can reinstall it.")
-gettext("Yes") /* also in: templates/ItemDeleteJs.tpl */
-gettext("No") /* also in: templates/ItemDeleteJs.tpl */
+gettext("Yes")
+gettext("No")
 gettext("Do you really want to delete __PLUGIN__?")
 gettext("This plugin will be uninstalled and its files will be deleted permanently.")
 gettext("The files of this plugin will be deleted permanently.")
@@ -731,9 +677,7 @@ gettext("Repository")
 gettext("Please make sure that your internet connection is set up properly or try again later.")
 gettext("Failed to scan status from plugin: %s.")
 gettext("Your local copy of the repository was broken and has been fixed.  Please download the plugin list again.")
-gettext("Failed to download the following packages for the %s plugin:")
-gettext("Failed to install the %s plugin because the following files/directories could not be modified:")
-gettext("Some plugins could not be automatically upgraded because they are in use.  Please return to the %sPlugins%s page and click the upgrade link for each of the following plugins:")
+gettext("Failed to download the %s plugin because the following files/directories could not be modified:")
 gettext("The repository index has been successfully updated.")
 gettext("All plugins are already up-to-date.")
 gettext("%s plugin updated.")
@@ -806,7 +750,6 @@ gettext("Default sort order")
 gettext("with") /* also in: templates/ItemEditAlbum.tpl */
 gettext("The %s theme is incompatible with your Gallery version or no longer available.  Please upgrade the %s theme or pick another default theme.")
 gettext("New albums")
-gettext("To activate more themes visit the %sPlugins%s page.")
 gettext("Save Defaults")
 gettext("%s Theme Settings")
 gettext("These are the global settings for the theme.  They can be overridden at the album level.")
@@ -874,9 +817,8 @@ gettext("Error Detail")
 gettext("System Information")
 
 /* templates/ItemAdd.tpl */
-gettext("Not all of the specified items have been added successfully.")
 gettext("You don't have any Graphics Toolkit activated that can handle JPEG images.  If you add images, you will probably not have any thumbnails.")
-gettext("Visit the %sModules%s page to activate a Graphics Toolkit.")
+gettext("Visit the <a href=\"%s\">Modules</a> page to activate a Graphics Toolkit.")
 
 /* templates/ItemAddAlbum.tpl */
 gettext("Add Sub-Album")
@@ -912,6 +854,7 @@ gettext("Assign caption to:")
 gettext("No Thumbnail")
 
 /* templates/ItemDelete.tpl */
+gettext("Delete Items")
 gettext("No items were selected for deletion")
 ngettext("Successfully deleted %d item", "Successfully deleted %d items")
 gettext("This album contains no items to delete")
@@ -928,9 +871,14 @@ gettext("Invert") /* also in: templates/ItemMove.tpl */
 gettext("Previous Page") /* also in: templates/ItemMove.tpl */
 gettext("Next Page") /* also in: templates/ItemMove.tpl */
 
-/* templates/ItemDeleteJs.tpl */
-gettext("Do you really want to delete ")
-gettext("Delete more items...")
+/* templates/ItemDeleteConfirmation.tpl */
+gettext("Deletion Complete")
+gettext("Item successfully deleted")
+
+/* templates/ItemDeleteSingle.tpl */
+gettext("Are you sure you want to delete this %s?")
+ngettext("It contains %d item.", "It contains %d items.")
+gettext("There is no undo!")
 
 /* templates/ItemEdit.tpl */
 gettext("There was a problem processing your request.") /* also in: templates/ItemMove.tpl */
@@ -1055,9 +1003,7 @@ ngettext("Successfully moved %d item", "Successfully moved %d items")
 gettext("This album contains no items to move.")
 gettext("Source") /* also in: templates/blocks/PhotoSizes.tpl */
 gettext("Choose the items you want to move")
-gettext("OK")
 gettext("The destination you chose does not accept sub-albums, so all sub-albums have been deselected.")
-gettext("Warning")
 gettext("The destination you chose only accepts sub-albums, so all non-albums have been deselected.")
 gettext("You are not allowed to move this item away from here.")
 gettext("You are not allowed to move an album to the chosen destination.")
@@ -1126,16 +1072,14 @@ gettext("Admin Login")
 gettext("Enter a URL")
 gettext("Enter some text describing the URL")
 gettext("Enter an image URL")
-// HINT: Button label for Bold
-gettext("B")
-// HINT: Button label for italic
-gettext("i")
+gettext("B <!-- Button label for Bold -->")
+gettext("i <!-- Button label for italic -->")
 gettext("list")
 gettext("bullet")
 gettext("url")
 gettext("image")
 gettext("color")
-gettext("You can also use the %scolor name%s for example: %sYour Text%s")
+gettext("You can also use the <a href=\"%s\" target=\"_new\">color name</a> for example: %s")
 
 /* templates/ShowItemError.tpl */
 gettext("Configuration Error: Missing Theme")
@@ -1172,9 +1116,9 @@ gettext("Your administrator has locked this account, preventing changes from bei
 /* templates/UserLogin.tpl */
 gettext("Login to your account")
 gettext("Your password has been recovered, please login.")
-gettext("Logins to this account are temporarily disabled due to multiple failed login attempts.  Wait for access to be restored, or use the %srecover password%s page to re-enable this account.")
+gettext("Logins to this account are temporarily disabled due to multiple failed login attempts.  Wait for access to be restored, or use the <a href=\"%s\">recover password</a> page to re-enable this account.")
 gettext("Your login information is incorrect.  Please try again.")
-gettext("Lost or forgotten passwords can be retrieved using the %srecover password%s page")
+gettext("Lost or forgotten passwords can be retrieved using the <a href=\"%s\">recover password</a> page")
 gettext("Welcome, %s!")
 
 /* templates/UserPreferences.tpl */
@@ -1213,8 +1157,8 @@ gettext("Refresh")
 
 /* templates/UserRecoverPasswordConfirm.tpl */
 gettext("This page will allow you to reset the password on your account.")
-gettext("There is no request which matches the username and authorization provided. Request a new authorization from the %slost password page%s.")
-gettext("The request you are trying to access has expired.  Request a new authorization from the %slost password page%s.")
+gettext("There is no request which matches the username and authorization provided. Request a new authorization from the <a href=\"%s\">lost password page</a>")
+gettext("The request you are trying to access has expired.  Request a new authorization from the <a href=\"%s\">lost password page</a>.")
 gettext("Authorization missing")
 gettext("Username missing")
 gettext("Submit")
@@ -1251,6 +1195,7 @@ gettext("Navigation")
 /* templates/blocks/Navigator.tpl */
 gettext("next")
 gettext("last")
+gettext("Page %d of %d")
 gettext("%d of %d")
 gettext("first")
 gettext("previous")

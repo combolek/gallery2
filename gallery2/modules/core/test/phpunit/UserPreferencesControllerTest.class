@@ -33,10 +33,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 
     function setUp() {
 	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	$session =& $gallery->getSession();
 	$this->_currentLanguage = $session->get('core.language');
@@ -47,7 +44,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
                                      'language' => 'te',
                                      'locked' => 0));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->_markForCleanup($this->_user);
@@ -59,10 +56,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 	global $gallery;
 	$session =& $gallery->getSession();
 	$session->put('core.language', $this->_currentLanguage);
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
+	parent::tearDown();
     }
 
     function testCancel() {
@@ -108,7 +102,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 	/* Load back the user object and make sure the data got saved */
 	list ($ret, $this->_user) = $this->_user->refresh();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals('full name', $this->_user->getFullName());
@@ -134,7 +128,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 	/* Load back the user object and make sure the data got saved */
 	list ($ret, $this->_user) = $this->_user->refresh();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals('full name', $this->_user->getFullName());
@@ -245,7 +239,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 	/* Load back the user object and make sure the data got saved */
 	list ($ret, $this->_user) = $this->_user->refresh();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals('full name', $this->_user->getFullName());
@@ -277,7 +271,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 	/* Load back the user object and make sure the data got not saved */
 	list ($ret, $this->_user) = $this->_user->refresh();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals('Test User', $this->_user->getFullName());
@@ -312,7 +306,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 	/* Load back the user object and make sure the data got not saved */
 	list ($ret, $this->_user) = $this->_user->refresh();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals('Test User', $this->_user->getFullName());
@@ -343,7 +337,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 	/* Load back the user object and make sure the data got not saved */
 	list ($ret, $this->_user) = $this->_user->refresh();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals('Test User', $this->_user->getFullName());
@@ -373,7 +367,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
                                      'language' => 'te',
                                      'locked' => 1));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->_markForCleanup($this->_user2);
@@ -392,7 +386,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 	global $gallery;
 	list ($ret, $user) = $this->_createRandomUser(null, 'pass&word');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($user);
 	$gallery->setActiveUser($user);
@@ -412,7 +406,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 	/* Load back the user object and make sure the data got saved */
 	list ($ret, $user) = $user->refresh();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals('full name', $user->getFullName());
@@ -424,12 +418,12 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 	list ($ret, $adminGroupId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.adminGroup');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = GalleryCoreApi::addUserToGroup($this->_user->getId(), $adminGroupId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
     }
 }

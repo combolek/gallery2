@@ -72,15 +72,9 @@ class GalleryCoreApi {
      * - remove GalleryUtilities::utf8Substring (moved to GalleryCoreApi)
      * - remove lib/wz_dragdrop/ (currently used by G2.1's watermark module)
      * - refactor renderer code (methods: getRenderer and render, GalleryEntity vs GalleryItem)
-     * - remove support for {modules,themes}/.../locale dirs from lib/tools/po scripts
-     *   from GalleryTranslatorHelper_medium::installTranslationsForPlugin,
-     *   and from getPackageNames() in lib/tools/repository/classes/RepositoryDescriptor.class
-     * - remove resourceGetTemplateBaseDir from GalleryTemplate class
-     * - delete GalleryTestCase::failWithStatus
-     * - loadEntitiesById and deleteEntity: make optional $requiredEntityType mandatory
      */
     function getApiVersion() {
-	return array(7, 33);
+	return array(7, 18);
     }
 
     /**
@@ -291,20 +285,11 @@ class GalleryCoreApi {
     /**
      * Get the status of all plugins of a given type
      *
-     * Notes:
-     *   - Some array elements are empty for uninstalled plugins
-     *     ('version', 'required*Api', 'callbacks').
-     *   - Installed but unavailable plugins are not listed.
-     *
      * @param string $pluginType
      * @param bool $ignoreCache (optional) true if we want to ignore the cache
      * @return array object GalleryStatus as status code
      *                      array (moduleId => array('active' => true/false,
-     *                                               'available' => true/false,
-     *						     'callbacks' => string,
-     *						     'requiredCoreApi' => array
-     *						     'requiredModuleApi' => array,
-     *						     'version' => string)
+     *                                               'available' => true/false)
      */
     function fetchPluginStatus($pluginType, $ignoreCache=false) {
 	GalleryCoreApi::requireOnce(
@@ -313,7 +298,7 @@ class GalleryCoreApi {
     }
 
     /**
-     * Return a plugin list by plugin type of all installed plugins.
+     * Return a plugin list by plugin type
      *
      * @param string $pluginType
      * @return array GalleryStatus a status code
@@ -1050,7 +1035,7 @@ class GalleryCoreApi {
     /**
      * Load the derivative images that have the specified source id(s) with the type(s) specified
      *
-     * @param array $ids Derivative source (GalleryFileSystemEntity or GalleryDerivative) ids
+     * @param array $ids GalleryItem ids
      * @param array $types derivative types (eg. DERIVATIVE_TYPE_IMAGE_THUMBNAIL)
      * @return array object GalleryStatus a status code
      *               array(GalleryItem id => GalleryDerivativeImage, ...)
@@ -1807,18 +1792,6 @@ class GalleryCoreApi {
     }
 
     /**
-     * Fetch the preferred language of a specific user.
-     *
-     * @param int $userId
-     * @return array object GalleryStatus a status code
-     *               string code of preferred locale
-     */
-    function fetchLanguageCodeForUser($userId) {
-	GalleryCoreApi::requireOnce('modules/core/classes/helpers/GalleryUserHelper_medium.class');
-	return GalleryUserHelper_medium::fetchLanguageCodeForUser($userId);
-    }
-
-    /**
      * Given a complete logical path, return the item id that it refers to.
      *
      * @param string $path
@@ -2277,33 +2250,25 @@ class GalleryCoreApi {
      * Load the GalleryEntities with the ids specified
      *
      * @param mixed $ids the ids (or id) of the GalleryEntities to load
-     * @param mixed $requiredEntityType (optional) Throw an ERROR_MISSING_OBJECT if the loaded
-     *              entity doesn't extend the given entity-type (or types), e.g. 'GalleryItem'.
-     *              Specify 'GalleryEntity' if any entity type is allowed.
      * @return array object GalleryStatus a status code,
      *               mixed one GalleryEntity or an array of GalleryEntities
-     * @deprecated $requiredEntityType will no longer be optional after the next major API change
      */
-    function loadEntitiesById($ids, $requiredEntityType=null) {
+    function loadEntitiesById($ids) {
 	GalleryCoreApi::requireOnce(
 	    'modules/core/classes/helpers/GalleryEntityHelper_simple.class');
-	return GalleryEntityHelper_simple::loadEntitiesById($ids, $requiredEntityType);
+	return GalleryEntityHelper_simple::loadEntitiesById($ids);
     }
 
     /**
      * Delete the entity with the given id
      *
      * @param int $id the id of a GalleryEntity to delete
-     * @param mixed $requiredEntityType (optional) Throw an ERROR_MISSING_OBJECT if the loaded
-     *               entity doesn't extend the given entity-type (or types).
-     *               Specify 'GalleryEntity' if any entity type is allowed.
      * @return object GalleryStatus a status code
-     * @deprecated $requiredEntityType will no longer be optional after the next major API change
      */
-    function deleteEntityById($id, $requiredEntityType=null) {
+    function deleteEntityById($id) {
 	GalleryCoreApi::requireOnce(
 	    'modules/core/classes/helpers/GalleryEntityHelper_medium.class');
-	return GalleryEntityHelper_medium::deleteEntityById($id, $requiredEntityType);
+	return GalleryEntityHelper_medium::deleteEntityById($id);
     }
 
     /**
@@ -2795,11 +2760,9 @@ class GalleryCoreApi {
      * @param string $mapName the map we're working on
      * @param array $match the entries to match
      * @param array $change the values to change
-     * @param boolean $useNonTransactionalConnection (optional) set to true if we should use a new
-     *                non transactional database connection for this operation.  Default is false.
      * @return object GalleryStatus a status code
      */
-    function updateMapEntry($mapName, $match, $change, $useNonTransactionalConnection=false) {
+    function updateMapEntry($mapName, $match, $change) {
 	global $gallery;
 
 	if (sizeof($match) == 0 || sizeof($change) == 0) {
@@ -2807,7 +2770,7 @@ class GalleryCoreApi {
 	}
 
 	$storage =& $gallery->getStorage();
-	$ret = $storage->updateMapEntry($mapName, $match, $change, $useNonTransactionalConnection);
+	$ret = $storage->updateMapEntry($mapName, $match, $change);
 	if ($ret) {
 	    return $ret;
 	}
@@ -2869,15 +2832,13 @@ class GalleryCoreApi {
      *
      * @param string $mapName the map we're working on
      * @param array $data an associative array of the entry data
-     * @param boolean $useNonTransactionalConnection (optional) set to true if we should use a new
-     *                non transactional database connection for this operation.  Default is false.
      * @return object GalleryStatus a status code
      */
-    function addMapEntry($mapName, $data, $useNonTransactionalConnection=false) {
+    function addMapEntry($mapName, $data) {
 	global $gallery;
 
 	$storage =& $gallery->getStorage();
-	$ret = $storage->addMapEntry($mapName, $data, $useNonTransactionalConnection);
+	$ret = $storage->addMapEntry($mapName, $data);
 	if ($ret) {
 	    return $ret;
 	}
@@ -3067,13 +3028,12 @@ class GalleryCoreApi {
     /**
      * Load the block configuration files from every module
      *
-     * @param bool $getInactive (optional) by default, only active modules' blocks are returned
      * @return array object GalleryStatus a status code
      *               array block configurations
      */
-    function loadAvailableBlocks($getInactive=false) {
+    function loadAvailableBlocks() {
 	GalleryCoreApi::requireOnce('modules/core/classes/helpers/GalleryThemeHelper_medium.class');
-	return GalleryThemeHelper_medium::loadAvailableBlocks($getInactive);
+	return GalleryThemeHelper_medium::loadAvailableBlocks();
     }
 
     /**
@@ -3118,83 +3078,6 @@ class GalleryCoreApi {
 	GalleryCoreApi::requireOnce(
 		'modules/core/classes/helpers/GalleryEntityHelper_medium.class');
 	return GalleryEntityHelper_medium::getExternalAccessMemberList($entityName);
-    }
-
-    /**
-     * Copy the translations for a given plugin into our locale hierarchy.
-     *
-     * @param string $pluginType 'module' or 'theme'
-     * @param string $pluginId the id of the plugin
-     * @return object GalleryStatus a status code
-     */
-    function installTranslationsForPlugin($pluginType, $pluginId) {
-	GalleryCoreApi::requireOnce(
-		'modules/core/classes/helpers/GalleryTranslatorHelper_medium.class');
-	GalleryTranslatorHelper_medium::installTranslationsForPlugin($pluginType, $pluginId);
-    }
-
-    /**
-     * Remove the translations for a given plugin from our locale hierarchy.
-     *
-     * @param string $pluginType 'module' or 'theme'
-     * @param string $pluginId the id of the plugin
-     * @return object GalleryStatus a status code
-     */
-    function removeTranslationsForPlugin($pluginType, $pluginId) {
-	GalleryCoreApi::requireOnce(
-		'modules/core/classes/helpers/GalleryTranslatorHelper_medium.class');
-	GalleryTranslatorHelper_medium::removeTranslationsForPlugin($pluginType, $pluginId);
-    }
-
-    /**
-     * Get the local path to the Gallery code base path (not URL or web root).  Optionally append a
-     * relative path.
-     * @param string $relativePath (optional) Relative path to append to the code base path.
-     * @return string local path to the Gallery code base.  If the optional parameter has not been
-     *                supplied the return value will have the trailing slash appended.
-     */
-    function getCodeBasePath($relativePath=null) {
-        static $codeBaseDirectory;
-        if (!isset($codeBaseDirectory)) {
-	    $codeBaseDirectory = dirname(dirname(dirname(dirname(__FILE__)))) . DIRECTORY_SEPARATOR;
-        }
-
-        return ($relativePath == null) ? $codeBaseDirectory : $codeBaseDirectory . $relativePath;
-    }
-
-    /**
-     * Check whether modification checks should be done to see if the compiled templates
-     * are still up to date. The result is cached in memory.
-     * @return boolean false if the compiled templates should be used without any checking
-     */
-    function shouldDoCompileCheck() {
-	GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
-	return GalleryTemplate::shouldDoCompileCheck();
-    }
-
-    /**
-     * Allows the application to programmatically set Gallery into or out of maintenance mode.
-     * @param mixed $mode This can either be a boolean flag or a string representing the url of the
-     * 			  custom maintenance mode page.
-     * @return object GalleryStatus a status code
-     */
-    function setMaintenanceMode($mode) {
-	GalleryCoreApi::requireOnce('modules/core/classes/helpers/MaintenanceHelper_simple.class');
-	return MaintenanceHelper_simple::setMaintenanceMode($mode);
-    }
-
-    /**
-     * Store a value in the event log.
-     * @param string $type a short string with the type of event
-     *                     (e.g.: 'Gallery Error', 'PHP Error', 'comment module')
-     * @param string $summary a brief summary of the event
-     * @param string $detail the event details
-     * @return object GalleryStatus a status code
-     */
-    function addEventLogEntry($type, $summary, $details) {
-	GalleryCoreApi::requireOnce(
-		'modules/core/classes/helpers/GalleryEventLogHelper_medium.class');
-	return GalleryEventLogHelper_advanced::addEventLogEntry($type, $summary, $details);
     }
 }
 ?>

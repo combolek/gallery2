@@ -32,12 +32,11 @@ class ImageBlockModule extends GalleryModule {
 	$this->setId('imageblock');
 	$this->setName($gallery->i18n('Image Block'));
 	$this->setDescription($gallery->i18n('Random, Most Recent or Most Viewed Photo or Album'));
-	$this->setVersion('1.1.2');
-	$this->_templateVersion = 1;
+	$this->setVersion('1.1.0');
 	$this->setGroup('blocks', $gallery->i18n('Blocks'));
 	$this->setCallbacks('registerEventListeners|getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 27));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setRequiredCoreApi(array(7, 10));
+	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
@@ -50,28 +49,6 @@ class ImageBlockModule extends GalleryModule {
 	GalleryCoreApi::registerEventListener('GalleryEntity::save', $listener, true);
 	GalleryCoreApi::registerEventListener('GalleryEntity::delete', $listener, true);
     }
-
-    /**
-     * @see GalleryModule::activate
-     */
-    function activate($postActivationEvent=true) {
-	/**
-	 * Our cache is probably out of date. Flush it. 
-	 * @todo What about the ImageBlockDisabledMap which is out of date as well?
-	 */
-	$ret = GalleryCoreApi::removeAllMapEntries('ImageBlockCacheMap');
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	list ($ret, $redirect) = parent::activate($postActivationEvent);
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	return array(null, $redirect);
-    }
-
 
     /**
      * @see GalleryModule::upgrade

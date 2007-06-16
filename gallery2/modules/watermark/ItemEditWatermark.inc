@@ -58,8 +58,7 @@ class ItemEditWatermark extends ItemEditPlugin {
 	    }
 
 	    if (empty($error)) {
-		list ($ret, $watermark) =
-		    GalleryCoreApi::loadEntitiesById($form['watermarkId'], 'WatermarkImage');
+		list ($ret, $watermark) = GalleryCoreApi::loadEntitiesById($form['watermarkId']);
 		if ($ret) {
 		    return array($ret, null, null, null);
 		}
@@ -141,7 +140,7 @@ class ItemEditWatermark extends ItemEditPlugin {
 	$total = count($itemIds);
 	while (!empty($itemIds)) {
 	    $batchIds = array_splice($itemIds, 0, 100);
-	    list ($ret, $items) = GalleryCoreApi::loadEntitiesById($batchIds, 'GalleryItem');
+	    list ($ret, $items) = GalleryCoreApi::loadEntitiesById($batchIds);
 	    if ($ret) {
 		return $ret;
 	    }
@@ -236,7 +235,7 @@ class ItemEditWatermark extends ItemEditPlugin {
 		    return $ret;
 		}
 
-		$ret = GalleryCoreApi::deleteEntityById($preferred->getId(), 'GalleryDerivative');
+		$ret = GalleryCoreApi::deleteEntityById($preferred->getId());
 		if ($ret) {
 		    return $ret;
 		}
@@ -343,7 +342,7 @@ class ItemEditWatermark extends ItemEditPlugin {
 
     /**
      * @see ItemEditPlugin::isSupported
-     * @todo Broaden this interface to allow a GalleryStatus return code
+     * @TODO: Broaden this interface to allow a GalleryStatus return code
      */
     function isSupported($item, $thumbnail) {
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'watermark');

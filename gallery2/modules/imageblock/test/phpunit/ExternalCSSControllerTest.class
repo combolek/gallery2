@@ -33,20 +33,19 @@ class ExternalCSSControllerTest extends GalleryControllerTestCase {
     }
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'imageblock');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	foreach (array('albumFrame' => 'frameA', 'itemFrame' => 'frameB') as $key => $value) {
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'imageblock', $key, $value);
 	    if ($ret) {
-		return $ret;
+		print $ret->getAsHtml();
+		return $this->failWithStatus($ret);
 	    }
 	}
 
@@ -93,7 +92,7 @@ class ExternalCSSControllerTest extends GalleryControllerTestCase {
 	foreach (array('albumFrame', 'itemFrame') as $key) {
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'imageblock', $key, '');
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	}
 

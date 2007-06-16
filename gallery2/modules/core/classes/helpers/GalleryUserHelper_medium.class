@@ -144,35 +144,13 @@ class GalleryUserHelper_medium {
 	} else {
 	    $result = $searchResults->nextResult();
 	    $id = $result[0];
-	    list ($ret, $user) = GalleryCoreApi::loadEntitiesById($id, 'GalleryUser');
+	    list ($ret, $user) = GalleryCoreApi::loadEntitiesById($id);
 	    if ($ret) {
 		return array($ret, null);
 	    }
 
 	    return array(null, $user);
 	}
-    }
-
-    /**
-     * @see GalleryCoreApi::fetchLanguageCodeForUser
-     */
-    function fetchLanguageCodeForUser($userId) {
-	global $gallery;
-	
-	list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
-	if ($ret) {
-	    return array($ret, null);
-	}
-	
-	$language = $user->getLanguage();
-	if (empty($language)) {
-	    list ($ret, $language) = 
-		GalleryCoreApi::getPluginParameter('module', 'core', 'default.language');
-            if ($ret) {
-		return array($ret, null);
-	    }
-	}
-	return array(null, $language);
     }
 
     /**
@@ -210,7 +188,7 @@ class GalleryUserHelper_medium {
 	}
 
 	/* First check if the User is a valid gallery user! */
-	list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
+	list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId);
 	if ($ret) {
 	    return $ret;
 	}
@@ -250,7 +228,7 @@ class GalleryUserHelper_medium {
 	}
 
 	/* Load all items */
-	list ($ret, $items) = GalleryCoreApi::loadEntitiesById($itemIds, 'GalleryItem');
+	list ($ret, $items) = GalleryCoreApi::loadEntitiesById($itemIds);
 	if ($ret) {
 	    return $ret;
 	}
@@ -266,7 +244,7 @@ class GalleryUserHelper_medium {
 		continue;
 	    }
 	    /* delete the item */
-	    $ret = GalleryCoreApi::deleteEntityById($item->getId(), 'GalleryItem');
+	    $ret = GalleryCoreApi::deleteEntityById($item->getId());
 	    if ($ret) {
 		return $ret;
 	    }
@@ -303,7 +281,7 @@ class GalleryUserHelper_medium {
 			$newModifiedAlbumIds[$albums[$albumId]->getParentId()] = 1;
 		    }
 		    /* delete albumItem */
-		    $ret = GalleryCoreApi::deleteEntityById($albumId, 'GalleryItem');
+		    $ret = GalleryCoreApi::deleteEntityById($albumId);
 		    if ($ret) {
 			return $ret;
 		    }

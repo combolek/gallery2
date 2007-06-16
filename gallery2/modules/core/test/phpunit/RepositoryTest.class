@@ -36,10 +36,7 @@ class RepositoryTest extends GalleryTestCase {
     var $_sampleIndex;
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	/* Set up mock storage. */
 	global $gallery;
@@ -61,10 +58,7 @@ class RepositoryTest extends GalleryTestCase {
 	global $gallery;
 	$gallery->_storage =& $this->_galleryStorage;
 
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
+	parent::tearDown();
     }
 
     /**
@@ -323,7 +317,7 @@ class RepositoryTest extends GalleryTestCase {
 
 	    list ($ret, $upgradeInfo) = $repository->getPluginUpgradeInfo('module', 'testModule');
 	    if ($ret) {
-		return ($ret);
+		$this->failWithStatus($ret);
 	    }
 
 	    $this->assertEquals($case['expectedUpgradeInfo'], $upgradeInfo,
@@ -360,7 +354,7 @@ class RepositoryTest extends GalleryTestCase {
 
 	    list ($ret, $packages) = $repository->getAllUpgradeablePackages();
 	    if ($ret) {
-		return ($ret);
+		$this->failWithStatus($ret);
 	    }
 	    $this->assertEquals(
 		$case['expectedPackages'], $packages, "package mismatch in case $i");
@@ -371,7 +365,7 @@ class RepositoryTest extends GalleryTestCase {
 	/* Get installed core version. */
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 	if ($ret) {
-	    return $ret;
+	    return array($ret, null, null);
 	}
 	$installedCoreVersion = $core->getVersion();
 
@@ -417,7 +411,7 @@ class RepositoryTest extends GalleryTestCase {
 
 	    list ($ret, $isAvailable, $apiVersions) = $repository->isCoreUpgradeAvailable();
 	    if ($ret) {
-		return ($ret);
+		$this->failWithStatus($ret);
 	    }
 	    $this->assertEquals($case['expectedRelation'] == 'newer', $isAvailable,
 				"Expected relation: {$case['expectedRelation']}, $isAvailable");
@@ -452,11 +446,11 @@ class RepositoryTest extends GalleryTestCase {
 	global $gallery;
 	list ($ret, $saveLanguage) = $gallery->getActiveLanguageCode();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$ret = $gallery->setActiveLanguageCode('en_US');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$testModule = $this->_sampleIndex['modules']['testModule'];
@@ -599,7 +593,7 @@ class RepositoryTest extends GalleryTestCase {
 		$repository->getRepositoryPluginList($case['pluginData']['pluginType'],
 		$case['pluginData']['showAll'],	$case['pluginData']['coreApis']);
 	    if ($ret) {
-		return ($ret);
+		$this->failWithStatus($ret);
 	    }
 
 	    $this->assertEquals($case['expectedPluginList'], $pluginList,
@@ -608,7 +602,7 @@ class RepositoryTest extends GalleryTestCase {
 
 	$ret = $gallery->setActiveLanguageCode($saveLanguage);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
     }
 
@@ -616,7 +610,7 @@ class RepositoryTest extends GalleryTestCase {
 	global $gallery;
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$testTheme = $this->_sampleIndex['themes']['testTheme'];
@@ -636,7 +630,7 @@ class RepositoryTest extends GalleryTestCase {
 	list ($ret, $pluginList) =
 		$repository->getRepositoryPluginList('theme', true,  $pluginData['coreApis']);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	if (!isset($pluginList['testTheme']['groupLabel'])) {
@@ -644,7 +638,7 @@ class RepositoryTest extends GalleryTestCase {
 	} else {
 	    list ($ret, $locale) = $gallery->getActiveLanguageCode();
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $data = array('en_GB' => 'en_GB-themes_testTheme-Test Group',
 			  'pt_BR' => 'pt_BR-themes_testTheme-Test Group',
@@ -678,7 +672,7 @@ class RepositoryTest extends GalleryTestCase {
 	$ret = $repository->updatePackageMetaData(
 	    'module', 'testModule', 'package', 'version', 'build', 'locked');
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 	$this->assertEquals(array('GalleryPluginPackageMap' => array(
 				      array('pluginType' => 'module',
@@ -704,7 +698,7 @@ class RepositoryTest extends GalleryTestCase {
 	$ret = $repository->updatePackageMetaData(
 	    'module', 'testModule', 'package', 'version', 'build', 'locked');
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 	$this->assertEquals(array('GalleryPluginPackageMap' => array(
 				      array('match' => array('pluginType' => 'module',
@@ -780,7 +774,7 @@ class RepositoryTest extends GalleryTestCase {
 								    'package2' => 1)));
 	list ($ret, $files) = $repository->getDownloadFileList($pluginData);
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(array('module' =>  array('testModule' => array(
@@ -825,7 +819,7 @@ class RepositoryTest extends GalleryTestCase {
 	list ($ret, $descriptor) = $repository->downloadAndUnpack(
 	    'module', 'testModule', 'testPackage', 'RepositoryTest.package');
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 	$this->assert(empty($descriptor), 'Descriptor should be empty after package download.');
 
@@ -833,7 +827,7 @@ class RepositoryTest extends GalleryTestCase {
 	list ($ret, $descriptor) = $repository->downloadAndUnpack(
 	    'module', 'testModule', 'testPackage', 'RepositoryTest.descriptor');
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 	$this->assertEquals(
 	    array('pluginId' => 'testModule', 'pluginType' => 'module',
@@ -1040,7 +1034,7 @@ class RepositoryTest extends GalleryTestCase {
 	$repository = new GalleryRepository();
 	$ret = $repository->verifyPackageIntegrity('package1', $testDescriptor);
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 
 	$this->assert($platform->isComplete(), $platform->getRemaining());
@@ -1066,7 +1060,7 @@ class RepositoryTest extends GalleryTestCase {
 
 	$ret = $repository->scanPlugin('module', 'RepositoryTest');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(
@@ -1117,7 +1111,7 @@ class RepositoryTest extends GalleryTestCase {
 
 	$ret = $repository->scanPlugin('module', 'RepositoryTest');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(
@@ -1160,7 +1154,7 @@ class RepositoryTest extends GalleryTestCase {
 
 	$ret = $repository->scanPlugin('module', 'RepositoryTest');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(
@@ -1211,7 +1205,7 @@ class RepositoryTest extends GalleryTestCase {
 
 	$ret = $repository->scanPlugin('module', 'RepositoryTest');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(
@@ -1232,7 +1226,7 @@ class RepositoryTest extends GalleryTestCase {
 	list ($ret, $repositories, $repositoryErrors) = GalleryRepository::getRepositories(
 	    array('works', 'broken'), 'RepositoryTest_GalleryRepository');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* 'broken' returns an error, 'works' is valid */

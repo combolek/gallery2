@@ -16,11 +16,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
-# 
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Core 1.2.17\n"
-"POT-Creation-Date: 2005-01-01 14:00-0600\n"
+"Project-Id-Version: Gallery: Core 1.2.0.3\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-06-07 09:29-0700\n"
 "PO-Revision-Date: 2007-03-14 15:47+0100\n"
 "Last-Translator: Wieland E. Kublun <wieland.kublun@gmx.net>, www.kublun.com\n"
 "Language-Team: Mexican Spanish <gallery-devel@lists.sourceforge.net>\n"
@@ -34,30 +35,6 @@ msgstr ""
 #, fuzzy
 msgid "Gallery Email Test"
 msgstr "M&oacute;dulos de Gallery"
-
-#, fuzzy, c-format
-msgid "%d minute"
-msgid_plural "%d minutes"
-msgstr[0] "%d minuto"
-msgstr[1] "%d minutos"
-
-#, fuzzy, c-format
-msgid "%d hour"
-msgid_plural "%d hours"
-msgstr[0] "%d hora"
-msgstr[1] "%d horas"
-
-#, fuzzy, c-format
-msgid "%d day"
-msgid_plural "%d days"
-msgstr[0] "%d d&iacute;a"
-msgstr[1] "%d d&iacute;as"
-
-#, fuzzy, c-format
-msgid "%d week"
-msgid_plural "%d weeks"
-msgstr[0] "%d semana"
-msgstr[1] "%d semanas"
 
 msgid "forever"
 msgstr "para siempre"
@@ -84,16 +61,32 @@ msgstr "Base de Datos"
 msgid "File"
 msgstr "Archivo: "
 
-msgid "&lt;none&gt;"
-msgstr "&lt;ninguno&gt;"
-
-#, fuzzy
-msgid "Link"
-msgstr "Login"
+#, fuzzy, c-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] "%d minuto"
+msgstr[1] "%d minutos"
 
 #, fuzzy, c-format
-msgid "Page %d of %d"
-msgstr "Visualizando p&aacute;gina %d de %d"
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] "%d hora"
+msgstr[1] "%d horas"
+
+#, fuzzy, c-format
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] "%d d&iacute;a"
+msgstr[1] "%d d&iacute;as"
+
+#, fuzzy, c-format
+msgid "%d week"
+msgid_plural "%d weeks"
+msgstr[0] "%d semana"
+msgstr[1] "%d semanas"
+
+msgid "<none>"
+msgstr "<ninguno>"
 
 msgid "No acceleration"
 msgstr "Sin aceleración"
@@ -142,10 +135,6 @@ msgid "Deleting Language Packs"
 msgstr "Lenguaje por defecto"
 
 #, fuzzy
-msgid "Synchronizing Language Packs"
-msgstr "Borrando Paquetes de Idioma"
-
-#, fuzzy
 msgid "Update completed with errors."
 msgstr "Actualización completa."
 
@@ -179,6 +168,9 @@ msgstr "Opciones de vista restauradas"
 #, fuzzy
 msgid "Installing the core module"
 msgstr "M&oacute;dulo Core de Gallery"
+
+msgid "key"
+msgstr "llave"
 
 msgid "All access"
 msgstr "Acceso Total"
@@ -215,10 +207,6 @@ msgstr "[core] Borrar elemento"
 msgid "Upgrading permissions"
 msgstr "editar permisos"
 
-#, c-format
-msgid "Upgrading permissions (%d items complete, %d remaining)"
-msgstr "Actualizando permisos (%d elementos competos, faltan %d)"
-
 #, fuzzy
 msgid "Deleting old permission tables"
 msgstr "editar permisos %s"
@@ -233,23 +221,6 @@ msgstr "Todos los usuarios"
 msgid "Detecting broken derivatives"
 msgstr "Detectando derivadas rotas"
 
-#, fuzzy, c-format
-msgid "Detecting broken derivatives, loading (%d derivatives checked, %d remaining)"
-msgstr "Detectando derivadas rotas, cargando "
-
-#, fuzzy, c-format
-msgid "Detecting broken derivatives (%d derivatives checked, %d remaining)"
-msgstr "Detectando derivadas rotas, guardando "
-
-#, fuzzy, c-format
-msgid "Detecting broken derivatives, saving (%d derivatives checked, %d remaining)"
-msgstr "Detectando derivadas rotas, guardando "
-
-#, fuzzy, c-format
-msgid ""
-"Detecting broken derivatives, saving item %d of %d (%d derivatives complete, %d remaining)"
-msgstr "Actualizando permisos (%d elementos competos, faltan %d)"
-
 msgid "Clearing fast-download cache"
 msgstr "Borrando la cache de descarga rápida"
 
@@ -257,19 +228,11 @@ msgstr "Borrando la cache de descarga rápida"
 msgid "Deleting old fast-download cache"
 msgstr "editar permisos %s"
 
-#, fuzzy, c-format
-msgid "Deleting old session files (iteration %d)"
-msgstr "editar permisos %s"
-
 msgid "Updating panorama items"
 msgstr "Actualizando elementos de panorama"
 
 msgid "Optimizing AccessSubscriberMap table"
 msgstr "Optimizando tabla AccessSubscriberMap"
-
-#, fuzzy
-msgid "Upgrading Plugin Translations"
-msgstr "Actualizando permisos"
 
 msgid "Converting Schema Table"
 msgstr "Convirtiendo el Esquema de la Tabla"
@@ -297,16 +260,30 @@ msgstr "Esto es la parte superior de su Gallery"
 msgid "Converting MySQL data to UTF8"
 msgstr "Convirtiendo los datos en MySQL a UTF8"
 
-#, fuzzy
-msgid "Adding items"
-msgstr "agregar elementos"
+#, c-format
+msgid "Upgrading permissions (%d items complete, %d remaining)"
+msgstr "Actualizando permisos (%d elementos competos, faltan %d)"
 
-#, fuzzy
-msgid "Processing items"
-msgstr "Visualizando p&aacute;gina %d de %d"
+#, fuzzy, c-format
+msgid "Detecting broken derivatives, loading (%d derivatives checked, %d remaining)"
+msgstr "Detectando derivadas rotas, cargando "
 
-msgid "Extracting archive"
-msgstr "Extrayendo archivo"
+#, fuzzy, c-format
+msgid "Detecting broken derivatives (%d derivatives checked, %d remaining)"
+msgstr "Detectando derivadas rotas, guardando "
+
+#, fuzzy, c-format
+msgid "Detecting broken derivatives, saving (%d derivatives checked, %d remaining)"
+msgstr "Detectando derivadas rotas, guardando "
+
+#, fuzzy, c-format
+msgid ""
+"Detecting broken derivatives, saving item %d of %d (%d derivatives complete, %d remaining)"
+msgstr "Actualizando permisos (%d elementos competos, faltan %d)"
+
+#, fuzzy, c-format
+msgid "Deleting old session files (iteration %d)"
+msgstr "editar permisos %s"
 
 #, fuzzy
 msgid "add items"
@@ -324,6 +301,33 @@ msgstr "agregar sub-album"
 msgid "add items confirmation"
 msgstr "Agregar confirmaci&oacute;n de elementos"
 
+#, fuzzy
+msgid "Base filename"
+msgstr "Nombre de usuario"
+
+#, fuzzy
+msgid "Caption"
+msgstr "Subt&iacute;tulo: "
+
+#, fuzzy
+msgid "Blank"
+msgstr "<< Atr&aacute;s"
+
+msgid "From Web Browser"
+msgstr "Agregar desde su navegador web"
+
+#, fuzzy, c-format
+msgid "%d megabyte"
+msgid_plural "%d megabytes"
+msgstr[0] "%d megabyte"
+msgstr[1] "%d megabytes"
+
+#, fuzzy, c-format
+msgid "%d kilobytes"
+msgid_plural "%d kilobytes"
+msgstr[0] "%d kilobyte"
+msgstr[1] "%d kilobytes"
+
 #, c-format
 msgid "Input file %s exceeds maximum permitted file size"
 msgstr "El archivo de entrada %s excede del tamaño máximo de archivo permido"
@@ -340,39 +344,20 @@ msgstr "El archivo de entrada %s solo ha sido cargado parcialmente"
 msgid "Input file %s was not uploaded. Error %d"
 msgstr "El archivo de entrada %s no ha sido cargado. Error %d"
 
-#, fuzzy, c-format
-msgid "%d megabyte"
-msgid_plural "%d megabytes"
-msgstr[0] "%d megabyte"
-msgstr[1] "%d megabytes"
-
-#, fuzzy, c-format
-msgid "%d kilobytes"
-msgid_plural "%d kilobytes"
-msgstr[0] "%d kilobyte"
-msgstr[1] "%d kilobytes"
-
-#, fuzzy
-msgid "Base filename"
-msgstr "Nombre de usuario"
-
-#, fuzzy
-msgid "Caption"
-msgstr "Subt&iacute;tulo: "
-
-#, fuzzy
-msgid "Blank"
-msgstr "<< Atr&aacute;s"
-
-msgid "From Web Browser"
-msgstr "Agregar desde su navegador web"
-
 msgid "Gallery Item Administration"
 msgstr "Administrador de elementos"
 
 #, fuzzy
 msgid "delete an item"
 msgstr "borrar elemento"
+
+#, fuzzy
+msgid "delete confirmation"
+msgstr "confirmaci&oacute;n de borrado"
+
+#, fuzzy, c-format
+msgid "delete %s"
+msgstr "Borrar %s"
 
 #, fuzzy, c-format
 msgid "edit %s"
@@ -389,10 +374,6 @@ msgstr "Restaurar la configuración del tema"
 msgid "Preparing..."
 msgstr "Procesando..."
 
-#, fuzzy, c-format
-msgid "Processing image %d of %d"
-msgstr "Visualizando p&aacute;gina %d de %d"
-
 msgid "Apply thumbnail settings"
 msgstr "Aplicar configuración de miniaturas"
 
@@ -403,6 +384,10 @@ msgstr "Recrear miniaturas"
 #, fuzzy
 msgid "Album"
 msgstr "Agregar Album"
+
+#, fuzzy, c-format
+msgid "Processing image %d of %d"
+msgstr "Visualizando p&aacute;gina %d de %d"
 
 #, fuzzy
 msgid "Changes saved successfully"
@@ -565,10 +550,6 @@ msgstr "Imagen modificada"
 msgid "Edit Movie"
 msgstr "Pel&iacute;cula"
 
-#, fuzzy, c-format
-msgid "Edit %s"
-msgstr "Editar %s"
-
 #, fuzzy
 msgid "Add Album"
 msgstr "Agregar Sub-Album"
@@ -593,10 +574,6 @@ msgstr "Borrar %s"
 msgid "Delete Movie"
 msgstr "Borrar %s"
 
-#, fuzzy, c-format
-msgid "Delete %s"
-msgstr "Borrar %s"
-
 #, fuzzy
 msgid "Move Album"
 msgstr "Reordenar Album"
@@ -609,10 +586,6 @@ msgstr "Imagen modificada"
 msgid "Move Movie"
 msgstr "Tama&ntilde;o de la pel&iacute;cula"
 
-#, fuzzy, c-format
-msgid "Move %s"
-msgstr "Mover %s"
-
 #, fuzzy
 msgid "Edit Captions"
 msgstr "Subt&iacute;tulo: "
@@ -623,10 +596,6 @@ msgstr "Destacar"
 #, fuzzy
 msgid "Reorder Items"
 msgstr "Reordenar elementos"
-
-#, fuzzy
-msgid "Delete Items"
-msgstr "Borrar elemento"
 
 #, fuzzy
 msgid "Site Admin"
@@ -654,9 +623,6 @@ msgstr "Grupos"
 msgid "Performance"
 msgstr "Rendimiento"
 
-msgid "Event Logs"
-msgstr "Logs de Evento"
-
 msgid "Toolkit Priority"
 msgstr "Prioridad de la herramienta"
 
@@ -670,6 +636,18 @@ msgstr "Opciones de la cuenta"
 #, fuzzy
 msgid "Change Password"
 msgstr "Cambiar contrase&ntilde;a"
+
+#, fuzzy, c-format
+msgid "Edit %s"
+msgstr "Editar %s"
+
+#, fuzzy, c-format
+msgid "Delete %s"
+msgstr "Borrar %s"
+
+#, fuzzy, c-format
+msgid "Move %s"
+msgstr "Mover %s"
 
 #, fuzzy
 msgid "Build all thumbnails/resizes"
@@ -685,6 +663,9 @@ msgstr ""
 msgid "Build All Thumbnails/Resizes"
 msgstr "Crear Todas las Miniaturas/Imágenes Redimensionadas"
 
+msgid "Debug output for failed items:"
+msgstr "Salida de depuración para los elementos fallidos:"
+
 #, fuzzy, c-format
 msgid "Checked %d items"
 msgstr "agregar elementos"
@@ -696,9 +677,6 @@ msgstr "agregar elementos"
 #, c-format
 msgid "%d items failed"
 msgstr "%d elementos fallidos"
-
-msgid "Debug output for failed items:"
-msgstr "Salida de depuración para los elementos fallidos:"
 
 msgid "Convert MySQL database to UTF8"
 msgstr "Convertir la base de datos MySQL a UTF8"
@@ -722,28 +700,6 @@ msgstr "Elemento borrado con &eacute;xito"
 
 msgid "No conversion required"
 msgstr "No se requiere conversión"
-
-#, fuzzy
-msgid "Backup the database"
-msgstr "Optimizar base de datos"
-
-msgid ""
-"Backup all your Gallery data (item data, users, comments, etc.) to a single file in your "
-"storage folder.  The backup does not include the image files.  Before running the backup, "
-"your Gallery installation needs to be set into maintenance mode, as this is not done "
-"automatically."
-msgstr ""
-
-msgid "Backing up Gallery Database"
-msgstr ""
-
-#, fuzzy
-msgid "Exporting..."
-msgstr "Procesando..."
-
-#, c-format
-msgid "Database backup completed and the backup file is located at: %s"
-msgstr ""
 
 #, fuzzy
 msgid "Delete user sessions"
@@ -784,17 +740,16 @@ msgstr "No es posible eliminar el directorio %s"
 msgid "Delete template cache"
 msgstr "Borrar elemento"
 
-#, fuzzy
 msgid ""
 "Gallery compiles template files and saves them for increased performance.  If you're "
 "experiencing problems that say <i>Smarty error</i> then you might try running this task.  "
-"Also run this if you add or remove any local/*.tpl or theme override so Smarty will find the "
-"right file."
+"Also run this if you remove a local/*.tpl file so Smarty will switch back to the default tpl "
+"file."
 msgstr ""
 "Gallery compila los ficheros de las plantillas y los guarda para incrementar el "
 "rendimiento.  Si estas experimentando problemas del tipo <i>Smarty error</i> puedes intentar "
 "ejecutar esta tarea.  Ejecuta también esta tarea si borras algún fichero de local/*.tpl para "
-"que &laquo;Smarty&raquo; vuelva al archivo tpl por defecto."
+"que &laquo;Smarty&raquo; vuelva al archivo tplpor defecto."
 
 #, fuzzy
 msgid "Template cache deleted successfully"
@@ -954,10 +909,6 @@ msgstr "Ascendente"
 msgid "Descending"
 msgstr "Descendente"
 
-#, c-format
-msgid "Powered by Gallery v%s"
-msgstr "Potenciado por Gallery v%s"
-
 msgid "Validation disabled until you set allowSessionAccess in config.php"
 msgstr "Validació deshabilitada hasta que se configure allowSessionAccess en config.php"
 
@@ -967,6 +918,13 @@ msgstr "Esta p&aacute;gina es v&aacute;lida XHTML 1.0"
 #, fuzzy
 msgid "Donate to the Gallery project"
 msgstr "Volver a la Galer&iacute;a"
+
+msgid "G2.2: Double Double"
+msgstr "G2.2: Doble Doble"
+
+#, c-format
+msgid "Powered by Gallery v%s"
+msgstr "Potenciado por Gallery v%s"
 
 #, c-format
 msgid "Estimated time remaining: %d:%02d"
@@ -1086,13 +1044,13 @@ msgstr "Hoja de c&aacute;lculo"
 msgid "file"
 msgstr "Archivo: "
 
-#, c-format
-msgid "Back to %s"
-msgstr "Regresar a %s"
-
 #, fuzzy
 msgid "Back"
 msgstr "<< Atr&aacute;s"
+
+#, c-format
+msgid "Back to %s"
+msgstr "Regresar a %s"
 
 #, fuzzy
 msgid "User"
@@ -1172,10 +1130,6 @@ msgstr "configurar"
 msgid "unknown"
 msgstr "desconocido"
 
-#, c-format
-msgid "API = Core %s, Module %s, Theme %s, Embed %s"
-msgstr "API = Núcleo %s, Módulo %s, Tema %s, Incrustado en %s"
-
 #, fuzzy
 msgid "Gallery version"
 msgstr "Gallery %s"
@@ -1224,65 +1178,6 @@ msgstr "Agregar desde su navegador web"
 #, c-format
 msgid "Rows in %s table = %d"
 msgstr "Filas en la tabla %s = %d"
-
-#, c-format
-msgid "The %s \"%s\" is not installed and will not be backed up."
-msgstr ""
-
-#, c-format
-msgid "\"%s\" has no creation sql and will not be backed up."
-msgstr ""
-
-#, c-format
-msgid "Unable to load table description for \"%s\", no data will be exported."
-msgstr ""
-
-msgid ""
-"Unable to find the XML parser.  The PHP XML parsing extension must be loaded.  Terminating "
-"database import."
-msgstr ""
-
-#, c-format
-msgid "The exported file is not the correct version. Expecting %s recieved %s."
-msgstr ""
-
-#, fuzzy, c-format
-msgid "Unable to close import file: %s"
-msgstr "No es posible eliminar el directorio %s"
-
-#, fuzzy, c-format
-msgid "Unable to open import file: %s"
-msgstr "No es posible eliminar el directorio %s"
-
-#, c-format
-msgid "Import file doesn't exist: %s"
-msgstr ""
-
-#, c-format
-msgid "Plugin %s is not currently available."
-msgstr ""
-
-#, c-format
-msgid "The available version of plugin \"%s\" may not be compatible with the imported version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The currently installed core API version required by \"%s\" may not be compatible with the "
-"imported version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The installed module API version required by \"%s\" may not be compatible with the imported "
-"version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The installed theme API version required by \"%s\" is not compatible with the imported "
-"version."
-msgstr ""
 
 #, fuzzy
 msgid "Successfully saved theme settings"
@@ -1848,49 +1743,6 @@ msgid_plural "%d failed login attempts since the last successful login."
 msgstr[0] ""
 msgstr[1] ""
 
-#, fuzzy
-msgid "Recent Events"
-msgstr "Reiniciar contadores de visitas"
-
-msgid "Type"
-msgstr "Tipo"
-
-#, fuzzy
-msgid "Location"
-msgstr "Acci&oacute;n"
-
-#, fuzzy
-msgid "Client"
-msgstr "lista"
-
-#, fuzzy
-msgid "No events have been reported yet."
-msgstr "No se han seleccionado paquetes."
-
-#, fuzzy
-msgid "Event Details"
-msgstr "Detalle del Error"
-
-#, fuzzy
-msgid "User Id"
-msgstr "Usuario"
-
-#, fuzzy
-msgid "Referer"
-msgstr "Reordenar"
-
-#, fuzzy
-msgid "Details"
-msgstr "Por defecto"
-
-#, fuzzy
-msgid "no summary"
-msgstr "Resumen"
-
-#, fuzzy
-msgid "An error occurred while retrieving the event log entry details."
-msgstr "Ha ocurrido un error interactuando con la base de datos."
-
 msgid "Group Management"
 msgstr "Manejo de grupos"
 
@@ -1962,9 +1814,6 @@ msgstr[1] "%d grupos coinciden con su grupo"
 msgid "System Maintenance"
 msgstr "Mantenimiento del Sistema"
 
-msgid "Gallery must be in maintenance mode before the task can be run."
-msgstr "Gallery debe estar en modo de mantenimiento antes de que la tarea pueda ser ejecutada."
-
 #, fuzzy, c-format
 msgid "Completed %s task successfully."
 msgstr "Foto rotada satisfactoriamente"
@@ -1972,46 +1821,6 @@ msgstr "Foto rotada satisfactoriamente"
 #, fuzzy, c-format
 msgid "The %s task failed to complete successfully."
 msgstr "Miniatura a sido modificada."
-
-msgid "Maintenance Mode has been turned on."
-msgstr "El Modo de Mantenimiento ha sido activado."
-
-msgid "Maintenance Mode has been turned off."
-msgstr "El Modo de Mantenimiento ha sido desactivado."
-
-#, fuzzy
-msgid "Maintenance Mode"
-msgstr "Mantenimiento"
-
-msgid "Restrict user access to the system while maintenance is being performed."
-msgstr "Restringir el acceso de los usuarios al sistema mientras se realiza el mantenimiento."
-
-#, fuzzy
-msgid "Maintenance Mode Url"
-msgstr "Mantenimiento"
-
-msgid ""
-"The Maintenance Mode Url specifies where requests will be redirected when access to the site "
-"has been restricted by the administrator."
-msgstr ""
-"La URL del Modo de Mantenimiento especifica a donde se redireccionaran las peticiones cuando "
-"el acceso al sitio se encuentre restringido por el administrador."
-
-msgid ""
-"If left blank Gallery will display a default page with an administrator login link. This "
-"page will be themed when the code base is up to date, otherwise it will display a plain "
-"unstyled page."
-msgstr ""
-"Si lo dejas en blanco Gallery muestra una página por defecto con un enlace para acceder como "
-"administrador. Esta página tendrá un tema cuando el código base esté actualizado, si no se "
-"mostrara como una página plana sin estilo."
-
-msgid "For example: /maintenance.html"
-msgstr "Por ejemplo: /mantenimiento.html"
-
-#, fuzzy
-msgid "Set"
-msgstr "Ajustes de Gallery"
 
 #, fuzzy
 msgid "Task name"
@@ -2122,25 +1931,6 @@ msgstr "Crear Usuario"
 
 msgid "Expires after:"
 msgstr "Expira después de:"
-
-#, fuzzy
-msgid "Template Cache"
-msgstr "Borrar elemento"
-
-#, c-format
-msgid ""
-"For optimal performance, Gallery caches all templates.  If you would like to %scustomize "
-"your template files%s, you should disable template caching temporarily so that changes take "
-"effect immediately without clearing the template cache."
-msgstr ""
-"Para un rendimiento óptimo, Galery hace una caché de todas las plantillas. Si tu quisieras %"
-"spersonalizar tus archivos de plantillas%s, deberías desactivar temporalmente el cacheo de "
-"las plantillas para que los cambios tengan efecto inmediatamente sin tener que limpiar la "
-"caché de plantillas. "
-
-#, fuzzy
-msgid "Enable template caching"
-msgstr "Borrar elemento"
 
 msgid "Clear Saved Pages"
 msgstr "Borrar Paginas Guardadas"
@@ -2343,25 +2133,10 @@ msgstr ""
 "de plugins de nuevo."
 
 #, c-format
-msgid "Failed to download the following packages for the %s plugin:"
-msgstr "Fallo al descargar los siguientes paquetes para el plugin %s:"
-
-#, fuzzy, c-format
 msgid ""
-"Failed to install the %s plugin because the following files/directories could not be "
+"Failed to download the %s plugin because the following files/directories could not be "
 "modified:"
 msgstr ""
-"Falló la descarga del plugin %s porque los siguientes archivos/directorios no pueden ser "
-"modificados:"
-
-#, c-format
-msgid ""
-"Some plugins could not be automatically upgraded because they are in use.  Please return to "
-"the %sPlugins%s page and click the upgrade link for each of the following plugins:"
-msgstr ""
-"Algunos plugins no pueden ser actualizados automáticamente porque están en uso.  Por favor "
-"vuelve a la página de %sPlugins%s y haz click en el enlace actualizar de cada uno de los "
-"siguientes plugins:"
 
 msgid "The repository index has been successfully updated."
 msgstr "El índice del repositorio ha sido actualizado con éxito."
@@ -2668,10 +2443,6 @@ msgstr ""
 msgid "New albums"
 msgstr "&aacute;lbum"
 
-#, c-format
-msgid "To activate more themes visit the %sPlugins%s page."
-msgstr "Para activar mas temas visita la página de %sPlugins%s."
-
 #, fuzzy
 msgid "Save Defaults"
 msgstr "Por defecto"
@@ -2909,9 +2680,6 @@ msgstr "Detalle del Error"
 msgid "System Information"
 msgstr "Agregar confirmaci&oacute;n de elementos"
 
-msgid "Not all of the specified items have been added successfully."
-msgstr "No todos los elementos especificados han sido agregados con éxito."
-
 msgid ""
 "You don't have any Graphics Toolkit activated that can handle JPEG images.  If you add "
 "images, you will probably not have any thumbnails."
@@ -2920,9 +2688,9 @@ msgstr ""
 "im&aacute;Genes JPEG , si usted agrega fotos, probablemente no tendr&aacute; ninguna "
 "miniatura. "
 
-#, fuzzy, c-format
-msgid "Visit the %sModules%s page to activate a Graphics Toolkit."
-msgstr "Visita la página de <a href=\"%s\">Módulos</a> para activar una Herramienta Gráfica."
+#, c-format
+msgid "Visit the <a href=\"%s\">Modules</a> page to activate a Graphics Toolkit."
+msgstr "Visite <a href=\"%s\">Modulos</a> para activar una herramienta gr&aacute;fica."
 
 #, fuzzy
 msgid "Add Sub-Album"
@@ -3032,6 +2800,10 @@ msgstr "editar permisos"
 msgid "No Thumbnail"
 msgstr "Sin Miniatura"
 
+#, fuzzy
+msgid "Delete Items"
+msgstr "Borrar elemento"
+
 msgid "No items were selected for deletion"
 msgstr "No se seleccionaron elementos para ser borrados"
 
@@ -3092,13 +2864,24 @@ msgstr "P&aacute;gina anterior "
 msgid "Next Page"
 msgstr "Siguiente p&aacute;gina >>"
 
-#, fuzzy
-msgid "Do you really want to delete "
-msgstr "Realmente quiere borrar el m&oacute;dulo '__PLUGIN__'?"
+msgid "Deletion Complete"
+msgstr "Borrado completo"
 
-#, fuzzy
-msgid "Delete more items..."
-msgstr "Borrar elemento"
+msgid "Item successfully deleted"
+msgstr "Elemento borrado con &eacute;xito"
+
+#, fuzzy, c-format
+msgid "Are you sure you want to delete this %s?"
+msgstr "&iquest;Realmente quiere borrar este %s?"
+
+#, c-format
+msgid "It contains %d item."
+msgid_plural "It contains %d items."
+msgstr[0] "Contiene %d elemento."
+msgstr[1] "Contiene %d elementos."
+
+msgid "There is no undo!"
+msgstr "No hay un des-hacer!"
 
 msgid "There was a problem processing your request."
 msgstr "Hubo un problema procesando tu acci&oacute;n."
@@ -3574,18 +3357,11 @@ msgstr "Fuente"
 msgid "Choose the items you want to move"
 msgstr "Elija los elementos que desea mover"
 
-msgid "OK"
-msgstr "Ok"
-
 msgid ""
 "The destination you chose does not accept sub-albums, so all sub-albums have been deselected."
 msgstr ""
 "El destino que eliji&oacute; no acepta sub-albumes, por lo tanto todos los sub-albumes han "
 "sido de-seleccionados."
-
-#, fuzzy
-msgid "Warning"
-msgstr "&iexcl;Atención!"
 
 msgid ""
 "The destination you chose only accepts sub-albums, so all non-albums have been deselected."
@@ -3819,12 +3595,10 @@ msgstr "Ingrese alg&uacute;n texto descriptivo de la URL"
 msgid "Enter an image URL"
 msgstr "Ingrese la URL de la imagen"
 
-#. HINT: Button label for Bold
-msgid "B"
+msgid "B <!-- Button label for Bold -->"
 msgstr "B"
 
-#. HINT: Button label for italic
-msgid "i"
+msgid "i <!-- Button label for italic -->"
 msgstr "i"
 
 msgid "list"
@@ -3844,8 +3618,8 @@ msgstr "imagen"
 msgid "color"
 msgstr "central"
 
-#, fuzzy, c-format
-msgid "You can also use the %scolor name%s for example: %sYour Text%s"
+#, c-format
+msgid "You can also use the <a href=\"%s\" target=\"_new\">color name</a> for example: %s"
 msgstr ""
 "Puedes usar tambien el <a href=\"%s\" target=\"_new\">nombre del color</a>, por ejemplo: %s"
 
@@ -3978,10 +3752,11 @@ msgstr "Ingresar a la cuenta"
 msgid "Your password has been recovered, please login."
 msgstr "Tu contraseña ha sido recuperada, por favor inicia sesión."
 
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Logins to this account are temporarily disabled due to multiple failed login attempts.  Wait "
-"for access to be restored, or use the %srecover password%s page to re-enable this account."
+"for access to be restored, or use the <a href=\"%s\">recover password</a> page to re-enable "
+"this account."
 msgstr ""
 "La conexión a esta cuenta se encuentra deshabilitada temporalmente debido a multiples "
 "intentos fallidos de autenticación.  Espera a que el acceso sea reestablecido o usa la <a "
@@ -3990,8 +3765,10 @@ msgstr ""
 msgid "Your login information is incorrect.  Please try again."
 msgstr "Ingreso incorrecto. Por favor intente nuevamente."
 
-#, fuzzy, c-format
-msgid "Lost or forgotten passwords can be retrieved using the %srecover password%s page"
+#, c-format
+msgid ""
+"Lost or forgotten passwords can be retrieved using the <a href=\"%s\">recover password</a> "
+"page"
 msgstr ""
 "Las contraseñas perdidas u olvidadas se pueden recuperar usando la página de <a href=\"%s"
 "\">recuperar contraseña</a>"
@@ -4149,19 +3926,19 @@ msgstr "antes"
 msgid "This page will allow you to reset the password on your account."
 msgstr "Esta página te permite reiniciar la contraseña de tu cuenta."
 
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "There is no request which matches the username and authorization provided. Request a new "
-"authorization from the %slost password page%s."
+"authorization from the <a href=\"%s\">lost password page</a>"
 msgstr ""
 "No hay ninguna petición que coincida con el nombre de usuario y la autorización facilitada. "
 "Solicita una nueva autorización desde la <a href=\"%s\">p&aacutegina de recordar contrañas</"
 "a>."
 
-#, fuzzy, c-format
+#, c-format
 msgid ""
-"The request you are trying to access has expired.  Request a new authorization from the %"
-"slost password page%s."
+"The request you are trying to access has expired.  Request a new authorization from the <a "
+"href=\"%s\">lost password page</a>."
 msgstr ""
 "La petición a la que estas intentando acceder ha expirado.  Solicita una nueva autorización "
 "desde la <a href=\"%s\">p&aacutegina de recordar contrañas</a>."
@@ -4257,6 +4034,10 @@ msgid "last"
 msgstr "lista"
 
 #, fuzzy, c-format
+msgid "Page %d of %d"
+msgstr "Visualizando p&aacute;gina %d de %d"
+
+#, fuzzy, c-format
 msgid "%d of %d"
 msgstr "Visualizando p&aacute;gina %d de %d"
 
@@ -4309,35 +4090,3 @@ msgstr "Login"
 
 msgid "Links to album/photo peers"
 msgstr "Enlaces a los pares de álbum/foto"
-
-#, fuzzy
-#~ msgid "delete confirmation"
-#~ msgstr "confirmaci&oacute;n de borrado"
-
-#, fuzzy
-#~ msgid "delete %s"
-#~ msgstr "Borrar %s"
-
-#~ msgid "Deletion Complete"
-#~ msgstr "Borrado completo"
-
-#~ msgid "Item successfully deleted"
-#~ msgstr "Elemento borrado con &eacute;xito"
-
-#, fuzzy
-#~ msgid "Are you sure you want to delete this %s?"
-#~ msgstr "&iquest;Realmente quiere borrar este %s?"
-
-#~ msgid "It contains %d item."
-#~ msgid_plural "It contains %d items."
-#~ msgstr[0] "Contiene %d elemento."
-#~ msgstr[1] "Contiene %d elementos."
-
-#~ msgid "There is no undo!"
-#~ msgstr "No hay un des-hacer!"
-
-#~ msgid "key"
-#~ msgstr "llave"
-
-#~ msgid "G2.2: Double Double"
-#~ msgstr "G2.2: Doble Doble"

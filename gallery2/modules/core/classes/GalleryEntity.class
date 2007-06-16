@@ -402,8 +402,7 @@ class GalleryEntity extends GalleryPersistent {
 
 	$linkId = $this->getLinkId();
 	if (!empty($linkId)) {
-	    list ($ret, $this->linkedEntity) =
-		GalleryCoreApi::loadEntitiesById($linkId, $this->entityType);
+	    list ($ret, $this->linkedEntity) = GalleryCoreApi::loadEntitiesById($linkId);
 	    if ($ret) {
 		return $ret;
 	    }

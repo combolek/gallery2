@@ -49,9 +49,9 @@ class NewAlbumControllerTest extends GalleryControllerTestCase {
 				  'error' => array()),
 			    $results);
 
-	list ($ret, $album) = GalleryCoreApi::loadEntitiesById($albumId, 'GalleryAlbumItem');
+	list ($ret, $album) = GalleryCoreApi::loadEntitiesById($albumId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals($this->_getRootId(), $album->getParentId());
@@ -62,9 +62,9 @@ class NewAlbumControllerTest extends GalleryControllerTestCase {
 	/* For Oracle, null is replaced with '' when loading data from the database */
 	$this->assert(in_array($album->getKeywords(), array(null, '')), 'keywords should be empty');
 
-	$ret = GalleryCoreApi::deleteEntityById($albumId, 'GalleryAlbumItem');
+	$ret = GalleryCoreApi::deleteEntityById($albumId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
     }
 

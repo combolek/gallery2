@@ -36,11 +36,11 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
     }
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 	global $gallery;
+
+	/* XXX: We should be backing this up in GalleryTestCase.  Fix this in 2.3 */
+	$this->_saveRequest = $_REQUEST;
 
 	$this->_galleryTemplateAdapter =& $gallery->getTemplateAdapter();
 
@@ -56,10 +56,9 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 	global $gallery;
 	$gallery->_templateAdapter =& $this->_galleryTemplateAdapter;
 
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
+	$_REQUEST = $this->_saveRequest;
+
+	parent::tearDown();
     }
 
     function testDownloadCancel() {
@@ -199,7 +198,7 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 	    array(),
 	    array('test' => $repository));
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 
 	$this->assert($repository->isComplete(), $repository->getRemaining());
@@ -258,7 +257,7 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 	    array(),
 	    array('test' => $repository));
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 
 	$this->assert($repository->isComplete(), $repository->getRemaining());
@@ -317,7 +316,7 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 	    array(),
 	    array('test' => $repository));
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 
 	$this->assert($repository->isComplete(), $repository->getRemaining());
@@ -377,7 +376,7 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 	    array(),
 	    array('test' => $repository));
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 
 	$this->assert($repository->isComplete(), $repository->getRemaining());
@@ -445,7 +444,7 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 	    array(),
 	    array('test' => $repository));
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 
 	$this->assert($repository->isComplete(), $repository->getRemaining());
@@ -536,7 +535,7 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 	    array(),
 	    array('test' => $repository));
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 
 	/* Even though one language failed, the base got updated so we should reactivate it */
@@ -555,22 +554,36 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 	/* Make sure translate calls during test won't generate any platform calls */
 	list ($ret) = GalleryCoreApi::getPermissionIds();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
-	$moduleBase = GalleryCoreApi::getCodeBasePath()
-	    . 'modules/AdminRepositoryDownloadControllerTest';
+	$g2base = dirname(dirname(dirname(dirname(dirname(__FILE__)))));
 	$platform = new UnitTestPlatform();
-	$platform->setReply('is_dir', array("$moduleBase/locale/aa"), true);
-	$platform->setReply('is_writeable', array("$moduleBase/locale/aa"), true);
-	$platform->setReply('recursiveRmdir', array("$moduleBase/locale/aa"), true);
-	$platform->setReply('is_file', array("$moduleBase/po/aa.mo"), true);
-	$platform->setReply('is_writeable', array("$moduleBase/po/aa.mo"), true);
-	$platform->setReply('unlink', array("$moduleBase/po/aa.mo"), true);
-	$platform->setReply('is_file', array("$moduleBase/po/aa.po"), true);
-	$platform->setReply('is_writeable', array("$moduleBase/po/aa.po"), true);
-	$platform->setReply('unlink', array("$moduleBase/po/aa.po"), true);
-	$gallery->setPlatform($platform);
+	$platform->setReply(
+	    'is_dir',
+	    array("$g2base/modules/AdminRepositoryDownloadControllerTest/locale/aa"),
+	    true);
+	$platform->setReply(
+	    'is_writeable',
+	    array("$g2base/modules/AdminRepositoryDownloadControllerTest/locale/aa"),
+	    true);
+	$platform->setReply(
+	    'recursiveRmdir',
+	    array("$g2base/modules/AdminRepositoryDownloadControllerTest/locale/aa"),
+	    true);
+	$platform->setReply(
+	    'is_file',
+	    array("$g2base/modules/AdminRepositoryDownloadControllerTest/po/aa.po"),
+	    true);
+	$platform->setReply(
+	    'is_writeable',
+	    array("$g2base/modules/AdminRepositoryDownloadControllerTest/po/aa.po"),
+	    true);
+	$platform->setReply(
+	    'unlink',
+	    array("$g2base/modules/AdminRepositoryDownloadControllerTest/po/aa.po"),
+	    true);
+	$gallery->_platform =& $platform;
 
 	$repository = new AdminRepositoryDownloadControllerTestRepository();
 
@@ -579,7 +592,7 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 	    array('module' => array('AdminRepositoryDownloadControllerTest' => array('aa'))),
 	    array('test' => $repository));
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 
 	$this->assert($platform->isComplete(), $platform->getRemaining());
@@ -594,7 +607,7 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 	$session =& $gallery->getSession();
 
 	$progress = $gallery->_templateAdapter->getProgressBarDump();
-	preg_match('/statusId=([^,]*)/', $progress[count($progress)-1], $matches);
+	preg_match('/statusId=([^,]*)/', $progress[5], $matches);
 	return $session->getStatus($matches[1]);
     }
 }

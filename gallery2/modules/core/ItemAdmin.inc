@@ -35,7 +35,7 @@ class ItemAdminView extends GalleryView {
 
 	/* Figure out the item we're referring to */
 	$itemId = GalleryUtilities::getRequestVariables('itemId');
-	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -98,13 +98,11 @@ class ItemAdminView extends GalleryView {
 	    $name = $params['name'];
 	    unset($params['name']);
 
-	    if (isset($params['view'])) {
-		/* Move the view -> subView and set ItemAdmin as the view */
-		$params['subView'] = $params['view'];
-		$params['view'] = 'core.ItemAdmin';
-		if ($subViewName == $params['subView']) {
-		    $params['active'] = true;
-		}
+	    /* Move the view -> subView and set ItemAdmin as the view */
+	    $params['subView'] = $params['view'];
+	    $params['view'] = 'core.ItemAdmin';
+	    if ($subViewName == $params['subView']) {
+		$params['active'] = true;
 	    }
 
 	    /* Set the item id if necessary */

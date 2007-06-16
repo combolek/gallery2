@@ -21,10 +21,8 @@
     <h2>
       <?php print _("Stack Trace:") ?>
     </h2>
-    <?php if (!empty($templateData['stackTrace'])): ?>
     <div class="stack_trace">
-      <?php print implode('</br>', $templateData['stackTrace']) ?>
+      <?php print $templateData['stackTrace']; ?>
     </div>
-    <?php endif ?>
 
-    <br/>
+    <br />

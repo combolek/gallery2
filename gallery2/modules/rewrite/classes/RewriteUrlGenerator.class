@@ -222,7 +222,7 @@ class RewriteUrlGenerator extends GalleryUrlGenerator {
 	    }
 	}
 
-	list ($ret, $entity) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryEntity');
+	list ($ret, $entity) = GalleryCoreApi::loadEntitiesById($itemId);
 	if ($ret) {
 	    return null;
 	}

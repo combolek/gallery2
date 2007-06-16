@@ -7,7 +7,7 @@ global $ADODB_INCLUDED_LIB;
 $ADODB_INCLUDED_LIB = 1;
 
 /* 
- @version V4.94 23 Jan 2007 (c) 2000-2007 John Lim (jlim\@natsoft.com.my). All rights reserved.
+ @version V4.93 10 Oct 2006 (c) 2000-2006 John Lim (jlim\@natsoft.com.my). All rights reserved.
   Released under both BSD license and Lesser GPL library license. 
   Whenever there is any discrepancy between the two licenses, 
   the BSD license will take precedence. See License.txt. 
@@ -56,17 +56,16 @@ function adodb_probetypes(&$array,&$types,$probe=8)
 			
 		}
 	}
-	
 }
 
-function  adodb_transpose(&$arr, &$newarr, &$hdr, &$fobjs)
+function  &adodb_transpose(&$arr, &$newarr, &$hdr)
 {
 	$oldX = sizeof(reset($arr));
 	$oldY = sizeof($arr);	
 	
 	if ($hdr) {
 		$startx = 1;
-		$hdr = array('Fields');
+		$hdr = array();
 		for ($y = 0; $y < $oldY; $y++) {
 			$hdr[] = $arr[$y][0];
 		}
@@ -74,12 +73,7 @@ function  adodb_transpose(&$arr, &$newarr, &$hdr, &$fobjs)
 		$startx = 0;
 
 	for ($x = $startx; $x < $oldX; $x++) {
-		if ($fobjs) {
-			$o = $fobjs[$x];
-			$newarr[] = array($o->name);
-		} else
-			$newarr[] = array();
-			
+		$newarr[] = array();
 		for ($y = 0; $y < $oldY; $y++) {
 			$newarr[$x-$startx][] = $arr[$y][$x];
 		}
@@ -566,8 +560,6 @@ function &_adodb_pageexecute_no_last_page(&$zthis, $sql, $nrows, $page, $inputar
 
 function _adodb_getupdatesql(&$zthis,&$rs, $arrFields,$forceUpdate=false,$magicq=false,$force=2)
 {
-	global $ADODB_QUOTE_FIELDNAMES;
-
 		if (!$rs) {
 			printf(ADODB_BAD_RS,'GetUpdateSQL');
 			return false;
@@ -614,7 +606,7 @@ function _adodb_getupdatesql(&$zthis,&$rs, $arrFields,$forceUpdate=false,$magicq
 						$type = 'C';
 					}
 					
-					if ((strpos($upperfname,' ') !== false) || ($ADODB_QUOTE_FIELDNAMES))
+					if (strpos($upperfname,' ') !== false)
 						$fnameq = $zthis->nameQuote.$upperfname.$zthis->nameQuote;
 					else
 						$fnameq = $upperfname;
@@ -728,7 +720,6 @@ function _adodb_getinsertsql(&$zthis,&$rs,$arrFields,$magicq=false,$force=2)
 static $cacheRS = false;
 static $cacheSig = 0;
 static $cacheCols;
-	global $ADODB_QUOTE_FIELDNAMES;
 
 	$tableName = '';
 	$values = '';
@@ -778,7 +769,7 @@ static $cacheCols;
 		$upperfname = strtoupper($field->name);
 		if (adodb_key_exists($upperfname,$arrFields,$force)) {
 			$bad = false;
-			if ((strpos($upperfname,' ') !== false) || ($ADODB_QUOTE_FIELDNAMES))
+			if (strpos($upperfname,' ') !== false)
 				$fnameq = $zthis->nameQuote.$upperfname.$zthis->nameQuote;
 			else
 				$fnameq = $upperfname;
@@ -968,22 +959,12 @@ function _adodb_column_sql(&$zthis, $action, $type, $fname, $fnameq, $arrFields,
 			$val = $zthis->DBDate($arrFields[$fname]);
 			break;
 
-		
 		case "T":
 			$val = $zthis->DBTimeStamp($arrFields[$fname]);
-            break;
-
-		case "N":
-		    $val = (float) $arrFields[$fname];
-		    break;
-
-		case "I":
-		case "R":
-		    $val = (int) $arrFields[$fname];
-		    break;
+			break;
 
 		default:
-			$val = str_replace(array("'"," ","("),"",$arrFields[$fname]); // basic sql injection defence
+			$val = $arrFields[$fname];
 			if (empty($val)) $val = '0';
 			break;
 	}

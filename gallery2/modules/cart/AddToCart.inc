@@ -37,7 +37,7 @@ class AddToCartController extends GalleryController {
 
 	$itemId = GalleryUtilities::getRequestVariables('itemId');
 
-	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	if ($ret) {
 	    return array($ret, null);
 	}

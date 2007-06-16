@@ -31,19 +31,18 @@ class CoreModule extends GalleryModule {
 
 	$this->setId('core');
 	$this->setName($gallery->i18n('Core'));
-	$this->setGalleryVersion('2.3-svn');
+	$this->setGalleryVersion('2.2.2');
 
 	/* Don't forget to update CoreModuleExtras::upgrade and _prepareConfigUpgrade too! */
-	$this->setVersion('1.2.18');
-	$this->_templateVersion = 1;
+	$this->setVersion('1.2.0.4');
 
 	$this->setDescription($gallery->i18n('Gallery 2 Core Module'));
 	$this->setGroup('gallery', $gallery->i18n('Gallery'));
 	$this->setCallbacks('registerEventListeners'
 	    . '|getItemLinks|getSystemLinks'
 	    . '|getSiteAdminViews|getUserAdminViews|getItemAdminViews');
-	$this->setRequiredCoreApi(array(7, 33));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setRequiredCoreApi(array(7, 18));
+	$this->setRequiredModuleApi(array(3, 4));
     }
 
     /**
@@ -67,7 +66,6 @@ class CoreModule extends GalleryModule {
      */
     function getItemLinks($items, $wantsDetailedLinks, $permissions, $userId) {
 	global $gallery;
-	$urlGenerator =& $gallery->getUrlGenerator();
 
 	list ($ret, $rootId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
 	if ($ret) {
@@ -121,9 +119,7 @@ class CoreModule extends GalleryModule {
 
 	    $itemTypeNames = array_merge($item->itemTypeName(), $item->itemTypeName(false));
 	    if (isset($permissions[$itemId]['core.edit'])) {
-		if (false) {
-		    /* Specific translations: */ _('Edit Album'); _('Edit Photo'); _('Edit Movie');
-		}
+		/* Specific translations: _('Edit Album') _('Edit Photo') _('Edit Movie') */
 		$links[$itemId][] =
 		    array('text' => $this->_translate(
 			      array('text' => 'Edit %s', 'arg1' => $itemTypeNames[0]),
@@ -156,43 +152,20 @@ class CoreModule extends GalleryModule {
 	    }
 
 	    if (!$isRoot && isset($permissions[$itemId]['core.delete'])) {
-		if (false) {
-		    /* Specific translations: */
-		    _('Delete Album'); _('Delete Photo'); _('Delete Movie');
-		}
-		GalleryCoreApi::requireOnce('lib/smarty/plugins/modifier.escape.php');
-                $title = smarty_modifier_escape(GalleryUtilities::markup(
-		    $item->getTitle(), 'strip'), 'javascript', 'UTF-8');
-		list ($thisItemId, $page) = GalleryUtilities::getRequestVariables('itemId', 'page');
-		/* If no page item defined, we will navigate to the parent of the deleted item */
-		if (empty($thisItemId)) {
-		    $thisItemId = $itemId;
-		}
-		$urlParams = array('controller' => 'core.ItemDeleteSingle', 'itemId' => $itemId,
-				   'pageId' => $thisItemId);
-		if (!empty($page)) {
-		    $urlParams['page'] = $page;
-		}
-		$url = $urlGenerator->generateUrl($urlParams);
-		$moreUrl = $isAlbum ? '' : $urlGenerator->generateUrl(
-		    array('view' => 'core.ItemAdmin', 'subView' => 'core.ItemDelete',
-			  'itemId' => $item->getParentId(),
-			  'selectedId' => $itemId, 'return' => 1));
+		/* Specific translations: _('Delete Album') _('Delete Photo') _('Delete Movie') */
 		$links[$itemId][] =
 		    array('text' => $this->_translate(
-			  array('text' => 'Delete %s', 'arg1' => $itemTypeNames[0]),
-			  	$itemTypeNames[2]),
-			  /* Params are only for g->linkId that is used by icons */
+			      array('text' => 'Delete %s', 'arg1' => $itemTypeNames[0]),
+			      $itemTypeNames[2]),
 			  'params' => array('view' => 'core.ItemAdmin',
-					    'subView' => 'core.ItemDeleteSingle',
-					    'itemId' => $itemId),
-			  'script' => "core_confirmDelete('$url', '$moreUrl', '$title')");
+					    'subView' => 'core.ItemDelete',
+					    'itemId' => $item->getParentId(),
+					    'selectedId' => $itemId,
+					    'return' => 1));
 	    }
 
 	    if (!$isRoot && isset($permissions[$itemId]['core.delete'])) {
-		if (false) {
-		    /* Specific translations: */ _('Move Album'); _('Move Photo'); _('Move Movie');
-		}
+		/* Specific translations: _('Move Album') _('Move Photo') _('Move Movie') */
 		$links[$itemId][] =
 		    array('text' => $this->_translate(
 			      array('text' => 'Move %s', 'arg1' => $itemTypeNames[0]),
@@ -238,23 +211,6 @@ class CoreModule extends GalleryModule {
 					    'itemId' => $itemId,
 					    'return' => 1));
 	    }
-
-	    if (isset($wantsDetailedLinks[$itemId]) && $isAlbum
-		    && isset($permissions[$itemId]['core.edit']) && !empty($childCounts[$itemId])
-		    && $childCounts[$itemId] > 0) {
-	    	$next = next($items);
-		$params = array('view' => 'core.ItemAdmin',
-					   'subView' => 'core.ItemDelete',
-					   'itemId' => $itemId,
-					   'return' => 1);
-		/* First item on the page will be in the list for deletion */
-		if ($next) {
-		    $params['anchorId'] = $next->getId();
-		}
-
-		$links[$itemId][] = array('text' => $this->_translate('Delete Items'),
-					   'params' => $params);
-	    }
 	}
 
 	return array(null, $links);
@@ -294,11 +250,11 @@ class CoreModule extends GalleryModule {
 							  'subView' => 'core.UserLogin',
 							  'return' => 1));
 	    } else {
-		$user = $gallery->getActiveUser();
-		$links['YourAccount'] = array('text' => $this->translate('Your Account'),
-					      'params' => array('view' => 'core.UserAdmin',
-								'subView' => 'core.UserPreferences',
-								'return' => 1));
+                $user = $gallery->getActiveUser();
+                $links['YourAccount'] = array('text' => $this->translate('Your Account'),
+                                              'params' => array('view' => 'core.UserAdmin',
+                                                                'subView' => 'core.UserPreferences',
+                                                                'return' => 1));
 		$links['Logout'] = array('text' => $this->translate('Logout'),
 					 'params' => array('controller' => 'core.Logout',
 							   'return' => 1));
@@ -326,8 +282,6 @@ class CoreModule extends GalleryModule {
 			    'view' => 'core.AdminThemes'),
 		      array('name' => $this->translate('Performance'),
 			    'view' => 'core.AdminPerformance'),
-		      array('name' => $this->translate('Event Logs'),
-			    'view' => 'core.AdminEventLogViewer'),
 		      );
 
 	list ($ret, $list) = GalleryCoreApi::getRedundantToolkitPriorities();
@@ -358,12 +312,12 @@ class CoreModule extends GalleryModule {
 	    }
 
 	    if (!$isAnonymous) {
-		if (!$user->isLocked()) {
-		    $views[] = array('name' => $this->translate('Account Settings'),
-				     'view' => 'core.UserPreferences');
-		    $views[] = array('name' => $this->translate('Change Password'),
-				     'view' => 'core.UserChangePassword');
-		}
+                if (!$user->isLocked()) {
+                    $views[] = array('name' => $this->translate('Account Settings'),
+                                     'view' => 'core.UserPreferences');
+                    $views[] = array('name' => $this->translate('Change Password'),
+                                     'view' => 'core.UserChangePassword');
+                }
 	    } else {
 		$views[] = array('name' => $this->translate('Login'),
 				 'view' => 'core.UserLogin');
@@ -442,32 +396,16 @@ class CoreModule extends GalleryModule {
 	}
 
 	if (isset($permissions['core.delete'])) {
-	    $itemId = $item->getId();
-	    if ($itemId != $rootId) {
-		GalleryCoreApi::requireOnce('lib/smarty/plugins/modifier.escape.php');
-                $title = smarty_modifier_escape(GalleryUtilities::markup(
-		    $item->getTitle(), 'strip'), 'javascript', 'UTF-8');
-		/* This is ItemAdmin view, hence page item is the one we are deleting */
-		$thisItemId = $itemId;
-		$urlGenerator =& $gallery->getUrlGenerator();
-		$url = $urlGenerator->generateUrl(
-		    array('controller' => 'core.ItemDeleteSingle', 'itemId' => $itemId,
-			  'pageId' => $thisItemId));
-		$moreUrl = $isAlbum ? '' : $urlGenerator->generateUrl(
-		    array('view' => 'core.ItemAdmin', 'subView' => 'core.ItemDelete',
-			  'itemId' => $item->getParentId(),
-			  'selectedId' => $itemId));
+	    if ($item->getId() != $rootId) {
 		$views[] = array('name' => $this->_translate(
-		    array('text' => 'Delete %s', 'arg1' => $itemTypeNames[0]), $itemTypeNames[2]),
-		    'script' => "core_confirmDelete('$url', '$moreUrl', '$title');return false");
+				     array('text' => 'Delete %s', 'arg1' => $itemTypeNames[0]),
+				     $itemTypeNames[2]),
+				 'view' => 'core.ItemDeleteSingle');
 
 		$views[] = array('name' => $this->_translate(
-		     array('text' => 'Move %s', 'arg1' => $itemTypeNames[0]),
-		     $itemTypeNames[2]), 'view' => 'core.ItemMoveSingle');
-	    }
-	    if ($isAlbum && $childCount > 0) {
-		$views[] = array('name' => $this->_translate('Delete Items'),
-		    		 'view' => 'core.ItemDelete');
+				     array('text' => 'Move %s', 'arg1' => $itemTypeNames[0]),
+				     $itemTypeNames[2]),
+				 'view' => 'core.ItemMoveSingle');
 	    }
 	}
 
@@ -516,41 +454,27 @@ class CoreModule extends GalleryModule {
     /**
      * Get the version of the core module and of Gallery itself.  We store this on disk to avoid
      * having to load up the database (which can be problematic if we're doing an upgrade and don't
-     * want to count a specific database schema). If the versions.dat file indicates that Gallery
-     * is in maintenance mode, then set the configuration value to indicate this.
+     * want to count a specific database schema.
      *
      * @return array 'core' => core module version, 'gallery' => gallery version
      * @static
      */
     function getInstalledVersions() {
 	global $gallery;
+	static $versions;
 
-	if (GalleryDataCache::containsKey('CoreModule::installedVersions')) {
-	    $versions = GalleryDataCache::get('CoreModule::installedVersions');
-	} else {
+	if (!isset($versions)) {
 	    $platform =& $gallery->getPlatform();
-	    $versionFile = $gallery->getConfig('data.gallery.version');
+	    $versionFile = $gallery->getConfig('data.gallery.base') . 'versions.dat';
 
+	    $moduleVersion = null;
+	    $galleryVersion = null;
 	    if ($platform->file_exists($versionFile)) {
 		$versionArray = $platform->file($versionFile);
 		if (count($versionArray) >= 2) {
 		    $versions['core'] = rtrim($versionArray[0]);
 		    $versions['gallery'] = rtrim($versionArray[1]);
-		    GalleryDataCache::put('CoreModule::installedVersions', $versions, true);
-		    if (isset($versionArray[2])) {
-		    	$maintenanceMode = explode(':', rtrim($versionArray[2]), 2);
-		    	if ($maintenanceMode[0] == 'maintenance-mode') {
-			    $newMode = empty($maintenanceMode[1]) ? true : $maintenanceMode[1];
-			    $gallery->setConfig('mode.maintenance', $newMode);
-			}
-		    }
 		}
-	    } else {
-	    	/*
-	    	 * If we get here we are probably doing a fresh install so just return 0, 0 and
-	    	 * the rest of the install should work properly.
-	    	 */
-	    	$versions = array('core' => 0, 'gallery' => 0);
 	    }
 	}
 

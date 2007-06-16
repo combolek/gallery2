@@ -173,8 +173,7 @@ class ConfirmPicasaImportController extends GalleryController {
 	}
 
 	/* Try to load targeted parent */
-	list ($ret, $targetAlbumObject) =
-	    GalleryCoreApi::loadEntitiesById($destinationAlbumId, 'GalleryAlbumItem');
+	list ($ret, $targetAlbumObject) = GalleryCoreApi::loadEntitiesById($destinationAlbumId);
 	if ($ret) {
 	    return $ret;
 	}
@@ -330,8 +329,7 @@ class ConfirmPicasaImportView extends GalleryView {
 	if ($ret) {
 	    return array($ret, null);
 	}
-	list ($ret, $targetAlbum) =
-	    GalleryCoreApi::loadEntitiesById($destinationAlbumId, 'GalleryAlbumItem');
+	list ($ret, $targetAlbum) = GalleryCoreApi::loadEntitiesById($destinationAlbumId);
 	if ($ret) {
 	    return array($ret, null);
 	}

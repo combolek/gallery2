@@ -22,9 +22,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Image Block 1.1.2\n"
-"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2007-06-14 17:24-0700\n"
+"Project-Id-Version: Gallery: Image Block 1.1.0\n"
+"POT-Creation-Date: 2003-02-11 03:09-0800\n"
 "PO-Revision-Date: 2006-01-22 16:14+0300\n"
 "Last-Translator: Konstantin Ivanov <Continental@vollen.ru>\n"
 "Language-Team: Russian <gallery-devel@lists.sourceforge.net>\n"
@@ -43,6 +42,24 @@ msgstr "Случайные, последние или самые просмат�
 
 msgid "Blocks"
 msgstr "Блоки"
+
+msgid "Picture of the Day"
+msgstr "Фотография Дня"
+
+msgid "Picture of the Week"
+msgstr "Фотография Недели"
+
+msgid "Picture of the Month"
+msgstr "Фотография Месяца"
+
+msgid "Album of the Day"
+msgstr "Альбом Дня"
+
+msgid "Album of the Week"
+msgstr "Альбом Недели"
+
+msgid "Album of the Month"
+msgstr "Альбом Месяца"
 
 #, fuzzy
 msgid "Random Image"
@@ -79,24 +96,6 @@ msgid "Most Viewed Album"
 msgid_plural "Most Viewed Albums"
 msgstr[0] "Просматриваемый Альбом"
 msgstr[1] "Просматриваемый Альбом"
-
-msgid "Picture of the Day"
-msgstr "Фотография Дня"
-
-msgid "Picture of the Week"
-msgstr "Фотография Недели"
-
-msgid "Picture of the Month"
-msgstr "Фотография Месяца"
-
-msgid "Album of the Day"
-msgstr "Альбом Дня"
-
-msgid "Album of the Week"
-msgstr "Альбом Недели"
-
-msgid "Album of the Month"
-msgstr "Альбом Месяца"
 
 msgid "Date:"
 msgstr "Дата:"
@@ -281,7 +280,7 @@ msgid "Monthly album"
 msgstr "Альбом месяца"
 
 msgid "Number of items"
-msgstr "Количество элементов"
+msgstr ""
 
 msgid "Use default settings"
 msgstr "Использовать настройки по умолчанию"
@@ -300,3 +299,19 @@ msgstr "Отображать просмотры"
 
 msgid "Show owner"
 msgstr "Отображать владельца"
+
+#~ msgid ""
+#~ "Scale images to this maximum size. If maxSize exceeds the thumbnail dimensions, you must "
+#~ "also specify g2_show=fullSize"
+#~ msgstr ""
+#~ "Маштабировать изображения до максимального размера. Если значение maxSize превышает "
+#~ "размеры макета превью, Вы должны так же указать параметр g2_show=fullSize"
+
+#~ msgid "Scale images to this maximum size"
+#~ msgstr "Масштабировать изображение до максимального размера"
+
+#~ msgid "Random/Popular"
+#~ msgstr "Случайный/Популярный"
+
+#~ msgid "Image Blocks"
+#~ msgstr "Блоки Изображений"

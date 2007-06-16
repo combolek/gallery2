@@ -32,15 +32,13 @@ class LanguageTest extends GalleryControllerTestCase {
     }
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	list ($ret, $this->_siteLanguage) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'default.language');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
     }
 
@@ -51,7 +49,7 @@ class LanguageTest extends GalleryControllerTestCase {
 
 	list ($ret, $language) = $gallery->getActiveLanguageCode();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(null, $language, 'not set');
 
@@ -62,7 +60,7 @@ class LanguageTest extends GalleryControllerTestCase {
 
 	list ($ret, $language) = $gallery->getActiveLanguageCode();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals('test_language', $language, 'user language');
 
@@ -70,7 +68,7 @@ class LanguageTest extends GalleryControllerTestCase {
 
 	list ($ret, $language) = $gallery->getActiveLanguageCode();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals('sess_language', $language, 'session language');
     }
@@ -87,7 +85,7 @@ class LanguageTest extends GalleryControllerTestCase {
 
 	list ($ret, $language) = $gallery->getActiveLanguageCode();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals('test_language', $language, 'language');
     }

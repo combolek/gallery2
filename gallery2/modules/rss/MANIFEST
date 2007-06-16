@@ -1,126 +1,93 @@
 # $Revision$
 # File crc32 crc32(crlf) size size(crlf)  or  R File
 modules/rss/Callbacks.inc	4058282959	1410197549	2096	2167
-modules/rss/EditFeed.inc	3115503817	3444455155	10751	11096
+modules/rss/EditFeed.inc	4104342657	604977920	10628	10971
 modules/rss/FeedList.inc	2444322742	1862006447	1607	1655
 modules/rss/Preloads.inc	1937127360	104073179	1299	1340
-modules/rss/Render.inc	3541459475	3396075455	5350	5536
-modules/rss/RssSiteAdmin.inc	3843958839	3571762154	6427	6642
-modules/rss/SimpleRender.inc	373182443	1535512422	2760	2853
+modules/rss/Render.inc	3745814655	4223526094	5046	5225
+modules/rss/RssSiteAdmin.inc	1833177775	3169176460	6203	6413
+modules/rss/SimpleRender.inc	1159986212	1496119775	2726	2818
 modules/rss/classes/GNUmakefile	1995366819	843025639	51	52
 modules/rss/classes/GalleryStorage/GNUmakefile	1465776782	2009162633	61	62
 modules/rss/classes/GalleryStorage/schema.tpl	1869717271	1676037422	3126	3235
 modules/rss/classes/Maps.inc	3736870917	1753952197	488	492
 modules/rss/classes/Maps.xml	923671256	639776472	850	884
-modules/rss/classes/RssGenerator.class	2983825708	3798708535	10482	10813
-modules/rss/classes/RssHelper.class	827225702	3546863763	18790	19421
-modules/rss/classes/RssMapHelper.class	2931045969	3778602967	6921	7180
-modules/rss/module.inc	2210192313	2681026597	8406	8717
+modules/rss/classes/RssGenerator.class	3057265854	465529806	9437	9740
+modules/rss/classes/RssHelper.class	2642384376	1310612250	16564	17123
+modules/rss/classes/RssMapHelper.class	63888042	2356444891	6919	7178
+modules/rss/locale/af/LC_MESSAGES/modules_rss.mo	598042702	598042702	772	772
+modules/rss/locale/ar/LC_MESSAGES/modules_rss.mo	3361347710	3361347710	743	743
+modules/rss/locale/ca/LC_MESSAGES/modules_rss.mo	1759417852	1759417852	734	734
+modules/rss/locale/cs/LC_MESSAGES/modules_rss.mo	3707828690	3707828690	12611	12611
+modules/rss/locale/da/LC_MESSAGES/modules_rss.mo	2007004911	2007004911	6502	6502
+modules/rss/locale/de/LC_MESSAGES/modules_rss.mo	2203561672	2203561672	13577	13577
+modules/rss/locale/en_GB/LC_MESSAGES/modules_rss.mo	4217843157	4217843157	450	450
+modules/rss/locale/es/LC_MESSAGES/modules_rss.mo	173175555	173175555	13385	13385
+modules/rss/locale/eu/LC_MESSAGES/modules_rss.mo	524974317	524974317	744	744
+modules/rss/locale/fi/LC_MESSAGES/modules_rss.mo	1467676324	1467676324	733	733
+modules/rss/locale/fr/LC_MESSAGES/modules_rss.mo	4126245662	4126245662	13472	13472
+modules/rss/locale/he/LC_MESSAGES/modules_rss.mo	701215273	701215273	14602	14602
+modules/rss/locale/hu/LC_MESSAGES/modules_rss.mo	3234813549	3234813549	718	718
+modules/rss/locale/it/LC_MESSAGES/modules_rss.mo	3172471420	3172471420	12931	12931
+modules/rss/locale/ja/LC_MESSAGES/modules_rss.mo	1710513038	1710513038	11714	11714
+modules/rss/locale/ko/LC_MESSAGES/modules_rss.mo	3601897996	3601897996	760	760
+modules/rss/locale/lt/LC_MESSAGES/modules_rss.mo	4023254228	4023254228	821	821
+modules/rss/locale/nl/LC_MESSAGES/modules_rss.mo	3836693752	3836693752	10583	10583
+modules/rss/locale/no/LC_MESSAGES/modules_rss.mo	74770948	74770948	12734	12734
+modules/rss/locale/pl/LC_MESSAGES/modules_rss.mo	2575036560	2575036560	13245	13245
+modules/rss/locale/pt_BR/LC_MESSAGES/modules_rss.mo	880693516	880693516	11199	11199
+modules/rss/locale/ro/LC_MESSAGES/modules_rss.mo	2525342351	2525342351	773	773
+modules/rss/locale/ru/LC_MESSAGES/modules_rss.mo	3647157450	3647157450	17220	17220
+modules/rss/locale/sk/LC_MESSAGES/modules_rss.mo	1884273660	1884273660	820	820
+modules/rss/locale/sr/LC_MESSAGES/modules_rss.mo	2282554312	2282554312	735	735
+modules/rss/locale/sv/LC_MESSAGES/modules_rss.mo	3983418298	3983418298	12899	12899
+modules/rss/locale/tr/LC_MESSAGES/modules_rss.mo	2070647914	2070647914	5934	5934
+modules/rss/locale/uk/LC_MESSAGES/modules_rss.mo	1667923969	1667923969	13150	13150
+modules/rss/locale/vi/LC_MESSAGES/modules_rss.mo	2678909173	2678909173	703	703
+modules/rss/locale/zh_CN/LC_MESSAGES/modules_rss.mo	1192433264	1192433264	12129	12129
+modules/rss/locale/zh_TW/LC_MESSAGES/modules_rss.mo	3800630260	3800630260	12562	12562
+modules/rss/module.inc	3778014201	3775451784	5986	6199
 modules/rss/po/GNUmakefile	1866879166	2808215985	98	103
-modules/rss/po/af.mo	1962745535	1962745535	772	772
-modules/rss/po/af.po	2118738150	62738615	9618	10162
-modules/rss/po/ar.mo	1190532920	1190532920	743	743
-modules/rss/po/ar.po	291290160	449445591	9562	10104
-modules/rss/po/ca.mo	3352177008	3352177008	734	734
-modules/rss/po/ca.po	1261528353	3665803647	9670	10215
-modules/rss/po/cs.mo	772264241	772264241	12241	12241
-modules/rss/po/cs.po	1538989594	2584043982	14609	15181
-modules/rss/po/da.mo	4276209002	4276209002	6468	6468
-modules/rss/po/da.po	2765320127	836549989	12250	12811
-modules/rss/po/de.mo	2007227516	2007227516	13173	13173
-modules/rss/po/de.po	1030774874	1393505825	15448	16032
-modules/rss/po/el.mo	1491804237	1491804237	10784	10784
-modules/rss/po/el.po	3558184719	766159823	15693	16253
-modules/rss/po/en_GB.mo	2926278324	2926278324	561	561
-modules/rss/po/en_GB.po	2628408874	3670748395	14298	14859
-modules/rss/po/es.mo	336524408	336524408	12974	12974
-modules/rss/po/es.po	742534751	2341348813	15375	15956
-modules/rss/po/eu.mo	2155556935	2155556935	744	744
-modules/rss/po/eu.po	3838770763	969966058	9608	10152
-modules/rss/po/fi.mo	1306342925	1306342925	733	733
-modules/rss/po/fi.po	184641163	3771863200	9672	10218
-modules/rss/po/fr.mo	16418412	16418412	13070	13070
-modules/rss/po/fr.po	1109623058	3798414986	15518	16101
-modules/rss/po/he.mo	2708303683	2708303683	14339	14339
-modules/rss/po/he.po	2600679540	2113973648	17079	17648
-modules/rss/po/hu.mo	1313076979	1313076979	718	718
-modules/rss/po/hu.po	3256299240	2955335674	9665	10213
-modules/rss/po/it.mo	1857545896	1857545896	12565	12565
-modules/rss/po/it.po	3525163090	3186393653	14957	15538
-modules/rss/po/ja.mo	1412969821	1412969821	11300	11300
-modules/rss/po/ja.po	2060354996	3248266592	15488	16059
-modules/rss/po/ko.mo	2751417028	2751417028	760	760
-modules/rss/po/ko.po	868848219	2179985002	9615	10160
-modules/rss/po/lt.mo	295674475	295674475	821	821
-modules/rss/po/lt.po	398513255	3783059814	9700	10244
-modules/rss/po/nl.mo	167591054	167591054	10365	10365
-modules/rss/po/nl.po	163013941	1869963135	13958	14528
-modules/rss/po/no.mo	496837515	496837515	12357	12357
-modules/rss/po/no.po	2221233784	1264240012	14707	15284
-modules/rss/po/pl.mo	4160288457	4160288457	12881	12881
-modules/rss/po/pl.po	632610280	1700935203	15223	15803
-modules/rss/po/pt_BR.mo	1213714591	1213714591	10941	10941
-modules/rss/po/pt_BR.po	815442501	3509415277	14225	14796
-modules/rss/po/ro.mo	1550332019	1550332019	773	773
-modules/rss/po/ro.po	4277180779	2087116586	9651	10197
-modules/rss/po/ru.mo	1777484608	1777484608	16909	16909
-modules/rss/po/ru.po	1967347092	512538302	19977	20560
-modules/rss/po/sk.mo	4127879780	4127879780	820	820
-modules/rss/po/sk.po	3609863130	3550666644	9745	10293
-modules/rss/po/sr.mo	2378012516	2378012516	12462	12462
-modules/rss/po/sr.po	1146093709	3147673578	14879	15458
-modules/rss/po/strings.raw	3854073889	3156597088	8175	8355
-modules/rss/po/sv.mo	3404215288	3404215288	12519	12519
-modules/rss/po/sv.po	2462367203	2721366998	14831	15407
-modules/rss/po/tr.mo	2258737488	2258737488	5934	5934
-modules/rss/po/tr.po	839008409	3154226465	11676	12230
-modules/rss/po/uk.mo	1957993403	1957993403	12913	12913
-modules/rss/po/uk.po	910391389	208432441	15494	16080
-modules/rss/po/vi.mo	1087858913	1087858913	703	703
-modules/rss/po/vi.po	3537058973	57072078	9544	10086
-modules/rss/po/zh_CN.mo	3503492357	3503492357	11912	11912
-modules/rss/po/zh_CN.po	1944917391	894827499	14238	14799
-modules/rss/po/zh_TW.mo	2060904922	2060904922	12203	12203
-modules/rss/po/zh_TW.po	2417264863	3094368745	14269	14828
-modules/rss/templates/EditFeed.tpl	4064944615	4242524689	17907	18468
-modules/rss/templates/FeedList.tpl	2594576884	1759005026	916	947
-modules/rss/templates/RssBlockHead.tpl	1771909245	1213978188	388	400
-modules/rss/templates/RssSiteAdmin.tpl	4116955574	4213007894	16960	17436
-modules/rss/templates/blocks/RssBlock.tpl	1716832780	921395428	625	646
+modules/rss/po/af.po	3818508014	3026711564	8867	9370
+modules/rss/po/ar.po	1181925085	147532145	8811	9312
+modules/rss/po/ca.po	2875393685	2096842447	8919	9423
+modules/rss/po/cs.po	3270350743	3151286128	13439	13957
+modules/rss/po/da.po	3759820797	33672020	11023	11531
+modules/rss/po/de.po	1561369292	3074942717	14255	14785
+modules/rss/po/en_GB.po	1241282237	3052697213	13055	13573
+modules/rss/po/es.po	1990318122	167914330	14161	14688
+modules/rss/po/eu.po	2720828578	2054075234	8857	9360
+modules/rss/po/fi.po	3584732945	186031932	8923	9428
+modules/rss/po/fr.po	1481504884	2826079681	14320	14849
+modules/rss/po/he.po	1356447059	1519667663	15741	16257
+modules/rss/po/hu.po	579049919	1242569315	8914	9421
+modules/rss/po/it.po	2004610930	84914870	13766	14293
+modules/rss/po/ja.po	1338441513	4280950664	14219	14736
+modules/rss/po/ko.po	2522039931	3696460215	8864	9368
+modules/rss/po/lt.po	3411124740	2979627343	8949	9452
+modules/rss/po/nl.po	2832616051	1187048892	12821	13338
+modules/rss/po/no.po	3617584673	701242519	13557	14080
+modules/rss/po/pl.po	984884790	2384141620	14044	14570
+modules/rss/po/pt_BR.po	1472628239	2903837581	13068	13586
+modules/rss/po/ro.po	856474167	3823312355	8900	9405
+modules/rss/po/ru.po	1257558112	88789132	18475	19005
+modules/rss/po/sk.po	2339795839	694031298	8994	9501
+modules/rss/po/sr.po	1188924268	2712062997	8806	9308
+modules/rss/po/strings.raw	3724221902	42387590	7533	7700
+modules/rss/po/sv.po	1049528470	1835492265	13674	14196
+modules/rss/po/tr.po	2485045268	3902971772	10528	11031
+modules/rss/po/uk.po	1394018132	2481340736	14310	14843
+modules/rss/po/vi.po	1184211556	63802610	8793	9294
+modules/rss/po/zh_CN.po	1347882614	4145772918	13109	13617
+modules/rss/po/zh_TW.po	4144359204	922684570	13131	13636
+modules/rss/templates/EditFeed.tpl	4051245000	1729943292	16193	16712
+modules/rss/templates/FeedList.tpl	986361197	987181414	1072	1105
+modules/rss/templates/RssBlockHead.tpl	2470739434	2867370971	544	558
+modules/rss/templates/RssSiteAdmin.tpl	3699510164	3724502713	15761	16205
+modules/rss/templates/blocks/RssBlock.tpl	3051763631	241566682	781	804
 modules/rss/templates/blocks/blocks.inc	2110983884	3679917574	448	467
-modules/rss/test/phpunit/RssEditFeedTest.class	267144997	3054466242	8791	9110
-modules/rss/test/phpunit/RssMapTest.class	2512961436	2828755354	3491	3631
-modules/rss/test/phpunit/RssRenderTest.class	130500517	1954046066	8835	9153
-modules/rss/test/phpunit/RssSiteAdminControllerTest.class	648131989	80579010	5655	5856
-modules/rss/test/phpunit/RssTest.class	199839892	1107311595	2597	2698
-R	modules/rss/locale/af/LC_MESSAGES/modules_rss.mo
-R	modules/rss/locale/ar/LC_MESSAGES/modules_rss.mo
-R	modules/rss/locale/ca/LC_MESSAGES/modules_rss.mo
-R	modules/rss/locale/cs/LC_MESSAGES/modules_rss.mo
-R	modules/rss/locale/da/LC_MESSAGES/modules_rss.mo
-R	modules/rss/locale/de/LC_MESSAGES/modules_rss.mo
-R	modules/rss/locale/en_GB/LC_MESSAGES/modules_rss.mo
-R	modules/rss/locale/es/LC_MESSAGES/modules_rss.mo
-R	modules/rss/locale/eu/LC_MESSAGES/modules_rss.mo
-R	modules/rss/locale/fi/LC_MESSAGES/modules_rss.mo
-R	modules/rss/locale/fr/LC_MESSAGES/modules_rss.mo
-R	modules/rss/locale/he/LC_MESSAGES/modules_rss.mo
-R	modules/rss/locale/hu/LC_MESSAGES/modules_rss.mo
-R	modules/rss/locale/it/LC_MESSAGES/modules_rss.mo
-R	modules/rss/locale/ja/LC_MESSAGES/modules_rss.mo
-R	modules/rss/locale/ko/LC_MESSAGES/modules_rss.mo
-R	modules/rss/locale/lt/LC_MESSAGES/modules_rss.mo
-R	modules/rss/locale/nl/LC_MESSAGES/modules_rss.mo
-R	modules/rss/locale/no/LC_MESSAGES/modules_rss.mo
-R	modules/rss/locale/pl/LC_MESSAGES/modules_rss.mo
-R	modules/rss/locale/pt_BR/LC_MESSAGES/modules_rss.mo
-R	modules/rss/locale/ro/LC_MESSAGES/modules_rss.mo
-R	modules/rss/locale/ru/LC_MESSAGES/modules_rss.mo
-R	modules/rss/locale/sk/LC_MESSAGES/modules_rss.mo
-R	modules/rss/locale/sr/LC_MESSAGES/modules_rss.mo
-R	modules/rss/locale/sv/LC_MESSAGES/modules_rss.mo
-R	modules/rss/locale/tr/LC_MESSAGES/modules_rss.mo
-R	modules/rss/locale/uk/LC_MESSAGES/modules_rss.mo
-R	modules/rss/locale/vi/LC_MESSAGES/modules_rss.mo
-R	modules/rss/locale/zh_CN/LC_MESSAGES/modules_rss.mo
-R	modules/rss/locale/zh_TW/LC_MESSAGES/modules_rss.mo
+modules/rss/test/phpunit/RssEditFeedTest.class	2976386700	3765871227	8897	9211
+modules/rss/test/phpunit/RssMapTest.class	1320789219	2683577478	3616	3752
+modules/rss/test/phpunit/RssRenderTest.class	3350003004	4076255753	9213	9533
+modules/rss/test/phpunit/RssSiteAdminControllerTest.class	3932366788	587031060	5679	5874
+modules/rss/test/phpunit/RssTest.class	1931081329	1326712244	2656	2753

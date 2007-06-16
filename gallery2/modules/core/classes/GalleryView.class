@@ -356,9 +356,14 @@ class GalleryView {
 	}
 
 	/* Load the item */
-	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	if ($ret) {
 	    return array($ret, null, null);
+	}
+	
+	if (!GalleryUtilities::isA($item, 'GalleryItem')) {
+	    /* Invalid itemId given, return MISSING_OBJECT to get standard error page */
+	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null, null);
 	}
 
 	return array(null, $item, $wasSpecified);
@@ -423,8 +428,7 @@ class GalleryView {
 	} else if (GalleryUtilities::isA($item, 'GalleryAlbumItem')) {
 	    $nearestAlbum = $item;
 	} else {
-	    list ($ret, $nearestAlbum) =
-		GalleryCoreApi::loadEntitiesById($item->getParentId(), 'GalleryItem');
+	    list ($ret, $nearestAlbum) = GalleryCoreApi::loadEntitiesById($item->getParentId());
 	    if ($ret) {
 		return array($ret, null);
 	    }

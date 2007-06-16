@@ -1,6 +1,8 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
 <div class="gbBlock gcBackground1">
   <h2> {g->text text="Login to your account"} </h2>
@@ -34,7 +36,7 @@
 
   {if isset($form.error.username.disabled)}
   <div class="giError">
-    {g->text text="Logins to this account are temporarily disabled due to multiple failed login attempts.  Wait for access to be restored, or use the %srecover password%s page to re-enable this account." arg1="<a href=\"`$smarty.capture.recoverUrl`\">" arg2="</a>"}
+    {g->text text="Logins to this account are temporarily disabled due to multiple failed login attempts.  Wait for access to be restored, or use the <a href=\"%s\">recover password</a> page to re-enable this account." arg1=$smarty.capture.recoverUrl}
   </div>
   {/if}
 
@@ -61,7 +63,7 @@
 {/foreach}
 
 <div class="gbBlock">
-  {g->text text="Lost or forgotten passwords can be retrieved using the %srecover password%s page" arg1="<a href=\"`$smarty.capture.recoverUrl`\">" arg2="</a>"}
+  {g->text text="Lost or forgotten passwords can be retrieved using the <a href=\"%s\">recover password</a> page" arg1=$smarty.capture.recoverUrl}
 </div>
 
 <div class="gbBlock gcBackground1">

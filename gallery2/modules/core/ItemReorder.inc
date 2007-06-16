@@ -65,7 +65,7 @@ class ItemReorderController extends GalleryController {
 		$selectedId = $form['selectedId'];
 		$targetId = $form['targetId'];
 		list ($ret, $entities) =
-		    GalleryCoreApi::loadEntitiesById(array($selectedId, $targetId), 'GalleryItem');
+		    GalleryCoreApi::loadEntitiesById(array($selectedId, $targetId));
 		if ($ret) {
 		    return array($ret, null);
 		}
@@ -181,7 +181,7 @@ class ItemReorderView extends GalleryView {
 	    $form['formName'] = 'ItemReorder';
 	}
 
-	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -207,7 +207,7 @@ class ItemReorderView extends GalleryView {
 	    }
 
 	    /* Load all the peers */
-	    list ($ret, $peerItems) = GalleryCoreApi::loadEntitiesById($peerIds, 'GalleryItem');
+	    list ($ret, $peerItems) = GalleryCoreApi::loadEntitiesById($peerIds);
 	    if ($ret) {
 		return array($ret, null);
 	    }

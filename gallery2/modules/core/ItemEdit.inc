@@ -37,7 +37,7 @@ class ItemEditController extends GalleryController {
 	$itemId = (int)GalleryUtilities::getRequestVariables('itemId');
 	
 	/* Load the item */
-	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -102,7 +102,7 @@ class ItemEditController extends GalleryController {
 	if (isset($form['action']['save'])) {
 	    $progressBarOptions = array();
 	    foreach ($optionInstances as $option) {
-		if ($requiresProgressBar || $option->requiresProgressBar($form)) {
+		if ($option->requiresProgressBar($form)) {
 		    $progressBarOptions[] = $option;
 		} else {
 		    list ($ret, $optionErrors, $optionWarnings) =
@@ -151,8 +151,6 @@ class ItemEditController extends GalleryController {
 
 	$error = array();
 	foreach ($options as $option) {
-	    $gallery->guaranteeTimeLimit(60);
-
 	    list ($ret, $optionErrors, $optionWarnings) =
 		$option->handleRequestAfterEdit($form, $item, $preferred);
 	    if ($ret) {

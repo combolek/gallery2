@@ -16,6 +16,7 @@ gettext("<b>Error:</b> your <b>login.txt</b> key does not match correctly. Pleas
 
 /* steps/CreateConfigFileStep.class */
 gettext("Create Config File")
+gettext("Unable to write to the <b>config.php</b> configuration file in your %s directory.  Please change its permissions.  If you're on Unix you can do <i>chmod 666 config.php</i> to fix this.")
 gettext("The config.php file does not exist in your %s directory")
 gettext("The config.php file exists but is not writeable.  If your server is Windows, you may have to disable file sharing for config.php and set its permissions manually.")
 
@@ -92,7 +93,7 @@ gettext("Storage Setup") /* also in: templates/StorageSetupRequest.html */
 /* steps/SystemChecksStep.class */
 gettext("System Checks") /* also in: templates/SystemChecks.html */
 gettext("Performing system checks")
-gettext("PHP version &gt;= 4.3.0 or &gt;= 5.0.4")
+gettext("PHP version >= 4.3.0 or >= 5.0.4")
 gettext("Error: Gallery 2 requires PHP version 4.3.0 or newer or 5.0.4 or newer. You have PHP version %s installed. Contact your webserver administrator to request an upgrade, available at the %sPHP website%s.")
 gettext("PHP Version")
 gettext("FILE directive supported")
@@ -123,7 +124,7 @@ gettext("Your webserver does not support localization. To enable support for add
 gettext("Your PHP is missing the function %sbind_textdomain_codeset%s. This means Gallery may display extended characters for some languages incorrectly.")
 gettext("Your PHP is missing the function %sdngettext%s. This means Gallery will be unable to translate plural forms.")
 gettext("Zend compatibility mode")
-gettext("Warning: Your PHP is configured with Zend ze1_compatibility_mode which can cause PHP to crash.  Click %shere%s to test your PHP.  If you see \"SUCCESS\" then your PHP is ok.  If you get an error or no response then you must turn off ze1_compatibility_mode before proceeding.")
+gettext("Warning: Your PHP is configured with Zend ze1_compatibility_mode which can cause PHP to crash.  Click <a href=\"%s\">here</a> to test your PHP.  If you see \"SUCCESS\" then your PHP is ok.  If you get an error or no response then you must turn off ze1_compatibility_mode before proceeding.")
 gettext("putenv() allowed")
 gettext("Warning: The putenv() function is disabled in your PHP by the <b>disabled_functions</b> parameter in php.ini.  Gallery can function with this setting, but on some rare systems Gallery will be unable to run in other languages than the system language and English.")
 gettext("Output buffering disabled")
@@ -180,7 +181,6 @@ gettext("Try Again")
 
 /* templates/CreateConfigFileInstructions.html */
 gettext("Create a config file")
-gettext("Unable to write to the <b>config.php</b> configuration file in your %s directory.  Please change its permissions.  If you're on Unix you can do <i>chmod 666 config.php</i> to fix this. You can also download the %sconfig.php%s file and replace the existing config.php in the %s directory yourself.")
 gettext("Now we need to write out all the information you provided into a file called <b>config.php</b> in your <b>%s</b> directory.  This is a very important file that gives Gallery all the information that it needs to operate.  After we create it, you can read through this file and make changes to it if you want.")
 gettext("Before we can proceed, you should create a file in your <b>%s</b> directory called <i>config.php</i>.  You must make sure that the webserver will be able to write to it.")
 gettext("Unix (with shell access)") /* also in: templates/StorageSetupRequest.html */

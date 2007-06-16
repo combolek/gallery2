@@ -1,6 +1,8 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
 <script type="text/javascript">
 // <![CDATA[
@@ -18,7 +20,7 @@ var data_count = data_iw.length, data_name = '{$theme.item.id}',
     album_showlinks = '{g->text text="Show Item Links" forJavascript=true}',
     album_hidelinks = '{g->text text="Hide Item Links" forJavascript=true}',
     item_details = '{g->text text="Item Details" forJavascript=true}',
-    keyboard_help = "{g->text text="Album view:\n| space = start slideshow\n| ctrl-right/left = show/hide sidebar\n| ctrl-up/down = show/hide item links\nImage view:\n| space = start/pause slideshow\n| escape = return to album view\n| left/right = next/prev image\n| up/down = show hide description text\n| page up/down = scroll description text\n| ctrl-up/down = select full/fit size\nArrow keys scroll image in full size; use shift-arrows for funcs above\nItem Details showing:\n| escape = close popup" forJavascript=true}";
+    keyboard_help = "{capture name="helptext"}{g->text text="Album view:\\n| space = start slideshow\\n| ctrl-right/left = show/hide sidebar\\n| ctrl-up/down = show/hide item links\\nImage view:\\n| space = start/pause slideshow\\n| escape = return to album view\\n| left/right = next/prev image\\n| up/down = show hide description text\\n| page up/down = scroll description text\\n| ctrl-up/down = select full/fit size\\nArrow keys scroll image in full size; use shift-arrows for funcs above\\nItem Details showing:\\n| escape = close popup"}{/capture}{$smarty.capture.helptext|replace:"\"":"\\\""}";
 // ]]>
 </script>
 <script type="text/javascript" src="{$theme.themeUrl}/hybrid.js"></script>

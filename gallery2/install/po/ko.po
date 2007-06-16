@@ -19,9 +19,9 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Installer 2.3\n"
-"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2007-06-14 17:57-0700\n"
+"Project-Id-Version: Gallery: Installer 2.2.2\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-03-31 16:49+0900\n"
 "PO-Revision-Date: 2006-05-13 17:11+0900\n"
 "Last-Translator: juice <blackmantle@gmail.com>\n"
 "Language-Team: KOREAN <gallery-translations@lists.sourceforge.net>\n"
@@ -70,6 +70,15 @@ msgstr ""
 
 msgid "Create Config File"
 msgstr "설정 파일을 생성합니다."
+
+#, c-format
+msgid ""
+"Unable to write to the <b>config.php</b> configuration file in your %s directory.  Please "
+"change its permissions.  If you're on Unix you can do <i>chmod 666 config.php</i> to fix "
+"this."
+msgstr ""
+"%s 디렉터리에 있는 <b>config.php</b>에 쓰기 권한이 없습니다. 사용 권한을 바꿔주십시요. 만일 "
+"유닉스라면 <i>chmod 666 config.php</i>와 같은 명령어를 입력하시면 됩니다."
 
 #, c-format
 msgid "The config.php file does not exist in your %s directory"
@@ -309,8 +318,8 @@ msgstr "시스템 검사"
 msgid "Performing system checks"
 msgstr "시스템 검사중...."
 
-msgid "PHP version &gt;= 4.3.0 or &gt;= 5.0.4"
-msgstr "PHP version &gt;= 4.3.0 or &gt;= 5.0.4"
+msgid "PHP version >= 4.3.0 or >= 5.0.4"
+msgstr ""
 
 #, fuzzy, c-format
 msgid ""
@@ -323,7 +332,7 @@ msgstr ""
 "PHP를 설치해줄 것을 요구하십시오."
 
 msgid "PHP Version"
-msgstr "PHP Version"
+msgstr ""
 
 #, fuzzy
 msgid "FILE directive supported"
@@ -337,7 +346,7 @@ msgstr ""
 "주십시오."
 
 msgid "FILE Directive"
-msgstr "FILE Directive"
+msgstr ""
 
 msgid "Safe mode disabled"
 msgstr "Safe mode 불가능"
@@ -349,7 +358,7 @@ msgstr ""
 "오류: PHP가 Safe Mode가 가능합니다. Gallery를 실행하기 전에 safe mod를 꺼두셔야 합니다."
 
 msgid "Safe Mode"
-msgstr "Safe Mode"
+msgstr ""
 
 msgid "Regular expressions"
 msgstr "정규 표현식"
@@ -479,9 +488,9 @@ msgstr "Zend 최적화 모드"
 #, c-format
 msgid ""
 "Warning: Your PHP is configured with Zend ze1_compatibility_mode which can cause PHP to "
-"crash.  Click %shere%s to test your PHP.  If you see \"SUCCESS\" then your PHP is ok.  If "
-"you get an error or no response then you must turn off ze1_compatibility_mode before "
-"proceeding."
+"crash.  Click <a href=\"%s\">here</a> to test your PHP.  If you see \"SUCCESS\" then your "
+"PHP is ok.  If you get an error or no response then you must turn off ze1_compatibility_mode "
+"before proceeding."
 msgstr ""
 
 msgid "putenv() allowed"
@@ -645,16 +654,6 @@ msgstr "다시 시도"
 
 msgid "Create a config file"
 msgstr "설정 파일을 생성합니다."
-
-#, fuzzy, c-format
-msgid ""
-"Unable to write to the <b>config.php</b> configuration file in your %s directory.  Please "
-"change its permissions.  If you're on Unix you can do <i>chmod 666 config.php</i> to fix "
-"this. You can also download the %sconfig.php%s file and replace the existing config.php in "
-"the %s directory yourself."
-msgstr ""
-"%s 디렉터리에 있는 <b>config.php</b>에 쓰기 권한이 없습니다. 사용 권한을 바꿔주십시요. 만일 "
-"유닉스라면 <i>chmod 666 config.php</i>와 같은 명령어를 입력하시면 됩니다."
 
 #, c-format
 msgid ""
@@ -1231,7 +1230,7 @@ msgid "Currently installed"
 msgstr "현재 설치되어 있는 것"
 
 msgid "New version"
-msgstr "신 버전"
+msgstr ""
 
 msgid "Go to the Upgrader!"
 msgstr "업그레이드를 위해 이동합니다."
@@ -1263,3 +1262,34 @@ msgstr "이동."
 
 msgid "Begin Installation&raquo;"
 msgstr "Gallery 설치를 시작합니다. &raquo;"
+
+#~ msgid "Installed Gallery Core successfully"
+#~ msgstr "Gallery Core 설치 성공"
+
+#~ msgid "PostgreSQL v6.x (not well tested)"
+#~ msgstr "PostgreSQL v6.x (검수하지 않았음)"
+
+#~ msgid "Install More Modules"
+#~ msgstr "나머지 모듈설치"
+
+#~ msgid ""
+#~ "Before we can proceed, you should create a file in your <b>%s</b> directory called "
+#~ "<i>config.php</i>.  You must make sure that the webserver will be able to write to it.  "
+#~ "If you're on unix, try doing <i>chmod 666 config.php</i>.  On Windows, you shouldn't have "
+#~ "to do anything special.  When you've created this file and set the permissions properly, "
+#~ "you can proceed.  If there's a problem, we'll tell you what to fix."
+#~ msgstr ""
+#~ "이 작업을 하기 위해선 당신은 <b>%s</b>에 <i>config.php</i>을 만들어야 합니다. 이 파일은 쓰"
+#~ "기가 가능해야 합니다. 만일 유닉스라면 <i>chmod 666 config.php</i>와 같이 권한수정이 가능합"
+#~ "니다. 만일 Windows라면 어떤 특별한 작업이 필요 없습니다. 이 파일을 만든 후 적당히 권한 수"
+#~ "정을 하시면 됩니다. 만일 문제가 있다면 우리에게 알려주십시오."
+
+#~ msgid "Install Other Modules"
+#~ msgstr "나머지 모듈 설치"
+
+#~ msgid ""
+#~ "Gallery needs a directory to store your images. The directory we chose for you will work, "
+#~ "but is web accessible."
+#~ msgstr ""
+#~ "Gallery는 사진을 저장할 디렉터리가 있어야 합니다. 웹에서 접근 가능한 디렉터리를 선택하셔"
+#~ "야 하십시오."

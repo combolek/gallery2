@@ -38,8 +38,7 @@ class GalleryItemHelper_simple {
 	if (GalleryUtilities::isA($item, 'GalleryAlbumItem')) {
 	    $themeId = $item->getTheme();
 	} else {
-	    list ($ret, $parent) =
-		GalleryCoreApi::loadEntitiesById($item->getParentId(), 'GalleryAlbumItem');
+	    list ($ret, $parent) = GalleryCoreApi::loadEntitiesById($item->getParentId());
 	    if ($ret) {
 		return array($ret, null);
 	    }

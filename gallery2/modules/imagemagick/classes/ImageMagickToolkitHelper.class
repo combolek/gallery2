@@ -65,8 +65,7 @@ class ImageMagickToolkitHelper {
 	/* Scale */
 	$operations['scale'] = array(
 	    'params' => array(array('type' => 'int', 'description' =>
-		    $gallery->i18n(array('text' => 'target width (# pixels or #% of full size)',
-					 'cFormat' => false))),
+		    $gallery->i18n('target width (# pixels or #% of full size)', false)),
 			      array('type' => 'int', 'description' =>
 		    $gallery->i18n('(optional) target height, defaults to same as width'))),
 	    'description' =>
@@ -79,11 +78,9 @@ class ImageMagickToolkitHelper {
 	/* Resize */
 	$operations['resize'] = array(
 	    'params' => array(array('type' => 'int', 'description' =>
-		    $gallery->i18n(array('text' => 'target width (# pixels or #% of full size)',
-					 'cFormat' => false))),
+		    $gallery->i18n('target width (# pixels or #% of full size)', false)),
 			      array('type' => 'int', 'description' =>
-		    $gallery->i18n(array('text' => 'target height (# pixels or #% of full size)',
-					 'cFormat' => false)))),
+		    $gallery->i18n('target height (# pixels or #% of full size)', false))),
 	    'description' => $gallery->i18n('Resize the image to the target dimensions'),
 	    'mimeTypes' => $mimeTypes);
 
@@ -274,7 +271,7 @@ class ImageMagickToolkitHelper {
 	$tests[] = array('mime' => array('image/wmf'), 'file' => 'test.wmf',
 			 'expected' => '(WMF.*(Pseudo|Direct)Class|(Pseudo|Direct)Class.*WMF)');
 	$tests[] = array('mime' => array('image/tga'), 'file' => 'test.tga',
-		'expected' => '((TGA|ICB).*(Pseudo|Direct)Class|(Pseudo|Direct)Class.*(TGA|ICB))');
+			 'expected' => '(TGA.*(Pseudo|Direct)Class|(Pseudo|Direct)Class.*TGA)');
 
 	$oldPwd = $platform->getcwd();
 	$platform->chdir($gallery->getConfig('data.gallery.tmp'));
@@ -759,21 +756,6 @@ class ImageMagickToolkitHelper {
 	}
 	$ret = GalleryCoreApi::setPluginParameter('module', 'imagemagick', 'removeMetaDataSwitch',
 						  implode('|', $removeMetaDataSwitch));
-	if ($ret) {
-	    return $ret;
-	}
-
-	/* Find out what parameters to use for animated GIFs */
-	list ($ret, $version) = ImageMagickToolkitHelper::discoverVersion($imageMagickPath);
-	/* Ignore the error, fallback to old / compatible code */
-	if (!empty($version) && $version[0] == 'ImageMagick'
-		&& version_compare($version[1], '6.2.6-3', '>')) {
-	    $useNewCoalesceOptions = 1;
-	} else {
-	    $useNewCoalesceOptions = 0;
-	}
-	$ret = GalleryCoreApi::setPluginParameter(
-	    'module', 'imagemagick', 'useNewCoalesceOptions', $useNewCoalesceOptions);
 	if ($ret) {
 	    return $ret;
 	}

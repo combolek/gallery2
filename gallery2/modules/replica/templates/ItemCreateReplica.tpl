@@ -1,6 +1,8 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
 <div class="gbBlock gcBackground1">
   <h2> {g->text text="Create Replicas"} </h2>
@@ -75,7 +77,7 @@
 	 name="{g->formVar var="form[selectedIds][`$peer.id`]"}"/>
       </td><td>
 	<label for="cb_{$peer.id}">
-	  {$peer.title|markup:strip|default:$peer.pathComponent}
+	  {$peer.title|default:$peer.pathComponent}
 	</label>
      </td>
     </tr>
@@ -110,7 +112,7 @@
     {foreach from=$ItemCreateReplica.albumTree item=album}
       <option value="{$album.data.id}">
 	{"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"|repeat:$album.depth}--
-	{$album.data.title|markup:strip|default:$album.data.pathComponent}
+	{$album.data.title|default:$album.data.pathComponent}
       </option>
     {/foreach}
   </select>

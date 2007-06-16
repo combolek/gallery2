@@ -17,10 +17,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
 # Piarres Beobide <pi@beobide.net>, 2005.
-# 
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Installer 2.3\n"
+"Project-Id-Version: Gallery: Installer 2.2.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-10-30 22:52+0100\n"
 "PO-Revision-Date: 2006-05-22 15:19+0200\n"
@@ -70,6 +70,16 @@ msgstr ""
 
 msgid "Create Config File"
 msgstr "Konfigurazio Fitxategia Sortu"
+
+#, c-format
+msgid ""
+"Unable to write to the <b>config.php</b> configuration file in your %s directory.  Please "
+"change its permissions.  If you're on Unix you can do <i>chmod 666 config.php</i> to fix "
+"this."
+msgstr ""
+"Ezin da zure %s direktorioko <b>config.php</b> fitxategia idatzi.   Aldatu fitxategi horren "
+"baimenak.  Unix bat erabiltzen ari bazara <i>chmod 666 config.php</i> egin dezakezu hau "
+"konpontzeko."
 
 #, c-format
 msgid "The config.php file does not exist in your %s directory"
@@ -322,8 +332,8 @@ msgstr "Sistema Egiaztapenak"
 msgid "Performing system checks"
 msgstr "Sistema egiaztapenak egiten"
 
-msgid "PHP version &gt;= 4.3.0 or &gt;= 5.0.4"
-msgstr "PHP bertsioa &gt;= 4.3.0 edo &gt;= 5.0.4"
+msgid "PHP version >= 4.3.0 or >= 5.0.4"
+msgstr "PHP bertsioa >= 4.3.0 edo >= 5.0.4"
 
 #, c-format
 msgid ""
@@ -505,14 +515,14 @@ msgstr "Zend bateragarritasun modua"
 #, c-format
 msgid ""
 "Warning: Your PHP is configured with Zend ze1_compatibility_mode which can cause PHP to "
-"crash.  Click %shere%s to test your PHP.  If you see \"SUCCESS\" then your PHP is ok.  If "
-"you get an error or no response then you must turn off ze1_compatibility_mode before "
-"proceeding."
+"crash.  Click <a href=\"%s\">here</a> to test your PHP.  If you see \"SUCCESS\" then your "
+"PHP is ok.  If you get an error or no response then you must turn off ze1_compatibility_mode "
+"before proceeding."
 msgstr ""
 "Abisua: Zure PHP Zend ze1_compatibility_mode-az konfiguraturik dago, honek PHP apur dezake.  "
-"%sHemen %s klikatu zure PHP instalazio probatzeko.  \"LORTUA\" ikusiz gero zure PHP-a ondo "
-"dago.  Errore bat jaso edo erantzunik jaso ezean jarraitu aurretik ze1_compatibility_mode "
-"ezgaitu beharko zenuke."
+"<a href=\"%s\">Hemen </a> klikatu zure PHP instalazio probatzeko.  \"LORTUA\" ikusiz gero "
+"zure PHP-a ondo dago.  Errore bat jaso edo erantzunik jaso ezean jarraitu aurretik "
+"ze1_compatibility_mode ezgaitu beharko zenuke."
 
 msgid "putenv() allowed"
 msgstr "putenv() onarturik"
@@ -686,17 +696,6 @@ msgstr "Saiatu berriro"
 
 msgid "Create a config file"
 msgstr "Konfigurazio fitxategi bat sortu"
-
-#, fuzzy, c-format
-msgid ""
-"Unable to write to the <b>config.php</b> configuration file in your %s directory.  Please "
-"change its permissions.  If you're on Unix you can do <i>chmod 666 config.php</i> to fix "
-"this. You can also download the %sconfig.php%s file and replace the existing config.php in "
-"the %s directory yourself."
-msgstr ""
-"Ezin da zure %s direktorioko <b>config.php</b> fitxategia idatzi.   Aldatu fitxategi horren "
-"baimenak.  Unix bat erabiltzen ari bazara <i>chmod 666 config.php</i> egin dezakezu hau "
-"konpontzeko."
 
 #, c-format
 msgid ""
@@ -1345,3 +1344,60 @@ msgstr "Joan"
 
 msgid "Begin Installation&raquo;"
 msgstr "Instalazio hasi&raquo;"
+
+#, fuzzy
+#~ msgid "MSSQL (2005 and newer)"
+#~ msgstr "MySQL (3.23.34a bertsio eta berriagoak)"
+
+#~ msgid "Installed Gallery Core successfully"
+#~ msgstr "Gallery Muina egoki instalatu da"
+
+#~ msgid ""
+#~ "Congratulations, we've successfully installed the Gallery framework.  However, most of "
+#~ "the really cool features from Gallery come from additional modules that you can install "
+#~ "and configure.  The next step will take you through the process of selecting modules to "
+#~ "install so that you can tune Gallery to do exactly what you want."
+#~ msgstr ""
+#~ "Zorionak, Gallery ingurunea behar bezala instalatu duzu.  Hala ere Gallery-ren ezaugarri "
+#~ "erabilgarrienak orain instalatu eta konfiguratu ditzakezun modulu gehigarrien bidez "
+#~ "instalatzen dira.  Hurrengo urratsak Gallery zehazki zuk nahi duzun portamoldea izan "
+#~ "dezan moduluak instalatzeko aukera emango dizu."
+
+#~ msgid "MSSQL (Experimental!)"
+#~ msgstr "MSSQL (Esperimentala!)"
+
+#~ msgid ""
+#~ "Gallery needs a directory to store your images. The directory we chose for you will work, "
+#~ "but is web accessible."
+#~ msgstr ""
+#~ "Gallery-k direktorioa bat behar du zure irudiak biltegiratzeko. Instalatzaileak "
+#~ "hautatutako direktorioak funtzionatuko du baina web bidez eskuragarria da."
+
+#~ msgid "mkdir %s"
+#~ msgstr "mkdir %s"
+
+#~ msgid "chmod 777 %s"
+#~ msgstr "chmod 777 %s"
+
+#~ msgid "cd %s"
+#~ msgstr "cd %s"
+
+#~ msgid "Install More Modules"
+#~ msgstr "Modulu gehiago instalatu"
+
+#~ msgid ""
+#~ "Before we can proceed, you should create a file in your <b>%s</b> directory called "
+#~ "<i>config.php</i>.  You must make sure that the webserver will be able to write to it.  "
+#~ "If you're on unix, try doing <i>chmod 666 config.php</i>.  On Windows, you shouldn't have "
+#~ "to do anything special.  When you've created this file and set the permissions properly, "
+#~ "you can proceed.  If there's a problem, we'll tell you what to fix."
+#~ msgstr ""
+#~ "Jarraitu aurretik <b>%s</b> direktorioan <i>config.php</i> izeneko fitxategi bat sortu "
+#~ "behar duzu. Web zerbitzaria fitxategi horretan idazteko gai dela ziurtatu behar duzu.  "
+#~ "Unix makina batetan bazaude  <i>chmod 666 config.php</i> egiten saiatu.  Windowspean ez "
+#~ "zenuke ezer bereizirik egin beharko.  Bein fitxategi hori sortu eta behar diren baimenak "
+#~ "ezarri dituzula, aurrera jarraitu dezakezu.  Arazorik aurkitu ezkero nola konpondu esango "
+#~ "dizugu."
+
+#~ msgid "Install Other Modules"
+#~ msgstr "Modulu gehiago instalatu"

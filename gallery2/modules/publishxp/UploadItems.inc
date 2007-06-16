@@ -250,7 +250,7 @@ class UploadItemsController extends GalleryController {
 		break;
 	    default: $codePage = 1252;
 	}
-	return 'CP' . $codePage;
+	return 'Windows-' . $codePage;
     }
 }
 

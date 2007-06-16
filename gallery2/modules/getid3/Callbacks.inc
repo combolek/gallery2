@@ -31,7 +31,7 @@ class Getid3Callbacks {
 	case 'LoadGetid3Info':
 	    GalleryCoreApi::requireOnce('modules/getid3/classes/Getid3Helper.class');
 
-	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($params['itemId'], 'GalleryItem');
+	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($params['itemId']);
 	    if ($ret) {
 		return $ret;
 	    }

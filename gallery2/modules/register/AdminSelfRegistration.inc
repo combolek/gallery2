@@ -55,8 +55,7 @@ class AdminSelfRegistrationController extends GalleryController {
 	} else if (isset($form['action']['activate'])) {
 	    GalleryCoreApi::requireOnce(
 		'modules/register/classes/GalleryPendingUserHelper.class');
-	    list ($ret, $pendingUser) =
-		GalleryCoreApi::loadEntitiesById($form['userId'], 'GalleryPendingUser');
+	    list ($ret, $pendingUser) = GalleryCoreApi::loadEntitiesById($form['userId']);
 	    if ($ret) {
 		if (!($ret->getErrorCode() &  ERROR_MISSING_OBJECT)) {
 		    return array($ret, null);
@@ -70,8 +69,7 @@ class AdminSelfRegistrationController extends GalleryController {
 		$status['activated'] = $userName;
 	    }
 	} else if (isset($form['action']['delete'])) {
-	    list ($ret, $pendingUser) =
-		GalleryCoreApi::loadEntitiesById($form['userId'], 'GalleryPendingUser');
+	    list ($ret, $pendingUser) = GalleryCoreApi::loadEntitiesById($form['userId']);
 	    if ($ret) {
 		if (!($ret->getErrorCode() &  ERROR_MISSING_OBJECT)) {
 		    return array($ret, null);

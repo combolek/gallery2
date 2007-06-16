@@ -1,6 +1,8 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
 {if !empty($comment.subject)}
 <h3>
@@ -18,7 +20,8 @@
 
 {if $can.delete}
 <span class="delete">
-  <a{if !empty($ajaxDeleteCallback)} onclick="{$ajaxDeleteCallback}({$comment.id}); return false;"{/if} href="{g->url arg1="view=comment.DeleteComment" arg2="itemId=`$item.id`" arg3="commentId=`$comment.id`" arg4="return=true"}">
+  <a href="{g->url arg1="view=comment.DeleteComment" arg2="itemId=`$item.id`"
+		   arg3="commentId=`$comment.id`" arg4="return=true"}">
     {g->text text="delete"}</a>
 </span>
 {/if}
@@ -34,12 +37,13 @@
 	       document.getElementById('comment-full-{$comment.id}').style.display='block';
 	       document.getElementById('comment-more-toggle-{$comment.id}').style.display='none';
 	       document.getElementById('comment-less-toggle-{$comment.id}').style.display='inline';"
-      href="">{g->text text="show full"}</a><a id="comment-less-toggle-{$comment.id}"
+      >{g->text text="show full"}</a>
+  <a id="comment-less-toggle-{$comment.id}"
       onclick="document.getElementById('comment-truncated-{$comment.id}').style.display='block';
 	       document.getElementById('comment-full-{$comment.id}').style.display='none';
 	       document.getElementById('comment-more-toggle-{$comment.id}').style.display='inline';
 	       document.getElementById('comment-less-toggle-{$comment.id}').style.display='none';"
-      href="" style="display: none">{g->text text="show summary"}</a>
+      style="display: none">{g->text text="show summary"}</a>
 
   <p id="comment-truncated-{$comment.id}" class="comment">
     {$truncated}

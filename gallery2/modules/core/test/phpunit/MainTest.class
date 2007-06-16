@@ -33,10 +33,7 @@ class MainTest extends GalleryTestCase {
 
     function setUp() {
 	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	$this->_saveGallery = $gallery;
 
@@ -63,7 +60,8 @@ class MainTest extends GalleryTestCase {
 	$this->_urlGenerator = new GalleryUrlGenerator();
 	$ret = $this->_urlGenerator->init('phpunit_test.php');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$gallery->_phpVm = new MainTestPhpVm();
@@ -91,17 +89,7 @@ class MainTest extends GalleryTestCase {
 	GalleryUtilities::removeRequestVariable('view');
 	GalleryUtilities::removeRequestVariable('controller');
 
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
-    }
-
-    function _getResponseHeaders() {
-	$headers = GalleryUtilities::_getResponseHeaders();
-	/* We're not interested in the status header */
-	unset($headers['status']);
-	return $headers;
+	parent::tearDown();
     }
 
     /**
@@ -113,7 +101,7 @@ class MainTest extends GalleryTestCase {
 
 	list ($ret, $g2Data) = _GalleryMain();
 	if ($ret && !($ret->getErrorCode() & ERROR_PERMISSION_DENIED)) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(GALLERY_ERROR | ERROR_PERMISSION_DENIED, $ret->getErrorCode());
@@ -130,12 +118,12 @@ class MainTest extends GalleryTestCase {
 
 	list ($ret, $g2Data) = _GalleryMain();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Verify the result */
 	$this->assertEquals(array('location' => "Location: $expectedUrl"),
-			    $this->_getResponseHeaders(), 'Wrong redirect URL');
+			    GalleryUtilities::_getResponseHeaders(), 'Wrong redirect URL');
     }
 
     /**
@@ -151,14 +139,14 @@ class MainTest extends GalleryTestCase {
 
 	list ($ret, $g2Data) = _GalleryMain();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Verify the result */
 	$expectedUrl = $urlGenerator->generateUrl(array('view' => 'core.MaintenanceMode'),
 	    array('htmlEntities' => false, 'forceFullUrl' => true));
 	$this->assertEquals(array('location' => "Location: $expectedUrl"),
-			    $this->_getResponseHeaders(), 'Wrong redirect URL');
+			    GalleryUtilities::_getResponseHeaders(), 'Wrong redirect URL');
     }
 
     /**
@@ -173,12 +161,12 @@ class MainTest extends GalleryTestCase {
 
 	list ($ret, $g2Data) = _GalleryMain();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Verify the result */
 	$this->assertEquals(array('location' => "Location: $expectedUrl"),
-			    $this->_getResponseHeaders(), 'Wrong redirect URL');
+			    GalleryUtilities::_getResponseHeaders(), 'Wrong redirect URL');
     }
 
     /**
@@ -215,11 +203,11 @@ class MainTest extends GalleryTestCase {
 	$session =& $gallery->getSession();
 	$ret = $session->init();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$ret = $session->start();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$sessionId = $session->getId();
 	$sessionKey = $session->getKey();
@@ -261,7 +249,7 @@ class MainTest extends GalleryTestCase {
 
 		    /* Verify the result */
 		    $this->assertEquals(array('location' => "Location: $expectedUrl"),
-					$this->_getResponseHeaders(),
+					GalleryUtilities::_getResponseHeaders(),
 					"Wrong header: $server, $url, $controller");
 		}
 	    }
@@ -278,7 +266,7 @@ class MainTest extends GalleryTestCase {
 	$session = new GallerySession();
 	$ret = $session->init();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(false, $session->isUsingCookies(), 'isUsingCookies');
 	$this->assertEquals(SESSION_TEMP_ID, $session->getId(), 'SESSION_TEMP_ID');
@@ -290,7 +278,7 @@ class MainTest extends GalleryTestCase {
 
 	/* Verify the result */
 	$this->assertEquals(array('location' => 'Location: http://example.com/gallery2/main.php'),
-			    $this->_getResponseHeaders(), 'Wrong header');
+			    GalleryUtilities::_getResponseHeaders(), 'Wrong header');
     }
 
     function testDoRedirectRemoveTrailingQMark() {
@@ -301,7 +289,7 @@ class MainTest extends GalleryTestCase {
 	$session = new GallerySession();
 	$ret = $session->init();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(false, $session->isUsingCookies(), 'isUsingCookies');
 	$this->assertEquals(SESSION_TEMP_ID, $session->getId(), 'SESSION_TEMP_ID');
@@ -313,7 +301,7 @@ class MainTest extends GalleryTestCase {
 
 	/* Verify the result */
 	$this->assertEquals(array('location' => 'Location: http://example.com/main.php'),
-			    $this->_getResponseHeaders(), 'Wrong header');
+			    GalleryUtilities::_getResponseHeaders(), 'Wrong header');
     }
 
     function testAuthTokenCheckIsEnforcedForControllers() {
@@ -331,7 +319,7 @@ class MainTest extends GalleryTestCase {
 	if ($ret && $ret->getErrorCode() & ERROR_REQUEST_FORGED) {
 	    /* this is what we expect */
 	} else if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	} else {
 	    $this->assert(false, 'auth token check not executed');
 	}
@@ -352,7 +340,7 @@ class MainTest extends GalleryTestCase {
 	if ($ret && $ret->getErrorCode() & ERROR_REQUEST_FORGED) {
 	    /* this is what we expect */
 	} else if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	} else {
 	    $this->assert(false, 'auth token check not executed');
 	}
@@ -373,7 +361,7 @@ class MainTest extends GalleryTestCase {
 	if ($ret && $ret->getErrorCode() & ERROR_BAD_PARAMETER) {
 	    /* This is what we expect. The auth check has been omitted. */
 	} else if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	} else {
 	    $this->assert(false, 'unexpected result');
 	}

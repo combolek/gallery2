@@ -71,7 +71,7 @@ class UserPreferencesController extends GalleryController {
 	    if ($ret) {
 		return array($ret, null);
 	    }
-	    list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
+	    list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId);
 	    if ($ret) {
 		return array($ret, null);
 	    }
@@ -210,7 +210,7 @@ class UserPreferencesView extends GalleryView {
 	}
 
 	$languageList = array();
-	$languageList[''] = $module->translate('&lt;none&gt;');
+	$languageList[''] = $module->translate('<none>');
 	$translator =& $gallery->getTranslator();
 	$supportedLanguages = $translator->getSupportedLanguages();
 	foreach ($supportedLanguages as $language => $countryList) {

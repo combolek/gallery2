@@ -32,12 +32,11 @@ class RatingModule extends GalleryModule {
 	$this->setId('rating');
 	$this->setName($gallery->i18n('Rating'));
 	$this->setDescription($gallery->i18n('Item Rating Interface'));
-	$this->setVersion('1.0.10'); /* Update upgrade() too */
-	$this->_templateVersion = 1;
+	$this->setVersion('1.0.8'); /* Update upgrade() too */
 	$this->setCallbacks('getSiteAdminViews|getItemSummaries|registerEventListeners');
 	$this->setGroup('data', $gallery->i18n('Extra Data'));
-	$this->setRequiredCoreApi(array(7, 27));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setRequiredCoreApi(array(7, 10));
+	$this->setRequiredModuleApi(array(3, 3));
     }
 
     /**
@@ -211,9 +210,6 @@ class RatingModule extends GalleryModule {
 	case '1.0.5':
 	case '1.0.6':
 	case '1.0.7':
-	case '1.0.8':
-	    /* .mo file migration */
-	case '1.0.9':
 
 	case 'end of upgrade path':
 	    break;

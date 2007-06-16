@@ -33,12 +33,11 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
 	$this->setId('watermark');
 	$this->setName($gallery->i18n('Watermark'));
 	$this->setDescription($gallery->i18n('Watermark your images'));
-	$this->setVersion('1.1.2'); /* Update upgrade() too */
-	$this->_templateVersion = 1;
+	$this->setVersion('1.1.0'); /* Update upgrade() too */
 	$this->setGroup('display', $gallery->i18n('Display'));
 	$this->setCallbacks('registerEventListeners|getSiteAdminViews|getUserAdminViews');
-	$this->setRequiredCoreApi(array(7, 27));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setRequiredCoreApi(array(7, 4));
+	$this->setRequiredModuleApi(array(3, 5));
     }
 
     /**
@@ -129,8 +128,7 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
 		    return $ret;
 		}
 
-		list ($ret, $derivatives) =
-		    GalleryCoreApi::loadEntitiesById($ids, 'GalleryDerivative');
+		list ($ret, $derivatives) = GalleryCoreApi::loadEntitiesById($ids);
 		if ($ret) {
 		    GalleryCoreApi::releaseLocks($lock);
 		    return $ret;
@@ -173,9 +171,6 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
 	    /* Adding dependency on getRewriteRule() changes */
 	case '1.0.9':
 	case '1.0.10':
-	case '1.1.0':
-	    /* .mo file migration */
-	case '1.1.1':
 
 	case 'end of upgrade path':
 	    /*

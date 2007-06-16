@@ -19,7 +19,7 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Remote 1.0.11\n"
+"Project-Id-Version: Gallery: Remote 1.0.9\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-11-25 00:05+0100\n"
 "PO-Revision-Date: 2007-01-01 00:00+0100\n"
@@ -42,12 +42,12 @@ msgstr "Implémentation du protocole de contrôle à distance"
 msgid "Remote Interfaces"
 msgstr "Interfaces distantes"
 
-#, fuzzy
 msgid ""
 "Gallery Remote is a Java application that runs on your desktop computer and provides a rich "
 "interface to Gallery.  With Gallery Remote you can drag and drop to photos to upload them to "
 "Gallery, rotate and resize your images before uploading, and even view the photos in your "
-"Gallery in a slideshow on your desktop computer."
+"Gallery in a slideshow on your desktop computer.  You must install Gallery Remote 1.4 or "
+"newer to use it with this version of Gallery."
 msgstr ""
 "Gallery Remote est une application Java qui est exécuté sur votre ordinateur de bureau et "
 "qui fournit une interface riche pour Gallery. Avec Gallery Remote, vous pouvez ajouter "
@@ -56,14 +56,8 @@ msgstr ""
 "ordinateur. Vous devez installer Gallery Remote 1.4 ou plus récent pour pouvoir accéder à "
 "cette Gallery."
 
-msgid "You can either:"
-msgstr ""
-
-msgid "Install Gallery Remote permanently on your computer"
-msgstr ""
-
-msgid "Run Gallery Remote immediately using Java Webstart"
-msgstr ""
+msgid "Download Gallery Remote"
+msgstr "Télécharger Gallery Remote"
 
 msgid "Remote Settings"
 msgstr "Paramètres pour Distant"
@@ -80,6 +74,3 @@ msgstr "Sauver"
 
 msgid "Reset"
 msgstr "Réinitialiser"
-
-#~ msgid "Download Gallery Remote"
-#~ msgstr "Télécharger Gallery Remote"

@@ -63,7 +63,7 @@ class ItemPermissionsController extends GalleryController {
 
 	    /* Stuff the values back into the form for easy re-adding */
 	    $redirect['form[group][permission]'] = $permissionId;
-	    list ($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
+	    list ($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId);
 	    if (!$ret) {
 		$redirect['form[group][groupName]'] = $group->getGroupName();
 	    }
@@ -89,7 +89,7 @@ class ItemPermissionsController extends GalleryController {
 
 	    /* Stuff the values back into the form for easy re-adding */
 	    $redirect['form[user][permission]'] = $permissionId;
-	    list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
+	    list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId);
 	    if (!$ret) {
 		$redirect['form[user][userName]'] = $user->getUserName();
 	    }
@@ -225,7 +225,7 @@ class ItemPermissionsController extends GalleryController {
 	    }
 
 	    if (empty($error)) {
-		list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
+		list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 		if ($ret) {
 		    return array($ret, null);
 		}
@@ -288,8 +288,7 @@ class ItemPermissionsController extends GalleryController {
 			    return array($ret, null);
 			}
 
-			list ($ret, $descendents) =
-			    GalleryCoreApi::loadEntitiesById($chunk, 'GalleryItem');
+			list ($ret, $descendents) = GalleryCoreApi::loadEntitiesById($chunk);
 			if ($ret) {
 			    return array($ret, null);
 			}
@@ -395,7 +394,7 @@ class ItemPermissionsView extends GalleryView {
 	    return array($ret, null);
 	}
 
-	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -454,8 +453,8 @@ class ItemPermissionsView extends GalleryView {
 	    }
 	}
 
-	list ($ret, $userAndGroupEntities) = GalleryCoreApi::loadEntitiesById(
-		array_keys($userAndGroupEntityIds), array('GalleryUser', 'GalleryGroup'));
+	list ($ret, $userAndGroupEntities) =
+	    GalleryCoreApi::loadEntitiesById(array_keys($userAndGroupEntityIds));
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -514,7 +513,7 @@ class ItemPermissionsView extends GalleryView {
 	}
 
 	/* Figure out the owner */
-	list ($ret, $owner) = GalleryCoreApi::loadEntitiesById($item->getOwnerId(), 'GalleryUser');
+	list ($ret, $owner) = GalleryCoreApi::loadEntitiesById($item->getOwnerId());
 	if ($ret) {
 	    return array($ret, null);
 	}

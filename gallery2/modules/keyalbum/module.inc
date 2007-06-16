@@ -32,12 +32,11 @@ class KeyAlbumModule extends GalleryModule {
 	$this->setId('keyalbum');
 	$this->setName($gallery->i18n('Keyword Albums'));
 	$this->setDescription($gallery->i18n('Dynamic albums based on keyword search'));
-	$this->setVersion('1.0.4');
-	$this->_templateVersion = 1;
+	$this->setVersion('1.0.0.2');
 	$this->setGroup('display', $gallery->i18n('Display'));
 	$this->setCallbacks('getSiteAdminViews|getItemSummaries');
-	$this->setRequiredCoreApi(array(7, 27));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setRequiredCoreApi(array(7, 10));
+	$this->setRequiredModuleApi(array(3, 2));
     }
 
     /**
@@ -71,7 +70,7 @@ class KeyAlbumModule extends GalleryModule {
 		return $ret;
 	    }
 	}
-	if (!empty($currentVersion) && version_compare($currentVersion, '1.0.3', '<')) {
+	if (!empty($currentVersion) && version_compare($currentVersion, '1.0.0.2', '<')) {
 	    /* Format for keyword data changed; force refresh */
 	    foreach (array_keys($params) as $key) {
 		if (preg_match('/^allKeywords.*\.time$/', $key)) {

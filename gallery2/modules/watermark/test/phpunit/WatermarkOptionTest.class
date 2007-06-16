@@ -35,41 +35,41 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 
     function setUp() {
 	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($this->_album);
 	$this->_images = array();
 	list ($ret, $this->_images[0]) =
 	    $this->_createRandomDataItem($this->_album->getId(), 'image/test');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_thumbnails = array();
 	list ($ret, $this->_thumbnails[0]) =
 	    $this->_createDerivative($this->_images[0], $this->_images[0]->getId(),
 				     DERIVATIVE_TYPE_IMAGE_THUMBNAIL, 'crop|10,10,30,40;scale|200');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->_resizes = array();
 	list ($ret, $this->_resizes[0]) =
 	    $this->_createDerivative($this->_images[0], $this->_images[0]->getId(),
 				     DERIVATIVE_TYPE_IMAGE_RESIZE, 'rotate|90');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->_items = array();
 	list ($ret, $this->_items[0]) = $this->_createRandomDataItem($this->_album->getId(),
 								 'test/file');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_itemThumbnails = array();
 	list ($ret, $this->_itemThumbnails[0]) =
@@ -78,7 +78,7 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 				     DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
 				     'convert-to-image/jpeg;thumbnail|150');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Create a watermark */
@@ -88,7 +88,7 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 					 'image/gif',
 					 'phpunit_' . rand() . '.gif');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->_watermark->setApplyToPreferred(false);
@@ -98,18 +98,20 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 	$this->_watermark->setYPercentage('2.3');
 	$ret = $this->_watermark->save();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($this->_watermark);
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'watermark');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$ret = GalleryCoreApi::setPluginParameter('module', 'watermark',
 						  'forceDefaultWatermark', 0);
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->_noWarnings = array();
@@ -128,7 +130,7 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 	foreach (array($this->_thumbnails[0], $this->_resizes[0]) as $derivative) {
 	    list ($ret, $derivative) = $derivative->refresh();
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 
 	    $this->assertEquals($expected, $derivative->getPostFilterOperations());
@@ -141,7 +143,7 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 	    list ($ret, $this->_images[$j]) =
 		$this->_createRandomDataItem($this->_album->getId(), 'image/test');
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    list ($ret, $this->_thumbnails[$j]) =
 		$this->_createDerivative($this->_images[$j],
@@ -149,18 +151,18 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 					 DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
 					 'crop|10,10,30,40;scale|200');
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    list ($ret, $this->_resizes[$j]) =
 		$this->_createDerivative($this->_images[$j], $this->_images[$j]->getId(),
 					 DERIVATIVE_TYPE_IMAGE_RESIZE, 'rotate|90');
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    list ($ret, $this->_items[$j]) = $this->_createRandomDataItem($this->_album->getId(),
 									  'test/file');
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    list ($ret, $this->_itemThumbnails[$j]) =
 		$this->_createDerivative($this->_items[$j],
@@ -168,7 +170,7 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 					 DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
 					 'convert-to-image/jpeg;thumbnail|150');
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	}
 
@@ -184,7 +186,7 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 	    foreach (array($this->_thumbnails[$j], $this->_resizes[$j]) as $derivative) {
 		list ($ret, $derivative) = $derivative->refresh();
 		if ($ret) {
-		    return $ret;
+		    return $this->failWithStatus($ret);
 		}
 		$this->assertEquals($expected, $derivative->getPostFilterOperations());
 	    }
@@ -199,7 +201,7 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 	foreach (array($this->_thumbnails[0], $this->_resizes[0]) as $derivative) {
 	    list ($ret, $derivative) = $derivative->refresh();
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 
 	    /* For Oracle, null is replaced with '' when loading data from the database */
@@ -215,7 +217,7 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 	    list ($ret, $this->_images[$j]) =
 		$this->_createRandomDataItem($this->_album->getId(), 'image/test');
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    list ($ret, $this->_thumbnails[$j]) =
 		$this->_createDerivative($this->_images[$j],
@@ -223,13 +225,13 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 					 DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
 					 'crop|10,10,30,40;scale|200');
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    list ($ret, $this->_resizes[$j]) =
 		$this->_createDerivative($this->_images[$j], $this->_images[$j]->getId(),
 					 DERIVATIVE_TYPE_IMAGE_RESIZE, 'rotate|90');
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	}
 
@@ -241,7 +243,7 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 	    foreach (array($this->_thumbnails[$j], $this->_resizes[$j]) as $derivative) {
 		list ($ret, $derivative) = $derivative->refresh();
 		if ($ret) {
-		    return $ret;
+		    return $this->failWithStatus($ret);
 		}
 		/* For Oracle, null is replaced with '' when loading data from the database */
 		$this->assert(in_array($derivative->getPostFilterOperations(), array(null, '')),
@@ -258,7 +260,7 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 
 	list ($ret, $derivative) = $this->_itemThumbnails[0]->refresh();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* For Oracle, null is replaced with '' when loading data from the database */
@@ -273,7 +275,7 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 	    list ($ret, $this->_items[$j]) = $this->_createRandomDataItem($this->_album->getId(),
 									  'test/file');
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    list ($ret, $this->_itemThumbnails[$j]) =
 		$this->_createDerivative($this->_items[$j],
@@ -281,7 +283,7 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 					 DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
 					 'convert-to-image/jpeg;thumbnail|150');
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	}
 	$form['WatermarkOption']['watermarkId'] = $this->_watermark->getId();
@@ -291,7 +293,7 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 	for ($j = 0; $j < $totalTestItems; $j++) {
 	    list ($ret, $derivative) = $this->_itemThumbnails[$j]->refresh();
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    /* For Oracle, null is replaced with '' when loading data from the database */
 	    $this->assert(in_array($derivative->getPostFilterOperations(), array(null, '')),
@@ -304,12 +306,12 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 	$ret = GalleryCoreApi::setPluginParameter('module', 'watermark',
 						  'forceDefaultWatermark', 1);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$ret = GalleryCoreApi::setPluginParameter('module', 'watermark',
 						  'defaultWatermarkId', $this->_watermark->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$result = $this->_handleRequestAfterAdd(array(), $this->_images);
@@ -322,7 +324,7 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 	foreach (array($this->_thumbnails[0], $this->_resizes[0]) as $derivative) {
 	    list ($ret, $derivative) = $derivative->refresh();
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 
 	    $this->assertEquals($expected, $derivative->getPostFilterOperations());

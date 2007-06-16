@@ -33,8 +33,8 @@ class HybridTheme extends GalleryTheme {
 	$this->setId('hybrid');
 	$this->setName($gallery->i18n('Hybrid'));
 	$this->setDescription($gallery->i18n('Combined album/image/slideshow dynamic view'));
-	$this->setVersion('1.1.6');
-	$this->setRequiredCoreApi(array(7, 27));
+	$this->setVersion('1.1.4.1');
+	$this->setRequiredCoreApi(array(7, 10));
 	$this->setRequiredThemeApi(array(2, 5));
 	$this->setStandardSettings(array(
 	    'rows' => 30, 'columns' => 2,
@@ -167,8 +167,7 @@ class HybridTheme extends GalleryTheme {
 	list ($detail, $renderId) = GalleryUtilities::getRequestVariables('detail', 'renderId');
 	if (!empty($renderId)) {
 	    /* Render this item */
-	    list ($ret, $image) = GalleryCoreApi::loadEntitiesById(
-		    $renderId, array('GalleryDataItem', 'GalleryDerivative'));
+	    list ($ret, $image) = GalleryCoreApi::loadEntitiesById($renderId);
 	    if ($ret) {
 		return array($ret, null);
 	    }
@@ -202,8 +201,7 @@ class HybridTheme extends GalleryTheme {
 	}
 
 	/* Otherwise, redirect to parent with initial view of this item  */
-	list ($ret, $parent) =
-	    GalleryCoreApi::loadEntitiesById($item->getParentId(), 'GalleryItem');
+	list ($ret, $parent) = GalleryCoreApi::loadEntitiesById($item->getParentId());
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -286,7 +284,7 @@ class HybridTheme extends GalleryTheme {
 	    if ($ret) {
 		return array($ret, null, null);
 	    }
-	    list ($ret, $childItems) = GalleryCoreApi::loadEntitiesById($childIds, 'GalleryItem');
+	    list ($ret, $childItems) = GalleryCoreApi::loadEntitiesById($childIds);
 	    if ($ret) {
 		return array($ret, null, null);
 	    }

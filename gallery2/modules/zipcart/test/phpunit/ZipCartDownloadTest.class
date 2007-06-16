@@ -34,14 +34,12 @@ class ZipCartDownloadTest extends GalleryTestCase {
 
     function setUp() {
 	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	list ($ret, $this->_view) = GalleryView::loadView('zipcart.Download');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$gallery->_phpVm = new ZipCartDownloadPhpVm($this);
@@ -67,7 +65,7 @@ class ZipCartDownloadTest extends GalleryTestCase {
 	ob_start();
 	$ret = $this->_view->renderImmediate(array(), array());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$output = ob_get_contents();
 	ob_end_clean();
@@ -98,7 +96,7 @@ class ZipCartDownloadTest extends GalleryTestCase {
 	ob_start();
 	$ret = $this->_view->renderImmediate(array(), array());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$output = ob_get_contents();
 	ob_end_clean();
@@ -122,7 +120,7 @@ class ZipCartDownloadTest extends GalleryTestCase {
 	ob_start();
 	$ret = $this->_view->renderImmediate(array(), array());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$output = ob_get_contents();
 	ob_end_clean();
@@ -144,7 +142,7 @@ class ZipCartDownloadTest extends GalleryTestCase {
 	ob_start();
 	$ret = $this->_view->renderImmediate(array(), array());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$output = ob_get_contents();
 	ob_end_clean();

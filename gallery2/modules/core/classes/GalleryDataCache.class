@@ -308,9 +308,10 @@ class GalleryDataCache {
 
 	global $gallery;
 	$platform =& $gallery->getPlatform();
-	if (in_array($pathInfo['type'],
-		     array('entity', 'derivative-meta', 'module-data', 'local-url-map'))
-		|| isset($pathInfo['id'])) {
+	if ($pathInfo['type'] == 'entity' ||
+		$pathInfo['type'] == 'derivative-meta' ||
+		$pathInfo['type'] == 'module-data' ||
+		isset($pathInfo['id'])) {
 	    $cacheFile = GalleryDataCache::getCachePath($pathInfo);
 	    if ($platform->file_exists($cacheFile)) {
 		if ($platform->is_dir($cacheFile)) {
@@ -319,16 +320,18 @@ class GalleryDataCache {
 		    $platform->unlink($cacheFile);
 		}
 	    }
-	} else if ($pathInfo['type'] == 'module' || $pathInfo['type'] == 'theme') {
-	    list ($ret, $pluginStatus) = GalleryCoreApi::fetchPluginStatus($pathInfo['type']);
-	    if ($ret) {
-		return $ret;
-	    }
+	} else {
+	    if ($pathInfo['type'] == 'module' || $pathInfo['type'] == 'theme') {
+		list ($ret, $pluginStatus) = GalleryCoreApi::fetchPluginStatus($pathInfo['type']);
+		if ($ret) {
+		    return $ret;
+		}
 
-	    foreach (array_keys($pluginStatus) as $pluginId) {
-		GalleryDataCache::removeFromDisk(array('type' => $pathInfo['type'],
-						       'id' => $pluginId,
-						       'itemId' => $pathInfo['itemId']));
+		foreach (array_keys($pluginStatus) as $pluginId) {
+		    GalleryDataCache::removeFromDisk(array('type' => $pathInfo['type'],
+							   'id' => $pluginId,
+							   'itemId' => $pathInfo['itemId']));
+		}
 	    }
 	}
     }
@@ -466,10 +469,6 @@ class GalleryDataCache {
 	    } else {
 		$cacheFile = sprintf('%s%s/%s/', $base, 'module', $pathInfo['module']);
 	    }
-	    break;
-
-	case 'local-url-map':
-	    $cacheFile = "{$base}theme/_all/localUrlMap.txt";
 	    break;
 	}
 

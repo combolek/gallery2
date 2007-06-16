@@ -20,9 +20,9 @@
 # Previous translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Keyword Albums 1.0.4\n"
+"Project-Id-Version: Gallery: Keyword Albums 1.0.0\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2007-06-14 17:26-0700\n"
+"POT-Creation-Date: 2006-09-12 11:25-0700\n"
 "PO-Revision-Date: 2006-03-16 09:59+0200\n"
 "Last-Translator: Renier <renier@gigaskills.co.za>\n"
 "Language-Team: Afrikaans <gallery-translations@lists.sourceforge.net>\n"
@@ -32,14 +32,14 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Bookmarks: 759,-1,-1,-1,-1,-1,-1,-1,-1,-1\n"
 
-#, c-format
-msgid "Keyword Album: %s"
-msgstr ""
-
 msgid "Keyword Album"
 msgstr ""
 
 msgid "keyword album"
+msgstr ""
+
+#, c-format
+msgid "Keyword Album: %s"
 msgstr ""
 
 msgid "All album views"
@@ -52,7 +52,7 @@ msgid "Keyword albums"
 msgstr ""
 
 msgid "None"
-msgstr "Geen"
+msgstr ""
 
 msgid "&laquo; default theme &raquo;"
 msgstr "&laquo; standaard tema&raquo;"
@@ -64,7 +64,7 @@ msgid "Dynamic albums based on keyword search"
 msgstr ""
 
 msgid "Display"
-msgstr "Vertoon"
+msgstr ""
 
 msgid "Keywords:"
 msgstr ""
@@ -157,3 +157,6 @@ msgstr ""
 
 msgid "Maximum number of keywords (empty for no limit)"
 msgstr ""
+
+#~ msgid "Successfully saved theme settings"
+#~ msgstr "Tema verstellings suksesvol gestoor"

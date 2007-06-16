@@ -48,8 +48,7 @@ class SlideshowView extends GalleryView {
 	    if (!$item->getCanContainChildren()) {
 		/* Photo: do slideshow of parent album, start at this photo */
 		$startId = $item->getId();
-		list ($ret, $item) =
-		    GalleryCoreApi::loadEntitiesById($item->getParentId(), 'GalleryItem');
+		list ($ret, $item) = GalleryCoreApi::loadEntitiesById($item->getParentId());
 		if ($ret) {
 		    return array($ret, null);
 		}
@@ -117,7 +116,7 @@ class SlideshowView extends GalleryView {
 	    if ($ret) {
 		return array($ret, null, null);
 	    }
-	    list ($ret, $childItems) = GalleryCoreApi::loadEntitiesById($childIds, 'GalleryItem');
+	    list ($ret, $childItems) = GalleryCoreApi::loadEntitiesById($childIds);
 	    if ($ret) {
 		return array($ret, null, null);
 	    }

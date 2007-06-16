@@ -16,12 +16,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
-# 
+#
 # Previous translators (as far as known, add yourself here, please):
 # - Kennichi Uehara <ken.w3m+nospam@gmail.com>
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Installer 2.3\n"
+"Project-Id-Version: Gallery: Installer 2.2.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-08-09 01:16+0900\n"
 "PO-Revision-Date: 2007-03-14 23:02+0900\n"
@@ -70,6 +70,15 @@ msgstr ""
 
 msgid "Create Config File"
 msgstr "設定ファイルの作成"
+
+#, c-format
+msgid ""
+"Unable to write to the <b>config.php</b> configuration file in your %s directory.  Please "
+"change its permissions.  If you're on Unix you can do <i>chmod 666 config.php</i> to fix "
+"this."
+msgstr ""
+"%s ディレクトリにある <b>config.php</b> 設定ファイルに書き込めません。パーミッションを変更し"
+"てください。Unix なら、 <i>chmod 666 config.php</i> を実行して修正できます。"
 
 #, c-format
 msgid "The config.php file does not exist in your %s directory"
@@ -323,8 +332,8 @@ msgstr "システムチェック"
 msgid "Performing system checks"
 msgstr "システムチェックを実行中"
 
-msgid "PHP version &gt;= 4.3.0 or &gt;= 5.0.4"
-msgstr "PHP バージョン &gt;= 4.3.0 or &gt;= 5.0.4"
+msgid "PHP version >= 4.3.0 or >= 5.0.4"
+msgstr "PHP バージョン >= 4.3.0 or >= 5.0.4"
 
 #, c-format
 msgid ""
@@ -508,13 +517,14 @@ msgstr "Zend 互換モード"
 #, c-format
 msgid ""
 "Warning: Your PHP is configured with Zend ze1_compatibility_mode which can cause PHP to "
-"crash.  Click %shere%s to test your PHP.  If you see \"SUCCESS\" then your PHP is ok.  If "
-"you get an error or no response then you must turn off ze1_compatibility_mode before "
-"proceeding."
+"crash.  Click <a href=\"%s\">here</a> to test your PHP.  If you see \"SUCCESS\" then your "
+"PHP is ok.  If you get an error or no response then you must turn off ze1_compatibility_mode "
+"before proceeding."
 msgstr ""
 "警告: あなたの使用しているPHPはクラッシュする危険のある Zend ze1_compatibility_mode が設定さ"
-"れています。 %sここ%sをクリックしてPHPをテストしてください。\"SUCCESS\"　と表示されれば問題あ"
-"りません。エラーか無反応な場合は、先に進む前に ze1_compatibility_mode をオフにしてください"
+"れています。 <a href=\"%s\">ここ</a>をクリックしてPHPをテストしてください。\"SUCCESS\"　と表"
+"示されれば問題ありません。エラーか無反応な場合は、先に進む前に ze1_compatibility_mode をオフ"
+"にしてください"
 
 msgid "putenv() allowed"
 msgstr "putenv() 許可済み"
@@ -686,16 +696,6 @@ msgstr "再試行"
 
 msgid "Create a config file"
 msgstr "設定ファイルの作成"
-
-#, fuzzy, c-format
-msgid ""
-"Unable to write to the <b>config.php</b> configuration file in your %s directory.  Please "
-"change its permissions.  If you're on Unix you can do <i>chmod 666 config.php</i> to fix "
-"this. You can also download the %sconfig.php%s file and replace the existing config.php in "
-"the %s directory yourself."
-msgstr ""
-"%s ディレクトリにある <b>config.php</b> 設定ファイルに書き込めません。パーミッションを変更し"
-"てください。Unix なら、 <i>chmod 666 config.php</i> を実行して修正できます。"
 
 #, c-format
 msgid ""

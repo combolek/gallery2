@@ -33,12 +33,11 @@ class CartModule extends GalleryModule {
 	$this->setId('cart');
 	$this->setName($gallery->i18n('Cart'));
 	$this->setDescription($gallery->i18n('Shopping Cart Module'));
-	$this->setVersion('1.0.8'); /* Update upgrade() function below too */
-	$this->_templateVersion = 1;
+	$this->setVersion('1.0.6'); /* Update upgrade() function below too */
 	$this->setGroup('commerce', $gallery->i18n('Commerce'));
 	$this->setCallbacks('getItemLinks');
-	$this->setRequiredCoreApi(array(7, 27));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setRequiredCoreApi(array(7, 4));
+	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
@@ -124,9 +123,6 @@ class CartModule extends GalleryModule {
 	case '1.0.3':
 	case '1.0.4':
 	case '1.0.5':
-	case '1.0.6':
-	    /* .mo file migration */
-	case '1.0.7':
 
 	case 'end of upgrade path':
 	    break;
@@ -147,9 +143,7 @@ class CartModule extends GalleryModule {
 	foreach ($items as $item) {
 	    if (isset($permissions[$item->getId()]['cart.add'])) {
 		$itemTypeNames = array_merge($item->itemTypeName(), $item->itemTypeName(false));
-		if (false) {
-		    /* Specific translations: */ _('Add Album To Cart'); _('Add Photo To Cart');
-		}
+		/* Specific translations: _('Add Album To Cart') _('Add Photo To Cart') */
 		$links[$item->getId()][] =
 		    array('text' => $this->_translate(
 				array('text' => 'Add %s To Cart',

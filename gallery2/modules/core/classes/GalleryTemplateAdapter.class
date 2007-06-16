@@ -219,7 +219,7 @@ class GalleryTemplateAdapter {
     }
 
     /**
-     * @see GalleryTranslator::translateDomain
+     * @see GalleryTranslator::translate
      */
     function text($params, &$smarty) {
 	global $gallery;
@@ -313,16 +313,14 @@ class GalleryTemplateAdapter {
 	 * - Renderer can render the entity (with info from the item)
 	 */
 	if ($params['item']['id'] == $params['image']['id']) {
-	    /* XXX: Can't be more specific than entity-type = GalleryEntity here */
-	    list ($ret, $item) =
-		GalleryCoreApi::loadEntitiesById($params['item']['id'], 'GalleryEntity');
+	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($params['item']['id']);
 	    if ($ret) {
 		return array($ret, null);
 	    }
 	    $entity = null;
 	} else {
 	    list ($ret, $results) = GalleryCoreApi::loadEntitiesById(
-		array($params['item']['id'], $params['image']['id']), 'GalleryEntity');
+		array($params['item']['id'], $params['image']['id']));
 	    if ($ret) {
 		return array($ret, null);
 	    }
@@ -389,15 +387,17 @@ class GalleryTemplateAdapter {
 	}
 
 	/* Style */
-	foreach ($head['style'] as $path => $unused) {
+	foreach ($head['style'] as $path) {
 	    $output[] = sprintf('<link rel="stylesheet" type="text/css" href="%s"/>' . "\n",
 				$urlGenerator->generateUrl(array('href' => $path)));
 	}
 
 	/* Javascript */
-	foreach ($head['javascript'] as $path => $unused) {
-	    $output[] = sprintf('<script type="text/javascript" src="%s"></script>' . "\n",
-				$urlGenerator->generateUrl(array('href' => $path)));
+	if (isset($head['javascript'])) {
+	    foreach ($head['javascript'] as $path) {
+		$output[] = sprintf('<script type="text/javascript" src="%s"></script>' . "\n",
+			$urlGenerator->generateUrl(array('href' => $path)));
+	    }
 	}
 
 	/* Tpl to include. */
@@ -523,8 +523,8 @@ class GalleryTemplateAdapter {
 	    if (preg_match('{^core\.Item(?:Edit|Move|Delete|CreateLink)(?:Single)?$}', $subView) &&
 		    !empty($params['urlParams']['itemId'])) {
 		/* Append item type for a few subViews, with fallback class without type */
-		list ($ret, $item) = GalleryCoreApi::loadEntitiesById(
-		    $params['urlParams']['itemId'], 'GalleryEntity');
+		list ($ret, $item) =
+		    GalleryCoreApi::loadEntitiesById($params['urlParams']['itemId']);
 		if (!$ret) {
 		    $type = $item->itemTypeName(false);
 		    $fallbackLinkId = $linkId;
@@ -685,7 +685,7 @@ class GalleryTemplateAdapter {
 	    if (!$isAdminOrShowAll) {
 		return;
 	    }
-	    return; /* sprintf(
+	    return sprintf(
 		    '%s<img src="%s" alt="%s" title="%s" style="%s" width="80" height="15"/>%s',
 		    $useLink ? '' : '',
 		    $urlGenerator->generateUrl(
@@ -693,7 +693,7 @@ class GalleryTemplateAdapter {
 		    $core->translate('G2.2: Double Double'),
 		    $core->translate('G2.2: Double Double'),
 		    'border-style: none',
-		    $useLink ? '' : ''); */
+		    $useLink ? '' : '');
 	}
     }
 
@@ -921,12 +921,6 @@ class GalleryTemplateAdapter {
 		global $gallery;
 		if ($gallery->getCurrentView() == 'core.ProgressBar') {
 		    $this->errorProgressBar($ret);
-		} else {
-		    $summary = $ret->getErrorMessage();
-		    if (empty($summary)) {
-			$summary = implode(', ', $ret->getErrorCodeConstants($ret->getErrorCode()));
-		    }
-		    GalleryCoreApi::addEventLogEntry('Gallery Error', $summary, $ret->getAsText());
 		}
 	    }
 	}
@@ -1045,15 +1039,6 @@ class GalleryTemplateAdapter {
 	if ($ret) {
 	    $isAdmin = false;
 	}
-
-	/* Log the error */
-	$summary = $status->getErrorMessage();
-	if (empty($summary)) {
-	    $summary = implode(', ', $status->getErrorCodeConstants($status->getErrorCode()));
-	}
-	GalleryCoreApi::addEventLogEntry('Gallery Error', $summary, $status->getAsText());
-
-	/* Display an error message */
 	if ($gallery->getDebug() || $isAdmin) {
 	    $status = $status->getAsHtml($isAdmin);
 	} else {
@@ -1065,17 +1050,10 @@ class GalleryTemplateAdapter {
 
     /**
      * Complete progress bar.
-     * @param string $continueUrl URL shown to continue the process
-     * @param bool $doRedirect Whether to redirect automatically. Defaults to false, requiring
-     *                         user-interaction to follow the continue link.
      */
-    function completeProgressBar($continueUrl, $doRedirect=false) {
+    function completeProgressBar($continueUrl) {
 	$continueUrl = str_replace('&amp;', '&', $continueUrl);
 	printf('<script type="text/javascript">completeProgressBar("%s");</script>', $continueUrl);
-	if ($doRedirect) {
-	    printf('<script type="text/javascript">document.location.href = "%s";</script>',
-		   $continueUrl);
-	}
     }
 }
 ?>

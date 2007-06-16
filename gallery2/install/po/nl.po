@@ -16,13 +16,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
-# 
+#
 # Previous translators:
 # Gidie <gidie at users.sourceforge REMOVE THIS dot net>, 2005
 # Buut, <buut at users.sourceforge Remove - This dot net>, Eindhoven Feb. 2006
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Installer 2.3\n"
+"Project-Id-Version: Gallery: Installer 2.2.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-06-08 17:49+0200\n"
 "PO-Revision-Date: 2007-03-15 14:51+0100\n"
@@ -69,6 +69,16 @@ msgstr ""
 
 msgid "Create Config File"
 msgstr "Aanmaken Configuratiebestand"
+
+#, c-format
+msgid ""
+"Unable to write to the <b>config.php</b> configuration file in your %s directory.  Please "
+"change its permissions.  If you're on Unix you can do <i>chmod 666 config.php</i> to fix "
+"this."
+msgstr ""
+"Kan niet schrijven naar het <b>config.php</b> configuratie bestand in Uw <tt>%s</tt> "
+"directory. Verander de rechten. Als U Unix gebruikt kunt U dit herstellen met <i>chmod 666 "
+"config.php</i>."
 
 #, c-format
 msgid "The config.php file does not exist in your %s directory"
@@ -320,8 +330,8 @@ msgstr "Systeemcontroles"
 msgid "Performing system checks"
 msgstr "Systeem controle wordt uitgevoerd"
 
-msgid "PHP version &gt;= 4.3.0 or &gt;= 5.0.4"
-msgstr "PHP versie &gt;= 4.3.0 of &gt;= 5.0.4"
+msgid "PHP version >= 4.3.0 or >= 5.0.4"
+msgstr "PHP versie >= 4.3.0 of >= 5.0.4"
 
 #, c-format
 msgid ""
@@ -427,7 +437,7 @@ msgid ""
 "php.ini). You should raise this limit to at least <b>%sMB</b> for proper Gallery operation."
 msgstr ""
 "Let Op: uw PHP is ingesteld om het geheugen te beperken tot %sb (<b>memory_limit</b> "
-"parameter in php.ini). U dient deze te verhogen tot minstens <b>%sMB</b> om Gallery juist te "
+"parameter in php.ini). U dient deze te verhogen tot minstens <>%sMB</b> om Gallery juist te "
 "laten functioneren."
 
 msgid "File uploads allowed"
@@ -503,14 +513,14 @@ msgstr "Zend compatibility modus"
 #, c-format
 msgid ""
 "Warning: Your PHP is configured with Zend ze1_compatibility_mode which can cause PHP to "
-"crash.  Click %shere%s to test your PHP.  If you see \"SUCCESS\" then your PHP is ok.  If "
-"you get an error or no response then you must turn off ze1_compatibility_mode before "
-"proceeding."
+"crash.  Click <a href=\"%s\">here</a> to test your PHP.  If you see \"SUCCESS\" then your "
+"PHP is ok.  If you get an error or no response then you must turn off ze1_compatibility_mode "
+"before proceeding."
 msgstr ""
 "Let Op: uw PHP is ingesteld met de Zend ze1_compatibility_mode welke kan veroorzaken dat PHP "
-"crasht. Klik %shier%s om uw PHP te testen. Als u \"SUCCES\" ziet dan is uw PHP ok. Als u een "
-"fout of geen reactie krijgt, dan dient u ze1_compatability_mode uit te zetten voordat u "
-"doorgaat."
+"crasht. Klik <a href=\"%s\">hier</a> om uw PHP te testen. Als u \"SUCCES\" ziet dan is uw "
+"PHP ok. Als u een fout of geen reactie krijgt, dan dient u ze1_compatability_mode uit te "
+"zetten voordat u doorgaat."
 
 msgid "putenv() allowed"
 msgstr "putenv() toegestaan"
@@ -689,17 +699,6 @@ msgstr "Probeer Opnieuw"
 
 msgid "Create a config file"
 msgstr "Maak een configuratie bestand"
-
-#, fuzzy, c-format
-msgid ""
-"Unable to write to the <b>config.php</b> configuration file in your %s directory.  Please "
-"change its permissions.  If you're on Unix you can do <i>chmod 666 config.php</i> to fix "
-"this. You can also download the %sconfig.php%s file and replace the existing config.php in "
-"the %s directory yourself."
-msgstr ""
-"Kan niet schrijven naar het <b>config.php</b> configuratie bestand in Uw <tt>%s</tt> "
-"directory. Verander de rechten. Als U Unix gebruikt kunt U dit herstellen met <i>chmod 666 "
-"config.php</i>."
 
 #, c-format
 msgid ""
@@ -1372,3 +1371,59 @@ msgstr "Gaan"
 
 msgid "Begin Installation&raquo;"
 msgstr "Begin Installatie&raquo;"
+
+#~ msgid "MSSQL (2005 and newer)"
+#~ msgstr "MySQL (2005 of nieuwer)"
+
+#~ msgid "Installed Gallery Core successfully"
+#~ msgstr "Gallery Core succesvol geïnstalleerd"
+
+#~ msgid ""
+#~ "Congratulations, we've successfully installed the Gallery framework.  However, most of "
+#~ "the really cool features from Gallery come from additional modules that you can install "
+#~ "and configure.  The next step will take you through the process of selecting modules to "
+#~ "install so that you can tune Gallery to do exactly what you want."
+#~ msgstr ""
+#~ "Gefeliciteerd, we hebben het Gallery raamwerk succesvol geïnstalleerd.Hoe dan ook, de "
+#~ "meeste te gekke Gallery functionaliteiten komen van additionele modules de u kunt "
+#~ "installeren en configureren. De volgende stap zal u door het proces loodsen waarbij u "
+#~ "modules kunt installeren, waarmee u Gallery kunt afstemmen naar uw behoeften."
+
+#~ msgid "Install More Modules"
+#~ msgstr "Meer Modules Installeren"
+
+#~ msgid ""
+#~ "Before we can proceed, you should create a file in your <b>%s</b> directory called "
+#~ "<i>config.php</i>.  You must make sure that the webserver will be able to write to it.  "
+#~ "If you're on unix, try doing <i>chmod 666 config.php</i>.  On Windows, you shouldn't have "
+#~ "to do anything special.  When you've created this file and set the permissions properly, "
+#~ "you can proceed.  If there's a problem, we'll tell you what to fix."
+#~ msgstr ""
+#~ "Voordat we verder kunnen gaan, dient u een bestand in uw <b>%s</b> directory aan te maken "
+#~ "genaamd <i>config.php</i>. U dient ervoor te zorgen dat de webserver in staat is hiernaar "
+#~ "te schrijven. Als u Unix gebruikt kunt u dit doen door <i>chmod 666 config.php</i> uit te "
+#~ "voeren. Onder Windows hoeft u niets speciaals te doen. Als u dit bestand heeft aangemaakt "
+#~ "met de juiste rechten kunt u doorgaan. Als er een probleem is, zullen we u aangeven hoe u "
+#~ "dit kunt oplossen."
+
+#~ msgid "Install Other Modules"
+#~ msgstr "Installeer Andere Modules"
+
+#~ msgid ""
+#~ "Gallery needs a directory to store your images. The directory we chose for you will work, "
+#~ "but is web accessible."
+#~ msgstr ""
+#~ "Gallery heeft een directory nodig waarin deze de afbeeldingen kan opslaan. De huidige "
+#~ "directory is toegangkelijk vanaf het internet, echter deze kan wel gebruikt worden."
+
+#~ msgid "mkdir %s"
+#~ msgstr "mkdir %s"
+
+#~ msgid "chmod 777 %s"
+#~ msgstr "chmod 777 %s"
+
+#~ msgid "cd %s"
+#~ msgstr "cd %s"
+
+#~ msgid "PostgreSQL v6.x (not well tested)"
+#~ msgstr "PostgreSQL v6.x (niet goed getest)"

@@ -91,8 +91,7 @@ class CoreCallbacks {
 		    return $ret;
 		}
 		if ($canViewParent) {
-		    list ($ret, $parent) =
-			GalleryCoreApi::loadEntitiesById($item['parentId'], 'GalleryItem');
+		    list ($ret, $parent) = GalleryCoreApi::loadEntitiesById($item['parentId']);
 		    if ($ret) {
 			return $ret;
 		    }
@@ -133,7 +132,7 @@ class CoreCallbacks {
 		    $peerMap[$peerLast] = $peerIds[$peerLast];
 		}
 
-		list ($ret, $peerItems) = GalleryCoreApi::loadEntitiesById($peerMap, 'GalleryItem');
+		list ($ret, $peerItems) = GalleryCoreApi::loadEntitiesById($peerMap);
 		if ($ret) {
 		    return $ret;
 		}

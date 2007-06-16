@@ -86,7 +86,7 @@ class ConfigureMultirootView extends GalleryView {
 	if ($ret) {
 	    return array($ret, null);
 	}
-	list ($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds, 'GalleryAlbumItem');
+	list ($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds);
 	if ($ret) {
 	    return array($ret, null);
 	}

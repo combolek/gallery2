@@ -37,10 +37,7 @@ class OptimizeDatabaseTaskTest extends GalleryTestCase {
 	global $gallery;
 
 	$this->_task = new OptimizeDatabaseTask();
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
     }
 
     function testRun() {
@@ -51,12 +48,12 @@ class OptimizeDatabaseTaskTest extends GalleryTestCase {
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $success, $details) = $this->_task->run();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assert($success);

@@ -220,8 +220,7 @@ class ItemAddFromPicasa extends ItemAddPlugin {
 	}
 
 	/* Try to load targeted parent */
-	list ($ret, $targetAlbumObject) =
-	    GalleryCoreApi::loadEntitiesById($destinationAlbumId, 'GalleryAlbumItem');
+	list ($ret, $targetAlbumObject) = GalleryCoreApi::loadEntitiesById($destinationAlbumId);
 	if ($ret) {
 	    return array($ret, null);
 	}

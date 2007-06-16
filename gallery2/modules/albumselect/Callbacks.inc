@@ -63,8 +63,7 @@ class AlbumSelectCallbacks {
 		if (isset($callbackParams['truncateTitles'])) {
 		    GalleryCoreApi::requireOnce('lib/smarty_plugins/modifier.entitytruncate.php');
 		}
-		list ($ret, $rootAlbum) =
-		    GalleryCoreApi::loadEntitiesById($rootAlbumId, 'GalleryItem');
+		list ($ret, $rootAlbum) = GalleryCoreApi::loadEntitiesById($rootAlbumId);
 		if ($ret) {
 		    return $ret;
 		}
@@ -93,7 +92,7 @@ class AlbumSelectCallbacks {
 		    }
 
 		    list ($ret, $items) = GalleryCoreApi::loadEntitiesById(
-			GalleryUtilities::arrayKeysRecursive($tree), 'GalleryAlbumItem');
+			GalleryUtilities::arrayKeysRecursive($tree));
 		    if ($ret) {
 			return $ret;
 		    }
@@ -226,8 +225,7 @@ class AlbumSelectCallbacks {
 	    return $ret;
 	}
 	if (!empty($subAlbumIds)) {
-	    list ($ret, $subAlbums) =
-		GalleryCoreApi::loadEntitiesById($subAlbumIds, 'GalleryAlbumItem');
+	    list ($ret, $subAlbums) = GalleryCoreApi::loadEntitiesById($subAlbumIds);
 	    if ($ret) {
 		return $ret;
 	    }

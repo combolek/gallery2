@@ -62,12 +62,6 @@ class GalleryModule extends GalleryPlugin {
      */
     var $_requiredModuleApi;
 
-    /**
-     * The version of the templates associated with this plugin
-     * @var int
-     * @access private
-     */
-    var $_templateVersion;
 
     /**
      * Return the major and minor version of the GalleryModule API.
@@ -81,14 +75,13 @@ class GalleryModule extends GalleryPlugin {
      * - Drop the redirect url from GalleryPlugin::deactivate() (also requires a
      *   major bump in GalleryTheme)
      * - Remove TYPE=DB_TABLE_TYPE replacement in MySqlStorage::_getSqlReplacements
-     * - change signature of getItemlinks() in all modules (add new parameter)
+     * - change signature of getItemlinks() in all modules (add new parameter) 
      * - Remove rewrite v1.1.8 version checks in webdav, watermark, httpauth, ... (look for todo)
-     * - Change ->_templateVersion = x to ->setTemplateVersion(x) in module constructors
      *
      * @return array major number, minor number
      */
     function getApiVersion() {
-	return array(3, 7);
+	return array(3, 5);
     }
 
     /**
@@ -179,12 +172,7 @@ class GalleryModule extends GalleryPlugin {
 					$this->getId()));
 	    }
 
-	    /*
-	     * @todo Adding _maps & _entities keys are not covered in tests because of the use of
-	     * the include.
-	     */
 	    $data = array('_version' => $this->getVersion(),
-			  '_templateVersion' => $this->getTemplateVersion(),
 			  '_callbacks' => $this->getCallbacks(),
 			  '_requiredCoreApi' => join(',', $this->getRequiredCoreApi()),
 			  '_requiredModuleApi' => join(',', $this->getRequiredModuleApi()));
@@ -237,7 +225,7 @@ class GalleryModule extends GalleryPlugin {
 	    if (GalleryDataCache::containsKey($cacheKey)) {
 		/*
 		 * The changes must be committed before the non-transactional optimize() can be
-		 * executed.
+		 * executed. 
 		 */
 		$ret = $storage->checkPoint();
 		if ($ret) {
@@ -251,11 +239,6 @@ class GalleryModule extends GalleryPlugin {
 		}
 		GalleryDataCache::remove($cacheKey);
 	    }
-	}
-
-	$ret = parent::installOrUpgrade();
-	if ($ret) {
-	    return $ret;
 	}
 
 	if ($gallery->getDebug()) {
@@ -328,7 +311,7 @@ class GalleryModule extends GalleryPlugin {
 	$i = 0;
 	$storage =& $gallery->getStorage();
 	while ($result = $searchResults->nextResult()) {
-	    $ret = GalleryCoreApi::deleteEntityById($result[0], $types);
+	    $ret = GalleryCoreApi::deleteEntityById($result[0]);
 	    if ($ret && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
 		return $ret;
 	    }
@@ -347,6 +330,15 @@ class GalleryModule extends GalleryPlugin {
      * @see GalleryPlugin::deactivate
      */
     function deactivate($postDeactivationEvent=true) {
+	list ($ret, $redirect) = parent::deactivate($postDeactivationEvent);
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	if (!empty($redirect)) {
+	    return array(null, $redirect);
+	}
+
 	$ret = GalleryCoreApi::unregisterToolkitsByModuleId($this->getId());
 	if ($ret) {
 	    return array($ret, null);
@@ -357,16 +349,7 @@ class GalleryModule extends GalleryPlugin {
 	    return array($ret, null);
 	}
 
-	/*
-	 * Call parent::deactivate after our unregistrations such that listeners for the
-	 * deactivation event see the correct state of G2 without this plugin.
-	 */
-	list ($ret, $redirect) = parent::deactivate($postDeactivationEvent);
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	return array(null, $redirect);
+	return array(null, array());
     }
 
     /**
@@ -376,8 +359,8 @@ class GalleryModule extends GalleryPlugin {
      * to installOrUpgrade (see the TODO there).
      */
     function activate($postActivationEvent=true) {
-    	global $gallery;
-    	$storage =& $gallery->getStorage();
+	global $gallery;
+	$storage =& $gallery->getStorage();
 
 	if (!GalleryCoreApi::isPluginCompatibleWithApis($this)) {
 	    return array(GalleryCoreApi::error(ERROR_PLUGIN_VERSION_MISMATCH, __FILE__, __LINE__,
@@ -409,12 +392,11 @@ class GalleryModule extends GalleryPlugin {
 	    return array($ret, null);
 	}
 
-	$ret = $this->_removeObsoleteThemeBlocks();
-	if ($ret) {
-	    return array($ret, null);
+	if (!empty($redirect)) {
+	    return array(null, $redirect);
 	}
 
-	return array(null, $redirect);
+	return array(null, array());
     }
 
     /**
@@ -609,14 +591,6 @@ class GalleryModule extends GalleryPlugin {
 		     'groupLabel' => $this->translate($this->_group['groupLabel']));
     }
 
-    function setTemplateVersion($version) {
-	$this->_templateVersion = $version;
-    }
-
-    function getTemplateVersion() {
-	return (int)$this->_templateVersion;
-    }
-
     function getCallbacks() {
 	return $this->_callbacks;
     }
@@ -669,53 +643,6 @@ class GalleryModule extends GalleryPlugin {
 	    GalleryDataCache::put('_translate ' . $string, $result);
 	}
 	return $result;
-    }
-
-    /**
-     * Remove obsolete blocks from existing themes (bug #1636339).
-     *
-     * @return object GalleryStatus a status code
-     */
-    function _removeObsoleteThemeBlocks() {
-	/* Get all available blocks, even from inactive modules; and used blocks. */
-	list ($ret, $blocks) = GalleryCoreApi::loadAvailableBlocks(true);
-	if ($ret) {
-	    return $ret;
-	}
-	list ($ret, $searchResults) = GalleryCoreApi::getMapEntry('GalleryPluginParameterMap',
-	    array('pluginId', 'itemId', 'parameterName', 'parameterValue'),
-	    array('pluginType' => 'theme',
-		  'parameterName' => new GallerySqlFragment('LIKE ?', '%Blocks')));
-	if ($ret) {
-	    return $ret;
-	}
-
-	/* Go through each available theme and find which blocks they're using. */
-	while ($result = $searchResults->nextResult()) {
-	    $themeId = $result[0];
-	    $itemId = $result[1];
-	    $paramName = $result[2];
-	    $themeBlocks = unserialize($result[3]);
-	    if (!is_array($themeBlocks)) {
-		continue;
-	    }
-	    foreach ($themeBlocks as $key => $blockInfo) {
-		$blockInfo = explode('.', $blockInfo[0]);
-		$pluginName = $blockInfo[0];
-		$blockName = $blockInfo[1];
-
-		/* Remove used block if it is not available any more. */
-		if ($pluginName == $this->getId() && !isset($blocks[$pluginName][$blockName])) {
-		    unset($themeBlocks[$key]);
-		    $ret = GalleryCoreApi::setPluginParameter(
-			'theme', $themeId, $paramName, serialize($themeBlocks), $itemId);
-		    if ($ret) {
-			return $ret;
-		    }
-		}
-	    }
-	}
-	return null;
     }
 }
 ?>

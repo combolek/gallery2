@@ -21,7 +21,7 @@
 # Branislav Hanacek <brango@brango.sk>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: eCard 1.0.2\n"
+"Project-Id-Version: Gallery: eCard 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-03 10:22+0200\n"
 "PO-Revision-Date: 2006-09-10 21:10+0200\n"
@@ -60,10 +60,6 @@ msgstr ""
 msgid "You have been sent an eCard"
 msgstr ""
 
-#, c-format
-msgid "Hi %s!%s%s (%s) has sent you an eCard:"
-msgstr ""
-
 msgid "This eCard was sent with Gallery 2 - Your photos on your website"
 msgstr ""
 
@@ -71,6 +67,10 @@ msgid "[ecard] Send eCards"
 msgstr ""
 
 msgid "Send as eCard"
+msgstr ""
+
+#, c-format
+msgid "Hi %s!%s%s (%s) has sent you an eCard:"
 msgstr ""
 
 msgid "eCard Settings"

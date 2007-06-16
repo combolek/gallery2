@@ -32,7 +32,7 @@ class GalleryChildEntityHelper_simple {
      * @see GalleryCoreApi::fetchChildItemIdsWithPermission
      */
     function fetchChildItemIdsWithPermission($itemId, $permissionId) {
-	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -54,7 +54,7 @@ class GalleryChildEntityHelper_simple {
      * @see GalleryCoreApi::fetchLinkableChildItemIdsWithPermission
      */
     function fetchLinkableChildItemIdsWithPermission($itemId, $permissionId) {
-	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -236,16 +236,20 @@ class GalleryChildEntityHelper_simple {
     function fetchParents($item, $permission=null, $filterBreadcrumb=false) {
 	global $gallery;
 
-	if (!GalleryUtilities::isA($item, 'GalleryItem')) {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
-	}
-
-	list ($ret, $parentIds) =
+	if (GalleryUtilities::isA($item, 'GalleryAlbumItem')) {
+	    list ($ret, $parentIds) =
 		GalleryCoreApi::fetchParentSequence($item->getId(), $filterBreadcrumb);
-	if ($ret) {
-	    return array($ret, null);
+	    if ($ret) {
+		return array($ret, null);
+	    }
+	} else {
+	    list ($ret, $parentIds) =
+		GalleryCoreApi::fetchParentSequence($item->getParentId(), $filterBreadcrumb);
+	    if ($ret) {
+		return array($ret, null);
+	    }
+	    array_push($parentIds, $item->getParentId());
 	}
-
 	if (empty($parentIds)) {
 	    return array(null, array());
 	}
@@ -269,7 +273,7 @@ class GalleryChildEntityHelper_simple {
 	    }
 	}
 
-	list ($ret, $parents) = GalleryCoreApi::loadEntitiesById($parentIds, 'GalleryItem');
+	list ($ret, $parents) = GalleryCoreApi::loadEntitiesById($parentIds);
 	if ($ret) {
 	    return array($ret, null);
 	}

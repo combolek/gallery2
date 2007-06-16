@@ -144,7 +144,7 @@ class GalleryPluginHelper_simple {
 			/*
 			 * We were unable to automatically deactivate the plugin!
 			 * Forcibly abort this request and jump to the upgrader so this
-			 * plugin can be upgraded.
+			 * module can be upgraded.
 			 */
 			if ($gallery->getDebug()) {
 			    $gallery->debug("Unable to deactivate $pluginId, jumping to upgrader.");
@@ -421,20 +421,20 @@ class GalleryPluginHelper_simple {
 		    }
 		}
 
-		if ($pluginType == 'module') {
-		    /* Force the core module's status */
-		    $plugins['core']['active'] = 1;
-		    $plugins['core']['available'] = 1;
-		}
-
-		/* Find and remove plugins that are installed, but not available */
+		/* Find and remove plugins that are active, but not installed */
 		foreach ($plugins as $pluginId => $pluginStatus) {
-		    if (empty($pluginStatus['available'])) {
+		    if (!isset($pluginStatus['available'])) {
 			if ($gallery->getDebug()) {
 			    $gallery->debug("Plugin $pluginId no longer installed");
 			}
 			unset($plugins[$pluginId]);
 		    }
+		}
+
+		if ($pluginType == 'module') {
+		    /* Force the core module's status */
+		    $plugins['core']['active'] = 1;
+		    $plugins['core']['available'] = 1;
 		}
 
 		GalleryDataCache::putToDisk(
@@ -465,7 +465,6 @@ class GalleryPluginHelper_simple {
 
 	$cacheKey = "GalleryPluginHelper::fetchPluginList($pluginType)";
 	if (!GalleryDataCache::containsKey($cacheKey)) {
-	    /* Avoid a dependency on describeMap() (possible cyclic dependency) */
 	    $query = '
 	    SELECT
 	      [GalleryPluginMap::pluginId],
@@ -483,7 +482,7 @@ class GalleryPluginHelper_simple {
 
 	    $data = array();
 	    while ($result = $searchResults->nextResult()) {
-		$data[$result[0]] = array('active' => (int)$result[1]);
+		$data[$result[0]] = array('active' => $result[1]);
 	    }
 	    GalleryDataCache::put($cacheKey, $data);
 	} else {

@@ -60,8 +60,7 @@ class ItemCreateReplicaController extends GalleryController {
 		}
 
 		/* Load the selected items */
-		list ($ret, $selectedItems) =
-		    GalleryCoreApi::loadEntitiesById($selectedIds, 'GalleryItem');
+		list ($ret, $selectedItems) = GalleryCoreApi::loadEntitiesById($selectedIds);
 		if ($ret) {
 		    return array($ret, null);
 		}
@@ -215,7 +214,7 @@ class ItemCreateReplicaView extends GalleryView {
 	    $form['numPerPage'] = 15;
 	}
 
-	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -253,7 +252,7 @@ class ItemCreateReplicaView extends GalleryView {
 	    }
 
 	    /* Load all the peers */
-	    list ($ret, $peerItems) = GalleryCoreApi::loadEntitiesById($peerIds, 'GalleryItem');
+	    list ($ret, $peerItems) = GalleryCoreApi::loadEntitiesById($peerIds);
 	    if ($ret) {
 		return array($ret, null);
 	    }
@@ -288,7 +287,7 @@ class ItemCreateReplicaView extends GalleryView {
 	    }
 
 	    /* Load all the album entities */
-	    list ($ret, $albums) = GalleryCoreApi::loadEntitiesById($ids, 'GalleryAlbumItem');
+	    list ($ret, $albums) = GalleryCoreApi::loadEntitiesById($ids);
 	    if ($ret) {
 		return array($ret, null);
 	    }

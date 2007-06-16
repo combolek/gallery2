@@ -33,19 +33,18 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
 
     function setUp() {
 	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'imagemagick');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	list ($ret, $this->_cmykSupport) =
 	    GalleryCoreApi::getPluginParameter('module', 'imagemagick', 'cmykSupport');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$platform =& $gallery->getPlatform();
@@ -64,7 +63,7 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
 	 */
 	$ret = GalleryCoreApi::setPluginParameter('module', 'imagemagick', 'path', $path);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Use valid inputs */
@@ -86,7 +85,7 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
 			    GalleryCoreApi::getPluginParameter('module', 'imagemagick', 'path'));
 	$this->assertEquals(array(null, '12'),
 	    GalleryCoreApi::getPluginParameter('module', 'imagemagick', 'jpegQuality'));
-	$this->assertEquals(3, $this->_ranIdentify, 'ran identify');
+	$this->assertEquals(2, $this->_ranIdentify, 'ran identify');
     }
 
     function testReset() {
@@ -193,7 +192,7 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
 	 */
 	$ret = GalleryCoreApi::setPluginParameter('module', 'imagemagick', 'path', $path);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Use valid inputs */
@@ -216,7 +215,7 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
 			    GalleryCoreApi::getPluginParameter('module', 'imagemagick', 'path'));
 	$this->assertEquals(array(null, '80'),
 	    GalleryCoreApi::getPluginParameter('module', 'imagemagick', 'jpegQuality'));
-	$this->assertEquals(3, $this->_ranIdentify, 'ran identify');
+	$this->assertEquals(2, $this->_ranIdentify, 'ran identify');
     }
 
 }

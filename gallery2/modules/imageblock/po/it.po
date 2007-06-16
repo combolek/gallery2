@@ -19,7 +19,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Image Block 1.1.2\n"
+"Project-Id-Version: Gallery: Image Block 1.1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-05-21 15:51+0000\n"
 "PO-Revision-Date: 2007-01-08 18:16+0100\n"
@@ -39,6 +39,24 @@ msgstr "Foto o Album Casuali, Più Recenti oppure Più Visitati"
 
 msgid "Blocks"
 msgstr "Blocchi"
+
+msgid "Picture of the Day"
+msgstr "Foto del Giorno"
+
+msgid "Picture of the Week"
+msgstr "Foto della Settimana"
+
+msgid "Picture of the Month"
+msgstr "Foto del Mese"
+
+msgid "Album of the Day"
+msgstr "Album del Giorno"
+
+msgid "Album of the Week"
+msgstr "Album della Settimana"
+
+msgid "Album of the Month"
+msgstr "Album del Mese"
 
 msgid "Random Image"
 msgid_plural "Random Images"
@@ -69,24 +87,6 @@ msgid "Most Viewed Album"
 msgid_plural "Most Viewed Albums"
 msgstr[0] "Album più visto"
 msgstr[1] "Album più visti"
-
-msgid "Picture of the Day"
-msgstr "Foto del Giorno"
-
-msgid "Picture of the Week"
-msgstr "Foto della Settimana"
-
-msgid "Picture of the Month"
-msgstr "Foto del Mese"
-
-msgid "Album of the Day"
-msgstr "Album del Giorno"
-
-msgid "Album of the Week"
-msgstr "Album della Settimana"
-
-msgid "Album of the Month"
-msgstr "Album del Mese"
 
 msgid "Date:"
 msgstr "Data:"
@@ -302,3 +302,10 @@ msgstr "Visualizza contatore visite"
 
 msgid "Show owner"
 msgstr "Visualizza proprietario"
+
+#~ msgid ""
+#~ "Scale images to this maximum size. If maxSize exceeds the thumbnail dimensions, you must "
+#~ "also specify g2_show=fullSize"
+#~ msgstr ""
+#~ "Riscala le immagini a questa dimensione massima. Se maxSize oltrepassa le dimensioni "
+#~ "delle anteprime, devi specificare anche g2_show=fullSize"

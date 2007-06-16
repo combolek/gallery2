@@ -24,7 +24,7 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Installer 2.3\n"
+"Project-Id-Version: Gallery: Installer 2.2.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-05-19 01:26+0100\n"
 "PO-Revision-Date: 2006-11-06 23:45+0100\n"
@@ -75,6 +75,16 @@ msgstr ""
 
 msgid "Create Config File"
 msgstr "Konfigurationsdatei erzeugen"
+
+#, c-format
+msgid ""
+"Unable to write to the <b>config.php</b> configuration file in your %s directory.  Please "
+"change its permissions.  If you're on Unix you can do <i>chmod 666 config.php</i> to fix "
+"this."
+msgstr ""
+"Das Schreiben der Datei <b>config.php</b> in Ihrem Ordner %s ist fehlgeschlagen.  Bitte "
+"ändern Sie die Zugriffsrechte der Datei.  Unter UNIX können Sie das Kommando <i>chmod 666 "
+"config.php</i> benutzen, um dieses Problem zu lösen."
 
 #, c-format
 msgid "The config.php file does not exist in your %s directory"
@@ -330,8 +340,8 @@ msgstr "Systemprüfungen"
 msgid "Performing system checks"
 msgstr "Führe Systemprüfungen durch"
 
-msgid "PHP version &gt;= 4.3.0 or &gt;= 5.0.4"
-msgstr "PHP-Version &gt;= 4.3.0 oder &gt;= 5.0.4"
+msgid "PHP version >= 4.3.0 or >= 5.0.4"
+msgstr "PHP-Version >= 4.3.0 oder >= 5.0.4"
 
 # param0 = existing php version, param1 = '<a href...>', param2 = '</a>'
 #, c-format
@@ -516,14 +526,15 @@ msgstr "Zend-Kompatibilitätsmodus"
 #, c-format
 msgid ""
 "Warning: Your PHP is configured with Zend ze1_compatibility_mode which can cause PHP to "
-"crash.  Click %shere%s to test your PHP.  If you see \"SUCCESS\" then your PHP is ok.  If "
-"you get an error or no response then you must turn off ze1_compatibility_mode before "
-"proceeding."
+"crash.  Click <a href=\"%s\">here</a> to test your PHP.  If you see \"SUCCESS\" then your "
+"PHP is ok.  If you get an error or no response then you must turn off ze1_compatibility_mode "
+"before proceeding."
 msgstr ""
 "Warnung: Ihr PHP ist für den Zend Modus <tt>ze1_compatibility_mode</tt> konfiguriert, "
-"wodurch PHP abstürzen kann.  Klicken Sie %shier%s, um Ihr PHP zu testen.  Wenn Sie \"SUCCESS"
-"\" (Erfolg) sehen, dann ist Ihr PHP OK. Erhalten Sie einen Fehler oder keine Antwort, dann "
-"müssen Sie den <tt>ze1_compatibility_mode</tt> abschalten, bevor Sie fortfahren."
+"wodurch PHP abstürzen kann.  Klicken Sie <a href=\"%s\">hier</a>, um Ihr PHP zu testen.  "
+"Wenn Sie \"SUCCESS\" (Erfolg) sehen, dann ist Ihr PHP OK. Erhalten Sie einen Fehler oder "
+"keine Antwort, dann müssen Sie den <tt>ze1_compatibility_mode</tt> abschalten, bevor Sie "
+"fortfahren."
 
 msgid "putenv() allowed"
 msgstr "putenv() erlaubt"
@@ -704,17 +715,6 @@ msgstr "Versuchen Sie es erneut"
 
 msgid "Create a config file"
 msgstr "Eine Konfigurationsdatei erstellen"
-
-#, fuzzy, c-format
-msgid ""
-"Unable to write to the <b>config.php</b> configuration file in your %s directory.  Please "
-"change its permissions.  If you're on Unix you can do <i>chmod 666 config.php</i> to fix "
-"this. You can also download the %sconfig.php%s file and replace the existing config.php in "
-"the %s directory yourself."
-msgstr ""
-"Das Schreiben der Datei <b>config.php</b> in Ihrem Ordner %s ist fehlgeschlagen.  Bitte "
-"ändern Sie die Zugriffsrechte der Datei.  Unter UNIX können Sie das Kommando <i>chmod 666 "
-"config.php</i> benutzen, um dieses Problem zu lösen."
 
 #, c-format
 msgid ""

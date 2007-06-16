@@ -43,21 +43,19 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
     }
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	list ($ret, $this->_album) =
 	    $this->_createRandomAlbum($this->_getRootId(), array('orderBy' => 'orderWeight'));
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($this->_album);
 
 	list ($ret, $this->_lockIds) = GalleryCoreApi::acquireReadLock($this->_album->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	global $gallery;
@@ -93,52 +91,49 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 	    $session->remove('itemadd.view.ItemAddFromWeb.recentUrls');
 	}
 
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
+	parent::tearDown();
     }
 
     function testIsAppropriate() {
 	$ret = $this->_markPluginParametersForCleanup('module', 'itemadd');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'itemadd', 'fromweb', 'off');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	list ($ret, $isAppropriate) = $this->_plugin->isAppropriate();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(false, $isAppropriate, 'off');
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'itemadd', 'fromweb', 'admin');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	list ($ret, $isAppropriate) = $this->_plugin->isAppropriate();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(true, $isAppropriate, 'admin for admin');
 
 	$this->_becomeGuestUser();
 	list ($ret, $isAppropriate) = $this->_plugin->isAppropriate();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(false, $isAppropriate, 'admin for guest');
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'itemadd', 'fromweb', 'on');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	list ($ret, $isAppropriate) = $this->_plugin->isAppropriate();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(true, $isAppropriate, 'on');
     }
@@ -185,14 +180,14 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 
 	list ($ret, $ids) = GalleryCoreApi::fetchChildItemIds($this->_album);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$i = 0;
 	foreach ($ids as $id) {
-	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($id, 'GalleryItem');
+	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($id);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $base = $basenames[$i];
 	    $this->assertEquals($base, $item->getTitle(), "title $i");
@@ -227,7 +222,7 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 		      'webPage' => 'http://www.test.com/t/index.php?foo=bar');
 	list ($ret) = $this->_plugin->loadTemplate($template, $form, $this->_album);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(array('ItemAddFromWeb' =>
@@ -273,7 +268,7 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 		      'webPage' => 'http://www.test.com/page.php');
 	list ($ret) = $this->_plugin->loadTemplate($template, $form, $this->_album);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(array('ItemAddFromWeb' =>
@@ -302,7 +297,7 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 		      'webPage' => 'http://www.test.com/img.jpg');
 	list ($ret) = $this->_plugin->loadTemplate($template, $form, $this->_album);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(
@@ -329,7 +324,7 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 		      'webPage' => 'http://www.test.com/img2.jpg');
 	list ($ret) = $this->_plugin->loadTemplate($template, $form, $this->_album);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(
@@ -358,7 +353,7 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 		      'webPage' => 'http://www.test.com/redirect.php');
 	list ($ret) = $this->_plugin->loadTemplate($template, $form, $this->_album);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(array('ItemAddFromWeb' =>
@@ -387,7 +382,7 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 		      'action' => array('findFilesFromWebPage' => true));
 	list ($ret) = $this->_plugin->loadTemplate($template, $form, $this->_album);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(array('formName' => 'ItemAddFromWeb',
@@ -404,7 +399,7 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 		      'webPage' => 'bogus:url.html');
 	list ($ret) = $this->_plugin->loadTemplate($template, $form, $this->_album);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(array('formName' => 'ItemAddFromWeb',
@@ -422,7 +417,7 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 		      'webPage' => 'http://www.test.com/404.jpg');
 	list ($ret) = $this->_plugin->loadTemplate($template, $form, $this->_album);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(array('formName' => 'ItemAddFromWeb',

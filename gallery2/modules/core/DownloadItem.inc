@@ -59,7 +59,7 @@ class DownloadItemView extends GalleryView {
 	}
 
 	/* Load the item */
-	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryEntity');
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	if ($ret) {
 	    return $ret;
 	}

@@ -33,13 +33,11 @@ class MembersAdminControllerTest extends GalleryControllerTestCase {
     }
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'members');
 	if ($ret) {
+	    print $ret->getAsHtml();
 	    return $ret;
 	}
     }

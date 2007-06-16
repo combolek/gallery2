@@ -34,10 +34,7 @@ class PluginCallbackTest extends GalleryTestCase {
     }
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 	global $gallery;
 
 	$this->_platform = new UnitTestPlatform();
@@ -49,7 +46,7 @@ class PluginCallbackTest extends GalleryTestCase {
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'core');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
     }
 
@@ -62,17 +59,14 @@ class PluginCallbackTest extends GalleryTestCase {
 	    array('pluginId' => 'PluginCallbackControllerTest'));
 	$this->assert(!$ret);
 
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
+	parent::tearDown();
     }
 
     function _handleCallback($command) {
 	$result = array();
 	$ret = $this->_callback->handleCallback($command, $result);
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 	return $result;
     }
@@ -299,7 +293,7 @@ class PluginCallbackTest extends GalleryTestCase {
 	$ret = GalleryCoreApi::setPluginParameter(
 	    'module', 'core', 'default.theme', 'NotThePluginCallbackControllerTest');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->_testPlugin->setResult('getId', 'PluginCallbackControllerTest');
@@ -319,7 +313,7 @@ class PluginCallbackTest extends GalleryTestCase {
 	$ret = GalleryCoreApi::setPluginParameter(
 	    'module', 'core', 'default.theme', 'PluginCallbackControllerTest');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->_testPlugin->setResult('getId', 'PluginCallbackControllerTest');
@@ -403,7 +397,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		  'packageBuild' => '123',
 		  'locked' => true));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->_platform->setReply(
@@ -422,7 +416,7 @@ class PluginCallbackTest extends GalleryTestCase {
 	    array('pluginType'),
 	    array('pluginId' => 'PluginCallbackControllerTest'));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(0, $entries->resultCount());
 
@@ -453,7 +447,7 @@ class PluginCallbackTest extends GalleryTestCase {
 	list ($ret, $state) =
 	    $this->_callback->getPluginState($type, $this->_testPlugin, $status);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	return $state;
@@ -575,7 +569,7 @@ class PluginCallbackTest extends GalleryTestCase {
 	ob_start();
 	$ret = $callback->renderImmediate(array(), array());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$results = ob_get_contents();
 	ob_end_clean();
@@ -599,7 +593,7 @@ class PluginCallbackTest extends GalleryTestCase {
 	ob_start();
 	$ret = $callback->renderImmediate(array(), array());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$results = ob_get_contents();
 	ob_end_clean();
@@ -624,7 +618,7 @@ class PluginCallbackTest extends GalleryTestCase {
 	ob_start();
 	$ret = $callback->renderImmediate(array(), array());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$results = ob_get_contents();
 	ob_end_clean();
@@ -674,7 +668,7 @@ class PluginCallbackTest extends GalleryTestCase {
 	if ($ret && $ret->getErrorCode() & ERROR_STORAGE_FAILURE) {
 	    /* Good, as expected */
 	} else if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	} else {
 	    $this->fail('ERROR_STORAGE_FAILURE should not be ignored');
 	}

@@ -1,6 +1,8 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
 <div class="gbBlock">
   <table class="gbDataTable"><tr><td>
@@ -16,7 +18,7 @@
 	<option value="{$album.data.id}"{if $album.data.id == $form.linkedAlbumId}
 	 selected="selected"{/if}>
 	  {"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"|repeat:$album.depth}--
-	  {$album.data.title|markup:strip|default:$album.data.pathComponent}
+	  {$album.data.title|default:$album.data.pathComponent}
 	</option>
       {/foreach}
     </select>

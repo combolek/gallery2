@@ -16,14 +16,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
-# 
+#
 # Previous translators (as far as known, add yourself here, please):
 # - Konstantin Ivanov <Continental@vollen.ru>
-# 
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Core 1.2.17\n"
-"POT-Creation-Date: 2003-02-11 03:09-0800\n"
+"Project-Id-Version: Gallery: Core 1.2.0.3\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-06-07 09:29-0700\n"
 "PO-Revision-Date: 2007-03-14 15:16+0100\n"
 "Last-Translator: Konstantin Ivanov <Continental@vollen.ru>\n"
 "Language-Team: Russian <gallery-devel@lists.sourceforge.net>\n"
@@ -37,6 +38,30 @@ msgstr ""
 
 msgid "Gallery Email Test"
 msgstr "Проверка электронной почты Галереи"
+
+msgid "forever"
+msgstr "всегда"
+
+msgid "High Priority (Me first!)"
+msgstr "Высокий приоритет (Сначала мой сервер!)"
+
+msgid "Low Priority (I want to share!)"
+msgstr "Низкий приоритет (Совместно с другими!)"
+
+msgid "No Markup"
+msgstr "разметка выключена"
+
+msgid "BBCode"
+msgstr "BBCode"
+
+msgid "Raw HTML"
+msgstr "Чистый HTML"
+
+msgid "Database"
+msgstr "База данных"
+
+msgid "File"
+msgstr "Файл"
 
 #, c-format
 msgid "%d minute"
@@ -66,40 +91,8 @@ msgstr[0] "%d неделя"
 msgstr[1] "%d недели"
 msgstr[2] "%d недель"
 
-msgid "forever"
-msgstr "всегда"
-
-msgid "High Priority (Me first!)"
-msgstr "Высокий приоритет (Сначала мой сервер!)"
-
-msgid "Low Priority (I want to share!)"
-msgstr "Низкий приоритет (Совместно с другими!)"
-
-msgid "No Markup"
-msgstr "разметка выключена"
-
-msgid "BBCode"
-msgstr "BBCode"
-
-msgid "Raw HTML"
-msgstr "Чистый HTML"
-
-msgid "Database"
-msgstr "База данных"
-
-msgid "File"
-msgstr "Файл"
-
-msgid "&lt;none&gt;"
-msgstr "&lt;нет&gt;"
-
-#, fuzzy
-msgid "Link"
-msgstr "Вход"
-
-#, c-format
-msgid "Page %d of %d"
-msgstr "(Страница %d из %d)"
+msgid "<none>"
+msgstr "<нет>"
 
 msgid "No acceleration"
 msgstr "Акселерация отсутствует"
@@ -147,10 +140,6 @@ msgid "Deleting Language Packs"
 msgstr "Язык по умолчанию"
 
 #, fuzzy
-msgid "Synchronizing Language Packs"
-msgstr "Язык по умолчанию"
-
-#, fuzzy
 msgid "Update completed with errors."
 msgstr "Загрузка завершена."
 
@@ -181,6 +170,9 @@ msgstr "Использовать эти настройки"
 
 msgid "Installing the core module"
 msgstr "Инсталляция основного модуля (ядра)"
+
+msgid "key"
+msgstr "ключ"
 
 msgid "All access"
 msgstr "Полный доступ"
@@ -215,10 +207,6 @@ msgstr "[общее] Удалять элемент"
 msgid "Upgrading permissions"
 msgstr "Разрешения на обновления"
 
-#, c-format
-msgid "Upgrading permissions (%d items complete, %d remaining)"
-msgstr "Обновление разрешение (%d элементов завершено, %d осталось)"
-
 msgid "Deleting old permission tables"
 msgstr "Удаление старых таблиц с разрешениями"
 
@@ -231,42 +219,17 @@ msgstr "Все Пользователи"
 msgid "Detecting broken derivatives"
 msgstr "Обнаружение неисправных модификаций"
 
-#, fuzzy, c-format
-msgid "Detecting broken derivatives, loading (%d derivatives checked, %d remaining)"
-msgstr "Обнаружение неисправных модификаций, при загрузке"
-
-#, fuzzy, c-format
-msgid "Detecting broken derivatives (%d derivatives checked, %d remaining)"
-msgstr "Обнаружение неисправных модификаций, при сохранении"
-
-#, fuzzy, c-format
-msgid "Detecting broken derivatives, saving (%d derivatives checked, %d remaining)"
-msgstr "Обнаружение неисправных модификаций, при сохранении"
-
-#, fuzzy, c-format
-msgid ""
-"Detecting broken derivatives, saving item %d of %d (%d derivatives complete, %d remaining)"
-msgstr "Обновление разрешение (%d элементов завершено, %d осталось)"
-
 msgid "Clearing fast-download cache"
 msgstr "Очистка кэша быстрой загрузки файлов"
 
 msgid "Deleting old fast-download cache"
 msgstr "Очистка старого кэша быстрой загрузки"
 
-#, c-format
-msgid "Deleting old session files (iteration %d)"
-msgstr "Удаление старых файлов сессий (итераций %d)"
-
 msgid "Updating panorama items"
 msgstr ""
 
 msgid "Optimizing AccessSubscriberMap table"
 msgstr ""
-
-#, fuzzy
-msgid "Upgrading Plugin Translations"
-msgstr "Обновление переводов"
 
 msgid "Converting Schema Table"
 msgstr ""
@@ -292,16 +255,30 @@ msgstr "Это главная страница вашей Галереи"
 msgid "Converting MySQL data to UTF8"
 msgstr "Преобразование данных в базе MySQL в кодировку UTF8"
 
-#, fuzzy
-msgid "Adding items"
-msgstr "добавить элементы"
+#, c-format
+msgid "Upgrading permissions (%d items complete, %d remaining)"
+msgstr "Обновление разрешение (%d элементов завершено, %d осталось)"
 
-#, fuzzy
-msgid "Processing items"
-msgstr "Обработка элемента %d из %d"
+#, fuzzy, c-format
+msgid "Detecting broken derivatives, loading (%d derivatives checked, %d remaining)"
+msgstr "Обнаружение неисправных модификаций, при загрузке"
 
-msgid "Extracting archive"
-msgstr ""
+#, fuzzy, c-format
+msgid "Detecting broken derivatives (%d derivatives checked, %d remaining)"
+msgstr "Обнаружение неисправных модификаций, при сохранении"
+
+#, fuzzy, c-format
+msgid "Detecting broken derivatives, saving (%d derivatives checked, %d remaining)"
+msgstr "Обнаружение неисправных модификаций, при сохранении"
+
+#, fuzzy, c-format
+msgid ""
+"Detecting broken derivatives, saving item %d of %d (%d derivatives complete, %d remaining)"
+msgstr "Обновление разрешение (%d элементов завершено, %d осталось)"
+
+#, c-format
+msgid "Deleting old session files (iteration %d)"
+msgstr "Удаление старых файлов сессий (итераций %d)"
 
 msgid "add items"
 msgstr "добавить элементы"
@@ -314,6 +291,32 @@ msgstr "Создать вложенные альбом"
 
 msgid "add items confirmation"
 msgstr "подтверждение на добавление элементов"
+
+msgid "Base filename"
+msgstr "Основного имени файла"
+
+msgid "Caption"
+msgstr "Заголовок"
+
+msgid "Blank"
+msgstr "Оставить пустым"
+
+msgid "From Web Browser"
+msgstr "Через форму"
+
+#, c-format
+msgid "%d megabyte"
+msgid_plural "%d megabytes"
+msgstr[0] "%d мегабайт"
+msgstr[1] "%d мегабайта"
+msgstr[2] "%d мегабайта"
+
+#, c-format
+msgid "%d kilobytes"
+msgid_plural "%d kilobytes"
+msgstr[0] "%d килобайт"
+msgstr[1] "%d килобайта"
+msgstr[2] "%d килобайта"
 
 #, c-format
 msgid "Input file %s exceeds maximum permitted file size"
@@ -331,37 +334,18 @@ msgstr ""
 msgid "Input file %s was not uploaded. Error %d"
 msgstr ""
 
-#, c-format
-msgid "%d megabyte"
-msgid_plural "%d megabytes"
-msgstr[0] "%d мегабайт"
-msgstr[1] "%d мегабайта"
-msgstr[2] "%d мегабайта"
-
-#, c-format
-msgid "%d kilobytes"
-msgid_plural "%d kilobytes"
-msgstr[0] "%d килобайт"
-msgstr[1] "%d килобайта"
-msgstr[2] "%d килобайта"
-
-msgid "Base filename"
-msgstr "Основного имени файла"
-
-msgid "Caption"
-msgstr "Заголовок"
-
-msgid "Blank"
-msgstr "Оставить пустым"
-
-msgid "From Web Browser"
-msgstr "Через форму"
-
 msgid "Gallery Item Administration"
 msgstr "Администрирование Элементов Галереи"
 
 msgid "delete an item"
 msgstr "удалить элемент"
+
+msgid "delete confirmation"
+msgstr "подтверждение удаления"
+
+#, c-format
+msgid "delete %s"
+msgstr "удалить %s"
 
 #, c-format
 msgid "edit %s"
@@ -378,10 +362,6 @@ msgstr "Настройки темы восстановлены"
 msgid "Preparing..."
 msgstr "Обработка..."
 
-#, c-format
-msgid "Processing image %d of %d"
-msgstr "Обработано изображений %d из %d"
-
 msgid "Apply thumbnail settings"
 msgstr ""
 
@@ -390,6 +370,10 @@ msgstr "Переделать макеты..."
 
 msgid "Album"
 msgstr "Альбом"
+
+#, c-format
+msgid "Processing image %d of %d"
+msgstr "Обработано изображений %d из %d"
 
 msgid "Changes saved successfully"
 msgstr "Изменения успешно сохранены"
@@ -529,10 +513,6 @@ msgstr "Настройки Фото"
 msgid "Edit Movie"
 msgstr "Настройки Видеоролика"
 
-#, c-format
-msgid "Edit %s"
-msgstr "Редактировать %s"
-
 msgid "Add Album"
 msgstr "Добавить Альбом"
 
@@ -551,10 +531,6 @@ msgstr "Удалить Фото"
 msgid "Delete Movie"
 msgstr "Удалить Видеоролик"
 
-#, c-format
-msgid "Delete %s"
-msgstr "Удалить %s"
-
 msgid "Move Album"
 msgstr "Переместить Альбом"
 
@@ -564,10 +540,6 @@ msgstr "Переместить Фото"
 msgid "Move Movie"
 msgstr "Переместить Видеоролик"
 
-#, c-format
-msgid "Move %s"
-msgstr "Переместить %s"
-
 msgid "Edit Captions"
 msgstr "Изменить Названия"
 
@@ -576,9 +548,6 @@ msgstr "Установить обложкой"
 
 msgid "Reorder Items"
 msgstr "Порядок элементов"
-
-msgid "Delete Items"
-msgstr "Удалить Элементы"
 
 msgid "Site Admin"
 msgstr "Администрирование"
@@ -604,9 +573,6 @@ msgstr "Группы"
 msgid "Performance"
 msgstr "Производительность"
 
-msgid "Event Logs"
-msgstr ""
-
 msgid "Toolkit Priority"
 msgstr "Приоритеты инструментов"
 
@@ -618,6 +584,18 @@ msgstr "Настройки Учетной Записи"
 
 msgid "Change Password"
 msgstr "Изменить Пароль"
+
+#, c-format
+msgid "Edit %s"
+msgstr "Редактировать %s"
+
+#, c-format
+msgid "Delete %s"
+msgstr "Удалить %s"
+
+#, c-format
+msgid "Move %s"
+msgstr "Переместить %s"
 
 msgid "Build all thumbnails/resizes"
 msgstr "Создание всех макетов/промежуточных размеров"
@@ -632,6 +610,9 @@ msgstr ""
 msgid "Build All Thumbnails/Resizes"
 msgstr "Создать все Макеты/Промежуточные размеры"
 
+msgid "Debug output for failed items:"
+msgstr "Результаты отладки для поврежденных элементов:"
+
 #, c-format
 msgid "Checked %d items"
 msgstr "Проверено %d элементов"
@@ -643,9 +624,6 @@ msgstr "%d элементов создано"
 #, c-format
 msgid "%d items failed"
 msgstr "%d элементов подвреждено"
-
-msgid "Debug output for failed items:"
-msgstr "Результаты отладки для поврежденных элементов:"
 
 #, fuzzy
 msgid "Convert MySQL database to UTF8"
@@ -664,28 +642,6 @@ msgid "Database successfully converted to UTF8"
 msgstr "Элемент успешно удален"
 
 msgid "No conversion required"
-msgstr ""
-
-#, fuzzy
-msgid "Backup the database"
-msgstr "Оптимизация базы данных"
-
-msgid ""
-"Backup all your Gallery data (item data, users, comments, etc.) to a single file in your "
-"storage folder.  The backup does not include the image files.  Before running the backup, "
-"your Gallery installation needs to be set into maintenance mode, as this is not done "
-"automatically."
-msgstr ""
-
-msgid "Backing up Gallery Database"
-msgstr ""
-
-#, fuzzy
-msgid "Exporting..."
-msgstr "Обработка..."
-
-#, c-format
-msgid "Database backup completed and the backup file is located at: %s"
 msgstr ""
 
 msgid "Delete user sessions"
@@ -724,12 +680,11 @@ msgstr "Невозможно удалить папку: %s"
 msgid "Delete template cache"
 msgstr "Очистка кэша шаблона"
 
-#, fuzzy
 msgid ""
 "Gallery compiles template files and saves them for increased performance.  If you're "
 "experiencing problems that say <i>Smarty error</i> then you might try running this task.  "
-"Also run this if you add or remove any local/*.tpl or theme override so Smarty will find the "
-"right file."
+"Also run this if you remove a local/*.tpl file so Smarty will switch back to the default tpl "
+"file."
 msgstr ""
 "Галерея компилирует файлы шаблонов и сохраняет их для повышения производительности. Если у "
 "Вас возникла ошибка <i>Smarty error</i>, то Вы можете попробовать запустить данную команду. "
@@ -877,10 +832,6 @@ msgstr "По возрастанию"
 msgid "Descending"
 msgstr "По убыванию"
 
-#, c-format
-msgid "Powered by Gallery v%s"
-msgstr ""
-
 msgid "Validation disabled until you set allowSessionAccess in config.php"
 msgstr ""
 "Проверка соответствия отключена до тех пор, пока Вы не установите параметр "
@@ -891,6 +842,13 @@ msgstr "Эта страница соответствует спецификац�
 
 msgid "Donate to the Gallery project"
 msgstr "Поддержите проект Галерея"
+
+msgid "G2.2: Double Double"
+msgstr ""
+
+#, c-format
+msgid "Powered by Gallery v%s"
+msgstr ""
 
 #, c-format
 msgid "Estimated time remaining: %d:%02d"
@@ -1000,12 +958,12 @@ msgstr "электронная таблица"
 msgid "file"
 msgstr "Файл"
 
+msgid "Back"
+msgstr "Назад"
+
 #, c-format
 msgid "Back to %s"
 msgstr "Назад в %s"
-
-msgid "Back"
-msgstr "Назад"
 
 msgid "User"
 msgstr "Пользователь"
@@ -1078,10 +1036,6 @@ msgstr "core"
 msgid "unknown"
 msgstr "неизвестный"
 
-#, c-format
-msgid "API = Core %s, Module %s, Theme %s, Embed %s"
-msgstr ""
-
 msgid "Gallery version"
 msgstr "Gallery version"
 
@@ -1122,65 +1076,6 @@ msgstr "Browser"
 
 #, c-format
 msgid "Rows in %s table = %d"
-msgstr ""
-
-#, c-format
-msgid "The %s \"%s\" is not installed and will not be backed up."
-msgstr ""
-
-#, c-format
-msgid "\"%s\" has no creation sql and will not be backed up."
-msgstr ""
-
-#, c-format
-msgid "Unable to load table description for \"%s\", no data will be exported."
-msgstr ""
-
-msgid ""
-"Unable to find the XML parser.  The PHP XML parsing extension must be loaded.  Terminating "
-"database import."
-msgstr ""
-
-#, c-format
-msgid "The exported file is not the correct version. Expecting %s recieved %s."
-msgstr ""
-
-#, fuzzy, c-format
-msgid "Unable to close import file: %s"
-msgstr "Невозможно удалить папку: %s"
-
-#, fuzzy, c-format
-msgid "Unable to open import file: %s"
-msgstr "Невозможно удалить папку: %s"
-
-#, c-format
-msgid "Import file doesn't exist: %s"
-msgstr ""
-
-#, c-format
-msgid "Plugin %s is not currently available."
-msgstr ""
-
-#, c-format
-msgid "The available version of plugin \"%s\" may not be compatible with the imported version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The currently installed core API version required by \"%s\" may not be compatible with the "
-"imported version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The installed module API version required by \"%s\" may not be compatible with the imported "
-"version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The installed theme API version required by \"%s\" is not compatible with the imported "
-"version."
 msgstr ""
 
 msgid "Successfully saved theme settings"
@@ -1715,49 +1610,6 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#, fuzzy
-msgid "Recent Events"
-msgstr "Обнуление счетчика числа просмотров"
-
-msgid "Type"
-msgstr ""
-
-#, fuzzy
-msgid "Location"
-msgstr "Действие"
-
-#, fuzzy
-msgid "Client"
-msgstr "list"
-
-#, fuzzy
-msgid "No events have been reported yet."
-msgstr "Не было выбрано никаких пакетов."
-
-#, fuzzy
-msgid "Event Details"
-msgstr "Подробная информация об ошибке"
-
-#, fuzzy
-msgid "User Id"
-msgstr "Пользователь"
-
-#, fuzzy
-msgid "Referer"
-msgstr "Упорядочить"
-
-#, fuzzy
-msgid "Details"
-msgstr "По умолчанию"
-
-#, fuzzy
-msgid "no summary"
-msgstr "Подзаголовок"
-
-#, fuzzy
-msgid "An error occurred while retrieving the event log entry details."
-msgstr "Произошла ошибка при связи с базой данных."
-
 msgid "Group Management"
 msgstr "Управление Группами"
 
@@ -1824,9 +1676,6 @@ msgstr[2] "%d группы соответствуют вашему фильтр�
 msgid "System Maintenance"
 msgstr "Системное Обслуживание"
 
-msgid "Gallery must be in maintenance mode before the task can be run."
-msgstr ""
-
 #, c-format
 msgid "Completed %s task successfully."
 msgstr "Операция %s успешно завершена."
@@ -1834,41 +1683,6 @@ msgstr "Операция %s успешно завершена."
 #, c-format
 msgid "The %s task failed to complete successfully."
 msgstr "%s операция завершена с ошибками."
-
-msgid "Maintenance Mode has been turned on."
-msgstr ""
-
-msgid "Maintenance Mode has been turned off."
-msgstr ""
-
-#, fuzzy
-msgid "Maintenance Mode"
-msgstr "Обслуживание"
-
-msgid "Restrict user access to the system while maintenance is being performed."
-msgstr ""
-
-#, fuzzy
-msgid "Maintenance Mode Url"
-msgstr "Обслуживание"
-
-msgid ""
-"The Maintenance Mode Url specifies where requests will be redirected when access to the site "
-"has been restricted by the administrator."
-msgstr ""
-
-msgid ""
-"If left blank Gallery will display a default page with an administrator login link. This "
-"page will be themed when the code base is up to date, otherwise it will display a plain "
-"unstyled page."
-msgstr ""
-
-msgid "For example: /maintenance.html"
-msgstr ""
-
-#, fuzzy
-msgid "Set"
-msgstr "Параметр"
 
 msgid "Task name"
 msgstr "Название операции"
@@ -1970,21 +1784,6 @@ msgstr "Незарегистрированные пользователи"
 
 msgid "Expires after:"
 msgstr "Истекает через:"
-
-#, fuzzy
-msgid "Template Cache"
-msgstr "Очистка кэша шаблона"
-
-#, c-format
-msgid ""
-"For optimal performance, Gallery caches all templates.  If you would like to %scustomize "
-"your template files%s, you should disable template caching temporarily so that changes take "
-"effect immediately without clearing the template cache."
-msgstr ""
-
-#, fuzzy
-msgid "Enable template caching"
-msgstr "Очистка кэша шаблона"
 
 msgid "Clear Saved Pages"
 msgstr "Очистить Сохраненные Страницы"
@@ -2173,19 +1972,9 @@ msgid ""
 msgstr ""
 
 #, c-format
-msgid "Failed to download the following packages for the %s plugin:"
-msgstr ""
-
-#, c-format
 msgid ""
-"Failed to install the %s plugin because the following files/directories could not be "
+"Failed to download the %s plugin because the following files/directories could not be "
 "modified:"
-msgstr ""
-
-#, c-format
-msgid ""
-"Some plugins could not be automatically upgraded because they are in use.  Please return to "
-"the %sPlugins%s page and click the upgrade link for each of the following plugins:"
 msgstr ""
 
 msgid "The repository index has been successfully updated."
@@ -2467,10 +2256,6 @@ msgstr ""
 msgid "New albums"
 msgstr "Новый альбом"
 
-#, c-format
-msgid "To activate more themes visit the %sPlugins%s page."
-msgstr ""
-
 #, fuzzy
 msgid "Save Defaults"
 msgstr "По умолчанию"
@@ -2692,9 +2477,6 @@ msgstr "Подробная информация об ошибке"
 msgid "System Information"
 msgstr "Системная Информация"
 
-msgid "Not all of the specified items have been added successfully."
-msgstr ""
-
 msgid ""
 "You don't have any Graphics Toolkit activated that can handle JPEG images.  If you add "
 "images, you will probably not have any thumbnails."
@@ -2703,8 +2485,9 @@ msgstr ""
 "изображения. Если Вы добавите изображения, скорее всего макеты для них созданы не будут."
 
 #, c-format
-msgid "Visit the %sModules%s page to activate a Graphics Toolkit."
-msgstr "Перейдите на страницу %sМодули%s для активизации Графических Инструментов."
+msgid "Visit the <a href=\"%s\">Modules</a> page to activate a Graphics Toolkit."
+msgstr ""
+"Перейдите на страницу <a href=\"%s\">Модули</a> для активизации Графических Инструментов."
 
 msgid "Add Sub-Album"
 msgstr "Создать Вложенный Альбом"
@@ -2812,6 +2595,9 @@ msgstr "Присвоить заголовок к:"
 msgid "No Thumbnail"
 msgstr "Макет отсутствует"
 
+msgid "Delete Items"
+msgstr "Удалить Элементы"
+
 msgid "No items were selected for deletion"
 msgstr "Не отмечены элементы для удаления"
 
@@ -2870,13 +2656,25 @@ msgstr "Предыдущая Страница"
 msgid "Next Page"
 msgstr "Следующая Страница"
 
-#, fuzzy
-msgid "Do you really want to delete "
-msgstr "Вы действительно хотите деинсталлировать __PLUGIN__ модуль?"
+msgid "Deletion Complete"
+msgstr "Удаление завершено"
 
-#, fuzzy
-msgid "Delete more items..."
-msgstr "Удалить Элементы"
+msgid "Item successfully deleted"
+msgstr "Элемент успешно удален"
+
+#, c-format
+msgid "Are you sure you want to delete this %s?"
+msgstr "Вы уверены, что Вы хотите удалить этот %s?"
+
+#, c-format
+msgid "It contains %d item."
+msgid_plural "It contains %d items."
+msgstr[0] "Это содержит %d элемент."
+msgstr[1] "Это содержит %d элемента."
+msgstr[2] "Это содержит %d элементов."
+
+msgid "There is no undo!"
+msgstr "Восстановление будет невозможно!"
 
 msgid "There was a problem processing your request."
 msgstr "Во время обработки Вашего запроса возникли проблемы."
@@ -3312,18 +3110,11 @@ msgstr "Источник"
 msgid "Choose the items you want to move"
 msgstr "Выберете элементы, которые Вы хотите переместить"
 
-msgid "OK"
-msgstr ""
-
 msgid ""
 "The destination you chose does not accept sub-albums, so all sub-albums have been deselected."
 msgstr ""
 "В выбранном Вами назначении не могут быть созданы вложенные альбомы, поэтому со всех "
 "вложенных альбомов выделение снято."
-
-#, fuzzy
-msgid "Warning"
-msgstr "Внимание:"
 
 msgid ""
 "The destination you chose only accepts sub-albums, so all non-albums have been deselected."
@@ -3531,12 +3322,10 @@ msgstr "Введите комментарий к адресу URL"
 msgid "Enter an image URL"
 msgstr "Введите адрес URL для изображения"
 
-#. HINT: Button label for Bold
-msgid "B"
+msgid "B <!-- Button label for Bold -->"
 msgstr "B"
 
-#. HINT: Button label for italic
-msgid "i"
+msgid "i <!-- Button label for italic -->"
 msgstr "i"
 
 msgid "list"
@@ -3556,7 +3345,7 @@ msgid "color"
 msgstr "core"
 
 #, c-format
-msgid "You can also use the %scolor name%s for example: %sYour Text%s"
+msgid "You can also use the <a href=\"%s\" target=\"_new\">color name</a> for example: %s"
 msgstr ""
 
 msgid "Configuration Error: Missing Theme"
@@ -3678,16 +3467,20 @@ msgstr "Ваш пароль был восстановлен, пожалуйст�
 #, c-format
 msgid ""
 "Logins to this account are temporarily disabled due to multiple failed login attempts.  Wait "
-"for access to be restored, or use the %srecover password%s page to re-enable this account."
+"for access to be restored, or use the <a href=\"%s\">recover password</a> page to re-enable "
+"this account."
 msgstr ""
 
 msgid "Your login information is incorrect.  Please try again."
 msgstr "Введеная Вами информация авторизации неверна. Пожалуйста, попробуйте еще раз."
 
 #, c-format
-msgid "Lost or forgotten passwords can be retrieved using the %srecover password%s page"
+msgid ""
+"Lost or forgotten passwords can be retrieved using the <a href=\"%s\">recover password</a> "
+"page"
 msgstr ""
-"Утраченный или забытый пароль может быть восстановлен на странице %sвосстановления пароля%s"
+"Утраченный или забытый пароль может быть восстановлен на странице <a href=\"%s"
+"\">восстановления пароля</a>"
 
 #, c-format
 msgid "Welcome, %s!"
@@ -3836,19 +3629,19 @@ msgstr "Эта страница позволит Вам сбросить пар�
 #, c-format
 msgid ""
 "There is no request which matches the username and authorization provided. Request a new "
-"authorization from the %slost password page%s."
+"authorization from the <a href=\"%s\">lost password page</a>"
 msgstr ""
 "Отсутствует запрос, который соответствует имени пользователю и соответствующим "
-"авторизационным данным. Сделайте новый запрос на авторизацию со %sстраницы восстановления "
-"утраченного пароля%s."
+"авторизационным данным. Сделайте новый запрос на авторизацию со <a href=\"%s\">страницы "
+"восстановления утраченного пароля</a>"
 
-#, fuzzy, c-format
+#, c-format
 msgid ""
-"The request you are trying to access has expired.  Request a new authorization from the %"
-"slost password page%s."
+"The request you are trying to access has expired.  Request a new authorization from the <a "
+"href=\"%s\">lost password page</a>."
 msgstr ""
 "Запрос, к которому Вы хотите получить доступ - искек. Сделайте новый запрос на авторизацию "
-"со %sстраницы восстановления утраченного пароля%s."
+"со <a href=\"%s\">страницы восстановления утраченного пароля</a>"
 
 msgid "Authorization missing"
 msgstr "Данные авторизации отсутствуют"
@@ -3944,6 +3737,10 @@ msgid "last"
 msgstr "последняя"
 
 #, c-format
+msgid "Page %d of %d"
+msgstr "(Страница %d из %d)"
+
+#, c-format
 msgid "%d of %d"
 msgstr "(%d из %d)"
 
@@ -3989,30 +3786,3 @@ msgstr "Блок входа в систему"
 
 msgid "Links to album/photo peers"
 msgstr "Соседние альбомы/фотографии"
-
-#~ msgid "delete confirmation"
-#~ msgstr "подтверждение удаления"
-
-#~ msgid "delete %s"
-#~ msgstr "удалить %s"
-
-#~ msgid "Deletion Complete"
-#~ msgstr "Удаление завершено"
-
-#~ msgid "Item successfully deleted"
-#~ msgstr "Элемент успешно удален"
-
-#~ msgid "Are you sure you want to delete this %s?"
-#~ msgstr "Вы уверены, что Вы хотите удалить этот %s?"
-
-#~ msgid "It contains %d item."
-#~ msgid_plural "It contains %d items."
-#~ msgstr[0] "Это содержит %d элемент."
-#~ msgstr[1] "Это содержит %d элемента."
-#~ msgstr[2] "Это содержит %d элементов."
-
-#~ msgid "There is no undo!"
-#~ msgstr "Восстановление будет невозможно!"
-
-#~ msgid "key"
-#~ msgstr "ключ"

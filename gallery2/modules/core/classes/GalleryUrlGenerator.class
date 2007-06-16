@@ -151,31 +151,24 @@ class GalleryUrlGenerator {
      * @static
      */
     function getCurrentRequestUri() {
-	$cacheKey = 'GalleryUrlGenerator::currentRequestUri';
-	if (GalleryDataCache::containsKey($cacheKey)) {
-	    $path = GalleryDataCache::get($cacheKey);
-	} else {
-	    if ($path = GalleryUtilities::getServerVar('REQUEST_URI')) {
-		/* Sometimes, REQUEST_URI has a host part. Remove it. */
-		if ($path{0} != '/') {
-		    $components = parse_url($path);
-		    $path = $components['path'];
-		    $path .= empty($components['query']) ? '' : '?' . $components['query'];
-		    $path .= empty($components['fragment']) ? '' : '#' . $components['fragment'];
-		}
-	    } else if ($path = GalleryUtilities::getServerVar('SCRIPT_NAME')) {
-		if (($tmp = GalleryUtilities::getServerVar('PATH_INFO')) && $tmp != $path) {
-		    $path .= $tmp;
-		}
-		if ($tmp = GalleryUtilities::getServerVar('QUERY_STRING')) {
-		    $path .= '?' . $tmp;
-		}
+	if ($path = GalleryUtilities::getServerVar('REQUEST_URI')) {
+	    /* Sometimes, REQUEST_URI has a host part. Remove it. */
+	    if ($path{0} != '/') {
+		$components = parse_url($path);
+		$path = $components['path'];
+		$path .= empty($components['query']) ? '' : '?' . $components['query'];
+		$path .= empty($components['fragment']) ? '' : '#' . $components['fragment'];
 	    }
-
-	    GalleryUtilities::unsanitizeInputValues($path, false);
-	    GalleryDataCache::put($cacheKey, $path);
+	} else if ($path = GalleryUtilities::getServerVar('SCRIPT_NAME')) {
+	    if (($tmp = GalleryUtilities::getServerVar('PATH_INFO')) && $tmp != $path) {
+		$path .= $tmp;
+	    }
+	    if ($tmp = GalleryUtilities::getServerVar('QUERY_STRING')) {
+		$path .= '?' . $tmp;
+	    }
 	}
 
+	GalleryUtilities::unsanitizeInputValues($path, false);
 	return $path;
     }
 
@@ -605,7 +598,12 @@ class GalleryUrlGenerator {
 		$url = $this->makeUrl($href, true);
 	    } else if ($pos > 0) {
 		/* Check for local override */
-		$url .= $this->_getLocalPath($href);
+		$override = sprintf('%s/local/%s', dirname($href), basename($href));
+		$platform =& $gallery->getPlatform();
+		if ($platform->file_exists(dirname(__FILE__) . '/../../../' . $override)) {
+		    $href = $override;
+		}
+		$url .= $href;
 	    } else {
 		$url .= $href;
 	    }
@@ -625,23 +623,14 @@ class GalleryUrlGenerator {
 
 	/* Swap in the actual URL for the 'return' placeholder */
 	if (isset($params['return'])) {
-	    /* Cache the return URL / name, they're quite expensive to generate */
-	    if (!isset($this->_returnUrlData[$currentView])) {
-		list ($ret, $view) = GalleryView::loadView($currentView);
+	    list ($ret, $view) = GalleryView::loadView($currentView);
+	    if (!$ret) {
+		list ($ret, $viewDescription) = $view->getViewDescription();
 		if (!$ret) {
-		    list ($ret, $viewDescription) = $view->getViewDescription();
-		    if (!$ret) {
-			$this->_returnUrlData[$currentView]['returnName'] = $viewDescription;
-		    }
+		    $params['returnName'] = $viewDescription;
 		}
-		$this->_returnUrlData[$currentView]['return'] =
-			str_replace('&amp;', '&', $this->getNavigationReturnUrl());
 	    }
-
-	    if (isset($this->_returnUrlData[$currentView]['returnName'])) {
-		$params['returnName'] = $this->_returnUrlData[$currentView]['returnName'];
-	    }
-	    $params['return'] = $this->_returnUrlData[$currentView]['return'];
+	    $params['return'] = str_replace('&amp;', '&', $this->getNavigationReturnUrl());
 	    if (!empty($this->_navId)) {
 		$params['navId'] = $this->_navId;
 	    }
@@ -756,15 +745,11 @@ class GalleryUrlGenerator {
      * @return string relative URL (or unchanged absolute URL)
      */
     function makeRelativeUrl($url, $forceServerRelativeUrl=false) {
-	if (!isset($this->_hasRequestUriShortUrlPrefix)) {
-	    $requestUri = $this->getCurrentRequestUri();
-	    /* When embedded, file can be empty */
-	    $this->_hasRequestUriShortUrlPrefix = empty($this->_file[0])
+	$requestUri = $this->getCurrentRequestUri();
+	/* When embedded, file can be empty */
+	if ($forceServerRelativeUrl || empty($this->_file[0])
 		|| ($pos = strpos($requestUri, $this->_file[0])) === false
-		|| (($qPos = strpos($requestUri, '?')) !== false && $pos >= $qPos);
-	}
-
-	if ($forceServerRelativeUrl || $this->_hasRequestUriShortUrlPrefix
+		|| (($qPos = strpos($requestUri, '?')) !== false && $pos >= $qPos)
 		|| strpos($url, $this->getCurrentUrlDir()) !== 0) {
 	    /* Don't use forceDirect, keep the URL absolute if necessary */
 	    $url = str_replace($this->makeUrl('/'), '/', $url);
@@ -1014,55 +999,6 @@ class GalleryUrlGenerator {
 	    return true;
 	} else {
 	    return false;
-	}
-    }
-
-    /**
-     * Check for a local override of an href path (to override a css or js file, for example).
-     * @param string $href relative path
-     * @return string path to local override, or given path if override not found
-     * @access private
-     */
-    function _getLocalPath($href) {
-	global $gallery;
-	if (!isset($this->_localUrlMap)) {
-	    $this->_localUrlMap = GalleryDataCache::getFromDisk(array('type' => 'local-url-map'));
-	    if (!isset($this->_localUrlMap)) {
-		$this->_localUrlMap = array();
-	    }
-	}
-	$check = GalleryCoreApi::shouldDoCompileCheck();
-	if (!$check && isset($this->_localUrlMap[$href])) {
-	    $path = $this->_localUrlMap[$href];
-	} else {
-	    $override = dirname($href) . '/local/' . basename($href);
-	    $platform =& $gallery->getPlatform();
-	    $path = $platform->file_exists(GalleryCoreApi::getCodeBasePath($override))
-		  ? $override : $href;
-	    $this->_localUrlMap[$href] = $path;
-	    if (!$check && empty($this->_localUrlMapDirty)) {
-		$this->_localUrlMapDirty = true;
-		/*
-		 * Would do array(&$this, '_saveLocalUrlMap') but this triggers a bug
-		 * in PHP 5.1.x with array comparison (@see Gallery::addShutdownAction)
-		 */
-		$gallery->addShutdownAction(
-			array('GalleryUrlGenerator', '_saveLocalUrlMap'), array(&$this));
-	    }
-	}
-	return $path;
-    }
-
-    /**
-     * Save changes to the local URL map.
-     * @access private
-     * @static
-     */
-    function _saveLocalUrlMap(&$urlGenerator) {
-	if (!empty($urlGenerator->_localUrlMapDirty)) {
-	    GalleryDataCache::putToDisk(array('type' => 'local-url-map'),
-					$urlGenerator->_localUrlMap);
-	    $urlGenerator->_localUrlMapDirty = false;
 	}
     }
 }

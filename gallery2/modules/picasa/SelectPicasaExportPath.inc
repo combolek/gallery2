@@ -135,7 +135,7 @@ class SelectPicasaExportPathView extends GalleryView {
 	}
 
 	/* Load all the album entities */
-	list ($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds, 'GalleryAlbumItem');
+	list ($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds);
 	if ($ret) {
 	    return array($ret, null);
 	}

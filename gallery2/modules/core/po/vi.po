@@ -16,11 +16,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
-# 
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Core 1.2.17\n"
-"POT-Creation-Date: 2005-05-04 16:46-0400\n"
+"Project-Id-Version: Gallery: Core 1.2.0.3\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-06-07 09:29-0700\n"
 "PO-Revision-Date: 2007-03-14 15:04+0100\n"
 "Last-Translator: Trung Dong Huynh <trungdong@donggiang.com>\n"
 "Language-Team: Vietnamese <gallery-devel@lists.sourceforge.net>\n"
@@ -31,30 +32,6 @@ msgstr ""
 
 msgid "Gallery Email Test"
 msgstr "Email thử từ Gallery"
-
-#, c-format
-msgid "%d minute"
-msgid_plural "%d minutes"
-msgstr[0] "%d phút"
-msgstr[1] "%d phút"
-
-#, c-format
-msgid "%d hour"
-msgid_plural "%d hours"
-msgstr[0] "%d giờ"
-msgstr[1] "%d giờ"
-
-#, c-format
-msgid "%d day"
-msgid_plural "%d days"
-msgstr[0] "%d ngày"
-msgstr[1] "%d ngày"
-
-#, c-format
-msgid "%d week"
-msgid_plural "%d weeks"
-msgstr[0] "%d tuần"
-msgstr[1] "%d tuần"
 
 msgid "forever"
 msgstr "mãi mãi"
@@ -80,16 +57,32 @@ msgstr "Cơ sở dữ liệu"
 msgid "File"
 msgstr "Tập tin"
 
-msgid "&lt;none&gt;"
-msgstr "&lt;không có&gt;"
-
-#, fuzzy
-msgid "Link"
-msgstr "Đăng nhập"
+#, c-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] "%d phút"
+msgstr[1] "%d phút"
 
 #, c-format
-msgid "Page %d of %d"
-msgstr "Trang %d trên %d"
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] "%d giờ"
+msgstr[1] "%d giờ"
+
+#, c-format
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] "%d ngày"
+msgstr[1] "%d ngày"
+
+#, c-format
+msgid "%d week"
+msgid_plural "%d weeks"
+msgstr[0] "%d tuần"
+msgstr[1] "%d tuần"
+
+msgid "<none>"
+msgstr "<không có>"
 
 msgid "No acceleration"
 msgstr ""
@@ -137,10 +130,6 @@ msgid "Deleting Language Packs"
 msgstr "Ngôn ngữ mặc định"
 
 #, fuzzy
-msgid "Synchronizing Language Packs"
-msgstr "Ngôn ngữ mặc định"
-
-#, fuzzy
 msgid "Update completed with errors."
 msgstr "Tải xong"
 
@@ -172,6 +161,9 @@ msgstr "Dùng các thông số này"
 #, fuzzy
 msgid "Installing the core module"
 msgstr "Module Lõi của Gallery"
+
+msgid "key"
+msgstr "khóa"
 
 msgid "All access"
 msgstr "Toàn quyền"
@@ -206,10 +198,6 @@ msgstr "[lõi] Xóa đối tượng"
 msgid "Upgrading permissions"
 msgstr "Nâng cấp quyền hạn"
 
-#, c-format
-msgid "Upgrading permissions (%d items complete, %d remaining)"
-msgstr ""
-
 msgid "Deleting old permission tables"
 msgstr "Đang xóa bảng quyền hạn cũ"
 
@@ -222,23 +210,6 @@ msgstr "Tất cả người dùng"
 msgid "Detecting broken derivatives"
 msgstr "Kiểm tra các hình dẫn xuất bị mất"
 
-#, fuzzy, c-format
-msgid "Detecting broken derivatives, loading (%d derivatives checked, %d remaining)"
-msgstr "Kiểm tra các hình dẫn xuất bị mất, đang nạp"
-
-#, fuzzy, c-format
-msgid "Detecting broken derivatives (%d derivatives checked, %d remaining)"
-msgstr "Kiểm tra các hình dẫn xuất bị mất, đang lưu"
-
-#, fuzzy, c-format
-msgid "Detecting broken derivatives, saving (%d derivatives checked, %d remaining)"
-msgstr "Kiểm tra các hình dẫn xuất bị mất, đang lưu"
-
-#, c-format
-msgid ""
-"Detecting broken derivatives, saving item %d of %d (%d derivatives complete, %d remaining)"
-msgstr ""
-
 msgid "Clearing fast-download cache"
 msgstr ""
 
@@ -246,19 +217,11 @@ msgstr ""
 msgid "Deleting old fast-download cache"
 msgstr "Đang xóa bảng quyền hạn cũ"
 
-#, fuzzy, c-format
-msgid "Deleting old session files (iteration %d)"
-msgstr "Đang xóa bảng quyền hạn cũ"
-
 msgid "Updating panorama items"
 msgstr ""
 
 msgid "Optimizing AccessSubscriberMap table"
 msgstr ""
-
-#, fuzzy
-msgid "Upgrading Plugin Translations"
-msgstr "Nâng cấp quyền hạn"
 
 msgid "Converting Schema Table"
 msgstr ""
@@ -284,16 +247,30 @@ msgstr "Đây là trang chính của Gallery của bạn"
 msgid "Converting MySQL data to UTF8"
 msgstr ""
 
-#, fuzzy
-msgid "Adding items"
-msgstr "thêm đối tượng"
-
-#, fuzzy
-msgid "Processing items"
-msgstr "Đang xử lý đối tượng %d trên %d"
-
-msgid "Extracting archive"
+#, c-format
+msgid "Upgrading permissions (%d items complete, %d remaining)"
 msgstr ""
+
+#, fuzzy, c-format
+msgid "Detecting broken derivatives, loading (%d derivatives checked, %d remaining)"
+msgstr "Kiểm tra các hình dẫn xuất bị mất, đang nạp"
+
+#, fuzzy, c-format
+msgid "Detecting broken derivatives (%d derivatives checked, %d remaining)"
+msgstr "Kiểm tra các hình dẫn xuất bị mất, đang lưu"
+
+#, fuzzy, c-format
+msgid "Detecting broken derivatives, saving (%d derivatives checked, %d remaining)"
+msgstr "Kiểm tra các hình dẫn xuất bị mất, đang lưu"
+
+#, c-format
+msgid ""
+"Detecting broken derivatives, saving item %d of %d (%d derivatives complete, %d remaining)"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "Deleting old session files (iteration %d)"
+msgstr "Đang xóa bảng quyền hạn cũ"
 
 msgid "add items"
 msgstr "thêm đối tượng"
@@ -306,6 +283,30 @@ msgstr "thêm album con"
 
 msgid "add items confirmation"
 msgstr "xác nhận thêm đối tượng"
+
+msgid "Base filename"
+msgstr "Tên tập tin"
+
+msgid "Caption"
+msgstr "Tiêu đề"
+
+msgid "Blank"
+msgstr "Trống"
+
+msgid "From Web Browser"
+msgstr "Từ trình duyệt web"
+
+#, c-format
+msgid "%d megabyte"
+msgid_plural "%d megabytes"
+msgstr[0] "%d megabyte"
+msgstr[1] "%d megabyte"
+
+#, c-format
+msgid "%d kilobytes"
+msgid_plural "%d kilobytes"
+msgstr[0] "%d kilobyte"
+msgstr[1] "%d kilobyte"
 
 #, c-format
 msgid "Input file %s exceeds maximum permitted file size"
@@ -323,35 +324,18 @@ msgstr ""
 msgid "Input file %s was not uploaded. Error %d"
 msgstr ""
 
-#, c-format
-msgid "%d megabyte"
-msgid_plural "%d megabytes"
-msgstr[0] "%d megabyte"
-msgstr[1] "%d megabyte"
-
-#, c-format
-msgid "%d kilobytes"
-msgid_plural "%d kilobytes"
-msgstr[0] "%d kilobyte"
-msgstr[1] "%d kilobyte"
-
-msgid "Base filename"
-msgstr "Tên tập tin"
-
-msgid "Caption"
-msgstr "Tiêu đề"
-
-msgid "Blank"
-msgstr "Trống"
-
-msgid "From Web Browser"
-msgstr "Từ trình duyệt web"
-
 msgid "Gallery Item Administration"
 msgstr "Quản trị đối tượng của Gallery"
 
 msgid "delete an item"
 msgstr "xóa một đối tượng"
+
+msgid "delete confirmation"
+msgstr "xác nhận xóa"
+
+#, c-format
+msgid "delete %s"
+msgstr "xóa %s"
 
 #, c-format
 msgid "edit %s"
@@ -368,10 +352,6 @@ msgstr "Cài đặt của kiểu trình bày đã được khôi phục lại"
 msgid "Preparing..."
 msgstr "Đang xử lý..."
 
-#, c-format
-msgid "Processing image %d of %d"
-msgstr "Đang xử lý ảnh %d trên %d"
-
 msgid "Apply thumbnail settings"
 msgstr ""
 
@@ -381,6 +361,10 @@ msgstr "Tạo lại các ảnh con"
 
 msgid "Album"
 msgstr "Album"
+
+#, c-format
+msgid "Processing image %d of %d"
+msgstr "Đang xử lý ảnh %d trên %d"
 
 msgid "Changes saved successfully"
 msgstr "Thay đổi đã được lưu"
@@ -520,10 +504,6 @@ msgstr "Chỉnh sửa Ảnh"
 msgid "Edit Movie"
 msgstr "Chỉnh sửa Phim"
 
-#, c-format
-msgid "Edit %s"
-msgstr "Chỉnh sửa %s"
-
 msgid "Add Album"
 msgstr "Thêm Album con"
 
@@ -542,10 +522,6 @@ msgstr "Xóa Ảnh"
 msgid "Delete Movie"
 msgstr "Xóa Phim"
 
-#, c-format
-msgid "Delete %s"
-msgstr "Xóa %s"
-
 msgid "Move Album"
 msgstr "Di chuyển Album"
 
@@ -555,10 +531,6 @@ msgstr "Di chuyển Ảnh"
 msgid "Move Movie"
 msgstr "Di chuyển Phim"
 
-#, c-format
-msgid "Move %s"
-msgstr "Di chuyển %s"
-
 msgid "Edit Captions"
 msgstr "Hiệu chỉnh các tiêu đề"
 
@@ -567,9 +539,6 @@ msgstr "Chọn làm ảnh đại diện"
 
 msgid "Reorder Items"
 msgstr "Sắp xếp lại các đối tượng"
-
-msgid "Delete Items"
-msgstr "Xóa đối tượng"
 
 msgid "Site Admin"
 msgstr "Quản trị trang"
@@ -595,9 +564,6 @@ msgstr "Nhóm"
 msgid "Performance"
 msgstr ""
 
-msgid "Event Logs"
-msgstr ""
-
 msgid "Toolkit Priority"
 msgstr "Thứ tự ưu tiên bộ công cụ"
 
@@ -609,6 +575,18 @@ msgstr "Các thông số của tài khoản"
 
 msgid "Change Password"
 msgstr "Thay đổi mật khẩu"
+
+#, c-format
+msgid "Edit %s"
+msgstr "Chỉnh sửa %s"
+
+#, c-format
+msgid "Delete %s"
+msgstr "Xóa %s"
+
+#, c-format
+msgid "Move %s"
+msgstr "Di chuyển %s"
 
 msgid "Build all thumbnails/resizes"
 msgstr "Tạo tất cả các ảnh con/ảnh trung gian"
@@ -623,6 +601,9 @@ msgstr ""
 msgid "Build All Thumbnails/Resizes"
 msgstr "Tạo tất cả các ảnh con/ảnh trung gian"
 
+msgid "Debug output for failed items:"
+msgstr "Kết xuất debug cho các đối tượng bị thất bại:"
+
 #, c-format
 msgid "Checked %d items"
 msgstr "Đã kiểm tra %d đối tượng"
@@ -634,9 +615,6 @@ msgstr "%d đối tượng được tạo"
 #, c-format
 msgid "%d items failed"
 msgstr "%d đối tượng bị thất bại"
-
-msgid "Debug output for failed items:"
-msgstr "Kết xuất debug cho các đối tượng bị thất bại:"
 
 msgid "Convert MySQL database to UTF8"
 msgstr ""
@@ -654,28 +632,6 @@ msgid "Database successfully converted to UTF8"
 msgstr "Đối tượng đã được xóa"
 
 msgid "No conversion required"
-msgstr ""
-
-#, fuzzy
-msgid "Backup the database"
-msgstr "Tối ưu hóa cơ sơ dữ liệu"
-
-msgid ""
-"Backup all your Gallery data (item data, users, comments, etc.) to a single file in your "
-"storage folder.  The backup does not include the image files.  Before running the backup, "
-"your Gallery installation needs to be set into maintenance mode, as this is not done "
-"automatically."
-msgstr ""
-
-msgid "Backing up Gallery Database"
-msgstr ""
-
-#, fuzzy
-msgid "Exporting..."
-msgstr "Đang xử lý..."
-
-#, c-format
-msgid "Database backup completed and the backup file is located at: %s"
 msgstr ""
 
 #, fuzzy
@@ -714,12 +670,11 @@ msgstr "Không thể xóa thư mục: %s"
 msgid "Delete template cache"
 msgstr "Xóa cache template"
 
-#, fuzzy
 msgid ""
 "Gallery compiles template files and saves them for increased performance.  If you're "
 "experiencing problems that say <i>Smarty error</i> then you might try running this task.  "
-"Also run this if you add or remove any local/*.tpl or theme override so Smarty will find the "
-"right file."
+"Also run this if you remove a local/*.tpl file so Smarty will switch back to the default tpl "
+"file."
 msgstr ""
 "Gallery dịch các tập tin template (mẫu) và lưu chúng lại để tăng tốc độ xử lý. Nếu bạn gặp "
 "phải báo lỗi <i>Smarty error</i> thì bạn có thể thử chạy xử lý này. Khi bạn gỡ bỏ một tập "
@@ -862,10 +817,6 @@ msgstr "Tăng dần"
 msgid "Descending"
 msgstr "Giảm dần"
 
-#, c-format
-msgid "Powered by Gallery v%s"
-msgstr ""
-
 msgid "Validation disabled until you set allowSessionAccess in config.php"
 msgstr "Xác nhận bị tắt cho đến khi bạn đặt chỉ thị allowSessionAccess trong config.php"
 
@@ -875,6 +826,13 @@ msgstr "Trang web này phù hợp với chuẩn XHTML 1.0"
 #, fuzzy
 msgid "Donate to the Gallery project"
 msgstr "Quay lại Gallery"
+
+msgid "G2.2: Double Double"
+msgstr ""
+
+#, c-format
+msgid "Powered by Gallery v%s"
+msgstr ""
 
 #, c-format
 msgid "Estimated time remaining: %d:%02d"
@@ -983,12 +941,12 @@ msgstr "bảng tính"
 msgid "file"
 msgstr "Tập tin"
 
+msgid "Back"
+msgstr "Quay lại"
+
 #, c-format
 msgid "Back to %s"
 msgstr "Quay lại %s"
-
-msgid "Back"
-msgstr "Quay lại"
 
 msgid "User"
 msgstr "Thành viên"
@@ -1062,10 +1020,6 @@ msgstr "lõi"
 msgid "unknown"
 msgstr "không biết"
 
-#, c-format
-msgid "API = Core %s, Module %s, Theme %s, Embed %s"
-msgstr ""
-
 msgid "Gallery version"
 msgstr "Phiên bản Gallery"
 
@@ -1108,65 +1062,6 @@ msgstr "Trình duyệt web"
 
 #, c-format
 msgid "Rows in %s table = %d"
-msgstr ""
-
-#, c-format
-msgid "The %s \"%s\" is not installed and will not be backed up."
-msgstr ""
-
-#, c-format
-msgid "\"%s\" has no creation sql and will not be backed up."
-msgstr ""
-
-#, c-format
-msgid "Unable to load table description for \"%s\", no data will be exported."
-msgstr ""
-
-msgid ""
-"Unable to find the XML parser.  The PHP XML parsing extension must be loaded.  Terminating "
-"database import."
-msgstr ""
-
-#, c-format
-msgid "The exported file is not the correct version. Expecting %s recieved %s."
-msgstr ""
-
-#, fuzzy, c-format
-msgid "Unable to close import file: %s"
-msgstr "Không thể xóa thư mục: %s"
-
-#, fuzzy, c-format
-msgid "Unable to open import file: %s"
-msgstr "Không thể xóa thư mục: %s"
-
-#, c-format
-msgid "Import file doesn't exist: %s"
-msgstr ""
-
-#, c-format
-msgid "Plugin %s is not currently available."
-msgstr ""
-
-#, c-format
-msgid "The available version of plugin \"%s\" may not be compatible with the imported version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The currently installed core API version required by \"%s\" may not be compatible with the "
-"imported version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The installed module API version required by \"%s\" may not be compatible with the imported "
-"version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The installed theme API version required by \"%s\" is not compatible with the imported "
-"version."
 msgstr ""
 
 msgid "Successfully saved theme settings"
@@ -1682,48 +1577,6 @@ msgid_plural "%d failed login attempts since the last successful login."
 msgstr[0] ""
 msgstr[1] ""
 
-#, fuzzy
-msgid "Recent Events"
-msgstr "Xóa số lượt xem (về 0)"
-
-msgid "Type"
-msgstr ""
-
-#, fuzzy
-msgid "Location"
-msgstr "Chọn lựa"
-
-#, fuzzy
-msgid "Client"
-msgstr "danh sách"
-
-msgid "No events have been reported yet."
-msgstr ""
-
-#, fuzzy
-msgid "Event Details"
-msgstr "Chi tiết về lỗi"
-
-#, fuzzy
-msgid "User Id"
-msgstr "Thành viên"
-
-#, fuzzy
-msgid "Referer"
-msgstr "Sắp xếp lại"
-
-#, fuzzy
-msgid "Details"
-msgstr "Giá trị mặc định"
-
-#, fuzzy
-msgid "no summary"
-msgstr "Tóm tắt"
-
-#, fuzzy
-msgid "An error occurred while retrieving the event log entry details."
-msgstr "Có lỗi khi truy xuất cơ sở dữ liệu"
-
 msgid "Group Management"
 msgstr "Quản lý nhóm thành viên"
 
@@ -1788,9 +1641,6 @@ msgstr[1] "có %d nhóm trùng với lọc của bạn"
 msgid "System Maintenance"
 msgstr "Bảo dưỡng hệ thống"
 
-msgid "Gallery must be in maintenance mode before the task can be run."
-msgstr ""
-
 #, c-format
 msgid "Completed %s task successfully."
 msgstr "Công việc %s đã hoàn tất"
@@ -1798,41 +1648,6 @@ msgstr "Công việc %s đã hoàn tất"
 #, c-format
 msgid "The %s task failed to complete successfully."
 msgstr "Công viẹc %s không thực hiện được"
-
-msgid "Maintenance Mode has been turned on."
-msgstr ""
-
-msgid "Maintenance Mode has been turned off."
-msgstr ""
-
-#, fuzzy
-msgid "Maintenance Mode"
-msgstr "Bảo dưỡng"
-
-msgid "Restrict user access to the system while maintenance is being performed."
-msgstr ""
-
-#, fuzzy
-msgid "Maintenance Mode Url"
-msgstr "Bảo dưỡng"
-
-msgid ""
-"The Maintenance Mode Url specifies where requests will be redirected when access to the site "
-"has been restricted by the administrator."
-msgstr ""
-
-msgid ""
-"If left blank Gallery will display a default page with an administrator login link. This "
-"page will be themed when the code base is up to date, otherwise it will display a plain "
-"unstyled page."
-msgstr ""
-
-msgid "For example: /maintenance.html"
-msgstr ""
-
-#, fuzzy
-msgid "Set"
-msgstr "Cài đặt"
 
 msgid "Task name"
 msgstr "Tên xử lý"
@@ -1920,21 +1735,6 @@ msgstr "Thành viên đã đăng ký"
 
 msgid "Expires after:"
 msgstr ""
-
-#, fuzzy
-msgid "Template Cache"
-msgstr "Xóa cache template"
-
-#, c-format
-msgid ""
-"For optimal performance, Gallery caches all templates.  If you would like to %scustomize "
-"your template files%s, you should disable template caching temporarily so that changes take "
-"effect immediately without clearing the template cache."
-msgstr ""
-
-#, fuzzy
-msgid "Enable template caching"
-msgstr "Xóa cache template"
 
 msgid "Clear Saved Pages"
 msgstr ""
@@ -2122,19 +1922,9 @@ msgid ""
 msgstr ""
 
 #, c-format
-msgid "Failed to download the following packages for the %s plugin:"
-msgstr ""
-
-#, c-format
 msgid ""
-"Failed to install the %s plugin because the following files/directories could not be "
+"Failed to download the %s plugin because the following files/directories could not be "
 "modified:"
-msgstr ""
-
-#, c-format
-msgid ""
-"Some plugins could not be automatically upgraded because they are in use.  Please return to "
-"the %sPlugins%s page and click the upgrade link for each of the following plugins:"
 msgstr ""
 
 msgid "The repository index has been successfully updated."
@@ -2409,10 +2199,6 @@ msgstr ""
 msgid "New albums"
 msgstr "Các album mới"
 
-#, c-format
-msgid "To activate more themes visit the %sPlugins%s page."
-msgstr ""
-
 #, fuzzy
 msgid "Save Defaults"
 msgstr "Giá trị mặc định"
@@ -2626,9 +2412,6 @@ msgstr "Chi tiết về lỗi"
 msgid "System Information"
 msgstr "Thông tin hệ thống"
 
-msgid "Not all of the specified items have been added successfully."
-msgstr ""
-
 msgid ""
 "You don't have any Graphics Toolkit activated that can handle JPEG images.  If you add "
 "images, you will probably not have any thumbnails."
@@ -2637,8 +2420,8 @@ msgstr ""
 "có thể bạn sẽ không tạo được ảnh con."
 
 #, c-format
-msgid "Visit the %sModules%s page to activate a Graphics Toolkit."
-msgstr "Hãy vào trang %sModules%s để kích hoạt một bộ công cụ đồ họa."
+msgid "Visit the <a href=\"%s\">Modules</a> page to activate a Graphics Toolkit."
+msgstr "Hãy vào trang <a href=\"%s\">Modules</a> để kích hoạt một bộ công cụ đồ họa."
 
 msgid "Add Sub-Album"
 msgstr "Tạo album con"
@@ -2743,6 +2526,9 @@ msgstr "Đặt tiêu đề vào:"
 msgid "No Thumbnail"
 msgstr "Không có ảnh con"
 
+msgid "Delete Items"
+msgstr "Xóa đối tượng"
+
 msgid "No items were selected for deletion"
 msgstr "Không có đối tượng nào được chọn để xóa"
 
@@ -2800,13 +2586,24 @@ msgstr "Trang trước"
 msgid "Next Page"
 msgstr "Trang tiếp"
 
-#, fuzzy
-msgid "Do you really want to delete "
-msgstr "Bạn có thực sự muốn gỡ bỏ __PLUGIN__?"
+msgid "Deletion Complete"
+msgstr "Xóa xong"
 
-#, fuzzy
-msgid "Delete more items..."
-msgstr "Xóa đối tượng"
+msgid "Item successfully deleted"
+msgstr "Đối tượng đã được xóa"
+
+#, c-format
+msgid "Are you sure you want to delete this %s?"
+msgstr "Bạn có chắc bạn muốn xóa %s này"
+
+#, c-format
+msgid "It contains %d item."
+msgid_plural "It contains %d items."
+msgstr[0] "Chứa %d đối tượng."
+msgstr[1] "Chứa %d đối tượng."
+
+msgid "There is no undo!"
+msgstr "Thao tác này không thể phục hồi được"
 
 msgid "There was a problem processing your request."
 msgstr "Có trở ngại khi xử lý yêu cầu của bạn."
@@ -3226,16 +3023,10 @@ msgstr "Nguồn"
 msgid "Choose the items you want to move"
 msgstr "Chọn các đối tượng bạn muốn di chuyển"
 
-msgid "OK"
-msgstr ""
-
 msgid ""
 "The destination you chose does not accept sub-albums, so all sub-albums have been deselected."
 msgstr ""
 "Đích đến bạn chọn không cho phép có album con nên tất cả các album con đều đã bị bỏ ra."
-
-msgid "Warning"
-msgstr ""
 
 msgid ""
 "The destination you chose only accepts sub-albums, so all non-albums have been deselected."
@@ -3442,12 +3233,10 @@ msgstr "Nhập một vài chữ mô tả về đường dẫn này"
 msgid "Enter an image URL"
 msgstr "Điền vào địa chỉ của ảnh"
 
-#. HINT: Button label for Bold
-msgid "B"
+msgid "B <!-- Button label for Bold -->"
 msgstr "đậm"
 
-#. HINT: Button label for italic
-msgid "i"
+msgid "i <!-- Button label for italic -->"
 msgstr "nghiêng"
 
 msgid "list"
@@ -3467,7 +3256,7 @@ msgid "color"
 msgstr "lõi"
 
 #, c-format
-msgid "You can also use the %scolor name%s for example: %sYour Text%s"
+msgid "You can also use the <a href=\"%s\" target=\"_new\">color name</a> for example: %s"
 msgstr ""
 
 msgid "Configuration Error: Missing Theme"
@@ -3589,16 +3378,20 @@ msgstr "Mật mã của bạn đã được đặt lại, hãy đăng nhập và
 #, c-format
 msgid ""
 "Logins to this account are temporarily disabled due to multiple failed login attempts.  Wait "
-"for access to be restored, or use the %srecover password%s page to re-enable this account."
+"for access to be restored, or use the <a href=\"%s\">recover password</a> page to re-enable "
+"this account."
 msgstr ""
 
 msgid "Your login information is incorrect.  Please try again."
 msgstr "Thông tin đăng nhập của bạn không đúng. Hãy thử lại lần nữa"
 
 #, c-format
-msgid "Lost or forgotten passwords can be retrieved using the %srecover password%s page"
+msgid ""
+"Lost or forgotten passwords can be retrieved using the <a href=\"%s\">recover password</a> "
+"page"
 msgstr ""
-"Nếu bạn quên hoặc mất mật khẩu thì có thể xin lại mật khẩu trong trang %skhôi phục mật khẩu%s"
+"Nếu bạn quên hoặc mất mật khẩu thì có thể xin lại mật khẩu trong trang <a href=\"%s\">khôi "
+"phục mật khẩu</a>"
 
 #, c-format
 msgid "Welcome, %s!"
@@ -3742,18 +3535,18 @@ msgstr "Trang này cho phép bạn đặt lại mật mã của tài khoản c�
 #, c-format
 msgid ""
 "There is no request which matches the username and authorization provided. Request a new "
-"authorization from the %slost password page%s."
+"authorization from the <a href=\"%s\">lost password page</a>"
 msgstr ""
 "Không có yêu cầu khôi phục mật khẩu nào trùng với tên thành viên được cung cấp. Hãy yêu cầu "
-"lại ở trang %smất mật khẩu%s."
+"lại ở trang <a href=\"%s\">mất mật khẩu</a>"
 
 #, c-format
 msgid ""
-"The request you are trying to access has expired.  Request a new authorization from the %"
-"slost password page%s."
+"The request you are trying to access has expired.  Request a new authorization from the <a "
+"href=\"%s\">lost password page</a>."
 msgstr ""
 "Yêu cầu khôi phục mật khẩu của bạn không còn giá trị. Hãy xin một thư khôi phục mật khẩu mới "
-"từ trang %smất mật khẩu%s."
+"từ trang <a href=\"%s\">mất mật khẩu</a>."
 
 msgid "Authorization missing"
 msgstr "Thiếu mã xác nhận"
@@ -3843,6 +3636,10 @@ msgid "last"
 msgstr "cuối cùng"
 
 #, c-format
+msgid "Page %d of %d"
+msgstr "Trang %d trên %d"
+
+#, c-format
 msgid "%d of %d"
 msgstr "%d trên %d"
 
@@ -3888,29 +3685,3 @@ msgstr "Khối đăng nhập"
 
 msgid "Links to album/photo peers"
 msgstr "Liên kết đến các album/ảnh ngang mức"
-
-#~ msgid "delete confirmation"
-#~ msgstr "xác nhận xóa"
-
-#~ msgid "delete %s"
-#~ msgstr "xóa %s"
-
-#~ msgid "Deletion Complete"
-#~ msgstr "Xóa xong"
-
-#~ msgid "Item successfully deleted"
-#~ msgstr "Đối tượng đã được xóa"
-
-#~ msgid "Are you sure you want to delete this %s?"
-#~ msgstr "Bạn có chắc bạn muốn xóa %s này"
-
-#~ msgid "It contains %d item."
-#~ msgid_plural "It contains %d items."
-#~ msgstr[0] "Chứa %d đối tượng."
-#~ msgstr[1] "Chứa %d đối tượng."
-
-#~ msgid "There is no undo!"
-#~ msgstr "Thao tác này không thể phục hồi được"
-
-#~ msgid "key"
-#~ msgstr "khóa"

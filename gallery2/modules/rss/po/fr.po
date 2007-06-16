@@ -19,7 +19,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: RSS 1.1.4\n"
+"Project-Id-Version: Gallery: RSS 1.1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-19 16:14+0100\n"
 "PO-Revision-Date: 2007-01-01 00:00+0100\n"
@@ -65,10 +65,6 @@ msgstr "Fil RSS pour cette photo"
 msgid "RSS Feed for this Movie"
 msgstr "Fil RSS pour ce film"
 
-#, c-format
-msgid "RSS Feed for this %s"
-msgstr "Fils RSS pour ce(t)(te) %s"
-
 msgid "Configure RSS Feeds"
 msgstr "Configurer les fils RSS"
 
@@ -88,8 +84,8 @@ msgid "Short URL for Configurable RSS Feeds"
 msgstr "URL courtes des fils RSS configurables"
 
 #, c-format
-msgid "In album %s"
-msgstr "Dans l'album %s"
+msgid "RSS Feed for this %s"
+msgstr "Fils RSS pour ce(t)(te) %s"
 
 msgid "Items in an album"
 msgstr "Éléments dans un album"
@@ -109,13 +105,9 @@ msgstr "Commentaires pour un élément"
 msgid "Comments for an album and its subalbums"
 msgstr "Commentaires d'un un album et de ses sous-albums"
 
-#, fuzzy
-msgid "Random items in an album"
-msgstr "Éléments dans un album"
-
-#, fuzzy
-msgid "Random items in an album and its subalbums"
-msgstr "Éléments dans un album et ses sous-albums"
+#, c-format
+msgid "In album <a href=\"%s\">%s</a>"
+msgstr "Dans l'album <a href=\"%s\">%s</a>"
 
 msgid "RSS Feeds"
 msgstr "Fils RSS"
@@ -202,14 +194,6 @@ msgstr "Commentaires pour cet album"
 msgid "Comments for this album and its subalbums"
 msgstr "Commentaires pour cet album et ses sous-albums"
 
-#, fuzzy
-msgid "Random pictures inside this album"
-msgstr "Éléments dans cet album"
-
-#, fuzzy
-msgid "Random pictures inside this album and its subalbums"
-msgstr "Éléments de cet album et des sous-albums"
-
 msgid "Comments for this item"
 msgstr "Commentaires pour cet élément"
 
@@ -294,21 +278,6 @@ msgid ""
 msgstr ""
 "Ceci ajoute pour chaque image du fil RSS, une pièce jointe qui contient l'image en pleine "
 "résolution"
-
-msgid "Use Media RSS"
-msgstr ""
-
-#, fuzzy
-msgid "Include Media RSS tags"
-msgstr "Inclure l'étiquette image"
-
-msgid ""
-"This adds Media RSS tags to the feed, which allows media-oriented clients to display the "
-"feed in a more useful fashion"
-msgstr ""
-
-msgid "about Media RSS"
-msgstr ""
 
 msgid "Cloud tag (RSS 2.0)"
 msgstr "Étiquette Cloud (RSS 2.0)"
@@ -410,14 +379,6 @@ msgstr "Nombre maximum d'éléments dans les fils RSS"
 msgid "Invalid maximum number"
 msgstr "Nombre invalide"
 
-#, fuzzy
-msgid "Maximum age for items in feeds"
-msgstr "Nombre maximum d'éléments dans les fils RSS"
-
-#, fuzzy
-msgid "Invalid maximum age number"
-msgstr "Nombre invalide"
-
 msgid "Default ttl"
 msgstr "TTL par défaut"
 
@@ -481,29 +442,14 @@ msgstr "Autoriser les fils RSS pour les photos d'un album et de ses sous-albums"
 msgid "Slower"
 msgstr "Plus lent"
 
-#, fuzzy
-msgid "Allow RSS feeds of comments of a photo"
+msgid "Allow RSS feeds comments of a photo"
 msgstr "Autoriser les fils RSS pour les commentaires d'une photo"
 
-#, fuzzy
-msgid "Allow RSS feeds of comments of an album"
+msgid "Allow RSS feeds comments of an album"
 msgstr "Autoriser les fils RSS pour les commentaires d'un album"
 
-#, fuzzy
-msgid "Allow RSS feeds of comments for an album and its subalbums"
+msgid "Allow RSS feeds comments for an album and its subalbums"
 msgstr "Autoriser les fils RSS pour les commentaires d'un album et de ses sous-albums"
-
-#, fuzzy
-msgid "Allow RSS feeds of random photos inside an album"
-msgstr "Autoriser les fils RSS pour les photos d'un album"
-
-#, fuzzy
-msgid "Allow RSS feeds of random photos inside an album and its subalbums"
-msgstr "Autoriser les fils RSS pour les photos d'un album et de ses sous-albums"
-
-#, fuzzy
-msgid "Slowest"
-msgstr "Plus lent"
 
 msgid "Save Settings"
 msgstr "Sauver les paramètres"

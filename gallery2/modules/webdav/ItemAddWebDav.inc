@@ -167,7 +167,7 @@ class ItemAddWebDav extends ItemAddPlugin {
 	    return array($ret, null, null);
 	}
 
-	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryDataItem');
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	if ($ret) {
 	    GalleryCoreApi::releaseLocks($lockIds);
 	    return array($ret, null, null);
@@ -241,7 +241,7 @@ class ItemAddWebDav extends ItemAddPlugin {
 	    }
 
 	    $ret = $newItem->create($parentItem->getId(), $filePath, $mimeType);
-		if ($ret) {
+	    if ($ret) {
 		GalleryCoreApi::releaseLocks($lockIds);
 		return array($ret, null, null);
 	    }

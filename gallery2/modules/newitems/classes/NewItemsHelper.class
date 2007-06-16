@@ -75,7 +75,7 @@ class NewItemsHelper {
 	    if ($ret) {
 		return $ret;
 	    }
-	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryAlbumItem');
+	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	    if ($ret) {
 		return $ret;
 	    }

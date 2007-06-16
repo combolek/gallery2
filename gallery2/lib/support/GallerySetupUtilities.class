@@ -22,7 +22,6 @@ define('G2_SUPPORT_MAX_SESSION_LIFETIME', 2 * 60 * 60);
 define('G2_SETUP_SESSION_NAME', 'G2SETUPSID');
 
 require_once(dirname(dirname(dirname(__FILE__))) . '/modules/core/classes/GalleryUtilities.class');
-require_once(dirname(dirname(dirname(__FILE__))) . '/modules/core/classes/GalleryDataCache.class');
 require_once(dirname(dirname(dirname(__FILE__))) . '/modules/core/classes/GallerySession.class');
 
 /**
@@ -278,18 +277,16 @@ class GallerySetupUtilities {
     }
 
     /**
-     * Create a downloadable text file of a specified name and contents.
-     * Sets headers appropriately.
+     * Create a downloadable file that contains the contents of the login.txt
+     * file (the authentication key).  Sets headers appropriately.
      *
-     * @param string $name the file's name
-     * @param string $contents the file's contents
      */
-    function generateTextFileForDownload($name, $contents) {
+    function generateLoginTxtFile($key) {
 	header('Content-Type: text/plain');
-	header('Content-Length: ' . strlen($contents));
-	header("Content-Description: Download $name to your computer.");
-	header("Content-Disposition: attachment; filename=$name");
-	print $contents;
+	header('Content-Length: ' . strlen($key));
+	header('Content-Description: Download login.txt to your computer.');
+	header('Content-Disposition: attachment; filename=login.txt');
+	print $key;
     }
 
     /**
