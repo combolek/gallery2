@@ -24,7 +24,7 @@
 <?php
 
 if (!isset($gallery->version)) {
-		require_once(dirname(__FILE__) . '/init.php');
+        require_once(dirname(__FILE__) . '/init.php');
 }
 
 // Security check
@@ -33,102 +33,83 @@ if (!$gallery->user->isAdmin()) {
 	exit;
 }
 
-$adminOptions[] = array(
-			'text' => gTranslate('core', "_Statistics"),
-			'url' => makeGalleryUrl('stats-wizard.php'),
-			'longtext' => gTranslate('core', "View some statistics about your Gallery. Such as most viewed pictures, or best rated photos etc."));
+$adminOptions[] = array( 'text' => gTranslate('core', "Statistics"),
+			 'url' => makeGalleryUrl('stats-wizard.php'),
+			 'longtext' => gTranslate('core', "View some statistics about your Gallery. Such as most viewed pictures, or best rated photos etc."));
 
-$adminOptions[] = array(
-			'text' => gTranslate('core', "Configuration _wizard"),
-			'url' => $gallery->app->photoAlbumURL . '/setup/index.php',
-			'longtext' => gTranslate('core', "Use the Configuration wizard to reconfigure or tweak your Gallery"));
+$adminOptions[] = array( 'text' => gTranslate('core', "Configuration wizard"),
+			 'url' => $gallery->app->photoAlbumURL . '/setup/index.php',
+			 'longtext' => gTranslate('core', "Use the config wizard to reconfigure or tweak your Gallery."));
 
-$adminOptions[] = array(
-		'text' => gTranslate('core', "Find _orphans"),
-		'url' => makeGalleryUrl('tools/find_orphans.php'),
-		'longtext' => gTranslate('core', "Find, remove or re-attach orphaned elements."));
+$adminOptions[] = array( 'text' => gTranslate('core', "Find orphans"),
+			 'url' => makeGalleryUrl('tools/find_orphans.php'),
+			 'longtext' => gTranslate('core', "Find, remove or re-attach orphaned elements."));
 
-$adminOptions[] = array(
-		'text' => gTranslate('core', "Find _comment spam"),
-		'url' => makeGalleryUrl('tools/despam-comments.php'),
-		'longtext' => gTranslate('core', "Find and remove comments that contain spam."));
+$adminOptions[] = array( 'text' => gTranslate('core', "Find comment spam"),
+			 'url' => makeGalleryUrl('tools/despam-comments.php'),
+			 'longtext' => gTranslate('core', "Find and remove comments that contains spam."));
 
-$adminOptions[] = array(
-		'text' => gTranslate('core', "_Validate albums"),
-		'url' => makeGalleryUrl('tools/validate_albums.php'),
-		'longtext' => gTranslate('core', "Identify invalid albums, missing files, and other errors that may prevent you from migrating to Gallery 2"));
+$adminOptions[] = array( 'text' => gTranslate('core', "Validate albums"),
+			 'url' => makeGalleryUrl('tools/validate_albums.php'),
+			 'longtext' => gTranslate('core', "Identify invalid albums, missing files, and other errors that may prevent you from migrating to Gallery 2."));
 
-/*
-$adminOptions[] = array(
-		'text' => gTranslate('core', "Gallery backup"),
-		'url' => makeGalleryUrl('backup_albums.php'),
-		'longtext' => gTranslate('core', "Make a backup of your Gallery."));
-*/
+#$adminOptions[] = array( 'text' => gTranslate('core', "Gallery backup"),
+#			 'url' => makeGalleryUrl('backup_albums.php'),
+#			 'longtext' => gTranslate('core', "Make a backup of your Gallery."));
 
 if (!$GALLERY_EMBEDDED_INSIDE) {
-	$adminOptions[]  = array(
-			'text' => gTranslate('core', "Manage _users"),
-			'popupFile' => 'manage_users.php',
-			'longtext' => gTranslate('core', "Manage your users."));
+    $adminOptions[]  = array('text' => gTranslate('core', "Manage users"),
+			 'popupFile' => 'manage_users.php',
+			 'longtext' => gTranslate('core', "Manage your users."));
 }
-
-if (!$GALLERY_EMBEDDED_INSIDE || $GALLERY_EMBEDDED_INSIDE == 'joomla') {
-	$adminOptions[]  = array(
-			'text' => gTranslate('core', "Manage user_groups"),
-			'popupFile' => 'manage_groups.php',
-			'longtext' => gTranslate('core', "Manage your user groups."));
-}
-
-$adminOptions[] = array(
-		'text' => gTranslate('core', "_Filesystem usage"),
-		'url' => makeGalleryUrl('usage.php'),
-		'longtext' => gTranslate('core', "See how much space your Gallery consumes. Viewable by usage per user and per album."));
 
 array_sort_by_fields($adminOptions, 'text', 'asc');
 
 if (!$GALLERY_EMBEDDED_INSIDE) {
-	doctype();
+    doctype();
 ?>
 <html>
 <head>
-<title><?php echo clearGalleryTitle(gTranslate('core', "Admin options")) ?></title>
+<title><?php echo $gallery->app->galleryTitle; ?>::<?php echo gTranslate('core', "Admin options") ?></title>
 <?php
 	common_header() ;
 ?>
 </head>
-<body>
+<body dir="<?php echo $gallery->direction ?>">
 <?php
 }
 
-includeTemplate("gallery.header", '', 'classic');
+includeHtmlWrap('gallery.header');
 
-$adminbox['text'] = gTranslate('core', "Admin options");
-$adminbox['commands'] = galleryLink(makeAlbumUrl(), gTranslate('core', "return to _gallery"), array(), '', true);
+$adminbox['text'] ='<span class="head">'. gTranslate('core', "Admin options") .'</span>';
+$adminbox['commands'] = '[<a href="'. makeAlbumUrl() .'">'. gTranslate('core', "Return to gallery") .'</a>]';
 $breadcrumb['text'][] = languageSelector();
 
+includeLayout('navtablebegin.inc');
 includeLayout('adminbox.inc');
+includeLayout('navtablemiddle.inc');
 includeLayout('breadcrumb.inc');
+includeLayout('navtableend.inc');
 
 if(!empty($adminOptions)) {
-	echo "\n" .'<table style="width:100%; margin:10px; margin-bottom:50px">';
+	echo "\n" .'<table style="width:80%; margin:10px; margin-bottom:50px">';
 	foreach ($adminOptions as $option) {
 
 		echo "\n<tr>";
 		if (isset($option['url'])) {
-			$link = galleryLink($option['url'],$option['text']);
+			$link = '<a class="admin" href="'. $option['url'] .'">'. $option['text'] .'</a>';
 		} else {
-			$link = popup_link($option['text'], $option['popupFile'], false, true, 500, 500, '', '', '', false);
+			$link = popup_link($option['text'], $option['popupFile'], false, true, 500, 500, 'admin');
 		}
-		echo "\n<td class=\"g-adm-options\">$link</td>";
-		echo "\n<td class=\"g-adm-options\">". $option['longtext'] ."</td>";
+		echo "\n<td class=\"adm_options\">$link</td>";
+		echo "\n<td class=\"adm_options\">". $option['longtext'] ."</td>";
 		echo "\n</tr>";
 	}
 	echo "\n</table>";
 }
 
-includeTemplate('info_donation-block');
-
-includeTemplate('overall.footer');
+$validation_file = basename(__FILE__);
+includeHtmlWrap("general.footer");
 
 if (!$GALLERY_EMBEDDED_INSIDE) { ?>
 </body>

@@ -21,6 +21,7 @@
  */
 ?>
 <?php
+// Hack prevention.
 
 global $GALLERY_EMBEDDED_INSIDE;
 global $GALLERY_EMBEDDED_INSIDE_TYPE;
@@ -30,30 +31,29 @@ global $MOS_GALLERY_PARAMS;
 // Mambo / Joomla calls index.php directly for popups - we need to make
 // sure that the option var has been extracted into the environment
 // otherwise it just won't work.
-$option		= isset($_REQUEST['option']) ? $_REQUEST['option'] : null;
-$op			= isset($_REQUEST['op']) ? $_REQUEST['op'] : null;
-$mop		= isset($_REQUEST['mop']) ? $_REQUEST['mop'] : null;
-$name		= isset($_REQUEST['name']) ? $_REQUEST['name'] : null;
-$include	= isset($_REQUEST['include']) ? $_REQUEST['include'] : null;
-$postnuke	= ( defined('_PN_VERSION_ID') || defined('PN_VERSION_ID') ) ? true : false;
-$phpnuke	= isset($GLOBALS['nukeurl']) ? true : false;
+$option = isset($_REQUEST['option']) ? $_REQUEST['option'] : null;
+$op = isset($_REQUEST['op']) ? $_REQUEST['op'] : null;
+$mop = isset($_REQUEST['mop']) ? $_REQUEST['mop'] : null;
+$name = isset($_REQUEST['name']) ? $_REQUEST['name'] : null;
+$include = isset($_REQUEST['include']) ? $_REQUEST['include'] : null;
+$postnuke = ( defined('_PN_VERSION_ID') || defined('PN_VERSION_ID') ) ? true : false;
+$phpnuke = isset($GLOBALS['nukeurl']) ? true : false;
 
 /*
  * Detect PHP-Nuke, Postnuke, phpBB2 or Mambo and react accordingly.
- * Gallery can run embedded in GeekLog too, but to catch this we need
- * config.php * Therefore we have to detect GeekLog in init.php.
- *
+ * Gallery can run embedded in GeekLog too, but to catch this we need config.php
+ * Therefore we have to detect GeekLog in init.php.
  */
+
 if ($postnuke ||
-	$phpnuke ||
-	!strcmp($op, "modload") ||
-	!strcmp($mop, "modload") ||
-	isset($option))
-{
+    $phpnuke ||
+    !strcmp($op, "modload") ||
+    !strcmp($mop, "modload") ||
+    isset($option)) {
 	/*
 	 * Change this variable if your Gallery module has a different
 	 * name in the Nuke or phpBB2 modules directory.
-	*/
+	 */
 
 	if (isset($name)) {
 		$GALLERY_MODULENAME = $name;
@@ -68,8 +68,8 @@ if ($postnuke ||
 
 		if (isset($GLOBALS['_VERSION']->PRODUCT) &&
 		  $GLOBALS['_VERSION']->PRODUCT == 'Joomla!') {
-			$GALLERY_EMBEDDED_INSIDE = 'joomla';
-			$GALLERY_EMBEDDED_INSIDE_TYPE = 'joomla';
+		    $GALLERY_EMBEDDED_INSIDE = 'joomla';
+		    $GALLERY_EMBEDDED_INSIDE_TYPE = 'joomla';
 		}
 	}
 	elseif (isset($GLOBALS['phpbb_root_path'])) {
@@ -110,97 +110,88 @@ if ($postnuke ||
 	 * then you need to add the name of the file including any relevant path components to this
 	 * array.
 	 */
-	$safe_to_include = array(
-			   "admin-page.php",
-			   "albums.php",
-	'block-random.php',
-	'block-feature-photo.php',
-			   "captionator.php",
-			   "create_user.php",
-	'crop_photo.php',
-			   "delete_user.php",
-			   "edit_watermark.php",
-			   "gallery_remote.php",
-			   "gallery_remote2.php",
-			   "help/imagemap.php",
-			   "help/metadataOnUpload.php",
-			   "highlight_photo.php",
-			   "imagemap.php",
-			   "login.php",
-			   "manage_users.php",
-			   "modify_user.php",
-			   "multi_create_user.php",
-			   "poll_properties.php",
-			   "poll_results.php",
-		'popups/add_comment.php',
-		'popups/add_photos.php',
-		'popups/add_photos_frame.php',
-		'popups/administer_startpage.php',
-		'popups/album_permissions.php',
-		'popups/colorpicker.php',
-		'popups/copy_photo.php',
-		'popups/create_group.php',
-		'popups/delete_album.php',
-		'popups/delete_group.php',
-		'popups/delete_photo.php',
-		'popups/download.php',
-		'popups/edit_appearance.php',
-		'popups/ecard_form.php',
-		'popups/edit_caption.php',
-		'popups/edit_field.php',
-		'popups/edit_thumb.php',
-		'popups/do_command.php',
-		'popups/featured-item.php',
-		'popups/manage_groups.php',
-		'popups/modify_group.php',
-		'popups/move_album.php',
-		'popups/move_photo.php',
-		'popups/photo_owner.php',
-		'popups/rearrange.php',
-		'popups/rebuild_capture_dates.php',
-		'popups/rebuild_thumbs.php',
-		'popups/recreate_captions.php',
-		'popups/rename_album.php',
-		'popups/reset_votes.php',
-		'popups/resize_photo.php',
-		'popups/rotate_photo.php',
-		'popups/save_photos.php',
-		'popups/sort_album.php',
-		'popups/view_photo_properties.php',
-		'popups/progress_uploading.php',
-			   "publish_xp.php",
-			   "publish_xp_docs.php",
-			   "register.php",
-			   "rss.php",
-			   "search.php",
-			   "slideshow.php",
-			   "slideshow_high.php",
-			   "slideshow_low.php",
-			   "stats-wizard.php",
-			   "stamp_preview.php",
-			   "stats.php",
-			   "tools/find_orphans.php",
-			   "tools/despam-comments.php",
-			   "tools/validate_albums.php",
-			   "upgrade_album.php",
-			   "upgrade_users.php",
-		'usage.php',
-			   "user_preferences.php",
-			   "view_album.php",
-			   "view_comments.php",
-			   "view_photo.php",
-			   "watermark_album.php",
-	);
+	$safe_to_include =
+		 array(
+		       "add_comment.php",
+		       "add_photos.php",
+		       "add_photos_frame.php",
+		       "admin-page.php",
+		       "administer_startpage.php",
+		       "album_permissions.php",
+		       "albums.php",
+		       "block-random.php",
+		       "captionator.php",
+		       "copy_photo.php",
+		       "create_user.php",
+		       "delete_album.php",
+		       "delete_photo.php",
+		       "delete_user.php",
+		       "do_command.php",
+		       "download.php",
+		       "ecard_form.php",
+		       "edit_appearance.php",
+		       "edit_caption.php",
+		       "edit_field.php",
+		       "edit_thumb.php",
+		       "edit_watermark.php",
+		       "extra_fields.php",
+		       "gallery_remote.php",
+		       "gallery_remote2.php",
+		       "help/imagemap.php",
+		       "help/metadataOnUpload.php",
+		       "highlight_photo.php",
+		       "imagemap.php",
+		       "lib/colorpicker.php",
+		       "login.php",
+		       "manage_users.php",
+		       "modify_user.php",
+		       "move_album.php",
+		       "move_photo.php",
+		       "multi_create_user.php",
+		       "photo_owner.php",
+		       "poll_properties.php",
+		       "poll_results.php",
+		       "progress_uploading.php",
+		       "publish_xp.php",
+		       "publish_xp_docs.php",
+		       "rearrange.php",
+		       "rebuild_capture_dates.php",
+		       "register.php",
+		       "rename_album.php",
+		       "reset_votes.php",
+		       "resize_photo.php",
+		       "rotate_photo.php",
+		       "rss.php",
+		       "save_photos.php",
+		       "search.php",
+		       "slideshow.php",
+		       "slideshow_high.php",
+		       "slideshow_low.php",
+		       "sort_album.php",
+		       "stats-wizard.php",
+		       "stamp_preview.php",
+		       "stats.php",
+		       "tools/find_orphans.php",
+		       "tools/despam-comments.php",
+		       "tools/validate_albums.php",
+		       "upgrade_album.php",
+		       "upgrade_users.php",
+		       "user_preferences.php",
+		       "view_album.php",
+		       "view_comments.php",
+		       "view_photo.php",
+		       "view_photo_properties.php",
+		       "watermark_album.php",
+		       );
 
 	if (!in_array($include, $safe_to_include)) {
-		$include = htmlentities($include);
-		printf ("Security error!  The file you tried to include is not on the <b>approved file list</b>.  To include this file you must edit Gallery's index.php and add <b>%s</b> to the <i>\$safe_to_include</i> array",
-				$include);
-		exit;
+	    $include = htmlentities($include);
+	    print sprintf(_("Security error!  The file you tried to include is not on the <b>approved file list</b>.  To include this file you must edit %s's index.php and add <b>%s</b> to the <i>\$safe_to_include</i> array"),
+			    'Gallery', $include);
+	    exit;
 	}
 	include(dirname(__FILE__) . "/$include");
-}
-else {
+} else {
 	include("albums.php");
 }
 ?>

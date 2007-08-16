@@ -1,124 +1,92 @@
+<?php /* $Id$ */ ?>
 <?php
-/* $Id$ */
-
-global $navigator, $full, $gallery, $navc;
-$navc++;
+global $navigator;
+global $full;
 
 if(!includeTemplate('navphoto.tpl')) {
-	// Calculate the beginning and ending of the navigator range
-	$begin = 0;
-	$navpage = sizeof($navigator["allIds"]) - 1;
-	$navpage = array_search($navigator["id"], $navigator["allIds"]);
-	$navcount = sizeof($navigator["allIds"]);
+    // Calculate the beginning and ending of the navigator range
+    $begin = 0;
+    $navpage = sizeof($navigator["allIds"]) - 1;
+    $navpage = array_search($navigator["id"], $navigator["allIds"]);
+    $navcount = sizeof($navigator["allIds"]);
 
-	// If the border color is not passed in, we do a white one
-	if ($navigator["bordercolor"]) {
-		$borderIn = $navigator["bordercolor"];
-	}
-	else {
-		$borderIn = "#FFF";
-	}
+    // If the border color is not passed in, we do a white one
+    if ($navigator["bordercolor"]) {
+        $borderIn = $navigator["bordercolor"];
+    } else {
+        $borderIn = "#FFFFFF";
+    }
 
-	if (isset($navigator["fullWidth"]) && isset($navigator["widthUnits"])) {
-		$width=' width="'. $navigator["fullWidth"] . $navigator["widthUnits"] .'"';
-	}
+    if (isset($navigator["fullWidth"]) && isset($navigator["widthUnits"])) {
+        $width=' width="'. $navigator["fullWidth"] . $navigator["widthUnits"] .'"';
+    }
 
-	$fpAltText = gTranslate('core', "_First Photo");
-	$ppAltText = gTranslate('core', "_Previous Photo");
-	$npAltText = gTranslate('core', "_Next Photo");
-	$lpAltText = gTranslate('core', "_Last Photo");
+    $fpAltText = gTranslate('core', "First Photo");
+    $ppAltText = gTranslate('core', "Previous Photo");
+    $npAltText = gTranslate('core', "Next Photo");
+    $lpAltText = gTranslate('core', "Last Photo");
 
-	include(dirname(dirname(__FILE__)) .'/includes/definitions/navIcons.php');
+   	include(dirname(dirname(__FILE__)) .'/includes/definitions/navIcons.php');
 
-	$firstPage = $navigator["allIds"][0];
-	$lastPage = $navigator["allIds"][$navcount-1];
+    $firstPage = $navigator["allIds"][0];
+    $lastPage = $navigator["allIds"][$navcount-1];
 
-	#-- 'first' and 'previous button cell ---
-	if ($navpage > 0) {
-		$fpUrl =  makeAlbumUrl($gallery->session->albumName, $firstPage, ($full) ? array('full' => 1) : NULL) ;
-		$fpContent = galleryIconLink($fpUrl, $fpImg, $fpAltText, 'yes');
+    #-- 'first' and 'previous button cell ---
+    if ($navpage > 0) {
+    	$fpUrl =  makeAlbumUrl($gallery->session->albumName, $firstPage, ($full) ? array('full' => 1) : NULL) ;
+        $fpContent = "<a href=\"$fpUrl\">";
+        $fpContent .= '<img src="'. $fpImgUrl . '" alt="'. $fpAltText .'" title="'. $fpAltText .'">';
+        $fpContent .= '</a>';
 
-		$prevPage = $navigator["allIds"][$navpage-1];
-		$ppUrl = makeAlbumUrl($gallery->session->albumName, $prevPage, ($full) ? array('full' => 1) : NULL);
+        $prevPage = $navigator["allIds"][$navpage-1];
+        $ppUrl = makeAlbumUrl($gallery->session->albumName, $prevPage, ($full) ? array('full' => 1) : NULL);
+        $ppContent = "<a href=\"$ppUrl\">";
+        $ppContent .= '<img src="'. $ppImgUrl . '" alt="'. $ppAltText .'" title="'. $ppAltText .'">';
+        $ppContent .= '</a>';
 
-		$ppContent = galleryIconLink(
-			$ppUrl,
-			$ppImg,
-			$ppAltText,
-			'yes',
-			array('id' => "g-nav-backward_$navc")
-		);
+        $pClass= 'borderright';
+    } else {
+        $fpContent = '&nbsp;';
+        $ppContent = '&nbsp;';
 
-		$pClass= 'g-borderright';
-	}
-	else {
-		$fpContent = '&nbsp;';
-		$ppContent = '&nbsp;';
+        $pClass = '';
+    }
 
-		$pClass = '';
-	}
+    #-- 'page numbers' cell ---
+    $mpContent = sprintf(gTranslate('core', "%d of %d"), $navpage+1, $navcount);
 
-	#-- 'page numbers' cell ---
-	$mpContent = sprintf(gTranslate('core', "%d of %d"), $navpage+1, $navcount);
+    #-- 'next' and 'last' button cell ---
+    if ($navpage < $navcount-1) {
+        $nextPage = $navigator["allIds"][$navpage+1];
+        $npUrl = makeAlbumUrl($gallery->session->albumName, $nextPage, ($full) ? array('full' => 1) : NULL);
+        $npContent = "<a href=\"$npUrl\">";
+        $npContent .= '<img src="'. $npImgUrl . '" alt="'. $npAltText .'" title="'. $npAltText .'">';
+        $npContent .= '</a>';
 
-	#-- 'next' and 'last' button cell ---
-	if ($navpage < $navcount-1) {
-		$nextPage	= $navigator["allIds"][$navpage+1];
-		$npUrl		= makeAlbumUrl($gallery->session->albumName, $nextPage, ($full) ? array('full' => 1) : NULL);
+        $lpUrl = makeAlbumUrl($gallery->session->albumName, $lastPage, ($full) ? array('full' => 1) : NULL);
+        $lpContent = "<a href=\"$lpUrl\">";
+        $lpContent .= '<img src="'. $lpImgUrl . '" alt="'. $lpAltText .'" title="'. $lpAltText .'">';
+        $lpContent .= '</a>';
 
-		$npContent = galleryIconLink(
-			$npUrl,
-			$npImg,
-			$npAltText,
-			'yes',
-			array('id' => "g-nav-forward_$navc")
-		);
+        $nClass = 'borderleft';
+    } else {
+        $npContent = '&nbsp;';
+        $lpContent = '&nbsp;';
 
-		$lpUrl		= makeAlbumUrl($gallery->session->albumName, $lastPage, ($full) ? array('full' => 1) : NULL);
-		$lpContent	= galleryIconLink($lpUrl, $lpImg, $lpAltText, 'yes');
+        $nClass = '';
+    }
+	?>
 
-		$nClass		= 'g-borderleft';
-	}
-	else {
-		$npContent	= '&nbsp;';
-		$lpContent	= '&nbsp;';
-
-		$nClass		= '';
-	}
-
-	if ($navcount > 1) {
-		$goToOptions = array();
-		foreach ($navigator['allIds'] as $key => $value) {
-			$goToOptions[] = array(
-				'value' => makeAlbumUrl($gallery->session->albumName, $value, ($full) ? array('full' => 1) : NULL),
-				'text' =>  $key +1,
-				'selected' => ($navpage == $key)
-			);
-		}
-
-		$goToSelect = drawSelect2('goto', $goToOptions, array('onChange' => 'document.location.href=this.value'));
-
-		$goto = gTranslate('core', "Jump to:") . $goToSelect ;
-	}
-	else {
-		$goto = '';
-	}
-
-?>
-<!-- 'Classic' Photo Navigator -->
-<table cellspacing="0" cellpadding="0" width="100%">
+<!-- Photo Navigator -->
+<table<?php echo $width ?> border="0" cellspacing="0" cellpadding="0" class="modnavbox">
 <tr>
-	<td class="<?php echo $pClass ?>" width="25" height="18"><?php echo $fpContent ?></td>
-	<td class="<?php echo $pClass ?>" width="25" height="18"><?php echo $ppContent ?></td>
-	<td height="18"><?php echo $mpContent; ?></td>
-	<td class="<?php echo $nClass ?>" width="25" height="18"><?php echo $npContent ?></td>
-	<td class="<?php echo $nClass ?>" width="25" height="18"><?php echo $lpContent ?></td>
-	<td class="<?php echo $nClass ?>" width="30" height="18"><?php echo $goto ?></td>
+	<td class="<?php echo $pClass ?>" align="center" width="30" height="18"><span class="nav"><?php echo $fpContent ?></span></td>
+	<td class="<?php echo $pClass ?>" align="center" width="100" height="18"><span class="nav"><?php echo $ppContent ?></span></td>
+	<td class="nav" align="center" height="18"><?php echo $mpContent; ?></td>
+	<td class="<?php echo $nClass ?>" align="center" width="100" height="18"><span class="nav"><?php echo $npContent ?></span></td>
+	<td class="<?php echo $nClass ?>" align="center" width="30" height="18"><span class="nav"><?php echo $lpContent ?></span></td>
 </tr>
 </table>
-<?php
-	if($navc < 2 && $gallery->app->comments_addType != "inside") {
-		echo '<script type="text/javascript" src="'. $gallery->app->photoAlbumURL ."/js/arrowkey_nav.js\"></script>\n";
-	}
+	<?php
 }
 ?>

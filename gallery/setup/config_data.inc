@@ -44,11 +44,11 @@ if ($locale_check == NULL) {
 	$elawisyl = 'yes';
 }
 
-$netpbm_check = check_graphics();
+$Netpbm_check = check_graphics();
 $IM_check = check_graphics_im();
 
 /* If all watermarking/overlay applications are missing */
-if ( isset($netpbm_check[2]['pnmcomp']) && isset($netpbm_check[2]['pamcomp']) && isset($IM_check[2]['composite']) ) {
+if ( isset($Netpbm_check[2]['pnmcomp']) && isset($Netpbm_check[2]['pamcomp']) && isset($IM_check[2]['composite']) ) {
 	$enablewatermark = 'no';
 } else {
 	$enablewatermark = 'yes';
@@ -67,31 +67,31 @@ if (function_exists('posix_getpwuid')) {
 	}
 }
 
-$common_messages['getting-netpbm'] = '<br>'.
-  sprintf(gTranslate('config',"Gallery prefers NetPBM version 9.9 and up.  You can install just the binaries Gallery needs from the %sGallery Download Page%s. Or, you can compile and install the entire NetPBM package from the %sNetPBM website%s."),
+$common_messages['getting-Netpbm'] = '<br>'.
+  sprintf(gTranslate('config',"Gallery prefers Netpbm version 9.9 and up.  You can install just the binaries Gallery needs from the %sGallery Download Page%s. Or, you can compile and install the entire Netpbm package from the %sNetpbm website%s."),
   "<a href=\"http://sourceforge.net/projects/gallery\">",
   '</a>',
-  "<a href=\"http://sourceforge.net/projects/netpbm\">",
+  "<a href=\"http://sourceforge.net/projects/Netpbm\">",
   '</a>')  .
-  '<p style="font-weight: bold;">' . gTranslate('config',"Note:"). '</p>'.
-  gTranslate('config',"You can install the binaries from the Gallery site even if you don't have root access on your box!  If you can't get it working, try leaving the NetPBM path blank and using ImageMagick instead.");
+  '<br><span class="emphasis">' . gTranslate('config',"Note:"). '</span> ' .
+  gTranslate('config',"You can install the binaries from the Gallery site even if you don't have root access on your box!  If you can't get it working, try leaving the Netpbm path blank and using ImageMagick instead.");
 
-$common_messages['fail-netpbm-partial'] =
-  gTranslate('config',"I've found part of NetPBM, but some critical components are missing (see below).  Perhaps your version of NetPBM is out of date.") . '  ' .
-  $common_messages['getting-netpbm'];
+$common_messages['fail-Netpbm-partial'] =
+  gTranslate('config',"I've found part of Netpbm, but some critical components are missing (see below).  Perhaps your version of Netpbm is out of date.") . '  ' .
+  $common_messages['getting-Netpbm'];
 
 $common_messages['getting-imagemagick'] = '<br>'.
-  sprintf(gTranslate('config',"Gallery prefers ImageMagick version 5.4.8 and up. (Tough Version 6.x is recommended.)  You can get the entire ImageMagick package from the %sImageMagick website%s." ),
+  sprintf(gTranslate('config',"Gallery prefers ImageMagick version 5.4.8 and up.  You can compile and install the entire ImageMagick package from the %sImageMagick website%s." ),
   '<a href="http://www.imagemagick.org">', '</a>') .
-  '<p style="font-weight: bold;">' . gTranslate('config',"Note:"). '</p>'.
-  gTranslate('config',"The site also has binaries available for assorted operating systems.  If you can't get it working, try leaving the ImageMagick path blank and using NetPBM instead.");
+  '<br><span class="emphasis">' . gTranslate('config',"Note:"). '</span> ' .
+  gTranslate('config',"The site also has binaries available for assorted operating systems.  If you can't get it working, try leaving the ImageMagick path blank and using Netpbm instead.");
 
 $common_messages['fail-imagemagick-partial'] =
   gTranslate('config',"I've found part of ImageMagick , but some critical components are missing (see below).") . '  ' .
   $common_messages['getting-imagemagick'];
 
 $common_messages['open-basedir-active'] =
-  '<p style="font-weight: bold;">' . gTranslate('config',"Note:"). '</p>'.
+  '<span class="emphasis">' . gTranslate('config',"Note:"). '</span>'.
   sprintf(gTranslate('config',"Your PHP installation is configured with the %s restriction.   This may make it difficult for Gallery to detect and verify your binaries, even if you've already successfully used the Config. Wizard in the past.  Don't worry too much if this page gives warnings; your settings will still be saved properly."),
   "<b><a href=\"http://www.php.net/manual/en/features.safe-mode.php#ini.open-basedir\" target=\"_blank\">open_basedir</a></b>" );
 
@@ -122,7 +122,7 @@ $checklist = array(
 		'optional' => 1,
 	),
 	'safe_mode' => array(
-		'prompt' => gTranslate('config',"PHPs safe mode disabled"),
+		'prompt' => gTranslate('config',"PHP's safe mode disabled"),
 		'desc' => gTranslate('config',"Check to see if PHP is running in <b>safe_mode</b>.  Safe Mode is a PHP security feature commonly used in shared environments.  Gallery cannot run when Safe Mode is enabled because it imposes too many restrictions."),
 		'func' => 'check_safe_mode',
 		'fail-safe-mode' => sprintf(gTranslate('config',"<b>safe_mode</b> is enabled on this server.  You must disable it before you can use Gallery.  Refer to the FAQ, the forums, and the help page on the %sGallery website%s and the %sPHP website%s for assistance."),
@@ -131,7 +131,7 @@ $checklist = array(
 		  '<a href="http://www.php.net/manual/en/features.safe-mode.php">',
 		  '</a>') .
 		  '<br><br>' .
-		  '<p style="font-weight: bold;">' . gTranslate('config',"Note:"). '</p>'.
+		  '<span class="emphasis">' . gTranslate('config',"Note:"). '</span>'.
 		  sprintf(gTranslate('config',"In some rare circumstances, Gallery thinks that Safe Mode is on, when it's really off.  You can see for yourself by looking in the <i>Local</i> column of the <i>safe_mode</i> row in the %sPHP Info%s page.  If it says 'Off' or '0' or 'undefined' then it's possible that Gallery made a mistake and you can continue.  If not, then you must resolve this problem before you can use Gallery."),
 		  '<a href="phpinfo.php">',
 		  '</a>'),
@@ -139,26 +139,25 @@ $checklist = array(
 		'serious' => 1
 	),
 	'exec' => array(
-		'prompt' => gTranslate('config',"PHPs exec() function enabled"),
-		'desc' => gTranslate('config',"The <b>exec()</b> function is what Gallery uses to launch programs such as NetPBM, ImageMagick, and jhead.  If <b>exec()</b> is disabled on your server then Gallery will not be able operate."),
+		'prompt' => gTranslate('config',"PHP's exec() function enabled"),
+		'desc' => gTranslate('config',"The <b>exec()</b> function is what Gallery uses to launch programs such as Netpbm, ImageMagick, and jhead.  If <b>exec()</b> is disabled on your server then Gallery will not be able operate."),
 		'func' => 'check_exec',
 		'fail-exec' => gTranslate('config',"The <b>exec()</b> function is disabled on your server.  Gallery will not function with this PHP configuration."),
 		'serious' => 1,
 	),
 	'htaccess' => array(
-		'prompt' => gTranslate('config',".htaccess processed by apache"),
+		'prompt' => gTranslate('config',".htaccess processed by Apache"),
 		'desc' => gTranslate('config',"Allow the Gallery <b>.htaccess</b> file to set application specific configuration options for the Gallery application.  This is controlled by the webserver owner so it's not always possible for you to change it.  The main drawbacks to not having this are that you may not be able to upload files > 2MB (e.g. big ZIP files or movies)."),
 		'func' => 'check_htaccess',
-		'fail-htaccess' => gTranslate('config',"Your webserver is not obeying the 'php_value' lines in your <b>.htaccess</b> file. Try entering the following into your web server's <b>httpd.conf</b> file:") .'<br><pre>' .
+		'fail-htaccess' => gTranslate('config',"Apache is not obeying the 'php_value' lines in your <b>.htaccess</b> file. Try entering the following into your web server's <b>httpd.conf</b> file:") .'<br><pre>' .
 		  '&lt;Directory ' . GALLERY_BASE . "&gt;\n" .
 		  "\tAllowOverride Options FileInfo\n" .
 		  "&lt;/Directory&gt;</pre>\n" .
 		  gTranslate('config',"If you are running PHP in CGI mode, this message is unavoidable."),
-		  'fail-nohtaccess' => gTranslate('config',"Gallery could not test if your webserver is obeying the 'php_value' lines in your <b>.htaccess</b> as the (original) .htaccess file in your setup folder is missing."),
 		'optional' => 1
 	),
 	'magic-quotes' => array(
-		'prompt' => gTranslate('config',"PHPs magic quotes off"),
+		'prompt' => gTranslate('config',"PHP's magic quotes off"),
 		'optional' => 1,
 		'desc' => sprintf(gTranslate('config',"Check to see if %smagic quotes%s are enabled on your PHP server.  If they're on, you may notice strange behavior if you put ' (single-quote), &quot; (double quote) or &#92; (backslash) characters in titles or captions in Gallery."),
 		  '<b><a href="http://www.php.net/manual/en/configuration.php#ini.magic-quotes-gpc" target="_blank">',
@@ -173,25 +172,24 @@ $checklist = array(
 		'func' => 'check_mod_rewrite',
 		'fail-mod-rewrite' => gTranslate('config',"Either <b>mod_rewrite</b> is not installed or your <b>.htaccess</b> file is not enabled (see above).  Either way, we'll have to use longer URLs in the Gallery.  If you want to turn it on, first make sure that your <b>.htaccess</b> file is being obeyed. If it still doesn't work, you may need to reconfigure and rebuild Apache with this flag: ") .
 		  "<pre>\t--enable-module=rewrite</pre>",
-		'fail-mod-rewrite-nohtaccess' => gTranslate('config',"Gallery could not test if <b>mod_rewrite</b> is working, as the (original) .htaccess file in your setup folder is missing."),
 		'optional' => 1
 	),
-	'NetPBM' => array(
-		'prompt' => gTranslate('config',"NetPBM installed"),
+	'Netpbm' => array(
+		'prompt' => gTranslate('config',"Netpbm installed"),
 		'optional' => 1,
-		'desc' => gTranslate('config',"Check to see if NetPBM is installed so that Gallery can manipulate images (rotate, resize, make thumbnails, etc.).  You only need to have either NetPBM <b>or</b> ImageMagick installed."),
+		'desc' => gTranslate('config',"Check to see if Netpbm is installed so that Gallery can manipulate images (rotate, resize, make thumbnails, etc.).  You only need to have either Netpbm <b>or</b> ImageMagick installed."),
 		'func' => 'check_graphics',
-		'fail-netpbm' => gTranslate('config',"I can't find NetPBM.  If it's installed and not in the path of the webserver user that's OK&#8212;you can specify the path to NetPBM by hand on the following page.  If it's not installed, you have two choices: " ) .
-		  $common_messages['getting-netpbm'],
-		'fail-netpbm-partial' =>
-		  $common_messages['fail-netpbm-partial'] .
-		  '<p><b> ' . gTranslate('config',"If NetPBM is installed and Gallery isn't finding it automatically that's OK&#8212;you can specify the path to NetPBM by hand on the following page.") .' </b>',
+		'fail-Netpbm' => gTranslate('config',"I can't find Netpbm.  If it's installed and not in the path of the webserver user that's OK&#8212;you can specify the path to Netpbm by hand on the following page.  If it's not installed, you have two choices: " ) .
+		  $common_messages['getting-Netpbm'],
+		'fail-Netpbm-partial' =>
+		  $common_messages['fail-Netpbm-partial'] .
+		  '<p><b> ' . gTranslate('config',"If Netpbm is installed and Gallery isn't finding it automatically that's OK&#8212;you can specify the path to Netpbm by hand on the following page.") .' </b>',
 		  'open-basedir-note' => $common_messages['open-basedir-active']
 	),
 	'ImageMagick' => array(
 		'prompt' => gTranslate('config',"ImageMagick installed"),
 		'optional' => 1,
-		'desc' => gTranslate('config',"Check to see if ImageMagick is installed so that Gallery can manipulate images (rotate, resize, make thumbnails, etc.).  You only need to have either ImageMagick <b>or</b> NetPBM installed."),
+		'desc' => gTranslate('config',"Check to see if ImageMagick is installed so that Gallery can manipulate images (rotate, resize, make thumbnails, etc.).  You only need to have either ImageMagick <b>or</b> Netpbm installed."),
 		'func' => 'check_graphics_im',
 		'fail-imagemagick' => gTranslate('config',"I can't find ImageMagick.  If it's installed and not in the path of the webserver user that's OK&#8212;you can specify the path to ImageMagick by hand on the following page.  If it's not installed, you must install it.  ") .
 		  $common_messages['getting-imagemagick'],
@@ -202,10 +200,11 @@ $checklist = array(
 	),
 	'exif' => array(
 		'prompt' => gTranslate('config',"Jhead installed"),
-		'optional' => 1,
+		'optional'	=> true,
+		'serious'	=> true,
 		'desc' => gTranslate('config',"Check to see if <b>jhead</b> is installed so that Gallery can examine EXIF headers embedded in images created with most digital cameras."),
 		'func' => 'check_exif',
-		'fail-exif' => sprintf(gTranslate('config',"I can't find <b>jhead</b>.  If it's installed and not in the path of the webserver user that's OK&#8212;you can specify the path by hand on the following page.  If it's not installed, you can install it yourself. Jhead is a public domain EXIF parser.  Source, linux binaries, and windows binaries can be found at the %sjhead homepage%s."),
+		'warn-noexif' => sprintf(gTranslate('config',"I can't find <b>jhead</b>.  If it's installed and not in the path of the webserver user that's OK&#8212;you can specify the path by hand on the following page.  If it's not installed, you can install it yourself. Jhead is a public domain EXIF parser.  Source, linux binaries, and windows binaries can be found at the %sjhead homepage%s."),
 		  '<a href="http://www.sentex.net/~mwandel/jhead/index.html">',
 		  '</a>'),
 		'open-basedir-note' => $common_messages['open-basedir-active']
@@ -275,8 +274,8 @@ $constants =  array_merge(array(
 	),
 	'editPassword' => check_admins(),
 	'useIcons' => array(
-		'prompt' => gTranslate('config',"Use Icons ?"),
-		'desc' => gTranslate('config',"You can choose whether you want to use Gallery icons, text only, or both. When you choose icons only, then there will be an onMousoverText."),
+		'prompt' => gTranslate('config',"Use Icons?"),
+		'desc' => gTranslate('config',"You can choose wether you want to use Gallery icons, text only, or both. When you choose icons only, then there will be an onMousoverText."),
 		'choices' => array(
 			'both' => gTranslate('config',"Icons and text"),
 			'no' => gTranslate('config',"Text only"),
@@ -284,15 +283,9 @@ $constants =  array_merge(array(
 			),
 		'value' => 'no'
 	),
-	'name_display' => array(
-		'prompt' => gTranslate('config',"Format for commenter and owner names"),
-		'desc' => gTranslate('config',"Names of logged in users and owners of albums and photos can be displayed in a variety of different ways"),
-		'choices' => displayNameOptions(),
-		'value' => '!!FULLNAME!! (!!USERNAME!!)',
-	),
 	'skinname' => array(
 		'prompt' => gTranslate('config',"Skin Name"),
-		'desc' => gTranslate('config',"Select a skin to use for Gallery. You now have a wide choice of &quot;skins&quot; that affect the look of every page of your Gallery.  You can have fun experimenting with the available skins. Choose &quot;None&quot; to use the default skin.") .
+		'desc' => gTranslate('config',"Select a skin to use for Gallery. You now have a wide choice of &quot;skins&quot; that affect the look of every page of your Gallery.  You can have fun experimenting with the available skins. Choose &quot;None&quot; to use the look from v1.4.") .
 		  '<br><a href="http://www.pownuke.com/galleryskins/">'. gTranslate('config',"Here you can get a more Gallery Skins by Drazan") .'</a>'.
 		  available_skins(true),
 		'choices' => available_skins(),
@@ -322,9 +315,12 @@ $constants =  array_merge(array(
 	),
 	'albumDir' => array(
 		'prompt' => gTranslate('config',"Album directory"),
-		'desc' => sprintf(gTranslate('config',"The full path on physical disk to the directory where your photos will be stored.  This directory should start off empty&#8212;Gallery will fill it.  Note that this directory needs to have write access by the user who is running the web server (in your case this user is %s)."),
-		  '<b>'. $webserver_user . '</b>'),
-		'value' => getenv('DOCUMENT_ROOT') . '/albums',
+		'desc' => '(<span class="attention">' . gTranslate('config',"REQUIRED") . '</span>) ' .
+		  sprintf(gTranslate('config',"The full filesystem path on physical disk to the directory where your photos will be stored.  This directory should start off empty.  Gallery will fill it.  Note that this directory needs to have write access by the user who is running the web server (in your case this user is %s)."),
+		  '<b>'. $webserver_user . '</b>') .
+		  "\<br>" . gTranslate('config', "Examples: "). '<i>/home/jens/public_html/albums</i> , <i>c:\\apache\\albums</i>'
+		  ,
+		'value' => '',
 		'require-write-dir' => 1,
 		'filename' => 1,
 		'type' => 'text',
@@ -334,7 +330,8 @@ $constants =  array_merge(array(
 	),
 	'tmpDir' => array(
 		'prompt' => gTranslate('config',"Temporary directory"),
-		'desc' => sprintf(gTranslate('config',"The filesystem path to a temporary directory.  E.g. %s or %s.  Note that if you have <b>open_basedir</b> configured on your system, then this temporary directory must be inside the <b>open_basedir</b> path!  In that case you may need to create the directory yourself and make sure that it's writable by the webserver process."),
+		'desc' => '(<span class="attention">' . gTranslate('config',"REQUIRED") . '</span>) ' .
+		  sprintf(gTranslate('config',"The filesystem path to a temporary directory.  E.g. %s or %s.  Note that if you have <b>open_basedir</b> configured on your system, then this temporary directory must be inside the <b>open_basedir</b> path!  In that case you may need to create the directory yourself and make sure that it's writable by the webserver process."),
 		  '<i>/tmp</i>','<i>c:\\windows\\temp</i>'),
 		'value' => getenv('TMP'),
 		'filename' => 1,
@@ -346,7 +343,8 @@ $constants =  array_merge(array(
 	),
 	'photoAlbumURL' => array(
 		'prompt' => "Gallery URL",
-		'desc' => sprintf(gTranslate('config',"The full URL to the Gallery web application. (e.g. %s) Gallery can operate with relative URLs, however some features, such as printing, may not function correctly."),
+		'desc' => '(<span class="attention">' . gTranslate('config',"REQUIRED") . '</span>) ' .
+		  sprintf(gTranslate('config',"The full URL to the Gallery web application. (e.g. %s) Gallery can operate with relative URLs, however some features, such as printing, may not function correctly."),
 		  '<i>http://www.example.com/gallery</i>'),
 		'value' => 'http://' . getenv('SERVER_NAME') . $GALLERY_URL,
 		'no-trailing-slash' => 1,
@@ -356,7 +354,8 @@ $constants =  array_merge(array(
 	),
 	'albumDirURL' => array(
 		'prompt' => gTranslate('config',"Albums URL"),
-		'desc' => sprintf(gTranslate('config',"The full URL to your album directory on your web server.  (e.g. %s) Gallery can operate with relative URLs, however some features, such as printing, may not function correctly."),
+		'desc' => '(<span class="attention">' . gTranslate('config',"REQUIRED") . '</span>) ' .
+		  sprintf(gTranslate('config',"The full URL to your album directory on your web server.  (e.g. %s) Gallery can operate with relative URLs, however some features, such as printing, may not function correctly."),
 		  '<i>http://www.example.com/albums</i>'),
 		'value' => 'http://' . getenv('SERVER_NAME') . '/albums',
 		'no-trailing-slash' => 1,
@@ -397,7 +396,7 @@ $constants =  array_merge(array(
 	'graphics' => array(
 		'prompt' => gTranslate('config',"Graphics suite to use"),
 		'desc' => gTranslate('config',"This setting tells Gallery which set of graphics tools you prefer it to use.  If Gallery says both are okay (on the first page) then this is simply user preference.  Otherwise go with the one that Gallery was able to find without error."),
-		'choices' => array('NetPBM' => "NetPBM", 'ImageMagick' => "ImageMagick"),
+		'choices' => array('Netpbm' => "Netpbm", 'ImageMagick' => "ImageMagick"),
 		'value' => default_graphics(),
 		'required' => true,
 		'attrs' => array('id' => 'graphics', 'onChange' => 'toggleGraphics(this.value)')
@@ -427,24 +426,24 @@ $constants =  array_merge(array(
 	'subgroup_imagemagick_end' => array (
 		'type' => 'subgroup_end',
 	),
-	'subgroup_NetPBM' => array (
+	'subgroup_Netpbm' => array (
 		'type' => 'subgroup',
-		'title' => gTranslate('config',"NetPBM Settings"),
-		'display' => (getCurrentGraphicTool() == 'NetPBM') ? 'inline' : 'none'
+		'title' => gTranslate('config',"Netpbm Settings"),
+		'display' => (getCurrentGraphicTool() == 'Netpbm') ? 'inline' : 'none'
 		),
 	'pnmDir' => array(
 		'optional' => 1,
-		'prompt' => gTranslate('config',"Path to NetPBM"),
-		'desc' => sprintf(gTranslate('config',"The path to the directory containing NetPBM on your system.  If you downloaded NetPBM from the Gallery download page, don't forget to make the files executable.  E.g. %s or %s or %s"),
-		  '<i>/usr/local/netpbm</i>',
+		'prompt' => gTranslate('config',"Path to Netpbm"),
+		'desc' => sprintf(gTranslate('config',"The path to the directory containing Netpbm on your system.  If you downloaded Netpbm from the Gallery download page, don't forget to make the files executable.  E.g. %s or %s or %s"),
+		  '<i>/usr/local/Netpbm</i>',
 		  '<i>/usr/local/bin</i>',
-		  '<i>c:\\apps\\netpbm</i>'). '<br>'.
-		  sprintf(gTranslate('config',"This path is only required if you choosed %s above. Otherwise you can leave it like it is, or empty."), "NetPBM"),
+		  '<i>c:\\apps\\Netpbm</i>'). '<br>'.
+		  sprintf(gTranslate('config',"This path is only required if you choosed %s above. Otherwise you can leave it like it is, or empty."), "Netpbm"),
 		'value' => locateDir("jpegtopnm", isset($gallery->app->pnmDir) ? $gallery->app->pnmDir : ''),
 		'verify-func' => 'check_graphics',
-		'fail-netpbm' => gTranslate('config',"I can't find NetPBM at the location you provided.") . '  ' .
-		  $common_messages['getting-netpbm'],
-		'fail-netpbm-partial' => $common_messages['fail-netpbm-partial'],
+		'fail-Netpbm' => gTranslate('config',"I can't find Netpbm at the location you provided.") . '  ' .
+		  $common_messages['getting-Netpbm'],
+		'fail-Netpbm-partial' => $common_messages['fail-Netpbm-partial'],
 		'filename' => 1,
 		'attrs' => array('size' => 50),
 		'no-trailing-slash' => 1,
@@ -455,23 +454,23 @@ $constants =  array_merge(array(
 		),
 	'pnmtojpeg' => array(
 		'prompt' => gTranslate('config',"PNM to JPEG converter"),
-		'desc' => gTranslate('config',"This value is only relevant if you use NetPBM.  NetPBM uses a tool to encode its internal image format into JPEG.  This tool is called either <i>ppmtojpeg</i> or <i>pnmtojpeg</i> depending on the version of NetPBM that you have installed.  Check your NetPBM directory to see which one you have installed and specify it here.  If you aren't sure, just take a guess and we'll try to verify it for you."),
+		'desc' => gTranslate('config',"This value is only relevant if you use Netpbm.  Netpbm uses a tool to encode its internal image format into JPEG.  This tool is called either <i>ppmtojpeg</i> or <i>pnmtojpeg</i> depending on the version of Netpbm that you have installed.  Check your Netpbm directory to see which one you have installed and specify it here.  If you aren't sure, just take a guess and we'll try to verify it for you."),
 		'choices' => array('pnmtojpeg' => 'pnmtojpeg', 'ppmtojpeg' => 'ppmtojpeg'),
 		'value' => 'pnmtojpeg'
 	),
 	'pnmcomp' => array(
 		'prompt' => gTranslate('config',"PNM Composite (Overlay)"),
-		'desc' => gTranslate('config',"This value is only relevant if you use NetPBM.  NetPBM uses a tool to overlay one image over another.  This tool is called either <i>pnmcomp</i> or <i>pamcomp</i> depending on the version of NetPBM that you have installed.  Check your NetPBM directory to see which one you have installed and specify it here.  If you aren't sure, just take a guess and we'll try to verify it for you."),
+		'desc' => gTranslate('config',"This value is only relevant if you use Netpbm.  Netpbm uses a tool to overlay one image over another.  This tool is called either <i>pnmcomp</i> or <i>pamcomp</i> depending on the version of Netpbm that you have installed.  Check your Netpbm directory to see which one you have installed and specify it here.  If you aren't sure, just take a guess and we'll try to verify it for you."),
 		'choices' => array('pnmcomp' => 'pnmcomp', 'pamcomp' => 'pamcomp'),
 		'value' => 'pnmcomp',
 	),
-	'subgroup_netPBM_end' => array (
+	'subgroup_Netpbm_end' => array (
 		'type' => 'subgroup_end',
 	),
 	'autorotate' => array(
 		'prompt' => gTranslate('config',"Auto-rotate images"),
 		'desc' => gTranslate('config',"Selecting this option has Gallery automatically attempt to rotate images on upload, based on the orientation information that is stored in JPEG EXIF data by some newer digital cameras.") . '<br>' .
-		'<span class="g-attention">' . gTranslate('config',"Requires Jhead EXIF parser v.1.9 or greater (See optional tools).") . '</span>',
+		'<span class="attention">' . gTranslate('config',"Requires Jhead EXIF parser v.1.9 or greater (See optional tools).") . '</span>',
 		'choices' => array('yes' => gTranslate('config',"Yes"), 'no' => gTranslate('config',"No")),
 		'value' => 'yes'
 	),
@@ -499,7 +498,7 @@ $constants =  array_merge(array(
 			70 => 70, 75 => 75, 80 => 80, 85 => 85,
 			90 => 90, 95 => 95, 100 => 100
 		),
-		'value' => 80
+		'value' => 70
 	),
 	'thumbJpegImageQuality' => array(
 		'prompt' => gTranslate('config',"JPEG Quality for thumbs inside the albums"),
@@ -509,7 +508,7 @@ $constants =  array_merge(array(
 			70 => 70, 75 => 75, 80 => 80, 85 => 85,
 			90 => 90, 95 => 95, 100 => 100
 		),
-		'value' => 80
+		'value' => 50
 	),
 	'subgroup_quality_end' => array (
 		'type' => 'subgroup_end',
@@ -540,10 +539,10 @@ $constants =  array_merge(array(
 		'type' => 'group_start',
 		'name' => 'group_mainpage',
 		'default' => 'none',
-		'title' => gTranslate('config',"Main Gallery page"),
+		'title' => gTranslate('config', "Main Gallery page"),
 	),
 	'albumTreeDepth' => array(
-		'prompt' => gTranslate('config',"Show the album tree ?"),
+		'prompt' => gTranslate('config',"Show the album tree?"),
 		'desc' => gTranslate('config',"If you turn this option on, you'll see a list of sub-albums when you're browsing the top level of your Gallery.  This will make navigating to a specific sub album much easier. You can choose whether or not you want to limit the depth of the tree to avoid severely cluttering the appearance of the top Gallery page."),
 		'choices' => array(
 			0 => gTranslate('config',"No tree"),
@@ -817,9 +816,9 @@ $constants = array_merge($constants, array(
 		'prompt' => gTranslate('config',"Enable email"),
 		'verify-func' => 'verify_email',
 		'desc' => sprintf(gTranslate('config',"Turns email on for the whole gallery.  If you set this to %s then none of the rest of this section will apply."), '<i>' . gTranslate('config',"No") . '</i>' ) .  '<br>' .
-		  '<span style="font-weight: bold;">' . gTranslate('config',"Note:") . '</span> ' .
+		  '<span class="emphasis">' . gTranslate('config',"Note:") . '</span> ' .
 		  gTranslate('config',"If you enable these settings you give your users the opportunity to let Gallery send them their lost password via email.") . '<br>'.
-		  '<span class="g-attention">' . gTranslate('config',"You need to enable this setting if you want to enable Self Registration.") . '</span>',
+		  '<span class="attention">' . gTranslate('config',"You need to enable this setting if you want to enable Self Registration.") . '</span>',
 		'choices' => array(
 			'yes' => gTranslate('config',"Yes"),
 			'no' => gTranslate('config',"No")
@@ -860,7 +859,7 @@ $constants = array_merge($constants, array(
 	'selfReg' => array(
 		'prompt' => gTranslate('config',"Allow visitors to self register."),
 		'desc' => gTranslate('config',"Enabling this will allow visitors to your site to create their own login accounts.") . '<br>' .
-		  '<span class="g-attention">' . gTranslate('config',"This option requires the Email feature to be enabled.") . '</span>',
+		  '<span class="attention">' . gTranslate('config',"This option requires the Email feature to be enabled.") . '</span>',
 		'choices' => array(
 			'yes' => gTranslate('config',"Yes"),
 			'no' => gTranslate('config',"No")
@@ -915,14 +914,20 @@ $constants = array_merge($constants, array(
 		'value' => array()
 	),
 	'useOtherSMTP' => array(
-		'prompt' => gTranslate('config',"Use non-local SMTP server."),
-		'desc' => gTranslate('config',"Use a smtp server running on a different machine (ie: Your ISPs mail server) to process outgoing gallery email."). '<br>',
+		'prompt' => gTranslate('config',"Use SMTP server."),
+		'desc' => gTranslate('config',"Use a smtp server to process outgoing gallery email, instead of the internal PHP mail() function. This server can (not must) run on a different machine (ie: Your ISPs mail server)."),
 		'choices' => array(
 			'no' => gTranslate('config',"No"),
 			'yes' => gTranslate('config',"Yes")
 		),
 		'optional' => 1,
 		'value' => 'no',
+		'attrs' => array('id' => 'smtp', 'onChange' => 'toggleSMTP(this.value)')
+	),
+	'subgroup_SMTP' => array (
+		'type' => 'subgroup',
+		'title' => gTranslate('config',"SMTP Settings"),
+		'display' => (useSMTP() == 'yes') ? 'inline' : 'none'
 	),
 	'smtpHost' => array(
 		'prompt' => gTranslate('config',"SMTP Server"),
@@ -964,6 +969,9 @@ $constants = array_merge($constants, array(
 		'verify-func' => 'verify_password',
 		'attrs' => array('size' => 20),
 		'optional' => 1
+	),
+	'subgroup_SMTP_end' => array (
+		'type' => 'subgroup_end',
 	),
 	'group_email_end' => array (
 		'type' => 'group_end',
@@ -1076,6 +1084,12 @@ $constants = array_merge($constants, array(
 		),
 		'value' => 'no',
 	),
+	'comments_display_name' => array(
+		'prompt' => gTranslate('config',"Format for commenter names"),
+		'desc' => gTranslate('config',"Commenter names of logged in users can be displayed in a variety of different ways"),
+		'choices' => displayNameOptions(),
+		'value' => '!!FULLNAME!! (!!USERNAME!!)',
+	),
 	'comments_addType' => array(
 		'prompt' => gTranslate('config',"Add comments inside the photo page"),
 		'desc' => gTranslate('config',"Do you want to have the possibility to add comments inside the view photo page, or do you prefer a link to a popup"),
@@ -1110,8 +1124,8 @@ $constants = array_merge($constants, array(
 		'default'	=> 'none',
 		'title'		=> gTranslate('config',"Watermarking"),
 		'desc'		=> ($enablewatermark == 'yes') ?
-		  gTranslate('config',"Choose whether you want to enable or disable watermarking. And set the defaults") :
-		  '<span class="g-attention">' . gTranslate('config',"Watermarking is not possible in this installation !") . '</span>'
+		  gTranslate('config',"Choose wether you want to enable or disable watermarking. And set the defaults") :
+		  '<span class="attention">' . gTranslate('config', "Watermarking is not possible in this installation!") . '</span>'
 	),
 	'watermarkDir' => array(
 		'prompt' => gTranslate('config',"Watermark directory"),
@@ -1247,86 +1261,19 @@ $constants = array_merge($constants, array(
 	'group_stats_end' => array(
 		'type'		=> 'group_end'
 	),
-	'group_blocks' => array (
-		'type' => 'group_start',
-		'name' => 'group_blocks',
-		'default' => 'none',
-		'title' => gTranslate('config', "Blocks"),
-		'desc' => gTranslate('config', "These settings are for the blocks provided by Gallery."),
-	),
-	'subgroup_randomBlock' => array (
-		'type' => 'subgroup',
-		'title' => gTranslate('config',"RandomBlock Settings"),
-		'display' => 'inline'
-	),
-	'blockRandomAlbum' => array(
-		'prompt' => gTranslate('config',"RandomBlock Source"),
-		'desc' => gTranslate('config',"You can either use a random pictures from the whole Gallery or from certain albums."),
-		'choices' => array(),
-		'value' => 'none',
-		'optional' => true
-	),
-	'blockRandomFrame' => array(
-		'prompt' => gTranslate('config',"Frame around random photo."),
-		'desc' => availableRandomBlockFrames(),
-		'choices' => available_frames(false, true),
-		'value' => 'none'
-	),
-	'blockRandomFrameBorderWidth' => array(
-		'prompt' => gTranslate('config',"Width of solid/dotted frameborder around random photo."),
-		'desc' => '',
-		'type' => 'text',
-		'must-be-integer' => 1,
-		'must-not-be-zero' => 1,
-		'optional' => 1,
-		'value' => 1
-	),
-	'blockRandomFrameBorderColor' => array(
-		'prompt' => gTranslate('config',"Color of solid/dotted frameborder around random photo."),
-		'desc' => '',
-		'value' => 'black',
-		'type' => 'colorpicker'
-	),
-	'blockRandomCache' => array(
-		'prompt' => gTranslate('config',"Random Block Cache Time"),
-		'desc' => gTranslate('config',"This is the amount of time that the Random Block will cache data about your photos and albums, speeding up requests for random photos.  The more often that your albums are modified, the lower you should set this value to ensure that new photos are chosen quickly, and to prevent attempts to retrieve photos which may have been deleted. The cache is automatically regenerated when a user views the random block after the time limit has expired."),
-		'value' => 86400,
-		'choices' => array(
-			86400 => gTranslate('config',"24 Hours"),
-			43200 => gTranslate('config',"12 Hours"),
-			21600 => gTranslate('config',"6 Hours"),
-			1440 => gTranslate('config',"1 Hour"),
-			720 => gTranslate('config',"30 Minutes")
-		)
-	),
-	'blockRandomAttempts' => array(
-		'prompt' => gTranslate('config',"Random Block Retrieval Attempts"),
-		'desc' => gTranslate('config',"This variable controls the number of times that the random block will attempt to retrieve an image from Gallery.  The larger the value, the less likely a 'No Photo Chosen' will be returned, but it increases the time it takes for the Random Block to load."),
-		'value' => 2,
-		'must-be-integer' => 1,
-		'must-not-be-zero' => 1,
-		'type' => 'text',
-	),
-	'subgroup_randomBlock_end' => array (
-		'type' => 'subgroup_end',
-	),
-	'group_blocks_end' => array(
-		'type'		=> 'group_end'
-	),
 	'group_technical' => array (
 		'type' => 'group_start',
 		'name' => 'group_technical',
 		'default' => 'none',
 		'title' => gTranslate('config',"Technical"),
 		'desc' => gTranslate('config',"The settings in this section are intended for advanced users only.") .
-		  '<div class="g-attention">'.
+		  '<br><span class="attention">'.
 		  gTranslate('config',"Be aware that settings changed on this tab may have severe performance or security consequences and do so at your own risk.") .
-		  '</div>'
+		'<span>'
 	),
 	'debuglevel' => array(
 		'prompt' => gTranslate('config',"Debug Level"),
-		'desc' => gTranslate('config',"Turn debug on so that you can diagnose problems?") .
-			'<p style="font-weight: bold;">'. gTranslate('config',"Note: Dont leave this option on in production systems! Else you might show users more information about your Gallery and system than you want!") . '</p>',
+		'desc' => gTranslate('config',"Turn debug on so that you can diagnose problems?") .'<br><span class="emphasis">'. gTranslate('config',"Note: Dont leave this option on in production systems! Else you might show users more information about your Gallery and system than you want!") . '</span>',
 		'choices' => array(
 			0 => gTranslate('config',"No Debug"),
 			1 => gTranslate('config',"Normal"),
@@ -1361,7 +1308,26 @@ $constants = array_merge($constants, array(
 		),
 		'value' => 'yes'
 	),
-
+	'blockRandomCache' => array(
+		'prompt' => gTranslate('config',"Random Block Cache Time"),
+		'desc' => gTranslate('config',"This is the amount of time that the Random Block will cache data about your photos and albums, speeding up requests for random photos.  The more often that your albums are modified, the lower you should set this value to ensure that new photos are chosen quickly, and to prevent attempts to retrieve photos which may have been deleted. The cache is automatically regenerated when a user views the random block after the time limit has expired."),
+		'value' => 86400,
+		'choices' => array(
+			86400 => gTranslate('config',"24 Hours"),
+			43200 => gTranslate('config',"12 Hours"),
+			21600 => gTranslate('config',"6 Hours"),
+			1440 => gTranslate('config',"1 Hour"),
+			720 => gTranslate('config',"30 Minutes")
+		)
+	),
+	'blockRandomAttempts' => array(
+		'prompt' => gTranslate('config',"Random Block Retrieval Attempts"),
+		'desc' => gTranslate('config',"This variable controls the number of times that the random block will attempt to retrieve an image from Gallery.  The larger the value, the less likely a 'No Photo Chosen' will be returned, but it increases the time it takes for the Random Block to load."),
+		'value' => 2,
+		'must-be-integer' => 1,
+		'must-not-be-zero' => 1,
+		'type' => 'text',
+	),
 	'cacheExif' => array(
 		'prompt' => "<b>(" . gTranslate('config',"Advanced") . ")</b><br> ". gTranslate('config',"Cache EXIF data"),
 		'desc' => gTranslate('config',"The EXIF data extracted from JPEG files can be cached after it is read the first time.  The tradeoff is that if you cache this data it's possible for your album data files to get quite large which may slow down viewing your albums.  But, if you don't cache this data then it needs to be retrieved every time any user looks at the properties of a photo which can also be slow."),
@@ -1602,7 +1568,7 @@ $defaults = array(
 	'max_size' => array(
 		'prompt' => gTranslate('config','Maximum image size'),
 		'desc' => gTranslate('config',"You can optionally limit the dimensions your images on upload to Gallery.") .
-		  '<br><span class="g-attention">'. gTranslate('config',"Warning:") .'</span> '.
+		  '<br><span class="attention">'. gTranslate('config',"Warning:") .'</span> '.
 		  gTranslate('config',"Enabling this feature will leave you <b>without a full size original</b> image in your Gallery, but allows you to save limited hard drive space. Gallery will attempt to preserve JPEG comments and EXIF data for the shrunken image, but this will require either <b>ImageMagick</b> or the optional <b>jhead</b> programs (see Step 2)."),
 		'value' => 'off',
 		'choices' => array(
@@ -1621,7 +1587,7 @@ $defaults = array(
 	'max_file_size' => array(
 		'prompt' => gTranslate('config','Maximum JPEG/PNG image file size'),
 		'desc' => gTranslate('config',"You can optionally limit the filesize of your JPEG/PNG images on upload to Gallery.") .
-		  '<br><span class="g-attention">'. gTranslate('config',"Warning:") . '</span> '.
+		  '<br><span class="attention">'. gTranslate('config',"Warning:") . '</span> '.
 		  gTranslate('config',"Enabling this feature will leave you <b>without an original quality image</b> in your Gallery. Set the default target filesize (in kilobytes).  Including a value may slow down file uploads, but will speed up page viewing time especially for people with dialup connections. Set to 0 if you don't want to restrict filesize."),
 		'value' => 0,
 		'optional' => 1,
@@ -1705,9 +1671,9 @@ $defaults = array(
 		'type' => 'text',
 	),
 	'ecards' => array(
-		'prompt' => gTranslate('config',"Enable Ecards ?"),
-		'desc' => gTranslate('config',"Set this to 'yes' to allow users to send a picure as eCard via eMail.") .
-		  '<div class="g-attention">' . gTranslate('config',"This option requires the Email feature to be enabled.") . '</div>',
+		'prompt' => gTranslate('config',"Enable Ecards?"),
+		'desc' => gTranslate('config',"Set this to 'yes' to allow users to send a picture as eCard via eMail.") . '<br>'.
+		  '<span class="attention">' . gTranslate('config',"This option requires the Email feature to be enabled.") . '</span>',
 		'choices' => array(
 			'yes' => gTranslate('config',"Yes"),
 			'no' => gTranslate('config',"No")
@@ -1812,7 +1778,7 @@ $defaults = array(
 		'default' => 'none',
 		'title' => gTranslate('config',"Polling configuration"),
 		'desc' =>
-		  sprintf(gTranslate('config',"It allows your visitors to vote for or rate the contents of an album.  You set defaults for polling here, which will apply to new albums, and to all existing albums when you upgraded from an earlier version then %s."),
+		  sprintf(gTranslate('config',"It allows your visitors to vote for or rate the contents of an album.  You set defaults for polling here, which will apply to new albums, and to all existing albums when you upgraded from an earlier version than %s."),
 		  '1.4.1') .
 		  '<p>' .
 		  gTranslate('config',"In each album, voting can be switched off, restricted to logged in users or open to all visitors.")
@@ -1988,9 +1954,9 @@ $defaults = array(
 		'prompt' => gTranslate('config',"Microthumb Photo Navigation"),
 		'desc' => '<dl>'
 		  .'<dt>'. gTranslate('config',"Fixed") .'</dt>'
-		  .'<dd>'. gTranslate('config',"Displays prev and next groups of thumbs, changing only to display next group of thumbs.") . '</dd>'
+		  .'<dd>'. gTranslate('config',"Displays prev+next groups of thumbs, changing only to display next group of thumbs.") . '</dd>'
 		  .'<dt>'. gTranslate('config',"Dynamic") . '</dt>'
-		  .'<dd>'. gTranslate('config',"Displays previos and next images, with current image between.") . '</dd>'
+		  .'<dd>'. gTranslate('config',"Displays previous & next images, with current image between.") . '</dd>'
 		  .'</dl>',
 		'value' => 'fixed',
 		'choices' => array(
@@ -2064,8 +2030,7 @@ $defaults = array(
 		'prompt' => gTranslate('config',"Subalbum frames"),
 		'desc' => gTranslate('config',"This frame will appear around the thumbnail image representing a subalbum."),
 		'choices' => available_frames(),
-		'value' =>
-		'simple_book'
+		'value' => 'simple_book'
 	),
 	'thumb_frame' => array(
 		'prompt' => gTranslate('config',"Frame around thumbs"),

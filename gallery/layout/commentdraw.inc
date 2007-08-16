@@ -10,7 +10,7 @@ $commentTable->setAttrs(array(
         'border' => 0,
         'cellspacing' => 0,
         'cellpadding' => 0,
-        'class' => 'g-comment-box'));
+        'class' => 'commentbox'));
 
 $commentTable->setColumnCount(3);
 

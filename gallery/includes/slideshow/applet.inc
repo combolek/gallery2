@@ -21,39 +21,38 @@
  */
 ?>
 <?php
-
-/**
- * Functions for the slideshow using Gallery Remote
- *
- * @package Slideshow
- * @subpackage Gallery_Remote
- *
- */
-
-/**
- * "Initialize" the slideshow, actually just set the title.
- * If $albumName is ommitted, the Gallery is used.
- *
- */
 function slideshow_initialize() {
 	global $albumName, $gallery, $title;
 
 	if (empty($albumName)) {
-        $title = sprintf(gTranslate('core', "Slide Show for Gallery :: %s"),
+        $title = sprintf(gTranslate('core', "Slideshow for Gallery :: %s"),
             $gallery->app->galleryTitle);
-	}
-	else {
-        $title = sprintf(gTranslate('core', "Slide Show for album :: %s"), $gallery->album->fields["title"]);
+	} else {
+        $title = sprintf(gTranslate('core', "Slideshow for album :: %s"), $gallery->album->fields["title"]);
 	}
 }
 
 function slideshow_body() {}
 
 function slideshow_controlPanel() {
-	echo infobox(array(array(
-		'type' => 'information',
-		'text' => gTranslate('core', "If you don't have the Java Plugin 1.4 or later, or you don't want to wait for the applet to download, you can use one of the non-fullscreen versions.")
-	)));
+	global $pixelImage;
+?>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="modnavboxmid">
+  <tr>
+    <td colspan="3"><?php echo $pixelImage ?></td>
+  </tr>
+  <tr>
+    <td height="25" width="1"><?php echo $pixelImage ?></td>
+    <td align="center" valign="middle"><span class="admin">
+<?php echo gTranslate('core', "If you don't have the Java Plugin 1.4 or later, or you don't want to wait for the applet to download, you can use one of the non-fullscreen versions.") ?>
+    </span></td>
+    <td width="1"><?php echo $pixelImage ?></td>
+  </tr>
+  <tr>
+    <td colspan="3"><?php echo $pixelImage ?></td>
+  </tr>
+</table>
+<?php
 }
 
 function slideshow_image() {
