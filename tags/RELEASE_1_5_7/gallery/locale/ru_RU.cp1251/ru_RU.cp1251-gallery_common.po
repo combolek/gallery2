@@ -1,0 +1,1647 @@
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2007 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# $Id$
+#
+#
+# @version      1.5.2
+# @package	Languagepack
+# @subpackage	Russian
+# @author	Yuri Gural <yurigural AT inbox DOT ru>, 2003-2004.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery 1.5.2-cvs\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-08-12 16:14+0200\n"
+"PO-Revision-Date: 2004-08-04 23:09+0600\n"
+"Last-Translator: Yuri Gural <yurigural AT inbox DOT ru>\n"
+"Language-Team: Yuri Gural <yurigural AT inbox DOT ru>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=cp1251\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+
+#: ../includes/definitions/albumProperties.php:30
+msgid "Texts"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:34
+msgid "Album Summary"
+msgstr "Краткое описание альбома"
+
+#
+#: ../includes/definitions/albumProperties.php:41
+msgid "Album Title"
+msgstr "Название альбома"
+
+#
+#: ../includes/definitions/albumProperties.php:54
+msgid "Layout"
+msgstr "Расположение"
+
+#
+#: ../includes/definitions/albumProperties.php:58
+#, fuzzy
+msgid "Background Image (URL)"
+msgstr "Фоновое изображение"
+
+#
+#: ../includes/definitions/albumProperties.php:64
+msgid "Font"
+msgstr "Шрифт"
+
+#
+#: ../includes/definitions/albumProperties.php:70
+msgid "Rows"
+msgstr "Строк"
+
+#
+#: ../includes/definitions/albumProperties.php:76
+msgid "Columns"
+msgstr "Колонок"
+
+#
+#: ../includes/definitions/albumProperties.php:82
+msgid "Borders"
+msgstr "Бордюр"
+
+#
+#: ../includes/definitions/albumProperties.php:89
+#, fuzzy
+msgid "Colors"
+msgstr "Закрыть"
+
+#
+#: ../includes/definitions/albumProperties.php:92
+msgid "Background Color"
+msgstr "Цвет фона"
+
+#
+#: ../includes/definitions/albumProperties.php:98
+msgid "Text Color"
+msgstr "Цвет текста"
+
+#
+#: ../includes/definitions/albumProperties.php:104
+msgid "Link Color"
+msgstr "Цвет ссылки"
+
+#
+#: ../includes/definitions/albumProperties.php:110
+#, fuzzy
+msgid "Border Color"
+msgstr "Цвет бордюра"
+
+#
+#: ../includes/definitions/albumProperties.php:117
+msgid "Frames"
+msgstr "Рамки"
+
+#
+#: ../includes/definitions/albumProperties.php:120
+msgid "Album Frame"
+msgstr "Рамка альбома"
+
+#
+#: ../includes/definitions/albumProperties.php:127
+msgid "Thumb Frame"
+msgstr "Рамка макета"
+
+#
+#: ../includes/definitions/albumProperties.php:134
+#, fuzzy
+msgid "Item Frame"
+msgstr "Рамка изображения"
+
+#
+#: ../includes/definitions/albumProperties.php:147
+#, fuzzy
+msgid "Slideshow"
+msgstr "показ слайдов"
+
+#
+#: ../includes/definitions/albumProperties.php:151
+#, fuzzy
+msgid "Slideshow Type?"
+msgstr "Тип показа слайдов"
+
+#
+#: ../includes/definitions/albumProperties.php:153
+#: ../includes/definitions/albumProperties.php:201
+#: ../includes/definitions/albumProperties.php:215
+msgid "Off"
+msgstr "Выкл"
+
+#: ../includes/definitions/albumProperties.php:153
+msgid "Ordered"
+msgstr "Упорядоченно"
+
+#
+#: ../includes/definitions/albumProperties.php:153
+msgid "Random"
+msgstr "Беспорядочно"
+
+#: ../includes/definitions/albumProperties.php:157
+#, fuzzy
+msgid "Include sub-albums in slideshow?"
+msgstr "Включить в показ слайдов вложенные альбомы"
+
+#: ../includes/definitions/albumProperties.php:159
+#: ../includes/definitions/albumProperties.php:165
+#: ../includes/definitions/albumProperties.php:239
+#: ../includes/definitions/albumProperties.php:245
+#: ../includes/definitions/albumProperties.php:251
+#: ../includes/definitions/albumProperties.php:257
+#: ../includes/definitions/albumProperties.php:286
+#: ../includes/definitions/albumProperties.php:322
+#: ../includes/definitions/albumProperties.php:367
+#: ../includes/definitions/albumProperties.php:373
+#: ../includes/definitions/albumProperties.php:379
+#: ../includes/definitions/albumProperties.php:385
+#: ../includes/definitions/albumProperties.php:395
+#: ../includes/definitions/albumProperties.php:401
+#: ../includes/definitions/albumProperties.php:443
+#: ../includes/definitions/albumProperties.php:455
+msgid "Yes"
+msgstr "Да"
+
+#: ../includes/definitions/albumProperties.php:159
+#: ../includes/definitions/albumProperties.php:165
+#: ../includes/definitions/albumProperties.php:239
+#: ../includes/definitions/albumProperties.php:245
+#: ../includes/definitions/albumProperties.php:251
+#: ../includes/definitions/albumProperties.php:257
+#: ../includes/definitions/albumProperties.php:286
+#: ../includes/definitions/albumProperties.php:322
+#: ../includes/definitions/albumProperties.php:367
+#: ../includes/definitions/albumProperties.php:373
+#: ../includes/definitions/albumProperties.php:379
+#: ../includes/definitions/albumProperties.php:385
+#: ../includes/definitions/albumProperties.php:395
+#: ../includes/definitions/albumProperties.php:401
+#: ../includes/definitions/albumProperties.php:443
+#: ../includes/definitions/albumProperties.php:455
+msgid "No"
+msgstr "Нет"
+
+#: ../includes/definitions/albumProperties.php:163
+#, fuzzy
+msgid "Allow slideshow to loop?"
+msgstr "Разрешить цикличиский показ слайдов"
+
+#
+#: ../includes/definitions/albumProperties.php:169
+msgid "Slideshow Length"
+msgstr "Длина показа слайдов"
+
+#: ../includes/definitions/albumProperties.php:182
+#, fuzzy
+msgid "Sizes"
+msgstr "Выберите сервис"
+
+#
+#: ../includes/definitions/albumProperties.php:186
+#, fuzzy
+msgid "Thumbnail size (in px)?"
+msgstr "Размер макета"
+
+#: ../includes/definitions/albumProperties.php:193
+msgid "The ratio in which the thumbnails are made.<br>This affects only new thumbs. For existing use 'rebuild thumbs'."
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:195
+msgid "As the original image"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:195
+msgid "Square thumbs"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:199
+#, fuzzy
+msgid "Maximum size of intermediate sized images (in px)?"
+msgstr "Максимальный размер промежуточных изображений"
+
+#: ../includes/definitions/albumProperties.php:206
+#, fuzzy
+msgid "Maximum file size of intermediate sized JPEG/PNG images in kilobytes (0 or blank for no size restriction)?"
+msgstr "Максимальный объем файла промежуточных JPEG/PNG изображений в килобайтах (0 или пробел, чтобы не менять размер)"
+
+#: ../includes/definitions/albumProperties.php:213
+#, fuzzy
+msgid "Maximum size of full sized images (in px)?"
+msgstr "Максимальный размер промежуточных изображений"
+
+#: ../includes/definitions/albumProperties.php:215
+#, php-format
+msgid "%d (%d MPix)"
+msgstr "%d (%d MPix)"
+
+#: ../includes/definitions/albumProperties.php:220
+#, fuzzy
+msgid "Maximum file size of full sized JPEG/PNG images in kb (0 or blank for no size restriction)?"
+msgstr "Максимальный объем файла развернутых JPEG/PNG изображений в килобайтах (0 или пробел, чтобы не менять размер)"
+
+#
+#: ../includes/definitions/albumProperties.php:233
+#, fuzzy
+msgid "Display"
+msgstr "показ"
+
+#
+#: ../includes/definitions/albumProperties.php:237
+msgid "Display click counter for this album?"
+msgstr "Отображать счетчик кликов для этого альбома?"
+
+#: ../includes/definitions/albumProperties.php:243
+#, fuzzy
+msgid "Display owner's name with caption?"
+msgstr "Показывать имя владельца с заголовком"
+
+#: ../includes/definitions/albumProperties.php:249
+#, fuzzy
+msgid "Display clickable image dimensions?"
+msgstr "Показывать ссылки с размерами изображения"
+
+#
+#: ../includes/definitions/albumProperties.php:255
+msgid "Display EXIF data?"
+msgstr "Показывать данные EXIF?"
+
+#: ../includes/definitions/albumProperties.php:268
+#, fuzzy
+msgid "Services"
+msgstr "Выберите сервис"
+
+#
+#: ../includes/definitions/albumProperties.php:272
+msgid "Which photo printing services<br>do you want to let visitors use?"
+msgstr "Какой сервис печати фотографий<br>вы хотите разрешить использование посетителям?"
+
+#: ../includes/definitions/albumProperties.php:284
+msgid "Enable Ecards?"
+msgstr ""
+
+#
+#: ../includes/definitions/albumProperties.php:297
+msgid "Poll Properties"
+msgstr "Свойства опроса"
+
+#
+#: ../includes/definitions/albumProperties.php:301
+#, fuzzy
+msgid "Who can vote?"
+msgstr "Кто может голосовать"
+
+#: ../includes/definitions/albumProperties.php:302
+msgid "This enables/disable voting and if enabled it controls who can vote."
+msgstr ""
+
+#
+#: ../includes/definitions/albumProperties.php:303
+msgid "Logged in"
+msgstr "Пользователям"
+
+#: ../includes/definitions/albumProperties.php:303
+msgid "Everybody"
+msgstr "Всем"
+
+#
+#: ../includes/definitions/albumProperties.php:303
+msgid "Nobody"
+msgstr "Никому"
+
+#
+#: ../includes/definitions/albumProperties.php:307
+msgid "Type of poll for this album"
+msgstr "Вид опроса для этого альбома"
+
+#
+#: ../includes/definitions/albumProperties.php:309
+msgid "Rank"
+msgstr "Ранг"
+
+#: ../includes/definitions/albumProperties.php:309
+msgid "Critique"
+msgstr "Критика"
+
+#
+#: ../includes/definitions/albumProperties.php:313
+msgid "Number of voting options"
+msgstr "Количество пунктов голосования"
+
+#: ../includes/definitions/albumProperties.php:320
+msgid "Show results of voting to all visitors?"
+msgstr "Показывать результаты голосования всем посетителям?"
+
+#: ../includes/definitions/albumProperties.php:326
+msgid "Number of lines of results graph to display on the album page"
+msgstr "Число линий графиков результата отображать на странице альбома"
+
+#: ../includes/definitions/albumProperties.php:333
+#, fuzzy
+msgid "Orientation of vote choices?"
+msgstr "Ориентация пунктов голосования"
+
+#
+#: ../includes/definitions/albumProperties.php:335
+msgid "Horizontal"
+msgstr "Горизонтально"
+
+#: ../includes/definitions/albumProperties.php:335
+msgid "Vertical"
+msgstr "Вертикально"
+
+#: ../includes/definitions/albumProperties.php:340
+msgid "Vote hint"
+msgstr "Подсказка для голосования"
+
+#
+#: ../includes/definitions/albumProperties.php:347
+#, fuzzy
+msgid "Voting Options"
+msgstr "администрирование"
+
+#: ../includes/definitions/albumProperties.php:351
+msgid "Displayed Value"
+msgstr "Отображаемая ведичина"
+
+#
+#: ../includes/definitions/albumProperties.php:351
+#, fuzzy
+msgid "Points"
+msgstr "Минуты"
+
+#: ../includes/definitions/albumProperties.php:361
+msgid "Misc"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:365
+#, fuzzy
+msgid "Add new items at beginning of album?"
+msgstr "Добавлять новые позиции в начало альбома"
+
+#
+#: ../includes/definitions/albumProperties.php:371
+#, fuzzy
+msgid "Show <i>Return to</i> link?"
+msgstr "Показать ссылку <i>Верунться на</i>"
+
+#
+#: ../includes/definitions/albumProperties.php:377
+#, fuzzy
+msgid "Offer visitors ability to specify<br>preference for full-size or resized images?"
+msgstr "Предложение посетителям определить возможность<br>демонстрировать полноразмерные или измененные изображения"
+
+#
+#: ../includes/definitions/albumProperties.php:383
+#, fuzzy
+msgid "Auto fit-to-window for<br>images without a resized copy?"
+msgstr "Автоматическая подгонка размера изображения<br>без изменения размера копии"
+
+#: ../includes/definitions/albumProperties.php:390
+msgid "Permissions"
+msgstr "Полномочия"
+
+#: ../includes/definitions/albumProperties.php:393
+#, fuzzy
+msgid "Allow users to modify their own items?"
+msgstr "Разрешить владельцам редкатировать свои изображения"
+
+#: ../includes/definitions/albumProperties.php:399
+#, fuzzy
+msgid "Allow users to delete their own items?"
+msgstr "Разрешить владельцам удалять свои изображения"
+
+#
+#: ../includes/definitions/albumProperties.php:411
+msgid "Custom Fields"
+msgstr "Дополнительные поля"
+
+#: ../includes/definitions/albumProperties.php:420
+msgid "Number of user defined custom fields"
+msgstr "Число полей определнных пользователем"
+
+#: ../includes/definitions/albumProperties.php:438
+msgid "Microthumbs"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:441
+msgid "Use microthumb photo navigation?"
+msgstr ""
+
+#
+#: ../includes/definitions/albumProperties.php:443
+#: ../includes/definitions/albumProperties.php:474
+msgid "Both"
+msgstr "Оба"
+
+#: ../includes/definitions/albumProperties.php:447
+msgid "Microthumb style?"
+msgstr ""
+
+#
+#: ../includes/definitions/albumProperties.php:449
+#, fuzzy
+msgid "Fixed"
+msgstr "Неудачно!"
+
+#: ../includes/definitions/albumProperties.php:449
+msgid "Dynamic"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:453
+msgid "Show first &amp; last microthumb?"
+msgstr ""
+
+#
+#: ../includes/definitions/albumProperties.php:459
+#, fuzzy
+msgid "Number of previous thumbs?"
+msgstr "Количество пунктов голосования"
+
+#
+#: ../includes/definitions/albumProperties.php:465
+#, fuzzy
+msgid "Number of next thumbs?"
+msgstr "Количество пунктов голосования"
+
+#: ../includes/definitions/albumProperties.php:471
+msgid "Position of microthumb navigation bar?"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:473
+msgid "Top"
+msgstr "Вверх"
+
+#: ../includes/definitions/albumProperties.php:475
+msgid "Bottom"
+msgstr "Вниз"
+
+#: ../includes/definitions/albumProperties.php:479
+msgid "Height of microthumbs in navigation bar (in px)?"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:486
+msgid "Bonus to height of current microthumb (in px)?"
+msgstr ""
+
+#: ../includes/definitions/services.php:45
+msgid "mPUSH is a photo service that adds the ability to send thumbnail images to your, or a friend's, cellphone for a small fee."
+msgstr ""
+
+#
+#: ../lib/Form.php:77
+msgid "Check All"
+msgstr "Проверить&nbsp;все"
+
+#
+#: ../lib/Form.php:79
+msgid "Clear All"
+msgstr "Очистить&nbsp;все"
+
+#
+#: ../lib/Form.php:81
+msgid "Invert Selection"
+msgstr "Инвертировать выбор"
+
+#: ../lib/Form.php:297
+msgid "Colorpicker"
+msgstr ""
+
+#: ../lib/colorpicker.php:42
+msgid "Color Picker"
+msgstr ""
+
+#: ../lib/colorpicker.php:54
+msgid "The Options window has closed. Exiting."
+msgstr ""
+
+#: ../lib/colorpicker.php:60
+msgid "This window must be called from an Options window."
+msgstr ""
+
+#
+#: ../lib/content.php:45
+msgid "Empty"
+msgstr "Пусто"
+
+#
+#: ../lib/content.php:49
+#, php-format
+msgid "edit %s"
+msgstr "редактировать %s"
+
+#
+#: ../lib/content.php:68
+msgid "No Caption"
+msgstr "Нет заголовка"
+
+#: ../lib/content.php:73
+msgid "edit"
+msgstr "редактировать"
+
+#
+#: ../lib/content.php:107
+msgid "add comment"
+msgstr "добавить комментарий"
+
+#: ../lib/content.php:125
+msgid "Add your comment"
+msgstr "Добавьте свой комментарий"
+
+#: ../lib/content.php:128
+msgid "Commenter:"
+msgstr "Автор:"
+
+#: ../lib/content.php:147
+msgid "Message:"
+msgstr "Сообщение:"
+
+#
+#: ../lib/content.php:151
+#, fuzzy
+msgid "Post comment"
+msgstr "Последний комментарий %s."
+
+#
+#: ../lib/content.php:320
+#, fuzzy, php-format
+msgid "1 view"
+msgid_plural "%d views"
+msgstr[0] "%d раз"
+msgstr[1] "%d раза"
+msgstr[2] "%d раз"
+
+#: ../lib/content.php:350 ../lib/content.php:377
+#, fuzzy
+msgid "Sub-albums:"
+msgstr "Вложенные&nbsp;альбомы"
+
+#: ../lib/content.php:464
+msgid "EXIF Data"
+msgstr "EXIF данные"
+
+#: ../lib/content.php:467
+msgid "Display of EXIF data enabled, but no data found."
+msgstr ""
+
+#
+#: ../lib/content.php:632
+#, fuzzy
+msgid "Search:"
+msgstr "Поиск"
+
+#
+#: ../lib/content.php:672 ../lib/content.php:693
+#, fuzzy
+msgid "Not closing this window because debug mode is on."
+msgstr "Не закрывайте это окно, т.к. включен режим отладки"
+
+#
+#: ../lib/content.php:724
+#, fuzzy, php-format
+msgid "Problem including file %s."
+msgstr "Проблема добавления %s:"
+
+#
+#: ../lib/content.php:869
+msgid "Select Album"
+msgstr "Выберите альбом"
+
+#: ../lib/content.php:875
+msgid "Move to top level"
+msgstr ""
+
+#
+#: ../lib/content.php:893 ../lib/content.php:943
+#, fuzzy
+msgid "Current location"
+msgstr "текущее расположение"
+
+#
+#: ../lib/content.php:948
+#, fuzzy
+msgid "This album itself"
+msgstr "Этот альбом пуст."
+
+#
+#: ../lib/content.php:976
+#, php-format
+msgid "Last comment %s."
+msgstr "Последний комментарий %s."
+
+#
+#: ../lib/content.php:1002 ../lib/content.php:1005
+#, fuzzy
+msgid "No Skin"
+msgstr "Вход"
+
+#: ../lib/content.php:1009
+#, fuzzy
+msgid "The original look and feel."
+msgstr "<dt>Никакой</dt><dd>Первоначальный взгляд и ощущения.</dd>"
+
+#: ../lib/content.php:1057 ../lib/content.php:1061
+msgid "unknown"
+msgstr "неизвестный"
+
+#
+#: ../lib/content.php:1065
+#, fuzzy, php-format
+msgid "Version: %s"
+msgstr "OK!  Версия: %s"
+
+#
+#: ../lib/content.php:1067
+#, fuzzy, php-format
+msgid "Last Update: %s"
+msgstr "Последняя страница"
+
+#: ../lib/content.php:1086 ../lib/content.php:1092
+msgid "None"
+msgstr "Ничто"
+
+#
+#: ../lib/content.php:1087 ../lib/content.php:1093
+msgid "Dots"
+msgstr "Многоточие"
+
+#: ../lib/content.php:1088 ../lib/content.php:1094
+msgid "Solid"
+msgstr "Сплошной"
+
+#: ../lib/content.php:1092
+msgid "No frames"
+msgstr "Нет рамок"
+
+#: ../lib/content.php:1093
+msgid "Just a simple dashed border around the thumb."
+msgstr "Простой штрих-пунктирный бордюр вокруг макета"
+
+#: ../lib/content.php:1094
+msgid "Just a simple solid border around the thumb."
+msgstr "Простой сплошной бордюр вокруг макета"
+
+#: ../lib/content.php:1119
+#, php-format
+msgid "Skipping %s."
+msgstr "Пропущен %s."
+
+#: ../lib/content.php:1126
+#, fuzzy, php-format
+msgid "Can't open %s."
+msgstr "Не могу открыть %s"
+
+#: ../lib/content.php:1204 ../lib/content.php:1227
+#, fuzzy
+msgid "Not valid yet."
+msgstr "Еще неправильно"
+
+#
+#: ../lib/imageManipulation.php:36
+#, fuzzy, php-format
+msgid "Resizing Image: %s."
+msgstr "Изменение размера %s"
+
+#: ../lib/imageManipulation.php:67
+#, fuzzy
+msgid "No resizing required."
+msgstr "Не требуется изменять размер"
+
+#: ../lib/imageManipulation.php:94
+#, fuzzy, php-format
+msgid "Target file size: %d kbytes."
+msgstr "результирующий объем файла %d кбайт"
+
+#: ../lib/imageManipulation.php:103 ../lib/imageManipulation.php:131
+#, fuzzy, php-format
+msgid "-> File size: %d kbytes"
+msgstr "-> объем файла %d кбайт"
+
+#: ../lib/imageManipulation.php:104
+#, fuzzy, php-format
+msgid "Trying quality: %d%%."
+msgstr "пробуем качество %d%%"
+
+#
+#: ../lib/imageManipulation.php:132
+msgid "Done."
+msgstr "Выполнено."
+
+#
+#: ../lib/imageManipulation.php:235 ../lib/imageManipulation.php:480
+#: ../lib/imageManipulation.php:532 ../lib/imageManipulation.php:814
+msgid "You have no graphics package configured for use!"
+msgstr "У вас нет ни одного графического пакета сконфигурированного для использования!"
+
+#
+#: ../lib/imageManipulation.php:240
+msgid "No watermark name specified!"
+msgstr "Не определено имя водяного знака!"
+
+#: ../lib/imageManipulation.php:498
+#, fuzzy
+msgid "Cropping Image"
+msgstr "Обработка изображения"
+
+#: ../lib/imageManipulation.php:562
+#, php-format
+msgid "Generating squared version to %d pixels."
+msgstr ""
+
+#
+#: ../lib/imageManipulation.php:583
+#, fuzzy
+msgid "No Cropping Done."
+msgstr "Нет заголовка"
+
+#: ../lib/imageManipulation.php:593
+#, php-format
+msgid "Call to %s failed in %s for file %s!"
+msgstr "Неудачный вызов %s в %s для файла %s!"
+
+#: ../lib/imageManipulation.php:597
+#, php-format
+msgid "File %s type %d."
+msgstr "Файл %s тип %d."
+
+#: ../lib/imageManipulation.php:634 ../lib/imageManipulation.php:658
+#, php-format
+msgid "Files with type %s are not supported by Gallery with Netpbm."
+msgstr ""
+
+#
+#: ../lib/imageManipulation.php:707
+#, fuzzy, php-format
+msgid "Compressing image: %s"
+msgstr "Изменение размера %s"
+
+#: ../lib/imageManipulation.php:712
+msgid "Not all necessary params for resizing given."
+msgstr ""
+
+#: ../lib/imageManipulation.php:713
+#, php-format
+msgid "Resizing params: src: %s, dest : %s, targetSize: %s"
+msgstr ""
+
+#: ../lib/imageManipulation.php:756
+#, fuzzy
+msgid "Unable to preserve EXIF data (jhead not installed)."
+msgstr "Не в состоянии сохранить данные EXIF (jhead не установлен)"
+
+#: ../lib/imageManipulation.php:799
+#, fuzzy
+msgid "Using IM high quality."
+msgstr "%d из %d исполняемых файлов ImageMagick установлено."
+
+#: ../lib/imageManipulation.php:803
+#, fuzzy
+msgid "Not using IM high quality."
+msgstr "%d из %d исполняемых файлов ImageMagick установлено."
+
+#
+#: ../lib/lang.php:787
+#, fuzzy
+msgid "Upload date"
+msgstr "Дата загрузки"
+
+#
+#: ../lib/lang.php:788
+#, fuzzy
+msgid "Capture date"
+msgstr "Дата фотографии"
+
+#
+#: ../lib/lang.php:789
+#, fuzzy
+msgid "Image size"
+msgstr "Размер изображения"
+
+#: ../lib/lang.php:790
+#, fuzzy
+msgid "Additional EXIF data"
+msgstr "Дополнительные EXIF данные"
+
+#
+# Neccessary infact of hardcoded function editField() in util.php
+#: ../lib/lang.php:798
+msgid "title"
+msgstr "название"
+
+#
+# Neccessary infact of hardcoded function editField() in util.php
+#: ../lib/lang.php:799
+msgid "Title"
+msgstr "Название"
+
+#: ../lib/lang.php:800
+msgid "Description"
+msgstr "Описание"
+
+#
+# Neccessary infact of hardcoded function editField() in util.php
+#: ../lib/lang.php:801
+#, fuzzy
+msgid "description"
+msgstr "Описание"
+
+#: ../lib/lang.php:802
+#, fuzzy
+msgid "Alt text / Tooltip"
+msgstr "Текст Alt / onMouseOver"
+
+#: ../lib/mail.php:43
+#, php-format
+msgid "Note: This is an automatically generated email message sent from the %s website.  If you have received this in error, please ignore this message."
+msgstr "Примечание: Это сообщение автоматически сгенерировано на сайте %s и отправлено вам. Если вы получили это сообщение по ошибке, пожалуйста проигнорируйте его."
+
+#: ../lib/mail.php:45
+#, php-format
+msgid "Report abuse to %s"
+msgstr "Отчет злоупотреблений для %s"
+
+#: ../lib/mail.php:71
+#, fuzzy
+msgid "Email not sent as it is disabled for this gallery."
+msgstr "E-mail не отправлен, т.к. эта функция отключена в галереи"
+
+#: ../lib/mail.php:77
+#, fuzzy, php-format
+msgid "Email not sent to %s as it is not a valid address."
+msgstr "E-mail не отправлен на %s, т.к. это неправильный адрес"
+
+#
+#: ../lib/mail.php:84
+#, fuzzy
+msgid "Email not sent as no recipient address provided."
+msgstr "E-mail не отправлен т.к. не указан не один адрес"
+
+#: ../lib/mail.php:96
+#, php-format
+msgid "Sender address %s is invalid, using %s."
+msgstr "Адрес отправителя %s - неверный, используйте %s."
+
+#: ../lib/mail.php:128
+msgid "This is a HTML mail, please have a look at the Attachment."
+msgstr ""
+
+#: ../lib/mail.php:166
+#, fuzzy
+msgid ""
+"Hi !!FULLNAME!!,\n"
+"\n"
+"Congratulations.  You have just been subscribed to the Gallery !!GALLERYTITLE!! at !!GALLERYURL!!.  Your account name is !!USERNAME!!.  Please visit the gallery soon, and create a password by clicking this link:\n"
+"\n"
+"!!NEWPASSWORDLINK!!\n"
+"\n"
+"Your !!GALLERYTITLE!! Administrator"
+msgstr ""
+"Привет, !!FULLNAME!!,  \n"
+"\n"
+"Поздравляем.  Вы только что подписались на %s в %s.  Ваше учетное имя !!USERNAME!!.  Пожалуйста посетите галерею и создайте пароль кликнув на эту ссылку:\n"
+"\n"
+"!!NEWPASSWORDLINK!!\n"
+"\n"
+"Администратор галереи @ %s."
+
+#: ../lib/mail.php:188
+msgid "The URL to your Gallery."
+msgstr ""
+
+#: ../lib/mail.php:189
+msgid "Title of your Gallery."
+msgstr ""
+
+#: ../lib/mail.php:190
+#, fuzzy
+msgid "Admin email(s)"
+msgstr "Помощь администратора"
+
+#: ../lib/mail.php:191
+msgid "Password for the newly created user."
+msgstr ""
+
+#: ../lib/mail.php:192 ../lib/setup.php:1513 ../lib/setup.php:1515
+#: ../lib/setup.php:1519 ../lib/setup.php:1527
+msgid "Username"
+msgstr "Имя пользователя"
+
+#
+#: ../lib/mail.php:193
+#, fuzzy
+msgid "Fullname"
+msgstr "Полное имя"
+
+#: ../lib/mail.php:194
+#, fuzzy
+msgid "Will be replaced by a link the new user can click on to create a new password."
+msgstr "%s будет заменено на ссылку, чтобы новый пользователь мог перейти по ней для создания нового пароля"
+
+#
+#: ../lib/mail.php:232 ../lib/mail.php:253
+#, fuzzy, php-format
+msgid "New comment for %s."
+msgstr "просмотреть комментарии"
+
+#: ../lib/mail.php:241
+#, php-format
+msgid "A new comment has been added to Gallery: %s"
+msgstr ""
+
+#: ../lib/mail.php:243
+#, php-format
+msgid "The comment was added by %s to this %s in this %s."
+msgstr ""
+
+#: ../lib/mail.php:245
+#, fuzzy
+msgid "Item"
+msgstr "позиции"
+
+#
+#: ../lib/mail.php:246
+msgid "Album"
+msgstr "Альбом"
+
+#
+#: ../lib/mail.php:247
+#, fuzzy
+msgid "*** Begin comment ***"
+msgstr "просмотреть комментарии"
+
+#
+#: ../lib/mail.php:249
+#, fuzzy
+msgid "*** End comment ***"
+msgstr "просмотреть комментарии"
+
+#: ../lib/mail.php:250
+msgid "If you no longer wish to receive emails about this item, follow the links above and ensure that 'Email me when comments are added' is unchecked in both the item and album page (you'll need to login first)."
+msgstr ""
+
+#: ../lib/mail.php:263
+msgid "Sending email failed. Additional info:"
+msgstr ""
+
+#: ../lib/mail.php:275
+msgid "Email activity"
+msgstr "Активация e-mail"
+
+#
+#: ../lib/messages.php:26
+msgid "Error:"
+msgstr "Ошибка:"
+
+#: ../lib/messages.php:74
+#, php-format
+msgid "Generated by %s v%s"
+msgstr "Сгенерированно %s v%s"
+
+#: ../lib/messages.php:76
+#, php-format
+msgid "Powered by %s v%s"
+msgstr "При поддержке %s v%s"
+
+#: ../lib/setup.php:145
+msgid "Please retype your password here"
+msgstr "Пожалуйста введите ваш пароль еще раз"
+
+#
+#: ../lib/setup.php:159 ../lib/setup.php:1117
+msgid "Name"
+msgstr "Название"
+
+#: ../lib/setup.php:160 ../lib/setup.php:1117
+msgid "Value"
+msgstr "Значение"
+
+#: ../lib/setup.php:189 ../lib/setup.php:232
+#, fuzzy
+msgid "No content"
+msgstr "Содержимое RSS"
+
+#
+#: ../lib/setup.php:373
+#, fuzzy, php-format
+msgid "Missing value: %s"
+msgstr "Отсутствует значение"
+
+#: ../lib/setup.php:391
+msgid "<b>exec()</b> is enabled on this server."
+msgstr ""
+
+#: ../lib/setup.php:409
+msgid "I can read your <b>.htaccess</b> file."
+msgstr "Я могу прочесть ваш <b>.htaccess</b> файл."
+
+#: ../lib/setup.php:432
+#, php-format
+msgid "PHP v%s is OK."
+msgstr "PHP v%s - в порядке."
+
+#: ../lib/setup.php:448
+msgid "<b>mod_rewrite</b> is enabled."
+msgstr "<b>mod_rewrite</b> включен."
+
+#: ../lib/setup.php:474
+#, fuzzy
+msgid "Can't find <i>jhead</i>."
+msgstr "Не найден <i>jhead</i>"
+
+#: ../lib/setup.php:478 ../lib/setup.php:482
+#, fuzzy, php-format
+msgid "<b>jhead</b> binary version %s located."
+msgstr "исполняемый файл <b>jhead</b> установлен."
+
+#: ../lib/setup.php:479
+msgid "You are using an older version of jhead. There are at least known problems with version 2.0. We recommend version 2.7 and higher."
+msgstr ""
+
+#: ../lib/setup.php:520
+#, fuzzy
+msgid "Without pnmcomp and pamcomp, gallery will not be able to watermark images, unless you use ImageMagick and have the composite binary installed."
+msgstr "Без pnmcomp галерея не сможет создавать изображения водяных знаков, если только вы не используете ImageMagick и не установили исполняемый файл composite."
+
+#: ../lib/setup.php:528
+#, fuzzy
+msgid "Netpbm not being used in this installation."
+msgstr "NetPBM не используется в этой установке."
+
+#: ../lib/setup.php:533 ../lib/setup.php:628
+msgid "Cannot verify this path (it's not in your open_basedir list)."
+msgstr "Не могу проверить этот путь (нет в вашем списке open_basedir)."
+
+#: ../lib/setup.php:567 ../lib/setup.php:645
+#, php-format
+msgid "Missing optional binary %s. %s"
+msgstr "Отсутствует необязательный исполняемый файл %s. %s"
+
+#: ../lib/setup.php:570 ../lib/setup.php:648
+#, php-format
+msgid "Can't find %s!"
+msgstr "Не могу найти %s!"
+
+#: ../lib/setup.php:576 ../lib/setup.php:654
+#, php-format
+msgid "%s is not executable!"
+msgstr "%s не исполняемый!"
+
+#: ../lib/setup.php:586 ../lib/setup.php:593
+#, fuzzy, php-format
+msgid "%d of %d Netpbm binaries located."
+msgstr "%d из %d исполняемых файлов NetPBM установлено."
+
+#: ../lib/setup.php:617
+#, fuzzy
+msgid "Without composite. gallery will not be able to watermark images, except you use Netpbm and have the pnmcomp binary installed."
+msgstr "Без composite галерея не сможет создавать изображения водяных знаков, если только вы не используете NetPBM и не установили исполняемый файл pnmcomp."
+
+#: ../lib/setup.php:623
+#, fuzzy
+msgid "ImageMagick not being used in this installation."
+msgstr "NetPBM не используется в этой установке."
+
+#: ../lib/setup.php:664 ../lib/setup.php:671
+#, php-format
+msgid "%d of %d ImageMagick binaries located."
+msgstr "%d из %d исполняемых файлов ImageMagick установлено."
+
+#: ../lib/setup.php:693
+msgid "Can't find <i>jpegtran</i>!"
+msgstr "Не найден <i>jpegtran</i>!"
+
+#: ../lib/setup.php:695
+msgid "<b>jpegtran</b> binary located."
+msgstr "исполняемый файл <b>jpegtran</b> установлен."
+
+#: ../lib/setup.php:706
+msgid "PHP has <b>GNU gettext</b> support."
+msgstr "PHP поддерживает <b>GNU gettext</b>."
+
+#: ../lib/setup.php:708
+msgid "PHP does not have <b>GNU gettext</b> support."
+msgstr "PHP не поддерживает <b>GNU gettext</b>."
+
+#: ../lib/setup.php:722
+msgid "No languages found."
+msgstr "Не найдено языков."
+
+#: ../lib/setup.php:724
+msgid "It seems you didn't download any additional languages. This is not a problem! Gallery will appear just in English. Note: If this is not true, check that all files in locale folder are readable for the webserver, or contact the Gallery Team."
+msgstr "Видимо вы не загрузили дополнительные языки. Это не проблема! Галерея будет отображаться на английском языке. Примечание: Если это не так, проверьте, все ли файлы в каталоге locale доступны для веб сервера или обратитесь к группе разработчиков Gallery."
+
+#: ../lib/setup.php:727
+#, php-format
+msgid "%d languages are available.  If you are missing a language please visit the %sGallery download page%s."
+msgstr "Количество доступных языков: %d. Если ваш язык отсутсвует, пожалуйста посетите %sстраницу загрузки галереи%s."
+
+#: ../lib/setup.php:750
+#, php-format
+msgid "You can check for more recent versions by visiting %s."
+msgstr "Вы можете проверить наличие последних версий посетив %s."
+
+#: ../lib/setup.php:751
+#, php-format
+msgid "This version of %s was released on %s."
+msgstr "Эта версия %s, выпущена %s."
+
+#: ../lib/setup.php:754
+#, php-format
+msgid "This is a development build of %s that was released on %s."
+msgstr "Данная разработка под названием %s, выпущена %s."
+
+#: ../lib/setup.php:763
+msgid "Please check regularly for updates."
+msgstr "Пожалуйста, регулярно проверяйте наличие новых версий."
+
+#: ../lib/setup.php:782
+msgid "All gallery locales are available on this host."
+msgstr "Все локализации галереи доступны на этом хосте."
+
+#: ../lib/setup.php:785
+#, php-format
+msgid "There are %d locales that Gallery was unable to locate. You may need to select manually date formats. "
+msgstr "В галереи локализаций: %d. Нет возможности определить ваше местонахождение. Вам вероятно придется вручную выбрать формат даты. "
+
+#: ../lib/setup.php:791
+#, php-format
+msgid "Dates in %d languages may not be formatted properly, because the corresponding locales are missing. You may need to select manually the date formats for these."
+msgstr "Нет возможности правильно выбрать формат даты в %d языках, потому что соответствующие локализации отсутствуют. Для них формат даты вам нужно будет выбрать вручную."
+
+#: ../lib/setup.php:796
+#, php-format
+msgid "We were unable to detect any locales.  However, your PHP installation is configured with the %s restriction so this may be interfering with the way that we detect locales.  Unfortunately this means the date format will not change for different languages.  However, it is OK to continue."
+msgstr ""
+
+#: ../lib/setup.php:800
+#, php-format
+msgid "We were unable to detect any system locales. Multi-language functions will be disabled. Please install the corresponding locales or ask your administrator to do this. This problem is known on %s systems. In this case please have a look at this %sDebian locale HowTo%s."
+msgstr ""
+
+#: ../lib/setup.php:802
+msgid "Only the default locale for this machine is available, so date format will not change for different languages."
+msgstr ""
+
+#: ../lib/setup.php:961 ../lib/setup.php:1041
+msgid "Advanced"
+msgstr "Расширенный"
+
+#: ../lib/setup.php:961
+#, fuzzy
+msgid "<b>System</b> locale selection required."
+msgstr "Требуется выбор <b>системной</b> локализации"
+
+#: ../lib/setup.php:962
+msgid "There is more than one suitable <b>system</b> locale installed on your machine for the following languages.  Please chose the one you think is most suitable."
+msgstr "Имеется больше одной подходящей <b>системной</b> локализации, установленной на вашем компьютере для следующих языков. Пожалуйста, выберите один, наиболее подходящий на ваш взгляд."
+
+#: ../lib/setup.php:964 ../lib/setup.php:1044
+#, fuzzy
+msgid "This is <b>only</b> for date and time format. You only need to edit the languages you enabled above."
+msgstr "Это <b>только</b> для формата даты и времени. Вам нужно только отредактировать языки, которые вы выбрали раньше."
+
+#: ../lib/setup.php:975 ../lib/setup.php:999
+msgid "System locale"
+msgstr "Системная локализация"
+
+#: ../lib/setup.php:1041
+msgid "<b>System</b> locale problems"
+msgstr "Проблемы <b>системной</b> локализации"
+
+#: ../lib/setup.php:1042
+msgid "There are no apparently suitable <b>system</b> locales installed on your machine for the following languages.  Please choose the one you think is most suitable."
+msgstr "Имеется больше одной подходящей <b>системной</b> локализации, установленной на вашем компьютере для следующих языков. Пожалуйста, выберите один, наиболее подходящий на ваш взгляд."
+
+#: ../lib/setup.php:1085
+msgid "<b>safe_mode</b> is off."
+msgstr "<b>safe_mode</b> отключен."
+
+#: ../lib/setup.php:1097
+msgid "<b>magic_quotes</b> are off."
+msgstr "<b>magic_quotes</b> отключен."
+
+#: ../lib/setup.php:1115
+#, php-format
+msgid "In %s, missing %s in row %d with %s %s."
+msgstr "В %s, пропущено %s в строке %d с %s %s."
+
+#: ../lib/setup.php:1116 ../lib/setup.php:1125 ../lib/setup.php:1130
+msgid "Vote words and values"
+msgstr "Оценка голоса и его величина"
+
+#: ../lib/setup.php:1124
+#, php-format
+msgid "In %s, blank in row %d."
+msgstr "В %s, пусто в строке %d"
+
+#: ../lib/setup.php:1129
+#, fuzzy, php-format
+msgid "In %s, for name %s (row %d) value %s should be a positive whole number."
+msgstr "В %s, для имени %s (строка %d) значение %s должно быть положительным целым числом"
+
+#: ../lib/setup.php:1151
+#, fuzzy
+msgid "<b>register_globals</b> is off."
+msgstr "<b>safe_mode</b> отключен."
+
+#: ../lib/setup.php:1321
+#, fuzzy
+msgid "Your passwords do not match!"
+msgstr "Введенные пароли администратора не совпадают!"
+
+#: ../lib/setup.php:1332
+msgid "OK"
+msgstr "OK"
+
+#
+#: ../lib/setup.php:1337
+msgid "Valid admin email address given."
+msgstr "Указан правильный e-mail адрес администратора."
+
+#
+#: ../lib/setup.php:1344
+#, fuzzy
+msgid "You must specify valid admin email addresses."
+msgstr "Вы должны указать правильный e-mail адрес администратора"
+
+#
+#: ../lib/setup.php:1352
+#, php-format
+msgid "%s is not a valid email address."
+msgstr "%s - не правильный e-mail адрес."
+
+#
+#: ../lib/setup.php:1361
+msgid "Valid sender email address given."
+msgstr "Указан правильный e-mail адрес отправителя."
+
+#
+#: ../lib/setup.php:1363
+#, fuzzy
+msgid "You must specify a valid sender email address."
+msgstr "Вы должны указать правильный e-mail адрес отправителя"
+
+#: ../lib/setup.php:1366
+#, fuzzy, php-format
+msgid "You must include %s in your welcome email."
+msgstr "Вы должны включить %s в вашем приветственном e-mail"
+
+#: ../lib/setup.php:1371
+#, fuzzy, php-format
+msgid "You must include %s or %s in your welcome email."
+msgstr "Вы должны включить %s или %s в вашем приветственном e-mail"
+
+#: ../lib/setup.php:1395
+#, php-format
+msgid "The following files are out of date, corrupted or missing:<br>&nbsp;&nbsp;&nbsp;&nbsp;%s."
+msgstr "Следующие файлы устарели, испорчены или отсутствуют:<br>&nbsp;&nbsp;&nbsp;&nbsp;%s."
+
+#: ../lib/setup.php:1397
+#, fuzzy
+msgid "This should be fixed before proceeding."
+msgstr "Это должно быть устранено перед тем как продолджить"
+
+#: ../lib/setup.php:1398 ../lib/setup.php:1402
+#, php-format
+msgid "Look at %sCheck Versions%s for more details."
+msgstr "Воспользуйтесь %sпроверкой версий%s для подробной информации."
+
+#: ../lib/setup.php:1401
+#, fuzzy, php-format
+msgid "%d files are more recent than expected.  This is OK if you are using pre-release, beta, SVN or modified code."
+msgstr "%d файлов новее чем ожидалось. Это нормально, если вы используете pre-release, beta, CVS или измененный код."
+
+#: ../lib/setup.php:1406
+msgid "All tested files up-to-date."
+msgstr "Все протестированные файлы последней версии."
+
+#: ../lib/setup.php:1408
+#, php-format
+msgid "All %d tested files up-to-date."
+msgstr "Все %d протестированных файлов обновлены."
+
+#: ../lib/setup.php:1417
+#, fuzzy, php-format
+msgid "this is new in version %s."
+msgstr "это новинка в версии %s"
+
+#: ../lib/setup.php:1422
+#, php-format
+msgid "Return to %s."
+msgstr "Вернуться в %s."
+
+#
+#: ../lib/setup.php:1423
+msgid "Configuration Wizard"
+msgstr "мастер конфигурации"
+
+#: ../lib/setup.php:1472
+#, php-format
+msgid "You must enter a password for the %s account."
+msgstr "Вы должны указать пароль для учетной записи %s."
+
+#: ../lib/setup.php:1477
+#, fuzzy, php-format
+msgid "It seems you've already configured Gallery, because there is one admin account, but it is not called %s."
+msgstr "Видимо вы уже настраивали галерею, потому что уже есть одна учетная запись администратора, но не с именем %s."
+
+#: ../lib/setup.php:1480
+#, php-format
+msgid "It seems you've already configured Gallery, because there are %d admin accounts, but no user called %s."
+msgstr "Видимо вы уже настраивали галерею, потому что уже есть %d учетные записи администратора, но нет ниодного с именем %s."
+
+#: ../lib/setup.php:1482
+#, php-format
+msgid "You don't have to enter a password.  But if you do, Gallery will create an administrator account called %s with that password."
+msgstr "Вы не должны вводить пароль. Но если вы это сделали, галерея создаст учетную запись администратора названную %s с этим паролем."
+
+#: ../lib/setup.php:1491
+#, php-format
+msgid "It seems you've already configured Gallery, because the %s user exists.  You don't have to enter a password.  But if you do, Gallery will change the password for the %s user."
+msgstr "По всей видимости вы уже сконфигурировали галерею, поскольку пользователь %s уже существует. Вы не должны вводить пароль. Но если вы это сделаете, галерея изменит пароль для пользователя %s."
+
+#: ../lib/setup.php:1498
+msgid "Admin password"
+msgstr "Пароль администратора"
+
+#: ../lib/setup.php:1513 ../lib/setup.php:1515 ../lib/setup.php:1517
+#: ../lib/setup.php:1525
+msgid "Full Name"
+msgstr "Полное имя"
+
+#: ../lib/setup.php:1521
+msgid "Full name that you can click on to send email (mailto:)"
+msgstr "Полное имя с ссылкой для отправки e-mail (mailto:)"
+
+#: ../lib/setup.php:1523
+msgid "Username that you can click on to send email (mailto:)"
+msgstr "Имя пользователя с ссылкой для отправки e-mail (mailto:)"
+
+#
+#: ../lib/setup.php:1525 ../lib/setup.php:1527
+msgid "email address"
+msgstr "e-mail адрес"
+
+#: ../lib/setup.php:1547
+msgid "File missing or unreadable.  Please install then re-run this test."
+msgstr "Файлы отсутствуют или нечитаются. Пожалуйста установите затем перезапустите этот тест."
+
+#: ../lib/setup.php:1551
+#, php-format
+msgid "Please ensure that %s is the latest version."
+msgstr "Пожалуйста удостоверьтесь, что %s  - самая последняя версия."
+
+#: ../lib/setup.php:1556
+#, php-format
+msgid "Testing status of %d files."
+msgstr "Состояние тестирования из %d файлов."
+
+#: ../lib/setup.php:1563
+#, php-format
+msgid "Cannot read file %s."
+msgstr "Не могу прочесть файл %s."
+
+#: ../lib/setup.php:1565
+msgid "File missing or unreadable."
+msgstr "Файл отсутствует или нечитается."
+
+#: ../lib/setup.php:1585
+#, php-format
+msgid "Version information not found in %s.  File must be old version or corrupted."
+msgstr "Информация о версии не обнаружена в %s. По всей видимости файл имеет старую версию или испорчен."
+
+#: ../lib/setup.php:1587
+msgid "Missing version"
+msgstr "Отсутствует версия"
+
+#: ../lib/setup.php:1596
+#, php-format
+msgid "Problem with %s.  Expected version %s (or greater) but found %s."
+msgstr "Проблема с %s. Ожидаемая версия %s (или выше), но обнаружена %s."
+
+#: ../lib/setup.php:1598
+#, php-format
+msgid "Expected version %s (or greater) but found %s."
+msgstr "Ожидаемая версия %s (или выше), но обнаружена %s."
+
+#: ../lib/setup.php:1602
+#, fuzzy, php-format
+msgid "%s OK.  Actual version (%s) more recent than expected version (%s)."
+msgstr "%s OK. Фактическая версия (%s) новее чем ожидавшаяся версия (%s)"
+
+#: ../lib/setup.php:1604
+#, php-format
+msgid "Expected version %s but found %s."
+msgstr "Ожидаемая версия %s, но обнаружена %s."
+
+#: ../lib/setup.php:1608
+#, fuzzy, php-format
+msgid "%s OK."
+msgstr "%s OK"
+
+#: ../lib/setup.php:1610
+#, php-format
+msgid "Found expected version %s."
+msgstr "Обнаружена ожидаемая версия %s."
+
+#: ../lib/setup.php:1740
+msgid "This email will be sent when new accounts are created."
+msgstr "Это сообщение будет отправлено при создании новой учетной записи."
+
+#: ../lib/setup.php:1741
+#, fuzzy
+msgid "Leaving this field empty sets Gallery to use the default message (see below) which can be translated, or use your own welcome message."
+msgstr "Оставьте не заполненным эту часть, чтобы получать встроенное сообщение, которое можно будет перевести на другие языки. Встроенное сообщение:"
+
+#: ../lib/setup.php:1742
+#, fuzzy
+msgid "The following placeholder can be used:"
+msgstr "Следующие файлы обновлены."
+
+#: ../lib/setup.php:1754
+msgid "Current used welcome mail text"
+msgstr ""
+
+#: ../lib/setup.php:1806
+#, php-format
+msgid "File %s does not exist."
+msgstr "Файл %s не существует."
+
+#: ../lib/setup.php:1815
+#, php-format
+msgid "Expected status: %s, but actually received status %s."
+msgstr "Ожидаемое состояние: %s, но действительно полученное состояние %s."
+
+#: ../lib/setup.php:1828
+#, fuzzy
+msgid "can't detect version on Windows."
+msgstr "не могу определить версию под Windows"
+
+#
+#: ../lib/setup.php:1839
+#, php-format
+msgid "OK!  Version: %s"
+msgstr "OK!  Версия: %s"
+
+#: ../lib/valchecks.php:46
+msgid "The given frame is not valid."
+msgstr ""
+
+#: ../lib/valchecks.php:54
+msgid "Value was set to given default, because the original value is not in the allowed list of choices."
+msgstr ""
+
+#: ../lib/valchecks.php:57
+msgid "The given value is not in the allowed list of choices."
+msgstr ""
+
+#: ../lib/valchecks.php:88
+msgid "Value was set to given default, because the original value is not numeric."
+msgstr ""
+
+#: ../lib/valchecks.php:91
+msgid "The given value is not numeric."
+msgstr ""
+
+#: ../lib/valchecks.php:97
+msgid "Value was set to given default, because the original value is not a valid integer."
+msgstr ""
+
+#: ../lib/valchecks.php:100
+msgid "The given value not a valid integer."
+msgstr ""
+
+#: ../lib/valchecks.php:112
+msgid "Value was set to given default, because the original value is not a valid text."
+msgstr ""
+
+#: ../lib/valchecks.php:115
+msgid "Value was corrected, because the original value is not a valid text."
+msgstr ""
+
+#
+#: ../lib/voting.php:220
+msgid "Vote"
+msgstr "Голосовать"
+
+#: ../lib/voting.php:258
+#, fuzzy
+msgid "(Total points in brackets)"
+msgstr "Итоговый балл в скобках"
+
+#: ../lib/voting.php:262
+#, fuzzy
+msgid "(Average points in brackets)"
+msgstr "Средний балл в скобках"
+
+#
+#: ../lib/voting.php:281
+#, php-format
+msgid "Album: %s"
+msgstr "Альбом: %s"
+
+#
+#: ../lib/voting.php:310
+#, php-format
+msgid "1 voter"
+msgid_plural "%d voters"
+msgstr[0] "%d голос"
+msgstr[1] "%d голоса"
+msgstr[2] "%d голосов"
+
+#: ../lib/voting.php:323
+#, php-format
+msgid "Result from one voter"
+msgid_plural "Result of %d voters"
+msgstr[0] "Результат %d голоса"
+msgstr[1] "Результат %d голосов"
+msgstr[2] "Результат %d голосов"
+
+#
+#: ../lib/voting.php:334
+#, php-format
+msgid "%s: %s points; "
+msgstr "%s: %s баллов; "
+
+#: ../lib/voting.php:339
+#, php-format
+msgid "Key - %s"
+msgstr "Ключ - %s"
+
+#
+#: ../lib/voting.php:365
+msgid "Poll results:"
+msgstr "Результаты опроса:"
+
+#
+#: ../lib/voting.php:368
+msgid "No votes"
+msgstr "Нет голосов"
+
+#: ../lib/voting.php:372
+#, php-format
+msgid "Number %d overall."
+msgstr "Итоговая позиция %d."
+
+#: ../lib/voting.php:376
+#, php-format
+msgid "%s: %s"
+msgstr "%s: %s"
+
+#
+#: ../lib/voting.php:377
+#, php-format
+msgid "one vote"
+msgid_plural "%d votes"
+msgstr[0] "%d голос"
+msgstr[1] "%d голоса"
+msgstr[2] "%d голосов"
+
+#~ msgid "Maximum dimensions of full sized images"
+#~ msgstr "Максимальный размер развернутых изображений"
+
+#
+#~ msgid "current location"
+#~ msgstr "текущее расположение"
+
+#
+#~ msgid "gallery title"
+#~ msgstr "название галереи"
+
+#
+#~ msgid "gallery URL"
+#~ msgstr "URL галереи"
+
+#
+#, fuzzy
+#~ msgid "New comment for %s"
+#~ msgstr "просмотреть комментарии"
+
+#
+#, fuzzy
+#~ msgid "both"
+#~ msgstr "Оба"
+
+#~ msgid "FAILED"
+#~ msgstr "НЕУДАЧНО"
+
+#
+#~ msgid "No votes so far."
+#~ msgstr "Голосов пока нет."

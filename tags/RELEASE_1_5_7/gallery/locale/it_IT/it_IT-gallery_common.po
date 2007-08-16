@@ -1,0 +1,1529 @@
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2007 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# $Id$
+#
+#
+# @version      1.5.2
+# @package	Languagepack
+# @subpackage	Italian
+# @author	Piero Cevola, 2003
+# @author	Amedeo Paglione <apaglione AT inwind DOT it>, 2003
+# @author	Ermanno Baschiera <ebaschiera AT gmail DOT com>, 2004-2005
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery 1.5.2\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-08-12 16:14+0200\n"
+"PO-Revision-Date: 2006-01-13 12:07+0100\n"
+"Last-Translator: Ermanno Baschiera <ebaschiera AT gmail DOT com>\n"
+"Language-Team: Italian <gallery-devel@lists.sourceforge.net>>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: KBabel 1.3\n"
+
+#: ../includes/definitions/albumProperties.php:30
+msgid "Texts"
+msgstr "Testi"
+
+#: ../includes/definitions/albumProperties.php:34
+msgid "Album Summary"
+msgstr "Sommario Album"
+
+#: ../includes/definitions/albumProperties.php:41
+msgid "Album Title"
+msgstr "Titolo Album"
+
+#: ../includes/definitions/albumProperties.php:54
+msgid "Layout"
+msgstr "Aspetto"
+
+#: ../includes/definitions/albumProperties.php:58
+msgid "Background Image (URL)"
+msgstr "Immagine di Sfondo (URL)"
+
+#: ../includes/definitions/albumProperties.php:64
+msgid "Font"
+msgstr "Carattere"
+
+#: ../includes/definitions/albumProperties.php:70
+msgid "Rows"
+msgstr "Righe"
+
+#: ../includes/definitions/albumProperties.php:76
+msgid "Columns"
+msgstr "Colonne"
+
+#: ../includes/definitions/albumProperties.php:82
+msgid "Borders"
+msgstr "Bordi"
+
+#: ../includes/definitions/albumProperties.php:89
+msgid "Colors"
+msgstr "Colori"
+
+#: ../includes/definitions/albumProperties.php:92
+msgid "Background Color"
+msgstr "Colore Sfondo"
+
+#: ../includes/definitions/albumProperties.php:98
+msgid "Text Color"
+msgstr "Colore Testo"
+
+#: ../includes/definitions/albumProperties.php:104
+msgid "Link Color"
+msgstr "Colore Link"
+
+#: ../includes/definitions/albumProperties.php:110
+msgid "Border Color"
+msgstr "Colore Bordo"
+
+#: ../includes/definitions/albumProperties.php:117
+msgid "Frames"
+msgstr "Cornici"
+
+#: ../includes/definitions/albumProperties.php:120
+msgid "Album Frame"
+msgstr "Cornice Album"
+
+#: ../includes/definitions/albumProperties.php:127
+msgid "Thumb Frame"
+msgstr "Cornice Anteprima"
+
+#: ../includes/definitions/albumProperties.php:134
+#, fuzzy
+msgid "Item Frame"
+msgstr "Cornice Immagine"
+
+#: ../includes/definitions/albumProperties.php:147
+msgid "Slideshow"
+msgstr "Presentazione"
+
+#: ../includes/definitions/albumProperties.php:151
+#, fuzzy
+msgid "Slideshow Type?"
+msgstr "Tipo di Presentazione"
+
+#: ../includes/definitions/albumProperties.php:153
+#: ../includes/definitions/albumProperties.php:201
+#: ../includes/definitions/albumProperties.php:215
+msgid "Off"
+msgstr "Inattivo"
+
+#: ../includes/definitions/albumProperties.php:153
+msgid "Ordered"
+msgstr "Ordinate"
+
+#: ../includes/definitions/albumProperties.php:153
+msgid "Random"
+msgstr "Casuali"
+
+#: ../includes/definitions/albumProperties.php:157
+#, fuzzy
+msgid "Include sub-albums in slideshow?"
+msgstr "Includi i sotto-album nella presentazione"
+
+#: ../includes/definitions/albumProperties.php:159
+#: ../includes/definitions/albumProperties.php:165
+#: ../includes/definitions/albumProperties.php:239
+#: ../includes/definitions/albumProperties.php:245
+#: ../includes/definitions/albumProperties.php:251
+#: ../includes/definitions/albumProperties.php:257
+#: ../includes/definitions/albumProperties.php:286
+#: ../includes/definitions/albumProperties.php:322
+#: ../includes/definitions/albumProperties.php:367
+#: ../includes/definitions/albumProperties.php:373
+#: ../includes/definitions/albumProperties.php:379
+#: ../includes/definitions/albumProperties.php:385
+#: ../includes/definitions/albumProperties.php:395
+#: ../includes/definitions/albumProperties.php:401
+#: ../includes/definitions/albumProperties.php:443
+#: ../includes/definitions/albumProperties.php:455
+msgid "Yes"
+msgstr "s&igrave;"
+
+#: ../includes/definitions/albumProperties.php:159
+#: ../includes/definitions/albumProperties.php:165
+#: ../includes/definitions/albumProperties.php:239
+#: ../includes/definitions/albumProperties.php:245
+#: ../includes/definitions/albumProperties.php:251
+#: ../includes/definitions/albumProperties.php:257
+#: ../includes/definitions/albumProperties.php:286
+#: ../includes/definitions/albumProperties.php:322
+#: ../includes/definitions/albumProperties.php:367
+#: ../includes/definitions/albumProperties.php:373
+#: ../includes/definitions/albumProperties.php:379
+#: ../includes/definitions/albumProperties.php:385
+#: ../includes/definitions/albumProperties.php:395
+#: ../includes/definitions/albumProperties.php:401
+#: ../includes/definitions/albumProperties.php:443
+#: ../includes/definitions/albumProperties.php:455
+msgid "No"
+msgstr "No"
+
+#: ../includes/definitions/albumProperties.php:163
+#, fuzzy
+msgid "Allow slideshow to loop?"
+msgstr "Permetti alla presentazione di ripartire da capo"
+
+#: ../includes/definitions/albumProperties.php:169
+msgid "Slideshow Length"
+msgstr "Lunghezza Presentazione"
+
+#: ../includes/definitions/albumProperties.php:182
+msgid "Sizes"
+msgstr "Dimensioni"
+
+#: ../includes/definitions/albumProperties.php:186
+#, fuzzy
+msgid "Thumbnail size (in px)?"
+msgstr "Dimensione anteprima"
+
+#: ../includes/definitions/albumProperties.php:193
+#, fuzzy
+msgid "The ratio in which the thumbnails are made.<br>This affects only new thumbs. For existing use 'rebuild thumbs'."
+msgstr "Le proporzioni con le quali vengono create le anteprime.<br>Questo coinvolge solo le nuove anteprime. Per quelle esistenti usa 'rigenera anteprime'."
+
+#: ../includes/definitions/albumProperties.php:195
+msgid "As the original image"
+msgstr "Come l'immagine originale"
+
+#: ../includes/definitions/albumProperties.php:195
+msgid "Square thumbs"
+msgstr "Anteprime quadrate"
+
+#: ../includes/definitions/albumProperties.php:199
+#, fuzzy
+msgid "Maximum size of intermediate sized images (in px)?"
+msgstr "Dimensione massima immagini intermedie"
+
+#: ../includes/definitions/albumProperties.php:206
+#, fuzzy
+msgid "Maximum file size of intermediate sized JPEG/PNG images in kilobytes (0 or blank for no size restriction)?"
+msgstr "Dimensione massima immagini JPEG/PNG intermedie in kb (0 o vuoto per nessuna restrizione)"
+
+#: ../includes/definitions/albumProperties.php:213
+#, fuzzy
+msgid "Maximum size of full sized images (in px)?"
+msgstr "Dimensione massima immagini intermedie"
+
+#: ../includes/definitions/albumProperties.php:215
+#, php-format
+msgid "%d (%d MPix)"
+msgstr "%d (%d MPix)"
+
+#: ../includes/definitions/albumProperties.php:220
+#, fuzzy
+msgid "Maximum file size of full sized JPEG/PNG images in kb (0 or blank for no size restriction)?"
+msgstr "Dimensione massima immagini JPEG/PNG a dimensione piena in kb (0 o vuoto per no restrizione)"
+
+#: ../includes/definitions/albumProperties.php:233
+msgid "Display"
+msgstr "Visualizza"
+
+#: ../includes/definitions/albumProperties.php:237
+msgid "Display click counter for this album?"
+msgstr "Mostra il contatore dei click per questo album?"
+
+#: ../includes/definitions/albumProperties.php:243
+#, fuzzy
+msgid "Display owner's name with caption?"
+msgstr "Mostra il nome del proprietario assieme alla didascalia"
+
+#: ../includes/definitions/albumProperties.php:249
+#, fuzzy
+msgid "Display clickable image dimensions?"
+msgstr "Visualizza dimensioni immagine cliccabili"
+
+#: ../includes/definitions/albumProperties.php:255
+msgid "Display EXIF data?"
+msgstr "Mostra dati EXIF?"
+
+#: ../includes/definitions/albumProperties.php:268
+msgid "Services"
+msgstr "Servizi"
+
+#: ../includes/definitions/albumProperties.php:272
+msgid "Which photo printing services<br>do you want to let visitors use?"
+msgstr "Quali servizi di stampa delle foto<br>vuoi che i visitatori possano usare?"
+
+#: ../includes/definitions/albumProperties.php:284
+#, fuzzy
+msgid "Enable Ecards?"
+msgstr "Attivare Ecards?"
+
+#: ../includes/definitions/albumProperties.php:297
+msgid "Poll Properties"
+msgstr "Propriet&agrave; Votazione"
+
+#: ../includes/definitions/albumProperties.php:301
+msgid "Who can vote?"
+msgstr "Chi pu&ograve; votare?"
+
+#: ../includes/definitions/albumProperties.php:302
+#, fuzzy
+msgid "This enables/disable voting and if enabled it controls who can vote."
+msgstr "Questo attiva/disattiva la votazione e se attivato, controlla chi pu&ograve; votare."
+
+#: ../includes/definitions/albumProperties.php:303
+msgid "Logged in"
+msgstr "Connesso"
+
+#: ../includes/definitions/albumProperties.php:303
+msgid "Everybody"
+msgstr "Tutti gli utenti"
+
+#: ../includes/definitions/albumProperties.php:303
+msgid "Nobody"
+msgstr "Nessuno"
+
+#: ../includes/definitions/albumProperties.php:307
+msgid "Type of poll for this album"
+msgstr "Tipo di votazione per questo album"
+
+#: ../includes/definitions/albumProperties.php:309
+msgid "Rank"
+msgstr "Classifica"
+
+#: ../includes/definitions/albumProperties.php:309
+msgid "Critique"
+msgstr "Pagella"
+
+#: ../includes/definitions/albumProperties.php:313
+msgid "Number of voting options"
+msgstr "Numero di opzioni di voto"
+
+#: ../includes/definitions/albumProperties.php:320
+msgid "Show results of voting to all visitors?"
+msgstr "Mostrare i risultati dei voti a tutti i visitatori?"
+
+#: ../includes/definitions/albumProperties.php:326
+msgid "Number of lines of results graph to display on the album page"
+msgstr "Numero di linee di risultati grafici da mostrare sulla pagina dell'album"
+
+#: ../includes/definitions/albumProperties.php:333
+#, fuzzy
+msgid "Orientation of vote choices?"
+msgstr "Orientamento della scelta di voto"
+
+#: ../includes/definitions/albumProperties.php:335
+msgid "Horizontal"
+msgstr "Orizzontale"
+
+#: ../includes/definitions/albumProperties.php:335
+msgid "Vertical"
+msgstr "Verticale"
+
+#: ../includes/definitions/albumProperties.php:340
+msgid "Vote hint"
+msgstr "Consiglio per il voto"
+
+#: ../includes/definitions/albumProperties.php:347
+msgid "Voting Options"
+msgstr "Opzioni Votazione"
+
+#: ../includes/definitions/albumProperties.php:351
+msgid "Displayed Value"
+msgstr "Valore Mostrato"
+
+#: ../includes/definitions/albumProperties.php:351
+msgid "Points"
+msgstr "Punti"
+
+#: ../includes/definitions/albumProperties.php:361
+msgid "Misc"
+msgstr "Varie"
+
+#: ../includes/definitions/albumProperties.php:365
+#, fuzzy
+msgid "Add new items at beginning of album?"
+msgstr "Aggiungi i nuovi oggetti all'inizio dell'album"
+
+#: ../includes/definitions/albumProperties.php:371
+#, fuzzy
+msgid "Show <i>Return to</i> link?"
+msgstr "Mosta il link <i>Ritorna a</i>"
+
+#: ../includes/definitions/albumProperties.php:377
+#, fuzzy
+msgid "Offer visitors ability to specify<br>preference for full-size or resized images?"
+msgstr "Offri ai visitatori la possibilit&agrave; di specificare<br>preferenze per le immagini intere o ridimensionate"
+
+#: ../includes/definitions/albumProperties.php:383
+#, fuzzy
+msgid "Auto fit-to-window for<br>images without a resized copy?"
+msgstr "Auto-dimensionamento alla finestra del browser<br>delle immagini senza una copia ridimensionata"
+
+#: ../includes/definitions/albumProperties.php:390
+msgid "Permissions"
+msgstr "Permessi"
+
+#: ../includes/definitions/albumProperties.php:393
+#, fuzzy
+msgid "Allow users to modify their own items?"
+msgstr "Permetti ai proprietari di modificare le proprie immagini"
+
+#: ../includes/definitions/albumProperties.php:399
+#, fuzzy
+msgid "Allow users to delete their own items?"
+msgstr "Permetti ai proprietari di eliminare le proprie immagini"
+
+#: ../includes/definitions/albumProperties.php:411
+msgid "Custom Fields"
+msgstr "Campi Personalizzati"
+
+#: ../includes/definitions/albumProperties.php:420
+msgid "Number of user defined custom fields"
+msgstr "Numero di campi personalizzati definiti dall'utente"
+
+#: ../includes/definitions/albumProperties.php:438
+msgid "Microthumbs"
+msgstr "Microanteprime"
+
+#: ../includes/definitions/albumProperties.php:441
+#, fuzzy
+msgid "Use microthumb photo navigation?"
+msgstr "Usa la navigazione foto a microanteprime"
+
+#: ../includes/definitions/albumProperties.php:443
+#: ../includes/definitions/albumProperties.php:474
+msgid "Both"
+msgstr "Entrambi"
+
+#: ../includes/definitions/albumProperties.php:447
+#, fuzzy
+msgid "Microthumb style?"
+msgstr "Microanteprime"
+
+#: ../includes/definitions/albumProperties.php:449
+msgid "Fixed"
+msgstr "Fissa"
+
+#: ../includes/definitions/albumProperties.php:449
+msgid "Dynamic"
+msgstr "Dinamica"
+
+#: ../includes/definitions/albumProperties.php:453
+#, fuzzy
+msgid "Show first &amp; last microthumb?"
+msgstr "Visualizza la prima e l'ultima microanteprima"
+
+#: ../includes/definitions/albumProperties.php:459
+#, fuzzy
+msgid "Number of previous thumbs?"
+msgstr "Numero delle miniature precedenti"
+
+#: ../includes/definitions/albumProperties.php:465
+#, fuzzy
+msgid "Number of next thumbs?"
+msgstr "Numero delle miniature successive"
+
+#: ../includes/definitions/albumProperties.php:471
+#, fuzzy
+msgid "Position of microthumb navigation bar?"
+msgstr "Posizione della barra di navigazione a microanteprime"
+
+#: ../includes/definitions/albumProperties.php:473
+msgid "Top"
+msgstr "In Cima"
+
+#: ../includes/definitions/albumProperties.php:475
+msgid "Bottom"
+msgstr "In Basso"
+
+#: ../includes/definitions/albumProperties.php:479
+#, fuzzy
+msgid "Height of microthumbs in navigation bar (in px)?"
+msgstr "Altezza della barra di navigazione a microanteprime"
+
+#: ../includes/definitions/albumProperties.php:486
+#, fuzzy
+msgid "Bonus to height of current microthumb (in px)?"
+msgstr "Bonus per l'altezza della microanteprima corrente (pixel)"
+
+#: ../includes/definitions/services.php:45
+msgid "mPUSH is a photo service that adds the ability to send thumbnail images to your, or a friend's, cellphone for a small fee."
+msgstr "mPUSH &egrave; un servizio che aggiunge la possibilit&agrave; di inviare piccole immagini (loghi) ai telefoni cellulari a un prezzo basso."
+
+#: ../lib/Form.php:77
+msgid "Check All"
+msgstr "Seleziona tutto"
+
+#: ../lib/Form.php:79
+msgid "Clear All"
+msgstr "Cancella tutto"
+
+#: ../lib/Form.php:81
+msgid "Invert Selection"
+msgstr "Inverti Selezione"
+
+#: ../lib/Form.php:297
+msgid "Colorpicker"
+msgstr "Selezionatore Colori"
+
+#: ../lib/colorpicker.php:42
+msgid "Color Picker"
+msgstr "Selezionatore Colori"
+
+#: ../lib/colorpicker.php:54
+msgid "The Options window has closed. Exiting."
+msgstr "La finestra delle Opzioni si &egrave; chiusa. Uscita in corso."
+
+#: ../lib/colorpicker.php:60
+#, fuzzy
+msgid "This window must be called from an Options window."
+msgstr "Questa finestra deve essere chiamata da una finestra di Opzioni"
+
+#: ../lib/content.php:45
+msgid "Empty"
+msgstr "Vuoto"
+
+#: ../lib/content.php:49
+#, php-format
+msgid "edit %s"
+msgstr "modifica %s"
+
+#: ../lib/content.php:68
+msgid "No Caption"
+msgstr "Nessuna Didascalia"
+
+#: ../lib/content.php:73
+msgid "edit"
+msgstr "modifica"
+
+#: ../lib/content.php:107
+msgid "add comment"
+msgstr "aggiungi commento"
+
+#: ../lib/content.php:125
+msgid "Add your comment"
+msgstr "Aggiungi un commento"
+
+#: ../lib/content.php:128
+msgid "Commenter:"
+msgstr "Autore Commento:"
+
+#: ../lib/content.php:147
+msgid "Message:"
+msgstr "Messaggio:"
+
+#: ../lib/content.php:151
+msgid "Post comment"
+msgstr "Inserisci un commento"
+
+#: ../lib/content.php:320
+#, php-format
+msgid "1 view"
+msgid_plural "%d views"
+msgstr[0] "1 visita"
+msgstr[1] "%d visite"
+
+#: ../lib/content.php:350 ../lib/content.php:377
+msgid "Sub-albums:"
+msgstr "Sotto-album:"
+
+#: ../lib/content.php:464
+msgid "EXIF Data"
+msgstr "Dati EXIF"
+
+#: ../lib/content.php:467
+msgid "Display of EXIF data enabled, but no data found."
+msgstr "Visualizzazione dei dati EXIF abilitata, ma nessun dato trovato."
+
+#: ../lib/content.php:632
+msgid "Search:"
+msgstr "Cerca:"
+
+#: ../lib/content.php:672 ../lib/content.php:693
+#, fuzzy
+msgid "Not closing this window because debug mode is on."
+msgstr "Questa finestra non si &egrave; chiusa perch&egrave; la modalit&agrave; debug &egrave; attivata"
+
+#: ../lib/content.php:724
+#, fuzzy, php-format
+msgid "Problem including file %s."
+msgstr "Problema nell'aggiunta del file %s"
+
+#: ../lib/content.php:869
+msgid "Select Album"
+msgstr "Seleziona Album"
+
+#: ../lib/content.php:875
+msgid "Move to top level"
+msgstr "Sposta al primo livello"
+
+#: ../lib/content.php:893 ../lib/content.php:943
+msgid "Current location"
+msgstr "Posizione attuale "
+
+#: ../lib/content.php:948
+msgid "This album itself"
+msgstr "Questo stesso album"
+
+#: ../lib/content.php:976
+#, php-format
+msgid "Last comment %s."
+msgstr "Ultimo commento %s."
+
+#: ../lib/content.php:1002 ../lib/content.php:1005
+msgid "No Skin"
+msgstr "Nessuna Skin"
+
+#: ../lib/content.php:1009
+msgid "The original look and feel."
+msgstr "Il tema originale."
+
+#: ../lib/content.php:1057 ../lib/content.php:1061
+msgid "unknown"
+msgstr "sconosciuto"
+
+#: ../lib/content.php:1065
+#, php-format
+msgid "Version: %s"
+msgstr "Versione: %s"
+
+#: ../lib/content.php:1067
+#, php-format
+msgid "Last Update: %s"
+msgstr "Ultimo Aggiornamento: %s"
+
+#: ../lib/content.php:1086 ../lib/content.php:1092
+msgid "None"
+msgstr "Nessuno"
+
+#: ../lib/content.php:1087 ../lib/content.php:1093
+msgid "Dots"
+msgstr "Punti"
+
+#: ../lib/content.php:1088 ../lib/content.php:1094
+msgid "Solid"
+msgstr "Massiccio"
+
+#: ../lib/content.php:1092
+msgid "No frames"
+msgstr "Nessuna cornice"
+
+#: ../lib/content.php:1093
+msgid "Just a simple dashed border around the thumb."
+msgstr "solo un semplice bordo attorno alle anteprime."
+
+#: ../lib/content.php:1094
+msgid "Just a simple solid border around the thumb."
+msgstr "solo un semplice bordo massiccio attorno alle anteprime."
+
+#: ../lib/content.php:1119
+#, php-format
+msgid "Skipping %s."
+msgstr "Ignoro %s."
+
+#: ../lib/content.php:1126
+#, fuzzy, php-format
+msgid "Can't open %s."
+msgstr "Impossibile aprire %s"
+
+#: ../lib/content.php:1204 ../lib/content.php:1227
+#, fuzzy
+msgid "Not valid yet."
+msgstr "Non ancora valido"
+
+#: ../lib/imageManipulation.php:36
+#, fuzzy, php-format
+msgid "Resizing Image: %s."
+msgstr "Ridimensionamento Immagine: %s"
+
+#: ../lib/imageManipulation.php:67
+#, fuzzy
+msgid "No resizing required."
+msgstr "Nessun ridimensionamento necessario"
+
+#: ../lib/imageManipulation.php:94
+#, fuzzy, php-format
+msgid "Target file size: %d kbytes."
+msgstr "dimensione file da ottenere %d kbytes"
+
+#: ../lib/imageManipulation.php:103 ../lib/imageManipulation.php:131
+#, fuzzy, php-format
+msgid "-> File size: %d kbytes"
+msgstr "-> dimensione file %d kbytes"
+
+#: ../lib/imageManipulation.php:104
+#, fuzzy, php-format
+msgid "Trying quality: %d%%."
+msgstr "provo con qualit&agrave; %d%%"
+
+#: ../lib/imageManipulation.php:132
+msgid "Done."
+msgstr "Fatto."
+
+#: ../lib/imageManipulation.php:235 ../lib/imageManipulation.php:480
+#: ../lib/imageManipulation.php:532 ../lib/imageManipulation.php:814
+msgid "You have no graphics package configured for use!"
+msgstr "Non hai configurato nessun pacchetto grafico!"
+
+#: ../lib/imageManipulation.php:240
+msgid "No watermark name specified!"
+msgstr "Nessun nome selezionato per il marchio!"
+
+#: ../lib/imageManipulation.php:498
+msgid "Cropping Image"
+msgstr "Ritaglio Immagine"
+
+#: ../lib/imageManipulation.php:562
+#, fuzzy, php-format
+msgid "Generating squared version to %d pixels."
+msgstr "Generazione Versione quadrata di %dpx in corso"
+
+#: ../lib/imageManipulation.php:583
+#, fuzzy
+msgid "No Cropping Done."
+msgstr "Nessun Ritaglio Effettuato"
+
+#: ../lib/imageManipulation.php:593
+#, php-format
+msgid "Call to %s failed in %s for file %s!"
+msgstr "Chiamata a %s fallita in %s per file %s!"
+
+#: ../lib/imageManipulation.php:597
+#, php-format
+msgid "File %s type %d."
+msgstr "File %s tipo %d."
+
+#: ../lib/imageManipulation.php:634 ../lib/imageManipulation.php:658
+#, php-format
+msgid "Files with type %s are not supported by Gallery with Netpbm."
+msgstr ""
+
+#: ../lib/imageManipulation.php:707
+#, fuzzy, php-format
+msgid "Compressing image: %s"
+msgstr "Ridimensionamento Immagine: %s"
+
+#: ../lib/imageManipulation.php:712
+msgid "Not all necessary params for resizing given."
+msgstr "Non sono stati forniti tutti i parametri necessari al ridimensionamento."
+
+#: ../lib/imageManipulation.php:713
+#, php-format
+msgid "Resizing params: src: %s, dest : %s, targetSize: %s"
+msgstr "Parametri per il ridimensionamento: sorg: %s, dest: %s, dimensione desiderata: %s"
+
+#: ../lib/imageManipulation.php:756
+#, fuzzy
+msgid "Unable to preserve EXIF data (jhead not installed)."
+msgstr "Impossibile salvare dati EXIF (jhead non installato)"
+
+#: ../lib/imageManipulation.php:799
+#, fuzzy
+msgid "Using IM high quality."
+msgstr "Utilizzo alta qualit&agrave; di IM"
+
+#: ../lib/imageManipulation.php:803
+#, fuzzy
+msgid "Not using IM high quality."
+msgstr "Non utilizzo alta qualit&agrave; di IM"
+
+#: ../lib/lang.php:787
+#, fuzzy
+msgid "Upload date"
+msgstr "Data Caricamento"
+
+#: ../lib/lang.php:788
+#, fuzzy
+msgid "Capture date"
+msgstr "Data dello Scatto"
+
+#: ../lib/lang.php:789
+#, fuzzy
+msgid "Image size"
+msgstr "Dimensione Immagine"
+
+#: ../lib/lang.php:790
+#, fuzzy
+msgid "Additional EXIF data"
+msgstr "Dati EXIF Addizionali"
+
+#: ../lib/lang.php:798
+msgid "title"
+msgstr "titolo"
+
+#: ../lib/lang.php:799
+msgid "Title"
+msgstr "Titolo"
+
+#: ../lib/lang.php:800
+msgid "Description"
+msgstr "Descrizione"
+
+#: ../lib/lang.php:801
+msgid "description"
+msgstr "Descrizione"
+
+#: ../lib/lang.php:802
+#, fuzzy
+msgid "Alt text / Tooltip"
+msgstr "Testo Alternativo / onMouseOver"
+
+#: ../lib/mail.php:43
+#, php-format
+msgid "Note: This is an automatically generated email message sent from the %s website.  If you have received this in error, please ignore this message."
+msgstr "Nota: Questa è un'email generata automaticamente e spedita dal sito web %s.  Se l'hai ricevuta per errore, per favore ignora questo messaggio."
+
+#: ../lib/mail.php:45
+#, php-format
+msgid "Report abuse to %s"
+msgstr "Segnala gli abusi a %s"
+
+#: ../lib/mail.php:71
+#, fuzzy
+msgid "Email not sent as it is disabled for this gallery."
+msgstr "Email non spedita poich&egrave; &egrave; disabilitata per questa galleria"
+
+#: ../lib/mail.php:77
+#, fuzzy, php-format
+msgid "Email not sent to %s as it is not a valid address."
+msgstr "Email non spedita a %s poich&egrave; non &egrave; un indirizzo valido"
+
+#: ../lib/mail.php:84
+#, fuzzy
+msgid "Email not sent as no recipient address provided."
+msgstr "Email non spedita poich&egrave; non &egrave; stato fornito un indirizzo per il destinatario"
+
+#: ../lib/mail.php:96
+#, php-format
+msgid "Sender address %s is invalid, using %s."
+msgstr "L'indirizzo mittente %s non &egrave; valido, uso %s."
+
+#: ../lib/mail.php:128
+msgid "This is a HTML mail, please have a look at the Attachment."
+msgstr "Questa &egrave; una mail in HTML, per piacere guarda l'allegato."
+
+#: ../lib/mail.php:166
+#, fuzzy
+msgid ""
+"Hi !!FULLNAME!!,\n"
+"\n"
+"Congratulations.  You have just been subscribed to the Gallery !!GALLERYTITLE!! at !!GALLERYURL!!.  Your account name is !!USERNAME!!.  Please visit the gallery soon, and create a password by clicking this link:\n"
+"\n"
+"!!NEWPASSWORDLINK!!\n"
+"\n"
+"Your !!GALLERYTITLE!! Administrator"
+msgstr ""
+"Ciao !!FULLNAME!!,  \n"
+"\n"
+"Congratulazioni.  Ti sei appena iscritto a %s presso %s.  Il tuo nome utente è !!USERNAME!!.  Per favore visita presto la Galleria, e crea una password cliccando questo link:\n"
+"\n"
+"!!NEWPASSWORDLINK!!\n"
+"\n"
+"L'Amministratore della Galleria presso %s."
+
+#: ../lib/mail.php:188
+#, fuzzy
+msgid "The URL to your Gallery."
+msgstr "La Url della Gallery"
+
+#: ../lib/mail.php:189
+msgid "Title of your Gallery."
+msgstr "Il titolo della Gallery."
+
+#: ../lib/mail.php:190
+msgid "Admin email(s)"
+msgstr "Email Amministratore"
+
+#: ../lib/mail.php:191
+msgid "Password for the newly created user."
+msgstr "Password per il nuovo utente creato."
+
+#: ../lib/mail.php:192 ../lib/setup.php:1513 ../lib/setup.php:1515
+#: ../lib/setup.php:1519 ../lib/setup.php:1527
+msgid "Username"
+msgstr "Nome Utente"
+
+#: ../lib/mail.php:193
+msgid "Fullname"
+msgstr "Nome Completo"
+
+#: ../lib/mail.php:194
+msgid "Will be replaced by a link the new user can click on to create a new password."
+msgstr "Sar&agrave; sostituita da un link che il nuovo utente pu&ograve; cliccare per creare una nuova password."
+
+#: ../lib/mail.php:232 ../lib/mail.php:253
+#, php-format
+msgid "New comment for %s."
+msgstr "Nuovo commento per %s."
+
+#: ../lib/mail.php:241
+#, php-format
+msgid "A new comment has been added to Gallery: %s"
+msgstr "&Egrave; stato inserito un nuovo commento in Gallery: %s"
+
+#: ../lib/mail.php:243
+#, php-format
+msgid "The comment was added by %s to this %s in this %s."
+msgstr "Il commento &egrave; stato inserito da %s a questo %s in questo %s."
+
+#: ../lib/mail.php:245
+msgid "Item"
+msgstr "Oggetto"
+
+#: ../lib/mail.php:246
+msgid "Album"
+msgstr "Album"
+
+#: ../lib/mail.php:247
+msgid "*** Begin comment ***"
+msgstr "*** Inizio commento ***"
+
+#: ../lib/mail.php:249
+#, fuzzy
+msgid "*** End comment ***"
+msgstr "*** Fine commento ***"
+
+#: ../lib/mail.php:250
+#, fuzzy
+msgid "If you no longer wish to receive emails about this item, follow the links above and ensure that 'Email me when comments are added' is unchecked in both the item and album page (you'll need to login first)."
+msgstr "Se non vuoi pi&ugrave; ricevere email riguardanti quest'immagine, segui il link sopra e assicurati che 'Mandami un'email quando vengono fatte modifiche' sia deselezionato (Dovrai prima fare il login)."
+
+#: ../lib/mail.php:263
+msgid "Sending email failed. Additional info:"
+msgstr ""
+
+#: ../lib/mail.php:275
+msgid "Email activity"
+msgstr "Attività email"
+
+#: ../lib/messages.php:26
+msgid "Error:"
+msgstr "Errore:"
+
+#: ../lib/messages.php:74
+#, php-format
+msgid "Generated by %s v%s"
+msgstr "Generato da %s v%s"
+
+#: ../lib/messages.php:76
+#, php-format
+msgid "Powered by %s v%s"
+msgstr "Powered by %s v%s"
+
+#: ../lib/setup.php:145
+msgid "Please retype your password here"
+msgstr "Inserisci di nuovo la password qui"
+
+#: ../lib/setup.php:159 ../lib/setup.php:1117
+msgid "Name"
+msgstr "Nome"
+
+#: ../lib/setup.php:160 ../lib/setup.php:1117
+msgid "Value"
+msgstr "Valore"
+
+#: ../lib/setup.php:189 ../lib/setup.php:232
+msgid "No content"
+msgstr "Nessun contenuto"
+
+#: ../lib/setup.php:373
+#, php-format
+msgid "Missing value: %s"
+msgstr "Valore mancante %s"
+
+#: ../lib/setup.php:391
+msgid "<b>exec()</b> is enabled on this server."
+msgstr "<b>exec()</b> non &egrave; attivo in questo server."
+
+#: ../lib/setup.php:409
+msgid "I can read your <b>.htaccess</b> file."
+msgstr "Riesco a leggere il file .htaccess."
+
+#: ../lib/setup.php:432
+#, php-format
+msgid "PHP v%s is OK."
+msgstr "PHP v%s &egrave; OK"
+
+#: ../lib/setup.php:448
+msgid "<b>mod_rewrite</b> is enabled."
+msgstr "<b>mod_rewrite</b> &egrave; abilitato."
+
+#: ../lib/setup.php:474
+#, fuzzy
+msgid "Can't find <i>jhead</i>."
+msgstr "<i>jhead</i> non trovato"
+
+#: ../lib/setup.php:478 ../lib/setup.php:482
+#, fuzzy, php-format
+msgid "<b>jhead</b> binary version %s located."
+msgstr "binario di <b>jhead</b> individuato."
+
+#: ../lib/setup.php:479
+msgid "You are using an older version of jhead. There are at least known problems with version 2.0. We recommend version 2.7 and higher."
+msgstr ""
+
+#: ../lib/setup.php:520
+#, fuzzy
+msgid "Without pnmcomp and pamcomp, gallery will not be able to watermark images, unless you use ImageMagick and have the composite binary installed."
+msgstr "Senza pnmcomp e pamcomp Gallery non sar&agrave; in grado di marchiare le immagini, a meno che tu non usi ImageMagick e sia in possesso dei binari compositi installati."
+
+#: ../lib/setup.php:528
+#, fuzzy
+msgid "Netpbm not being used in this installation."
+msgstr "NetPBM non &egrave; in uso in questa installazione."
+
+#: ../lib/setup.php:533 ../lib/setup.php:628
+msgid "Cannot verify this path (it's not in your open_basedir list)."
+msgstr "Non riesco a verificare il percorso (non &egrave; compreso nella lista open_basedir)."
+
+#: ../lib/setup.php:567 ../lib/setup.php:645
+#, php-format
+msgid "Missing optional binary %s. %s"
+msgstr "Manca il binaro opzionale %s. %s"
+
+#: ../lib/setup.php:570 ../lib/setup.php:648
+#, php-format
+msgid "Can't find %s!"
+msgstr "Impossibile trovare %s!"
+
+#: ../lib/setup.php:576 ../lib/setup.php:654
+#, php-format
+msgid "%s is not executable!"
+msgstr "%s non &egrave; eseguibile!"
+
+#: ../lib/setup.php:586 ../lib/setup.php:593
+#, fuzzy, php-format
+msgid "%d of %d Netpbm binaries located."
+msgstr "%d binari su %d di NetPBM individuati."
+
+#: ../lib/setup.php:617
+#, fuzzy
+msgid "Without composite. gallery will not be able to watermark images, except you use Netpbm and have the pnmcomp binary installed."
+msgstr "Senza composite Gallery non sar&agrave; in grado di marchiare le immagini, a meno che tu non usi NetPBM e il binario pnmcomp non sia installato."
+
+#: ../lib/setup.php:623
+msgid "ImageMagick not being used in this installation."
+msgstr "ImageMagick non &egrave; in uso in questa installazione."
+
+#: ../lib/setup.php:664 ../lib/setup.php:671
+#, php-format
+msgid "%d of %d ImageMagick binaries located."
+msgstr "%d binari su %d di ImageMagick individuati."
+
+#: ../lib/setup.php:693
+msgid "Can't find <i>jpegtran</i>!"
+msgstr "<i>jpegtran</i> non trovato!"
+
+#: ../lib/setup.php:695
+msgid "<b>jpegtran</b> binary located."
+msgstr "Binario di <b>jpegtran</b> individuato."
+
+#: ../lib/setup.php:706
+msgid "PHP has <b>GNU gettext</b> support."
+msgstr "PHP ha il supporto a <b>GNU gettext</b>."
+
+#: ../lib/setup.php:708
+msgid "PHP does not have <b>GNU gettext</b> support."
+msgstr "PHP non ha il supporto a <b>GNU gettext</b>."
+
+#: ../lib/setup.php:722
+msgid "No languages found."
+msgstr "Nessuna lingua trovata."
+
+#: ../lib/setup.php:724
+msgid "It seems you didn't download any additional languages. This is not a problem! Gallery will appear just in English. Note: If this is not true, check that all files in locale folder are readable for the webserver, or contact the Gallery Team."
+msgstr "Sembra che tu non abbia scaricato alcuna lingua aggiuntiva. Questo non &egrave; un problema! Gallery sar&agrave; visualizzata solo in inglese. Nota: se non &egrave; vero, controlla che tutti i file nella cartella 'locale' siano leggibili dal webserver, oppure contatta il Team di Gallery."
+
+#: ../lib/setup.php:727
+#, php-format
+msgid "%d languages are available.  If you are missing a language please visit the %sGallery download page%s."
+msgstr "Sono disponibili %d lingue. Se cerchi una traduzione visita %sGallery download page%s."
+
+#: ../lib/setup.php:750
+#, php-format
+msgid "You can check for more recent versions by visiting %s."
+msgstr "Per controllare se ci sono versioni pi&ugrave; recenti, visita %s."
+
+#: ../lib/setup.php:751
+#, php-format
+msgid "This version of %s was released on %s."
+msgstr "Questa versione di %s &egrave; stata rilasciata il %s."
+
+#: ../lib/setup.php:754
+#, php-format
+msgid "This is a development build of %s that was released on %s."
+msgstr "Questa &egrave; una build di sviluppo di %s rilasciata il %s."
+
+#: ../lib/setup.php:763
+msgid "Please check regularly for updates."
+msgstr "Verifica regolarmente la presenza di aggiornamenti."
+
+#: ../lib/setup.php:782
+msgid "All gallery locales are available on this host."
+msgstr "Tutti i locale di gallery sono disponibili nel sistema."
+
+#: ../lib/setup.php:785
+#, php-format
+msgid "There are %d locales that Gallery was unable to locate. You may need to select manually date formats. "
+msgstr "Ci sono %d locale che Gallery non &egrave; stata in grado di trovare. Forse dovrai selezionare manualmente i formati della data."
+
+#: ../lib/setup.php:791
+#, php-format
+msgid "Dates in %d languages may not be formatted properly, because the corresponding locales are missing. You may need to select manually the date formats for these."
+msgstr "Le date in %d lingue non possono essere formattate correttamente, perch&eacute; mancano i locale corrispondenti. Forse dovrai selezionare manualmente i formati della data per queste."
+
+#: ../lib/setup.php:796
+#, php-format
+msgid "We were unable to detect any locales.  However, your PHP installation is configured with the %s restriction so this may be interfering with the way that we detect locales.  Unfortunately this means the date format will not change for different languages.  However, it is OK to continue."
+msgstr "Non &egrave; stata trovata alcuna locale. Tuttavia, la tua installazione PHP &egrave; configurata con la restrizione %s, e forse &egrave; questo ci&ograve; che interferisce col metodo che noi usiamo per trovare i locale. Sfortunatamente ci&ograve; vuol dire che il formato della data non cambier&agrave; in base alle diverse lingue. In ogni caso va bene continuare lo stesso."
+
+#: ../lib/setup.php:800
+#, php-format
+msgid "We were unable to detect any system locales. Multi-language functions will be disabled. Please install the corresponding locales or ask your administrator to do this. This problem is known on %s systems. In this case please have a look at this %sDebian locale HowTo%s."
+msgstr "Non &egrave; stata trovata alcuna locale. Le funzioni multi-lingua verranno disabilitate. Installa i corrispondenti locale oppure chiedi all'amministratore di farlo. Questo problema &egrave; noto nei sistemi %s. In questo caso da' un'occhiata a questo %sDebian locale HowTo%s."
+
+#: ../lib/setup.php:802
+msgid "Only the default locale for this machine is available, so date format will not change for different languages."
+msgstr "Su questa macchina &egrave; disponibile solo l'internazionalizzazione predefinita, quindi il formato della data non cambier&agrave; in funzione della lingua scelta."
+
+#: ../lib/setup.php:961 ../lib/setup.php:1041
+msgid "Advanced"
+msgstr "Avanzato"
+
+#: ../lib/setup.php:961
+#, fuzzy
+msgid "<b>System</b> locale selection required."
+msgstr "Selezione <b>System</b> locale richiesta"
+
+#: ../lib/setup.php:962
+msgid "There is more than one suitable <b>system</b> locale installed on your machine for the following languages.  Please chose the one you think is most suitable."
+msgstr "C'&egrave; pi&ugrave; di un <b>system</b> locale installato nel tuo sistema adatto alle seguenti lingue. Seleziona quello che ritieni pi&ugrave; adatto."
+
+#: ../lib/setup.php:964 ../lib/setup.php:1044
+#, fuzzy
+msgid "This is <b>only</b> for date and time format. You only need to edit the languages you enabled above."
+msgstr "Questo &egrave; <b>solo</b> per il formato di data e ora. Devi solo modificare le lingue che hai attivato prima"
+
+#: ../lib/setup.php:975 ../lib/setup.php:999
+msgid "System locale"
+msgstr "System locale"
+
+#: ../lib/setup.php:1041
+msgid "<b>System</b> locale problems"
+msgstr "Problemi con <b>System</b> locale"
+
+#: ../lib/setup.php:1042
+msgid "There are no apparently suitable <b>system</b> locales installed on your machine for the following languages.  Please choose the one you think is most suitable."
+msgstr "Non ci sono <b>system</b> locale installati nella tua macchina apparentemente adatti alle lingue seguenti. Seleziona quello che ti sembra pi&ugrave; adatto."
+
+#: ../lib/setup.php:1085
+msgid "<b>safe_mode</b> is off."
+msgstr "<b>safe_mode</b> &egrave; disattivata."
+
+#: ../lib/setup.php:1097
+msgid "<b>magic_quotes</b> are off."
+msgstr "<b>magic_quotes</b> sono disattivate."
+
+#: ../lib/setup.php:1115
+#, php-format
+msgid "In %s, missing %s in row %d with %s %s."
+msgstr "In %s, manca %s alla riga %d con %s %s."
+
+#: ../lib/setup.php:1116 ../lib/setup.php:1125 ../lib/setup.php:1130
+msgid "Vote words and values"
+msgstr "Parole del voto e valori"
+
+#: ../lib/setup.php:1124
+#, php-format
+msgid "In %s, blank in row %d."
+msgstr "In %s, c'&egrave; uno spazio vuoto alla riga %d."
+
+#: ../lib/setup.php:1129
+#, fuzzy, php-format
+msgid "In %s, for name %s (row %d) value %s should be a positive whole number."
+msgstr "In %s, per il nome %s (riga %d) il valore %s dovrebbe essere un numero intero positivo"
+
+#: ../lib/setup.php:1151
+msgid "<b>register_globals</b> is off."
+msgstr "<b>register_globals</b> &egrave; disattivata."
+
+#: ../lib/setup.php:1321
+msgid "Your passwords do not match!"
+msgstr "Le tue password non corrispondono!"
+
+#: ../lib/setup.php:1332
+msgid "OK"
+msgstr "OK"
+
+#: ../lib/setup.php:1337
+msgid "Valid admin email address given."
+msgstr "Inserito un valido indirizzo email per l'amministratore."
+
+#: ../lib/setup.php:1344
+#, fuzzy
+msgid "You must specify valid admin email addresses."
+msgstr "Devi specificare indirizzi email per l'amministratore validi"
+
+#: ../lib/setup.php:1352
+#, php-format
+msgid "%s is not a valid email address."
+msgstr "%s non &egrave; un indirizzo email valido."
+
+#: ../lib/setup.php:1361
+msgid "Valid sender email address given."
+msgstr "Inserito un valido indirizzo email per il mittente."
+
+#: ../lib/setup.php:1363
+#, fuzzy
+msgid "You must specify a valid sender email address."
+msgstr "Devi speficare un indirizzo email per il mittente valido"
+
+#: ../lib/setup.php:1366
+#, fuzzy, php-format
+msgid "You must include %s in your welcome email."
+msgstr "Devi includere %s nell'email di benvenuto"
+
+#: ../lib/setup.php:1371
+#, fuzzy, php-format
+msgid "You must include %s or %s in your welcome email."
+msgstr "Devi includere %s o %s nell'email di benvenuto"
+
+#: ../lib/setup.php:1395
+#, php-format
+msgid "The following files are out of date, corrupted or missing:<br>&nbsp;&nbsp;&nbsp;&nbsp;%s."
+msgstr "I seguenti files sono obsoleti, danneggiati o mancanti:<br>&nbsp;&nbsp;&nbsp;&nbsp;%s."
+
+#: ../lib/setup.php:1397
+#, fuzzy
+msgid "This should be fixed before proceeding."
+msgstr "Questo problema dovrebbe essere risolto prima di continuare"
+
+#: ../lib/setup.php:1398 ../lib/setup.php:1402
+#, php-format
+msgid "Look at %sCheck Versions%s for more details."
+msgstr "Guarda %sControllo Versioni%s per ulteriori dettagli."
+
+#: ../lib/setup.php:1401
+#, fuzzy, php-format
+msgid "%d files are more recent than expected.  This is OK if you are using pre-release, beta, SVN or modified code."
+msgstr "%d file sono pi&ugrave; recenti del previsto. &Egrave; tutto ok se stai usando codice di pre-release, beta, CVS o modificato."
+
+#: ../lib/setup.php:1406
+msgid "All tested files up-to-date."
+msgstr "Tutti i file verificati sono aggiornati."
+
+#: ../lib/setup.php:1408
+#, php-format
+msgid "All %d tested files up-to-date."
+msgstr "Tutti i %d file verificati sono aggiornati."
+
+#: ../lib/setup.php:1417
+#, fuzzy, php-format
+msgid "this is new in version %s."
+msgstr "questo &egrave; nuovo nella versione %s"
+
+#: ../lib/setup.php:1422
+#, php-format
+msgid "Return to %s."
+msgstr "Ritorna a %s."
+
+#: ../lib/setup.php:1423
+msgid "Configuration Wizard"
+msgstr "Configurazione Guidata"
+
+#: ../lib/setup.php:1472
+#, php-format
+msgid "You must enter a password for the %s account."
+msgstr "Devi inserire una password per l'account di %s."
+
+#: ../lib/setup.php:1477
+#, fuzzy, php-format
+msgid "It seems you've already configured Gallery, because there is one admin account, but it is not called %s."
+msgstr "Sembra che tu abbia gi&agrave; configurato Gallery, perch&eacute; c'&egrave; un account di amministratore, ma non si chiama %s."
+
+#: ../lib/setup.php:1480
+#, php-format
+msgid "It seems you've already configured Gallery, because there are %d admin accounts, but no user called %s."
+msgstr "Sembra che tu abbia gi&agrave; configurato Gallery, perch&eacute; ci sono %d account di amministrazione, ma nessuno di essi si chiama %s."
+
+#: ../lib/setup.php:1482
+#, php-format
+msgid "You don't have to enter a password.  But if you do, Gallery will create an administrator account called %s with that password."
+msgstr "Non sei obbligato a inserire una password. Ma se lo fai, Gallery creer&agrave; un account di amministrazione chiamato %s con quella password."
+
+#: ../lib/setup.php:1491
+#, php-format
+msgid "It seems you've already configured Gallery, because the %s user exists.  You don't have to enter a password.  But if you do, Gallery will change the password for the %s user."
+msgstr "Sembra che tu abbia gi&agrave; configurato Gallery, perch&eacute; l'utente %s esiste gi&agrave;. Non sei obbligato ad inserire una password. Ma se lo fai, Gallery cambier&agrave; la password dell'utente %s."
+
+#: ../lib/setup.php:1498
+msgid "Admin password"
+msgstr "Password dell'amministratore"
+
+#: ../lib/setup.php:1513 ../lib/setup.php:1515 ../lib/setup.php:1517
+#: ../lib/setup.php:1525
+msgid "Full Name"
+msgstr "Nome Completo"
+
+#: ../lib/setup.php:1521
+msgid "Full name that you can click on to send email (mailto:)"
+msgstr "Nome completo che puoi cliccare per mandare un'email (mailto:)"
+
+#: ../lib/setup.php:1523
+msgid "Username that you can click on to send email (mailto:)"
+msgstr "Username che puoi cliccare per mandare un'email (mailto:)"
+
+#: ../lib/setup.php:1525 ../lib/setup.php:1527
+msgid "email address"
+msgstr "Indirizzo email"
+
+#: ../lib/setup.php:1547
+msgid "File missing or unreadable.  Please install then re-run this test."
+msgstr "Manca un file oppure &egrave; illeggibile. Installa e riesegui questo test."
+
+#: ../lib/setup.php:1551
+#, php-format
+msgid "Please ensure that %s is the latest version."
+msgstr "Assicurati che %s sia l'ultima versione."
+
+#: ../lib/setup.php:1556
+#, php-format
+msgid "Testing status of %d files."
+msgstr "Test dello stato di %d file in corso."
+
+#: ../lib/setup.php:1563
+#, php-format
+msgid "Cannot read file %s."
+msgstr "Il file %s non èegrave; leggibile."
+
+#: ../lib/setup.php:1565
+msgid "File missing or unreadable."
+msgstr "Manca un file oppure &egrave; illeggibile."
+
+#: ../lib/setup.php:1585
+#, php-format
+msgid "Version information not found in %s.  File must be old version or corrupted."
+msgstr "In %s non sono state trovate informazioni sulla versione. Il file sar&agrave; vecchio o corrotto."
+
+#: ../lib/setup.php:1587
+msgid "Missing version"
+msgstr "Versione mancante"
+
+#: ../lib/setup.php:1596
+#, php-format
+msgid "Problem with %s.  Expected version %s (or greater) but found %s."
+msgstr "Problema riscontrato con %s. Era prevista la versione %s (o successiva) ma &egrave; stata trovata la %s."
+
+#: ../lib/setup.php:1598
+#, php-format
+msgid "Expected version %s (or greater) but found %s."
+msgstr "Era prevista la versione %s (o successiva) ma &egrave; stata trovata la %s."
+
+#: ../lib/setup.php:1602
+#, fuzzy, php-format
+msgid "%s OK.  Actual version (%s) more recent than expected version (%s)."
+msgstr "%s OK. La versione trovata (%s) &egrave; pi&ugrave; recente di quella prevista (%s)"
+
+#: ../lib/setup.php:1604
+#, php-format
+msgid "Expected version %s but found %s."
+msgstr "Era prevista la versione %s ma &egrave; stata trovata la %s."
+
+#: ../lib/setup.php:1608
+#, fuzzy, php-format
+msgid "%s OK."
+msgstr "%s OK"
+
+#: ../lib/setup.php:1610
+#, php-format
+msgid "Found expected version %s."
+msgstr "Trovata la versione prevista %s."
+
+#: ../lib/setup.php:1740
+msgid "This email will be sent when new accounts are created."
+msgstr "Questa email viene inviata quando un nuovo account viene creato."
+
+#: ../lib/setup.php:1741
+msgid "Leaving this field empty sets Gallery to use the default message (see below) which can be translated, or use your own welcome message."
+msgstr "Lasciando vuoto questo campo, farai in modo che Gallery usi il messaggio predefinito (vedi sotto) che pu&ograve; essere tradotto in altre lingue, oppure usa il tuo messaggio di benvenuto personalizzato."
+
+#: ../lib/setup.php:1742
+msgid "The following placeholder can be used:"
+msgstr "Possono essere utilizzati i seguenti segna posto:"
+
+#: ../lib/setup.php:1754
+msgid "Current used welcome mail text"
+msgstr ""
+
+#: ../lib/setup.php:1806
+#, php-format
+msgid "File %s does not exist."
+msgstr "Il file %s non esiste."
+
+#: ../lib/setup.php:1815
+#, php-format
+msgid "Expected status: %s, but actually received status %s."
+msgstr "Stato atteso: %s, in realt&agrave; lo stato risultante &egrave; %s."
+
+#: ../lib/setup.php:1828
+#, fuzzy
+msgid "can't detect version on Windows."
+msgstr "non riesco ad identificare la versione di Windows"
+
+#: ../lib/setup.php:1839
+#, php-format
+msgid "OK!  Version: %s"
+msgstr "OK! Versione: %s"
+
+#: ../lib/valchecks.php:46
+#, fuzzy
+msgid "The given frame is not valid."
+msgstr "Il Valore inserito non &egrave; numerico."
+
+#: ../lib/valchecks.php:54
+#, fuzzy
+msgid "Value was set to given default, because the original value is not in the allowed list of choices."
+msgstr "Il valore &egrave; stato impostato al valore predefinito. Perch&eacute; il valore originale non era un intero valido."
+
+#: ../lib/valchecks.php:57
+#, fuzzy
+msgid "The given value is not in the allowed list of choices."
+msgstr "Il Valore inserito non &egrave; numerico."
+
+#: ../lib/valchecks.php:88
+#, fuzzy
+msgid "Value was set to given default, because the original value is not numeric."
+msgstr "Il valore &egrave; stato impostato al valore predefinito. Perch&eacute; il valore originale non era numerico."
+
+#: ../lib/valchecks.php:91
+#, fuzzy
+msgid "The given value is not numeric."
+msgstr "Il Valore inserito non &egrave; numerico."
+
+#: ../lib/valchecks.php:97
+#, fuzzy
+msgid "Value was set to given default, because the original value is not a valid integer."
+msgstr "Il valore &egrave; stato impostato al valore predefinito. Perch&eacute; il valore originale non era un intero valido."
+
+#: ../lib/valchecks.php:100
+#, fuzzy
+msgid "The given value not a valid integer."
+msgstr "Il Valore inserito non &egrave; un intero valido."
+
+#: ../lib/valchecks.php:112
+#, fuzzy
+msgid "Value was set to given default, because the original value is not a valid text."
+msgstr "Il valore &egrave; stato impostato al valore predefinito. Perch&eacute; il valore originale non era un intero valido."
+
+#: ../lib/valchecks.php:115
+#, fuzzy
+msgid "Value was corrected, because the original value is not a valid text."
+msgstr "Il valore &egrave; stato impostato al valore predefinito. Perch&eacute; il valore originale non era un intero valido."
+
+#: ../lib/voting.php:220
+msgid "Vote"
+msgstr "Vota"
+
+#: ../lib/voting.php:258
+#, fuzzy
+msgid "(Total points in brackets)"
+msgstr "Totale punti in parentesi"
+
+#: ../lib/voting.php:262
+#, fuzzy
+msgid "(Average points in brackets)"
+msgstr "Media punti in parentesi"
+
+#: ../lib/voting.php:281
+#, php-format
+msgid "Album: %s"
+msgstr "Album: %s"
+
+#: ../lib/voting.php:310
+#, php-format
+msgid "1 voter"
+msgid_plural "%d voters"
+msgstr[0] "1 votante"
+msgstr[1] "%d votanti"
+
+#: ../lib/voting.php:323
+#, php-format
+msgid "Result from one voter"
+msgid_plural "Result of %d voters"
+msgstr[0] "Risultati da un votante"
+msgstr[1] "Risultati da %d votanti"
+
+#: ../lib/voting.php:334
+#, php-format
+msgid "%s: %s points; "
+msgstr "%s: %s punti; "
+
+#: ../lib/voting.php:339
+#, php-format
+msgid "Key - %s"
+msgstr "Chiave - %s"
+
+#: ../lib/voting.php:365
+msgid "Poll results:"
+msgstr "Risultati sondaggio:"
+
+#: ../lib/voting.php:368
+msgid "No votes"
+msgstr "Nessun voto"
+
+#: ../lib/voting.php:372
+#, php-format
+msgid "Number %d overall."
+msgstr "Numero %d in generale."
+
+#: ../lib/voting.php:376
+#, php-format
+msgid "%s: %s"
+msgstr "%s: %s"
+
+#: ../lib/voting.php:377
+#, php-format
+msgid "one vote"
+msgid_plural "%d votes"
+msgstr[0] "un voto"
+msgstr[1] "%d voti"
+
+#, fuzzy
+#~ msgid "Choose a microthumb style"
+#~ msgstr "Stile Microanteprime"
+
+#~ msgid "Maximum dimensions of full sized images"
+#~ msgstr "Dimensione massima immagini a dimensione piena"
+
+#~ msgid "current location"
+#~ msgstr "posizione attuale "
+
+#~ msgid "gallery title"
+#~ msgstr "titolo della galleria"
+
+#~ msgid "gallery URL"
+#~ msgstr "URL della galleria"
+
+#~ msgid "New comment for %s"
+#~ msgstr "Nuovo commento per %s"
+
+#~ msgid "both"
+#~ msgstr "entrambi"
+
+#~ msgid "FAILED"
+#~ msgstr "FALLITO"
+
+#~ msgid "No votes so far."
+#~ msgstr "Nessun voto finora."
