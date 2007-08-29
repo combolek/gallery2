@@ -32,35 +32,37 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
     }
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'linkitem');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($this->_album);
 
 	$ret = GalleryCoreApi::removeDerivativePreferencesForItem($this->_album->getId());
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$ret = GalleryCoreApi::addDerivativePreference(
 		1, $this->_album->getId(), DERIVATIVE_TYPE_IMAGE_THUMBNAIL, 'thumbnail|123');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $this->_lockId) = GalleryCoreApi::acquireReadLock($this->_album->getId());
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
     }
 
@@ -70,22 +72,19 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 	    $this->failWithStatus($ret);
 	}
 
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
+	parent::tearDown();
     }
 
     function testAddAlbumLink() {
 	$ret = GalleryCoreApi::setPluginParameter('module', 'linkitem', 'arrowWatermark', '0');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $highlight) = $this->_createDerivative(
 		$this->_album, 321, DERIVATIVE_TYPE_IMAGE_THUMBNAIL, 'thumbnail|234', 'image/png');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	GalleryUtilities::putRequestVariable('form[action][addLinkItem]', 1);
@@ -103,13 +102,13 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 
 	list ($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($this->_album);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(1, count($childIds), 'child count');
 
-	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($childIds[0], 'GalleryItem');
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($childIds[0]);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(GalleryUtilities::isExactlyA($item, 'GalleryLinkItem'), 'type');
 	$this->assertEquals((string)$this->_album->getId(), $item->getLink(), 'link');
@@ -117,7 +116,7 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 	list ($ret, $thumbnailTable) =
 	    GalleryCoreApi::fetchThumbnailsByItemIds(array($childIds[0]));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(array($childIds[0]), array_keys($thumbnailTable), 'thumbnail table');
 	$thumbnail = $thumbnailTable[$childIds[0]];
@@ -140,14 +139,14 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 
 	list ($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($this->_album);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(1, count($childIds), 'child count');
 
 	list ($ret, $thumbnailTable) =
 	    GalleryCoreApi::fetchThumbnailsByItemIds(array($childIds[0]));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(array($childIds[0]), array_keys($thumbnailTable), 'thumbnail table');
 	$thumbnail = $thumbnailTable[$childIds[0]];
@@ -169,7 +168,7 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
     function testAddLinkItemURL() {
 	$ret = GalleryCoreApi::setPluginParameter('module', 'linkitem', 'arrowWatermark', '1');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	GalleryUtilities::putRequestVariable('form[action][addLinkItem]', 1);
@@ -186,13 +185,13 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 
 	list ($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($this->_album);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(1, count($childIds), 'child count');
 
-	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($childIds[0], 'GalleryItem');
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($childIds[0]);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(GalleryUtilities::isExactlyA($item, 'GalleryLinkItem'), 'type');
 	$this->assertEquals('http://test.com/test.html', $item->getLink(), 'link');
@@ -200,7 +199,7 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 	list ($ret, $thumbnailTable) =
 	    GalleryCoreApi::fetchThumbnailsByItemIds(array($childIds[0]));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(array($childIds[0]), array_keys($thumbnailTable), 'thumbnail table');
 	$thumbnail = $thumbnailTable[$childIds[0]];

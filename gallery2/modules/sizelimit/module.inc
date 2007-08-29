@@ -33,12 +33,11 @@ class SizeLimitModule extends GalleryModule {
 	$this->setId('sizelimit');
 	$this->setName($gallery->i18n('Size Limit'));
 	$this->setDescription($gallery->i18n('Define picture size limit'));
-	$this->setVersion('1.0.7');
-	$this->_templateVersion = 1;
+	$this->setVersion('1.0.5');
 	$this->setGroup('display', $gallery->i18n('Display'));
 	$this->setCallbacks('registerEventListeners');
-	$this->setRequiredCoreApi(array(7, 27));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setRequiredCoreApi(array(7, 4));
+	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
@@ -74,8 +73,8 @@ class SizeLimitModule extends GalleryModule {
      * Event handler for GalleryEntity::save event
      * Copy dimension / filesize limits when the album is created
      *
-     * @param GalleryEvent $event
-     * @return GalleryStatus a status code
+     * @param object GalleryEvent $event
+     * @return object GalleryStatus a status code
      */
     function handleEvent($event) {
 	if ($event->getEventName() == 'GalleryEntity::save') {

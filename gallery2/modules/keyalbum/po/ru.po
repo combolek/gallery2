@@ -22,7 +22,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Keyword Albums 1.0.4\n"
+"Project-Id-Version: Gallery: Keyword Albums 1.0.0\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2006-09-12 11:25-0700\n"
 "PO-Revision-Date: 2007-01-27 15:00+0300\n"
@@ -36,15 +36,15 @@ msgstr ""
 "X-Poedit-Language: Russian\n"
 "X-Poedit-Country: RUSSIAN FEDERATION\n"
 
-#, c-format
-msgid "Keyword Album: %s"
-msgstr "Альбом по ключевому слову: %s"
-
 msgid "Keyword Album"
 msgstr "Альбом по ключевому слову"
 
 msgid "keyword album"
 msgstr "альбом по ключевому слову"
+
+#, c-format
+msgid "Keyword Album: %s"
+msgstr "Альбом по ключевому слову: %s"
 
 msgid "All album views"
 msgstr "Во всех альбомах"
@@ -165,3 +165,6 @@ msgstr "Показывать облако ключевых слов вместо
 msgid "Maximum number of keywords (empty for no limit)"
 msgstr ""
 "Максимальное количество ключевых слов (оствьте пустым, если количество не ограничивается)"
+
+#~ msgid "Successfully saved theme settings"
+#~ msgstr "Настройки темы успешно сохранены"

@@ -55,7 +55,7 @@ class DownloadRegistryFileView extends GalleryView {
 	if ($ret) {
 	    return $ret;
 	}
-	list ($ret, $root) = GalleryCoreApi::loadEntitiesById($rootId, 'GalleryItem');
+	list ($ret, $root) = GalleryCoreApi::loadEntitiesById($rootId);
 	if ($ret) {
 	    return $ret;
 	}
@@ -70,8 +70,6 @@ class DownloadRegistryFileView extends GalleryView {
 	$template = new GalleryTemplate(dirname(__FILE__) . '/../..');
 	$template->setVariable('l10Domain', 'modules_publishxp');
 
-	$vistaVersion = GalleryUtilities::getRequestVariables('vistaVersion');
-	$DownloadRegistryFile['vistaVersion'] = !empty($vistaVersion);
 	$DownloadRegistryFile['title'] = $title;
 	$DownloadRegistryFile['domain'] = $domain;
 	$template->setVariable('DownloadRegistryFile', $DownloadRegistryFile);
@@ -202,7 +200,7 @@ class DownloadRegistryFileView extends GalleryView {
 		break;
 	    default: $codePage = 1252;
 	}
-	return 'CP' . $codePage;
+	return 'Windows-' . $codePage;
     }
 }
 ?>

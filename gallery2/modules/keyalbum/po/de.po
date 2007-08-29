@@ -27,7 +27,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Keyword Albums 1.0.4\n"
+"Project-Id-Version: Gallery: Keyword Albums 1.0.0\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2006-09-12 11:25-0700\n"
 "PO-Revision-Date: 2006-11-07 16:25+0100\n"
@@ -42,15 +42,15 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Generator: KBabel 1.10.1\n"
 
-#, c-format
-msgid "Keyword Album: %s"
-msgstr "Schlüsselwort-Album: %s"
-
 msgid "Keyword Album"
 msgstr "Schlüsselwort-Album"
 
 msgid "keyword album"
 msgstr "Schlüsselwort-Album"
+
+#, c-format
+msgid "Keyword Album: %s"
+msgstr "Schlüsselwort-Album: %s"
 
 msgid "All album views"
 msgstr "Alle Album-Ansichten"
@@ -171,3 +171,6 @@ msgstr "Schlüsselwörter-Wolke anstatt -Liste anzeigen"
 
 msgid "Maximum number of keywords (empty for no limit)"
 msgstr "Maximale Anzahl von Schlüsselwörtern (leer lassen für kein Limit)"
+
+#~ msgid "Successfully saved theme settings"
+#~ msgstr "Die Motiv-Einstellungen wurden erfolgreich gespeichert."

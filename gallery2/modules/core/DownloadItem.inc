@@ -59,7 +59,7 @@ class DownloadItemView extends GalleryView {
 	}
 
 	/* Load the item */
-	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryEntity');
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	if ($ret) {
 	    return $ret;
 	}
@@ -120,7 +120,6 @@ class DownloadItemView extends GalleryView {
 	$session =& $gallery->getSession();
 	$phpVm = $gallery->getPhpVm();
 
-	/* Try to prevent Apache's mod_deflate from gzipping the output a 2nd time. */
 	if (function_exists('apache_setenv')) {
 	    @apache_setenv('no-gzip', '1');
 	}
@@ -154,18 +153,7 @@ class DownloadItemView extends GalleryView {
 	$phpVm->header('Content-Disposition: inline; filename="' . $data['pseudoFileName'] . '"');
 	$stats = $platform->stat($data['derivativePath']);
 	$phpVm->header('Last-Modified: ' . GalleryUtilities::getHttpDate($stats[9]));
-	$phpVm->header('Expires: ' . GalleryUtilities::getHttpDate(2147483647));
-
-	/**
-	 * If the file is publicly visible we could set this cache control to public (as we
-	 * do for fast download) but that would require us to do some extra calculations here that
-	 * would duplicate what we have in GalleryEntityHelper::createFastDownloadfile, so for now
-	 * just set the cache control to private.
-	 *
-	 * @todo: refactor the GalleryEntityHelper code so that we can do the permission check
-	 * here too and set Cache-Control to public when appropriate.
-	 */
-	$phpVm->header('Cache-Control: private');
+	$phpVm->header('Expires: ' . GalleryUtilities::getHttpDate(time() + 31536000));
 
 	/* If the request method is HEAD, don't send back the body */
 	if ($requestMethod == 'head') {

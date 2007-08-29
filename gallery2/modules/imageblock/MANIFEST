@@ -1,8 +1,8 @@
 # $Revision$
 # File crc32 crc32(crlf) size size(crlf)  or  R File
 modules/imageblock/Callbacks.inc	791237294	1899368651	2680	2770
-modules/imageblock/External.inc	3202641056	3416417343	3930	4066
-modules/imageblock/ExternalCSS.inc	1677329533	2046651518	3149	3261
+modules/imageblock/External.inc	2543352988	1183710790	3249	3363
+modules/imageblock/ExternalCSS.inc	201538282	1907619519	2901	2999
 modules/imageblock/ImageBlockOption.inc	1564528777	998128887	3190	3285
 modules/imageblock/ImageBlockSiteAdmin.inc	765574721	2941621301	3889	4016
 modules/imageblock/Preloads.inc	670338751	1206568007	2097	2172
@@ -10,98 +10,96 @@ modules/imageblock/classes/GNUmakefile	1995366819	843025639	51	52
 modules/imageblock/classes/GalleryStorage/GNUmakefile	1465776782	2009162633	61	62
 modules/imageblock/classes/GalleryStorage/schema.tpl	1439386777	905662148	6574	6773
 modules/imageblock/classes/GalleryStorage/xml-src/A_ImageBlockCacheMap_1.0.xml	2220890733	582360795	733	761
-modules/imageblock/classes/ImageBlockHelper.class	163008958	2241029013	28902	29866
+modules/imageblock/classes/ImageBlockHelper.class	4293534613	231108703	28815	29777
 modules/imageblock/classes/Maps.inc	4178631006	2967124753	645	650
 modules/imageblock/classes/Maps.xml	2280571943	3846828138	1157	1203
-modules/imageblock/module.inc	2412202292	391838531	4130	4268
+modules/imageblock/locale/af/LC_MESSAGES/modules_imageblock.mo	2355459504	2355459504	5544	5544
+modules/imageblock/locale/ar/LC_MESSAGES/modules_imageblock.mo	2356910862	2356910862	1074	1074
+modules/imageblock/locale/bg/LC_MESSAGES/modules_imageblock.mo	419954910	419954910	7331	7331
+modules/imageblock/locale/ca/LC_MESSAGES/modules_imageblock.mo	1399165729	1399165729	5827	5827
+modules/imageblock/locale/cs/LC_MESSAGES/modules_imageblock.mo	2345689192	2345689192	7927	7927
+modules/imageblock/locale/da/LC_MESSAGES/modules_imageblock.mo	1961484858	1961484858	6017	6017
+modules/imageblock/locale/de/LC_MESSAGES/modules_imageblock.mo	845729111	845729111	8135	8135
+modules/imageblock/locale/en_GB/LC_MESSAGES/modules_imageblock.mo	1374219881	1374219881	993	993
+modules/imageblock/locale/es/LC_MESSAGES/modules_imageblock.mo	1971385112	1971385112	8173	8173
+modules/imageblock/locale/et/LC_MESSAGES/modules_imageblock.mo	2695811290	2695811290	3674	3674
+modules/imageblock/locale/eu/LC_MESSAGES/modules_imageblock.mo	3218888266	3218888266	5683	5683
+modules/imageblock/locale/fi/LC_MESSAGES/modules_imageblock.mo	1152312688	1152312688	5544	5544
+modules/imageblock/locale/fr/LC_MESSAGES/modules_imageblock.mo	3776841810	3776841810	8260	8260
+modules/imageblock/locale/ga/LC_MESSAGES/modules_imageblock.mo	3206466057	3206466057	1386	1386
+modules/imageblock/locale/he/LC_MESSAGES/modules_imageblock.mo	2447312476	2447312476	6199	6199
+modules/imageblock/locale/hu/LC_MESSAGES/modules_imageblock.mo	4144262677	4144262677	3935	3935
+modules/imageblock/locale/is/LC_MESSAGES/modules_imageblock.mo	3862750450	3862750450	422	422
+modules/imageblock/locale/it/LC_MESSAGES/modules_imageblock.mo	2064954797	2064954797	7910	7910
+modules/imageblock/locale/ja/LC_MESSAGES/modules_imageblock.mo	1772348212	1772348212	3744	3744
+modules/imageblock/locale/ko/LC_MESSAGES/modules_imageblock.mo	122513193	122513193	2657	2657
+modules/imageblock/locale/lt/LC_MESSAGES/modules_imageblock.mo	1141087859	1141087859	1130	1130
+modules/imageblock/locale/lv/LC_MESSAGES/modules_imageblock.mo	830404840	830404840	4304	4304
+modules/imageblock/locale/nl/LC_MESSAGES/modules_imageblock.mo	2621813166	2621813166	5597	5597
+modules/imageblock/locale/no/LC_MESSAGES/modules_imageblock.mo	779851162	779851162	7458	7458
+modules/imageblock/locale/pl/LC_MESSAGES/modules_imageblock.mo	1644355003	1644355003	8197	8197
+modules/imageblock/locale/pt_BR/LC_MESSAGES/modules_imageblock.mo	808410100	808410100	5745	5745
+modules/imageblock/locale/ro/LC_MESSAGES/modules_imageblock.mo	1532402646	1532402646	6214	6214
+modules/imageblock/locale/ru/LC_MESSAGES/modules_imageblock.mo	2277539597	2277539597	7436	7436
+modules/imageblock/locale/sk/LC_MESSAGES/modules_imageblock.mo	2069278398	2069278398	1090	1090
+modules/imageblock/locale/sr/LC_MESSAGES/modules_imageblock.mo	261465264	261465264	5697	5697
+modules/imageblock/locale/sv/LC_MESSAGES/modules_imageblock.mo	1947680265	1947680265	7581	7581
+modules/imageblock/locale/tr/LC_MESSAGES/modules_imageblock.mo	2739787523	2739787523	3498	3498
+modules/imageblock/locale/uk/LC_MESSAGES/modules_imageblock.mo	557026058	557026058	1166	1166
+modules/imageblock/locale/vi/LC_MESSAGES/modules_imageblock.mo	500725505	500725505	6172	6172
+modules/imageblock/locale/zh_CN/LC_MESSAGES/modules_imageblock.mo	350841072	350841072	5346	5346
+modules/imageblock/locale/zh_TW/LC_MESSAGES/modules_imageblock.mo	2376784895	2376784895	7168	7168
+modules/imageblock/module.inc	216738239	1612173383	3591	3706
 modules/imageblock/po/GNUmakefile	1866879166	2808215985	98	103
-modules/imageblock/po/af.mo	2383874241	2383874241	5307	5307
-modules/imageblock/po/af.po	331195120	1604149253	7905	8203
-modules/imageblock/po/ar.mo	3215533741	3215533741	1074	1074
-modules/imageblock/po/ar.po	410742238	533866612	5935	6211
-modules/imageblock/po/bg.mo	1422942589	1422942589	6998	6998
-modules/imageblock/po/bg.po	1791697841	1809127304	10077	10383
-modules/imageblock/po/ca.mo	3803801267	3803801267	5552	5552
-modules/imageblock/po/ca.po	3001800710	2814158156	8286	8584
-modules/imageblock/po/cs.mo	1348271490	1348271490	7683	7683
-modules/imageblock/po/cs.po	1998113749	1036516364	9040	9348
-modules/imageblock/po/da.mo	328009374	328009374	7241	7241
-modules/imageblock/po/da.po	23310766	871903336	8593	8897
-modules/imageblock/po/de.mo	2661921607	2661921607	7879	7879
-modules/imageblock/po/de.po	2177476542	1953569287	9381	9693
-modules/imageblock/po/el.mo	3127590760	3127590760	10550	10550
-modules/imageblock/po/el.po	2783106105	1481346965	11908	12214
-modules/imageblock/po/en_GB.mo	3506850348	3506850348	993	993
-modules/imageblock/po/en_GB.po	329997594	3999217205	8398	8695
-modules/imageblock/po/es.mo	3685257912	3685257912	7881	7881
-modules/imageblock/po/es.po	2456087471	3148891419	9325	9634
-modules/imageblock/po/et.mo	1440922185	1440922185	3674	3674
-modules/imageblock/po/et.po	813396128	2829174522	6631	6906
-modules/imageblock/po/eu.mo	40762222	40762222	5422	5422
-modules/imageblock/po/eu.po	2726798713	536780283	7880	8180
-modules/imageblock/po/fi.mo	3843675212	3843675212	7271	7271
-modules/imageblock/po/fi.po	2440997746	3714477071	8679	8982
-modules/imageblock/po/fr.mo	3458984509	3458984509	7895	7895
-modules/imageblock/po/fr.po	3772654088	3297045598	9337	9643
-modules/imageblock/po/ga.mo	2204887552	2204887552	1386	1386
-modules/imageblock/po/ga.po	1855274647	4227957269	7883	8217
-modules/imageblock/po/he.mo	1082531700	1082531700	6036	6036
-modules/imageblock/po/he.po	2477559969	3754902898	8817	9111
-modules/imageblock/po/hu.mo	1904131193	1904131193	3935	3935
-modules/imageblock/po/hu.po	99089438	2857096141	7007	7286
-modules/imageblock/po/is.mo	4119894694	4119894694	422	422
-modules/imageblock/po/is.po	144386795	3815335251	5609	5883
-modules/imageblock/po/it.mo	2316560630	2316560630	7598	7598
-modules/imageblock/po/it.po	15279971	1276586324	8985	9290
-modules/imageblock/po/ja.mo	950964742	950964742	7937	7937
-modules/imageblock/po/ja.po	3030159758	1756774484	9168	9459
-modules/imageblock/po/ko.mo	1943772007	1943772007	2657	2657
-modules/imageblock/po/ko.po	2247188612	1861777928	6566	6844
-modules/imageblock/po/lt.mo	1689650216	1689650216	2467	2467
-modules/imageblock/po/lt.po	2357831891	1972617612	6647	6932
-modules/imageblock/po/lv.mo	1774466828	1774466828	4304	4304
-modules/imageblock/po/lv.po	3243843829	3763177929	7224	7508
-modules/imageblock/po/nl.mo	148918710	148918710	5445	5445
-modules/imageblock/po/nl.po	2965653561	1002124691	8145	8444
-modules/imageblock/po/no.mo	3536922287	3536922287	7213	7213
-modules/imageblock/po/no.po	907731469	2136446411	8607	8910
-modules/imageblock/po/pl.mo	2776780042	2776780042	7924	7924
-modules/imageblock/po/pl.po	3763920577	2027410561	9313	9622
-modules/imageblock/po/pt_BR.mo	357637599	357637599	5570	5570
-modules/imageblock/po/pt_BR.po	1587684902	4279661234	8189	8488
-modules/imageblock/po/ro.mo	2782784181	2782784181	5951	5951
-modules/imageblock/po/ro.po	1039143871	2126815481	8055	8351
-modules/imageblock/po/ru.mo	76311628	76311628	7227	7227
-modules/imageblock/po/ru.po	2202002482	2012158040	10295	10598
-modules/imageblock/po/sk.mo	130104927	130104927	1180	1180
-modules/imageblock/po/sk.po	4258832	4149984077	6178	6465
-modules/imageblock/po/sr.mo	3232618813	3232618813	7585	7585
-modules/imageblock/po/sr.po	2550039059	3467742401	8973	9278
-modules/imageblock/po/strings.raw	2378560129	3750041835	3848	3929
-modules/imageblock/po/sv.mo	3606416714	3606416714	7312	7312
-modules/imageblock/po/sv.po	82412249	374798208	8954	9265
-modules/imageblock/po/tr.mo	2402597790	2402597790	3609	3609
-modules/imageblock/po/tr.po	3506937913	3968221440	7224	7514
-modules/imageblock/po/uk.mo	629771590	629771590	1221	1221
-modules/imageblock/po/uk.po	3707523360	1319848702	6204	6483
-modules/imageblock/po/vi.mo	1242955438	1242955438	8853	8853
-modules/imageblock/po/vi.po	3545417041	585970649	9876	10179
-modules/imageblock/po/zh_CN.mo	1338530004	1338530004	5191	5191
-modules/imageblock/po/zh_CN.po	653456022	3164330478	7706	7996
-modules/imageblock/po/zh_TW.mo	3769339231	3769339231	6928	6928
-modules/imageblock/po/zh_TW.po	2041808685	4245111640	8097	8380
-modules/imageblock/templates/ImageBlock.tpl	3654088814	2254832309	2742	2823
-modules/imageblock/templates/ImageBlockOption.tpl	2901446508	2354624286	795	816
-modules/imageblock/templates/ImageBlockSiteAdmin.tpl	3359826556	804630648	6150	6293
-modules/imageblock/templates/blocks/ImageBlock.tpl	2060949274	3176500889	739	756
+modules/imageblock/po/af.po	291689577	7033258	8047	8350
+modules/imageblock/po/ar.po	1315922733	3358851680	5925	6201
+modules/imageblock/po/bg.po	4027968635	2609347502	10279	10590
+modules/imageblock/po/ca.po	1863813950	4289364574	8366	8666
+modules/imageblock/po/cs.po	3833747473	400626145	9442	9759
+modules/imageblock/po/da.po	131580335	2222763208	7824	8118
+modules/imageblock/po/de.po	1428294655	1419323470	9681	9999
+modules/imageblock/po/en_GB.po	1727639823	4242753670	8378	8675
+modules/imageblock/po/es.po	1963470013	4175783005	9321	9629
+modules/imageblock/po/et.po	1036045051	3976990833	6621	6896
+modules/imageblock/po/eu.po	740323652	3561320495	8168	8474
+modules/imageblock/po/fi.po	2207566832	1382453075	8040	8342
+modules/imageblock/po/fr.po	3391213520	195107001	9318	9623
+modules/imageblock/po/ga.po	578926228	3986166064	7927	8264
+modules/imageblock/po/he.po	1462969846	774916130	9025	9324
+modules/imageblock/po/hu.po	2895721953	4195748367	6997	7276
+modules/imageblock/po/is.po	1836437833	1549979291	5599	5873
+modules/imageblock/po/it.po	293534888	3623684337	9275	9586
+modules/imageblock/po/ja.po	4169416505	3639809299	6738	7007
+modules/imageblock/po/ko.po	3981393801	3948600005	6876	7161
+modules/imageblock/po/lt.po	395153292	4259509818	6072	6355
+modules/imageblock/po/lv.po	1372751336	4248446420	7214	7498
+modules/imageblock/po/nl.po	1723191724	72538696	8376	8681
+modules/imageblock/po/no.po	1572779115	162618760	8588	8890
+modules/imageblock/po/pl.po	1330099856	1797427967	9294	9602
+modules/imageblock/po/pt_BR.po	1966191052	2330284263	8325	8632
+modules/imageblock/po/ro.po	3688459321	3534963785	8036	8331
+modules/imageblock/po/ru.po	1380481136	2259434703	10914	11231
+modules/imageblock/po/sk.po	3514074965	4243746795	6105	6392
+modules/imageblock/po/sr.po	1328016299	3801262917	8153	8453
+modules/imageblock/po/strings.raw	2634819369	3817268005	3837	3918
+modules/imageblock/po/sv.po	1656032993	916098703	8935	9245
+modules/imageblock/po/tr.po	2191153270	2640483671	7132	7421
+modules/imageblock/po/uk.po	3897781826	4265782676	6180	6459
+modules/imageblock/po/vi.po	2928025478	2873284690	8956	9262
+modules/imageblock/po/zh_CN.po	1465462930	1289108686	8088	8391
+modules/imageblock/po/zh_TW.po	1509170846	4250943175	8485	8778
+modules/imageblock/templates/ImageBlock.tpl	3264019560	3855729600	2898	2981
+modules/imageblock/templates/ImageBlockOption.tpl	3723504813	2531608550	951	974
+modules/imageblock/templates/ImageBlockSiteAdmin.tpl	4231519906	3493979979	6296	6441
+modules/imageblock/templates/blocks/ImageBlock.tpl	1784608846	378835008	895	914
 modules/imageblock/templates/blocks/blocks.inc	1401326904	2167541536	1900	1952
-modules/imageblock/test/phpunit/ExternalCSSControllerTest.class	3834261150	3845882386	3716	3834
-modules/imageblock/test/phpunit/ImageBlockDisabledTest.class	3379293798	4099582396	8153	8422
-modules/imageblock/test/phpunit/ImageBlockHandlerTest.class	836672236	2369809075	15955	16453
-modules/imageblock/test/phpunit/ImageBlockHelperTest.class	1181968347	1201347940	9254	9596
-modules/imageblock/test/phpunit/ImageBlockOptionTest.class	2408564887	4077514027	5475	5665
-modules/imageblock/test/phpunit/ImageBlockSiteAdminControllerTest.class	1508481746	970459844	3838	3950
-modules/imageblock/test/phpunit/ImageBlockTest.class	1362616372	3935191513	32485	33403
+modules/imageblock/test/phpunit/ExternalCSSControllerTest.class	886432905	2795764194	3802	3919
+modules/imageblock/test/phpunit/ImageBlockDisabledTest.class	1962057628	3142030422	8168	8433
+modules/imageblock/test/phpunit/ImageBlockHandlerTest.class	282196028	1981170694	16505	16997
+modules/imageblock/test/phpunit/ImageBlockHelperTest.class	3239516605	3657880936	9617	9954
+modules/imageblock/test/phpunit/ImageBlockOptionTest.class	1705107097	255983260	5765	5952
+modules/imageblock/test/phpunit/ImageBlockSiteAdminControllerTest.class	1727508046	3929499334	3897	4007
+modules/imageblock/test/phpunit/ImageBlockTest.class	2084762090	3894518042	34147	35070
 R	modules/imageblock/classes/GalleryStorage/DatabaseStorage/schema/GNUmakefile
 R	modules/imageblock/classes/GalleryStorage/DatabaseStorage/schema/platform/GNUmakefile
 R	modules/imageblock/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/A_ImageBlockCacheMap.sql
@@ -137,102 +135,66 @@ R	modules/imageblock/classes/interfaces/GNUmakefile
 R	modules/imageblock/classes/interfaces/ImageBlockCacheMap.inc
 R	modules/imageblock/classes/interfaces/ImageBlockDisabledMap.inc
 R	modules/imageblock/classes/interfaces
-R	modules/imageblock/locale/af/LC_MESSAGES/modules_imageblock.mo
-R	modules/imageblock/locale/ar/LC_MESSAGES/modules_imageblock.mo
-R	modules/imageblock/locale/bg/LC_MESSAGES/modules_imageblock.mo
 R	modules/imageblock/locale/bg_BG/LC_MESSAGES/modules_imageblock.mo
 R	modules/imageblock/locale/bg_BG/LC_MESSAGES
 R	modules/imageblock/locale/bg_BG
-R	modules/imageblock/locale/ca/LC_MESSAGES/modules_imageblock.mo
-R	modules/imageblock/locale/cs/LC_MESSAGES/modules_imageblock.mo
 R	modules/imageblock/locale/cs_CZ/LC_MESSAGES/modules_imageblock.mo
 R	modules/imageblock/locale/cs_CZ/LC_MESSAGES
 R	modules/imageblock/locale/cs_CZ
-R	modules/imageblock/locale/da/LC_MESSAGES/modules_imageblock.mo
 R	modules/imageblock/locale/da_DK/LC_MESSAGES/modules_imageblock.mo
 R	modules/imageblock/locale/da_DK/LC_MESSAGES
 R	modules/imageblock/locale/da_DK
-R	modules/imageblock/locale/de/LC_MESSAGES/modules_imageblock.mo
 R	modules/imageblock/locale/de_DE/LC_MESSAGES/modules_imageblock.mo
 R	modules/imageblock/locale/de_DE/LC_MESSAGES
 R	modules/imageblock/locale/de_DE
-R	modules/imageblock/locale/en_GB/LC_MESSAGES/modules_imageblock.mo
-R	modules/imageblock/locale/es/LC_MESSAGES/modules_imageblock.mo
 R	modules/imageblock/locale/es_ES/LC_MESSAGES/modules_imageblock.mo
 R	modules/imageblock/locale/es_ES/LC_MESSAGES
 R	modules/imageblock/locale/es_ES
-R	modules/imageblock/locale/et/LC_MESSAGES/modules_imageblock.mo
-R	modules/imageblock/locale/eu/LC_MESSAGES/modules_imageblock.mo
 R	modules/imageblock/locale/eu_ES/LC_MESSAGES/modules_imageblock.mo
 R	modules/imageblock/locale/eu_ES/LC_MESSAGES
 R	modules/imageblock/locale/eu_ES
-R	modules/imageblock/locale/fi/LC_MESSAGES/modules_imageblock.mo
-R	modules/imageblock/locale/fr/LC_MESSAGES/modules_imageblock.mo
 R	modules/imageblock/locale/fr_FR/LC_MESSAGES/modules_imageblock.mo
 R	modules/imageblock/locale/fr_FR/LC_MESSAGES
 R	modules/imageblock/locale/fr_FR
-R	modules/imageblock/locale/ga/LC_MESSAGES/modules_imageblock.mo
 R	modules/imageblock/locale/ga_IE/LC_MESSAGES/modules_imageblock.mo
 R	modules/imageblock/locale/ga_IE/LC_MESSAGES
 R	modules/imageblock/locale/ga_IE
-R	modules/imageblock/locale/he/LC_MESSAGES/modules_imageblock.mo
-R	modules/imageblock/locale/hu/LC_MESSAGES/modules_imageblock.mo
 R	modules/imageblock/locale/hu_HU/LC_MESSAGES/modules_imageblock.mo
 R	modules/imageblock/locale/hu_HU/LC_MESSAGES
 R	modules/imageblock/locale/hu_HU
-R	modules/imageblock/locale/is/LC_MESSAGES/modules_imageblock.mo
 R	modules/imageblock/locale/is_IS/LC_MESSAGES/modules_imageblock.mo
 R	modules/imageblock/locale/is_IS/LC_MESSAGES
 R	modules/imageblock/locale/is_IS
-R	modules/imageblock/locale/it/LC_MESSAGES/modules_imageblock.mo
 R	modules/imageblock/locale/it_IT/LC_MESSAGES/modules_imageblock.mo
 R	modules/imageblock/locale/it_IT/LC_MESSAGES
 R	modules/imageblock/locale/it_IT
-R	modules/imageblock/locale/ja/LC_MESSAGES/modules_imageblock.mo
 R	modules/imageblock/locale/ja_JP/LC_MESSAGES/modules_imageblock.mo
 R	modules/imageblock/locale/ja_JP/LC_MESSAGES
 R	modules/imageblock/locale/ja_JP
-R	modules/imageblock/locale/ko/LC_MESSAGES/modules_imageblock.mo
-R	modules/imageblock/locale/lt/LC_MESSAGES/modules_imageblock.mo
-R	modules/imageblock/locale/lv/LC_MESSAGES/modules_imageblock.mo
-R	modules/imageblock/locale/nl/LC_MESSAGES/modules_imageblock.mo
 R	modules/imageblock/locale/nl_NL/LC_MESSAGES/modules_imageblock.mo
 R	modules/imageblock/locale/nl_NL/LC_MESSAGES
 R	modules/imageblock/locale/nl_NL
-R	modules/imageblock/locale/no/LC_MESSAGES/modules_imageblock.mo
 R	modules/imageblock/locale/no_NO/LC_MESSAGES/modules_imageblock.mo
 R	modules/imageblock/locale/no_NO/LC_MESSAGES
 R	modules/imageblock/locale/no_NO
-R	modules/imageblock/locale/pl/LC_MESSAGES/modules_imageblock.mo
 R	modules/imageblock/locale/pl_PL/LC_MESSAGES/modules_imageblock.mo
 R	modules/imageblock/locale/pl_PL/LC_MESSAGES
 R	modules/imageblock/locale/pl_PL
-R	modules/imageblock/locale/pt_BR/LC_MESSAGES/modules_imageblock.mo
-R	modules/imageblock/locale/ro/LC_MESSAGES/modules_imageblock.mo
-R	modules/imageblock/locale/ru/LC_MESSAGES/modules_imageblock.mo
 R	modules/imageblock/locale/ru_RU/LC_MESSAGES/modules_imageblock.mo
 R	modules/imageblock/locale/ru_RU/LC_MESSAGES
 R	modules/imageblock/locale/ru_RU
-R	modules/imageblock/locale/sk/LC_MESSAGES/modules_imageblock.mo
-R	modules/imageblock/locale/sr/LC_MESSAGES/modules_imageblock.mo
 R	modules/imageblock/locale/sr_YU/LC_MESSAGES/modules_imageblock.mo
 R	modules/imageblock/locale/sr_YU/LC_MESSAGES
 R	modules/imageblock/locale/sr_YU
-R	modules/imageblock/locale/sv/LC_MESSAGES/modules_imageblock.mo
 R	modules/imageblock/locale/sv_SE/LC_MESSAGES/modules_imageblock.mo
 R	modules/imageblock/locale/sv_SE/LC_MESSAGES
 R	modules/imageblock/locale/sv_SE
-R	modules/imageblock/locale/tr/LC_MESSAGES/modules_imageblock.mo
 R	modules/imageblock/locale/tr_TR/LC_MESSAGES/modules_imageblock.mo
 R	modules/imageblock/locale/tr_TR/LC_MESSAGES
 R	modules/imageblock/locale/tr_TR
-R	modules/imageblock/locale/uk/LC_MESSAGES/modules_imageblock.mo
-R	modules/imageblock/locale/vi/LC_MESSAGES/modules_imageblock.mo
 R	modules/imageblock/locale/vi_VN/LC_MESSAGES/modules_imageblock.mo
 R	modules/imageblock/locale/vi_VN/LC_MESSAGES
 R	modules/imageblock/locale/vi_VN
-R	modules/imageblock/locale/zh_CN/LC_MESSAGES/modules_imageblock.mo
-R	modules/imageblock/locale/zh_TW/LC_MESSAGES/modules_imageblock.mo
 R	modules/imageblock/po/bg_BG.po
 R	modules/imageblock/po/cs_CZ.po
 R	modules/imageblock/po/da_DK.po

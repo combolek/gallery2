@@ -80,8 +80,6 @@ function GalleryInitFirstPass($params=array()) {
 	$dataBase . 'smarty' . $slash . 'templates_c' . $slash);
     $gallery->setConfig('data.gallery.plugins', $galleryBase . 'plugins' . $slash);
     $gallery->setConfig('data.gallery.plugins_data', $dataBase . 'plugins_data' . $slash);
-    $gallery->setConfig('data.gallery.version', $dataBase . 'versions.dat');
-    $gallery->setConfig('data.gallery.backup', $dataBase . 'backups' . $slash);
 
     /* Configure our url generator */
     if (!isset($params['noDatabase'])) {
@@ -160,7 +158,7 @@ function GalleryInitSecondPass() {
 	return $ret;
     }
 
-    foreach ($pluginIds as $pluginId => $className) {
+    foreach ($pluginIds as $pluginId) {
 	list ($ret, $plugin) =
 	    GalleryCoreApi::newFactoryInstanceById('GalleryAuthPlugin', $pluginId);
 	if ($ret) {
@@ -184,7 +182,7 @@ function GalleryInitSecondPass() {
 	    return $ret;
 	}
 
-	list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
+	list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId);
 	if ($ret) {
 	    return $ret;
 	}

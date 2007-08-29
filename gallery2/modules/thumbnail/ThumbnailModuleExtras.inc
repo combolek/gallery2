@@ -154,7 +154,7 @@ class ThumbnailModuleExtras {
 	    WHERE
 	      [ThumbnailImage::id] = [GalleryChildEntity::id]
 	      AND
-	      [GalleryChildEntity::parentId] IN (?,?)
+	      [GalleryChildEntity::parentId] IN (?,?) 
 	    ';
 	    list ($ret, $results) =
 	    	$gallery->search($query, array((int)$rootId, 0));
@@ -225,7 +225,7 @@ class ThumbnailModuleExtras {
 	    WHERE
 	      [ThumbnailImage::id] = [GalleryChildEntity::id]
 	      AND
-	      [GalleryChildEntity::parentId] <> ?
+	      [GalleryChildEntity::parentId] <> ? 
 	    ';
 	    $gallery->guaranteeTimeLimit(30);
 	    list ($ret, $results) = $gallery->search($query, array($containerId));
@@ -254,7 +254,7 @@ class ThumbnailModuleExtras {
 		    }
 
 		    /* Move the custom thumbnail to its new home. */
-		    list ($ret, $thumb) = GalleryCoreApi::loadEntitiesById($id, 'ThumbnailImage');
+		    list ($ret, $thumb) = GalleryCoreApi::loadEntitiesById($id);
 		    if ($ret) {
 			GalleryCoreApi::releaseLocks($lockId);
 			return $ret;
@@ -329,9 +329,6 @@ class ThumbnailModuleExtras {
 
 	case '1.0.8':
 	case '1.0.9':
-	case '1.0.9.1':
-	    /* .mo file migration */
-	case '1.0.10':
 
 	case 'end of upgrade path':
 	    /*
@@ -404,8 +401,8 @@ class ThumbnailModuleExtras {
 
     /**
      * Create the container entity for all the custom thumbnails.
-     * @param ThumbnailModule $module
-     * @return GalleryStatus a status code
+     * @param object $module ThumbnailModule
+     * @return object GalleryStatus a status code
      */
     function _createThumbnailContainer($module) {
 	list ($ret, $container) =
@@ -421,12 +418,12 @@ class ThumbnailModuleExtras {
 	if ($ret) {
 	    return $ret;
 	}
-
+	
 	$ret = $module->setParameter('id.container', $container->getId());
 	if ($ret) {
 	    return $ret;
 	}
-
+	
 	return null;
     }
 }

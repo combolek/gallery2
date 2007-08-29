@@ -48,12 +48,12 @@ class AdminDeleteGroupController extends GalleryController {
 	} else if (isset($form['action']['delete'])) {
 
 	    /* Only allow users to delete GROUP_NORMAL groups. */
-	    list ($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
+	    list ($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId);
 	    if ($ret) {
 		return array($ret, null);
 	    }
 
-	    $ret = GalleryCoreApi::deleteEntityById($group->getId(), 'GalleryGroup');
+	    $ret = GalleryCoreApi::deleteEntityById($group->getId());
 	    if ($ret) {
 		return array($ret, null);
 	    }
@@ -92,7 +92,7 @@ class AdminDeleteGroupView extends GalleryView {
 	}
 
 	$groupId = GalleryUtilities::getRequestVariables('groupId');
-	list ($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
+	list ($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId);
 	if ($ret) {
 	    return array($ret, null);
 	}

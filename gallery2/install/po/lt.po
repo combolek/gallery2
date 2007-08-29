@@ -21,7 +21,7 @@
 # along with this program; if not, write to the Free Software
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Installer 2.3\n"
+"Project-Id-Version: Gallery: Installer 2.2.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-03-12 23:42+0200\n"
 "PO-Revision-Date: 2007-03-08 11:17+0200\n"
@@ -71,6 +71,16 @@ msgstr ""
 
 msgid "Create Config File"
 msgstr "Sukurti konfigūracijos failą"
+
+#, c-format
+msgid ""
+"Unable to write to the <b>config.php</b> configuration file in your %s directory.  Please "
+"change its permissions.  If you're on Unix you can do <i>chmod 666 config.php</i> to fix "
+"this."
+msgstr ""
+"Neįmanoma įrašyti konfigūracinio failo <b>config.php</b> aplanke %s.  Prašau jo pakeisti "
+"prieigos teises.  Jei jūs naudojate Unix, tuomet norėdami tai ištaisyti įvykdykite komandą "
+"<i>chmod 666 config.php</i>."
 
 #, c-format
 msgid "The config.php file does not exist in your %s directory"
@@ -319,8 +329,8 @@ msgstr "Sistemos patikrinimai"
 msgid "Performing system checks"
 msgstr "Vykdomi sistemos patikrinimai"
 
-msgid "PHP version &gt;= 4.3.0 or &gt;= 5.0.4"
-msgstr "PHP versija &gt;= 4.3.0 arba &gt;= 5.0.4"
+msgid "PHP version >= 4.3.0 or >= 5.0.4"
+msgstr "PHP versija >= 4.3.0 arba >= 5.0.4"
 
 #, c-format
 msgid ""
@@ -500,14 +510,14 @@ msgstr "Suderinamumo su Zend modulis"
 #, c-format
 msgid ""
 "Warning: Your PHP is configured with Zend ze1_compatibility_mode which can cause PHP to "
-"crash.  Click %shere%s to test your PHP.  If you see \"SUCCESS\" then your PHP is ok.  If "
-"you get an error or no response then you must turn off ze1_compatibility_mode before "
-"proceeding."
+"crash.  Click <a href=\"%s\">here</a> to test your PHP.  If you see \"SUCCESS\" then your "
+"PHP is ok.  If you get an error or no response then you must turn off ze1_compatibility_mode "
+"before proceeding."
 msgstr ""
 "Dėmesio: Jūsų serverio PHP suderintas su Zend ze1_compatibility_mode kad gali sukelti PHP "
-"lūžimą. Spauskite %sčia%s, kad patikrinti jūsų PHP. Jei pamatysite „SĖKMĖ“, tuomet jūsų PHP  "
-"tvarkoje. Jei gausite klaidos pranešimo, ar negausite jokio pranešimo, tuomet norėdami testi "
-"turite išjungti ze1_compatibility_mode."
+"lūžimą. Spauskite <a href=\"%s\">čia</a>, kad patikrinti jūsų PHP. Jei pamatysite „SĖKMĖ“, "
+"tuomet jūsų PHP  tvarkoje. Jei gausite klaidos pranešimo, ar negausite jokio pranešimo, "
+"tuomet norėdami testi turite išjungti ze1_compatibility_mode."
 
 msgid "putenv() allowed"
 msgstr "putenv() leidžiamas"
@@ -678,17 +688,6 @@ msgstr "Bandyti vėl"
 
 msgid "Create a config file"
 msgstr "Sukurti konfigūracijos failą"
-
-#, fuzzy, c-format
-msgid ""
-"Unable to write to the <b>config.php</b> configuration file in your %s directory.  Please "
-"change its permissions.  If you're on Unix you can do <i>chmod 666 config.php</i> to fix "
-"this. You can also download the %sconfig.php%s file and replace the existing config.php in "
-"the %s directory yourself."
-msgstr ""
-"Neįmanoma įrašyti konfigūracinio failo <b>config.php</b> aplanke %s.  Prašau jo pakeisti "
-"prieigos teises.  Jei jūs naudojate Unix, tuomet norėdami tai ištaisyti įvykdykite komandą "
-"<i>chmod 666 config.php</i>."
 
 #, c-format
 msgid ""

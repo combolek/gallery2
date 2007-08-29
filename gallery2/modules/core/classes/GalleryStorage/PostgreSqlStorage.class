@@ -75,7 +75,7 @@ class PostgreSqlStorage extends GalleryStorage {
      * @see GalleryStorage::configureStore
      */
     function configureStore($moduleId, $upgradeInfo=array()) {
-	if ($moduleId == 'core' && empty($upgradeInfo)) {
+	if ($moduleId == 'core') {
 	    $query = '
 	    CREATE AGGREGATE BIT_OR
 	    (
@@ -111,18 +111,7 @@ class PostgreSqlStorage extends GalleryStorage {
 	}
 
 	return null;
-    }
-
-    /**
-     * @see GalleryStorage::_setConnectionSettings
-     */
-    function _setConnectionSettings(&$db) {
-	if (!empty($this->_schema)) {
-	    $this->_traceStart();
-	    $db->Execute('set search_path to ' . $this->_schema);
-	    $this->_traceStop();
-	}
-    }
+     }
 
     /**
      * @see GalleryStorage::convertIntToBits

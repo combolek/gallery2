@@ -24,7 +24,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Image Block 1.1.3\n"
+"Project-Id-Version: Gallery: Image Block 1.1.0\n"
 "POT-Creation-Date: 2003-02-11 03:09-0800\n"
 "PO-Revision-Date: 2006-11-08 00:05+0100\n"
 "Last-Translator: Andy Staudacher <ast@gmx.ch>\n"
@@ -43,6 +43,24 @@ msgstr "Zufällige Auswahl aus neuestem oder meistgesehenem Bild oder Album"
 
 msgid "Blocks"
 msgstr "Blöcke"
+
+msgid "Picture of the Day"
+msgstr "Photo des Tages"
+
+msgid "Picture of the Week"
+msgstr "Photo der Woche"
+
+msgid "Picture of the Month"
+msgstr "Photo des Monats"
+
+msgid "Album of the Day"
+msgstr "Album des Tages"
+
+msgid "Album of the Week"
+msgstr "Album der Woche"
+
+msgid "Album of the Month"
+msgstr "Album des Monats"
 
 msgid "Random Image"
 msgid_plural "Random Images"
@@ -73,24 +91,6 @@ msgid "Most Viewed Album"
 msgid_plural "Most Viewed Albums"
 msgstr[0] "Meistgesehenes Album"
 msgstr[1] "Meistgesehene Alben"
-
-msgid "Picture of the Day"
-msgstr "Photo des Tages"
-
-msgid "Picture of the Week"
-msgstr "Photo der Woche"
-
-msgid "Picture of the Month"
-msgstr "Photo des Monats"
-
-msgid "Album of the Day"
-msgstr "Album des Tages"
-
-msgid "Album of the Week"
-msgstr "Album der Woche"
-
-msgid "Album of the Month"
-msgstr "Album des Monats"
 
 msgid "Date:"
 msgstr "Datum:"
@@ -170,10 +170,9 @@ msgstr ""
 "viewedImage, randomAlbum, recentAlbum, viewedAlbum, dailyImage, weeklyImage, monthlyImage, "
 "dailyAlbum, weeklyAlbum, monthlyAlbum, specificItem; standard ist randomImage"
 
-#, fuzzy
 msgid ""
-"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize, rawImage; "
-"the value can also be: none"
+"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize; the value "
+"can also be: none"
 msgstr ""
 "Mit Pipesymbol \"|\" getrennte Liste aus den folgenden: title, date, views, owner, heading, "
 "fullSize; oder, wenn keines davon: none"
@@ -310,3 +309,10 @@ msgstr "Zeige Anzahl der Betrachtungen"
 
 msgid "Show owner"
 msgstr "Zeige Besitzer"
+
+#~ msgid ""
+#~ "Scale images to this maximum size. If maxSize exceeds the thumbnail dimensions, you must "
+#~ "also specify g2_show=fullSize"
+#~ msgstr ""
+#~ "Bilder auf diese Maximalgröße skalieren. Wenn maxSize die Dimensionen der Vorschaubilder "
+#~ "überschreitet, müssen Sie auch g2_show=fullSize einstellen"

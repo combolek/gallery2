@@ -36,12 +36,11 @@ class ImageMagickModule extends GalleryModule {
 	$this->setId('imagemagick');
 	$this->setName($gallery->i18n('ImageMagick'));
 	$this->setDescription($gallery->i18n('ImageMagick / GraphicsMagick Graphics Toolkit'));
-	$this->setVersion('1.1.3');
-	$this->_templateVersion = 1;
+	$this->setVersion('1.1.1');
 	$this->setGroup('toolkits', $gallery->i18n('Graphics Toolkits'));
 	$this->setCallbacks('getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 20));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setRequiredCoreApi(array(7, 4));
+	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
@@ -53,7 +52,7 @@ class ImageMagickModule extends GalleryModule {
 	    return $ret;
 	}
 	foreach (array('path' => '', 'jpegQuality' => '75', 'cmykSupport' => 'none',
-		       'versionOk' => '', 'useNewCoalesceOptions' => 0) as $key => $value) {
+		       'versionOk' => '') as $key => $value) {
 	    if (!isset($params[$key])) {
 		$ret = $this->setParameter($key, $value);
 		if ($ret) {

@@ -19,7 +19,7 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Keyword Albums 1.0.4\n"
+"Project-Id-Version: Gallery: Keyword Albums 1.0.0\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2006-09-12 11:25-0700\n"
 "PO-Revision-Date: 2005-01-01 16:12-0800\n"
@@ -32,15 +32,15 @@ msgstr ""
 "X-Poedit-Country: MEXICO\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#, c-format
-msgid "Keyword Album: %s"
-msgstr "Álbum desde Palabras Clave: %s"
-
 msgid "Keyword Album"
 msgstr "Álbum desde Palabras Clave"
 
 msgid "keyword album"
 msgstr "álbum desde palabras clave"
+
+#, c-format
+msgid "Keyword Album: %s"
+msgstr "Álbum desde Palabras Clave: %s"
 
 msgid "All album views"
 msgstr "Todas las vistas del álbum"
@@ -166,3 +166,7 @@ msgstr "Mostrar nube de palabras clave en vez de una lista de selección"
 
 msgid "Maximum number of keywords (empty for no limit)"
 msgstr "Número máximo de palabras clave (dejar vacío para no poner límite)"
+
+#, fuzzy
+#~ msgid "Successfully saved theme settings"
+#~ msgstr "Satisfactoriamente se salvaron los ajustes de la disposici&oacute;n"

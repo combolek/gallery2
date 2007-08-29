@@ -22,9 +22,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Core 1.2.20\n"
-"Report-Msgid-Bugs-To: <gallery-devel@lists.sourceforge.net>\n"
-"POT-Creation-Date: 2005-10-25 17:54+0200\n"
+"Project-Id-Version: Gallery: Core 1.2.0.3\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-06-07 09:29-0700\n"
 "PO-Revision-Date: 2007-03-14 15:57+0100\n"
 "Last-Translator: Roger Cervantes <cervantes_roger@yahoo.es>\n"
 "Language-Team: Catalan <gallery-translations@lists.sourceforge.net>\n"
@@ -35,30 +35,6 @@ msgstr ""
 
 msgid "Gallery Email Test"
 msgstr "Prova de Correu de Gallery"
-
-#, c-format
-msgid "%d minute"
-msgid_plural "%d minutes"
-msgstr[0] "%d minut"
-msgstr[1] "%d minuts"
-
-#, c-format
-msgid "%d hour"
-msgid_plural "%d hours"
-msgstr[0] "%d hora"
-msgstr[1] "%d hores"
-
-#, c-format
-msgid "%d day"
-msgid_plural "%d days"
-msgstr[0] "%d dia"
-msgstr[1] "%d dies"
-
-#, c-format
-msgid "%d week"
-msgid_plural "%d weeks"
-msgstr[0] "%d setmana"
-msgstr[1] "%d setmanes"
 
 msgid "forever"
 msgstr "per sempre"
@@ -84,16 +60,32 @@ msgstr "Base de Dades"
 msgid "File"
 msgstr "Arxiu"
 
-msgid "&lt;none&gt;"
-msgstr "&lt;ningun&gt;"
-
-#, fuzzy
-msgid "Link"
-msgstr "Iniciar Sessió"
+#, c-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] "%d minut"
+msgstr[1] "%d minuts"
 
 #, c-format
-msgid "Page %d of %d"
-msgstr "Pàgina %d de %d"
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] "%d hora"
+msgstr[1] "%d hores"
+
+#, c-format
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] "%d dia"
+msgstr[1] "%d dies"
+
+#, c-format
+msgid "%d week"
+msgid_plural "%d weeks"
+msgstr[0] "%d setmana"
+msgstr[1] "%d setmanes"
+
+msgid "<none>"
+msgstr "<ningun>"
 
 msgid "No acceleration"
 msgstr "Sense acceleració"
@@ -141,10 +133,6 @@ msgid "Deleting Language Packs"
 msgstr "Idioma per defecte"
 
 #, fuzzy
-msgid "Synchronizing Language Packs"
-msgstr "Idioma per defecte"
-
-#, fuzzy
 msgid "Update completed with errors."
 msgstr "Càrrega Completa"
 
@@ -173,11 +161,11 @@ msgstr "Heretar configuració de l'àlbum superior"
 msgid "Use these settings"
 msgstr "Usar aquesta configuració"
 
-msgid "Converting Schema Table"
-msgstr ""
-
 msgid "Installing the core module"
 msgstr "Mòdul central de Gallery"
+
+msgid "key"
+msgstr "clau"
 
 msgid "All access"
 msgstr "Accés Total"
@@ -212,10 +200,6 @@ msgstr "[core] Borrar element"
 msgid "Upgrading permissions"
 msgstr "Actualitzant permisos"
 
-#, c-format
-msgid "Upgrading permissions (%d items complete, %d remaining)"
-msgstr "Permissos de millora (%d items completats, %d pendents)"
-
 msgid "Deleting old permission tables"
 msgstr "Borrant les taules de permisos antigues"
 
@@ -228,32 +212,11 @@ msgstr "Tots els Usuaris"
 msgid "Detecting broken derivatives"
 msgstr "Detectant derivades trencades"
 
-#, fuzzy, c-format
-msgid "Detecting broken derivatives, loading (%d derivatives checked, %d remaining)"
-msgstr "Detectant derivades trencades, carregant "
-
-#, fuzzy, c-format
-msgid "Detecting broken derivatives (%d derivatives checked, %d remaining)"
-msgstr "Detectant derivades trencades, guardant"
-
-#, fuzzy, c-format
-msgid "Detecting broken derivatives, saving (%d derivatives checked, %d remaining)"
-msgstr "Detectant derivades trencades, guardant"
-
-#, fuzzy, c-format
-msgid ""
-"Detecting broken derivatives, saving item %d of %d (%d derivatives complete, %d remaining)"
-msgstr "Permissos de millora (%d items completats, %d pendents)"
-
 msgid "Clearing fast-download cache"
 msgstr "Borrant la cache de descàrrega ràpida"
 
 msgid "Deleting old fast-download cache"
 msgstr "Borrant la cache de descàrrega ràpida"
-
-#, c-format
-msgid "Deleting old session files (iteration %d)"
-msgstr "Borrant arxius de sessi&oacute; antics (iteraci&oacute;  %d)"
 
 msgid "Updating panorama items"
 msgstr ""
@@ -261,9 +224,11 @@ msgstr ""
 msgid "Optimizing AccessSubscriberMap table"
 msgstr ""
 
-#, fuzzy
-msgid "Upgrading Plugin Translations"
-msgstr "Traduccions actualitzades"
+msgid "Converting Schema Table"
+msgstr ""
+
+msgid "Loading Table Descriptions"
+msgstr ""
 
 msgid "Site Admins"
 msgstr "Administradors de la Web"
@@ -283,16 +248,30 @@ msgstr "Aquesta és la pàgina principal de la teva Galeria"
 msgid "Converting MySQL data to UTF8"
 msgstr "Convertint dades de MySQL a UTF8"
 
-#, fuzzy
-msgid "Adding items"
-msgstr "agregar elements"
+#, c-format
+msgid "Upgrading permissions (%d items complete, %d remaining)"
+msgstr "Permissos de millora (%d items completats, %d pendents)"
 
-#, fuzzy
-msgid "Processing items"
-msgstr "Procesant element %d de %d"
+#, fuzzy, c-format
+msgid "Detecting broken derivatives, loading (%d derivatives checked, %d remaining)"
+msgstr "Detectant derivades trencades, carregant "
 
-msgid "Extracting archive"
-msgstr ""
+#, fuzzy, c-format
+msgid "Detecting broken derivatives (%d derivatives checked, %d remaining)"
+msgstr "Detectant derivades trencades, guardant"
+
+#, fuzzy, c-format
+msgid "Detecting broken derivatives, saving (%d derivatives checked, %d remaining)"
+msgstr "Detectant derivades trencades, guardant"
+
+#, fuzzy, c-format
+msgid ""
+"Detecting broken derivatives, saving item %d of %d (%d derivatives complete, %d remaining)"
+msgstr "Permissos de millora (%d items completats, %d pendents)"
+
+#, c-format
+msgid "Deleting old session files (iteration %d)"
+msgstr "Borrant arxius de sessi&oacute; antics (iteraci&oacute;  %d)"
 
 msgid "add items"
 msgstr "agregar elements"
@@ -305,6 +284,30 @@ msgstr "agregar sub-àlbum"
 
 msgid "add items confirmation"
 msgstr "confirmació per agregar elements"
+
+msgid "Base filename"
+msgstr "Nom del fitxer rael"
+
+msgid "Caption"
+msgstr "Etiqueta"
+
+msgid "Blank"
+msgstr "En blanc"
+
+msgid "From Web Browser"
+msgstr "Desde el Navegador"
+
+#, c-format
+msgid "%d megabyte"
+msgid_plural "%d megabytes"
+msgstr[0] "%d megabyte"
+msgstr[1] "%d megabytes"
+
+#, c-format
+msgid "%d kilobytes"
+msgid_plural "%d kilobytes"
+msgstr[0] "%d kilobyte"
+msgstr[1] "%d kilobytes"
 
 #, c-format
 msgid "Input file %s exceeds maximum permitted file size"
@@ -322,35 +325,18 @@ msgstr ""
 msgid "Input file %s was not uploaded. Error %d"
 msgstr ""
 
-#, c-format
-msgid "%d megabyte"
-msgid_plural "%d megabytes"
-msgstr[0] "%d megabyte"
-msgstr[1] "%d megabytes"
-
-#, c-format
-msgid "%d kilobytes"
-msgid_plural "%d kilobytes"
-msgstr[0] "%d kilobyte"
-msgstr[1] "%d kilobytes"
-
-msgid "Base filename"
-msgstr "Nom del fitxer rael"
-
-msgid "Caption"
-msgstr "Etiqueta"
-
-msgid "Blank"
-msgstr "En blanc"
-
-msgid "From Web Browser"
-msgstr "Desde el Navegador"
-
 msgid "Gallery Item Administration"
 msgstr "Administració d'Elements de Gallery"
 
 msgid "delete an item"
 msgstr "borrar un element"
+
+msgid "delete confirmation"
+msgstr "confirmació de borrat"
+
+#, c-format
+msgid "delete %s"
+msgstr "borrar %s"
 
 #, c-format
 msgid "edit %s"
@@ -367,10 +353,6 @@ msgstr "Restaurar la configuració del tema"
 msgid "Preparing..."
 msgstr "Processant..."
 
-#, c-format
-msgid "Processing image %d of %d"
-msgstr "Processant imatge %d de %d"
-
 msgid "Apply thumbnail settings"
 msgstr ""
 
@@ -379,6 +361,10 @@ msgstr "Refer miniatures"
 
 msgid "Album"
 msgstr "Àlbum"
+
+#, c-format
+msgid "Processing image %d of %d"
+msgstr "Processant imatge %d de %d"
 
 msgid "Changes saved successfully"
 msgstr "Els canvis han estat guardats amb èxit"
@@ -518,10 +504,6 @@ msgstr "Editar Foto"
 msgid "Edit Movie"
 msgstr "Editar Pel·lícula"
 
-#, c-format
-msgid "Edit %s"
-msgstr "Editar %s"
-
 msgid "Add Album"
 msgstr "Agregar Àlbum"
 
@@ -540,10 +522,6 @@ msgstr "Borrar Foto"
 msgid "Delete Movie"
 msgstr "Borrar Pel·lícula"
 
-#, c-format
-msgid "Delete %s"
-msgstr "Borrar %s"
-
 msgid "Move Album"
 msgstr "Moure Àlbum"
 
@@ -553,10 +531,6 @@ msgstr "Moure Foto"
 msgid "Move Movie"
 msgstr "Moure Pel·lícula"
 
-#, c-format
-msgid "Move %s"
-msgstr "Moure %s"
-
 msgid "Edit Captions"
 msgstr "Editar Etiquetes"
 
@@ -565,9 +539,6 @@ msgstr "Destacar"
 
 msgid "Reorder Items"
 msgstr "Reordenar Elements"
-
-msgid "Delete Items"
-msgstr "Borrar Elements"
 
 msgid "Site Admin"
 msgstr "Administrar Web"
@@ -593,9 +564,6 @@ msgstr "Grups"
 msgid "Performance"
 msgstr "Rendiment"
 
-msgid "Event Logs"
-msgstr ""
-
 msgid "Toolkit Priority"
 msgstr "Prioritat de las Eines"
 
@@ -607,6 +575,18 @@ msgstr "Propietats del Compte"
 
 msgid "Change Password"
 msgstr "Canviar Contrasenya"
+
+#, c-format
+msgid "Edit %s"
+msgstr "Editar %s"
+
+#, c-format
+msgid "Delete %s"
+msgstr "Borrar %s"
+
+#, c-format
+msgid "Move %s"
+msgstr "Moure %s"
 
 msgid "Build all thumbnails/resizes"
 msgstr "Crear totes les vistes en miniatura/Imatges redimensionades"
@@ -621,6 +601,9 @@ msgstr ""
 msgid "Build All Thumbnails/Resizes"
 msgstr "Crear Totes les vistes en miniatura/imatges redimensionades"
 
+msgid "Debug output for failed items:"
+msgstr "Sortida de depuració per als elements que han fallat:"
+
 #, c-format
 msgid "Checked %d items"
 msgstr "%d elements sel·leccionats"
@@ -632,9 +615,6 @@ msgstr "%d elements creats"
 #, c-format
 msgid "%d items failed"
 msgstr "%d elements que han fallat"
-
-msgid "Debug output for failed items:"
-msgstr "Sortida de depuració per als elements que han fallat:"
 
 #, fuzzy
 msgid "Convert MySQL database to UTF8"
@@ -653,28 +633,6 @@ msgid "Database successfully converted to UTF8"
 msgstr "Element eliminat amb èxit"
 
 msgid "No conversion required"
-msgstr ""
-
-#, fuzzy
-msgid "Backup the database"
-msgstr "Optimitzar base de dades"
-
-msgid ""
-"Backup all your Gallery data (item data, users, comments, etc.) to a single file in your "
-"storage folder.  The backup does not include the image files.  Before running the backup, "
-"your Gallery installation needs to be set into maintenance mode, as this is not done "
-"automatically."
-msgstr ""
-
-msgid "Backing up Gallery Database"
-msgstr ""
-
-#, fuzzy
-msgid "Exporting..."
-msgstr "Processant..."
-
-#, c-format
-msgid "Database backup completed and the backup file is located at: %s"
 msgstr ""
 
 msgid "Delete user sessions"
@@ -713,12 +671,11 @@ msgstr "No es possible eliminar el directori %s"
 msgid "Delete template cache"
 msgstr "Borrar la cache de les plantilles"
 
-#, fuzzy
 msgid ""
 "Gallery compiles template files and saves them for increased performance.  If you're "
 "experiencing problems that say <i>Smarty error</i> then you might try running this task.  "
-"Also run this if you add or remove any local/*.tpl or theme override so Smarty will find the "
-"right file."
+"Also run this if you remove a local/*.tpl file so Smarty will switch back to the default tpl "
+"file."
 msgstr ""
 "Gallery compila els fitxers de las plantilles i els guarda per incrementar el rendimient.  "
 "Si estàs experimentant problemes del tipus <i>Smarty error</i> pots intentar executar "
@@ -866,10 +823,6 @@ msgstr "Ascendent"
 msgid "Descending"
 msgstr "Descendent"
 
-#, c-format
-msgid "Powered by Gallery v%s"
-msgstr ""
-
 msgid "Validation disabled until you set allowSessionAccess in config.php"
 msgstr "Validació deshabilitada fins que es configuri allowSessionAccess al config.php"
 
@@ -878,6 +831,13 @@ msgstr "Aquesta pàgina es XHTML 1.0 vàlid"
 
 msgid "Donate to the Gallery project"
 msgstr "Dóna al projecte Gallery"
+
+msgid "G2.2: Double Double"
+msgstr ""
+
+#, c-format
+msgid "Powered by Gallery v%s"
+msgstr ""
 
 #, c-format
 msgid "Estimated time remaining: %d:%02d"
@@ -987,12 +947,12 @@ msgstr "Fulles de Càlcul"
 msgid "file"
 msgstr "Arxiu"
 
+msgid "Back"
+msgstr "Enrere"
+
 #, c-format
 msgid "Back to %s"
 msgstr "Tornar a %s"
-
-msgid "Back"
-msgstr "Enrere"
 
 msgid "User"
 msgstr "Usuari"
@@ -1065,10 +1025,6 @@ msgstr "central"
 msgid "unknown"
 msgstr "desconegut"
 
-#, c-format
-msgid "API = Core %s, Module %s, Theme %s, Embed %s"
-msgstr ""
-
 msgid "Gallery version"
 msgstr "Versió de Gallery"
 
@@ -1109,65 +1065,6 @@ msgstr "Buscador"
 
 #, c-format
 msgid "Rows in %s table = %d"
-msgstr ""
-
-#, c-format
-msgid "The %s \"%s\" is not installed and will not be backed up."
-msgstr ""
-
-#, c-format
-msgid "\"%s\" has no creation sql and will not be backed up."
-msgstr ""
-
-#, c-format
-msgid "Unable to load table description for \"%s\", no data will be exported."
-msgstr ""
-
-msgid ""
-"Unable to find the XML parser.  The PHP XML parsing extension must be loaded.  Terminating "
-"database import."
-msgstr ""
-
-#, c-format
-msgid "The exported file is not the correct version. Expecting %s recieved %s."
-msgstr ""
-
-#, fuzzy, c-format
-msgid "Unable to close import file: %s"
-msgstr "No es possible eliminar el directori %s"
-
-#, fuzzy, c-format
-msgid "Unable to open import file: %s"
-msgstr "No es possible eliminar el directori %s"
-
-#, c-format
-msgid "Import file doesn't exist: %s"
-msgstr ""
-
-#, c-format
-msgid "Plugin %s is not currently available."
-msgstr ""
-
-#, c-format
-msgid "The available version of plugin \"%s\" may not be compatible with the imported version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The currently installed core API version required by \"%s\" may not be compatible with the "
-"imported version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The installed module API version required by \"%s\" may not be compatible with the imported "
-"version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The installed theme API version required by \"%s\" is not compatible with the imported "
-"version."
 msgstr ""
 
 msgid "Successfully saved theme settings"
@@ -1689,49 +1586,6 @@ msgid_plural "%d failed login attempts since the last successful login."
 msgstr[0] ""
 msgstr[1] ""
 
-#, fuzzy
-msgid "Recent Events"
-msgstr "Reiniciar contadors de visites"
-
-msgid "Type"
-msgstr ""
-
-#, fuzzy
-msgid "Location"
-msgstr "Acció"
-
-#, fuzzy
-msgid "Client"
-msgstr "llista"
-
-#, fuzzy
-msgid "No events have been reported yet."
-msgstr "No s'ha seleccionat cap paquet."
-
-#, fuzzy
-msgid "Event Details"
-msgstr "Detall de l'Error"
-
-#, fuzzy
-msgid "User Id"
-msgstr "Usuari"
-
-#, fuzzy
-msgid "Referer"
-msgstr "Reordenar"
-
-#, fuzzy
-msgid "Details"
-msgstr "Per defecte"
-
-#, fuzzy
-msgid "no summary"
-msgstr "Resum"
-
-#, fuzzy
-msgid "An error occurred while retrieving the event log entry details."
-msgstr "S'ha produït un error interactuant amb la base de dades."
-
 msgid "Group Management"
 msgstr "Gestió de Grups"
 
@@ -1796,9 +1650,6 @@ msgstr[1] "%d grups coincideixen amb el teu filtre"
 msgid "System Maintenance"
 msgstr "Mantenimient del Sistema"
 
-msgid "Gallery must be in maintenance mode before the task can be run."
-msgstr ""
-
 #, c-format
 msgid "Completed %s task successfully."
 msgstr "Completada la tasca %s amb èxit."
@@ -1806,41 +1657,6 @@ msgstr "Completada la tasca %s amb èxit."
 #, c-format
 msgid "The %s task failed to complete successfully."
 msgstr "La tasca %s ha fallat abans de completar-se"
-
-msgid "Maintenance Mode has been turned on."
-msgstr ""
-
-msgid "Maintenance Mode has been turned off."
-msgstr ""
-
-#, fuzzy
-msgid "Maintenance Mode"
-msgstr "Manteniment"
-
-msgid "Restrict user access to the system while maintenance is being performed."
-msgstr ""
-
-#, fuzzy
-msgid "Maintenance Mode Url"
-msgstr "Manteniment"
-
-msgid ""
-"The Maintenance Mode Url specifies where requests will be redirected when access to the site "
-"has been restricted by the administrator."
-msgstr ""
-
-msgid ""
-"If left blank Gallery will display a default page with an administrator login link. This "
-"page will be themed when the code base is up to date, otherwise it will display a plain "
-"unstyled page."
-msgstr ""
-
-msgid "For example: /maintenance.html"
-msgstr ""
-
-#, fuzzy
-msgid "Set"
-msgstr "Configuració"
 
 msgid "Task name"
 msgstr "Nom de la tasca"
@@ -1941,21 +1757,6 @@ msgstr "Usuaris Registrats"
 
 msgid "Expires after:"
 msgstr "Expira després de:"
-
-#, fuzzy
-msgid "Template Cache"
-msgstr "Borrar la cache de les plantilles"
-
-#, c-format
-msgid ""
-"For optimal performance, Gallery caches all templates.  If you would like to %scustomize "
-"your template files%s, you should disable template caching temporarily so that changes take "
-"effect immediately without clearing the template cache."
-msgstr ""
-
-#, fuzzy
-msgid "Enable template caching"
-msgstr "Borrar la cache de les plantilles"
 
 msgid "Clear Saved Pages"
 msgstr "Borra les pàgines desades"
@@ -2140,19 +1941,9 @@ msgid ""
 msgstr ""
 
 #, c-format
-msgid "Failed to download the following packages for the %s plugin:"
-msgstr ""
-
-#, c-format
 msgid ""
-"Failed to install the %s plugin because the following files/directories could not be "
+"Failed to download the %s plugin because the following files/directories could not be "
 "modified:"
-msgstr ""
-
-#, c-format
-msgid ""
-"Some plugins could not be automatically upgraded because they are in use.  Please return to "
-"the %sPlugins%s page and click the upgrade link for each of the following plugins:"
 msgstr ""
 
 msgid "The repository index has been successfully updated."
@@ -2433,10 +2224,6 @@ msgstr ""
 msgid "New albums"
 msgstr "Nous àlbums"
 
-#, c-format
-msgid "To activate more themes visit the %sPlugins%s page."
-msgstr ""
-
 #, fuzzy
 msgid "Save Defaults"
 msgstr "Per defecte"
@@ -2651,9 +2438,6 @@ msgstr "Detall de l'Error"
 msgid "System Information"
 msgstr "Informació del sistema"
 
-msgid "Not all of the specified items have been added successfully."
-msgstr ""
-
 msgid ""
 "You don't have any Graphics Toolkit activated that can handle JPEG images.  If you add "
 "images, you will probably not have any thumbnails."
@@ -2662,8 +2446,8 @@ msgstr ""
 "probablement no es generará ninguna miniatura."
 
 #, c-format
-msgid "Visit the %sModules%s page to activate a Graphics Toolkit."
-msgstr "Visita la pàgina de %sMòduls%s per activar una Eina Gràfica."
+msgid "Visit the <a href=\"%s\">Modules</a> page to activate a Graphics Toolkit."
+msgstr "Visita la pàgina de <a href=\"%s\">Mòduls</a> per activar una Eina Gràfica."
 
 msgid "Add Sub-Album"
 msgstr "Afegir Sub-Álbum"
@@ -2770,6 +2554,9 @@ msgstr "Assignar etiqueta a:"
 msgid "No Thumbnail"
 msgstr "Sense Miniatura"
 
+msgid "Delete Items"
+msgstr "Borrar Elements"
+
 msgid "No items were selected for deletion"
 msgstr "No s'han seleccionat elements per eliminar"
 
@@ -2827,13 +2614,24 @@ msgstr "Pàgina Anterior"
 msgid "Next Page"
 msgstr "Pàgina Siguiente"
 
-#, fuzzy, c-format
-msgid "Do you really want to delete %s?"
-msgstr "&iquest;Estàs segur de voler desinstal·lar el mòdul __PLUGIN__?"
+msgid "Deletion Complete"
+msgstr "Borrat Complet"
 
-#, fuzzy
-msgid "Delete more items..."
-msgstr "Borrar Elements"
+msgid "Item successfully deleted"
+msgstr "Element eliminat amb èxit"
+
+#, c-format
+msgid "Are you sure you want to delete this %s?"
+msgstr "&iquest;Estàs segur de voler eliminar aquest %s?"
+
+#, c-format
+msgid "It contains %d item."
+msgid_plural "It contains %d items."
+msgstr[0] "Conté %d element."
+msgstr[1] "Conté %d elements."
+
+msgid "There is no undo!"
+msgstr "&iexcl;No es pot desfer!"
 
 msgid "There was a problem processing your request."
 msgstr "Hi ha hagut un problema processant la seva petició"
@@ -3052,7 +2850,7 @@ msgid ""
 "harm."
 msgstr ""
 "Per a que Gallery mostri correctament aquesta pel·lícula, ha de saber l'altura i l'amplada "
-"de la mateixa.  Si tens instal·lada una eina gr&agrave;fica que manegui arxius de vídeo, "
+"de la mateixa.  Si tens instal·lada una eina gr&agravefica que manegui arxius de vídeo, "
 "llavors aquests valor haurien d'estar ja configurats. En cas contrari, haurien d'estar "
 "posats a 0.  Si no introdueixes aqui els valors correctes, la pel·lícula podria apareixer "
 "distorssionada cuan es vegi en el teu navegador web. Donat compte que canviar aquets valors "
@@ -3256,18 +3054,11 @@ msgstr "Font"
 msgid "Choose the items you want to move"
 msgstr "Escull els elements que vols moure"
 
-msgid "OK"
-msgstr ""
-
 msgid ""
 "The destination you chose does not accept sub-albums, so all sub-albums have been deselected."
 msgstr ""
 "El destí que has escollit no accepta sub-àlbums, de forma que tots els sub-àlbums han estat "
 "deseleccionats."
-
-#, fuzzy
-msgid "Warning"
-msgstr "Avís:"
 
 msgid ""
 "The destination you chose only accepts sub-albums, so all non-albums have been deselected."
@@ -3473,12 +3264,10 @@ msgstr "Escriu algun texte descrivint la URL"
 msgid "Enter an image URL"
 msgstr "Escriu la URL de la imatge"
 
-#. HINT: Button label for Bold
-msgid "B"
+msgid "B <!-- Button label for Bold -->"
 msgstr "B"
 
-#. HINT: Button label for italic
-msgid "i"
+msgid "i <!-- Button label for italic -->"
 msgstr "i"
 
 msgid "list"
@@ -3498,7 +3287,7 @@ msgid "color"
 msgstr "central"
 
 #, c-format
-msgid "You can also use the %scolor name%s for example: %sYour Text%s"
+msgid "You can also use the <a href=\"%s\" target=\"_new\">color name</a> for example: %s"
 msgstr ""
 
 msgid "Configuration Error: Missing Theme"
@@ -3620,17 +3409,20 @@ msgstr "Tu contrasenya ha sigut recuperada, si us plau inicia sessió."
 #, c-format
 msgid ""
 "Logins to this account are temporarily disabled due to multiple failed login attempts.  Wait "
-"for access to be restored, or use the %srecover password%s page to re-enable this account."
+"for access to be restored, or use the <a href=\"%s\">recover password</a> page to re-enable "
+"this account."
 msgstr ""
 
 msgid "Your login information is incorrect.  Please try again."
 msgstr "La teva informació d'inici de sessió és incorrecta. Si us plau intenta-ho de nou."
 
 #, c-format
-msgid "Lost or forgotten passwords can be retrieved using the %srecover password%s page"
+msgid ""
+"Lost or forgotten passwords can be retrieved using the <a href=\"%s\">recover password</a> "
+"page"
 msgstr ""
-"Les contrasenyes perdudes o oblidades es poden recuperar fent servir la pàgina de %"
-"srecuperar contrasenya%s"
+"Les contrasenyes perdudes o oblidades es poden recuperar fent servir la pàgina de <a href=\"%"
+"s\">recuperar contrasenya</a>"
 
 #, c-format
 msgid "Welcome, %s!"
@@ -3779,18 +3571,19 @@ msgstr "Aquesta pàgina et permet reiniciar la contrasenya del teu compte."
 #, c-format
 msgid ""
 "There is no request which matches the username and authorization provided. Request a new "
-"authorization from the %slost password page%s."
+"authorization from the <a href=\"%s\">lost password page</a>"
 msgstr ""
 "No hi ha ninguna petició que coincideixi amb el nom d'usuari i la autorització facilitada. "
-"Sol·licita una nova autorizació desde la %sp&agrave;gina per recordar contrasenyes%s."
+"Sol·licita una nova autorizació desde la <a href=\"%s\">p&agrave;gina per recordar "
+"contrasenyes</a>."
 
 #, c-format
 msgid ""
-"The request you are trying to access has expired.  Request a new authorization from the %"
-"slost password page%s."
+"The request you are trying to access has expired.  Request a new authorization from the <a "
+"href=\"%s\">lost password page</a>."
 msgstr ""
 "La petició a la que estàs intentant accedir ha expirat.  Sol·licita una nova autorizació "
-"desde la %sp&agrave;gina per recordar contrasenyes%s."
+"desde la <a href=\"%s\">p&agrave;gina per recordar contrasenyes</a>."
 
 msgid "Authorization missing"
 msgstr "Autorizació no trobada"
@@ -3878,6 +3671,10 @@ msgid "last"
 msgstr "últim"
 
 #, c-format
+msgid "Page %d of %d"
+msgstr "Pàgina %d de %d"
+
+#, c-format
 msgid "%d of %d"
 msgstr "%d de %d"
 
@@ -3923,29 +3720,3 @@ msgstr "Bloc d'Inici de Sessió"
 
 msgid "Links to album/photo peers"
 msgstr "Enllaços als parells d'àlbum/foto"
-
-#~ msgid "delete confirmation"
-#~ msgstr "confirmació de borrat"
-
-#~ msgid "delete %s"
-#~ msgstr "borrar %s"
-
-#~ msgid "Deletion Complete"
-#~ msgstr "Borrat Complet"
-
-#~ msgid "Item successfully deleted"
-#~ msgstr "Element eliminat amb èxit"
-
-#~ msgid "Are you sure you want to delete this %s?"
-#~ msgstr "&iquest;Estàs segur de voler eliminar aquest %s?"
-
-#~ msgid "It contains %d item."
-#~ msgid_plural "It contains %d items."
-#~ msgstr[0] "Conté %d element."
-#~ msgstr[1] "Conté %d elements."
-
-#~ msgid "There is no undo!"
-#~ msgstr "&iexcl;No es pot desfer!"
-
-#~ msgid "key"
-#~ msgstr "clau"

@@ -73,9 +73,13 @@ class UpdatesAlbumView extends GalleryView {
 	$itemId = GalleryUtilities::getRequestVariables('itemId');
 	if (!empty($itemId)) {
 	    /* Viewing an item in this dynamic album */
-	    list ($ret, $viewItem) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
+	    list ($ret, $viewItem) = GalleryCoreApi::loadEntitiesById($itemId);
 	    if ($ret) {
 		return array($ret, null, null, null);
+	    }
+	    if (!GalleryUtilities::isA($viewItem, 'GalleryItem')) {
+		/* Invalid itemId given, return MISSING_OBJECT to get standard error page */
+		return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null, null, null);
 	    }
 
 	    /* Provide parent, parent URL and get-children function to Theme API */
@@ -149,7 +153,7 @@ class UpdatesAlbumView extends GalleryView {
     /**
      * Dynamic query for items
      * @param int $userId
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *               array of item ids
      * @static
      */

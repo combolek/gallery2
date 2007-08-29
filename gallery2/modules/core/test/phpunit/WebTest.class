@@ -33,10 +33,7 @@ class WebTest extends GalleryTestCase {
 
     function setUp() {
 	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	$gallery->_platform = new WebTestPlatform($this);
     }
@@ -249,7 +246,6 @@ class WebTest extends GalleryTestCase {
     }
 
     function testFetchWebPageTooManyRedirects() {
-	GalleryCoreApi::requireOnce('modules/core/classes/helpers/WebHelper_simple.class');
 	list ($success, $body, $response, $headers, $actualUrl) =
 	    WebHelper_simple::fetchWebPage('http://www.test.server/testFetchRedirectedWebPage',
 					   array(), 6);

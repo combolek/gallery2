@@ -63,7 +63,7 @@ class PrintPhotosController extends GalleryController {
 
 	/* Load the necessary item data */
 	$itemIds = array_keys($cartItemIds);
-	list ($ret, $items) = GalleryCoreApi::loadEntitiesById($itemIds, 'GalleryPhotoItem');
+	list ($ret, $items) = GalleryCoreApi::loadEntitiesById($itemIds);
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -230,7 +230,7 @@ class PrintPhotosController extends GalleryController {
 
     /**
      * Initialize fotokasten session.
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function getFotokastenSession() {
 	global $gallery;
@@ -275,7 +275,7 @@ class PrintPhotosController extends GalleryController {
 
     /**
      * Send basket to fotokasten.
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *               string url for redirect to shopping basket
      */
     function sendFotokastenCart($basket) {

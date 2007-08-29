@@ -1,150 +1,119 @@
 # $Revision$
 # File crc32 crc32(crlf) size size(crlf)  or  R File
-modules/publishxp/DownloadRegistryFile.inc	840742311	2475834373	6770	6978
-modules/publishxp/ItemAddPublishXp.inc	1938360372	3903745252	2060	2118
+modules/publishxp/DownloadRegistryFile.inc	33325117	283070554	6625	6831
+modules/publishxp/ItemAddPublishXp.inc	364830763	1275625583	1754	1805
 modules/publishxp/Login.inc	1558715797	1363635955	1487	1527
-modules/publishxp/NewAlbum.inc	682900875	1147584183	4669	4811
-modules/publishxp/Options.inc	976073403	1139547832	4395	4522
+modules/publishxp/NewAlbum.inc	1160967678	3583904409	4644	4785
+modules/publishxp/Options.inc	3492862698	1685313584	4375	4502
 modules/publishxp/PublishXpLogin.inc	4152428981	1538696391	3975	4104
-modules/publishxp/SelectAlbum.inc	1553337988	3958634035	4481	4616
-modules/publishxp/UploadItems.inc	412168466	1802319502	9311	9605
+modules/publishxp/SelectAlbum.inc	2194656842	1210271708	4456	4590
+modules/publishxp/UploadItems.inc	2833184618	671232418	9324	9618
 modules/publishxp/UploadedItem.inc	4090352472	60480850	1731	1774
-modules/publishxp/module.inc	2415661324	950039433	2154	2214
+modules/publishxp/locale/af/LC_MESSAGES/modules_publishxp.mo	56876778	56876778	5576	5576
+modules/publishxp/locale/ar/LC_MESSAGES/modules_publishxp.mo	1212971418	1212971418	2505	2505
+modules/publishxp/locale/ca/LC_MESSAGES/modules_publishxp.mo	1527752249	1527752249	2263	2263
+modules/publishxp/locale/cs/LC_MESSAGES/modules_publishxp.mo	2777628173	2777628173	5764	5764
+modules/publishxp/locale/da/LC_MESSAGES/modules_publishxp.mo	3847949719	3847949719	5610	5610
+modules/publishxp/locale/de/LC_MESSAGES/modules_publishxp.mo	3180446167	3180446167	6463	6463
+modules/publishxp/locale/en_GB/LC_MESSAGES/modules_publishxp.mo	1240607830	1240607830	457	457
+modules/publishxp/locale/es/LC_MESSAGES/modules_publishxp.mo	1295036588	1295036588	6240	6240
+modules/publishxp/locale/eu/LC_MESSAGES/modules_publishxp.mo	3402429614	3402429614	5621	5621
+modules/publishxp/locale/fi/LC_MESSAGES/modules_publishxp.mo	627757696	627757696	5491	5491
+modules/publishxp/locale/fr/LC_MESSAGES/modules_publishxp.mo	1055490218	1055490218	6175	6175
+modules/publishxp/locale/hu/LC_MESSAGES/modules_publishxp.mo	1103996066	1103996066	2134	2134
+modules/publishxp/locale/it/LC_MESSAGES/modules_publishxp.mo	2638327254	2638327254	5917	5917
+modules/publishxp/locale/ja/LC_MESSAGES/modules_publishxp.mo	781809218	781809218	3954	3954
+modules/publishxp/locale/ko/LC_MESSAGES/modules_publishxp.mo	296458081	296458081	3878	3878
+modules/publishxp/locale/lt/LC_MESSAGES/modules_publishxp.mo	3722580115	3722580115	6173	6173
+modules/publishxp/locale/nl/LC_MESSAGES/modules_publishxp.mo	3831739429	3831739429	5764	5764
+modules/publishxp/locale/no/LC_MESSAGES/modules_publishxp.mo	3798961896	3798961896	5953	5953
+modules/publishxp/locale/pl/LC_MESSAGES/modules_publishxp.mo	345897922	345897922	6276	6276
+modules/publishxp/locale/ro/LC_MESSAGES/modules_publishxp.mo	149201986	149201986	2250	2250
+modules/publishxp/locale/ru/LC_MESSAGES/modules_publishxp.mo	39845113	39845113	7941	7941
+modules/publishxp/locale/sk/LC_MESSAGES/modules_publishxp.mo	1519354548	1519354548	1687	1687
+modules/publishxp/locale/sr/LC_MESSAGES/modules_publishxp.mo	3923365516	3923365516	5573	5573
+modules/publishxp/locale/sv/LC_MESSAGES/modules_publishxp.mo	1239099848	1239099848	6111	6111
+modules/publishxp/locale/tr/LC_MESSAGES/modules_publishxp.mo	1125157883	1125157883	3477	3477
+modules/publishxp/locale/uk/LC_MESSAGES/modules_publishxp.mo	1779330328	1779330328	2682	2682
+modules/publishxp/locale/vi/LC_MESSAGES/modules_publishxp.mo	3075885131	3075885131	2422	2422
+modules/publishxp/locale/zh_CN/LC_MESSAGES/modules_publishxp.mo	3885609608	3885609608	5517	5517
+modules/publishxp/locale/zh_TW/LC_MESSAGES/modules_publishxp.mo	708879907	708879907	5789	5789
+modules/publishxp/module.inc	889442549	1764239694	2123	2182
 modules/publishxp/po/GNUmakefile	1866879166	2808215985	98	103
-modules/publishxp/po/af.mo	2335185719	2335185719	5576	5576
-modules/publishxp/po/af.po	2855297159	3136397226	6820	7024
-modules/publishxp/po/ar.mo	1684081729	1684081729	2505	2505
-modules/publishxp/po/ar.po	1116473048	2670257448	5603	5790
-modules/publishxp/po/ca.mo	2573514724	2573514724	2295	2295
-modules/publishxp/po/ca.po	3915885510	3008540601	5486	5676
-modules/publishxp/po/cs.mo	3864550649	3864550649	5764	5764
-modules/publishxp/po/cs.po	2719957597	3074930175	6927	7128
-modules/publishxp/po/da.mo	2217465658	2217465658	5708	5708
-modules/publishxp/po/da.po	1510402609	2700368159	6965	7168
-modules/publishxp/po/de.mo	188735364	188735364	6564	6564
-modules/publishxp/po/de.po	2784551029	3835510654	7729	7940
-modules/publishxp/po/el.mo	2142094947	2142094947	8695	8695
-modules/publishxp/po/el.po	2661684841	3402197512	9687	9896
-modules/publishxp/po/en_GB.mo	4237030553	4237030553	457	457
-modules/publishxp/po/en_GB.po	2564998525	370406404	6930	7131
-modules/publishxp/po/es.mo	818226470	818226470	6446	6446
-modules/publishxp/po/es.po	1261967167	2004534777	7453	7660
-modules/publishxp/po/eu.mo	790461790	790461790	5621	5621
-modules/publishxp/po/eu.po	3804986943	1609199271	6825	7029
-modules/publishxp/po/fi.mo	3627759680	3627759680	5877	5877
-modules/publishxp/po/fi.po	901456654	180843092	6964	7168
-modules/publishxp/po/fr.mo	2371863864	2371863864	6498	6498
-modules/publishxp/po/fr.po	3745603672	696018179	7465	7669
-modules/publishxp/po/hu.mo	4029723674	4029723674	2170	2170
-modules/publishxp/po/hu.po	684929063	3660323241	5372	5565
-modules/publishxp/po/it.mo	1592185633	1592185633	6140	6140
-modules/publishxp/po/it.po	1642762851	2910658171	7142	7345
-modules/publishxp/po/ja.mo	1486532081	1486532081	7078	7078
-modules/publishxp/po/ja.po	2888632149	1089410732	8038	8239
-modules/publishxp/po/ko.mo	263425985	263425985	3914	3914
-modules/publishxp/po/ko.po	1382595953	3436206631	6110	6301
-modules/publishxp/po/lt.mo	311238629	311238629	6173	6173
-modules/publishxp/po/lt.po	1470171527	1218758214	7282	7487
-modules/publishxp/po/nl.mo	1565051719	1565051719	5764	5764
-modules/publishxp/po/nl.po	1181243731	2193644648	7113	7317
-modules/publishxp/po/no.mo	4169633362	4169633362	5953	5953
-modules/publishxp/po/no.po	175981490	1995878442	7156	7361
-modules/publishxp/po/pl.mo	1822816022	1822816022	6464	6464
-modules/publishxp/po/pl.po	3358215470	3892631598	7397	7602
-modules/publishxp/po/ro.mo	3596963843	3596963843	2250	2250
-modules/publishxp/po/ro.po	2004024310	2978915932	5413	5604
-modules/publishxp/po/ru.mo	3550642797	3550642797	7941	7941
-modules/publishxp/po/ru.po	2590419577	2188157068	9359	9569
-modules/publishxp/po/sk.mo	1132884295	1132884295	1687	1687
-modules/publishxp/po/sk.po	767466393	2254185937	5252	5445
-modules/publishxp/po/sr.mo	2777258161	2777258161	5938	5938
-modules/publishxp/po/sr.po	2276859251	2434709350	7391	7604
-modules/publishxp/po/strings.raw	2560807982	672454753	3204	3268
-modules/publishxp/po/sv.mo	2512215338	2512215338	5459	5459
-modules/publishxp/po/sv.po	640586844	163573280	7307	7519
-modules/publishxp/po/tr.mo	1140035706	1140035706	5221	5221
-modules/publishxp/po/tr.po	56672525	62264750	6524	6723
-modules/publishxp/po/uk.mo	399488617	399488617	2682	2682
-modules/publishxp/po/uk.po	947564162	1170228885	5993	6185
-modules/publishxp/po/vi.mo	54195587	54195587	2459	2459
-modules/publishxp/po/vi.po	1205739040	3982826694	5535	5723
-modules/publishxp/po/zh_CN.mo	1311328405	1311328405	5517	5517
-modules/publishxp/po/zh_CN.po	2717272423	2672189866	6662	6859
-modules/publishxp/po/zh_TW.mo	2475369485	2475369485	5789	5789
-modules/publishxp/po/zh_TW.po	1685786704	1293306061	6782	6979
-modules/publishxp/templates/DownloadRegistryFile.tpl	1356492233	3316062693	875	890
-modules/publishxp/templates/Head.tpl	225680171	2636938271	1796	1873
-modules/publishxp/templates/ItemAddPublishXp.tpl	1729091730	4206921485	2654	2702
-modules/publishxp/templates/NewAlbum.tpl	2333101555	3322252325	3869	3986
-modules/publishxp/templates/Options.tpl	1947500814	1655123089	1818	1860
-modules/publishxp/templates/PublishXpLogin.tpl	66379377	3600130739	1911	1969
-modules/publishxp/templates/SelectAlbum.tpl	130900258	197519155	1884	1931
-modules/publishxp/templates/UploadItems.tpl	554662807	3033881529	2666	2733
-modules/publishxp/test/phpunit/DownloadRegistryFileTest.class	1449551443	927285	3588	3695
-modules/publishxp/test/phpunit/NewAlbumControllerTest.class	3139878902	897075945	4521	4631
-modules/publishxp/test/phpunit/OptionsControllerTest.class	2982568021	3405807723	3579	3694
-modules/publishxp/test/phpunit/PublishXpLoginControllerTest.class	463623146	606789381	3139	3233
+modules/publishxp/po/af.po	1427865290	2690289087	7084	7294
+modules/publishxp/po/ar.po	2793259470	4013511262	5485	5666
+modules/publishxp/po/ca.po	1786166343	2133602502	5360	5544
+modules/publishxp/po/cs.po	4174874769	3313569391	7205	7412
+modules/publishxp/po/da.po	77999152	4172256579	6777	6974
+modules/publishxp/po/de.po	1711075517	3742456610	7769	7977
+modules/publishxp/po/en_GB.po	3047057173	1396757251	6734	6929
+modules/publishxp/po/es.po	2618367619	1405774953	7251	7452
+modules/publishxp/po/eu.po	2180907443	3462301838	6823	7024
+modules/publishxp/po/fi.po	2068335010	52799468	6948	7154
+modules/publishxp/po/fr.po	4056392996	81701137	7135	7332
+modules/publishxp/po/hu.po	195718069	4256245665	5242	5429
+modules/publishxp/po/it.po	3232817951	962067295	6939	7136
+modules/publishxp/po/ja.po	3124742298	1484024500	6132	6313
+modules/publishxp/po/ko.po	1620287438	1595099329	5980	6165
+modules/publishxp/po/lt.po	1187038457	1433220675	7164	7363
+modules/publishxp/po/nl.po	1817467806	980704178	7111	7312
+modules/publishxp/po/no.po	971930430	2085236116	7038	7237
+modules/publishxp/po/pl.po	2888611280	341440384	7205	7404
+modules/publishxp/po/ro.po	853090785	3096603136	5289	5474
+modules/publishxp/po/ru.po	554441155	3085453974	9768	9984
+modules/publishxp/po/sk.po	1149682758	2972634176	5134	5321
+modules/publishxp/po/sr.po	1762784387	2486710380	7118	7325
+modules/publishxp/po/strings.raw	4180263015	2228041992	3102	3164
+modules/publishxp/po/sv.po	3219323892	4060029890	7173	7378
+modules/publishxp/po/tr.po	1023495262	2314458347	5918	6113
+modules/publishxp/po/uk.po	2633997461	3132624899	5875	6061
+modules/publishxp/po/vi.po	1445108066	2933608352	5404	5586
+modules/publishxp/po/zh_CN.po	2099531452	1608306590	6900	7103
+modules/publishxp/po/zh_TW.po	41505947	3958034866	7020	7223
+modules/publishxp/templates/DownloadRegistryFile.tpl	3875068982	3367957789	827	840
+modules/publishxp/templates/Head.tpl	537071753	96791586	1933	2012
+modules/publishxp/templates/ItemAddPublishXp.tpl	736007399	265488474	1680	1704
+modules/publishxp/templates/NewAlbum.tpl	66551572	1287974885	4006	4125
+modules/publishxp/templates/Options.tpl	334676927	2273583629	1923	1965
+modules/publishxp/templates/PublishXpLogin.tpl	2774640329	3726309102	2016	2074
+modules/publishxp/templates/SelectAlbum.tpl	1154710772	406515983	2074	2124
+modules/publishxp/templates/UploadItems.tpl	4219189280	229870841	2822	2891
+modules/publishxp/test/phpunit/DownloadRegistryFileTest.class	2523375641	467574265	3760	3866
+modules/publishxp/test/phpunit/NewAlbumControllerTest.class	3298484915	549178218	4527	4637
+modules/publishxp/test/phpunit/OptionsControllerTest.class	2654600399	647042223	3483	3592
+modules/publishxp/test/phpunit/PublishXpLoginControllerTest.class	2822466520	3970614727	3175	3267
 modules/publishxp/test/phpunit/SelectAlbumControllerTest.class	1162816234	1064755594	2656	2736
-modules/publishxp/test/phpunit/UploadItemsControllerTest.class	3151315136	1033328266	8638	8879
-R	modules/publishxp/locale/af/LC_MESSAGES/modules_publishxp.mo
-R	modules/publishxp/locale/ar/LC_MESSAGES/modules_publishxp.mo
-R	modules/publishxp/locale/ca/LC_MESSAGES/modules_publishxp.mo
-R	modules/publishxp/locale/cs/LC_MESSAGES/modules_publishxp.mo
+modules/publishxp/test/phpunit/UploadItemsControllerTest.class	3854719536	1849265207	8676	8913
 R	modules/publishxp/locale/cs_CZ/LC_MESSAGES/modules_publishxp.mo
 R	modules/publishxp/locale/cs_CZ/LC_MESSAGES
 R	modules/publishxp/locale/cs_CZ
-R	modules/publishxp/locale/da/LC_MESSAGES/modules_publishxp.mo
-R	modules/publishxp/locale/de/LC_MESSAGES/modules_publishxp.mo
 R	modules/publishxp/locale/de_DE/LC_MESSAGES/modules_publishxp.mo
 R	modules/publishxp/locale/de_DE/LC_MESSAGES
 R	modules/publishxp/locale/de_DE
-R	modules/publishxp/locale/en_GB/LC_MESSAGES/modules_publishxp.mo
-R	modules/publishxp/locale/es/LC_MESSAGES/modules_publishxp.mo
-R	modules/publishxp/locale/eu/LC_MESSAGES/modules_publishxp.mo
-R	modules/publishxp/locale/fi/LC_MESSAGES/modules_publishxp.mo
-R	modules/publishxp/locale/fr/LC_MESSAGES/modules_publishxp.mo
 R	modules/publishxp/locale/fr_FR/LC_MESSAGES/modules_publishxp.mo
 R	modules/publishxp/locale/fr_FR/LC_MESSAGES
 R	modules/publishxp/locale/fr_FR
-R	modules/publishxp/locale/hu/LC_MESSAGES/modules_publishxp.mo
-R	modules/publishxp/locale/it/LC_MESSAGES/modules_publishxp.mo
 R	modules/publishxp/locale/it_IT/LC_MESSAGES/modules_publishxp.mo
 R	modules/publishxp/locale/it_IT/LC_MESSAGES
 R	modules/publishxp/locale/it_IT
-R	modules/publishxp/locale/ja/LC_MESSAGES/modules_publishxp.mo
 R	modules/publishxp/locale/ja_JP/LC_MESSAGES/modules_publishxp.mo
 R	modules/publishxp/locale/ja_JP/LC_MESSAGES
 R	modules/publishxp/locale/ja_JP
-R	modules/publishxp/locale/ko/LC_MESSAGES/modules_publishxp.mo
-R	modules/publishxp/locale/lt/LC_MESSAGES/modules_publishxp.mo
-R	modules/publishxp/locale/nl/LC_MESSAGES/modules_publishxp.mo
 R	modules/publishxp/locale/nl_NL/LC_MESSAGES/modules_publishxp.mo
 R	modules/publishxp/locale/nl_NL/LC_MESSAGES
 R	modules/publishxp/locale/nl_NL
-R	modules/publishxp/locale/no/LC_MESSAGES/modules_publishxp.mo
-R	modules/publishxp/locale/pl/LC_MESSAGES/modules_publishxp.mo
-R	modules/publishxp/locale/ro/LC_MESSAGES/modules_publishxp.mo
-R	modules/publishxp/locale/ru/LC_MESSAGES/modules_publishxp.mo
 R	modules/publishxp/locale/ru_RU/LC_MESSAGES/modules_publishxp.mo
 R	modules/publishxp/locale/ru_RU/LC_MESSAGES
 R	modules/publishxp/locale/ru_RU
-R	modules/publishxp/locale/sk/LC_MESSAGES/modules_publishxp.mo
-R	modules/publishxp/locale/sr/LC_MESSAGES/modules_publishxp.mo
 R	modules/publishxp/locale/sr_YU/LC_MESSAGES/modules_publishxp.mo
 R	modules/publishxp/locale/sr_YU/LC_MESSAGES
 R	modules/publishxp/locale/sr_YU
-R	modules/publishxp/locale/sv/LC_MESSAGES/modules_publishxp.mo
 R	modules/publishxp/locale/sv_SE/LC_MESSAGES/modules_publishxp.mo
 R	modules/publishxp/locale/sv_SE/LC_MESSAGES
 R	modules/publishxp/locale/sv_SE
-R	modules/publishxp/locale/tr/LC_MESSAGES/modules_publishxp.mo
 R	modules/publishxp/locale/tr_TR/LC_MESSAGES/modules_publishxp.mo
 R	modules/publishxp/locale/tr_TR/LC_MESSAGES
 R	modules/publishxp/locale/tr_TR
-R	modules/publishxp/locale/uk/LC_MESSAGES/modules_publishxp.mo
-R	modules/publishxp/locale/vi/LC_MESSAGES/modules_publishxp.mo
-R	modules/publishxp/locale/zh_CN/LC_MESSAGES/modules_publishxp.mo
-R	modules/publishxp/locale/zh_TW/LC_MESSAGES/modules_publishxp.mo
 R	modules/publishxp/po/cs_CZ.po
 R	modules/publishxp/po/de_DE.po
 R	modules/publishxp/po/fr_FR.po

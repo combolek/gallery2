@@ -18,11 +18,6 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-/* Define FORCE_GZIP for PHP environments without the zlib extension */
-if (!defined('FORCE_GZIP')) {
-    define('FORCE_GZIP', 'FORCE_GZIP');
-}
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplateAdapter.class');
 
 /**
@@ -143,7 +138,7 @@ class TemplateAdapterTest extends GalleryTestCase {
     }
 
     function testChangeInDescendents() {
-	$test = array('module' => 'pirate', 'text' => 'ninja', 'l10Domain' => 'modules_foo');
+	$test = array('module' => 'pirate', 'text' => 'ninja', 'l10Domain' => 'en_US');
 	$this->_setupAdapterWithMocks();
 	$result = GalleryTemplateAdapter::changeInDescendents($test, $this->_mockSmarty);
 	$this->assertEquals('<input type="checkbox" id="pirate_ChangeInDescendents" ' .
@@ -156,39 +151,12 @@ class TemplateAdapterTest extends GalleryTestCase {
 	global $gallery;
 	$gallery->_translator = new TemplateAdapterMockTranslator();
 	$this->_setupAdapterWithMocks();
-	$this->_mockSmarty->_tpl_vars['l10Domain'] = 'modules_testfail';
-	$this->_mockSmarty->_tpl_vars['viewL10domain'] = 'modules_testpass';
+	$this->_mockSmarty->_tpl_vars['l10Domain'] = 'en_US';
+	$this->_mockSmarty->_tpl_vars['viewL10domain'] = 'te_TE';
 	$translated = $this->_templateAdapter->text(array('text' => 'Test failed'),
 						    $this->_mockSmarty);
 
 	$this->assertEquals('Test passed', $translated);
-    }
-
-    function testTextNotForJavaScript() {
-	$this->_setupAdapterWithMocks();
-	$this->_mockSmarty->_tpl_vars['l10Domain'] = 'modules_foo';
-	$translated = $this->_templateAdapter->text(array('text' => "Text with a single ' quote"),
-						    $this->_mockSmarty);
-	$this->assertEquals("Text with a single ' quote", $translated);
-    }
-
-    function testTextForJavaScript() {
-	$this->_setupAdapterWithMocks();
-	$this->_mockSmarty->_tpl_vars['l10Domain'] = 'modules_foo';
-	$translated = $this->_templateAdapter->text(array('text' => "Text with a single ' quote",
-							  'forJavascript' => true),
-						    $this->_mockSmarty);
-	$this->assertEquals("Text with a single \\' quote", $translated, 'single quote');
-
-	$translated = $this->_templateAdapter->text(array('text' => 'Text with a double " quote',
-							  'forJavascript' => true),
-						    $this->_mockSmarty);
-	$this->assertEquals('Text with a double \\" quote', $translated, 'double quote');
-
-	$translated = $this->_templateAdapter->text(array('text' => 'Text with a %s backslash',
-							  'arg1' => '\\', 'forJavascript' => true),
-						    $this->_mockSmarty);
-	$this->assertEquals('Text with a \\\\ backslash', $translated, 'backslash in arg1');
     }
 
     function testThemeUrls() {
@@ -250,90 +218,6 @@ class TemplateAdapterTest extends GalleryTestCase {
 			      'callCount' => 1)),
 	    $this->_mockSmarty->_includes[0]);
     }
-
-    function testCombineJavascriptFiles() {
-	global $gallery;
-	$gallery->_phpVm = new UnitTestPhpVm();
-	$gallery->_platform = new UnitTestPlatform();
-	$gallery->_urlGenerator = new UnitTestUrlGenerator();
-	GalleryDataCache::setFileCachingEnabled(true);
-	$gallery->setConfig('data.gallery.cache', '/cache/');
-
-	$base = GalleryCoreApi::getCodeBasePath();
-	$gallery->_platform->setReply('file_exists', array($base . 'path/file1.js'), true);
-	$gallery->_platform->setReply(
-	    'stat', array($base . 'path/file1.js'), array(7 => 7, 9 => 9));
-	$gallery->_platform->setReply('file_exists', array($base . 'path/file2.txt'), true);
-	$gallery->_platform->setReply(
-	    'stat', array($base . 'path/file2.txt'), array(7 => 7, 9 => 9));
-	$gallery->_phpVm->setReply('md5', array('path/file1.js 7 9,path/file2.txt 7 9,'), 'MD5KEY');
-	$gallery->_platform->setReply(
-	    'file_exists', array('/cache/module/_all/0/0/CombinedJavascript_MD5KEY.inc'), false);
-	$gallery->_platform->setReply('file_get_contents', array($base . 'path/file1.js'), 'ONE');
-	$gallery->_phpVm->setReply('function_exists', array('gzencode'), true);
-	$gallery->_platform->setReply('file_get_contents', array($base . 'path/file2.txt'), 'TWO');
-	$gallery->_platform->setReply('file_exists', array('/cache/module/_all/0/0'), true);
-	$gallery->_platform->setReply('is_dir', array('/cache/module/_all/0/0'), true);
-	$gallery->_platform->setReply(
-	    'atomicWrite',
-	    array('/cache/module/_all/0/0/CombinedJavascript_MD5KEY.inc', '|s:6:"ONETWO";'),
-	    true);
-	$gallery->_platform->setReply('file_exists', array('/cache/module/_all/0/0'), true);
-	$gallery->_platform->setReply('is_dir', array('/cache/module/_all/0/0'), true);
-	$gallery->_phpVm->setReply('gzencode', array('ONETWO', 9, FORCE_GZIP), 'gzencode(ONETWO)');
-	$gallery->_platform->setReply(
-	    'atomicWrite',
-	    array('/cache/module/_all/0/0/CombinedJavascript_gzip_MD5KEY.inc',
-		  '|s:16:"gzencode(ONETWO)";'),
-	    true);
-
-	$templateAdapter = new GalleryTemplateAdapter();
-	$templateAdapter->_combineJavascriptFiles(
-	    array('path/file1.js', 'path/file2.txt', 'main.php?foo=bar'),
-	    $output);
-
-	$this->assertEquals(
-	    array('<script type="text/javascript" ' .
-		  'src="http://gallery2|href=main.php?foo=bar"></script>',
-		  '<script type="text/javascript" ' .
-		  'src="http://gallery2|view=core.CombinedJavascript|key=MD5KEY"></script>'),
-	    $output);
-
-	$this->assert($gallery->_phpVm->isComplete());
-	$this->assert($gallery->_platform->isComplete());
-    }
-
-    function testItemLink() {
-	$this->_setupAdapterWithMocks();
-	$this->assertEquals('[missing link]', $this->_templateAdapter->itemLink(array()));
-
-	$link = array('params' => array('view' => 'test.View'),
-		      'options' => array(), 'text' => 'test link');
-	$this->assertEquals('<a href="Array" class="gbAdminLink gbLink-test_View">test link</a>',
-			    $this->_templateAdapter->itemLink(array('link' => $link)), 1);
-	$this->assertEquals(array(array($link['params'], $link['options'])),
-			    $this->_mockUrlGenerator->_calls, 1);
-	$this->_mockUrlGenerator->_calls = array();
-
-	$link = array('params' => array('view' => 'test.View'),
-		      'options' => array('forceFullUrl' => true), 'text' => 'Test Link',
-		      'script' => 'alert(\'hi\')', 'attrs' => 'title="fun"');
-	$this->assertEquals('<a href="Array" onclick="alert(\'hi\');return false" title="fun" '
-		. 'target="_blank">test link</a>',
-		$this->_templateAdapter->itemLink(array('link' => $link, 'lowercase' => true,
-							'class' => null, 'target' => '_blank')), 2);
-	$this->assertEquals(array(array($link['params'], $link['options'])),
-			    $this->_mockUrlGenerator->_calls, 2);
-	$this->_mockUrlGenerator->_calls = array();
-
-	$link = array('params' => array('view' => 'test.View'),
-		      'options' => array(), 'text' => 'Test link');
-	$this->assertEquals('<option value="window.location=\'Array\'">Test link</option>',
-	    $this->_templateAdapter->itemLink(array('link' => $link, 'type' => 'option')), 3);
-	$this->assertEquals(array(array($link['params'], $link['options'])),
-			    $this->_mockUrlGenerator->_calls, 3);
-	$this->_mockUrlGenerator->_calls = array();
-    }
 }
 
 class TemplateAdapterMockTheme {
@@ -359,7 +243,7 @@ class TemplateAdapterMockUrlGenerator {
 
 class TemplateAdapterMockTranslator {
     function translateDomain($domain, $params) {
-	if ($domain == 'modules_testpass' && $params['text'] == 'Test failed') {
+	if ($domain == 'te_TE' && $params['text'] == 'Test failed') {
 	    return array(null, 'Test passed');
 	}
 	return array(null, null);

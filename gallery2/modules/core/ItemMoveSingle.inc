@@ -34,7 +34,7 @@ class ItemMoveSingleController extends GalleryController {
 	global $gallery;
 
 	$itemId = GalleryUtilities::getRequestVariables('itemId');
-	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -79,10 +79,15 @@ class ItemMoveSingleController extends GalleryController {
 
 	    /* Make sure the destination is the right type of item */
 	    if (empty($error)) {
-		list ($ret, $newParent) =
-		    GalleryCoreApi::loadEntitiesById($newParentId, 'GalleryAlbumItem');
+		list ($ret, $newParent) = GalleryCoreApi::loadEntitiesById($newParentId);
 		if ($ret) {
 		    return array($ret, null);
+		}
+
+		if (!GalleryUtilities::isA($newParent, 'GalleryAlbumItem')) {
+		    /* The view should never let this happen */
+		    return array(GalleryCoreApi::error(ERROR_BAD_DATA_TYPE),
+				 null);
 		}
 	    }
 
@@ -200,8 +205,6 @@ class ItemMoveSingleView extends GalleryView {
 
     /**
      * @see GalleryView::loadTemplate
-     * @todo Scalability - Don't load all album-items into memory. Need a way to load the items
-     *       incrementally, e.g. with an AJAX-powered tree widget.
      */
     function loadTemplate(&$template, &$form) {
 	global $gallery;
@@ -214,7 +217,7 @@ class ItemMoveSingleView extends GalleryView {
 	    $form['formName'] = 'ItemMoveSingle';
 	}
 
-	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -234,7 +237,7 @@ class ItemMoveSingleView extends GalleryView {
 	}
 
 	/* Load all the album entities */
-	list ($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds, 'GalleryAlbumItem');
+	list ($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds);
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -247,12 +250,6 @@ class ItemMoveSingleView extends GalleryView {
 
 	$template->setVariable('ItemMoveSingle', $ItemMoveSingle);
 	$template->setVariable('controller', 'core.ItemMoveSingle');
-	$template->javascript('lib/yui/yahoo-min.js');
-	$template->javascript('lib/yui/dom-min.js');
-	$template->javascript('lib/yui/event-min.js');
-	$template->javascript('lib/yui/container-min.js');
-	$template->javascript('lib/yui/treeview-min.js');
-	$template->style('modules/core/data/tree.css');
 	return array(null, array('body' => 'modules/core/templates/ItemMoveSingle.tpl'));
     }
 

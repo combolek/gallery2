@@ -19,9 +19,9 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Core 1.2.20\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-31 20:26+0200\n"
+"Project-Id-Version: Gallery: Core 1.2.0.3\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-06-07 09:29-0700\n"
 "PO-Revision-Date: 2005-04-01 17:00+0200\n"
 "Last-Translator: Johann S Jonsson <johann@nenni.net>\n"
 "Language-Team: Icelandic <gallery-translations@lists.sourceforge.net>\n"
@@ -31,6 +31,30 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 msgid "Gallery Email Test"
+msgstr ""
+
+msgid "forever"
+msgstr ""
+
+msgid "High Priority (Me first!)"
+msgstr ""
+
+msgid "Low Priority (I want to share!)"
+msgstr ""
+
+msgid "No Markup"
+msgstr ""
+
+msgid "BBCode"
+msgstr ""
+
+msgid "Raw HTML"
+msgstr ""
+
+msgid "Database"
+msgstr ""
+
+msgid "File"
 msgstr ""
 
 #, c-format
@@ -57,38 +81,7 @@ msgid_plural "%d weeks"
 msgstr[0] ""
 msgstr[1] ""
 
-msgid "forever"
-msgstr ""
-
-msgid "High Priority (Me first!)"
-msgstr ""
-
-msgid "Low Priority (I want to share!)"
-msgstr ""
-
-msgid "No Markup"
-msgstr ""
-
-msgid "BBCode"
-msgstr ""
-
-msgid "Raw HTML"
-msgstr ""
-
-msgid "Database"
-msgstr ""
-
-msgid "File"
-msgstr ""
-
-msgid "&lt;none&gt;"
-msgstr ""
-
-msgid "Link"
-msgstr ""
-
-#, c-format
-msgid "Page %d of %d"
+msgid "<none>"
 msgstr ""
 
 msgid "No acceleration"
@@ -133,9 +126,6 @@ msgstr ""
 msgid "Deleting Language Packs"
 msgstr ""
 
-msgid "Synchronizing Language Packs"
-msgstr ""
-
 msgid "Update completed with errors."
 msgstr ""
 
@@ -163,10 +153,10 @@ msgstr ""
 msgid "Use these settings"
 msgstr ""
 
-msgid "Converting Schema Table"
+msgid "Installing the core module"
 msgstr ""
 
-msgid "Installing the core module"
+msgid "key"
 msgstr ""
 
 msgid "All access"
@@ -202,10 +192,6 @@ msgstr ""
 msgid "Upgrading permissions"
 msgstr ""
 
-#, c-format
-msgid "Upgrading permissions (%d items complete, %d remaining)"
-msgstr ""
-
 msgid "Deleting old permission tables"
 msgstr ""
 
@@ -218,31 +204,10 @@ msgstr ""
 msgid "Detecting broken derivatives"
 msgstr ""
 
-#, c-format
-msgid "Detecting broken derivatives, loading (%d derivatives checked, %d remaining)"
-msgstr ""
-
-#, c-format
-msgid "Detecting broken derivatives (%d derivatives checked, %d remaining)"
-msgstr ""
-
-#, c-format
-msgid "Detecting broken derivatives, saving (%d derivatives checked, %d remaining)"
-msgstr ""
-
-#, c-format
-msgid ""
-"Detecting broken derivatives, saving item %d of %d (%d derivatives complete, %d remaining)"
-msgstr ""
-
 msgid "Clearing fast-download cache"
 msgstr ""
 
 msgid "Deleting old fast-download cache"
-msgstr ""
-
-#, c-format
-msgid "Deleting old session files (iteration %d)"
 msgstr ""
 
 msgid "Updating panorama items"
@@ -251,7 +216,10 @@ msgstr ""
 msgid "Optimizing AccessSubscriberMap table"
 msgstr ""
 
-msgid "Upgrading Plugin Translations"
+msgid "Converting Schema Table"
+msgstr ""
+
+msgid "Loading Table Descriptions"
 msgstr ""
 
 msgid "Site Admins"
@@ -272,13 +240,29 @@ msgstr ""
 msgid "Converting MySQL data to UTF8"
 msgstr ""
 
-msgid "Adding items"
+#, c-format
+msgid "Upgrading permissions (%d items complete, %d remaining)"
 msgstr ""
 
-msgid "Processing items"
+#, c-format
+msgid "Detecting broken derivatives, loading (%d derivatives checked, %d remaining)"
 msgstr ""
 
-msgid "Extracting archive"
+#, c-format
+msgid "Detecting broken derivatives (%d derivatives checked, %d remaining)"
+msgstr ""
+
+#, c-format
+msgid "Detecting broken derivatives, saving (%d derivatives checked, %d remaining)"
+msgstr ""
+
+#, c-format
+msgid ""
+"Detecting broken derivatives, saving item %d of %d (%d derivatives complete, %d remaining)"
+msgstr ""
+
+#, c-format
+msgid "Deleting old session files (iteration %d)"
 msgstr ""
 
 msgid "add items"
@@ -292,6 +276,30 @@ msgstr ""
 
 msgid "add items confirmation"
 msgstr ""
+
+msgid "Base filename"
+msgstr ""
+
+msgid "Caption"
+msgstr ""
+
+msgid "Blank"
+msgstr ""
+
+msgid "From Web Browser"
+msgstr ""
+
+#, c-format
+msgid "%d megabyte"
+msgid_plural "%d megabytes"
+msgstr[0] ""
+msgstr[1] ""
+
+#, c-format
+msgid "%d kilobytes"
+msgid_plural "%d kilobytes"
+msgstr[0] ""
+msgstr[1] ""
 
 #, c-format
 msgid "Input file %s exceeds maximum permitted file size"
@@ -309,34 +317,17 @@ msgstr ""
 msgid "Input file %s was not uploaded. Error %d"
 msgstr ""
 
-#, c-format
-msgid "%d megabyte"
-msgid_plural "%d megabytes"
-msgstr[0] ""
-msgstr[1] ""
-
-#, c-format
-msgid "%d kilobytes"
-msgid_plural "%d kilobytes"
-msgstr[0] ""
-msgstr[1] ""
-
-msgid "Base filename"
-msgstr ""
-
-msgid "Caption"
-msgstr ""
-
-msgid "Blank"
-msgstr ""
-
-msgid "From Web Browser"
-msgstr ""
-
 msgid "Gallery Item Administration"
 msgstr ""
 
 msgid "delete an item"
+msgstr ""
+
+msgid "delete confirmation"
+msgstr ""
+
+#, c-format
+msgid "delete %s"
 msgstr ""
 
 #, c-format
@@ -352,10 +343,6 @@ msgstr ""
 msgid "Preparing..."
 msgstr ""
 
-#, c-format
-msgid "Processing image %d of %d"
-msgstr ""
-
 msgid "Apply thumbnail settings"
 msgstr ""
 
@@ -363,6 +350,10 @@ msgid "Rebuilding thumbnails..."
 msgstr ""
 
 msgid "Album"
+msgstr ""
+
+#, c-format
+msgid "Processing image %d of %d"
 msgstr ""
 
 msgid "Changes saved successfully"
@@ -502,10 +493,6 @@ msgstr ""
 msgid "Edit Movie"
 msgstr ""
 
-#, c-format
-msgid "Edit %s"
-msgstr ""
-
 msgid "Add Album"
 msgstr ""
 
@@ -524,10 +511,6 @@ msgstr ""
 msgid "Delete Movie"
 msgstr ""
 
-#, c-format
-msgid "Delete %s"
-msgstr ""
-
 msgid "Move Album"
 msgstr ""
 
@@ -537,10 +520,6 @@ msgstr ""
 msgid "Move Movie"
 msgstr ""
 
-#, c-format
-msgid "Move %s"
-msgstr ""
-
 msgid "Edit Captions"
 msgstr ""
 
@@ -548,9 +527,6 @@ msgid "Make Highlight"
 msgstr ""
 
 msgid "Reorder Items"
-msgstr ""
-
-msgid "Delete Items"
 msgstr ""
 
 msgid "Site Admin"
@@ -577,9 +553,6 @@ msgstr ""
 msgid "Performance"
 msgstr ""
 
-msgid "Event Logs"
-msgstr ""
-
 msgid "Toolkit Priority"
 msgstr ""
 
@@ -590,6 +563,18 @@ msgid "Account Settings"
 msgstr ""
 
 msgid "Change Password"
+msgstr ""
+
+#, c-format
+msgid "Edit %s"
+msgstr ""
+
+#, c-format
+msgid "Delete %s"
+msgstr ""
+
+#, c-format
+msgid "Move %s"
 msgstr ""
 
 msgid "Build all thumbnails/resizes"
@@ -603,6 +588,9 @@ msgstr ""
 msgid "Build All Thumbnails/Resizes"
 msgstr ""
 
+msgid "Debug output for failed items:"
+msgstr ""
+
 #, c-format
 msgid "Checked %d items"
 msgstr ""
@@ -613,9 +601,6 @@ msgstr ""
 
 #, c-format
 msgid "%d items failed"
-msgstr ""
-
-msgid "Debug output for failed items:"
 msgstr ""
 
 msgid "Convert MySQL database to UTF8"
@@ -633,26 +618,6 @@ msgid "Database successfully converted to UTF8"
 msgstr ""
 
 msgid "No conversion required"
-msgstr ""
-
-msgid "Backup the database"
-msgstr ""
-
-msgid ""
-"Backup all your Gallery data (item data, users, comments, etc.) to a single file in your "
-"storage folder.  The backup does not include the image files.  Before running the backup, "
-"your Gallery installation needs to be set into maintenance mode, as this is not done "
-"automatically."
-msgstr ""
-
-msgid "Backing up Gallery Database"
-msgstr ""
-
-msgid "Exporting..."
-msgstr ""
-
-#, c-format
-msgid "Database backup completed and the backup file is located at: %s"
 msgstr ""
 
 msgid "Delete user sessions"
@@ -689,8 +654,8 @@ msgstr ""
 msgid ""
 "Gallery compiles template files and saves them for increased performance.  If you're "
 "experiencing problems that say <i>Smarty error</i> then you might try running this task.  "
-"Also run this if you add or remove any local/*.tpl or theme override so Smarty will find the "
-"right file."
+"Also run this if you remove a local/*.tpl file so Smarty will switch back to the default tpl "
+"file."
 msgstr ""
 
 msgid "Template cache deleted successfully"
@@ -828,10 +793,6 @@ msgstr ""
 msgid "Descending"
 msgstr ""
 
-#, c-format
-msgid "Powered by Gallery v%s"
-msgstr ""
-
 msgid "Validation disabled until you set allowSessionAccess in config.php"
 msgstr ""
 
@@ -839,6 +800,13 @@ msgid "This page is valid XHTML 1.0"
 msgstr ""
 
 msgid "Donate to the Gallery project"
+msgstr ""
+
+msgid "G2.2: Double Double"
+msgstr ""
+
+#, c-format
+msgid "Powered by Gallery v%s"
 msgstr ""
 
 #, c-format
@@ -946,11 +914,11 @@ msgstr ""
 msgid "file"
 msgstr ""
 
-#, c-format
-msgid "Back to %s"
+msgid "Back"
 msgstr ""
 
-msgid "Back"
+#, c-format
+msgid "Back to %s"
 msgstr ""
 
 msgid "User"
@@ -1016,10 +984,6 @@ msgstr ""
 msgid "unknown"
 msgstr ""
 
-#, c-format
-msgid "API = Core %s, Module %s, Theme %s, Embed %s"
-msgstr ""
-
 msgid "Gallery version"
 msgstr ""
 
@@ -1058,65 +1022,6 @@ msgstr ""
 
 #, c-format
 msgid "Rows in %s table = %d"
-msgstr ""
-
-#, c-format
-msgid "The %s \"%s\" is not installed and will not be backed up."
-msgstr ""
-
-#, c-format
-msgid "\"%s\" has no creation sql and will not be backed up."
-msgstr ""
-
-#, c-format
-msgid "Unable to load table description for \"%s\", no data will be exported."
-msgstr ""
-
-msgid ""
-"Unable to find the XML parser.  The PHP XML parsing extension must be loaded.  Terminating "
-"database import."
-msgstr ""
-
-#, c-format
-msgid "The exported file is not the correct version. Expecting %s recieved %s."
-msgstr ""
-
-#, c-format
-msgid "Unable to close import file: %s"
-msgstr ""
-
-#, c-format
-msgid "Unable to open import file: %s"
-msgstr ""
-
-#, c-format
-msgid "Import file doesn't exist: %s"
-msgstr ""
-
-#, c-format
-msgid "Plugin %s is not currently available."
-msgstr ""
-
-#, c-format
-msgid "The available version of plugin \"%s\" may not be compatible with the imported version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The currently installed core API version required by \"%s\" may not be compatible with the "
-"imported version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The installed module API version required by \"%s\" may not be compatible with the imported "
-"version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The installed theme API version required by \"%s\" is not compatible with the imported "
-"version."
 msgstr ""
 
 msgid "Successfully saved theme settings"
@@ -1576,39 +1481,6 @@ msgid_plural "%d failed login attempts since the last successful login."
 msgstr[0] ""
 msgstr[1] ""
 
-msgid "Recent Events"
-msgstr ""
-
-msgid "Type"
-msgstr ""
-
-msgid "Location"
-msgstr ""
-
-msgid "Client"
-msgstr ""
-
-msgid "No events have been reported yet."
-msgstr ""
-
-msgid "Event Details"
-msgstr ""
-
-msgid "User Id"
-msgstr ""
-
-msgid "Referer"
-msgstr ""
-
-msgid "Details"
-msgstr ""
-
-msgid "no summary"
-msgstr ""
-
-msgid "An error occurred while retrieving the event log entry details."
-msgstr ""
-
 msgid "Group Management"
 msgstr ""
 
@@ -1673,47 +1545,12 @@ msgstr[1] ""
 msgid "System Maintenance"
 msgstr ""
 
-msgid "Gallery must be in maintenance mode before the task can be run."
-msgstr ""
-
 #, c-format
 msgid "Completed %s task successfully."
 msgstr ""
 
 #, c-format
 msgid "The %s task failed to complete successfully."
-msgstr ""
-
-msgid "Maintenance Mode has been turned on."
-msgstr ""
-
-msgid "Maintenance Mode has been turned off."
-msgstr ""
-
-msgid "Maintenance Mode"
-msgstr ""
-
-msgid "Restrict user access to the system while maintenance is being performed."
-msgstr ""
-
-msgid "Maintenance Mode Url"
-msgstr ""
-
-msgid ""
-"The Maintenance Mode Url specifies where requests will be redirected when access to the site "
-"has been restricted by the administrator."
-msgstr ""
-
-msgid ""
-"If left blank Gallery will display a default page with an administrator login link. This "
-"page will be themed when the code base is up to date, otherwise it will display a plain "
-"unstyled page."
-msgstr ""
-
-msgid "For example: /maintenance.html"
-msgstr ""
-
-msgid "Set"
 msgstr ""
 
 msgid "Task name"
@@ -1797,19 +1634,6 @@ msgid "Guest Users"
 msgstr ""
 
 msgid "Expires after:"
-msgstr ""
-
-msgid "Template Cache"
-msgstr ""
-
-#, c-format
-msgid ""
-"For optimal performance, Gallery caches all templates.  If you would like to %scustomize "
-"your template files%s, you should disable template caching temporarily so that changes take "
-"effect immediately without clearing the template cache."
-msgstr ""
-
-msgid "Enable template caching"
 msgstr ""
 
 msgid "Clear Saved Pages"
@@ -1974,19 +1798,9 @@ msgid ""
 msgstr ""
 
 #, c-format
-msgid "Failed to download the following packages for the %s plugin:"
-msgstr ""
-
-#, c-format
 msgid ""
-"Failed to install the %s plugin because the following files/directories could not be "
+"Failed to download the %s plugin because the following files/directories could not be "
 "modified:"
-msgstr ""
-
-#, c-format
-msgid ""
-"Some plugins could not be automatically upgraded because they are in use.  Please return to "
-"the %sPlugins%s page and click the upgrade link for each of the following plugins:"
 msgstr ""
 
 msgid "The repository index has been successfully updated."
@@ -2247,10 +2061,6 @@ msgstr ""
 msgid "New albums"
 msgstr ""
 
-#, c-format
-msgid "To activate more themes visit the %sPlugins%s page."
-msgstr ""
-
 msgid "Save Defaults"
 msgstr ""
 
@@ -2443,16 +2253,13 @@ msgstr ""
 msgid "System Information"
 msgstr ""
 
-msgid "Not all of the specified items have been added successfully."
-msgstr ""
-
 msgid ""
 "You don't have any Graphics Toolkit activated that can handle JPEG images.  If you add "
 "images, you will probably not have any thumbnails."
 msgstr ""
 
 #, c-format
-msgid "Visit the %sModules%s page to activate a Graphics Toolkit."
+msgid "Visit the <a href=\"%s\">Modules</a> page to activate a Graphics Toolkit."
 msgstr ""
 
 msgid "Add Sub-Album"
@@ -2547,6 +2354,9 @@ msgstr ""
 msgid "No Thumbnail"
 msgstr ""
 
+msgid "Delete Items"
+msgstr ""
+
 msgid "No items were selected for deletion"
 msgstr ""
 
@@ -2602,11 +2412,23 @@ msgstr ""
 msgid "Next Page"
 msgstr ""
 
-#, c-format
-msgid "Do you really want to delete %s?"
+msgid "Deletion Complete"
 msgstr ""
 
-msgid "Delete more items..."
+msgid "Item successfully deleted"
+msgstr ""
+
+#, c-format
+msgid "Are you sure you want to delete this %s?"
+msgstr ""
+
+#, c-format
+msgid "It contains %d item."
+msgid_plural "It contains %d items."
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "There is no undo!"
 msgstr ""
 
 msgid "There was a problem processing your request."
@@ -2974,14 +2796,8 @@ msgstr ""
 msgid "Choose the items you want to move"
 msgstr ""
 
-msgid "OK"
-msgstr ""
-
 msgid ""
 "The destination you chose does not accept sub-albums, so all sub-albums have been deselected."
-msgstr ""
-
-msgid "Warning"
 msgstr ""
 
 msgid ""
@@ -3171,12 +2987,10 @@ msgstr ""
 msgid "Enter an image URL"
 msgstr ""
 
-#. HINT: Button label for Bold
-msgid "B"
+msgid "B <!-- Button label for Bold -->"
 msgstr "B"
 
-#. HINT: Button label for italic
-msgid "i"
+msgid "i <!-- Button label for italic -->"
 msgstr "i"
 
 msgid "list"
@@ -3195,7 +3009,7 @@ msgid "color"
 msgstr ""
 
 #, c-format
-msgid "You can also use the %scolor name%s for example: %sYour Text%s"
+msgid "You can also use the <a href=\"%s\" target=\"_new\">color name</a> for example: %s"
 msgstr ""
 
 msgid "Configuration Error: Missing Theme"
@@ -3300,14 +3114,17 @@ msgstr ""
 #, c-format
 msgid ""
 "Logins to this account are temporarily disabled due to multiple failed login attempts.  Wait "
-"for access to be restored, or use the %srecover password%s page to re-enable this account."
+"for access to be restored, or use the <a href=\"%s\">recover password</a> page to re-enable "
+"this account."
 msgstr ""
 
 msgid "Your login information is incorrect.  Please try again."
 msgstr ""
 
 #, c-format
-msgid "Lost or forgotten passwords can be retrieved using the %srecover password%s page"
+msgid ""
+"Lost or forgotten passwords can be retrieved using the <a href=\"%s\">recover password</a> "
+"page"
 msgstr ""
 
 #, c-format
@@ -3431,13 +3248,13 @@ msgstr ""
 #, c-format
 msgid ""
 "There is no request which matches the username and authorization provided. Request a new "
-"authorization from the %slost password page%s."
+"authorization from the <a href=\"%s\">lost password page</a>"
 msgstr ""
 
 #, c-format
 msgid ""
-"The request you are trying to access has expired.  Request a new authorization from the %"
-"slost password page%s."
+"The request you are trying to access has expired.  Request a new authorization from the <a "
+"href=\"%s\">lost password page</a>."
 msgstr ""
 
 msgid "Authorization missing"
@@ -3519,6 +3336,10 @@ msgid "next"
 msgstr ""
 
 msgid "last"
+msgstr ""
+
+#, c-format
+msgid "Page %d of %d"
 msgstr ""
 
 #, c-format

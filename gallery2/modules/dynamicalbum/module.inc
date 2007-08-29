@@ -33,12 +33,11 @@ class DynamicAlbumModule extends GalleryModule {
 	$this->setName($gallery->i18n('Dynamic Albums'));
 	$this->setDescription(
 		$gallery->i18n('Dynamic albums for newest, most viewed or random items'));
-	$this->setVersion('1.0.2');
-	$this->_templateVersion = 1;
+	$this->setVersion('1.0.0');
 	$this->setGroup('display', $gallery->i18n('Display'));
 	$this->setCallbacks('getSiteAdminViews|getItemLinks');
-	$this->setRequiredCoreApi(array(7, 27));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setRequiredCoreApi(array(7, 10));
+	$this->setRequiredModuleApi(array(3, 2));
     }
 
     /**
@@ -64,17 +63,7 @@ class DynamicAlbumModule extends GalleryModule {
 	if (!isset($params['themeSettingsId'])) {
 	    list ($ret, $entity) =
 		GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryEntity');
-	    if ($ret) {
-		return $ret;
-	    }
-	    if (!isset($entity)) {
-		return GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__,
-					     'Unable to get a GalleryEntity instance');
-	    }
-	    $ret = $entity->create();
-	    if ($ret) {
-		return $ret;
-	    }
+	    $entity->create();
 	    $ret = $entity->save(false);
 	    if ($ret) {
 		return $ret;

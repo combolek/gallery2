@@ -57,8 +57,7 @@ class CaptchaValidationPlugin extends GalleryValidationPlugin {
 	    if (empty($form['CaptchaValidationPlugin']['word'])) {
 		$error[] = 'form[error][CaptchaValidationPlugin][missing]';
 		$success = false;
-	    } else if (empty($code) || GalleryUtilities::strToUpper(
-					$form['CaptchaValidationPlugin']['word']) != $code) {
+	    } else if (empty($code) || $form['CaptchaValidationPlugin']['word'] != $code) {
 		$error[] = 'form[error][CaptchaValidationPlugin][invalid]';
 		$success = false;
 
@@ -114,7 +113,7 @@ class CaptchaValidationPlugin extends GalleryValidationPlugin {
      * Determine if captcha validation should be enforced
      *
      * @param array $options
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *               boolean true to validate
      *               int current failure count, if applicable
      * @access private

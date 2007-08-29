@@ -35,16 +35,12 @@ class UserWatermarkEditControllerTest extends GalleryControllerTestCase {
 
     function setUp() {
 	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
-
-	$this->_registerTestEventListener('GalleryEntity::delete', new WatermarkModule());
+	parent::setUp();
 
 	list ($ret, $this->_user) = $this->_createUser();
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->_markForCleanup($this->_user);
@@ -55,7 +51,8 @@ class UserWatermarkEditControllerTest extends GalleryControllerTestCase {
 	/* Create a watermark */
 	list ($ret, $this->_watermark) = $this->_createWatermark();
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
     }
 
@@ -84,15 +81,13 @@ class UserWatermarkEditControllerTest extends GalleryControllerTestCase {
 
     function tearDown() {
 	if (isset($this->_idToDelete)) {
-	    $ret = GalleryCoreApi::deleteEntityById($this->_idToDelete, 'WatermarkImage');
+	    $ret = GalleryCoreApi::deleteEntityById($this->_idToDelete);
 	    if ($ret) {
+		print $ret->getAsHtml();
 		$this->failWithStatus($ret);
 	    }
 	}
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
+	parent::tearDown();
     }
 
     function testEditWatermarkEverything() {
@@ -115,7 +110,7 @@ class UserWatermarkEditControllerTest extends GalleryControllerTestCase {
 	/* Verify the watermark */
 	list ($ret, $this->_watermark) = $this->_watermark->refresh();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals('foo bar', $this->_watermark->getName());
@@ -144,7 +139,7 @@ class UserWatermarkEditControllerTest extends GalleryControllerTestCase {
 	/* Verify the watermark */
 	list ($ret, $this->_watermark) = $this->_watermark->refresh();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals('foo bar', $this->_watermark->getName());
@@ -170,7 +165,7 @@ class UserWatermarkEditControllerTest extends GalleryControllerTestCase {
 	/* Verify the watermark */
 	list ($ret, $this->_watermark) = $this->_watermark->refresh();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(1, $this->_watermark->getSerialNumber());
@@ -179,7 +174,7 @@ class UserWatermarkEditControllerTest extends GalleryControllerTestCase {
     function testEditWatermarkDuplicateName() {
 	list ($ret, $watermark) = $this->_createWatermark();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	GalleryUtilities::putRequestVariable('watermarkId', $this->_watermark->getId());
@@ -202,7 +197,7 @@ class UserWatermarkEditControllerTest extends GalleryControllerTestCase {
 	$gallery->setActiveUser($this->_saveUser);
 	list ($ret, $watermark) = $this->_createWatermark();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->_idToDelete = $watermark->getId();
 	$gallery->setActiveUser($this->_user);
@@ -224,7 +219,7 @@ class UserWatermarkEditControllerTest extends GalleryControllerTestCase {
 	/* Verify the watermark */
 	list ($ret, $this->_watermark) = $this->_watermark->refresh();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals($watermark->getName(), $this->_watermark->getName());
@@ -249,7 +244,7 @@ class UserWatermarkEditControllerTest extends GalleryControllerTestCase {
 	/* Verify the watermark */
 	list ($ret, $this->_watermark) = $this->_watermark->refresh();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(1, $this->_watermark->getSerialNumber());
@@ -273,7 +268,7 @@ class UserWatermarkEditControllerTest extends GalleryControllerTestCase {
 	/* Verify the watermark */
 	list ($ret, $this->_watermark) = $this->_watermark->refresh();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals('100', $this->_watermark->getXPercentage());
@@ -294,7 +289,7 @@ class UserWatermarkEditControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $item) = $this->_createRandomDataItem($this->_getRootId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($item);
 	list ($ret, $derivative) = $this->_createDerivative($item, $item->getId(),
@@ -302,21 +297,21 @@ class UserWatermarkEditControllerTest extends GalleryControllerTestCase {
 		array('postFilterOperations' => 'composite|plugins_data/modules/watermark/'
 		    . $this->_watermark->getFileName() . ',params'));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	list ($ret, $derivativeFile) = $derivative->fetchPath();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	if (!GalleryUtilities::guaranteeDirExists(dirname($derivativeFile))) {
-	    return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE);
+	    return $this->failWithStatus(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE));
 	}
 	if (!$platform->copy(__FILE__, $derivativeFile)) {
-	    return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE);
+	    return $this->failWithStatus(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE));
 	}
 	$ret = GalleryCoreApi::addMimeType($ext = 'ut' . rand(100, 999), 'test/file', false);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	GalleryUtilities::putRequestVariable('watermarkId', $this->_watermark->getId());
@@ -344,13 +339,13 @@ class UserWatermarkEditControllerTest extends GalleryControllerTestCase {
 
 	$ret = GalleryCoreApi::removeMimeType(array('extension' => $ext));
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 
 	/* Verify the watermark */
 	list ($ret, $this->_watermark) = $this->_watermark->refresh();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$expected = ($postMimeType == 'test/file')

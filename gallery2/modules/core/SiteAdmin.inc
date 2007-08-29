@@ -34,9 +34,9 @@ class SiteAdminView extends GalleryView {
 	global $gallery;
 
 	/* Make sure we have adequate permissions */
-	$ret = $this->_permissionCheck(GalleryCoreApi::assertUserIsSiteAdministrator());
+	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret[0], $ret[1]);
+	    return array($ret, null);
 	}
 
 	/* Load the module list */
@@ -55,10 +55,6 @@ class SiteAdminView extends GalleryView {
 	 */
 	$subView = GalleryUtilities::getRequestVariables('subView');
 	$showAllSiteAdminViews = ($subView == 'core.AdminPlugins');
-	if ($showAllSiteAdminViews) {
-	    /* Ensure translations available even for uninstalled plugins */
-	    GalleryCoreApi::installTranslationsForLocale();
-	}
 
 	foreach ($moduleStatus as $moduleId => $status) {
 	    if (empty($status['active']) && !$showAllSiteAdminViews) {

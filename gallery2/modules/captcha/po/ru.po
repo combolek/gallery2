@@ -22,7 +22,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Captcha 1.1.6\n"
+"Project-Id-Version: Gallery: Captcha 1.1.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-12 08:11-0700\n"
 "PO-Revision-Date: 2006-02-12 15:16+0300\n"
@@ -158,14 +158,27 @@ msgstr "Сохранить"
 msgid "Reset"
 msgstr "Сбросить"
 
-#, fuzzy
-msgid "Type the letters appearing in the picture."
+msgid "Type the word appearing in the picture."
 msgstr "Введите слово, которое Вы видите на картинке."
 
-#, fuzzy
-msgid "You must enter the letters appearing in the picture."
+msgid "You must enter the number appearing in the picture."
 msgstr "Введите цифры, которые Вы видите на картинке."
 
-#, fuzzy
-msgid "Incorrect letters."
+msgid "Incorrect number."
 msgstr "Неправильное число."
+
+#~ msgid "Low Security - Always Off"
+#~ msgstr "Низкая безопасность - неактивна"
+
+#~ msgid ""
+#~ "Most modules rely solely on the user being authenticated by Gallery and require no "
+#~ "special Captcha interaction."
+#~ msgstr ""
+#~ "Большинство модулей полагаются на исключительную авторизацию пользователя Галереей и не "
+#~ "требуют использования возможностей Теста Тьюринга (Captcha)."
+
+#~ msgid "Save Settings"
+#~ msgstr "Сохранить настройки"
+
+#~ msgid "Cancel"
+#~ msgstr "Отменить"

@@ -19,10 +19,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Quotas 1.1.2\n"
-"POT-Creation-Date: 2003-02-11 03:09-0800\n"
-"PO-Revision-Date: 2007-03-18 17:29+0200\n"
-"Last-Translator: ISHAK GOKER ISIK <admin@ansolon.com>\n"
+"Project-Id-Version: Gallery: Quotas 1.1.0\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-06-15 23:34-0700\n"
+"PO-Revision-Date: 2006-02-27 01:08+0200\n"
+"Last-Translator: Goker ISIK <admin@ansolon.com>\n"
 "Language-Team: Turkish <admin@ansolon.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -244,7 +245,6 @@ msgstr "düzenle"
 msgid "delete"
 msgstr "sil"
 
-# missing msgstr[1]
 #, fuzzy, c-format
 msgid "There is %d user quota in the system."
 msgid_plural "There are %d total user quotas in the system."
@@ -287,8 +287,14 @@ msgstr "Kota: %0.2f %s"
 msgid "Used: %0.2f %s"
 msgstr "Kullanılan: %0.2f %s"
 
+#, fuzzy
 msgid "Quota: Unlimited"
-msgstr "Kota: Limitsiz"
+msgstr "Kota Boyutu"
 
+#, fuzzy
 msgid "User Quota Block"
-msgstr "Kullanıcı Kota Bloğu"
+msgstr "Kullanıcı Kotası"
+
+# arg1 = numerical size, arg2 = unit
+#~ msgid "Warning: You have reached your disk quota (%s %s), "
+#~ msgstr "Uyarı: Disk kotanıza ulaştınız   (%s %s), "

@@ -82,7 +82,7 @@ class GalleryAlbumItem extends GalleryItem {
      * Also create the album directory on the filesystem.
      *
      * @param int $parentId the id of the parent of this object
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function create($parentId, $albumName) {
 	global $gallery;
@@ -92,14 +92,17 @@ class GalleryAlbumItem extends GalleryItem {
 	}
 
 	/* Let our superclass take care of creation in the persistent store */
-	$ret = parent::create($parentId, $albumName, true);
+	$ret = parent::create($parentId, $albumName);
 	if ($ret) {
 	    return $ret;
 	}
 
 	$albumName = $this->getPathComponent();
 
-	list ($ret, $parent) = GalleryCoreApi::loadEntitiesById($parentId, 'GalleryItem');
+	/* Albums can contain children */
+	$this->setCanContainChildren(true);
+
+	list ($ret, $parent) = GalleryCoreApi::loadEntitiesById($parentId);
 	if ($ret) {
 	    return $ret;
 	}
@@ -161,7 +164,7 @@ class GalleryAlbumItem extends GalleryItem {
 
     /**
      * Create a new root level album
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function createRoot() {
 	global $gallery;
@@ -248,7 +251,7 @@ class GalleryAlbumItem extends GalleryItem {
      * Delete this AlbumItem.
      * Delete all children and then remove the album directory.
      *
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function delete() {
 	global $gallery;
@@ -293,7 +296,7 @@ class GalleryAlbumItem extends GalleryItem {
      * Rename this album
      *
      * @param string $newName the path component
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function rename($newName) {
 	global $gallery;
@@ -370,7 +373,7 @@ class GalleryAlbumItem extends GalleryItem {
      * Move this item to a new parent
      *
      * @param int $newParentId the id of the GalleryItem parent
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function move($newParentId) {
 	/* Get the current parent sequence */

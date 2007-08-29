@@ -31,7 +31,7 @@ class ImageBlockHelper /* extends GalleryEventListener */ {
     /**
      * Load image block data into template.
      *
-     * @param GalleryTemplate $template
+     * @param object GalleryTemplate $template
      * @param array $params (optional) image block parameters (to override module settings)
      * @return GalleryStatus a status code
      */
@@ -222,7 +222,7 @@ class ImageBlockHelper /* extends GalleryEventListener */ {
 		/* Ignore permission error.. just don't add a block */
 		return array(null, array());
 	    }
-	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($parentId, 'GalleryItem');
+	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($parentId);
 	    if ($ret) {
 		return array($ret, null);
 	    }
@@ -262,7 +262,7 @@ class ImageBlockHelper /* extends GalleryEventListener */ {
 		if ($ret || !$ok) {
 		    /* Just pick a new item if this one is inaccessible or missing */
 		} else {
-		    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
+		    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 		    if ($ret) {
 			return array($ret, null);
 		    }
@@ -305,12 +305,11 @@ class ImageBlockHelper /* extends GalleryEventListener */ {
 
 	foreach ($data as $itemData) {
 	    $id = $itemData['id'];
-	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($id, 'GalleryItem');
+	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($id);
 	    if ($ret) {
 		return array($ret, null);
 	    }
-	    list ($ret, $owner) =
-		GalleryCoreApi::loadEntitiesById($item->getOwnerId(), 'GalleryUser');
+	    list ($ret, $owner) = GalleryCoreApi::loadEntitiesById($item->getOwnerId());
 	    if ($ret) {
 		return array($ret, null);
 	    }
@@ -333,66 +332,55 @@ class ImageBlockHelper /* extends GalleryEventListener */ {
 		}
 		if (isset($thumbnail[$id])) {
 		    $image = $thumbnail[$id];
-		    $derivativeParentId = $item->getId();
 
-		    if (GalleryUtilities::isA($item, 'GalleryAlbumItem')) {
-			/* Find derivative source for album thumbnail */
+		    if (($fullSize || $maxSize) &&
+			    GalleryUtilities::isA($item, 'GalleryAlbumItem')) {
+			/* Fullsize for album highlight.. get preferred derivative source */
 			$source = $image;
 			while (GalleryUtilities::isA($source, 'GalleryDerivative') &&
 			       $source->getDerivativeType() != DERIVATIVE_TYPE_IMAGE_PREFERRED) {
-			    list ($ret, $source) = GalleryCoreApi::loadEntitiesById(
-				$source->getDerivativeSourceId(),
-				array('GalleryFileSystemEntity', 'GalleryDerivative'));
+			    list ($ret, $source) =
+				GalleryCoreApi::loadEntitiesById($source->getDerivativeSourceId());
 			    if ($ret) {
 				return array($ret, null);
 			    }
 			}
 
-			$derivativeParentId = GalleryUtilities::isA($source, 'GalleryDerivative')
-			    ? $source->getParentId() : $source->getId();
+			list ($ret, $hasPermission) = GalleryCoreApi::hasItemPermission(
+			    (GalleryUtilities::isA($source, 'GalleryDerivative') ?
+			     $source->getParentId() : $source->getId()),
+			    'core.viewSource');
+			if ($ret) {
+			    return array($ret, null);
+			}
 
-			if ($fullSize || $maxSize) {
-			    list ($ret, $hasPermission) = GalleryCoreApi::hasItemPermission(
-				$derivativeParentId, 'core.viewSource');
-			    if ($ret) {
-				return array($ret, null);
+			if ($hasPermission) {
+			    $image = $source;
+			} else {
+			    if ($fullSize) {
+				/* Ignore permission error.. just don't add a block */
+				continue;
 			    }
 
-			    if ($hasPermission) {
-				$image = $source;
-			    } else {
-				if ($fullSize) {
-				    /* Ignore permission error.. just don't add a block */
-				    continue;
-				}
-
-				/*
-				 * We can't use this preferred because we don't have permissions
-				 * for it.  But we may still be able to use the thumbnail.
-				 */
-				$image = $thumbnail[$id];
-			    }
+			    /*
+			     * We can't use this preferred because we don't have permissions
+			     * for it.  But we may still be able to use the thumbnail.
+			     */
+			    $image = $thumbnail[$id];
 			}
 		    }
 
 		    if ($maxSize && !$fullSize) {
 			/* Get the preferred item object */
 			if (!GalleryUtilities::isA($item, 'GalleryAlbumItem')) {
-			    list ($ret, $hasPermission) = GalleryCoreApi::hasItemPermission(
-				$derivativeParentId, 'core.viewSource');
+			    list ($ret, $preferred) =
+				GalleryCoreApi::fetchPreferredsByItemIds(array($item->getId()));
 			    if ($ret) {
 				return array($ret, null);
 			    }
 
-			    if ($hasPermission) {
-				list ($ret, $preferred) = GalleryCoreApi::fetchPreferredsByItemIds(
-				    array($derivativeParentId));
-				if ($ret) {
-				    return array($ret, null);
-				}
-
-				$image = isset($preferred[$id]) ? $preferred[$id] : $item;
-			    }
+			    /* Fetch resized images for size comparisons */
+			    $image = isset($preferred[$id]) ? $preferred[$id] : $item;
 			}
 
 			/* Fetch thumbnail for size comparison */
@@ -400,8 +388,7 @@ class ImageBlockHelper /* extends GalleryEventListener */ {
 			    $thumb = $thumbnail[$id];
 			}
 
-			if (isset($thumb) && ($thumb->getWidth() >= $maxSize
-				|| $thumb->getHeight() >= $maxSize)) {
+			if ($thumb->getWidth() >= $maxSize || $thumb->getHeight() >= $maxSize) {
 			    $image = $thumb;
 			} else {
 			    /*
@@ -428,18 +415,10 @@ class ImageBlockHelper /* extends GalleryEventListener */ {
 						     ($thumb->getWidth() - $maxSize));
 
 			    /* Get the list of resizes */
-			    $resizes = array();
-			    list ($ret, $hasResizePermission) = GalleryCoreApi::hasItemPermission(
-				$derivativeParentId, 'core.viewResizes');
+			    list ($ret, $resizes) =
+				GalleryCoreApi::fetchResizesByItemIds(array($item->getId()));
 			    if ($ret) {
 				return array($ret, null);
-			    }
-			    if ($hasResizePermission) {
-				list ($ret, $resizes) = GalleryCoreApi::fetchResizesByItemIds(
-				    array($derivativeParentId));
-				if ($ret) {
-				    return array($ret, null);
-				}
 			    }
 
 			    if (!empty($resizes)) {
@@ -689,7 +668,7 @@ class ImageBlockHelper /* extends GalleryEventListener */ {
     /**
      * Cache viewable data for user
      * @param int $userId
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function cacheViewableTree($userId) {
 	global $gallery;
@@ -868,11 +847,11 @@ class ImageBlockHelper /* extends GalleryEventListener */ {
     /**
      * Set the disabled flag for an album
      *
-     * @param GalleryAlbumItem $parentAlbum AlbumItem which is to be flagged
+     * @param object GalleryAlbumItem $parentAlbum AlbumItem which is to be flagged
      * @param boolean $recursive whether to set the disabledFlag recursively to all subalbums
      * @param boolean $disabled whether to set the disabledFlag to true or to false
      * @param boolean $useProgressBar (optional) use a progressbar during update? (default=false)
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function setDisabledFlag($parentAlbum, $recursive, $disabled, $useProgressBar=false) {
 	global $gallery;
@@ -963,7 +942,7 @@ class ImageBlockHelper /* extends GalleryEventListener */ {
      * Get the disabled flag for an item
      *
      * @param int $itemId entityId of a GalleryItem for which the flag is to be retrieved
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *               boolean disabledFlag for the GalleryDataItem
      */
     function getDisabledFlag($itemId) {

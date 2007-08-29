@@ -63,8 +63,7 @@ class AlbumSelectCallbacks {
 		if (isset($callbackParams['truncateTitles'])) {
 		    GalleryCoreApi::requireOnce('lib/smarty_plugins/modifier.entitytruncate.php');
 		}
-		list ($ret, $rootAlbum) =
-		    GalleryCoreApi::loadEntitiesById($rootAlbumId, 'GalleryItem');
+		list ($ret, $rootAlbum) = GalleryCoreApi::loadEntitiesById($rootAlbumId);
 		if ($ret) {
 		    return $ret;
 		}
@@ -93,7 +92,7 @@ class AlbumSelectCallbacks {
 		    }
 
 		    list ($ret, $items) = GalleryCoreApi::loadEntitiesById(
-			GalleryUtilities::arrayKeysRecursive($tree), 'GalleryAlbumItem');
+			GalleryUtilities::arrayKeysRecursive($tree));
 		    if ($ret) {
 			return $ret;
 		    }
@@ -134,9 +133,7 @@ class AlbumSelectCallbacks {
 		}
 
 		/* Need to double escape for javascript (double-quote delimiter, backslash, ..) */
-		if (!function_exists('smarty_modifier_escape')) {
-		    GalleryCoreApi::requireOnce('lib/smarty/plugins/modifier.escape.php');
-		}
+		GalleryCoreApi::requireOnce('lib/smarty/plugins/modifier.escape.php');
 		$urlGenerator =& $gallery->getUrlGenerator();
 		$titlesForJs = $links = array();
 		foreach ($titles as $id => $title) {
@@ -146,8 +143,7 @@ class AlbumSelectCallbacks {
 		    }
 		    $links[$id] = $urlGenerator->generateUrl(
 			    array('view' => 'core.ShowItem', 'itemId' => $id),
-			    array('htmlEntities' => false, 'forceServerRelativeUrl' => true,
-			          'forceSessionId' => false));
+			    array('htmlEntities' => false, 'forceServerRelativeUrl' => true));
 		    /* Find common prefix across all URLs */
 		    if (!isset($links['prefix'])) {
 			$links['prefix'] = $links[$id];
@@ -175,17 +171,6 @@ class AlbumSelectCallbacks {
 
 	    $translator =& $gallery->getTranslator();
 	    $params['rtl'] = $translator->isRightToLeft() ? '_rtl' : '';
-
-	    /* Add a sessionId to the URLs if necessary */
-	    $session =& $gallery->getSession();
-	    if (!$session->isUsingCookies()) {
-		foreach ($links as $id => $url) {
-		    if ($id != 'prefix') {
-			$links[$id] = GalleryUrlGenerator::appendParamsToUrl(
-			    $url, array($session->getKey() => $session->getId()), true, false);
-		    }
-		}
-	    }
 
 	    $block =& $smarty->_tpl_vars['block'];
 	    $type = isset($callbackParams['albumTree']) ? 'albumTree' : 'albumSelect';
@@ -229,7 +214,7 @@ class AlbumSelectCallbacks {
 
     /**
      * Build template data for subalbum tree (apply sort preference of each album)
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      * @access private
      */
     function _buildTree($album, &$treeList, &$titles, &$nodeId, $userId,
@@ -240,8 +225,7 @@ class AlbumSelectCallbacks {
 	    return $ret;
 	}
 	if (!empty($subAlbumIds)) {
-	    list ($ret, $subAlbums) =
-		GalleryCoreApi::loadEntitiesById($subAlbumIds, 'GalleryAlbumItem');
+	    list ($ret, $subAlbums) = GalleryCoreApi::loadEntitiesById($subAlbumIds);
 	    if ($ret) {
 		return $ret;
 	    }

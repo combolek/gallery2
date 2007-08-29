@@ -1,178 +1,141 @@
 # $Revision$
 # File crc32 crc32(crlf) size size(crlf)  or  R File
-modules/slideshow/Slideshow.inc	3335078190	2119170443	7272	7517
+modules/slideshow/Slideshow.inc	865171104	1657109752	7236	7480
 modules/slideshow/classes/SlideshowImpl.class	799239540	956542080	1412	1453
-modules/slideshow/classes/SlideshowInterface_1_0.class	2080774799	1339374623	1511	1555
-modules/slideshow/module.inc	1278323860	1313609287	2946	3042
+modules/slideshow/classes/SlideshowInterface_1_0.class	2236825963	1862290296	1520	1564
+modules/slideshow/locale/af/LC_MESSAGES/modules_slideshow.mo	4196670930	4196670930	2472	2472
+modules/slideshow/locale/ar/LC_MESSAGES/modules_slideshow.mo	2828617140	2828617140	549	549
+modules/slideshow/locale/bg/LC_MESSAGES/modules_slideshow.mo	2879644830	2879644830	2951	2951
+modules/slideshow/locale/ca/LC_MESSAGES/modules_slideshow.mo	518110903	518110903	589	589
+modules/slideshow/locale/cs/LC_MESSAGES/modules_slideshow.mo	2881757657	2881757657	2565	2565
+modules/slideshow/locale/da/LC_MESSAGES/modules_slideshow.mo	2799340940	2799340940	2215	2215
+modules/slideshow/locale/de/LC_MESSAGES/modules_slideshow.mo	2907408286	2907408286	2280	2280
+modules/slideshow/locale/en_GB/LC_MESSAGES/modules_slideshow.mo	1744955454	1744955454	456	456
+modules/slideshow/locale/es/LC_MESSAGES/modules_slideshow.mo	15436308	15436308	2407	2407
+modules/slideshow/locale/eu/LC_MESSAGES/modules_slideshow.mo	894271691	894271691	2388	2388
+modules/slideshow/locale/fi/LC_MESSAGES/modules_slideshow.mo	140081769	140081769	2388	2388
+modules/slideshow/locale/fr/LC_MESSAGES/modules_slideshow.mo	1816265412	1816265412	2386	2386
+modules/slideshow/locale/hu/LC_MESSAGES/modules_slideshow.mo	3469917428	3469917428	2326	2326
+modules/slideshow/locale/is/LC_MESSAGES/modules_slideshow.mo	2197851291	2197851291	420	420
+modules/slideshow/locale/it/LC_MESSAGES/modules_slideshow.mo	229084414	229084414	2410	2410
+modules/slideshow/locale/ja/LC_MESSAGES/modules_slideshow.mo	2099366867	2099366867	2225	2225
+modules/slideshow/locale/ko/LC_MESSAGES/modules_slideshow.mo	4027572738	4027572738	1779	1779
+modules/slideshow/locale/lt/LC_MESSAGES/modules_slideshow.mo	1444787303	1444787303	2438	2438
+modules/slideshow/locale/lv/LC_MESSAGES/modules_slideshow.mo	425446369	425446369	2536	2536
+modules/slideshow/locale/nl/LC_MESSAGES/modules_slideshow.mo	3095889502	3095889502	2553	2553
+modules/slideshow/locale/no/LC_MESSAGES/modules_slideshow.mo	2684802852	2684802852	2275	2275
+modules/slideshow/locale/pl/LC_MESSAGES/modules_slideshow.mo	537169932	537169932	2569	2569
+modules/slideshow/locale/pt/LC_MESSAGES/modules_slideshow.mo	1811983891	1811983891	1178	1178
+modules/slideshow/locale/pt_BR/LC_MESSAGES/modules_slideshow.mo	3348813664	3348813664	1091	1091
+modules/slideshow/locale/ro/LC_MESSAGES/modules_slideshow.mo	1240808468	1240808468	1731	1731
+modules/slideshow/locale/ru/LC_MESSAGES/modules_slideshow.mo	1190597044	1190597044	2950	2950
+modules/slideshow/locale/sk/LC_MESSAGES/modules_slideshow.mo	176541970	176541970	671	671
+modules/slideshow/locale/sl/LC_MESSAGES/modules_slideshow.mo	3394212805	3394212805	2317	2317
+modules/slideshow/locale/sr/LC_MESSAGES/modules_slideshow.mo	3693140180	3693140180	2408	2408
+modules/slideshow/locale/sv/LC_MESSAGES/modules_slideshow.mo	3918843132	3918843132	2492	2492
+modules/slideshow/locale/tr/LC_MESSAGES/modules_slideshow.mo	1288150444	1288150444	1945	1945
+modules/slideshow/locale/uk/LC_MESSAGES/modules_slideshow.mo	2986947042	2986947042	2941	2941
+modules/slideshow/locale/vi/LC_MESSAGES/modules_slideshow.mo	1198683583	1198683583	2495	2495
+modules/slideshow/locale/zh_CN/LC_MESSAGES/modules_slideshow.mo	3396612035	3396612035	2434	2434
+modules/slideshow/locale/zh_TW/LC_MESSAGES/modules_slideshow.mo	458484336	458484336	2408	2408
+modules/slideshow/module.inc	2931846380	552724922	2915	3010
 modules/slideshow/po/GNUmakefile	1866879166	2808215985	98	103
-modules/slideshow/po/af.mo	1711745140	1711745140	2472	2472
-modules/slideshow/po/af.po	2978020760	2636519906	3500	3688
-modules/slideshow/po/ar.mo	1048137956	1048137956	549	549
-modules/slideshow/po/ar.po	2714795072	871708365	2907	3093
-modules/slideshow/po/bg.mo	4171820452	4171820452	2951	2951
-modules/slideshow/po/bg.po	972220711	3240584769	4062	4254
-modules/slideshow/po/ca.mo	444296140	444296140	589	589
-modules/slideshow/po/ca.po	3830547037	2170399062	3039	3228
-modules/slideshow/po/cs.mo	4054046396	4054046396	2565	2565
-modules/slideshow/po/cs.po	2219505948	3146115431	3549	3738
-modules/slideshow/po/da.mo	806434577	806434577	2214	2214
-modules/slideshow/po/da.po	2620664282	1068304346	3392	3578
-modules/slideshow/po/de.mo	1168331039	1168331039	2280	2280
-modules/slideshow/po/de.po	970093937	2551403994	3571	3761
-modules/slideshow/po/el.mo	3472502562	3472502562	2665	2665
-modules/slideshow/po/el.po	3121904104	2314070036	3925	4112
-modules/slideshow/po/en_GB.mo	2605695882	2605695882	456	456
-modules/slideshow/po/en_GB.po	4269118422	1356263670	3331	3516
-modules/slideshow/po/es.mo	442562556	442562556	2407	2407
-modules/slideshow/po/es.po	3112715320	18869739	3591	3779
-modules/slideshow/po/eu.mo	2616388047	2616388047	2388	2388
-modules/slideshow/po/eu.po	3239879238	1181176355	3448	3636
-modules/slideshow/po/fi.mo	2800096109	2800096109	2388	2388
-modules/slideshow/po/fi.po	2802838495	2112001516	3483	3672
-modules/slideshow/po/fr.mo	3263816691	3263816691	2386	2386
-modules/slideshow/po/fr.po	2429980076	954088877	3482	3667
-modules/slideshow/po/hu.mo	2804670406	2804670406	2465	2465
-modules/slideshow/po/hu.po	2505578464	817768754	3645	3836
-modules/slideshow/po/is.mo	2654414595	2654414595	420	420
-modules/slideshow/po/is.po	1788702012	2755732299	2808	2993
-modules/slideshow/po/it.mo	3069390823	3069390823	2410	2410
-modules/slideshow/po/it.po	1549411179	2501497530	3456	3643
-modules/slideshow/po/ja.mo	3303510800	3303510800	2502	2502
-modules/slideshow/po/ja.po	3914090167	924438877	3466	3650
-modules/slideshow/po/ko.mo	1699131309	1699131309	1927	1927
-modules/slideshow/po/ko.po	3838704419	3384250327	3468	3657
-modules/slideshow/po/lt.mo	288071695	288071695	2438	2438
-modules/slideshow/po/lt.po	2509387490	2282684715	3692	3881
-modules/slideshow/po/lv.mo	3050250252	3050250252	2536	2536
-modules/slideshow/po/lv.po	1847532295	3350406695	3516	3704
-modules/slideshow/po/nl.mo	3711780808	3711780808	2553	2553
-modules/slideshow/po/nl.po	2920831221	210393980	3603	3790
-modules/slideshow/po/no.mo	247053856	247053856	2275	2275
-modules/slideshow/po/no.po	1222049574	3413737056	3542	3730
-modules/slideshow/po/pl.mo	1031124962	1031124962	2569	2569
-modules/slideshow/po/pl.po	836262844	3889810225	3546	3733
-modules/slideshow/po/pt.mo	3688400101	3688400101	1178	1178
-modules/slideshow/po/pt.po	3289502797	805970628	3023	3208
-modules/slideshow/po/pt_BR.mo	4196790536	4196790536	1091	1091
-modules/slideshow/po/pt_BR.po	1092890588	2380546504	3279	3464
-modules/slideshow/po/ro.mo	2234548438	2234548438	1731	1731
-modules/slideshow/po/ro.po	2340883173	339291242	3363	3549
-modules/slideshow/po/ru.mo	4268563270	4268563270	2950	2950
-modules/slideshow/po/ru.po	482881785	1927528892	4043	4233
-modules/slideshow/po/sk.mo	3424458591	3424458591	1896	1896
-modules/slideshow/po/sk.po	367220440	3147153654	3526	3717
-modules/slideshow/po/sl.mo	4130753528	4130753528	2317	2317
-modules/slideshow/po/sl.po	2679304645	2759217323	3424	3612
-modules/slideshow/po/sr.mo	2879306541	2879306541	2408	2408
-modules/slideshow/po/sr.po	2486552011	618703260	3414	3600
-modules/slideshow/po/strings.raw	1979271401	1527963475	1278	1338
-modules/slideshow/po/sv.mo	2466683971	2466683971	2492	2492
-modules/slideshow/po/sv.po	579677742	3055657345	3848	4045
-modules/slideshow/po/tr.mo	3995760304	3995760304	1945	1945
-modules/slideshow/po/tr.po	2172765583	769649369	3578	3769
-modules/slideshow/po/uk.mo	1722829638	1722829638	2941	2941
-modules/slideshow/po/uk.po	1937620493	1159300228	4034	4224
-modules/slideshow/po/vi.mo	3494414852	3494414852	2495	2495
-modules/slideshow/po/vi.po	2920617501	440943332	3459	3643
-modules/slideshow/po/zh_CN.mo	1080769707	1080769707	2586	2586
-modules/slideshow/po/zh_CN.po	4170804947	2598537332	3431	3618
-modules/slideshow/po/zh_TW.mo	4094970785	4094970785	2408	2408
-modules/slideshow/po/zh_TW.po	699630867	2651827439	3384	3570
-modules/slideshow/templates/Header.tpl	1424996069	1167242634	3010	3056
-modules/slideshow/templates/Slideshow.tpl	4286816889	3242093393	8805	9055
-modules/slideshow/test/phpunit/SlideshowTest.class	3709913177	1302134952	20216	20836
-R	modules/slideshow/locale/af/LC_MESSAGES/modules_slideshow.mo
-R	modules/slideshow/locale/ar/LC_MESSAGES/modules_slideshow.mo
-R	modules/slideshow/locale/bg/LC_MESSAGES/modules_slideshow.mo
+modules/slideshow/po/af.po	3538452911	2275009324	3557	3748
+modules/slideshow/po/ar.po	2956374804	3729816714	2907	3093
+modules/slideshow/po/bg.po	2339221758	2525862719	4116	4311
+modules/slideshow/po/ca.po	1298132448	2354402647	3039	3228
+modules/slideshow/po/cs.po	4290187258	3132981894	3549	3738
+modules/slideshow/po/da.po	1353135100	2345546257	3393	3579
+modules/slideshow/po/de.po	1333700066	2608985333	3571	3761
+modules/slideshow/po/en_GB.po	1013438416	50090734	3331	3516
+modules/slideshow/po/es.po	3565353496	4075375737	3591	3779
+modules/slideshow/po/eu.po	2886538794	1961382170	3448	3636
+modules/slideshow/po/fi.po	2948992797	3515793532	3483	3672
+modules/slideshow/po/fr.po	12731110	1632432922	3482	3667
+modules/slideshow/po/hu.po	2881304450	3352536091	3617	3809
+modules/slideshow/po/is.po	1360744125	544685359	2808	2993
+modules/slideshow/po/it.po	4243726226	265580764	3456	3643
+modules/slideshow/po/ja.po	428359393	3358911562	3409	3594
+modules/slideshow/po/ko.po	2105622371	3741391412	3369	3558
+modules/slideshow/po/lt.po	2063766552	4166133425	3692	3881
+modules/slideshow/po/lv.po	2450808497	1376874934	3516	3704
+modules/slideshow/po/nl.po	39356176	499846003	3603	3790
+modules/slideshow/po/no.po	2921039027	3724093328	3542	3730
+modules/slideshow/po/pl.po	2351319614	78574936	3546	3733
+modules/slideshow/po/pt.po	4173971727	1477935335	3023	3208
+modules/slideshow/po/pt_BR.po	4206898274	3701956680	3279	3464
+modules/slideshow/po/ro.po	3244148920	1950867047	3363	3549
+modules/slideshow/po/ru.po	2312569362	2167458896	4043	4233
+modules/slideshow/po/sk.po	2395404994	255966838	3110	3302
+modules/slideshow/po/sl.po	489734166	3806257463	3424	3612
+modules/slideshow/po/sr.po	44546118	1055838129	3414	3600
+modules/slideshow/po/strings.raw	2730888047	1361631552	1278	1338
+modules/slideshow/po/sv.po	2374910138	868800543	3848	4045
+modules/slideshow/po/tr.po	2091787571	1644944003	3578	3769
+modules/slideshow/po/uk.po	2478740073	2263593332	4034	4224
+modules/slideshow/po/vi.po	3302211406	3596157142	3517	3704
+modules/slideshow/po/zh_CN.po	1226376055	3785878930	3401	3591
+modules/slideshow/po/zh_TW.po	646339238	570490046	3384	3570
+modules/slideshow/templates/Header.tpl	3240543829	1778922011	3166	3214
+modules/slideshow/templates/Slideshow.tpl	3163867102	3389083368	8961	9213
+modules/slideshow/test/phpunit/SlideshowTest.class	1788881635	4138331553	21460	22097
 R	modules/slideshow/locale/bg_BG/LC_MESSAGES/modules_slideshow.mo
 R	modules/slideshow/locale/bg_BG/LC_MESSAGES
 R	modules/slideshow/locale/bg_BG
-R	modules/slideshow/locale/ca/LC_MESSAGES/modules_slideshow.mo
-R	modules/slideshow/locale/cs/LC_MESSAGES/modules_slideshow.mo
 R	modules/slideshow/locale/cs_CZ/LC_MESSAGES/modules_slideshow.mo
 R	modules/slideshow/locale/cs_CZ/LC_MESSAGES
 R	modules/slideshow/locale/cs_CZ
-R	modules/slideshow/locale/da/LC_MESSAGES/modules_slideshow.mo
 R	modules/slideshow/locale/da_DK/LC_MESSAGES/modules_slideshow.mo
 R	modules/slideshow/locale/da_DK/LC_MESSAGES
 R	modules/slideshow/locale/da_DK
-R	modules/slideshow/locale/de/LC_MESSAGES/modules_slideshow.mo
 R	modules/slideshow/locale/de_DE/LC_MESSAGES/modules_slideshow.mo
 R	modules/slideshow/locale/de_DE/LC_MESSAGES
 R	modules/slideshow/locale/de_DE
-R	modules/slideshow/locale/en_GB/LC_MESSAGES/modules_slideshow.mo
-R	modules/slideshow/locale/es/LC_MESSAGES/modules_slideshow.mo
 R	modules/slideshow/locale/es_ES/LC_MESSAGES/modules_slideshow.mo
 R	modules/slideshow/locale/es_ES/LC_MESSAGES
 R	modules/slideshow/locale/es_ES
-R	modules/slideshow/locale/eu/LC_MESSAGES/modules_slideshow.mo
 R	modules/slideshow/locale/eu_ES/LC_MESSAGES/modules_slideshow.mo
 R	modules/slideshow/locale/eu_ES/LC_MESSAGES
 R	modules/slideshow/locale/eu_ES
-R	modules/slideshow/locale/fi/LC_MESSAGES/modules_slideshow.mo
-R	modules/slideshow/locale/fr/LC_MESSAGES/modules_slideshow.mo
 R	modules/slideshow/locale/fr_FR/LC_MESSAGES/modules_slideshow.mo
 R	modules/slideshow/locale/fr_FR/LC_MESSAGES
 R	modules/slideshow/locale/fr_FR
-R	modules/slideshow/locale/hu/LC_MESSAGES/modules_slideshow.mo
 R	modules/slideshow/locale/hu_HU/LC_MESSAGES/modules_slideshow.mo
 R	modules/slideshow/locale/hu_HU/LC_MESSAGES
 R	modules/slideshow/locale/hu_HU
-R	modules/slideshow/locale/is/LC_MESSAGES/modules_slideshow.mo
 R	modules/slideshow/locale/is_IS/LC_MESSAGES/modules_slideshow.mo
 R	modules/slideshow/locale/is_IS/LC_MESSAGES
 R	modules/slideshow/locale/is_IS
-R	modules/slideshow/locale/it/LC_MESSAGES/modules_slideshow.mo
 R	modules/slideshow/locale/it_IT/LC_MESSAGES/modules_slideshow.mo
 R	modules/slideshow/locale/it_IT/LC_MESSAGES
 R	modules/slideshow/locale/it_IT
-R	modules/slideshow/locale/ja/LC_MESSAGES/modules_slideshow.mo
 R	modules/slideshow/locale/ja_JP/LC_MESSAGES/modules_slideshow.mo
 R	modules/slideshow/locale/ja_JP/LC_MESSAGES
 R	modules/slideshow/locale/ja_JP
-R	modules/slideshow/locale/ko/LC_MESSAGES/modules_slideshow.mo
-R	modules/slideshow/locale/lt/LC_MESSAGES/modules_slideshow.mo
-R	modules/slideshow/locale/lv/LC_MESSAGES/modules_slideshow.mo
-R	modules/slideshow/locale/nl/LC_MESSAGES/modules_slideshow.mo
 R	modules/slideshow/locale/nl_NL/LC_MESSAGES/modules_slideshow.mo
 R	modules/slideshow/locale/nl_NL/LC_MESSAGES
 R	modules/slideshow/locale/nl_NL
-R	modules/slideshow/locale/no/LC_MESSAGES/modules_slideshow.mo
 R	modules/slideshow/locale/no_NO/LC_MESSAGES/modules_slideshow.mo
 R	modules/slideshow/locale/no_NO/LC_MESSAGES
 R	modules/slideshow/locale/no_NO
-R	modules/slideshow/locale/pl/LC_MESSAGES/modules_slideshow.mo
 R	modules/slideshow/locale/pl_PL/LC_MESSAGES/modules_slideshow.mo
 R	modules/slideshow/locale/pl_PL/LC_MESSAGES
 R	modules/slideshow/locale/pl_PL
-R	modules/slideshow/locale/pt/LC_MESSAGES/modules_slideshow.mo
-R	modules/slideshow/locale/pt_BR/LC_MESSAGES/modules_slideshow.mo
-R	modules/slideshow/locale/ro/LC_MESSAGES/modules_slideshow.mo
-R	modules/slideshow/locale/ru/LC_MESSAGES/modules_slideshow.mo
 R	modules/slideshow/locale/ru_RU/LC_MESSAGES/modules_slideshow.mo
 R	modules/slideshow/locale/ru_RU/LC_MESSAGES
 R	modules/slideshow/locale/ru_RU
-R	modules/slideshow/locale/sk/LC_MESSAGES/modules_slideshow.mo
-R	modules/slideshow/locale/sl/LC_MESSAGES/modules_slideshow.mo
-R	modules/slideshow/locale/sr/LC_MESSAGES/modules_slideshow.mo
 R	modules/slideshow/locale/sr_YU/LC_MESSAGES/modules_slideshow.mo
 R	modules/slideshow/locale/sr_YU/LC_MESSAGES
 R	modules/slideshow/locale/sr_YU
-R	modules/slideshow/locale/sv/LC_MESSAGES/modules_slideshow.mo
 R	modules/slideshow/locale/sv_SE/LC_MESSAGES/modules_slideshow.mo
 R	modules/slideshow/locale/sv_SE/LC_MESSAGES
 R	modules/slideshow/locale/sv_SE
-R	modules/slideshow/locale/tr/LC_MESSAGES/modules_slideshow.mo
 R	modules/slideshow/locale/tr_TR/LC_MESSAGES/modules_slideshow.mo
 R	modules/slideshow/locale/tr_TR/LC_MESSAGES
 R	modules/slideshow/locale/tr_TR
-R	modules/slideshow/locale/uk/LC_MESSAGES/modules_slideshow.mo
-R	modules/slideshow/locale/vi/LC_MESSAGES/modules_slideshow.mo
 R	modules/slideshow/locale/vi_VN/LC_MESSAGES/modules_slideshow.mo
 R	modules/slideshow/locale/vi_VN/LC_MESSAGES
 R	modules/slideshow/locale/vi_VN
-R	modules/slideshow/locale/zh_CN/LC_MESSAGES/modules_slideshow.mo
-R	modules/slideshow/locale/zh_TW/LC_MESSAGES/modules_slideshow.mo
 R	modules/slideshow/po/bg_BG.po
 R	modules/slideshow/po/cs_CZ.po
 R	modules/slideshow/po/da_DK.po

@@ -29,17 +29,12 @@ include('../../../bootstrap.inc');
 require_once('../../../init.inc');
 require_once('phpunit.inc');
 require_once('GalleryTestCase.class');
-require_once('GalleryImmediateViewTestCase.class');
 require_once('GalleryControllerTestCase.class');
 require_once('ItemAddPluginTestCase.class');
 require_once('ItemEditPluginTestCase.class');
 require_once('ItemEditOptionTestCase.class');
 require_once('CodeAuditTestCase.class');
-require_once('MockObject.class');
 require_once('UnitTestPlatform.class');
-require_once('UnitTestStorage.class');
-require_once('UnitTestPhpVm.class');
-require_once('UnitTestUrlGenerator.class');
 require_once('MockTemplateAdapter.class');
 
 @ini_set('output_buffering', 0);
@@ -93,7 +88,8 @@ function PhpUnitGalleryMain(&$testSuite, $filter) {
 	return;
     }
 
-    if ($isSiteAdmin && $filter !== false) {
+    if ($isSiteAdmin) {
+
 	/*
 	 * Load the test cases for every active module.
 	 */
@@ -103,7 +99,6 @@ function PhpUnitGalleryMain(&$testSuite, $filter) {
 	}
 
 	$suiteArray = array();
-	$gallery->guaranteeTimeLimit(120);
 	foreach ($moduleStatusList as $moduleId => $moduleStatus) {
 	    $modulesDir = GalleryCoreApi::getPluginBaseDir('module', $moduleId) . 'modules/';
 	    if (empty($moduleStatus['active'])) {
@@ -125,6 +120,10 @@ function PhpUnitGalleryMain(&$testSuite, $filter) {
 	    $testSuite->addTest($suiteArray[$className]);
 	}
     }
+
+    $counter =& GalleryTestCase::getEntityCounter();
+    GalleryCoreApi::registerEventListener('GalleryEntity::save', $counter);
+    GalleryCoreApi::registerEventListener('GalleryEntity::delete', $counter);
 
     return null;
 }
@@ -350,7 +349,7 @@ if (isset($_GET['filter'])) {
 	}
     }
 } else {
-    $filter = false;
+    $filter = 'match_nothing';
     $displayFilter = null;
     $range = array(array(1, FILTER_MAX));
 }
@@ -408,12 +407,10 @@ print "</pre>";
 include(dirname(__FILE__) . '/index.tpl');
 
 /* Compact any ACLs that were created during this test run */
-if ($testSuite->countTestCases() > 0) {
-    $ret = GalleryCoreApi::compactAccessLists();
-    if ($ret) {
-	print $ret->getAsHtml();
-	return;
-    }
+$ret = GalleryCoreApi::compactAccessLists();
+if ($ret) {
+    print $ret->getAsHtml();
+    return;
 }
 
 $storage =& $gallery->getStorage();

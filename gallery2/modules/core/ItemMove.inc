@@ -29,8 +29,6 @@ class ItemMoveController extends GalleryController {
 
     /**
      * @see GalleryController::handleRequest
-     * @todo Scalability - Don't load all album-items into memory. Need a way to load the items
-     *       incrementally, e.g. with an AJAX-powered tree widget.
      */
     function handleRequest($form) {
 	global $gallery;
@@ -71,8 +69,7 @@ class ItemMoveController extends GalleryController {
 		$selectedIds = array_keys($form['selectedIds']);
 
 		/* Load the source items */
-		list ($ret, $selectedItems) =
-		    GalleryCoreApi::loadEntitiesById($selectedIds, 'GalleryItem');
+		list ($ret, $selectedItems) = GalleryCoreApi::loadEntitiesById($selectedIds);
 		if ($ret) {
 		    return array($ret, null);
 		}
@@ -266,7 +263,7 @@ class ItemMoveView extends GalleryView {
 	    $form['numPerPage'] = 15;
 	}
 
-	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -315,7 +312,7 @@ class ItemMoveView extends GalleryView {
 	    }
 
 	    /* Load all the peers */
-	    list ($ret, $peerItems) = GalleryCoreApi::loadEntitiesById($peerIds, 'GalleryItem');
+	    list ($ret, $peerItems) = GalleryCoreApi::loadEntitiesById($peerIds);
 	    if ($ret) {
 		return array($ret, null);
 	    }
@@ -380,8 +377,7 @@ class ItemMoveView extends GalleryView {
 							   $albumIds['addAlbumItem']));
 
 	    /* Load all the album entities */
-	    list ($ret, $albums) =
-		GalleryCoreApi::loadEntitiesById($albumIds['allIds'], 'GalleryAlbumItem');
+	    list ($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds['allIds']);
 	    if ($ret) {
 		return array($ret, null);
 	    }
@@ -410,8 +406,6 @@ class ItemMoveView extends GalleryView {
 	$template->javascript('lib/yui/dom-min.js');
 	$template->javascript('lib/yui/event-min.js');
 	$template->javascript('lib/yui/container-min.js');
-	$template->javascript('lib/yui/treeview-min.js');
-	$template->style('modules/core/data/tree.css');
 	return array(null, array('body' => 'modules/core/templates/ItemMove.tpl'));
     }
 

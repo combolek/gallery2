@@ -1,6 +1,8 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
 <div class="gbBlock">
   <table class="gbDataTable"><tr><td>
@@ -11,58 +13,15 @@
       <b> {g->text text="Link to Album:"} </b> &nbsp;
     </label>
   </td><td>
-  <div id="gTreeDiv"></div>  
-<script type="text/javascript">
-  //<![CDATA[
-  var tree;
-  var nodes=[];
-  var selectedId;
-
-  function treeInit() {ldelim}
-    tree = new YAHOO.widget.TreeView("gTreeDiv");
-    nodes[-1] = tree.getRoot();
-    selectedId = {if empty($form.linkedAlbumId)} {$ItemAddLinkItem.albumTree[0].data.id} {else} {$form.linkedAlbumId} {/if};
-    {*
-     * $ItemAddLinkItem contains albums in Depth-first order. Keep the ancestors of the existing
-     * branch in nodes[] array in order to maintain parent ids.
-     *}
-    {foreach from=$ItemAddLinkItem.albumTree item=album}
-      nodes[{$album.depth}] = new YAHOO.widget.TextNode({ldelim} id: "{$album.data.id}", 
-        label: "{$album.data.title|markup:strip|default:$album.data.pathComponent}",
-        href: "javascript:onLabelClick({$album.data.id})" {rdelim},
-        nodes[{$album.depth-1}], {if $album.depth == 0}true{else}false{/if});
-      {* If the destination album is known, expand starting with top ancestor *}
-      {if $form.linkedAlbumId == $album.data.id && $album.depth > 0}
-        {* NOTE: YUI requires two calls to expand a tree *}
-        nodes[1].expand();
-        nodes[1].expandAll();
-      {/if}
-    {/foreach}
-
-    tree.draw();
-    var node = tree.getNodeByProperty("id", selectedId);
-    node.getLabelEl().setAttribute("class", "ygtvlabelselected");
-    
-    document.getElementById("{g->formVar var="form[linkedAlbumId]"}").value = selectedId;
-  {rdelim}
-  
-  function onLabelClick(id) {ldelim}
-    if (selectedId != id) {ldelim}
-      var node = tree.getNodeByProperty("id", id);
-      node.getLabelEl().setAttribute("class", "ygtvlabelselected");
-
-      node = tree.getNodeByProperty("id", selectedId);
-      node.getLabelEl().setAttribute("class", "ygtvlabel");
-
-      selectedId = id;
-      document.getElementById("{g->formVar var="form[linkedAlbumId]"}").value = id;
-    {rdelim}
-  {rdelim}
-  
-  YAHOO.util.Event.addListener(window, "load", treeInit);
-  //]]>
-</script>
-    <input type="hidden" id="{g->formVar var="form[linkedAlbumId]"}" name="{g->formVar var="form[linkedAlbumId]"}"/>
+    <select name="{g->formVar var="form[linkedAlbumId]"}">
+      {foreach from=$ItemAddLinkItem.albumTree item=album}
+	<option value="{$album.data.id}"{if $album.data.id == $form.linkedAlbumId}
+	 selected="selected"{/if}>
+	  {"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"|repeat:$album.depth}--
+	  {$album.data.title|default:$album.data.pathComponent}
+	</option>
+      {/foreach}
+    </select>
 
     {if isset($form.error.linkedAlbumId.missing)}
     <div class="giError">

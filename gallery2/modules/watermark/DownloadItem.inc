@@ -58,7 +58,7 @@ class DownloadItemView extends GalleryView {
 	}
 
 	/* Load the item */
-	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryEntity');
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	if ($ret) {
 	    return $ret;
 	}
@@ -113,15 +113,14 @@ class DownloadItemView extends GalleryView {
 		    return $ret;
 		}
 		if (!empty($hotlinkWatermarkId)) {
-		    list ($ret, $watermark) =
-			GalleryCoreApi::loadEntitiesById($hotlinkWatermarkId, 'WatermarkImage');
+		    list ($ret, $watermark) = GalleryCoreApi::loadEntitiesById($hotlinkWatermarkId);
 		    if ($ret && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
 			/* Ignore error if this watermark has been deleted */
 			return $ret;
 		    }
 		}
 	    }
-	    if (isset($watermark)) {
+	    if (isset($watermark) && GalleryUtilities::isA($watermark, 'WatermarkImage')) {
 		global $gallery;
 		$platform =& $gallery->getPlatform();
 		$tmpFile = $platform->tempnam($gallery->getConfig('data.gallery.tmp'), 'wmk_');

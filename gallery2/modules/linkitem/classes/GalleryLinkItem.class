@@ -60,7 +60,7 @@ class GalleryLinkItem extends GalleryItem {
      *
      * @param int $parentId the id of the parent object
      * @param mixed $link the link target: either string url or int id of a GalleryAlbumItem
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function create($parentId, $link) {
 	if (!isset($parentId) || empty($link)) {
@@ -68,9 +68,12 @@ class GalleryLinkItem extends GalleryItem {
 	}
 	if (is_numeric($link)) {
 	    /* Link to an album */
-	    list ($ret, $linkedAlbum) = GalleryCoreApi::loadEntitiesById($link, 'GalleryAlbumItem');
+	    list ($ret, $linkedAlbum) = GalleryCoreApi::loadEntitiesById($link);
 	    if ($ret) {
 		return $ret;
+	    }
+	    if (!GalleryUtilities::isA($linkedAlbum, 'GalleryAlbumItem')) {
+		return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 	    }
 	}
 

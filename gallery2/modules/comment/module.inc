@@ -18,11 +18,6 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-/** Possible GalleryComment::publishStatus constants */
-define('COMMENT_PUBLISH_STATUS_PUBLISHED', 0);
-define('COMMENT_PUBLISH_STATUS_UNPUBLISHED', 1);
-define('COMMENT_PUBLISH_STATUS_SPAM', 2);
-
 /**
  * Comment Module
  *
@@ -40,13 +35,12 @@ class CommentModule extends GalleryModule {
 	$this->setId('comment');
 	$this->setName($gallery->i18n('Comments'));
 	$this->setDescription($gallery->i18n('User commenting system'));
-	$this->setVersion('1.1.6'); /* Update upgrade() function below too */
-	$this->_templateVersion = 1;
+	$this->setVersion('1.1.3.1'); /* Update upgrade() function below too */
 	$this->setGroup('data', $gallery->i18n('Extra Data'));
 	$this->setCallbacks('registerEventListeners|getItemLinks|getItemSummaries|' .
 			    'getSiteAdminViews|getItemAdminViews');
-	$this->setRequiredCoreApi(array(7, 27));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setRequiredCoreApi(array(7, 5));
+	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
@@ -54,7 +48,6 @@ class CommentModule extends GalleryModule {
      */
     function upgrade($currentVersion) {
 	global $gallery;
-	$storage =& $gallery->getStorage();
 
 	if (!isset($currentVersion)) {
 	    $currentVersion = '0';
@@ -109,6 +102,7 @@ class CommentModule extends GalleryModule {
 
 	case '0.9.7':
 	case '1.0.0':
+	    $storage =& $gallery->getStorage();
 	    $ret = $storage->configureStore($this->getId(), array('GalleryComment:1.0'));
 	    if ($ret) {
 		return $ret;
@@ -146,6 +140,7 @@ class CommentModule extends GalleryModule {
 	case '1.0.9':
 	case '1.1.0':
 	case '1.1.1':
+	    $storage =& $gallery->getStorage();
 	    $ret = $storage->configureStore($this->getId(), array('GalleryComment:1.1'));
 	    if ($ret) {
 		return $ret;
@@ -153,15 +148,6 @@ class CommentModule extends GalleryModule {
 
 	case '1.1.2':
 	case '1.1.3':
-	case '1.1.3.1':
-	    /* .mo file migration */
-	case '1.1.4':
-	case '1.1.5':
-	    /* Add Akismet support */
-	    $ret = $storage->configureStore($this->getId(), array('GalleryComment:1.2'));
-	    if ($ret) {
-		return $ret;
-	    }
 
 	case 'end of upgrade path':
 	    /*
@@ -185,7 +171,6 @@ class CommentModule extends GalleryModule {
 	GalleryCoreApi::requireOnce('modules/comment/classes/GalleryCommentHelper.class');
 	$listener = new GalleryCommentHelper();
 	GalleryCoreApi::registerEventListener('GalleryEntity::delete', $listener, true);
-        GalleryCoreApi::registerEventListener('GalleryEntity::save', $listener, true);
     }
 
     /**
@@ -314,9 +299,7 @@ class CommentModule extends GalleryModule {
     function getSiteAdminViews() {
 	return array(null,
 		     array(array('name' => $this->translate('Comments'),
-				 'view' => 'comment.CommentSiteAdmin'),
-			   array('name' => $this->translate('Moderate Spam'),
-				 'view' => 'comment.AdminModerateSpam')));
+				 'view' => 'comment.CommentSiteAdmin')));
     }
 
     /**

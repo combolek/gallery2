@@ -17,19 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * Main handler for all Gallery pages/requests.
- * @package Gallery
- */
-
-if (version_compare(phpversion(), '5.0') < 0) {
-    /*
-     * PHP5 requires static methods to be marked static, or it generates an error.  PHP4 cannot
-     * parse that syntax, so we cannot modify the code.  So since setting an error handler for
-     * PHP5 results in a measurable performance hit, we only set it for PHP4.
-     */
-    $gallerySaveErrorHandler = set_error_handler('_GalleryMain_phpErrorHandler');
-}
 
 include(dirname(__FILE__) . '/bootstrap.inc');
 
@@ -88,7 +75,7 @@ if ($gallery->isEmbedded()) {
     require_once(dirname(__FILE__) . '/init.inc');
     $ret = GalleryInitFirstPass();
     if ($ret) {
-	_GalleryMain_errorHandler($ret, null);
+	_GalleryMain_errorHandler($ret, null, false);
 	return;
     }
 
@@ -96,45 +83,16 @@ if ($gallery->isEmbedded()) {
     GalleryMain();
 }
 
-if (!empty($gallerySaveErrorHandler)) {
-    set_error_handler($saveErrorHandler);
-}
-
 /**
  * Main handler for all Gallery pages/requests.
- * @return array
+ * @package Gallery
  */
 function GalleryMain($embedded=false) {
     global $gallery;
 
     /* Process the request */
     list ($ret, $g2Data) = _GalleryMain($embedded);
-    if ($ret) {
-	_GalleryMain_errorHandler($ret, $g2Data);
-
-	/**
-	 * @todo security question: should we be resetting the auth code (below) even if the
-	 * storage is not initialized here?
-	 */
-	if ($gallery->isStorageInitialized()) {
-	    /* Nuke our transaction, too */
-	    $storage =& $gallery->getStorage();
-	    $storage->rollbackTransaction();
-
-	    if ($ret->getErrorCode() & ERROR_REQUEST_FORGED) {
-		/*
-		 * The auth token was automatically reset as a side-effect when we determined that
-		 * this request was forged, so save the session now.
-		 */
-		$session =& $gallery->getSession();
-		$ret2 = $session->save(true);
-		if ($ret2) {
-		    GalleryCoreApi::addEventLogEntry(
-			'Gallery Error', 'Unable to reset the auth token', $ret2->getAsText());
-		}
-	    }
-	}
-    } else {
+    if (!$ret) {
 	$gallery->performShutdownActions();
 
 	/* Write out our session data */
@@ -148,8 +106,28 @@ function GalleryMain($embedded=false) {
 	$ret = $storage->commitTransaction();
     }
 
+    /* Error handling (or redirect info in debug mode) */
     if ($ret) {
+	_GalleryMain_errorHandler($ret, $g2Data);
 	$g2Data['isDone'] = true;
+
+	if ($ret && $gallery->isStorageInitialized()) {
+	    /* Nuke our transaction, too */
+	    $storage =& $gallery->getStorage();
+	    $storage->rollbackTransaction();
+
+	    /* Reset the auth token */
+	    if ($ret->getErrorCode() & ERROR_REQUEST_FORGED) {
+		$session =& $gallery->getSession();
+		$ret2 = $storage->beginTransaction();
+		if (!$ret2) {
+		    $ret2 = $session->save();
+		}
+		if (!$ret2) {
+		    $storage->commitTransaction();
+		}
+	    }
+	}
     } else if (isset($g2Data['redirectUrl'])) {
 	/* If we're in debug mode, show a redirect page */
 	print '<h1> Debug Redirect </h1> ' .
@@ -166,7 +144,7 @@ function GalleryMain($embedded=false) {
 
 /**
  * Process our request.
- * @return array GalleryStatus a status code
+ * @return array object GalleryStatus a status code
  *               array
  */
 function _GalleryMain($embedded=false) {
@@ -189,7 +167,6 @@ function _GalleryMain($embedded=false) {
 	if ($redirectUrl = @$gallery->getConfig('mode.maintenance')) {
 	    /* Maintenance mode - redirect if given URL, else simple message */
 	    if ($redirectUrl === true) {
-		header('Content-Type: text/html; charset=UTF-8');
 		print $core->translate('Site is temporarily down for maintenance.');
 		exit;
 	    }
@@ -197,8 +174,7 @@ function _GalleryMain($embedded=false) {
 	    $gallery->debug('Redirect to the upgrade wizard, core module version is out of date');
 	    $redirectUrl = $urlGenerator->getCurrentUrlDir(true) . 'upgrade/index.php';
 	}
-	list ($ignored, $results) = _GalleryMain_doRedirect($redirectUrl, null, null, true);
-	return array(null, $results);
+	return array(null, _GalleryMain_doRedirect($redirectUrl));
     }
 
     $ret = GalleryInitSecondPass();
@@ -221,8 +197,7 @@ function _GalleryMain($embedded=false) {
 	    if (($redirectUrl = $gallery->getConfig('mode.embed.only')) === true) {
 		return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED), null);
 	    }
-	    list ($ignored, $results) = _GalleryMain_doRedirect($redirectUrl, null, null, true);
-	    return array(null, $results);
+	    return array(null, _GalleryMain_doRedirect($redirectUrl));
 	}
 
 	if ($gallery->getConfig('mode.maintenance') && !$controller->isAllowedInMaintenance()) {
@@ -237,8 +212,7 @@ function _GalleryMain($embedded=false) {
 		    $redirectUrl = $urlGenerator->generateUrl(
 			array('view' => 'core.MaintenanceMode'), array('forceFullUrl' => true));
 		}
-		list ($ignored, $results) = _GalleryMain_doRedirect($redirectUrl, null, null, true);
-		return array(null, $results);
+		return array(null, _GalleryMain_doRedirect($redirectUrl));
 	    }
 	}
 
@@ -308,7 +282,7 @@ function _GalleryMain($embedded=false) {
 
 	/* If we have a redirect URL use it */
 	if (!empty($redirectUrl)) {
-	    return _GalleryMain_doRedirect($redirectUrl, null, $controllerName);
+	    return array(null, _GalleryMain_doRedirect($redirectUrl, null, $controllerName));
 	}
 
 	/* Let the controller specify the next view */
@@ -355,8 +329,7 @@ function _GalleryMain($embedded=false) {
 
 	if (!$isAdmin) {
 	    if (($redirectUrl = $gallery->getConfig('mode.maintenance')) !== true) {
-		list ($ignored, $results) = _GalleryMain_doRedirect($redirectUrl, null, null, true);
-		return array(null, $results);
+		return array(null, _GalleryMain_doRedirect($redirectUrl));
 	    }
 
 	    $viewName = 'core.MaintenanceMode';
@@ -372,7 +345,7 @@ function _GalleryMain($embedded=false) {
 	if (($redirectUrl = $gallery->getConfig('mode.embed.only')) === true) {
 	    return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED), null);
 	}
-	return _GalleryMain_doRedirect($redirectUrl);
+	return array(null, _GalleryMain_doRedirect($redirectUrl));
     }
 
     /* Check if the page is cached and return the cached version, else generate the page */
@@ -478,7 +451,7 @@ function _GalleryMain($embedded=false) {
 							      array('forceFullUrl' => true));
 		}
 
-		return _GalleryMain_doRedirect($redirectUrl, $template);
+		return array(null, _GalleryMain_doRedirect($redirectUrl, $template));
 	    }
 
 	    if (empty($results['body'])) {
@@ -588,8 +561,7 @@ function _GalleryMain($embedded=false) {
     return array(null, $data);
 }
 
-function _GalleryMain_doRedirect($redirectUrl, $template=null, $controller=null,
-				 $ignoreErrors=false) {
+function _GalleryMain_doRedirect($redirectUrl, $template=null, $controller=null) {
     global $gallery;
     $session =& $gallery->getSession();
     $urlGenerator =& $gallery->getUrlGenerator();
@@ -597,12 +569,7 @@ function _GalleryMain_doRedirect($redirectUrl, $template=null, $controller=null,
     /* Create a valid sessionId for guests, if required */
     $ret = $session->start();
     if ($ret) {
-	if ($ignoreErrors) {
-	    $gallery->debug("_GalleryMain_doRedirect: Failed to start the session, error stack:\n"
-		. $ret->getAsHtml);
-	} else {
-	    return array($ret, null);
-	}
+	return array($ret, null);
     }
     $redirectUrl = $session->replaceTempSessionIdIfNecessary($redirectUrl);
     $session->doNotUseTempId();
@@ -656,70 +623,14 @@ function _GalleryMain_doRedirect($redirectUrl, $template=null, $controller=null,
 	}
 
 	GalleryUtilities::setResponseHeader("Location: $redirectUrl");
-	return array(null, array('isDone' => true));
+	return array('isDone' => true);
     }
 
-    return array(null, array('isDone' => true, 'redirectUrl' => $redirectUrl,
-			     'template' => $template));
+    return array('isDone' => true, 'redirectUrl' => $redirectUrl, 'template' => $template);
 }
 
-/**
- * Handle an error condition that happened somewhere in our main request processing code.  If the
- * error cannot be handled, then add an error in the event log.
- * @param GalleryStatus a status code
- * @param array $g2Data the results from _GalleryMain
- */
-function _GalleryMain_errorHandler($error, $g2Data=null) {
-    global $gallery;
-
+function _GalleryMain_errorHandler($error, $g2Data=null, $initOk=true) {
     GalleryCoreApi::requireOnce('modules/core/ErrorPage.inc');
-    $handledError = ErrorPageView::errorHandler($error, $g2Data);
-    if (!$handledError) {
-	$summary = $error->getErrorMessage();
-	if (empty($summary)) {
-	    $summary = join(', ', $error->getErrorCodeConstants($error->getErrorCode()));
-	}
-	GalleryCoreApi::addEventLogEntry('Gallery Error', $summary, $error->getAsText());
-    }
-}
-
-/**
- * Replacement for the standard PHP error handler.
- * @see http://www.php.net/manual/en/function.set-error-handler.php
- *
- * @param int $errorNumber the code for the error
- * @param string $errorString an error message
- * @param string $file the file where the error occurred
- * @param int $line the line number of the error
- * @param mixed $context the complete context at the time of the error
- * @return boolean true if we should skip the regular PHP error handler
- */
-function _GalleryMain_phpErrorHandler($errorNumber, $errorString, $file, $line, $context) {
-    if (error_reporting() == 0 || !class_exists('GalleryCoreApi')) {
-	/*
-	 * The @ error suppression operator was used, or this error happened before we initialized
-	 * the Gallery framework, so fall back to the internal error handler
-	 */
-	return false;
-    }
-
-    $errorType = array(
-	E_ERROR => 'Error', E_WARNING => 'Warning', E_PARSE => 'Parsing Error',
-	E_NOTICE => 'Notice', E_CORE_ERROR => 'Core Error', E_CORE_WARNING => 'Core Warning',
-	E_COMPILE_ERROR => 'Compile Error', E_COMPILE_WARNING => 'Compile Warning',
-	E_USER_ERROR => 'User Error', E_USER_WARNING => 'User Warning',
-	E_USER_NOTICE => 'User Notice',
-	/* PHP5+: E_STRICT => 'Runtime Notice' */
-	/* PHP5.2+: E_RECOVERABLE_ERROR => 'Catchable Fatal Error' */
-	);
-
-    GalleryCoreApi::addEventLogEntry(
-	'PHP Error',
-	sprintf("[%s] %s in file %s on line %d", $errorType[$errorNumber],
-		$errorString, $file, $line),
-	$errorString);
-
-    /* Fall back to the internal error handler */
-    return false;
+    ErrorPageView::errorHandler($error, $g2Data, $initOk);
 }
 ?>

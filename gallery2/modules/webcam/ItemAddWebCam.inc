@@ -33,59 +33,40 @@ class ItemAddWebCam extends ItemAddPlugin {
     function handleRequest($form, &$item) {
 	global $gallery;
 
-	$status = $error = array();
+	$status = array();
+	$error = array();
 	if (isset($form['action']['checkUrl'])) {
 	    /* Delegate back to the same view */
 	} else if (isset($form['action']['addWebCam'])) {
 	    /* fetch url, create item, set WebCam handler, save params */
 	    $platform =& $gallery->getPlatform();
 	    $tmpDir = $gallery->getConfig('data.gallery.tmp');
+	    $tmpFile = $platform->tempnam($tmpDir, 'webcam');
 	    $url = $form['imageUrl'];
 	    GalleryUtilities::unsanitizeInputValues($url, false);
-	    $urlComponents = parse_url($url);
 
-	    if (empty($urlComponents['scheme'])
-		    || !in_array($urlComponents['scheme'], array('http', 'file'))) {
-		$error[] = 'form[error][imageUrl][invalid]';
-		$successfullyCopied = true;
-	    } else if ($urlComponents['scheme'] == 'http') {
-		$tmpFile = $platform->tempnam($tmpDir, 'webcam');
-		list ($successfullyCopied, $response, $headers) =
-		    GalleryCoreApi::fetchWebFile($url, $tmpFile);
-		if (!$successfullyCopied) {
-		    @$platform->unlink($tmpFile);
-		}
-	    } else {
-		/* PHP 4.3.0 trips on file:///path/here (triple slash).. result lands in 'host' */
-		if (!isset($urlComponents['path']) && isset($urlComponents['host'])) {
-		    $urlComponents['path'] = $urlComponents['host'];
-		}
-		$tmpFile = $urlComponents['path'];
-		$successfullyCopied = $platform->file_exists($tmpFile);
-	    }
+	    list ($successfullyCopied, $response, $headers) =
+		GalleryCoreApi::fetchWebFile($url, $tmpFile);
 	    if (!$successfullyCopied) {
 		$error[] = 'form[error][imageUrl][unavailable]';
 	    }
 
-	    if (empty($error)) {
-		$basename = basename($urlComponents['path']);
-		if (!empty($headers['Content-Type'])) {
-		    $mimeType = $headers['Content-Type'];
-		} else if (!empty($headers['Content-type'])) {
-		    $mimeType = $headers['Content-type'];
-		} else {
-		    list ($base, $extension) = GalleryUtilities::getFileNameComponents($basename);
-		    list ($ret, $mimeType) = GalleryCoreApi::convertExtensionToMime($extension);
-		    if ($ret) {
-			$mimeType = 'application/unknown';
-		    }
+	    if (!empty($headers['Content-Type'])) {
+		$mimeType = $headers['Content-Type'];
+	    } else if (!empty($headers['Content-type'])) {
+		$mimeType = $headers['Content-type'];
+	    } else {
+		list ($base, $extension) = GalleryUtilities::getFileNameComponents(basename($url));
+		list ($ret, $mimeType) = GalleryCoreApi::convertExtensionToMime($extension);
+		if ($ret) {
+		    $mimeType = 'application/unknown';
 		}
+	    }
 
+	    if (empty($error)) {
 		list ($ret, $newItem) = GalleryCoreApi::addItemToAlbum(
-		    $tmpFile, $basename, $basename, '', '', $mimeType, $item->getId());
-		if ($urlComponents['scheme'] == 'http') {
-		    @$platform->unlink($tmpFile);
-		}
+		    $tmpFile, basename($url), basename($url), '', '', $mimeType, $item->getId());
+		@$platform->unlink($tmpFile);
 		if ($ret) {
 		    return array($ret, null, null);
 		}
@@ -116,13 +97,15 @@ class ItemAddWebCam extends ItemAddPlugin {
 						    'id' => $newItem->getId(),
 						    'warnings' => array());
 		} else {
-		    $ret = GalleryCoreApi::deleteEntityById($newItem->getId(), 'GalleryDataItem');
+		    $ret = GalleryCoreApi::deleteEntityById($newItem->getId());
 		    if ($ret) {
 			return array($ret, null, null);
 		    }
 
 		    $error[] = 'form[error][imageUrl][notImage]';
 		}
+	    } else {
+		@$platform->unlink($tmpFile);
 	    }
 	}
 
@@ -149,9 +132,8 @@ class ItemAddWebCam extends ItemAddPlugin {
 	    if (empty($form['imageUrl'])) {
 		$form['error']['imageUrl']['missing'] = 1;
 	    } else {
-		$urlComponents = parse_url($form['imageUrl']);
-		if (empty($urlComponents['scheme'])
-			|| !in_array($urlComponents['scheme'], array('http', 'file'))) {
+		$baseUrlComponents = parse_url($form['imageUrl']);
+		if (empty($baseUrlComponents['scheme']) || $baseUrlComponents['scheme'] != 'http') {
 		    $form['error']['imageUrl']['invalid'] = 1;
 		}
 	    }

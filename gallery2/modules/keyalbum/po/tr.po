@@ -18,7 +18,7 @@
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Keyword Albums 1.0.4\n"
+"Project-Id-Version: Gallery: Keyword Albums 1.0.0\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2006-09-12 11:25-0700\n"
 "PO-Revision-Date: 2006-09-20 00:27+0200\n"
@@ -31,15 +31,15 @@ msgstr ""
 "X-Poedit-Language: Turkish\n"
 "X-Poedit-Country: TURKEY\n"
 
-#, c-format
-msgid "Keyword Album: %s"
-msgstr "Anahtar Kelime Albüm: %s"
-
 msgid "Keyword Album"
 msgstr "Anahtar Kelime Albüm"
 
 msgid "keyword album"
 msgstr "anahtar kelime albüm"
+
+#, c-format
+msgid "Keyword Album: %s"
+msgstr "Anahtar Kelime Albüm: %s"
 
 msgid "All album views"
 msgstr "Tüm albüm görüntülemeleri"
@@ -156,3 +156,6 @@ msgstr ""
 
 msgid "Maximum number of keywords (empty for no limit)"
 msgstr ""
+
+#~ msgid "Successfully saved theme settings"
+#~ msgstr "Tema ayarları başarıyla kaydedildi"

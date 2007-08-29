@@ -33,8 +33,8 @@ class AjaxianTheme extends GalleryTheme {
 	$this->setId('ajaxian');
 	$this->setName($gallery->i18n('Ajaxian'));
 	$this->setDescription($gallery->i18n('DHTML-enabled Slideshow theme'));
-	$this->setVersion('1.0.2');
-	$this->setRequiredCoreApi(array(7, 27));
+	$this->setVersion('1.0.0');
+	$this->setRequiredCoreApi(array(7, 10));
 	$this->setRequiredThemeApi(array(2, 5));
 	$this->setStandardSettings(
 	    array('rows' => 3, 'columns' => 8,
@@ -174,7 +174,7 @@ class AjaxianTheme extends GalleryTheme {
 	    if ($ret) {
 		return array($ret, null, null);
 	    }
-	    list ($ret, $childItems) = GalleryCoreApi::loadEntitiesById($childIds, 'GalleryItem');
+	    list ($ret, $childItems) = GalleryCoreApi::loadEntitiesById($childIds);
 	    if ($ret) {
 		return array($ret, null, null);
 	    }

@@ -19,7 +19,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: RSS 1.1.4\n"
+"Project-Id-Version: Gallery: RSS 1.1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-03-17 03:05-0800\n"
 "PO-Revision-Date: 2006-03-17 18:14+0300\n"
@@ -66,10 +66,6 @@ msgstr "Экспорт RSS Фото"
 msgid "RSS Feed for this Movie"
 msgstr "Экспорт RSS Видео"
 
-#, c-format
-msgid "RSS Feed for this %s"
-msgstr "Экспорт RSS для этого %s"
-
 msgid "Configure RSS Feeds"
 msgstr "Экспорт RSS Настройки"
 
@@ -89,8 +85,8 @@ msgid "Short URL for Configurable RSS Feeds"
 msgstr "Короткий адрес URL для Настраиваемого RSS канала"
 
 #, c-format
-msgid "In album %s"
-msgstr "В Альбоме %s"
+msgid "RSS Feed for this %s"
+msgstr "Экспорт RSS для этого %s"
 
 msgid "Items in an album"
 msgstr "Элементы в альбоме"
@@ -111,13 +107,9 @@ msgstr "Комментарии для элемента"
 msgid "Comments for an album and its subalbums"
 msgstr "Элементы в альбоме и его вложенные альбомы"
 
-#, fuzzy
-msgid "Random items in an album"
-msgstr "Элементы в альбоме"
-
-#, fuzzy
-msgid "Random items in an album and its subalbums"
-msgstr "Элементы в альбоме и его вложенные альбомы"
+#, c-format
+msgid "In album <a href=\"%s\">%s</a>"
+msgstr "В Альбоме <a href=\"%s\">%s</a>"
 
 msgid "RSS Feeds"
 msgstr "Каналы RSS"
@@ -201,14 +193,6 @@ msgstr "Комментарии для данного альбома"
 
 #, fuzzy
 msgid "Comments for this album and its subalbums"
-msgstr "Элементы в этом альбоме и его вложенные альбомы"
-
-#, fuzzy
-msgid "Random pictures inside this album"
-msgstr "Элементы в данном альбоме"
-
-#, fuzzy
-msgid "Random pictures inside this album and its subalbums"
 msgstr "Элементы в этом альбоме и его вложенные альбомы"
 
 msgid "Comments for this item"
@@ -297,21 +281,6 @@ msgid ""
 msgstr ""
 "Данный параметр добавит вложение для каждого изображения в канале, которое будет содержать "
 "полноразмерное изображение."
-
-msgid "Use Media RSS"
-msgstr ""
-
-#, fuzzy
-msgid "Include Media RSS tags"
-msgstr "Включить тэг изображения"
-
-msgid ""
-"This adds Media RSS tags to the feed, which allows media-oriented clients to display the "
-"feed in a more useful fashion"
-msgstr ""
-
-msgid "about Media RSS"
-msgstr ""
 
 msgid "Cloud tag (RSS 2.0)"
 msgstr "Тэг облака (cloud tag)  (RSS 2.0)"
@@ -411,14 +380,6 @@ msgstr "Максимальное количество элементов в ка
 msgid "Invalid maximum number"
 msgstr "Неверное максимальное значение"
 
-#, fuzzy
-msgid "Maximum age for items in feeds"
-msgstr "Максимальное количество элементов в каналах"
-
-#, fuzzy
-msgid "Invalid maximum age number"
-msgstr "Неверное максимальное значение"
-
 msgid "Default ttl"
 msgstr "Значение по умолчанию ttl"
 
@@ -482,29 +443,15 @@ msgstr "Разрешить RSS каналы  для фотографий в ал
 msgid "Slower"
 msgstr "Еще медленннее"
 
-#, fuzzy
-msgid "Allow RSS feeds of comments of a photo"
+msgid "Allow RSS feeds comments of a photo"
 msgstr "Разрешить каналы RSS для комментариев фотографии"
 
-#, fuzzy
-msgid "Allow RSS feeds of comments of an album"
+msgid "Allow RSS feeds comments of an album"
 msgstr "Разрешить каналы RSS для комментариев альбома"
 
 #, fuzzy
-msgid "Allow RSS feeds of comments for an album and its subalbums"
+msgid "Allow RSS feeds comments for an album and its subalbums"
 msgstr "Разрешить RSS каналы  для фотографий в альбоме и вложенных альбомов"
-
-#, fuzzy
-msgid "Allow RSS feeds of random photos inside an album"
-msgstr "Разрешить RSS каналы для фотографий в альбоме."
-
-#, fuzzy
-msgid "Allow RSS feeds of random photos inside an album and its subalbums"
-msgstr "Разрешить RSS каналы  для фотографий в альбоме и вложенных альбомов"
-
-#, fuzzy
-msgid "Slowest"
-msgstr "Еще медленннее"
 
 msgid "Save Settings"
 msgstr "Сохранить настройки"

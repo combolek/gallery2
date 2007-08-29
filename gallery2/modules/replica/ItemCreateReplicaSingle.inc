@@ -60,7 +60,7 @@ class ItemCreateReplicaSingleController extends GalleryController {
 		}
 
 		/* Load the item */
-		list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
+		list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 		if ($ret) {
 		    return array($ret, null);
 		}
@@ -170,7 +170,7 @@ class ItemCreateReplicaSingleView extends GalleryView {
 	    $form['formName'] = 'ItemCreateReplicaSingle';
 	}
 
-	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -183,7 +183,7 @@ class ItemCreateReplicaSingleView extends GalleryView {
 	}
 
 	/* Load all the album entities */
-	list ($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds, 'GalleryAlbumItem');
+	list ($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds);
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -194,12 +194,6 @@ class ItemCreateReplicaSingleView extends GalleryView {
 
 	$template->setVariable('ItemCreateReplicaSingle', $ItemCreateReplicaSingle);
 	$template->setVariable('controller', 'replica.ItemCreateReplicaSingle');
-	$template->javascript('lib/yui/yahoo-min.js');
-	$template->javascript('lib/yui/dom-min.js');
-	$template->javascript('lib/yui/event-min.js');
-	$template->javascript('lib/yui/container-min.js');
-	$template->javascript('lib/yui/treeview-min.js');
-	$template->style('modules/core/data/tree.css');
 	return array(null,
 		     array('body' => 'modules/replica/templates/ItemCreateReplicaSingle.tpl'));
     }

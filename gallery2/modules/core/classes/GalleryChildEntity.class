@@ -57,7 +57,7 @@ class GalleryChildEntity extends GalleryEntity {
      * Create this item in our persistent store
      *
      * @param int $parentId the id of the GalleryItem parent
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function create($parentId) {
 	global $gallery;
@@ -98,7 +98,7 @@ class GalleryChildEntity extends GalleryEntity {
      * Move this item to a new parent
      *
      * @param int $newParentId the id of the GalleryItem parent
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function move($newParentId) {
 	global $gallery;
@@ -133,16 +133,15 @@ class GalleryChildEntity extends GalleryEntity {
     /**
      * Get the parent instance
      *
-     * @return array GalleryStatus a status code
-     *               GalleryItem the parent item
+     * @return array object GalleryStatus a status code
+     *               object GalleryItem the parent item
      */
     function fetchParent() {
 	global $gallery;
 
 	$parentId = $this->getParentId();
 	if (isset($parentId)) {
-	    list ($ret, $parent) =
-		GalleryCoreApi::loadEntitiesById($this->getParentId(), 'GalleryEntity');
+	    list ($ret, $parent) = GalleryCoreApi::loadEntitiesById($this->getParentId());
 	    if ($ret) {
 		return array($ret, null);
 	    }

@@ -115,8 +115,7 @@ class SelectAlbumView extends GalleryView {
 	    array_unique(array_merge($albumIds['addDataItem'], $albumIds['addAlbumItem']));
 
 	/* Load all the album entities */
-	list ($ret, $albums) =
-	    GalleryCoreApi::loadEntitiesById($albumIds['allIds'], 'GalleryAlbumItem');
+	list ($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds['allIds']);
 	if ($ret) {
 	    return array($ret, null);
 	}

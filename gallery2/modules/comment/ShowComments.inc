@@ -56,7 +56,7 @@ class ShowCommentsView extends GalleryView {
 	    /* Load all the commenters */
 	    if (sizeof($commenters) > 0) {
 		list ($ret, $commentersList) =
-		    GalleryCoreApi::loadEntitiesById(array_keys($commenters), 'GalleryUser');
+		    GalleryCoreApi::loadEntitiesById(array_keys($commenters));
 		if ($ret) {
 		    return array($ret, null);
 		}
@@ -84,13 +84,6 @@ class ShowCommentsView extends GalleryView {
 	    'commenters' => $commenters,
 	    'can' => $can,
 	    'item' => (array)$item));
-
- 	$template->javascript('lib/yui/yahoo-min.js');
- 	$template->javascript('lib/yui/dom-min.js');
- 	$template->javascript('lib/yui/event-min.js');
- 	$template->javascript('lib/yui/connection-min.js');
- 	$template->javascript('lib/yui/animation-min.js');
- 	$template->javascript('lib/yui/container-min.js');
 
 	return array(null,
 		     array('body' => 'modules/comment/templates/ShowComments.tpl'));

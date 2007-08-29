@@ -70,7 +70,7 @@ class ConfirmPicasaImportController extends GalleryController {
      * Actually performs the import from Picasa into G2
      *
      * @param array $form the form variables
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function performImport($form) {
 	global $gallery;
@@ -173,8 +173,7 @@ class ConfirmPicasaImportController extends GalleryController {
 	}
 
 	/* Try to load targeted parent */
-	list ($ret, $targetAlbumObject) =
-	    GalleryCoreApi::loadEntitiesById($destinationAlbumId, 'GalleryAlbumItem');
+	list ($ret, $targetAlbumObject) = GalleryCoreApi::loadEntitiesById($destinationAlbumId);
 	if ($ret) {
 	    return $ret;
 	}
@@ -330,8 +329,7 @@ class ConfirmPicasaImportView extends GalleryView {
 	if ($ret) {
 	    return array($ret, null);
 	}
-	list ($ret, $targetAlbum) =
-	    GalleryCoreApi::loadEntitiesById($destinationAlbumId, 'GalleryAlbumItem');
+	list ($ret, $targetAlbum) = GalleryCoreApi::loadEntitiesById($destinationAlbumId);
 	if ($ret) {
 	    return array($ret, null);
 	}

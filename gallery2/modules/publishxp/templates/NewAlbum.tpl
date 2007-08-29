@@ -1,13 +1,15 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
 <form action="{g->url}" enctype="application/x-www-form-urlencoded" method="post"
  id="publishXpForm">
   <div>      
     <script type="text/javascript">
       // <![CDATA[
-      setSubtitle("{g->text text="Specify the name and title for the new album." forJavascript=true}");
+      setSubtitle("{g->text text="Specify the name and title for the new album."}");
       setSubmitOnNext(true);
       setOnBackUrl("{g->url arg1="view=publishxp.SelectAlbum" htmlEntities=false}");
       setButtons(true, true, false);

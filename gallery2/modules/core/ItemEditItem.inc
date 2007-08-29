@@ -163,8 +163,7 @@ class ItemEditItem extends ItemEditPlugin {
 		    }
 		} else if (isset($thumbnail) && empty($form['thumbnail']['size'])) {
 		    /* Delete the thumbnail */
-		    $ret = GalleryCoreApi::deleteEntityById($thumbnail->getId(),
-							    'GalleryDerivative');
+		    $ret = GalleryCoreApi::deleteEntityById($thumbnail->getId());
 		    if ($ret) {
 			return array($ret, null, null, null);
 		    }
@@ -337,9 +336,8 @@ class ItemEditItem extends ItemEditPlugin {
 		}
 	    }
 	} else if (isset($thumbnail) && $thumbnail->getDerivativeSourceId() != $item->getId()) {
-	    list ($ret, $source) = GalleryCoreApi::loadEntitiesById(
-		$thumbnail->getDerivativeSourceId(),
-		array('GalleryFileSystemEntity', 'GalleryDerivative'));
+	    list ($ret, $source) =
+		GalleryCoreApi::loadEntitiesById($thumbnail->getDerivativeSourceId());
 	    if ($ret) {
 		return array($ret, null, null);
 	    }

@@ -74,7 +74,7 @@ class GalleryCommentSearch extends GallerySearchInterface_1_0 {
 	}
 
 	$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
-	$countQuery = '
+	$countQuery = sprintf('
 	SELECT
 	  COUNT([GalleryChildEntity::id])
 	FROM
@@ -84,16 +84,14 @@ class GalleryCommentSearch extends GallerySearchInterface_1_0 {
 	  AND
 	  [GalleryChildEntity::parentId] = [GalleryAccessSubscriberMap::itemId]
 	  AND
-	  [GalleryAccessSubscriberMap::accessListId] IN (' . $aclMarkers . ')
+	  [GalleryAccessSubscriberMap::accessListId] IN (%s)
 	  AND
 	  ([GalleryComment::subject] LIKE ?
 	   OR
 	   [GalleryComment::comment] LIKE ?)
-          AND
-          [GalleryComment::publishStatus] = ?
-	';
+	', $aclMarkers);
 
-	$query = '
+	$query = sprintf('
 	SELECT
 	  [GalleryChildEntity::id],
 	  [GalleryComment::subject],
@@ -112,20 +110,18 @@ class GalleryCommentSearch extends GallerySearchInterface_1_0 {
 	  AND
 	  [GalleryChildEntity::parentId] = [GalleryAccessSubscriberMap::itemId]
 	  AND
-	  [GalleryAccessSubscriberMap::accessListId] IN (' . $aclMarkers . ')
+	  [GalleryAccessSubscriberMap::accessListId] IN (%s)
 	  AND
 	  ([GalleryComment::subject] LIKE ?
 	   OR
 	   [GalleryComment::comment] LIKE ?)
-          AND
-          [GalleryComment::publishStatus] = ?
 	ORDER BY
-	  [GalleryComment::date] DESC, [GalleryChildEntity::id] DESC';
+	  [GalleryComment::date] DESC, [GalleryChildEntity::id] DESC
+	', $aclMarkers);
 
 	$data = $aclIds;
 	$data[] = '%' . $criteria . '%';
 	$data[] = '%' . $criteria . '%';
-	$data[] = COMMENT_PUBLISH_STATUS_PUBLISHED;
 
 	/* Find the total */
 	list ($ret, $results) = $gallery->search($countQuery, $data);

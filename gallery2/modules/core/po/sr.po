@@ -19,10 +19,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Core 1.2.20\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-14 16:52+0200\n"
-"PO-Revision-Date: 2007-04-16 15:06+0100\n"
+"Project-Id-Version: Gallery: Core 1.2.0.3\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-06-07 09:29-0700\n"
+"PO-Revision-Date: 2007-06-02 12:49+0100\n"
 "Last-Translator: Jozef Selesi <selesi@gmail.com>\n"
 "Language-Team: Srpski <gallery-translations@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -33,30 +33,6 @@ msgstr ""
 
 msgid "Gallery Email Test"
 msgstr "Email provera Galerije"
-
-#, c-format
-msgid "%d minute"
-msgid_plural "%d minutes"
-msgstr[0] "%d minut"
-msgstr[1] "%d minuta"
-
-#, c-format
-msgid "%d hour"
-msgid_plural "%d hours"
-msgstr[0] "%d sat"
-msgstr[1] "%d sati"
-
-#, c-format
-msgid "%d day"
-msgid_plural "%d days"
-msgstr[0] "%d dan"
-msgstr[1] "%d dana"
-
-#, c-format
-msgid "%d week"
-msgid_plural "%d weeks"
-msgstr[0] "%d nedelja"
-msgstr[1] "%d nedelje"
 
 msgid "forever"
 msgstr "zauvek"
@@ -82,15 +58,32 @@ msgstr "Baza podataka"
 msgid "File"
 msgstr "Datoteka"
 
-msgid "&lt;none&gt;"
-msgstr ""
-
-msgid "Link"
-msgstr "Veži"
+#, c-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] "%d minut"
+msgstr[1] "%d minuta"
 
 #, c-format
-msgid "Page %d of %d"
-msgstr "%d. strana od %d"
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] "%d sat"
+msgstr[1] "%d sati"
+
+#, c-format
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] "%d dan"
+msgstr[1] "%d dana"
+
+#, c-format
+msgid "%d week"
+msgid_plural "%d weeks"
+msgstr[0] "%d nedelja"
+msgstr[1] "%d nedelje"
+
+msgid "<none>"
+msgstr "<ni jedan>"
 
 msgid "No acceleration"
 msgstr "Bez ubrzanja"
@@ -134,10 +127,6 @@ msgstr "Aktiviram %s"
 msgid "Deleting Language Packs"
 msgstr "Brisanje jezičkih paketa"
 
-#, fuzzy
-msgid "Synchronizing Language Packs"
-msgstr "Brisanje jezičkih paketa"
-
 msgid "Update completed with errors."
 msgstr "Nadogradnja završena sa greškama."
 
@@ -165,11 +154,11 @@ msgstr "Preuzmi podešavanja iz nadređenog albuma"
 msgid "Use these settings"
 msgstr "Koristi ova podešavanja"
 
-msgid "Converting Schema Table"
-msgstr ""
-
 msgid "Installing the core module"
 msgstr "Instaliranje modula sa jezgrom"
+
+msgid "key"
+msgstr "slovo"
 
 msgid "All access"
 msgstr "Pun pristup"
@@ -204,10 +193,6 @@ msgstr "[jezgro] Brisanje objekata"
 msgid "Upgrading permissions"
 msgstr "Nadogradnja prava"
 
-#, c-format
-msgid "Upgrading permissions (%d items complete, %d remaining)"
-msgstr "Nadogradnja prava (%d objekata završeno, ostalo još %d)"
-
 msgid "Deleting old permission tables"
 msgstr "Brisanje starih tabela sa dozvolama"
 
@@ -220,33 +205,11 @@ msgstr "Svi korisnici"
 msgid "Detecting broken derivatives"
 msgstr "Otkrivanje oštećenih derivata"
 
-#, c-format
-msgid "Detecting broken derivatives, loading (%d derivatives checked, %d remaining)"
-msgstr "Otrivanje oštećenih derivata, učitavanje (%d derivata provereno, ostalo još %d)"
-
-#, c-format
-msgid "Detecting broken derivatives (%d derivatives checked, %d remaining)"
-msgstr "Otkrivanje oštećenih derivata (%d derivata provereno, ostalo još %d)"
-
-#, c-format
-msgid "Detecting broken derivatives, saving (%d derivatives checked, %d remaining)"
-msgstr "Otkrivanje oštećenih derivata, čuvanje (%d derivata provereno, ostalo još %d)"
-
-#, c-format
-msgid ""
-"Detecting broken derivatives, saving item %d of %d (%d derivatives complete, %d remaining)"
-msgstr ""
-"Otkrivanje oštećenih derivata, čuvanje objekta %d od %d (%d derivata završeno, ostalo još %d)"
-
 msgid "Clearing fast-download cache"
 msgstr "Brisanje fast-download keša"
 
 msgid "Deleting old fast-download cache"
 msgstr "Brisanje starog fast-download keša"
-
-#, c-format
-msgid "Deleting old session files (iteration %d)"
-msgstr "Brisanje starih datoteka sa sesijama (iteracija %d)"
 
 msgid "Updating panorama items"
 msgstr "Ažuriranje panoramskih objekata"
@@ -254,9 +217,11 @@ msgstr "Ažuriranje panoramskih objekata"
 msgid "Optimizing AccessSubscriberMap table"
 msgstr "Optimizacija AccessSubscriberMap tabele"
 
-#, fuzzy
-msgid "Upgrading Plugin Translations"
-msgstr "Nadogradnja prava"
+msgid "Converting Schema Table"
+msgstr "Preuređivanje Schema tabele"
+
+msgid "Loading Table Descriptions"
+msgstr ""
 
 msgid "Site Admins"
 msgstr "Administratori"
@@ -276,16 +241,31 @@ msgstr "Ovo je glavna strana vaše Galerije"
 msgid "Converting MySQL data to UTF8"
 msgstr "Preuređivanje MySQL podataka u UTF8"
 
-#, fuzzy
-msgid "Adding items"
-msgstr "dodaj objekat"
+#, c-format
+msgid "Upgrading permissions (%d items complete, %d remaining)"
+msgstr "Nadogradnja prava (%d objekata završeno, ostalo još %d)"
 
-#, fuzzy
-msgid "Processing items"
-msgstr "Obrada %d. objekta od %d"
+#, c-format
+msgid "Detecting broken derivatives, loading (%d derivatives checked, %d remaining)"
+msgstr "Otrivanje oštećenih derivata, učitavanje (%d derivata provereno, ostalo još %d)"
 
-msgid "Extracting archive"
+#, c-format
+msgid "Detecting broken derivatives (%d derivatives checked, %d remaining)"
+msgstr "Otkrivanje oštećenih derivata (%d derivata provereno, ostalo još %d)"
+
+#, c-format
+msgid "Detecting broken derivatives, saving (%d derivatives checked, %d remaining)"
+msgstr "Otkrivanje oštećenih derivata, čuvanje (%d derivata provereno, ostalo još %d)"
+
+#, c-format
+msgid ""
+"Detecting broken derivatives, saving item %d of %d (%d derivatives complete, %d remaining)"
 msgstr ""
+"Otkrivanje oštećenih derivata, čuvanje objekta %d od %d (%d derivata završeno, ostalo još %d)"
+
+#, c-format
+msgid "Deleting old session files (iteration %d)"
+msgstr "Brisanje starih datoteka sa sesijama (iteracija %d)"
 
 msgid "add items"
 msgstr "dodaj objekat"
@@ -298,6 +278,30 @@ msgstr "dodavanje podalbuma"
 
 msgid "add items confirmation"
 msgstr "potvrda prilikom dodavanja objekata"
+
+msgid "Base filename"
+msgstr "Osnovni naziv datoteke"
+
+msgid "Caption"
+msgstr "Natpis"
+
+msgid "Blank"
+msgstr "Prazno"
+
+msgid "From Web Browser"
+msgstr "Iz web čitača"
+
+#, c-format
+msgid "%d megabyte"
+msgid_plural "%d megabytes"
+msgstr[0] "%d megabajt"
+msgstr[1] "%d megabajta"
+
+#, c-format
+msgid "%d kilobytes"
+msgid_plural "%d kilobytes"
+msgstr[0] "%d kilobajt"
+msgstr[1] "%d kilobajta"
 
 #, c-format
 msgid "Input file %s exceeds maximum permitted file size"
@@ -315,35 +319,18 @@ msgstr "Ulazna datoteka %s je samo delimično preneta"
 msgid "Input file %s was not uploaded. Error %d"
 msgstr "Ulazna datoteka %s nije preneta. Greška %d"
 
-#, c-format
-msgid "%d megabyte"
-msgid_plural "%d megabytes"
-msgstr[0] "%d megabajt"
-msgstr[1] "%d megabajta"
-
-#, c-format
-msgid "%d kilobytes"
-msgid_plural "%d kilobytes"
-msgstr[0] "%d kilobajt"
-msgstr[1] "%d kilobajta"
-
-msgid "Base filename"
-msgstr "Osnovni naziv datoteke"
-
-msgid "Caption"
-msgstr "Natpis"
-
-msgid "Blank"
-msgstr "Prazno"
-
-msgid "From Web Browser"
-msgstr "Iz web čitača"
-
 msgid "Gallery Item Administration"
 msgstr "Administracija objekta Galerije"
 
 msgid "delete an item"
 msgstr "brisanje objekta"
+
+msgid "delete confirmation"
+msgstr "potvrda brisanja"
+
+#, c-format
+msgid "delete %s"
+msgstr "brisanje %s"
 
 #, c-format
 msgid "edit %s"
@@ -358,10 +345,6 @@ msgstr "Primeni podešavanja slika promenenjih veličina"
 msgid "Preparing..."
 msgstr "Priprema..."
 
-#, c-format
-msgid "Processing image %d of %d"
-msgstr "Obrađivanje %d. slike od %d"
-
 msgid "Apply thumbnail settings"
 msgstr "Primeni podešavanja umanjenih prikaza"
 
@@ -370,6 +353,10 @@ msgstr "Ponovno pravljenje umanjenih prikaza..."
 
 msgid "Album"
 msgstr "Album"
+
+#, c-format
+msgid "Processing image %d of %d"
+msgstr "Obrađivanje %d. slike od %d"
 
 msgid "Changes saved successfully"
 msgstr "Izmene uspešno sačuvane"
@@ -508,10 +495,6 @@ msgstr "Izmena fotografije"
 msgid "Edit Movie"
 msgstr "Izmena filma"
 
-#, c-format
-msgid "Edit %s"
-msgstr "Izmena %s"
-
 msgid "Add Album"
 msgstr "Dodavanje albuma"
 
@@ -530,10 +513,6 @@ msgstr "Brisanje fotografije"
 msgid "Delete Movie"
 msgstr "Brisanje filma"
 
-#, c-format
-msgid "Delete %s"
-msgstr "Brisanje %s"
-
 msgid "Move Album"
 msgstr "Premeštanje albuma"
 
@@ -543,10 +522,6 @@ msgstr "Premeštanje fotografije"
 msgid "Move Movie"
 msgstr "Premeštanje filma"
 
-#, c-format
-msgid "Move %s"
-msgstr "Premeštanje %s"
-
 msgid "Edit Captions"
 msgstr "Izmena natpisa"
 
@@ -555,9 +530,6 @@ msgstr "Postavi za naslovnu"
 
 msgid "Reorder Items"
 msgstr "Promena redosleda objekata"
-
-msgid "Delete Items"
-msgstr "Brisanje objekata"
 
 msgid "Site Admin"
 msgstr "Administracija"
@@ -583,9 +555,6 @@ msgstr "Grupe"
 msgid "Performance"
 msgstr "Performanse"
 
-msgid "Event Logs"
-msgstr ""
-
 msgid "Toolkit Priority"
 msgstr "Prioritet alatki"
 
@@ -597,6 +566,18 @@ msgstr "Parametri naloga"
 
 msgid "Change Password"
 msgstr "Promena lozinke"
+
+#, c-format
+msgid "Edit %s"
+msgstr "Izmena %s"
+
+#, c-format
+msgid "Delete %s"
+msgstr "Brisanje %s"
+
+#, c-format
+msgid "Move %s"
+msgstr "Premeštanje %s"
 
 msgid "Build all thumbnails/resizes"
 msgstr "Pravljenje svih umanjenih prikaza i promenjenih veličina"
@@ -611,6 +592,9 @@ msgstr ""
 msgid "Build All Thumbnails/Resizes"
 msgstr "Napravi sve umanjene prikaze i promenjene veličine"
 
+msgid "Debug output for failed items:"
+msgstr "Izlat za otklanjanje grešaka za objekte sa greškom"
+
 #, c-format
 msgid "Checked %d items"
 msgstr "Provereno %d objekata"
@@ -622,9 +606,6 @@ msgstr "%d objekata napravljeno"
 #, c-format
 msgid "%d items failed"
 msgstr "%d objekata sa greškom"
-
-msgid "Debug output for failed items:"
-msgstr "Izlat za otklanjanje grešaka za objekte sa greškom"
 
 msgid "Convert MySQL database to UTF8"
 msgstr "Preuređivanje MySQL baze podataka u UTF8"
@@ -647,28 +628,6 @@ msgstr "Baza podataka uspešno preuređena u UTF8"
 
 msgid "No conversion required"
 msgstr "Preuređenje nije neophodno"
-
-#, fuzzy
-msgid "Backup the database"
-msgstr "Optimizacija baze podataka"
-
-msgid ""
-"Backup all your Gallery data (item data, users, comments, etc.) to a single file in your "
-"storage folder.  The backup does not include the image files.  Before running the backup, "
-"your Gallery installation needs to be set into maintenance mode, as this is not done "
-"automatically."
-msgstr ""
-
-msgid "Backing up Gallery Database"
-msgstr ""
-
-#, fuzzy
-msgid "Exporting..."
-msgstr "Priprema..."
-
-#, c-format
-msgid "Database backup completed and the backup file is located at: %s"
-msgstr ""
 
 msgid "Delete user sessions"
 msgstr "Brisanje korisničkih sesija"
@@ -706,12 +665,11 @@ msgstr "Direktorijum nije moguće obrisati: %s"
 msgid "Delete template cache"
 msgstr "Brisanje keša šablona"
 
-#, fuzzy
 msgid ""
 "Gallery compiles template files and saves them for increased performance.  If you're "
 "experiencing problems that say <i>Smarty error</i> then you might try running this task.  "
-"Also run this if you add or remove any local/*.tpl or theme override so Smarty will find the "
-"right file."
+"Also run this if you remove a local/*.tpl file so Smarty will switch back to the default tpl "
+"file."
 msgstr ""
 "Galerija prevodi i čuva šablonske datoteke radi boljih performansi. Ako se javljaju problemi "
 "sa porukom <i>Smarty error</i>, pokušajte da pokrenete ovaj zadatak. Takođe ga pokrenite ako "
@@ -855,10 +813,6 @@ msgstr "Rastući"
 msgid "Descending"
 msgstr "Opadajući"
 
-#, c-format
-msgid "Powered by Gallery v%s"
-msgstr "Gallery v%s"
-
 msgid "Validation disabled until you set allowSessionAccess in config.php"
 msgstr "Provera ispravnosti je onemogućena dok ne podesite allowSessionAccess u config.php"
 
@@ -867,6 +821,13 @@ msgstr "Ova stranica je ispravna XHTML 1.0"
 
 msgid "Donate to the Gallery project"
 msgstr "Donirajte projektu Galerija"
+
+msgid "G2.2: Double Double"
+msgstr "G2.2: Double Double"
+
+#, c-format
+msgid "Powered by Gallery v%s"
+msgstr "Gallery v%s"
 
 #, c-format
 msgid "Estimated time remaining: %d:%02d"
@@ -975,12 +936,12 @@ msgstr "proračunska tabela"
 msgid "file"
 msgstr "datoteka"
 
+msgid "Back"
+msgstr "Nazad"
+
 #, c-format
 msgid "Back to %s"
 msgstr "Povratak na %s"
-
-msgid "Back"
-msgstr "Nazad"
 
 msgid "User"
 msgstr "Korisnik"
@@ -1051,10 +1012,6 @@ msgstr "jezgro"
 msgid "unknown"
 msgstr "nepoznato"
 
-#, c-format
-msgid "API = Core %s, Module %s, Theme %s, Embed %s"
-msgstr ""
-
 msgid "Gallery version"
 msgstr "Verzija Galerije"
 
@@ -1094,65 +1051,6 @@ msgstr "Čitač"
 #, c-format
 msgid "Rows in %s table = %d"
 msgstr "Redova u %s tabeli = %d"
-
-#, c-format
-msgid "The %s \"%s\" is not installed and will not be backed up."
-msgstr ""
-
-#, c-format
-msgid "\"%s\" has no creation sql and will not be backed up."
-msgstr ""
-
-#, c-format
-msgid "Unable to load table description for \"%s\", no data will be exported."
-msgstr ""
-
-msgid ""
-"Unable to find the XML parser.  The PHP XML parsing extension must be loaded.  Terminating "
-"database import."
-msgstr ""
-
-#, c-format
-msgid "The exported file is not the correct version. Expecting %s recieved %s."
-msgstr ""
-
-#, fuzzy, c-format
-msgid "Unable to close import file: %s"
-msgstr "Direktorijum nije moguće obrisati: %s"
-
-#, fuzzy, c-format
-msgid "Unable to open import file: %s"
-msgstr "Direktorijum nije moguće obrisati: %s"
-
-#, c-format
-msgid "Import file doesn't exist: %s"
-msgstr ""
-
-#, c-format
-msgid "Plugin %s is not currently available."
-msgstr ""
-
-#, c-format
-msgid "The available version of plugin \"%s\" may not be compatible with the imported version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The currently installed core API version required by \"%s\" may not be compatible with the "
-"imported version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The installed module API version required by \"%s\" may not be compatible with the imported "
-"version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The installed theme API version required by \"%s\" is not compatible with the imported "
-"version."
-msgstr ""
 
 msgid "Successfully saved theme settings"
 msgstr "Uspešno sačuvana podešavanja izgleda"
@@ -1671,49 +1569,6 @@ msgid_plural "%d failed login attempts since the last successful login."
 msgstr[0] "%d neuspešan pokušaj prijave od poslednje uspešne."
 msgstr[1] "%d neuspešn pokušaja prijave od poslednje uspešne."
 
-#, fuzzy
-msgid "Recent Events"
-msgstr "Anuliranje broja pregleda"
-
-msgid "Type"
-msgstr ""
-
-#, fuzzy
-msgid "Location"
-msgstr "Akcija"
-
-#, fuzzy
-msgid "Client"
-msgstr "lista"
-
-#, fuzzy
-msgid "No events have been reported yet."
-msgstr "Nema obeleženih paketa."
-
-#, fuzzy
-msgid "Event Details"
-msgstr "Detalji u grešci"
-
-#, fuzzy
-msgid "User Id"
-msgstr "Korisnik"
-
-#, fuzzy
-msgid "Referer"
-msgstr "Promeni redosled"
-
-#, fuzzy
-msgid "Details"
-msgstr "Podrazumevan"
-
-#, fuzzy
-msgid "no summary"
-msgstr "Sažetak"
-
-#, fuzzy
-msgid "An error occurred while retrieving the event log entry details."
-msgstr "Desila se greška prilikom interakcije sa bazom podataka."
-
 msgid "Group Management"
 msgstr "Upravljanje grupama"
 
@@ -1778,9 +1633,6 @@ msgstr[1] "%d grupa odgovara vašem filteru"
 msgid "System Maintenance"
 msgstr "Održavanje sistema"
 
-msgid "Gallery must be in maintenance mode before the task can be run."
-msgstr ""
-
 #, c-format
 msgid "Completed %s task successfully."
 msgstr "Zadatak %s uspešno završen."
@@ -1788,41 +1640,6 @@ msgstr "Zadatak %s uspešno završen."
 #, c-format
 msgid "The %s task failed to complete successfully."
 msgstr "Zadatak %s se neuspešno završio."
-
-msgid "Maintenance Mode has been turned on."
-msgstr ""
-
-msgid "Maintenance Mode has been turned off."
-msgstr ""
-
-#, fuzzy
-msgid "Maintenance Mode"
-msgstr "Održavanje"
-
-msgid "Restrict user access to the system while maintenance is being performed."
-msgstr ""
-
-#, fuzzy
-msgid "Maintenance Mode Url"
-msgstr "Održavanje"
-
-msgid ""
-"The Maintenance Mode Url specifies where requests will be redirected when access to the site "
-"has been restricted by the administrator."
-msgstr ""
-
-msgid ""
-"If left blank Gallery will display a default page with an administrator login link. This "
-"page will be themed when the code base is up to date, otherwise it will display a plain "
-"unstyled page."
-msgstr ""
-
-msgid "For example: /maintenance.html"
-msgstr ""
-
-#, fuzzy
-msgid "Set"
-msgstr "Parametar"
 
 msgid "Task name"
 msgstr "Naziv zadatka"
@@ -1923,21 +1740,6 @@ msgstr "Gosti"
 msgid "Expires after:"
 msgstr "Vek (vreme isteka stranica):"
 
-#, fuzzy
-msgid "Template Cache"
-msgstr "Brisanje keša šablona"
-
-#, c-format
-msgid ""
-"For optimal performance, Gallery caches all templates.  If you would like to %scustomize "
-"your template files%s, you should disable template caching temporarily so that changes take "
-"effect immediately without clearing the template cache."
-msgstr ""
-
-#, fuzzy
-msgid "Enable template caching"
-msgstr "Brisanje keša šablona"
-
 msgid "Clear Saved Pages"
 msgstr "Izbriši sačuvane strane"
 
@@ -1980,11 +1782,9 @@ msgstr "Upozorenje!"
 msgid "Do you really want to uninstall __PLUGIN__?"
 msgstr "Da li zaista želite da deinstalirate modul __PLUGIN__?"
 
-#, fuzzy
 msgid "This will also remove any permissions and clean up any data created by this module."
 msgstr ""
-"Ovim će se ukloniti sva prava i izbrisati privremeni podaci napravljeni od strane ovog "
-"modula."
+"Ovim će se ukloniti sva prava i izbrisati svi podaci napravljeni od strane ovog modula."
 
 msgid ""
 "This plugin will be uninstalled, but its files will be kept so that you can reinstall it."
@@ -2001,12 +1801,11 @@ msgstr "Ne"
 msgid "Do you really want to delete __PLUGIN__?"
 msgstr "Da li zaista želite da izbrišete modul __PLUGIN__?"
 
-#, fuzzy
 msgid "This plugin will be uninstalled and its files will be deleted permanently."
-msgstr "Ovaj modul će biti deinstaliran, a pripadajuće datoteke izbrisane."
+msgstr "Ovaj modul će biti deinstaliran, a pripadajuće datoteke zauvek izbrisane."
 
 msgid "The files of this plugin will be deleted permanently."
-msgstr ""
+msgstr "Datoteke ovog dodatka će biti potpuno obrisane."
 
 msgid "disabled(__COUNT__)"
 msgstr "onemogućeno(__COUNT__)"
@@ -2116,22 +1915,12 @@ msgstr ""
 "preuzmete spisak modula i pokušate ponovo."
 
 #, c-format
-msgid "Failed to download the following packages for the %s plugin:"
-msgstr ""
-
-#, fuzzy, c-format
 msgid ""
-"Failed to install the %s plugin because the following files/directories could not be "
+"Failed to download the %s plugin because the following files/directories could not be "
 "modified:"
 msgstr ""
 "Preuzimanje modula %s je bilo neuspešno, jer sledeće datoteke ili direktorijumu ne mogu da "
 "se menjaju:"
-
-#, c-format
-msgid ""
-"Some plugins could not be automatically upgraded because they are in use.  Please return to "
-"the %sPlugins%s page and click the upgrade link for each of the following plugins:"
-msgstr ""
 
 msgid "The repository index has been successfully updated."
 msgstr "Indeks skladišta je uspešno ažuriran."
@@ -2235,9 +2024,9 @@ msgstr ""
 "dostupni neki drugi koji se oslanjaju na mogućnosti nove verzije. Evo preporučenih koraka za "
 "nadogradnju:"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%sDownload%s the new Gallery package"
-msgstr "%sPreuzmi%s jezgro Galerije"
+msgstr "%sPreuzmi%s novi paket Galerije"
 
 #, c-format
 msgid "Read the %supgrade instructions%s and perform the upgrade"
@@ -2412,13 +2201,11 @@ msgid ""
 "The %s theme is incompatible with your Gallery version or no longer available.  Please "
 "upgrade the %s theme or pick another default theme."
 msgstr ""
+"Izgled %s nije kompatibilan sa vašom verzijom Galerije ili više nije dostupan. Molimo vas da "
+"nadogradite %s izgled ili izaberete drugi podrazumevan izgled."
 
 msgid "New albums"
 msgstr "Novi albumi"
-
-#, c-format
-msgid "To activate more themes visit the %sPlugins%s page."
-msgstr ""
 
 msgid "Save Defaults"
 msgstr "Sačuvaj kao podrazumevana"
@@ -2632,9 +2419,6 @@ msgstr "Detalji u grešci"
 msgid "System Information"
 msgstr "Informacije o sistemu"
 
-msgid "Not all of the specified items have been added successfully."
-msgstr ""
-
 msgid ""
 "You don't have any Graphics Toolkit activated that can handle JPEG images.  If you add "
 "images, you will probably not have any thumbnails."
@@ -2642,8 +2426,8 @@ msgstr ""
 "Niste aktivirali ni jednu grafičku alatku koja može da obrađuje JPEG slike. Ako dodate "
 "slike, verovatno nećete imati umanjene prikaze."
 
-#, fuzzy, c-format
-msgid "Visit the %sModules%s page to activate a Graphics Toolkit."
+#, c-format
+msgid "Visit the <a href=\"%s\">Modules</a> page to activate a Graphics Toolkit."
 msgstr ""
 "Posetite stranicu <a href=\"%s\">Moduli</a> da biste aktivirali jednu od grafičkih alatki."
 
@@ -2749,6 +2533,9 @@ msgstr "Preuzmi natpise iz:"
 msgid "No Thumbnail"
 msgstr "Nema umanjenih prikaza"
 
+msgid "Delete Items"
+msgstr "Brisanje objekata"
+
 msgid "No items were selected for deletion"
 msgstr "Ni jedan objekat nije izabran za brisanje"
 
@@ -2804,13 +2591,24 @@ msgstr "Prethodna strana"
 msgid "Next Page"
 msgstr "Sledeća strana"
 
-#, fuzzy, c-format
-msgid "Do you really want to delete %s?"
-msgstr "Da li zaista želite da izbrišete modul __PLUGIN__?"
+msgid "Deletion Complete"
+msgstr "Brisanje završeno"
 
-#, fuzzy
-msgid "Delete more items..."
-msgstr "Brisanje objekata"
+msgid "Item successfully deleted"
+msgstr "Objekat uspešno izbrisan"
+
+#, c-format
+msgid "Are you sure you want to delete this %s?"
+msgstr "Da li ste sigurni da želite da izbrišete ovaj %s?"
+
+#, c-format
+msgid "It contains %d item."
+msgid_plural "It contains %d items."
+msgstr[0] "Sadrži %d objekat."
+msgstr[1] "Sadrži %d objekata."
+
+msgid "There is no undo!"
+msgstr "Ne može se poništiti!"
 
 msgid "There was a problem processing your request."
 msgstr "Desila se greška prilikom obrade vašeg zahteva."
@@ -3176,6 +2974,9 @@ msgid ""
 "version or no longer available.  Please upgrade the %s theme or use another theme for this "
 "album."
 msgstr ""
+"Ovaj album je podešen da koristi %s izgled koji ili nije kompatibilan sa ovom verzijom "
+"Galerije ili više nije dostupan. Molimo vas da nadogradite %s izgled ili da izaberete neki "
+"drugi podrazumevan izgled ovog albuma."
 
 #, c-format
 msgid ""
@@ -3232,17 +3033,10 @@ msgstr "Izvor"
 msgid "Choose the items you want to move"
 msgstr "Izaberite objekte koje želite da premestite"
 
-msgid "OK"
-msgstr ""
-
 msgid ""
 "The destination you chose does not accept sub-albums, so all sub-albums have been deselected."
 msgstr ""
 "Odredište koje ste izabrali ne može da sadrži podalbume, tako da su svi podalbumi isključeni."
-
-#, fuzzy
-msgid "Warning"
-msgstr "Upozorenje!"
 
 msgid ""
 "The destination you chose only accepts sub-albums, so all non-albums have been deselected."
@@ -3449,13 +3243,11 @@ msgstr "Unesite tekst koji opisuje adresu"
 msgid "Enter an image URL"
 msgstr "Unesite adresu slike"
 
-#. HINT: Button label for Bold
-msgid "B"
-msgstr ""
+msgid "B <!-- Button label for Bold -->"
+msgstr "P"
 
-#. HINT: Button label for italic
-msgid "i"
-msgstr ""
+msgid "i <!-- Button label for italic -->"
+msgstr "k"
 
 msgid "list"
 msgstr "lista"
@@ -3472,8 +3264,8 @@ msgstr "slika"
 msgid "color"
 msgstr "boja"
 
-#, fuzzy, c-format
-msgid "You can also use the %scolor name%s for example: %sYour Text%s"
+#, c-format
+msgid "You can also use the <a href=\"%s\" target=\"_new\">color name</a> for example: %s"
 msgstr "Možete koristiti i <a href=\"%s\" target=\"_new\">naziv boje</a>, na primer: %s"
 
 msgid "Configuration Error: Missing Theme"
@@ -3595,10 +3387,11 @@ msgstr "Prijavite se na vaš nalog"
 msgid "Your password has been recovered, please login."
 msgstr "Vaša lozinka je vraćena, molimo vas da se prijavite."
 
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Logins to this account are temporarily disabled due to multiple failed login attempts.  Wait "
-"for access to be restored, or use the %srecover password%s page to re-enable this account."
+"for access to be restored, or use the <a href=\"%s\">recover password</a> page to re-enable "
+"this account."
 msgstr ""
 "Prijave na ovaj nalog su privremeno onemogućene zbog nekoliko uzastopnih neuspelih pokušaja "
 "prijave. Sačekajte da se ponovo omogući prijava, ili iskoristite <a href=\"%s\">stranicu za "
@@ -3607,8 +3400,10 @@ msgstr ""
 msgid "Your login information is incorrect.  Please try again."
 msgstr "Vaši podaci za prijavu su netačni. Molimo da pokušate ponovo."
 
-#, fuzzy, c-format
-msgid "Lost or forgotten passwords can be retrieved using the %srecover password%s page"
+#, c-format
+msgid ""
+"Lost or forgotten passwords can be retrieved using the <a href=\"%s\">recover password</a> "
+"page"
 msgstr ""
 "Izgubljene ili zaboravljene lozinke se mogu vratiti pomoću strane za <a href=\"%s\">vraćanje "
 "lozinke</a>"
@@ -3751,18 +3546,18 @@ msgstr "Osveži"
 msgid "This page will allow you to reset the password on your account."
 msgstr "Ova strana će vem omogućiti da vratite lozinku vašeg naloga."
 
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "There is no request which matches the username and authorization provided. Request a new "
-"authorization from the %slost password page%s."
+"authorization from the <a href=\"%s\">lost password page</a>"
 msgstr ""
 "Ne postoji zahtev koji odgovara navedenom korisničkom imenu i ovlašćenju. Zatražite novo "
 "ovlašćenje na strani za <a href=\"%s\">izgubljenu lozinku</a>."
 
-#, fuzzy, c-format
+#, c-format
 msgid ""
-"The request you are trying to access has expired.  Request a new authorization from the %"
-"slost password page%s."
+"The request you are trying to access has expired.  Request a new authorization from the <a "
+"href=\"%s\">lost password page</a>."
 msgstr ""
 "Zahtev kojem pokušavate da pristupite je istekao. Zatražite novo ovlašćenje na strani za <a "
 "href=\"%s\">izgubljenu lozinku</a>."
@@ -3851,6 +3646,10 @@ msgid "last"
 msgstr "poslednja"
 
 #, c-format
+msgid "Page %d of %d"
+msgstr "%d. strana od %d"
+
+#, c-format
 msgid "%d of %d"
 msgstr "%d od %d"
 
@@ -3897,46 +3696,8 @@ msgstr "Prijavni blok"
 msgid "Links to album/photo peers"
 msgstr "Veze ka ravnopravnim albumima i fotografijama"
 
-#~ msgid "delete confirmation"
-#~ msgstr "potvrda brisanja"
-
-#~ msgid "delete %s"
-#~ msgstr "brisanje %s"
-
-#~ msgid "Deletion Complete"
-#~ msgstr "Brisanje završeno"
-
-#~ msgid "Item successfully deleted"
-#~ msgstr "Objekat uspešno izbrisan"
-
-#~ msgid "Are you sure you want to delete this %s?"
-#~ msgstr "Da li ste sigurni da želite da izbrišete ovaj %s?"
-
-#~ msgid "It contains %d item."
-#~ msgid_plural "It contains %d items."
-#~ msgstr[0] "Sadrži %d objekat."
-#~ msgstr[1] "Sadrži %d objekata."
-
-#~ msgid "There is no undo!"
-#~ msgstr "Ne može se poništiti!"
-
-#~ msgid "<none>"
-#~ msgstr "<ni jedan>"
-
-#~ msgid "key"
-#~ msgstr "slovo"
-
-#~ msgid "G2.2: Double Double"
-#~ msgstr "G2.2: Double Double"
-
 #~ msgid "Review plugin compatibility (on the Themes and Modules tabs)"
 #~ msgstr "Pregled kompatibilnosti modula (na karticama Izgledi i Moduli)"
-
-#~ msgid "B <!-- Button label for Bold -->"
-#~ msgstr "P"
-
-#~ msgid "i <!-- Button label for italic -->"
-#~ msgstr "k"
 
 #~ msgid "Format: [module.BlockName param=value] ..."
 #~ msgstr "Format: [module.BlockName param=value] ..."
@@ -4068,6 +3829,9 @@ msgstr "Veze ka ravnopravnim albumima i fotografijama"
 
 #~ msgid "Choose a new album for the link"
 #~ msgstr "Izaberite novi album za vezu"
+
+#~ msgid "Link"
+#~ msgstr "Veži"
 
 #~ msgid "Successfully linked"
 #~ msgstr "Uspešno vezano"

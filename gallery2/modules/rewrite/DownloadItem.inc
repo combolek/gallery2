@@ -59,7 +59,7 @@ class DownloadItemView extends GalleryView {
 	if (empty($itemId)) {
 	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 	}
-	list ($ret, $image) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryEntity');
+	list ($ret, $image) = GalleryCoreApi::loadEntitiesById($itemId);
 	if ($ret) {
 	    return $ret;
 	}
@@ -72,8 +72,7 @@ class DownloadItemView extends GalleryView {
 	if (GalleryUtilities::isA($image, 'GalleryItem')) {
 	    $item = $image;
 	} else {
-	    list ($ret, $item) =
-		GalleryCoreApi::loadEntitiesById($image->getParentId(), 'GalleryItem');
+	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($image->getParentId());
 	    if ($ret) {
 		return $ret;
 	    }
@@ -82,7 +81,7 @@ class DownloadItemView extends GalleryView {
 	if ($ret) {
 	    return $ret;
 	}
-	list ($ret, $album) = GalleryCoreApi::loadEntitiesById($albumId, 'GalleryItem');
+	list ($ret, $album) = GalleryCoreApi::loadEntitiesById($albumId);
 	if ($ret) {
 	    return $ret;
 	}

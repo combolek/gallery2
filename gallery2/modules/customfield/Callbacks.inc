@@ -31,7 +31,7 @@ class CustomFieldCallbacks {
 
 	switch ($callback) {
 	case 'LoadCustomFields':
-	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($params['itemId'], 'GalleryItem');
+	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($params['itemId']);
 	    if ($ret) {
 		return $ret;
 	    }

@@ -37,7 +37,7 @@ class WatermarkHelper {
      * @param int $count (optional) the number of items desired
      * @param int $offset (optional) the start of the range
      * @param string $substring (optional) a substring to match
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *               array of itemId=>watermark
      */
     function fetchWatermarks($count=null, $offset=null, $substring=null) {
@@ -95,7 +95,7 @@ class WatermarkHelper {
 	/* Convert them to entities */
 	$watermarks = array();
 	if (!empty($ids)) {
-	    list ($ret, $entities) = GalleryCoreApi::loadEntitiesById($ids, 'WatermarkImage');
+	    list ($ret, $entities) = GalleryCoreApi::loadEntitiesById($ids);
 	    if ($ret) {
 		return array($ret, null);
 	    }
@@ -113,7 +113,7 @@ class WatermarkHelper {
      * Return all watermark ids owned by a given user id
      *
      * @param int $ownerId
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *               array of itemIds
      */
     function fetchWatermarkIdsByOwnerId($ownerId) {
@@ -144,9 +144,9 @@ class WatermarkHelper {
     /**
      * Find items watermarked with the given watermark image.
      *
-     * @param WatermarkImage $watermark
-     * @return array GalleryStatus a status code
-     *               array (int GalleryItem id, ...)
+     * @param object WatermarkImage $watermark
+     * @return array object GalleryStatus a status code
+     *               array (itemId => array of derivative ids, ..)
      */
     function fetchWatermarkedItemIds($watermark) {
 	global $gallery;
@@ -182,13 +182,13 @@ class WatermarkHelper {
      * @param int $itemId id of watermark image
      * @param boolean $forceDelete (optional) if true, delete even if watermark is used
      *        (and remove those uses)
-     * @return array GalleryStatus a status object
+     * @return array object GalleryStatus a status object
      *               boolean true if deleted
      */
     function deleteWatermarkImageById($itemId, $forceDelete=false) {
 	global $gallery;
 
-	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'WatermarkImage');
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	if ($ret) {
 	    if ($ret->getErrorCode() & ERROR_MISSING_OBJECT) {
 		/* Remap it as permission denied so that we avoid object id fishing */
@@ -202,7 +202,8 @@ class WatermarkHelper {
 	if ($ret) {
 	    return array($ret, null);
 	}
-	if (!($isAdmin || $item->getOwnerId() == $gallery->getActiveUserId())) {
+	if (! (GalleryUtilities::isA($item, 'WatermarkImage') &&
+		($isAdmin || $item->getOwnerId() == $gallery->getActiveUserId()) )) {
 	    return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED), null);
 	}
 
@@ -216,8 +217,7 @@ class WatermarkHelper {
 		return array(null, false);
 	    }
 	    /* Remove watermark from those items.. */
-	    list ($ret, $watermarkedItems) =
-		GalleryCoreApi::loadEntitiesById($watermarkedItemIds, 'GalleryItem');
+	    list ($ret, $watermarkedItems) = GalleryCoreApi::loadEntitiesById($watermarkedItemIds);
 	    if ($ret) {
 		return array($ret, null);
 	    }
@@ -233,7 +233,7 @@ class WatermarkHelper {
 	    }
 	}
 
-	$ret = GalleryCoreApi::deleteEntityById($itemId, 'WatermarkImage');
+	$ret = GalleryCoreApi::deleteEntityById($itemId);
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -244,12 +244,12 @@ class WatermarkHelper {
     /**
      * Apply the given watermark to the given item.  Expect the item to be locked already.
      *
-     * @param WatermarkImage $watermark the watermark
-     * @param GalleryDataItem $item an image
+     * @param object WatermarkImage $watermark the watermark
+     * @param object GalleryDataItem $item an image
      * @param string $xPercent the x overlay location (in percentage)
      * @param string $yPercent the y overlay location (in percentage)
      * @param array $whichDerivatives an array of DERIVATIVE_TYPE_IMAGE_XXX => true/false
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function watermarkItem($watermark, $item, $xPercent, $yPercent, $whichDerivatives) {
 	list ($ret, $derivativeTable) =
@@ -394,7 +394,7 @@ class WatermarkHelper {
 		    return $ret;
 		}
 
-		$ret = GalleryCoreApi::deleteEntityById($preferred->getId(), 'GalleryDerivative');
+		$ret = GalleryCoreApi::deleteEntityById($preferred->getId());
 		if ($ret) {
 		    return $ret;
 		}
@@ -433,8 +433,8 @@ class WatermarkHelper {
      *
      * @param array $form
      * @param boolean $isPublic (optional) true to make watermark available to all users
-     * @return array GalleryStatus a status code
-     *               WatermarkImage
+     * @return array object GalleryStatus a status code
+     *               object WatermarkImage
      */
     function createWatermarkImage(&$form, $isPublic=false) {
 	global $gallery;
@@ -492,7 +492,7 @@ class WatermarkHelper {
      * @param string $view parent view
      * @param string $subViewSuccess subView redirect on success
      * @param string $subViewError subView delegate on error
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *               array controller results
      */
     function handleEditRequest($form, $view, $subViewSuccess, $subViewError) {
@@ -516,7 +516,7 @@ class WatermarkHelper {
 		$error[] = 'form[error][whichDerivative][missing]';
 	    }
 	    if (!empty($form['tmp_name'][1])) {
-		list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'WatermarkImage');
+		list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 		if ($ret) {
 		    return array($ret, null);
 		}
@@ -552,7 +552,7 @@ class WatermarkHelper {
 		    return array($ret, null);
 		}
 
-		list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'WatermarkImage');
+		list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 		if ($ret) {
 		    return array($ret, null);
 		}
@@ -592,8 +592,7 @@ class WatermarkHelper {
 			return array($ret, null);
 		    }
 		    while ($result = $searchResults->nextResult()) {
-			list ($ret, $derivative) =
-			    GalleryCoreApi::loadEntitiesById($result[0], 'GalleryDerivative');
+			list ($ret, $derivative) = GalleryCoreApi::loadEntitiesById($result[0]);
 			if ($ret) {
 			    return array($ret, null);
 			}
@@ -638,7 +637,7 @@ class WatermarkHelper {
      * @param array $form form data
      * @param string $formName form name
      * @param string $pageName page name
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function loadEditTemplate(&$template, &$form, $formName, $pageName) {
 	$itemId = GalleryUtilities::getRequestVariables('watermarkId');
@@ -648,7 +647,7 @@ class WatermarkHelper {
 	    return $ret;
 	}
 
-	list ($ret, $watermark) = GalleryCoreApi::loadEntitiesById($itemId, 'WatermarkImage');
+	list ($ret, $watermark) = GalleryCoreApi::loadEntitiesById($itemId);
 	if ($ret) {
 	    return $ret;
 	}

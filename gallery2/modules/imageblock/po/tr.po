@@ -24,9 +24,8 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Image Block 1.1.3\n"
-"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2007-06-14 17:24-0700\n"
+"Project-Id-Version: Gallery: Image Block 1.1.0\n"
+"POT-Creation-Date: 2003-02-11 03:09-0800\n"
 "PO-Revision-Date: 2005-10-06 07:46+0200\n"
 "Last-Translator: Goker ISIK <admin@ansolon.com>\n"
 "Language-Team: Turkish <admin@ansolon.com>\n"
@@ -45,6 +44,24 @@ msgstr "Rastgele, En Yeni ya da En Çok Görüntülenen Foto veya Albüm"
 
 msgid "Blocks"
 msgstr "Bloklar"
+
+msgid "Picture of the Day"
+msgstr "Günün Resmi"
+
+msgid "Picture of the Week"
+msgstr "Haftanın Resmi"
+
+msgid "Picture of the Month"
+msgstr "Ayın Resmi"
+
+msgid "Album of the Day"
+msgstr "Günün Albümü"
+
+msgid "Album of the Week"
+msgstr "Haftanın Albümü"
+
+msgid "Album of the Month"
+msgstr "Ayın Albümü"
 
 #, fuzzy
 msgid "Random Image"
@@ -81,24 +98,6 @@ msgid "Most Viewed Album"
 msgid_plural "Most Viewed Albums"
 msgstr[0] "En Çok Görüntülenen Albüm"
 msgstr[1] "En Çok Görüntülenen Albüm"
-
-msgid "Picture of the Day"
-msgstr "Günün Resmi"
-
-msgid "Picture of the Week"
-msgstr "Haftanın Resmi"
-
-msgid "Picture of the Month"
-msgstr "Ayın Resmi"
-
-msgid "Album of the Day"
-msgstr "Günün Albümü"
-
-msgid "Album of the Week"
-msgstr "Haftanın Albümü"
-
-msgid "Album of the Month"
-msgstr "Ayın Albümü"
 
 msgid "Date:"
 msgstr "Tarih:"
@@ -176,8 +175,8 @@ msgid ""
 msgstr ""
 
 msgid ""
-"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize, rawImage; "
-"the value can also be: none"
+"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize; the value "
+"can also be: none"
 msgstr ""
 
 msgid ""
@@ -269,7 +268,7 @@ msgid "Monthly album"
 msgstr "Aylık albüm"
 
 msgid "Number of items"
-msgstr "Öge Sayısı"
+msgstr ""
 
 msgid "Use default settings"
 msgstr "Varsayılan ayarları kullan"

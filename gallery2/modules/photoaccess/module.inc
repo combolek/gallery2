@@ -33,12 +33,11 @@ class PhotoAccessModule extends GalleryModule {
 	$this->setId('photoaccess');
 	$this->setName($gallery->i18n('PhotoWorks'));
 	$this->setDescription($gallery->i18n('PhotoWorks Photo Printing Module'));
-	$this->setVersion('1.0.9'); /* Update upgrade() too */
-	$this->_templateVersion = 1;
+	$this->setVersion('1.0.7'); /* Update upgrade() too */
 	$this->setGroup('commerce', $gallery->i18n('Commerce'));
 	$this->setCallbacks('getItemLinks');
-	$this->setRequiredCoreApi(array(7, 27));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setRequiredCoreApi(array(7, 4));
+	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
@@ -61,12 +60,11 @@ class PhotoAccessModule extends GalleryModule {
 	case '0':
 	    /* Register our permission */
 	    $ret = GalleryCoreApi::registerPermission($this->getId(), 'photoaccess.print',
-						      $gallery->i18n('[photoworks] Print'));
+						      $gallery->i18n('[photoaccess] Print'));
 	    if ($ret) {
 		return $ret;
 	    }
 	    /* Give everybody print permission by default */
-	    $gallery->guaranteeTimeLimit(300);
 	    $ret = GalleryCoreApi::addGroupPermission(
 		$coreParams['id.rootAlbum'], $coreParams['id.everybodyGroup'],
 		'photoaccess.print', true);
@@ -77,11 +75,10 @@ class PhotoAccessModule extends GalleryModule {
 
 	case '1.0.0':
 	    $ret = GalleryCoreApi::registerPermission($this->getId(), 'photoaccess.print',
-						      $gallery->i18n('[photoworks] Print'));
+						      $gallery->i18n('[photoaccess] Print'));
 	    if ($ret) {
 		return $ret;
 	    }
-	    $gallery->guaranteeTimeLimit(300);
 	    $ret = GalleryCoreApi::addGroupPermission(
 		$coreParams['id.rootAlbum'], $coreParams['id.everybodyGroup'],
 		'photoaccess.print', true);
@@ -95,9 +92,6 @@ class PhotoAccessModule extends GalleryModule {
 	case '1.0.4':
 	case '1.0.5':
 	case '1.0.6':
-	case '1.0.7':
-	    /* .mo file migration */
-	case '1.0.8':
 
 	case 'end of upgrade path':
 	    break;

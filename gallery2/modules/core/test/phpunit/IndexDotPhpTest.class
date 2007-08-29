@@ -53,7 +53,7 @@ class IndexDotPhpTest extends GalleryTestCase {
 	    $session = new GallerySession();
 	    $ret = $session->initEmpty(true);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $url = GalleryUrlGenerator::appendParamsToUrl(
 		$url, array($session->getKey() => $session->getId()));

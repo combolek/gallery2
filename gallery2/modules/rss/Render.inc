@@ -67,14 +67,9 @@ class RenderView extends GalleryView {
 
 	if (($feedType == 'album' && $params['allowAlbums'] != 1)
 		|| ($feedType == 'photos' && $params['allowPhotos'] != 1)
-		|| ($feedType == 'photosRecursive' && $params['allowPhotosRecursive'] != 1)
+		|| ($feedType == 'photosRecurse' && $params['allowPhotosRecurse'] != 1)
 		|| ($feedType == 'commentsAlbum' && $params['allowCommentsAlbum'] != 1)
-		|| ($feedType == 'commentsPhoto' && $params['allowCommentsPhoto'] != 1)
-		|| ($feedType == 'commentsRecursive' && $params['allowCommentsRecursive'] != 1)
-		|| ($feedType == 'photosRandom' && $params['allowPhotosRandom'] != 1)
-		|| ($feedType ==
-			'photosRandomRecursive' && $params['allowPhotosRandomRecursive'] != 1)
-		) {
+		|| ($feedType == 'commentsPhoto' && $params['allowCommentsPhoto'] != 1)) {
 	    $this->handleError($gallery->i18n('Feeds of that type are not allowed!'));
 	    return null;
 	}
@@ -105,17 +100,15 @@ class RenderView extends GalleryView {
 	$feedType = $params['feedType'];
 	if (!in_array($feedType, array('album',
 					'photos',
-					'photosRecursive',
+					'photosRecurse',
 					'commentsAlbum',
 					'commentsPhoto',
-					'commentsRecursive',
-					'photosRandom',
-					'photosRandomRecursive'))) {
+					'commentsRecursive'))) {
 	    $this->handleError($gallery->i18n('Incorrect feed type!'));
 	    return null;
 	}
 
-	/* check if comments are active */
+	/* check if we comments are active */
 	if (in_array($feedType, array('commentsAlbum', 'commentsPhoto', 'commentsRecursive'))) {
 	    /* make sure that the comments module is active */
 	    list ($ret, $modulestatus) = GalleryCoreApi::fetchPluginStatus('module');

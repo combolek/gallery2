@@ -1,143 +1,111 @@
 # $Revision$
 # File crc32 crc32(crlf) size size(crlf)  or  R File
 modules/squarethumb/CantActivate.inc	3169637079	1265240105	1294	1331
-modules/squarethumb/SquareThumbSiteAdmin.inc	71180254	786018044	3889	4016
-modules/squarethumb/classes/SquareThumbToolkit.class	3120067708	805779886	10302	10589
-modules/squarethumb/module.inc	3968244881	4004431881	6732	6963
+modules/squarethumb/SquareThumbSiteAdmin.inc	1605273831	1141983423	2893	2990
+modules/squarethumb/classes/SquareThumbToolkit.class	1462642603	3675969584	10330	10617
+modules/squarethumb/locale/af/LC_MESSAGES/modules_squarethumb.mo	1098362842	1098362842	2033	2033
+modules/squarethumb/locale/ar/LC_MESSAGES/modules_squarethumb.mo	4203943737	4203943737	673	673
+modules/squarethumb/locale/ca/LC_MESSAGES/modules_squarethumb.mo	3350102841	3350102841	716	716
+modules/squarethumb/locale/cs/LC_MESSAGES/modules_squarethumb.mo	3813904966	3813904966	2072	2072
+modules/squarethumb/locale/da/LC_MESSAGES/modules_squarethumb.mo	1534284561	1534284561	667	667
+modules/squarethumb/locale/de/LC_MESSAGES/modules_squarethumb.mo	3615873813	3615873813	1969	1969
+modules/squarethumb/locale/en_GB/LC_MESSAGES/modules_squarethumb.mo	4038845260	4038845260	840	840
+modules/squarethumb/locale/es/LC_MESSAGES/modules_squarethumb.mo	4127780535	4127780535	2065	2065
+modules/squarethumb/locale/eu/LC_MESSAGES/modules_squarethumb.mo	1473852990	1473852990	1879	1879
+modules/squarethumb/locale/fi/LC_MESSAGES/modules_squarethumb.mo	1152935019	1152935019	701	701
+modules/squarethumb/locale/fr/LC_MESSAGES/modules_squarethumb.mo	3673996326	3673996326	2027	2027
+modules/squarethumb/locale/hu/LC_MESSAGES/modules_squarethumb.mo	1316301664	1316301664	646	646
+modules/squarethumb/locale/is/LC_MESSAGES/modules_squarethumb.mo	1258253842	1258253842	428	428
+modules/squarethumb/locale/it/LC_MESSAGES/modules_squarethumb.mo	3432980568	3432980568	1994	1994
+modules/squarethumb/locale/ja/LC_MESSAGES/modules_squarethumb.mo	3631760642	3631760642	2127	2127
+modules/squarethumb/locale/ko/LC_MESSAGES/modules_squarethumb.mo	2165966521	2165966521	732	732
+modules/squarethumb/locale/lt/LC_MESSAGES/modules_squarethumb.mo	3689504814	3689504814	752	752
+modules/squarethumb/locale/nl/LC_MESSAGES/modules_squarethumb.mo	2460955105	2460955105	1900	1900
+modules/squarethumb/locale/no/LC_MESSAGES/modules_squarethumb.mo	4142774844	4142774844	1988	1988
+modules/squarethumb/locale/pl/LC_MESSAGES/modules_squarethumb.mo	823953374	823953374	2091	2091
+modules/squarethumb/locale/ro/LC_MESSAGES/modules_squarethumb.mo	3208145932	3208145932	750	750
+modules/squarethumb/locale/ru/LC_MESSAGES/modules_squarethumb.mo	1813786309	1813786309	2651	2651
+modules/squarethumb/locale/sk/LC_MESSAGES/modules_squarethumb.mo	3413903063	3413903063	802	802
+modules/squarethumb/locale/sr/LC_MESSAGES/modules_squarethumb.mo	1796010371	1796010371	2029	2029
+modules/squarethumb/locale/sv/LC_MESSAGES/modules_squarethumb.mo	598550863	598550863	2076	2076
+modules/squarethumb/locale/tr/LC_MESSAGES/modules_squarethumb.mo	806593001	806593001	2035	2035
+modules/squarethumb/locale/uk/LC_MESSAGES/modules_squarethumb.mo	1208420569	1208420569	717	717
+modules/squarethumb/locale/vi/LC_MESSAGES/modules_squarethumb.mo	2895948598	2895948598	634	634
+modules/squarethumb/locale/zh_CN/LC_MESSAGES/modules_squarethumb.mo	1649209995	1649209995	1865	1865
+modules/squarethumb/locale/zh_TW/LC_MESSAGES/modules_squarethumb.mo	644289963	644289963	1845	1845
+modules/squarethumb/module.inc	3732242555	3088595897	6998	7234
 modules/squarethumb/po/GNUmakefile	1866879166	2808215985	98	103
-modules/squarethumb/po/af.mo	3129490386	3129490386	2007	2007
-modules/squarethumb/po/af.po	667887770	3187513365	3005	3097
-modules/squarethumb/po/ar.mo	1239391700	1239391700	673	673
-modules/squarethumb/po/ar.po	1247230633	2899415615	2432	2519
-modules/squarethumb/po/ca.mo	3136804102	3136804102	716	716
-modules/squarethumb/po/ca.po	1696668769	449377622	2559	2649
-modules/squarethumb/po/cs.mo	915631831	915631831	2046	2046
-modules/squarethumb/po/cs.po	1493570789	4004849448	3025	3117
-modules/squarethumb/po/da.mo	2817971443	2817971443	2220	2220
-modules/squarethumb/po/da.po	552095623	1421131149	3187	3282
-modules/squarethumb/po/de.mo	1362027094	1362027094	1943	1943
-modules/squarethumb/po/de.po	2798012179	3899007973	3136	3232
-modules/squarethumb/po/el.mo	2976886386	2976886386	2542	2542
-modules/squarethumb/po/el.po	3059997196	4261099119	3516	3607
-modules/squarethumb/po/en_GB.mo	3293613793	3293613793	840	840
-modules/squarethumb/po/en_GB.po	55584557	2600677392	2925	3015
-modules/squarethumb/po/es.mo	3793344117	3793344117	2281	2281
-modules/squarethumb/po/es.po	1888574522	3504966404	3230	3324
-modules/squarethumb/po/eu.mo	3187082773	3187082773	1853	1853
-modules/squarethumb/po/eu.po	1614106881	2163373628	2820	2909
-modules/squarethumb/po/fi.mo	2756904735	2756904735	701	701
-modules/squarethumb/po/fi.po	1234491722	3369060582	2547	2638
-modules/squarethumb/po/fr.mo	1526992175	1526992175	2254	2254
-modules/squarethumb/po/fr.po	3105018192	2970748807	3089	3181
-modules/squarethumb/po/hu.mo	1589879871	1589879871	693	693
-modules/squarethumb/po/hu.po	1472345668	386638508	2547	2640
-modules/squarethumb/po/is.mo	1472775562	1472775562	428	428
-modules/squarethumb/po/is.po	3683236022	27239410	2281	2367
-modules/squarethumb/po/it.mo	2396573234	2396573234	2242	2242
-modules/squarethumb/po/it.po	3411667180	2754538650	3073	3164
-modules/squarethumb/po/ja.mo	1390310830	1390310830	2442	2442
-modules/squarethumb/po/ja.po	3272967797	640992637	3268	3358
-modules/squarethumb/po/ko.mo	946558286	946558286	732	732
-modules/squarethumb/po/ko.po	3535831443	853631349	2509	2599
-modules/squarethumb/po/lt.mo	4243389265	4243389265	792	792
-modules/squarethumb/po/lt.po	4093057889	3460608708	2578	2667
-modules/squarethumb/po/nl.mo	3378323664	3378323664	1874	1874
-modules/squarethumb/po/nl.po	3801962373	3873307157	2953	3043
-modules/squarethumb/po/no.mo	2919940770	2919940770	1962	1962
-modules/squarethumb/po/no.po	1061262202	876335206	3044	3135
-modules/squarethumb/po/pl.mo	3868790309	3868790309	2336	2336
-modules/squarethumb/po/pl.po	1151224202	3062715861	3176	3269
-modules/squarethumb/po/ro.mo	2977652053	2977652053	750	750
-modules/squarethumb/po/ro.po	4013895753	2869970829	2535	2626
-modules/squarethumb/po/ru.mo	15014615	15014615	2625	2625
-modules/squarethumb/po/ru.po	2957145992	1018756494	3720	3815
-modules/squarethumb/po/sk.mo	4139983039	4139983039	802	802
-modules/squarethumb/po/sk.po	2952234887	3697603887	2634	2727
-modules/squarethumb/po/sr.mo	3692126246	3692126246	1622	1622
-modules/squarethumb/po/sr.po	2555029610	1266733249	2995	3085
-modules/squarethumb/po/strings.raw	1871583489	2130649516	1035	1059
-modules/squarethumb/po/sv.mo	1863512985	1863512985	2050	2050
-modules/squarethumb/po/sv.po	3707103346	1800513495	3189	3286
-modules/squarethumb/po/tr.mo	1614763569	1614763569	2009	2009
-modules/squarethumb/po/tr.po	1217859102	2863493365	3130	3226
-modules/squarethumb/po/uk.mo	3502138321	3502138321	717	717
-modules/squarethumb/po/uk.po	4079801525	311954880	2719	2811
-modules/squarethumb/po/vi.mo	2003438881	2003438881	724	724
-modules/squarethumb/po/vi.po	1924338026	2356746608	2449	2536
-modules/squarethumb/po/zh_CN.mo	3599161597	3599161597	1839	1839
-modules/squarethumb/po/zh_CN.po	1142560039	2134132922	2803	2890
-modules/squarethumb/po/zh_TW.mo	1844869422	1844869422	1819	1819
-modules/squarethumb/po/zh_TW.po	4007978139	2653607106	2787	2875
-modules/squarethumb/templates/CantActivate.tpl	3636275727	4288787465	636	650
-modules/squarethumb/templates/SquareThumbSiteAdmin.tpl	3511801	1237742099	2141	2208
-modules/squarethumb/test/phpunit/SquareThumbSiteAdminControllerTest.class	1941261860	2084503657	4707	4838
-modules/squarethumb/test/phpunit/SquareThumbToolkitTest.class	3029741248	2338836146	14493	14926
-R	modules/squarethumb/locale/af/LC_MESSAGES/modules_squarethumb.mo
-R	modules/squarethumb/locale/ar/LC_MESSAGES/modules_squarethumb.mo
-R	modules/squarethumb/locale/ca/LC_MESSAGES/modules_squarethumb.mo
-R	modules/squarethumb/locale/cs/LC_MESSAGES/modules_squarethumb.mo
+modules/squarethumb/po/af.po	1062424577	2484887662	2909	2997
+modules/squarethumb/po/ar.po	1024844293	2660202865	2321	2404
+modules/squarethumb/po/ca.po	2257925513	2661247926	2448	2534
+modules/squarethumb/po/cs.po	2809719007	1159007662	2929	3017
+modules/squarethumb/po/da.po	1253028095	450593329	2416	2503
+modules/squarethumb/po/de.po	2017083248	4140936281	3040	3132
+modules/squarethumb/po/en_GB.po	2855078289	800313214	2723	2808
+modules/squarethumb/po/es.po	1344604271	3674384157	3027	3115
+modules/squarethumb/po/eu.po	1454189538	644476466	2724	2809
+modules/squarethumb/po/fi.po	1750122599	4188476746	2438	2525
+modules/squarethumb/po/fr.po	1594436167	2204480717	2878	2965
+modules/squarethumb/po/hu.po	2129586503	4269285332	2422	2511
+modules/squarethumb/po/is.po	963148841	1004742393	2170	2252
+modules/squarethumb/po/it.po	509268248	3461672025	2841	2927
+modules/squarethumb/po/ja.po	1390581540	873975640	2971	3056
+modules/squarethumb/po/ko.po	1330668020	1528848518	2391	2477
+modules/squarethumb/po/lt.po	1380564087	2746582090	2460	2545
+modules/squarethumb/po/nl.po	1164439821	39524651	2860	2947
+modules/squarethumb/po/no.po	3539308038	3441754379	2948	3035
+modules/squarethumb/po/pl.po	3498461863	1763512933	2947	3035
+modules/squarethumb/po/ro.po	2800275225	3952048771	2424	2511
+modules/squarethumb/po/ru.po	329439464	457240704	3624	3715
+modules/squarethumb/po/sk.po	2496336333	1492454132	2523	2612
+modules/squarethumb/po/sr.po	346215988	132179095	2877	2963
+modules/squarethumb/po/strings.raw	1373280179	4284054364	934	957
+modules/squarethumb/po/sv.po	9493182	919389501	3096	3190
+modules/squarethumb/po/tr.po	2737987886	40455274	3034	3126
+modules/squarethumb/po/uk.po	3516561689	138344750	2608	2696
+modules/squarethumb/po/vi.po	2381244347	657191046	2304	2387
+modules/squarethumb/po/zh_CN.po	2140241518	3109788584	2713	2798
+modules/squarethumb/po/zh_TW.po	3163538348	2665120943	2694	2779
+modules/squarethumb/templates/CantActivate.tpl	2608540570	3691667290	778	794
+modules/squarethumb/templates/SquareThumbSiteAdmin.tpl	1734373017	1092256418	1950	2012
+modules/squarethumb/test/phpunit/SquareThumbSiteAdminControllerTest.class	3274394585	1173856707	3664	3767
+modules/squarethumb/test/phpunit/SquareThumbToolkitTest.class	847951852	2269646691	14845	15279
 R	modules/squarethumb/locale/cs_CZ/LC_MESSAGES/modules_squarethumb.mo
 R	modules/squarethumb/locale/cs_CZ/LC_MESSAGES
 R	modules/squarethumb/locale/cs_CZ
-R	modules/squarethumb/locale/da/LC_MESSAGES/modules_squarethumb.mo
-R	modules/squarethumb/locale/de/LC_MESSAGES/modules_squarethumb.mo
 R	modules/squarethumb/locale/de_DE/LC_MESSAGES/modules_squarethumb.mo
 R	modules/squarethumb/locale/de_DE/LC_MESSAGES
 R	modules/squarethumb/locale/de_DE
-R	modules/squarethumb/locale/en_GB/LC_MESSAGES/modules_squarethumb.mo
-R	modules/squarethumb/locale/es/LC_MESSAGES/modules_squarethumb.mo
-R	modules/squarethumb/locale/eu/LC_MESSAGES/modules_squarethumb.mo
-R	modules/squarethumb/locale/fi/LC_MESSAGES/modules_squarethumb.mo
-R	modules/squarethumb/locale/fr/LC_MESSAGES/modules_squarethumb.mo
 R	modules/squarethumb/locale/fr_FR/LC_MESSAGES/modules_squarethumb.mo
 R	modules/squarethumb/locale/fr_FR/LC_MESSAGES
 R	modules/squarethumb/locale/fr_FR
-R	modules/squarethumb/locale/hu/LC_MESSAGES/modules_squarethumb.mo
-R	modules/squarethumb/locale/is/LC_MESSAGES/modules_squarethumb.mo
 R	modules/squarethumb/locale/is_IS/LC_MESSAGES/modules_squarethumb.mo
 R	modules/squarethumb/locale/is_IS/LC_MESSAGES
 R	modules/squarethumb/locale/is_IS
-R	modules/squarethumb/locale/it/LC_MESSAGES/modules_squarethumb.mo
 R	modules/squarethumb/locale/it_IT/LC_MESSAGES/modules_squarethumb.mo
 R	modules/squarethumb/locale/it_IT/LC_MESSAGES
 R	modules/squarethumb/locale/it_IT
-R	modules/squarethumb/locale/ja/LC_MESSAGES/modules_squarethumb.mo
 R	modules/squarethumb/locale/ja_JP/LC_MESSAGES/modules_squarethumb.mo
 R	modules/squarethumb/locale/ja_JP/LC_MESSAGES
 R	modules/squarethumb/locale/ja_JP
-R	modules/squarethumb/locale/ko/LC_MESSAGES/modules_squarethumb.mo
-R	modules/squarethumb/locale/lt/LC_MESSAGES/modules_squarethumb.mo
-R	modules/squarethumb/locale/nl/LC_MESSAGES/modules_squarethumb.mo
 R	modules/squarethumb/locale/nl_NL/LC_MESSAGES/modules_squarethumb.mo
 R	modules/squarethumb/locale/nl_NL/LC_MESSAGES
 R	modules/squarethumb/locale/nl_NL
-R	modules/squarethumb/locale/no/LC_MESSAGES/modules_squarethumb.mo
 R	modules/squarethumb/locale/no_NO/LC_MESSAGES/modules_squarethumb.mo
 R	modules/squarethumb/locale/no_NO/LC_MESSAGES
 R	modules/squarethumb/locale/no_NO
-R	modules/squarethumb/locale/pl/LC_MESSAGES/modules_squarethumb.mo
-R	modules/squarethumb/locale/ro/LC_MESSAGES/modules_squarethumb.mo
-R	modules/squarethumb/locale/ru/LC_MESSAGES/modules_squarethumb.mo
 R	modules/squarethumb/locale/ru_RU/LC_MESSAGES/modules_squarethumb.mo
 R	modules/squarethumb/locale/ru_RU/LC_MESSAGES
 R	modules/squarethumb/locale/ru_RU
-R	modules/squarethumb/locale/sk/LC_MESSAGES/modules_squarethumb.mo
-R	modules/squarethumb/locale/sr/LC_MESSAGES/modules_squarethumb.mo
 R	modules/squarethumb/locale/sr_YU/LC_MESSAGES/modules_squarethumb.mo
 R	modules/squarethumb/locale/sr_YU/LC_MESSAGES
 R	modules/squarethumb/locale/sr_YU
-R	modules/squarethumb/locale/sv/LC_MESSAGES/modules_squarethumb.mo
 R	modules/squarethumb/locale/sv_SE/LC_MESSAGES/modules_squarethumb.mo
 R	modules/squarethumb/locale/sv_SE/LC_MESSAGES
 R	modules/squarethumb/locale/sv_SE
-R	modules/squarethumb/locale/tr/LC_MESSAGES/modules_squarethumb.mo
 R	modules/squarethumb/locale/tr_TR/LC_MESSAGES/modules_squarethumb.mo
 R	modules/squarethumb/locale/tr_TR/LC_MESSAGES
 R	modules/squarethumb/locale/tr_TR
-R	modules/squarethumb/locale/uk/LC_MESSAGES/modules_squarethumb.mo
-R	modules/squarethumb/locale/vi/LC_MESSAGES/modules_squarethumb.mo
-R	modules/squarethumb/locale/zh_CN/LC_MESSAGES/modules_squarethumb.mo
-R	modules/squarethumb/locale/zh_TW/LC_MESSAGES/modules_squarethumb.mo
 R	modules/squarethumb/po/cs_CZ.po
 R	modules/squarethumb/po/de_DE.po
 R	modules/squarethumb/po/fr_FR.po

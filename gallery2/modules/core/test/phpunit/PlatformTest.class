@@ -33,10 +33,7 @@ class PlatformTest extends GalleryTestCase {
 
     function setUp() {
 	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	$this->_platform =& $gallery->getPlatform();
 	$this->_sourceFile = dirname(__FILE__) . '/../data/test1.gif';
@@ -199,11 +196,6 @@ class PlatformTest extends GalleryTestCase {
 			    $this->_platform->legalizePathComponent('test.php.jpg'));
     }
 
-    function testLegalizePathComponentForDirectory() {
-	$this->assertEquals('test_.php.jpg_',
-			    $this->_platform->legalizePathComponent('test!.php.jpg$', true));
-    }
-
     function testPathComponentLegalCharactersConserved() {
 	$this->assertEquals(true,
 			    $this->_platform->isLegalPathComponent('TheQuickBrownFox'));
@@ -253,11 +245,6 @@ class PlatformTest extends GalleryTestCase {
 			    $this->_platform->legalizePathComponent('._test'));
     }
 
-    function testIsLegalPathComponentWithDotForDirectory() {
-	$this->assertEquals(true,
-			    $this->_platform->isLegalPathComponent('some._test', true));
-    }
-
     /**
      * Make sure executing a bogus path fails.
      *
@@ -300,14 +287,14 @@ class PlatformTest extends GalleryTestCase {
 	    }
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'core', 'permissions.file', '600');
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $this->_platform->resetPlatform();
 	    $this->_permissionTest(0600, 1, array('copy', 'atomicWrite', 'symlink'));
 
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'core', 'permissions.file', '664');
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $this->_platform->resetPlatform();
 	    $this->_permissionTest(0664, 2, array('copy', 'symlink', 'atomicWrite'));
@@ -315,7 +302,7 @@ class PlatformTest extends GalleryTestCase {
 	    $this->assert($this->_platform->copy($this->_sourceFile, $this->_destFile), 'copy');
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'core', 'permissions.file', '612');
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $this->_platform->resetPlatform();
 	    $this->_permissionTest(0612, 3, array('chmod'));
@@ -324,7 +311,7 @@ class PlatformTest extends GalleryTestCase {
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'core',
 						      'permissions.directory', '751');
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $this->_platform->resetPlatform();
 	    $this->_permissionTest(0751, 4, array('chmod'));
@@ -427,7 +414,7 @@ class PlatformTest extends GalleryTestCase {
 	/* Set dir and file permissions by system prefs */
 	$ret = $this->_setupChmodTest();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->_platform->resetPlatform();
@@ -458,7 +445,7 @@ class PlatformTest extends GalleryTestCase {
 	/* Set given dir permission, don't change file permissions */
 	$ret = $this->_setupChmodTest();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$fileStat = $this->_platform->stat($this->_destFile . '/1/2');
@@ -490,7 +477,7 @@ class PlatformTest extends GalleryTestCase {
 	/* Set given file permission, don't change dir permissions */
 	$ret = $this->_setupChmodTest();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$dirStat = $this->_platform->stat($this->_destFile . '/1');
@@ -839,11 +826,11 @@ class PlatformTest extends GalleryTestCase {
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'core');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'smtp.host', null);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$gallery->_phpVm = new PlatformTestPhpVm(dirname(__FILE__), $this);

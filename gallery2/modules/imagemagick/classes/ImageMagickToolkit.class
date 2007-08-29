@@ -494,7 +494,7 @@ class ImageMagickToolkit extends GalleryToolkit {
      * @param string $destFilename the path to a destination file
      * @param string $outputMimeType
      * @param string $jpegQuality (optional)
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      * @access private
      */
     function _transformImage($mimeType, $cmd, $args, $sourceFilename, $destFilename,
@@ -523,7 +523,6 @@ class ImageMagickToolkit extends GalleryToolkit {
 		return $ret;
 	    }
 	}
-	$jpegQuality = (int)$jpegQuality;
 
 	switch ($outputMimeType) {
 	case 'image/jpeg' :
@@ -549,30 +548,12 @@ class ImageMagickToolkit extends GalleryToolkit {
 	case 'image/gif':
 	    /* In case it's an animated gif.. */
 	    if ($cmd == 'convert') {
-		/**
-		 * Bug 1703410
-		 * ImageMagick 6.2.6 and later needs different arguments for best results
-		 */
-		list ($ret, $useNewCoalesceOptions) = GalleryCoreApi::getPluginParameter(
-		    'module', 'imagemagick', 'useNewCoalesceOptions');
-		if ($ret) {
-		    return $ret;
-		}
-		if ($useNewCoalesceOptions) {
-		    $command[] = '%s';
-		    $command[] = '-coalesce'; /* Needs to be _after_ the filename */
-		    $command[] = '-layers'; /* Better than -deconstruct */
-		    $command[] = 'optimize';
-		} else {
-		    $command[] = '-coalesce'; /* Needs to be _before_ the filename */
-		    $command[] = '%s';
-		    $args[] = '-deconstruct';
-		}
+		$command[] = '-coalesce';
+		$command[] = '%s';
+		$args[] = '-deconstruct';
 	    }
-	    if ($outputMimeType == 'image/gif') {
-		break;
-	    }
-	    /* If the output format isn't gif, pick a frame assuming it's an animated GIF. */
+	    break;
+
 	case 'image/tiff':
 	case 'application/pdf':
 	case 'application/postscript':

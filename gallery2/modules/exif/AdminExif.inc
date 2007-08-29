@@ -406,19 +406,13 @@ class AdminExifView extends GalleryView {
 
 	    $availableList[$key] = $module->translate($data[0]);
 	}
-	asort($availableList);
 
-	/* Check toolkit support for rotation */
-	list ($ret, $toolkit) = GalleryCoreApi::getToolkitByOperation('image/jpeg', 'rotate');
-	if ($ret) {
-	    return array($ret, null);
-	}
+	asort($availableList);
 
 	$AdminExif = array();
 	$AdminExif['availableList'] = $availableList;
 	$AdminExif['summaryList'] = $summaryList;
 	$AdminExif['detailedList'] = $detailedList;
-	$AdminExif['canRotate'] = isset($toolkit);
 
 	$template->setVariable('AdminExif', $AdminExif);
 	$template->setVariable('controller', 'exif.AdminExif');

@@ -100,7 +100,7 @@ class OptionsView extends GalleryView {
 	}
 
 	/* Now let all options load their template data */
-	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($form['albumId'], 'GalleryAlbumItem');
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($form['albumId']);
 	if ($ret) {
 	    return array($ret, null);
 	}

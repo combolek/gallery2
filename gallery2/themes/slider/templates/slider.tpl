@@ -1,6 +1,8 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
 <div style="display: none">
 {foreach from=$theme.children key=i item=it}
@@ -14,8 +16,9 @@
     {/if}
     <span id="title_{$it.imageIndex}">{$it.title|markup}</span>
     <select id="links_{$it.imageIndex}">
-     {foreach from=$it.itemLinks item=link}
-      {g->itemLink link=$link type="option"}
+     {foreach from=$it.itemLinks item=itemLink}
+      <option label="{$itemLink.text}"
+	      value="{g->url params=$itemLink.params}">{$itemLink.text}</option>
      {/foreach}
     </select>
   {/if}

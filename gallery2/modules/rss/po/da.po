@@ -21,11 +21,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: RSS 1.1.4\n"
+"Project-Id-Version: Gallery: RSS 1.1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-03-10 12:51+0100\n"
-"PO-Revision-Date: 2007-06-17 14:49+0100\n"
-"Last-Translator: Jens Hyllegaard <Jens@linushvj.dk>\n"
+"PO-Revision-Date: 2007-03-12 22:10+0000\n"
+"Last-Translator: Bjorn Graabek <bjorn@graabek.com>\n"
 "Language-Team: Danish <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,16 +39,16 @@ msgid "Feeds of that type are not allowed!"
 msgstr "Feeds af den type er ikke tilladt!"
 
 msgid "Not permitted to view this item"
-msgstr "Ingen tilladelse til at dette emne"
+msgstr ""
 
 msgid "Incorrect feed type!"
 msgstr "Forkert feed type!"
 
 msgid "Comments module is not active or comment feeds are not allowed!"
-msgstr "Kommentar modulet er ikke aktivt eller også er kommentar feeds ikke tilladt!"
+msgstr ""
 
 msgid "Not permitted to view comments for this item"
-msgstr "Ikke tilladt at se kommentarer for dette emne"
+msgstr ""
 
 msgid "RSS"
 msgstr "RSS"
@@ -57,39 +57,35 @@ msgid "Export"
 msgstr "Eksport"
 
 msgid "RSS Feed for this Album"
-msgstr "RSS feed for dette album"
+msgstr "RSS Feed for dette Album"
 
 msgid "RSS Feed for this Photo"
-msgstr "RSS feed for dette foto"
+msgstr "RSS Feed for dette Foto"
 
 msgid "RSS Feed for this Movie"
-msgstr "RSS feed for denne film"
+msgstr "RSS Feed for denne Fikm"
+
+msgid "Configure RSS Feeds"
+msgstr "Indstil RSS Feeds"
+
+msgid "Simple RSS Feed"
+msgstr "Simpel RSS Feed"
+
+msgid "Short URL for Simple RSS Feeds"
+msgstr ""
+
+msgid "RSS Feed"
+msgstr "RSS Feed"
+
+msgid "The name of the configured RSS Feed"
+msgstr ""
+
+msgid "Short URL for Configurable RSS Feeds"
+msgstr ""
 
 #, c-format
 msgid "RSS Feed for this %s"
-msgstr "RSS feed for dette %s"
-
-msgid "Configure RSS Feeds"
-msgstr "Indstil RSS feeds"
-
-msgid "Simple RSS Feed"
-msgstr "Simpel RSS feed"
-
-msgid "Short URL for Simple RSS Feeds"
-msgstr "Kort URL for simple RSS feeds"
-
-msgid "RSS Feed"
-msgstr "RSS feed"
-
-msgid "The name of the configured RSS Feed"
-msgstr "Navnet på den opsatte RSS feed"
-
-msgid "Short URL for Configurable RSS Feeds"
-msgstr "Kort URL for konfigurerbare RSS feeds"
-
-#, c-format
-msgid "In album %s"
-msgstr "I album %s"
+msgstr "RSS Feed for dette %s"
 
 msgid "Items in an album"
 msgstr "Emner i et album"
@@ -98,25 +94,24 @@ msgid "Sub-albums of an album"
 msgstr "Under-albummer af et album"
 
 msgid "Items in an album and its sub-albums"
-msgstr "Emner i et album og dets under-albummer"
+msgstr "Objekter i et album og dets under-albummer"
 
 msgid "Comments for an album"
 msgstr "Kommentarer til et album"
 
 msgid "Comments for an item"
-msgstr "Kommentarer til et emne"
+msgstr "Kommentarer til et element"
 
+#, fuzzy
 msgid "Comments for an album and its subalbums"
-msgstr "Kommentarer for et album og dets under-albummer"
+msgstr "Objekter i et album og dets under-albummer"
 
-msgid "Random items in an album"
-msgstr "Tilfældige emner i et album"
-
-msgid "Random items in an album and its subalbums"
-msgstr "Tilfældige emner i et album og dets under-albummer"
+#, c-format
+msgid "In album <a href=\"%s\">%s</a>"
+msgstr "I album <a href=\"%s\">%s</a>"
 
 msgid "RSS Feeds"
-msgstr "RSS feeds"
+msgstr "RSS Feeds"
 
 msgid "Settings have been saved"
 msgstr "Indstillinger er gemt"
@@ -131,16 +126,16 @@ msgid "List"
 msgstr "Liste"
 
 msgid "Edit Feed"
-msgstr "Rediger feed"
+msgstr "Rediger Feed"
 
 msgid "New Feed"
-msgstr "Nyt feed"
+msgstr "Nyt Feed"
 
 msgid "Feed URL"
 msgstr "Feed URL"
 
 msgid "Feed name"
-msgstr "Navn på feed"
+msgstr "Navn på Feed"
 
 msgid "You can't change the name of the feed"
 msgstr "Du kan ikke ændre feed'ets navn"
@@ -169,7 +164,7 @@ msgid "Type of feed"
 msgstr "Feed type"
 
 msgid "Items in this album"
-msgstr "Emner i dette album"
+msgstr "Objekter i dette album"
 
 msgid ""
 "Feeds of this type are disallowed by the administrator. Users won't be able to view them."
@@ -179,10 +174,10 @@ msgid "Sub-albums of this album"
 msgstr "Under-albummer af dette album"
 
 msgid "Items in this album and its subalbums"
-msgstr "Emner i dette album og dets under-albummer"
+msgstr "Objekter i dette album og dets under-albummer"
 
 msgid "Limit the number of items per album"
-msgstr "Begræns antallet af emner pr. album"
+msgstr "Begræns antallet af objekter pr. album"
 
 msgid "Invalid limit (must be a positive number, 0 to disable the limit)"
 msgstr ""
@@ -193,14 +188,9 @@ msgstr "[indtast 0 for at slå begrænsningen fra)"
 msgid "Comments for this album"
 msgstr "Kommentarer for dette album"
 
+#, fuzzy
 msgid "Comments for this album and its subalbums"
-msgstr "Kommentarer for dette album og dets under-albummer"
-
-msgid "Random pictures inside this album"
-msgstr "Tilfældige billeder i dette album"
-
-msgid "Random pictures inside this album and its subalbums"
-msgstr "Tilfældige billeder i dette album og dets under-albummer"
+msgstr "Objekter i dette album og dets under-albummer"
 
 msgid "Comments for this item"
 msgstr "Kommentarer for dette emne"
@@ -215,7 +205,7 @@ msgid "New and updated items"
 msgstr "Nye og opdaterede emner"
 
 msgid "Choose the options for the feed"
-msgstr "Vælg indstillingerne for feed'et"
+msgstr ""
 
 msgid "RSS version"
 msgstr "RSS version"
@@ -236,7 +226,7 @@ msgid "Invalid language value"
 msgstr "Ugyldig sprog-værdi"
 
 msgid "by default: en-us."
-msgstr "som standard: en-us."
+msgstr "standard: en-us."
 
 msgid "List of all possible values"
 msgstr "Liste over alle de mulige værdier"
@@ -262,10 +252,10 @@ msgid "Invalid copyright"
 msgstr "Ugyldig copyright"
 
 msgid "Use image tag"
-msgstr "Brug image mærke"
+msgstr ""
 
 msgid "Include image tag"
-msgstr "Inkludér image mærke"
+msgstr ""
 
 msgid "This adds a main image to the feed, corresponding to the thumbnail for this item"
 msgstr ""
@@ -282,20 +272,6 @@ msgstr ""
 msgid ""
 "This adds an enclosure to each image in the feed, that contains the full resolution image"
 msgstr ""
-
-msgid "Use Media RSS"
-msgstr "Brug Media RSS"
-
-msgid "Include Media RSS tags"
-msgstr "Inkluder Media RSS mærker"
-
-msgid ""
-"This adds Media RSS tags to the feed, which allows media-oriented clients to display the "
-"feed in a more useful fashion"
-msgstr ""
-
-msgid "about Media RSS"
-msgstr "om Media RSS"
 
 msgid "Cloud tag (RSS 2.0)"
 msgstr "Cloud tag (RSS 2.0)"
@@ -334,16 +310,16 @@ msgid "Invalid port number"
 msgstr "Ugyldig port nummer"
 
 msgid "Update Feed"
-msgstr "Opdatér feed"
+msgstr "Opdater Feed"
 
 msgid "Create Feed"
-msgstr "Opret feed"
+msgstr "Opret Feed"
 
 msgid "Cancel"
 msgstr "Afbryd"
 
 msgid "RSS feeds for this item"
-msgstr "RSS feeds for dette emne"
+msgstr "RSS feeds for dette objekt"
 
 msgid "No feeds have yet been defined"
 msgstr "Der er endnu ikke defineret nogen feeds"
@@ -364,16 +340,16 @@ msgid "edit"
 msgstr "rediger"
 
 msgid "This is a list of all the feeds that are available on this Gallery"
-msgstr "Dette er en liste over alle feeds der er tilgængelige i dette galleri"
+msgstr ""
 
 msgid "RSS Settings"
-msgstr "RSS indstillinger"
+msgstr "RSS Indstillinger"
 
 msgid "Settings"
 msgstr "Indstillinger"
 
 msgid "Simple Feed Settings"
-msgstr "Simpel feed indstillinger"
+msgstr "'Simple Feed' Indstillinger"
 
 msgid "General settings"
 msgstr "Generelle indstillinger"
@@ -382,22 +358,16 @@ msgid "These are the default and maximum values that are used by all feeds on yo
 msgstr "Disse er stndard og maksimal værdier der bliver benyttet af alle feeds i Gallery"
 
 msgid "Default number of items in feeds"
-msgstr "Standard antal emner i feeds"
+msgstr ""
 
 msgid "Invalid default number"
 msgstr "Ugyldigt standard nummer"
 
 msgid "Maximum number of items in feeds"
-msgstr "Maksimale antal emner i feeds"
+msgstr "Maksimale antal objekter i feeds"
 
 msgid "Invalid maximum number"
 msgstr "Det maksimale antal er ugyldigt"
-
-msgid "Maximum age for items in feeds"
-msgstr "Maksimum alder for emner i feeds"
-
-msgid "Invalid maximum age number"
-msgstr "Ugyldigt maksimum alder tal"
 
 msgid "Default ttl"
 msgstr "Standard ttl"
@@ -406,13 +376,13 @@ msgid "Default copyright"
 msgstr "Standard copyright"
 
 msgid "Feed Types"
-msgstr "Feedtyper"
+msgstr "Feed Typer"
 
 msgid "Configure which types of feeds are allowed"
-msgstr "Konfigurer hvilke typer af feeds der er tilladt"
+msgstr ""
 
 msgid "Allow Simple RSS Feed to be used"
-msgstr "Tillad at Simpel RSS feed kan benyttes"
+msgstr "Tillad at 'Simple RSS feed' benyttes"
 
 msgid ""
 "If you enable this, users will be able to subscribe to a feed for any album or photo they "
@@ -437,49 +407,41 @@ msgid ""
 msgstr ""
 
 msgid "Allow RSS feeds of photos inside an album"
-msgstr "Tillad RSS feeds af fotos i et album"
+msgstr ""
 
 msgid "Fast"
 msgstr "Hurtigt"
 
 msgid "Allow RSS feeds of subalbums of an album"
-msgstr "Tillad RSS feeds af under-albummer i et album"
+msgstr ""
 
 msgid "Slow"
 msgstr "Langsomt"
 
 msgid "Allow RSS feeds of photos inside an album and its subalbums"
-msgstr "Tillad RSS feeds af foto i et album og dets under-albummer"
+msgstr ""
 
 msgid "Slower"
 msgstr "Langsommere"
 
-msgid "Allow RSS feeds of comments of a photo"
-msgstr "Tillad RSS feeds af kommentarer til et foto"
+msgid "Allow RSS feeds comments of a photo"
+msgstr ""
 
-msgid "Allow RSS feeds of comments of an album"
-msgstr "Tillad RSS feeds af kommentarer til et album"
+msgid "Allow RSS feeds comments of an album"
+msgstr ""
 
-msgid "Allow RSS feeds of comments for an album and its subalbums"
-msgstr "Tillad RSS feeds af kommentarer til et album og dets under-albummer"
-
-msgid "Allow RSS feeds of random photos inside an album"
-msgstr "Tillad RSS feeds af tilfældige fotos i et album"
-
-msgid "Allow RSS feeds of random photos inside an album and its subalbums"
-msgstr "Tillad RSS feeds af tilfældige fotos i et album og dets under-albummer"
-
-msgid "Slowest"
-msgstr "Langsommest"
+#, fuzzy
+msgid "Allow RSS feeds comments for an album and its subalbums"
+msgstr "Objekter i et album og dets under-albummer"
 
 msgid "Save Settings"
-msgstr "Gem indstillinger"
+msgstr "Gem Indstillinger"
 
 msgid "Reset"
-msgstr "Nulstil"
+msgstr "Gendan"
 
 msgid "Helping users discover RSS feeds"
-msgstr "Hjælp brugere med at opdage RSS feeds"
+msgstr ""
 
 msgid ""
 "If you want to help users discover feeds in your Gallery, you can add the RSS block to the "
@@ -498,31 +460,31 @@ msgid "Global list of RSS feeds"
 msgstr "Global liste over RSS feeds"
 
 msgid "On item"
-msgstr "På emne"
+msgstr "På element"
 
 msgid "Simple Feed settings"
-msgstr "Simpel feed indstillinger"
+msgstr ""
 
 msgid "For albums"
 msgstr "For albummer"
 
 msgid "Items in the album"
-msgstr "Emner i albummet"
+msgstr "Elementer i albummet"
 
 msgid "Sub-albums of the album"
 msgstr "Under-albummer af albummet"
 
 msgid "Items in the album and its subalbums"
-msgstr "Emner i albummet og dets under-albummer"
+msgstr "Elementer i albummet og dets under-albummer"
 
 msgid "Comments for the album"
 msgstr "Kommentarer til albummet"
 
 msgid "For items"
-msgstr "For emner"
+msgstr "For elementer"
 
 msgid "Comments for items (always selected)"
-msgstr "Kommentarer for emner (altid valgt)"
+msgstr ""
 
 msgid "List all RSS Feeds"
 msgstr "Vis alle RSS feeds"

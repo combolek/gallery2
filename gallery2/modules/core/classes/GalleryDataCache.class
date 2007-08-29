@@ -308,9 +308,10 @@ class GalleryDataCache {
 
 	global $gallery;
 	$platform =& $gallery->getPlatform();
-	if (in_array($pathInfo['type'],
-		     array('entity', 'module-data', 'local-url-map'))
-		|| isset($pathInfo['id'])) {
+	if ($pathInfo['type'] == 'entity' ||
+		$pathInfo['type'] == 'derivative-meta' ||
+		$pathInfo['type'] == 'module-data' ||
+		isset($pathInfo['id'])) {
 	    $cacheFile = GalleryDataCache::getCachePath($pathInfo);
 	    if ($platform->file_exists($cacheFile)) {
 		if ($platform->is_dir($cacheFile)) {
@@ -319,16 +320,18 @@ class GalleryDataCache {
 		    $platform->unlink($cacheFile);
 		}
 	    }
-	} else if ($pathInfo['type'] == 'module' || $pathInfo['type'] == 'theme') {
-	    list ($ret, $pluginStatus) = GalleryCoreApi::fetchPluginStatus($pathInfo['type']);
-	    if ($ret) {
-		return $ret;
-	    }
+	} else {
+	    if ($pathInfo['type'] == 'module' || $pathInfo['type'] == 'theme') {
+		list ($ret, $pluginStatus) = GalleryCoreApi::fetchPluginStatus($pathInfo['type']);
+		if ($ret) {
+		    return $ret;
+		}
 
-	    foreach (array_keys($pluginStatus) as $pluginId) {
-		GalleryDataCache::removeFromDisk(array('type' => $pathInfo['type'],
-						       'id' => $pluginId,
-						       'itemId' => $pathInfo['itemId']));
+		foreach (array_keys($pluginStatus) as $pluginId) {
+		    GalleryDataCache::removeFromDisk(array('type' => $pathInfo['type'],
+							   'id' => $pluginId,
+							   'itemId' => $pathInfo['itemId']));
+		}
 	    }
 	}
     }
@@ -389,8 +392,7 @@ class GalleryDataCache {
      * Given a path info descriptor, return the path to the appropriate cache file.
      *
      * Path info contains the following variables:
-     *  type:    entity, derivative, derivative-relative, fast-download,
-     *           module, module-data, theme, local-url-map
+     *  type:    entity, derivative, derivative-meta, module, theme
      *  itemId:  the item id
      *  id:      (module, theme only) a refinement of the type
      *
@@ -418,6 +420,12 @@ class GalleryDataCache {
 	    list ($first, $second) = GalleryDataCache::getCacheTuple($pathInfo['itemId']);
 	    $cacheFile = sprintf('derivative/%s/%s/%d.dat',
 				 $first, $second, $pathInfo['itemId']);
+	    break;
+
+	case 'derivative-meta':
+	    list ($first, $second) = GalleryDataCache::getCacheTuple($pathInfo['itemId']);
+	    $cacheFile = sprintf('%sderivative/%s/%s/%d-meta.inc',
+				 $base, $first, $second, $pathInfo['itemId']);
 	    break;
 
 	case 'fast-download':
@@ -461,10 +469,6 @@ class GalleryDataCache {
 	    } else {
 		$cacheFile = sprintf('%s%s/%s/', $base, 'module', $pathInfo['module']);
 	    }
-	    break;
-
-	case 'local-url-map':
-	    $cacheFile = "{$base}theme/_all/localUrlMap.txt";
 	    break;
 	}
 
@@ -577,7 +581,7 @@ class GalleryDataCache {
      *
      * @param string $type the page type
      * @param mixed $keyData data to use to generate the unique key for this cache entry
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *               string the page data
      */
     function getPageData($type, $keyData) {
@@ -648,7 +652,7 @@ class GalleryDataCache {
      * @param int $itemId the itemId of the item this page is rendering
      * @param mixed $keyData data to use to generate the unique key for this cache entry
      * @param string $value the page data
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function putPageData($type, $itemId, $keyData, $value) {
 	global $gallery;
@@ -711,7 +715,7 @@ class GalleryDataCache {
      * Remove all cached page data for the given item ids
      *
      * @param mixed $itemIds one item id, or an array of item ids
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function removePageData($itemIds) {
 	$ret = GalleryCoreApi::removeMapEntry('GalleryCacheMap', array('itemId' => $itemIds));
@@ -728,7 +732,7 @@ class GalleryDataCache {
      *
      * @param string $action
      * @param string $type the page type
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function shouldCache($action, $type) {
 	global $gallery;
@@ -774,7 +778,7 @@ class GalleryDataCache {
      * @todo The extra key for exif module is a quick fix, not a permanent fix; it should be
      *       cached on the block level not on page level.
      *
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *               string extra cache key
      */
     function _getExtraPageCacheKey() {
@@ -800,7 +804,7 @@ class GalleryDataCache {
     /**
      * Delete value of obsolete cache data.
      *
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function _cleanPageDataCache() {
 	global $gallery;

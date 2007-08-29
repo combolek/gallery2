@@ -43,12 +43,12 @@ class ItemAddOptionTestCase extends GalleryTestCase {
 	list ($ret, $this->_option) =
 	    GalleryCoreApi::newFactoryInstanceById('ItemAddOption', $optionName);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $this->_module) = GalleryCoreApi::loadPlugin('module', $moduleName);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
     }
 
@@ -63,7 +63,7 @@ class ItemAddOptionTestCase extends GalleryTestCase {
 							  $ret->getErrorCode()))));
 	    }
 	} else if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	} else {
 	    /* Check to make sure we got back everything we want */
 	    $this->assert(isset($errors) && is_array($errors), 'option error results missing');

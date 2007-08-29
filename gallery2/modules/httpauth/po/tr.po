@@ -16,57 +16,55 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
-#
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: HTTP Auth 1.0.1\n"
+"Project-Id-Version: Gallery: HTTP Auth 1.0.0\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2007-03-06 23:20+0000\n"
-"PO-Revision-Date: 2007-03-18 22:28+0200\n"
-"Last-Translator: ISHAK GOKER ISIK <admin@ansolon.com>\n"
-"Language-Team: Turkish <gallery-translations@lists.sourceforge.net>\n"
+"POT-Creation-Date: 2006-12-20 09:57-0800\n"
+"PO-Revision-Date: 2006-02-27 00:00+0200\n"
+"Last-Translator: Goker ISIK <admin@ansolon.com>\n"
+"Language-Team: Turkish <admin@ansolon.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Language: Turkish\n"
 "X-Poedit-Country: TURKEY\n"
 
 msgid "HTTP Auth"
-msgstr "HTTP Auth"
+msgstr ""
 
 msgid "Login using HTTP authentication."
-msgstr "HTTP kimlik doğrulama kullanarak giriş yap."
+msgstr ""
 
 msgid "Authentication"
-msgstr "Kimlik Doğrulama"
+msgstr ""
 
 msgid "Authorization Header"
-msgstr "Kimlik Doğrulama Başlığı"
+msgstr ""
 
 msgid "Pass the Authorization header to Gallery in a request variable."
 msgstr ""
 
 msgid "Authorization header."
-msgstr "Kimlik Doğrulama başlığı."
+msgstr ""
 
 msgid "Logout failed"
-msgstr "Çıkış başarısız"
+msgstr ""
 
 msgid ""
 "Gallery tried to logout but failed.  You should close the browser window to logout "
 "successfully."
 msgstr ""
-"Galeri çıkış yapmayı denedi ancak başarısız. Tarayıcınız penceresini kapatarak başarılı bir "
-"biçimde çıkış yapabilirsiniz."
 
 msgid "HTTP Auth Settings"
-msgstr "HTTP Auth Ayarları"
+msgstr ""
 
 msgid "Settings saved successfully"
 msgstr "Ayarlar başarıyla kaydedildi"
 
 msgid "Missing HTTP Authorization"
-msgstr "Kayıp HTTP Kimlik Doğrulaması"
+msgstr ""
 
 #, c-format
 msgid ""
@@ -75,7 +73,7 @@ msgid ""
 msgstr ""
 
 msgid "URL rewrite module disabled"
-msgstr "URL rewrite modülü kapalı"
+msgstr ""
 
 #, c-format
 msgid ""
@@ -86,7 +84,7 @@ msgid ""
 msgstr ""
 
 msgid "Bad URL rewrite configuration"
-msgstr "Kötü URL rewrite yapılandırması"
+msgstr ""
 
 #, c-format
 msgid ""
@@ -97,7 +95,7 @@ msgid ""
 msgstr ""
 
 msgid "'Authorization Header' rule disabled"
-msgstr "Kimlik Doğrulama Başlığı' kuralı kapalı"
+msgstr ""
 
 #, c-format
 msgid ""
@@ -107,7 +105,7 @@ msgid ""
 msgstr ""
 
 msgid "Unknown Cause"
-msgstr "Bilinmeyen Sebep"
+msgstr ""
 
 #, c-format
 msgid ""
@@ -116,10 +114,10 @@ msgid ""
 msgstr ""
 
 msgid "Gallery can handle HTTP Basic authentication directly."
-msgstr "Galeri direkt olarak HTTP temel kimlik doğrulamasını idare edebilir."
+msgstr ""
 
 msgid "Use HTTP Authentication:"
-msgstr "HTTP Kimlik Doğrulaması Kullan:"
+msgstr ""
 
 msgid ""
 "Gallery will prompt you to login with HTTP authentication when permission is denied.  HTTP "
@@ -128,7 +126,7 @@ msgid ""
 msgstr ""
 
 msgid "HTTP Authentication Realm:"
-msgstr "HTTP Kimlik Doğrulama Alanı:"
+msgstr ""
 
 msgid ""
 "Your web server may offer more comprehensive and more secure authentication.  If you "
@@ -137,13 +135,13 @@ msgid ""
 msgstr ""
 
 msgid "Use Web Server Authentication:"
-msgstr "Web Server Kimlik Doğrulaması Kullan:"
+msgstr ""
 
 msgid "By default HTTP authentication is only enabled for specific modules."
-msgstr "Varsayılan olarak HTTP kimlik doğrulama sadece belirli modüller için aktif durumdadır."
+msgstr ""
 
 msgid "Use the authentication plugins for all modules:"
-msgstr "Tüm modüller için kimlik doğrulama eklentisini kullan:"
+msgstr ""
 
 #, c-format
 msgid ""
@@ -154,7 +152,7 @@ msgid ""
 msgstr ""
 
 msgid "Use Regular Expressions:"
-msgstr "Olağan İbare Kullan:"
+msgstr ""
 
 msgid ""
 "Specify here a regular expression which the authentication type must match for "
@@ -162,10 +160,10 @@ msgid ""
 msgstr ""
 
 msgid "Authentication Type Pattern:"
-msgstr "Kimlik Doğrulama Türü Şablonu:"
+msgstr ""
 
 msgid "You must enter a valid regular expression"
-msgstr "Geçerli bir olağan ibare girmelisiniz"
+msgstr ""
 
 #, c-format
 msgid ""
@@ -175,10 +173,10 @@ msgid ""
 msgstr ""
 
 msgid "Username Pattern:"
-msgstr "Kullanıcıadı Şablonu:"
+msgstr ""
 
 msgid "Username Replacement:"
-msgstr "Kullanıcıadı Değiştirme:"
+msgstr ""
 
 msgid "Save"
 msgstr "Kaydet"
@@ -189,4 +187,3 @@ msgstr "Sıfırla"
 #, c-format
 msgid "If you're not automatically redirected, %sclick here to finish logging out%s."
 msgstr ""
-"Eğer otomatik olarak yönlendirilmesseniz, %sburayı tıklayarak çıkış işleminizi bitiriniz%s."

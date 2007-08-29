@@ -95,8 +95,7 @@ class ModifyCartController extends GalleryController {
 		}
 
 		/* Pass in only the types the plugin supports */
-		list ($ret, $itemList) =
-		    GalleryCoreApi::loadEntitiesById(array_keys($cartItemIds), 'GalleryItem');
+		list ($ret, $itemList) = GalleryCoreApi::loadEntitiesById(array_keys($cartItemIds));
 		if ($ret) {
 		    return array($ret, null);
 		}

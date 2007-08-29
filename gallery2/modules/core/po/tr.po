@@ -18,8 +18,9 @@
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Core 1.2.20\n"
-"POT-Creation-Date: 2005-05-23 02:14+0200\n"
+"Project-Id-Version: Gallery: Core 1.2.0.3\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-06-07 09:29-0700\n"
 "PO-Revision-Date: 2007-03-14 16:04+0100\n"
 "Last-Translator: Goker ISIK <admin@ansolon.com>\n"
 "Language-Team: Turkish <admin@ansolon.org>\n"
@@ -32,30 +33,6 @@ msgstr ""
 
 msgid "Gallery Email Test"
 msgstr "Galeri Email Testi"
-
-#, c-format
-msgid "%d minute"
-msgid_plural "%d minutes"
-msgstr[0] "%d dakika"
-msgstr[1] "%d dakika"
-
-#, c-format
-msgid "%d hour"
-msgid_plural "%d hours"
-msgstr[0] "%d saat"
-msgstr[1] "%d saat"
-
-#, c-format
-msgid "%d day"
-msgid_plural "%d days"
-msgstr[0] "%d gün"
-msgstr[1] "%d gün"
-
-#, c-format
-msgid "%d week"
-msgid_plural "%d weeks"
-msgstr[0] "%d hafta"
-msgstr[1] "%d hafta"
 
 msgid "forever"
 msgstr "daima"
@@ -81,16 +58,32 @@ msgstr "Veritabanı"
 msgid "File"
 msgstr "Dosya"
 
-msgid "&lt;none&gt;"
-msgstr ""
-
-#, fuzzy
-msgid "Link"
-msgstr "Giriş"
+#, c-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] "%d dakika"
+msgstr[1] "%d dakika"
 
 #, c-format
-msgid "Page %d of %d"
-msgstr "Sayfa %d / %d"
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] "%d saat"
+msgstr[1] "%d saat"
+
+#, c-format
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] "%d gün"
+msgstr[1] "%d gün"
+
+#, c-format
+msgid "%d week"
+msgid_plural "%d weeks"
+msgstr[0] "%d hafta"
+msgstr[1] "%d hafta"
+
+msgid "<none>"
+msgstr ""
 
 msgid "No acceleration"
 msgstr ""
@@ -139,10 +132,6 @@ msgid "Deleting Language Packs"
 msgstr "Dil Ayarları"
 
 #, fuzzy
-msgid "Synchronizing Language Packs"
-msgstr "Dil Ayarları"
-
-#, fuzzy
 msgid "Update completed with errors."
 msgstr "Yükleme Tamamlandı"
 
@@ -171,11 +160,11 @@ msgstr ""
 msgid "Use these settings"
 msgstr "Bu atarları kullan"
 
-msgid "Converting Schema Table"
-msgstr ""
-
 msgid "Installing the core module"
 msgstr "Galeri Çekirdek Modülü Kuruluyor"
+
+msgid "key"
+msgstr "anahtar"
 
 msgid "All access"
 msgstr "Tüm Erişim"
@@ -210,10 +199,6 @@ msgstr "[çekirdek] Öge sil"
 msgid "Upgrading permissions"
 msgstr "İzinler güncelleniyor"
 
-#, c-format
-msgid "Upgrading permissions (%d items complete, %d remaining)"
-msgstr ""
-
 msgid "Deleting old permission tables"
 msgstr "Eski izin tabloları siliniyor"
 
@@ -226,32 +211,11 @@ msgstr "Tüm Kullanıcılar"
 msgid "Detecting broken derivatives"
 msgstr ""
 
-#, c-format
-msgid "Detecting broken derivatives, loading (%d derivatives checked, %d remaining)"
-msgstr ""
-
-#, c-format
-msgid "Detecting broken derivatives (%d derivatives checked, %d remaining)"
-msgstr ""
-
-#, c-format
-msgid "Detecting broken derivatives, saving (%d derivatives checked, %d remaining)"
-msgstr ""
-
-#, c-format
-msgid ""
-"Detecting broken derivatives, saving item %d of %d (%d derivatives complete, %d remaining)"
-msgstr ""
-
 msgid "Clearing fast-download cache"
 msgstr ""
 
 #, fuzzy
 msgid "Deleting old fast-download cache"
-msgstr "Eski izin tabloları siliniyor"
-
-#, fuzzy, c-format
-msgid "Deleting old session files (iteration %d)"
 msgstr "Eski izin tabloları siliniyor"
 
 msgid "Updating panorama items"
@@ -260,9 +224,11 @@ msgstr ""
 msgid "Optimizing AccessSubscriberMap table"
 msgstr ""
 
-#, fuzzy
-msgid "Upgrading Plugin Translations"
-msgstr "İzinler güncelleniyor"
+msgid "Converting Schema Table"
+msgstr ""
+
+msgid "Loading Table Descriptions"
+msgstr ""
 
 msgid "Site Admins"
 msgstr "Site Yöneticileri"
@@ -282,16 +248,30 @@ msgstr "Burası Galeri'nin ana sayfasıdır."
 msgid "Converting MySQL data to UTF8"
 msgstr ""
 
-#, fuzzy
-msgid "Adding items"
-msgstr "öge ekle"
-
-#, fuzzy
-msgid "Processing items"
-msgstr "%d / %d öge işleniyor"
-
-msgid "Extracting archive"
+#, c-format
+msgid "Upgrading permissions (%d items complete, %d remaining)"
 msgstr ""
+
+#, c-format
+msgid "Detecting broken derivatives, loading (%d derivatives checked, %d remaining)"
+msgstr ""
+
+#, c-format
+msgid "Detecting broken derivatives (%d derivatives checked, %d remaining)"
+msgstr ""
+
+#, c-format
+msgid "Detecting broken derivatives, saving (%d derivatives checked, %d remaining)"
+msgstr ""
+
+#, c-format
+msgid ""
+"Detecting broken derivatives, saving item %d of %d (%d derivatives complete, %d remaining)"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "Deleting old session files (iteration %d)"
+msgstr "Eski izin tabloları siliniyor"
 
 msgid "add items"
 msgstr "öge ekle"
@@ -304,6 +284,30 @@ msgstr "alt-albüm ekle"
 
 msgid "add items confirmation"
 msgstr "öge ekleme doğrulaması"
+
+msgid "Base filename"
+msgstr "Temel dosyaadı"
+
+msgid "Caption"
+msgstr "Başlık"
+
+msgid "Blank"
+msgstr "Boş"
+
+msgid "From Web Browser"
+msgstr ""
+
+#, c-format
+msgid "%d megabyte"
+msgid_plural "%d megabytes"
+msgstr[0] "%d megabyte"
+msgstr[1] "%d megabyte"
+
+#, c-format
+msgid "%d kilobytes"
+msgid_plural "%d kilobytes"
+msgstr[0] "%d kilobyte"
+msgstr[1] "%d kilobyte"
 
 #, c-format
 msgid "Input file %s exceeds maximum permitted file size"
@@ -321,35 +325,18 @@ msgstr ""
 msgid "Input file %s was not uploaded. Error %d"
 msgstr ""
 
-#, c-format
-msgid "%d megabyte"
-msgid_plural "%d megabytes"
-msgstr[0] "%d megabyte"
-msgstr[1] "%d megabyte"
-
-#, c-format
-msgid "%d kilobytes"
-msgid_plural "%d kilobytes"
-msgstr[0] "%d kilobyte"
-msgstr[1] "%d kilobyte"
-
-msgid "Base filename"
-msgstr "Temel dosyaadı"
-
-msgid "Caption"
-msgstr "Başlık"
-
-msgid "Blank"
-msgstr "Boş"
-
-msgid "From Web Browser"
-msgstr ""
-
 msgid "Gallery Item Administration"
 msgstr "Galeri Öge Yönetimi"
 
 msgid "delete an item"
 msgstr "öge sil"
+
+msgid "delete confirmation"
+msgstr "doğrulamayı sil"
+
+#, c-format
+msgid "delete %s"
+msgstr "%s sil"
 
 #, c-format
 msgid "edit %s"
@@ -366,10 +353,6 @@ msgstr "Tema ayarları iade edildi"
 msgid "Preparing..."
 msgstr "işleniyor..."
 
-#, c-format
-msgid "Processing image %d of %d"
-msgstr "Resim işleniyor %d / %d"
-
 msgid "Apply thumbnail settings"
 msgstr ""
 
@@ -378,6 +361,10 @@ msgstr "Filigranlar yeniden yaratılıyor..."
 
 msgid "Album"
 msgstr "Albüm"
+
+#, c-format
+msgid "Processing image %d of %d"
+msgstr "Resim işleniyor %d / %d"
 
 msgid "Changes saved successfully"
 msgstr "Değişiklikler başarıyla kaydedildi."
@@ -520,10 +507,6 @@ msgstr "Fotoyu Düzenle"
 msgid "Edit Movie"
 msgstr "Filmi Düzenle"
 
-#, c-format
-msgid "Edit %s"
-msgstr "%s Düzenle"
-
 msgid "Add Album"
 msgstr "Albüm Ekle"
 
@@ -542,10 +525,6 @@ msgstr "Foto Sil"
 msgid "Delete Movie"
 msgstr "Film Sil"
 
-#, c-format
-msgid "Delete %s"
-msgstr "%s Sil"
-
 msgid "Move Album"
 msgstr "Albüm Taşı"
 
@@ -555,10 +534,6 @@ msgstr "Foto Taşı"
 msgid "Move Movie"
 msgstr "Film Taşı"
 
-#, c-format
-msgid "Move %s"
-msgstr "%s Taşı"
-
 msgid "Edit Captions"
 msgstr "Başlık Düzenle"
 
@@ -567,9 +542,6 @@ msgstr "Öngösterim Yap"
 
 msgid "Reorder Items"
 msgstr "Ögeleri Yeniden Sırala"
-
-msgid "Delete Items"
-msgstr "Ögeleri Sil"
 
 msgid "Site Admin"
 msgstr "Site Yöneticisi"
@@ -595,9 +567,6 @@ msgstr "Gruplar"
 msgid "Performance"
 msgstr "Performans"
 
-msgid "Event Logs"
-msgstr ""
-
 msgid "Toolkit Priority"
 msgstr "Araç Önceliği"
 
@@ -609,6 +578,18 @@ msgstr "Hesap Ayarları"
 
 msgid "Change Password"
 msgstr "Şifre Değiştir"
+
+#, c-format
+msgid "Edit %s"
+msgstr "%s Düzenle"
+
+#, c-format
+msgid "Delete %s"
+msgstr "%s Sil"
+
+#, c-format
+msgid "Move %s"
+msgstr "%s Taşı"
 
 #, fuzzy
 msgid "Build all thumbnails/resizes"
@@ -623,6 +604,9 @@ msgstr ""
 msgid "Build All Thumbnails/Resizes"
 msgstr "Thumbnails"
 
+msgid "Debug output for failed items:"
+msgstr ""
+
 #, fuzzy, c-format
 msgid "Checked %d items"
 msgstr "add item"
@@ -633,9 +617,6 @@ msgstr "%d öge yapılandırıldı"
 
 #, c-format
 msgid "%d items failed"
-msgstr ""
-
-msgid "Debug output for failed items:"
 msgstr ""
 
 msgid "Convert MySQL database to UTF8"
@@ -654,28 +635,6 @@ msgid "Database successfully converted to UTF8"
 msgstr "Öge başarıyla silindi"
 
 msgid "No conversion required"
-msgstr ""
-
-#, fuzzy
-msgid "Backup the database"
-msgstr "Veritabanı optimizasyonu"
-
-msgid ""
-"Backup all your Gallery data (item data, users, comments, etc.) to a single file in your "
-"storage folder.  The backup does not include the image files.  Before running the backup, "
-"your Gallery installation needs to be set into maintenance mode, as this is not done "
-"automatically."
-msgstr ""
-
-msgid "Backing up Gallery Database"
-msgstr ""
-
-#, fuzzy
-msgid "Exporting..."
-msgstr "işleniyor..."
-
-#, c-format
-msgid "Database backup completed and the backup file is located at: %s"
 msgstr ""
 
 msgid "Delete user sessions"
@@ -712,8 +671,8 @@ msgstr "Template önbelleğini sil"
 msgid ""
 "Gallery compiles template files and saves them for increased performance.  If you're "
 "experiencing problems that say <i>Smarty error</i> then you might try running this task.  "
-"Also run this if you add or remove any local/*.tpl or theme override so Smarty will find the "
-"right file."
+"Also run this if you remove a local/*.tpl file so Smarty will switch back to the default tpl "
+"file."
 msgstr ""
 
 msgid "Template cache deleted successfully"
@@ -855,10 +814,6 @@ msgstr "Artan"
 msgid "Descending"
 msgstr "Azalan"
 
-#, c-format
-msgid "Powered by Gallery v%s"
-msgstr ""
-
 msgid "Validation disabled until you set allowSessionAccess in config.php"
 msgstr ""
 
@@ -867,6 +822,13 @@ msgstr ""
 
 msgid "Donate to the Gallery project"
 msgstr "Galeri Projesine Bağış Yap"
+
+msgid "G2.2: Double Double"
+msgstr ""
+
+#, c-format
+msgid "Powered by Gallery v%s"
+msgstr ""
 
 #, c-format
 msgid "Estimated time remaining: %d:%02d"
@@ -976,12 +938,12 @@ msgstr "hesapçizelgesi"
 msgid "file"
 msgstr "Dosya"
 
+msgid "Back"
+msgstr "Geri"
+
 #, c-format
 msgid "Back to %s"
 msgstr "Geri Dön %s"
-
-msgid "Back"
-msgstr "Geri"
 
 msgid "User"
 msgstr "Kullanıcı"
@@ -1046,10 +1008,6 @@ msgstr "çekirdek"
 msgid "unknown"
 msgstr "bilinmeyen"
 
-#, c-format
-msgid "API = Core %s, Module %s, Theme %s, Embed %s"
-msgstr ""
-
 msgid "Gallery version"
 msgstr "Galeri Versiyonu"
 
@@ -1090,65 +1048,6 @@ msgstr "Tarayıcı"
 
 #, c-format
 msgid "Rows in %s table = %d"
-msgstr ""
-
-#, c-format
-msgid "The %s \"%s\" is not installed and will not be backed up."
-msgstr ""
-
-#, c-format
-msgid "\"%s\" has no creation sql and will not be backed up."
-msgstr ""
-
-#, c-format
-msgid "Unable to load table description for \"%s\", no data will be exported."
-msgstr ""
-
-msgid ""
-"Unable to find the XML parser.  The PHP XML parsing extension must be loaded.  Terminating "
-"database import."
-msgstr ""
-
-#, c-format
-msgid "The exported file is not the correct version. Expecting %s recieved %s."
-msgstr ""
-
-#, fuzzy, c-format
-msgid "Unable to close import file: %s"
-msgstr "Klasör silinmiyor: %s"
-
-#, fuzzy, c-format
-msgid "Unable to open import file: %s"
-msgstr "Klasör silinmiyor: %s"
-
-#, c-format
-msgid "Import file doesn't exist: %s"
-msgstr ""
-
-#, c-format
-msgid "Plugin %s is not currently available."
-msgstr ""
-
-#, c-format
-msgid "The available version of plugin \"%s\" may not be compatible with the imported version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The currently installed core API version required by \"%s\" may not be compatible with the "
-"imported version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The installed module API version required by \"%s\" may not be compatible with the imported "
-"version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The installed theme API version required by \"%s\" is not compatible with the imported "
-"version."
 msgstr ""
 
 msgid "Successfully saved theme settings"
@@ -1617,46 +1516,6 @@ msgid_plural "%d failed login attempts since the last successful login."
 msgstr[0] ""
 msgstr[1] ""
 
-msgid "Recent Events"
-msgstr ""
-
-msgid "Type"
-msgstr ""
-
-#, fuzzy
-msgid "Location"
-msgstr "Hareket"
-
-#, fuzzy
-msgid "Client"
-msgstr "liste"
-
-msgid "No events have been reported yet."
-msgstr ""
-
-#, fuzzy
-msgid "Event Details"
-msgstr "Hata Detayı"
-
-#, fuzzy
-msgid "User Id"
-msgstr "Kullanıcı"
-
-#, fuzzy
-msgid "Referer"
-msgstr "Yeniden Sırala"
-
-#, fuzzy
-msgid "Details"
-msgstr "Varsayılanlar"
-
-#, fuzzy
-msgid "no summary"
-msgstr "Özet"
-
-msgid "An error occurred while retrieving the event log entry details."
-msgstr ""
-
 msgid "Group Management"
 msgstr "Grup Yönetimi"
 
@@ -1721,9 +1580,6 @@ msgstr[1] ""
 msgid "System Maintenance"
 msgstr "Sistem Bakımı"
 
-msgid "Gallery must be in maintenance mode before the task can be run."
-msgstr ""
-
 #, c-format
 msgid "Completed %s task successfully."
 msgstr "Görev %s başarıyla tamamlandı."
@@ -1731,41 +1587,6 @@ msgstr "Görev %s başarıyla tamamlandı."
 #, fuzzy, c-format
 msgid "The %s task failed to complete successfully."
 msgstr "User '%s' has been modified successfully."
-
-msgid "Maintenance Mode has been turned on."
-msgstr ""
-
-msgid "Maintenance Mode has been turned off."
-msgstr ""
-
-#, fuzzy
-msgid "Maintenance Mode"
-msgstr "Bakım"
-
-msgid "Restrict user access to the system while maintenance is being performed."
-msgstr ""
-
-#, fuzzy
-msgid "Maintenance Mode Url"
-msgstr "Bakım"
-
-msgid ""
-"The Maintenance Mode Url specifies where requests will be redirected when access to the site "
-"has been restricted by the administrator."
-msgstr ""
-
-msgid ""
-"If left blank Gallery will display a default page with an administrator login link. This "
-"page will be themed when the code base is up to date, otherwise it will display a plain "
-"unstyled page."
-msgstr ""
-
-msgid "For example: /maintenance.html"
-msgstr ""
-
-#, fuzzy
-msgid "Set"
-msgstr "Ayarlar"
 
 msgid "Task name"
 msgstr "Görev adı"
@@ -1851,21 +1672,6 @@ msgstr "Ziyaretçi Kullanıcılar"
 
 msgid "Expires after:"
 msgstr ""
-
-#, fuzzy
-msgid "Template Cache"
-msgstr "Template önbelleğini sil"
-
-#, c-format
-msgid ""
-"For optimal performance, Gallery caches all templates.  If you would like to %scustomize "
-"your template files%s, you should disable template caching temporarily so that changes take "
-"effect immediately without clearing the template cache."
-msgstr ""
-
-#, fuzzy
-msgid "Enable template caching"
-msgstr "Template önbelleğini sil"
 
 msgid "Clear Saved Pages"
 msgstr ""
@@ -2043,19 +1849,9 @@ msgid ""
 msgstr ""
 
 #, c-format
-msgid "Failed to download the following packages for the %s plugin:"
-msgstr ""
-
-#, c-format
 msgid ""
-"Failed to install the %s plugin because the following files/directories could not be "
+"Failed to download the %s plugin because the following files/directories could not be "
 "modified:"
-msgstr ""
-
-#, c-format
-msgid ""
-"Some plugins could not be automatically upgraded because they are in use.  Please return to "
-"the %sPlugins%s page and click the upgrade link for each of the following plugins:"
 msgstr ""
 
 msgid "The repository index has been successfully updated."
@@ -2325,10 +2121,6 @@ msgstr ""
 msgid "New albums"
 msgstr "Yeni albümler"
 
-#, c-format
-msgid "To activate more themes visit the %sPlugins%s page."
-msgstr ""
-
 #, fuzzy
 msgid "Save Defaults"
 msgstr "Varsayılanlar"
@@ -2532,16 +2324,13 @@ msgstr "Hata Detayı"
 msgid "System Information"
 msgstr "Sistem Bilgisi"
 
-msgid "Not all of the specified items have been added successfully."
-msgstr ""
-
 msgid ""
 "You don't have any Graphics Toolkit activated that can handle JPEG images.  If you add "
 "images, you will probably not have any thumbnails."
 msgstr ""
 
 #, c-format
-msgid "Visit the %sModules%s page to activate a Graphics Toolkit."
+msgid "Visit the <a href=\"%s\">Modules</a> page to activate a Graphics Toolkit."
 msgstr ""
 
 msgid "Add Sub-Album"
@@ -2642,6 +2431,9 @@ msgstr "Gallery Site Administration"
 msgid "No Thumbnail"
 msgstr "Thumbnail Yok"
 
+msgid "Delete Items"
+msgstr "Ögeleri Sil"
+
 msgid "No items were selected for deletion"
 msgstr "Silinmesi için hiçbir öge seçilmedi"
 
@@ -2697,13 +2489,24 @@ msgstr "Önceki Sayfa"
 msgid "Next Page"
 msgstr "Sonraki Sayfa"
 
-#, fuzzy, c-format
-msgid "Do you really want to delete %s?"
-msgstr "__PLUGIN__ modülünü gerçekten kaldırmak istiyor musunuz?"
+msgid "Deletion Complete"
+msgstr "Silme İşlemi Tamamlandı"
 
-#, fuzzy
-msgid "Delete more items..."
-msgstr "Ögeleri Sil"
+msgid "Item successfully deleted"
+msgstr "Öge başarıyla silindi"
+
+#, c-format
+msgid "Are you sure you want to delete this %s?"
+msgstr "%s silmek istediğinizden emin misiniz?"
+
+#, c-format
+msgid "It contains %d item."
+msgid_plural "It contains %d items."
+msgstr[0] "%d öge içeriyor."
+msgstr[1] "%d öge içeriyor."
+
+msgid "There is no undo!"
+msgstr "Geri Dönüş Yok!"
 
 msgid "There was a problem processing your request."
 msgstr "İşleminizi gerçekleştirirken bir problem oluştu."
@@ -3092,14 +2895,8 @@ msgstr "Kaynak"
 msgid "Choose the items you want to move"
 msgstr "Taşımak istediğiniz ögeleri seçiniz"
 
-msgid "OK"
-msgstr ""
-
 msgid ""
 "The destination you chose does not accept sub-albums, so all sub-albums have been deselected."
-msgstr ""
-
-msgid "Warning"
 msgstr ""
 
 msgid ""
@@ -3296,12 +3093,10 @@ msgstr ""
 msgid "Enter an image URL"
 msgstr ""
 
-#. HINT: Button label for Bold
-msgid "B"
+msgid "B <!-- Button label for Bold -->"
 msgstr "B"
 
-#. HINT: Button label for italic
-msgid "i"
+msgid "i <!-- Button label for italic -->"
 msgstr "i"
 
 msgid "list"
@@ -3321,7 +3116,7 @@ msgid "color"
 msgstr "çekirdek"
 
 #, c-format
-msgid "You can also use the %scolor name%s for example: %sYour Text%s"
+msgid "You can also use the <a href=\"%s\" target=\"_new\">color name</a> for example: %s"
 msgstr ""
 
 msgid "Configuration Error: Missing Theme"
@@ -3426,14 +3221,17 @@ msgstr ""
 #, c-format
 msgid ""
 "Logins to this account are temporarily disabled due to multiple failed login attempts.  Wait "
-"for access to be restored, or use the %srecover password%s page to re-enable this account."
+"for access to be restored, or use the <a href=\"%s\">recover password</a> page to re-enable "
+"this account."
 msgstr ""
 
 msgid "Your login information is incorrect.  Please try again."
 msgstr "Giriş bilgileriniz yanlış.  Lütfen tekrar deneyiniz."
 
 #, c-format
-msgid "Lost or forgotten passwords can be retrieved using the %srecover password%s page"
+msgid ""
+"Lost or forgotten passwords can be retrieved using the <a href=\"%s\">recover password</a> "
+"page"
 msgstr ""
 
 #, c-format
@@ -3559,13 +3357,13 @@ msgstr ""
 #, c-format
 msgid ""
 "There is no request which matches the username and authorization provided. Request a new "
-"authorization from the %slost password page%s."
+"authorization from the <a href=\"%s\">lost password page</a>"
 msgstr ""
 
 #, c-format
 msgid ""
-"The request you are trying to access has expired.  Request a new authorization from the %"
-"slost password page%s."
+"The request you are trying to access has expired.  Request a new authorization from the <a "
+"href=\"%s\">lost password page</a>."
 msgstr ""
 
 msgid "Authorization missing"
@@ -3650,6 +3448,10 @@ msgid "last"
 msgstr "son"
 
 #, c-format
+msgid "Page %d of %d"
+msgstr "Sayfa %d / %d"
+
+#, c-format
 msgid "%d of %d"
 msgstr "%d / %d"
 
@@ -3695,29 +3497,3 @@ msgstr "Giriş bloğu"
 
 msgid "Links to album/photo peers"
 msgstr ""
-
-#~ msgid "delete confirmation"
-#~ msgstr "doğrulamayı sil"
-
-#~ msgid "delete %s"
-#~ msgstr "%s sil"
-
-#~ msgid "Deletion Complete"
-#~ msgstr "Silme İşlemi Tamamlandı"
-
-#~ msgid "Item successfully deleted"
-#~ msgstr "Öge başarıyla silindi"
-
-#~ msgid "Are you sure you want to delete this %s?"
-#~ msgstr "%s silmek istediğinizden emin misiniz?"
-
-#~ msgid "It contains %d item."
-#~ msgid_plural "It contains %d items."
-#~ msgstr[0] "%d öge içeriyor."
-#~ msgstr[1] "%d öge içeriyor."
-
-#~ msgid "There is no undo!"
-#~ msgstr "Geri Dönüş Yok!"
-
-#~ msgid "key"
-#~ msgstr "anahtar"

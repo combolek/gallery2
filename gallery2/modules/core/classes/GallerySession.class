@@ -173,7 +173,7 @@ class GallerySession {
 
     /**
      * Either create a new session, or attach to an existing one.
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function init() {
 	global $gallery;
@@ -277,7 +277,7 @@ class GallerySession {
 
     /**
      * Start session by ensuring we've got a valid, unique sessionId and send cookie if necessary.
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function start() {
 	if (!$this->_isPersistentSessionAllowedForRequest() && !$this->_forceSaveSession) {
@@ -329,11 +329,9 @@ class GallerySession {
     /**
      * Save any session changes to the store.  Does not save sessions that don't have a sessionId
      * yet.  Triggers the expiration of existing persistent sessions in 2% of all calls.
-     * @param boolean $useNonTransactionalConnection (optional) set to true if we should save this
-     *                session outside of any existing transaction.
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
-    function save($useNonTransactionalConnection=false) {
+    function save() {
 	global $gallery;
 	$phpVm = $gallery->getPhpVm();
 	$dieRoll = $phpVm->rand(1, 100);
@@ -352,29 +350,28 @@ class GallerySession {
 		    $ret = $this->_acquireNewPersistentSession();
 		} else {
 		    $this->_modificationTime = $phpVm->time();
-		    $ret = GalleryCoreApi::updateMapEntry(
-			'GallerySessionMap',
-			array('id' => $this->_sessionId),
-			array('userId' => $this->_userId,
-			      'remoteIdentifier' => serialize($this->_remoteIdentifier),
-			      'creationTimestamp' => $this->_creationTime,
-			      'modificationTimestamp' => $this->_modificationTime,
-			      'data' => serialize($this->_sessionData)),
-			$useNonTransactionalConnection);
+		    $ret = GalleryCoreApi::updateMapEntry('GallerySessionMap',
+			array('id' => $this->_sessionId), array('userId' => $this->_userId,
+			'remoteIdentifier' => serialize($this->_remoteIdentifier),
+			'creationTimestamp' => $this->_creationTime,
+			'modificationTimestamp' => $this->_modificationTime,
+			'data' => serialize($this->_sessionData)));
 		}
 		if ($ret) {
 		    return $ret;
 		}
 		$this->_isSessionSaved = true;
 	    } else if (!$this->_isSessionSaved) {
-		/* Update the session modification timestamp 5% of the time to avoid expiration. */
+		/*
+		 * 5% of the time touch the session file so that it doesn't get expired.  We can't
+		 * count on the atime being set, since you can disable that on some operating
+		 * systems to get performance gains.
+		 */
 		if ($dieRoll <= 5) {
 		    $this->_modificationTime = $phpVm->time();
-		    $ret = GalleryCoreApi::updateMapEntry(
-			'GallerySessionMap',
+		    $ret = GalleryCoreApi::updateMapEntry('GallerySessionMap',
 			array('id' => $this->_sessionId),
-			array('modificationTimestamp' => $this->_modificationTime),
-			$useNonTransactionalConnection);
+			array('modificationTimestamp' => $this->_modificationTime));
 		    if ($ret) {
 			return $ret;
 		    }
@@ -401,7 +398,7 @@ class GallerySession {
      * Set a new/unused sessionid.
      * @param boolean $emptyRemoteId (optional) if true don't initialize remoteIdentifier
      * @param int $userId (optional) user for session, defaults to anonymous
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function initEmpty($emptyRemoteId=false, $userId=null) {
 	$this->_emptySessionData();
@@ -430,7 +427,7 @@ class GallerySession {
 
     /**
      * Clean/remove and reinitialize a session.
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function reset() {
 	global $gallery;
@@ -468,7 +465,7 @@ class GallerySession {
 
     /**
      * Regenerate the session id to prevent a session fixation attack by a hostile website.
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function regenerate() {
 	/* Store the current session data */
@@ -522,7 +519,7 @@ class GallerySession {
     /**
      * Send back a cookie to the browser.
      * @param boolean $delete (optional) whether to delete the cookie
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      * @access private
      */
     function _setCookie($delete=false) {
@@ -655,7 +652,7 @@ class GallerySession {
 
     /**
      * Acquire a new persistent session and guarantee we've got a valid, unqiue sessionId.
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function _acquireNewPersistentSession() {
 	global $gallery;
@@ -682,7 +679,7 @@ class GallerySession {
 	    }
 	    $this->_sessionId = $data['id'] = GalleryUtilities::strToLower($this->_sessionId);
 
-	    $ret = @GalleryCoreApi::addMapEntry('GallerySessionMap', $data, true);
+	    $ret = @GalleryCoreApi::addMapEntry('GallerySessionMap', $data);
 	    if ($ret) {
 		if (!($ret->getErrorCode() & ERROR_STORAGE_FAILURE)) {
 		    /* No luck after x attempts, give up, stop hitting the server with DB queries */
@@ -690,6 +687,14 @@ class GallerySession {
 		}
 	    } else {
 		$success = true;
+	    }
+	    /*
+	     * Make sure the session exists before other requests (DownloadItem, printing shops,
+	     * ...) arrive that rely on it
+	     */
+	    $ret = $storage->checkPoint();
+	    if ($ret) {
+		return $ret;
 	    }
 	} while (!$success && $attempt++ < 4);
 
@@ -715,7 +720,7 @@ class GallerySession {
      * the session based permission cache and the navigation isn't regarded important enough to
      * create a session.
      *
-     * @return array GalleryStatus a status code, boolean session is necessary
+     * @return array object GalleryStatus a status code, boolean session is necessary
      * @access private
      */
     function _isPersistentSessionRequired() {
@@ -814,7 +819,7 @@ class GallerySession {
     /**
      * Load the session data or generate a new session with new data.  Also sets
      * $this->_isPersistent to true if loaded from persistent store.
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      * @access private
      */
     function _loadSessionData() {
@@ -845,17 +850,14 @@ class GallerySession {
 		      'modificationTimestamp', 'data'),
 		array('id' => $this->_sessionId));
 	    if ($ret) {
-		/*
-		 * Before upgrading to 1.2.18, describeMap() (used by getMapEntry) doesn't work
-		 * yet.  And before 1.0.22, there was no SessionMap table yet.
-		 */
+		/* When upgrading from versions before 1.0.22, there's no DB table yet */
 		list ($ret2, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 		if ($ret2) {
 		    return $ret;
 		}
 		$instVersions = $module->getInstalledVersions();
-		if (!empty($instVersions['core'])
-			&& version_compare($instVersions['core'], '1.2.18', '<')) {
+		if (!empty($instVersions['core']) &&
+			version_compare($instVersions['core'], '1.0.22', '<')) {
 		    $this->_emptySessionData();
 		    return null;
 		}
@@ -1022,7 +1024,7 @@ class GallerySession {
     /**
      * Get rid of any sessions that have not been accessed within our inactivity timeout or have
      * exceeded the max lifetime.
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      * @access private
      */
     function _expireSessions() {
@@ -1164,8 +1166,8 @@ class GallerySession {
      * By default, don't set the cookie domain.  Only set it, if Gallery is configured to set it
      * (eg. because it is a) embedded AND b) different subdomains are involved)
      *
-     * @return array GalleryStatus a status code,
-     *               string the cookie domain, or '' if no cookie domain should be set
+     * @return array (object GalleryStatus a status code,
+     *                string the cookie domain, or '' if no cookie domain should be set)
      */
     function getCookieDomain() {
 	if (!isset($this->_cookieDomain)) {
@@ -1514,7 +1516,7 @@ class SessionAuthPlugin /* extends GalleryAuthPlugin */ {
 
 	$userId = $session->getUserId();
 	if (!empty($userId)) {
-	    list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
+	    list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId);
 
 	    /* ERROR_MISSING_OBJECT check to suppress error if user id doesn't exist */
 	    if ($ret && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {

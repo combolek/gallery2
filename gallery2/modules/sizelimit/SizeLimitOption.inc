@@ -210,8 +210,8 @@ class SizeLimitOption extends ItemEditOption {
      * Apply current settings to all qualified subitems
      *
      * @param array $form of form variables
-     * @param GalleryAlbumItem $album to apply settings
-     * @return array GalleryStatus a status code
+     * @param object GalleryAlbumItem $album to apply settings
+     * @return array object GalleryStatus a status code
      *               array errors, array warnings
      * @access private
      */
@@ -258,7 +258,7 @@ class SizeLimitOption extends ItemEditOption {
 	    $chunk = array_splice($descendentIds, 0, $chunkSize);
 	    $gallery->guaranteeTimeLimit(60);
 
-	    list ($ret, $descendents) = GalleryCoreApi::loadEntitiesById($chunk, 'GalleryItem');
+	    list ($ret, $descendents) = GalleryCoreApi::loadEntitiesById($chunk);
 	    if ($ret) {
 		return array($ret, null, null);
 	    }
