@@ -17,11 +17,51 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 import flash.net.FileReference;
+import flash.filters.*;
 import mx.transitions.Tween;
 import mx.transitions.easing.*;
-import flash.filters.*;
+import flash.geom.*
 
-// set some defaults
+// set some defaults for external vars
+if(share == undefined || share == "false"){
+	var share = false;
+}else if(share == "true"){
+	var share = true;
+}
+if(allowDownload == undefined || allowDownload == "false"){
+	var allowDownload = false;
+}else if(allowDownload == "true"){
+	var allowDownload = true;
+}
+if(hideVisuals == undefined || hideVisuals == "false"){
+	var hideVisuals = false;
+}else if(hideVisuals == "true"){
+	var hideVisuals = true;
+}
+if(langDownload == undefined) {
+	var langDownload:String = "Download";
+}
+if(langShare == undefined) {
+	var langShare:String = "Share";
+}
+if(langPlay == undefined) {
+	var langPlay:String = "Play";
+}
+if(langPause == undefined) {
+	var langPause:String = "Pause";
+}
+if(langForward == undefined) {
+	var langForward:String = "Forward";
+}
+if(langRewind == undefined) {
+	var langRewind:String = "Rewind";
+}
+if(langMute == undefined) {
+	var langMute:String = "Mute";
+}
+if(langUnmute == undefined) {
+	var langUnmute:String = "Unmute";
+}
 if(langGenre == undefined){
 	var langGenre = "Genre";
 }
@@ -40,215 +80,224 @@ if(langYear == undefined){
 if(langTrack == undefined){
 	var langTrack = "Track";
 }
-if(langDownload == undefined) {
-	var langDownload:String = "Download";
-}
 if(langInfo == undefined) {
 	var langInfo:String = "Info";
 }
-
-if(allowDl == undefined){
-	var allowDl = "true";
+if(color1 == undefined){
+	var color1 = "0x999999";
 }
-if(allowDl == "true"){
-	cBar.dlIcon._visible = true;
-} else {
-	cBar.dlIcon._visible = false;
+if(color2 == undefined){
+	var color2 = "0x333333";
+}
+if(color3 == undefined){
+	var color3 = "0xCCCCCC";
+}
+if(color4 == undefined){
+	var color4 = "0x000000";
 }
 
-// Get setup for resize
-var home:MovieClip = this;  // here we are basically renaming _root timeline to home so we can refer to it even if we have loaded this movie dynamically into another swf - avoids _root confusion.
-var vein:MovieClip;
-var souLoaded:Boolean;
-var currentPlayTime:Number = 0;
+var home:MovieClip = this;
+AsBroadcaster.initialize( home );
+var queue:Object;
+var souLoaded:Boolean = false;
 var curVol:Number = 75;
-var que:Object = new Object;  // object to hold all our entity's data
-var w:Number = 480;
-var h:Number = 160;
-var ds:Number = 15.5;  // padding for dropshadow
-var swidth:Number;  // scrubber width
-var pstart:Number;  // scrubber startx
+var theWidth:Number = 480;
+var theHeight:Number = 160;
+var newWidth:Number;
+var newHeight:Number;
+var maxHeight:Number = System.capabilities.screenResolutionY - 70;  // max height
+var maxWidth:Number = System.capabilities.screenResolutionX - 16;  // max width
+var swidth:Number;  // cBar.scrubber width
+var pstart:Number;  // cBar.scrubber startx
+var loadInt;
 var isPlaying:Boolean = false;
-var inPlay:Boolean = false;
-var id3Count:Number = 0; // id3 gets sent twice at the beginning and end so we only allow the first to be displayed.
 var plf1:GlowFilter = new GlowFilter(0xD0D0D0,100,5,5,3,3,false,false);
 var plf2:GlowFilter = new GlowFilter(0x3399FF,100,5,5,3,3,false,false);
+var buttonArray:Array = new Array();
+if(useDropShadow){
+	var dsf:DropShadowFilter = new DropShadowFilter(5, 45, 0x000000, .6, 8, 8, 2, 3);
+	var padding:Number = 8;// padding for dropshadow
+}else{
+	var dsf:DropShadowFilter = new DropShadowFilter(5, 45, 0x000000, .6, 8, 8, 2, 3, false, false, false);
+	var padding:Number = 0;// here we leave no padding, but still need the drop to keep the color true
+}
+var bevel:BevelFilter = new BevelFilter(3, 45, 0xFFFFFF, 50, 0x000000, 50, 3, 3, 1, 1, "inner", false);
+var bev:BevelFilter = new BevelFilter(1, 45, 0xFFFFFF, 50, 0x000000, 50, 2, 2, 1, 1, "inner", true);
+var theX:Number = 0; // our starting x
+var theY:Number = 0; // our starting y
 var myFileReference:FileReference = new FileReference();
 _soundbuftime = 0;
 var sou:Sound = new Sound();
 
+//get the center of an object
+var centerX = function(obj:MovieClip):Number{
+	return obj._width/2;
+};
+var centerY = function(obj:MovieClip):Number{
+	return obj._height/2;
+};
+var totalHeight = function():Number { 
+	return theHeight + 20 + cBarBack._height;
+};
+var totalWidth = function():Number {
+	return 8 + theWidth + 8;
+};
+
+// first lets attach/create all of our components
+var playerBack = home.attachMovie("playerBack","playerBack", 2);
+var cBarBack = home.attachMovie("cBarBack","cBarBack", 3);
+var cBar = home.attachMovie("cBar","cBar", 4);
+var display_txt = home.attachMovie("infoDisplay","display_txt", 7);
+var bigPlay = home.attachMovie("bigPlay","bigPlay", 8);
+
+
 Stage.align = "TL";
 Stage.scaleMode = "noScale";
-
-home.tooltip._visible = false;
+Stage.addListener(home);
 bigPlay._visible = true;
-cBar.pauser._visible = false;
-scrubber._x = ds;
-pl._width = 0;
 display_txt._alpha = 0;
-resizeAll();
-
-MP3 = function(title, earl, thumbUrl) {
-	this.title = title;
-	this.earl = mp3Url;
-	this.thumbUrl = thumbUrl;
-};
-home["mp3"] = new MP3(title, mp3Url, thumbUrl);
-
-que = home["mp3"];
+cBar.pauser._visible = false;
+cBar.scrubber._x = 0;
+cBar.pl._width = 0;
+swidth = totalWidth() - cBar.scrubber._width;
+cBar.scrubberBar._width = totalWidth();
+cBar.scrubberBar._x = 0;
+cBar.scrubberBar._y = 0;
+cBar.pl._y = cBar.scrubberBar._y;
+cBar.scrubber._y = cBar.scrubberBar._y - (cBar.scrubber._height/2);
+bigPlay._x = (padding + 6) + theWidth/2;
+bigPlay._y = (padding + 6) + theHeight/2;
 
 function saveIt() {
 	var ext:String;
-	strPos = que.title.lastIndexOf(".");
-	strExt = que.title.substring(strPos,que.title.length);
+	strPos = queue.title.lastIndexOf(".");
+	strExt = queue.title.substring(strPos,queue.title.length);
 	if(strExt == ".mp3"){
 		ext = "";
 	} else {
 		ext = ".mp3"
 	}
-	myFileReference.download(que.earl, que.title + ext);
+	myFileReference.download(queue.earl, queue.title + ext);
 };
 
-function resizeAll() {
-	playerBack._height = h + 20;
-	cBarBack._height = 70;
-	tH = playerBack._height + cBarBack._height;
-	tW = 8 + w + 8;
-	playerBack._width = tW;
-	playerBack._x = ds;
-	playerBack._y = ds;
-	Shadow._width = tW;
-	Shadow._height = tH + 2;
-	Shadow._x = ds;
-	Shadow._y = ds;
-	cBarBack._width = tW;
-	cBarBack._yscale = 100;
-	cBarBack._x = ds;
-	cBarBack._y = playerBack._y + playerBack._height;
-	playerMask._width = tW;
-	playerMask._height = tH;
-	playerMask._x = ds;
-	playerMask._y = ds;
-	theVideo._width = w;
-	theVideo._height = h;
-	theVideo._x = ds + 8;
-	theVideo._y = ds + 8;
-	display_txt._x = ds + 8;
-	display_txt._x = ds + 8;
-	previewLoader.scaleContent = true;
-	previewLoader.setSize(Math.round(160/(h/w)),160);
-	previewLoader._x = ds + 8 + w/2 - (previewLoader.width/2);
-	previewLoader._y = ds + 9;
-	vFrame._width = w + 6;
-	vFrame._height = h + 6;
-	vFrame._x = ds + 6;
-	vFrame._y = ds + 6;
-	vMask._width = w + 6;
-	vMask._height = h + 6;
-	vMask._x = ds + 6;
-	vMask._y = ds + 6;
-	cBar._width = 490;
-	cBar._yscale = 100;
-	cBar._x = ds;
-	cBar._y = playerBack._y + playerBack._height;
-	scrubberBar._width = tW;
-	scrubberBar._yscale = 100;
-	scrubberBar._x = ds;
-	scrubberBar._y = theVideo._y + theVideo._height + 8;
-	pl._y = scrubberBar._y;
-	pl._x = ds;
-	pl._yscale = 100;
-	scrubberMask._x = ds;
-	scrubberMask._y = scrubberBar._y;
-	scrubberMask._width = tW;
-	scrubberMask._yscale = 100;
-	scrubber._xscale = 100;
-	scrubber._yscale = 100;
-	scrubber._y = scrubberBar._y - (scrubber._height/2);
-	bigPlay._x = ds + 13 + w/2;
-	bigPlay._y = ds + 8 + h/2;
-}; //whew! end resizeAll
+var Mp3 = function(title, earl, thumbUrl) {
+	this.title = title;
+	this.earl = earl;
+	this.ratio = Math.floor(height)/Math.floor(width);
+	this.thumbUrl = thumbUrl;
+	this.width = 480;
+	this.height = 160;
+	this.minimize = function(){
+		theVideo._width = this.width;
+		theVideo._height = this.height;
+	}
+	this.maximize = function(){
+		if(this.height > this.width){
+			theVideo._height = maxHeight;
+			theVideo._width = maxHeight/this.ratio;
+		}else{
+			theVideo._width = maxWidth;
+			theVideo._height = maxWidth * this.ratio;
+		}
+	}
+};
 
-//======================================================
-//===================preview image=======================
-//======================================================
+queue = new Mp3(title, mp3Url, thumbUrl);
 
-var tw0:Tween = new Tween(previewLoader,"_alpha",Strong.easeOut,0,100,3,true);
-previewLoader.contentPath = que.thumbUrl;
-cBar.VideoXMLDescription.text = que.title;
-
+cBar.VideoXMLDescription.text = queue.title;
+cBar.Time.TimeCounter.text = "0:00:00/0:00:00";
+var previewLoader = new thumbLoader(queue.thumbUrl);
+previewLoader.doLoad();
 //==========================================================
 //====================VIDEO CONTROLS======================
 //==========================================================
-bigPlay.onRelease = function() {
+bigPlay.onRelease = function():Void {
 	playIt();
 };
 
 function playIt() {
-	pl._width = 0;
+	cBar.pl._width = 0;
 	isPlaying = true;
-	inPlay = true;
-	home.onEnterFrame = updater;
-	var tw1:Tween = new Tween(previewLoader,"_x",Strong.easeOut,previewLoader._x,previewLoader._x + 160,4,true);
-	togglePlayPause();
-	cBar.VideoXMLDescription.text = que.title;
-	bigPlay._visible = false;
+	display_txt.infoText.text = "";
 	playMp3();
-	
+	loadInt = setInterval(loadFunction,50);
+	var tw1:Tween = new Tween(home["holder"],"_x",Strong.easeOut,home["holder"]._x,theX + theWidth - 160,4,true);
+	home.onEnterFrame = updater;
+	bigPlay._visible = false;
+	togglePlayPause();
+	if(infoDisplay._visible){
+		infoDisplay._visible = false;
+	}
 };
 
-swidth = tW;
-pstart = scrubber._x;
+swidth = totalWidth() - cBar.scrubber._width;
+pstart = cBar.scrubber._x;
 
 var dur:Number;
 var pos:Number;
-var prog:Number;
 
 function checkDigits(toCheck) {
 	return (toCheck < 10) ? toCheck = "0" + toCheck : toCheck; 
 };
 
-var loadInt = setInterval(loadFunction,50);
 
 function loadFunction() {
-	var swidthx:Number = tW;
+	var swidthx:Number = totalWidth();
 	var lprog = sou.getBytesLoaded() / sou.getBytesTotal();
-	if(pl._width <= swidthx - 5) {
-		pl.filters = [plf1];
-		pl._visible = true;
-		pl.perload.text = Math.round(lprog * 100) + "%";
-		pl._width = swidthx * lprog;
+	if(cBar.pl._width < swidthx) {
+		cBar.pl.filters = [plf1];
+		cBar.pl._visible = true;
+		cBar.pl.perload.text = Math.round(lprog * 100) + "%";
+		cBar.pl._width = swidthx * lprog;
 	} else {
-		pl._width = swidthx;
-		pl.filters = [plf2];
-		var tw:Tween = new Tween(pl,"_alpha",Strong.easeOut,100,100,1,true);
+		cBar.pl._width = swidthx;
+		cBar.pl.filters = [plf2];
+		var tw:Tween = new Tween(cBar.pl,"_alpha",Strong.easeOut,100,100,1,true);
 		tw.onMotionStopped = function() {
-			pl._visible = false;
+			cBar.pl._visible = false;
 		}
 		clearInterval(loadInt);
 	}		
 };
 
+
 function updater() {
-	if(isPlaying){
-		vein._visible = true;
-	} else {
-		vein._visible = false;
-	}
 	mp3Time();
-	swidth = tW - scrubber._width;
-	prog = pos / dur;
-	scrubber._x = pstart + (swidth * prog);
+	if(souLoaded && pos >= dur){
+		reset();
+	}
+	var prog = pos / dur;
+	cBar.scrubber._x = pstart + (swidth * prog);		
+};
+
+cBar.player.onRollOver = function() {
+	this._alpha = 50;
+	showInfo(langPlay);
+};
+
+cBar.player.onRollOut = function() {
+	this._alpha = 100;
+	removeInfo();
 };
 
 cBar.player.onRelease = function() {
-	if(inPlay == false){
+	if(!isPlaying){
 		playIt();
 	} else {
-		sou.start(currentPlayTime, 0);
 		isPlaying = true;
+		sou.start(currentPlayTime, 0);
 		togglePlayPause();
-	}
+	}	
+};
+
+cBar.pauser.onRollOver = function() {
+	this._alpha = 50;
+	showInfo(langPause);
+};
+
+cBar.pauser.onRollOut = function() {
+	this._alpha = 100;
+	removeInfo();
 };
 
 cBar.pauser.onRelease = function() {
@@ -259,86 +308,117 @@ cBar.pauser.onRelease = function() {
 };
 
 function togglePlayPause() {
-	if(isPlaying == false) {
+	if(!isPlaying) {
 		cBar.player._visible = true;
 		cBar.pauser._visible = false;
 	} else {
+		previewLoader._visible = false;
 		cBar.player._visible = false;
 		cBar.pauser._visible = true;
 	}
 };
 
+cBar.rewinder.onRollOver = function() {
+	this._alpha = 50;
+	showInfo(langRewind);
+};
+
+cBar.rewinder.onRollOut = function() {
+	this._alpha = 100;
+	removeInfo();
+};
+
 var rewInt;
+var scrubTime;
 
 cBar.rewinder.onPress = function() {
-	rewInt = currentPlayTime - 5;
-	sou.stop();
+	scrubTime = currentPlayTime;
+	rewInt = setInterval(rewind,200);
 };
 
 cBar.rewinder.onRelease = cBar.rewinder.onReleaseOutside = function() {
-	sou.start(rewInt);
-	playerStop = false;
+	clearInterval(rewInt);
 };
 
+function rewind() {
+	scrubTime -= 5;
+	if(scrubTime <=0) {
+		clearInterval(rewInt);
+	}
+	sou.start(scrubTime, 0);
+};
+
+cBar.fforwarder.onRollOver = function() {
+	this._alpha = 50;
+	showInfo(langForward);
+};
+
+cBar.fforwarder.onRollOut = function() {
+	this._alpha = 100;
+	removeInfo();
+};
 
 var ffInt;
 
 cBar.fforwarder.onPress = function() {
-	ffInt = currentPlayTime + 5;
-	sou.stop();
+	scrubTime = currentPlayTime;
+	ffInt = setInterval(forward,200);
 };
 
 cBar.fforwarder.onRelease = cBar.fforwarder.onReleaseOutside = function() {
-	sou.start(ffInt);
-	playerStop = false;
+	clearInterval(ffInt);
 };
 
+function forward() {
+	scrubTime += 5;
+	if(scrubTime >= dur) {
+		clearInterval(ffInt);
+	}
+	sou.start(scrubTime, 0);
+};
 
-scrubber.onPress = function() {
+cBar.scrubber.onPress = function() {
 	currentPlayTime = int(sou.position);
 	sou.stop();
 	home.onEnterFrame = scrubba;
-	scrubber.startDrag(false,pstart,scrubberBar._y - (scrubber._height/2),(pstart + swidth),scrubberBar._y - (scrubber._height/2));		
+	this.startDrag(false,pstart,this._y,(pstart + swidth),this._y);
 };
 
-scrubber.onRelease = scrubber.onReleaseOutside = function() {
+cBar.scrubber.onRelease = cBar.scrubber.onReleaseOutside = function() {
     home.onEnterFrame = updater;
 	if(isPlaying == true){
 		sou.start(currentPlayTime, 0);
 	}
-	scrubber.stopDrag();
+	this.stopDrag();
 	removeTip();
 };
 
-scrubber.onRollOver = function() {
-	showTip("0:00");
+cBar.scrubber.onRollOver = function() {
+	showTip("0:00:00");
 	timeUpdater();
 };
 
-scrubber.onRollOut = function() {
+cBar.scrubber.onRollOut = function() {
 	clearInterval(time_interval);
 	removeTip();
 };
 
 function scrubba() {
-	var p = (scrubber._x - pstart) / swidth;
+	var p = (cBar.scrubber._x - pstart) / swidth;
 	currentPlayTime = p * dur;
 };
 
 function timeUpdater() {
-	var time_interval:Number = setInterval(checkTime, 500);
+	var time_interval:Number = setInterval(checkTime, 200);
 };
 
 function checkTime() {
-	var ns_seconds:Number = currentPlayTime;
+    var ns_seconds:Number = currentPlayTime;
 	var seconds = checkDigits(Math.floor(ns_seconds%60));
 	var minutes:Number = checkDigits(Math.floor((ns_seconds/60)%60));
 	var hours:Number = Math.floor((ns_seconds/60)/60);
     home.tooltip.datext.text =  hours+":"+minutes+":"+seconds;
 };
-
-//==========================================================
-
 
 //======================================================
 //==============SOUND CONTROL===========================
@@ -379,9 +459,22 @@ function voller() {
 
 };
 
+cBar.mute.onRollOver = function() {
+	this._alpha = 50;
+	if(cBar.muteOn._visible == true){
+		showInfo(langUnmute);
+	} else {
+		showInfo(langMute);
+	}
+};
+
+cBar.mute.onRollOut = function() {
+	this._alpha = 100;
+	removeInfo();
+};
+
 cBar.mute.onRelease = function() {
 	if(sou.getVolume() == 0){
-//		var perc = ((cBar.Volume.volHandle._x-(startxs-2)) / (74));
 		sou.setVolume(curVol);
 		cBar.muteOn._visible = false;
 	} else {
@@ -436,16 +529,118 @@ function removeTip() {
 	delete home.tooltip;
 };
 
+if(allowDownload){
+	var dlIcon = cBar.attachMovie("dlIcon","dlIcon", cBar.getNextHighestDepth());
+	buttonArray.push(dlIcon);
+	dlIcon.onRollOver = function() {
+		this._alpha = 50;
+		showInfo(langDownload);
+	}
+	dlIcon.onRollOut = function() {
+		this._alpha = 100;
+		removeInfo();
+	}
+	dlIcon.onRelease = function() {
+		saveIt();
+		if(infoDisplay._visible){
+			infoDisplay._visible = false;
+		}
+	}
+};
+
+if(share){
+	var shareIcon = cBar.attachMovie("shareIcon","shareIcon", cBar.getNextHighestDepth());
+	buttonArray.push(shareIcon);
+	home.attachMovie("infoDisplay","infoDisplay",10);
+	infoDisplay.infoText._width = 480;
+	infoDisplay.infoText.wordWrap = true;
+	infoDisplay._visible = false;
+	infoDisplay.infoText.htmlText = embedText();
+	home.addListener(infoDisplay);
+	shareIcon.onRollOver = function() {
+		this._alpha = 50;
+		showInfo(langShare);
+	}
+	shareIcon.onRollOut = function() {
+		this._alpha = 100;
+		removeInfo();
+	}
+	shareIcon.onPress = function() {
+		if(home.infoDisplay._visible){
+			home.infoDisplay._visible = false;
+		}else{
+			home.infoDisplay._visible = true;
+		}
+	}
+};
+
+// lets position these extra buttons
+var tempX:Number = 490; // the beginning graphic x in the controlBar where we start our extra buttons
+for(var i=0;i<buttonArray.length;i++){
+	tempX -= (buttonArray[i]._width + 10); // space the extra buttons 10px apart
+	buttonArray[i]._x = tempX;
+	buttonArray[i]._y = 19.8; // the graphic y of our extra buttons
+}
+
+var theMenu:ContextMenu = new ContextMenu();
+theMenu.hideBuiltInItems();
+home.menu = theMenu;
+
+var i1:ContextMenuItem = new ContextMenuItem("::::: Controls :::::",trace);
+theMenu.customItems[0] = i1;
+
+var i2:ContextMenuItem = new ContextMenuItem("Play / Pause",pauseIt,true);
+theMenu.customItems[2] = i2;
+
+var i3:ContextMenuItem = new ContextMenuItem("Replay",replayIt);
+theMenu.customItems[3] = i3;
+
+var i4:ContextMenuItem = new ContextMenuItem("Copyright (C) 2000-2007 Bharat Mediratta",galleryLink);
+theMenu.customItems[4] = i4;
+
+var i5:ContextMenuItem = new ContextMenuItem("Player by FlashYourWeb.com" ,goHome,true);
+theMenu.customItems[5] = i5;
+
+function goHome(){
+	getURL("http://www.flashyourweb.com", "_blank");
+};
+
+function galleryLink(){ 
+	getUrl("http://gallery.menalto.com/", "_blank"); 
+};
+
+function pauseIt() {
+	if(isPlaying){
+		currentPlayTime = int(sou.position);
+		sou.stop();
+		isPlaying = false;
+		togglePlayPause();
+	} else {
+		isPlaying = true;
+		sou.start(currentPlayTime, 0);
+		togglePlayPause();
+	}
+};
+
+function replayIt() {
+	if(isPlaying){
+		sou.start(0, 0);
+	}else{
+		playIt();
+	}
+};
+
 sou.onID3 = function(){
 	if(id3Count<=0){
 		var tw:Tween = new Tween(display_txt,"_alpha",Strong.easeOut,0,80,1,true);
-		display_txt.text = "";
-		display_txt.text += langGenre + ":\t" + sou.id3.genre + "\n";
-		display_txt.text += langArtist + ":\t" + sou.id3.artist + "\n";
-		display_txt.text += langAlbum + ":\t" + sou.id3.album + "\n";
-		display_txt.text += langSong + ":\t" + sou.id3.songname + "\n";
-		display_txt.text += langYear + ":\t" + sou.id3.year + "\n";
-		display_txt.text += langTrack + ":\t" + sou.id3.track + "\n";
+		display_txt.infoText.wordWrap = false
+		display_txt.infoText.text = "";
+		display_txt.infoText.text += langGenre + ":\t" + sou.id3.genre + "\n";
+		display_txt.infoText.text += langArtist + ":\t" + sou.id3.artist + "\n";
+		display_txt.infoText.text += langAlbum + ":\t" + sou.id3.album + "\n";
+		display_txt.infoText.text += langSong + ":\t" + sou.id3.songname + "\n";
+		display_txt.infoText.text += langYear + ":\t" + sou.id3.year + "\n";
+		display_txt.infoText.text += langTrack + ":\t" + sou.id3.track + "\n";
 		tw.onMotionStopped = function():Void {
 			var tw1:Tween = new Tween(display_txt,"_alpha",Strong.easeOut,80,80,5,true);
 			tw1.onMotionStopped = function():Void {
@@ -464,26 +659,12 @@ sou.onLoad = function ():Void {
 };
 		
 sou.onSoundComplete = function() {
-	delete home.onEnterFrame;
-	vein.unloadMovie();
-	var tw2:Tween = new Tween(previewLoader,"_x",Strong.easeOut,previewLoader._x,previewLoader._x - 160,3,true);
-	currentPlayTime = 0;
-	pos = 0;
-	dur = 0;
-	prog = 0;
-	pl._width = 0;
-	scrubber._x = ds;
-	isPlaying = false;
-	inPlay = false;
-	bigPlay._visible = true;
-	togglePlayPause();
-	cBar.VideoXMLDescription.text = que.title;
-	display_txt._alpha = 0;
+	reset();
 };
 
 	
 function mp3Time() {
-	if (souLoaded == false){
+	if (!souLoaded){
 		dur = (sou.duration/((sou.getBytesLoaded()/sou.getBytesTotal())*100))/10; // the sound object does not contain the duration until it has fully downloaded, so here we are trying to estimate the duration to get the scrubber and dl progress moving along.
 	}
 	pos = sou.position / 1000;
@@ -519,56 +700,75 @@ cBar.infoIcon.onRelease = function() {
 		var tw1:Tween = new Tween(display_txt,"_alpha",Strong.easeOut,display_txt._alpha,80,1,true);
 	}
 };
-cBar.dlIcon.onRollOver = function() {
-	this._alpha = 50;
-	showInfo(langDownload);
-};
-
-cBar.dlIcon.onRollOut = function() {
-	this._alpha = 100;
-	removeInfo();
-};
-
-cBar.dlIcon.onRelease = function() {
-	saveIt();
-};
+	
 
 function playMp3() {
+	cBar.pl._width = 0;
 	currentPlayTime = 0;
 	pos = 0;
 	dur = 0;
-	sou.loadSound(que.earl,true);
+	sou.loadSound(queue.earl,true);
 	souLoaded = false;
-	display_txt.autoSize = "left";
-	display_txt.multiline = true;
-	display_txt.background = true;
-	display_txt.backgroundColor = "0x333333";
-	display_txt.textColor = "0xFFFFFF";
-	display_txt.border = true;
-	display_txt.text = "";
-	loadVein();
+	display_txt.infoText.text = "";
+	if(!hideVisuals){
+		loadVein();
+	}
 };
 
 function loadVein(){
-	vein = home.attachMovie("VeinManager","vein" , 20000, {_x:ds+8, _y:ds+8});
+	vein = home.attachMovie("VeinManager","vein" , 5, {_x:theX+8, _y:theY+8});
 	vein._alpha = 0;
 	var tw:Tween = new Tween(vein,"_alpha",Strong.easeOut,0,100,10,true);
 };
 
-function galleryLink(){ 
-	getUrl("http://gallery.menalto.com/", "_blank"); 
-}; 
-
-function fywLink(){ 
-	getUrl("http://www.flashyourweb.com/", "_blank"); 
+function reset(){
+	delete home.onEnterFrame;
+	sou.start(0, 0);
+	sou.stop();
+	vein.unloadMovie();
+	var tw2:Tween = new Tween(home["holder"],"_x",Strong.easeOut,home["holder"]._x,centerX(playerBack) - home["holder"]._width/2,3,true);
+	currentPlayTime = 0;
+	pos = 0;
+	dur = 0;
+	prog = 0;
+	pl._width = 0;
+	cBar.scrubber._x = theX;
+	isPlaying = false;
+	bigPlay._visible = true;
+	togglePlayPause();
+	cBar.VideoXMLDescription.text = queue.title;
+	display_txt._alpha = 0;
 };
 
-var theMenu:ContextMenu = new ContextMenu(); 
-theMenu.hideBuiltInItems(); 
-_root.menu = theMenu; 
+function thumbLoader(url:String){
+	this.url = url;
+	this.doLoad = function(){
+		var loaderListener:Object = new Object();
+		loaderListener.onLoadInit = function(target_mc:MovieClip):Void {
+			tempBMP = new BitmapData(holder._width, holder._height, true, 0xFFFFFF);
+			tempBMP.draw(holder);
+			var ratio = holder._height/holder._width;
+			holder._height = theHeight;
+			holder._width = theHeight / ratio;
+			holder._x = centerX(playerBack) - holder._width/2;
+			holder._y = theY + 8;		
+		}
+		var holder:MovieClip = home.createEmptyMovieClip("holder", 6);
+		var imageListener:MovieClipLoader = new MovieClipLoader();
+		imageListener.addListener(loaderListener);
+		imageListener.loadClip(this.url, holder);
+	}
+	this.unLoad = function(){
+		home["holder"].removeMovieClip();
+	}
+};
 
-var i1:ContextMenuItem = new ContextMenuItem("Copyright (C) 2000-2007 Bharat Mediratta",galleryLink); 
-theMenu.customItems[0] = i1; 
+function embedText():String {
+	var theText:String = '';
+	theText = '<embed width="496" height="250" align="middle" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" name="G2mp3" wmode="transparent" quality="high" flashvars="mp3Url='+ searchReplace(queue.earl, "&", "%26") + '&thumbUrl=' + searchReplace(queue.thumbUrl, "&", "%26") + '&title=' + queue.title + '" src="'+ swfUrl +'"></embed>';	
+	return theText;
+};
 
-var i2:ContextMenuItem = new ContextMenuItem("Player provided by Flash Your Web",fywLink,true); 
-theMenu.customItems[1] = i2;
+function searchReplace(block:String, find:String, replace:String):String {
+    return block.split(find).join(replace);
+};
