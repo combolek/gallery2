@@ -131,10 +131,10 @@ var sou:Sound = new Sound();
 
 //get the center of an object
 var centerX = function(obj:MovieClip):Number{
-	return obj._width/2;
+	return obj._x + obj._width/2;
 };
 var centerY = function(obj:MovieClip):Number{
-	return obj._height/2;
+	return obj._y + obj._height/2;
 };
 var totalHeight = function():Number { 
 	return theHeight + 20 + cBarBack._height;
