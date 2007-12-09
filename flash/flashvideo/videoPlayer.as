@@ -129,10 +129,10 @@ var myFileReference:FileReference = new FileReference();
 
 //get the center of an object
 var centerX = function(obj:MovieClip):Number{
-	return obj._width/2;
+	return obj._x + obj._width/2;
 }
 var centerY = function(obj:MovieClip):Number{
-	return obj._height/2;
+	return obj._y + obj._height/2;
 }
 var totalHeight = function():Number { 
 	return theHeight + 20 + cBarBack._height;
@@ -180,10 +180,16 @@ home.onFullScreen = function( bFull:Boolean ){
 	if(bFull){
 		greyTheBack();
 		theWidth = System.capabilities.screenResolutionX - (8 + 8);
-		theHeight = theWidth * inPlay.ratio;
+		theHeight = theWidth * queue.ratio;
 		newWidth = totalWidth();
 		newHeight = totalHeight();
-		theX = 0;
+		if(newHeight > maxHeight){
+			theHeight = maxHeight - cBarBack._height;
+			theWidth = theHeight / queue.ratio;
+			newWidth = totalWidth();
+			newHeight = totalHeight();
+		}
+		theX = maxWidth/2 - theWidth/2;
 		//theY = (maxHeight - theHeight)/2
 		theY = 0;
 		this.broadcastMessage("maximize");
@@ -282,13 +288,8 @@ var Flv = function(title, earl, width, height, thumbUrl){
 		theVideo._height = this.height;
 	}
 	this.maximize = function(){
-		if(this.height > this.width){
-			theVideo._height = maxHeight;
-			theVideo._width = maxHeight/this.ratio;
-		}else{
-			theVideo._width = maxWidth;
-			theVideo._height = maxWidth * this.ratio;
-		}
+		theVideo._height = theHeight;
+		theVideo._width = theWidth;
 	}
 };
 
