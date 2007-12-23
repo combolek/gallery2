@@ -31,19 +31,9 @@ class Getid3Callbacks {
 	case 'LoadGetid3Info':
 	    GalleryCoreApi::requireOnce('modules/getid3/classes/Getid3Helper.class');
 
-	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($params['itemId'], 'GalleryItem');
+	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($params['itemId']);
 	    if ($ret) {
 		return $ret;
-	    }
-
-	    list ($ret, $hasPermission) =
-		GalleryCoreApi::hasItemPermission($item->getId(), 'core.view');
-	    if ($ret) {
-		return $ret;
-	    }
-	    if (!$hasPermission) {
-		/* Avoid information disclosure, act as if the item didn't exist. */
-		return GalleryCoreApi::error(ERROR_MISSING_OBJECT);
 	    }
 
 	    /* Ensure Item is a data item */

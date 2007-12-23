@@ -81,17 +81,13 @@ class ModifyCartController extends GalleryController {
 
 	    default:
 		/* Expect it to be one of our plugins */
-		foreach (array('CartPluginInterface_1_1', 'CartPluginInterface_1_0')
-			as $interface) {
-		    GalleryCoreApi::requireOnce("modules/cart/classes/$interface.class");
-		    list ($ret, $cartPlugin) =
-			GalleryCoreApi::newFactoryInstanceById($interface, $form['pluginId']);
-		    if ($ret) {
-			return array($ret, null);
-		    }
-		    if (isset($cartPlugin)) {
-			break;
-		    }
+		GalleryCoreApi::requireOnce(
+		    'modules/cart/classes/CartPluginInterface_1_0.class');
+		list ($ret, $cartPlugin) =
+		    GalleryCoreApi::newFactoryInstanceById('CartPluginInterface_1_0',
+							   $form['pluginId']);
+		if ($ret) {
+		    return array($ret, null);
 		}
 
 		if (!isset($cartPlugin)) {
@@ -99,8 +95,7 @@ class ModifyCartController extends GalleryController {
 		}
 
 		/* Pass in only the types the plugin supports */
-		list ($ret, $itemList) =
-		    GalleryCoreApi::loadEntitiesById(array_keys($cartItemIds), 'GalleryItem');
+		list ($ret, $itemList) = GalleryCoreApi::loadEntitiesById(array_keys($cartItemIds));
 		if ($ret) {
 		    return array($ret, null);
 		}
@@ -147,8 +142,6 @@ class ModifyCartController extends GalleryController {
 	if (!isset($results['redirect'])) {
 	    $results['redirect']['view'] = 'cart.ViewCart';
 	}
-	
-	$results['redirect']['itemId'] = GalleryUtilities::getRequestVariables('itemId');
 	$results['status'] = $status;
 	$results['error'] = $error;
 

@@ -18,8 +18,6 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-GalleryCoreApi::requireOnce('modules/core/classes/GalleryTheme.class');
-
 /**
  * Test Plugin functionality
  * @package GalleryCore
@@ -99,10 +97,9 @@ class PluginTest extends GalleryTestCase {
     function testLoadPlugin() {
 	list ($ret, $plugin) = GalleryCoreApi::loadPlugin('module', 'PluginTestCompatible');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
     }
-
     function testFetchPluginStatusForWrongPluginType() {
 	list ($ret, $status) = GalleryCoreApi::fetchPluginStatus('foo');
 	$this->assert(ERROR_BAD_PARAMETER & $ret->getErrorCode(), 'Wrong status code');
@@ -137,59 +134,10 @@ class PluginTest extends GalleryTestCase {
 
 	    list ($ret, $pluginIds) = GalleryCoreApi::getAllPluginIds($type);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $this->assertEquals($expectedIds, $pluginIds, "$type ids do not match");
 	}
-    }
-
-    function testActivateFlushesTemplateCacheAndLocalUrlMap() {
-	global $gallery;
-
-	/* Test preparation */
-	$plugin = new PluginTestPlugin();
-	$plugin->setPluginType('theme');
-	$plugin->setId('plugintest');
-	$plugin->setVersion('1.0.0');
-	$plugin->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
-	$plugin->setRequiredThemeApi(GalleryTheme::getApiVersion());
-
-	$themeStatus = array($plugin->getId() => array('available' => true));
-	GalleryDataCache::put('GalleryPluginHelper::fetchPluginStatus(theme)', $themeStatus);
-	GalleryDataCache::setFileCachingEnabled(true);
-
-	$templateDir = '/templates';
-	$gallery->setConfig('data.smarty.templates_c', $templateDir);
-	$gallery->setConfig('data.gallery.cache', '/cache/');
-
-	$platform = new UnitTestPlatform();
-	$platform->setReply('file_exists',
-		array('/cache/theme/_all/0/0/GalleryPluginHelper_fetchPluginStatus.inc'), false);
-	$platform->setReply('file_exists', array('/cache/theme/_all/localUrlMap.txt'), true);
-	$platform->setReply('is_dir', array('/cache/theme/_all/localUrlMap.txt'), false);
-	$platform->setReply('unlink', array('/cache/theme/_all/localUrlMap.txt'), true);
-	$platform->setReply('file_exists', array($templateDir), true);
-	$platform->setReply('recursiveRmdir', array($templateDir), false);
-	$gallery->setPlatform($platform);
-
-	$gallery->_storage = new UnitTestStorage();
-	$gallery->_storage->setReply(
-		'addMapEntry',
-		array('GalleryPluginMap', array('pluginType'=> 'theme',
-						'pluginId' => 'plugintest',
-						'active' => 1),
-		      null),
-		null);
-
-	/* Execute the test */
-	list ($ret, $ignored) = $plugin->activate(false);
-	if ($ret) {
-	    return $ret;
-	}
-
-	/* Verify the results */
-	$this->assert($platform->isComplete(), $platform->getRemaining());
-	$this->assert($gallery->_storage->isComplete(), $gallery->_storage->getRemaining());
     }
 }
 

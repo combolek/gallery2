@@ -36,20 +36,14 @@ class SelectPicasaExportPathControllerTest extends GalleryControllerTestCase {
     function setUp() {
 	global $gallery;
 
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 	$this->_platform = new UnitTestPlatform();
     }
 
     function tearDown() {
 	$this->assert($this->_platform->isComplete(), $this->_platform->getRemaining());
 
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
+	parent::tearDown();
     }
 
     /**

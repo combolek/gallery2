@@ -196,8 +196,7 @@ class AdminFfmpegController extends GalleryController {
 	    if ($ret) {
 		return $ret;
 	    }
-	    list ($ret, $thumbnails) =
-		GalleryCoreApi::loadEntitiesById($idSet, 'GalleryDerivative');
+	    list ($ret, $thumbnails) = GalleryCoreApi::loadEntitiesById($idSet);
 	    if ($ret) {
 		GalleryCoreApi::releaseLocks($lockId);
 		return $ret;
@@ -314,7 +313,6 @@ class AdminFfmpegView extends GalleryView {
 	$AdminFfmpeg['debugSnippet'] = $debugSnippet;
 	$AdminFfmpeg['failCount'] = $failCount;
 	$AdminFfmpeg['isConfigure'] = !$isActive;
-	$AdminFfmpeg['canExec'] = !in_array('exec', split(',\s*', ini_get('disable_functions')));
 	$AdminFfmpeg['canWatermark'] = isset($toolkit);
 
 	if ($failCount > 0) {

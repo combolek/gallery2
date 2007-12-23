@@ -1,89 +1,60 @@
 # $Revision$
 # File crc32 crc32(crlf) size size(crlf)  or  R File
-modules/hidden/HiddenItemOption.inc	2703825909	2623330070	3354	3456
-modules/hidden/classes/HiddenHelper.class	2987739192	3268132601	15685	16200
-modules/hidden/classes/HiddenInterface_1_0.class	3626128891	3747425538	2008	2074
-modules/hidden/module.inc	495535335	2534496095	5317	5497
+modules/hidden/HiddenItemOption.inc	2160857641	3335018099	3330	3430
+modules/hidden/classes/HiddenHelper.class	2192013606	3887101543	15684	16197
+modules/hidden/classes/HiddenInterface_1_0.class	936864646	887574673	2050	2116
+modules/hidden/locale/ca/LC_MESSAGES/modules_hidden.mo	1710180970	1710180970	558	558
+modules/hidden/locale/cs/LC_MESSAGES/modules_hidden.mo	484317236	484317236	1976	1976
+modules/hidden/locale/da/LC_MESSAGES/modules_hidden.mo	2853412907	2853412907	1939	1939
+modules/hidden/locale/de/LC_MESSAGES/modules_hidden.mo	2336321698	2336321698	1992	1992
+modules/hidden/locale/en_GB/LC_MESSAGES/modules_hidden.mo	10516804	10516804	459	459
+modules/hidden/locale/es/LC_MESSAGES/modules_hidden.mo	942082736	942082736	2052	2052
+modules/hidden/locale/eu/LC_MESSAGES/modules_hidden.mo	4266388426	4266388426	1784	1784
+modules/hidden/locale/fi/LC_MESSAGES/modules_hidden.mo	1316698248	1316698248	560	560
+modules/hidden/locale/fr/LC_MESSAGES/modules_hidden.mo	1406921568	1406921568	2022	2022
+modules/hidden/locale/hu/LC_MESSAGES/modules_hidden.mo	1449264310	1449264310	1380	1380
+modules/hidden/locale/it/LC_MESSAGES/modules_hidden.mo	994415730	994415730	1937	1937
+modules/hidden/locale/ja/LC_MESSAGES/modules_hidden.mo	3243130858	3243130858	1162	1162
+modules/hidden/locale/ko/LC_MESSAGES/modules_hidden.mo	2331302977	2331302977	978	978
+modules/hidden/locale/lv/LC_MESSAGES/modules_hidden.mo	813507421	813507421	1892	1892
+modules/hidden/locale/nl/LC_MESSAGES/modules_hidden.mo	1559727148	1559727148	1894	1894
+modules/hidden/locale/no/LC_MESSAGES/modules_hidden.mo	1539278080	1539278080	1883	1883
+modules/hidden/locale/pl/LC_MESSAGES/modules_hidden.mo	3456388513	3456388513	2068	2068
+modules/hidden/locale/ro/LC_MESSAGES/modules_hidden.mo	261201598	261201598	1904	1904
+modules/hidden/locale/ru/LC_MESSAGES/modules_hidden.mo	1444803083	1444803083	2594	2594
+modules/hidden/locale/sk/LC_MESSAGES/modules_hidden.mo	1466688954	1466688954	638	638
+modules/hidden/locale/sv/LC_MESSAGES/modules_hidden.mo	883167389	883167389	1820	1820
+modules/hidden/locale/tr/LC_MESSAGES/modules_hidden.mo	3353473464	3353473464	1349	1349
+modules/hidden/locale/uk/LC_MESSAGES/modules_hidden.mo	2458915931	2458915931	526	526
+modules/hidden/locale/zh_CN/LC_MESSAGES/modules_hidden.mo	1671153600	1671153600	1718	1718
+modules/hidden/locale/zh_TW/LC_MESSAGES/modules_hidden.mo	1590712943	1590712943	1809	1809
+modules/hidden/module.inc	394248100	1492110197	5284	5463
 modules/hidden/po/GNUmakefile	1866879166	2808215985	98	103
-modules/hidden/po/ca.mo	3318139086	3318139086	558	558
-modules/hidden/po/ca.po	666898292	1950785796	2321	2399
-modules/hidden/po/cs.mo	3379225233	3379225233	1976	1976
-modules/hidden/po/cs.po	331039800	3577360360	2839	2919
-modules/hidden/po/da.mo	2725714401	2725714401	1919	1919
-modules/hidden/po/da.po	894753676	1921386949	2957	3041
-modules/hidden/po/de.mo	281602308	281602308	1992	1992
-modules/hidden/po/de.po	3827175878	2183353696	2962	3047
-modules/hidden/po/el.mo	538057463	538057463	2620	2620
-modules/hidden/po/el.po	4054583549	2755217707	3502	3588
-modules/hidden/po/en_GB.mo	2320058154	2320058154	459	459
-modules/hidden/po/en_GB.po	4265822590	4112052741	2680	2758
-modules/hidden/po/es.mo	1482341124	1482341124	2052	2052
-modules/hidden/po/es.po	433492007	414877826	3044	3131
-modules/hidden/po/eu.mo	1729117272	1729117272	1784	1784
-modules/hidden/po/eu.po	2858337267	2203780836	2739	2822
-modules/hidden/po/fi.mo	211650589	211650589	662	662
-modules/hidden/po/fi.po	4084791292	1250770327	2362	2441
-modules/hidden/po/fr.mo	3405988585	3405988585	2022	2022
-modules/hidden/po/fr.po	2400933175	1085088278	2894	2977
-modules/hidden/po/hu.mo	2750807309	2750807309	1380	1380
-modules/hidden/po/hu.po	3549977179	1703140335	2571	2651
-modules/hidden/po/it.mo	2321095499	2321095499	1937	1937
-modules/hidden/po/it.po	723215041	1099203656	2799	2879
-modules/hidden/po/ja.mo	4151217500	4151217500	2199	2199
-modules/hidden/po/ja.po	739108541	2902251722	3178	3260
-modules/hidden/po/ko.mo	1304527770	1304527770	1020	1020
-modules/hidden/po/ko.po	2741371037	737731304	2489	2568
-modules/hidden/po/lv.mo	36207069	36207069	1892	1892
-modules/hidden/po/lv.po	3852990905	1278138076	2842	2924
-modules/hidden/po/nl.mo	3972701912	3972701912	1894	1894
-modules/hidden/po/nl.po	4100011658	1260871846	2856	2942
-modules/hidden/po/no.mo	583195294	583195294	1883	1883
-modules/hidden/po/no.po	1363770807	2064090195	2858	2939
-modules/hidden/po/pl.mo	3748477683	3748477683	2068	2068
-modules/hidden/po/pl.po	1596861788	1570577079	2948	3033
-modules/hidden/po/ro.mo	1915149311	1915149311	1904	1904
-modules/hidden/po/ro.po	1657832439	2881944370	2775	2858
-modules/hidden/po/ru.mo	3794192329	3794192329	2594	2594
-modules/hidden/po/ru.po	897623483	3113786070	3678	3767
-modules/hidden/po/sk.mo	120098214	120098214	638	638
-modules/hidden/po/sk.po	3078823500	860920149	2390	2471
-modules/hidden/po/sr.mo	362159055	362159055	1909	1909
-modules/hidden/po/sr.po	826543059	3964208773	2768	2847
+modules/hidden/po/ca.po	572115532	1681098229	2321	2399
+modules/hidden/po/cs.po	2296087414	1968367094	2839	2919
+modules/hidden/po/da.po	2508622371	939802276	2982	3067
+modules/hidden/po/de.po	726093095	2413956179	2962	3047
+modules/hidden/po/en_GB.po	2592872350	1670087197	2680	2758
+modules/hidden/po/es.po	2482909397	1289558951	3044	3131
+modules/hidden/po/eu.po	979206958	965297487	2739	2822
+modules/hidden/po/fi.po	4090961701	3137658404	2328	2407
+modules/hidden/po/fr.po	2368007458	2569634805	2894	2977
+modules/hidden/po/hu.po	1616088363	2161793083	2571	2651
+modules/hidden/po/it.po	3603799017	3576298425	2799	2879
+modules/hidden/po/ja.po	4249061837	3411058481	2564	2641
+modules/hidden/po/ko.po	126463096	1579684015	2440	2519
+modules/hidden/po/lv.po	1454012729	1657657132	2842	2924
+modules/hidden/po/nl.po	2411652371	2185243462	2856	2942
+modules/hidden/po/no.po	1016282993	1993234766	2858	2939
+modules/hidden/po/pl.po	2156260075	2577326119	2948	3033
+modules/hidden/po/ro.po	570537921	1788569580	2775	2858
+modules/hidden/po/ru.po	289899487	2420067321	3678	3767
+modules/hidden/po/sk.po	1236870718	2801133439	2390	2471
 modules/hidden/po/strings.raw	2013362193	60214803	863	885
-modules/hidden/po/sv.mo	1839659265	1839659265	1820	1820
-modules/hidden/po/sv.po	4132919215	4118521436	2673	2750
-modules/hidden/po/tr.mo	2796135373	2796135373	1497	1497
-modules/hidden/po/tr.po	1438146192	2011144372	2744	2826
-modules/hidden/po/uk.mo	851023615	851023615	526	526
-modules/hidden/po/uk.po	2793617865	1993301085	2448	2528
-modules/hidden/po/zh_CN.mo	365192226	365192226	1718	1718
-modules/hidden/po/zh_CN.po	4243755270	1369879290	2656	2734
-modules/hidden/po/zh_TW.mo	986623581	986623581	1809	1809
-modules/hidden/po/zh_TW.po	1707452679	944733338	2666	2743
-modules/hidden/templates/HiddenItemOption.tpl	2132311014	3633083240	1168	1195
-modules/hidden/test/phpunit/HiddenItemOptionTest.class	1522868273	1938790041	24047	24917
-R	modules/hidden/locale/ca/LC_MESSAGES/modules_hidden.mo
-R	modules/hidden/locale/cs/LC_MESSAGES/modules_hidden.mo
-R	modules/hidden/locale/da/LC_MESSAGES/modules_hidden.mo
-R	modules/hidden/locale/de/LC_MESSAGES/modules_hidden.mo
-R	modules/hidden/locale/en_GB/LC_MESSAGES/modules_hidden.mo
-R	modules/hidden/locale/es/LC_MESSAGES/modules_hidden.mo
-R	modules/hidden/locale/eu/LC_MESSAGES/modules_hidden.mo
-R	modules/hidden/locale/fi/LC_MESSAGES/modules_hidden.mo
-R	modules/hidden/locale/fr/LC_MESSAGES/modules_hidden.mo
-R	modules/hidden/locale/hu/LC_MESSAGES/modules_hidden.mo
-R	modules/hidden/locale/it/LC_MESSAGES/modules_hidden.mo
-R	modules/hidden/locale/ja/LC_MESSAGES/modules_hidden.mo
-R	modules/hidden/locale/ko/LC_MESSAGES/modules_hidden.mo
-R	modules/hidden/locale/lv/LC_MESSAGES/modules_hidden.mo
-R	modules/hidden/locale/nl/LC_MESSAGES/modules_hidden.mo
-R	modules/hidden/locale/no/LC_MESSAGES/modules_hidden.mo
-R	modules/hidden/locale/pl/LC_MESSAGES/modules_hidden.mo
-R	modules/hidden/locale/ro/LC_MESSAGES/modules_hidden.mo
-R	modules/hidden/locale/ru/LC_MESSAGES/modules_hidden.mo
-R	modules/hidden/locale/sk/LC_MESSAGES/modules_hidden.mo
-R	modules/hidden/locale/sv/LC_MESSAGES/modules_hidden.mo
-R	modules/hidden/locale/tr/LC_MESSAGES/modules_hidden.mo
-R	modules/hidden/locale/uk/LC_MESSAGES/modules_hidden.mo
-R	modules/hidden/locale/zh_CN/LC_MESSAGES/modules_hidden.mo
-R	modules/hidden/locale/zh_TW/LC_MESSAGES/modules_hidden.mo
+modules/hidden/po/sv.po	2697406432	2914621759	2673	2750
+modules/hidden/po/tr.po	3946335610	3862521169	2608	2689
+modules/hidden/po/uk.po	3537914358	116350873	2448	2528
+modules/hidden/po/zh_CN.po	3045696565	3528822995	2656	2734
+modules/hidden/po/zh_TW.po	2718869709	1627155323	2666	2743
+modules/hidden/templates/HiddenItemOption.tpl	3830009002	98673032	1324	1353
+modules/hidden/test/phpunit/HiddenItemOptionTest.class	981274353	672587485	26603	27471

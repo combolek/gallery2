@@ -155,7 +155,7 @@ class AdminRepositoryController extends GalleryController {
      *
      * @param $pluginStatus status of all available installed plugins
      * @param $repositories the repositories available for new plugins
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function updatePluginStatus($pluginStatus, $repositories) {
 	global $gallery;
@@ -241,7 +241,7 @@ class AdminRepositoryController extends GalleryController {
 	$redirect['subView'] = 'core.AdminRepository';
 
 	$session =& $gallery->getSession();
-	$session->putStatus($status);
+	$redirect['statusId'] = $session->putStatus($status);
 
 	$urlGenerator =& $gallery->getUrlGenerator();
 	$templateAdapter->completeProgressBar($urlGenerator->generateUrl($redirect));
@@ -399,7 +399,11 @@ class AdminRepositoryView extends GalleryView {
 	    $status['error']['repositoryInitErrorCount'] = $repositoryInitErrorCount;
 	}
 
-	$template->javascript('lib/yui/utilities.js');
+	$template->javascript('lib/yui/yahoo-min.js');
+	$template->javascript('lib/yui/dom-min.js');
+	$template->javascript('lib/yui/event-min.js');
+	$template->javascript('lib/yui/connection-min.js');
+	$template->javascript('lib/yui/animation-min.js');
 	$template->javascript('lib/yui/container-min.js');
 	$template->javascript('modules/core/templates/AdminRepository.js');
 	return array(null, array('body' => 'modules/core/templates/AdminRepository.tpl'));

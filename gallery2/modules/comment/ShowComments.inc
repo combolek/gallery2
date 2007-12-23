@@ -56,7 +56,7 @@ class ShowCommentsView extends GalleryView {
 	    /* Load all the commenters */
 	    if (sizeof($commenters) > 0) {
 		list ($ret, $commentersList) =
-		    GalleryCoreApi::loadEntitiesById(array_keys($commenters), 'GalleryUser');
+		    GalleryCoreApi::loadEntitiesById(array_keys($commenters));
 		if ($ret) {
 		    return array($ret, null);
 		}
@@ -74,8 +74,7 @@ class ShowCommentsView extends GalleryView {
 
 	foreach (array('delete' => 'comment.delete',
 		       'edit' => 'comment.edit',
-		       'view' => 'comment.view',
-		       'markSpam' => 'comment.edit')
+		       'view' => 'comment.view')
 		 as $canFlag => $permission) {
 	    $can[$canFlag] = isset($permissions[$permission]);
 	}
@@ -85,9 +84,6 @@ class ShowCommentsView extends GalleryView {
 	    'commenters' => $commenters,
 	    'can' => $can,
 	    'item' => (array)$item));
-
-	$template->javascript('lib/yui/utilities.js');
- 	$template->javascript('lib/yui/container-min.js');
 
 	return array(null,
 		     array('body' => 'modules/comment/templates/ShowComments.tpl'));

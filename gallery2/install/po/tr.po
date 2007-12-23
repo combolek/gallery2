@@ -18,21 +18,21 @@
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
 #
 # Previous translators (as far as known, add yourself here, please):
-# - İshak Göker Işık <admin@ansolon.org>
-# - Roman Neumüller <email@katpatuka.org>
+# - Georg Rehfeld <rehfeld@georg-rehfeld.de>
+# - Frederik Kunz <frederik.kunz@web.de>
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Installer 2.3\n"
-"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2007-06-14 17:57-0700\n"
-"PO-Revision-Date: 2007-09-14 22:36+0200\n"
-"Last-Translator: Roman Neumüller <email@katpatuka.org>\n"
+"Project-Id-Version: Gallery: Installer 2.2.2\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-05-19 01:26+0100\n"
+"PO-Revision-Date: 2006-08-31 23:06+0200\n"
+"Last-Translator: Ishak Goker ISIK <admin@ansolon.com>\n"
 "Language-Team: Turkish <admin@ansolon.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Language: Turkish\n"
 "X-Poedit-Country: TURKEY\n"
 "X-Poedit-SourceCharset: utf-8\n"
@@ -56,7 +56,7 @@ msgstr "Doğrula"
 msgid ""
 "<b>Error:</b> could not locate <b>login.txt</b>. Please place it in your <tt>%s/</tt> "
 "directory."
-msgstr "<b>Hata:</b> <b>login.txt</b> bulunamadı. Lütfen <tt>%s/</tt> klasörünüze yükleyin."
+msgstr "<b>Hata:</b> b>login.txt</b> bulunamadı. Lütfen <tt>%s/</tt> klasörünüze yükleyin."
 
 msgid ""
 "<b>Error:</b> your <b>login.txt</b> file is not readable. Please give Gallery read "
@@ -74,6 +74,16 @@ msgstr ""
 
 msgid "Create Config File"
 msgstr "Config Dosyası Yarat"
+
+#, c-format
+msgid ""
+"Unable to write to the <b>config.php</b> configuration file in your %s directory.  Please "
+"change its permissions.  If you're on Unix you can do <i>chmod 666 config.php</i> to fix "
+"this."
+msgstr ""
+"%s  klasöründe bulunan <b>config.php</b> yapılandırma dosyasına yazılamıyor. Lütfen "
+"izinlerini değiştirin. Unix sistemlerde <i>chmod 666 config.php</i> yaparak bu problemi "
+"çözebilirsiniz."
 
 #, c-format
 msgid "The config.php file does not exist in your %s directory"
@@ -106,9 +116,6 @@ msgstr "Oracle OCI8 PHP modülü sisteminizde yüklü olmak zorunda"
 
 msgid "You must have the Component Object Model(COM) PHP module installed"
 msgstr "Component Object Model(COM) PHP modülü sisteminizde yüklü olmak zorunda"
-
-msgid "You must have the PHP Data Object(PDO) PHP module installed"
-msgstr ""
 
 #, c-format
 msgid "You must specify a column prefix (we recommend %s)"
@@ -216,11 +223,9 @@ msgstr "Oracle (9i ve üstü)"
 msgid "IBM DB2 (v9.x and newer)"
 msgstr "IBM DB2 (v9.x ve daha yeni)"
 
+#, fuzzy
 msgid "Microsoft SQL Server 2005 and newer"
-msgstr "Microsoft SQL Server 2005 ve daha yenisi"
-
-msgid "SQLite v3.x (Experimental!)"
-msgstr "SQLite v3.x (Deneysel!)"
+msgstr "PostgreSQL v7.x ve daha yeni"
 
 msgid "Unknown DB type or no known tables information."
 msgstr "Bilinmeyen Veritabanı türü veya bilinen tablo bilgileri yok."
@@ -325,8 +330,8 @@ msgstr "Sistem Kontrolleri"
 msgid "Performing system checks"
 msgstr "Sistem denetleniyor"
 
-msgid "PHP version &gt;= 4.3.0 or &gt;= 5.0.4"
-msgstr "PHP versiyon &gt;= 4.3.0 veya &gt;= 5.0.4"
+msgid "PHP version >= 4.3.0 or >= 5.0.4"
+msgstr "PHP versiyon >= 4.3.0 veya >= 5.0.4"
 
 # param0 = existing php version, param1 = '<a href...>', param2 = '</a>'
 #, c-format
@@ -389,8 +394,8 @@ msgid ""
 "ImageMagick, NetPBM or Ffmpeg). This can only be set server-wide, so you will need to change "
 "it in the global php.ini."
 msgstr ""
-"Uyarı: exec() fonksiyonu php.ini de bulunan <b>disabled_functions</b> parametresi "
-"kullanılarak kapalı duruma getirilmiş. Bu durumda dışarıdan binary gerektiren modülleri "
+"Uyarı: exec() function fonksiyonu php.ini de bulunan <b>disabled_functions</b> parametresi "
+"kullanılarak kapalı duruma geitirlmiş. Bu durumda dışarıdan binary gerektiren modülleri "
 "kullanamazsınız (ör. ImageMagick, NetPBM or Ffmpeg). Bu özellik sadece tüm server için "
 "değiştirilebilir, bu nedenle bu özelliği global php.ini dosyasından değiştirmelisiniz."
 
@@ -410,17 +415,17 @@ msgstr ""
 "başarısızlıkla sonuçlanır (bazen boş sayfala sonuçlanır) ve veri bozulmasına yol açabilir."
 
 msgid "Filesystem Operations"
-msgstr "Dosyasistemi Operasyonları"
+msgstr ""
 
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Error: Essential filesystem operations are disabled in your PHP by the "
 "<b>disabled_functions</b> parameter in php.ini. You must allow these functions before "
 "Gallery will run. These functions are missing: %s."
 msgstr ""
-"Hata: Başlıca dosya sistemi operasyonları php.ini de bulunan <b>disabled_functions</b> "
-"parametresi kullanılarak kapalı konuma getirilmiş. Galeri çalıştırılmadan önce bu "
-"fonksiyonları açmalısınız. Eksik gözüken fonksiyonlar: %s."
+"Uyarı: putenv() fonksiyonu php.ini de bulunan <b>disabled_functions</b> parametresi "
+"kullanılarak kapalı konuma getirilmiş. Galeri bu durumda çalışmasını sürdürebilir, ancak "
+"ender bulunan sistemlerde Galeri İngilizce ve sistem dili dışındaki dillerde çalışamaz."
 
 msgid "Memory limit"
 msgstr "Hafıza limiti"
@@ -433,7 +438,7 @@ msgid ""
 "Warning: Your PHP is configured to limit the memory to %sb (<b>memory_limit</b> parameter in "
 "php.ini). You should raise this limit to at least <b>%sMB</b> for proper Gallery operation."
 msgstr ""
-"Uyarı: PHP'nizin hafıza limiti %sb olarak yapılandırılmış [php.ini de bulunan "
+"Uyarı: PHP'nizin hafıza limiti %sb  olarak yapılandırılmış [php.ini de bulunan "
 "<b>memory_limit</b> parametresi] . Galerinizin düzgün olarak çalışması için bu limiti en az "
 "<b>%sMB</b>'a yükseltmelisiniz."
 
@@ -452,15 +457,15 @@ msgstr ""
 msgid "Maximum upload size"
 msgstr "Maksimum gönderim boyutu"
 
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Warning: Your PHP is configured to limit the size of file uploads to %sb "
 "(<b>upload_max_filesize</b> parameter in php.ini). You should raise this limit to allow "
 "uploading bigger files."
 msgstr ""
-"Uyarı: PHP'nizin hafıza limiti %sb olarak yapılandırılmış [php.ini de bulunan "
-"<b>memory_limit</b> parametresi] . Galerinizin düzgün olarak çalışması için bu limiti "
-"yükseltmelisiniz."
+"Uyarı: PHP'nizin dosya gönder limiti en fazla %sb olarak yapılandırılmış [php.ini de bulunan "
+"<b>upload_max_filesize</b> parametresi] . Daha büyük dosyalar gönderebilmek için bu limiti "
+"yükseltmelisiniz. "
 
 msgid "Maximum POST size"
 msgstr "Maksimum POST büyüklüğü"
@@ -493,16 +498,12 @@ msgid ""
 "Your PHP is missing the function %sbind_textdomain_codeset%s. This means Gallery may display "
 "extended characters for some languages incorrectly."
 msgstr ""
-"PHP'nizin %sbind_textdomain_codeset%s fonksiyonu eksik. Bu nedenle Galeriniz bazı dillerdeki "
-"genişletilmiş karakterleri yanlış gösterebilir."
 
 #, c-format
 msgid ""
 "Your PHP is missing the function %sdngettext%s. This means Gallery will be unable to "
 "translate plural forms."
 msgstr ""
-"PHP'nizin  %sdngettext%s fonksiyonu eksik. Bunun anlamı Galeriniz çoğul anlamların "
-"çevirisini yapamayacak."
 
 msgid "Zend compatibility mode"
 msgstr "Zend uyumluluk modu"
@@ -510,18 +511,19 @@ msgstr "Zend uyumluluk modu"
 #, c-format
 msgid ""
 "Warning: Your PHP is configured with Zend ze1_compatibility_mode which can cause PHP to "
-"crash.  Click %shere%s to test your PHP.  If you see \"SUCCESS\" then your PHP is ok.  If "
-"you get an error or no response then you must turn off ze1_compatibility_mode before "
-"proceeding."
+"crash.  Click <a href=\"%s\">here</a> to test your PHP.  If you see \"SUCCESS\" then your "
+"PHP is ok.  If you get an error or no response then you must turn off ze1_compatibility_mode "
+"before proceeding."
 msgstr ""
 "Uyarı: PHP'niz Zend ze1_compatibility_mode ile yapılandırılmış, bu durum PHP'nizin "
-"bozulmasına yol açabilir. %sBuraya tıklayarak%s PHP'nizi test edin. Eğer  \"BAŞARILI\" "
-"görüyorsanız PHP'nizde sorun yok. Eğer hatayla karşılaşıyorsanız, işlem yapmadan önce  "
-"ze1_compatibility_mode'u kapatmalısınız."
+"bozulmasına yol açabilir. <a href=\"%s\">Buraya tıklayarak</a> PHP'nizi test edin. Eğer  "
+"\"BAŞARILI\" görüyorsanız PHP'nizde sorun yok. Eğer hatayla karşılaşıyorsanız, işlem "
+"yapmadan önce  ze1_compatibility_mode'u kapatmalısınız."
 
 msgid "putenv() allowed"
 msgstr "putenv() izinli"
 
+#, fuzzy
 msgid ""
 "Warning: The putenv() function is disabled in your PHP by the <b>disabled_functions</b> "
 "parameter in php.ini.  Gallery can function with this setting, but on some rare systems "
@@ -532,7 +534,7 @@ msgstr ""
 "ender bulunan sistemlerde Galeri İngilizce ve sistem dili dışındaki dillerde çalışamaz."
 
 msgid "Output buffering disabled"
-msgstr "Tampon çıktısı kapalı"
+msgstr ""
 
 #, c-format
 msgid ""
@@ -542,11 +544,6 @@ msgid ""
 "Also, some features like the progress bars might not work correctly if output buffering is "
 "enabled unless ini_set() is allowed."
 msgstr ""
-"Uyarı:  Tampon çıktısı php'nizde bulunan php.ini dosyasındaki <b>%s</b> parametreleri "
-"kullanılarak aktif duruma getirildi. Galeri bu ayarlarla çalışabilir - dosyaları daha hızlı "
-"yükleyebilir- ancak Galeri büyük dosya hizmeti veremez (ör. büyük videolar) ve bellek "
-"limitinde çalışır. Dahası, ilerleme çubuğu gibi bazı özellikler doğru olarak çalışmayabilir, "
-"taki  ini_set()'e izin verilene kadar."
 
 msgid "Gallery file integrity"
 msgstr "Galeri dosya bütünlüğü"
@@ -555,7 +552,7 @@ msgid "Test skipped due to other errors."
 msgstr "Diğer hatalardan dolayı test geçildi."
 
 msgid "Theme available"
-msgstr "Tema bulunur"
+msgstr ""
 
 #, c-format
 msgid "Error: There must be at least one theme in the %s folder!"
@@ -680,18 +677,6 @@ msgstr "Config dosyası yarat"
 
 #, c-format
 msgid ""
-"Unable to write to the <b>config.php</b> configuration file in your %s directory.  Please "
-"change its permissions.  If you're on Unix you can do <i>chmod 666 config.php</i> to fix "
-"this. You can also download the %sconfig.php%s file and replace the existing config.php in "
-"the %s directory yourself."
-msgstr ""
-"%s klasöründe bulunan <b>config.php</b> yapılandırma dosyasına yazılamıyor. Lütfen onun "
-"izinlerini değiştirin. Unix sistemlerde <i>chmod 666 config.php</i> yaparak bu problemi "
-"çözebilirsiniz. Ayrıca %sconfig.php%s dosyası yerel bilgisayarınıza indirilip sunucudaki %s "
-"klasörüne ftp ile gönderebilirisiniz."
-
-#, c-format
-msgid ""
 "Now we need to write out all the information you provided into a file called <b>config.php</"
 "b> in your <b>%s</b> directory.  This is a very important file that gives Gallery all the "
 "information that it needs to operate.  After we create it, you can read through this file "
@@ -755,12 +740,6 @@ msgstr "VT Şifre:"
 
 msgid "DB Name:"
 msgstr "VT Adı:"
-
-msgid "DB Schema:"
-msgstr "DB Şeması:"
-
-msgid "(optional)"
-msgstr "(isteğe bağlı)"
 
 msgid "Table Prefix:"
 msgstr "Tablo Öneki:"
@@ -942,9 +921,6 @@ msgid ""
 "probably ignore these, but to be safe you should make sure that you do 'svn update' before "
 "continuing."
 msgstr ""
-"Not: Galeriyi SVN'den çalıştırıyorsunuz, bu yüzden bazı modifiye edilmiş dosyalar "
-"beklenebilir. Bunları güvenli olarak yok sayabilirsiniz, ancak güvenli olmasından emin olmak "
-"istiyorsanız devam etmeden önce 'svn update'  yaptığınızdan emin olun."
 
 #, c-format
 msgid "Old files (%d)"
@@ -1114,9 +1090,6 @@ msgid ""
 "with paths in the text box below and see what completions it provides for you."
 msgstr ""
 
-msgid "Do not use the installation directory for storage"
-msgstr ""
-
 msgid "The directory you entered is read only"
 msgstr "Girmiş olduğunuz klasör sadece okunabilir"
 
@@ -1248,3 +1221,45 @@ msgstr "Git"
 
 msgid "Begin Installation&raquo;"
 msgstr "Kurulumu Başlat&raquo;"
+
+#~ msgid "MSSQL (2005 and newer)"
+#~ msgstr "MSSQL (2005 ve üstü)"
+
+#~ msgid "Installed Gallery Core successfully"
+#~ msgstr "Galeri Çekirdeği başarıyla kuruldu"
+
+#~ msgid "Install More Modules"
+#~ msgstr "Daha Fazla Modül Kur"
+
+#~ msgid "Install Other Modules"
+#~ msgstr "Diğer Modülleri Kur"
+
+#~ msgid "mkdir %s"
+#~ msgstr "mkdir %s"
+
+#~ msgid "chmod 777 %s"
+#~ msgstr "chmod 777 %s"
+
+#~ msgid "cd %s"
+#~ msgstr "cd %s"
+
+#~ msgid "PostgreSQL v6.x (not well tested)"
+#~ msgstr "PostgreSQL v6.x (iyi test edilmedi)"
+
+#~ msgid "chmod 644 %s"
+#~ msgstr "chmod 644 %s"
+
+#~ msgid "chmod 755 %s"
+#~ msgstr "chmod 755 %s"
+
+#~ msgid "This is sometimes known as an <b>image firewall</b>."
+#~ msgstr "Bazen <b>image firewall</b> olarakda bilinir."
+
+#~ msgid "Finished"
+#~ msgstr "Bitti"
+
+#~ msgid "Installation Status"
+#~ msgstr "Kurulum Durumu"
+
+#~ msgid "SQL test file \"%s\" not found."
+#~ msgstr "SQL test dosyası \"%s\" bulunamadı."

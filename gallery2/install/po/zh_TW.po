@@ -19,7 +19,7 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Installer 2.3\n"
+"Project-Id-Version: Gallery: Installer 2.2.2\n"
 "POT-Creation-Date: 2005-08-05 21:48-0400\n"
 "PO-Revision-Date: 2005-08-05 21:48-0400\n"
 "Last-Translator: Stephen Chu <stephen@ju-ju.com>\n"
@@ -65,6 +65,15 @@ msgid "Create Config File"
 msgstr "產生設定檔案"
 
 #, c-format
+msgid ""
+"Unable to write to the <b>config.php</b> configuration file in your %s directory.  Please "
+"change its permissions.  If you're on Unix you can do <i>chmod 666 config.php</i> to fix "
+"this."
+msgstr ""
+"無法寫入在你的 %s 目錄中的 <b>config.php</b> 設定檔案。請改變它的存取權限。如果你是使用 Unix "
+"你可以用「chmod 666 config.php」指令來修正。"
+
+#, c-format
 msgid "The config.php file does not exist in your %s directory"
 msgstr "你的 %s 目錄中沒有 config.php 檔案。"
 
@@ -94,10 +103,6 @@ msgid "You must have the Oracle OCI8 PHP module installed"
 msgstr "你必需裝有 Oracle OCI8 PHP 模組"
 
 msgid "You must have the Component Object Model(COM) PHP module installed"
-msgstr "你必需裝有 Component Object Model(COM) PHP 模組"
-
-#, fuzzy
-msgid "You must have the PHP Data Object(PDO) PHP module installed"
 msgstr "你必需裝有 Component Object Model(COM) PHP 模組"
 
 #, c-format
@@ -196,9 +201,6 @@ msgstr "IBM DB2（v9.x 以上的版本）"
 
 msgid "Microsoft SQL Server 2005 and newer"
 msgstr "Microsoft SQL Server 2005 以上的版本"
-
-msgid "SQLite v3.x (Experimental!)"
-msgstr ""
 
 msgid "Unknown DB type or no known tables information."
 msgstr "不明資料庫類型或沒有表格資訊。"
@@ -304,7 +306,7 @@ msgstr "系統檢查"
 msgid "Performing system checks"
 msgstr "進行系統檢查中"
 
-msgid "PHP version &gt;= 4.3.0 or &gt;= 5.0.4"
+msgid "PHP version >= 4.3.0 or >= 5.0.4"
 msgstr "PHP 版本大於等於 4.3.0 或大於等於 5.0.4"
 
 #, c-format
@@ -475,13 +477,13 @@ msgstr "Zend 相容模式"
 #, c-format
 msgid ""
 "Warning: Your PHP is configured with Zend ze1_compatibility_mode which can cause PHP to "
-"crash.  Click %shere%s to test your PHP.  If you see \"SUCCESS\" then your PHP is ok.  If "
-"you get an error or no response then you must turn off ze1_compatibility_mode before "
-"proceeding."
+"crash.  Click <a href=\"%s\">here</a> to test your PHP.  If you see \"SUCCESS\" then your "
+"PHP is ok.  If you get an error or no response then you must turn off ze1_compatibility_mode "
+"before proceeding."
 msgstr ""
-"警告：你的 PHP 設定使用可能使 PHP 當機的 Zend ze1_compatibility_mode 選項。請按%s這裡%s測試 "
-"PHP。如果你看到「SUCCESS」表示你的 PHP 正常。如果你得到一個錯誤訊息或完全沒有反應，你需要把 "
-"ze1_compatibility_mode關掉才能繼續。"
+"警告：你的 PHP 設定使用可能使 PHP 當機的 Zend ze1_compatibility_mode 選項。請按<a href=\"%s"
+"\">這裡</a>測試 PHP。如果你看到「SUCCESS」表示你的 PHP 正常。如果你得到一個錯誤訊息或完全沒有"
+"反應，你需要把 ze1_compatibility_mode關掉才能繼續。"
 
 msgid "putenv() allowed"
 msgstr "允許 putenv()"
@@ -648,16 +650,6 @@ msgstr "再試一次"
 msgid "Create a config file"
 msgstr "產生一個設定檔"
 
-#, fuzzy, c-format
-msgid ""
-"Unable to write to the <b>config.php</b> configuration file in your %s directory.  Please "
-"change its permissions.  If you're on Unix you can do <i>chmod 666 config.php</i> to fix "
-"this. You can also download the %sconfig.php%s file and replace the existing config.php in "
-"the %s directory yourself."
-msgstr ""
-"無法寫入在你的 %s 目錄中的 <b>config.php</b> 設定檔案。請改變它的存取權限。如果你是使用 Unix "
-"你可以用「chmod 666 config.php」指令來修正。"
-
 #, c-format
 msgid ""
 "Now we need to write out all the information you provided into a file called <b>config.php</"
@@ -735,12 +727,6 @@ msgstr "資料庫密碼："
 
 msgid "DB Name:"
 msgstr "資料庫名稱"
-
-msgid "DB Schema:"
-msgstr ""
-
-msgid "(optional)"
-msgstr ""
 
 msgid "Table Prefix:"
 msgstr "表格字首："
@@ -1122,9 +1108,6 @@ msgid ""
 msgstr ""
 "如果你正在使用的是最新的瀏覽程式，我們會試著自動完成你輸入的任何路徑。所以如果你無法找到指到"
 "你的 g2data 目錄的正確路徑，試著在下面的文字框中打一些可能的路徑，看看自動完成會不會找到它。"
-
-msgid "Do not use the installation directory for storage"
-msgstr ""
 
 msgid "The directory you entered is read only"
 msgstr "你輸入的目錄是唯讀的。"

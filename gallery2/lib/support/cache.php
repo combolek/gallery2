@@ -1,6 +1,5 @@
+<?php if (!defined('G2_SUPPORT')) { return; } ?>
 <?php
-if (!defined('G2_SUPPORT')) { return; }
-
 function getCaches() {
     $dirs = array(
 	'cached pages' => array(true, 'clearPageCache', array(), 'Cached HTML pages'),
@@ -154,8 +153,7 @@ if (isset($_REQUEST['clear']) && isset($_REQUEST['target'])) {
   <body>
     <div id="content">
       <div id="title">
-	<a href="../../">Gallery</a> &raquo;
-	<a href="<?php generateUrl('index.php') ?>">Support</a> &raquo; Cache Maintenance
+        <a href="../../">Gallery</a> &raquo; <a href="index.php">Support</a> &raquo; Cache Maintenance
       </div>
       <h2>
 	Gallery caches data on disk to increase performance.
@@ -172,7 +170,7 @@ if (isset($_REQUEST['clear']) && isset($_REQUEST['target'])) {
       </div>
       <?php endif; ?>
 
-      <?php startForm(); ?>
+      <form method="POST">
         <p>
 	  <?php $caches = getCaches(); ?>
 	  <?php foreach ($caches as $key => $info): ?>

@@ -193,7 +193,6 @@ class AdminDcrawView extends GalleryView {
 	$AdminDcraw['debugSnippet'] = $debugSnippet;
 	$AdminDcraw['failCount'] = $failCount;
 	$AdminDcraw['isConfigure'] = !$isActive;
-	$AdminDcraw['canExec'] = !in_array('exec', split(',\s*', ini_get('disable_functions')));
 
 	if ($failCount > 0) {
 	    $template->javascript('lib/javascript/BlockToggle.js');

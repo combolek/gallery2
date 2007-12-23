@@ -84,7 +84,7 @@ class GalleryPhotoItem extends GalleryDataItem {
      * @param string $targetName the desired name of the new item
      * @param boolean $symlink (optional) a boolean true if we should symlink instead
      *        of copy (default is false).
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function create($parentId, $imageFileName, $mimeType, $targetName=null, $symlink=false) {
 	global $gallery;
@@ -226,6 +226,13 @@ class GalleryPhotoItem extends GalleryDataItem {
 		$params['alt'] =
 		    $this->getTitle() ? GalleryUtilities::markup($this->getTitle(), 'strip')
 				      : $this->getPathComponent();
+	    }
+	    if (!isset($params['longdesc'])) {
+		$longdesc = preg_replace('/[\r\n]+/', ' ',
+			GalleryUtilities::markup($this->getDescription(), 'strip'));
+		if (!empty($longdesc)) {
+		    $params['longdesc'] = $longdesc;
+		}
 	    }
 
 	    $html = sprintf('<img src="%s"%s', $src, $sizeStr);

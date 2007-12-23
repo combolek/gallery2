@@ -23,22 +23,16 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Add Items 1.0.3\n"
+"Project-Id-Version: Gallery: Add Items 1.0.0\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2006-12-20 09:51-0800\n"
-"PO-Revision-Date: 2007-06-17 20:27+0100\n"
-"Last-Translator: Jens Hyllegaard <Jens@linushvj.dk>\n"
+"PO-Revision-Date: 2007-03-12 21:58+0000\n"
+"Last-Translator: Bjorn Graabek <bjorn@graabek.com>\n"
 "Language-Team: Danish <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-msgid "Adding items"
-msgstr "Tilføjer emner"
-
-msgid "Scanning directory"
-msgstr "Scanner mappe"
 
 msgid "From Local Server"
 msgstr "Fra lokal server"
@@ -50,7 +44,7 @@ msgid "From Web Page"
 msgstr "Fra webside"
 
 msgid "Available to all users with permission to add items"
-msgstr "Tilgængeligt for alle brugere med tilladelse til at tilføje emner"
+msgstr "Tilgængeligt for alle brugere med tilladelse til at tilføje elementer"
 
 msgid "Site Admins only"
 msgstr "Kun Administratorer"
@@ -59,10 +53,10 @@ msgid "Disabled"
 msgstr "Deaktiveret"
 
 msgid "Add Items"
-msgstr "Tilføj emner"
+msgstr "Tilføj elementer"
 
 msgid "Add items from local server or the web"
-msgstr "Tilføj emner fra lokal server eller internettet"
+msgstr "Tilføj elementer fra lokal server eller internettet"
 
 msgid "Import"
 msgstr "Import"
@@ -77,9 +71,9 @@ msgid ""
 "means that the files and the directory the files are in should have modes of at least 755."
 msgstr ""
 "Overfør filer som allerede findes på din server til Gallery. Filerne skal allerede være "
-"overført til din server (FTP eksempelvis) og skal være placeret hvor alle emner på serveren "
-"har adgang. Bruger du Unix bør filerne, og det bibliotek filerne er i, have en filtilstand "
-"på mindst 755."
+"overført til din server (FTP eksempelvis) og skal være placeret hvor alle elementer på "
+"serveren har adgang. Bruger du Unix bør filerne, og det bibliotek filerne er i, have en "
+"filtilstand på mindst 755."
 
 msgid ""
 "For security purposes, you can't use this feature until the Gallery Site Administrator "
@@ -107,7 +101,7 @@ msgstr ""
 "Den indtastede mappe er ulovlig. Det skal være en undermappe af en mappe angivet nedenfor."
 
 msgid "An item with the same name already exists."
-msgstr "Der eksisterer allerede et emne med det navn."
+msgstr "Der eksisterer allerede et element med det navn."
 
 msgid "Legal Directories"
 msgstr "Gyldige mapper"
@@ -156,7 +150,7 @@ msgid "(Un)check symlinks"
 msgstr "Sæt/fjern symbolske lænker"
 
 msgid "for selected items"
-msgstr "for de valgte emner"
+msgstr "for de valgte elementer"
 
 msgid "Copy base filenames to:"
 msgstr "Kopier basisfilnavne til:"
@@ -228,7 +222,7 @@ msgid "Add URLs"
 msgstr "Tilføj URLs"
 
 msgid "Add Item Settings"
-msgstr "Tilføj emne indstillinger"
+msgstr "Tilføj Element Indstillinger"
 
 msgid "Settings saved successfully"
 msgstr "Opsætningen blev gemt"

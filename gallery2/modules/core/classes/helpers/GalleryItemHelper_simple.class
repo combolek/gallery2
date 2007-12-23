@@ -38,8 +38,7 @@ class GalleryItemHelper_simple {
 	if (GalleryUtilities::isA($item, 'GalleryAlbumItem')) {
 	    $themeId = $item->getTheme();
 	} else {
-	    list ($ret, $parent) =
-		GalleryCoreApi::loadEntitiesById($item->getParentId(), 'GalleryAlbumItem');
+	    list ($ret, $parent) = GalleryCoreApi::loadEntitiesById($item->getParentId());
 	    if ($ret) {
 		return array($ret, null);
 	    }
@@ -197,7 +196,7 @@ class GalleryItemHelper_simple {
      *
      * @param array $itemIds the item ids
      * @param int $userId an optional user id (default is the current user)
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *               array(id => ##, id => ##)
      */
     function fetchUncachedDescendentCounts($itemIds, $userId) {

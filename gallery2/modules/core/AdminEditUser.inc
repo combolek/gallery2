@@ -39,7 +39,7 @@ class AdminEditUserController extends GalleryController {
 	$results = $status = $error = array();
 
 	$userId = GalleryUtilities::getRequestVariables('userId');
-	list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
+	list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId);
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -181,7 +181,7 @@ class AdminEditUserView extends GalleryView {
 	}
 
 	$userId = GalleryUtilities::getRequestVariables('userId');
-	list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
+	list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId);
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -223,8 +223,9 @@ class AdminEditUserView extends GalleryView {
 	    }
 
 	    $languageList = array();
-	    $languageList[''] = $module->translate('&lt;none&gt;');
-	    $supportedLanguages = GalleryCoreApi::getSupportedLanguages();
+	    $languageList[''] = $module->translate('<none>');
+	    $translator =& $gallery->getTranslator();
+	    $supportedLanguages = $translator->getSupportedLanguages();
 	    foreach ($supportedLanguages as $language => $countryList) {
 		foreach ($countryList as $country => $languageData) {
 		    $languageList[$language . '_' . $country] = $languageData['description'];

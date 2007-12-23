@@ -1,6 +1,8 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
 <script type="text/javascript">{literal}
 // <![CDATA[
@@ -34,7 +36,7 @@ var pickdata = new Array();
 {/literal}
 {counter start=-1 print=no}
 {foreach from=$form.set item=set}{foreach from=$form.fields[$set.key] item=item}
-pickdata[{counter}] = '{foreach from=$item.choices item=choice}{$choice|escape:javascript}\n{/foreach}';
+pickdata[{counter}] = '{foreach from=$item.choices item=choice}{$choice}\n{/foreach}';
 {assign var="nonempty" value="1"}
 {/foreach}{/foreach}
 {literal}

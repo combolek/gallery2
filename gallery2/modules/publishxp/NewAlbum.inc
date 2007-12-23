@@ -137,8 +137,7 @@ class NewAlbumView extends GalleryView {
 	    return array($ret, null);
 	}
 
-	list ($ret, $parent) =
-	    GalleryCoreApi::loadEntitiesById($form['parentId'], 'GalleryAlbumItem');
+	list ($ret, $parent) = GalleryCoreApi::loadEntitiesById($form['parentId']);
 	if ($ret) {
 	    return array($ret, null);
 	}

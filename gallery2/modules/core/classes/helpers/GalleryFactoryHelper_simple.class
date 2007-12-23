@@ -44,7 +44,7 @@ class GalleryFactoryHelper_simple {
     /**
      * The single copy of the factory registry data
      *
-     * @return array factory registry data
+     * @return object GalleryStatus a status code
      * @access private
      */
     function &_getSingleton() {
@@ -112,7 +112,7 @@ class GalleryFactoryHelper_simple {
 	$hints[] = '*';
 
 	foreach ($hints as $hint) {
-	    $hint = GalleryUtilities::strToLower($hint);
+	    $hint = strtolower($hint);
 	    if (!empty($registry['hints'][$classType][$hint])) {
 		$classNames = array_values($registry['hints'][$classType][$hint]);
 		break;

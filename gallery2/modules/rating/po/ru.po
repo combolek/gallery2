@@ -22,9 +22,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Rating 1.0.11\n"
-"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2007-06-14 17:38-0700\n"
+"Project-Id-Version: Gallery: Rating 1.0.8\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-09-11 17:35-0700\n"
 "PO-Revision-Date: 2006-03-17 13:26+0300\n"
 "Last-Translator: Konstantin Ivanov <Continental@vollen.ru>\n"
 "Language-Team: Russian <gallery-devel@lists.sourceforge.net>\n"
@@ -36,10 +36,6 @@ msgstr ""
 "X-Poedit-Language: Russian\n"
 "X-Poedit-Country: RUSSIAN FEDERATION\n"
 
-#, c-format
-msgid "Rating Album: %s"
-msgstr ""
-
 #, fuzzy
 msgid "Rating Album"
 msgstr "Рейтинг"
@@ -47,6 +43,10 @@ msgstr "Рейтинг"
 #, fuzzy
 msgid "rating album"
 msgstr "Разрешить рейтинги для данного альбома"
+
+#, c-format
+msgid "Rating Album: %s"
+msgstr ""
 
 #, fuzzy, c-format
 msgid "%d vote"
@@ -131,7 +131,7 @@ msgid "Lowest value allowed for rating album threshold"
 msgstr ""
 
 msgid "Invalid number"
-msgstr "Неверное количество"
+msgstr ""
 
 msgid "Description"
 msgstr "Описание"
@@ -157,3 +157,6 @@ msgstr "Сбросить"
 
 msgid "Rating interface"
 msgstr "Интерфейс рейтинга"
+
+#~ msgid "Successfully saved theme settings"
+#~ msgstr "Настройки темы успешно сохранены"

@@ -34,9 +34,9 @@ class SiteAdminView extends GalleryView {
 	global $gallery;
 
 	/* Make sure we have adequate permissions */
-	$ret = $this->_permissionCheck(GalleryCoreApi::assertUserIsSiteAdministrator());
+	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret[0], $ret[1]);
+	    return array($ret, null);
 	}
 
 	/* Load the module list */
@@ -55,10 +55,6 @@ class SiteAdminView extends GalleryView {
 	 */
 	$subView = GalleryUtilities::getRequestVariables('subView');
 	$showAllSiteAdminViews = ($subView == 'core.AdminPlugins');
-	if ($showAllSiteAdminViews) {
-	    /* Ensure translations available even for uninstalled plugins */
-	    GalleryCoreApi::installTranslationsForLocale();
-	}
 
 	foreach ($moduleStatus as $moduleId => $status) {
 	    if (empty($status['active']) && !$showAllSiteAdminViews) {
@@ -214,12 +210,20 @@ class SiteAdminView extends GalleryView {
 	    $SiteAdmin = array();
 	}
 
+	/* Get the links for navigating back to where we came from */
+	$urlGenerator =& $gallery->getUrlGenerator();
+	list ($ret, $navigationLinks) = $urlGenerator->getNavigationLinks();
+	if ($ret) {
+	    return array($ret, null);
+	}
+
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 	if ($ret) {
 	    return array($ret, null);
 	}
 
 	/* Set up my view parameters */
+	$SiteAdmin['navigationLinks'] = $navigationLinks;
 	$SiteAdmin['subViewGroups'] = $subViewGroups;
 	$SiteAdmin['subViewName'] = $subViewName;
 	$SiteAdmin['viewBodyFile'] = $results['body'];

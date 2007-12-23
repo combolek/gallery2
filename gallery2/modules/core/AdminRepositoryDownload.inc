@@ -152,8 +152,8 @@ class AdminRepositoryDownloadController extends GalleryController {
      *
      * @param array $installPackages packages to install
      * @param array $deleteLanguages language packages to delete
-     * @param array an array of GalleryRepository
-     * @return GalleryStatus a status code
+     * @param array an array of object GalleryRepository
+     * @return object GalleryStatus a status code
      */
     function performDownloadAndInstallation($installPackages, $deleteLanguages, $repositories) {
 	global $gallery;
@@ -201,13 +201,10 @@ class AdminRepositoryDownloadController extends GalleryController {
 	    foreach ($files as $pluginType => $plugins) {
 		foreach ($plugins as $pluginId => $pluginDownloadData) {
 		    /*
-		     * 2 actions (preverify and download) for all files except
-		     * the descriptor which we just download.
+		     * 2 actions (preverify, then download) for all files except the descriptor
+		     * which we just download.
 		     */
 		    $totalActions += 2 * count($pluginDownloadData['files']) - 1;
-
-		    /* 1 extra action for each plugin (language sync) */
-		    $totalActions += 1;
 		}
 	    }
 	}
@@ -406,7 +403,7 @@ class AdminRepositoryDownloadController extends GalleryController {
 
 	/* Delete old language packs */
 	$deleteText = $module->translate('Deleting Language Packs');
-	$g2base = GalleryCoreApi::getCodeBasePath();
+	$g2base = dirname(dirname(dirname(__FILE__)));
 	$status['languagePacksDeleted'] = 0;
 	foreach ($deleteLanguages as $pluginType => $plugins) {
 	    foreach ($plugins as $pluginId => $languages) {
@@ -416,18 +413,15 @@ class AdminRepositoryDownloadController extends GalleryController {
 			$titleText, $deleteText, $currentAction / $totalActions);
 
 		    $actual = 0;
-		    $dir = "${g2base}${pluginType}s/$pluginId/locale/$language";
+		    $dir = "$g2base/${pluginType}s/$pluginId/locale/$language";
 		    if ($platform->is_dir($dir) && $platform->is_writeable($dir)) {
 			$platform->recursiveRmdir($dir);
 			$actual++;
 		    }
-		    $fileBase = "${g2base}${pluginType}s/$pluginId/po/$language";
-		    foreach (array('mo', 'po') as $tag) {
-			$file = "$fileBase.$tag";
-			if ($platform->is_file($file) && $platform->is_writeable($file)) {
-			    $platform->unlink($file);
-			    $actual++;
-			}
+		    $file = "$g2base/${pluginType}s/$pluginId/po/$language.po";
+		    if ($platform->is_file($file) && $platform->is_writeable($file)) {
+			$platform->unlink($file);
+			$actual++;
 		    }
 
 		    $ret = GalleryCoreApi::removeMapEntry(
@@ -446,31 +440,6 @@ class AdminRepositoryDownloadController extends GalleryController {
 	    }
 	}
 
-	/*
-	 * Upgrading the base package synchronizes translations, but new language packs
-	 * get installed after the base package.  And new language packs can be installed
-	 * separately.  So synchronize the translations here.
-	 */
-	$synchronizeText = $module->translate('Synchronizing Language Packs');
-	foreach ($sourcedFiles as $source => $files) {
-	    foreach ($files as $pluginType => $plugins) {
-		foreach ($plugins as $pluginId => $ignored) {
-		    $templateAdapter->updateProgressBar(
-			$titleText, $synchronizeText, ++$currentAction / $totalActions);
-
-		    $ret = GalleryCoreApi::removeTranslationsForPlugin($pluginType, $pluginId);
-		    if ($ret) {
-			return $ret;
-		    }
-
-		    $ret = GalleryCoreApi::installTranslationsForPlugin($pluginType, $pluginId);
-		    if ($ret) {
-			return $ret;
-		    }
-		}
-	    }
-	}
-
 	/* Update progress bar. */
 	if (!empty($status['error'])) {
 	    $message = $module->translate('Update completed with errors.');
@@ -482,8 +451,8 @@ class AdminRepositoryDownloadController extends GalleryController {
 	/* Show link to return to the previously selected tab. */
 	$redirect['view'] = 'core.SiteAdmin';
 	$redirect['subView'] = 'core.AdminRepository';
-	
-	$session->putStatus($status);
+	$redirect['statusId'] = $session->putStatus($status);
+
 	$urlGenerator =& $gallery->getUrlGenerator();
 	$templateAdapter->completeProgressBar($urlGenerator->generateUrl($redirect));
 	return null;

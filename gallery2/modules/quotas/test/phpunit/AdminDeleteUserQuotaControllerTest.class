@@ -34,15 +34,12 @@ class AdminDeleteUserQuotaControllerTest extends GalleryControllerTestCase {
     }
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	/* Create a user that we can delete */
 	list ($ret, $this->_user) = $this->_createRandomUser();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($this->_user);
     }

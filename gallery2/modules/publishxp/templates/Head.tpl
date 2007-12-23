@@ -1,6 +1,8 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
 <title>
   {g->text text="Publish XP"}
@@ -10,7 +12,7 @@
 // <![CDATA[
   var onBackUrl = null;
   var submitOnNext = false;
-  var title="{g->text text="Upload to Gallery" forJavascript=true}";
+  var title="{g->text text="Upload to Gallery"}";
 
   {*
    * If you enable XpDebug, you get Back/Next buttons for all browsers, not

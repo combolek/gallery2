@@ -22,10 +22,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: EXIF/IPTC 1.2.2\n"
+"Project-Id-Version: Gallery: EXIF/IPTC 1.1.0\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2005-11-01 11:38+0100\n"
-"PO-Revision-Date: 2007-06-07 12:52+0200\n"
+"PO-Revision-Date: 2006-11-07 16:37+0100\n"
 "Last-Translator: Oscar Garcia Amor <oscar.garcia@moire.org>\n"
 "Language-Team: Spanish <gallery-translations@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -636,14 +636,6 @@ msgstr "IPTC: Prioridad"
 msgid "IPTC: Time Created"
 msgstr "IPTC: Hora de Creación"
 
-#, fuzzy
-msgid "IPTC: Content Location Name"
-msgstr "IPTC: País"
-
-#, fuzzy
-msgid "IPTC: Sub Location"
-msgstr "IPTC: Leyenda"
-
 msgid "EXIF/IPTC Settings"
 msgstr "Configuración de EXIF/IPTC"
 
@@ -810,19 +802,11 @@ msgstr ""
 msgid "Rotate pictures automatically"
 msgstr "Rotar imágenes automaticamente"
 
-msgid ""
-"Warning: No toolkit support for rotation of JPEG images.  Make sure to activate a toolkit "
-"module if using this option."
-msgstr ""
-
 msgid "Preserve Original on Rotating"
 msgstr "Mantener el Original al Rotar"
 
 msgid "Save"
 msgstr "Guardar"
-
-msgid "Loading.."
-msgstr "Cargando..."
 
 msgid "Photo Properties"
 msgstr "Propiedades de la Foto"

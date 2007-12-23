@@ -101,12 +101,6 @@ class SelectPicasaExportPathView extends GalleryView {
      */
     function loadTemplate(&$template, &$form) {
 	global $gallery;
-
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret, null);
-	}
-
 	if ($form['formName'] != 'SelectPicasaExportPath') {
 	    $form['formName'] = 'SelectPicasaExportPath';
 	    $form['picasaXmlPath'] = '';
@@ -141,7 +135,7 @@ class SelectPicasaExportPathView extends GalleryView {
 	}
 
 	/* Load all the album entities */
-	list ($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds, 'GalleryAlbumItem');
+	list ($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds);
 	if ($ret) {
 	    return array($ret, null);
 	}

@@ -173,7 +173,6 @@ class CodeAuditTest extends CodeAuditTestCase {
 	$fileName = substr($fileName, strlen($this->_baseDir) + 1);
 	$lines = split("(\r\n|\n)", $buffer);
 	$checkSuperglobals = !preg_match('{/test/phpunit|^install/|^upgrade/}', $fileName);
-	$checkEntityType = $fileName != 'modules/core/test/phpunit/EntityTest.class';
 	$currentFunction = null;
 	$currentClass = null;
 	$longLineTable = $returnTable = array();
@@ -188,23 +187,6 @@ class CodeAuditTest extends CodeAuditTestCase {
 	}
 
 	$this->checkPreamble($fileName, $buffer, $lines);
-
-	/*
-	 * Check for loadEntitiesById and deleteEntityById calls that omit the entity-type parameter
-	 * which will be required after the next major core API bump.
-	 */
-	if ($checkEntityType) {
-	    foreach (array('loadEntitiesById', 'deleteEntityById') as $function) {
-		$calls =
-		    $this->getFunctionCalls($buffer, array('GalleryCoreApi', $function), $fileName);
-		foreach ($calls as $call) {
-		    $params = $this->getFunctionParameters($call);
-		    $this->assert(count($params) == 2,
-				  sprintf('File %s: %s() call without entityType parameter',
-					  $fileName, $function));
-		}
-	    }
-	}
 
 	for ($i = 0; $i < count($lines); $i++) {
 	    if (preg_match('/^\s*class (\S+)/', $lines[$i], $matches)) {
@@ -318,8 +300,6 @@ class CodeAuditTest extends CodeAuditTestCase {
 
 		    $finalCount = "array($commaCount)";
 		    $returnCount[$function][$i] = array($finalCount, $tmp);
-		} else if (preg_match('/^GalleryCoreApi::error\(.*\)/', $returns[$i])) {
-		    $returnCount[$function][$i] = array("scalar", $returns[$i]);
 		} else if (preg_match('/\w\s*\(.*\)/', $returns[$i])) {
 		    $returnCount[$function][$i] = array("function", $returns[$i]);
 		} else {

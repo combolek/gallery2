@@ -88,13 +88,6 @@ class UserRecoverPasswordAdminController extends GalleryController {
 			return array($ret, null);
 		    }
 
-		    $ret = GalleryCoreApi::removeMapEntry(
-			'FailedLoginsMap',
-			array('userName' => $user->getUserName()));
-		    if ($ret) {
-			return array($ret, null);
-		    }
-
 		    $status['passwordRecovered'] = 1;
 
 		    /*

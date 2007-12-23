@@ -33,9 +33,10 @@ class ItemAddWebCam extends ItemAddPlugin {
     function handleRequest($form, &$item) {
 	global $gallery;
 
-	$status = $error = array();
+	$status = array();
+	$error = array();
 
-    	list ($ret, $hasPermission) = $this->isAppropriate();
+	list ($ret, $hasPermission) = $this->isAppropriate();
 	if ($ret) {
 	    return array($ret, null, null);
 	}
@@ -49,62 +50,36 @@ class ItemAddWebCam extends ItemAddPlugin {
 	    /* fetch url, create item, set WebCam handler, save params */
 	    $platform =& $gallery->getPlatform();
 	    $tmpDir = $gallery->getConfig('data.gallery.tmp');
+	    $tmpFile = $platform->tempnam($tmpDir, 'webcam');
 	    $url = $form['imageUrl'];
 	    GalleryUtilities::unsanitizeInputValues($url, false);
-	    $urlComponents = parse_url($url);
+            $urlComponents = parse_url($url);
 
-	    list ($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
-	    if ($ret) {
-		return array($ret, null, null);
-	    }
-
-	    if (empty($urlComponents['scheme'])
-		    || !in_array($urlComponents['scheme'], array('http', 'file'))) {
-		$error[] = 'form[error][imageUrl][invalid]';
-		$successfullyCopied = true;
-	    } else if ($urlComponents['scheme'] == 'http') {
-		$tmpFile = $platform->tempnam($tmpDir, 'webcam');
-		list ($successfullyCopied, $response, $headers) =
-		    GalleryCoreApi::fetchWebFile($url, $tmpFile);
-		if (!$successfullyCopied) {
-		    @$platform->unlink($tmpFile);
-		}
-	    } else if ($isAdmin) {
-		/* PHP 4.3.0 trips on file:///path/here (triple slash).. result lands in 'host' */
-		if (!isset($urlComponents['path']) && isset($urlComponents['host'])) {
-		    $urlComponents['path'] = $urlComponents['host'];
-		}
-		$tmpFile = $urlComponents['path'];
-		$successfullyCopied = $platform->file_exists($tmpFile);
-	    } else {
-		$error[] = 'form[error][imageUrl][invalid]';
-		$successfullyCopied = true;
-	    }
+	    list ($successfullyCopied, $response, $headers) =
+		GalleryCoreApi::fetchWebFile($url, $tmpFile);
 	    if (!$successfullyCopied) {
 		$error[] = 'form[error][imageUrl][unavailable]';
 	    }
 
-	    if (empty($error)) {
-		$basename = basename($urlComponents['path']);
-		if (!empty($headers['Content-Type'])) {
-		    $mimeType = $headers['Content-Type'];
-		} else if (!empty($headers['Content-type'])) {
-		    $mimeType = $headers['Content-type'];
-		} else {
-		    list ($base, $extension) = GalleryUtilities::getFileNameComponents($basename);
-		    list ($ret, $mimeType) = GalleryCoreApi::convertExtensionToMime($extension);
-		    if ($ret) {
-			$mimeType = 'application/unknown';
-		    }
+	    if (!empty($headers['Content-Type'])) {
+		$mimeType = $headers['Content-Type'];
+	    } else if (!empty($headers['Content-type'])) {
+		$mimeType = $headers['Content-type'];
+	    } else {
+		list ($base, $extension) = GalleryUtilities::getFileNameComponents(basename($url));
+		list ($ret, $mimeType) = GalleryCoreApi::convertExtensionToMime($extension);
+		if ($ret) {
+		    $mimeType = 'application/unknown';
 		}
+	    }
 
-		$title = $basename;
-		GalleryUtilities::sanitizeInputValues($title);
+	    if (empty($error)) {
+                $basename = basename($urlComponents['path']);
+ 		$title = $basename;
+ 		GalleryUtilities::sanitizeInputValues($title);
 		list ($ret, $newItem) = GalleryCoreApi::addItemToAlbum(
 		    $tmpFile, $basename, $title, '', '', $mimeType, $item->getId());
-		if ($urlComponents['scheme'] == 'http') {
-		    @$platform->unlink($tmpFile);
-		}
+		@$platform->unlink($tmpFile);
 		if ($ret) {
 		    return array($ret, null, null);
 		}
@@ -135,13 +110,15 @@ class ItemAddWebCam extends ItemAddPlugin {
 						    'id' => $newItem->getId(),
 						    'warnings' => array());
 		} else {
-		    $ret = GalleryCoreApi::deleteEntityById($newItem->getId(), 'GalleryDataItem');
+		    $ret = GalleryCoreApi::deleteEntityById($newItem->getId());
 		    if ($ret) {
 			return array($ret, null, null);
 		    }
 
 		    $error[] = 'form[error][imageUrl][notImage]';
 		}
+	    } else {
+		@$platform->unlink($tmpFile);
 	    }
 	}
 
@@ -165,17 +142,11 @@ class ItemAddWebCam extends ItemAddPlugin {
 	}
 
 	if (isset($form['action']['checkUrl'])) {
-	    list ($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
-	    if ($ret) {
-		return array($ret, null, null);
-	    }
 	    if (empty($form['imageUrl'])) {
 		$form['error']['imageUrl']['missing'] = 1;
 	    } else {
-		$urlComponents = parse_url($form['imageUrl']);
-		if (empty($urlComponents['scheme'])
-			|| !in_array($urlComponents['scheme'], array('http', 'file'))
-			|| ($urlComponents['scheme'] == 'file' && !$isAdmin)) {
+		$baseUrlComponents = parse_url($form['imageUrl']);
+		if (empty($baseUrlComponents['scheme']) || $baseUrlComponents['scheme'] != 'http') {
 		    $form['error']['imageUrl']['invalid'] = 1;
 		}
 	    }
@@ -188,18 +159,7 @@ class ItemAddWebCam extends ItemAddPlugin {
      * @see ItemAddPlugin::isAppropriate
      */
     function isAppropriate() {
-	list ($ret, $param) = GalleryCoreApi::getPluginParameter('module', 'webcam', 'fromweb');
-	if ($ret) {
-	    return array($ret, null);
-	}
-	$isAdmin = false;
-	if ($param == 'admin') {
-	    list ($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	}
-	return array(null, $param == 'on' || ($isAdmin && $param == 'admin'));
+	return GalleryCoreApi::isUserInSiteAdminGroup();
     }
 
     /**

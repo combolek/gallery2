@@ -30,7 +30,7 @@
  *
  * @author Ernesto Baschny <ernst@baschny.de>
  */
-if (!defined('G2_SUPPORT')) { return; }
+if (!defined('G2_SUPPORT')) return;
 
 /*
  * Gets a lot of information about our GD installation and return it as a
@@ -206,8 +206,7 @@ $gdInfo = getGdLibraryInfo();
   <body>
     <div id="content">
       <div id="title">
-	<a href="../../">Gallery</a> &raquo;
-	<a href="<?php generateUrl('index.php') ?>">Support</a> &raquo; GD Library Info
+        <a href="../../">Gallery</a> &raquo; <a href="index.php">Support</a> &raquo; GD Library Info
       </div>
       <?php if ($gdInfo == ''): ?>
       <h2>No GD library found.</h2>

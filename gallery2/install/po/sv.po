@@ -19,7 +19,7 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Installer 2.3\n"
+"Project-Id-Version: Gallery: Installer 2.2.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-01-15 16:15+0100\n"
 "PO-Revision-Date: 2007-01-01 22:10+0100\n"
@@ -67,6 +67,16 @@ msgid "Create Config File"
 msgstr "Skapar konfigurationsfilen"
 
 #, c-format
+msgid ""
+"Unable to write to the <b>config.php</b> configuration file in your %s directory.  Please "
+"change its permissions.  If you're on Unix you can do <i>chmod 666 config.php</i> to fix "
+"this."
+msgstr ""
+"Kan ej skriva till <b>config.php</b> konfigurationsfilen i din %s katalog. Ändra filens "
+"rättigheter. Om du är på en Unix-maskin så kan du använda kommandot <i>chmod 666 config.php</"
+"i> för att ordna detta."
+
+#, c-format
 msgid "The config.php file does not exist in your %s directory"
 msgstr "Filen config.php finns ej i katalogen %s"
 
@@ -96,10 +106,6 @@ msgid "You must have the Oracle OCI8 PHP module installed"
 msgstr "Du måste ha Oracle OCI8-PHP-modulen installerad"
 
 msgid "You must have the Component Object Model(COM) PHP module installed"
-msgstr "Du måste ha <i>Component Object Model (COM)</i>-PHP-modulen installerad"
-
-#, fuzzy
-msgid "You must have the PHP Data Object(PDO) PHP module installed"
 msgstr "Du måste ha <i>Component Object Model (COM)</i>-PHP-modulen installerad"
 
 #, c-format
@@ -211,9 +217,6 @@ msgstr "IBM DB2 (v9.x och nyare)"
 msgid "Microsoft SQL Server 2005 and newer"
 msgstr "Microsoft SQL Server 2005 och nyare"
 
-msgid "SQLite v3.x (Experimental!)"
-msgstr ""
-
 msgid "Unknown DB type or no known tables information."
 msgstr "Okänd databastyp eller okänd tabellinformation."
 
@@ -321,8 +324,8 @@ msgstr "Kontroll av Systemet"
 msgid "Performing system checks"
 msgstr "Utför kontroll av Systemet"
 
-msgid "PHP version &gt;= 4.3.0 or &gt;= 5.0.4"
-msgstr "PHP version &gt;= 4.3.0 eller &gt;= 5.0.4"
+msgid "PHP version >= 4.3.0 or >= 5.0.4"
+msgstr "PHP version >= 4.3.0 eller >= 5.0.4"
 
 #, c-format
 msgid ""
@@ -503,13 +506,14 @@ msgstr "Zend-kompatibilitetsläge"
 #, c-format
 msgid ""
 "Warning: Your PHP is configured with Zend ze1_compatibility_mode which can cause PHP to "
-"crash.  Click %shere%s to test your PHP.  If you see \"SUCCESS\" then your PHP is ok.  If "
-"you get an error or no response then you must turn off ze1_compatibility_mode before "
-"proceeding."
+"crash.  Click <a href=\"%s\">here</a> to test your PHP.  If you see \"SUCCESS\" then your "
+"PHP is ok.  If you get an error or no response then you must turn off ze1_compatibility_mode "
+"before proceeding."
 msgstr ""
 "Varning: Din PHP är konfigurerad med Zend zel_compatibility_mode vilket kan orsaka att PHP "
-"havererar. Klicka %shär%s för att testa din PHP. Om du ser \"LYCKADES\" är din PHP ok. Om du "
-"får ett fel eller inget svar måste du stänga av ze1_compatibility_mode innan du fortsätter."
+"havererar. Klicka <a href=\"%s\">här</a> för att testa din PHP. Om du ser \"LYCKADES\" är "
+"din PHP ok. Om du får ett fel eller inget svar måste du stänga av ze1_compatibility_mode "
+"innan du fortsätter."
 
 msgid "putenv() allowed"
 msgstr "putenv() tillåten"
@@ -683,17 +687,6 @@ msgstr "Försök Igen"
 msgid "Create a config file"
 msgstr "Skapa en konfigurationsfil"
 
-#, fuzzy, c-format
-msgid ""
-"Unable to write to the <b>config.php</b> configuration file in your %s directory.  Please "
-"change its permissions.  If you're on Unix you can do <i>chmod 666 config.php</i> to fix "
-"this. You can also download the %sconfig.php%s file and replace the existing config.php in "
-"the %s directory yourself."
-msgstr ""
-"Kan ej skriva till <b>config.php</b> konfigurationsfilen i din %s katalog. Ändra filens "
-"rättigheter. Om du är på en Unix-maskin så kan du använda kommandot <i>chmod 666 config.php</"
-"i> för att ordna detta."
-
 #, c-format
 msgid ""
 "Now we need to write out all the information you provided into a file called <b>config.php</"
@@ -777,12 +770,6 @@ msgstr "Lösenord för databas:"
 
 msgid "DB Name:"
 msgstr "Databasnamn:"
-
-msgid "DB Schema:"
-msgstr ""
-
-msgid "(optional)"
-msgstr ""
 
 msgid "Table Prefix:"
 msgstr "Tabellprefix:"
@@ -1206,9 +1193,6 @@ msgstr ""
 "sökvägarna som du fyller i. Om du har problem med att hitta rätt sökväg till din "
 "datakatalog, experimentera med sökvägarna i textrutan nedan och se vilken expansion den ger "
 "dig."
-
-msgid "Do not use the installation directory for storage"
-msgstr ""
 
 msgid "The directory you entered is read only"
 msgstr "Katalogen du angett tillåter endast läsning"

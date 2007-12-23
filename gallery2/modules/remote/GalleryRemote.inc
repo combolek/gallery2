@@ -31,7 +31,7 @@ GalleryCoreApi::requireOnce('modules/remote/classes/GalleryRemoteConstants.class
 class GalleryRemoteController extends GalleryController {
     /**
      * ItemAddOption instances to use when handling this request.  Only used by test code.
-     * @var array (optionId => ItemAddOption) $_optionInstances
+     * @var array (optionId => object ItemAddOption) $_optionInstances
      * @access private
      */
     var $_optionInstances;
@@ -215,8 +215,8 @@ class GalleryRemoteController extends GalleryController {
      * Log into Gallery
      *
      * @param array $form key/value pairs from Gallery Remote
-     * @param GalleryRemoteProperties $response a reference to our response object
-     * @return GalleryStatus a status code
+     * @param object GalleryRemoteProperties $response a reference to our response object
+     * @return object GalleryStatus a status code
      */
     function login($form, &$response) {
 	global $gallery;
@@ -291,8 +291,7 @@ class GalleryRemoteController extends GalleryController {
 		    return $ret;
 		}
 
-		list ($ret, $anonymousUser) =
-		    GalleryCoreApi::loadEntitiesById($anonymousUserId, 'GalleryUser');
+		list ($ret, $anonymousUser) = GalleryCoreApi::loadEntitiesById($anonymousUserId);
 		if ($ret) {
 		    return $ret;
 		}
@@ -314,8 +313,8 @@ class GalleryRemoteController extends GalleryController {
      *
      * @param boolean $prune prune albums where user can't upload to or create sub-albums
      * @param array $form key/value pairs from Gallery Remote
-     * @param GalleryRemoteProperties $response a reference to our response object
-     * @return GalleryStatus a status code
+     * @param object GalleryRemoteProperties $response a reference to our response object
+     * @return object GalleryStatus a status code
      */
     function fetchAlbums($prune, $form, &$response) {
 	global $gallery;
@@ -380,7 +379,7 @@ class GalleryRemoteController extends GalleryController {
 	}
 
 	/* Load all the entities */
-	list ($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds, 'GalleryAlbumItem');
+	list ($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds);
 	if ($ret) {
 	    return $ret;
 	}
@@ -443,7 +442,7 @@ class GalleryRemoteController extends GalleryController {
 	    return $ret;
 	}
 
-	$response->setProperty('can_create_root', $perm ? 'true' : 'false');
+	$response->setProperty('can_create_root', ($perm || $isSiteAdmin) ? 'true' : 'false');
 	$response->setProperty('album_count', sizeof($albums));
 	$response->setProperty('status', $grStatusCodes['SUCCESS']);
 	$response->setProperty('status_text', 'Fetch-albums successful.');
@@ -463,7 +462,7 @@ class GalleryRemoteController extends GalleryController {
 
 	if (!empty($parentIds)) {
 	    /* load all the new parents at once */
-	    list ($ret, $parents) = GalleryCoreApi::loadEntitiesById($parentIds, 'GalleryItem');
+	    list ($ret, $parents) = GalleryCoreApi::loadEntitiesById($parentIds);
 	    if ($ret) {
 		return array($ret, null, null);
 	    }
@@ -484,8 +483,8 @@ class GalleryRemoteController extends GalleryController {
      * Add a data item to Gallery
      *
      * @param array $form key/value pairs from Gallery Remote
-     * @param GalleryRemoteProperties $response a reference to our response object
-     * @return GalleryStatus a status code
+     * @param object GalleryRemoteProperties $response a reference to our response object
+     * @return object GalleryStatus a status code
      */
     function addDataItem($form, &$response) {
 	global $gallery;
@@ -495,8 +494,7 @@ class GalleryRemoteController extends GalleryController {
 	$file = GalleryUtilities::getFile('userfile');
 
 	if (!empty($form['set_albumId'])) {
-	    list ($ret, $parentItem) =
-		GalleryCoreApi::loadEntitiesById($form['set_albumId'], 'GalleryAlbumItem');
+	    list ($ret, $parentItem) = GalleryCoreApi::loadEntitiesById($form['set_albumId']);
 	    if ($ret) {
 		return $ret;
 	    }
@@ -657,8 +655,8 @@ class GalleryRemoteController extends GalleryController {
      * Create a new album
      *
      * @param array $form key/value pairs from Gallery Remote
-     * @param GalleryRemoteProperties $response a reference to our response object
-     * @return GalleryStatus a status code
+     * @param object GalleryRemoteProperties $response a reference to our response object
+     * @return object GalleryStatus a status code
      */
     function newAlbum($form, &$response) {
 	global $gallery;
@@ -712,8 +710,8 @@ class GalleryRemoteController extends GalleryController {
      * Fetch album images
      *
      * @param array $form key/value pairs from Gallery Remote
-     * @param GalleryRemoteProperties $response a reference to our response object
-     * @return GalleryStatus a status code
+     * @param object GalleryRemoteProperties $response a reference to our response object
+     * @return object GalleryStatus a status code
      */
     function fetchAlbumImages($form, &$response) {
 	global $gallery;
@@ -742,9 +740,9 @@ class GalleryRemoteController extends GalleryController {
 	}
 
 	/* check that the item is an album */
-	list ($ret, $album) = GalleryCoreApi::loadEntitiesById($albumId, 'GalleryAlbumItem');
+	list ($ret, $album) = GalleryCoreApi::loadEntitiesById($albumId);
 	if ($ret) {
-	    if ($ret->getErrorCode() & ERROR_MISSING_OBJECT) {
+	    if ($ret->getErrorCode() & ERROR_MISSING_OBJECT == ERROR_MISSING_OBJECT) {
 		$response->setProperty('status', $grStatusCodes['ERROR']);
 		$response->setProperty('status_text', 'albumName is not a valid G2 object ID');
 		return null;
@@ -752,7 +750,13 @@ class GalleryRemoteController extends GalleryController {
 		return $ret;
 	    }
 	}
-
+	if (!GalleryUtilities::isA($album, 'GalleryAlbumItem')) {
+	    $response->setProperty('status', $grStatusCodes['ERROR']);
+	    $response->setProperty('status_text',
+				   'albumName doesn\'t correspond to an actual album');
+	    return null;
+	}
+	
 	$response->setProperty('album.caption', $album->getTitle());
 
 	if (isset($form['random']) && $form['random'] == 'yes' && isset($form['limit'])) {
@@ -842,7 +846,7 @@ class GalleryRemoteController extends GalleryController {
 	    return null;
 	}
 
-	list ($ret, $items) = GalleryCoreApi::loadEntitiesById($ids, 'GalleryItem');
+	list ($ret, $items) = GalleryCoreApi::loadEntitiesById($ids);
 	if ($ret) {
 	    return $ret;
 	}
@@ -956,8 +960,8 @@ class GalleryRemoteController extends GalleryController {
      * Album properties
      *
      * @param array $form key/value pairs from Gallery Remote
-     * @param GalleryRemoteProperties $response a reference to our response object
-     * @return GalleryStatus a status code
+     * @param object GalleryRemoteProperties $response a reference to our response object
+     * @return object GalleryStatus a status code
      */
     function albumProperties($form, &$response) {
 	global $gallery;
@@ -1045,8 +1049,8 @@ class GalleryRemoteController extends GalleryController {
      * Increment view count
      *
      * @param array $form key/value pairs from Gallery Remote
-     * @param GalleryRemoteProperties $response a reference to our response object
-     * @return GalleryStatus a status code
+     * @param object GalleryRemoteProperties $response a reference to our response object
+     * @return object GalleryStatus a status code
      */
     function incrementViewCount($form, &$response) {
 	global $gallery;
@@ -1081,8 +1085,8 @@ class GalleryRemoteController extends GalleryController {
      * Image properties
      *
      * @param array $form key/value pairs from Gallery Remote
-     * @param GalleryRemoteProperties $response a reference to our response object
-     * @return GalleryStatus a status code
+     * @param object GalleryRemoteProperties $response a reference to our response object
+     * @return object GalleryStatus a status code
      */
     function imageProperties($form, &$response) {
 	global $gallery;
@@ -1101,7 +1105,7 @@ class GalleryRemoteController extends GalleryController {
 	    /* todo: handle error */
 	}
 
-	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($id, 'GalleryItem');
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($id);
 	if ($ret) {
 	    return $ret;
 	}

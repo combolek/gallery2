@@ -113,11 +113,6 @@ class SelectGalleryView extends GalleryView {
     function loadTemplate(&$template, &$form) {
 	global $gallery;
 
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret, null);
-	}
-
 	if ($form['formName'] != 'SelectGallery') {
 	    $form['formName'] = 'SelectGallery';
 	    $form['albumsPath'] = '';

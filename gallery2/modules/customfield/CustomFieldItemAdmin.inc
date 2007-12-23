@@ -40,15 +40,9 @@ class CustomFieldItemAdminController extends GalleryController {
 	global $gallery;
 	$session =& $gallery->getSession();
 
-	$adminMode = GalleryUtilities::getRequestVariables('cfAdmin');
-
-	list ($ret, $item) = $this->getItem();
-	if ($ret) {
-	    return array($ret, null);
-	}
-	$itemId = $item->getId();
-
-	if (!empty($adminMode)) {
+	list ($adminMode, $itemId) = GalleryUtilities::getRequestVariables('cfAdmin', 'itemId');
+	if (!empty($adminMode) && !empty($itemId)) {
+	    $itemId = (int)$itemId;
 	    $ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.edit');
 	    if ($ret) {
 		return array($ret, null);

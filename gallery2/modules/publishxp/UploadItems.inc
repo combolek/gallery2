@@ -33,7 +33,7 @@
 class UploadItemsController extends GalleryController {
     /**
      * ItemAddOption instances to use when handling this request.  Only used by test code.
-     * @var array (optionId => ItemAddOption) $_optionInstances
+     * @var array (optionId => object ItemAddOption) $_optionInstances
      * @access private
      */
     var $_optionInstances;
@@ -262,7 +262,7 @@ class UploadItemsController extends GalleryController {
 		break;
 	    default: $codePage = 1252;
 	}
-	return 'CP' . $codePage;
+	return 'Windows-' . $codePage;
     }
 }
 

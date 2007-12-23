@@ -33,11 +33,6 @@ class ImportResultsView extends GalleryView {
     function loadTemplate(&$template, &$form) {
 	global $gallery;
 
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret, null);
-	}
-
 	if ($form['formName'] != 'ImportResults') {
 	    $form['formName'] = 'ImportResults';
 	}

@@ -19,7 +19,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Watermark 1.1.2\n"
+"Project-Id-Version: Gallery: Watermark 1.1.0\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2006-12-20 10:00-0800\n"
 "PO-Revision-Date: 2006-03-10 13:10+0800\n"
@@ -74,8 +74,7 @@ msgstr "为从外部下载的图像添加水印。在水印管理中选择相应
 msgid "Delete Watermark"
 msgstr "删除水印"
 
-# too many plural forms
-#, fuzzy, c-format
+#, c-format
 msgid "This watermark is used on one item."
 msgid_plural "This watermark is used on %d items."
 msgstr[0] "此水印被 %d 个项目使用。"
@@ -301,3 +300,6 @@ msgid ""
 "Gallery. Select a watermark above and then activate hotlink watermarks using the Rewrite "
 "module."
 msgstr "图库可以为链接到外部的图片自动添加水印。选择一个水印，然后再Rewrite模块中激活热链接。"
+
+#~ msgid "No watermark selected"
+#~ msgstr "没有选择水印"

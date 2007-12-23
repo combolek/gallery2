@@ -21,7 +21,7 @@
 # along with this program; if not, write to the Free Software
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Installer 2.3\n"
+"Project-Id-Version: Gallery: Installer 2.2.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-03-12 23:42+0200\n"
 "PO-Revision-Date: 2007-03-08 11:17+0200\n"
@@ -73,6 +73,16 @@ msgid "Create Config File"
 msgstr "Sukurti konfigūracijos failą"
 
 #, c-format
+msgid ""
+"Unable to write to the <b>config.php</b> configuration file in your %s directory.  Please "
+"change its permissions.  If you're on Unix you can do <i>chmod 666 config.php</i> to fix "
+"this."
+msgstr ""
+"Neįmanoma įrašyti konfigūracinio failo <b>config.php</b> aplanke %s.  Prašau jo pakeisti "
+"prieigos teises.  Jei jūs naudojate Unix, tuomet norėdami tai ištaisyti įvykdykite komandą "
+"<i>chmod 666 config.php</i>."
+
+#, c-format
 msgid "The config.php file does not exist in your %s directory"
 msgstr "Failas config.php aplanke %s neegzistuoja"
 
@@ -103,10 +113,6 @@ msgid "You must have the Oracle OCI8 PHP module installed"
 msgstr "Reikia turėti įdiegta PHP modulį Oracle OCI8"
 
 msgid "You must have the Component Object Model(COM) PHP module installed"
-msgstr "Reikia turėti įdiegta PHP modulį Object Model(COM)"
-
-#, fuzzy
-msgid "You must have the PHP Data Object(PDO) PHP module installed"
 msgstr "Reikia turėti įdiegta PHP modulį Object Model(COM)"
 
 #, c-format
@@ -216,9 +222,6 @@ msgstr "IBM DB2 (v9.x ir naujesnė)"
 msgid "Microsoft SQL Server 2005 and newer"
 msgstr "Microsoft SQL Server 2005 ar naujesnė"
 
-msgid "SQLite v3.x (Experimental!)"
-msgstr ""
-
 msgid "Unknown DB type or no known tables information."
 msgstr "Nežinomas duombazės tipas arba nėra žinomos lentelių informacijos."
 
@@ -326,8 +329,8 @@ msgstr "Sistemos patikrinimai"
 msgid "Performing system checks"
 msgstr "Vykdomi sistemos patikrinimai"
 
-msgid "PHP version &gt;= 4.3.0 or &gt;= 5.0.4"
-msgstr "PHP versija &gt;= 4.3.0 arba &gt;= 5.0.4"
+msgid "PHP version >= 4.3.0 or >= 5.0.4"
+msgstr "PHP versija >= 4.3.0 arba >= 5.0.4"
 
 #, c-format
 msgid ""
@@ -507,14 +510,14 @@ msgstr "Suderinamumo su Zend modulis"
 #, c-format
 msgid ""
 "Warning: Your PHP is configured with Zend ze1_compatibility_mode which can cause PHP to "
-"crash.  Click %shere%s to test your PHP.  If you see \"SUCCESS\" then your PHP is ok.  If "
-"you get an error or no response then you must turn off ze1_compatibility_mode before "
-"proceeding."
+"crash.  Click <a href=\"%s\">here</a> to test your PHP.  If you see \"SUCCESS\" then your "
+"PHP is ok.  If you get an error or no response then you must turn off ze1_compatibility_mode "
+"before proceeding."
 msgstr ""
 "Dėmesio: Jūsų serverio PHP suderintas su Zend ze1_compatibility_mode kad gali sukelti PHP "
-"lūžimą. Spauskite %sčia%s, kad patikrinti jūsų PHP. Jei pamatysite „SĖKMĖ“, tuomet jūsų PHP  "
-"tvarkoje. Jei gausite klaidos pranešimo, ar negausite jokio pranešimo, tuomet norėdami testi "
-"turite išjungti ze1_compatibility_mode."
+"lūžimą. Spauskite <a href=\"%s\">čia</a>, kad patikrinti jūsų PHP. Jei pamatysite „SĖKMĖ“, "
+"tuomet jūsų PHP  tvarkoje. Jei gausite klaidos pranešimo, ar negausite jokio pranešimo, "
+"tuomet norėdami testi turite išjungti ze1_compatibility_mode."
 
 msgid "putenv() allowed"
 msgstr "putenv() leidžiamas"
@@ -686,17 +689,6 @@ msgstr "Bandyti vėl"
 msgid "Create a config file"
 msgstr "Sukurti konfigūracijos failą"
 
-#, fuzzy, c-format
-msgid ""
-"Unable to write to the <b>config.php</b> configuration file in your %s directory.  Please "
-"change its permissions.  If you're on Unix you can do <i>chmod 666 config.php</i> to fix "
-"this. You can also download the %sconfig.php%s file and replace the existing config.php in "
-"the %s directory yourself."
-msgstr ""
-"Neįmanoma įrašyti konfigūracinio failo <b>config.php</b> aplanke %s.  Prašau jo pakeisti "
-"prieigos teises.  Jei jūs naudojate Unix, tuomet norėdami tai ištaisyti įvykdykite komandą "
-"<i>chmod 666 config.php</i>."
-
 #, c-format
 msgid ""
 "Now we need to write out all the information you provided into a file called <b>config.php</"
@@ -780,12 +772,6 @@ msgstr "DB slaptažodis:"
 
 msgid "DB Name:"
 msgstr "DB vardas:"
-
-msgid "DB Schema:"
-msgstr ""
-
-msgid "(optional)"
-msgstr ""
 
 msgid "Table Prefix:"
 msgstr "Lentelių prefiksas:"
@@ -1204,9 +1190,6 @@ msgstr ""
 "Jei jūs naudojate modernią naršyklę, Galerija pamėgins jūsų įvedamą kelią užbaigti "
 "automatiškai. Jei nesiseka rasti tinkamo kelio iki G2 duomenų aplanko, pamėginkite teksto "
 "lauke paeksperimentuoti ir pažiūrėkite ką jums siūlo automatinis užbaigimas."
-
-msgid "Do not use the installation directory for storage"
-msgstr ""
 
 msgid "The directory you entered is read only"
 msgstr "Įvestas aplankas prieinamas tik skaitymui"

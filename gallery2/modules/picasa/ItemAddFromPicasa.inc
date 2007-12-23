@@ -131,7 +131,7 @@ class ItemAddFromPicasa extends ItemAddPlugin {
      *
      * @param string $picasaXmlPath the export path, integer the ID of the destination album,
      *        array the form variables
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function performImport($picasaXmlPath, $destinationAlbumId, $form) {
 	global $gallery;
@@ -220,8 +220,7 @@ class ItemAddFromPicasa extends ItemAddPlugin {
 	}
 
 	/* Try to load targeted parent */
-	list ($ret, $targetAlbumObject) =
-	    GalleryCoreApi::loadEntitiesById($destinationAlbumId, 'GalleryAlbumItem');
+	list ($ret, $targetAlbumObject) = GalleryCoreApi::loadEntitiesById($destinationAlbumId);
 	if ($ret) {
 	    return array($ret, null);
 	}

@@ -1,6 +1,8 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
 {if !empty($comment.subject)}
 <h3>
@@ -10,33 +12,18 @@
 
 {if $can.edit}
 <span class="edit">
-  <a href="{g->url arg1="view=comment.EditComment" arg2="itemId=`$item.id`" arg3="commentId=`$comment.id`" arg4="return=true"}">{g->text text="edit"}</a>
+  <a href="{g->url arg1="view=comment.EditComment" arg2="itemId=`$item.id`"
+		   arg3="commentId=`$comment.id`" arg4="return=true"}">
+    {g->text text="edit"}</a>
 </span>
-{assign var="needSeparator" value="true"}
 {/if}
 
 {if $can.delete}
-{if $needSeparator}|{/if}
 <span class="delete">
-  <a{if !empty($ajaxChangeCallback)} onclick="{$ajaxChangeCallback}({$comment.id}, 'delete'); return false;"{/if} href="{g->url arg1="view=comment.DeleteComment" arg2="itemId=`$item.id`" arg3="commentId=`$comment.id`" arg4="return=true"}">{g->text text="delete"}</a>
+  <a href="{g->url arg1="view=comment.DeleteComment" arg2="itemId=`$item.id`"
+		   arg3="commentId=`$comment.id`" arg4="return=true"}">
+    {g->text text="delete"}</a>
 </span>
-{assign var="needSeparator" value="true"}
-{/if}
-
-{if !empty($can.markNotSpam)}
-{if $needSeparator}|{/if}
-<span class="marknotspam">
-  <a href="javascript:{$ajaxChangeCallback}({$comment.id}, 'despam');">{g->text text="mark as not spam"}</a>
-</span>
-{assign var="needSeparator" value="true"}
-{/if}
-
-{if !empty($can.markSpam)}
-{if $needSeparator}|{/if}
-<span class="markSpam">
-  <a href="javascript:{$ajaxChangeCallback}({$comment.id}, 'spam');">{g->text text="mark as spam"}</a>
-</span>
-{assign var="needSeparator" value="true"}
 {/if}
 
 {assign var="commentText" value=$comment.comment|markup}
@@ -45,20 +32,19 @@
 {/if}
 
 {if isset($truncate) && ($truncated != $commentText)}
-<span class="showFull">
-  {if $needSeparator}| {/if}
   <a id="comment-more-toggle-{$comment.id}"
       onclick="document.getElementById('comment-truncated-{$comment.id}').style.display='none';
 	       document.getElementById('comment-full-{$comment.id}').style.display='block';
 	       document.getElementById('comment-more-toggle-{$comment.id}').style.display='none';
-	       document.getElementById('comment-less-toggle-{$comment.id}').style.display='inline'; return false;"
-      href="">{g->text text="show full"}</a><a id="comment-less-toggle-{$comment.id}"
+	       document.getElementById('comment-less-toggle-{$comment.id}').style.display='inline';"
+      >{g->text text="show full"}</a>
+  <a id="comment-less-toggle-{$comment.id}"
       onclick="document.getElementById('comment-truncated-{$comment.id}').style.display='block';
 	       document.getElementById('comment-full-{$comment.id}').style.display='none';
 	       document.getElementById('comment-more-toggle-{$comment.id}').style.display='inline';
-	       document.getElementById('comment-less-toggle-{$comment.id}').style.display='none'; return false;"
-      href="" style="display: none">{g->text text="show summary"}</a>
-</span>
+	       document.getElementById('comment-less-toggle-{$comment.id}').style.display='none';"
+      style="display: none">{g->text text="show summary"}</a>
+
   <p id="comment-truncated-{$comment.id}" class="comment">
     {$truncated}
   </p>

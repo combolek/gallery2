@@ -48,10 +48,8 @@ class ItemAddFromWeb extends ItemAddPlugin {
     /**
      * @see ItemAddPlugin::handleRequest
      */
-    function handleRequest($form, &$item, &$addController) {
+    function handleRequest($form, &$item) {
 	global $gallery;
-	$templateAdapter =& $gallery->getTemplateAdapter();
-	$storage =& $gallery->getStorage();
 
 	$status = $error = array();
 
@@ -74,14 +72,6 @@ class ItemAddFromWeb extends ItemAddPlugin {
 		$extraHeaders =
 		    array('Referer' => str_replace('&amp;', '&', $form['webPage']));
 	    }
-
-	    list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'itemadd');
-	    if ($ret) {
-		return array($ret, null, null);
-	    }
-
-	    $totalUrls = count($form['webPageUrls']);
-	    $i = 1;
 	    foreach (array_keys($form['webPageUrls']) as $url) {
 		/* Copy the file locally */
 		$tmpDir = $gallery->getConfig('data.gallery.tmp');
@@ -127,25 +117,6 @@ class ItemAddFromWeb extends ItemAddPlugin {
 						    'warnings' => array());
 		}
 		@$platform->unlink($tmpFile);
-
-		if ($i % 10 == 0 && !empty($status['addedFiles'])) {
-		    $gallery->guaranteeTimeLimit(60);
-		    list ($ret, $optionErrors) = $addController->postprocessItems($form, $status);
-		    if ($ret) {
-			return array($ret, null, null);
-		    }
-		    $error = array_merge($error, $optionErrors);
-		    if ($optionErrors) {
-		    	break;
-		    }
-		}
-		$gallery->guaranteeTimeLimit(60);
-		$templateAdapter->updateProgressBar($module->translate(
-		    'Adding items'), '', $i++ / $totalUrls);
-		$ret = $storage->checkPoint();
-		if ($ret) {
-		    return array($ret, null, null);
-		}
 	    }
 	}
 
@@ -222,28 +193,6 @@ class ItemAddFromWeb extends ItemAddPlugin {
 						       'itemType' => $typeName);
 		    }
 		} else {
-		    /* Check for <base href="..."/> element */
-		    if (preg_match('#<base(?:\W|\W[^>]*?\W)href\s*=\s*'
-			    . '(?:"(.*?)"|\'(.*?)\'|([^\'"> ]*)).*?>#si', $buffer, $matches)) {
-			/**
-			 * @todo Use real HTML parser to avoid parsing HTML comments etc.
-			 */
-			for ($i = 1; $i <= 3; $i++) {
-			    $specifiedBaseUrl = isset($matches[$i]) ? $matches[$i] : '';
-			    if (!empty($specifiedBaseUrl)) {
-				break;
-			    }
-			}
-			$specifiedComponents = parse_url($specifiedBaseUrl);
-			if (!empty($specifiedComponents['scheme'])
-				&& !empty($specifiedComponents['host'])) {
-			    $baseUrlComponents = $specifiedComponents;
-			} else {
-			    foreach ($specifiedComponents as $key => $value) {
-				$baseUrlComponents[$key] = $value;
-			    }
-			}
-		    }
 		    /*
 		     * Parse the buffer.  We match:
 		     *  href="foo bar"    href='foo bar'   href=foo
@@ -359,7 +308,7 @@ class ItemAddFromWeb extends ItemAddPlugin {
      * @param string $url url
      * @param array $headers (optional) http response headers
      * @param boolean $getFileName (optional) true to also figure out filename
-     * @return array GalleryStatus a status object
+     * @return array object GalleryStatus a status object
      *               string mime type
      *               string filename or null if not requested
      * @access private
@@ -427,7 +376,7 @@ class ItemAddFromWeb extends ItemAddPlugin {
      * @param string $url url
      * @param string $htmlAttribute (optional) html attribute this url was parsed from
      * @param array $headers (optional) http response headers
-     * @return array GalleryStatus a status object
+     * @return array object GalleryStatus a status object
      *               string type name
      * @access private
      */

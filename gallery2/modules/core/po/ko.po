@@ -16,12 +16,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
-# 
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Core 1.2.22\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-04-03 16:03+0900\n"
+"Project-Id-Version: Gallery: Core 1.2.0.3\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-06-07 09:29-0700\n"
 "PO-Revision-Date: 2007-03-14 14:48+0100\n"
 "Last-Translator: Juice <blackmantle@gmail.com>\n"
 "Language-Team: Korean <gallery-translations@lists.sourceforge.net>\n"
@@ -35,26 +35,6 @@ msgstr ""
 
 msgid "Gallery Email Test"
 msgstr "Gallery 전자 편지 시험 발송입니다."
-
-#, c-format
-msgid "%d minute"
-msgid_plural "%d minutes"
-msgstr[0] "%d 분"
-
-#, c-format
-msgid "%d hour"
-msgid_plural "%d hours"
-msgstr[0] "%d 시간"
-
-#, c-format
-msgid "%d day"
-msgid_plural "%d days"
-msgstr[0] "%d 일"
-
-#, c-format
-msgid "%d week"
-msgid_plural "%d weeks"
-msgstr[0] "%d 주"
 
 msgid "forever"
 msgstr "지속"
@@ -80,16 +60,28 @@ msgstr "데이터베이스"
 msgid "File"
 msgstr "파일"
 
-msgid "&lt;none&gt;"
-msgstr "&lt;없음&gt;"
-
-#, fuzzy
-msgid "Link"
-msgstr "로그인"
+#, c-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] "%d 분"
 
 #, c-format
-msgid "Page %d of %d"
-msgstr "%d 페이지( 총 %d 페이지중)"
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] "%d 시간"
+
+#, c-format
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] "%d 일"
+
+#, c-format
+msgid "%d week"
+msgid_plural "%d weeks"
+msgstr[0] "%d 주"
+
+msgid "<none>"
+msgstr "<없음>"
 
 msgid "No acceleration"
 msgstr ""
@@ -137,10 +129,6 @@ msgid "Deleting Language Packs"
 msgstr "기본 언어"
 
 #, fuzzy
-msgid "Synchronizing Language Packs"
-msgstr "기본 언어"
-
-#, fuzzy
 msgid "Update completed with errors."
 msgstr "파일이 추가 되었습니다."
 
@@ -169,11 +157,11 @@ msgstr "부모 사진첩의 테마를 사용합니다."
 msgid "Use these settings"
 msgstr "이 설정값을 사용합니다."
 
-msgid "Converting Schema Table"
-msgstr ""
-
 msgid "Installing the core module"
 msgstr "Core 모듈 설치중"
+
+msgid "key"
+msgstr ""
 
 msgid "All access"
 msgstr "모두 접근"
@@ -209,10 +197,6 @@ msgstr "[core] 아이템 지우기"
 msgid "Upgrading permissions"
 msgstr "권한 업그레이드중입니다."
 
-#, fuzzy, c-format
-msgid "Upgrading permissions (%d items complete, %d remaining)"
-msgstr "권한 업그레이드중입니다. (%d 아이템 완료, %d 남았습니다.)"
-
 #, fuzzy
 msgid "Deleting old permission tables"
 msgstr "오래된 테이블 권한을 삭제중입니다."
@@ -226,23 +210,6 @@ msgstr "모든 사용자"
 msgid "Detecting broken derivatives"
 msgstr ""
 
-#, c-format
-msgid "Detecting broken derivatives, loading (%d derivatives checked, %d remaining)"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "Detecting broken derivatives (%d derivatives checked, %d remaining)"
-msgstr "권한 업그레이드중입니다. (%d 아이템 완료, %d 남았습니다.)"
-
-#, fuzzy, c-format
-msgid "Detecting broken derivatives, saving (%d derivatives checked, %d remaining)"
-msgstr "권한 업그레이드중입니다. (%d 아이템 완료, %d 남았습니다.)"
-
-#, fuzzy, c-format
-msgid ""
-"Detecting broken derivatives, saving item %d of %d (%d derivatives complete, %d remaining)"
-msgstr "권한 업그레이드중입니다. (%d 아이템 완료, %d 남았습니다.)"
-
 #, fuzzy
 msgid "Clearing fast-download cache"
 msgstr "빠른-내려받기 캐쉬 지우는중입니다."
@@ -251,19 +218,17 @@ msgstr "빠른-내려받기 캐쉬 지우는중입니다."
 msgid "Deleting old fast-download cache"
 msgstr "예전 빠른-내려받기 캐쉬 지우는 중"
 
-#, c-format
-msgid "Deleting old session files (iteration %d)"
-msgstr "오래된 세션파일을 삭제중입니다. ( %d번 반복됨)"
-
 msgid "Updating panorama items"
 msgstr ""
 
 msgid "Optimizing AccessSubscriberMap table"
 msgstr ""
 
-#, fuzzy
-msgid "Upgrading Plugin Translations"
-msgstr "번역물이 업데이트 돼었습니다."
+msgid "Converting Schema Table"
+msgstr ""
+
+msgid "Loading Table Descriptions"
+msgstr ""
 
 msgid "Site Admins"
 msgstr "사이트 관리자"
@@ -284,16 +249,30 @@ msgstr "Gallery의 첫장입니다."
 msgid "Converting MySQL data to UTF8"
 msgstr "MYSQL 자료 UTF-8로 변환중"
 
-#, fuzzy
-msgid "Adding items"
-msgstr "아이템 추가"
+#, fuzzy, c-format
+msgid "Upgrading permissions (%d items complete, %d remaining)"
+msgstr "권한 업그레이드중입니다. (%d 아이템 완료, %d 남았습니다.)"
 
-#, fuzzy
-msgid "Processing items"
-msgstr "%d개의 아이템을 처리중입니다. (총 %d개의 아이템이 있습니다.)"
-
-msgid "Extracting archive"
+#, c-format
+msgid "Detecting broken derivatives, loading (%d derivatives checked, %d remaining)"
 msgstr ""
+
+#, fuzzy, c-format
+msgid "Detecting broken derivatives (%d derivatives checked, %d remaining)"
+msgstr "권한 업그레이드중입니다. (%d 아이템 완료, %d 남았습니다.)"
+
+#, fuzzy, c-format
+msgid "Detecting broken derivatives, saving (%d derivatives checked, %d remaining)"
+msgstr "권한 업그레이드중입니다. (%d 아이템 완료, %d 남았습니다.)"
+
+#, fuzzy, c-format
+msgid ""
+"Detecting broken derivatives, saving item %d of %d (%d derivatives complete, %d remaining)"
+msgstr "권한 업그레이드중입니다. (%d 아이템 완료, %d 남았습니다.)"
+
+#, c-format
+msgid "Deleting old session files (iteration %d)"
+msgstr "오래된 세션파일을 삭제중입니다. ( %d번 반복됨)"
 
 msgid "add items"
 msgstr "아이템 추가"
@@ -306,6 +285,28 @@ msgstr "하위 산진첩 추가"
 
 msgid "add items confirmation"
 msgstr "추가 아이템 확인"
+
+msgid "Base filename"
+msgstr "파일 이름을 기본으로"
+
+msgid "Caption"
+msgstr "설명"
+
+msgid "Blank"
+msgstr "비워둠"
+
+msgid "From Web Browser"
+msgstr "웹 브라우저로"
+
+#, c-format
+msgid "%d megabyte"
+msgid_plural "%d megabytes"
+msgstr[0] "%d 메가바이트"
+
+#, c-format
+msgid "%d kilobytes"
+msgid_plural "%d kilobytes"
+msgstr[0] "%d 킬로바이트"
 
 #, c-format
 msgid "Input file %s exceeds maximum permitted file size"
@@ -323,33 +324,18 @@ msgstr ""
 msgid "Input file %s was not uploaded. Error %d"
 msgstr ""
 
-#, c-format
-msgid "%d megabyte"
-msgid_plural "%d megabytes"
-msgstr[0] "%d 메가바이트"
-
-#, c-format
-msgid "%d kilobytes"
-msgid_plural "%d kilobytes"
-msgstr[0] "%d 킬로바이트"
-
-msgid "Base filename"
-msgstr "파일 이름을 기본으로"
-
-msgid "Caption"
-msgstr "설명"
-
-msgid "Blank"
-msgstr "비워둠"
-
-msgid "From Web Browser"
-msgstr "웹 브라우저로"
-
 msgid "Gallery Item Administration"
 msgstr "Gallery 아이템 관리"
 
 msgid "delete an item"
 msgstr "아이템 삭제"
+
+msgid "delete confirmation"
+msgstr "삭제 확인"
+
+#, c-format
+msgid "delete %s"
+msgstr "%s 삭제"
 
 #, c-format
 msgid "edit %s"
@@ -366,10 +352,6 @@ msgstr "테마 설정이 복구되었습니다."
 msgid "Preparing..."
 msgstr "실행중...."
 
-#, c-format
-msgid "Processing image %d of %d"
-msgstr "%d개의 이미지 처리중입니다. (총 %d개의 아이템이 있습니다.)"
-
 msgid "Apply thumbnail settings"
 msgstr ""
 
@@ -378,6 +360,10 @@ msgstr ""
 
 msgid "Album"
 msgstr "사진첩"
+
+#, c-format
+msgid "Processing image %d of %d"
+msgstr "%d개의 이미지 처리중입니다. (총 %d개의 아이템이 있습니다.)"
 
 msgid "Changes saved successfully"
 msgstr "수정 사항을 저장하였습니다."
@@ -517,10 +503,6 @@ msgstr "사진 편집"
 msgid "Edit Movie"
 msgstr "동영상 편집"
 
-#, c-format
-msgid "Edit %s"
-msgstr "%s 편집"
-
 msgid "Add Album"
 msgstr "사진첩 추가하기"
 
@@ -539,10 +521,6 @@ msgstr "사진 삭제"
 msgid "Delete Movie"
 msgstr "동영상 삭제"
 
-#, c-format
-msgid "Delete %s"
-msgstr "%s 지우기"
-
 msgid "Move Album"
 msgstr "사진첩 이동"
 
@@ -552,10 +530,6 @@ msgstr "사진 이동"
 msgid "Move Movie"
 msgstr "동영상 이동"
 
-#, c-format
-msgid "Move %s"
-msgstr "%s 이동"
-
 msgid "Edit Captions"
 msgstr "설명 편집"
 
@@ -564,9 +538,6 @@ msgstr ""
 
 msgid "Reorder Items"
 msgstr "아이템 순서 바꾸기"
-
-msgid "Delete Items"
-msgstr "아이템 삭제"
 
 msgid "Site Admin"
 msgstr "사이트 관리"
@@ -592,9 +563,6 @@ msgstr "동아리"
 msgid "Performance"
 msgstr "성능"
 
-msgid "Event Logs"
-msgstr ""
-
 msgid "Toolkit Priority"
 msgstr ""
 
@@ -607,6 +575,18 @@ msgstr "계정 설정"
 msgid "Change Password"
 msgstr "열쇠 글 바꾸기"
 
+#, c-format
+msgid "Edit %s"
+msgstr "%s 편집"
+
+#, c-format
+msgid "Delete %s"
+msgstr "%s 지우기"
+
+#, c-format
+msgid "Move %s"
+msgstr "%s 이동"
+
 msgid "Build all thumbnails/resizes"
 msgstr ""
 
@@ -617,6 +597,9 @@ msgstr ""
 
 msgid "Build All Thumbnails/Resizes"
 msgstr ""
+
+msgid "Debug output for failed items:"
+msgstr "실패한 아이템에 대한 디버그 출력:"
 
 #, fuzzy, c-format
 msgid "Checked %d items"
@@ -629,9 +612,6 @@ msgstr ""
 #, c-format
 msgid "%d items failed"
 msgstr "%d개의 아이템 실패함"
-
-msgid "Debug output for failed items:"
-msgstr "실패한 아이템에 대한 디버그 출력:"
 
 #, fuzzy
 msgid "Convert MySQL database to UTF8"
@@ -650,28 +630,6 @@ msgid "Database successfully converted to UTF8"
 msgstr "아이템이 삭제되었습니다."
 
 msgid "No conversion required"
-msgstr ""
-
-#, fuzzy
-msgid "Backup the database"
-msgstr "데이터베이스 최적화"
-
-msgid ""
-"Backup all your Gallery data (item data, users, comments, etc.) to a single file in your "
-"storage folder.  The backup does not include the image files.  Before running the backup, "
-"your Gallery installation needs to be set into maintenance mode, as this is not done "
-"automatically."
-msgstr ""
-
-msgid "Backing up Gallery Database"
-msgstr ""
-
-#, fuzzy
-msgid "Exporting..."
-msgstr "실행중...."
-
-#, c-format
-msgid "Database backup completed and the backup file is located at: %s"
 msgstr ""
 
 msgid "Delete user sessions"
@@ -708,8 +666,8 @@ msgstr "템플릿 저장소 삭제"
 msgid ""
 "Gallery compiles template files and saves them for increased performance.  If you're "
 "experiencing problems that say <i>Smarty error</i> then you might try running this task.  "
-"Also run this if you add or remove any local/*.tpl or theme override so Smarty will find the "
-"right file."
+"Also run this if you remove a local/*.tpl file so Smarty will switch back to the default tpl "
+"file."
 msgstr ""
 
 msgid "Template cache deleted successfully"
@@ -852,10 +810,6 @@ msgstr "오름 차순"
 msgid "Descending"
 msgstr "내림 차순"
 
-#, c-format
-msgid "Powered by Gallery v%s"
-msgstr ""
-
 msgid "Validation disabled until you set allowSessionAccess in config.php"
 msgstr ""
 
@@ -864,6 +818,13 @@ msgstr "이 페이지는 XHTML 1.0 규격을 따릅니다."
 
 msgid "Donate to the Gallery project"
 msgstr "Gallery 프로젝트에 기부를 부탁합니다."
+
+msgid "G2.2: Double Double"
+msgstr ""
+
+#, c-format
+msgid "Powered by Gallery v%s"
+msgstr ""
 
 #, c-format
 msgid "Estimated time remaining: %d:%02d"
@@ -973,6 +934,13 @@ msgstr "스프레드 시트"
 msgid "file"
 msgstr "파일"
 
+msgid "Back"
+msgstr "뒤로"
+
+#, c-format
+msgid "Back to %s"
+msgstr "%s으(로) 돌아가기"
+
 msgid "User"
 msgstr "사용자"
 
@@ -1038,10 +1006,6 @@ msgstr ""
 msgid "unknown"
 msgstr "알수 없음"
 
-#, c-format
-msgid "API = Core %s, Module %s, Theme %s, Embed %s"
-msgstr ""
-
 msgid "Gallery version"
 msgstr ""
 
@@ -1082,65 +1046,6 @@ msgstr "브라우저"
 
 #, c-format
 msgid "Rows in %s table = %d"
-msgstr ""
-
-#, c-format
-msgid "The %s \"%s\" is not installed and will not be backed up."
-msgstr ""
-
-#, c-format
-msgid "\"%s\" has no creation sql and will not be backed up."
-msgstr ""
-
-#, c-format
-msgid "Unable to load table description for \"%s\", no data will be exported."
-msgstr ""
-
-msgid ""
-"Unable to find the XML parser.  The PHP XML parsing extension must be loaded.  Terminating "
-"database import."
-msgstr ""
-
-#, c-format
-msgid "The exported file is not the correct version. Expecting %s recieved %s."
-msgstr ""
-
-#, fuzzy, c-format
-msgid "Unable to close import file: %s"
-msgstr "디렉터리를 지울 수 없습니다. : %s"
-
-#, fuzzy, c-format
-msgid "Unable to open import file: %s"
-msgstr "디렉터리를 지울 수 없습니다. : %s"
-
-#, c-format
-msgid "Import file doesn't exist: %s"
-msgstr ""
-
-#, c-format
-msgid "Plugin %s is not currently available."
-msgstr ""
-
-#, c-format
-msgid "The available version of plugin \"%s\" may not be compatible with the imported version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The currently installed core API version required by \"%s\" may not be compatible with the "
-"imported version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The installed module API version required by \"%s\" may not be compatible with the imported "
-"version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The installed theme API version required by \"%s\" is not compatible with the imported "
-"version."
 msgstr ""
 
 msgid "Successfully saved theme settings"
@@ -1634,48 +1539,6 @@ msgid "%d failed login attempt since the last successful login."
 msgid_plural "%d failed login attempts since the last successful login."
 msgstr[0] ""
 
-#, fuzzy
-msgid "Recent Events"
-msgstr "조회 수 초기화"
-
-msgid "Type"
-msgstr ""
-
-#, fuzzy
-msgid "Location"
-msgstr "명령"
-
-#, fuzzy
-msgid "Client"
-msgstr "목록"
-
-#, fuzzy
-msgid "No events have been reported yet."
-msgstr "선텍된 꾸러미가 없습니다."
-
-#, fuzzy
-msgid "Event Details"
-msgstr "오류에 관한 자세한 정보"
-
-#, fuzzy
-msgid "User Id"
-msgstr "사용자"
-
-#, fuzzy
-msgid "Referer"
-msgstr "정열"
-
-#, fuzzy
-msgid "Details"
-msgstr "기본"
-
-#, fuzzy
-msgid "no summary"
-msgstr "간단한 설명"
-
-msgid "An error occurred while retrieving the event log entry details."
-msgstr ""
-
 msgid "Group Management"
 msgstr "동아리 관리"
 
@@ -1738,9 +1601,6 @@ msgstr[0] "%d의 동아리를 찾았습니다."
 msgid "System Maintenance"
 msgstr "시스템 유지 관리"
 
-msgid "Gallery must be in maintenance mode before the task can be run."
-msgstr ""
-
 #, c-format
 msgid "Completed %s task successfully."
 msgstr "%s 작업이 완료되었습니다."
@@ -1748,41 +1608,6 @@ msgstr "%s 작업이 완료되었습니다."
 #, c-format
 msgid "The %s task failed to complete successfully."
 msgstr ""
-
-msgid "Maintenance Mode has been turned on."
-msgstr ""
-
-msgid "Maintenance Mode has been turned off."
-msgstr ""
-
-#, fuzzy
-msgid "Maintenance Mode"
-msgstr "유지 관리"
-
-msgid "Restrict user access to the system while maintenance is being performed."
-msgstr ""
-
-#, fuzzy
-msgid "Maintenance Mode Url"
-msgstr "유지 관리"
-
-msgid ""
-"The Maintenance Mode Url specifies where requests will be redirected when access to the site "
-"has been restricted by the administrator."
-msgstr ""
-
-msgid ""
-"If left blank Gallery will display a default page with an administrator login link. This "
-"page will be themed when the code base is up to date, otherwise it will display a plain "
-"unstyled page."
-msgstr ""
-
-msgid "For example: /maintenance.html"
-msgstr ""
-
-#, fuzzy
-msgid "Set"
-msgstr "설정"
 
 msgid "Task name"
 msgstr "이름"
@@ -1867,21 +1692,6 @@ msgstr ""
 
 msgid "Expires after:"
 msgstr ""
-
-#, fuzzy
-msgid "Template Cache"
-msgstr "템플릿 저장소 삭제"
-
-#, c-format
-msgid ""
-"For optimal performance, Gallery caches all templates.  If you would like to %scustomize "
-"your template files%s, you should disable template caching temporarily so that changes take "
-"effect immediately without clearing the template cache."
-msgstr ""
-
-#, fuzzy
-msgid "Enable template caching"
-msgstr "템플릿 저장소 삭제"
 
 msgid "Clear Saved Pages"
 msgstr ""
@@ -2059,19 +1869,9 @@ msgid ""
 msgstr ""
 
 #, c-format
-msgid "Failed to download the following packages for the %s plugin:"
-msgstr ""
-
-#, c-format
 msgid ""
-"Failed to install the %s plugin because the following files/directories could not be "
+"Failed to download the %s plugin because the following files/directories could not be "
 "modified:"
-msgstr ""
-
-#, c-format
-msgid ""
-"Some plugins could not be automatically upgraded because they are in use.  Please return to "
-"the %sPlugins%s page and click the upgrade link for each of the following plugins:"
 msgstr ""
 
 msgid "The repository index has been successfully updated."
@@ -2348,10 +2148,6 @@ msgstr ""
 msgid "New albums"
 msgstr "새 사진첩"
 
-#, c-format
-msgid "To activate more themes visit the %sPlugins%s page."
-msgstr ""
-
 #, fuzzy
 msgid "Save Defaults"
 msgstr "기본"
@@ -2551,9 +2347,6 @@ msgstr "오류에 관한 자세한 정보"
 msgid "System Information"
 msgstr "시스템 정보"
 
-msgid "Not all of the specified items have been added successfully."
-msgstr ""
-
 msgid ""
 "You don't have any Graphics Toolkit activated that can handle JPEG images.  If you add "
 "images, you will probably not have any thumbnails."
@@ -2562,8 +2355,8 @@ msgstr ""
 "한다면, 아마도 어떤 썸네일을 보지도 못할지도 모릅니다."
 
 #, c-format
-msgid "Visit the %sModules%s page to activate a Graphics Toolkit."
-msgstr "Graphics Toolkit을 사용하기 위해 %s모듈%s 페이지를 방문하십시오."
+msgid "Visit the <a href=\"%s\">Modules</a> page to activate a Graphics Toolkit."
+msgstr "Graphics Toolkit을 사용하기 위해 <a href=\"%s\">모듈</a>페이지를 방문하십시오."
 
 msgid "Add Sub-Album"
 msgstr "하위 앨범을 추가합니다."
@@ -2664,6 +2457,9 @@ msgstr ""
 msgid "No Thumbnail"
 msgstr "썸네일이 없음"
 
+msgid "Delete Items"
+msgstr "아이템 삭제"
+
 msgid "No items were selected for deletion"
 msgstr ""
 
@@ -2717,13 +2513,23 @@ msgstr "이전 쪽"
 msgid "Next Page"
 msgstr "다음 쪽"
 
-#, fuzzy, c-format
-msgid "Do you really want to delete %s?"
-msgstr "정말  __PLUGIN__ 모듈을 정말로 제거하시겠습니까?"
+msgid "Deletion Complete"
+msgstr "삭제가 완료되었습니다."
 
-#, fuzzy
-msgid "Delete more items..."
-msgstr "아이템 삭제"
+msgid "Item successfully deleted"
+msgstr "아이템이 삭제되었습니다."
+
+#, c-format
+msgid "Are you sure you want to delete this %s?"
+msgstr "%s를 확실히 지우시겠습니까?"
+
+#, c-format
+msgid "It contains %d item."
+msgid_plural "It contains %d items."
+msgstr[0] "%d개의 아이템을 가지고 있습니다."
+
+msgid "There is no undo!"
+msgstr "되돌릴 수 없습니다."
 
 msgid "There was a problem processing your request."
 msgstr "요청된 작업을 처리하는 중 문제가 발생했습니다."
@@ -3115,16 +2921,9 @@ msgstr "소스"
 msgid "Choose the items you want to move"
 msgstr "이동할 아이템을 선택하세요"
 
-msgid "OK"
-msgstr ""
-
 msgid ""
 "The destination you chose does not accept sub-albums, so all sub-albums have been deselected."
 msgstr ""
-
-#, fuzzy
-msgid "Warning"
-msgstr "경고:"
 
 msgid ""
 "The destination you chose only accepts sub-albums, so all non-albums have been deselected."
@@ -3328,12 +3127,10 @@ msgstr "주소에 관한 약간의 설명을 붙이세요."
 msgid "Enter an image URL"
 msgstr "이미지 주소를 입력하세요"
 
-#. HINT: Button label for Bold
-msgid "B"
+msgid "B <!-- Button label for Bold -->"
 msgstr "B"
 
-#. HINT: Button label for italic
-msgid "i"
+msgid "i <!-- Button label for italic -->"
 msgstr "i"
 
 msgid "list"
@@ -3352,7 +3149,7 @@ msgid "color"
 msgstr ""
 
 #, c-format
-msgid "You can also use the %scolor name%s for example: %sYour Text%s"
+msgid "You can also use the <a href=\"%s\" target=\"_new\">color name</a> for example: %s"
 msgstr ""
 
 msgid "Configuration Error: Missing Theme"
@@ -3471,15 +3268,19 @@ msgstr "열쇠 글이 복구되었습니다. 로그인해 주십시오."
 #, c-format
 msgid ""
 "Logins to this account are temporarily disabled due to multiple failed login attempts.  Wait "
-"for access to be restored, or use the %srecover password%s page to re-enable this account."
+"for access to be restored, or use the <a href=\"%s\">recover password</a> page to re-enable "
+"this account."
 msgstr ""
 
 msgid "Your login information is incorrect.  Please try again."
 msgstr "잘못 입력하셨습니다. 다시 입력하십시오."
 
 #, c-format
-msgid "Lost or forgotten passwords can be retrieved using the %srecover password%s page"
-msgstr "열쇠 글을 잊거나 잃어버린 경우 %s열쇠 글 복구 페이지%s 에서 복구할 수 있습니다."
+msgid ""
+"Lost or forgotten passwords can be retrieved using the <a href=\"%s\">recover password</a> "
+"page"
+msgstr ""
+"열쇠 글을 잊거나 잃어버린 경우 <a href=\"%s\">열쇠 글 복구 페이지</a>에서 복구할 수 있습니다."
 
 #, c-format
 msgid "Welcome, %s!"
@@ -3616,13 +3417,13 @@ msgstr "당신의 열쇠 글에 대한 설정을 다시 하십시오."
 #, c-format
 msgid ""
 "There is no request which matches the username and authorization provided. Request a new "
-"authorization from the %slost password page%s."
+"authorization from the <a href=\"%s\">lost password page</a>"
 msgstr ""
 
 #, c-format
 msgid ""
-"The request you are trying to access has expired.  Request a new authorization from the %"
-"slost password page%s."
+"The request you are trying to access has expired.  Request a new authorization from the <a "
+"href=\"%s\">lost password page</a>."
 msgstr ""
 
 msgid "Authorization missing"
@@ -3695,11 +3496,18 @@ msgstr "&laquo; 아이템 명령 &raquo;"
 msgid "Go"
 msgstr "이동"
 
+msgid "Navigation"
+msgstr "안내"
+
 msgid "next"
 msgstr "다음"
 
 msgid "last"
 msgstr "마지막"
+
+#, c-format
+msgid "Page %d of %d"
+msgstr "%d 페이지( 총 %d 페이지중)"
 
 #, c-format
 msgid "%d of %d"
@@ -3747,34 +3555,3 @@ msgstr "로그인 상자"
 
 msgid "Links to album/photo peers"
 msgstr ""
-
-#~ msgid "Back to %s"
-#~ msgstr "%s으(로) 돌아가기"
-
-#~ msgid "Back"
-#~ msgstr "뒤로"
-
-#~ msgid "Navigation"
-#~ msgstr "안내"
-
-#~ msgid "delete confirmation"
-#~ msgstr "삭제 확인"
-
-#~ msgid "delete %s"
-#~ msgstr "%s 삭제"
-
-#~ msgid "Deletion Complete"
-#~ msgstr "삭제가 완료되었습니다."
-
-#~ msgid "Item successfully deleted"
-#~ msgstr "아이템이 삭제되었습니다."
-
-#~ msgid "Are you sure you want to delete this %s?"
-#~ msgstr "%s를 확실히 지우시겠습니까?"
-
-#~ msgid "It contains %d item."
-#~ msgid_plural "It contains %d items."
-#~ msgstr[0] "%d개의 아이템을 가지고 있습니다."
-
-#~ msgid "There is no undo!"
-#~ msgstr "되돌릴 수 없습니다."

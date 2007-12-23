@@ -52,7 +52,7 @@ class GalleryRepositoryIndex {
 
     /**
      * Repository utilities.
-     * @var GalleryRepositoryUtilities
+     * @var object GalleryRepositoryUtilities
      * @access private
      */
     var $_utilities;
@@ -66,7 +66,7 @@ class GalleryRepositoryIndex {
     /**
      * Downloads the repostory index from the Gallery server and
      * writes it to the local repository cache.
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function update() {
 	global $gallery;
@@ -133,7 +133,7 @@ class GalleryRepositoryIndex {
      * Gets index meta data, which currently includes the local index timestamp (set when the index
      * has been downloaded) and each plugin type count.
      *
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *		     array 'timestamp' => integer (Unix timestamp)
      *			   'moduleCount' => integer
      *			   'themeCount' => integer
@@ -169,7 +169,7 @@ class GalleryRepositoryIndex {
 
     /**
      * Loads and unserializes the index from the local filesystem into memory.
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function load() {
 	global $gallery;
@@ -197,7 +197,7 @@ class GalleryRepositoryIndex {
 
     /**
      * Unserializes the index into memory.
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function unserializeIndex(&$index) {
 	if (false === ($this->_index = @unserialize($index))) {
@@ -213,7 +213,7 @@ class GalleryRepositoryIndex {
      *
      * @param string $pluginType
      * @param string $pluginId
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *		     string plugin build
      */
     function getPluginHeader($pluginType, $pluginId) {
@@ -237,7 +237,7 @@ class GalleryRepositoryIndex {
      *
      * @param string $pluginType
      * @param string $pluginId
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *		     array languageCode => revision
      */
     function getAvailableLanguagesInPlugin($pluginType, $pluginId) {
@@ -283,7 +283,7 @@ class GalleryRepositoryIndex {
      *
      * @param string $pluginType
      * @param string $pluginId
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *		     string the plugin name
      */
     function getPluginName($pluginType, $pluginId) {
@@ -322,7 +322,7 @@ class GalleryRepositoryIndex {
      *
      * @param string $pluginType
      * @param string $pluginId
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *		     string descriptor URL
      */
     function getDescriptorUrl($pluginType, $pluginId) {
@@ -347,7 +347,7 @@ class GalleryRepositoryIndex {
      * @param string $pluginType
      * @param string $pluginId
      * @param string $package package name
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *		     string package URL
      */
     function getPackageUrl($pluginType, $pluginId, $package) {
@@ -376,7 +376,7 @@ class GalleryRepositoryIndex {
      * @param string $pluginType
      * @param string $pluginId
      * @param string $package package name
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *		     string version/revision
      *		     string build/revision
      */
@@ -423,7 +423,7 @@ class GalleryRepositoryIndex {
      * @return array plugin list
      */
     function getPlugins($pluginType, $showAllPlugins = false, $coreApis = null) {
-	$pluginList = array($pluginType => array());
+	$pluginList = array();
 
 	foreach ($this->_index[$pluginType . 's'] as $pluginId => $plugin) {
 	    /* Skip core module. */
@@ -479,57 +479,6 @@ class GalleryRepositoryIndex {
     function getRepositoryCacheDir() {
 	global $gallery;
 	return $gallery->getConfig('repository.cache') . $this->_source . '/';
-    }
-
-    /**
-     * Searches the repository index and returns all the source files that contain the language
-     * packages for the specified locale
-     *
-     * @param mixed $locales a single or an array of locale identifiers.
-     * @return array GalleryStatus a status code
-     *		     array[$pluginType] => 
-     *			array($pluginId => array('name' => $pluginName, 
-     * 			    'files' => array('descriptor' => $descriptorUrl,
-     * 				'en_gb' => url, 'pt_BR' => url...))
-     */
-    function getLanguageSourceFiles($locales) {
-	global $gallery;
-	$files = array();
-	if (!is_array($locales)) {
-	    $locales = array($locales);
-	}
-	foreach ($locales as $locale) {
-	    foreach (array('module', 'theme') as $pluginType) {
-		foreach ($this->_index[$pluginType . 's'] as $pluginId => $entry) {
-		    if (empty($entry['header']['stringsRevision'])) {
-			continue;
-		    }
-		    $stringsRevision = $entry['header']['stringsRevision'];
-		    list ($ret, $pluginName) = $this->getPluginName($pluginType, $pluginId);
-		    if ($ret) {
-			return array($ret, null);
-		    }
-
-		    list ($ret, $descriptorUrl) =
-			$this->getDescriptorUrl($pluginType, $pluginId);
-		    if ($ret) {
-			return array($ret, null);
-		    }
-
-		    if (!empty($entry['languages'][$stringsRevision][$locale])) {
-			list ($ret, $packageUrl) = 
-			    $this->getPackageUrl($pluginType, $pluginId, $locale);
-			if ($ret) {
-			    return array($ret, null);
-			}
-			$files[$pluginType][$pluginId]['name'] = $pluginName;
-			$files[$pluginType][$pluginId]['files']['descriptor'] = $descriptorUrl;
-			$files[$pluginType][$pluginId]['files'][$locale] = $packageUrl;
-		    }
-		}
-	    }
-	}
-	return array(null, $files);
     }
 }
 ?>

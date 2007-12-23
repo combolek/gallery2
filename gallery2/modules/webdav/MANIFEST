@@ -1,82 +1,63 @@
 # $Revision$
 # File crc32 crc32(crlf) size size(crlf)  or  R File
-modules/webdav/Callbacks.inc	2358814663	3453825565	1439	1486
-modules/webdav/DownloadDavMount.inc	1194350581	1913103541	2685	2774
-modules/webdav/ItemAddWebDav.inc	3177145420	1875073221	11658	12021
-modules/webdav/WebDav.inc	2543184638	3213733792	7774	8003
-modules/webdav/WebDavMount.inc	1838621692	2805740046	1587	1636
+modules/webdav/Callbacks.inc	581829627	2550022745	1690	1747
+modules/webdav/DownloadDavMount.inc	926099365	1573674116	2786	2878
+modules/webdav/ItemAddWebDav.inc	4164261739	1762299526	11656	12019
+modules/webdav/WebDav.inc	296137277	2916812957	7614	7841
+modules/webdav/WebDavMount.inc	3731316459	1790316226	2004	2068
 modules/webdav/WebDavSiteAdmin.inc	553960122	2291144207	1698	1752
 modules/webdav/WebDavWorks.inc	2574696807	3621906002	1308	1352
 modules/webdav/classes/GNUmakefile	1995366819	843025639	51	52
 modules/webdav/classes/GalleryStorage/GNUmakefile	1465776782	2009162633	61	62
-modules/webdav/classes/GalleryStorage/schema.tpl	2987186905	263852955	2641	2739
+modules/webdav/classes/GalleryStorage/schema.tpl	3361478170	1381064364	2241	2323
 modules/webdav/classes/Maps.inc	3097969041	2458683522	580	584
 modules/webdav/classes/Maps.xml	389449069	1930493512	1049	1087
-modules/webdav/classes/WebDavHelper.class	3632601970	2863509987	60601	62625
+modules/webdav/classes/WebDavHelper.class	1704368478	1916743689	60814	62842
 modules/webdav/classes/WebDavRewriteHelper.class	107529024	2731722737	2434	2512
 modules/webdav/data/options/.htaccess	1142116337	350654909	1316	1345
-modules/webdav/lib/HTTP/WebDAV/Server.php	1870168862	3230477666	75129	77682
+modules/webdav/lib/HTTP/WebDAV/Server.php	433747081	730918682	75129	77682
 modules/webdav/lib/HTTP/WebDAV/Tools/_parse_lockinfo.php	11587171	140948099	6213	6442
 modules/webdav/lib/HTTP/WebDAV/Tools/_parse_propfind.php	2397186960	1499307163	4574	4737
 modules/webdav/lib/HTTP/WebDAV/Tools/_parse_proppatch.php	3422974363	1239742415	5688	5904
-modules/webdav/module.inc	896922528	3490968566	11724	12122
+modules/webdav/locale/cs/LC_MESSAGES/modules_webdav.mo	1047684311	1047684311	1214	1214
+modules/webdav/locale/da/LC_MESSAGES/modules_webdav.mo	2510260108	2510260108	6771	6771
+modules/webdav/locale/de/LC_MESSAGES/modules_webdav.mo	3114598404	3114598404	9485	9485
+modules/webdav/locale/en_GB/LC_MESSAGES/modules_webdav.mo	1413919835	1413919835	453	453
+modules/webdav/locale/es/LC_MESSAGES/modules_webdav.mo	2921815291	2921815291	8066	8066
+modules/webdav/locale/fi/LC_MESSAGES/modules_webdav.mo	721612248	721612248	513	513
+modules/webdav/locale/fr/LC_MESSAGES/modules_webdav.mo	423636460	423636460	9951	9951
+modules/webdav/locale/it/LC_MESSAGES/modules_webdav.mo	951994282	951994282	9203	9203
+modules/webdav/locale/ja/LC_MESSAGES/modules_webdav.mo	509026931	509026931	1345	1345
+modules/webdav/locale/no/LC_MESSAGES/modules_webdav.mo	1385045948	1385045948	9161	9161
+modules/webdav/locale/pl/LC_MESSAGES/modules_webdav.mo	362302417	362302417	9502	9502
+modules/webdav/locale/sr/LC_MESSAGES/modules_webdav.mo	670662386	670662386	8882	8882
+modules/webdav/locale/sv/LC_MESSAGES/modules_webdav.mo	2854839760	2854839760	8890	8890
+modules/webdav/locale/zh_TW/LC_MESSAGES/modules_webdav.mo	1556634049	1556634049	8314	8314
+modules/webdav/module.inc	348933137	815038188	11496	11884
 modules/webdav/po/GNUmakefile	1866879166	2808215985	98	103
-modules/webdav/po/cs.mo	2354848127	2354848127	1214	1214
-modules/webdav/po/cs.po	195862226	2364328433	6704	6918
-modules/webdav/po/da.mo	3186433455	3186433455	8849	8849
-modules/webdav/po/da.po	752924068	1005524457	10161	10408
-modules/webdav/po/de.mo	3857534756	3857534756	9485	9485
-modules/webdav/po/de.po	3874934148	243999938	10693	10943
-modules/webdav/po/el.mo	2152489348	2152489348	6639	6639
-modules/webdav/po/el.po	2253120799	882004424	9786	10016
-modules/webdav/po/en_GB.mo	1772873074	1772873074	453	453
-modules/webdav/po/en_GB.po	903941159	2748893263	9762	10005
-modules/webdav/po/es.mo	3761097303	3761097303	9542	9542
-modules/webdav/po/es.po	2101585536	2461975935	10808	11062
-modules/webdav/po/fi.mo	1522719635	1522719635	578	578
-modules/webdav/po/fi.po	1521423355	2163881898	6224	6433
-modules/webdav/po/fr.mo	2353463701	2353463701	9951	9951
-modules/webdav/po/fr.po	835720038	2444680078	11111	11365
-modules/webdav/po/it.mo	927581065	927581065	9203	9203
-modules/webdav/po/it.po	1891604072	1912158663	10336	10582
-modules/webdav/po/ja.mo	4251713986	4251713986	9952	9952
-modules/webdav/po/ja.po	1279950709	4006647929	11138	11381
-modules/webdav/po/lt.mo	1788354566	1788354566	855	855
-modules/webdav/po/lt.po	1569977753	907622306	6432	6641
-modules/webdav/po/no.mo	159836321	159836321	9161	9161
-modules/webdav/po/no.po	909232132	458690882	10410	10658
-modules/webdav/po/pl.mo	2468545953	2468545953	9502	9502
-modules/webdav/po/pl.po	3069655970	2380619549	10710	10960
-modules/webdav/po/sr.mo	2995664402	2995664402	8880	8880
-modules/webdav/po/sr.po	4175841809	3607361536	10007	10251
+modules/webdav/po/cs.po	2370490924	2825959302	7255	7485
+modules/webdav/po/da.po	739748635	3882574025	10362	10611
+modules/webdav/po/de.po	1545511418	278375015	11455	11724
+modules/webdav/po/en_GB.po	3614209927	764415759	9762	10005
+modules/webdav/po/es.po	121984932	3758559391	11394	11662
+modules/webdav/po/fi.po	3605972956	2108268604	6204	6413
+modules/webdav/po/fr.po	1051384353	3429803373	11111	11365
+modules/webdav/po/it.po	3154788012	3047748031	10336	10582
+modules/webdav/po/ja.po	65674916	3910984321	6413	6617
+modules/webdav/po/no.po	3049735091	3622850934	10410	10658
+modules/webdav/po/pl.po	1563022598	814780260	10710	10960
+modules/webdav/po/sr.po	1502528896	3411280706	10007	10251
 modules/webdav/po/strings.raw	1636664032	2040123002	4443	4497
-modules/webdav/po/sv.mo	3172913530	3172913530	8890	8890
-modules/webdav/po/sv.po	858464151	3907252883	10080	10324
-modules/webdav/po/tr.mo	3587496679	3587496679	2265	2265
-modules/webdav/po/tr.po	3413167048	1550742309	6931	7142
-modules/webdav/po/zh_TW.mo	237237722	237237722	8314	8314
-modules/webdav/po/zh_TW.po	3571934888	776155068	9418	9653
-modules/webdav/templates/ItemAddWebDav.tpl	3913209065	2347118023	231	238
-modules/webdav/templates/WebDavMount.tpl	4006237792	2976531880	1522	1561
-modules/webdav/templates/WebDavSiteAdmin.tpl	2913657798	2978836993	8329	8468
-modules/webdav/templates/blocks/WebDavUrl.tpl	493169764	3681910557	274	282
+modules/webdav/po/sv.po	215764433	2139329400	10080	10324
+modules/webdav/po/zh_TW.po	3457626786	1651552820	9954	10200
+modules/webdav/templates/ItemAddWebDav.tpl	1353965866	1079974098	387	396
+modules/webdav/templates/WebDavMount.tpl	2730288738	1780909403	1731	1772
+modules/webdav/templates/WebDavSiteAdmin.tpl	1888656763	3892656047	8485	8626
+modules/webdav/templates/blocks/WebDavUrl.tpl	2356653701	4082093646	430	440
 modules/webdav/templates/blocks/blocks.inc	740358944	826543430	102	107
 modules/webdav/test/phpunit/WebDavControllerTest.class	1936323244	2189887960	2716	2794
-modules/webdav/test/phpunit/WebDavHelperTest.class	4122961007	844807595	23913	24668
-modules/webdav/test/phpunit/WebDavModuleTest.class	25056163	2474178271	10215	10561
-modules/webdav/test/phpunit/WebDavRewriteHelperTest.class	1365170731	1931447821	4575	4737
-modules/webdav/test/phpunit/WebDavTest.class	2818461781	3847712374	59589	61779
+modules/webdav/test/phpunit/WebDavHelperTest.class	1177326421	539900699	24560	25310
+modules/webdav/test/phpunit/WebDavModuleTest.class	4260492541	1060355023	10533	10879
+modules/webdav/test/phpunit/WebDavRewriteHelperTest.class	1374179425	2225051594	4834	4993
+modules/webdav/test/phpunit/WebDavTest.class	1379435565	2216426654	67219	69521
 R	modules/webdav/classes/WebDavActivatePluginEventListener.class
-R	modules/webdav/locale/cs/LC_MESSAGES/modules_webdav.mo
-R	modules/webdav/locale/da/LC_MESSAGES/modules_webdav.mo
-R	modules/webdav/locale/de/LC_MESSAGES/modules_webdav.mo
-R	modules/webdav/locale/en_GB/LC_MESSAGES/modules_webdav.mo
-R	modules/webdav/locale/es/LC_MESSAGES/modules_webdav.mo
-R	modules/webdav/locale/fi/LC_MESSAGES/modules_webdav.mo
-R	modules/webdav/locale/fr/LC_MESSAGES/modules_webdav.mo
-R	modules/webdav/locale/it/LC_MESSAGES/modules_webdav.mo
-R	modules/webdav/locale/ja/LC_MESSAGES/modules_webdav.mo
-R	modules/webdav/locale/no/LC_MESSAGES/modules_webdav.mo
-R	modules/webdav/locale/pl/LC_MESSAGES/modules_webdav.mo
-R	modules/webdav/locale/sv/LC_MESSAGES/modules_webdav.mo
-R	modules/webdav/locale/zh_TW/LC_MESSAGES/modules_webdav.mo

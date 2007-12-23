@@ -19,7 +19,7 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Installer 2.3\n"
+"Project-Id-Version: Gallery: Installer 2.2.2\n"
 "POT-Creation-Date: 2005-08-05 21:48-0400\n"
 "PO-Revision-Date: 2006-03-09 23:54+0800\n"
 "Last-Translator: Lyric <lyric@lyricli.com>\n"
@@ -65,6 +65,15 @@ msgstr "<b>错误：</b> <b>login.txt</b> 中秘钥不符合。请从下面下�
 msgid "Create Config File"
 msgstr "创建配置文件"
 
+#, fuzzy, c-format
+msgid ""
+"Unable to write to the <b>config.php</b> configuration file in your %s directory.  Please "
+"change its permissions.  If you're on Unix you can do <i>chmod 666 config.php</i> to fix "
+"this."
+msgstr ""
+"无法写入配置文件 <b>config.php</b> 在 %s 目录中。请改变它的存取权限。如果使用 Unix 可以用"
+"「chmod 666 config.php」指令来修正。"
+
 #, c-format
 msgid "The config.php file does not exist in your %s directory"
 msgstr " %s 目录中没有 config.php 文件。"
@@ -97,10 +106,6 @@ msgstr "你必需装有 Oracle OCI8 PHP 模块"
 
 #, fuzzy
 msgid "You must have the Component Object Model(COM) PHP module installed"
-msgstr "你必需装有 Oracle OCI8 PHP 模块"
-
-#, fuzzy
-msgid "You must have the PHP Data Object(PDO) PHP module installed"
 msgstr "你必需装有 Oracle OCI8 PHP 模块"
 
 #, c-format
@@ -211,9 +216,6 @@ msgstr "（实验性质！）IBM DB2（v8.2.2 和更新版）"
 msgid "Microsoft SQL Server 2005 and newer"
 msgstr "PostgreSQL v7.x 和更新版"
 
-msgid "SQLite v3.x (Experimental!)"
-msgstr ""
-
 msgid "Unknown DB type or no known tables information."
 msgstr "不明数据库类型或没有表资讯。"
 
@@ -322,7 +324,7 @@ msgid "Performing system checks"
 msgstr "进行系统检查中"
 
 #, fuzzy
-msgid "PHP version &gt;= 4.3.0 or &gt;= 5.0.4"
+msgid "PHP version >= 4.3.0 or >= 5.0.4"
 msgstr "PHP 版本大於或等於 4.1.0 或大於或等於 5.0.4"
 
 #, fuzzy, c-format
@@ -494,13 +496,13 @@ msgstr "Zend 兼容模式"
 #, c-format
 msgid ""
 "Warning: Your PHP is configured with Zend ze1_compatibility_mode which can cause PHP to "
-"crash.  Click %shere%s to test your PHP.  If you see \"SUCCESS\" then your PHP is ok.  If "
-"you get an error or no response then you must turn off ze1_compatibility_mode before "
-"proceeding."
+"crash.  Click <a href=\"%s\">here</a> to test your PHP.  If you see \"SUCCESS\" then your "
+"PHP is ok.  If you get an error or no response then you must turn off ze1_compatibility_mode "
+"before proceeding."
 msgstr ""
-"警告：你的 PHP 设置使用可能使 PHP 当机的 Zend ze1_compatibility_mode 选项。请按%s这里%s测试 "
-"PHP。如果你看到「SUCCESS」表示你的 PHP 正常。如果你得到一个错误讯息或完全没有反应，你需要把 "
-"ze1_compatibility_mode关掉才能继续。"
+"警告：你的 PHP 设置使用可能使 PHP 当机的 Zend ze1_compatibility_mode 选项。请按<a href=\"%s"
+"\">这里</a>测试 PHP。如果你看到「SUCCESS」表示你的 PHP 正常。如果你得到一个错误讯息或完全没有"
+"反应，你需要把 ze1_compatibility_mode关掉才能继续。"
 
 msgid "putenv() allowed"
 msgstr "允许 putenv()"
@@ -671,16 +673,6 @@ msgstr "产生一个设置档"
 
 #, fuzzy, c-format
 msgid ""
-"Unable to write to the <b>config.php</b> configuration file in your %s directory.  Please "
-"change its permissions.  If you're on Unix you can do <i>chmod 666 config.php</i> to fix "
-"this. You can also download the %sconfig.php%s file and replace the existing config.php in "
-"the %s directory yourself."
-msgstr ""
-"无法写入配置文件 <b>config.php</b> 在 %s 目录中。请改变它的存取权限。如果使用 Unix 可以用"
-"「chmod 666 config.php」指令来修正。"
-
-#, fuzzy, c-format
-msgid ""
 "Now we need to write out all the information you provided into a file called <b>config.php</"
 "b> in your <b>%s</b> directory.  This is a very important file that gives Gallery all the "
 "information that it needs to operate.  After we create it, you can read through this file "
@@ -755,12 +747,6 @@ msgstr "数据库密码："
 
 msgid "DB Name:"
 msgstr "数据库名称"
-
-msgid "DB Schema:"
-msgstr ""
-
-msgid "(optional)"
-msgstr ""
 
 msgid "Table Prefix:"
 msgstr "表格字首："
@@ -1145,9 +1131,6 @@ msgstr ""
 "如果你正在使用的是最新的浏览程式，我们会试着自动完成你输入的任何路径。所以如果你无法找到指到"
 "你的 g2data 目录的正确路径，试着在下面的文字框中打一些可能的路径，看看自动完成会不会找到它。"
 
-msgid "Do not use the installation directory for storage"
-msgstr ""
-
 msgid "The directory you entered is read only"
 msgstr "你输入的目录是唯读的。"
 
@@ -1289,3 +1272,103 @@ msgstr "开始"
 
 msgid "Begin Installation&raquo;"
 msgstr "开始安装&raquo;"
+
+#, fuzzy
+#~ msgid "MSSQL (2005 and newer)"
+#~ msgstr "MySQL with Transactions（v3.23.34a 和更新版）"
+
+#, fuzzy
+#~ msgid "Installed Gallery Core successfully"
+#~ msgstr "图库核心模块安装成功"
+
+#, fuzzy
+#~ msgid ""
+#~ "Congratulations, we've successfully installed the Gallery framework.  However, most of "
+#~ "the really cool features from Gallery come from additional modules that you can install "
+#~ "and configure.  The next step will take you through the process of selecting modules to "
+#~ "install so that you can tune Gallery to do exactly what you want."
+#~ msgstr ""
+#~ "恭禧，我们已经成功地安装了 图库的架构。不过绝大部分 图库的功能来自你需要另外安装和设置的模"
+#~ "块。下一个步骤会指引会选择要安装的模块，这样你可以把 图库调成你想要的样子。"
+
+#~ msgid "Install More Modules"
+#~ msgstr "安装其他模块"
+
+#~ msgid ""
+#~ "Before we can proceed, you should create a file in your <b>%s</b> directory called "
+#~ "<i>config.php</i>.  You must make sure that the webserver will be able to write to it.  "
+#~ "If you're on unix, try doing <i>chmod 666 config.php</i>.  On Windows, you shouldn't have "
+#~ "to do anything special.  When you've created this file and set the permissions properly, "
+#~ "you can proceed.  If there's a problem, we'll tell you what to fix."
+#~ msgstr ""
+#~ "在我们继续之前，你必需先在你的 <b>%s</b> 目录中产生一个叫「config.php」的文件。你必需确定"
+#~ "网页服务器可以写到这个文件。如果你在使用 Unix，试着使用「chmod 666 config.php」。在 "
+#~ "Windows 上，你应该不必特别做什麽。在你产生了这个文件并设置好存取权限之後，就可以继续。如果"
+#~ "发生了问题，我们会告诉你该修改什麽。"
+
+#~ msgid "Install Other Modules"
+#~ msgstr "安装其他模块"
+
+#~ msgid "mkdir %s"
+#~ msgstr "mkdir %s"
+
+#~ msgid "chmod 777 %s"
+#~ msgstr "chmod 777 %s"
+
+#~ msgid "cd %s"
+#~ msgstr "cd %s"
+
+#~ msgid "PostgreSQL v6.x (not well tested)"
+#~ msgstr "PostgreSQL v6.x（并未充分测试）"
+
+#~ msgid "Install 图库Core"
+#~ msgstr "安装图库核心"
+
+#~ msgid "chmod 644 %s"
+#~ msgstr "chmod 644 %s"
+
+#~ msgid "chmod 755 %s"
+#~ msgstr "chmod 755 %s"
+
+#~ msgid ""
+#~ "图库needs to store data in a directory on your server. It will use this directory to "
+#~ "store your images as well as other important data. For security, we suggest that you "
+#~ "place this directory <b>outside</b> of your web site so that it cannot be browsed "
+#~ "directly via the web. This is necessary if you wish to have your images accessible only "
+#~ "via 图库[%s]. Note that the default path provided below is inside the webserver area. "
+#~ "This is because we are unable to reliably guess a directory outside of your web site. You "
+#~ "should update it with a secure location, such as a path under your user home directory, "
+#~ "if possible. If you access your site via FTP, you might not have this option."
+#~ msgstr ""
+#~ "图库需要把资料储存在你的服务器上的一个目录中。它会用这个目录来存放你的图片和其他重要的资"
+#~ "料。为了安全起见，我们建议你把这个目录放在你的网站<b>之外</b>，这样它就不能直接在网页上浏"
+#~ "览。这在如果你希望你的图片只能透过 图库[%s] 存取的状况下是很重要的。请注意下面提供的预设路"
+#~ "径是在网页服务器的范围内。这是因为我们无法可靠地推测出一个在你的网站之外的目录。如果可能的"
+#~ "话，你应该把它改成一个安全的位置，像是一个在你的用户根目录下的目录。如果你是使用 FTP 存取"
+#~ "网站的话，你可能无法这麽做。"
+
+#~ msgid ""
+#~ "Your webserver needs to be able to write to this directory. Permission systems vary from "
+#~ "host to host. You can set a very relaxed set of permissions on this directory to get 图库"
+#~ "working, but if you're concerned about security you should consult your system "
+#~ "adminstrator to figure out how to make this as secure as possible. To get it working, you "
+#~ "can follow these examples."
+#~ msgstr ""
+#~ "你的网页服务器必需能写入这个目录。在各个主机上的权限系统都不相同。你可以给这个目录很松散的"
+#~ "存取权限让 图库开始作用，可是如果你关心安全的问题，你应该资询你的系统管理员有关如何可以使"
+#~ "你的系统尽可能的安全。要让它开始工作，你可以用下面的例子。"
+
+#~ msgid "This is sometimes known as an <b>image firewall</b>."
+#~ msgstr "这有时也叫一个<b>图像防火墙</b>。"
+
+#~ msgid "You must have the ODBC module installed"
+#~ msgstr "你必需装有 ODBC 模块"
+
+#~ msgid "Finished"
+#~ msgstr "完成"
+
+#~ msgid "Installation Status"
+#~ msgstr "安装状况"
+
+#~ msgid "SQL test file \"%s\" not found."
+#~ msgstr "找不到 SQL 测试文件「%s」。"

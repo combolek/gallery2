@@ -40,11 +40,7 @@ class AddCommentController extends GalleryController {
     function handleRequest($form) {
 	global $gallery;
 
-	list ($ret, $item) = $this->getItem();
-	if ($ret) {
-	    return array($ret, null);
-	}
-	$itemId = $item->getId();
+	$itemId = GalleryUtilities::getRequestVariables('itemId');
 
 	/* Make sure we have permission to add a comment */
 	$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'comment.add');

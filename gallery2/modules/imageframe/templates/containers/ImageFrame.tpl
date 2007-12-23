@@ -1,6 +1,8 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
 {if isset($ImageFrameData.data[$frame])}
   {assign var="data" value=$ImageFrameData.data[$frame]}
@@ -24,8 +26,8 @@
     <tr>
     <td class="TL"></td>
     {if $data.wHL}<td class="TTL"></td>{/if}
-    <td class="TT"{if $data.wHL or $data.wHR
-     } style="width:{if isset($width)}{$width-$data.wHL-$data.wHR}px{else}expression((document.getElementById('{$objectId}').width-{$data.wHL+$data.wHR})+'px'){/if}"
+    <td class="TT"{if $data.wHL or $data.wHR}
+     style="width:{if isset($width)}{$width-$data.wHL-$data.wHR}px{else}expression((document.getElementById('{$objectId}').width-{$data.wHL+$data.wHR})+'px'){/if}"
     {/if}><div class="H"></div></td>
     {if $data.wHR}<td class="TTR"></td>{/if}
     <td class="TR"></td>
@@ -33,18 +35,18 @@
   {/if}
   <tr>
   {capture name="LL"}
-    <td class="LL"{if $data.hVT or $data.hVB
-     } style="height:{if isset($height)}{$height-$data.hVT-$data.hVB}px{else}expression((document.getElementById('{$objectId}').height-{$data.hVT+$data.hVB})+'px'){/if}"
+    <td class="LL"{if $data.hVT or $data.hVB}
+     style="height:{if isset($height)}{$height-$data.hVT-$data.hVB}px{else}expression((document.getElementById('{$objectId}').height-{$data.hVT+$data.hVB})+'px'){/if}"
     {/if}><div class="V">&nbsp;</div></td>
   {/capture}
   {capture name="RR"}
-    <td class="RR"{if $data.hVT or $data.hVB
-     } style="height:{if isset($height)}{$height-$data.hVT-$data.hVB}px{else}expression((document.getElementById('{$objectId}').height-{$data.hVT+$data.hVB})+'px'){/if}"
+    <td class="RR"{if $data.hVT or $data.hVB}
+     style="height:{if isset($height)}{$height-$data.hVT-$data.hVB}px{else}expression((document.getElementById('{$objectId}').height-{$data.hVT+$data.hVB})+'px'){/if}"
     {/if}><div class="V">&nbsp;</div></td>
   {/capture}
   {if $data.hVT}<td class="LLT"></td>{else}{$smarty.capture.LL}{/if}
-  <td rowspan="{$data.rowspan}" colspan="{$data.colspan}" class="IMG"{if isset($isSquare)
-   } align="center" valign="middle" style="width:{$width}px;height:{$height}px;"
+  <td rowspan="{$data.rowspan}" colspan="{$data.colspan}" class="IMG"{if isset($isSquare)}
+   align="center" valign="middle" style="width:{$width}px;height:{$height}px;"
   {/if}>
   {$content|replace:"%ID%":$objectId|replace:"%CLASS%":"ImageFrame_image"}</td>
   {if $data.hVT}<td class="RRT"></td>{else}{$smarty.capture.RR}{/if}
@@ -66,8 +68,8 @@
     <tr>
     <td class="BL"></td>
     {if $data.wHL}<td class="BBL"></td>{/if}
-    <td class="BB"{if $data.wHL or $data.wHR
-     } style="width:{if isset($width)}{$width-$data.wHL-$data.wHR}px{else}expression((document.getElementById('{$objectId}').width-{$data.wHL+$data.wHR})+'px'){/if}"
+    <td class="BB"{if $data.wHL or $data.wHR}
+     style="width:{if isset($width)}{$width-$data.wHL-$data.wHR}px{else}expression((document.getElementById('{$objectId}').width-{$data.wHL+$data.wHR})+'px'){/if}"
     {/if}><div class="H"></div></td>
     {if $data.wHR}<td class="BBR"></td>{/if}
     <td class="BR"></td>

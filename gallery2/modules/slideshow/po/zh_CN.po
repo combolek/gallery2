@@ -19,9 +19,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Slideshow 1.0.7\n"
-"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2007-06-14 17:45-0700\n"
+"Project-Id-Version: Gallery: Slideshow 1.0.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-03-28 14:00+0800\n"
 "PO-Revision-Date: 2005-03-31 14:00+0800\n"
 "Last-Translator: Wayne Zhang <waynez777@hotmail.com>\n"
 "Language-Team: Chinese Simplified <gallery-devel@lists.sourceforge.net>\n"
@@ -30,12 +30,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
+msgid "Slideshow"
+msgstr "幻灯片放映"
+
 #, c-format
 msgid "Slideshow for %s"
 msgstr "%s 的幻灯片放映"
-
-msgid "Slideshow"
-msgstr "幻灯片放映"
 
 msgid "Display"
 msgstr "显示"
@@ -45,7 +45,7 @@ msgid "View Slideshow"
 msgstr "查看幻灯片放映"
 
 msgid "Path to an item (eg, /album/image.jpg.html)"
-msgstr "到项目的路径（如 /album/image.jpg.html）"
+msgstr ""
 
 msgid "Blend"
 msgstr "混合"
@@ -185,3 +185,6 @@ msgstr "无限制"
 
 msgid "fade: "
 msgstr "淡出:"
+
+#~ msgid "view slideshow"
+#~ msgstr "查看幻灯片放映"

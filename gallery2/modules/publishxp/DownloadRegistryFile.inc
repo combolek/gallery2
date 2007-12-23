@@ -56,14 +56,11 @@ class DownloadRegistryFileView extends GalleryView {
 	    return $ret;
 	}
 	list ($ret, $hasPermission) = GalleryCoreApi::hasItemPermission($rootId, 'core.view');
-	if ($ret) {
-	    return $ret;
-	}
 	if (!$hasPermission) {
 	    /* Avoid information disclosure, use a default title */
 	    $title = 'Gallery';
 	} else {
-	    list ($ret, $root) = GalleryCoreApi::loadEntitiesById($rootId, 'GalleryItem');
+	    list ($ret, $root) = GalleryCoreApi::loadEntitiesById($rootId);
 	    if ($ret) {
 		return $ret;
 	    }
@@ -211,7 +208,7 @@ class DownloadRegistryFileView extends GalleryView {
 		break;
 	    default: $codePage = 1252;
 	}
-	return 'CP' . $codePage;
+	return 'Windows-' . $codePage;
     }
 }
 ?>

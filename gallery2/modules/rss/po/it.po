@@ -19,10 +19,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: RSS 1.1.5\n"
+"Project-Id-Version: Gallery: RSS 1.1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-03-16 11:05+0100\n"
-"PO-Revision-Date: 2007-09-25 16:13+0100\n"
+"PO-Revision-Date: 2007-01-09 13:00+0100\n"
 "Last-Translator: Ermanno Baschiera <ebaschiera@gmail.com>\n"
 "Language-Team: Italian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -30,7 +30,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "This feed no longer exists!"
-msgstr "Questo feed non esiste più!"
+msgstr "Questo feed non esiste più"
 
 msgid "Feeds of that type are not allowed!"
 msgstr "Feeds di quel tipo non sono ammessi!"
@@ -62,10 +62,6 @@ msgstr "Feed RSS per questa Foto"
 msgid "RSS Feed for this Movie"
 msgstr "Feed RSS per questo Filmato"
 
-#, c-format
-msgid "RSS Feed for this %s"
-msgstr "Feed RSS per questo %s"
-
 msgid "Configure RSS Feeds"
 msgstr "Configura Feeds RSS"
 
@@ -85,8 +81,8 @@ msgid "Short URL for Configurable RSS Feeds"
 msgstr "URL breve per Feed RSS Configurabile"
 
 #, c-format
-msgid "In album %s"
-msgstr "Nell'album %s"
+msgid "RSS Feed for this %s"
+msgstr "Feed RSS per questo %s"
 
 msgid "Items in an album"
 msgstr "Oggetti in un album"
@@ -98,19 +94,17 @@ msgid "Items in an album and its sub-albums"
 msgstr "Oggetti in un album e nei suoi sotto-album"
 
 msgid "Comments for an album"
-msgstr "Commenti di un album"
+msgstr "Commenti per un album"
 
 msgid "Comments for an item"
-msgstr "Commenti di un oggetto"
+msgstr "Commenti per un oggetto"
 
 msgid "Comments for an album and its subalbums"
 msgstr "Commenti di un album e dei suoi sotto-album"
 
-msgid "Random items in an album"
-msgstr "Oggetti casuali in un album"
-
-msgid "Random items in an album and its subalbums"
-msgstr "Oggetti casuali in un album e nei suoi sotto-album"
+#, c-format
+msgid "In album <a href=\"%s\">%s</a>"
+msgstr "Nell'album <a href=\"%s\">%s</a>"
 
 msgid "RSS Feeds"
 msgstr "Feeds RSS"
@@ -192,19 +186,13 @@ msgid "(enter 0 to disable the limit)"
 msgstr "(inserisci 0 per disabilitare il limite)"
 
 msgid "Comments for this album"
-msgstr "Commenti di questo album"
+msgstr "Commenti per questo album"
 
 msgid "Comments for this album and its subalbums"
 msgstr "Commenti di questo album e dei suoi sottoalbum"
 
-msgid "Random pictures inside this album"
-msgstr "Immagini casuali in questo album"
-
-msgid "Random pictures inside this album and its subalbums"
-msgstr "Immagini casuali in questo album e nei suoi sottoalbum"
-
 msgid "Comments for this item"
-msgstr "Commenti di questo oggetto"
+msgstr "Commenti per questo oggetto"
 
 msgid "Which items"
 msgstr "Quali oggetti"
@@ -246,10 +234,12 @@ msgid "category tag"
 msgstr "tag della categoria"
 
 msgid "ttl tag"
-msgstr "tag ttl"
+msgstr "tag ttl (time to live)"
 
 msgid "Invalid time to live, this must be a number of minutes (0 to disable ttl)"
-msgstr "Time to live non valido, deve essere un numero di minuti (0 per disabilitare il ttl)"
+msgstr ""
+"Tempo per time to live non valido, deve essere un numero di minuti (0 per disabilitare il "
+"ttl)"
 
 msgid ""
 "Time to live: this must be a number of minutes (0 to disable ttl) aggregators should wait "
@@ -280,32 +270,16 @@ msgid "Invalid value"
 msgstr "Valore non valido"
 
 msgid "Use enclosures"
-msgstr "Usa enclosure"
+msgstr "Usa recinzione"
 
 msgid "Include enclosure tags"
-msgstr "Includi tag enclosure"
+msgstr "Includi tag di recinzione"
 
 msgid ""
 "This adds an enclosure to each image in the feed, that contains the full resolution image"
 msgstr ""
-"Questo aggiunge un enclosure a ogni immagine nel feed, che contiene l'immagine a risoluzione "
-"piena"
-
-msgid "Use Media RSS"
-msgstr "Usa Media RSS"
-
-msgid "Include Media RSS tags"
-msgstr "Includi tag Media RSS"
-
-msgid ""
-"This adds Media RSS tags to the feed, which allows media-oriented clients to display the "
-"feed in a more useful fashion"
-msgstr ""
-"Questo aggiunge al feed i tag RSS Media, che permettono ai client media-oriented di "
-"visualizzare i feed in un modo più utile"
-
-msgid "about Media RSS"
-msgstr "informazioni su Media RSS"
+"Questo aggiunge una recinzione a ogni immagine nel feed, che contiene l'immagine a "
+"risoluzione piena"
 
 msgid "Cloud tag (RSS 2.0)"
 msgstr "Cloud tag (RSS 2.0)"
@@ -404,12 +378,6 @@ msgstr "Numero massimo di oggetti nei feed"
 msgid "Invalid maximum number"
 msgstr "Numero massimo non valido"
 
-msgid "Maximum age for items in feeds"
-msgstr "Età massima degli oggetti nei feed"
-
-msgid "Invalid maximum age number"
-msgstr "Età massima non valida"
-
 msgid "Default ttl"
 msgstr "Ttl predefinito"
 
@@ -430,7 +398,7 @@ msgid ""
 "can view."
 msgstr ""
 "Se attivi questo, gli utenti saranno in grado di iscriversi al feed di ogni album o foto che "
-"possono visualizzare."
+"visualizzano."
 
 msgid ""
 "To edit the settings for Simple Feeds, use the corresponding tab at the top of the screen."
@@ -473,23 +441,14 @@ msgstr "Permetti i feed RSS di foto all'interno di un album e dei suoi sottoalbu
 msgid "Slower"
 msgstr "Più lento"
 
-msgid "Allow RSS feeds of comments of a photo"
-msgstr "Permetti feed RSS di commenti di una foto"
+msgid "Allow RSS feeds comments of a photo"
+msgstr "Permetti i feed RSS di commenti di una foto"
 
-msgid "Allow RSS feeds of comments of an album"
-msgstr "Permetti feed RSS di commenti di un album"
+msgid "Allow RSS feeds comments of an album"
+msgstr "Permetti i feed RSS di commenti di un album"
 
-msgid "Allow RSS feeds of comments for an album and its subalbums"
-msgstr "Permetti feed RSS dei commenti di un album e dei suoi sottoalbum"
-
-msgid "Allow RSS feeds of random photos inside an album"
-msgstr "Permetti feed RSS di foto casuali all'interno di un album"
-
-msgid "Allow RSS feeds of random photos inside an album and its subalbums"
-msgstr "Permetti i feed RSS di foto casuali all'interno di un album e dei suoi sottoalbum"
-
-msgid "Slowest"
-msgstr "Lentissimo"
+msgid "Allow RSS feeds comments for an album and its subalbums"
+msgstr "Permetti i feed RSS dei commenti di un album e dei suoi sottoalbum"
 
 msgid "Save Settings"
 msgstr "Salva Configurazione"
@@ -512,7 +471,7 @@ msgid ""
 "get a list of all feeds); and hidden page headers that modern web browsers will use to make "
 "it easier for the user to subscribe to the feeds."
 msgstr ""
-"Questo avrà due effetti: il blocco in sé, che gli utenti possono vedere e prenderne i feed "
+"Questo avrà due effetti: il blocco in sé;, che gli utenti possono vedere e prenderne i feed "
 "(e ottenere la lista di tutti i feed); e gli headers nascosti nella pagina che i browser "
 "moderni potranno usare per rendere più facile all'utente l'iscrizione ai feed."
 
@@ -547,7 +506,7 @@ msgid "Comments for items (always selected)"
 msgstr "Commenti per gli oggetti (sempre selezionato)"
 
 msgid "List all RSS Feeds"
-msgstr "Visualizza lista di tutti i Feed RSS"
+msgstr "Lista di tutti i Feed RSS"
 
 msgid "List of RSS Feeds"
 msgstr "Lista dei Feed RSS"

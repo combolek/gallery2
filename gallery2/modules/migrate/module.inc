@@ -34,12 +34,11 @@ class MigrateModule extends GalleryModule /* and GalleryEventListener */ {
 	$this->setId('migrate');
 	$this->setName($gallery->i18n('Migration'));
 	$this->setDescription($gallery->i18n('Migrate your Gallery 1 albums to Gallery 2'));
-	$this->setVersion('1.0.10'); /* Update upgrade() also */
-	$this->_templateVersion = 1;
+	$this->setVersion('1.0.7');
 	$this->setGroup('import', $gallery->i18n('Import'));
-	$this->setCallbacks('getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 34));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setCallbacks('registerEventListeners|getSiteAdminViews');
+	$this->setRequiredCoreApi(array(7, 4));
+	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
@@ -65,14 +64,6 @@ class MigrateModule extends GalleryModule /* and GalleryEventListener */ {
 		return $ret;
 	    }
 
-	case '1.0.5':
-	case '1.0.6':
-	case '1.0.7':
-	    /* .mo file migration */
-	case '1.0.8':
-	case '1.0.9':
-	    /* Refactored to new event registration from core API 7.34 */
-
 	case 'end of upgrade path':
 	    /*
 	     * Leave this bogus case at the end of the legitimate case statements so that we
@@ -85,15 +76,10 @@ class MigrateModule extends GalleryModule /* and GalleryEventListener */ {
     }
 
     /**
-     * @see GalleryModule::performFactoryRegistrations
+     * @see GalleryModule::registerEventListeners
      */
-    function performFactoryRegistrations() {
-	$ret = GalleryCoreApi::registerFactoryImplementation(
-	    'GalleryEventListener', 'MigrateModule', 'MigrateModule', 
-	    'modules/migrate/module.inc', 'migrate', array('GalleryEntity::delete'));
-	if ($ret) {
-	    return $ret;
-	}
+    function registerEventListeners() {
+	GalleryCoreApi::registerEventListener('GalleryEntity::delete', new MigrateModule(), true);
     }
 
     /**

@@ -32,14 +32,14 @@ class GalleryRepository {
 
     /**
      * Repository utilities.
-     * @var GalleryRepositoryUtilities
+     * @var object GalleryRepositoryUtilities
      * @access private
      */
     var $_utilities;
 
     /**
      * Local repository index.
-     * @var RepositoryIndex
+     * @var object RepositoryIndex
      * @access private
      */
     var $_index;
@@ -61,8 +61,8 @@ class GalleryRepository {
      *                       If this is left empty, use the value stored in core.repositories.
      * @param string $repositoryClassName (optional) the name of the repository class to use.
      *               should be GalleryRepository, except for test code.
-     * @return array GalleryStatus a status code
-     *               array repository name => GalleryRepository the repository
+     * @return array object GalleryStatus a status code
+     *               array repository name => object GalleryRepository the repository
      *               int error count (repositories that failed to load for some reason)
      * @static
      */
@@ -116,7 +116,7 @@ class GalleryRepository {
     /**
      * Determines whether a core module upgrade is available.
      *
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *		     boolean availability
      *		     array repository core and plugin api versions
      */
@@ -164,16 +164,12 @@ class GalleryRepository {
     }
 
     /**
-     * Determines which packages of the specified plugin are newer in the repository.
+     * Determines which packages of the specified packages are newer in the repository.
      *
-     * @param string $pluginType A plugin type (module|theme)
-     * @param string $pluginId A plugin id
-     * @param bool $forBasePackageUpgrade (optional) Include all packages that are upgradeable once
-     *                                     the base package has been upgraded. Default true.
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *		     array package list
      */
-    function getPluginUpgradeInfo($pluginType, $pluginId, $forBasePackageUpgrade=true) {
+    function getPluginUpgradeInfo($pluginType, $pluginId) {
 	global $gallery;
 	$upgradeInfo = array('upgradeable' => false);
 
@@ -230,42 +226,39 @@ class GalleryRepository {
 
 	$upgradeInfo['languages'] = array();
 	$upgradeInfo['complete'] = isset($upgradeInfo['base']['currentVersion']);
-
-	if ($forBasePackageUpgrade || $upgradeInfo['base']['relation'] == 'equal') {
-	    foreach ($languages as $language => $revision) {
-		list ($ret, $languageDescription) =
-		    GalleryCoreApi::getLanguageDescription($language);
-		if ($ret) {
-		    if ($ret->getErrorCode() & ERROR_BAD_PARAMETER) {
-			/* Unsupported language .. ignore it. */
-			continue;
-		    }
-		    return array($ret, null);
+	foreach ($languages as $language => $revision) {
+	    list ($ret, $languageDescription) =
+		$this->_utilities->getLanguageDescription($language);
+	    if ($ret) {
+		if ($ret->getErrorCode() & ERROR_BAD_PARAMETER) {
+		    /* Unsupported language .. ignore it. */
+		    continue;
 		}
-
-		$languagePackageName = 'lang-' . $language;
-		if (isset($installedPackages[$languagePackageName])) {
-		    $currentBuild = $installedPackages[$languagePackageName]['build'];
-		    $locked = $installedPackages[$languagePackageName]['locked'];
-		} else {
-		    $currentBuild = null;
-		    $locked = 0;
-		}
-
-		$relation = $this->_utilities->compareRevisions($currentBuild, $revision);
-		$upgradeInfo['languages'][$language] = array(
-		    'name' => $languageDescription,
-		    'currentBuild' => $currentBuild,
-		    'newBuild' => $revision,
-		    'relation' => $relation,
-		    'locked' => $locked);
-
-		if ($relation == 'older' && $currentBuild) {
-		    $upgradeInfo['upgradeable'] = $upgradeInfo['base']['isCompatible'];
-		}
-
-		$upgradeInfo['complete'] &= !empty($currentBuild);
+		return array($ret, null);
 	    }
+
+	    if (isset($installedPackages['lang-' . $language])) {
+		$currentBuild = $installedPackages['lang-' . $language]['build'];
+		$locked = $installedPackages['lang-' . $language]['locked'];
+	    } else {
+		$currentBuild = null;
+		$locked = 0;
+	    }
+
+
+	    $relation = $this->_utilities->compareRevisions($currentBuild, $revision);
+	    $upgradeInfo['languages'][$language] = array(
+		'name' => $languageDescription,
+		'currentBuild' => $currentBuild,
+		'newBuild' => $revision,
+		'relation' => $relation,
+		'locked' => $locked);
+
+	    if ($relation == 'older' && $currentBuild) {
+		$upgradeInfo['upgradeable'] = $upgradeInfo['base']['isCompatible'];
+	    }
+
+	    $upgradeInfo['complete'] &= !empty($currentBuild);
 	}
 
 	return array(null, $upgradeInfo);
@@ -283,7 +276,7 @@ class GalleryRepository {
      * @param boolean $showAllPlugins show incompatible plugins
      * @param array $coreApis core APIs to base compatibility check on
      *		    'core'/'module'/'theme' => array(versionMajor, versionMinor)
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *		     array plugin list
      */
     function getRepositoryPluginList($pluginType, $showAllPlugins=false, $coreApis=null) {
@@ -324,8 +317,7 @@ class GalleryRepository {
 		 * an 'upgrade' action. Maybe we can show some additional info, such as
 		 * '3 languages updated' or 'base data upgrade available'.
 		 */
-		list ($ret, $upgradeInfo) =
-		    $this->getPluginUpgradeInfo($pluginType, $pluginId, false);
+		list ($ret, $upgradeInfo) = $this->getPluginUpgradeInfo($pluginType, $pluginId);
 		if ($ret) {
 		    return array($ret, null);
 		}
@@ -408,7 +400,7 @@ class GalleryRepository {
      * It goes through all installed plugins and checks if an update is available to any of their
      * packages and adds it to a list if it is.
      *
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *		     array package list
      */
     function getAllUpgradeablePackages() {
@@ -462,7 +454,7 @@ class GalleryRepository {
      * @param string $packageName
      * @param string $packageVersion
      * @param string $packageBuild
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function updatePackageMetaData(
 	$pluginType, $pluginId, $packageName, $packageVersion, $packageBuild, $locked) {
@@ -539,7 +531,7 @@ class GalleryRepository {
      * Creates a list of URLs that
      *
      * @param array $pluginData array(pluginType => array(pluginId => array(packages)))
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *		     array list of packages with corresponding URLs
      */
     function getDownloadFileList($pluginData) {
@@ -591,7 +583,7 @@ class GalleryRepository {
      * @param string $pluginId
      * @param string $packageName
      * @param string $relativePackageUrl URL of the package to download relative to repository URL
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *		     array descriptor
      */
     function downloadAndUnpack($pluginType, $pluginId, $packageName, $relativePackageUrl) {
@@ -641,14 +633,6 @@ class GalleryRepository {
 	}
 
 	return array(null, $descriptor);
-    }
-
-    /** 
-     * @see GalleryRepositoryUtilities::downloadSourceFiles
-     */
-    function downloadSourceFiles($pluginType, $pluginId, $pluginDownloadData, $callback=null) {
-	return $this->_utilities->downloadSourceFiles($pluginType, $pluginId, $pluginDownloadData, 
-	    $callback);
     }
 
     /**
@@ -714,7 +698,7 @@ class GalleryRepository {
      *
      * @param string $packageName name of the package to check
      * @param array $descriptor descriptor of the plugin the package belongs to
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function verifyPackageIntegrity($packageName, $descriptor) {
 	global $gallery;
@@ -730,20 +714,23 @@ class GalleryRepository {
 	    foreach ($metaData['packages'] as $descriptorPackage) {
 		if ($descriptorPackage == $packageName) {
 		    $filePath = $pluginOutputDir . $filePath;
-		    $contents = $platform->file_get_contents($filePath);
+
+		    if (!$platform->file_exists($filePath)) {
+			$errorMessage = "'$filePath' doesn't exist.";
+		    }
+
+		    if ($platform->filesize($filePath) != $metaData['bytes']) {
+			$errorMessage = "Size of '$filePath' not {$metaData['bytes']}.";
+		    }
+
+		    if (false === ($contents = $platform->file_get_contents($filePath))) {
+			$errorMessage = "Couldn't read '$filePath'.";
+		    }
+
 		    $checksum = strlen($metaData['hash']) == 32
 			? md5($contents)
 			: sprintf("%u", crc32($contents));
- 
-		    if (!$platform->file_exists($filePath)) {
-			$errorMessage = "'$filePath' doesn't exist.";
-		    } else if (!in_array($platform->filesize($filePath), 
-					 array($metaData['bytes'], $metaData['bytes_crlf']))) {
-			$errorMessage = "Size of '$filePath' did not match package descriptor.";
-		    } else if (false === $contents) {
-			$errorMessage = "Couldn't read '$filePath'.";
-		    } else if (!in_array($checksum, 
-					 array($metaData['hash'], $metaData['hash_crlf']))) {
+		    if ($checksum != $metaData['hash']) {
 			$errorMessage = "Integrity check failed for '$filePath'.";
 		    }
 
@@ -763,7 +750,7 @@ class GalleryRepository {
      *
      * @param $pluginType the plugin type ('module' or 'theme')
      * @param $pluginId the plugin id (eg 'albumselect' or 'cart')
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function scanPlugin($pluginType, $pluginId) {
 	global $gallery;
@@ -795,7 +782,12 @@ class GalleryRepository {
 	    return $ret;
 	}
 
-	list ($ret, $revision) = $this->_utilities->getFileRevision($manifestPath);
+	list ($ret, $tag) = $this->_utilities->getFirstBytesFromFile($manifestPath, 128);
+	if ($ret) {
+	    return $ret;
+	}
+
+	list ($ret, $revision) = $this->_utilities->extractRevision($tag);
 	if ($ret) {
 	    return $ret;
 	}
@@ -815,7 +807,11 @@ class GalleryRepository {
 
 	$stringsRawFile = "$pluginDir/po/strings.raw";
 	if ($platform->file_exists($stringsRawFile)) {
-	    list ($ret, $stringsRevision) = $this->_utilities->getFileRevision($stringsRawFile);
+	    list ($ret, $tag) = $this->_utilities->getFirstBytesFromFile($stringsRawFile, 128);
+	    if ($ret) {
+		return $ret;
+	    }
+	    list ($ret, $stringsRevision) = $this->_utilities->extractRevision($tag);
 	    if ($ret) {
 		return $ret;
 	    }
@@ -823,7 +819,12 @@ class GalleryRepository {
 	    $poFiles = $platform->glob("$pluginDir/po/*.po");
 	    if ($poFiles) {
 		foreach ($poFiles as $file) {
-		    list ($ret, $revision) = $this->_utilities->getFileRevision($file);
+		    list ($ret, $tag) = $this->_utilities->getFirstBytesFromFile($file, 128);
+		    if ($ret) {
+			return $ret;
+		    }
+
+		    list ($ret, $revision) = $this->_utilities->extractRevision($tag);
 		    if ($ret) {
 			return $ret;
 		    }
@@ -850,7 +851,7 @@ class GalleryRepository {
      * Translate the repository tag to its localized name
      *
      * @param $source string the name (released, experimental, community)
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *               string the localized name
      * @static
      * @public
@@ -916,13 +917,6 @@ class GalleryRepository {
      */
     function getPluginName($pluginType, $pluginId) {
 	return $this->_index->getPluginName($pluginType, $pluginId);
-    }
-
-    /**
-     * @see GalleryRepositoryIndex::getLanguageSourceFiles
-     */
-    function getLanguageSourceFiles($locales) {
-	return $this->_index->getLanguageSourceFiles($locales);
     }
 }
 ?>

@@ -43,9 +43,7 @@ class WebDavController extends GalleryController {
 	 * registered for this request.  Since this is the WebDAV controller, we know it is a WebDAV
 	 * request.
 	 */
-	$ret = GalleryCoreApi::registerFactoryImplementationForRequest('GalleryEventListener',
-	    'WebDavModule', 'WebDavModule', 'modules/webdav/module.inc', 'webdav', 
-	    array('Gallery::Error'));
+	$ret = GalleryCoreApi::registerEventListener('Gallery::Error', new WebDavModule(), true);
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -89,8 +87,8 @@ class WebDavController extends GalleryController {
  	GalleryUtilities::putRequestVariable('originalPath', $path);
 	$pathComponent = basename($path);
 
-	/* Special case to suppress Mac '._' and '.DS_Store files.  Ignore but return success. */
-	if (!strncmp($pathComponent, '._', 2) || $pathComponent == '.DS_Store') {
+	/* Special case to suppress Mac '._' files.  Ignore request but return success. */
+	if (!strncmp($pathComponent, '._', 2)) {
 	    WebDavServer::setResponseStatus('200 OK');
 	    $handle = WebDavServer::openRequestBody();
 	    while (!feof($handle)) {
@@ -122,7 +120,7 @@ class WebDavController extends GalleryController {
 		}
 	    }
 
-	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
+	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	    if ($ret) {
 		return array($ret, null);
 	    }

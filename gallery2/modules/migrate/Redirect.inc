@@ -75,7 +75,6 @@ class RedirectController extends GalleryController {
 	    if ($ret) {
 		return array($ret, null);
 	    }
-	    $itemId = $id;
 
 	    if (isset($id) && isset($derivative)) {
 		switch ($derivative) {
@@ -99,11 +98,11 @@ class RedirectController extends GalleryController {
 		    break;
 		}
 		if (!empty($data)) {
-		    $derivative = $data[$id];
-		    if (is_array($derivative)) {
-			$derivative = array_shift($derivative);
+		    $item = $data[$id];
+		    if (is_array($item)) {
+			$item = array_shift($item);
 		    }
-		    $id = $derivative->getId();
+		    $id = $item->getId();
 		}
 	    }
 	} else {
@@ -111,18 +110,11 @@ class RedirectController extends GalleryController {
 	    if ($ret) {
 		return array($ret, null);
 	    }
-	    $itemId = $id;
 	}
 
-	if (isset($id)) {
-	    list ($ret, $hasPermission) = GalleryCoreApi::hasItemPermission($itemId, 'core.view');
-	    if ($ret) {
-	    	return array($ret, null);
-	    }
-	}
-	if (!isset($id) || empty($hasPermission)) {
+	if (!isset($id)) {
 	    $phpVm->header('HTTP/1.0 404 Not Found');
-	    $phpVm->exit_();
+	    exit;
 	}
 
 	/* Redirect browser */

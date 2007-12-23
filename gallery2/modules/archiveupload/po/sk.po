@@ -21,7 +21,7 @@
 # Branislav Hanacek <brango@brango.sk>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Archive Upload 1.0.7\n"
+"Project-Id-Version: Gallery: Archive Upload 1.0.6\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-03 10:22+0200\n"
 "PO-Revision-Date: 2006-09-10 21:10+0200\n"
@@ -59,11 +59,6 @@ msgid ""
 "to Gallery.  You must locate or install an unzip binary on your server, then enter the path "
 "to it in the text box below.  If you're on a Unix machine, don't forget to make the binary "
 "executable (<i>chmod 755 unzip</i> in the right directory should do it)"
-msgstr ""
-
-msgid ""
-"The exec() function is disabled in your PHP by the <b>disabled_functions</b> parameter in "
-"php.ini.  This module cannot be used until that setting is changed."
 msgstr ""
 
 msgid "Path to unzip:"

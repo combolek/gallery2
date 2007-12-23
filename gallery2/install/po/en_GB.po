@@ -19,7 +19,7 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Installer 2.3\n"
+"Project-Id-Version: Gallery: Installer 2.2.2\n"
 "POT-Creation-Date: 2006-02-24 12:02-0800\n"
 "PO-Revision-Date: 2007-03-06 12:02-0800\n"
 "Last-Translator: Stephen Ryan <ryaner@gmail.com>\n"
@@ -69,6 +69,16 @@ msgid "Create Config File"
 msgstr "Create Config File"
 
 #, c-format
+msgid ""
+"Unable to write to the <b>config.php</b> configuration file in your %s directory.  Please "
+"change its permissions.  If you're on Unix you can do <i>chmod 666 config.php</i> to fix "
+"this."
+msgstr ""
+"Unable to write to the <b>config.php</b> configuration file in your %s directory.  Please "
+"change its permissions.  If you're on Unix you can do <i>chmod 666 config.php</i> to fix "
+"this."
+
+#, c-format
 msgid "The config.php file does not exist in your %s directory"
 msgstr "The config.php file does not exist in your %s directory"
 
@@ -99,9 +109,6 @@ msgstr "You must have the Oracle OCI8 PHP module installed"
 
 msgid "You must have the Component Object Model(COM) PHP module installed"
 msgstr "You must have the Component Object Model(COM) PHP module installed"
-
-msgid "You must have the PHP Data Object(PDO) PHP module installed"
-msgstr "You must have the PHP Data Object(PDO) PHP module installed"
 
 #, c-format
 msgid "You must specify a column prefix (we recommend %s)"
@@ -211,9 +218,6 @@ msgstr "IBM DB2 (v9.x and newer)"
 msgid "Microsoft SQL Server 2005 and newer"
 msgstr "Microsoft SQL Server 2005 and newer"
 
-msgid "SQLite v3.x (Experimental!)"
-msgstr "SQLite v3.x (Experimental!)"
-
 msgid "Unknown DB type or no known tables information."
 msgstr "Unknown DB type or no known tables information."
 
@@ -321,8 +325,8 @@ msgstr "System Checks"
 msgid "Performing system checks"
 msgstr "Performing system checks"
 
-msgid "PHP version &gt;= 4.3.0 or &gt;= 5.0.4"
-msgstr "PHP version &gt;= 4.3.0 or &gt;= 5.0.4"
+msgid "PHP version >= 4.3.0 or >= 5.0.4"
+msgstr "PHP version >= 4.3.0 or >= 5.0.4"
 
 #, c-format
 msgid ""
@@ -503,14 +507,14 @@ msgstr "Zend compatibility mode"
 #, c-format
 msgid ""
 "Warning: Your PHP is configured with Zend ze1_compatibility_mode which can cause PHP to "
-"crash.  Click %shere%s to test your PHP.  If you see \"SUCCESS\" then your PHP is ok.  If "
-"you get an error or no response then you must turn off ze1_compatibility_mode before "
-"proceeding."
+"crash.  Click <a href=\"%s\">here</a> to test your PHP.  If you see \"SUCCESS\" then your "
+"PHP is ok.  If you get an error or no response then you must turn off ze1_compatibility_mode "
+"before proceeding."
 msgstr ""
 "Warning: Your PHP is configured with Zend ze1_compatibility_mode which can cause PHP to "
-"crash.  Click %shere%s to test your PHP.  If you see \"SUCCESS\" then your PHP is ok.  If "
-"you get an error or no response then you must turn off ze1_compatibility_mode before "
-"proceeding."
+"crash.  Click <a href=\"%s\">here</a> to test your PHP.  If you see \"SUCCESS\" then your "
+"PHP is ok.  If you get an error or no response then you must turn off ze1_compatibility_mode "
+"before proceeding."
 
 msgid "putenv() allowed"
 msgstr "putenv() allowed"
@@ -686,18 +690,6 @@ msgstr "Create a config file"
 
 #, c-format
 msgid ""
-"Unable to write to the <b>config.php</b> configuration file in your %s directory.  Please "
-"change its permissions.  If you're on Unix you can do <i>chmod 666 config.php</i> to fix "
-"this. You can also download the %sconfig.php%s file and replace the existing config.php in "
-"the %s directory yourself."
-msgstr ""
-"Unable to write to the <b>config.php</b> configuration file in your %s directory.  Please "
-"change its permissions.  If you're on Unix you can do <i>chmod 666 config.php</i> to fix "
-"this. You can also download the %sconfig.php%s file and replace the existing config.php in "
-"the %s directory yourself."
-
-#, c-format
-msgid ""
 "Now we need to write out all the information you provided into a file called <b>config.php</"
 "b> in your <b>%s</b> directory.  This is a very important file that gives Gallery all the "
 "information that it needs to operate.  After we create it, you can read through this file "
@@ -780,12 +772,6 @@ msgstr "DB Password:"
 
 msgid "DB Name:"
 msgstr "DB Name:"
-
-msgid "DB Schema:"
-msgstr "DB Schema:"
-
-msgid "(optional)"
-msgstr "(optional)"
 
 msgid "Table Prefix:"
 msgstr "Table Prefix:"
@@ -1206,9 +1192,6 @@ msgstr ""
 "If you're using a modern browser, we'll try to autocomplete any path you enter here.  So if "
 "you're having trouble finding the right path to your g2data directory, try experimenting "
 "with paths in the text box below and see what completions it provides for you."
-
-msgid "Do not use the installation directory for storage"
-msgstr "Do not use the installation directory for storage"
 
 msgid "The directory you entered is read only"
 msgstr "The directory you entered is read only"

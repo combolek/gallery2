@@ -46,7 +46,7 @@ class RepositoryControllerTest extends GalleryTestCase {
 	$controller = new RepositoryController();
 	$ret = $controller->showView('testShowViewTemplate', '');
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 
 	$this->assert(in_array(realpath($gallery->getConfig('repository.templates')

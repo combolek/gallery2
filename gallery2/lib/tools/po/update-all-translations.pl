@@ -62,28 +62,10 @@ if ($OPTS{'SVN_ADD'}) {
     chdir '..';
     foreach my $poFile (@_) {
       if (exists $svn{$poFile} and $poFile ne 'messages.po') {
-	my $code = substr($poFile, 0, -3);
-	my $moFile;
-	my $localeDir;
-	my $moPath;
-	if ($poDir =~ m{(upgrade|install)/po$}) {
-	  $localeDir = "../locale/$code";
-	  $moFile = "gallery2_$1.mo";
-	  $moPath = "$localeDir/LC_MESSAGES/$moFile";
-	} elsif (-d "locale") {
-	  # Remove this when we stop supporting 2.2 style per-plugin locale dirs
-	  $localeDir = "locale/$code";
-	  $moFile = "*.mo";
-	  $moPath = "$localeDir/LC_MESSAGES/$moFile";
-	} else {
-	  $moFile = "$code.mo";
-	  $moPath = "po/$moFile";
-	  my_system("svn add $moPath");
-	}
-
-	my_system("svn add po/$poFile");
-	my_system("svn add $localeDir") if $localeDir;
-	my_system("svn propset svn:mime-type application/octet-stream $moPath");
+	$_ = 'locale/' . substr($poFile, 0, -3);
+	my_system("svn add po/$poFile" . (-d $_ ? " $_" : ''));
+	-d $_ and
+	  my_system("svn propset svn:mime-type application/octet-stream $_/LC_MESSAGES/*.mo");
       }
     }
   }
@@ -93,14 +75,9 @@ if ($OPTS{'SVN_ADD'}) {
 if ($OPTS{'MAKE_BINARY'}) {
   # Make all .mo files binary in SVN.
   chdir $basedir;
-  my @MO_FILES = glob "modules/*/po/*.mo themes/*/po/*.mo locale/*/*/*.mo";
+  my @MO_FILES =
+    glob "modules/*/locale/*/*/*.mo themes/*/locale/*/*/*.mo [iu][np][sg]*/locale/*/*/*.mo";
   my_system("svn propset svn:mime-type application/octet-stream " . join(' ', @MO_FILES));
-
-  # Remove this when we stop supporting 2.2 style per-plugin locale dirs
-  @MO_FILES = glob "modules/*/locale/*/*/*.mo themes/*/locale/*/*/*.mo";
-  if (@MO_FILES) {
-    my_system("svn propset svn:mime-type application/octet-stream " . join(' ', @MO_FILES));
-  }
   exit;
 }
 

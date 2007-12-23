@@ -19,9 +19,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Ffmpeg 1.0.11\n"
+"Project-Id-Version: Gallery: Ffmpeg 1.0.7\n"
 "POT-Creation-Date: 2005-06-03 06:53-0400\n"
-"PO-Revision-Date: 2007-08-10 12:17-0000\n"
+"PO-Revision-Date: 2005-06-05 19:23+0100\n"
 "Last-Translator: Trung Dong Huynh <trungdong@donggiang.com>\n"
 "Language-Team: Vietnamese <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -60,11 +60,12 @@ msgid "Settings saved successfully"
 msgstr "Các thông số đã được lưu"
 
 msgid "Watermark successfully added to movie thumbnails"
-msgstr "Ảnh con của phim đã được thêm watermark"
+msgstr ""
 
 msgid "Watermark successfully removed from movie thumbnails"
-msgstr "Ảnh con của phim đã được bỏ watermark"
+msgstr ""
 
+#, fuzzy
 msgid ""
 "FFMPEG is a graphics toolkit that can be used to process video files that you upload to "
 "Gallery.  You must install the FFMPEG binary on your server, then enter the path to it in "
@@ -73,13 +74,8 @@ msgid ""
 msgstr ""
 "FFMPEG là một bộ công cụ đồ họa để xử lý các tập tin phim bạn tải lên Gallery. Bạn phải cài "
 "chương trình FFMPEG vào máy chủ của bạn và điền đường dẫn đến chương trình vào hộp chữ dưới "
-"đây. Nếu bạn dùng Unix thì nhớ đặt quyền <i>chạy</i> cho chương trình (dùng lệnh <i>chmod "
-"755 ffmpeg</i> trong thư mục chứa FFMPEG)."
-
-msgid ""
-"The exec() function is disabled in your PHP by the <b>disabled_functions</b> parameter in "
-"php.ini.  This module cannot be used until that setting is changed."
-msgstr ""
+"đây. Nếu bạn dùng Unix thì nhớ đặt quyền chạy được cho chương trình (dùng lệnh <i>chmod 755 "
+"ffmpeg</i> )."
 
 msgid "Path to FFMPEG:"
 msgstr "Đường dẫn đến FFMPEG:"
@@ -109,22 +105,20 @@ msgid ""
 "This module can automatically watermark the thumbnails for movies to help distinguish them "
 "from photos."
 msgstr ""
-"Module này có thể tự động thêm watermark cho các ảnh con của phim để giúp phân biệt chúng "
-"với các ảnh chụp bình thường."
 
 msgid "See sample at right."
-msgstr "Hãy xem mẫu ở bên phải."
+msgstr ""
 
 msgid "Watermark new movie thumbnails"
-msgstr "Thêm watermark cho ảnh con mới của phim"
+msgstr ""
 
 #, c-format
 msgid "%sAdd%s or %sRemove%s watermark from all existing movie thumbnails."
-msgstr "%sThêm%s hoặc %sGỡ bỏ%s watermark cho tất cả các ảnh con của phim đang có."
+msgstr ""
 
 msgid ""
 "Activate another graphics toolkit with watermark support to make this function available."
-msgstr "Hãy kích hoạt một bộ công cụ đồ họa có tính năng watermark để chạy được chức năng này."
+msgstr ""
 
 msgid "Save Settings"
 msgstr "Lưu thông số"
@@ -136,7 +130,7 @@ msgid "Cancel"
 msgstr "Hủy"
 
 msgid "Reset"
-msgstr "Làm lại từ đầu"
+msgstr ""
 
 msgid "FFMPEG binary test results"
 msgstr "Kết quả thử chương trình FFMPEG"

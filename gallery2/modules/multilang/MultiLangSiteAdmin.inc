@@ -68,6 +68,7 @@ class MultiLangSiteAdminView extends GalleryView {
      */
     function loadTemplate(&$template, &$form) {
 	global $gallery;
+	$translator =& $gallery->getTranslator();
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
@@ -84,7 +85,7 @@ class MultiLangSiteAdminView extends GalleryView {
 	    $form['languages'] = empty($languages) ? array() : explode('|', $languages);
 	}
 
-	$supportedLanguages = GalleryCoreApi::getSupportedLanguages();
+	$supportedLanguages = $translator->getSupportedLanguages();
 	$languageList = array();
 	foreach ($supportedLanguages as $language => $countryList) {
 	    foreach ($countryList as $country => $languageData) {

@@ -85,8 +85,6 @@ function deletePlugin(pluginType, pluginId) {
 
     addMessage(pluginType, pluginId, stateData['deleted']['message']['text'],
 	       stateData['deleted']['message']['type']);
-    pluginData[pluginType][pluginId]['state'] = 'deleted';
-    updateStateCounts();
 }
 
 function copyVersionToInstalledVersion(pluginType, pluginId) {
@@ -214,15 +212,15 @@ function updateStatusPosition() {
     containerEl.style.top = document.getElementsByTagName("html")[0].scrollTop + "px";
 }
 
-function verify(prompts, pluginType, pluginId, uninstallUrl) {
+function verify(prompt, pluginType, pluginId, uninstallUrl) {
     var dialog = new YAHOO.widget.SimpleDialog(
 	"gDialog", { width: "20em",
 		effect: { effect:YAHOO.widget.ContainerEffect.FADE, duration:0.25 },
 		fixedcenter: true,
 		modal: true,
 		draggable: false });
-    dialog.setHeader(prompts['header']);
-    dialog.setBody(prompts['body'].replace('__PLUGIN__', pluginData[pluginType][pluginId]["name"]));
+    dialog.setHeader(prompt['header']);
+    dialog.setBody(prompt['body'].replace('__PLUGIN__', pluginData[pluginType][pluginId]["name"]));
     dialog.cfg.setProperty("icon", YAHOO.widget.SimpleDialog.ICON_WARN);
 
     var handleYes = function() {
@@ -234,8 +232,8 @@ function verify(prompts, pluginType, pluginId, uninstallUrl) {
 	this.hide();
     }
 
-    var myButtons = [ { text: prompts['yes'], handler:handleYes },
-    { text: prompts['no'], handler:handleNo, isDefault:true } ];
+    var myButtons = [ { text: prompt['yes'], handler:handleYes },
+    { text: prompt['no'], handler:handleNo, isDefault:true } ];
     dialog.cfg.queueProperty("buttons", myButtons);
     dialog.render(document.body);
 }

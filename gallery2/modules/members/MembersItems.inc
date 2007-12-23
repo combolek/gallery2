@@ -59,7 +59,7 @@ class MembersItemsView extends GalleryView {
 
 	$MembersItems = array();
 
-	list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
+	list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId);
 	if ($ret) {
 	    return array($ret, null);
 	}

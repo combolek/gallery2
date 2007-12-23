@@ -103,11 +103,6 @@ class ConfigureView extends GalleryView {
     function loadTemplate(&$template, &$form) {
 	global $gallery;
 
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret, null);
-	}
-
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'nokiaupload');
 	if ($ret) {
 	    return array($ret, null);
@@ -126,7 +121,7 @@ class ConfigureView extends GalleryView {
 	if ($ret) {
 	    return array($ret, null);
 	}
-	list ($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds, 'GalleryAlbumItem');
+	list ($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds);
 	if ($ret) {
 	    return array($ret, null);
 	}

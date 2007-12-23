@@ -31,11 +31,7 @@ class RearrangeItemsController extends GalleryController {
      * @see GalleryController::handleRequest
      */
     function handleRequest($form) {
-	list ($ret, $item) = $this->getItem();
-	if ($ret) {
-	    return array($ret, null);
-	}
-	$itemId = $item->getId();
+	$itemId = GalleryUtilities::getRequestVariables('itemId');
 
 	/* Check permissions */
 	$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.edit');
@@ -48,6 +44,10 @@ class RearrangeItemsController extends GalleryController {
 	if (isset($form['action']['save'])) {
 	    $list = explode(',', $form['list']);
 
+	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
+	    if ($ret) {
+		return array($ret, null);
+	    }
 	    list ($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($item);
 	    if ($ret) {
 		return array($ret, null);
@@ -103,11 +103,7 @@ class RearrangeItemsView extends GalleryView {
      * @see GalleryView::loadTemplate
      */
     function loadTemplate(&$template, &$form) {
-	list ($ret, $item) = $this->getItem();
-	if ($ret) {
-	    return array($ret, null);
-	}
-	$itemId = $item->getId();
+	$itemId = GalleryUtilities::getRequestVariables('itemId');
 
 	/* Check permissions */
 	$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.edit');
@@ -117,6 +113,11 @@ class RearrangeItemsView extends GalleryView {
 
 	if ($form['formName'] != 'RearrangeItems') {
 	    $form['formName'] = 'RearrangeItems';
+	}
+
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
+	if ($ret) {
+	    return array($ret, null);
 	}
 
 	$RearrangeItems = array();
@@ -135,7 +136,7 @@ class RearrangeItemsView extends GalleryView {
 	    if ($ret) {
 		return array($ret, null);
 	    }
-	    list ($ret, $childItems) = GalleryCoreApi::loadEntitiesById($childIds, 'GalleryItem');
+	    list ($ret, $childItems) = GalleryCoreApi::loadEntitiesById($childIds);
 	    if ($ret) {
 		return array($ret, null);
 	    }

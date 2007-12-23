@@ -1,7 +1,7 @@
 # $Revision$
 # File crc32 crc32(crlf) size size(crlf)  or  R File
 modules/albumselect/AlbumSelectSiteAdmin.inc	3116611913	3619313205	3089	3192
-modules/albumselect/Callbacks.inc	2158022361	1716418155	9339	9628
+modules/albumselect/Callbacks.inc	864964945	4160747471	8833	9106
 modules/albumselect/Preloads.inc	3627351619	1349460503	1435	1484
 modules/albumselect/dtree.css	2381733050	649662923	565	589
 modules/albumselect/dtree.js	2233329303	3916828414	11250	11581
@@ -26,173 +26,136 @@ modules/albumselect/images/plus.gif	1359509001	1359509001	89	89
 modules/albumselect/images/plus_rtl.gif	919754713	919754713	89	89
 modules/albumselect/images/plusbottom.gif	2430757682	2430757682	88	88
 modules/albumselect/images/plusbottom_rtl.gif	4196910978	4196910978	88	88
-modules/albumselect/module.inc	2280419027	2028095774	4775	4929
+modules/albumselect/locale/af/LC_MESSAGES/modules_albumselect.mo	3043448499	3043448499	2543	2543
+modules/albumselect/locale/ar/LC_MESSAGES/modules_albumselect.mo	993866794	993866794	721	721
+modules/albumselect/locale/bg/LC_MESSAGES/modules_albumselect.mo	2303408307	2303408307	3309	3309
+modules/albumselect/locale/ca/LC_MESSAGES/modules_albumselect.mo	2780610986	2780610986	2583	2583
+modules/albumselect/locale/cs/LC_MESSAGES/modules_albumselect.mo	1537077553	1537077553	2423	2423
+modules/albumselect/locale/da/LC_MESSAGES/modules_albumselect.mo	1305444250	1305444250	2462	2462
+modules/albumselect/locale/de/LC_MESSAGES/modules_albumselect.mo	1739538569	1739538569	2698	2698
+modules/albumselect/locale/en_GB/LC_MESSAGES/modules_albumselect.mo	1795183187	1795183187	459	459
+modules/albumselect/locale/es/LC_MESSAGES/modules_albumselect.mo	1984768226	1984768226	2589	2589
+modules/albumselect/locale/et/LC_MESSAGES/modules_albumselect.mo	163066983	163066983	2286	2286
+modules/albumselect/locale/eu/LC_MESSAGES/modules_albumselect.mo	1094107811	1094107811	2416	2416
+modules/albumselect/locale/fi/LC_MESSAGES/modules_albumselect.mo	3949649092	3949649092	710	710
+modules/albumselect/locale/fr/LC_MESSAGES/modules_albumselect.mo	3445009772	3445009772	2606	2606
+modules/albumselect/locale/he/LC_MESSAGES/modules_albumselect.mo	4211227150	4211227150	2697	2697
+modules/albumselect/locale/hu/LC_MESSAGES/modules_albumselect.mo	1359412689	1359412689	2600	2600
+modules/albumselect/locale/is/LC_MESSAGES/modules_albumselect.mo	4104100426	4104100426	423	423
+modules/albumselect/locale/it/LC_MESSAGES/modules_albumselect.mo	884917250	884917250	2516	2516
+modules/albumselect/locale/ja/LC_MESSAGES/modules_albumselect.mo	948212371	948212371	2737	2737
+modules/albumselect/locale/ko/LC_MESSAGES/modules_albumselect.mo	2089156957	2089156957	1976	1976
+modules/albumselect/locale/lt/LC_MESSAGES/modules_albumselect.mo	1345468224	1345468224	2707	2707
+modules/albumselect/locale/lv/LC_MESSAGES/modules_albumselect.mo	771714970	771714970	2539	2539
+modules/albumselect/locale/nl/LC_MESSAGES/modules_albumselect.mo	3236728324	3236728324	2477	2477
+modules/albumselect/locale/no/LC_MESSAGES/modules_albumselect.mo	4244527516	4244527516	2473	2473
+modules/albumselect/locale/pl/LC_MESSAGES/modules_albumselect.mo	2830132494	2830132494	2567	2567
+modules/albumselect/locale/pt_BR/LC_MESSAGES/modules_albumselect.mo	3767706702	3767706702	2456	2456
+modules/albumselect/locale/ro/LC_MESSAGES/modules_albumselect.mo	1982808363	1982808363	2433	2433
+modules/albumselect/locale/ru/LC_MESSAGES/modules_albumselect.mo	172203997	172203997	3513	3513
+modules/albumselect/locale/sk/LC_MESSAGES/modules_albumselect.mo	1248317863	1248317863	807	807
+modules/albumselect/locale/sr/LC_MESSAGES/modules_albumselect.mo	4277257106	4277257106	2529	2529
+modules/albumselect/locale/sv/LC_MESSAGES/modules_albumselect.mo	999446826	999446826	2553	2553
+modules/albumselect/locale/tr/LC_MESSAGES/modules_albumselect.mo	1147910944	1147910944	2619	2619
+modules/albumselect/locale/uk/LC_MESSAGES/modules_albumselect.mo	3489404802	3489404802	783	783
+modules/albumselect/locale/vi/LC_MESSAGES/modules_albumselect.mo	3335375809	3335375809	2581	2581
+modules/albumselect/locale/zh_CN/LC_MESSAGES/modules_albumselect.mo	2844587707	2844587707	2209	2209
+modules/albumselect/locale/zh_TW/LC_MESSAGES/modules_albumselect.mo	291169060	291169060	2329	2329
+modules/albumselect/module.inc	2194347541	3477224147	4737	4887
 modules/albumselect/po/GNUmakefile	1866879166	2808215985	98	103
-modules/albumselect/po/af.mo	3111225590	3111225590	2543	2543
-modules/albumselect/po/af.po	1985467941	2493566655	3367	3477
-modules/albumselect/po/ar.mo	4097627049	4097627049	721	721
-modules/albumselect/po/ar.po	2828251426	2366666836	2589	2691
-modules/albumselect/po/bg.mo	3266744634	3266744634	3309	3309
-modules/albumselect/po/bg.po	272627648	686085226	4244	4358
-modules/albumselect/po/ca.mo	4255391401	4255391401	2583	2583
-modules/albumselect/po/ca.po	4111067224	3239216457	3484	3591
-modules/albumselect/po/cs.mo	3012430273	3012430273	2423	2423
-modules/albumselect/po/cs.po	3499411105	3789637900	3208	3312
-modules/albumselect/po/da.mo	812872877	812872877	2462	2462
-modules/albumselect/po/da.po	3870511236	1608123978	3249	3354
-modules/albumselect/po/de.mo	482997328	482997328	2698	2698
-modules/albumselect/po/de.po	284864278	1241423271	3733	3850
-modules/albumselect/po/el.mo	1367074505	1367074505	3199	3199
-modules/albumselect/po/el.po	299926676	3979201565	3987	4092
-modules/albumselect/po/en_GB.mo	2816384838	2816384838	459	459
-modules/albumselect/po/en_GB.po	3581845690	350960299	3138	3241
-modules/albumselect/po/es.mo	209629884	209629884	2589	2589
-modules/albumselect/po/es.po	581934909	2128628533	3490	3597
-modules/albumselect/po/et.mo	989703619	989703619	2286	2286
-modules/albumselect/po/et.po	448446096	250790987	3122	3225
-modules/albumselect/po/eu.mo	1644182871	1644182871	2416	2416
-modules/albumselect/po/eu.po	1011101938	2264921889	3200	3304
-modules/albumselect/po/fi.mo	1283226020	1283226020	2571	2571
-modules/albumselect/po/fi.po	3448495703	4159904033	3590	3701
-modules/albumselect/po/fr.mo	1838047811	1838047811	2606	2606
-modules/albumselect/po/fr.po	1208699721	2369837098	3391	3495
-modules/albumselect/po/he.mo	748506564	748506564	2697	2697
-modules/albumselect/po/he.po	365687369	2476117893	3516	3618
-modules/albumselect/po/hu.mo	2271961756	2271961756	2600	2600
-modules/albumselect/po/hu.po	3702956023	3758541440	3541	3650
-modules/albumselect/po/is.mo	2843876686	2843876686	423	423
-modules/albumselect/po/is.po	2871915218	1581901660	2421	2522
-modules/albumselect/po/it.mo	4255832366	4255832366	2520	2520
-modules/albumselect/po/it.po	3737982434	4028086523	3314	3421
-modules/albumselect/po/ja.mo	3683096980	3683096980	2737	2737
-modules/albumselect/po/ja.po	3645767255	2124800184	3517	3620
-modules/albumselect/po/ko.mo	2738377819	2738377819	1976	1976
-modules/albumselect/po/ko.po	1002975035	1026665224	3209	3314
-modules/albumselect/po/lt.mo	2957433104	2957433104	2715	2715
-modules/albumselect/po/lt.po	1393070556	2104044241	3627	3736
-modules/albumselect/po/lv.mo	1683290408	1683290408	2539	2539
-modules/albumselect/po/lv.po	1153877179	727389868	3331	3437
-modules/albumselect/po/nl.mo	885324375	885324375	2477	2477
-modules/albumselect/po/nl.po	1922166276	295936040	3435	3543
-modules/albumselect/po/no.mo	2622114620	2622114620	2473	2473
-modules/albumselect/po/no.po	724313413	3961499697	3373	3479
-modules/albumselect/po/pl.mo	1746789775	1746789775	2567	2567
-modules/albumselect/po/pl.po	1382938175	1265315270	3356	3461
-modules/albumselect/po/pt_BR.mo	2512518914	2512518914	2456	2456
-modules/albumselect/po/pt_BR.po	3211090478	314445807	3298	3403
-modules/albumselect/po/ro.mo	1155945979	1155945979	2433	2433
-modules/albumselect/po/ro.po	4137097912	1664174488	3317	3422
-modules/albumselect/po/ru.mo	1730773752	1730773752	3513	3513
-modules/albumselect/po/ru.po	3489482491	4082754078	4436	4549
-modules/albumselect/po/sk.mo	3039721372	3039721372	807	807
-modules/albumselect/po/sk.po	3147231984	3769757963	2781	2889
-modules/albumselect/po/sr.mo	2951914265	2951914265	2529	2529
-modules/albumselect/po/sr.po	1233959621	2906235064	3455	3566
+modules/albumselect/po/af.po	1579369149	1758531230	3466	3582
+modules/albumselect/po/ar.po	328887936	2993956680	2589	2691
+modules/albumselect/po/bg.po	156476896	1105343856	4359	4479
+modules/albumselect/po/ca.po	1206051372	2353835770	3484	3591
+modules/albumselect/po/cs.po	670677673	69140758	3208	3312
+modules/albumselect/po/da.po	1836848801	1263238880	3249	3354
+modules/albumselect/po/de.po	686020536	3161638858	3733	3850
+modules/albumselect/po/en_GB.po	556876272	788230554	3138	3241
+modules/albumselect/po/es.po	1057498124	121590521	3490	3597
+modules/albumselect/po/et.po	101949929	1170486951	3122	3225
+modules/albumselect/po/eu.po	1642746674	408604675	3200	3304
+modules/albumselect/po/fi.po	1416113888	2528402539	2700	2806
+modules/albumselect/po/fr.po	2504242149	1762507608	3391	3495
+modules/albumselect/po/he.po	2329583780	3490150997	3516	3618
+modules/albumselect/po/hu.po	7419779	2856393367	3541	3650
+modules/albumselect/po/is.po	2537469734	3921032598	2421	2522
+modules/albumselect/po/it.po	916440656	1130866447	3310	3417
+modules/albumselect/po/ja.po	1467501181	3621575604	3517	3620
+modules/albumselect/po/ko.po	2062497841	3444798214	3209	3314
+modules/albumselect/po/lt.po	172991821	2590976771	3619	3728
+modules/albumselect/po/lv.po	4236169765	3260835111	3331	3437
+modules/albumselect/po/nl.po	1737981742	622897967	3435	3543
+modules/albumselect/po/no.po	2874523300	1673531254	3373	3479
+modules/albumselect/po/pl.po	3782707873	2715233230	3356	3461
+modules/albumselect/po/pt_BR.po	918057804	2251161816	3402	3513
+modules/albumselect/po/ro.po	2015386503	149772578	3317	3422
+modules/albumselect/po/ru.po	64219390	408634601	4568	4687
+modules/albumselect/po/sk.po	3195643339	1970518737	2781	2889
+modules/albumselect/po/sr.po	2637739895	250003068	3455	3566
 modules/albumselect/po/strings.raw	185875069	3438337186	1178	1212
-modules/albumselect/po/sv.mo	3803209149	3803209149	2553	2553
-modules/albumselect/po/sv.po	692569073	3866842173	3508	3620
-modules/albumselect/po/tr.mo	4002505134	4002505134	2619	2619
-modules/albumselect/po/tr.po	394522507	3218444810	3570	3680
-modules/albumselect/po/uk.mo	2641866851	2641866851	783	783
-modules/albumselect/po/uk.po	2324146346	1991820287	2861	2967
-modules/albumselect/po/vi.mo	368616636	368616636	2650	2650
-modules/albumselect/po/vi.po	3923634102	840928726	3436	3541
-modules/albumselect/po/zh_CN.mo	197631447	197631447	2209	2209
-modules/albumselect/po/zh_CN.po	3436007423	1176183842	3094	3197
-modules/albumselect/po/zh_TW.mo	1456303268	1456303268	2329	2329
-modules/albumselect/po/zh_TW.po	1957723948	2418590469	3111	3213
-modules/albumselect/templates/AlbumSelectSiteAdmin.tpl	3379471095	3831991857	2923	3007
-modules/albumselect/templates/blocks/AlbumSelect.tpl	1141924427	1923607784	790	812
-modules/albumselect/templates/blocks/AlbumTree.tpl	2852573456	1100002619	2923	2984
+modules/albumselect/po/sv.po	1297462013	3164231091	3508	3620
+modules/albumselect/po/tr.po	490168304	3464467427	3599	3710
+modules/albumselect/po/uk.po	3390614670	2531338494	2861	2967
+modules/albumselect/po/vi.po	3534417552	3701663520	3522	3633
+modules/albumselect/po/zh_CN.po	2765329136	3823337617	3094	3197
+modules/albumselect/po/zh_TW.po	3558620742	3129957038	3202	3310
+modules/albumselect/templates/AlbumSelectSiteAdmin.tpl	2958127655	2384528242	3079	3165
+modules/albumselect/templates/blocks/AlbumSelect.tpl	4052149542	2836586664	946	970
+modules/albumselect/templates/blocks/AlbumTree.tpl	3543728576	2463428236	3079	3142
 modules/albumselect/templates/blocks/blocks.inc	644573625	3295783091	213	221
-modules/albumselect/test/phpunit/AlbumSelectSiteAdminControllerTest.class	4204013861	4047803905	2806	2889
-modules/albumselect/test/phpunit/AlbumSelectTest.class	3615419345	3224538364	13386	13769
-R	modules/albumselect/locale/af/LC_MESSAGES/modules_albumselect.mo
-R	modules/albumselect/locale/ar/LC_MESSAGES/modules_albumselect.mo
-R	modules/albumselect/locale/bg/LC_MESSAGES/modules_albumselect.mo
+modules/albumselect/test/phpunit/AlbumSelectSiteAdminControllerTest.class	2226766782	3812522937	2819	2900
+modules/albumselect/test/phpunit/AlbumSelectTest.class	3603053009	3349364498	13930	14313
 R	modules/albumselect/locale/bg_BG/LC_MESSAGES/modules_albumselect.mo
 R	modules/albumselect/locale/bg_BG/LC_MESSAGES
 R	modules/albumselect/locale/bg_BG
-R	modules/albumselect/locale/ca/LC_MESSAGES/modules_albumselect.mo
-R	modules/albumselect/locale/cs/LC_MESSAGES/modules_albumselect.mo
 R	modules/albumselect/locale/cs_CZ/LC_MESSAGES/modules_albumselect.mo
 R	modules/albumselect/locale/cs_CZ/LC_MESSAGES
 R	modules/albumselect/locale/cs_CZ
-R	modules/albumselect/locale/da/LC_MESSAGES/modules_albumselect.mo
 R	modules/albumselect/locale/da_DK/LC_MESSAGES/modules_albumselect.mo
 R	modules/albumselect/locale/da_DK/LC_MESSAGES
 R	modules/albumselect/locale/da_DK
-R	modules/albumselect/locale/de/LC_MESSAGES/modules_albumselect.mo
 R	modules/albumselect/locale/de_DE/LC_MESSAGES/modules_albumselect.mo
 R	modules/albumselect/locale/de_DE/LC_MESSAGES
 R	modules/albumselect/locale/de_DE
-R	modules/albumselect/locale/en_GB/LC_MESSAGES/modules_albumselect.mo
-R	modules/albumselect/locale/es/LC_MESSAGES/modules_albumselect.mo
-R	modules/albumselect/locale/et/LC_MESSAGES/modules_albumselect.mo
-R	modules/albumselect/locale/eu/LC_MESSAGES/modules_albumselect.mo
 R	modules/albumselect/locale/eu_ES/LC_MESSAGES/modules_albumselect.mo
 R	modules/albumselect/locale/eu_ES/LC_MESSAGES
 R	modules/albumselect/locale/eu_ES
-R	modules/albumselect/locale/fi/LC_MESSAGES/modules_albumselect.mo
-R	modules/albumselect/locale/fr/LC_MESSAGES/modules_albumselect.mo
 R	modules/albumselect/locale/fr_FR/LC_MESSAGES/modules_albumselect.mo
 R	modules/albumselect/locale/fr_FR/LC_MESSAGES
 R	modules/albumselect/locale/fr_FR
-R	modules/albumselect/locale/he/LC_MESSAGES/modules_albumselect.mo
-R	modules/albumselect/locale/hu/LC_MESSAGES/modules_albumselect.mo
 R	modules/albumselect/locale/hu_HU/LC_MESSAGES/modules_albumselect.mo
 R	modules/albumselect/locale/hu_HU/LC_MESSAGES
 R	modules/albumselect/locale/hu_HU
-R	modules/albumselect/locale/is/LC_MESSAGES/modules_albumselect.mo
 R	modules/albumselect/locale/is_IS/LC_MESSAGES/modules_albumselect.mo
 R	modules/albumselect/locale/is_IS/LC_MESSAGES
 R	modules/albumselect/locale/is_IS
-R	modules/albumselect/locale/it/LC_MESSAGES/modules_albumselect.mo
 R	modules/albumselect/locale/it_IT/LC_MESSAGES/modules_albumselect.mo
 R	modules/albumselect/locale/it_IT/LC_MESSAGES
 R	modules/albumselect/locale/it_IT
-R	modules/albumselect/locale/ja/LC_MESSAGES/modules_albumselect.mo
 R	modules/albumselect/locale/ja_JP/LC_MESSAGES/modules_albumselect.mo
 R	modules/albumselect/locale/ja_JP/LC_MESSAGES
 R	modules/albumselect/locale/ja_JP
-R	modules/albumselect/locale/ko/LC_MESSAGES/modules_albumselect.mo
-R	modules/albumselect/locale/lt/LC_MESSAGES/modules_albumselect.mo
-R	modules/albumselect/locale/lv/LC_MESSAGES/modules_albumselect.mo
-R	modules/albumselect/locale/nl/LC_MESSAGES/modules_albumselect.mo
 R	modules/albumselect/locale/nl_NL/LC_MESSAGES/modules_albumselect.mo
 R	modules/albumselect/locale/nl_NL/LC_MESSAGES
 R	modules/albumselect/locale/nl_NL
-R	modules/albumselect/locale/no/LC_MESSAGES/modules_albumselect.mo
 R	modules/albumselect/locale/no_NO/LC_MESSAGES/modules_albumselect.mo
 R	modules/albumselect/locale/no_NO/LC_MESSAGES
 R	modules/albumselect/locale/no_NO
-R	modules/albumselect/locale/pl/LC_MESSAGES/modules_albumselect.mo
-R	modules/albumselect/locale/pt_BR/LC_MESSAGES/modules_albumselect.mo
-R	modules/albumselect/locale/ro/LC_MESSAGES/modules_albumselect.mo
-R	modules/albumselect/locale/ru/LC_MESSAGES/modules_albumselect.mo
 R	modules/albumselect/locale/ru_RU/LC_MESSAGES/modules_albumselect.mo
 R	modules/albumselect/locale/ru_RU/LC_MESSAGES
 R	modules/albumselect/locale/ru_RU
-R	modules/albumselect/locale/sk/LC_MESSAGES/modules_albumselect.mo
-R	modules/albumselect/locale/sr/LC_MESSAGES/modules_albumselect.mo
 R	modules/albumselect/locale/sr_YU/LC_MESSAGES/modules_albumselect.mo
 R	modules/albumselect/locale/sr_YU/LC_MESSAGES
 R	modules/albumselect/locale/sr_YU
-R	modules/albumselect/locale/sv/LC_MESSAGES/modules_albumselect.mo
 R	modules/albumselect/locale/sv_SE/LC_MESSAGES/modules_albumselect.mo
 R	modules/albumselect/locale/sv_SE/LC_MESSAGES
 R	modules/albumselect/locale/sv_SE
-R	modules/albumselect/locale/tr/LC_MESSAGES/modules_albumselect.mo
 R	modules/albumselect/locale/tr_TR/LC_MESSAGES/modules_albumselect.mo
 R	modules/albumselect/locale/tr_TR/LC_MESSAGES
 R	modules/albumselect/locale/tr_TR
-R	modules/albumselect/locale/uk/LC_MESSAGES/modules_albumselect.mo
-R	modules/albumselect/locale/vi/LC_MESSAGES/modules_albumselect.mo
 R	modules/albumselect/locale/vi_VN/LC_MESSAGES/modules_albumselect.mo
 R	modules/albumselect/locale/vi_VN/LC_MESSAGES
 R	modules/albumselect/locale/vi_VN
-R	modules/albumselect/locale/zh_CN/LC_MESSAGES/modules_albumselect.mo
-R	modules/albumselect/locale/zh_TW/LC_MESSAGES/modules_albumselect.mo
 R	modules/albumselect/po/bg_BG.po
 R	modules/albumselect/po/cs_CZ.po
 R	modules/albumselect/po/da_DK.po

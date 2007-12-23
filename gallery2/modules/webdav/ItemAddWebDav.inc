@@ -97,7 +97,7 @@ class ItemAddWebDav extends ItemAddPlugin {
 
     /**
      * Add new item.
-     * @param GalleryItem $parentItem The parent item of the item to be added
+     * @param object GalleryItem $parentItem The parent item of the item to be added
      * @param array $webDavOptions WebDAV library options
      * @param resource $stream request body file handle
      * @param string $mimeType request content type
@@ -143,7 +143,7 @@ class ItemAddWebDav extends ItemAddPlugin {
 
     /**
      * Replace existing item.
-     * @param GalleryItem $parentItem The parent item of the item to be added
+     * @param object GalleryItem $parentItem The parent item of the item to be added
      * @param array $webDavOptions WebDAV library options
      * @param resource $stream request body file handle
      * @param string $mimeType request content type
@@ -172,7 +172,7 @@ class ItemAddWebDav extends ItemAddPlugin {
 	    return array($ret, null, null);
 	}
 
-	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryDataItem');
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	if ($ret) {
 	    GalleryCoreApi::releaseLocks($lockIds);
 	    return array($ret, null, null);
@@ -252,7 +252,7 @@ class ItemAddWebDav extends ItemAddPlugin {
 	    }
 
 	    $ret = $newItem->create($parentItem->getId(), $filePath, $mimeType);
-		if ($ret) {
+	    if ($ret) {
 		GalleryCoreApi::releaseLocks($lockIds);
 		return array($ret, null, null);
 	    }

@@ -213,8 +213,7 @@ li.giSelected {
 .gbLink-notification_NotificationSiteAdmin {
   background: url(email.png) right center no-repeat;
 }
-.gbLink-notification_NotificationUserAdmin, 
-.gbLink-core_ItemAdmin-notification_NotificationItemAdmin {
+.gbLink-notification_NotificationUserAdmin, .gbLink-notification_NotificationItem {
   background: url(magnifier.png) right center no-repeat;
 }
 .gbLink-permalinks_PermalinksSiteAdmin {
@@ -312,12 +311,6 @@ li.giSelected {
 }
 .gbLink-shutterfly_PrintPhotos {
   background: url(shutterfly-print.png) right center no-repeat;
-}
-.gbLink-snapgalaxy_SnapGalaxyPrintPhotos {
-  background: url(snapgalaxy-admin.png) right center no-repeat;
-}
-.gbLink-snapgalaxy_AdminSnapGalaxy {
-  background: url(snapgalaxy-admin.png) right center no-repeat;
 }
 .gbLink-zipcart_ZipCartAdmin {
   background: url(zip_download.png) right center no-repeat;

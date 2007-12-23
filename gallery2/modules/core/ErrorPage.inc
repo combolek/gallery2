@@ -115,16 +115,17 @@ class ErrorPageView extends GalleryView {
     /**
      * Entry point from main.php
      *
-     * @param GalleryStatus $error
-     * @param mixed $g2Data (optional) GalleryMain result, if available
-     * @param boolean $initOk @deprecated
-     * @return boolean true if the error was handled at the last moment and should therefore
-     *                 not be considered an error.
+     * @param object GalleryStatus $error
+     * @param mixed $g2Data GalleryMain result, if available
+     * @param boolean $initOk false if Gallery has not initialized (can't use theme system)
      * @static
      */
-    function errorHandler($error, $g2Data=null, $initOk=null) {
+    function errorHandler($error, $g2Data=null, $initOk=true) {
 	global $gallery;
 	$failsafe = false;
+	if (!$initOk) {
+	    $failsafe = true;
+	}
 
 	/* Post Gallery::Error event */
 	$event = GalleryCoreApi::newEvent('Gallery::Error');
@@ -141,47 +142,10 @@ class ErrorPageView extends GalleryView {
 	    GalleryUtilities::setResponseHeader('HTTP/1.0 500 Internal Server Error', false);
 	}
 
-	$suppressBody = $errorHandled = false;
 	foreach ($eventResults as $eventResult) {
-	    $suppressBody |= !empty($eventResult['suppressBody']);
-	    $errorHandled |= !empty($eventResult['errorHandled']);
-	}
-	if ($suppressBody) {
-	    /* One of our error handlers has dealt with the output */
-	    return $errorHandled;
-	}
-
-	if (!$failsafe) {
-	    $translator =& $gallery->getTranslator();
-	    /**
-	     * @todo Add a fallback mode to the translator to just output untranslated text.
-	     */
-	    if (!isset($translator)) {
-		$ret = $gallery->initTranslator();
-		if ($ret) {
-		    $failsafe = true;
-		}
-	    }
-	}
-
-	if (!$failsafe) {
-	    $session =& $gallery->getSession();
-	    if (!isset($session)) {
-		$gallery->initEmptySession();
-	    }
-	}
-
-    	if (!$failsafe) {
-	    $urlGenerator =& $gallery->getUrlGenerator();
-	    if (!isset($urlGenerator)) {
-		GalleryCoreApi::requireOnce('modules/core/classes/GalleryUrlGenerator.class');
-		$urlGenerator = new GalleryUrlGenerator();
-		$ret = $urlGenerator->init();
-		if ($ret) {
-		    $failsafe = true;
-		} else {
-		    $gallery->setUrlGenerator($urlGenerator);
-		}
+	    if (!empty($eventResult['suppressBody'])) {
+		/* One of our error handlers has dealt with the output */
+		return;
 	    }
 	}
 
@@ -198,11 +162,11 @@ class ErrorPageView extends GalleryView {
 	    if ($ret) {
 		$failsafe = true;
 	    }
+	    $templateAdapter =& $gallery->getTemplateAdapter();
+	    $templateAdapter->setTheme($theme);
 	}
 
 	if (!$failsafe) {
-	    $templateAdapter =& $gallery->getTemplateAdapter();
-	    $templateAdapter->setTheme($theme);
 	    list ($ret, $view) = GalleryView::loadView('core.ErrorPage');
 	    if ($ret) {
 		$failsafe = true;
@@ -218,11 +182,12 @@ class ErrorPageView extends GalleryView {
 	    if ($ret) {
 		$failsafe = true;
 	    }
+
+	    $t =& $template->getVariableByReference('theme');
+	    $t['errorTemplate'] = $results['body'];
 	}
 
 	if (!$failsafe) {
-	    $t =& $template->getVariableByReference('theme');
-	    $t['errorTemplate'] = $results['body'];
 	    $template->setVariable('l10Domain', 'modules_core');
 	    list ($ret, $templatePath) = $theme->showErrorPage($template);
 	    if ($ret) {
@@ -240,17 +205,11 @@ class ErrorPageView extends GalleryView {
 
 	if ($failsafe) {
 	    /* A catastrophic failure has occurred so just dump the error out to the browser */
-	    print '<h2>Error</h2>';
-	    list ($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
-	    if ($gallery->getDebug() || (!$ret && $isAdmin)) {
-		print $error->getAsHtml();
-	    }
+	    print '<h2>Error</h2>' . $error->getAsHtml($gallery->getDebug());
 	    if ($gallery->getDebug() == 'buffered') {
 		print '<h3>Debug Output</h3><pre>' . $gallery->getDebugBuffer() . '</pre>';
 	    }
 	}
-
-	return $errorHandled;
     }
 }
 ?>

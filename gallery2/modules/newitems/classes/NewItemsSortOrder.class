@@ -59,12 +59,8 @@ class NewItemsSortOrder extends GallerySortInterface_1_2 {
 	if ($ret) {
 	    return array($ret, null, null, null, null);
 	}
-	list ($ret, $as) = $storage->getFunctionSql('AS', array());
-	if ($ret) {
-	    return array($ret, null, null, null, null);
-	}
 
-	return array(null, '%1%', "$case $as newFirst", null,
+	return array(null, '%1%', $case, null,
 		     'INNER JOIN [GalleryEntity] ON [BASE::ID] = [GalleryEntity::id]');
     }
 }

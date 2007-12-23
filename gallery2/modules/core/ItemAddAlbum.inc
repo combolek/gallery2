@@ -33,11 +33,7 @@ class ItemAddAlbumController extends GalleryController {
     function handleRequest($form) {
 	global $gallery;
 
-	list ($ret, $item) = $this->getItem();
-	if ($ret) {
-	    return array($ret, null);
-	}
-	$itemId = $item->getId();
+	$itemId = GalleryUtilities::getRequestVariables('itemId');
 
 	/* Make sure we have permission do edit this item */
 	$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.addAlbumItem');
@@ -57,7 +53,7 @@ class ItemAddAlbumController extends GalleryController {
 
 	    if (empty($form['pathComponent'])) {
 		$error[] = 'form[error][pathComponent][missing]';
-	    } else if (!$platform->isLegalPathComponent($form['pathComponent'], true)) {
+	    } else if (!$platform->isLegalPathComponent($form['pathComponent'])) {
 		$error[] = 'form[error][pathComponent][invalid]';
 	    }
 
@@ -143,11 +139,7 @@ class ItemAddAlbumView extends GalleryView {
     function loadTemplate(&$template, &$form) {
 	global $gallery;
 
-	list ($ret, $item) = $this->getItem();
-	if ($ret) {
-	    return array($ret, null);
-	}
-	$itemId = $item->getId();
+	$itemId = GalleryUtilities::getRequestVariables('itemId');
 
 	/* Make sure we have permission do edit this item */
 	$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.addAlbumItem');

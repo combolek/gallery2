@@ -21,9 +21,6 @@
 GalleryCoreApi::requireOnce('modules/core/test/phpunit/RepositoryTestStorage.class');
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryRepositoryUtilities.class');
 
-GalleryCoreApi::requireOnce('modules/core/classes/GalleryModule.class');
-GalleryCoreApi::requireOnce('modules/core/classes/GalleryTheme.class');
-
 /**
  * Test repository utilities functionality
  * @package GalleryCore
@@ -33,20 +30,22 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryTheme.class');
  */
 class RepositoryUtilitiesTest extends GalleryTestCase {
 
+    var $_galleryStorage;
+
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	global $gallery;
-	$gallery->_storage = new RepositoryTestStorage();
-	$this->_testStorage =& $gallery->_storage;
+	$this->_galleryStorage =& $gallery->_storage;
+	$this->_testStorage =& RepositoryTestStorage::getSingleton();
+	$gallery->_storage =& $this->_testStorage;
+    }
 
-	$this->_apis = sprintf('coreApi=%s&moduleApi=%s&themeApi=%s',
-			       join('.', GalleryCoreApi::getApiVersion()),
-			       join('.', GalleryModule::getApiVersion()),
-			       join('.', GalleryTheme::getApiVersion()));
+    function tearDown() {
+	global $gallery;
+	$gallery->_storage =& $this->_galleryStorage;
+
+	parent::tearDown();
     }
 
     function testCompareVersions() {
@@ -82,7 +81,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 	    list ($ret, $relation) = $utilities->compareVersions($case['version1'],
 		$case['version2'], $case['build1'], $case['build2']);
 	    if ($ret) {
-		return ($ret);
+		$this->failWithStatus($ret);
 	    }
 	    $this->assert($relation == $case['relation'], sprintf(
 		"Relation('%s':'%s', '%s':'%s') should be '%s', not '%s'.", $case['version1'],
@@ -114,7 +113,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 	foreach ($testCases as $case => $result) {
 	    list ($ret, $revision) = $utilities->extractRevision($case);
 	    if ($ret) {
-		return ($ret);
+		$this->failWithStatus($ret);
 	    }
 	    $this->assertEquals($result, $revision, "Testcase: $case");
 	}
@@ -139,7 +138,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 
 	    list ($ret, $bytes) = $utilities->getFirstBytesFromFile($fileName, $bytes);
 	    if ($ret) {
-		return ($ret);
+		$this->failWithStatus($ret);
 	    }
 	    $this->assertEquals($bytes, $result, "Unexpected file data returned for $bytes bytes.");
 	}
@@ -154,9 +153,9 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 	    'hu_HU' => 'Magyar');
 
 	foreach ($testCases as $case => $result) {
-	    list ($ret, $description) = GalleryCoreApi::getLanguageDescription($case);
+	    list ($ret, $description) = $utilities->getLanguageDescription($case);
 	    if ($ret) {
-		return ($ret);
+		$this->failWithStatus($ret);
 	    }
 	    $this->assertEquals($result, $description, "Testcase: $case");
 	}
@@ -179,7 +178,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 	$utilities = new GalleryRepositoryUtilities();
 	list ($ret, $revision) = $utilities->getLanguageBaseRevision('testPlugin', 'testModule');
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 	$this->assertEquals('13933', $revision, 'Incorrect revision returned.');
     }
@@ -209,7 +208,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 	    list ($ret, $isAvailable) =
 		$utilities->isPluginAvailable($case['pluginType'], $case['pluginId']);
 	    if ($ret) {
-		return ($ret);
+		$this->failWithStatus($ret);
 	    }
 	    $this->assertEquals($case['isAvailable'], $isAvailable);
 	}
@@ -320,7 +319,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 	$utilities = new GalleryRepositoryUtilities();
 	list ($ret, $packages) = $utilities->getPluginPackages('module', 'testModule');
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 	$this->assertEquals(
 	    array('pkg1' => array('locked' => 0, 'version' => '1.23', 'build' => '19700411131300'),
@@ -349,7 +348,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 	$utilities = new GalleryRepositoryUtilities();
 	list ($ret, $version) = $utilities->getPluginVersion('module', 'testModule');
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 	$this->assertEquals('someVersion', $version);
     }
@@ -367,8 +366,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 	$platform->setReply('fsockopen', array('example.com', 80, null, null, 5), 'fd');
 	$platform->setReply(
 	    'fwrite',
-	    array('fd', "GET /repository/index?{$this->_apis} "
-		  . "HTTP/1.0\r\nHost: example.com\r\n\r\n", null),
+	    array('fd', "GET /repository/index HTTP/1.0\r\nHost: example.com\r\n\r\n", null),
 	    true);
 	$platform->setReply('fflush', array('fd'), null);
 	$platform->setReply('fgets', array('fd', 4096), "HTTP/1.1 200 OK\r\n");
@@ -399,8 +397,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 	$platform->setReply('fsockopen', array('example.com', 80, null, null, 5), 'fd');
 	$platform->setReply(
 	    'fwrite',
-	    array('fd', "GET /repository/index.gz?{$this->_apis} "
-		  . "HTTP/1.0\r\nHost: example.com\r\n\r\n", null),
+	    array('fd', "GET /repository/index.gz HTTP/1.0\r\nHost: example.com\r\n\r\n", null),
 	    true);
 	$platform->setReply('fflush', array('fd'), null);
 	$platform->setReply('fgets', array('fd', 4096), "HTTP/1.1 200 OK\r\n");
@@ -431,8 +428,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 	$platform->setReply('fsockopen', array('example.com', 80, null, null, 5), 'fd');
 	$platform->setReply(
 	    'fwrite',
-	    array('fd', "GET /repository/index?{$this->_apis} "
-		  . "HTTP/1.0\r\nHost: example.com\r\n\r\n", null),
+	    array('fd', "GET /repository/index HTTP/1.0\r\nHost: example.com\r\n\r\n", null),
 	    true);
 	$platform->setReply('fflush', array('fd'), null);
 	$platform->setReply('fgets', array('fd', 4096), "HTTP/1.1 200 OK\r\n");

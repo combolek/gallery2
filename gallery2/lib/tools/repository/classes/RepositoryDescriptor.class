@@ -64,7 +64,7 @@ class RepositoryDescriptor extends RepositoryObject {
      * meta data required for a complete descriptor definition.
      *
      * @param string $outputDir directory to write the descriptor to
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function init($outputDir) {
 	parent::init();
@@ -82,8 +82,8 @@ class RepositoryDescriptor extends RepositoryObject {
      * Build up all the package information, in preparation for it to be written out
      * with (eg) writeToDisk()
      *
-     * @param GalleryPlugin $plugin the plugin
-     * @return GalleryStatus a status code
+     * @param object GalleryPlugin $plugin the plugin
+     * @return object GalleryStatus a status code
      */
     function generate($plugin) {
 	global $gallery;
@@ -161,8 +161,14 @@ class RepositoryDescriptor extends RepositoryObject {
 	    return $ret;
 	}
 
+	list ($ret, $tag) = $this->_utilities->getFirstBytesFromFile(
+	    $this->_pluginDir . 'MANIFEST', 128);
+	if ($ret) {
+	    return $ret;
+	}
+
 	list ($ret, $this->_data['header']['buildTimestamp']) =
-	    $this->_utilities->getFileRevision($this->_pluginDir . 'MANIFEST');
+	    $this->_utilities->extractRevision($tag);
 	if ($ret) {
 	    return $ret;
 	}
@@ -173,8 +179,13 @@ class RepositoryDescriptor extends RepositoryObject {
 		$languageCode = $languageCode[1];
 
 		/* Get revision number from po file. */
-		list ($ret, $revision) = 
-		    $this->_utilities->getFileRevision($this->_pluginDir . $fileName);
+		list ($ret, $tag) =
+		    $this->_utilities->getFirstBytesFromFile($this->_pluginDir . $fileName, 128);
+		if ($ret) {
+		    return $ret;
+		}
+
+		list ($ret, $revision) = $this->_utilities->extractRevision($tag);
 		if ($ret) {
 		    return $ret;
 		}
@@ -198,7 +209,7 @@ class RepositoryDescriptor extends RepositoryObject {
      *
      * @param string $pluginDir
      * @param array $data array to write meta data to
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function getFileMetaData($pluginDir, &$data) {
 	global $gallery;
@@ -233,14 +244,18 @@ class RepositoryDescriptor extends RepositoryObject {
 	    }
 	    $data['files'][$file] = array(
 		'bytes' => $fileInfo['size'],
-		'bytes_crlf' => $fileInfo['size_crlf'],
 		'hash' => $fileInfo['checksum'],
-		'hash_crlf' => $fileInfo['checksum_crlf'],
 		'packages' => $this->getPackageNames($file));
 
 	    if (basename($file) == 'strings.raw') {
 		/* Get strings.raw revision. */
-		list ($ret, $revision) = $this->_utilities->getFileRevision("$pluginDir$file");
+		list ($ret, $tag) =
+		    $this->_utilities->getFirstBytesFromFile("$pluginDir$file", 128);
+		if ($ret) {
+		    return $ret;
+		}
+
+		list ($ret, $revision) = $this->_utilities->extractRevision($tag);
 		if ($ret) {
 		    return $ret;
 		}
@@ -266,7 +281,7 @@ class RepositoryDescriptor extends RepositoryObject {
 	} else if (preg_match('#^(locale/|po/)[^G]#', $path) && $path != 'po/strings.raw') {
 	    if (preg_match('#locale/([^/]*)#', $path, $localeId)) {
 		$packages[] = 'lang-' . $localeId[1];
-	    } else if (preg_match('#po/(.*?)\.[pm]o#', $path, $localeId)) {
+	    } else if (preg_match('#po/(.*?)\.po#', $path, $localeId)) {
 		$packages[] = 'lang-' . $localeId[1];
 	    }
 	} else {
@@ -320,12 +335,16 @@ class RepositoryDescriptor extends RepositoryObject {
     function getPackages() {
 	$packageTypes = array();
 
-	if (!empty($this->_data['files'])) {
-	    foreach ($this->_data['files'] as $file => $info) {
-		$packageTypes = array_merge($packageTypes, $info['packages']);
+	if (!empty($this->_data['directories'])) {
+	    foreach ($this->_data['directories'] as $dir => $directoryMetaData) {
+		foreach ($this->_data['directories'][$dir]['packages'] as $package) {
+		    if (!in_array($package, $packageTypes)) {
+			$packageTypes[] = $package;
+		    }
+		}
 	    }
 	}
-	$packageTypes = array_unique($packageTypes);
+
 	sort($packageTypes);
 	return $packageTypes;
     }
@@ -363,7 +382,7 @@ class RepositoryDescriptor extends RepositoryObject {
 
 		$contents = $platform->file_get_contents($path);
 		$crc = sprintf('%u', $phpVm->crc32($contents));
-		if ($crc != $metaData['hash'] && $crc != $metaData['hash_crlf']) {
+		if ($crc != $metaData['hash']) {
 		    $errors[] = sprintf('%s: bad crc (%s != %s)', $file, $metaData['hash'], $crc);
 		} else {
 		    $stat = $platform->stat($path);
@@ -371,8 +390,7 @@ class RepositoryDescriptor extends RepositoryObject {
 			$errors[] = sprintf('%s: newer than MANIFEST', $file);
 		    }
 
-		    if ($stat[7 /* size */] != $metaData['bytes']
-			    && $stat[7] != $metaData['bytes_crlf']) {
+		    if ($stat[7 /* size */] != $metaData['bytes']) {
 			$errors[] = sprintf('%s: file size mismatch (%s != %s)',
 					    $file, $metaData['bytes'], $stat[7]);
 		    }

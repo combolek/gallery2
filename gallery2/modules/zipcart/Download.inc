@@ -48,12 +48,9 @@ class DownloadView extends GalleryView {
 
 	if ($platform->is_readable($file)) {
 	    $size = $platform->filesize($file);
-	    /**
-	     * Try to prevent Apache's mod_deflate from gzipping the output a 2nd time since
-	     * broken versions of mod_deflate sometimes get the byte count wrong.
-	     */
+	    /* Disable output compression (if necessary) since IE seems to have problems with it */
 	    @$phpVm->ini_set('zlib.output_compression', 0);
-	    if (function_exists('apache_setenv') && !@$gallery->getConfig('apacheSetenvBroken')) {
+	    if (function_exists('apache_setenv')) {
 		@apache_setenv('no-gzip', '1');
 	    }
 

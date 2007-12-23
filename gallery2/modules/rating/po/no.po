@@ -21,7 +21,7 @@
 # - Sverre M. Vikan <sverre AT urven DOT net>
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Rating 1.0.11\n"
+"Project-Id-Version: Gallery: Rating 1.0.8\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-11 17:35-0700\n"
 "PO-Revision-Date: 2006-09-19 23:01+0100\n"
@@ -32,15 +32,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#, c-format
-msgid "Rating Album: %s"
-msgstr "Poenggivningsalbum: %s"
-
 msgid "Rating Album"
 msgstr "Poenggivningsalbum"
 
 msgid "rating album"
 msgstr "poenggivningsalbum"
+
+#, c-format
+msgid "Rating Album: %s"
+msgstr "Poenggivningsalbum: %s"
 
 #, c-format
 msgid "%d vote"

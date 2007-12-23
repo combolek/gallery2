@@ -82,11 +82,6 @@ class ChooseObjectsView extends GalleryView {
     function loadTemplate(&$template, &$form) {
 	global $gallery;
 
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret, null);
-	}
-
 	$defaultLanguage = GalleryTranslator::getLanguageCodeFromRequest();
 
 	$availableEncodings = array('af_ZA Afrikaans (ISO-8859-1)' => 'ISO-8859-1',
@@ -228,7 +223,7 @@ class ChooseObjectsView extends GalleryView {
 	}
 
 	/* Load all the album entities */
-	list ($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds, 'GalleryAlbumItem');
+	list ($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds);
 	if ($ret) {
 	    return array($ret, null);
 	}

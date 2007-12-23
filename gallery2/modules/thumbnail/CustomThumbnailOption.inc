@@ -116,7 +116,7 @@ class CustomThumbnailOption extends ItemEditOption {
 		return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT),
 			     null, null);
 	    }
-	    $ret = GalleryCoreApi::deleteEntityById($thumbnailImage->getId(), 'ThumbnailImage');
+	    $ret = GalleryCoreApi::deleteEntityById($thumbnailImage->getId());
 	    if ($ret) {
 		return array($ret, null, null);
 	    }

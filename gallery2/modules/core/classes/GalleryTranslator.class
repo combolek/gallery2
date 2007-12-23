@@ -180,7 +180,7 @@ class GalleryTranslator {
 	    /* Portuguese */
 	    $supportedLanguages['pt']['BR']['description'] = 'Portugu&#234;s Brasileiro';
 	    $supportedLanguages['pt']['PT']['description'] = 'Portugu&#234;s';
-	    $defaultCountry['pt'] = 'PT';
+	    $defaultCountry['pt'] = 'BR';
 
 	    /* Romanian */
 	    $supportedLanguages['ro']['RO']['description'] = 'Rom&#226;n&#259;';
@@ -195,9 +195,8 @@ class GalleryTranslator {
 	    $defaultCountry['sl'] = 'SI';
 
 	    /* Serbian */
-	    /* Note: our sr.po files are actually sr_CS@Latn - sr_CS script should be cyrillic */
-	    $supportedLanguages['sr']['CS']['description'] = 'Srpski';
-	    $defaultCountry['sr'] = 'CS';
+	    $supportedLanguages['sr']['YU']['description'] = 'Srpski';
+	    $defaultCountry['sr'] = 'YU';
 
 	    /* Finnish */
 	    $supportedLanguages['fi']['FI']['description'] = 'Suomi';
@@ -268,13 +267,14 @@ class GalleryTranslator {
 
     /**
      * Return the list of languages that we support.
-     * @param boolean $installation (optional) Is this part of the install. Default false
+     *
      * @return array['language code']['country code'] =
      *              array('description', 'right-to-left'?)
-     * @deprecated Remove on next major api bump. Use GalleryCoreApi::getSupportedLanguages
      */
-    function getSupportedLanguages($installation=false) {
-	return GalleryCoreApi::getSupportedLanguages($installation);
+    function getSupportedLanguages() {
+	/* Get our language data */
+	list ($supportedLanguages, $defaultCountry) = GalleryTranslator::getLanguageData();
+	return $supportedLanguages;
     }
 
     /**
@@ -282,7 +282,7 @@ class GalleryTranslator {
      *
      * @param string $languageCode the language code hint (eg. 'en_US' or 'zh_CN')
      * @param boolean $dontUseDatabase (optional) true if we should not use the database
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *               string language code
      */
     function init($languageCode=null, $dontUseDatabase=false) {
@@ -344,11 +344,7 @@ class GalleryTranslator {
 	}
 	/* For Norwegian try nb language code in addition to no */
 	if (substr($locale, 0, 2) == 'no') {
-	    return GalleryTranslator::_setlocale($category, substr_replace($locale, 'nb', 0, 2));
-	}
-	/* For Serbia & Montenegro also try the old country code for Yugoslavia */
-	if (substr($locale, 3, 2) == 'CS') {
-	    return GalleryTranslator::_setlocale($category, substr_replace($locale, 'YU', 3, 2));
+	    return GalleryTranslator::_setlocale($category, 'nb' . substr($locale, 2));
 	}
 	$gallery->debug("Warning: Unable to select locale $locale");
 	return false;
@@ -357,7 +353,7 @@ class GalleryTranslator {
     /**
      * Get default language code for this request.
      *
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *               string language code
      * @static
      */
@@ -386,14 +382,6 @@ class GalleryTranslator {
     }
 
     /**
-     * Return supported locale that was selected after initialization.
-     * @return string locale
-     */
-    function getActiveLanguageCode() {
-	return $this->_languageCode;
-    }
-
-    /**
      * Find a supported locale from given string.
      *
      * @param string $languageCode the language code hint
@@ -411,7 +399,7 @@ class GalleryTranslator {
 	}
 
 	list ($language, $country) = preg_split('/[-_]/', "${languageCode}_");
-	$country = GalleryUtilities::strToUpper($country);
+	$country = strtoupper($country);
 	if ((empty($country) || !isset($supportedLanguages[$language][$country]))
 		&& isset($defaultCountry[$language])) {
 	    /* Use default country if none specified or particular country not supported */
@@ -459,7 +447,7 @@ class GalleryTranslator {
      *  $data['arg1'] = 'fun';
      *  $data['arg2'] = 2;  or  $data['args'] = array('fun', 2);
      *
-     *  localized:  'Some fun text to localize with 5 arguments'
+     *  localized:  'Some text to localize with 5 arguments'
      *
      * Example 2:
      *  $data['one'] = 'You have %d orange'
@@ -470,7 +458,7 @@ class GalleryTranslator {
      *
      * @param string $domain the domain (eg. pluginType . 's_' . pluginId)
      * @param mixed $data a single string, or an array of parameters
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *               string the localized value
      */
     function translateDomain($domain, $data) {
@@ -487,15 +475,20 @@ class GalleryTranslator {
 
 	if (function_exists('dgettext') && $this->_languageCode != 'en_US') {
 	    if (isset($domain) && !isset($this->_boundDomains[$domain])) {
-		/* The installer and upgrader use a separate domain and should never end up here */
-		$localeDir = $gallery->getConfig('data.gallery.locale');
-		bindtextdomain($domain, $localeDir);
+		$platform =& $gallery->getPlatform();
+		list ($componentType, $componentName) = split('_', $domain);
+		$basePath = sprintf('%s/%s/%s/locale',
+				    $platform->realpath(dirname(__FILE__) . '/../../..'),
+				    $componentType, $componentName);
+		if ($gallery->getDebug()) {
+		    $gallery->debug("Binding text domain: $domain -> $basePath");
+		}
+		bindtextdomain($domain, $basePath);
 		textdomain($domain);
 		if (function_exists('bind_textdomain_codeset')) {
 		    bind_textdomain_codeset($domain, 'UTF-8');
 		}
-
-		$this->_boundDomains[$domain] = 1;
+		$this->_boundDomains[$domain] = $basePath;
 	    }
 
 	    /*
@@ -527,6 +520,10 @@ class GalleryTranslator {
 	    } else {
 		$localized = $data['many'];
 	    }
+	    /* Strip out comment text used to assist translators */
+	    if (substr($localized, -3) == '-->' && $i = strpos($localized, ' <!--')) {
+		$localized = substr($localized, 0, $i);
+	    }
 	}
 
 	$i = 1;
@@ -550,7 +547,7 @@ class GalleryTranslator {
 	 * This is a useful debug routine.  Uncomment it to have every string prefixed with the
 	 * domain it was localized in.
 	 */
-	// $localized = "<font size=1 color=#C33>$domain/{$this->_languageCode}:</font>$localized";
+	//$localized = "<font size=1 color=#C33>$domain:</font>$localized";
 
 	return array(null, $localized);
     }

@@ -145,9 +145,10 @@ class AdminCreateUserView extends GalleryView {
 	    return array($ret, null);
 	}
 	$languageList = array();
-	$languageList[''] = $module->translate('&lt;none&gt;');
+	$languageList[''] = $module->translate('<none>');
 
-	$supportedLanguages = GalleryCoreApi::getSupportedLanguages();
+	$translator =& $gallery->getTranslator();
+	$supportedLanguages = $translator->getSupportedLanguages();
 	foreach ($supportedLanguages as $language => $countryList) {
 	    foreach ($countryList as $country => $languageData) {
 		$languageList[$language . '_' . $country] =

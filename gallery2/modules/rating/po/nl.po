@@ -21,9 +21,9 @@
 # Buut, Eindhoven <Buut @ users.sourceforge Remove - This dot net> Feb. 2006
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Rating 1.0.11\n"
-"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2007-06-14 17:38-0700\n"
+"Project-Id-Version: Gallery: Rating 1.0.8\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-09-11 17:35-0700\n"
 "PO-Revision-Date: 2006-03-17 15:52+0100\n"
 "Last-Translator: Buut <buut at users.sourceforge Remove - This dot net>\n"
 "Language-Team: Dutch <gallery-devel@lists.sourceforge.net>\n"
@@ -32,10 +32,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#, c-format
-msgid "Rating Album: %s"
-msgstr ""
-
 #, fuzzy
 msgid "Rating Album"
 msgstr "Rating"
@@ -43,6 +39,10 @@ msgstr "Rating"
 #, fuzzy
 msgid "rating album"
 msgstr "Enable rating voor dit album"
+
+#, c-format
+msgid "Rating Album: %s"
+msgstr ""
 
 #, fuzzy, c-format
 msgid "%d vote"
@@ -121,7 +121,7 @@ msgid "Lowest value allowed for rating album threshold"
 msgstr ""
 
 msgid "Invalid number"
-msgstr "ongeldig getal"
+msgstr ""
 
 msgid "Description"
 msgstr "Omschrijving"
@@ -147,3 +147,6 @@ msgstr "Herstel"
 
 msgid "Rating interface"
 msgstr "Rating interface"
+
+#~ msgid "Successfully saved theme settings"
+#~ msgstr "Succesvol thema instellingen opgeslagen"
