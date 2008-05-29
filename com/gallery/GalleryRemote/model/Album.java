@@ -67,10 +67,10 @@ public class Album extends GalleryItem implements ListModel, Serializable, Prefe
 	ArrayList extraFields;
 	String summary;
 
-	Boolean overrideResize = null;
-	Boolean overrideResizeDefault = null;
-	int overrideResizeDimension = -1;
-	Boolean overrideAddToBeginning = null;
+	transient Boolean overrideResize = null;
+	transient Boolean overrideResizeDefault = null;
+	transient int overrideResizeDimension = -1;
+	transient Boolean overrideAddToBeginning = null;
 
 	int autoResize = 0;
 	// permissions -- default to true for the sake of old protocols ...
@@ -81,8 +81,8 @@ public class Album extends GalleryItem implements ListModel, Serializable, Prefe
 	boolean canDeleteThisAlbum = true;
 	boolean canCreateSubAlbum = true;
 
-	boolean hasFetchedInfo = false;
-	boolean hasFetchedImages = false;
+	transient boolean hasFetchedInfo = false;
+	transient boolean hasFetchedImages = false;
 
 	transient private Long pictureFileSize;
 	transient private Integer albumDepth;

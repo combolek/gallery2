@@ -57,7 +57,7 @@ public class Gallery extends DefaultTreeModel implements Serializable, Preferenc
 	String username;
 	String password;
 	String alias;
-	String userAgent = "Gallery Remote " + GalleryRemote._().properties.getProperty("version");
+	transient String userAgent = "Gallery Remote " + GalleryRemote._().properties.getProperty("version");
 	int type = TYPE_STANDALONE;
 
 	transient GalleryComm comm = null;
@@ -82,7 +82,7 @@ public class Gallery extends DefaultTreeModel implements Serializable, Preferenc
 	public static final int TYPE_APPLET = 99;
 
 	public static final int TOSTRING_MAXLEN = 40;
-	public String authToken;
+	transient public String authToken;
 
 	public Gallery(StatusUpdate su) {
 		super(null);
@@ -987,5 +987,13 @@ public class Gallery extends DefaultTreeModel implements Serializable, Preferenc
 
 			return retval;
 		}
+	}
+	
+	private Object readResolve() {
+		// super
+		listenerList = new EventListenerList();
+		
+		userAgent = "Gallery Remote " + GalleryRemote._().properties.getProperty("version");
+		return this;
 	}
 }
