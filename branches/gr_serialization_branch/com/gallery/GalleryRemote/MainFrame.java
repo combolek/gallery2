@@ -23,6 +23,11 @@ package com.gallery.GalleryRemote;
 // todo: save
 //import JSX.ObjIn;
 //import JSX.ObjOut;
+import com.thoughtworks.xstream.*;
+import com.thoughtworks.xstream.converters.extended.FileConverter;
+import com.thoughtworks.xstream.mapper.MapperWrapper;
+import com.thoughtworks.xstream.mapper.Mapper;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.gallery.GalleryRemote.model.Album;
 import com.gallery.GalleryRemote.model.Gallery;
 import com.gallery.GalleryRemote.model.Picture;
@@ -78,7 +83,7 @@ public class MainFrame extends JFrame
 	 * will lose their changes.  If we are clean then there is no possibility
 	 * of losing changes.
 	 */
-	//private boolean m_isDirty = false;
+	private boolean m_isDirty = false;
 
 	public DefaultComboBoxModel galleries = null;
 	//private Gallery currentGallery = null;
@@ -115,12 +120,11 @@ public class MainFrame extends JFrame
 	JButton jNewAlbumButton = new JButton();
 
 	JMenu jMenuFile = new JMenu();
-	// todo: save
-	//JMenuItem jMenuItemNew = new JMenuItem();
-	//JMenuItem jMenuItemOpen = new JMenuItem();
-	//JMenuItem jMenuItemSave = new JMenuItem();
-	//JMenuItem jMenuItemSaveAs = new JMenuItem();
-	//JMenuItem jMenuItemClose = new JMenuItem();
+	JMenuItem jMenuItemNew = new JMenuItem();
+	JMenuItem jMenuItemOpen = new JMenuItem();
+	JMenuItem jMenuItemSave = new JMenuItem();
+	JMenuItem jMenuItemSaveAs = new JMenuItem();
+	JMenuItem jMenuItemClose = new JMenuItem();
 	JMenuItem jMenuItemQuit = new JMenuItem();
 
 	// todo: save
@@ -157,6 +161,8 @@ public class MainFrame extends JFrame
 
 	public static final String CARD_PICTURE = "picture";
 	public static final String CARD_ALBUM = "album";
+	
+	transient XStream xstream;
 
 	public void initMainFrame() {
 		macOSXRegistration();
@@ -202,6 +208,16 @@ public class MainFrame extends JFrame
 		}
 		});
 		}*/
+		
+		xstream = new XStream(new DomDriver()) {
+			protected MapperWrapper wrapMapper(MapperWrapper next) {
+			     return new ExclusiveMapper(next);
+		     }
+		};
+		xstream.alias("gallery", Gallery.class);
+		xstream.alias("album", Album.class);
+		xstream.alias("picture", Picture.class);
+		xstream.registerConverter(new FileConverter());
 	}
 
 	public void startup() {
@@ -298,7 +314,7 @@ public class MainFrame extends JFrame
 		selectedGalleryChanged();
 
 		// We've been initalized, we are now clean.
-		//setDirtyFlag(false);
+		setDirtyFlag(false);
 	}
 
 
@@ -395,11 +411,11 @@ public class MainFrame extends JFrame
 	 * to be updated to reflect the new state.
 	 *
 	 * @param newDirtyState the new state (true means the document is dirty).
-
-	/*private void setDirtyFlag(boolean newDirtyState) {
+	*/
+	private void setDirtyFlag(boolean newDirtyState) {
 		m_isDirty = newDirtyState;
 		resetUIState();
-	}*/
+	}
 
 	public boolean isDirty() {
 		for (int i = galleries.getSize() - 1; i >= 0; i--) {
@@ -444,23 +460,21 @@ public class MainFrame extends JFrame
 				jGalleryCombo.setEnabled(!inProgress);
 				jNewGalleryButton.setEnabled(!inProgress);
 
-				// todo: save
-				/*// Disable New, Open, and Close
+				// Disable New, Open, and Close
 				//jMenuItemNew.setEnabled(!inProgress);
 				jMenuItemOpen.setEnabled(!inProgress);
 				jMenuItemSave.setEnabled(!inProgress);
 				jMenuItemSaveAs.setEnabled(!inProgress);
-				//jMenuItemClose.setEnabled(!inProgress
-				//		&& null != lastOpenedFile);
+				//jMenuItemClose.setEnabled(!inProgress && lastOpenedFile =! null);
 
 				// in the event the library we use to save is missing, dim the menus
 				try {
-					new JSX.ObjOut();
+					new XStream();
 				} catch (Throwable t) {
 					jMenuItemOpen.setEnabled(false);
 					jMenuItemSave.setEnabled(false);
 					jMenuItemSaveAs.setEnabled(false);
-				}*/
+				}
 
 				if (currentGallery != null
 						&& currentGallery.getUsername() != null
@@ -630,7 +644,7 @@ public class MainFrame extends JFrame
 		}
 
 		// We've been modified, we are now dirty.
-		//setDirtyFlag(true);
+		setDirtyFlag(true);
 	}
 
 	public void addPictures(Picture[] pictures, boolean select) {
@@ -661,7 +675,7 @@ public class MainFrame extends JFrame
 		}
 
 		// We've been modified, we are now dirty.
-		//setDirtyFlag(true);
+		setDirtyFlag(true);
 	}
 
 	private void selectAddedPictures(Object[] objects, int index) {
@@ -693,7 +707,7 @@ public class MainFrame extends JFrame
 		}
 
 		// todo: save
-		//saveState(f);
+		saveState(f);
 
 		getCurrentGallery().doUploadFiles(new UploadProgress(this));
 	}
@@ -719,7 +733,7 @@ public class MainFrame extends JFrame
 		}
 
 		// We've been modified, we are now dirty.
-		//setDirtyFlag(true);
+		setDirtyFlag(true);
 	}
 
 	public void setSortType(int sortType) {
@@ -802,7 +816,7 @@ public class MainFrame extends JFrame
 		//}.transitionStart();
 
 		// We've been modified, we are now dirty.
-		//setDirtyFlag(true);
+		setDirtyFlag(true);
 	}
 
 	public void slideshow() {
@@ -897,7 +911,7 @@ public class MainFrame extends JFrame
 		deleteSelectedPictures();
 
 		// We've been modified, we are now dirty.
-		//setDirtyFlag(true);
+		setDirtyFlag(true);
 	}
 
 	public void doCopy() {
@@ -912,7 +926,7 @@ public class MainFrame extends JFrame
 		}
 
 		// We've been modified, we are now dirty.
-		//setDirtyFlag(true);
+		setDirtyFlag(true);
 	}
 
 
@@ -966,8 +980,7 @@ public class MainFrame extends JFrame
 		jMenuItemNew.setIcon(GalleryRemote.iNew);
 		jMenuItemNew.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, GalleryRemote.ACCELERATOR_MASK));*/
 
-		// todo: save
-		/*jMenuItemOpen.setText(GRI18n.getString(MODULE, "menuOpen"));
+		jMenuItemOpen.setText(GRI18n.getString(MODULE, "menuOpen"));
 		jMenuItemOpen.setActionCommand("File.Open");
 		jMenuItemOpen.setIcon(GalleryRemote.iOpen);
 		jMenuItemOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, GalleryRemote.ACCELERATOR_MASK));
@@ -980,11 +993,9 @@ public class MainFrame extends JFrame
 		jMenuItemSaveAs.setText(GRI18n.getString(MODULE, "menuSaveAs"));
 		jMenuItemSaveAs.setActionCommand("File.SaveAs");
 
-		// todo: saving disabled, since JSX doesn't work with new class structure
-		// todo: save
 		jMenuItemOpen.setEnabled(false);
 		jMenuItemSave.setEnabled(false);
-		jMenuItemSaveAs.setEnabled(false);*/
+		jMenuItemSaveAs.setEnabled(false);
 
 		/*jMenuItemClose.setText(GRI18n.getString(MODULE, "menuClose"));
 		jMenuItemClose.setActionCommand("File.Close");
@@ -1090,12 +1101,12 @@ public class MainFrame extends JFrame
 
 		//jMenuFile.add(jMenuItemNew);
 		// todo: save
-		/*jMenuFile.add(jMenuItemOpen);
+		jMenuFile.add(jMenuItemOpen);
 		jMenuFile.add(jMenuItemSave);
 		jMenuFile.add(jMenuItemSaveAs);
 		//jMenuFile.add(jMenuItemClose);
 
-		jMenuFile.addSeparator();
+		/*jMenuFile.addSeparator();
 
 		// Remember where we are so we can build the dynamic MRU list here.
 		m_MRUMenuIndex = jMenuFile.getItemCount();
@@ -1151,9 +1162,9 @@ public class MainFrame extends JFrame
 		jMenuItemPrefs.addActionListener(this);
 		jMenuItemClearCache.addActionListener(this);
 		//jMenuItemNew.addActionListener(this);
-		/*jMenuItemOpen.addActionListener(this);
+		jMenuItemOpen.addActionListener(this);
 		jMenuItemSave.addActionListener(this);
-		jMenuItemSaveAs.addActionListener(this);*/
+		jMenuItemSaveAs.addActionListener(this);
 		//jMenuItemClose.addActionListener(this);
 		jMenuItemQuit.addActionListener(this);
 		jMenuItemAbout.addActionListener(this);
@@ -1224,7 +1235,7 @@ public class MainFrame extends JFrame
      *         or that we just saved for the user.
      */
 	// todo: save
-    /* private int saveOnPermission(String promptMessageID, Gallery gallery) {
+    private int saveOnPermission(String promptMessageID, Gallery gallery) {
         if (!m_isDirty) {
             return (JOptionPane.OK_OPTION);
         }
@@ -1266,7 +1277,7 @@ public class MainFrame extends JFrame
 
         // User reneges, stop the action
         return (JOptionPane.CANCEL_OPTION);
-    }*/
+    }
 
 	// Event handling
 	/**
@@ -1288,17 +1299,17 @@ public class MainFrame extends JFrame
 
 		if (command.equals("File.Quit")) {
 			thisWindowClosing(null);
-		/*} else if (command.equals("File.New")) {
-			int response = saveOnPermission("OK_toSaveBeforeClose");
+		} else if (command.equals("File.New")) {
+			int response = saveOnPermission("OK_toSaveBeforeClose", getCurrentGallery());
 
 			if (JOptionPane.CANCEL_OPTION == response) {
 				return;
 			}
 
-			resetState();*/
+			resetState();
 			// todo: save
-		/*} else if (command.equals("File.Open")) {
-			openState(MRUFileName);
+		} else if (command.equals("File.Open")) {
+			openState(null);
 		} else if (command.equals("File.Save")) {
 			// Do Save As if the file is the default
 			if (lastOpenedFile == null) {
@@ -1307,15 +1318,15 @@ public class MainFrame extends JFrame
 				saveState();
 			}
 		} else if (command.equals("File.SaveAs")) {
-			saveAsState();*/
-		/*} else if (command.equals("File.Close")) {
-			int response = saveOnPermission("OK_toSaveBeforeClose");
+			saveAsState();
+		} else if (command.equals("File.Close")) {
+			int response = saveOnPermission("OK_toSaveBeforeClose", getCurrentGallery());
 
 			if (JOptionPane.CANCEL_OPTION == response) {
 				return;
 			}
 
-			resetState();*/
+			resetState();
 		} else if (command.equals("Edit.Cut")) {
 			doCut();
 		} else if (command.equals("Edit.Copy")) {
@@ -1347,7 +1358,7 @@ public class MainFrame extends JFrame
 				lastOpenedFile = null;
 
 				// We've been logged out, we are now clean.
-				//setDirtyFlag(false);
+				setDirtyFlag(false);
 			} else {
 				// login may have failed and caused getComm to be null.
 				GalleryComm comm = getCurrentGallery().getComm(jStatusBar);
@@ -1429,7 +1440,7 @@ public class MainFrame extends JFrame
 	 * if this is OK.
 	 */
 	// todo: save
-	/*private void resetState() {
+	private void resetState() {
 		getCurrentGallery().deleteAllPictures();
 
 		lastOpenedFile = null;
@@ -1437,12 +1448,11 @@ public class MainFrame extends JFrame
 		// We've been reset, we are now clean.
 		setDirtyFlag(false);
 
-		updateAlbumCombo();
+		//updateAlbumCombo();
 		resetUIState();
 	}
 
 
-	// todo: save
 	private void saveAsState() {
 		JFileChooser fc = new JFileChooser();
 		fc.setAcceptAllFileFilterUsed(false);
@@ -1464,15 +1474,13 @@ public class MainFrame extends JFrame
 
 			saveState(lastOpenedFile);
 
-			saveMRUItem(lastOpenedFile);
+			//saveMRUItem(lastOpenedFile);
 		}
 	}
 
-	// todo: save
 	private void saveState() {
-		if (null == lastOpenedFile) {
-			Log.log(Log.LEVEL_ERROR, MODULE,
-					"Trying to save with no file open");
+		if (lastOpenedFile == null) {
+			Log.log(Log.LEVEL_ERROR, MODULE, "Trying to save with no file open");
 			return;
 		}
 
@@ -1480,15 +1488,14 @@ public class MainFrame extends JFrame
 	}
 
 
-	 * This is an internal worker function to save the state to a file.
+	/* This is an internal worker function to save the state to a file.
 	 * Note that we specifically do *not* set m_isDirty = false in this
 	 * method because we use this to temporarily backup the current state
 	 * to the default file (and we want the user to remember that they should
 	 * save the state to a "real" save file if they want to keep it).
 	 *
 	 * @param f the file to store the current dialog data.
-
-	// todo: save
+	 */
 	private void saveState(File f) {
 		try {
 			Log.log(Log.LEVEL_INFO, MODULE,
@@ -1500,28 +1507,41 @@ public class MainFrame extends JFrame
 				galleryArray[i] = (Gallery) galleries.getElementAt(i);
 			}
 
-//			ObjOut out = new ObjOut(new BufferedWriter(new FileWriter(f)));
-//			// todo: saving state is disabled because it's broken
-//			out.writeObject(galleryArray);
-//			out.close();
+			xstream.toXML(galleryArray, new FileWriter(f));
 
 			// We've been saved, we are now clean.
 			setDirtyFlag(false);
 
 			Log.log(Log.LEVEL_TRACE, MODULE, "State saved");
-//		} catch (IOException e) {
-//			Log.log(Log.LEVEL_ERROR, MODULE, "Exception while trying to save state");
-//			Log.logException(Log.LEVEL_ERROR, MODULE, e);
+		} catch (IOException e) {
+			Log.log(Log.LEVEL_ERROR, MODULE, "Exception while trying to save state");
+			Log.logException(Log.LEVEL_ERROR, MODULE, e);
 		} catch (NoClassDefFoundError e) {
-			Log.log(Log.LEVEL_ERROR, MODULE, "JSX not installed, can't save state...");
+			Log.log(Log.LEVEL_ERROR, MODULE, "XStream not installed, can't save state...");
+		}
+	}
+	
+	public class ExclusiveMapper extends MapperWrapper {
+		public ExclusiveMapper(Mapper wrapped) {
+			super(wrapped);
+		}
+		
+		public boolean shouldSerializeMember(Class definedIn, String fieldName) {
+			if (definedIn == DefaultTreeModel.class) {
+				return fieldName.equals("root");
+			} else if (definedIn == DefaultMutableTreeNode.class) {
+				return fieldName.equals("children");
+			}
+			
+			return true;
 		}
 	}
 
 
-	 * Reads the properties and constructs the current MRU menu list.
+	/* Reads the properties and constructs the current MRU menu list. */
 
 	// todo: save
-	private void updateMRUItemList() {
+	/*private void updateMRUItemList() {
 
 		// First, delete all of the existing MRU values
 		for (int i = 0; i < m_MRUFileList.size(); i++) {
@@ -1593,9 +1613,9 @@ public class MainFrame extends JFrame
 
 		// Update the MRU list
 		updateMRUItemList();
-	}
+	}*/
 
-	 * OpenState opens a file and loads it into GR.  If a file path is
+	/* OpenState opens a file and loads it into GR.  If a file path is
 	 * passed in, then that file is opened.  If null is passed in then a
 	 * File Open dialog is displayed to allow the user to choose a file to
 	 * open.
@@ -1606,7 +1626,7 @@ public class MainFrame extends JFrame
 	 *
 	 * @param fileToOpen The file to open (FQPN) or null if a File Open dialog
 	 *                   should be used.
-
+	*/
 	// todo: save
 	private void openState(String fileToOpen) {
 		JFileChooser fc = null;
@@ -1647,10 +1667,7 @@ public class MainFrame extends JFrame
 					getContentPane().setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 					setInProgress(true);
 
-					//ObjIn in = new ObjIn(new BufferedReader(new FileReader(lastOpenedFile)));
-					//Gallery[] galleryArray = (Gallery[]) in.readObject();
-					// todo: reading from file is disabled
-					Gallery[] galleryArray = null;
+					Gallery[] galleryArray = (Gallery[]) xstream.fromXML(new FileReader(lastOpenedFile));
 					DefaultComboBoxModel newGalleries = new DefaultComboBoxModel();
 					Gallery selectGallery = null;
 
@@ -1659,13 +1676,13 @@ public class MainFrame extends JFrame
 
 						newGalleries.addElement(gallery);
 						//galleryArray[i].checkTransients();
-						//gallery.addListDataListener(MainFrame.this);
+						gallery.addTreeModelListener(MainFrame.this);
 
 						ArrayList pictures = gallery.getAllPictures();
 						preloadThumbnails(pictures.iterator());
 
 						if (pictures.size() > 0) {
-							gallery.doFetchAlbums(jStatusBar, false);
+							//gallery.doFetchAlbums(jStatusBar, false);
 
 							if (selectGallery == null) {
 								selectGallery = gallery;
@@ -1673,7 +1690,7 @@ public class MainFrame extends JFrame
 						}
 					}
 
-					saveMRUItem(lastOpenedFile);
+					//saveMRUItem(lastOpenedFile);
 
 					setGalleries(newGalleries);
 
@@ -1686,20 +1703,17 @@ public class MainFrame extends JFrame
 					}
 
 					setInProgress(false);
-//				} catch (IOException e) {
-//					Log.log(Log.LEVEL_ERROR, MODULE, "Exception while trying to read state");
-//					Log.logException(Log.LEVEL_ERROR, MODULE, e);
-//				} catch (ClassNotFoundException e) {
-//					Log.log(Log.LEVEL_ERROR, MODULE, "Exception while trying to read state (probably a version mismatch)");
-//					Log.logException(Log.LEVEL_ERROR, MODULE, e);
+				} catch (IOException e) {
+					Log.log(Log.LEVEL_ERROR, MODULE, "Exception while trying to read state");
+					Log.logException(Log.LEVEL_ERROR, MODULE, e);
 				} catch (NoClassDefFoundError e) {
-					Log.log(Log.LEVEL_ERROR, MODULE, "JSX not installed, can't read state...");
+					Log.log(Log.LEVEL_ERROR, MODULE, "XStream not installed, can't read state...");
 				} finally {
 					getContentPane().setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 				}
 			}
-		}.transitionStart();
-	}*/
+		}.start();
+	}
 
 	public void removeGallery(Gallery g) {
 		Log.log(Log.LEVEL_INFO, MODULE, "Deleting Gallery " + g);
@@ -1844,7 +1858,7 @@ public class MainFrame extends JFrame
 			}
 
 			// We've been modified, we are now dirty.
-			//setDirtyFlag(true);
+			setDirtyFlag(true);
 		}
 	}
 
@@ -1903,7 +1917,7 @@ public class MainFrame extends JFrame
      */
     public void deleteSelectedPictures() {
 		CoreUtils.deleteSelectedPictures();
-		//setDirtyFlag(true);
+		setDirtyFlag(true);
     }
 
     /*
@@ -1912,7 +1926,7 @@ public class MainFrame extends JFrame
      */
     public void movePicturesUp() {
 		CoreUtils.movePicturesUp();
-		//setDirtyFlag(true);
+		setDirtyFlag(true);
     }
 
     /*
@@ -1921,7 +1935,7 @@ public class MainFrame extends JFrame
      */
     public void movePicturesDown() {
 		CoreUtils.movePicturesDown();
-		//setDirtyFlag(true);
+		setDirtyFlag(true);
     }
 
 	public void flushMemory() {
