@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -129,9 +129,8 @@ class GalleryItemHelper_advanced {
 	    /* Make sure that the thumbnail's source item is still inside the album */
 	    $thumbnail = $thumbnails[$albumId];
 
-	    list ($ret, $thumbnailSource) = GalleryCoreApi::loadEntitiesById(
-		$thumbnail->getDerivativeSourceId(),
-		array('GalleryFileSystemEntity', 'GalleryDerivative'));
+	    list ($ret, $thumbnailSource) =
+		GalleryCoreApi::loadEntitiesById($thumbnail->getDerivativeSourceId());
 	    if ($ret) {
 		if ($ret->getErrorCode() & ERROR_MISSING_OBJECT) {
 		    /* Derivative source is missing.. pick a new one */
@@ -140,8 +139,8 @@ class GalleryItemHelper_advanced {
 		    return array($ret, null);
 		}
 	    } else {
-		list ($ret, $highlightItem) = GalleryCoreApi::loadEntitiesById(
-		    $thumbnailSource->getParentId(), 'GalleryItem');
+		list ($ret, $highlightItem) =
+		    GalleryCoreApi::loadEntitiesById($thumbnailSource->getParentId());
 		if ($ret) {
 		    return array($ret, null);
 		}
@@ -157,7 +156,7 @@ class GalleryItemHelper_advanced {
 
 	if (empty($thumbnails) || $highlightHasLeftTheAlbum) {
 	    $gallery->debug('Picking new thumbnail');
-	    list ($ret, $album) = GalleryCoreApi::loadEntitiesById($albumId, 'GalleryAlbumItem');
+	    list ($ret, $album) = GalleryCoreApi::loadEntitiesById($albumId);
 	    if ($ret) {
 		return array($ret, null);
 	    }
@@ -183,7 +182,7 @@ class GalleryItemHelper_advanced {
 
 	if (!$success && $highlightHasLeftTheAlbum) {
 	    /* We couldn't find a new thumbnail, but the existing one isn't good anymore */
-	    $ret = GalleryCoreApi::deleteEntityById($thumbnail->getId(), 'GalleryDerivative');
+	    $ret = GalleryCoreApi::deleteEntityById($thumbnail->getId());
 	    if ($ret) {
 		return array($ret, null);
 	    }
@@ -204,8 +203,7 @@ class GalleryItemHelper_advanced {
 	}
 
 	/* Make sure the parent album is indeed an album */
-	list ($ret, $parentAlbum) =
-	    GalleryCoreApi::loadEntitiesById($parentAlbumId, 'GalleryAlbumItem');
+	list ($ret, $parentAlbum) = GalleryCoreApi::loadEntitiesById($parentAlbumId);
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -272,7 +270,6 @@ class GalleryItemHelper_advanced {
 
     /**
      * @see GalleryCoreApi::remapOwnerId
-     * @todo Scalability - Lock and load the items in batches (open files limit).
      */
     function remapOwnerId($oldUserId, $newUserId) {
 	global $gallery;
@@ -282,7 +279,7 @@ class GalleryItemHelper_advanced {
 	}
 
 	/* First check if new User is a valid gallery user! */
-	list ($ret, $newOwner) = GalleryCoreApi::loadEntitiesById($newUserId, 'GalleryUser');
+	list ($ret, $newOwner) = GalleryCoreApi::loadEntitiesById($newUserId);
 	if ($ret) {
 	    return $ret;
 	}
@@ -292,7 +289,7 @@ class GalleryItemHelper_advanced {
 	}
 
 	/* We need the user object later on anyway */
-	list ($ret, $oldOwner) = GalleryCoreApi::loadEntitiesById($oldUserId, 'GalleryUser');
+	list ($ret, $oldOwner) = GalleryCoreApi::loadEntitiesById($oldUserId);
 	if ($ret) {
 	    return $ret;
 	}
@@ -314,7 +311,7 @@ class GalleryItemHelper_advanced {
 	    return $ret;
 	}
 	/* load all items */
-	list ($ret, $items) = GalleryCoreApi::loadEntitiesById($itemIds, 'GalleryItem');
+	list ($ret, $items) = GalleryCoreApi::loadEntitiesById($itemIds);
 	if ($ret) {
 	    GalleryCoreApi::releaseLocks($lockIds);
 	    return $ret;
@@ -422,8 +419,7 @@ class GalleryItemHelper_advanced {
 		return $ret;
 	    }
 
-	    list ($ret, $albums) =
-		GalleryCoreApi::loadEntitiesById($currentIds, 'GalleryAlbumItem');
+	    list ($ret, $albums) = GalleryCoreApi::loadEntitiesById($currentIds);
 	    if ($ret) {
 		return $ret;
 	    }
@@ -493,7 +489,7 @@ class GalleryItemHelper_advanced {
 		return $ret;
 	    }
 
-	    list ($ret, $items) = GalleryCoreApi::loadEntitiesById($currentIds, 'GalleryItem');
+	    list ($ret, $items) = GalleryCoreApi::loadEntitiesById($currentIds);
 	    if ($ret) {
 		return $ret;
 	    }

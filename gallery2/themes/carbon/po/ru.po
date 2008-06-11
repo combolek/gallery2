@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,11 +22,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Carbon Theme 1.2.6\n"
+"Project-Id-Version: Gallery: Carbon Theme 1.2.3\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2007-03-16 11:42-0700\n"
-"PO-Revision-Date: 2008-03-03 18:22+0300\n"
-"Last-Translator: Ser Moro <webber@morozov-sm.ru>\n"
+"PO-Revision-Date: 2007-01-28 18:39+0300\n"
+"Last-Translator: Yuri Palmin <ypalmin@gmail.com>\n"
 "Language-Team: Russian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -84,7 +84,7 @@ msgid "You must enter a number greater than 0"
 msgstr "Введите число, большее нуля"
 
 msgid "Format: [module.BlockName param=value] ..."
-msgstr "Формат: [modul.BlockName param=значение]..."
+msgstr "Формат: [modul.BlockName param=value]..."
 
 msgid "Show Sidebar"
 msgstr "Показывать боковое меню"
@@ -96,7 +96,7 @@ msgid "Add a photo!"
 msgstr "Добавьте фотографию!"
 
 msgid "no thumbnail"
-msgstr "миниатюра отсутствует"
+msgstr "макет отсутствует"
 
 msgid "Error!"
 msgstr "Ошибка!"
@@ -119,12 +119,6 @@ msgstr "Следующий"
 msgid "Last"
 msgstr "Последний"
 
-msgid "Exif"
-msgstr "Exif"
-
-msgid "Close"
-msgstr "Закрыть"
-
 #, c-format
 msgid "Download %s"
 msgstr "Скачать %s"
@@ -138,6 +132,12 @@ msgstr "Просмотр в оригинальном альбоме"
 #, c-format
 msgid "Download %s in original format"
 msgstr "Скачать %s в оригинальном формате"
+
+msgid "Exif"
+msgstr ""
+
+msgid "Close"
+msgstr "Закрыть"
 
 msgid "Continue..."
 msgstr "Продолжить..."

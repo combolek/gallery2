@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -230,15 +230,6 @@ class ImageUploadHelper {
 	$gallery->debug("Using parent id $parentId");
 
 	/* Make sure we have right permissions */
-	list ($ret, $hasPermission) = GalleryCoreApi::hasItemPermission($parentId, 'core.view');
-	if ($ret) {
-	    $gallery->debug('ERROR: Failed to query view permissions.');
-	    return $status;
-	}
-	if (!$hasPermission) {
-	    $gallery->debug("ERROR: User has no view permission for item with $parentId.");
-	    return $status;
-	}
 	$ret = GalleryCoreApi::assertHasItemPermission($parentId, 'core.addAlbumItem');
 	if ($ret) {
 	    $gallery->debug("ERROR: No permission to add subalbum to album with id $parentId.");
@@ -287,6 +278,15 @@ class ImageUploadHelper {
 	if ($ret) {
 	    $gallery->debug("ERROR: Couldn't save album.\n" . $ret->getAsText());
 	    return $status;
+	}
+
+	$ret = GalleryCoreApi::addUserPermission($instance->getId(),
+						 $instance->getOwnerId(),
+						 'core.all',
+						 false);
+	if ($ret) {
+	    $gallery->debug(
+		'ERROR: GalleryCoreApi::addUserPermission failed, but album was created.');
 	}
 
 	/*
@@ -360,22 +360,6 @@ class ImageUploadHelper {
 	    return $status;
 	}
 
-	list ($ret, $mimeType) = GalleryCoreApi::getMimeType($file['tmp_name'], $mimeType);
-	if ($ret) {
-	    $gallery->debug('ERROR: Failed to query mime type.');
-	    return $status;
-	}
-
-	list ($ret, $hasPermission) = GalleryCoreApi::hasItemPermission($albumId, 'core.view');
-	if ($ret) {
-	    $gallery->debug('ERROR: Failed to query view permissions.');
-	    return $status;
-	}
-	if (!$hasPermission) {
-	    $gallery->debug("ERROR: User has no view permission for item with $albumId.");
-	    return $status;
-	}
-
 	/* Do we have permission to add pictures to this album? */
 	$ret = GalleryCoreApi::assertHasItemPermission($albumId, 'core.addDataItem');
 	if (!$ret) {
@@ -392,6 +376,15 @@ class ImageUploadHelper {
 								       $albumId);
 		if (!$ret) {
 		    $status['success'] = NOKIAUPLOAD_ERR_NOERR;
+
+		    $ret = GalleryCoreApi::addUserPermission($newItem->getId(),
+							     $newItem->getOwnerId(),
+							     'core.all',
+							     false);
+		    if ($ret) {
+			$gallery->debug(
+			    'ERROR: CoreApi::addUserPermission failed, but item was added.');
+		    }
 
 		    GalleryCoreApi::releaseLocks($lockId);
 		}
@@ -424,8 +417,8 @@ class ImageUploadHelper {
 	$status['success'] = NOKIAUPLOAD_ERR_DIRLIST;
 
 	/* Get all album ids where we have addDataItem permission */
-	list ($ret, $albumIds) = GalleryCoreApi::fetchAllItemIds(
-	    'GalleryAlbumItem', array('core.addDataItem', 'core.view'));
+	list ($ret, $albumIds) = GalleryCoreApi::fetchAllItemIds('GalleryAlbumItem',
+								'core.addDataItem');
 	if ($ret || count($albumIds) < 1) {
 	    $gallery->debug("ERROR: No albums with addDataItem permission.\n"
 	    	    . ($ret ? $ret->getAsText() : ''));
@@ -433,7 +426,7 @@ class ImageUploadHelper {
 	}
 
 	/* Load albums and get their names */
-	list ($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds, 'GalleryAlbumItem');
+	list ($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds);
 	if ($ret) {
 	    $gallery->debug(
 		"ERROR: GalleryCoreApi::loadEntitiesById failed.\n" . $ret->getAsText());
@@ -461,7 +454,7 @@ class ImageUploadHelper {
      * Create new group for mobile phone users.  All users who try to use the Nokia Image Uploader
      * module will be added to this group in LoginController.
      * @param string $name name for group
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      *         int id of the Mobile user group
      */
     function createMobileUserGroup($name) {
@@ -495,7 +488,7 @@ class ImageUploadHelper {
      * Create new album for uploading images.
      * @param string $title title for album
      * @param int $parentId id of parent album
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      *         int id of the upload album
      */
     function createUploadAlbum($title, $parentId) {
@@ -573,7 +566,7 @@ class ImageUploadHelper {
      * we want.
      * @param int $albumId
      * @param int $groupId id of mobile users group
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
    function setAlbumPermissions($albumId, $groupId) {
 	/* Few ids that we will need */

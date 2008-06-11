@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,11 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
-/** Possible GalleryComment::publishStatus constants */
-define('COMMENT_PUBLISH_STATUS_PUBLISHED', 0);
-define('COMMENT_PUBLISH_STATUS_UNPUBLISHED', 1);
-define('COMMENT_PUBLISH_STATUS_SPAM', 2);
 
 /**
  * Comment Module
@@ -40,13 +35,12 @@ class CommentModule extends GalleryModule {
 	$this->setId('comment');
 	$this->setName($gallery->i18n('Comments'));
 	$this->setDescription($gallery->i18n('User commenting system'));
-	$this->setVersion('1.1.12'); /* Update upgrade() function below too */
-	$this->_templateVersion = 1;
+	$this->setVersion('1.1.3.2'); /* Update upgrade() function below too */
 	$this->setGroup('data', $gallery->i18n('Extra Data'));
-	$this->setCallbacks('getItemLinks|getItemSummaries|' .
+	$this->setCallbacks('registerEventListeners|getItemLinks|getItemSummaries|' .
 			    'getSiteAdminViews|getItemAdminViews');
-	$this->setRequiredCoreApi(array(7, 41));
-	$this->setRequiredModuleApi(array(3, 9));
+	$this->setRequiredCoreApi(array(7, 5));
+	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
@@ -54,7 +48,6 @@ class CommentModule extends GalleryModule {
      */
     function upgrade($currentVersion) {
 	global $gallery;
-	$storage =& $gallery->getStorage();
 
 	if (!isset($currentVersion)) {
 	    $currentVersion = '0';
@@ -85,7 +78,7 @@ class CommentModule extends GalleryModule {
 	     }
 
 	     foreach (array('comments.show' => 10, 'comments.latest' => 1,
-			    'comments.moderate' => 0, 'validation.level' => 'HIGH')
+			    'validation.level' => 'HIGH')
 		     as $key => $value) {
 		$ret = $this->setParameter($key, $value);
 		if ($ret) {
@@ -109,6 +102,7 @@ class CommentModule extends GalleryModule {
 
 	case '0.9.7':
 	case '1.0.0':
+	    $storage =& $gallery->getStorage();
 	    $ret = $storage->configureStore($this->getId(), array('GalleryComment:1.0'));
 	    if ($ret) {
 		return $ret;
@@ -146,6 +140,7 @@ class CommentModule extends GalleryModule {
 	case '1.0.9':
 	case '1.1.0':
 	case '1.1.1':
+	    $storage =& $gallery->getStorage();
 	    $ret = $storage->configureStore($this->getId(), array('GalleryComment:1.1'));
 	    if ($ret) {
 		return $ret;
@@ -154,30 +149,7 @@ class CommentModule extends GalleryModule {
 	case '1.1.2':
 	case '1.1.3':
 	case '1.1.3.1':
-	    /* .mo file migration */
-	case '1.1.3.2':
-	    /* Gallery 2.2.4 security release */
-	case '1.1.4':
-	case '1.1.5':
-	    /* Add Akismet support */
-	    $ret = $storage->configureStore($this->getId(), array('GalleryComment:1.2'));
-	    if ($ret) {
-		return $ret;
-	    }
-	case '1.1.6':
-	    /* Add CommentAddNotification class */
-	case '1.1.7':
-	    /* Refactored to new event registration from core API 7.34 */
-	case '1.1.8':
-	case '1.1.9':
-	    /* Combined YUI libraries into a single utilities.js file */ 
-	case '1.1.10':
-	case '1.1.11':
-	    /* Add Comment Moderation Queue Support */
-	    $ret = $this->setParameter('comments.moderate', 0);
-	    if ($ret) {
-		return $ret;
-	    }
+
 	case 'end of upgrade path':
 	    /*
 	     * Leave this bogus case at the end of the legitimate case statements so that we
@@ -194,17 +166,18 @@ class CommentModule extends GalleryModule {
     }
 
     /**
+     * @see GalleryModule::registerEventListeners
+     */
+    function registerEventListeners() {
+	GalleryCoreApi::requireOnce('modules/comment/classes/GalleryCommentHelper.class');
+	$listener = new GalleryCommentHelper();
+	GalleryCoreApi::registerEventListener('GalleryEntity::delete', $listener, true);
+    }
+
+    /**
      * @see GalleryModule::performFactoryRegistrations
      */
     function performFactoryRegistrations() {
-	$ret = GalleryCoreApi::registerFactoryImplementation(
-	    'GalleryEventListener', 'GalleryCommentHelper', 'GalleryCommentHelper', 
-	    'modules/comment/classes/GalleryCommentHelper.class', 'comment', 
-	    array('GalleryEntity::delete', 'GalleryEntity::save'));
-	if ($ret) {
-	    return $ret;
-	}
-
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'GalleryEntity', 'GalleryComment', 'GalleryComment',
 	    'modules/comment/classes/GalleryComment.class', 'comment', null);
@@ -222,14 +195,6 @@ class CommentModule extends GalleryModule {
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'CaptchaAdminOption', 'CommentCaptchaAdminOption', 'CommentCaptchaAdminOption',
 	    'modules/comment/classes/CommentCaptchaAdminOption.class', 'comment', null);
-	if ($ret) {
-	    return $ret;
-	}
-
-	$ret = GalleryCoreApi::registerFactoryImplementation(
-	    'NotificationEvent_1_0', 'CommentAddNotification', 'CommentAddNotification',
-	    'modules/comment/classes/CommentAddNotification.class', 'comment', 
-	    array('GalleryEntity::save'));
 	if ($ret) {
 	    return $ret;
 	}
@@ -321,6 +286,9 @@ class CommentModule extends GalleryModule {
 	    isset($permissions['comment.view'])) {
 		$views[] = array('name' => $this->translate('View Comments'),
 				 'view' => 'comment.ShowComments');
+
+
+
 	}
 
 	return array(null, $views);
@@ -332,9 +300,7 @@ class CommentModule extends GalleryModule {
     function getSiteAdminViews() {
 	return array(null,
 		     array(array('name' => $this->translate('Comments'),
-				 'view' => 'comment.CommentSiteAdmin'),
-			   array('name' => $this->translate('Moderate Comments'),
-				 'view' => 'comment.AdminModerateSpam')));
+				 'view' => 'comment.CommentSiteAdmin')));
     }
 
     /**

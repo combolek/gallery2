@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,14 +33,12 @@ class AdminDigibugControllerTest extends GalleryControllerTestCase {
     }
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'digibug');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
     }
 
@@ -55,8 +53,7 @@ class AdminDigibugControllerTest extends GalleryControllerTestCase {
 			    $results);
     }
 
-    function testAdminDigibugControllerSaveWithOwnerCredentials() {
-	GalleryUtilities::putRequestVariable('form[digibugIdChoice]', 'owner');
+    function testAdminDigibugControllerSave() {
 	GalleryUtilities::putRequestVariable('form[digibugCustomerId]', '1234');
 	GalleryUtilities::putRequestVariable('form[digibugPricelistId]', '4321');
 	GalleryUtilities::putRequestVariable('form[action][save]', '1');
@@ -70,7 +67,7 @@ class AdminDigibugControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'digibug');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	foreach ($params as $key => $value) {
 	    if ($key[0] == '_') {
@@ -80,77 +77,20 @@ class AdminDigibugControllerTest extends GalleryControllerTestCase {
 	ksort($params);
 
 	$this->assertEquals(array('digibugCustomerId' => '1234',
-				  'digibugIdChoice' => 'owner',
 				  'digibugPricelistId' => '4321'),
 			    $params, 'Verify settings');
     }
 
-    function testAdminDigibugControllerSaveWithDefaultCredentials() {
-	GalleryUtilities::putRequestVariable('form[digibugIdChoice]', 'gallery');
-	GalleryUtilities::putRequestVariable('form[action][save]', '1');
-
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'digibug.AdminDigibug'),
-				  'status' => array('saved' => 1),
-				  'error' => array()),
-			    $results);
-
-	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'digibug');
-	if ($ret) {
-	    return $ret;
-	}
-	foreach ($params as $key => $value) {
-	    if ($key[0] == '_') {
-		unset($params[$key]);
-	    }
-	}
-	ksort($params);
-
-	$this->assertEquals(array('digibugCustomerId' => '3153',
-				  'digibugIdChoice' => 'gallery',
-				  'digibugPricelistId' => '8491'),
-			    $params, 'Verify settings');
-    }
-
     function testAdminDigibugControllerSaveMissingValues() {
-	GalleryUtilities::putRequestVariable('form[digibugIdChoice]', 'owner');
 	GalleryUtilities::putRequestVariable('form[action][save]', '1');
 
 	$results = $this->handleRequest();
 	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin',
 						      'subView' => 'digibug.AdminDigibug'),
 				  'status' => array(),
-				  'error' => array('form[error][digibugCustomerId][invalid]',
-						   'form[error][digibugPricelistId][invalid]')),
+				  'error' => array('form[error][digibugCustomerId][missing]',
+						   'form[error][digibugPricelistId][missing]')),
 			    $results);
-    }
-
-    function testAdminDigibugControllerSaveInvalidValues() {
-	GalleryUtilities::putRequestVariable('form[digibugIdChoice]', 'owner');
-	GalleryUtilities::putRequestVariable('form[action][save]', '1');
-	GalleryUtilities::putRequestVariable('form[digibugCustomerId]', '123bsd4');
-	GalleryUtilities::putRequestVariable('form[digibugPricelistId]', '4sds321');
-
-	list ($ret, $origParams) = GalleryCoreApi::fetchAllPluginParameters('module', 'digibug');
-	if ($ret) {
-	    return $ret;
-	}
-
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'digibug.AdminDigibug'),
-				  'status' => array(),
-				  'error' => array('form[error][digibugCustomerId][invalid]',
-						   'form[error][digibugPricelistId][invalid]')),
-			    $results);
-
-	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'digibug');
-	if ($ret) {
-	    return $ret;
-	}
-
-	$this->assertEquals($origParams, $params, 'module param values have changed');
     }
 }
 ?>

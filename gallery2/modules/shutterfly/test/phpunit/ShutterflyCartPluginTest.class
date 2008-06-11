@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,26 +34,26 @@ class ShutterflyCartPluginTest extends GalleryTestCase {
 
     function setUp() {
 	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	/* Create some random photo items that we can print */
 	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($this->_album);
 
 	$ret = GalleryCoreApi::removeItemPermissions($this->_album->getId());
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$ret = GalleryCoreApi::addUserPermission(
 	    $this->_album->getId(), $gallery->getActiveUserId(), 'core.all');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	for ($i = 0; $i < 3; $i++) {
@@ -64,7 +64,8 @@ class ShutterflyCartPluginTest extends GalleryTestCase {
 					     __FILE__,
 					     'GalleryPhotoItem');
 	    if ($ret) {
-		return $ret;
+		print $ret->getAsHtml();
+		return $this->failWithStatus($ret);
 	    }
 	}
 
@@ -72,18 +73,21 @@ class ShutterflyCartPluginTest extends GalleryTestCase {
 	$ret = GalleryCoreApi::removeUserPermission(
 	    $this->_items[1]->getId(), $gallery->getActiveUserId(), 'shutterfly.print');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	/* Public view permission on one */
 	list ($ret, $anonymousUserId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$ret = GalleryCoreApi::addUserPermission(
 	    $this->_items[2]->getId(), $anonymousUserId, 'core.viewAll');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	/* Watermarked thumbnail for one*/
 	for ($i = 0; $i < 3; $i++) {
@@ -92,7 +96,8 @@ class ShutterflyCartPluginTest extends GalleryTestCase {
 		    DERIVATIVE_TYPE_IMAGE_THUMBNAIL, 'test-operation|100', 'test/jpeg',
 		    $i ? array() : array('postFilterOperations' => 'test-watermark|yes'));
 	    if ($ret) {
-		return $ret;
+		print $ret->getAsHtml();
+		return $this->failWithStatus($ret);
 	    }
 	}
     }
@@ -113,7 +118,7 @@ class ShutterflyCartPluginTest extends GalleryTestCase {
 	$cartPlugin = new ShutterflyCartPlugin();
 	list ($ret, $urlParams) = $cartPlugin->fulfillCart($cartItemIds);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$returnUrl = $urlGenerator->generateUrl(array('view' => 'cart.ViewCart'),
 						array('forceFullUrl' => true));
@@ -129,7 +134,7 @@ class ShutterflyCartPluginTest extends GalleryTestCase {
 	/* Render PrintPhotos view to test processing of cart items */
 	list ($ret, $view) = GalleryView::loadView('shutterfly.PrintPhotos');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	} else {
 	    GalleryUtilities::putRequestVariable('returnUrl', $returnUrl);
 	    ob_start();
@@ -137,7 +142,7 @@ class ShutterflyCartPluginTest extends GalleryTestCase {
 	    $form = ob_get_contents();
 	    ob_end_clean();
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $this->assert(strpos($form, '"returl" value="' . $returnUrl . '"'), 'return url');
 	    $this->assert(strpos($form, '"imnum" value="4"'),

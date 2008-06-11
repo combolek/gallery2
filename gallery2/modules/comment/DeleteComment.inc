@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,13 +33,9 @@ class DeleteCommentController extends GalleryController {
     function handleRequest($form) {
 	global $gallery;
 
-	list ($ret, $item) = $this->getItem();
-	if ($ret) {
-	    return array($ret, null);
-	}
-	$itemId = $item->getId();
-
-	$commentId = (int)GalleryUtilities::getRequestVariables('commentId');
+	list ($itemId, $commentId) = GalleryUtilities::getRequestVariables('itemId', 'commentId');
+	$itemId = (int) $itemId;
+	$commentId = (int) $commentId;
 
 	/* Make sure we have permission to delete a comment */
 	$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'comment.delete');
@@ -51,9 +47,13 @@ class DeleteCommentController extends GalleryController {
 	$error = array();
 	if (isset($form['action']['delete'])) {
 	    /* Delete the comment */
-	    list ($ret, $comment) = GalleryCoreApi::loadEntitiesById($commentId, 'GalleryComment');
+	    list ($ret, $comment) = GalleryCoreApi::loadEntitiesById($commentId);
 	    if ($ret) {
 		return array($ret, null);
+	    }
+	    
+	    if (!GalleryUtilities::isA($comment, 'GalleryComment')) {
+		return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 	    }
 
 	    /* Make sure that the comment<->parent relationship is right */
@@ -61,7 +61,7 @@ class DeleteCommentController extends GalleryController {
 		return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 	    }
 
-	    $ret = GalleryCoreApi::deleteEntityById($comment->getId(), 'GalleryComment');
+	    $ret = GalleryCoreApi::deleteEntityById($comment->getId());
 	    if ($ret) {
 		return array($ret, null);
 	    }
@@ -119,14 +119,17 @@ class DeleteCommentView extends GalleryView {
 	}
 
 	/* Load the specific comment */
-	list ($ret, $comment) = GalleryCoreApi::loadEntitiesById($commentId, 'GalleryComment');
+	list ($ret, $comment) = GalleryCoreApi::loadEntitiesById($commentId);
 	if ($ret) {
 	    return array($ret, null);
+	}
+	if (!GalleryUtilities::isA($comment, 'GalleryComment')) {
+	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 	}
 
 	/* Associate the commenter's info */
 	$commenterId = $comment->getCommenterId();
-	list ($ret, $commenter) = GalleryCoreApi::loadEntitiesById($commenterId, 'GalleryUser');
+	list ($ret, $commenter) = GalleryCoreApi::loadEntitiesById($commenterId);
 	if ($ret) {
 	    return array($ret, null);
 	}

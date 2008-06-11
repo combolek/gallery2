@@ -1,6 +1,8 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
 <script type="text/javascript">
   // <![CDATA[
@@ -89,21 +91,21 @@
   </div>
   {/if}
 
-  <input type="checkbox" {if isset($form.whichDerivative.preferred)}checked="checked" {/if}
+  <input type="checkbox"{if isset($form.whichDerivative.preferred)} checked="checked"{/if}
    name="{g->formVar var="form[whichDerivative][preferred]"}" id="cbFullSize"/>
   <label for="cbFullSize">
     {g->text text="Full size (won't damage the original file)"}
   </label>
   <br/>
 
-  <input type="checkbox" {if isset($form.whichDerivative.resize)}checked="checked" {/if}
+  <input type="checkbox"{if isset($form.whichDerivative.resize)} checked="checked"{/if}
    name="{g->formVar var="form[whichDerivative][resize]"}" id="cbResizes"/>
   <label for="cbResizes">
     {g->text text="Resizes"}
   </label>
   <br/>
 
-  <input type="checkbox" {if isset($form.whichDerivative.thumbnail)}checked="checked" {/if}
+  <input type="checkbox"{if isset($form.whichDerivative.thumbnail)} checked="checked"{/if}
    name="{g->formVar var="form[whichDerivative][thumbnail]"}" id="cbThumbnail"/>
   <label for="cbThumbnail">
     {g->text text="Thumbnail"}
@@ -115,8 +117,8 @@
 <div class="gbBlock">
   <h3> {g->text text="Step 4.  Subalbums"} </h3>
 
-  <input type="checkbox" {if isset($form.recursive)}checked="checked" {/if}
-   name="{g->formVar var="form[recursive]"}" id="cbRecursive"/>
+  <input type="checkbox"{if isset($form.recursive)} checked="checked"{/if}
+   name="{g->formVar var="form[recursive]"}"/>
   <label for="cbRecursive">
     {g->text text="Also apply watermark change to all subalbums"}
   </label>

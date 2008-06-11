@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,10 +20,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Custom Fields 1.0.12\n"
+"Project-Id-Version: Gallery: Custom Fields 1.0.8\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-08-28 17:14+0200\n"
-"PO-Revision-Date: 2008-03-27 11:21+0100\n"
+"PO-Revision-Date: 2007-01-08 17:06+0100\n"
 "Last-Translator: Ermanno Baschiera <ebaschiera@gmail.com>\n"
 "Language-Team: Italian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -74,7 +74,7 @@ msgid "Custom Fields Module"
 msgstr "Modulo Campi Personalizzati"
 
 msgid "Search custom fields"
-msgstr "Trova nei campi personalizzati"
+msgstr "Trova campi personalizzati"
 
 msgid "Field name cannot be empty"
 msgstr "Il campo nome non può essere vuoto"
@@ -87,7 +87,7 @@ msgid ""
 "displayed with thumbnails in an album view. Detail fields are usually shown when viewing the "
 "specific item."
 msgstr ""
-"Impostare l'ordine di visualizzazione e la visibilità dei campi. I campi Sommario sono "
+"Imposta l'ordine di visualizzazione e la visibilità dei campi. I campi Sommario sono "
 "tipicamente visualizzati con un'anteprima nella schermata di un album. I campi Dettaglio "
 "sono di solito mostrati durante la visualizzazione di un oggetto specifico."
 
@@ -113,13 +113,13 @@ msgid "Save"
 msgstr "Salva"
 
 msgid "Reset"
-msgstr "Reimposta"
+msgstr "Azzera"
 
 msgid "Add/Remove"
 msgstr "Aggiungi/Elimina"
 
 msgid "Save any changes above before using the controls below."
-msgstr "Salvare le modifiche precedenti prima di usare i controlli seguenti."
+msgstr "Salva le modifiche precedenti prima di usare i controlli seguenti."
 
 msgid "Add"
 msgstr "Aggiungi"
@@ -154,16 +154,16 @@ msgid ""
 "return to freeform text. Note that existing field values will not be changed or deleted when "
 "a picklist is added."
 msgstr ""
-"I campi personalizzati permettono di inserire testi liberamente. Inserire dei valori qui di "
-"seguito per limitare le possibilità a una specifica lista di opzioni. Inserire una "
-"possibilità per riga. Eliminare tutte le righe per tornare alla modalità libera. Nota bene "
-"che i valori esistenti non verranno modificati dall'introduzione di una lista di scelte."
+"I campi personalizzati permettono di inserire testi liberamente. Inserisci dei valori qui di "
+"seguito per limitare le possibilità a una specifica lista di opzioni. Inserisci una "
+"possibilità per riga. Elimina tutte le righe per tornare alla modalità libera. Nota bene che "
+"i valori esistenti non verranno modificati dall'introduzione di una lista di scelte."
 
 msgid "Choices:"
 msgstr "Opzioni:"
 
 msgid "Add a custom field above to enable this section."
-msgstr "Aggiungere un campo personalizzato sopra per attivare questa sezione."
+msgstr "Aggiungi un campo personalizzato sopra per attivare questa sezione."
 
 msgid ""
 "These are album-specific custom field settings. Common fields are available on all items; "
@@ -195,7 +195,7 @@ msgstr ""
 "sono foto saranno eliminati!"
 
 msgid "Override global custom field settings for this album"
-msgstr "Scavalca la configurazione globale dei campi personalizzati per quest'album"
+msgstr "Ignora la configurazione globale dei campi personalizzati per quest'album"
 
 msgid "Edit custom field settings for this album"
 msgstr "Modifica la configurazione dei campi personalizzati di quest'album"
@@ -216,19 +216,20 @@ msgid ""
 "WARNING: All values for this custom field will be deleted! (Except in albums with album-"
 "specific settings)"
 msgstr ""
-"ATTENZIONE: Tutti i valori di questo campo personalizzato saranno eliminati! (Tranne negli "
-"album con una configurazione specifica)"
+"ATTENZIONE: Tutti i valori di questo campo personalizzato saranno eliminati! (Eccetto negli "
+"album con una configurazione specifica per quell'album)"
 
 msgid ""
 "WARNING: Values for this custom field on non-album items will be deleted! (Except in albums "
 "with album-specific settings)"
 msgstr ""
 "ATTENZIONE: I valori di questi campi personalizzati per oggetti che non sono album verranno "
-"eliminati! (Tranne negli album con una configurazione specifica)"
+"eliminati! (Tranne negli album con una configurazione specifica per l'album)"
 
 msgid ""
 "WARNING: Values for this custom field on non-photo items will be deleted! (Except in albums "
 "with album-specific settings)"
 msgstr ""
 "ATTENZIONE: I valori di questi campi personalizzati per gli oggetti che non sono foto "
-"saranno eliminati! (Tranne negli album con una configurazione specifica)"
+"saranno eliminati! (Tranne che in quegli album che hanno una configurazione specifica per "
+"gli album)"

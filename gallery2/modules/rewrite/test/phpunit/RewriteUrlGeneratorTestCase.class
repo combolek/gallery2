@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,17 +28,15 @@
 class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 	global $gallery;
 	$session =& $gallery->getSession();
 
 	foreach (array('rewrite', 'core') as $moduleId) {
 	    $ret = $this->_markPluginParametersForCleanup('module', $moduleId);
 	    if ($ret) {
-		return $ret;
+		print $ret->getAsHtml();
+		return $this->failWithStatus($ret);
 	    }
 	}
 
@@ -80,7 +78,8 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 	$ret = GalleryCoreApi::setPluginParameter(
 	    'module', 'rewrite', 'shortUrls', serialize($testUrls));
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->_savedSession = $gallery->_session;
@@ -88,7 +87,8 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 	/* Prepare some test items */
 	$ret = $this->_prepareTestItems();
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->_urlEncodePath = 'The Quick!Brown#Fox';
@@ -100,10 +100,9 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 	$session->put('core.authToken', '123456ABCDEF');
 	$ret = $session->save();
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
-
-	GalleryDataCache::reset();
     }
 
     function tearDown() {
@@ -118,10 +117,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 	    $this->assert(!GalleryDataCache::containsKey('G2_EMBED'), 'Could not remove a GDC var');
 	}
 
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
+	parent::tearDown();
     }
 
     /* Prepare a test album / item / derivative which is needed for real short URLs */
@@ -163,7 +159,6 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
     function _urlGeneratorInit($urlGeneratorName) {
 	$this->_urlGeneratorName = $urlGeneratorName;
 	$this->_urlGenerator = new $urlGeneratorName();
-	GalleryDataCache::reset();
 	$ret = $this->_urlGenerator->init('phpunit_test.php');
 	if ($ret) {
 	    return $ret;
@@ -176,7 +171,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 	$this->_urlGenerator = new $this->_urlGeneratorName();
 	$ret = $this->_urlGenerator->init();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$expected = 'http://example.com/gallery2/main.php?foo=1&bar=2';
@@ -192,7 +187,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 	$this->_urlGenerator = new $this->_urlGeneratorName();
 	$ret = $this->_urlGenerator->init('/cms/index.php?mod=gallery2', '/gallery2/');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals($expectedUrl, $this->_urlGenerator->getCurrentUrl());
 	$this->assertEquals(false, $this->_urlGenerator->_error, 'error');
@@ -202,7 +197,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 	$this->_urlGenerator = new $this->_urlGeneratorName();
 	$ret = $this->_urlGenerator->init();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$expectedUrl = 'http://example.com/gallery2/';
 	$this->assertEquals($expectedUrl, $this->_urlGenerator->getCurrentUrlDir());
@@ -216,7 +211,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 	$this->_urlGenerator = new $this->_urlGeneratorName();
 	$ret = $this->_urlGenerator->init('/cms/index.php?mod=gallery2', '/gallery2/');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals($expectedUrl, $this->_urlGenerator->getCurrentUrlDir(), 'default');
 	$this->assertEquals(false, $this->_urlGenerator->_error, 'error');
@@ -227,11 +222,11 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
     }
 
     function testGetBaseUrl() {
-	$_SERVER['REQUEST_URI'] = '/gallery2/phpunit_test.php?foo=1&bar=2';
 	$urlGenerator = new $this->_urlGeneratorName();
+	$_SERVER['REQUEST_URI'] = '/gallery2/phpunit_test.php?foo=1&bar=2';
 	$ret = $urlGenerator->init('phpunit_test.php');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assert(!$urlGenerator->_error);
@@ -254,7 +249,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 	$urlGenerator = new $this->_urlGeneratorName();
 	$ret = $urlGenerator->init('/cms/index.php', 'https://direct/gallery2/');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assert(!$urlGenerator->_error);
@@ -272,6 +267,45 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			    'baseParams no forceDirect');
     }
 
+    function testGetCurrentRequestUriFiltersIllegalCharacters() {
+	GalleryDataCache::reset();
+	$backslash = get_magic_quotes_gpc() ? '\\\\' : '\\';
+	$_SERVER['REQUEST_URI'] =
+	    '/gallery2/"main.php?foo=\'bar./' . $backslash . '"&baz"=1#anchor';
+
+	$this->assertEquals('/gallery2/main.php?foo=\'bar.//&baz=1#anchor',
+	    $this->_urlGenerator->getCurrentRequestUri());
+    }
+
+    function testGetCurrentUrlFiltersIllegalCharacters() {
+	GalleryDataCache::reset();
+	$backslash = get_magic_quotes_gpc() ? '\\\\' : '\\';
+	$_SERVER['REQUEST_URI'] = sprintf(
+	    '/"href="file:%s%shacker%sfoobar/../main.php?g2_view=%s"&baz"=1#anchor',
+	    $backslash, $backslash, $backslash, $backslash);
+
+	$this->assertEquals(
+	    'http://example.com/href=file//hacker/foobar/main.php?g2_view=/&baz=1#anchor',
+	    $this->_urlGenerator->getCurrentUrl());
+    }
+
+    function testGetCurrentUrlDirFiltersIllegalCharacters() {
+	GalleryDataCache::reset();
+	$backslash = get_magic_quotes_gpc() ? '\\\\' : '\\';
+	$_SERVER['REQUEST_URI'] = sprintf(
+	    '/"href="file:%s%shacker%sfoobar%stemp/../main.php?g2_view=%s"&baz"=1#anchor',
+	    $backslash, $backslash, $backslash, $backslash, $backslash);
+
+	$this->_urlGenerator = new $this->_urlGeneratorName();
+	$ret = $this->_urlGenerator->init();
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$this->assertEquals('http://example.com/href=file//hacker/foobar/temp/',
+	    $this->_urlGenerator->getCurrentUrlDir());
+    }
+
     function testInitAndOnLoad() {
 	/* Set something up that the _onLoad() function should handle */
 	GalleryUtilities::removeRequestVariable('itemId');
@@ -282,11 +316,11 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 	/* Execute init and initNavigation, they should call _onLoad() */
 	$ret = $urlGenerator->init();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$ret = $urlGenerator->initNavigation();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(false, $urlGenerator->_error, 'error');
@@ -308,11 +342,10 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
      * @param array $expectedUrl string exptectedUrl, string exptectedUrl2, ...
      * @param array $params array URL parameters, array URL2 parameters, ...
      * @param array $options generation options
-     * @return GalleryStatus
+     * @return object GalleryStatus
      */
     function _runGenerateUrlTest($env, $expectedUrl, $params=null, $options=null) {
 	global $gallery;
-	GalleryDataCache::reset();
 
 	/* Multisite */
 	if (isset($env['galleryBaseUrl'])) {
@@ -495,7 +528,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 
 	$ret = $this->_runGenerateUrlTest($env, $expectedUrls, $params);
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
     }
 
@@ -506,7 +539,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 
 	$ret = $this->_runGenerateUrlTest(array(), $expectedUrl, $params);
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
     }
 
@@ -565,7 +598,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 
 	$ret = $this->_runGenerateUrlTest(array(), $expectedUrl, $params);
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
     }
 
@@ -608,7 +641,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 
 	$ret = $this->_runGenerateUrlTest(array(), $expectedUrl, $params, $options);
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
     }
 
@@ -653,7 +686,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 
 	$ret = $this->_runGenerateUrlTest(array(), $expectedUrl, $params, $options);
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
     }
 
@@ -687,7 +720,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 
 	$ret = $this->_runGenerateUrlTest(array(), $expectedUrl, $params, $options);
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
     }
 
@@ -722,7 +755,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 
 	$ret = $this->_runGenerateUrlTest(array(), $expectedUrl, $params, $options);
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
     }
 
@@ -770,7 +803,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 
 	$ret = $this->_runGenerateUrlTest($env, $expectedUrl, $params);
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
     }
 
@@ -809,7 +842,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 
 	$ret = $this->_runGenerateUrlTest($env, $expectedUrl, $params);
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
     }
 
@@ -841,7 +874,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 
 	$ret = $this->_runGenerateUrlTest($env, $expectedUrl, $params);
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
     }
 
@@ -880,7 +913,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 
 	$ret = $this->_runGenerateUrlTest($env, $expectedUrl, $params);
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
     }
 
@@ -923,7 +956,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 
 	$ret = $this->_runGenerateUrlTest($env, $expectedUrl, $params);
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
     }
 
@@ -963,7 +996,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 
 	$ret = $this->_runGenerateUrlTest($env, $expectedUrl, $params, $options);
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
     }
 
@@ -1003,7 +1036,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 
 	$ret = $this->_runGenerateUrlTest($env, $expectedUrl, $params, $options);
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
     }
 
@@ -1039,7 +1072,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 
 	$ret = $this->_runGenerateUrlTest($env, $expectedUrl, $params);
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
     }
 
@@ -1081,7 +1114,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 
 	$ret = $this->_runGenerateUrlTest($env, $expectedUrl, $params);
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
     }
 
@@ -1118,7 +1151,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 
 	$ret = $this->_runGenerateUrlTest(array(), $expectedUrl, $params, $options);
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
     }
 
@@ -1152,7 +1185,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 
 	$ret = $this->_runGenerateUrlTest(array(), $expectedUrl, $params, $options);
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
     }
 }

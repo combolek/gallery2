@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,11 +33,7 @@ class ItemAddAlbumController extends GalleryController {
     function handleRequest($form) {
 	global $gallery;
 
-	list ($ret, $item) = $this->getItem();
-	if ($ret) {
-	    return array($ret, null);
-	}
-	$itemId = $item->getId();
+	$itemId = GalleryUtilities::getRequestVariables('itemId');
 
 	/* Make sure we have permission do edit this item */
 	$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.addAlbumItem');
@@ -57,7 +53,7 @@ class ItemAddAlbumController extends GalleryController {
 
 	    if (empty($form['pathComponent'])) {
 		$error[] = 'form[error][pathComponent][missing]';
-	    } else if (!$platform->isLegalPathComponent($form['pathComponent'], true)) {
+	    } else if (!$platform->isLegalPathComponent($form['pathComponent'])) {
 		$error[] = 'form[error][pathComponent][invalid]';
 	    }
 
@@ -88,14 +84,19 @@ class ItemAddAlbumController extends GalleryController {
 		    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
 		}
 
-		/* Figure out where to redirect upon success */
-		$redirect['itemId'] = $instance->getId();
-		$ret = GalleryCoreApi::assertHasItemPermission($instance->getId(), 'core.edit');
-		if (empty($ret)) {
-		    $redirect['view'] = 'core.ItemAdmin';
-		    $redirect['subView'] = 'core.ItemEdit';
-		    $redirect['editPlugin'] = 'ItemEditAlbum';
+		$ret = GalleryCoreApi::addUserPermission($instance->getId(),
+							 $instance->getOwnerId(),
+							 'core.all', false);
+		if ($ret) {
+		    GalleryCoreApi::releaseLocks($lockIds);
+		    return array($ret, null);
 		}
+
+		/* Figure out where to redirect upon success */
+		$redirect['view'] = 'core.ItemAdmin';
+		$redirect['subView'] = 'core.ItemEdit';
+		$redirect['editPlugin'] = 'ItemEditAlbum';
+		$redirect['itemId'] = $instance->getId();
 
 		/* Prepare our status message */
 		list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
@@ -138,11 +139,7 @@ class ItemAddAlbumView extends GalleryView {
     function loadTemplate(&$template, &$form) {
 	global $gallery;
 
-	list ($ret, $item) = $this->getItem();
-	if ($ret) {
-	    return array($ret, null);
-	}
-	$itemId = $item->getId();
+	$itemId = GalleryUtilities::getRequestVariables('itemId');
 
 	/* Make sure we have permission do edit this item */
 	$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.addAlbumItem');

@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,9 +19,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Add Items 1.0.6\n"
-"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2007-06-14 17:26-0700\n"
+"Project-Id-Version: Gallery: Add Items 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-03-12 22:28+0200\n"
 "PO-Revision-Date: 2006-03-12 23:02+0200\n"
 "Last-Translator: Darius Žitkevičius <skystis@splius.lt>\n"
 "Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
@@ -31,14 +31,6 @@ msgstr ""
 "Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%"
 "100>=20) ? 1 : 2);\n"
 "X-Generator: KBabel 1.11.1\n"
-
-#, fuzzy
-msgid "Adding items"
-msgstr "Naujas elementas"
-
-#, fuzzy
-msgid "Scanning directory"
-msgstr "Aukštesnio lygmens aplankas"
 
 msgid "From Local Server"
 msgstr "Iš lokalaus serverio"
@@ -65,17 +57,16 @@ msgid "Add items from local server or the web"
 msgstr ""
 
 msgid "Import"
-msgstr "Importas"
+msgstr ""
 
 msgid "Web/Server"
 msgstr ""
 
-#, fuzzy
 msgid ""
 "Transfer files that are already on your server into your Gallery.  The files must already "
-"have been uploaded to your server some other way (like FTP) and must be placed in an "
-"accessible directory.  If you're on Unix this means that the files and the directory the "
-"files are in should have modes of at least 755."
+"have been uploaded to your server some other way (like FTP) and must be placed in a "
+"directory where they are accessibly by any element on the server.  If you're on Unix this "
+"means that the files and the directory the files are in should have modes of at least 755."
 msgstr ""
 "Įkelti į galeriją failus, kurie jau yra serveryje. Failai į serverį jau turi būti įkelti "
 "kažkokiu kitu būdu (pvz.: FTP). Failai turi būti prieinami visiems serverio vartotojams.  "

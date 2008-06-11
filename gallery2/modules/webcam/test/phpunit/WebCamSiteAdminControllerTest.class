@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,19 +33,12 @@ class WebCamSiteAdminControllerTest extends GalleryControllerTestCase {
     }
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'webcam');
 	if ($ret) {
-	    return $ret;
-	}
-
-	$ret = GalleryCoreApi::setPluginParameter('module', 'webcam', 'fromweb', 'admin');
-	if ($ret) {
-	    return $ret;
+		print $ret->getAsHtml();
+		return $this->failWithStatus($ret);
 	}
     }
 
@@ -62,7 +55,6 @@ class WebCamSiteAdminControllerTest extends GalleryControllerTestCase {
 
     function testWebCamSiteAdminControllerSave() {
 	GalleryUtilities::putRequestVariable('form[duration]', '123.4');
-	GalleryUtilities::putRequestVariable('form[fromweb]', 'off');
 	GalleryUtilities::putRequestVariable('form[action][save]', '1');
 
 	$results = $this->handleRequest();
@@ -72,16 +64,15 @@ class WebCamSiteAdminControllerTest extends GalleryControllerTestCase {
 				  'error' => array()),
 			    $results);
 
-	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'webcam');
+	list ($ret, $duration) =
+	    GalleryCoreApi::getPluginParameter('module', 'webcam', 'duration');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
-	$this->assertEquals('7404', $params['duration']);
-	$this->assertEquals('off', $params['fromweb']);
+	$this->assertEquals('7404', $duration, 'duration');
     }
 
     function testWebCamSiteAdminControllerSaveNoDuration() {
-	GalleryUtilities::putRequestVariable('form[fromweb]', 'off');
 	GalleryUtilities::putRequestVariable('form[action][save]', '1');
 
 	$results = $this->handleRequest();
@@ -90,17 +81,10 @@ class WebCamSiteAdminControllerTest extends GalleryControllerTestCase {
 				  'status' => array(),
 				  'error' => array('form[error][duration]')),
 			    $results);
-
-	list ($ret, $fromWeb) = GalleryCoreApi::getPluginParameter('module', 'webcam', 'fromweb');
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assertEquals('admin', $fromWeb);
     }
 
     function testWebCamSiteAdminControllerSaveBadDuration() {
 	GalleryUtilities::putRequestVariable('form[duration]', 'abc');
-	GalleryUtilities::putRequestVariable('form[fromweb]', 'off');
 	GalleryUtilities::putRequestVariable('form[action][save]', '1');
 
 	$results = $this->handleRequest();
@@ -109,18 +93,11 @@ class WebCamSiteAdminControllerTest extends GalleryControllerTestCase {
 				  'status' => array(),
 				  'error' => array('form[error][duration]')),
 			    $results);
-
-	list ($ret, $fromWeb) = GalleryCoreApi::getPluginParameter('module', 'webcam', 'fromweb');
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assertEquals('admin', $fromWeb);
     }
 
     function testWebCamSiteAdminControllerLocale() {
 	/* Verify the form can accept input in locales that use comma for the fraction separator */
 	GalleryUtilities::putRequestVariable('form[duration]', '123,4');
-	GalleryUtilities::putRequestVariable('form[fromweb]', 'off');
 	GalleryUtilities::putRequestVariable('form[action][save]', '1');
 
 	$results = $this->handleRequest();
@@ -130,12 +107,12 @@ class WebCamSiteAdminControllerTest extends GalleryControllerTestCase {
 				  'error' => array()),
 			    $results);
 
-	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'webcam');
+	list ($ret, $duration) =
+	    GalleryCoreApi::getPluginParameter('module', 'webcam', 'duration');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
-	$this->assertEquals('7404', $params['duration']);
-	$this->assertEquals('off', $params['fromweb']);
+	$this->assertEquals('7404', $duration, 'duration');
     }
 }
 ?>

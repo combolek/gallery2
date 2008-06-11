@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -75,7 +75,7 @@ class ConfirmImportController extends GalleryController {
      *
      * @param array $form the form variables
      * @param string $albumsPath the albums path
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function performImport($form, $albumsPath) {
 	global $gallery;
@@ -405,8 +405,7 @@ class ConfirmImportController extends GalleryController {
 	    $templateAdapter->updateProgressBar($importPhotosMessage,
 		    $album['name'], $numberOfItemsImported / $totalItemsToImport);
 
-	    list ($ret, $parent) =
-		GalleryCoreApi::loadEntitiesById($targetAlbumID, 'GalleryAlbumItem');
+	    list ($ret, $parent) = GalleryCoreApi::loadEntitiesById($targetAlbumID);
 	    if ($ret) {
 		return $ret;
 	    }
@@ -439,8 +438,7 @@ class ConfirmImportController extends GalleryController {
 	    }
 
 	    /* Try to load targeted parent */
-	    list ($ret, $targetAlbumObject) =
-		GalleryCoreApi::loadEntitiesById($targetAlbumID, 'GalleryAlbumItem');
+	    list ($ret, $targetAlbumObject) = GalleryCoreApi::loadEntitiesById($targetAlbumID);
 	    if ($ret) {
 		return $ret;
 	    }
@@ -623,14 +621,11 @@ class ConfirmImportController extends GalleryController {
 			    return $ret;
 			}
 		    }
-		    
-		    if ($guestUserId != $owner->getId()) {
-			$ret = GalleryCoreApi::addUserPermission($newAlbumInstance->getId(),
+		    $ret = GalleryCoreApi::addUserPermission($newAlbumInstance->getId(),
 			    $owner->getId(), 'core.all', true);
-			if ($ret) {
-			    GalleryCoreApi::releaseLocks($importLockIds);
-			    return $ret;
-			}
+		    if ($ret) {
+			GalleryCoreApi::releaseLocks($importLockIds);
+			return $ret;
 		    }
 		}
 
@@ -827,8 +822,7 @@ class ConfirmImportController extends GalleryController {
 	    }
 
 	    $albumHighlight[$newAlbumInstanceId] = false;
-	    list ($ret, $item) =
-		GalleryCoreApi::loadEntitiesById($newAlbumInstanceId, 'GalleryAlbumItem');
+	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($newAlbumInstanceId);
 	    if ($ret) {
 		return $ret;
 	    }
@@ -1318,8 +1312,7 @@ class ConfirmImportController extends GalleryController {
 	foreach ($albumHighlight as $highlightRecipientId => $nameOfAlbumToHighlight) {
 	    if (isset($finishedAlbums[$nameOfAlbumToHighlight]) &&
 		$finishedAlbums[$nameOfAlbumToHighlight]) {
-		list ($ret, $item) =
-		    GalleryCoreApi::loadEntitiesById($highlightRecipientId, 'GalleryAlbumItem');
+		list ($ret, $item) = GalleryCoreApi::loadEntitiesById($highlightRecipientId);
 		if ($ret) {
 		    return $ret;
 		}
@@ -1411,10 +1404,10 @@ class ConfirmImportController extends GalleryController {
 	}
 
 	$session =& $gallery->getSession();
-	$session->putStatus($status);
 
 	$redirect['view'] = 'core.SiteAdmin';
 	$redirect['subView'] = 'migrate.ImportResults';
+	$redirect['statusId'] = $session->putStatus($status);
 
 	$urlGenerator =& $gallery->getUrlGenerator();
 	$templateAdapter->completeProgressBar($urlGenerator->generateUrl($redirect));
@@ -1480,7 +1473,7 @@ class ConfirmImportController extends GalleryController {
      * @param int $itemId
      * @param string $g1AlbumName G1 album name
      * @param string $g1ItemName (optional) G1 item name
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      * @author Joseph Elwell <jelwell@yahoo.com>
      */
     function createG1ToG2Mapping($itemId, $g1AlbumName, $g1ItemName=null) {
@@ -1547,12 +1540,6 @@ class ConfirmImportView extends GalleryView {
     function loadTemplate(&$template, &$form) {
 	global $gallery;
 	$platform =& $gallery->getPlatform();
-
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret, null);
-	}
-
 	$illegalAlbumNames = $existingAlbums = $titles = array();
 	$albumValidOwner = $albumOwnerUserName = $albumOwnerUid = $albumfields = array();
 	if (!isset($form['sourceAlbums'])) {
@@ -1571,8 +1558,7 @@ class ConfirmImportView extends GalleryView {
 	if ($ret) {
 	    return array($ret, null);
 	}
-	list ($ret, $targetAlbum) =
-	    GalleryCoreApi::loadEntitiesById($destinationAlbumID, 'GalleryAlbumItem');
+	list ($ret, $targetAlbum) = GalleryCoreApi::loadEntitiesById($destinationAlbumID);
 	if ($ret) {
 	    return array($ret, null);
 	}

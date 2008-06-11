@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@ class CommentCallbacks {
 	switch ($callback) {
 	case 'LoadComments':
 	    $itemId = $params['itemId'];
-	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
+	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	    if ($ret) {
 		return $ret;
 	    }
@@ -39,10 +39,7 @@ class CommentCallbacks {
 	    if ($ret) {
 		return $ret;
 	    }
-	    if (empty($permissions['core.view'])) {
-		/* Avoid information disclosure, act as if the item didn't exist. */
-		return GalleryCoreApi::error(ERROR_MISSING_OBJECT);
-	    } else if (empty($permissions['comment.view'])) { 
+	    if (!isset($permissions['comment.view'])) {
 		return null;
 	    }
 
@@ -71,13 +68,12 @@ class CommentCallbacks {
 
 		    /* Extract the member data */
 		    $comments[$i] = (array)$comments[$i];
-		    $comments[$i]['randomId'] = $comments[$i]['id'] . '-' . rand() ;
 		}
 
 		/* Load all the commenters */
 		if (sizeof($commenters) > 0) {
 		    list ($ret, $commentersList) =
-			GalleryCoreApi::loadEntitiesById(array_keys($commenters), 'GalleryUser');
+			GalleryCoreApi::loadEntitiesById(array_keys($commenters));
 		    if ($ret) {
 			return $ret;
 		    }
@@ -111,7 +107,7 @@ class CommentCallbacks {
 
 	case 'AddComment':
 	    /* Load our item */
-	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($params['itemId'], 'GalleryItem');
+	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($params['itemId']);
 	    if ($ret) {
 		return $ret;
 	    }

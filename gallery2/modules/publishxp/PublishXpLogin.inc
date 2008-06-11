@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -119,12 +119,6 @@ class PublishXpLoginView extends GalleryView {
 	    return array(null, array('redirect' => array('view' => 'publishxp.SelectAlbum')));
 	}
 
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'publishxp');
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	$template->title($module->translate('Windows Publishing Wizard'));
 	$template->setVariable('controller', 'publishxp.PublishXpLogin');
 	$template->head('modules/publishxp/templates/Head.tpl');
 

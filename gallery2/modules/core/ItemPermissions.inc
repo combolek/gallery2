@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,12 +32,7 @@ class ItemPermissionsController extends GalleryController {
      */
     function handleRequest($form) {
 	global $gallery;
-
-	list ($ret, $item) = $this->getItem();
-	if ($ret) {
-	    return array($ret, null);
-	}
-	$itemId = $item->getId();
+	$itemId = GalleryUtilities::getRequestVariables('itemId');
 
 	/* Make sure we have permission to change permissions of this item */
 	$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.changePermissions');
@@ -68,7 +63,7 @@ class ItemPermissionsController extends GalleryController {
 
 	    /* Stuff the values back into the form for easy re-adding */
 	    $redirect['form[group][permission]'] = $permissionId;
-	    list ($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
+	    list ($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId);
 	    if (!$ret) {
 		$redirect['form[group][groupName]'] = $group->getGroupName();
 	    }
@@ -94,7 +89,7 @@ class ItemPermissionsController extends GalleryController {
 
 	    /* Stuff the values back into the form for easy re-adding */
 	    $redirect['form[user][permission]'] = $permissionId;
-	    list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
+	    list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId);
 	    if (!$ret) {
 		$redirect['form[user][userName]'] = $user->getUserName();
 	    }
@@ -230,6 +225,11 @@ class ItemPermissionsController extends GalleryController {
 	    }
 
 	    if (empty($error)) {
+		list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
+		if ($ret) {
+		    return array($ret, null);
+		}
+
 		list ($ret, $permissions) =
 		    GalleryCoreApi::fetchPermissionsForItems(array($itemId), $item->getOwnerId());
 		if ($ret) {
@@ -288,8 +288,7 @@ class ItemPermissionsController extends GalleryController {
 			    return array($ret, null);
 			}
 
-			list ($ret, $descendents) =
-			    GalleryCoreApi::loadEntitiesById($chunk, 'GalleryItem');
+			list ($ret, $descendents) = GalleryCoreApi::loadEntitiesById($chunk);
 			if ($ret) {
 			    return array($ret, null);
 			}
@@ -382,12 +381,7 @@ class ItemPermissionsView extends GalleryView {
      */
     function loadTemplate(&$template, &$form) {
 	global $gallery;
-
-	list ($ret, $item) = $this->getItem();
-	if ($ret) {
-	    return array($ret, null);
-	}
-	$itemId = $item->getId();
+	$itemId = GalleryUtilities::getRequestVariables('itemId');
 
 	/* Make sure we have permission to edit this item */
 	$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.edit');
@@ -400,6 +394,10 @@ class ItemPermissionsView extends GalleryView {
 	    return array($ret, null);
 	}
 
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
+	if ($ret) {
+	    return array($ret, null);
+	}
 	$form['serialNumber'] = $item->getSerialNumber();
 
 	if ($form['formName'] == 'ItemPermissions') {
@@ -455,8 +453,8 @@ class ItemPermissionsView extends GalleryView {
 	    }
 	}
 
-	list ($ret, $userAndGroupEntities) = GalleryCoreApi::loadEntitiesById(
-		array_keys($userAndGroupEntityIds), array('GalleryUser', 'GalleryGroup'));
+	list ($ret, $userAndGroupEntities) =
+	    GalleryCoreApi::loadEntitiesById(array_keys($userAndGroupEntityIds));
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -515,7 +513,7 @@ class ItemPermissionsView extends GalleryView {
 	}
 
 	/* Figure out the owner */
-	list ($ret, $owner) = GalleryCoreApi::loadEntitiesById($item->getOwnerId(), 'GalleryUser');
+	list ($ret, $owner) = GalleryCoreApi::loadEntitiesById($item->getOwnerId());
 	if ($ret) {
 	    return array($ret, null);
 	}

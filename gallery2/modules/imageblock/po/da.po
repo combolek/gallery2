@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,14 +18,15 @@
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
 # - Bjorn Graabek <bjorn@graabek.com>, 2007
 # Bjorn Graabek <bjorn@graabek.com>, 2007.
-#
+# 
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Image Block 1.1.8\n"
+"Project-Id-Version: Gallery: Image Block 1.1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-10-21 11:29+0200\n"
-"PO-Revision-Date: 2007-09-03 20:52+0100\n"
-"Last-Translator: Jens Hyllegaard <Jens@linushvj.dk>\n"
+"PO-Revision-Date: 2007-03-16 09:16+0000\n"
+"Last-Translator: Bjørn Graabek <bjorn@graabek.com>\n"
 "Language-Team: Danish <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -40,6 +41,24 @@ msgstr "Tilfældig, nyeste eller mest viste foto eller album"
 
 msgid "Blocks"
 msgstr "Blokke"
+
+msgid "Picture of the Day"
+msgstr "Dagens billede"
+
+msgid "Picture of the Week"
+msgstr "Ugens billede"
+
+msgid "Picture of the Month"
+msgstr "Månedens billede"
+
+msgid "Album of the Day"
+msgstr "Dagens album"
+
+msgid "Album of the Week"
+msgstr "Ugens album"
+
+msgid "Album of the Month"
+msgstr "Månedens album"
 
 msgid "Random Image"
 msgid_plural "Random Images"
@@ -70,24 +89,6 @@ msgid "Most Viewed Album"
 msgid_plural "Most Viewed Albums"
 msgstr[0] "Mest viste album"
 msgstr[1] "Mest viste albummer"
-
-msgid "Picture of the Day"
-msgstr "Dagens billede"
-
-msgid "Picture of the Week"
-msgstr "Ugens billede"
-
-msgid "Picture of the Month"
-msgstr "Månedens billede"
-
-msgid "Album of the Day"
-msgstr "Dagens album"
-
-msgid "Album of the Week"
-msgstr "Ugens album"
-
-msgid "Album of the Month"
-msgstr "Månedens album"
 
 msgid "Date:"
 msgstr "Dato:"
@@ -168,18 +169,18 @@ msgstr ""
 "specificItem; standard er randomImage"
 
 msgid ""
-"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize, rawImage; "
-"the value can also be: none"
+"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize; the value "
+"can also be: none"
 msgstr ""
-"|-separeret liste af: title, date, views, owner, heading, fullSize; rawImage; værdien kan "
-"også være: none"
+"|-separeret liste af: title, date, views, owner, heading, fullSize; værdien kan også være: "
+"none"
 
 msgid ""
 "Limit the item selection to the subtree of the gallery under the album with the given id; or "
 "the id of the item to display when used with specificItem block type"
 msgstr ""
-"Begræns til emner under albummet med det angivne id; eller det id for det emne der skal "
-"vises ved 'specificItem' bloktypen"
+"Begræns til elementer under albummet med det angivne id; eller det id for det element der "
+"skal vises ved 'specificItem' bloktypen"
 
 #, c-format
 msgid ""
@@ -188,10 +189,6 @@ msgid ""
 "browser. If specified along with %sshow=fullSize the full size image will always be used and "
 "scaled down as necessary."
 msgstr ""
-"Skalér billeder til denne maksimum størrelse. Hvis dette bruges for sig selv, vil Gallery "
-"finde det billede der passer bedst til den valgte værdi. Større billeder vil blive skaleret "
-"ned i din browser. Hvis det vælges sammen med %sshow=fullsize vil \"fuld størrelse\" "
-"billedet altid blive brugt, og skaleret ned som nødvendigt."
 
 #, c-format
 msgid ""
@@ -199,15 +196,10 @@ msgid ""
 "request, so you'll get the closest match in size possible.  Note that this may use a lot "
 "more bandwidth if a much larger image has to be scaled down in your browser."
 msgstr ""
-"Ligsom %smaxSize bortset fra den ikke vil bruge et billeder der er mindre end den ønskede "
-"størrelse, så du altid vil få den mest præcise størrelse. Bemærk at dette muligvis vil bruge "
-"en del mere båndbredde, hvis det meget større billede skal skaleres ned i din browser."
 
 msgid ""
 "Href for link on image; value of none for no link; default is link to item in the Gallery"
 msgstr ""
-"Href for et link på et billede; hvis værdien er none kommer der ikke noget link. Standard er "
-"et link til emnet i galleriet."
 
 msgid "Add a link target (for example, to open links in a new browser window)"
 msgstr "Tilføj et \"link target\" (f.eks. for at åbne links i et andet browservindue)"
@@ -281,7 +273,7 @@ msgid "Monthly album"
 msgstr "Månedligt album"
 
 msgid "Number of items"
-msgstr "Antal emner"
+msgstr "Antal elementer"
 
 msgid "Use default settings"
 msgstr "Brug standardværdier"

@@ -1,6 +1,8 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
 <form action="{g->url}" method="post" id="passwordEntryForm">
 <div>
@@ -8,11 +10,10 @@
     <input type="hidden" name="{g->formVar var="controller"}" value="{$controller}"/>
     <input type="hidden" name="{g->formVar var="form[formName]"}" value="{$form.formName}"/>
     <input type="hidden" name="{g->formVar var="form[itemId]"}" value="{$form.itemId}"/>
-    <input type="hidden" name="{g->formVar var="itemId"}" value="{$form.itemId}"/>
 </div>
 
 <div class="gbBlock gcBackground1">
-  <h2> {g->text text="Password Protected Item"} </h2>
+  <h2> {g->text text="Password Protected Album"} </h2>
 </div>
 <div class="gbBlock">
   {if isset($form.error.incorrectPassword)}

@@ -1,6 +1,8 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
 <div class="gbBlock gcBackground1">
   <h2> {g->text text="Create Replicas"} </h2>
@@ -33,7 +35,7 @@
 	       arg2=$ItemCreateReplica.numPages}
     {/if}
   </p>
-
+  
   {if !empty($form.error.sources.empty)}
   <div class="giError">
     <h2>{g->text text="No sources chosen"}</h2>
@@ -57,7 +59,7 @@
     {rdelim}
     // ]]>
   </script>
-
+  
   <table>
     <colgroup width="60"/>
     {foreach from=$ItemCreateReplica.peers item=peer}
@@ -71,11 +73,11 @@
 	  &nbsp;
 	{/if}
       </td><td>
-	<input type="checkbox" id="cb_{$peer.id}" {if $peer.selected}checked="checked" {/if}
+	<input type="checkbox" id="cb_{$peer.id}"{if $peer.selected} checked="checked"{/if}
 	 name="{g->formVar var="form[selectedIds][`$peer.id`]"}"/>
       </td><td>
 	<label for="cb_{$peer.id}">
-	  {$peer.title|markup:strip|default:$peer.pathComponent}
+	  {$peer.title|default:$peer.pathComponent}
 	</label>
      </td>
     </tr>
@@ -106,64 +108,20 @@
     {g->text text="Choose a new album for the replica"}
   </p>
 
-<div id="gTreeDiv"></div>
-<script type="text/javascript">
-  //<![CDATA[
-  var tree;
-  var nodes=[];
-  var selectedId;
-
-  function treeInit() {ldelim}
-    tree = new YAHOO.widget.TreeView("gTreeDiv");
-    nodes[-1] = tree.getRoot();
-    selectedId = {if empty($form.destination)} {$ItemCreateReplica.albumTree[0].data.id} {else} {$form.destination} {/if};
-    {*
-     * $ItemCreateReplica contains albums in Depth-first order. Keep the ancestors of the existing
-     * branch in nodes[] array in order to maintain parent ids.
-     *}
+  <select name="{g->formVar var="form[destination]"}">
     {foreach from=$ItemCreateReplica.albumTree item=album}
-      nodes[{$album.depth}] = new YAHOO.widget.TextNode({ldelim} id: "{$album.data.id}",
-        label: "{$album.data.title|markup:strip|escape:javascript|default:$album.data.pathComponent}",
-        href: "javascript:onLabelClick({$album.data.id})" {rdelim},
-        nodes[{$album.depth-1}], {if $album.depth == 0}true{else}false{/if});
-      {* If the destination album is known, expand starting with top ancestor *}
-      {if $form.destination == $album.data.id && $album.depth > 0}
-        {* NOTE: YUI requires two calls to expand a tree *}
-        nodes[1].expand();
-        nodes[1].expandAll();
-      {/if}
+      <option value="{$album.data.id}">
+	{"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"|repeat:$album.depth}--
+	{$album.data.title|default:$album.data.pathComponent}
+      </option>
     {/foreach}
-
-    tree.draw();
-    var node = tree.getNodeByProperty("id", selectedId);
-    node.getLabelEl().setAttribute("class", "ygtvlabelselected");
-
-    document.getElementById("{g->formVar var="form[destination]"}").value = selectedId;
-  {rdelim}
-
-  function onLabelClick(id) {ldelim}
-    if (selectedId != id) {ldelim}
-      var node = tree.getNodeByProperty("id", id);
-      node.getLabelEl().setAttribute("class", "ygtvlabelselected");
-
-      node = tree.getNodeByProperty("id", selectedId);
-      node.getLabelEl().setAttribute("class", "ygtvlabel");
-
-      selectedId = id;
-      document.getElementById("{g->formVar var="form[destination]"}").value = id;
-    {rdelim}
-  {rdelim}
-
-  YAHOO.util.Event.addListener(window, "load", treeInit);
-  //]]>
-</script>
-<input type="hidden" id="{g->formVar var="form[destination]"}" name="{g->formVar var="form[destination]"}"/>
+  </select>
 
   {if !empty($form.error.destination.empty)}
   <div class="giError">
     {g->text text="No destination chosen"}
   </div>
-  {/if}
+  {/if}  
 </div>
 
 <div class="gbBlock gcBackground1">

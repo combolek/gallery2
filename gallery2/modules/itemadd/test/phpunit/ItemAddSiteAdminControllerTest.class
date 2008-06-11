@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,13 +33,11 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
     }
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'itemadd');
 	if ($ret) {
+	    print $ret->getAsHtml();
 	    return $ret;
 	}
     }
@@ -88,7 +86,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'itemadd');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals('admin', $params['fromweb'], 'fromweb');
 	$this->assertEquals('off', $params['fromserver'], 'fromserver');
@@ -104,7 +102,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	$ret = $this->_setUploadDirs(array(1 => 'a', 2 => 'b', 3 => null, 4 => null));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Perform the request and verify that we succeeded */
@@ -118,7 +116,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 	GalleryDataCache::reset();
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'itemadd');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(dirname(__FILE__), $params['uploadLocalServer.dir.3'], 'new dir');
 	$this->assert(!isset($params['uploadLocalServer.dir.4']), 'end of list');
@@ -266,7 +264,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	$ret = $this->_setUploadDirs(array(1 => 'a', 2 => null));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$platform->chdir(dirname(__FILE__));
@@ -288,7 +286,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $param) = GalleryCoreApi::fetchAllPluginParameters('module', 'itemadd');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals('a', $param['uploadLocalServer.dir.1']);
 	$this->assertEquals($platform->realpath(dirname(__FILE__)),
@@ -357,7 +355,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 	global $gallery;
 	$ret = $this->_setUploadDirs(array(1 => 'a', 2 => null));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* realpath of /link/dir is /other/fun/dir */
@@ -384,7 +382,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $param) = GalleryCoreApi::fetchAllPluginParameters('module', 'itemadd');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals('a', $param['uploadLocalServer.dir.1']);
 	$this->assertEquals('/link/dir', $param['uploadLocalServer.dir.2'], 'new dir');
@@ -396,7 +394,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	$ret = $this->_setUploadDirs(array(1 => 'a', 2 => 'x', 3 => 'b', 4 => 'c', 5 => null));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Perform the request and verify that we succeeded */
@@ -410,7 +408,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 	GalleryDataCache::reset();
 	list ($ret, $param) = GalleryCoreApi::fetchAllPluginParameters('module', 'itemadd');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals('a', $param['uploadLocalServer.dir.1']);
 	$this->assertEquals('b', $param['uploadLocalServer.dir.2']);

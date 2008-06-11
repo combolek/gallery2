@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,15 +34,12 @@ class AdminDeleteGroupQuotaControllerTest extends GalleryControllerTestCase {
     }
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	/* Create a group for quota testing */
 	list ($ret, $this->_group) = $this->_createRandomGroup();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($this->_group);
     }
@@ -111,7 +108,7 @@ class AdminDeleteGroupQuotaControllerTest extends GalleryControllerTestCase {
 	$ret = GalleryCoreApi::addMapEntry(
 	    'QuotasMap', array('userOrGroupId' => $userOrGroupId, 'quotaSize' => $quota));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
     }
 
@@ -119,7 +116,7 @@ class AdminDeleteGroupQuotaControllerTest extends GalleryControllerTestCase {
 	$ret =
 	    GalleryCoreApi::removeMapEntry('QuotasMap', array('userOrGroupId' => $userOrGroupId));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
     }
 }

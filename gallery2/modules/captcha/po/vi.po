@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,9 +19,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Captcha 1.1.6\n"
-"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2007-08-21 09:12-0700\n"
+"Project-Id-Version: Gallery: Captcha 1.1.4\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-09-12 08:11-0700\n"
 "PO-Revision-Date: 2005-06-03 11:05+0100\n"
 "Last-Translator: Trung Dong Huynh <trungdong@donggiang.com>\n"
 "Language-Team: Vietnamese <gallery-devel@lists.sourceforge.net>\n"
@@ -140,16 +140,29 @@ msgid "Save"
 msgstr "Lưu"
 
 msgid "Reset"
-msgstr "Làm lại từ đầu"
+msgstr ""
 
-#, fuzzy
-msgid "Type the letters appearing in the picture."
+msgid "Type the word appearing in the picture."
 msgstr "Hãy nhập từ xuất hiện trong ảnh"
 
-#, fuzzy
-msgid "You must enter the letters appearing in the picture."
+msgid "You must enter the number appearing in the picture."
 msgstr "Bạn phải nhập con số xuất hiện trong ảnh"
 
-#, fuzzy
-msgid "Incorrect letters."
+msgid "Incorrect number."
 msgstr "Số sai."
+
+#~ msgid "Low Security - Always Off"
+#~ msgstr "An ninh thấp - Luôn tắt"
+
+#~ msgid ""
+#~ "Most modules rely solely on the user being authenticated by Gallery and require no "
+#~ "special Captcha interaction."
+#~ msgstr ""
+#~ "Hầu hết các module chỉ dựa trên xác nhận người dùng của Gallery và không cần dùng đến "
+#~ "Captcha."
+
+#~ msgid "Save Settings"
+#~ msgstr "Lưu thông số"
+
+#~ msgid "Cancel"
+#~ msgstr "Hủy"

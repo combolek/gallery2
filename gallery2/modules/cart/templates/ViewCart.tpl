@@ -1,6 +1,8 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
 <div class="gbBlock gcBackground1">
   <h2> {g->text text="Items Currently in Your Cart"} </h2>
@@ -12,7 +14,6 @@
     {g->hiddenFormVars}
     <input type="hidden" name="{g->formVar var="controller"}" value="{$ViewCart.controller}"/>
     <input type="hidden" name="{g->formVar var="form[formName]"}" value="{$form.formName}"/>
-    <input type="hidden" name="{g->formVar var="itemId"}" value="{$itemId}"/>
   </div>
   <div class="gbBlock gcBackground2" style="text-align: right; white-space: nowrap">
     <select name="{g->formVar var="form[pluginId]"}">
@@ -24,10 +25,8 @@
        value="emptyCart"> {g->text text="Empty Cart"} </option>
 
       {foreach from=$ViewCart.plugins key=pluginId item=pluginData}
-      {if $pluginData.isAvailable}
       <option label="{$pluginData.actionDisplayName}"
        value="{$pluginId}"> {$pluginData.actionDisplayName} </option>
-      {/if}
       {/foreach}
     </select>
     <input type="submit" class="inputTypeSubmit"

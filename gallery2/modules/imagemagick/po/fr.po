@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,9 +19,9 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: ImageMagick 1.1.3\n"
+"Project-Id-Version: Gallery: ImageMagick 1.1.1\n"
 "POT-Creation-Date: 2003-08-10 23:37+0200\n"
-"PO-Revision-Date: 2007-11-01 00:00+0100\n"
+"PO-Revision-Date: 2006-09-30 00:00+0100\n"
 "Last-Translator: Arnaud MOURONVAL <Arnaud.Mouronval@yahoo.com>\n"
 "Language-Team: French <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -150,14 +150,6 @@ msgstr ""
 "machine, puis indiquer leur chemin dans la boîte de texte ci dessous. Si vous êtes sur une "
 "machine UNIX, n'oubliez pas de rendre ces binaires exécutables (commande <i>chmod 755 *</i> "
 "dans le répertoire d'ImageMagick)"
-
-msgid ""
-"The exec() function is disabled in your PHP by the <b>disabled_functions</b> parameter in "
-"php.ini.  This module cannot be used until that setting is changed."
-msgstr ""
-"La fonction exec() est désactivée pour PHP dans le fichier php.ini à l'aide du paramètre "
-"<b>disabled_functions</b>. Ce module ne peut pas être utilisé tant que ce paramètre n'est "
-"pas modifié."
 
 msgid "Directory to ImageMagick/GraphicsMagick binaries:"
 msgstr "Répertoire des binaires ImageMagick/GraphicsMagick&nbsp;:"

@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Migration 1.0.11\n"
+"Project-Id-Version: Gallery: Migration 1.0.7\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2007-03-07 00:04+0000\n"
 "PO-Revision-Date: 2007-03-07 00:04+0000\n"
@@ -40,10 +40,6 @@ msgid "Creating thumbnails"
 msgstr "Creating thumbnails"
 
 #, c-format
-msgid "Thumbnail %d of %d"
-msgstr "Thumbnail %d of %d"
-
-#, c-format
 msgid "%sTitle%s was truncated for %sitem %d%s."
 msgstr "%sTitle%s was truncated for %sitem %d%s."
 
@@ -56,6 +52,10 @@ msgstr "Set:"
 
 msgid "Truncated:"
 msgstr "Truncated:"
+
+#, c-format
+msgid "Thumbnail %d of %d"
+msgstr "Thumbnail %d of %d"
 
 msgid "Migration"
 msgstr "Migration"
@@ -143,8 +143,8 @@ msgstr "Character Encoding of Source Text:"
 msgid "URL Redirection"
 msgstr "URL Redirection"
 
-msgid "Record G1-&gt;G2 mappings during import"
-msgstr "Record G1-&gt;G2 mappings during import"
+msgid "Record G1->G2 mappings during import"
+msgstr "Record G1->G2 mappings during import"
 
 msgid "Thumbnail generation"
 msgstr "Thumbnail generation"
@@ -273,8 +273,8 @@ msgstr "Your Gallery 1 will be converted from this character encoding into UTF-8
 msgid "Encoding: %s"
 msgstr "Encoding: %s"
 
-msgid "G1-&gt;G2 mappings will be recorded for use in URL Redirection"
-msgstr "G1-&gt;G2 mappings will be recorded for use in URL Redirection"
+msgid "G1->G2 mappings will be recorded for use in URL Redirection"
+msgstr "G1->G2 mappings will be recorded for use in URL Redirection"
 
 msgid "Thumbnails will be generated during migration"
 msgstr "Thumbnails will be generated during migration"
@@ -416,10 +416,12 @@ msgstr ""
 #, c-format
 msgid ""
 "You don't have any Graphics Toolkit activated to handle JPEG images.  If you import now, you "
-"will not have any thumbnails.  Visit the %sModules%s page to activate a Graphics Toolkit."
+"will not have any thumbnails.  Visit the <a href=\"%s\">Modules</a> page to activate a "
+"Graphics Toolkit."
 msgstr ""
 "You don't have any Graphics Toolkit activated to handle JPEG images.  If you import now, you "
-"will not have any thumbnails.  Visit the %sModules%s page to activate a Graphics Toolkit."
+"will not have any thumbnails.  Visit the <a href=\"%s\">Modules</a> page to activate a "
+"Graphics Toolkit."
 
 msgid "Path to Gallery 1 albums directory"
 msgstr "Path to Gallery 1 albums directory"
@@ -449,10 +451,10 @@ msgid "Gallery can redirect old Gallery1 URLs to the new Gallery2 pages."
 msgstr "Gallery can redirect old Gallery1 URLs to the new Gallery2 pages."
 
 #, c-format
-msgid "There is one G1-&gt;G2 map entry"
-msgid_plural "There are %d G1-&gt;G2 map entries"
-msgstr[0] "There is one G1-&gt;G2 map entry"
-msgstr[1] "There are %d G1-&gt;G2 map entries"
+msgid "There is one G1->G2 map entry"
+msgid_plural "There are %d G1->G2 map entries"
+msgstr[0] "There is one G1->G2 map entry"
+msgstr[1] "There are %d G1->G2 map entries"
 
 msgid ""
 "Deleting map entries will cause old G1 URLs to produce HTTP Not Found errors instead of "

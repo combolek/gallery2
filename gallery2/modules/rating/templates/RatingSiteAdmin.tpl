@@ -1,6 +1,8 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
 <div class="gbBlock gcBackground1">
   <h2> {g->text text="Rating Settings"} </h2>
@@ -25,7 +27,7 @@
   <table class="gbDataTable"><tr>
     <td style="text-align:right">
       <input type="checkbox" id="allowAlbumRating"
-	{if $form.allowAlbumRating} checked="checked" {/if}
+	{if $form.allowAlbumRating} checked="checked"{/if}
 	name="{g->formVar var="form[allowAlbumRating]"}"/>
     </td><td>
       <label for="allowAlbumRating">

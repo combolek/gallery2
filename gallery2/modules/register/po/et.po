@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Registration 1.0.12\n"
+"Project-Id-Version: Gallery: Registration 1.0.8\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-08-04 15:55+0300\n"
 "PO-Revision-Date: 2006-08-04 17:32+0200\n"
@@ -58,9 +58,6 @@ msgstr "Konto aktiveerimine"
 
 msgid "New user registration"
 msgstr "Uue kasutaja registreerimine"
-
-msgid "Welcome to Gallery"
-msgstr ""
 
 msgid "Register"
 msgstr "Registreeri"
@@ -121,18 +118,11 @@ msgstr "Saatja(Kellelt) EmailiAadress"
 msgid "Confirmation Email Subject:"
 msgstr "KinnitusEmaili Teema:"
 
-msgid "Email Site Administrators for all new registrations"
-msgstr "Saada Saidi Administraatoritele kõigi uute registreerimise kohta email"
-
 msgid "Admin Email Subject:"
 msgstr "Adminni Emaili Teema:"
 
-msgid "Email new users upon account activation"
-msgstr ""
-
-#, fuzzy
-msgid "Welcome Email Subject:"
-msgstr "Adminni Emaili Teema:"
+msgid "Email Site Administrators for all new registrations"
+msgstr "Saada Saidi Administraatoritele kõigi uute registreerimise kohta email"
 
 msgid "Save"
 msgstr "Salvesta"
@@ -292,6 +282,3 @@ msgstr "Teie sisestatud paroolid ei kattu"
 
 msgid "Cancel"
 msgstr "Katkesta"
-
-msgid "Your account is now active. Visit the site listed above to login."
-msgstr ""

@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,113 +16,111 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
-#
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: NetPBM 1.1.2\n"
+"Project-Id-Version: Gallery: NetPBM 1.1.1\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2007-03-16 11:25-0700\n"
-"PO-Revision-Date: 2007-03-24 18:39+0200\n"
-"Last-Translator: Anthi Andreou <tp_s@hotmail.com>\n"
+"PO-Revision-Date: 2003-03-06 16:30+0200\n"
+"Last-Translator: Nikos Batsis <nickthegreek@yahoo.com>\n"
 "Language-Team: Greek <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: Greek\n"
-"X-Poedit-Country: GREECE\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
 msgid "NetPBM"
-msgstr "NetPBM"
+msgstr ""
 
 msgid "NetPBM Graphics Toolkit"
-msgstr "Εργαλειοθήκη NetPBM"
+msgstr ""
 
 msgid "Graphics Toolkits"
 msgstr "Εργαλειοθήκη Γραφικών"
 
 msgid "Convert to a JPEG"
-msgstr "Μετατροπή σε JPEG"
+msgstr ""
 
 #, no-c-format
 msgid "target width (# pixels or #% of full size)"
-msgstr "Προορισμένο πλάτος (# pixels ή #% πλήρες μέγεθος)"
+msgstr ""
 
 msgid "(optional) target height, defaults to same as width"
-msgstr "(προαιρετικό) Προορισμένο ύψος, προεπιλεγμένο να είναι το ίδιο με το πλάτος"
+msgstr ""
 
 msgid "Scale the image to the target size, maintain aspect ratio"
-msgstr "Κλιμάκωση φωτογραφίας στο προορισμένο μέγεθος, διατήρηση αναλογίας μεγέθους"
+msgstr ""
 
 #, no-c-format
 msgid "target height (# pixels or #% of full size)"
-msgstr "Προορισμένο ύψος (# pixels ή #% πλήρες μέγεθος)"
+msgstr ""
 
 msgid "Resize the image to the target dimensions"
-msgstr "Αλλάξτε το μέγεθος της φωτογραφίας στις προοριζόμενες διαστάσεις"
+msgstr ""
 
 msgid "rotation degrees"
-msgstr "Μοίρες Περιστροφής"
+msgstr ""
 
 msgid "Rotate the image"
-msgstr "Περιστρέψτε την φωτογραφία"
+msgstr ""
 
 msgid "left edge %"
-msgstr "αριστερή άκρη %"
+msgstr ""
 
 msgid "top edge %"
-msgstr "κορυφαία άκρη %"
+msgstr ""
 
 msgid "width %"
-msgstr "πλάτος %"
+msgstr ""
 
 msgid "height %"
-msgstr "ύψος %"
+msgstr ""
 
 msgid "Crop the image"
-msgstr "Ξακρίστε την φωτογραφία"
+msgstr ""
 
 msgid "overlay path"
-msgstr "διαδρομή επικάλυψης"
+msgstr ""
 
 msgid "overlay mime type"
-msgstr "επικάλυψη τύπου mime"
+msgstr ""
 
 msgid "overlay width"
-msgstr "πλάτος επικάλυψης"
+msgstr ""
 
 msgid "overlay height"
-msgstr "ύψος επικάλυψης"
+msgstr ""
 
 msgid "alignment type"
-msgstr "τύπος τοποθέτησης"
+msgstr ""
 
 msgid "alignment x %"
-msgstr "τοποθέτηση x %"
+msgstr ""
 
 msgid "alignment y %"
-msgstr "τοποθέτηση y %"
+msgstr ""
 
 msgid "Overlay source image with a second one"
-msgstr "Επικάλυψη αυθεντικής φωτογραφίας με μια δεύτερη"
+msgstr ""
 
 msgid "target size in kb"
-msgstr "προοριζόμενο μέγεθος σε kb"
+msgstr ""
 
 msgid "Reduce image quality to reach target file size"
-msgstr "Μειώστε την ποιότητα της εικόνας για να είναι πιο προσιτή στο μέγεθος του αρχείου"
+msgstr ""
 
 msgid "Get the width and height of the image"
-msgstr "Ανακτήστε το Πλάτος και Ύψος Εικόνας"
+msgstr ""
 
 msgid " or "
-msgstr " ή"
+msgstr ""
 
 msgid "File does not exist"
-msgstr "Το αρχείο δεν υπάρχει"
+msgstr ""
 
+#, fuzzy
 msgid "NetPBM Settings"
-msgstr "Ρυθμίσεις NetPBM"
+msgstr "Ρυθμίσεις Εύρεσης"
 
 msgid "Settings saved successfully"
 msgstr "Οι ρυθμίσεις αποθηκεύτηκαν με επιτυχία"
@@ -133,35 +131,23 @@ msgid ""
 "box below.  If you're on a Unix machine, don't forget to make the binaries executable "
 "(<i>chmod 755 *</i> in the NetPBM directory should do it)"
 msgstr ""
-"Το NetPBM είναι ένα εργαλείο γραφικών το οποίο μπορεί να χρησιμοποιηθεί για την επεξεργασία "
-"φωτογραφιών που ανεβάζεται στην Γκαλερί. Πρέπει να εγκαταστήσετε τα NetPBM binaries στον "
-"server σας, και μετά να δώσετε την διαδρομή σ' αυτό, στο κουτί κειμένου που βρίσκεται από "
-"κάτω. Αν είστε σε Unix, μην ξεχάσετε να κάνετε τα binaries εκτελέσιμα  (κάντε <i>chmod 755 "
-"*</i> στον κατάλογο του NetPBM)"
-
-msgid ""
-"The exec() function is disabled in your PHP by the <b>disabled_functions</b> parameter in "
-"php.ini.  This module cannot be used until that setting is changed."
-msgstr ""
 
 msgid "NetPBM Directory:"
-msgstr "Κατάλογος NetPBM:"
+msgstr ""
 
 msgid "You must enter a path to your NetPBM binaries"
-msgstr "Πρέπει να δώσετε μια διαδρομή για τα binaries του NetPBM σας"
+msgstr ""
 
 msgid ""
 "The path you entered doesn't contain valid NetPBM binaries. Use the 'test' button to check "
 "where the error is."
 msgstr ""
-"Η διαδρομή που δώσατε δεν περιέχει έγκυρα NetPBM binaries. Χρησιμοποιήστε το κουμπί \"Δοκιμή"
-"\" για να ελέγξετε που βρίσκεται το λάθος."
 
 msgid "The path you entered isn't a valid path."
-msgstr "Η διαδρομή που δώσατε δεν είναι έγκυρη διαδρομή"
+msgstr ""
 
 msgid "JPEG Quality:"
-msgstr "Ποιότητα JPEG:"
+msgstr ""
 
 msgid ""
 "NetPBM will lose embedded EXIF data if you modify the original image, unless you have the "
@@ -169,24 +155,20 @@ msgid ""
 "the path below.  Without it, NetPBM will still perform all of its normal functions, but you "
 "should always use the <i>preserve original image</i> option when rotating and scaling images"
 msgstr ""
-"Το NetPBM θα χάσει τα ενσωματωμένα στοιχεία EXIF αν τροποποιήσετε την πρωτότυπη φωτογραφία, "
-"εκτός αν έχετε το προαιρετικό binary <b>jhead</b> εγκατεστημένο στον server σας. Αν έχετε το "
-"jhead εγκατεστημένο, δώστε την διαδρομή του πιο κάτω. Χωρίς αυτό, το NetPBM θα εξακολουθεί "
-"να λειτουργεί με όλες τις κανονικές λειτουργίες του, αλλά θα πρέπει να χρησιμοποιείτε πάντα "
-"την επιλογή <i>διατήρησης πρωτότυπης φωτογραφίας</i> όταν περιστρέφετε ή κλιμακώνετε "
-"φωτογραφίες"
 
 msgid "jhead Directory:"
-msgstr "Κατάλογος jhead:"
+msgstr ""
 
 msgid "You should enter a path to the optional jhead binary"
-msgstr "Πρέπει αν δώσετε μια διαδρομή για το προαιρετικό binary jhead"
+msgstr ""
 
+#, fuzzy
 msgid "Save Settings"
-msgstr "Αποθήκευση Ρυθμίσεων"
+msgstr "Ρυθμίσεις Εύρεσης"
 
+#, fuzzy
 msgid "Test Settings"
-msgstr "Ρυθμίσεις Δοκιμής"
+msgstr "Ρυθμίσεις Εύρεσης"
 
 msgid "Cancel"
 msgstr "Ακυρο"
@@ -195,46 +177,41 @@ msgid "Reset"
 msgstr "Επαναφορά"
 
 msgid "NetPBM binary test results"
-msgstr "Αποτελέσματα δοκιμής του NetPBM binary"
+msgstr ""
 
 msgid "Binary Name"
-msgstr "Όνομα Binary"
+msgstr ""
 
 msgid "Pass/Fail"
-msgstr "Επιτυχία/Αποτυχία"
+msgstr ""
 
 msgid "Passed"
-msgstr "Επιτυχία"
+msgstr ""
 
 msgid "Failed"
 msgstr "Αποτυχία"
 
 msgid "Error messages:"
-msgstr "Μηνύματα Σφαλμάτων:"
+msgstr ""
 
 msgid ""
 "Although your NetPBM installation is not completely functional, you can still use it for the "
 "mime types listed below."
 msgstr ""
-"Αν και η εγκατάσταση του NetPBM σας δεν είναι σε πλήρη λειτουργία, μπορείτε να το "
-"χρησιμοποιήσετε για τους τύπους mime που βρίσκονται στην πιο κάτω λίστα."
 
 msgid "Supported MIME Types"
-msgstr "Τύποι MIME που υποστηρίζονται"
+msgstr ""
 
 msgid "The NetPBM module can support files with the following MIME types:"
-msgstr "Το module NetPBM μπορεί να υποστηρίξει αρχεία με τους ακόλουθους τύπους MIME:"
+msgstr ""
 
 #, c-format
 msgid "Debug output (%d failed test)"
 msgid_plural "Debug output (%d failed tests)"
-msgstr[0] "Αποσφαλμάτωση (%d αποτυχημένη δοκιμή)"
-msgstr[1] "Αποσφαλμάτωση (%d αποτυχημένες δοκιμές)"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid ""
 "We gathered this debug output while testing your NetPBM binaries.  If you read through this "
 "carefully you may discover the reason why your NetPBM binaries failed the tests."
 msgstr ""
-"Συλλεξαμε αυτήν την αποσφαλμάτωση εξόδου στην δοκιμή των NetPBM binaries σας. Αν διαβάσετε "
-"προσεκτικά μπορεί να βρείτε τον λόγο για τον οποίο τα NetPBM binaries σας απέτυχαν στις "
-"δοκιμές."

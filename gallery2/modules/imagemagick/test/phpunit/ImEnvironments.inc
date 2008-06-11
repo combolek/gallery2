@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -459,17 +459,6 @@ test.pdf[1] PDF 612x792 612x792+0+0 PseudoClass 256c 947kb 0.030u 0:01',
 				   'rgb_file' => 'DirectClassRGB'),
 	),
 );
-
-/* --------------------------------------------------------------------------
- * ImageMagick 6.2.7 (coalesce / deconstruct changes) 
- * --------------------------------------------------------------------------
- */
-
-$im627 = $imEnvironment[count($imEnvironment) - 1];
-$im627['version'] = '6.2.7';
-$im627['identify'][''] = 'Version: ImageMagick 6.2.7 11/01/05 Q16 http://www.imagemagick.org
-Copyright: Copyright (C) 1999-2004 ImageMagick Studio LLC';
-$imEnvironment[] = $im627;
 
 /* --------------------------------------------------------------------------
  * GraphicsMagick 1.0.5

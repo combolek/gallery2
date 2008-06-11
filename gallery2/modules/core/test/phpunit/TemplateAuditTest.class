@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,8 +40,11 @@ class TemplateAuditTest extends CodeAuditTestCase {
 	$this->_revisionPattern = ' \* \$Revision(:.+)?\$';
 	$lines[] = '\{\*';
 	$lines[] = $this->_revisionPattern;
-	$lines[] = ' * Read this before changing templates!  http://codex.gallery2.org/Gallery2:'
-		 . 'Editing_Templates';
+	$lines[] = ' \* If you want to customize this file, do not edit it directly since ' .
+	    'future upgrades';
+	$lines[] = ' \* may overwrite it.  Instead, copy it into a new directory called ' .
+	    '"local" and edit that';
+	$lines[] = ' \* version.  Gallery will look for that file first and use it if it exists.';
 	$lines[] = ' \*}';
 
 	$this->_revisionPlaceHolder = ' * REVISION PLACEHOLDER';
@@ -58,9 +61,6 @@ class TemplateAuditTest extends CodeAuditTestCase {
 	    'modules/shutterfly/templates/PrintPhotos.tpl',
 	    'modules/uploadapplet/templates/ItemAddUploadApplet.tpl'
 	    );
-
-	$this->_exception['textInJavascript'] = array();
-	$this->_exception['trailingIfs'] = array();
 
 	/* Get rid of backslashes so that we can perform string compares later */
 	for ($i = 0; $i < sizeof($this->_expectedHeaderLines); $i++) {
@@ -91,21 +91,10 @@ class TemplateAuditTest extends CodeAuditTestCase {
     function checkFile($fileName, $buffer) {
 	$truncatedFileName = substr($fileName,
 				    strlen(dirname(dirname(dirname(dirname($fileName)))))+1);
-	$lines = split("(\r\n|\n)", $buffer);
 
-	if (!in_array($truncatedFileName, $this->_exception['hiddenFormVars'])) {
-	    $this->_checkHiddenFormVars($truncatedFileName, $lines);
-	}
+	$this->_checkHiddenFormVars($truncatedFileName, $buffer);
 
-	if (!in_array($truncatedFileName, $this->_exception['textInJavascript'])) {
-	    $this->_checkTextInJavascript($truncatedFileName, $lines);
-	}
-
-	if (!in_array($truncatedFileName, $this->_exception['trailingIfs'])) {
-	    $this->_checkTrailingIfs($truncatedFileName, $lines);
-	}
-
-	if (preg_match('#^' . $this->_headerPattern . '#', $buffer)) {
+	if (preg_match('/^' . $this->_headerPattern . '/', $buffer)) {
 	    return;
 	} else {
 	    /* Grab the expected number of lines and compare them */
@@ -130,12 +119,9 @@ class TemplateAuditTest extends CodeAuditTestCase {
 	    }
 
 	    if (!isset($this->_exceptions['header'][$truncatedFileName])) {
-		if ($this->_expectedHeaderLines !== $actual) {
-		    $this->assertEquals($this->_expectedHeaderLines, $actual,
-					sprintf('[%s] Malformed template header',
-						$truncatedFileName));
-		    $this->_errorCount++;
-		}
+		$this->assertEquals($this->_expectedHeaderLines, $actual,
+				    sprintf('[%s] Malformed template header', $truncatedFileName));
+		$this->_errorCount++;
 	    }
 
 	    if ($this->_errorCount > 3) {
@@ -143,11 +129,17 @@ class TemplateAuditTest extends CodeAuditTestCase {
 	    }
 	}
     }
+    function _checkHiddenFormVars($fileName, $buffer) {
+	$inHtmlForm = false;
+	$hasHiddenFormVars = false;
+	$formStartLine = 0;
+	$lines = split("(\r\n|\n)", $buffer);
 
-    function _checkHiddenFormVars($fileName, &$lines) {
-	$inHtmlForm = $hasHiddenFormVars = false;
+	if (in_array($fileName, $this->_exception['hiddenFormVars'])) {
+	    return;
+	}
 
-	for ($i = $formStartLine = 0; $i < count($lines); $i++) {
+	for ($i = 0; $i < count($lines); $i++) {
 	    if (preg_match('/<form\s/', $lines[$i], $matches)) {
 		$inHtmlForm = true;
 		$formStartLine = $i;
@@ -158,44 +150,8 @@ class TemplateAuditTest extends CodeAuditTestCase {
 	    if (preg_match('/<\/form>/', $lines[$i], $matches)) {
 		$this->assert($hasHiddenFormVars, "$fileName: Form (line $formStartLine) is " .
 				"missing hidden form vars");
-		$inHtmlForm = $hasHiddenFormVars = false;
-	    }
-	}
-    }
-
-    function _checkTextInJavascript($fileName, &$lines) {
-	$inScriptTag = false;
-	/* Parsing for the closing brace of {g->text } is too complex. Using check-sum instead. */
-	$scriptStartLine = $textCount = $forJsCount = 0;
-
-	for ($i = 0; $i < count($lines); $i++) {
-	    if (preg_match('/<script(\s.*)?$/', $lines[$i])) {
-		$inScriptTag = true;
-		$scriptStartLine = $i;
-	    }
-	    if ($inScriptTag && ($matchCount = preg_match_all('/\{g\->text/',
-							      $lines[$i], $ignored))) {
-		$textCount += $matchCount;
-	    }
-	    if ($inScriptTag && ($matchCount = preg_match_all('/forJavascript=(true|1|"1")/',
-							       $lines[$i], $ignored))) {
-		$forJsCount += $matchCount;
-	    }
-	    if (strpos($lines[$i], '</script>') !== false) {
-		$this->assertEquals($forJsCount, $textCount,
-			"$fileName: script block (line $scriptStartLine) has {g->text} calls " .
-			"without the forJavascript=true attribute.");
-		$inScriptTag = false;
-		$textCount = $forJsCount = 0;
-	    }
-	}
-    }
-
-    function _checkTrailingIfs($fileName, &$lines) {
-	for ($i = 0; $i < count($lines); $i++) {
-	    if (preg_match('/[^\s}]{if[^}]*}$/', $lines[$i])) {
-		$this->fail("Warning: newline will be stripped at $fileName:$i");
-		$this->_errorCount++;
+		$inHtmlForm = false;
+		$hasHiddenFormVars = false;
 	    }
 	}
     }

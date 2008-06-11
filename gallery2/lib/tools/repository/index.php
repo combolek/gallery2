@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -62,29 +62,28 @@ function RepositoryToolsMain() {
     GalleryCoreApi::requireOnce(
 	'lib/tools/repository/classes/RepositoryControllerAndView.class');
 
-    /* Set repository configuration data. Allow config.php to override. */
-    $repositoryPath = @$gallery->getConfig('repository.path');
-    if (empty($repositoryPath)) {
-	$repositoryPath = $gallery->getConfig('data.gallery.base') . '/repository/';
-	$gallery->setConfig('repository.path', $repositoryPath);
-    }
+    /* Set repository configuration data. */
+    $repositoryPath = $gallery->getConfig('data.gallery.base') . '/repository/';
+    $gallery->setConfig('repository.path', $repositoryPath);
     $gallery->setConfig('repository.templates', 'lib/tools/repository/templates/');
 
     if ($isSiteAdmin) {
 	/* Verify our repository structure exists */
 	$platform =& $gallery->getPlatform();
-	foreach (array($repositoryPath . '/modules',
+	foreach (array($repositoryPath,
+		       $repositoryPath . '/modules',
 		       $repositoryPath . '/themes') as $path) {
-	    list ($success) = GalleryUtilities::guaranteeDirExists($path);
-	    if (!$success) {
-		return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
+	    if (!$platform->file_exists($path)) {
+		if (!$platform->mkdir($path)) {
+		    return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
 						 "Unable to create directory: $path");
+		}
 	    }
 	}
 
 	/* Load controller. */
-	$controllerName = (string)GalleryUtilities::getRequestVariables('controller');
-	if (!preg_match('/^[A-Za-z]*$/', $controllerName)) {
+	$controllerName = GalleryUtilities::getRequestVariables('controller');
+	if (!preg_match('/^[A-Za-z]+$/', $controllerName)) {
 	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
 					 "Bad controller '$controllerName'");
 	}

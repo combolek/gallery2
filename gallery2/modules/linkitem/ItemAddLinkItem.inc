@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -228,17 +228,15 @@ class ItemAddLinkItem extends ItemAddPlugin {
 	if ($ret) {
 	    return array($ret, null, null);
 	}
-	list ($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds, 'GalleryAlbumItem');
+	list ($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds);
 	if ($ret) {
 	    return array($ret, null, null);
 	}
 	$template->setVariable('ItemAddLinkItem',
 	    array('albumTree' => GalleryUtilities::createAlbumTree($albums)));
-	$template->javascript('lib/yui/yahoo-dom-event.js');
-	$template->javascript('lib/yui/container-min.js');
-	$template->javascript('lib/yui/treeview-min.js');
-	$template->style('modules/core/data/tree.css');
-	return array(null, 'modules/linkitem/templates/ItemAddLinkItem.tpl', 'modules_linkitem');
+
+	return array(null,
+		     'modules/linkitem/templates/ItemAddLinkItem.tpl', 'modules_linkitem');
     }
 
     /**

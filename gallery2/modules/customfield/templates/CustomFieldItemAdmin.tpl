@@ -1,6 +1,8 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
 <div class="gbBlock">
   <p class="giDescription">
@@ -22,9 +24,9 @@
 
 <script type="text/javascript">
   // <![CDATA[
-  var removeWarning = '{g->text text="WARNING: Values for this custom field in this album will be deleted!" forJavascript=true}';
-  var albumWarning = '{g->text text="WARNING: Values for this custom field in this album will be deleted!" forJavascript=true}';
-  var photoWarning = '{g->text text="WARNING: Values for this custom field on non-photo items in this album will be deleted!" forJavascript=true}';
+  var removeWarning = '{g->text text="WARNING: Values for this custom field in this album will be deleted!"}';
+  var albumWarning = '{g->text text="WARNING: Values for this custom field in this album will be deleted!"}';
+  var photoWarning = '{g->text text="WARNING: Values for this custom field on non-photo items in this album will be deleted!"}';
   // ]]>
 </script>
 

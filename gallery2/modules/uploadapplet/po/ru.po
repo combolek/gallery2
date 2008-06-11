@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,11 +22,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Upload Applet 1.0.8\n"
+"Project-Id-Version: Gallery: Upload Applet 1.0.7\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2006-12-20 10:02-0800\n"
-"PO-Revision-Date: 2008-03-14 17:45+0300\n"
-"Last-Translator: Ser Moro <webber@morozov-sm.ru>\n"
+"PO-Revision-Date: 2006-03-17 17:48+0300\n"
+"Last-Translator: Konstantin Ivanov <Continental@vollen.ru>\n"
 "Language-Team: Russian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -36,10 +36,10 @@ msgstr ""
 "X-Poedit-Country: RUSSIAN FEDERATION\n"
 
 msgid "Upload Applet"
-msgstr "Через Апплет"
+msgstr "Через Аплет"
 
 msgid "Easy to use upload applet for media"
-msgstr "Удобная в использовании загрузка через апплет"
+msgstr "Удобная в использовании загрузка данных через аплет"
 
 msgid "Import"
 msgstr "Импорт"
@@ -48,15 +48,15 @@ msgid ""
 "The upload applet relies on a G2 module that is not currently enabled.  Please ask an "
 "administrator to enable the 'remote' module."
 msgstr ""
-"Загрузка через апплет связана с использованием модуля, который в настоящее время отключён. "
-"Пожалуйста, обратитесь к администратору для активации  'remote' модуля."
+"Загрузка через аплет связана с использованием модуля, который в настоящее время не доступен. "
+"Пожалуйста, обратитесь к системному администратору для активации  'дистанционного' модуля"
 
 msgid "Downloading the Gallery Remote Applet"
-msgstr "Загрузка Gallery Remote апплета"
+msgstr "Загружается e Gallery Remote аплет"
 
 msgid "Your browser doesn't support applets; you should use one of the other upload methods."
 msgstr ""
-"Ваш браузер не поддерживает Java апплеты. Вы должны использовать другой метод загрузки."
+"Ваш браузер не поддерживает аплеты; Вы должны использовать любой другой из методов загрузки."
 
 msgid "Uploading files..."
 msgstr "Загрузка файлов..."
@@ -72,7 +72,7 @@ msgstr ""
 "ссылку выше"
 
 msgid "Upload Applet Settings"
-msgstr "Настройки загрузки через апплет"
+msgstr "Настройки Загрузки через Аплет"
 
 msgid "Defaults"
 msgstr "По умолчанию"
@@ -82,13 +82,13 @@ msgid ""
 "able to override these defaults by making changes in the user interface of the applets, or "
 "by changing their local defaults file."
 msgstr ""
-"Данные переменные задают значения по умолчанию для пользователей, которые запускают апплет "
-"на вашем сайте. Пользователи смогут переназначить данные настройки по умолчанию путем "
-"изменения в интерфейсе пользователя в апплете, либо путем изменения локальньных значений по "
-"умолчанию в файле."
+"Данные переменные задают значения по умолчанию для пользователей, которые запускают аплет на "
+"Вашем сайте. Пользователи смогут переназначить данные настройки по умолчанию путем изменения "
+"в интерфейсе пользователя в аплете, либо путем изменения локальньных значений по умолчанию в "
+"файле."
 
 msgid "You have no default variables"
-msgstr "Переменные  по умолчанию не заданы"
+msgstr "Вы не имеете переменных, установленные по умолчанию"
 
 msgid "Variable"
 msgstr "Переменная"
@@ -103,7 +103,7 @@ msgid "Add a new default variable"
 msgstr "Добавить новую переменную по умолчанию"
 
 msgid "You must enter a variable name and value"
-msgstr "Вы должны ввести имя переменной и её значение"
+msgstr "Вы должны ввести имя переменной и ее значение"
 
 msgid "New variable"
 msgstr "Новая переменная"
@@ -118,20 +118,20 @@ msgid ""
 "These variables override any other values for applets users execute on your site. Users will "
 "not be able to change these values."
 msgstr ""
-"Данные переменные замещают любые другие значения в апплете, когда пользователи будут "
-"запускать его на вашем сайте. Пользователи не смогут изменить эти значения."
+"Данные переменные переназначают любые другие значения в аплете, когда пользователи будут "
+"запускать его на Вашем сайте. Пользователи не смогут изменить эти значения."
 
 msgid "You have no override variables"
-msgstr "Нет переменных для замещения"
+msgstr "Вы не имееет переменных для переназначения"
 
 msgid "Add a new override variable"
-msgstr "Добавить новую замещаемую переменную"
+msgstr "Добавить новую переменную переназначения"
 
 msgid "Help"
 msgstr "Помощь"
 
-msgid "Here is a selection of variables that affect uploads."
-msgstr "Это набор переменных, которые влияют на загрузку."
+msgid "Here are a selection of variables that affect uploads."
+msgstr "Ниже список переменных, которые влияют на загрузку."
 
 msgid "variable"
 msgstr "переменная"
@@ -146,12 +146,13 @@ msgid ""
 "instructs the applet to resize pictures before uploading to the album; by default, resizes "
 "to the album's intermediate image size"
 msgstr ""
-"заставляет апплет уменьшать размер изображения перед его загрузкой в альбом; по умолчанию, "
+"заставляет аплет уменьшать размер изображения перед его загрузкой в альбом; по умолчанию, "
 "размер уменьшается до среднего размера изображения в альбоме"
 
 msgid "dimension the images will be resized to; this overrides album settings"
 msgstr ""
-"размеры изображений, к которым будут приведены изображения; это замещает настройки в альбоме"
+"размеры изображений, к которым будут приведены изображения; это переназначает настройки в "
+"альбоме"
 
 msgid "no automatic captions"
 msgstr "не присваивать заголовки автоматически"
@@ -160,7 +161,7 @@ msgid "use filenames for captions"
 msgstr "использовать имя файла для заголовков"
 
 msgid "if using the filename for captions, strip the extension"
-msgstr "в случае использования имени файла для заголовка - удалять расширения"
+msgstr "в случае использования имени файла для заголовок удалять расширения"
 
 msgid "use EXIF extension for caption"
 msgstr "использования данные EXIF для заголовков"
@@ -169,21 +170,21 @@ msgid ""
 "if false, the upload applet will use UTF-8 to send image meta-data to Gallery, rather than "
 "escaping it with HTML entities"
 msgstr ""
-"в случае  false, апплет загрузки будет использовать кодировку UTF-8 для отправки метаданных "
-"изображения в Галерею, это лучше чем использовать  HTML тэги."
+"в случае  false, апплет загрузки будет использовать кодировку UTF-8 для отправки мета-данных "
+"в Галерею, нежели чем использовать тэге HTML."
 
 msgid ""
 "set to false if you want to avoid losing EXIF data when the image is resized and ImageMagick "
 "is not found"
 msgstr ""
-"установите false, если  не хотите потерять данные EXIF во время изменения размеров "
-"изображения и отсутствии ImageMagick"
+"установите false, если Вы не хотите потерю данных EXIF во время изменения размеров "
+"изображения и отсутствии  ImageMagick"
 
 msgid "if true, the applet will not complain if it can't find ImageMagick"
-msgstr "если true, апплет не будет выдавать предупреждение об отсутствии ImageMagick"
+msgstr "если true, апплет не будет выдавать предупреждение на отсутствие ImageMagick"
 
 msgid "if true, the applet will not complain if it can't find Jpegtran"
-msgstr "если true, апплет не будет выдавать предупреждение об отсутствии Jpegtran"
+msgstr "если true, апплет не будет выдавать предупреждение на отсутствие Jpegtran"
 
 msgid "quality of JPEG compression when resizing with ImageMagick"
 msgstr "качество JPEG коммпрессии при изменение размеров изображения с помощью  ImageMagick"

@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,25 +34,21 @@ class AlbumSelectModule extends GalleryModule {
 	$this->setName($gallery->i18n('Album Select'));
 	$this->setDescription(
 	    $gallery->i18n('Jump directly to any album using a select box or tree view'));
-	$this->setVersion('1.0.9');
-	$this->_templateVersion = 1;
+	$this->setVersion('1.0.6.1');
 	$this->setGroup('blocks', $gallery->i18n('Blocks'));
-	$this->setCallbacks('getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 34));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setCallbacks('getSiteAdminViews|registerEventListeners');
+	$this->setRequiredCoreApi(array(7, 5));
+	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
-     * @see GalleryModule::performFactoryRegistrations
+     * @see GalleryModule::registerEventListeners
      */
-    function performFactoryRegistrations() {
-	$ret = GalleryCoreApi::registerFactoryImplementation(
-	    'GalleryEventListener', 'AlbumSelectModule', 'AlbumSelectModule', 
-	    'modules/albumselect/module.inc', 'albumselect', 
-	    array('Gallery::ViewableTreeChange', 'Gallery::ItemOrder', 'GalleryEntity::save'));
-	if ($ret) {
-	    return $ret;
-	}
+    function registerEventListeners() {
+	$listener = new AlbumSelectModule();
+	GalleryCoreApi::registerEventListener('Gallery::ViewableTreeChange', $listener, true);
+	GalleryCoreApi::registerEventListener('Gallery::ItemOrder', $listener, true);
+	GalleryCoreApi::registerEventListener('GalleryEntity::save', $listener, true);
     }
 
     /**

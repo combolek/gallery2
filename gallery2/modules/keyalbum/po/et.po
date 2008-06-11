@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,9 +18,9 @@
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Keyword Albums 1.0.5\n"
+"Project-Id-Version: Gallery: Keyword Albums 1.0.0\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2007-06-14 17:26-0700\n"
+"POT-Creation-Date: 2006-09-12 11:25-0700\n"
 "PO-Revision-Date: 2006-08-11 14:09+0200\n"
 "Last-Translator: poromaan <poromaan@gmail.com>\n"
 "Language-Team: Eesti <gallery-devel@lists.sourceforge.net>\n"
@@ -29,14 +29,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#, c-format
-msgid "Keyword Album: %s"
-msgstr ""
-
 msgid "Keyword Album"
 msgstr ""
 
 msgid "keyword album"
+msgstr ""
+
+#, c-format
+msgid "Keyword Album: %s"
 msgstr ""
 
 msgid "All album views"
@@ -49,7 +49,7 @@ msgid "Keyword albums"
 msgstr ""
 
 msgid "None"
-msgstr "Tühi"
+msgstr ""
 
 msgid "&laquo; default theme &raquo;"
 msgstr "&laquo; tavateema &raquo;"
@@ -72,9 +72,6 @@ msgstr ""
 msgid "Keyword to use for dynamic album"
 msgstr ""
 
-msgid "Page number in a dynamic album"
-msgstr ""
-
 msgid "Keyword Album Settings"
 msgstr ""
 
@@ -82,7 +79,7 @@ msgid "Settings saved successfully"
 msgstr "Seaded edukalt salvestatud"
 
 msgid "There was a problem processing your request."
-msgstr "Teie päringu töötlemisel tekkis probleem."
+msgstr ""
 
 msgid ""
 "Select where to include links in item summary info, usually shown next to thumbnails.  You "
@@ -116,10 +113,10 @@ msgid "Display of Keyword Albums"
 msgstr ""
 
 msgid "Sort order"
-msgstr "Sorteerimise järjekord"
+msgstr ""
 
 msgid "with"
-msgstr "koos"
+msgstr ""
 
 msgid "Description"
 msgstr "Kirjeldus"
@@ -157,3 +154,6 @@ msgstr ""
 
 msgid "Maximum number of keywords (empty for no limit)"
 msgstr ""
+
+#~ msgid "Successfully saved theme settings"
+#~ msgstr "Teema seaded edukalt muudetud"

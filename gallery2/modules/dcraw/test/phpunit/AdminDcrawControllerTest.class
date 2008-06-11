@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,13 +34,11 @@ class AdminDcrawControllerTest extends GalleryControllerTestCase {
     function setUp() {
 	global $gallery;
 
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'dcraw');
 	if ($ret) {
+	    print $ret->getAsHtml();
 	    return $ret;
 	}
 
@@ -50,16 +48,13 @@ class AdminDcrawControllerTest extends GalleryControllerTestCase {
 
     function tearDown() {
 	$this->assert($this->_platform->isComplete(), $this->_platform->getRemaining());
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
+	parent::tearDown();
     }
 
     function _getParam($param) {
 	list ($ret, $path) = GalleryCoreApi::getPluginParameter('module', 'dcraw', $param);
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	    return 'FAILED';
 	}
 	return $path;

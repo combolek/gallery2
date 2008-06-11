@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,15 +35,13 @@ class HttpAuthPluginTest extends GalleryTestCase {
 
     function setUp() {
 	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	/* Create test user */
 	list ($ret, $this->_user) = $this->_createRandomUser(null, 'password');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($this->_user);
 	$_SERVER['AUTH_TYPE'] = 'Test';
@@ -53,10 +51,8 @@ class HttpAuthPluginTest extends GalleryTestCase {
 	$this->_saveSession = $gallery->_session;	
 	$gallery->_session = new HttpAuthPluginTestSession();
 
-	$ret = $this->_registerEventListener('Gallery::FailedLogin');
-	if ($ret) {
-	    return $ret;
-	}
+	$this->_listener = new NullEventListener();
+	$this->_registerTestEventListener('Gallery::FailedLogin', $this->_listener);
     }
 
     function tearDown() {
@@ -68,10 +64,7 @@ class HttpAuthPluginTest extends GalleryTestCase {
 	    $this->failWithStatus($ret);
 	}
 
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
+	parent::tearDown();
     }
 
     function testValidUser() {
@@ -83,11 +76,11 @@ class HttpAuthPluginTest extends GalleryTestCase {
 
 	list ($ret, $user) = $this->_plugin->getUser();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals($this->_user, $user);
-	$this->assertEventNotFired('Gallery::FailedLogin');
+	$this->assert(!isset($this->_listener->_event), 'There was a FailedLogin event!');
 	$this->assert($session->regenerateWasCalled(), 'Session has not been regenerated!');
     }
 
@@ -97,13 +90,17 @@ class HttpAuthPluginTest extends GalleryTestCase {
 
 	list ($ret, $user) = $this->_plugin->getUser();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assert(!isset($user));
 
-	$this->assertEventFired('Gallery::FailedLogin', null,
-	    array('userName' => $_SERVER['PHP_AUTH_USER']));
+	if (!isset($this->_listener->_event)) {
+	    $this->assert(false, 'Listener didn\'t receive event!');
+	} else {
+	    $eventData = $this->_listener->_event->getData();
+	    $this->assertEquals($_SERVER['PHP_AUTH_USER'], $eventData['userName']);
+	}
     }
 
     function testValidUserInvalidPassword() {
@@ -112,13 +109,17 @@ class HttpAuthPluginTest extends GalleryTestCase {
 
 	list ($ret, $user) = $this->_plugin->getUser();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assert(!isset($user));
 
-	$this->assertEventFired('Gallery::FailedLogin', null,
-	    array('userName' => $this->_user->getUserName()));
+	if (!isset($this->_listener->_event)) {
+	    $this->assert(false, 'Listener didn\'t receive event!');
+	} else {
+	    $eventData = $this->_listener->_event->getData();
+	    $this->assertEquals($this->_user->getUserName(), $eventData['userName']);
+	}
     }
 
     function testNoFailedLoginEventForSpecialLogoutUsername() {
@@ -127,11 +128,11 @@ class HttpAuthPluginTest extends GalleryTestCase {
 
 	list ($ret, $user) = $this->_plugin->getUser();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assert(!isset($user));
-	$this->assertEventNotFired('Gallery::FailedLogin');
+	$this->assert(!isset($this->_listener->_event), 'There was a FailedLogin event!');
     }
 }
 

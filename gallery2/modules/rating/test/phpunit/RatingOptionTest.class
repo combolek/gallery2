@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,20 +32,19 @@ class RatingOptionTest extends ItemEditOptionTestCase {
     }
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($this->_album);
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'rating');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
     }
 
@@ -53,7 +52,7 @@ class RatingOptionTest extends ItemEditOptionTestCase {
 	$ret = GalleryCoreApi::setPluginParameter('module', 'rating', 'enabled', 0,
 		$this->_album->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$form['action']['save'] = 'Save';
@@ -64,7 +63,7 @@ class RatingOptionTest extends ItemEditOptionTestCase {
 	list ($ret, $enabled) = GalleryCoreApi::getPluginParameter('module', 'rating', 'enabled',
 		$this->_album->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(1, (int)$enabled, 'Rating not enabled.');
     }
@@ -73,7 +72,7 @@ class RatingOptionTest extends ItemEditOptionTestCase {
 	$ret = GalleryCoreApi::setPluginParameter('module', 'rating', 'enabled', 1,
 		$this->_album->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$form['action']['save'] = 'Save';
@@ -83,7 +82,7 @@ class RatingOptionTest extends ItemEditOptionTestCase {
 	list ($ret, $enabled) = GalleryCoreApi::getPluginParameter('module', 'rating', 'enabled',
 		$this->_album->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(0, (int)$enabled, 'Rating enabled.');
     }
@@ -92,19 +91,19 @@ class RatingOptionTest extends ItemEditOptionTestCase {
 	$ret = GalleryCoreApi::setPluginParameter('module', 'rating', 'enabled', 0,
 		$this->_album->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$form['rating']['enabled'] = 1;
 	$form['changeInDescendents']['rating'] = 1;
 
 	list ($ret, $this->_childAlbum) = $this->_createRandomAlbum($this->_album->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$ret = GalleryCoreApi::setPluginParameter('module', 'rating', 'enabled', 0,
 		$this->_childAlbum->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($error, $warning) = $this->_handleRequestAfterEdit($form, $this->_album);
@@ -114,14 +113,14 @@ class RatingOptionTest extends ItemEditOptionTestCase {
 	list ($ret, $enabled) = GalleryCoreApi::getPluginParameter(
 	    'module', 'rating', 'enabled', $this->_album->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(1, (int)$enabled, 'Parent album');
 
 	list ($ret, $enabled) = GalleryCoreApi::getPluginParameter(
 	    'module', 'rating', 'enabled', $this->_childAlbum->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(1, (int)$enabled, 'Child album');
     }

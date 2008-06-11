@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,13 +33,11 @@ class IconsSiteAdminControllerTest extends GalleryControllerTestCase {
     }
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'icons');
 	if ($ret) {
+	    print $ret->getAsHtml();
 	    return $ret;
 	}
     }
@@ -69,7 +67,7 @@ class IconsSiteAdminControllerTest extends GalleryControllerTestCase {
 	list ($ret, $iconpack) =
 		GalleryCoreApi::getPluginParameter('module', 'icons', 'iconpack');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals('testpack', $iconpack, 'iconpack');
     }

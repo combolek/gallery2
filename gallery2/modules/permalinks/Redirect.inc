@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -49,19 +49,6 @@ class RedirectController extends GalleryController {
 	    return array($ret, null);
 	}
 
-	/* Avoid information disclosure, act as if the item didn't exist. */
-	if (isset($itemId)) {
-	    list ($ret, $hasPermission) =
-		GalleryCoreApi::hasItemPermission($itemId, 'core.view');
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	}
-	if (empty($itemId) || !$hasPermission) {
-	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
-	}
-
-	/* Delegate to the ShowItem view */
 	GalleryUtilities::putRequestVariable('itemId', $itemId);
 	GalleryUtilities::putRequestVariable('view', 'core.ShowItem');
 

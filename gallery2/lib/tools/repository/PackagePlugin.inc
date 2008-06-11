@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,17 +37,16 @@ class PackagePluginControllerAndView extends RepositoryControllerAndView {
     /**
      * Displays the available plugins that can be packaged.
      *
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function showAvailablePlugins() {
-	list ($ret, $plugins) = $this->getAvailablePluginList(array( 
+	list ($ret, $plugins) = $this->getAvailablePluginList(array(
 	    'package' => array('controller' => 'PackagePlugin', 'action' => 'packagePlugin')));
 	if ($ret) {
 	    return $ret;
 	}
 
-	$ret = $this->showView('PackagePlugin', array( 
-	    'formVariablePrefix' => GALLERY_FORM_VARIABLE_PREFIX, 'plugins' => $plugins));
+	$ret = $this->showView('PackagePlugin', array('plugins' => $plugins));
 	if ($ret) {
 	    return $ret;
 	}
@@ -58,7 +57,7 @@ class PackagePluginControllerAndView extends RepositoryControllerAndView {
     /**
      * Creates all packages for the selected plugin and displays a summary page when completed.
      *
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function packagePlugin() {
 	list ($pluginId, $pluginType) =
@@ -86,7 +85,7 @@ class PackagePluginControllerAndView extends RepositoryControllerAndView {
     /**
      * Creates packages for all plugins that match the 'filter' request variable.
      *
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function packagePlugins() {
 	global $gallery;
@@ -121,7 +120,7 @@ class PackagePluginControllerAndView extends RepositoryControllerAndView {
     /**
      * Creates all packages for the specified plugin.
      *
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *               array('pluginId' => ..., 'outputDir' => ...,
      *                     'packageInfo' => ..., 'errors' => ...)
      */
@@ -183,7 +182,7 @@ class PackagePluginControllerAndView extends RepositoryControllerAndView {
      * Creates a list of all existing plugins with optional action links.
      *
      * @param array $links 'action' => array(UrlGeneratorParameters)
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *		     array plugin list
      */
     function getAvailablePluginList($links) {

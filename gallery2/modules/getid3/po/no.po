@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,12 +16,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
-# 
+#
 # Previous translators (as far as known, add yourself here, please):
 # - Sverre M. Vikan <sverre AT urven DOT net>
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Getid3 1.0.5\n"
+"Project-Id-Version: Gallery: Getid3 1.0.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-22 11:57+0100\n"
 "PO-Revision-Date: 2006-03-09 23:42+0100\n"
@@ -178,7 +178,7 @@ msgstr "Vellykket lagring av innstillinger"
 
 msgid ""
 "getID3() is a PHP4 script that extracts useful information (such as ID3 tags, bitrate, "
-"playtime, etc.) from MP3s &amp; other multimedia file formats (Ogg, WMA, WMV, ASF, WAV, AVI, "
+"playtime, etc.) from MP3s & other multimedia file formats (Ogg, WMA, WMV, ASF, WAV, AVI, "
 "AAC, VQF, FLAC, MusePack, Real, QuickTime, Monkey's Audio, MIDI and more)."
 msgstr ""
 "getID3() er et PHP4-skript som trekker ut nyttig informasjon (så som ID3-tagger, bitrate, "
@@ -249,8 +249,7 @@ msgstr "Gjenopprett standarder for detaljert"
 msgid "Item Upload"
 msgstr "Objektopplasting"
 
-#, fuzzy
-msgid "When MP3s are added to Gallery check the ID3 title field and apply to:"
+msgid "When mp3's are added to Gallery check id3 Title field and apply to:"
 msgstr "Sjekk tittelfeltet i ID3-taggen når MP3-filer legges til Gallery og bruk på:"
 
 msgid "Save"

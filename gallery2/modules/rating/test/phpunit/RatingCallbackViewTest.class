@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,33 +36,34 @@ class RatingCallbackViewTest extends GalleryTestCase {
 
     function setUp() {
 	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	$this->_userId = $gallery->getActiveUserId();
 
 	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($this->_album);
 
 	list ($ret, $this->_item) = $this->_createRandomDataItem($this->_album->getId(),
 		'image/test', array(), __FILE__, 'GalleryPhotoItem');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $this->_module) = GalleryCoreApi::loadPlugin('module', 'rating');
 	if ($ret || !isset($this->_module)) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $this->_view) = GalleryView::loadView('rating.RatingCallback');
 	if ($ret || !isset($this->_view)) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
     }
@@ -78,7 +79,7 @@ class RatingCallbackViewTest extends GalleryTestCase {
 	$ret = $this->_view->renderImmediate(array(), array());
 	if ($ret) {
 	    ob_end_clean();
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$results = explode("\n", ob_get_contents());
 	ob_end_clean();
@@ -111,7 +112,7 @@ class RatingCallbackViewTest extends GalleryTestCase {
 	$ret = $this->_view->renderImmediate(array(), array());
 	if ($ret) {
 	    ob_end_clean();
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$results = explode("\n", ob_get_contents());
 	ob_end_clean();
@@ -135,17 +136,12 @@ class RatingCallbackViewTest extends GalleryTestCase {
 	/* Remove all permissions */
 	$ret = GalleryCoreApi::removeItemPermissions($this->_item->getId());
 	if ($ret) {
-	    return $ret;
-	}
-	$ret = GalleryCoreApi::addUserPermission(
-	    $this->_item->getId(), $this->_userId, 'core.view');
-	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$ret = GalleryCoreApi::addUserPermission(
 	    $this->_item->getId(), $this->_userId, 'rating.view');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$newRating = rand(1, 5);
@@ -158,7 +154,7 @@ class RatingCallbackViewTest extends GalleryTestCase {
 	$ret = $this->_view->renderImmediate(array(), array());
 	if ($ret) {
 	    ob_end_clean();
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$results = explode("\n", ob_get_contents());
 	ob_end_clean();
@@ -181,7 +177,7 @@ class RatingCallbackViewTest extends GalleryTestCase {
 	$ret = $this->_view->renderImmediate(array(), array());
 	if ($ret) {
 	    ob_end_clean();
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$results = explode("\n", ob_get_contents());
 	ob_end_clean();
@@ -205,22 +201,17 @@ class RatingCallbackViewTest extends GalleryTestCase {
 	/* Remove all permissions */
 	$ret = GalleryCoreApi::removeItemPermissions($this->_item->getId());
 	if ($ret) {
-	    return $ret;
-	}
-	$ret = GalleryCoreApi::addUserPermission(
-	    $this->_item->getId(), $this->_userId, 'core.view');
-	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$ret = GalleryCoreApi::addUserPermission(
 	    $this->_item->getId(), $this->_userId, 'rating.view');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$ret = GalleryCoreApi::addUserPermission(
 	    $this->_item->getId(), $this->_userId, 'rating.add');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$newRating = rand(1, 5);
@@ -233,7 +224,7 @@ class RatingCallbackViewTest extends GalleryTestCase {
 	$ret = $this->_view->renderImmediate(array(), array());
 	if ($ret) {
 	    ob_end_clean();
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$results = explode("\n", ob_get_contents());
 	ob_end_clean();

@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Hybrid Theme 1.1.8\n"
+"Project-Id-Version: Gallery: Hybrid Theme 1.1.4\n"
 "POT-Creation-Date: 2003-03-10 12:50+0800\n"
 "PO-Revision-Date: 2003-03-10 12:50+0800\n"
 "Last-Translator: Stephen Chu <stephen@ju-ju.com>\n"
@@ -111,35 +111,18 @@ msgid "Item Details"
 msgstr "項目詳細內容"
 
 msgid ""
-"Album view:\n"
-"| space = start slideshow\n"
-"| ctrl-right/left = show/hide sidebar\n"
-"| ctrl-up/down = show/hide item links\n"
-"Image view:\n"
-"| space = start/pause slideshow\n"
-"| escape = return to album view\n"
-"| left/right = next/prev image\n"
-"| up/down = show hide description text\n"
-"| page up/down = scroll description text\n"
-"| ctrl-up/down = select full/fit size\n"
-"Arrow keys scroll image in full size; use shift-arrows for funcs above\n"
-"Item Details showing:\n"
-"| escape = close popup"
+"Album view:\\n| space = start slideshow\\n| ctrl-right/left = show/hide sidebar\\n| ctrl-up/"
+"down = show/hide item links\\nImage view:\\n| space = start/pause slideshow\\n| escape = "
+"return to album view\\n| left/right = next/prev image\\n| up/down = show hide description "
+"text\\n| page up/down = scroll description text\\n| ctrl-up/down = select full/fit size"
+"\\nArrow keys scroll image in full size; use shift-arrows for funcs above\\nItem Details "
+"showing:\\n| escape = close popup"
 msgstr ""
-"相簿畫面：\n"
-"| 空白鍵 = 開始幻燈片放映\n"
-"| ctrl-右/左 = 顯示/隱藏邊欄\n"
-"| ctrl-上/下 = 顯示/隱藏項目鏈接\n"
-"圖片畫面：\n"
-"| 空白鍵 = 開始/暫停幻燈片放映\n"
-"| ESC = 回到相簿畫面\n"
-"| 左/右 = 後/前一個圖片\n"
-"| 上/下 = 顯示/隱藏描述文字\n"
-"| 上頁/下頁 = 捲動描述文字\n"
-"| ctrl-上/下 = 選擇全尺寸或自動大小\n"
-"在全尺寸時用方向鍵捲動圖像；用 shift-方向鍵可使用上述功能\n"
-"n顯示項目詳細內容時：\n"
-"| ESC = 關閉跳出視窗"
+"相簿畫面：\\n| 空白鍵 = 開始幻燈片放映\\n| ctrl-右/左 = 顯示/隱藏邊欄\\n| ctrl-上/下 = 顯示/"
+"隱藏項目鏈接\\n圖片畫面：\\n| 空白鍵 = 開始/暫停幻燈片放映\\n| ESC = 回到相簿畫面\\n| 左/右 "
+"= 後/前一個圖片\\n| 上/下 = 顯示/隱藏描述文字\\n| 上頁/下頁 = 捲動描述文字\\n| ctrl-上/下 = "
+"選擇全尺寸或自動大小\\n在全尺寸時用方向鍵捲動圖像；用 shift-方向鍵可使用上述功能\\n顯示項目詳"
+"細內容時：\\n| ESC = 關閉跳出視窗"
 
 msgid "Show text"
 msgstr "顯示文字"
@@ -168,18 +151,11 @@ msgstr "沒有前一個圖片"
 msgid "Previous Image"
 msgstr "前一個圖片"
 
-#, fuzzy
-msgid "Previous Image (Load new page)"
-msgstr "前一個圖片"
-
 msgid "No Next Image"
 msgstr "沒有下一個圖片"
 
 msgid "Next Image"
 msgstr "下一個圖片"
-
-msgid "Next Image (Load new page)"
-msgstr ""
 
 msgid "Hide sidebar"
 msgstr "隱藏邊欄"
@@ -246,3 +222,6 @@ msgstr "往後"
 
 msgid "random"
 msgstr "隨機"
+
+#~ msgid "Warning: This site requires javascript"
+#~ msgstr "警告：本站需要 javascript"

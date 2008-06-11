@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,17 +38,16 @@ class FotokastenSiteAdminController extends GalleryController {
 
 	$status = $error = array();
 	if (isset($form['action']['save'])) {
-	    if (empty($form['affiliateId']) || !preg_match('/^\d+$/', trim($form['affiliateId']))) {
+	    if (empty($form['affiliateId']) || !is_numeric($form['affiliateId'])) {
 		$error[] = 'form[error][affiliateId]';
 	    }
-	    if (empty($form['affiliateIdPass'])
-		    || !preg_match('/^[A-Za-z0-9]+$/', trim($form['affiliateIdPass']))) {
+	    if (empty($form['affiliateIdPass'])) {
 		$error[] = 'form[error][affiliateIdPass]';
 	    }
 	    if (empty($error)) {
 		foreach (array('affiliateId', 'affiliateIdPass') as $key) {
 		    $ret = GalleryCoreApi::setPluginParameter(
-			    'module', 'fotokasten', $key, trim($form[$key]));
+			    'module', 'fotokasten', $key, $form[$key]);
 		    if ($ret) {
 			return array($ret, null);
 		    }

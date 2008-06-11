@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -51,13 +51,12 @@ class ShowCommentsView extends GalleryView {
 
 		/* Extract the member data */
 		$comments[$i] = (array)$comments[$i];
-		$comments[$i]['randomId'] = $comments[$i]['id'] . '-' . rand() ;
 	    }
 
 	    /* Load all the commenters */
 	    if (sizeof($commenters) > 0) {
 		list ($ret, $commentersList) =
-		    GalleryCoreApi::loadEntitiesById(array_keys($commenters), 'GalleryUser');
+		    GalleryCoreApi::loadEntitiesById(array_keys($commenters));
 		if ($ret) {
 		    return array($ret, null);
 		}
@@ -75,8 +74,7 @@ class ShowCommentsView extends GalleryView {
 
 	foreach (array('delete' => 'comment.delete',
 		       'edit' => 'comment.edit',
-		       'view' => 'comment.view',
-		       'markSpam' => 'comment.edit')
+		       'view' => 'comment.view')
 		 as $canFlag => $permission) {
 	    $can[$canFlag] = isset($permissions[$permission]);
 	}
@@ -86,9 +84,6 @@ class ShowCommentsView extends GalleryView {
 	    'commenters' => $commenters,
 	    'can' => $can,
 	    'item' => (array)$item));
-
-	$template->javascript('lib/yui/utilities.js');
- 	$template->javascript('lib/yui/container-min.js');
 
 	return array(null,
 		     array('body' => 'modules/comment/templates/ShowComments.tpl'));

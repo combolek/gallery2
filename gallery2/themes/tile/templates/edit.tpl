@@ -1,6 +1,8 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
 <p class="giDescription" style="margin-top: 1em">
   {g->text text="A tile display consists of a background image shown as a grid of tiles with thumbnails for other images placed in any tile position over the background.  Set the size and number of tiles, select the background image and assign thumbnail positions below.  Row 1, Column 1 is the upper left corner."}
@@ -52,7 +54,7 @@
     {/if}
   </td><td>
   {if isset($it.image)}
-    <input type="radio" {if $theme.param.backgroundId==$it.image.id}checked="checked" {/if}
+    <input type="radio"{if $theme.param.backgroundId==$it.image.id} checked="checked"{/if}
      name="{g->formVar var="form[backgroundId]"}" value="{$it.image.id}"/>
   {/if}
   </td><td>

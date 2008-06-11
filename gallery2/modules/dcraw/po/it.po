@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,10 +19,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Dcraw 1.0.10\n"
+"Project-Id-Version: Gallery: Dcraw 1.0.8\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-05-14 12:54+0000\n"
-"PO-Revision-Date: 2008-03-27 11:29+0100\n"
+"PO-Revision-Date: 2007-01-08 17:08+0100\n"
 "Last-Translator: Ermanno Baschiera <ebaschiera@gmail.com>\n"
 "Language-Team: Italian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -65,39 +65,31 @@ msgid ""
 "executable (<i>chmod 755 dcraw</i> should do it)."
 msgstr ""
 "Dcraw è un set di strumenti grafici che può essere usato per elaborare immagini RAW prodotte "
-"da fotocamere digitali high end. È necessario installare il binario Dcraw nel server, poi "
-"inserirne il percorso nella casella di testo qui sotto. Se si è su una macchina Unix, "
-"bisogna rendere eseguibile il binario (<i>chmod 755 draw</i> dovrebbe bastare)."
+"da fotocamere digitali di alto livello. È necessario installare il binario Dcraw nel server, "
+"poi inserirne il path nella casella di testo qui sotto. Se sei su una macchina Unix, non "
+"dimenticare di rendere eseguibile il binario (<i>chmod 755 draw</i> dovrebbe bastare)."
 
 msgid "<b>Note</b>: Gallery supports Dcraw v5.40 and more recent."
-msgstr "<b>Nota</b>: Gallery supporta Dcraw v5.40 e più recenti."
-
-msgid ""
-"The exec() function is disabled in your PHP by the <b>disabled_functions</b> parameter in "
-"php.ini.  This module cannot be used until that setting is changed."
-msgstr ""
-"La funzione exec() è disabilitata in questo PHP dal parametro <b>disabled_functions</b> di "
-"php.ini. Questo modulo non può essere utilizzato finché quella configurazione non viene "
-"modificata."
+msgstr "<b>Nota</b>: Gallery supporta Dcraw v5.40 e pi&ugrave recenti."
 
 msgid "Path to dcraw binary:"
-msgstr "Percorso del binario dcraw:"
+msgstr "Path del binario dcraw:"
 
 msgid "You must enter the path to your Dcraw binary."
-msgstr "È necessario inserire il percorso del binario Dcraw."
+msgstr "Devi inserire il path del binario Dcraw."
 
 msgid "The path you entered is not a valid Dcraw binary or is not accessible."
-msgstr "Il percorso inserito non punta a un binario Dcraw valido oppure non è accessibile."
+msgstr "Il path che hai inserito non punta a un binario Dcraw valido oppure non è accessibile"
 
 msgid ""
 "The path you entered isn't a valid Dcraw binary.  Use the 'test' button to check where the "
 "error is."
 msgstr ""
-"Il percorso inserito non punta a un binario Dcraw valido. Usare il pulsante 'test' per "
+"Il path che hai inserito non punta a un binario Dcraw valido. Usa il pulsante 'test' per "
 "controllare dove si trova l'errore."
 
 msgid "The path you entered isn't valid."
-msgstr "Il percorso inserito non è valido."
+msgstr "Il path che hai inserito non è valido."
 
 msgid "Save Settings"
 msgstr "Salva Configurazione"
@@ -109,7 +101,7 @@ msgid "Cancel"
 msgstr "Annulla"
 
 msgid "Reset"
-msgstr "Reimposta"
+msgstr "Reset"
 
 msgid "Dcraw binary test results"
 msgstr "Risultati test binario Dcraw"
@@ -124,7 +116,7 @@ msgid "Passed"
 msgstr "OK"
 
 msgid "Failed"
-msgstr "Errore"
+msgstr "Fallito"
 
 msgid "Error messages:"
 msgstr "Messaggi di errore:"
@@ -139,5 +131,8 @@ msgid ""
 "We gathered this debug output while testing your Dcraw binaries.  If you read through this "
 "carefully you may discover the reason why your Dcraw binaries failed the tests."
 msgstr ""
-"È stato ritornato questo messaggio di debug durante il test dei binari Dcraw. Leggerlo "
-"attentamente per capire il motivo per cui i binari Dcraw non hanno superato il test."
+"Abbiamo ottenuto questo messaggio di debug durante il test dei binari Dcraw. Se lo leggi "
+"bene puoi capire il motivo per cui i binari Dcraw non hanno superato il test."
+
+#~ msgid "Dcraw Graphics Toolkit"
+#~ msgstr "Set di Strumenti Grafici Draw"

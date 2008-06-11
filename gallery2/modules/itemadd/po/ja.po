@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Add Items 1.0.6\n"
+"Project-Id-Version: Gallery: Add Items 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-08-06 00:53+0900\n"
 "PO-Revision-Date: 2007-03-11 12:42+0900\n"
@@ -29,12 +29,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-
-msgid "Adding items"
-msgstr "アイテムの追加中"
-
-msgid "Scanning directory"
-msgstr "ディレクトリのスキャン中"
 
 msgid "From Local Server"
 msgstr "ローカルサーバーから"
@@ -46,7 +40,7 @@ msgid "From Web Page"
 msgstr "ウェブページから"
 
 msgid "Available to all users with permission to add items"
-msgstr "全てのユーザにとってアイテムを追加するための権限を利用可能にする"
+msgstr ""
 
 msgid "Site Admins only"
 msgstr "サイト管理者のみ"
@@ -68,14 +62,14 @@ msgstr "ウェブ/サーバー"
 
 msgid ""
 "Transfer files that are already on your server into your Gallery.  The files must already "
-"have been uploaded to your server some other way (like FTP) and must be placed in an "
-"accessible directory.  If you're on Unix this means that the files and the directory the "
-"files are in should have modes of at least 755."
+"have been uploaded to your server some other way (like FTP) and must be placed in a "
+"directory where they are accessibly by any element on the server.  If you're on Unix this "
+"means that the files and the directory the files are in should have modes of at least 755."
 msgstr ""
 "既にサーバにあるファイルをGalleryに転送します。それらのファイルはFTPなどの他の方法で、すでに"
-"サーバにアップロードされていて、誰もがアクセスできる場所に置いてなければなりません。Unixを使"
-"用しているなら、これは該当ファイルやそのファイルのあるディレクトリのアクセスモードを少なくと"
-"も755にしなくてはなりません。"
+"サーバにアップロードされていて、誰からもアクセスできない場所に置いてなければなりません。Unix"
+"を使用しているなら、これは該当ファイルやそのファイルのあるディレクトリのアクセスモードを少な"
+"くとも755にしなくてはなりません。"
 
 msgid ""
 "For security purposes, you can't use this feature until the Gallery Site Administrator "
@@ -216,7 +210,8 @@ msgstr "変更"
 #, c-format
 msgid "%d url found"
 msgid_plural "%d urls found"
-msgstr[0] "%dつのURLが見つかりました"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "(Un)check all"
 msgstr "全てにチェック(チェックを外す)"
@@ -248,10 +243,6 @@ msgid ""
 "their website because your Gallery acts on behalf of your users.  Therefore it is "
 "recommended to enable \"Add From Web\" only for trusted users."
 msgstr ""
-"「ウェブから追加」はあなたの名前で他のウェブサイトに攻撃するような悪用ができます。攻撃された"
-"相手にはまるであなたのGalleryがあなたのユーザを代表して動作をするのであなた(このGalleryの管理"
-"者)が故意にそれらのウェブサイトを攻撃するかのように見えるでしょう。従って、信頼されたユーザだ"
-"けに「ウェブから追加」を許可することをお勧めします。"
 
 msgid "Local Server Upload Paths"
 msgstr "サーバのローカルアップロードパス"

@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,10 +35,7 @@ class MarkupTest extends GalleryTestCase {
     }
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	$this->_bbcode = new GalleryBbcodeMarkupParser();
 	$this->_html = new GalleryHtmlMarkupParser();
@@ -127,33 +124,28 @@ class MarkupTest extends GalleryTestCase {
 
     function testUrl1() {
 	$results = $this->_bbcode->parse('[url]http://example.com/a.html[/url]');
-	$this->assertEquals('<a href="http://example.com/a.html" rel="nofollow">' .
-			    'http://example.com/a.html</a>',
+	$this->assertEquals('<a href="http://example.com/a.html">http://example.com/a.html</a>',
 			    $results);
     }
 
     function testUrl2() {
 	$results = $this->_bbcode->parse('[url=http://example.com/a.html]content[/url]');
-	$this->assertEquals('<a href="http://example.com/a.html" rel="nofollow">' .
-			    'content</a>', $results);
+	$this->assertEquals('<a href="http://example.com/a.html">content</a>', $results);
     }
 
     function testUrl3() {
-	/* Seems kind of silly that we add rel="nofollow" to mailto: urls, but it doesn't hurt */
 	$results = $this->_bbcode->parse('[url=mailto:monkey@fruit.com]content[/url]');
-	$this->assertEquals('<a href="mailto:monkey@fruit.com" rel="nofollow">content</a>',
-			    $results);
+	$this->assertEquals('<a href="mailto:monkey@fruit.com">content</a>', $results);
     }
 
     function testUrl4() {
 	$results = $this->_bbcode->parse('[url=https://example.com/secure.html]content[/url]');
-	$this->assertEquals('<a href="https://example.com/secure.html" rel="nofollow">' .
-			    'content</a>', $results);
+	$this->assertEquals('<a href="https://example.com/secure.html">content</a>', $results);
     }
 
     function testUrl5() {
 	$results = $this->_bbcode->parse('[url=ftp://example.com/]content[/url]');
-	$this->assertEquals('<a href="ftp://example.com/" rel="nofollow">content</a>', $results);
+	$this->assertEquals('<a href="ftp://example.com/">content</a>', $results);
     }
 
     function testUrl6() {
@@ -163,7 +155,7 @@ class MarkupTest extends GalleryTestCase {
 
     function testUrl7() {
 	$results = $this->_bbcode->parse('[url=/path/file.php]content[/url]');
-	$this->assertEquals('<a href="/path/file.php" rel="nofollow">content</a>', $results);
+	$this->assertEquals('<a href="/path/file.php">content</a>', $results);
     }
 
     function testUrl8() {
@@ -190,7 +182,7 @@ class MarkupTest extends GalleryTestCase {
     function testHeavyNesting() {
 	$results = $this->_bbcode->parse('[url=http://a.cc/blah.jpg\[url]\]\[[\]' .
 					 '[/url][/url][url=[[[[]\]\][\[][[[[]\]\][\[[/url]');
-	$this->assertEquals('<a href="http://a.cc/blah.jpg\[url" rel="nofollow">\]\[[\]</a>' .
+	$this->assertEquals('<a href="http://a.cc/blah.jpg\[url">\]\[[\]</a>' .
 			    '[/url][url=[[[[]\]\][\[][[[[]\]\][\[[/url]', $results);
     }
 
@@ -202,19 +194,19 @@ class MarkupTest extends GalleryTestCase {
     function testUnicodeCharacters() {
 	$results = $this->_bbcode->parse('[url=https://example.com/secure.html]' .
 					 "Elemente hinzuf\xfcgen[/url] Seitenverh\xe4ltnis");
-	$this->assertEquals("<a href=\"https://example.com/secure.html\" rel=\"nofollow\">" .
-			    "Elemente hinzuf\xfcgen</a> Seitenverh\xe4ltnis", $results);
+	$this->assertEquals("<a href=\"https://example.com/secure.html\">Elemente " .
+			    "hinzuf\xfcgen</a> Seitenverh\xe4ltnis", $results);
     }
 
     function testNonBbcodeMarkers() {
 	$results = $this->_bbcode->parse('[url=http://foo] [go] [/url]');
-	$this->assertEquals('<a href="http://foo" rel="nofollow"> [go] </a>', $results);
+	$this->assertEquals('<a href="http://foo"> [go] </a>', $results);
     }
 
     function testMarkupNone() {
 	$ret = $this->_setMarkupType('none', true);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals('&lt;b&gt; [i] &amp;oacute;',
@@ -226,7 +218,7 @@ class MarkupTest extends GalleryTestCase {
     function testMarkupBbcode() {
 	$ret = $this->_setMarkupType('bbcode', true);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Bbcode processor adds closing </i> tag too */
@@ -239,7 +231,7 @@ class MarkupTest extends GalleryTestCase {
     function testMarkupHtml() {
 	$ret = $this->_setMarkupType('html', true);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* GalleryUtilities::htmlSafe fixes the missing </b> */

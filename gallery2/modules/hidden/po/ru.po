@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,11 +22,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Hidden Items 1.0.9\n"
+"Project-Id-Version: Gallery: Hidden Items 1.0.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-10-21 10:45+0200\n"
-"PO-Revision-Date: 2008-03-18 13:03+0300\n"
-"Last-Translator: Ser Moro <webber@morozov-sm.ru>\n"
+"PO-Revision-Date: 2006-01-21 19:43+0300\n"
+"Last-Translator: Konstantin Ivanov <Continental@vollen.ru>\n"
 "Language-Team: Russian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -37,37 +37,38 @@ msgstr ""
 "X-Poedit-Country: RUSSIAN FEDERATION\n"
 
 msgid "Hide Album"
-msgstr "Скрыть альбом"
+msgstr "Скрыть Альбом"
 
 msgid "Hide Photo"
-msgstr "Скрыть фотографию"
+msgstr "Скрыть Фотографию"
 
 msgid "Hide Movie"
-msgstr "Скрыть видеоролик"
+msgstr "Скрыть Видеоролик"
 
 #, c-format
 msgid "Hide %s"
 msgstr "Скрыть %s"
 
 msgid "Hidden Items"
-msgstr "Скрытые элементы"
+msgstr "Скрытые Элементы"
 
 msgid "Hide items/albums from guests until directly accessed with the right URL"
-msgstr ""
-"Прячет элементы/альбомы от гостей. Увидеть эти элементы можно, только указав точный адрес URL"
+msgstr "Прячет элементы/альбомы от гостей, пока они не обратятся по точному адресу URL"
 
 msgid "Display"
 msgstr "Отображение"
 
+#, fuzzy
 msgid "Hide"
-msgstr "Скрыть"
+msgstr "Скрыто"
 
 msgid "Update permissions"
-msgstr "Обновить правила доступа"
+msgstr ""
 
 msgid ""
 "Hidden items are not visible to guest users until the page for the item is accessed directly."
-msgstr "Скрытые элементы не видны гостям, но страница элемента доступна по прямой ссылке."
+msgstr ""
+"Скрытые элементы не видны гостям в то время как страница элемента доступна по прямой ссылке."
 
 msgid "Contents of hidden albums are restricted until the URL for the album is visited."
 msgstr ""
@@ -79,10 +80,10 @@ msgid ""
 "direct URL grants only simple view permission; access to resizes/originals is still "
 "controlled by item permissions."
 msgstr ""
-"Обратите внимание, что гостям должен быть разрешён просмотр изображений промежуточных "
-"размеров и/или оригиналов, т.к. переход по прямой ссылке дает возможность просмотра только "
-"одного конкретного изображения. Доступ к изображениям промежуточных размеров и их оригиналов "
-"контролируется правилами доступа к элементам."
+"Обратите внимание, что гости должны обладать разрешением на просмотр изображений "
+"промежуточных размеров и/или оригиналов, т.к. переход по прямой ссылке дает только "
+"возможность доступа; доступ к изображениям промежуточных размеров и их оригиналов "
+"контроллируется путем системы разрешений для элемента."
 
 msgid "Hidden"
 msgstr "Скрыто"

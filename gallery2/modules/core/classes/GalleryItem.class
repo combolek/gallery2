@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -169,18 +169,16 @@ class GalleryItem extends GalleryFileSystemEntity {
      *
      * @param int $parentId the id of the GalleryEntity parent of this object
      * @param string $path the path component of this new object
-     * @param boolean $canContainChildren (optional) Used for legal path component characters.
-     *        Defaults to false.
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
-    function create($parentId, $path, $canContainChildren=false) {
+    function create($parentId, $path) {
 	global $gallery;
 
 	if (!isset($path) || !isset($parentId)) {
 	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 	}
 
-	list ($ret, $parent) = GalleryCoreApi::loadEntitiesById($parentId, 'GalleryItem');
+	list ($ret, $parent) = GalleryCoreApi::loadEntitiesById($parentId);
 	if ($ret) {
 	    return $ret;
 	}
@@ -189,7 +187,7 @@ class GalleryItem extends GalleryFileSystemEntity {
 	    return GalleryCoreApi::error(ERROR_ILLEGAL_CHILD);
 	}
 
-	$ret = parent::create($parentId, $path, $canContainChildren);
+	$ret = parent::create($parentId, $path);
 	if ($ret) {
 	    return $ret;
 	}
@@ -201,7 +199,7 @@ class GalleryItem extends GalleryFileSystemEntity {
 	$this->setViewedSinceTimestamp(time());
 
 	/* By default, items can't contain children */
-	$this->setCanContainChildren($canContainChildren);
+	$this->setCanContainChildren(false);
 
 	/* Origination timestamp defaults to now */
 	$this->setOriginationTimestamp(time());
@@ -220,7 +218,7 @@ class GalleryItem extends GalleryFileSystemEntity {
      * Create a root level instance of this GalleryEntity in the persistent store.
      * Let the parent do its work, then add any initialization specific to this class.
      *
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function createRoot() {
 	global $gallery;
@@ -253,7 +251,7 @@ class GalleryItem extends GalleryFileSystemEntity {
 	    return $ret;
 	}
 
-	list ($ret, $parent) = GalleryCoreApi::loadEntitiesById($parentId, 'GalleryItem');
+	list ($ret, $parent) = GalleryCoreApi::loadEntitiesById($parentId);
 	if ($ret) {
 	    return $ret;
 	}
@@ -284,7 +282,7 @@ class GalleryItem extends GalleryFileSystemEntity {
 
     /**
      * Delete this GalleryEntity.  Delete all of its children also, if it has any.
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function delete() {
 	global $gallery;
@@ -306,7 +304,7 @@ class GalleryItem extends GalleryFileSystemEntity {
 
 	$i = 0;
 	while ($result = $searchResults->nextResult()) {
-	    $ret = GalleryCoreApi::deleteEntityById($result[0], 'GalleryChildEntity');
+	    $ret = GalleryCoreApi::deleteEntityById($result[0]);
 	    /*
 	     * Deletes can cascade in interesting ways.  For example, deleting a derivative will
 	     * get rid of any other derivatives that are sourced to it, so it's possible that
@@ -357,7 +355,7 @@ class GalleryItem extends GalleryFileSystemEntity {
      * Move item to a new parent
      *
      * @param int $newParentId the id of the new parent GalleryItem
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function move($newParentId) {
 	$parentId = $this->getParentId();
@@ -391,7 +389,7 @@ class GalleryItem extends GalleryFileSystemEntity {
     /**
      * Save the changes to this GalleryItem.
      *
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function save($postEvent=true) {
 	global $gallery;

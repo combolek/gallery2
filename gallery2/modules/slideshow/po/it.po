@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,10 +19,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Slideshow 1.0.11\n"
+"Project-Id-Version: Gallery: Slideshow 1.0.5\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-09-16 11:54+0000\n"
-"PO-Revision-Date: 2008-03-27 20:32+0100\n"
+"PO-Revision-Date: 2005-10-13 11:32+0100\n"
 "Last-Translator: Ermanno Baschiera <ebaschiera@gmail.com>\n"
 "Language-Team: Italian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -31,12 +31,12 @@ msgstr ""
 "X-Poedit-Language: Italian\n"
 "X-Poedit-Country: ITALY\n"
 
+msgid "Slideshow"
+msgstr "Slideshow"
+
 #, c-format
 msgid "Slideshow for %s"
 msgstr "Slideshow per %s"
-
-msgid "Slideshow"
-msgstr "Slideshow"
 
 msgid "Display"
 msgstr "Visualizzazione"
@@ -47,46 +47,141 @@ msgstr "Mostra Slideshow"
 msgid "Path to an item (eg, /album/image.jpg.html)"
 msgstr "Percorso di un oggetto (ad es. /album/immagine.jpg.html)"
 
-msgid "Slideshow Settings"
-msgstr "Configurazione Slideshow"
+msgid "Blend"
+msgstr "Fusione"
+
+msgid "Blinds"
+msgstr "Tendina"
+
+msgid "Checkerboard"
+msgstr "Caselle"
+
+msgid "Diagonal"
+msgstr "Diagonale"
+
+msgid "Doors"
+msgstr "Porte"
+
+msgid "Gradient"
+msgstr "Gradiente"
+
+msgid "Iris"
+msgstr "Quadri dal Centro"
+
+msgid "Pinwheel"
+msgstr "Ruota"
+
+msgid "Pixelate"
+msgstr "Pixel"
+
+msgid "Radial"
+msgstr "Radiale"
+
+msgid "Rain"
+msgstr "Pioggia"
+
+msgid "Slide"
+msgstr "Scivolamento"
+
+msgid "Snow"
+msgstr "Neve"
+
+msgid "Spiral"
+msgstr "Spirale"
+
+msgid "Stretch"
+msgstr "Stringi"
+
+msgid "RANDOM"
+msgstr "CASUALE"
+
+msgid "This album has no photos to show in a slideshow."
+msgstr "Questo album non ha foto da mostrare in un slideshow"
+
+msgid "Back to Album View"
+msgstr "Torna alla Veduta Album"
 
 #, c-format
-msgid "Installed PicLens version %s"
-msgstr "PicLens installato versione %s"
+msgid "Date: %s"
+msgstr "Data: %s"
 
-msgid "An error occurred while downloading PicLens!"
-msgstr "Si è verificato un errore durante lo scaricamento di PicLens!"
+msgid "Hide More Info"
+msgstr "Nascondi Altri Informazioni"
 
-msgid "Uninstalled PicLens"
-msgstr "PicLens rimosso"
+msgid "Show More Info"
+msgstr "Mostra Altre Informazioni"
 
-#, c-format
-msgid ""
-"Gallery can optionally use a Flash and JavaScript based slideshow from %s to provide users "
-"with the best possible viewing experience.  Gallery can install %s for you automatically, or "
-"you can choose to use an HTML slideshow."
-msgstr ""
-"Gallery può anche utilizzare una slideshow basata su Flash e JavaScript fornita da %s per "
-"offrire agli utenti la migliore esperienza di visualizzazione possibile. Gallery può "
-"installare %s automaticamente, oppure si può optare per una slideshow HTML."
+msgid "Resume"
+msgstr "Riprendi"
 
-#, c-format
-msgid "Version %s installed."
-msgstr "Installata versione %s."
+msgid "Pause"
+msgstr "Pausa"
 
-msgid "There's a newer version of PicLens available."
-msgstr "È disponibile una nuova versione di PicLens."
+msgid "[-]"
+msgstr "[-]"
 
-msgid "PicLens downloads are currently unavailable.  Please try again later."
-msgstr "Il download di PicLens in questo momento non è disponibile. Riprovare più tardi."
+msgid "[+]"
+msgstr "[+]"
 
-#, c-format
-msgid "Install PicLens version %s"
-msgstr "Installa PicLens versione %s"
+msgid "Stop"
+msgstr "Stop"
 
-#, c-format
-msgid "Update to PicLens version %s"
-msgstr "Aggiorna PicLens alla versione %s"
+msgid "Back One Image"
+msgstr "Indietro di una Immagine"
 
-msgid "Uninstall PicLens"
-msgstr "Disinstalla PicLens"
+msgid "delay: "
+msgstr "attesa:"
+
+msgid "1 second"
+msgstr "1 secondo"
+
+msgid "3 seconds"
+msgstr "3 secondi"
+
+msgid "5 seconds"
+msgstr "5 secondi"
+
+msgid "10 seconds"
+msgstr "10 secondi"
+
+msgid "15 seconds"
+msgstr "15 secondi"
+
+msgid "20 seconds"
+msgstr "20 secondi"
+
+msgid "direction: "
+msgstr "direzione:"
+
+msgid "forward"
+msgstr "avanti"
+
+msgid "reverse"
+msgstr "indietro"
+
+msgid "random"
+msgstr "casuale"
+
+msgid "max size: "
+msgstr "dimensione massima:"
+
+msgid "320x320"
+msgstr "320x320"
+
+msgid "640x640"
+msgstr "640x640"
+
+msgid "800x800"
+msgstr "800x800"
+
+msgid "1024x1024"
+msgstr "1024x1024"
+
+msgid "1280x1280"
+msgstr "1280x1280"
+
+msgid "no limit"
+msgstr "nessun limite"
+
+msgid "fade: "
+msgstr "transizione:"

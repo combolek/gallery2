@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,9 +22,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Rating 1.0.12\n"
-"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2007-06-14 17:38-0700\n"
+"Project-Id-Version: Gallery: Rating 1.0.8\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-09-11 17:35-0700\n"
 "PO-Revision-Date: 2006-04-05 15:05+0300\n"
 "Last-Translator: Guy Sheffer\n"
 "Language-Team:  <en@li.org>\n"
@@ -35,10 +35,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: KBabel 1.11.2\n"
 
-#, c-format
-msgid "Rating Album: %s"
-msgstr ""
-
 #, fuzzy
 msgid "Rating Album"
 msgstr "דירוג"
@@ -46,6 +42,10 @@ msgstr "דירוג"
 #, fuzzy
 msgid "rating album"
 msgstr "הפעל דירוגים בשביל אלבום זה"
+
+#, c-format
+msgid "Rating Album: %s"
+msgstr ""
 
 #, fuzzy, c-format
 msgid "%d vote"
@@ -124,7 +124,7 @@ msgid "Lowest value allowed for rating album threshold"
 msgstr ""
 
 msgid "Invalid number"
-msgstr "מספר לא חוקי"
+msgstr ""
 
 msgid "Description"
 msgstr "תיאור"
@@ -150,3 +150,6 @@ msgstr "אתחל"
 
 msgid "Rating interface"
 msgstr "ממשק דירוגים"
+
+#~ msgid "Successfully saved theme settings"
+#~ msgstr "הגדרות התבנית נשמרו בהצלחה"

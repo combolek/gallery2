@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Image Block 1.1.8\n"
+"Project-Id-Version: Gallery: Image Block 1.1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-05-21 15:51+0000\n"
 "PO-Revision-Date: 2005-10-13 11:19+0100\n"
@@ -41,6 +41,24 @@ msgstr "la intimplare, ultimele sau cele mai vizualizate foto sau albume"
 
 msgid "Blocks"
 msgstr "Blocuri"
+
+msgid "Picture of the Day"
+msgstr "Fotografia zilei"
+
+msgid "Picture of the Week"
+msgstr "Fotografia saptamanii"
+
+msgid "Picture of the Month"
+msgstr "Fotografia lunii"
+
+msgid "Album of the Day"
+msgstr "Albumul zilei"
+
+msgid "Album of the Week"
+msgstr "Albumul saptamanii"
+
+msgid "Album of the Month"
+msgstr "Albumul lunii"
 
 msgid "Random Image"
 msgid_plural "Random Images"
@@ -71,24 +89,6 @@ msgid "Most Viewed Album"
 msgid_plural "Most Viewed Albums"
 msgstr[0] "Cel mai vizualizat album"
 msgstr[1] "Cele mai vizualizate albume"
-
-msgid "Picture of the Day"
-msgstr "Fotografia zilei"
-
-msgid "Picture of the Week"
-msgstr "Fotografia saptamanii"
-
-msgid "Picture of the Month"
-msgstr "Fotografia lunii"
-
-msgid "Album of the Day"
-msgstr "Albumul zilei"
-
-msgid "Album of the Week"
-msgstr "Albumul saptamanii"
-
-msgid "Album of the Month"
-msgstr "Albumul lunii"
 
 msgid "Date:"
 msgstr "Data:"
@@ -168,10 +168,9 @@ msgstr ""
 "recentAlbum, viewedAlbum, dailyImage, weeklyImage, monthlyImage, dailyAlbum, weeklyAlbum, "
 "monthlyAlbum, specificItem; predefinit: randomImage"
 
-#, fuzzy
 msgid ""
-"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize, rawImage; "
-"the value can also be: none"
+"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize; the value "
+"can also be: none"
 msgstr ""
 "Pipe separa lista aleasa din: titlu, data, vizualizari, proprietar, heading, fullSize "
 "valoarea poate fi si: none"

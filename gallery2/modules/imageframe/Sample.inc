@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -52,7 +52,7 @@ class SampleView extends GalleryView {
 	$ImageFrameSample = array('list' => $list);
 	$itemId = GalleryUtilities::getRequestVariables('itemId');
 	if (!empty($itemId)) {
-	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
+	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	    if ($ret) {
 		return array($ret, null);
 	    }

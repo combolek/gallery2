@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,8 +34,7 @@ class GalleryDerivativeHelper_simple {
     function rebuildCacheIfNotCurrent($derivativeId, $fixBroken=false) {
 	global $gallery;
 
-	list ($ret, $derivative) =
-			GalleryCoreApi::loadEntitiesById($derivativeId, 'GalleryDerivative');
+	list ($ret, $derivative) = GalleryCoreApi::loadEntitiesById($derivativeId);
 	if ($ret) {
 	    return array($ret, null, null);
 	}
@@ -89,7 +88,7 @@ class GalleryDerivativeHelper_simple {
      * @param array $itemIds GalleryItem ids
      * @param array $sourceIds GalleryDataItem or GalleryDerivative source ids
      * @param array $types derivative types (eg. 'DERIVATIVE_TYPE_IMAGE_THUMBNAIL')
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *               array(GalleryItem id => GalleryDerivativeImage, ...)
      * @access private
      */
@@ -168,8 +167,7 @@ class GalleryDerivativeHelper_simple {
 	    sort($derivativeIds, SORT_NUMERIC);
 
 	    /* Load all the derivative images */
-	    list ($ret, $derivativeEntities) =
-			GalleryCoreApi::loadEntitiesById($derivativeIds, 'GalleryDerivative');
+	    list ($ret, $derivativeEntities) = GalleryCoreApi::loadEntitiesById($derivativeIds);
 	    if ($ret) {
 		return array($ret, null);
 	    }

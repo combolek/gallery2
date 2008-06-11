@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,7 +35,9 @@ class AddToCartController extends GalleryController {
     function handleRequest($form) {
 	global $gallery;
 
-	list ($ret, $item) = $this->getItem();
+	$itemId = GalleryUtilities::getRequestVariables('itemId');
+
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -47,6 +49,10 @@ class AddToCartController extends GalleryController {
 		return array($ret, null);
 	    }
 	} else {
+	    $ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.view');
+	    if ($ret) {
+		return array($ret, null);
+	    }
 	    $ids = array($item->getId());
 	}
 
@@ -57,7 +63,6 @@ class AddToCartController extends GalleryController {
 
 	/* Prepare our results */
 	$results['redirect']['view'] = 'cart.ViewCart';
-	$results['redirect']['itemId'] = $item->getId();
 	$results['status'] = array();
 	$results['error'] = array();
 

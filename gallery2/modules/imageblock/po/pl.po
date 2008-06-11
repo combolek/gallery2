@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,9 +18,9 @@
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Image Block 1.1.8\n"
+"Project-Id-Version: Gallery: Image Block 1.1.0\n"
 "POT-Creation-Date: 2006-02-23 10:15+0100\n"
-"PO-Revision-Date: 2007-08-27 12:02+0100\n"
+"PO-Revision-Date: 2006-12-27 16:35+0100\n"
 "Last-Translator: Kappana <kappana@gnoms.net>\n"
 "Language-Team: Polish <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -39,6 +39,24 @@ msgstr "Przypadkowe, najnowsze lub najczęściej wyświetlane zdjęcia lub album
 
 msgid "Blocks"
 msgstr "Bloki"
+
+msgid "Picture of the Day"
+msgstr "Zdjęcie dnia"
+
+msgid "Picture of the Week"
+msgstr "Zdjęcie tygodnia"
+
+msgid "Picture of the Month"
+msgstr "Zdjęcie miesiąca"
+
+msgid "Album of the Day"
+msgstr "Album dnia"
+
+msgid "Album of the Week"
+msgstr "Album tygodnia"
+
+msgid "Album of the Month"
+msgstr "Album miesiąca"
 
 msgid "Random Image"
 msgid_plural "Random Images"
@@ -75,24 +93,6 @@ msgid_plural "Most Viewed Albums"
 msgstr[0] "Najczęściej wyświetlany album"
 msgstr[1] "Najczęściej wyświetlane albumy"
 msgstr[2] "Najczęściej wyświetlane albumy"
-
-msgid "Picture of the Day"
-msgstr "Zdjęcie dnia"
-
-msgid "Picture of the Week"
-msgstr "Zdjęcie tygodnia"
-
-msgid "Picture of the Month"
-msgstr "Zdjęcie miesiąca"
-
-msgid "Album of the Day"
-msgstr "Album dnia"
-
-msgid "Album of the Week"
-msgstr "Album tygodnia"
-
-msgid "Album of the Month"
-msgstr "Album miesiąca"
 
 msgid "Date:"
 msgstr "Data:"
@@ -173,11 +173,11 @@ msgstr ""
 "dailyAlbum, weeklyAlbum, monthlyAlbum, specificItem; wartością domyślną jest randomImage."
 
 msgid ""
-"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize, rawImage; "
-"the value can also be: none"
+"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize; the value "
+"can also be: none"
 msgstr ""
 "Lista rozdzielona kreską pionową (|) składająca się z: title, date, views, owner, heading, "
-"fullSize, rawImage; możliwa jest również wartość: none."
+"fullSize; możliwa jest również wartość: none."
 
 msgid ""
 "Limit the item selection to the subtree of the gallery under the album with the given id; or "

@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,10 +19,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Rating 1.0.12\n"
+"Project-Id-Version: Gallery: Rating 1.0.8\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-11 17:35-0700\n"
-"PO-Revision-Date: 2008-03-27 16:57+0100\n"
+"PO-Revision-Date: 2007-01-09 12:41+0100\n"
 "Last-Translator: Ermanno Baschiera <ebaschiera@gmail.com>\n"
 "Language-Team: Italian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -30,15 +30,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
-#, c-format
-msgid "Rating Album: %s"
-msgstr "Valutazione Album: %s"
-
 msgid "Rating Album"
 msgstr "Valutazione Album"
 
 msgid "rating album"
 msgstr "valutazione album"
+
+#, c-format
+msgid "Rating Album: %s"
+msgstr "Valutazione Album: %s"
 
 #, c-format
 msgid "%d vote"
@@ -59,13 +59,13 @@ msgid "Extra Data"
 msgstr "Dati Extra"
 
 msgid "[rating] Add ratings"
-msgstr "[valutazioni] Aggiungi valutazioni"
+msgstr "[valutazione] Aggiungi valutazioni"
 
 msgid "[rating] View ratings"
-msgstr "[valutazioni] Visualizza valutazioni"
+msgstr "[valutazione] Visualizza valutazioni"
 
 msgid "[rating] All access"
-msgstr "[valutazioni] Accesso completo"
+msgstr "[valutazione] Accesso completo"
 
 msgid "Rating limit to use for dynamic album"
 msgstr "Limite valutazione da usare per album dinamici"
@@ -84,8 +84,8 @@ msgid ""
 "can use permissions to allow viewing or adding ratings for specific users or groups."
 msgstr ""
 "Questo attiva o disattiva la valutazione per questo album e, eventualmente, per i suoi sotto "
-"album. È possibile usare i permessi per autorizzare la visualizzazione o l'aggiunta di "
-"valutazioni per utenti o gruppi specifici."
+"album. Puoi usare i permessi per autorizzare la visualizzazione o l'aggiunta di valutazioni "
+"per utenti o gruppi specifici."
 
 msgid "Enable rating for this album"
 msgstr "Attiva la valutazione per questo album"
@@ -100,7 +100,7 @@ msgid "Settings saved successfully"
 msgstr "Configurazione salvata con successo"
 
 msgid "There was a problem processing your request."
-msgstr "C'è stato un problema nell'elaborazione della richiesta."
+msgstr "C'è stato un problema nell'elaborazione della tua richiesta."
 
 msgid "Allow users to rate entire albums, in addition to individual items."
 msgstr "Permette agli utenti di dare una valutazione a interi album, oltre ai singoli oggetti."
@@ -117,7 +117,7 @@ msgid "Query limit"
 msgstr "Limite query"
 
 msgid "Lowest value allowed for rating album threshold"
-msgstr "Valore più basso ammesso nell'intervallo della votazione album"
+msgstr "Valore più basso ammesso per l'intervallo della votazione album"
 
 msgid "Invalid number"
 msgstr "Numero non valido"
@@ -142,7 +142,7 @@ msgid "Save"
 msgstr "Salva"
 
 msgid "Reset"
-msgstr "Reimposta"
+msgstr "Resetta"
 
 msgid "Rating interface"
 msgstr "Interfaccia valutazione"

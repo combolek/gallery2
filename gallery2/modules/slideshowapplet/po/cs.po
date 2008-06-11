@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Slideshow Applet 1.0.10\n"
+"Project-Id-Version: Gallery: Slideshow Applet 1.0.7\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-01-31 20:05+0100\n"
 "PO-Revision-Date: 2006-03-11 22:13+0100\n"
@@ -159,8 +159,7 @@ msgstr ""
 "při true bude prezentace stahovat obrázky dříve než je bude potřebovat, což urychlí "
 "zobrazení, ale může mrhat přenosovým pásmem"
 
-#, fuzzy
-msgid "color of the slideshow background"
+msgid "color or the slideshow background"
 msgstr "barva pozadí prezentace"
 
 msgid "size of text overlay"
@@ -174,3 +173,18 @@ msgstr "mají být obrázky zobrazeny v náhodném pořadí?"
 
 msgid "Complete list of variables"
 msgstr "Kompletní seznam proměnných"
+
+#~ msgid "Settings saved successfully"
+#~ msgstr "Nastavení úspěšně uloženo"
+
+#~ msgid "Limit the slideshow to: "
+#~ msgstr "Omezit prezentaci na: "
+
+#~ msgid "The limit must be a positive number"
+#~ msgstr "Omezení musí být kladné číslo"
+
+#~ msgid "Save"
+#~ msgstr "Uložit"
+
+#~ msgid "Reset"
+#~ msgstr "Výchozí hodnoty"

@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,14 +37,12 @@ class MigrateEventHandlerTest extends GalleryControllerTestCase {
     function setUp() {
 	global $gallery;
 
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	list ($ret, $this->_temporaryAlbum) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->_markForCleanup($this->_temporaryAlbum);
@@ -53,7 +51,7 @@ class MigrateEventHandlerTest extends GalleryControllerTestCase {
 
 	list ($ret, $this->_mapCount) = G1MigrateHelper::fetchMapCount();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
     }
 
@@ -62,21 +60,18 @@ class MigrateEventHandlerTest extends GalleryControllerTestCase {
 
 	list ($ret, $mapCount) = G1MigrateHelper::fetchMapCount();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals($this->_mapCount, $mapCount, 'Test altered number of map entries!');
 
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
+	parent::tearDown();
     }
 
     function testMigrateDeleteEventHandler() {
 	// Create random album
 	list ($ret, $g1MapHandlerAlbum) = $this->_createRandomAlbum($this->_temporaryAlbumId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	// Add map entry for $g1MapHandlerAlbum
@@ -86,13 +81,13 @@ class MigrateEventHandlerTest extends GalleryControllerTestCase {
 		  'g1album' => $g1MapHandlerAlbum->getPathComponent(),
 		  'g1item' => NULL));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	// Create random data item
 	list ($ret, $g1MapHandlerItem) = $this->_createRandomDataItem($g1MapHandlerAlbum->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	// Add map entry for $g1MapHandlerItem
@@ -102,14 +97,14 @@ class MigrateEventHandlerTest extends GalleryControllerTestCase {
 		  'g1album' => $g1MapHandlerAlbum->getPathComponent(),
 		  'g1item' => $g1MapHandlerItem->getPathComponent()));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	// Verify album mapping
 	list ($ret, $mapping) =
 	    G1MigrateHelper::fetchMapping($g1MapHandlerAlbum->getPathComponent());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals($g1MapHandlerAlbum->getId(),
 			    $mapping, 'G1MigrateMap does not match Album Id');
@@ -118,7 +113,7 @@ class MigrateEventHandlerTest extends GalleryControllerTestCase {
 	list ($ret, $mapping) = G1MigrateHelper::fetchMapping(
 	    $g1MapHandlerAlbum->getPathComponent(), $g1MapHandlerItem->getPathComponent());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals($g1MapHandlerItem->getId(), $mapping,
 			    'G1MigrateMap does not match Item Id');
@@ -127,21 +122,21 @@ class MigrateEventHandlerTest extends GalleryControllerTestCase {
 	$event->setEntity($g1MapHandlerItem);
 	list ($ret) = MigrateModule::handleEvent($event);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$event = GalleryCoreApi::newEvent('GalleryEntity::delete');
 	$event->setEntity($g1MapHandlerAlbum);
 	list ($ret) = MigrateModule::handleEvent($event);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	// Verify album mapping deleted
 	list ($ret, $mapping) =
 	    G1MigrateHelper::fetchMapping($g1MapHandlerAlbum->getPathComponent());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(NULL, $mapping, 'G1MigrateMap does not match Album Id');
 
@@ -149,7 +144,7 @@ class MigrateEventHandlerTest extends GalleryControllerTestCase {
 	list ($ret, $mapping) = G1MigrateHelper::fetchMapping(
 	    $g1MapHandlerAlbum->getPathComponent(), $g1MapHandlerItem->getPathComponent());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(NULL, $mapping, 'G1MigrateMap does not match Item Id');
     }

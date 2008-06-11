@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,14 +19,13 @@
 #
 # Branislav Hanacek <brango@radegast>, 2006.
 # Branislav Hanacek <brango@brango.sk>, 2006.
-# Matej Spanik <retsamm@gmail.com>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Slideshow 1.0.11\n"
+"Project-Id-Version: Gallery: Slideshow 1.0.5\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-03 10:22+0200\n"
-"PO-Revision-Date: 2007-11-27 23:24+0100\n"
-"Last-Translator: Matej Spanik <retsamm@gmail.com>\n"
+"PO-Revision-Date: 2006-09-10 21:10+0200\n"
+"Last-Translator: Branislav Hanacek <brango@brango.sk>\n"
 "Language-Team: Slovak <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -37,111 +36,157 @@ msgstr ""
 "X-Poedit-Country: SLOVAKIA\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
+msgid "Slideshow"
+msgstr ""
+
 #, c-format
 msgid "Slideshow for %s"
-msgstr "Slideshow pre %s"
-
-msgid "Slideshow"
 msgstr ""
 
 msgid "Display"
 msgstr "Zobrazenie"
 
 msgid "View Slideshow"
-msgstr "Pozriet Slideshow"
+msgstr ""
 
 msgid "Path to an item (eg, /album/image.jpg.html)"
-msgstr "Cesta k polozke (napr. /album/image.jpg.html)"
+msgstr ""
 
-#, fuzzy
-msgid "Slideshow Settings"
-msgstr "Slideshow pre %s"
+msgid "Blend"
+msgstr ""
+
+msgid "Blinds"
+msgstr ""
+
+msgid "Checkerboard"
+msgstr ""
+
+msgid "Diagonal"
+msgstr ""
+
+msgid "Doors"
+msgstr ""
+
+msgid "Gradient"
+msgstr ""
+
+msgid "Iris"
+msgstr ""
+
+msgid "Pinwheel"
+msgstr ""
+
+msgid "Pixelate"
+msgstr ""
+
+msgid "Radial"
+msgstr ""
+
+msgid "Rain"
+msgstr ""
+
+msgid "Slide"
+msgstr ""
+
+msgid "Snow"
+msgstr ""
+
+msgid "Spiral"
+msgstr ""
+
+msgid "Stretch"
+msgstr ""
+
+msgid "RANDOM"
+msgstr ""
+
+msgid "This album has no photos to show in a slideshow."
+msgstr ""
+
+msgid "Back to Album View"
+msgstr ""
 
 #, c-format
-msgid "Installed PicLens version %s"
+msgid "Date: %s"
+msgstr "Dátum: %s"
+
+msgid "Hide More Info"
 msgstr ""
 
-msgid "An error occurred while downloading PicLens!"
+msgid "Show More Info"
 msgstr ""
 
-msgid "Uninstalled PicLens"
+msgid "Resume"
 msgstr ""
 
-#, c-format
-msgid ""
-"Gallery can optionally use a Flash and JavaScript based slideshow from %s to provide users "
-"with the best possible viewing experience.  Gallery can install %s for you automatically, or "
-"you can choose to use an HTML slideshow."
+msgid "Pause"
 msgstr ""
 
-#, c-format
-msgid "Version %s installed."
+msgid "[-]"
 msgstr ""
 
-msgid "There's a newer version of PicLens available."
+msgid "[+]"
 msgstr ""
 
-msgid "PicLens downloads are currently unavailable.  Please try again later."
+msgid "Stop"
 msgstr ""
 
-#, c-format
-msgid "Install PicLens version %s"
+msgid "Back One Image"
 msgstr ""
 
-#, c-format
-msgid "Update to PicLens version %s"
+msgid "delay: "
 msgstr ""
 
-msgid "Uninstall PicLens"
+msgid "1 second"
 msgstr ""
 
-#~ msgid "RANDOM"
-#~ msgstr "NAHODNE"
+msgid "3 seconds"
+msgstr ""
 
-#~ msgid "This album has no photos to show in a slideshow."
-#~ msgstr "Tento album nema ziadne fotky."
+msgid "5 seconds"
+msgstr ""
 
-#~ msgid "Back to Album View"
-#~ msgstr "Naspat na album"
+msgid "10 seconds"
+msgstr ""
 
-#~ msgid "Date: %s"
-#~ msgstr "Dátum: %s"
+msgid "15 seconds"
+msgstr ""
 
-#~ msgid "Hide More Info"
-#~ msgstr "Skryt Info"
+msgid "20 seconds"
+msgstr ""
 
-#~ msgid "Show More Info"
-#~ msgstr "Ukazat Info"
+msgid "direction: "
+msgstr ""
 
-#~ msgid "Resume"
-#~ msgstr "Pokracovat"
+msgid "forward"
+msgstr ""
 
-#~ msgid "Pause"
-#~ msgstr "Pauza"
+msgid "reverse"
+msgstr ""
 
-#~ msgid "Stop"
-#~ msgstr "Zastavit"
+msgid "random"
+msgstr ""
 
-#~ msgid "Back One Image"
-#~ msgstr "Spat o jeden obrazok"
+msgid "max size: "
+msgstr ""
 
-#~ msgid "delay: "
-#~ msgstr "zdrzanie: "
+msgid "320x320"
+msgstr ""
 
-#~ msgid "direction: "
-#~ msgstr "smer: "
+msgid "640x640"
+msgstr ""
 
-#~ msgid "forward"
-#~ msgstr "dopredu"
+msgid "800x800"
+msgstr ""
 
-#~ msgid "reverse"
-#~ msgstr "dozadu"
+msgid "1024x1024"
+msgstr ""
 
-#~ msgid "random"
-#~ msgstr "nahodne"
+msgid "1280x1280"
+msgstr ""
 
-#~ msgid "max size: "
-#~ msgstr "maximalna velkost: "
+msgid "no limit"
+msgstr ""
 
-#~ msgid "no limit"
-#~ msgstr "ziadny limit"
+msgid "fade: "
+msgstr ""

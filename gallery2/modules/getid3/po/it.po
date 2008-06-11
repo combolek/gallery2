@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,10 +19,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Getid3 1.0.5\n"
+"Project-Id-Version: Gallery: Getid3 1.0.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-03-15 17:59+0100\n"
-"PO-Revision-Date: 2008-03-27 12:05+0100\n"
+"PO-Revision-Date: 2007-01-08 18:00+0100\n"
 "Last-Translator: Ermanno Baschiera <ebaschiera@gmail.com>\n"
 "Language-Team: Italian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -176,12 +176,12 @@ msgstr "Configurazione salvata con successo"
 
 msgid ""
 "getID3() is a PHP4 script that extracts useful information (such as ID3 tags, bitrate, "
-"playtime, etc.) from MP3s &amp; other multimedia file formats (Ogg, WMA, WMV, ASF, WAV, AVI, "
+"playtime, etc.) from MP3s & other multimedia file formats (Ogg, WMA, WMV, ASF, WAV, AVI, "
 "AAC, VQF, FLAC, MusePack, Real, QuickTime, Monkey's Audio, MIDI and more)."
 msgstr ""
 "getID3() è uno script in PHP4 che estrae informazioni utili (come i tag ID3, bitrate, "
-"durata, ecc.) dagli MP3 &amp; altri formati di file multimediali (Ogg, WMA, WMV, ASF, WAV, "
-"AVI, AAC, VQF, FLAC, MusePack, Real, QuickTime, Monkey's Audio, MIDI e altri)."
+"durata, ecc.) dagli MP3 & altri formati di file multimediali (Ogg, WMA, WMV, ASF, WAV, AVI, "
+"AAC, VQF, FLAC, MusePack, Real, QuickTime, Monkey's Audio, MIDI e altri)."
 
 msgid "Summary and Detailed displays"
 msgstr "Schermate Sommario e Dettagli"
@@ -192,8 +192,8 @@ msgid ""
 "in each view."
 msgstr ""
 "Ci possono essere delle grandi quantità di informazioni memorizzate in tanti formati di "
-"file. Questi dati vengono visualizzati in due schermate differenti, sommario e dettagli. È "
-"possibile decidere quale proprietà visualizzare in ciascuna schermata."
+"file. Noi visualizziamo quei dati in due schermate differenti, sommario e dettagli. Puoi "
+"decidere quale proprietà visualizzare in ciascuna schermata."
 
 msgid "Available"
 msgstr "Disponibile"
@@ -205,13 +205,13 @@ msgid "Detailed"
 msgstr "Dettagli"
 
 msgid "You must select at least one value in the available column"
-msgstr "È necessario selezionare almeno un valore nella colonna disponibile"
+msgstr "Devi selezionare almeno un valore nella colonna disponibile"
 
 msgid "You must select at least one value in the summary column"
-msgstr "È necessario selezionare almeno un valore nella colonna sommario"
+msgstr "Devi selezionare almeno un valore nella colonna sommario"
 
 msgid "You must select at least one value in the detailed column"
-msgstr "È necessario selezionare almeno un valore nella colonna dettagli"
+msgstr "Devi selezionare almeno un valore nella colonna dettagli"
 
 msgid "Add to Summary"
 msgstr "Aggiungi a Sommario"
@@ -226,7 +226,7 @@ msgid "Up"
 msgstr "Su"
 
 msgid "Down"
-msgstr "Giù"
+msgstr "Giu"
 
 msgid "Reset to Defaults"
 msgstr "Reimposta a Valori Predefiniti"
@@ -235,8 +235,8 @@ msgid ""
 "Restore the original values for the Summary and Detailed views.  Use with caution, there is "
 "no undo!"
 msgstr ""
-"Ripristina i valori originali per le schermate Sommario e Dettagli. Usare con cautela, non "
-"c'è possibilità di annullare le modifiche."
+"Ripristina i valori originali per le schermate Sommario e Dettagli. Usa con cautela, non c'è "
+"possibilità di annullare le modifiche."
 
 msgid "Restore Summary Defaults"
 msgstr "Ripristina i Valori Predefiniti di Sommario"
@@ -247,9 +247,9 @@ msgstr "Ripristina i Valori Predefiniti di Dettagli"
 msgid "Item Upload"
 msgstr "Caricamento Oggetto"
 
-msgid "When MP3s are added to Gallery check the ID3 title field and apply to:"
+msgid "When mp3's are added to Gallery check id3 Title field and apply to:"
 msgstr ""
-"Quando gli MP3 vengono aggiunti in Gallery controlla il campo ID3 del titolo e applicalo a:"
+"Quando gli mp3 vengono aggiunti alla Gallery controlla il campo id3 Titolo e applicalo a:"
 
 msgid "Save"
 msgstr "Salva"
@@ -279,4 +279,4 @@ msgid "Size"
 msgstr "Dimensione"
 
 msgid "GetID3/Misc info"
-msgstr "Informazioni GetID3/Misc"
+msgstr "Informazioni GetID3/Altre"

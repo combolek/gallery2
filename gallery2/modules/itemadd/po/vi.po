@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,22 +19,15 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Add Items 1.0.6\n"
-"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2007-06-14 17:26-0700\n"
-"PO-Revision-Date: 2007-08-10 12:12-0000\n"
+"Project-Id-Version: Gallery: Add Items 1.0.0\n"
+"POT-Creation-Date: 2005-05-04 16:46-0400\n"
+"PO-Revision-Date: 2005-08-29 14:16+0100\n"
 "Last-Translator: Trung Dong Huynh <trungdong@donggiang.com>\n"
 "Language-Team: Vietnamese <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-msgid "Adding items"
-msgstr "Đang thêm đối tượng"
-
-msgid "Scanning directory"
-msgstr "Đang dò thư mục"
 
 msgid "From Local Server"
 msgstr "Từ thư mục cục bộ của máy chủ"
@@ -46,32 +39,31 @@ msgid "From Web Page"
 msgstr "Từ trang web"
 
 msgid "Available to all users with permission to add items"
-msgstr "Có thể sử dụng bởi tất cả người dùng có quyền thêm đối tượng"
+msgstr ""
 
 msgid "Site Admins only"
-msgstr "Dành riêng cho Quản trị trang"
+msgstr ""
 
 msgid "Disabled"
-msgstr "Bị tắt"
+msgstr ""
 
 msgid "Add Items"
 msgstr "Thêm đối tượng"
 
 msgid "Add items from local server or the web"
-msgstr "Thêm các đối tượng từ máy chủ hoặc trang Web"
+msgstr ""
 
 msgid "Import"
-msgstr "Nhập khẩu"
+msgstr ""
 
 msgid "Web/Server"
-msgstr "Web/Máy chủ"
+msgstr ""
 
-#, fuzzy
 msgid ""
 "Transfer files that are already on your server into your Gallery.  The files must already "
-"have been uploaded to your server some other way (like FTP) and must be placed in an "
-"accessible directory.  If you're on Unix this means that the files and the directory the "
-"files are in should have modes of at least 755."
+"have been uploaded to your server some other way (like FTP) and must be placed in a "
+"directory where they are accessibly by any element on the server.  If you're on Unix this "
+"means that the files and the directory the files are in should have modes of at least 755."
 msgstr ""
 "Chuyển các tập tin đang có sẵn trên máy chủ của bạn vào Gallery. Các tập tin này cần được "
 "tải lên máy chủ bằng một cách nào đó (chẳng hạn như FTP)và phải được đặt trong một thư mục "
@@ -141,8 +133,8 @@ msgstr "Dùng Symlink"
 #, c-format
 msgid "%d byte"
 msgid_plural "%d bytes"
-msgstr[0] "%d byte"
-msgstr[1] "%d byte"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Parent Directory"
 msgstr "Thư mục cha"
@@ -219,8 +211,8 @@ msgstr "đổi"
 #, c-format
 msgid "%d url found"
 msgid_plural "%d urls found"
-msgstr[0] "tìm thấy %d đường dẫn"
-msgstr[1] "tìm thấy %d đường dẫn"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "(Un)check all"
 msgstr "(Bỏ) đánh dấu tất cả"
@@ -229,22 +221,22 @@ msgid "Add URLs"
 msgstr "Thêm địa chỉ mạng"
 
 msgid "Add Item Settings"
-msgstr "Thông số của Thêm ảnh"
+msgstr ""
 
 msgid "Settings saved successfully"
 msgstr "Các thông số đã được lưu lại"
 
 msgid "Enable"
-msgstr "Bật"
+msgstr ""
 
 msgid "Add From Web"
-msgstr "Thêm ảnh từ Web"
+msgstr ""
 
 msgid "Add From Server"
-msgstr "Thêm ảnh từ máy chủ"
+msgstr ""
 
 msgid "Security Warning"
-msgstr "Cảnh báo An ninh"
+msgstr ""
 
 msgid ""
 "\"Add From Web\" can be abused to attack other websites in your name.  For the attacked "
@@ -252,10 +244,6 @@ msgid ""
 "their website because your Gallery acts on behalf of your users.  Therefore it is "
 "recommended to enable \"Add From Web\" only for trusted users."
 msgstr ""
-"\"Thêm ảnh từ Web\" có thể bị lạm dụng đế tấn công các trang web khác dưới tên của bạn. Đối "
-"với các trang web bị tấn công thì họ sẽ thấy như là bạn, quản trị của Gallery này, cố tình "
-"tấn công họ vì Gallery hành động thay mặt người dùng của bạn. Vì vậy, bạn chỉ nên bật tính "
-"năng \"Thêm ảnh từ Web\" cho những người dùng tin cậy."
 
 msgid "Local Server Upload Paths"
 msgstr "Đường dẫn để tải lên thư mục cục bộ"
@@ -309,4 +297,4 @@ msgid "Save"
 msgstr "Lưu"
 
 msgid "Reset"
-msgstr "Làm lại từ đầu"
+msgstr ""

@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Add Items 1.0.6\n"
+"Project-Id-Version: Gallery: Add Items 1.0.0\n"
 "POT-Creation-Date: 2003-06-25 11:44+0100\n"
 "PO-Revision-Date: 2006-04-29 12:50+0100\n"
 "Last-Translator: Janez Troha <janez@tegleda.com>\n"
@@ -32,13 +32,6 @@ msgstr ""
 "X-Poedit-Language: Slovenian\n"
 "X-Poedit-Country: SLOVENIA\n"
 "X-Poedit-SourceCharset: utf-8\n"
-
-#, fuzzy
-msgid "Adding items"
-msgstr "Dodaj Predmete"
-
-msgid "Scanning directory"
-msgstr ""
 
 msgid "From Local Server"
 msgstr "Z tega serverja"
@@ -72,9 +65,9 @@ msgstr ""
 
 msgid ""
 "Transfer files that are already on your server into your Gallery.  The files must already "
-"have been uploaded to your server some other way (like FTP) and must be placed in an "
-"accessible directory.  If you're on Unix this means that the files and the directory the "
-"files are in should have modes of at least 755."
+"have been uploaded to your server some other way (like FTP) and must be placed in a "
+"directory where they are accessibly by any element on the server.  If you're on Unix this "
+"means that the files and the directory the files are in should have modes of at least 755."
 msgstr ""
 
 msgid ""

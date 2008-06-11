@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,24 +33,25 @@ class SizeLimitModule extends GalleryModule {
 	$this->setId('sizelimit');
 	$this->setName($gallery->i18n('Size Limit'));
 	$this->setDescription($gallery->i18n('Define picture size limit'));
-	$this->setVersion('1.0.8');
-	$this->_templateVersion = 1;
+	$this->setVersion('1.0.5');
 	$this->setGroup('display', $gallery->i18n('Display'));
-	$this->setRequiredCoreApi(array(7, 34));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setCallbacks('registerEventListeners');
+	$this->setRequiredCoreApi(array(7, 4));
+	$this->setRequiredModuleApi(array(3, 0));
+    }
+
+    /**
+     * @see GalleryModule::registerEventListeners
+     */
+    function registerEventListeners() {
+	GalleryCoreApi::registerEventListener('GalleryEntity::save',
+	    new SizelimitModule(), true);   /* true=disableForUnitTest */
     }
 
     /**
      * @see GalleryModule::performFactoryRegistrations
      */
     function performFactoryRegistrations() {
-	$ret = GalleryCoreApi::registerFactoryImplementation(
-	    'GalleryEventListener', 'SizelimitModule', 'SizelimitModule', 
-	    'modules/sizelimit/module.inc', 'sizelimit', array('GalleryEntity::save'));
-	if ($ret) {
-	    return $ret;
-	}
-
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'ItemEditOption', 'SizeLimitOption', 'SizeLimitOption',
 	    'modules/sizelimit/SizeLimitOption.inc', 'sizelimit', array('ItemEditAlbum'));
@@ -72,8 +73,8 @@ class SizeLimitModule extends GalleryModule {
      * Event handler for GalleryEntity::save event
      * Copy dimension / filesize limits when the album is created
      *
-     * @param GalleryEvent $event
-     * @return GalleryStatus a status code
+     * @param object GalleryEvent $event
+     * @return object GalleryStatus a status code
      */
     function handleEvent($event) {
 	if ($event->getEventName() == 'GalleryEntity::save') {

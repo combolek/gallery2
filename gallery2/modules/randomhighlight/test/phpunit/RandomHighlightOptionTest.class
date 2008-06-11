@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,6 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
-
 /**
  * Tests RandomHighlightOption and selection of random highlight.
  * @package RandomHighlight
@@ -34,41 +32,41 @@ class RandomHighlightOptionTest extends ItemEditOptionTestCase {
     }
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	list ($ret, $this->_everybodyGroupId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.everybodyGroup');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($this->_album);
 
 	$ret = GalleryCoreApi::addGroupPermission($this->_album->getId(),
 						  $this->_everybodyGroupId, 'core.viewAll');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $this->_item) = $this->_createRandomDataItem(
 	    $this->_album->getId(), 'image/test',
 	    array('width' => 400, 'height' => 300), __FILE__, 'GalleryPhotoItem');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $this->_thumb) = $this->_createDerivative(
 	    $this->_item, $this->_item->getId(), DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
 	    'thumbnail|100', 'image/test', array('width' => 100, 'height' => 75));
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Give highlight an abnormal source id so refresh can pick new highlight */
@@ -76,17 +74,20 @@ class RandomHighlightOptionTest extends ItemEditOptionTestCase {
 	    $this->_album, $this->_item->getId(), DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
 	    'thumbnail|200', 'image/test');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'randomhighlight');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'randomhighlight', 'duration', '-100');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = GalleryCoreApi::registerFactoryImplementation(
@@ -94,7 +95,8 @@ class RandomHighlightOptionTest extends ItemEditOptionTestCase {
 	    'modules/randomhighlight/test/phpunit/RandomHighlightOptionTest.class',
 	    'randomhighlightTest', null);
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markToolkitForCleanup('RandomHighlightTestToolkit');
 
@@ -103,7 +105,8 @@ class RandomHighlightOptionTest extends ItemEditOptionTestCase {
 	    array(array('type' => 'int', 'description' => 'test'),
 		  array('type' => 'int', 'description' => 'test')), 'test');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Clean all cached variables */
@@ -132,7 +135,7 @@ class RandomHighlightOptionTest extends ItemEditOptionTestCase {
     function testRandomHighlight() {
 	list ($ret, $appropriate) = $this->_option->isAppropriate($this->_album, $this->_highlight);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert($appropriate, 'appropriate');
 	$this->assertEquals(0, $this->_highlight->getWidth(), 'no width yet');
@@ -143,7 +146,7 @@ class RandomHighlightOptionTest extends ItemEditOptionTestCase {
 
 	list ($ret, $highlight) = $this->_highlight->refresh();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals('|RandomHighlight|', $highlight->getOnLoadHandlers(), 'on');
 
@@ -162,7 +165,7 @@ class RandomHighlightOptionTest extends ItemEditOptionTestCase {
 	GalleryDataCache::reset();
 	list ($ret, $highlight) = $highlight->refresh();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	/* For Oracle, null is replaced with '' when loading data from the database */
 	$this->assert(in_array($highlight->getOnLoadHandlers(), array(null, '')), 'off');
@@ -181,14 +184,14 @@ class RandomHighlightOptionTest extends ItemEditOptionTestCase {
 
 	list ($ret, $highlight) = $this->_highlight->refresh();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals('|RandomHighlight|', $highlight->getOnLoadHandlers(), 'verify');
 
 	/* Add a second photo item with another thumbnail dimension */
 	list ($ret, $newThumb) = $this->_createPhotoItem();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Call the onLoad handler a few times and it should always alternate */
@@ -197,7 +200,7 @@ class RandomHighlightOptionTest extends ItemEditOptionTestCase {
 	    GalleryDataCache::reset();
 	    list ($ret, $highlight) = $this->_highlight->refresh();
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $this->assertEquals('|RandomHighlight|', $highlight->getOnLoadHandlers(), "random $i");
 	    if ($i % 2 == 0) {
@@ -220,12 +223,12 @@ class RandomHighlightOptionTest extends ItemEditOptionTestCase {
 
 	$ret = GalleryCoreApi::removeItemPermissions($this->_item->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$ret = GalleryCoreApi::addUserPermission($this->_item->getId(),
 						 $gallery->getActiveUserId(), 'core.all');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$form['RandomHighlightOption']['isRandomHighlight'] = 1;
@@ -235,7 +238,7 @@ class RandomHighlightOptionTest extends ItemEditOptionTestCase {
 	GalleryDataCache::reset();
 	list ($ret, $highlight) = $this->_highlight->refresh();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals('|RandomHighlightPrivate|', $highlight->getOnLoadHandlers(), 'on');
 
@@ -243,13 +246,13 @@ class RandomHighlightOptionTest extends ItemEditOptionTestCase {
 	/* Create second photo item (public) which should now be chosen */
 	list ($ret, $newThumb) = $this->_createPhotoItem();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Set long duration so highlight will only repick due to permissions */
 	$ret = GalleryCoreApi::setPluginParameter('module', 'randomhighlight', 'duration', 99999);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->_becomeGuestUser();
@@ -260,7 +263,7 @@ class RandomHighlightOptionTest extends ItemEditOptionTestCase {
 	GalleryDataCache::reset();
 	list ($ret, $highlight) = $this->_highlight->refresh();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals('|RandomHighlight|', $highlight->getOnLoadHandlers(), 'public now');
 	$this->assertEquals($newThumb->getId(), $highlight->getDerivativeSourceId(), 'new source');
@@ -278,14 +281,14 @@ class RandomHighlightOptionTest extends ItemEditOptionTestCase {
 
 	list ($ret, $highlight) = $this->_highlight->refresh();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals('|RandomHighlight|', $highlight->getOnLoadHandlers(), 'verify');
 
 	/* Add a second photo item with another thumbnail dimension */
 	list ($ret, $newThumb) = $this->_createPhotoItem();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	GalleryUtilities::putRequestVariable('view', 'core.DownloadItem');
@@ -294,7 +297,7 @@ class RandomHighlightOptionTest extends ItemEditOptionTestCase {
 	GalleryDataCache::reset();
 	list ($ret, $highlight) = $this->_highlight->refresh();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	/* Verify the results */
 	$this->assertEquals('|RandomHighlight|', $highlight->getOnLoadHandlers(), 'type');
@@ -314,14 +317,14 @@ class RandomHighlightOptionTest extends ItemEditOptionTestCase {
 
 	list ($ret, $highlight) = $this->_highlight->refresh();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals('|RandomHighlight|', $highlight->getOnLoadHandlers(), 'verify');
 
 	/* Add a second photo item with another thumbnail dimension */
 	list ($ret, $newThumb) = $this->_createPhotoItem();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	GalleryDataCache::reset();
@@ -330,7 +333,7 @@ class RandomHighlightOptionTest extends ItemEditOptionTestCase {
 	/* Execute the test */
 	list ($ret, $highlight) = $this->_highlight->refresh();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals('|RandomHighlight|', $highlight->getOnLoadHandlers(), 'type');
 	$this->assertEquals($this->_thumb->getId(), $highlight->getDerivativeSourceId(),
@@ -342,7 +345,7 @@ class RandomHighlightOptionTest extends ItemEditOptionTestCase {
 	GalleryDataCache::put('randomhighlight:count', 2);
 	list ($ret, $highlight) = $this->_highlight->refresh();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals('|RandomHighlight|', $highlight->getOnLoadHandlers(), 'type');
 	$this->assertEquals($newThumb->getId(), $highlight->getDerivativeSourceId(), 'sourceId');
@@ -357,7 +360,7 @@ class RandomHighlightOptionTest extends ItemEditOptionTestCase {
 	for ($i = 0; $i < $n; $i++) {
 	    list ($ret) = $this->_createRandomDataItem($this->_album->getId());
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	}
 
@@ -367,7 +370,7 @@ class RandomHighlightOptionTest extends ItemEditOptionTestCase {
 
 	list ($ret, $highlight) = $this->_highlight->refresh();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals('|RandomHighlight|', $highlight->getOnLoadHandlers(), 'on');
 	$this->assertEquals($this->_thumb->getId(), $highlight->getDerivativeSourceId(), 'source');

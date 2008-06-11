@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,11 +22,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Keyword Albums 1.0.5\n"
+"Project-Id-Version: Gallery: Keyword Albums 1.0.0\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2006-09-12 11:25-0700\n"
-"PO-Revision-Date: 2008-03-14 01:22+0300\n"
-"Last-Translator: Ser Moro <webber@morozov-sm.ru>\n"
+"PO-Revision-Date: 2007-01-27 15:00+0300\n"
+"Last-Translator: Yuri Palmin <ypalmin@gmail.com>\n"
 "Language-Team: Russian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -36,15 +36,15 @@ msgstr ""
 "X-Poedit-Language: Russian\n"
 "X-Poedit-Country: RUSSIAN FEDERATION\n"
 
-#, c-format
-msgid "Keyword Album: %s"
-msgstr "Альбом по ключевому слову: %s"
-
 msgid "Keyword Album"
 msgstr "Альбом по ключевому слову"
 
 msgid "keyword album"
 msgstr "альбом по ключевому слову"
+
+#, c-format
+msgid "Keyword Album: %s"
+msgstr "Альбом по ключевому слову: %s"
 
 msgid "All album views"
 msgstr "Во всех альбомах"
@@ -79,24 +79,21 @@ msgstr "Короткие URL для альбомов по ключевому с�
 msgid "Keyword to use for dynamic album"
 msgstr "Ключевое слово, используемое для динамического альбома"
 
-msgid "Page number in a dynamic album"
-msgstr "Номер страницы в динамическом альбоме"
-
 msgid "Keyword Album Settings"
-msgstr "Настройки альбома по ключевому слову"
+msgstr "Установки альбома по ключевому слову"
 
 msgid "Settings saved successfully"
 msgstr "Настройки успешно сохранены"
 
 msgid "There was a problem processing your request."
-msgstr "Во время обработки вашего запроса возникли проблемы."
+msgstr "Во время обработки Вашего запроса возникли проблемы."
 
 msgid ""
 "Select where to include links in item summary info, usually shown next to thumbnails.  You "
 "can also add the Keyword Albums block in theme settings."
 msgstr ""
 "Выберите, где показывать ссылку в подзаголовке, обычно рядом с миниатюрой. Можно также "
-"добавить блок альбомов по ключевым словам в настройках  темы."
+"добавить блок альбомов по ключевым словам в установках темы."
 
 msgid "Keyword Links"
 msgstr "Ссылки на ключевые слова"
@@ -168,3 +165,6 @@ msgstr "Показывать облако ключевых слов вместо
 msgid "Maximum number of keywords (empty for no limit)"
 msgstr ""
 "Максимальное количество ключевых слов (оствьте пустым, если количество не ограничивается)"
+
+#~ msgid "Successfully saved theme settings"
+#~ msgstr "Настройки темы успешно сохранены"

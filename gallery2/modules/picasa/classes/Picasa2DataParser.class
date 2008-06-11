@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -76,7 +76,7 @@ class Picasa2DataParser {
      *  http://www.php.net/manual/en/function.xml-parse-into-struct.php#49154
      *
      *  @param string $rawXml - xml which will be fed into xml_parse_into_struct()
-     *  @return array GalleryStatus a status code
+     *  @return array object GalleryStatus a status code
      *                array a nested php array containing xml data.
      */
     function getXmlArray($rawXml) {

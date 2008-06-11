@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,11 +19,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Slideshow Applet 1.0.10\n"
+"Project-Id-Version: Gallery: Slideshow Applet 1.0.7\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2007-06-14 17:45-0700\n"
-"PO-Revision-Date: 2007-04-01 01:33+0100\n"
-"Last-Translator: Rekedt-Nagy József <jozsef.rnagy@site.hu>\n"
+"POT-Creation-Date: 2007-03-16 11:37-0700\n"
+"PO-Revision-Date: 2006-01-06 13:56+0100\n"
+"Last-Translator: Jozsef R.Nagy <joe7@site.hu>\n"
 "Language-Team: Hungarian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,6 +38,7 @@ msgstr "Diavetítő Segédprogram"
 msgid "Fullscreen slideshow using a Java applet"
 msgstr "Teljesképernyős diavetítés Java segédprogram használatával"
 
+#, fuzzy
 msgid "Display"
 msgstr "Megjelenítés"
 
@@ -46,7 +47,7 @@ msgid "View Slideshow (Fullscreen)"
 msgstr "Diavetítés (Teljesképernyős)"
 
 msgid "Path to an item (eg, /album/image.jpg.html)"
-msgstr "Egy elem elérési útja (pl: /album/kep.jpg.html)"
+msgstr "Egy elem elérési útja (pl: /album/image.jpg.html)"
 
 msgid "Slideshow"
 msgstr "Diavetítés"
@@ -61,12 +62,14 @@ msgstr ""
 msgid "Downloading the Gallery Remote Applet"
 msgstr "A Galéria Külső Segédprogramjának (Applet) Letöltése"
 
+#, fuzzy
 msgid "Your browser doesn't support applets; you should use the standard slideshow."
 msgstr ""
-"A böngésződ nem támogatja a segédprogramokat (appletek). Használd a normál diavetítést!"
+"A böngésződ nem támogatja a segédprogramokat (appletek). Használj más feltöltési módot!"
 
+#, fuzzy
 msgid "Slideshow Applet Settings"
-msgstr "Diavetítő Segédprogram Beállításai"
+msgstr "Diavetítő Segédprogram"
 
 msgid "Defaults"
 msgstr "Alapértelmezettek"
@@ -81,7 +84,7 @@ msgid "You have no default variables"
 msgstr ""
 
 msgid "Variable"
-msgstr "Változó"
+msgstr ""
 
 msgid "Action"
 msgstr "Művelet"
@@ -90,19 +93,19 @@ msgid "Delete"
 msgstr "Törlés"
 
 msgid "Add a new default variable"
-msgstr "Új alapértelmezett érték megadása"
+msgstr ""
 
 msgid "You must enter a variable name and value"
-msgstr "Meg kell adnod a változó nevét és értékét"
+msgstr ""
 
 msgid "New variable"
-msgstr "Új változó"
+msgstr ""
 
 msgid "Add variable"
-msgstr "Változó hozzáadása"
+msgstr ""
 
 msgid "Overrides"
-msgstr "Felülbírálások"
+msgstr ""
 
 msgid ""
 "These variables override any other values for applets users execute on your site. Users will "
@@ -110,22 +113,22 @@ msgid ""
 msgstr ""
 
 msgid "You have no override variables"
-msgstr "Egyetlen változót sem bíráltál felül"
+msgstr ""
 
 msgid "Add a new override variable"
-msgstr "Új érték felülbírálása"
+msgstr ""
 
 msgid "Help"
-msgstr "Segítség"
+msgstr ""
 
 msgid "Here are a selection of variables that affect slideshows."
 msgstr ""
 
 msgid "variable"
-msgstr "változó"
+msgstr ""
 
 msgid "values"
-msgstr "értékek"
+msgstr ""
 
 msgid "help"
 msgstr "segítség"
@@ -134,13 +137,13 @@ msgid "maximum number of pictures shown in one go"
 msgstr ""
 
 msgid "does slideshow display pictures inside sub-albums?"
-msgstr "tartalmazza a diavetítés a belső albumok képeit?"
+msgstr ""
 
 msgid "if true, will prevent the slideshow from downloading the full-resolution pictures"
 msgstr ""
 
 msgid "does slideshow loop when it gets to the end?"
-msgstr "kezdődjön újra a diavetítés amikor a végére ér?"
+msgstr ""
 
 msgid "if true, pictures smaller than the screen won't be stretched"
 msgstr ""
@@ -150,9 +153,8 @@ msgid ""
 "also may waste bandwidth"
 msgstr ""
 
-#, fuzzy
-msgid "color of the slideshow background"
-msgstr "a diavetítés hátterének színe"
+msgid "color or the slideshow background"
+msgstr ""
 
 msgid "size of text overlay"
 msgstr ""
@@ -161,7 +163,10 @@ msgid "font of text overlay"
 msgstr ""
 
 msgid "should the pictures be shown in random order?"
-msgstr "véletlenszerű sorrendben jelenjenek meg a képek?"
+msgstr ""
 
 msgid "Complete list of variables"
-msgstr "A változók teljes listája"
+msgstr ""
+
+#~ msgid "Save"
+#~ msgstr "Mentés"

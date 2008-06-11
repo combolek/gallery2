@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,12 +16,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
-# 
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Panorama 1.0.9\n"
-"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2007-06-14 17:33-0700\n"
+"Project-Id-Version: Gallery: Panorama 1.0.8\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-04-10 11:05+0900\n"
 "PO-Revision-Date: 2006-04-10 14:10+0900\n"
 "Last-Translator: Juice <blackmantle@gmail.com>\n"
 "Language-Team: Korean <gallery-translations@lists.sourceforge.net>\n"
@@ -40,7 +40,7 @@ msgid "View wide jpeg/gif images in a java applet viewer"
 msgstr "자바 애플릿을 이용해 JPEG또는 GIF 이미지 파일을 와이드로 보여줍니다."
 
 msgid "Display"
-msgstr "Display"
+msgstr ""
 
 msgid "View Panorama"
 msgstr "파노라마 보기"
@@ -78,9 +78,9 @@ msgid ""
 "image display but gives users an option in the \"item actions\" to view the image in the "
 "panorama viewer."
 msgstr ""
-"파노라마 뷰어를 실해하는 두가지 방법: 첫번째 방법, 사진첩 관리자가 사진에 대해 개별적으로 파"
-"노라마 뷰어를 실행할지 결정합니다.( 사진 수정 - 사진 - 파노라마), 두번째 방법,  사용자가 파노"
-"라마 뷰어를 실행할 결정권을 주는 방법입니다."
+"파노라마 뷰어를 실해하는 두가지 방법: <br>첫번째 방법, 사진첩 관리자가 사진에 대해 개별적으"
+"로 파노라마 뷰어를 실행할지 결정합니다.( 사진 수정 - 사진 - 파노라마), <br>두번째 방법,  사용"
+"자가 파노라마 뷰어를 실행할 결정권을 주는 방법입니다."
 
 msgid "Use applet to display wide images"
 msgstr "와이드 이미지를 애플릿을 이용해 보여줍니다."
@@ -99,3 +99,15 @@ msgstr "저장"
 
 msgid "Reset"
 msgstr "다시"
+
+#~ msgid ""
+#~ "This gallery contains items activated for panorama view.  These must be reset to standard "
+#~ "items before this module can be deactivated.  You can reset all items here.  Warning: "
+#~ "there is no undo."
+#~ msgstr ""
+#~ "이 Gallery는 파노라마 보기가 활성화 돼어 있습니다. 이 모듈을 사용하지 않으려면 이 모듈을 "
+#~ "비활성시키기 전에 반드시 모든 아이템을 초기화시켜야합니다. 여기서 초기화를 할수 있습니다. "
+#~ "경고: 한번 수행하면 취소할 수 없습니다."
+
+#~ msgid "Reset all items"
+#~ msgstr "모든 아이템 초기화"

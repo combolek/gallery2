@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,22 +37,21 @@ class RatingHelperTest extends GalleryTestCase {
 
     function setUp() {
 	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId(),
 		array('orderBy' => 'RatingSortOrder', 'orderDirection' => ORDER_DESCENDING));
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($this->_album);
 
 	list ($ret, $this->_item) = $this->_createRandomDataItem($this->_album->getId(),
 		'image/test', array(), __FILE__, 'GalleryPhotoItem');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$numUsers = rand(3, 10);
@@ -60,7 +59,8 @@ class RatingHelperTest extends GalleryTestCase {
 	for ($i=0; $i < $numUsers; $i++) {
 	    list ($ret, $this->_users[$i]) = $this->_createRandomUser();
 	    if ($ret) {
-		return $ret;
+		print $ret->getAsHtml();
+		return $this->failWithStatus($ret);
 	    }
 
 	    /* Clean up test users */
@@ -87,10 +87,7 @@ class RatingHelperTest extends GalleryTestCase {
 	    $translator->init($languageCode);
 	}
 
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
+	parent::tearDown();
     }
 
     function testRateItem() {
@@ -103,7 +100,7 @@ class RatingHelperTest extends GalleryTestCase {
 	list ($ret, $RatingData) =
 	    RatingHelper::rateItem($this->_item->getId(), $testRating, $this->_users[0]->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Check our own rating */
@@ -127,7 +124,7 @@ class RatingHelperTest extends GalleryTestCase {
 	list ($ret, $RatingData) =
 	    RatingHelper::rateItem($this->_item->getId(), $testRating, $this->_users[0]->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* There should be no rating */
@@ -145,7 +142,7 @@ class RatingHelperTest extends GalleryTestCase {
 	$gallery->_session = null;
 	$ret = $gallery->initSession();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	/* It should create a new persistent session */
 	$this->_becomeGuestUser();
@@ -154,7 +151,7 @@ class RatingHelperTest extends GalleryTestCase {
 	list ($ret, $guestId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$anonymousUserId = (int)$guestId;
 
@@ -163,13 +160,13 @@ class RatingHelperTest extends GalleryTestCase {
 	list ($ret, $RatingData) =
 	    RatingHelper::rateItem($this->_item->getId(), 3, $anonymousUserId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(true, $gallery->_session->isPersistent(), 'is persistent');
 	list ($ret, $RatingData) =
 	    RatingHelper::rateItem($this->_item->getId(), $testRating, $anonymousUserId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals($testRating, (int)$RatingData['userRating']);
@@ -196,7 +193,7 @@ class RatingHelperTest extends GalleryTestCase {
 	    list ($ret, $RatingData) =
 		RatingHelper::rateItem($this->_item->getId(), $testRating, $user->getId());
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $totalRating += $testRating;
 	    $votes++;
@@ -215,7 +212,7 @@ class RatingHelperTest extends GalleryTestCase {
 	list ($ret, $RatingData) = RatingHelper::fetchRatings(array($this->_item->getId()),
 		$this->_users[0]->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals($average, (double)$RatingData[$this->_item->getId()]['rating'],
 		'Average rating test failed.');
@@ -237,7 +234,7 @@ class RatingHelperTest extends GalleryTestCase {
 	list ($ret, $guestId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$anonymousUserId = (int)$guestId;
 
@@ -254,7 +251,7 @@ class RatingHelperTest extends GalleryTestCase {
 		$gallery->_session = null;
 		$ret = $gallery->initSession();
 		if ($ret) {
-		    return $ret;
+		    return $this->failWithStatus($ret);
 		}
 		/* It should create a new persistent session */
 		$this->_becomeGuestUser();
@@ -265,7 +262,7 @@ class RatingHelperTest extends GalleryTestCase {
 	    list ($ret, $RatingData) =
 		RatingHelper::rateItem($this->_item->getId(), $testRating, $userId);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $totalRating += $testRating;
 	    $votes++;
@@ -284,7 +281,7 @@ class RatingHelperTest extends GalleryTestCase {
 	list ($ret, $RatingData) = RatingHelper::fetchRatings(array($this->_item->getId()),
 							      $anonymousUserId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals($average, (double)$RatingData[$this->_item->getId()]['rating'],
 			    'average for guest that has rated');
@@ -295,7 +292,7 @@ class RatingHelperTest extends GalleryTestCase {
 	$gallery->_session = null;
 	$ret = $gallery->initSession();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	/* It should create a new persistent session */
 	$this->_becomeGuestUser();
@@ -304,7 +301,7 @@ class RatingHelperTest extends GalleryTestCase {
 	list ($ret, $RatingData) = RatingHelper::fetchRatings(array($this->_item->getId()),
 							      $anonymousUserId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals($average, (double)$RatingData[$this->_item->getId()]['rating'],
 		'Average rating test failed.');
@@ -315,40 +312,16 @@ class RatingHelperTest extends GalleryTestCase {
 	$session = new GallerySession();
 	$ret = $session->initEmpty(true, $anonymousUserId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$gallery->_session = $session;
 	$this->assertEquals(true, $gallery->_session->isPersistent(), 'persistent');
 	list ($ret, $RatingData) = RatingHelper::fetchRatings(array($this->_item->getId()),
 							      $anonymousUserId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(!isset($RatingData['userRating']), 'no user rating');
-    }
-
-    function testFetchRatingsForUser() {
-	/* Used to be a bug with missing keys in data for item rated by others but not this user */
-	list ($ret) = RatingHelper::rateItem($this->_item->getId(), 4, $this->_users[0]->getId());
-	if ($ret) {
-	    return $ret;
-	}
-
-	list ($ret, $RatingData) = RatingHelper::fetchRatings(array($this->_item->getId()),
-							      $this->_users[1]->getId());
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assertEquals(
-		array($this->_item->getId() => array('itemId' => $this->_item->getId(),
-						     'rating' => '4',
-						     'votes' => 1,
-						     'averagePercent' => '80',
-						     'stars' => 8,
-						     'userRating' => 'N/A',
-						     'userStars' => 0)
-		    ),
-		$RatingData);
     }
 
     function testGetItemSummaries() {
@@ -358,7 +331,7 @@ class RatingHelperTest extends GalleryTestCase {
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'rating');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$itemId = $this->_item->getId();
@@ -369,7 +342,7 @@ class RatingHelperTest extends GalleryTestCase {
 	list ($ret, $content) = $module->getItemSummaries(array($this->_item), $permissions,
 		$template);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(isset($content[$itemId]) && !empty($content[$itemId]),
 		'Did not get item summary');
@@ -381,7 +354,7 @@ class RatingHelperTest extends GalleryTestCase {
 	list ($ret, $content) = $module->getItemSummaries(array($this->_item),
 		array($itemId => array()), $template);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(!isset($content[$itemId]), 'Got an item summary');
     }
@@ -392,7 +365,7 @@ class RatingHelperTest extends GalleryTestCase {
 	    list ($ret, $items[]) = $this->_createRandomDataItem($this->_album->getId(),
 		    'image/test', array(), __FILE__, 'GalleryPhotoItem');
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	}
 	/* Four items: *, *****, * + random votes, ***** x3; order = 4 2 3 1 */
@@ -400,13 +373,13 @@ class RatingHelperTest extends GalleryTestCase {
 	    list ($ret) = RatingHelper::rateItem(
 		    $item->getId(), ($i % 2) ? 5 : 1, $this->_users[0]->getId());
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	}
 	for ($i = 1; $i <= 2; $i++) {
 	    list ($ret) = RatingHelper::rateItem($items[3]->getId(), 5, $this->_users[$i]->getId());
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	}
 	for ($i = 1; $i < count($this->_users); $i++) {
@@ -414,13 +387,13 @@ class RatingHelperTest extends GalleryTestCase {
 	    list ($ret) = RatingHelper::rateItem(
 		    $items[2]->getId(), $testRating, $this->_users[$i]->getId());
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	}
 
 	list ($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($this->_album);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(

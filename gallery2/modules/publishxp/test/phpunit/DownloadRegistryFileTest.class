@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,18 +34,17 @@ class DownloadRegistryFileTest extends GalleryTestCase {
 
     function setUp() {
 	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'core');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'default.language', 'en_US');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$gallery->setActiveLanguageCode('en_US');
 	if (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
@@ -56,16 +55,16 @@ class DownloadRegistryFileTest extends GalleryTestCase {
     }
 
     function testGetCharsetFromRequestDefault() {
-	$this->assertEquals('CP1252', $this->view->_getCharsetFromRequest(), 'default');
+	$this->assertEquals('Windows-1252', $this->view->_getCharsetFromRequest(), 'default');
 	
 	$this->_setActiveLanguageCode('en_US');
-	$this->assertEquals('CP1252', $this->view->_getCharsetFromRequest(), 'default 2');
+	$this->assertEquals('Windows-1252', $this->view->_getCharsetFromRequest(), 'default 2');
 
 	$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'ja';
-	$this->assertEquals('CP932', $this->view->_getCharsetFromRequest(), 'HTTP override');
+	$this->assertEquals('Windows-932', $this->view->_getCharsetFromRequest(), 'HTTP override');
 
 	$this->_setActiveLanguageCode('ru_RU');
-	$this->assertEquals('CP1251', $this->view->_getCharsetFromRequest(),
+	$this->assertEquals('Windows-1251', $this->view->_getCharsetFromRequest(),
 			    'session override');
     }
 
@@ -73,34 +72,34 @@ class DownloadRegistryFileTest extends GalleryTestCase {
 	/* Ensure it uses the plugin param and not getDefaultLanguageCode() */
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'language.useBrowserPref', '1');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'ja';
-	$this->assertEquals('CP932', $this->view->_getCharsetFromRequest(), 'HTTP override');
+	$this->assertEquals('Windows-932', $this->view->_getCharsetFromRequest(), 'HTTP override');
     }
 
     function testGetCharsetFromRequestChinese() {
 	$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'zh';
-	$this->assertEquals('CP950', $this->view->_getCharsetFromRequest(), 'default');
+	$this->assertEquals('Windows-950', $this->view->_getCharsetFromRequest(), 'default');
 
 	$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'zh-cn';
-	$this->assertEquals('CP936', $this->view->_getCharsetFromRequest(), 'Simplified 1');
+	$this->assertEquals('Windows-936', $this->view->_getCharsetFromRequest(), 'Simplified 1');
 
 	$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'zh-tw';
-	$this->assertEquals('CP950', $this->view->_getCharsetFromRequest(), 'Traditional 1');
+	$this->assertEquals('Windows-950', $this->view->_getCharsetFromRequest(), 'Traditional 1');
 
 	$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'zh-hans_HK';
-	$this->assertEquals('CP936', $this->view->_getCharsetFromRequest(), 'Simplified 2');
+	$this->assertEquals('Windows-936', $this->view->_getCharsetFromRequest(), 'Simplified 2');
 
 	$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'zh-Hant';
-	$this->assertEquals('CP950', $this->view->_getCharsetFromRequest(), 'Traditional 2');
+	$this->assertEquals('Windows-950', $this->view->_getCharsetFromRequest(), 'Traditional 2');
     }
 
     function _setActiveLanguageCode($languageCode) {
 	global $gallery;
 	$ret = $gallery->setActiveLanguageCode($languageCode);
 	if ($ret) {
-	    return $ret;    
+	    return $this->failWithStatus($ret);    
 	}
     }
 }

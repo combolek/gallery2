@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,13 +32,11 @@ class MailHelperTest extends GalleryTestCase {
     }
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'core');
 	if ($ret) {
+	    print $ret->getAsHtml();
 	    return $ret;
 	}
 
@@ -58,7 +56,7 @@ class MailHelperTest extends GalleryTestCase {
     function testSendTemplatedEmailEmptyFromHeader() {
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'smtp.from', '');
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 
 	$expectedData = $this->_emailData;
@@ -74,7 +72,7 @@ class MailHelperTest extends GalleryTestCase {
 		$this->templateFile, $this->_emailData, null,
 		$this->_emailData['to'], $this->_emailData['subject']);
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 
 	/*
@@ -93,7 +91,7 @@ class MailHelperTest extends GalleryTestCase {
 	    $this->templateFile, $this->_emailData, 'mailhelpertest1@test.com',
 	    $this->_emailData['to'], $this->_emailData['subject']);
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 
 	$response = $this->_dummyPlatform->getMailData();
@@ -105,14 +103,14 @@ class MailHelperTest extends GalleryTestCase {
 	$ret = GalleryCoreApi::setPluginParameter(
 	    'module', 'core', 'smtp.from', 'mailhelpertest2@test.com');
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 
 	$ret = GalleryCoreApi::sendTemplatedEmail(
 	    $this->templateFile, $this->_emailData, null,
 	    $this->_emailData['to'], $this->_emailData['subject']);
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 
 	$response = $this->_dummyPlatform->getMailData();
@@ -123,7 +121,7 @@ class MailHelperTest extends GalleryTestCase {
 	$ret = GalleryCoreApi::setPluginParameter(
 	    'module', 'core', 'smtp.from', 'mailhelpertest3_core_smtp@test.com');
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 
 	/* Set the from address and update the test data */
@@ -134,7 +132,7 @@ class MailHelperTest extends GalleryTestCase {
 	    $this->templateFile, $this->_emailData, 'mailhelpertest3_function_input@test.com',
 	    $this->_emailData['to'], $this->_emailData['subject']);
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 
 	$response = $this->_dummyPlatform->getMailData();
@@ -143,19 +141,14 @@ class MailHelperTest extends GalleryTestCase {
     }
 
     function testSendTemplatedEmailWithContentType() {
-	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'smtp.from', '');
-	if ($ret) {
-	    return ($ret);
-	}
 	$ret = GalleryCoreApi::sendTemplatedEmail(
 	    $this->templateFile, $this->_emailData, null, $this->_emailData['to'],
 	    $this->_emailData['subject'], "Content-Type: text/html\r\n");
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 	$response = $this->_dummyPlatform->getMailData();
-	$this->assertEquals("Content-Type: text/html", $response['headers'][1],
-		print_r($response['headers'], true));
+	$this->assertEquals("Content-Type: text/html", $response['headers'][1]);
     }
 
     function testSendTemplatedEmailExtendedCharactersInSubject() {
@@ -163,7 +156,7 @@ class MailHelperTest extends GalleryTestCase {
 	    $this->templateFile, $this->_emailData, null, $this->_emailData['to'],
 	    "s\xc3\xa5 utrolig", null);
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 	$response = $this->_dummyPlatform->getMailData();
 	$this->assertEquals('=?utf-8?q?s=c3=a5 utrolig?=', $response['subject']);
@@ -181,7 +174,7 @@ class MailHelperTest extends GalleryTestCase {
 	$ret = GalleryCoreApi::sendTemplatedEmail(
 	    $this->templateFile, $this->_emailData, null, $multiTo, $this->_emailData['subject']);
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 	$this->assertEquals(4, $this->_dummyPlatform->getMailedCount(), 'MailedCount incorrect');
     }
@@ -209,6 +202,7 @@ class MailHelperDummyPlatform {
 		  'subject' => $subject,
 		  'body' => trim($body),
 		  'headers' => split("\r\n", $headers));
+
 
 	$_REQUEST['mailedCount']++;
 	return true;
@@ -240,10 +234,6 @@ class MailHelperDummyPlatform {
 
     function is_writeable($filename) {
 	return $this->_platform->is_writeable($filename);
-    }
-
-    function is_readable($filename) {
-	return $this->_platform->is_readable($filename);
     }
 
     function stat($filename) {

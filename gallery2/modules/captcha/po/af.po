@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 # Previous translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Captcha 1.1.6\n"
+"Project-Id-Version: Gallery: Captcha 1.1.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-12 08:11-0700\n"
 "PO-Revision-Date: 2006-03-16 09:56+0200\n"
@@ -146,14 +146,27 @@ msgstr "Stoor"
 msgid "Reset"
 msgstr "Herstel"
 
-#, fuzzy
-msgid "Type the letters appearing in the picture."
+msgid "Type the word appearing in the picture."
 msgstr "Tik die woord wat in die skets verskyn."
 
-#, fuzzy
-msgid "You must enter the letters appearing in the picture."
+msgid "You must enter the number appearing in the picture."
 msgstr "U moet die getal in die skets weergegee intik."
 
-#, fuzzy
-msgid "Incorrect letters."
+msgid "Incorrect number."
 msgstr "Verkeerde getal."
+
+#~ msgid "Low Security - Always Off"
+#~ msgstr "Lae Sekuriteit - Altyd Af"
+
+#~ msgid ""
+#~ "Most modules rely solely on the user being authenticated by Gallery and require no "
+#~ "special Captcha interaction."
+#~ msgstr ""
+#~ "Die meeste modules maak slegs op die gebruiker wat bevestig word by Gallery staat en "
+#~ "vereis nie spesiale Captcha interaksie nie."
+
+#~ msgid "Save Settings"
+#~ msgstr "Verstellings Gestoor"
+
+#~ msgid "Cancel"
+#~ msgstr "Kanselleer"

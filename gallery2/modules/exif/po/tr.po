@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,21 +18,23 @@
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
 #
 # Previous translators (as far as known, add yourself here, please):
-# - İshak Göker Işık <admin@ansolon.org>
-# - Roman Neumüller <email@katpatuka.org>
+# - Jens Tkotz <jens@peino.de>
+# - Ernesto Baschny <ernst@baschny.de>
+# - Georg Rehfeld <rehfeld@georg-rehfeld.de>
+# - Frederik Kunz <frederik.kunz@web.de>
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: EXIF/IPTC 1.2.4\n"
+"Project-Id-Version: Gallery: EXIF/IPTC 1.1.0\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2007-06-14 17:19-0700\n"
-"PO-Revision-Date: 2007-09-12 20:23+0200\n"
-"Last-Translator: Roman Neumüller <email@katpatuka.org>\n"
+"POT-Creation-Date: 2006-09-12 10:50-0700\n"
+"PO-Revision-Date: 2006-09-20 00:10+0200\n"
+"Last-Translator: Ishak Goker ISIK <admin@ansolon.com>\n"
 "Language-Team: Turkish <admin@ansolon.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Language: Turkish\n"
 "X-Poedit-Country: TURKEY\n"
 
@@ -52,16 +54,16 @@ msgid "Aperture Value"
 msgstr "Açıklık Değeri"
 
 msgid "Shutter Speed Value"
-msgstr "Objektif kapağı hızı"
+msgstr ""
 
 msgid "ISO"
-msgstr "ISO"
+msgstr "ASA"
 
 msgid "Focal Length"
 msgstr "Odaksal Uzunluk"
 
 msgid "Flash"
-msgstr "Flaş"
+msgstr ""
 
 msgid "ACD Comment"
 msgstr "ACD Yorum"
@@ -79,10 +81,10 @@ msgid "AF Point Used"
 msgstr ""
 
 msgid "Adapter"
-msgstr "Adaptör"
+msgstr ""
 
 msgid "Artist"
-msgstr "Sanatçı"
+msgstr ""
 
 msgid "Battery Level"
 msgstr "Batarya Seviyesi"
@@ -97,10 +99,10 @@ msgid "Brightness Value"
 msgstr "Parlaklık Değeri"
 
 msgid "CCD Sensitivity"
-msgstr "CCD Duyarlılığı"
+msgstr ""
 
 msgid "Camera ID"
-msgstr "Kamera ID"
+msgstr ""
 
 msgid "Camera Serial Number"
 msgstr "Makina Seri Numarası"
@@ -127,7 +129,7 @@ msgid "Continuous Taking Bracket"
 msgstr ""
 
 msgid "Contrast"
-msgstr "Karşıtlık"
+msgstr ""
 
 msgid "Converter"
 msgstr "Dönüştürücü"
@@ -157,16 +159,16 @@ msgid "Easy Shooting"
 msgstr ""
 
 msgid "Exposure Bias Value"
-msgstr "Poz eğilim değeri"
+msgstr ""
 
 msgid "Exposure Index"
-msgstr "Poz dizini"
+msgstr ""
 
 msgid "Exposure Mode"
-msgstr "Poz modu"
+msgstr ""
 
 msgid "Exposure Program"
-msgstr "Poz programı"
+msgstr ""
 
 msgid "File Source"
 msgstr "Dosya Kaynağı"
@@ -178,7 +180,7 @@ msgid "Flash Bias"
 msgstr ""
 
 msgid "Flash Details"
-msgstr "Flaş Ayrıntıları"
+msgstr "Flaş Detayları"
 
 msgid "Flash Energy"
 msgstr "Flash Enerjisi"
@@ -187,22 +189,22 @@ msgid "Flash Mode"
 msgstr "Flash Modu"
 
 msgid "Flash Pix Version"
-msgstr "Flash Pix sürümü"
+msgstr ""
 
 msgid "Flash Setting"
 msgstr "Flaş Ayarları"
 
 msgid "Flash Strength"
-msgstr "Flaş enerjisi"
+msgstr ""
 
 msgid "Focal Plane Resolution Unit"
-msgstr "Odaksal düzey çözünürlük ünitesi"
+msgstr ""
 
 msgid "Focal Plane X Resolution"
-msgstr "Odaksal düzey X çözünürlüğü"
+msgstr ""
 
 msgid "Focal Plane Y Resolution"
-msgstr "Odaksal düzey Y çözünürlüğü"
+msgstr ""
 
 msgid "Focal Units"
 msgstr ""
@@ -214,10 +216,10 @@ msgid "Focus Mode"
 msgstr "Odaklama Modu"
 
 msgid "Focus Warning"
-msgstr "Odak Uyarısı"
+msgstr ""
 
 msgid "Gain Control"
-msgstr "Sahne kontrolü"
+msgstr ""
 
 msgid "Image Adjustment"
 msgstr ""
@@ -229,7 +231,7 @@ msgid "Image History"
 msgstr "Resim Tarihçesi"
 
 msgid "Image Length"
-msgstr "Resim Uzunluğu"
+msgstr ""
 
 msgid "Image Number"
 msgstr "Resim Numarası"
@@ -262,10 +264,10 @@ msgid "Related Image File Format"
 msgstr ""
 
 msgid "Related Image Length"
-msgstr "Bağlantılı Resim Uzunluğu "
+msgstr ""
 
 msgid "Related Image Width"
-msgstr "Bağla olan Resim Genişliği"
+msgstr ""
 
 msgid "JPEG Tables"
 msgstr ""
@@ -280,10 +282,10 @@ msgid "Jpeg Quality"
 msgstr "Jpeg Kalitesi"
 
 msgid "Light Source"
-msgstr "Işık Kaynağı"
+msgstr ""
 
 msgid "Long Focal Length"
-msgstr "Uzun odak uzaklığı"
+msgstr ""
 
 msgid "Macro"
 msgstr ""
@@ -295,40 +297,40 @@ msgid "Manual Focus Distance"
 msgstr ""
 
 msgid "Max Aperture Value"
-msgstr "Maksimum açıklık değeri"
+msgstr ""
 
 msgid "Metering Mode"
-msgstr "Ölçüm kipi"
+msgstr ""
 
 msgid "Model"
 msgstr "Model"
 
 msgid "Noise"
-msgstr "Gürültü"
+msgstr ""
 
 msgid "Noise Reduction"
-msgstr "Gürültü Azaltma"
+msgstr ""
 
 msgid "Orientation"
-msgstr "Yönlendirme"
+msgstr ""
 
 msgid "Owner Name"
-msgstr "Sahibin adı"
+msgstr ""
 
 msgid "Photometric Interpretation"
-msgstr "Piksel bileşimi"
+msgstr ""
 
 msgid "Photoshop Settings"
-msgstr "Photoshop Ayarları"
+msgstr ""
 
 msgid "Picture Info"
-msgstr "Fotoğraf Bilgisi"
+msgstr ""
 
 msgid "Picture Mode"
-msgstr "Fotoğraf Modu"
+msgstr ""
 
 msgid "Planar Configuration"
-msgstr "Veri düzeni"
+msgstr ""
 
 msgid "Predictor"
 msgstr ""
@@ -343,10 +345,10 @@ msgid "Reference Black/White"
 msgstr ""
 
 msgid "Related Sound File"
-msgstr "Bağlantılı ses dosyası"
+msgstr ""
 
 msgid "Resolution Unit"
-msgstr "Çözünürlük Birimi"
+msgstr ""
 
 msgid "Rows Per Strip"
 msgstr ""
@@ -355,13 +357,13 @@ msgid "Samples Per Pixel"
 msgstr ""
 
 msgid "Saturation"
-msgstr "Doygunluk(Satürasyon)"
+msgstr ""
 
 msgid "Scene Capture Mode"
-msgstr "Mizahsen Yakalama Modu"
+msgstr ""
 
 msgid "Scene Type"
-msgstr "Mizansen Türü"
+msgstr ""
 
 msgid "Security Classification"
 msgstr ""
@@ -373,16 +375,16 @@ msgid "Self Timer Mode"
 msgstr ""
 
 msgid "Sensing Method"
-msgstr "Algılama metodu"
+msgstr ""
 
 msgid "Sequence Number"
 msgstr ""
 
 msgid "Sharpness"
-msgstr "Keskinlik"
+msgstr ""
 
 msgid "Short Focal Length"
-msgstr "Kısa Odaksal Uzunluk"
+msgstr ""
 
 msgid "Slow Sync"
 msgstr ""
@@ -400,7 +402,7 @@ msgid "Special Mode"
 msgstr ""
 
 msgid "Spectral Sensitivity"
-msgstr "Spektral duyarlılık"
+msgstr ""
 
 msgid "Strip Byte Counts"
 msgstr ""
@@ -415,19 +417,19 @@ msgid "Subfile Type"
 msgstr ""
 
 msgid "Subject Distance"
-msgstr "Özne uzaklığı"
+msgstr ""
 
 msgid "Subject Location"
-msgstr "Özne alanı"
+msgstr ""
 
 msgid "Subsec Time"
-msgstr "Alt-ikinci zaman"
+msgstr ""
 
 msgid "Subsec Time (Digitized)"
-msgstr "Dijital alt-ikinci zaman"
+msgstr ""
 
 msgid "Subsec Time (Original)"
-msgstr "Orjinal alt-ikinci zaman"
+msgstr ""
 
 msgid "TIFF/EP Standard ID"
 msgstr ""
@@ -445,13 +447,13 @@ msgid "Tile Width"
 msgstr ""
 
 msgid "Time Zone Offset"
-msgstr "Zaman Dilimi Farkı"
+msgstr ""
 
 msgid "Tone"
 msgstr ""
 
 msgid "Transfer Function"
-msgstr "Transfer Fonksiyonu"
+msgstr ""
 
 msgid "User Comment"
 msgstr "Kullanıcı Yorumu"
@@ -460,19 +462,19 @@ msgid "Version"
 msgstr "Versiyon"
 
 msgid "White Balance"
-msgstr "Beyaz balansı"
+msgstr ""
 
 msgid "White Point"
-msgstr "Beyaz nokta"
+msgstr ""
 
 msgid "Y/Cb/Cr Coefficients"
-msgstr "Y/Cb/Cr renk aralığı dönüştürme matris katsayısı"
+msgstr ""
 
 msgid "Y/Cb/Cr Positioning"
-msgstr "Y/Cb/Cr yerleştirme"
+msgstr ""
 
 msgid "Y/Cb/Cr Sub-Sampling"
-msgstr "Y/Cb/Cr alt örnekleme oranı"
+msgstr ""
 
 msgid "X Resolution"
 msgstr "X Çözünürlüğü"
@@ -481,43 +483,43 @@ msgid "Y Resolution"
 msgstr "Y Çözünürlüğü"
 
 msgid "Exif Image Height"
-msgstr "Exif Resim Yüksekliği"
+msgstr ""
 
 msgid "Exif Image Width"
-msgstr "Exif Resim Genişliği"
+msgstr ""
 
 msgid "GPS: Version"
 msgstr "GPS: Versiyon"
 
 msgid "GPS: Latitude Reference"
-msgstr "GPS: Enlem Referans"
+msgstr ""
 
 msgid "GPS: Latitude"
-msgstr "GPS: Enlem"
+msgstr ""
 
 msgid "GPS: Longitude Reference"
-msgstr "GPS: Boylam Referans"
+msgstr ""
 
 msgid "GPS: Longitude"
-msgstr "GPS: Boylam"
+msgstr ""
 
 msgid "GPS: Altitude Reference"
-msgstr "GPS: Yükseklik Referans"
+msgstr ""
 
 msgid "GPS: Altitude"
-msgstr "GPS: Yükseklik"
+msgstr ""
 
 msgid "GPS: Time"
 msgstr "GPS: Zaman"
 
 msgid "GPS: Satellite"
-msgstr "GPS: Uydu"
+msgstr ""
 
 msgid "GPS: Receive Status"
-msgstr "GPS: Alıcı durumu"
+msgstr ""
 
 msgid "GPS: Measurement Mode"
-msgstr "GPS: Ölçüm kipi"
+msgstr ""
 
 msgid "GPS: Measurement Precision"
 msgstr ""
@@ -526,7 +528,7 @@ msgid "GPS: Speed Unit"
 msgstr ""
 
 msgid "GPS: Receiver Speed"
-msgstr "GPS: Alıcı hızı"
+msgstr ""
 
 msgid "GPS: Movement Direction Reference"
 msgstr ""
@@ -574,7 +576,7 @@ msgid "GPS: Area Information"
 msgstr "GPS: Saha Bilgisi"
 
 msgid "GPS: Datestamp"
-msgstr "GPS: Tarih"
+msgstr ""
 
 msgid "GPS: Differential Correction"
 msgstr ""
@@ -586,10 +588,10 @@ msgid "IPTC: Keywords"
 msgstr "IPTC: Anahtar kelimeler"
 
 msgid "IPTC: Caption"
-msgstr "IPTC: Başlık"
+msgstr ""
 
 msgid "IPTC: Caption Writer"
-msgstr "IPTC: Başlık Yazarı"
+msgstr ""
 
 msgid "IPTC: Headline"
 msgstr ""
@@ -638,12 +640,6 @@ msgstr ""
 
 msgid "IPTC: Time Created"
 msgstr ""
-
-msgid "IPTC: Content Location Name"
-msgstr "IPTC: İçeriğin Konum Adı"
-
-msgid "IPTC: Sub Location"
-msgstr "IPTC: Alt Konumu"
 
 msgid "EXIF/IPTC Settings"
 msgstr "EXIF/IPTC Ayarları"
@@ -696,11 +692,11 @@ msgid_plural "Moved %d properties up in the Detailed view"
 msgstr[0] ""
 msgstr[1] ""
 
-# missing msgstr[1]
 #, c-format
 msgid "Moved %d property down in the Detailed view"
 msgid_plural "Moved %d properties down in the Detailed view"
-msgstr[0] ""
+msgstr[0] "%d Eigenschaft in den Details tiefer gerückt"
+msgstr[1] ""
 
 msgid "Settings saved successfully"
 msgstr "Ayarlar başarıyla kaydedildi"
@@ -712,7 +708,7 @@ msgid ""
 msgstr ""
 
 msgid "Summary and Detailed EXIF/IPTC displays"
-msgstr "Özet ve Ayrıntılı EXIF/IPTC gösterimleri"
+msgstr ""
 
 msgid ""
 "There can be a great deal of EXIF/IPTC information stored in photos.  We display that data "
@@ -727,13 +723,13 @@ msgid "Summary"
 msgstr "Özet"
 
 msgid "Detailed"
-msgstr "Ayrıntılı"
+msgstr "Detaylı"
 
 msgid "You must select at least one value in the available column"
-msgstr "Mevcut sütundan en az bir değer seçmelisiniz"
+msgstr ""
 
 msgid "You must select at least one value in the summary column"
-msgstr "Özet sütunundan en az bir değer seçmelisiniz"
+msgstr ""
 
 msgid "You must select at least one value in the detailed column"
 msgstr ""
@@ -742,7 +738,7 @@ msgid "Add to Summary"
 msgstr "Özete Ekle"
 
 msgid "Add to Detailed"
-msgstr "Ayrıntılıya Ekle"
+msgstr "Detaylıya Ekle"
 
 msgid "Remove"
 msgstr "Kaldır"
@@ -762,13 +758,13 @@ msgid ""
 msgstr ""
 
 msgid "Restore Summary Defaults"
-msgstr "Özet Varsayılanları Geri Getir"
+msgstr ""
 
 msgid "Restore Detailed Defaults"
-msgstr "Ayrıntılı Varsayılanları Geri Getir"
+msgstr ""
 
 msgid "Item Upload"
-msgstr "Ögeler Yüklerken"
+msgstr ""
 
 msgid "When photos are added to Gallery check for EXIF Image Description and apply to:"
 msgstr ""
@@ -789,17 +785,12 @@ msgid "When photos are added to Gallery check for IPTC Object Name and apply to:
 msgstr ""
 
 msgid "Item Title"
-msgstr "Öge Başlığı"
+msgstr ""
 
 msgid "When photos are added should we rotate them based on EXIF orientation data?"
 msgstr ""
 
 msgid "Rotate pictures automatically"
-msgstr ""
-
-msgid ""
-"Warning: No toolkit support for rotation of JPEG images.  Make sure to activate a toolkit "
-"module if using this option."
 msgstr ""
 
 msgid "Preserve Original on Rotating"
@@ -808,9 +799,6 @@ msgstr ""
 msgid "Save"
 msgstr "Kaydet"
 
-msgid "Loading.."
-msgstr "Yükleniyor..."
-
 msgid "Photo Properties"
 msgstr "Foto Özellikleri"
 
@@ -818,7 +806,7 @@ msgid "summary"
 msgstr "özet"
 
 msgid "details"
-msgstr "ayrıntılar"
+msgstr "detaylar"
 
 msgid "EXIF/IPTC photo info"
 msgstr "EXIF/IPTC foto bilgisi"

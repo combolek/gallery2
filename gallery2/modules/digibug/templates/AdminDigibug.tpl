@@ -1,6 +1,8 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
 <div class="gbBlock gcBackground1">
   <h2> {g->text text="Digibug Photo Printing Settings"} </h2>
@@ -14,47 +16,11 @@
 
 <div class="gbBlock">
   <p class="giDescription">
-  {g->text text="Sell your photos as prints or printed gift products!"}<br />
-  <input type="radio" id="rbDigibugGalleryId" name="{g->formVar var="form[digibugIdChoice]"}" 
-    value="gallery" {if $form.digibugIdChoice == 'gallery'}checked="checked"{/if} 
-    onclick="setCustom(0)" />
-  <label for="rbDigibugGalleryId">{g->text text="Simple mode."}</label><br />
-  {g->text text="A percentage of the proceeds of sales are donated to the Gallery project. Thank you for your support!"}
+    {g->text text="Sell your photos as prints or printed gift products!  Visit the %sDigibug configuration page%s for information on registering for a Digibug Pro Photographer account, and to learn how to obtain your Digibug Company ID and Event ID.  For general information, please refer to the %sDigibug.com website.%s"
+     arg1="<a href=\"http://www.digibug.com/redirects/digibugapi_how_to.php\">" arg2="</a>"
+     arg3="<a href=\"http://www.digibug.com/\">" arg4="</a>"}
   </p>
-  <p class="giDescription">
-  <input type="radio" id="rbDigibugCustomerId" name="{g->formVar var="form[digibugIdChoice]"}" 
-    value="owner" {if $form.digibugIdChoice == 'owner'}checked="checked"{/if} 
-    onclick="setCustom(1)" />
-  <label for="rbDigibugCustomerId">{g->text text="Advanced mode."}</label><br />
-  {g->text text="Visit the %sDigibug configuration page%s for information on registering for a Digibug Pro Photographer account, and to learn how to obtain your Digibug Company ID and Event ID.  For general information, please refer to the %sDigibug.com website.%s"
-    arg1="<a href=\"http://www.digibug.com/redirects/digibugapi_how_to.php\">" arg2="</a>"
-    arg3="<a href=\"http://www.digibug.com/\">" arg4="</a>"}
-  </p>
-  
-  <script type="text/javascript">
-    // <![CDATA[
-    var formCustomerId = '{$form.digibugCustomerId}';
-    var formPricelistId = '{$form.digibugPricelistId}';
-    {literal}
-    function setCustom(val) {
-      var customerId = document.getElementById('formDigibugCustomerId');
-      var pricelistId = document.getElementById('formDigibugEventId');
-      if (val == 0) {
-      	customerId.value = '';
-	customerId.disabled = true;
-	pricelistId.value = '';
-	pricelistId.disabled = true;
-      } else {
-      	customerId.value = formCustomerId;
-	customerId.disabled = false;
-	pricelistId.value = formPricelistId;
-	pricelistId.disabled = false;
-      }
-    }
-    {/literal}
-    // ]]>
-  </script>
-  
+
   <table class="gbDataTable">
     <tr><td>
       <label for="formDigibugCustomerId">
@@ -62,14 +28,12 @@
       </label>
     </td><td>
       <input type="text" size="6" id="formDigibugCustomerId" autocomplete="off"
-       name="{g->formVar var="form[digibugCustomerId]"}"
-       value={if $form.digibugIdChoice == 'owner'}"{$form.digibugCustomerId}"
-       	     {else}"" disabled="disabled"{/if}/>
+       name="{g->formVar var="form[digibugCustomerId]"}" value="{$form.digibugCustomerId}"/>
     </td></tr>
-    {if isset($form.error.digibugCustomerId.invalid)}
+    {if isset($form.error.digibugCustomerId.missing)}
     <tr><td colspan="2">
       <div class="giError">
-	{g->text text="You must enter a valid digibug customer id."}
+	{g->text text="You must enter a digibug customer id."}
       </div>
     </td></tr>
     {/if}
@@ -79,11 +43,9 @@
       </label>
     </td><td>
       <input type="text" size="6" id="formDigibugEventId" autocomplete="off"
-       name="{g->formVar var="form[digibugPricelistId]"}" 
-       value={if $form.digibugIdChoice == 'owner'}"{$form.digibugPricelistId}"
-             {else}"" disabled="disabled"{/if}/>
+       name="{g->formVar var="form[digibugPricelistId]"}" value="{$form.digibugPricelistId}"/>
     </td></tr>
-    {if isset($form.error.digibugPricelistId.invalid)}
+    {if isset($form.error.digibugPricelistId.missing)}
     <tr><td colspan="2">
       <div class="giError">
 	{g->text text="Please create an event or use your default event id as your pricelist id."}

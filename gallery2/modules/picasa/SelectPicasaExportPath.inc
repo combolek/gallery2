@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -101,12 +101,6 @@ class SelectPicasaExportPathView extends GalleryView {
      */
     function loadTemplate(&$template, &$form) {
 	global $gallery;
-
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret, null);
-	}
-
 	if ($form['formName'] != 'SelectPicasaExportPath') {
 	    $form['formName'] = 'SelectPicasaExportPath';
 	    $form['picasaXmlPath'] = '';
@@ -141,7 +135,7 @@ class SelectPicasaExportPathView extends GalleryView {
 	}
 
 	/* Load all the album entities */
-	list ($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds, 'GalleryAlbumItem');
+	list ($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds);
 	if ($ret) {
 	    return array($ret, null);
 	}

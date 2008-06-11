@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,7 +32,7 @@ class QuotasCallbacks {
      *             Data includes current size of usage, any user/group quotas and
      *            their associated size, and a percent value of used/unused space.
      *
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function callback($params, &$smarty, $callback, $userId=null) {
 	global $gallery;

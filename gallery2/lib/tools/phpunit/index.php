@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,126 +27,17 @@ define('G2_SUPPORT_URL_FRAGMENT', '../../support/');
 include('../../support/security.inc');
 include('../../../bootstrap.inc');
 require_once('../../../init.inc');
-
-$testReportDir = $gallery->getConfig('data.gallery.base') . 'test/';
-
-$priorRuns = array();
-$glob = glob("${testReportDir}*");
-if ($glob) {
-    foreach ($glob as $filename) {
-	if (preg_match('/run-(\d+).html$/', $filename, $matches)) {
-	    $priorRuns[] = array('key' => $matches[1],
-				 'size' => filesize($filename),
-				 'date' => strftime('%Y/%m/%d-%H:%M:%S', filectime($filename)));
-	}
-    }
-}
-
-if (!empty($_GET['run'])) {
-    list ($action, $run) = explode(':', $_GET['run']);
-    $run = substr($run, 0, strspn($run, '0123456789'));
-    $runFile = "${testReportDir}run-$run.html";
-    switch($action) {
-    case 'frame':
-	include(dirname(__FILE__) . '/runframe.tpl');
-	exit;
-
-    case 'show':
-	if (file_exists($runFile)) {
-	    readfile($runFile);
-	} else {
-	    print "<H1>No prior run with id $run</H1>";
-	}
-	exit;
-
-
-    case 'deleteall':
-	foreach ($priorRuns as $pr) {
-	    unlink("${testReportDir}run-$pr[key].html");
-	}
-	header('Location: index.php');
-	exit;
-	break;
-
-    case 'delete':
-	if (file_exists($runFile)) {
-	    unlink($runFile);
-	}
-	header('Location: index.php');
-	break;
-    }
-}
-
-/**
- * Load up main.php so that tests that want _GalleryMain can get to it.  Do it now, though so that
- * we don't mangle the $gallery object during test runs.
- *
- * @todo figure out a way to only do this if we're going to run a test that wants to exercise
- *       _GalleryMain
- */
-ob_start();
-require_once('../../../main.php');
-ob_end_clean();
-
-/**
- *
- * This is an output interceptor that allows us to save the HTML output from our test run in the
- * g2data directory.  We only save the output when there's a filter value set which indicates that
- * there's an actual test run in progress.
- */
-function PhpUnitOutputInterceptor($message) {
-    global $gallery;
-    global $testReportDir;
-
-    if (isset($_GET['filter'])) {
-	if (!file_exists($testReportDir)) {
-	    mkdir($testReportDir);
-	}
-
-	static $fd;
-	if (!isset($fd)) {
-	    $fd = fopen("${testReportDir}run-" . date('YmdHis') . '.html', 'wb+');
-	}
-
- 	static $replaced;
-  	if (empty($replaced) && strstr($message, '<!--base_href-->')) {
-  	    $replaced = true;
-   	    fwrite($fd,
-		   str_replace(
-		       '<!--base_href-->',
-		       @sprintf('<base href="http://%s:%d/%s/">',
-				$_SERVER['HTTP_HOST'], $_SERVER['SERVER_PORT'],
-				dirname($_SERVER['SCRIPT_NAME'])),
-		       $message));
-  	} else {
- 	    fwrite($fd, $message);
- 	}
-    }
-
-    return $message;
-}
-
-@ini_set('output_buffering', 0);
-ob_start('PhpUnitOutputInterceptor', 256);
-
 require_once('phpunit.inc');
 require_once('GalleryTestCase.class');
-require_once('GalleryImmediateViewTestCase.class');
 require_once('GalleryControllerTestCase.class');
-require_once('GalleryViewTestCase.class');
 require_once('ItemAddPluginTestCase.class');
 require_once('ItemEditPluginTestCase.class');
 require_once('ItemEditOptionTestCase.class');
 require_once('CodeAuditTestCase.class');
-require_once('MockObject.class');
 require_once('UnitTestPlatform.class');
-require_once('UnitTestStorage.class');
-require_once('UnitTestPhpVm.class');
-require_once('UnitTestUrlGenerator.class');
 require_once('MockTemplateAdapter.class');
-require_once('UnitTestTemplate.class');
-require_once('UnitTestRepository.class');
-require_once('UnitTestRepositoryUtilities.class');
+
+@ini_set('output_buffering', 0);
 
 function PhpUnitGalleryMain(&$testSuite, $filter) {
     $ret = GalleryInitFirstPass();
@@ -191,20 +82,14 @@ function PhpUnitGalleryMain(&$testSuite, $filter) {
 	return $ret;
     }
 
-    /*
-     * Use assertUserIsSiteAdministrator instead of isUserInSiteAdminGroup to make sure the admin
-     * session has not expired.
-     */
-    $ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-    if ($ret && ($ret->getErrorCode() & ERROR_PERMISSION_DENIED)) {
-	$isSiteAdmin = false;
-    } else if ($ret) {
-	return $ret;
-    } else {
-	$isSiteAdmin = true;
+    list ($ret, $isSiteAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
+    if ($ret) {
+	print $ret->getAsHtml();
+	return;
     }
 
-    if ($isSiteAdmin && $filter !== false) {
+    if ($isSiteAdmin) {
+
 	/*
 	 * Load the test cases for every active module.
 	 */
@@ -214,9 +99,8 @@ function PhpUnitGalleryMain(&$testSuite, $filter) {
 	}
 
 	$suiteArray = array();
-	$gallery->guaranteeTimeLimit(120);
 	foreach ($moduleStatusList as $moduleId => $moduleStatus) {
-	    $modulesDir = GalleryCoreApi::getCodeBasePath('modules/');
+	    $modulesDir = GalleryCoreApi::getPluginBaseDir('module', $moduleId) . 'modules/';
 	    if (empty($moduleStatus['active'])) {
 		continue;
 	    }
@@ -236,6 +120,10 @@ function PhpUnitGalleryMain(&$testSuite, $filter) {
 	    $testSuite->addTest($suiteArray[$className]);
 	}
     }
+
+    $counter =& GalleryTestCase::getEntityCounter();
+    GalleryCoreApi::registerEventListener('GalleryEntity::save', $counter);
+    GalleryCoreApi::registerEventListener('GalleryEntity::delete', $counter);
 
     return null;
 }
@@ -257,10 +145,6 @@ function loadTests($moduleId, $testDir, $filter) {
 
 	while (($file = $platform->readdir($dir)) != false) {
 	    if (preg_match('/(.*Test).class$/', $file, $matches)) {
-		if (!strncmp($matches[1], '.#', 2)) {
-		    /* Ignore Emacs backup files */
-		    continue;
-		}
 		require_once($testDir . '/' . $file);
 			$className = $matches[1];
 		if (class_exists($className) &&
@@ -278,7 +162,6 @@ function loadTests($moduleId, $testDir, $filter) {
 class GalleryTestResult extends TestResult {
     var $_totalElapsed = 0;
     var $_testsFailed = 0;
-    var $_testsRunThenSkipped = 0;
 
     function GalleryTestResult() {
 	$this->TestResult();
@@ -290,7 +173,7 @@ class GalleryTestResult extends TestResult {
 	$nRun = $this->countTests();
 	$nFailures = $this->failureCount();
 
-	print '<script text="text/javascript">completeStatus();</script>';
+	print '<script text="text/javascript">hideStatus();</script>';
 
 	if ($nFailures) print("</ol>\n");
 	if (!isset($compactView)) {
@@ -298,10 +181,6 @@ class GalleryTestResult extends TestResult {
 	    print 'function setTxt(i,t) { document.getElementById(i).firstChild.nodeValue=t; }';
 	    printf("setTxt('testTime','%2.4f');", $this->_totalElapsed);
 	    printf("setTxt('testCount','%s test%s');", $nRun, ($nRun == 1) ? '' : 's');
-	    if ($this->_testsRunThenSkipped) {
-		printf("setTxt('runThenSkip',' (of those, %s skipped)');",
-			$this->_testsRunThenSkipped);
-	    }
 	    printf("setTxt('testFailCount','%s test%s');",
 		    $this->_testsFailed, ($this->_testsFailed == 1) ? '' : 's');
 	    printf("setTxt('testErrorCount','%s error%s');",
@@ -368,32 +247,22 @@ class GalleryTestResult extends TestResult {
 	return $buf;
     }
 
-    function _startTest($test) {
+    function _endTest($test) {
+
 	if ($this->fRunTests == 1) {
 	    print '<script text="text/javascript">showStatus();</script>';
 	}
-	printf('<script type="text/javascript">runningTest("%s");</script>', $test->name());
-	flush();
-    }
-
-    function _endTest($test) {
 	$failure = $extra = '';
 	$usedMemory = (function_exists('memory_get_usage')) ? memory_get_usage() : '"unknown"';
 
 	if ($test->wasSkipped()) {
 	    global $compactView;
-	    if (isset($compactView)) {
-		return;
-	    }
+	    if (isset($compactView)) return;
 	    $class = 'Skipped';
 	    $text = 'r.cells[4].lastChild.nodeValue="SKIP";';
 	    $extra = 'r.className="skip";';
 	    $elapsed = '0.0000';
 	    $cmd = "updateStats(0, 0, 1, $usedMemory)";
-	    if (!empty($test->fLifeCycle['setUp'])) {
-		/* Test was started, then test skipped itself */
-		$this->_testsRunThenSkipped++;
-	    }
 	} else {
 	    $elapsed = sprintf("%2.4f", $test->elapsed());
 	    $this->_totalElapsed += $elapsed;
@@ -480,7 +349,7 @@ if (isset($_GET['filter'])) {
 	}
     }
 } else {
-    $filter = false;
+    $filter = 'match_nothing';
     $displayFilter = null;
     $range = array(array(1, FILTER_MAX));
 }
@@ -506,18 +375,11 @@ if (!$session->isUsingCookies()) {
     $sessionId = $session->getId();
 }
 
-/*
- * Use assertUserIsSiteAdministrator instead of isUserInSiteAdminGroup to make sure the admin
- * session has not expired.
- */
-$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-if ($ret && ($ret->getErrorCode() & ERROR_PERMISSION_DENIED)) {
-    $isSiteAdmin = false;
-} else if ($ret) {
+list ($ret, $isSiteAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
+if ($ret) {
+    $ret = $ret;
     print $ret->getAsHtml();
     return;
-} else {
-    $isSiteAdmin = true;
 }
 
 /* Check that our dev environment is correct */
@@ -542,16 +404,13 @@ print "<pre>";
 print $gallery->getDebugBuffer();
 print "</pre>";
  */
-
 include(dirname(__FILE__) . '/index.tpl');
 
 /* Compact any ACLs that were created during this test run */
-if ($testSuite->countTestCases() > 0) {
-    $ret = GalleryCoreApi::compactAccessLists();
-    if ($ret) {
-	print $ret->getAsHtml();
-	return;
-    }
+$ret = GalleryCoreApi::compactAccessLists();
+if ($ret) {
+    print $ret->getAsHtml();
+    return;
 }
 
 $storage =& $gallery->getStorage();
@@ -560,6 +419,4 @@ if ($ret) {
     print $ret->getAsHtml();
     return;
 }
-
-ob_end_flush();
 ?>

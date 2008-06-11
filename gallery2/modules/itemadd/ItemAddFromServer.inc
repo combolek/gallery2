@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -48,15 +48,12 @@ class ItemAddFromServer extends ItemAddPlugin {
     /**
      * @see ItemAddPlugin::handleRequest
      */
-    function handleRequest($form, &$item, &$addController) {
+    function handleRequest($form, &$item) {
 	global $gallery;
 	$this->_platform =& $gallery->getPlatform();
 	$this->_dirSep = $this->_platform->getDirectorySeparator();
-	$this->_templateAdapter =& $gallery->getTemplateAdapter();
-	$this->_storage =& $gallery->getStorage();
 
 	$status = $error = array();
-	$this->_addController =& $addController;
 
 	list ($ret, $hasPermission) = $this->isAppropriate();
 	if ($ret) {
@@ -95,93 +92,19 @@ class ItemAddFromServer extends ItemAddPlugin {
 		$dir .= $this->_dirSep;
 	    }
 
-	    list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'itemadd');
-	    if ($ret) {
-		return array($ret, null, null);
-	    }
-	    $this->_addingItemsMessage = $module->translate('Adding items');
-	    $this->_fileCountMessage = $module->translate('Scanning directory');
-
 	    list ($ret, $lockId) = GalleryCoreApi::acquireReadLock($item->getId());
 	    if ($ret) {
 		return array($ret, null, null);
 	    }
 
-	    /* In a first pass, recurse to count the total number of items scheduled to be added */
-	    $gallery->guaranteeTimeLimit(60);
-	    $this->_totalItems = $i = 0;
 	    if (!empty($form['localServerFiles'])) {
 		foreach ($form['localServerFiles'] as $fileKey => $data) {
-		    if (!empty($data['selected'])) {
-			$this->_totalItems++;
-		    }
-		    if (++$i % 200 == 0) {
-			$gallery->guaranteeTimeLimit(30);
-			/* Inaccurate, but giving the impression of progress */
-			$this->_templateAdapter->updateProgressBar(
-			    $this->_fileCountMessage , '', $i / ($i + 500));
-		    }
-		}
-	    }
-
-	    $requiresAddAlbumPermission = false;
-	    if (!empty($form['localServerDirectories'])) {
-		$gallery->guaranteeTimeLimit(30);
-		$this->_templateAdapter->updateProgressBar(
-		    $this->_fileCountMessage , '', $i / ($i + 500));
-		foreach ($form['localServerDirectories'] as $directory => $data) {
-		    if (++$i % 200 == 0) {
-			$gallery->guaranteeTimeLimit(30);
-			/* Inaccurate, but giving the impression of progress */
-			$this->_templateAdapter->updateProgressBar(
-			    $this->_fileCountMessage , '', $i / ($i + 500));
-		    }
-		    /* Skip current or parent directory entries */
-		    if (empty($data['selected']) || $directory == '.' || $directory == '..'
-			    || !$this->_platform->is_readable($dir . urldecode($directory))) {
-			continue;
-		    }
-		    $requiresAddAlbumPermission = true;
-
-		    $this->_totalItems++;
-		    $this->_totalItems +=
-			$this->_getFileCountForDirectory($dir . urldecode($directory), $i);
-		}
-	    }
-
-	    if ($requiresAddAlbumPermission) {
-		/* Make sure we have permission to add subalbums */
-		$ret = GalleryCoreApi::assertHasItemPermission($item->getId(), 'core.addAlbumItem');
-		if ($ret) {
-		    GalleryCoreApi::releaseLocks($lockId);
-		    return array($ret, null, null);
-		}
-	    }
-
-	    $gallery->guaranteeTimeLimit(30);
-	    if ($this->_totalItems) {
-		$this->_templateAdapter->updateProgressBar($this->_addingItemsMessage, '', 0);
-	    }
-
-	    /* Start adding the items */
-	    $this->_addedItems = $i = $this->_lastPostProcessed = 0;
-	    $this->_progressBatch = max(1, min(5, $this->_totalItems));
-	    $this->_processBatch = 50;
-	    if (!empty($form['localServerFiles'])) {
-		foreach ($form['localServerFiles'] as $fileKey => $data) {
-		    if ($i++ % 100 == 0) {
-			$gallery->guaranteeTimeLimit(30);
-			$this->_templateAdapter->updateProgressBar(
-			    $this->_addingItemsMessage , '',
-			    $this->_addedItems / $this->_totalItems);
-		    }
-		    $file = $dir . urldecode($fileKey);
 		    if (!isset($data['selected'])) {
 			continue;
 		    }
 		    $useSymlink = isset($data['useSymlink']);
-		    if (!GalleryUtilities::isPathInList(dirname($file), $localServerDirList)
-			    || !$this->_platform->is_readable($file)) {
+		    $file = $dir . urldecode($fileKey);
+		    if (!GalleryUtilities::isPathInList(dirname($file), $localServerDirList)) {
 			/* Ensure malformed input like fileKey = ../foo doesn't work */
 			continue;
 		    }
@@ -192,76 +115,35 @@ class ItemAddFromServer extends ItemAddPlugin {
 			GalleryCoreApi::releaseLocks($lockId);
 			return array($ret, null, null);
 		    }
-
-		    if ($this->_addedItems++ % $this->_progressBatch == 0) {
-			$gallery->guaranteeTimeLimit(30);
-			$this->_templateAdapter->updateProgressBar(
-			    $this->_addingItemsMessage , '',
-			    $this->_addedItems / $this->_totalItems);
-
-			$ret = $this->_storage->checkPoint();
-			if ($ret) {
-			    GalleryCoreApi::releaseLocks($lockId);
-			    return array($ret, null, null);
-			}
-		    }
-		    if ($this->_addedItems - $this->_lastPostProcessed >= $this->_processBatch) {
-			$this->_lastPostProcessed = $this->_addedItems;
-			$gallery->guaranteeTimeLimit(30);
-			list ($ret, $optionErrors) =
-			    $addController->postprocessItems($form, $status);
-			if ($ret) {
-			    return array($ret, null, null);
-			}
-			$error = array_merge($error, $optionErrors);
-			if ($optionErrors) {
-			    break;
-			}
-		    }
 		}
 	    }
 
-	    if (empty($error) && !empty($form['localServerDirectories'])) {
+	    if (!empty($form['localServerDirectories'])) {
 		$this->_localServerDirList = $localServerDirList;
 
+		/* Make sure we have permission to add subalbums */
+		$ret = GalleryCoreApi::assertHasItemPermission($item->getId(), 'core.addAlbumItem');
+		if ($ret) {
+		    GalleryCoreApi::releaseLocks($lockId);
+		    return array($ret, null, null);
+		}
+
 		foreach ($form['localServerDirectories'] as $directory => $data) {
-		    if ($i++ % 100 == 0) {
-			$gallery->guaranteeTimeLimit(30);
-			$this->_templateAdapter->updateProgressBar(
-			    $this->_addingItemsMessage , '',
-			    $this->_addedItems / $this->_totalItems);
-		    }
 		    /* Skip current or parent directory entries */
-		    $path = $dir . urldecode($directory);
 		    if (!isset($data['selected']) || $directory == "." || $directory == "..") {
 			continue;
 		    }
 		    $useSymlink = isset($data['useSymlink']);
 
 		    list ($ret, $albumId) = $this->addDirectory($item->getId(),
-			$path, $useSymlink, $textFields, $status, $error);
+			$dir . urldecode($directory), $useSymlink, $textFields, $status, $error);
 		    if ($ret) {
 			GalleryCoreApi::releaseLocks($lockId);
 			return array($ret, null, null);
 		    }
-		    $this->_addedItems++; /* Increment either way */
-
-		    if ($this->_addedItems % $this->_progressBatch == 0) {
-			$gallery->guaranteeTimeLimit(30);
-			$this->_templateAdapter->updateProgressBar(
-			    $this->_addingItemsMessage , '',
-			    $this->_addedItems / $this->_totalItems);
-
-			$ret = $this->_storage->checkPoint();
-			if ($ret) {
-			    GalleryCoreApi::releaseLocks($lockId);
-			    return array($ret, null, null);
-			}
-		    }
-
 		    if ($albumId) {
-			$ret = $this->processDirectory($albumId, $path,
-			    $useSymlink, $textFields, $form, $status, $error);
+			$ret = $this->processDirectory($albumId, $dir . urldecode($directory),
+			    $useSymlink, $textFields, $status, $error);
 			if ($ret) {
 			    GalleryCoreApi::releaseLocks($lockId);
 			    return array($ret, null, null);
@@ -279,20 +161,10 @@ class ItemAddFromServer extends ItemAddPlugin {
 	return array(null, $error, $status);
     }
 
-    /**
-     * Add the given file as data-item to the specified album.
-     * @param int $parentId The id of the parent album
-     * @param string $file The filesystem path to the file to be added as data-item
-     * @param bool $useSymlink Whether to use symlinks when adding items.
-     * @param array $textFields Flags about the title, summary and description field.
-     * @param array $status See ItemAddPlugin::handleRequest for the specified structure.
-     * @param array $error An array of template error codes.
-     * @return GalleryStatus
-     */
     function addItem($parentId, $file, $useSymlink, $textFields, &$status, &$error) {
 	$fileName = basename($file);
-	$base = GalleryUtilities::getFileBase($fileName);
-	list ($ret, $mimeType) = GalleryCoreApi::getMimeType($fileName);
+	list ($base, $extension) = GalleryUtilities::getFileNameComponents($fileName);
+	list ($ret, $mimeType) = GalleryCoreApi::convertExtensionToMime($extension);
 	if ($ret) {
 	    return $ret;
 	}
@@ -324,14 +196,13 @@ class ItemAddFromServer extends ItemAddPlugin {
 	return null;
     }
 
-    /** @return array GalleryStatus, mixed id of new album or false */
+    /** @return array object GalleryStatus, mixed id of new album or false */
     function addDirectory($parentId, $path, $useSymlink, $textFields, &$status, &$error) {
 	global $gallery;
 
 	if (!GalleryUtilities::isPathInList($path, $this->_localServerDirList)
 		|| GalleryUtilities::isPathInList($path,
-				     array($gallery->getConfig('data.gallery.albums')))
-		|| !$this->_platform->is_readable($path)) {
+				     array($gallery->getConfig('data.gallery.albums')))) {
 	    /*
 	     * Silently skip directory if a symlink jumped us outside the approved
 	     * directory list or we are trying to add from our own g2data albums.
@@ -362,22 +233,16 @@ class ItemAddFromServer extends ItemAddPlugin {
 	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
 	}
 
+	$ret = GalleryCoreApi::addUserPermission($album->getId(), $album->getOwnerId(),
+						 'core.all', false);
+	if ($ret) {
+	    return array($ret, null);
+	}
+
 	return array(null, $album->getId());
     }
 
-    /**
-     * Process a directory by recursively adding files as data-items and sub-directories as albums.
-     *
-     * @param int $albumId The id of the album to which all new items should be added to.
-     * @param string $path The filesystem path to the directory to be processed.
-     * @param bool $useSymlink Whether to use symlinks when adding items.
-     * @param array $textFields Flags about the title, summary and description field.
-     * @param array $form The request form from the item add controller.
-     * @param array $status See ItemAddPlugin::handleRequest for the specified structure.
-     * @param array $error An array of template error codes.
-     * @return GalleryStatus
-     */
-    function processDirectory($albumId, $path, $useSymlink, $textFields, $form, &$status, &$error) {
+    function processDirectory($albumId, $path, $useSymlink, $textFields, &$status, &$error) {
 	global $gallery;
 
 	list ($ret, $lockId) = GalleryCoreApi::acquireReadLock($albumId);
@@ -388,14 +253,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 	/* Look into the directory, add anything we find */
 	$dirList = $albumList = array();
 	$handle = $this->_platform->opendir($path);
-	$i = 0;
 	while (($fileName = $this->_platform->readdir($handle)) !== false) {
-	    if ($i++ % 100 == 0) {
-		$gallery->guaranteeTimeLimit(30);
-		$this->_templateAdapter->updateProgressBar(
-		    $this->_addingItemsMessage , '',
-		    $this->_addedItems / $this->_totalItems);
-	    }
 	    if ($fileName == '.' || $fileName == '..' || $fileName == '.svn') {
 		continue;
 	    }
@@ -405,6 +263,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 	sort($dirList);
 
 	foreach ($dirList as $fileName) {
+	    $gallery->guaranteeTimeLimit(30);
 	    $filePath = $path . $this->_dirSep . $fileName;
 	    if ($this->_platform->is_readable($filePath)) {
 		if ($this->_platform->is_dir($filePath)) {
@@ -425,29 +284,10 @@ class ItemAddFromServer extends ItemAddPlugin {
 			return $ret;
 		    }
 		}
-
-		if ($this->_addedItems++ % $this->_progressBatch == 0) {
-		    $gallery->guaranteeTimeLimit(30);
-		    $this->_templateAdapter->updateProgressBar(
-			$this->_addingItemsMessage , '',
-			$this->_addedItems / $this->_totalItems);
-
-		    $ret = $this->_storage->checkPoint();
-		    if ($ret) {
-			GalleryCoreApi::releaseLocks($lockId);
-			return $ret;
-		    }
+		if (!empty($error)) {
+		    /* Bail out if an error has occurred */
+		    break;
 		}
-	    }
-	    if ($i++ % 100 == 0) {
-		$gallery->guaranteeTimeLimit(30);
-		$this->_templateAdapter->updateProgressBar(
-		    $this->_addingItemsMessage , '',
-		    $this->_addedItems / $this->_totalItems);
-	    }
-	    if (!empty($error)) {
-		/* Bail out if an error has occurred */
-		break;
 	    }
 	}
 
@@ -456,24 +296,9 @@ class ItemAddFromServer extends ItemAddPlugin {
 	    return $ret;
 	}
 
-	/* Call post-process after releasing the lock to prevent locking conflicts */
-	if ($this->_addedItems - $this->_lastPostProcessed >= $this->_processBatch) {
-	    $this->_lastPostProcessed = $this->_addedItems;
-	    $gallery->guaranteeTimeLimit(30);
-	    list ($ret, $optionErrors) = $this->_addController->postprocessItems($form, $status);
-	    if ($ret) {
-		return $ret;
-	    }
-	    $error = array_merge($error, $optionErrors);
-	}
-	if (!empty($error)) {
-	    /* Bail out if an error has occurred */
-	    return null;
-	}
-
 	foreach ($albumList as $newAlbumId => $filePath) {
-	    $ret = $this->processDirectory($newAlbumId, $filePath, $useSymlink, $textFields, $form,
-					   $status, $error);
+	    $ret = $this->processDirectory($newAlbumId, $filePath,
+					   $useSymlink, $textFields, $status, $error);
 	    if ($ret) {
 		return $ret;
 	    }
@@ -486,51 +311,10 @@ class ItemAddFromServer extends ItemAddPlugin {
 	return null;
     }
 
-    /**
-     * Get the number of files / dirs within a sub-tree of the filesystem.
-     * @param string $dirName
-     * @param int $progressCount
-     * @return int the number of files with this sub-tree of the filesystem
-     */
-    function _getFileCountForDirectory($dirName, &$progressCount) {
-	global $gallery;
-
-    	/* Breadth-first to keep the file-handle count low */
-	$fileCount = 0;
-	$dirList = array();
-	$handle = $this->_platform->opendir($dirName);
-	while (($fileName = $this->_platform->readdir($handle)) !== false) {
-	    if (++$progressCount % 200 == 0) {
-		$gallery->guaranteeTimeLimit(30);
-		/* Inaccurate, but giving the impression of progress */
-		$this->_templateAdapter->updateProgressBar(
-		    $this->_fileCountMessage , '', $progressCount / ($progressCount + 500));
-	    }
-	    if ($fileName == '.' || $fileName == '..' || $fileName == '.svn') {
-		continue;
-	    }
-	    $fileName = $dirName . $this->_dirSep . $fileName;
-	    if (!$this->_platform->is_readable($fileName)) {
-		continue;
-	    }
-	    $fileCount++;
-	    if ($this->_platform->is_dir($fileName)) {
-		$dirList[] = $fileName;
-	    }
-	}
-	$this->_platform->closedir($handle);
-
-	foreach ($dirList as $subDirName) {
-	    $fileCount += $this->_getFileCountForDirectory($subDirName, $progressCount);
-	}
-
-	return $fileCount;
-    }
-
     /*
-     * @return array GalleryStatus a status code,
-     *               array of UTF-8 strings localServerDirList,
-     *               array of system charset strings localServerDirList
+     * @return array (object GalleryStatus a status code,
+     *                array of UTF-8 strings localServerDirList,
+     *                array of system charset strings localServerDirList)
      */
     function fetchLocalServerDirList() {
 	list ($ret, $param) = GalleryCoreApi::fetchAllPluginParameters('module', 'itemadd');
@@ -550,7 +334,6 @@ class ItemAddFromServer extends ItemAddPlugin {
 
     /**
      * @see ItemAdd:loadTemplate
-     * @todo Don't let the user select folders if the user is missing the core.addAlbum permission.
      */
     function loadTemplate(&$template, &$form, $item) {
 	global $gallery;
@@ -624,8 +407,9 @@ class ItemAddFromServer extends ItemAddPlugin {
 			if ($platform->is_readable($filePath)) {
 			    if ($platform->is_dir($filePath)) {
 				$filePath = $platform->realpath($filePath);
-				$legal = GalleryUtilities::isPathInList(
-				    $filePath, $localServerDirListInSystemCharset);
+				$legal =
+				    GalleryUtilities::isPathInList($filePath,
+							      $localServerDirListInSystemCharset);
 				if (!$legal && $fileName == '..') {
 				    continue;
 				}

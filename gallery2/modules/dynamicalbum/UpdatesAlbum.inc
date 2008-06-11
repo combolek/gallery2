@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -73,16 +73,12 @@ class UpdatesAlbumView extends GalleryView {
 	$itemId = GalleryUtilities::getRequestVariables('itemId');
 	if (!empty($itemId)) {
 	    /* Viewing an item in this dynamic album */
-	    list ($ret, $viewItem) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
+	    list ($ret, $viewItem) = GalleryCoreApi::loadEntitiesById($itemId);
 	    if ($ret) {
 		return array($ret, null, null, null);
 	    }
-	    list ($ret, $hasPermission) = GalleryCoreApi::hasItemPermission($itemId, 'core.view');
-	    if ($ret) {
-		return array($ret, null, null, null);
-	    }
-	    if (!$hasPermission) {
-		/* Avoid information disclosure, act as if the item didn't exist. */
+	    if (!GalleryUtilities::isA($viewItem, 'GalleryItem')) {
+		/* Invalid itemId given, return MISSING_OBJECT to get standard error page */
 		return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null, null, null);
 	    }
 
@@ -157,7 +153,7 @@ class UpdatesAlbumView extends GalleryView {
     /**
      * Dynamic query for items
      * @param int $userId
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *               array of item ids
      * @static
      */
@@ -199,15 +195,6 @@ class UpdatesAlbumView extends GalleryView {
 
 	$query = '[' . $table . '::' . $id . '] IS NOT NULL';
 	if (!empty($albumId)) {
-	    list ($ret, $hasPermission) = GalleryCoreApi::hasItemPermission($albumId, 'core.view');
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	    if (!$hasPermission) {
-		/* Avoid information disclosure, act as if the item didn't exist. */
-		return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
-	    }
-
 	    list ($ret, $sequence) = GalleryCoreApi::fetchParentSequence($albumId);
 	    if ($ret) {
 		return array($ret, null);

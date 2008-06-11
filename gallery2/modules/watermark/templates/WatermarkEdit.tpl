@@ -1,6 +1,8 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
 <input type="hidden" name="{g->formVar var="watermarkId"}" value="{$watermark.id}"/>
 <div class="gbBlock gcBackground1">
@@ -72,17 +74,17 @@
   </p>
   {/if}
 
-  <input type="checkbox" {if isset($form.whichDerivative.preferred)}checked="checked" {/if}
+  <input type="checkbox"{if isset($form.whichDerivative.preferred)} checked="checked"{/if}
    name="{g->formVar var="form[whichDerivative][preferred]"}"/>
   {g->text text="Full size (won't damage the original file)"}
   <br/>
 
-  <input type="checkbox" {if isset($form.whichDerivative.resizes)}checked="checked" {/if}
+  <input type="checkbox"{if isset($form.whichDerivative.resizes)} checked="checked"{/if}
    name="{g->formVar var="form[whichDerivative][resizes]"}"/>
   {g->text text="Resizes"}
   <br/>
 
-  <input type="checkbox" {if isset($form.whichDerivative.thumbnail)}checked="checked" {/if}
+  <input type="checkbox"{if isset($form.whichDerivative.thumbnail)} checked="checked"{/if}
    name="{g->formVar var="form[whichDerivative][thumbnail]"}"/>
   {g->text text="Thumbnail"}
   <br/>

@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,12 +33,11 @@ class ShutterflyModule extends GalleryModule {
 	$this->setId('shutterfly');
 	$this->setName($gallery->i18n('Shutterfly'));
 	$this->setDescription($gallery->i18n('Shutterfly Photo Printing Module'));
-	$this->setVersion('1.0.13'); /* Update upgrade() too */
-	$this->_templateVersion = 1;
+	$this->setVersion('1.0.7.2'); /* Update upgrade() too */
 	$this->setGroup('commerce', $gallery->i18n('Commerce'));
 	$this->setCallbacks('getItemLinks');
-	$this->setRequiredCoreApi(array(7, 43));
-	$this->setRequiredModuleApi(array(3, 9));
+	$this->setRequiredCoreApi(array(7, 12));
+	$this->setRequiredModuleApi(array(3, 3));
     }
 
     /**
@@ -66,7 +65,6 @@ class ShutterflyModule extends GalleryModule {
 		return $ret;
 	    }
 	    /* Give everybody print permission by default */
-	    $gallery->guaranteeTimeLimit(300);
 	    $ret = GalleryCoreApi::addGroupPermission(
 		$coreParams['id.rootAlbum'], $coreParams['id.everybodyGroup'],
 		'shutterfly.print', true);
@@ -81,7 +79,6 @@ class ShutterflyModule extends GalleryModule {
 	    if ($ret) {
 		return $ret;
 	    }
-	    $gallery->guaranteeTimeLimit(300);
 	    $ret = GalleryCoreApi::addGroupPermission(
 		$coreParams['id.rootAlbum'], $coreParams['id.everybodyGroup'],
 		'shutterfly.print', true);
@@ -97,14 +94,6 @@ class ShutterflyModule extends GalleryModule {
 	case '1.0.6':
 	case '1.0.7':
 	case '1.0.7.1':
-	case '1.0.7.2':
-	    /* .mo file migration */
-	case '1.0.8':
-	case '1.0.9':
-	case '1.0.10':
-	    /* Implementing new version of the cart plugin interface */
-	case '1.0.11':
-	case '1.0.12':
 
 	case 'end of upgrade path':
 	    break;
@@ -121,13 +110,11 @@ class ShutterflyModule extends GalleryModule {
      * @see GalleryModule::performFactoryRegistrations
      */
     function performFactoryRegistrations() {
-	foreach (array('1_0', '1_1') as $version) {
-	    $ret = GalleryCoreApi::registerFactoryImplementation(
-		'CartPluginInterface_' . $version, 'ShutterflyCartPlugin', 'shutterfly',
-		'modules/shutterfly/classes/ShutterflyCartPlugin.class', 'shutterfly', null);
-	    if ($ret) {
-		return $ret;
-	    }
+	$ret = GalleryCoreApi::registerFactoryImplementation(
+	    'CartPluginInterface_1_0', 'ShutterflyCartPlugin', 'shutterfly',
+	    'modules/shutterfly/classes/ShutterflyCartPlugin.class', 'shutterfly', null);
+	if ($ret) {
+	    return $ret;
 	}
 
 	return null;

@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,14 +34,13 @@ class PublishXpModule extends GalleryModule {
     function PublishXpModule() {
 	global $gallery;
 	$this->setId('publishxp');
-	$this->setName($gallery->i18n('Windows Publishing Wizard'));
-	$this->setDescription($gallery->i18n('Publish photos to Gallery directly from Windows'));
-	$this->setVersion('1.0.13');
-	$this->_templateVersion = 1;
+	$this->setName($gallery->i18n('Publish XP'));
+	$this->setDescription($gallery->i18n('Publish photos to Gallery directly from Windows XP'));
+	$this->setVersion('1.0.7.2');
 	$this->setGroup('import', $gallery->i18n('Import'));
 	$this->setCallbacks('');
-	$this->setRequiredCoreApi(array(7, 53));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setRequiredCoreApi(array(7, 4));
+	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**

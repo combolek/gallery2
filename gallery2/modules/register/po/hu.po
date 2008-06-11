@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,11 +19,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Registration 1.0.12\n"
+"Project-Id-Version: Gallery: Registration 1.0.8\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-11-04 20:12+0100\n"
-"PO-Revision-Date: 2007-04-01 00:07+0100\n"
-"Last-Translator: Rekedt-Nagy József <jozsef.rnagy@site.hu>\n"
+"PO-Revision-Date: 2006-01-06 17:16+0100\n"
+"Last-Translator: Jozsef R.Nagy <joe7@site.hu> \n"
 "Language-Team: Hungarian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -61,9 +61,6 @@ msgstr "Fiókaktiválás"
 msgid "New user registration"
 msgstr "Új Felhasználó regisztrációja"
 
-msgid "Welcome to Gallery"
-msgstr ""
-
 msgid "Register"
 msgstr "Regisztráció"
 
@@ -72,18 +69,19 @@ msgstr "Új Felhasználó regisztrációja:"
 
 #, c-format
 msgid "    Username: %s"
-msgstr "    Felhasználónév: %s"
+msgstr "Felhasználónév: %s"
 
 #, c-format
 msgid "   Full name: %s"
-msgstr "   Teljes Név: %s"
+msgstr "Teljes Név: %s"
 
 #, c-format
 msgid "       Email: %s"
-msgstr "       Emailcím: %s"
+msgstr "       Email: %s"
 
+#, fuzzy
 msgid "Activate or delete this user here"
-msgstr "A Felhasználó itt aktiválható vagy törölhető"
+msgstr "%s Felhasználó aktiválva"
 
 msgid "Registration Settings"
 msgstr "Regisztrációs beállítások"
@@ -107,9 +105,6 @@ msgid ""
 "click a confirmation link in an email that is sent by the module, or require account "
 "activation by a site administrator."
 msgstr ""
-"A Regisztrációs modul elfogadhatja az új felhasználók regisztrálását azonnal, kötelezheti a "
-"felhasználót, hogy a modul által elküldött levélben található linkre kattintson, vagy az "
-"adminisztrátor engedélyezéséhez is kötheti a regisztrálás érvényesítését."
 
 msgid "Choose policy:"
 msgstr "Válassz szabályt:"
@@ -118,23 +113,16 @@ msgid "Email details"
 msgstr "Email részletei"
 
 msgid "Sender(From) Email Address:"
-msgstr "Küldő Email címe:"
-
-msgid "Confirmation Email Subject:"
-msgstr "Megerősítő Levél Témája:"
-
-msgid "Email Site Administrators for all new registrations"
-msgstr "Levél küldése az oldal Adminisztátorainak minden regisztrációról"
-
-msgid "Admin Email Subject:"
-msgstr "Adminisztrátori levél témája:"
-
-msgid "Email new users upon account activation"
 msgstr ""
 
-#, fuzzy
-msgid "Welcome Email Subject:"
-msgstr "Adminisztrátori levél témája:"
+msgid "Confirmation Email Subject:"
+msgstr ""
+
+msgid "Admin Email Subject:"
+msgstr ""
+
+msgid "Email Site Administrators for all new registrations"
+msgstr ""
 
 msgid "Save"
 msgstr "Mentés"
@@ -188,6 +176,7 @@ msgstr "Fiók Aktiválása"
 msgid "This user cannot be activated."
 msgstr "Ez a Felhasználó nem aktiválható."
 
+#, fuzzy
 msgid ""
 "This can happen if the URL you entered is not correct or you already activated this account. "
 "Please check if your mail client broke the link into several lines and append them without "
@@ -223,7 +212,7 @@ msgid ""
 "not become valid and you will not receive any further emails.  Sorry for the inconvenience."
 msgstr ""
 "Amennyiben nem Te regisztráltál az oldalon, kérlek hagyd figyelmen kívül ezt a levelet. A "
-"regisztráció ebben az esetben nem kerül érvényesítésre és nem fogsz több emailt kapni."
+"regisztráció ebben az esetben nem érvényesítődik és nem fogsz kapni több emailt."
 
 msgid "Thank you!"
 msgstr "Köszönjük!"
@@ -234,23 +223,23 @@ msgstr "Regisztráció sikeres"
 msgid "Your registration was successful."
 msgstr "Regisztrációd sikeres volt."
 
+#, fuzzy
 msgid ""
 "You will shortly receive an email containing a link. You have to click this link to confirm "
 "and activate your account.  This procedure is necessary to prevent account abuse."
 msgstr ""
 "Hamarosan kapni fogsz egy emailt ami egy webcímet (linket) tartalmaz. Erre a címre kell "
-"kattintanod, hogy megerősítsd a regisztrációt és aktiváld felhasználói fiókod. Erre "
-"biztonsági okokból van szükség."
+"kattintanod, hogy megerősítsd a regisztrációt és aktiváld felhasználói fiókod."
 
 msgid "Your registration will be processed and your account activated soon."
 msgstr "Regisztrációd feldolgozzuk és fiókod hamarosan aktiváljuk."
 
 msgid "Your registration was successful and your account has been activated."
-msgstr "A regisztráció sikeres volt és felhasználói fiókodat aktiváltuk."
+msgstr "A reigsztráció sikeres volt és felhasználói fiókodat aktiváltuk."
 
-#, c-format
+#, fuzzy, c-format
 msgid "You can now %slogin%s to your account with your username and password."
-msgstr "Mostmár %sbejelentkezhetsz%s a rendszerbe saját felhasználóneveddel és jelszavaddal."
+msgstr "Mostmár bejelentkezhetsz a rendszerbe saját felhasználóneveddel és jelszavaddal."
 
 msgid "Register As New User"
 msgstr "Regisztrálás Új Felhasználóként"
@@ -284,7 +273,7 @@ msgid "You must enter a password"
 msgstr "Meg kell adnod egy jelszót"
 
 msgid "Verify Password"
-msgstr "Jelszó Ellenőrzése"
+msgstr "Jelszó Ellenörzése"
 
 msgid "You must enter the password a second time"
 msgstr "Mégegyszer meg kell adnod a jelszót"
@@ -295,5 +284,28 @@ msgstr "A megadott jelszavak nem egyeznek"
 msgid "Cancel"
 msgstr "Mégse"
 
-msgid "Your account is now active. Visit the site listed above to login."
-msgstr ""
+#~ msgid "login"
+#~ msgstr "bejelentkezé"
+
+#, fuzzy
+#~ msgid "You can now %s to your account with your username and password."
+#~ msgstr "Mostmár bejelentkezhetsz a rendszerbe saját felhasználóneveddel és jelszavaddal."
+
+#~ msgid "This procedure is necessary to prevent account abuse."
+#~ msgstr "Erre az eljárásra biztonsági okokból szükség van."
+
+#~ msgid "You can now"
+#~ msgstr "Mostmár"
+
+#~ msgid "to your account with your username and password."
+#~ msgstr "a rendszerbe saját felhasználóneveddel és jelszavaddal."
+
+#~ msgid "This page can only be called once."
+#~ msgstr "Ezt az oldalt csak egyszer lehet lekérni."
+
+#~ msgid ""
+#~ "This page has been requested before and can only be called once. Probable you have hit "
+#~ "the Reload button. Please proceed to %s."
+#~ msgstr ""
+#~ "Ezt az oldalt már lekérték ezelőtt és csak egyszer kérhető le. Lehetséges, hogy Te "
+#~ "töltötted újra az oldalt. Menj tovább ide: %s."

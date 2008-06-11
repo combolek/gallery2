@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,10 +19,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Quotas 1.1.3\n"
+"Project-Id-Version: Gallery: Quotas 1.1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-09-15 16:58+0000\n"
-"PO-Revision-Date: 2008-03-27 16:48+0100\n"
+"PO-Revision-Date: 2007-01-09 12:39+0100\n"
 "Last-Translator: Ermanno Baschiera <ebaschiera@gmail.com>\n"
 "Language-Team: Italian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -43,12 +43,12 @@ msgstr "GB"
 #, c-format
 msgid "Warning: You have reached your disk quota (%s %s), this item will not be added."
 msgstr ""
-"Attenzione: È stata raggiunta la quota di spazio su disco (%s %s), questo oggetto non sarà "
+"Attenzione: Hai raggiunto la tua quota di spazio su disco (%s %s), questo oggetto non sarà "
 "inserito."
 
 #, c-format
 msgid "You are using %s %s of your allotted %s %s."
-msgstr "Si stanno usando %s %s dei %s %s a disposizione."
+msgstr "Stai usando %s %s dei tuoi %s %s."
 
 msgid "Quotas"
 msgstr "Quote"
@@ -76,7 +76,7 @@ msgid "Quota Size"
 msgstr "Dimensione Quota"
 
 msgid "You must enter a quota size."
-msgstr "È necessario inserire una dimensione per la quota."
+msgstr "Devi inserire una dimensione per la quota."
 
 msgid "Quota size must be less than 2097152 MB (2048 GB)."
 msgstr "La dimensione della quota deve essere inferiore a 2097152 MB (2048 GB)."
@@ -85,7 +85,7 @@ msgid "Invalid quota size, positive numbers and decimals only."
 msgstr "Dimensione quota non valida, solo numeri positivi e decimali."
 
 msgid "Create Group Quota"
-msgstr "Crea Quota di Gruppo"
+msgstr "Quota di Gruppo Creata"
 
 msgid "Cancel"
 msgstr "Annulla"
@@ -172,10 +172,10 @@ msgid ""
 "the highest quota of all the groups will be assigned. Although, if you create a user quota "
 "that will override any group quotas."
 msgstr ""
-"Il sistema permetterà di assegnare quote di spazio su disco agli utenti. Creando una quota "
-"di gruppo, tutti gli utenti di quel gruppo avranno assegnata tale quota. Se un utente "
-"appartiene a più gruppi, gli verrà assegnata la quota di gruppo maggiore. Tuttavia se si "
-"crea una quota utente, allora quella prenderà il sopravvento sulle quote di gruppo."
+"Il sistema ti permetterà di assegnare quote di spazio su disco agli utenti. Creando una "
+"quota di gruppo, tutti gli utenti di quel gruppo avranno assegnata tale quota. Se un utente "
+"appartiene a più gruppi, gli verrà assegnata la quota di gruppo maggiore. Tuttavia se crei "
+"una quota utente, allora quella prenderà il sopravvento sulle quote di gruppo."
 
 #, c-format
 msgid "There is %d group quota in the system."
@@ -197,7 +197,7 @@ msgstr "Elimina Quota"
 
 #, c-format
 msgid "Group quota for '%s' does not exist. You must create one first."
-msgstr "La quota di gruppo per '%s' non esiste. È necessario crearne una prima."
+msgstr "La quota di gruppo per '%s' non esiste. Devi crearne una prima."
 
 #, c-format
 msgid "Group quota for '%s' already exists."
@@ -208,7 +208,7 @@ msgid "Group '%s' does not exist."
 msgstr "Il gruppo '%s' non esiste."
 
 msgid "You must enter a group name"
-msgstr "È necessario inserire il nome di un gruppo"
+msgstr "Devi inserire il nome di un gruppo"
 
 msgid "Edit Group Quotas (by list)"
 msgstr "Modifica le Quote di Gruppo (dalla lista)"
@@ -252,7 +252,7 @@ msgstr "Quote Utente"
 
 #, c-format
 msgid "User quota for '%s' does not exist. You must create one first."
-msgstr "La quota utente per '%s' non esiste. È necessario crearne una prima."
+msgstr "La quota utente per '%s' non esiste. Devi crearne una prima."
 
 #, c-format
 msgid "User quota for '%s' already exists."
@@ -263,7 +263,7 @@ msgid "User '%s' does not exist."
 msgstr "L'utente '%s' non esiste."
 
 msgid "You must enter a username"
-msgstr "È necessario inserire un nome utente"
+msgstr "Devi inserire un nome utente"
 
 msgid "Edit User Quotas (by list)"
 msgstr "Modifica Quote Utente (dalla lista)"
@@ -288,3 +288,6 @@ msgstr "Quota: Illimitata"
 
 msgid "User Quota Block"
 msgstr "Blocco Quota Utente"
+
+#~ msgid "Warning: You have reached your disk quota (%s %s), "
+#~ msgstr "Attenzione: Hai raggiunto la tua quota di spazio su disco (%s %s), "

@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -63,20 +63,9 @@ class PrintPhotosController extends GalleryController {
 
 	/* Load the necessary item data */
 	$itemIds = array_keys($cartItemIds);
-	list ($ret, $items) = GalleryCoreApi::loadEntitiesById($itemIds, 'GalleryPhotoItem');
+	list ($ret, $items) = GalleryCoreApi::loadEntitiesById($itemIds);
 	if ($ret) {
 	    return array($ret, null);
-	}
-
-	list ($ret, $permissions) = GalleryCoreApi::fetchPermissionsForItems($itemIds);
-	if ($ret) {
-	    return array($ret, null);
-	}
-	foreach ($itemIds as $id) {
-	    if (empty($permissions[$id]['core.view'])) {
-		/* Avoid information disclosure, act as if the item didn't exist. */
-		return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
-	    }
 	}
 
 	list ($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds($itemIds);
@@ -94,14 +83,18 @@ class PrintPhotosController extends GalleryController {
 	    return array($ret, null);
 	}
 
+	$ret = GalleryCoreApi::studyPermissions($itemIds);
+	if ($ret) {
+	    return array($ret, null);
+	}
+
 	/* We want to know which are viewable to guests */
 	list ($ret, $anonymousUserId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
 	if ($ret) {
 	    return array($ret, null);
 	}
-	list ($ret, $publicPermissions) =
-	    GalleryCoreApi::fetchPermissionsForItems($itemIds, $anonymousUserId, false);
+	$ret = GalleryCoreApi::studyPermissions($itemIds, $anonymousUserId);
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -110,14 +103,23 @@ class PrintPhotosController extends GalleryController {
 	$entries = $protectedIds = array();
 	foreach ($items as $item) {
 	    $itemId = $item->getId();
+	    list ($ret, $permissions) = GalleryCoreApi::getPermissions($itemId);
+	    if ($ret) {
+		return array($ret, null);
+	    }
+	    list ($ret, $publicPermissions) =
+		GalleryCoreApi::getPermissions($itemId, $anonymousUserId);
+	    if ($ret) {
+		return array($ret, null);
+	    }
 
-	    if (!isset($permissions[$itemId]['fotokasten.print'])) {
-		/* Skip any cart items for which we don't have print permission */
+	    if (!isset($permissions['fotokasten.print']) || !isset($permissions['core.view'])) {
+		/* Skip any cart items for which we don't have permission */
 		continue;
 	    }
 
 	    $source = isset($preferreds[$itemId]) ? $preferreds[$itemId] : $item;
-	    $needSession = !isset($publicPermissions[$itemId]['core.viewSource']);
+	    $needSession = !isset($publicPermissions['core.viewSource']);
 
 	    if ($needSession && !isset($foSession)) {
 		/*
@@ -228,7 +230,7 @@ class PrintPhotosController extends GalleryController {
 
     /**
      * Initialize fotokasten session.
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function getFotokastenSession() {
 	global $gallery;
@@ -273,7 +275,7 @@ class PrintPhotosController extends GalleryController {
 
     /**
      * Send basket to fotokasten.
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *               string url for redirect to shopping basket
      */
     function sendFotokastenCart($basket) {

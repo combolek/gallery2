@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,14 +32,11 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
     }
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($this->_album);
 
@@ -49,7 +46,8 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 	    'GalleryToolkit', 'ItemEditPhotoPluginTestToolkit', 'ItemEditPhotoPluginTestToolkit',
 	    $path, 'coreTest', null);
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markToolkitForCleanup('ItemEditPhotoPluginTestToolkit');
 
@@ -60,14 +58,14 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 		      array('type' => 'int', 'description' => 'test')),
 		'test-description');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = GalleryCoreApi::registerToolkitOperation(
 	    'ItemEditPhotoPluginTestToolkit', array('test/file'), 'convert-to-image/jpeg',
 	    array(), 'test-description', 'image/jpeg');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = GalleryCoreApi::registerToolkitOperation('ItemEditPhotoPluginTestToolkit',
@@ -75,7 +73,7 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 		array(array('type' => 'int', 'description' => 'test')),
 		'test-description');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = GalleryCoreApi::registerToolkitOperation('ItemEditPhotoPluginTestToolkit',
@@ -84,7 +82,8 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 		      array('type' => 'int', 'description' => 'test')),
 		'test-description', '');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = GalleryCoreApi::registerToolkitOperation('ItemEditPhotoPluginTestToolkit',
@@ -93,13 +92,15 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 		      array('type' => 'int', 'description' => 'test')),
 		'test-description', '');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $this->_item) =
 	    $this->_createRandomDataItem($this->_album->getId(), 'test/file');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->_unused = null;
@@ -110,14 +111,14 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 	    $this->_createDerivative($this->_item, $this->_item->getId(),
 				     DERIVATIVE_TYPE_IMAGE_PREFERRED, 'rotate|90');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $derivative[1]) =
 	    $this->_createDerivative($this->_item, $derivative[0]->getId(),
 				     DERIVATIVE_TYPE_IMAGE_THUMBNAIL, 'thumbnail|200');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $derivative[2]) = $this->_createDerivative(
@@ -125,7 +126,7 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 		DERIVATIVE_TYPE_IMAGE_RESIZE, 'scale|500,500;convert-to-image/jpeg', 'test/file',
 		array('postFilterOperations' => 'test-operation|0'));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	/* Use valid inputs */
 	GalleryUtilities::putRequestVariable('form[action][save]', 1);
@@ -147,7 +148,7 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 	list ($ret, $resizeTable) =
 	    GalleryCoreApi::fetchResizesByItemIds(array($this->_item->getId()));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	if (empty($resizeTable[$this->_item->getId()])) {
@@ -234,12 +235,12 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 	list ($ret, $resizeTable) =
 	    GalleryCoreApi::fetchResizesByItemIds(array($itemId));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	list ($ret, $preferred) =
 	    GalleryCoreApi::fetchPreferredSource($this->_item);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	if (!empty($resizeTable[$itemId])) {
@@ -267,19 +268,19 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 	    'ItemEditPhotoPluginTestToolkit', array('test/blob'), 'convert-to-image/jpeg',
 	    array(), 'test-description', 'image/jpeg');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $this->_blob) =
 	    $this->_createRandomDataItem($this->_album->getId(), 'test/blob');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	list ($ret, $derivative[0]) =
 	    $this->_createDerivative($this->_item, $itemId,
 				     DERIVATIVE_TYPE_IMAGE_PREFERRED, 'convert-to-image/jpeg');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Use valid inputs */
@@ -298,7 +299,7 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 	list ($ret, $resizeTable) = GalleryCoreApi::fetchDerivativesByItemIds(
 	    array($this->_item->getId()));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert($resizeTable[$itemId], "no derivative");
 	$preferredId = $resizeTable[$itemId][0]->getId();

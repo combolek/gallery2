@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@
  * @version $Revision$
  * @static
  */
-class GalleryUserHelper_medium /* extends GalleryEventListener */ {
+class GalleryUserHelper_medium {
 
     /**
      * @see GalleryCoreApi::fetchUsernames
@@ -144,7 +144,7 @@ class GalleryUserHelper_medium /* extends GalleryEventListener */ {
 	} else {
 	    $result = $searchResults->nextResult();
 	    $id = $result[0];
-	    list ($ret, $user) = GalleryCoreApi::loadEntitiesById($id, 'GalleryUser');
+	    list ($ret, $user) = GalleryCoreApi::loadEntitiesById($id);
 	    if ($ret) {
 		return array($ret, null);
 	    }
@@ -154,34 +154,10 @@ class GalleryUserHelper_medium /* extends GalleryEventListener */ {
     }
 
     /**
-     * @see GalleryCoreApi::fetchLanguageCodeForUser
-     */
-    function fetchLanguageCodeForUser($userId) {
-	global $gallery;
-
-	list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	$language = $user->getLanguage();
-	if (empty($language)) {
-	    list ($ret, $language) =
-		GalleryCoreApi::getPluginParameter('module', 'core', 'default.language');
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	}
-	return array(null, $language);
-    }
-
-    /**
      * @see GalleryCoreApi::assertUserIsSiteAdministrator
      */
     function assertSiteAdministrator() {
 	global $gallery;
-	$session =& $gallery->getSession();
-	$phpVm = $gallery->getPhpVm();
 
 	/* Make sure we have adequate permissions */
 	list ($ret, $inGroup) = GalleryCoreApi::isUserInSiteAdminGroup();
@@ -193,16 +169,6 @@ class GalleryUserHelper_medium /* extends GalleryEventListener */ {
 	    return GalleryCoreApi::error(ERROR_PERMISSION_DENIED);
 	}
 
-	list ($ret, $expired) = $session->hasSiteAdminSessionExpired();
-	if ($ret) {
-	    return $ret;
-	}
-
-	if ($expired) {
-	    return GalleryCoreApi::error(ERROR_PERMISSION_DENIED);
-	}
-
-	$session->put('session.siteAdminActivityTimestamp', $phpVm->time());
 	return null;
     }
 
@@ -222,7 +188,7 @@ class GalleryUserHelper_medium /* extends GalleryEventListener */ {
 	}
 
 	/* First check if the User is a valid gallery user! */
-	list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
+	list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId);
 	if ($ret) {
 	    return $ret;
 	}
@@ -262,7 +228,7 @@ class GalleryUserHelper_medium /* extends GalleryEventListener */ {
 	}
 
 	/* Load all items */
-	list ($ret, $items) = GalleryCoreApi::loadEntitiesById($itemIds, 'GalleryItem');
+	list ($ret, $items) = GalleryCoreApi::loadEntitiesById($itemIds);
 	if ($ret) {
 	    return $ret;
 	}
@@ -278,7 +244,7 @@ class GalleryUserHelper_medium /* extends GalleryEventListener */ {
 		continue;
 	    }
 	    /* delete the item */
-	    $ret = GalleryCoreApi::deleteEntityById($item->getId(), 'GalleryItem');
+	    $ret = GalleryCoreApi::deleteEntityById($item->getId());
 	    if ($ret) {
 		return $ret;
 	    }
@@ -315,7 +281,7 @@ class GalleryUserHelper_medium /* extends GalleryEventListener */ {
 			$newModifiedAlbumIds[$albums[$albumId]->getParentId()] = 1;
 		    }
 		    /* delete albumItem */
-		    $ret = GalleryCoreApi::deleteEntityById($albumId, 'GalleryItem');
+		    $ret = GalleryCoreApi::deleteEntityById($albumId);
 		    if ($ret) {
 			return $ret;
 		    }
@@ -347,7 +313,6 @@ class GalleryUserHelper_medium /* extends GalleryEventListener */ {
      */
     function handleEvent($event) {
 	global $gallery;
-	$phpVm = $gallery->getPhpVm();
 
 	if ($event->getEventName() == 'Gallery::Login') {
 	    $user = $event->getEntity();
@@ -363,7 +328,6 @@ class GalleryUserHelper_medium /* extends GalleryEventListener */ {
 	    if ($ret) {
 		return array($ret, null);
 	    }
-	    $session->put('session.siteAdminActivityTimestamp', $phpVm->time());
 	} else if ($event->getEventName() == 'Gallery::FailedLogin') {
 	    $data = $event->getData();
 	    if (!empty($data['userName'])) {

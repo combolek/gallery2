@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,10 +22,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Tile Theme 1.0.9\n"
+"Project-Id-Version: Gallery: Tile Theme 1.0.7\n"
 "POT-Creation-Date: 2003-02-11 03:09-0800\n"
-"PO-Revision-Date: 2008-03-03 18:16+0300\n"
-"Last-Translator: Ser Moro <webber@morozov-sm.ru>\n"
+"PO-Revision-Date: 2006-01-22 16:07+0300\n"
+"Last-Translator: Konstantin Ivanov <Continental@vollen.ru>\n"
 "Language-Team: Russian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -37,8 +37,11 @@ msgstr ""
 msgid "Tile"
 msgstr "Мозаика"
 
+#, fuzzy
 msgid "Tile view of background image and image thumbnails"
-msgstr "Мозаичный фон и миниатюры ввиде мозаики"
+msgstr ""
+"Режим просмотра фонового изображения и макетов; вложенные альбомы/другие элементы не "
+"отображаются"
 
 msgid "Successfully saved theme settings"
 msgstr "Настройки темы успешно сохранены"
@@ -50,9 +53,9 @@ msgid ""
 "the upper left corner."
 msgstr ""
 "Мозаичное отображение состоит из фонового изображения, которое отображается в виде сетки с "
-"миниатюрами для других изображений, помещаемых на  определённую позицию поверх фонового "
-"изображения. Установите размер и число элементов мозаики, выберите фоновое изображение и "
-"укажите позиции миниатюр ниже. Строка 1, столбец 1 - это верхний левый угол."
+"макетами для других изображений, помещаемых в любую позицию мозаики над фоновым "
+"изображением. Установите размер и число элементов мозаики, выберите фоновое изображение и "
+"укажите позиции макетов ниже. Строка 1, Столбец 1 - это верхний левый угол."
 
 msgid "Rows"
 msgstr "Строки"
@@ -61,10 +64,10 @@ msgid "Columns"
 msgstr "Столбцы"
 
 msgid "Cell Width"
-msgstr "Ширина ячейки"
+msgstr "Ширина Ячейки"
 
 msgid "Cell Height"
-msgstr "Высота ячейки"
+msgstr "Высота Ячейки"
 
 msgid "Background"
 msgstr "Фон"
@@ -79,7 +82,7 @@ msgid "Column"
 msgstr "Столбец"
 
 msgid "no thumbnail"
-msgstr "миниатюра отсутствует"
+msgstr "макет отсутствует"
 
 msgid "Add some photos!"
 msgstr "Добавтье несколько фотографий!"
@@ -93,3 +96,12 @@ msgstr "Продолжить..."
 #, c-format
 msgid "The theme has not been %sconfigured%s."
 msgstr "Тема не была %sсконфигурирована%s."
+
+#~ msgid "Warning: This site requires javascript."
+#~ msgstr "Предупреждение: для работа этого сайта необходим javascript."
+
+#~ msgid "The layout has not been"
+#~ msgstr "Размещений не было"
+
+#~ msgid "configured."
+#~ msgstr "конфигурирован."

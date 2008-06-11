@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: ImageMagick 1.1.3\n"
+"Project-Id-Version: Gallery: ImageMagick 1.1.1\n"
 "POT-Creation-Date: 2005-03-28 14:00+0800\n"
 "PO-Revision-Date: 2005-03-31 14:00+0800\n"
 "Last-Translator: Stephen Chu <stephen@ju-ju.com>\n"
@@ -149,11 +149,6 @@ msgstr ""
 "裝 ImageMagick 程式，然後在下面的文字欄中輸入其路徑。如果你使用的是 UNIX 系統，不要忘記將程式"
 "設定為可執行。（在 ImageMagick 目錄設定 <i>chmod 755 *</i> 即可）"
 
-msgid ""
-"The exec() function is disabled in your PHP by the <b>disabled_functions</b> parameter in "
-"php.ini.  This module cannot be used until that setting is changed."
-msgstr ""
-
 msgid "Directory to ImageMagick/GraphicsMagick binaries:"
 msgstr "ImageMagick/GraphicsMagick 程式目錄："
 
@@ -248,3 +243,9 @@ msgid ""
 msgstr ""
 "我們在測試你的 ImageMagick 執行檔時收集了這些除錯輸出。如果你仔細閱讀這些資料，也許可以發現你"
 "的 ImageMagick 執行檔測試失敗的原因。"
+
+#~ msgid "target width"
+#~ msgstr "目標寬度"
+
+#~ msgid "target height"
+#~ msgstr "目標高度"

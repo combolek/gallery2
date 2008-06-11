@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,12 +36,11 @@ class DcrawModule extends GalleryModule {
 	$this->setName($gallery->i18n('Dcraw'));
 	$this->setDescription(
 	    $gallery->i18n('Graphics toolkit for processing images in raw format'));
-	$this->setVersion('1.0.10');
-	$this->_templateVersion = 1;
+	$this->setVersion('1.0.8');
 	$this->setGroup('toolkits', $gallery->i18n('Graphics Toolkits'));
 	$this->setCallbacks('getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 20));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setRequiredCoreApi(array(7, 4));
+	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
@@ -64,23 +63,6 @@ class DcrawModule extends GalleryModule {
      */
     function activate($postActivationEvent=true) {
 	global $gallery;
-	GalleryCoreApi::requireOnce('modules/dcraw/classes/DcrawToolkitHelper.class');
-
-	list ($ret, $path) = $this->getParameter('path');
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	/* Detect the version of the binary (it may have changed since last activation) */
-	list ($ret, $testResults, $version) = DcrawToolkitHelper::testBinary($path);
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	$ret = $this->setParameter('version', $version);
-	if ($ret) {
-	    return array($ret, null);
-	}
 
 	list ($ret, $priority) = GalleryCoreApi::getToolkitPriorityById('Dcraw');
 	if ($ret) {
@@ -95,21 +77,15 @@ class DcrawModule extends GalleryModule {
 	    $priority = min($priority + 1, 40);
 	}
 
-	$mimeTypes = array('image/x-dcraw');
-	if (version_compare($version, '7', '>=')) {
-	    /* dcraw supports Adobe Digital Negative starting in v7.0 */
-	    $mimeTypes[] = 'image/x-adobe-dng';
-	}
-
 	$ret = GalleryCoreApi::registerToolkitOperation(
-	    'Dcraw', $mimeTypes, 'convert-to-image/x-portable-pixmap',
+	    'Dcraw', array('image/x-dcraw'), 'convert-to-image/x-portable-pixmap',
 	    array(), $gallery->i18n('Convert to PPM'), 'image/x-portable-pixmap', $priority);
 	if ($ret) {
 	    return array($ret, null);
 	}
 
 	$ret = GalleryCoreApi::registerToolkitProperty(
-	    'Dcraw', $mimeTypes, 'dimensions', 'int,int',
+	    'Dcraw', array('image/x-dcraw'), 'dimensions', 'int,int',
 	    $gallery->i18n('Get the width and height of the image'));
 	if ($ret) {
 	    return array($ret, null);
@@ -118,14 +94,31 @@ class DcrawModule extends GalleryModule {
 	/* Assign all extensions we handle to our image mime type */
 	foreach (array('bay', 'bmq', 'cr2', 'crw', 'cs1', 'dc2', 'dcr',
 		       'fff', 'k25', 'kdc', 'mos', 'mrw', 'nef', 'orf',
-		       'pef', 'raf', 'rdc', 'srf', 'x3f', 'dng') as $extension) {
-	    $mimeType = ($extension == 'dng') ? 'image/x-adobe-dng' : 'image/x-dcraw';
-	    $ret = GalleryCoreApi::addMimeType($extension, $mimeType, 0);
+		       'pef', 'raf', 'rdc', 'srf', 'x3f') as $extension) {
+	    $ret = GalleryCoreApi::addMimeType($extension, 'image/x-dcraw', 0);
 	    if ($ret) {
 		if (!($ret->getErrorCode() & ERROR_COLLISION)) {
 		    return array($ret, null);
 		}
 	    }
+	}
+
+	/* Detect the version of the binary (it may have changed since last activation) */
+	GalleryCoreApi::requireOnce('modules/dcraw/classes/DcrawToolkitHelper.class');
+
+	list ($ret, $path) = $this->getParameter('path');
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	list ($ret, $testResults, $version) = DcrawToolkitHelper::testBinary($path);
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	$ret = $this->setParameter('version', $version);
+	if ($ret) {
+	    return array($ret, null);
 	}
 
 	list ($ret, $redirect) = parent::activate($postActivationEvent);
@@ -140,19 +133,16 @@ class DcrawModule extends GalleryModule {
      * @see GalleryModule::needsConfiguration
      */
     function needsConfiguration() {
-	/* This module requires exec() */
-	if (in_array('exec', split(',\s*', ini_get('disable_functions')))) {
-	    return array(null, true);
-	}
-
 	list ($ret, $path) = $this->getParameter('path');
 	if ($ret) {
 	    return array($ret, null);
 	}
+
 	list ($ret, $version) = $this->getParameter('version');
 	if ($ret) {
 	    return array($ret, null);
 	}
+
 	return array(null, empty($path) || empty($version));
     }
 
@@ -162,15 +152,11 @@ class DcrawModule extends GalleryModule {
     function autoConfigure() {
 	global $gallery;
 
-	/* This module requires exec() */
-	if (in_array('exec', split(',\s*', ini_get('disable_functions')))) {
-	    return array(null, false);
-	}
-
 	list ($ret, $needsConfiguration) = $this->needsConfiguration();
 	if ($ret) {
 	    return array($ret, false);
 	}
+
 	if (!$needsConfiguration) {
 	    return array(null, true);
 	}

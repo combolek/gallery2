@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,59 +38,24 @@ class HiddenModule extends GalleryModule /* and GalleryEventListener */ {
 	$this->setName($gallery->i18n('Hidden Items'));
 	$this->setDescription($gallery->i18n('Hide items/albums from guests until directly ' .
 					     'accessed with the right URL'));
-	$this->setVersion('1.0.9');
-	$this->_templateVersion = 1;
+	$this->setVersion('1.0.4');
 	$this->setGroup('display', $this->translate('Display'));
-	$this->setRequiredCoreApi(array(7, 53));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setCallbacks('registerEventListeners');
+	$this->setRequiredCoreApi(array(7, 4));
+	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
-     * @see GalleryModule::upgrade
+     * @see GalleryModule::registerEventListeners
      */
-    function upgrade($currentVersion, $statusMonitor) {
-	global $gallery;
-	$storage =& $gallery->getStorage();
-
-	if (empty($currentVersion)) {
-	    $currentVersion = '0';
-	}
-
-	if (version_compare($currentVersion, '1.0.8', '<')) {
-	    $ret = $storage->configureStore($this->getId());
-	    if ($ret) {
-		return $ret;
-	    }
-	    $gallery->guaranteeTimeLimit(60);
-	    $ret = $storage->execute('DELETE FROM [ItemHiddenMap]');
-	    if ($ret) {
-		return $ret;
-	    }
-
-	    $gallery->guaranteeTimeLimit(60);
-	    $ret = $storage->execute('INSERT INTO [ItemHiddenMap] ([::itemId])
-				   SELECT [GalleryEntity::id]
-				     FROM [GalleryEntity]
-				    WHERE [GalleryEntity::onLoadHandlers] LIKE \'%|Hidden|%\'');
-	    if ($ret) {
-		return $ret;
-	    }
-	}
-	return null;
+    function registerEventListeners() {
+	GalleryCoreApi::registerEventListener('GalleryEntity::save', new HiddenModule());
     }
 
     /**
      * @see GalleryModule::performFactoryRegistrations
      */
     function performFactoryRegistrations() {
-	$ret = GalleryCoreApi::registerFactoryImplementation(
-	    'GalleryEventListener', 'HiddenModule', 'HiddenModule', 
-	    'modules/hidden/module.inc', 'hidden', 
-	    array('Gallery::ViewableTreeChange', 'GalleryEntity::save', 'GalleryEntity::delete'));
-	if ($ret) {
-	    return $ret;
-	}
-
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'GalleryOnLoadHandler', 'HiddenModule', 'Hidden',
 	    'modules/hidden/module.inc', 'hidden', null);
@@ -127,9 +92,15 @@ class HiddenModule extends GalleryModule /* and GalleryEventListener */ {
      * @see GalleryModule::uninstall
      */
     function uninstall() {
+	global $gallery;
 	GalleryCoreApi::requireOnce('modules/hidden/classes/HiddenHelper.class');
 
-	list ($ret, $searchResults) = GalleryCoreApi::getMapEntry('ItemHiddenMap', array('itemId'));
+	$query = '
+	    SELECT [GalleryEntity::id]
+	    FROM [GalleryEntity]
+	    WHERE [GalleryEntity::onLoadHandlers] LIKE \'%|Hidden|%\'
+	    ';
+	list ($ret, $searchResults) = $gallery->search($query);
 	if ($ret) {
 	    return $ret;
 	}
@@ -138,8 +109,7 @@ class HiddenModule extends GalleryModule /* and GalleryEventListener */ {
 	}
 
 	while (!empty($itemIds)) {
-	    list ($ret, $items) =
-		GalleryCoreApi::loadEntitiesById(array_splice($itemIds, 0, 100), 'GalleryEntity');
+	    list ($ret, $items) = GalleryCoreApi::loadEntitiesById(array_splice($itemIds, 0, 100));
 	    if ($ret) {
 		return $ret;
 	    }
@@ -170,7 +140,15 @@ class HiddenModule extends GalleryModule /* and GalleryEventListener */ {
 	    }
 	    if (!isset($permissions['core.view']) && (isset($permissions['core.viewResizes'])
 		    || isset($permissions['core.viewSource']))) {
-		GalleryCoreApi::addPermissionToSession($itemId);
+		global $gallery;
+		$session =& $gallery->getSession();
+		if (!$session->exists(GALLERY_PERMISSION_SESSION_KEY)) {
+		    $session->put(GALLERY_PERMISSION_SESSION_KEY, array());
+		}
+		$sessionPerms =& $session->get(GALLERY_PERMISSION_SESSION_KEY);
+		if (!in_array($itemId, $sessionPerms)) {
+		    $sessionPerms[] = (int)$itemId;
+		}
 
 		/* Use a blunt instrument to clear the permission cache. */
 		GalleryDataCache::reset();
@@ -184,96 +162,16 @@ class HiddenModule extends GalleryModule /* and GalleryEventListener */ {
      * @see GalleryEventListener::handleEvent
      */
     function handleEvent($event) {
-	global $gallery;
-	GalleryCoreApi::requireOnce('modules/hidden/classes/HiddenHelper.class');
-	switch ($event->getEventName()) {
-	case 'GalleryEntity::save':
-	    $item = $event->getEntity();
-	    if (GalleryUtilities::isA($item, 'GalleryItem')
-		    && !$item->testPersistentFlag(STORAGE_FLAG_NEWLY_CREATED)
-		    && $item->isModified('parentId')
-		    && !$item->hasOnLoadHandler('Hidden')) {
-		$ret = HiddenHelper::handleMoveItem($item);
-		if ($ret) {
-		    return array($ret, null);
-		}
+	$item = $event->getEntity();
+	if (GalleryUtilities::isA($item, 'GalleryItem')
+		&& !$item->testPersistentFlag(STORAGE_FLAG_NEWLY_CREATED)
+		&& $item->isModified('parentId')
+		&& !$item->hasOnLoadHandler('Hidden')) {
+	    GalleryCoreApi::requireOnce('modules/hidden/classes/HiddenHelper.class');
+	    $ret = HiddenHelper::handleMoveItem($item);
+	    if ($ret) {
+		return array($ret, null);
 	    }
-	    break;
-	case 'GalleryEntity::delete':
-	    $item = $event->getEntity();
-	    if (GalleryUtilities::isA($item, 'GalleryItem')) {
-		$ret = GalleryCoreApi::removeMapEntry('ItemHiddenMap', 
-						      array('itemId' => $item->getId()));
-		if ($ret) {
-		    return array($ret, null);
-		}
-	    }
-	    break;
-	case 'Gallery::ViewableTreeChange':
-	    /*
-	     * This code gets triggered when the core.view permission was added to an item. Hiding
-	     * an item requires that the 'core.view' permission is removed.  If the permission 
-	     * change involves adding the 'core.view' we need to check that the item was not hidden,
-	     * and it was then undo it. If the permission change was also 'applied to children'
-	     * then we need to do the same check for all the descendents.
-	     */
-	    $data = $event->getData();
-	    if (!empty($data['permission']) 
-		    && in_array($data['permission'], array('core.view', 'core.viewAll', 'core.all'))
-		    && $data['changeType'] == 'add') {
-		$itemId = $data['itemId'];
-		$ids = array($itemId);
-
-		if ($data['applyToChildren']) {
-		    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
-		    if ($ret) {
-			return array($ret, null);
-		    }
-		    list ($ret, $childIds) = GalleryCoreApi::fetchDescendentItemIds(
-			$item, null, null, $data['permission']);
-		    if ($ret) {
-			return array($ret, null);
-		    }
-
-		    $ids = array_merge($ids, $childIds);
-		}
-		$query = 'SELECT [::itemId] FROM [ItemHiddenMap] 
-			   WHERE [ItemHiddenMap::itemId] IN ('
-			 . GalleryUtilities::makeMarkers(count($ids)) . ')';
-		list ($ret, $searchResults) = $gallery->search($query, $ids);
-		if ($ret) {
-		    return array($ret, null);
-		}
-
-		if ($searchResults->resultCount() > 0) {
-		    $gallery->guaranteeTimeLimit(60);
-		    list ($ret, $anonymousUserId) = 
-			GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
-		    if ($ret) {
-			return array($ret, null);
-		    }
-		    list ($ret, $everybodyGroup) = 
-			GalleryCoreApi::getPluginParameter('module', 'core', 'id.everybodyGroup');
-		    if ($ret) {
-			return array($ret, null);
-		    }
-		    while ($result = $searchResults->nextResult()) {
-			$id = $result[0];
-			/* Remove public view permission */
-			$ret = GalleryCoreApi::removeUserPermission(
-			    $id, $anonymousUserId, 'core.view');
-			if ($ret) {
-			    return array($ret, null);
-			}
-			$ret = GalleryCoreApi::removeGroupPermission(
-			    $id, $everybodyGroup, 'core.view');
-			if ($ret) {
-			    return array($ret, null);
-			}
-		    }
-		}
-	    }
-	    break;
 	}
 	return array(null, null);
     }

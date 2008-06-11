@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -39,18 +39,8 @@ class GalleryControllerTestCase extends GalleryTestCase {
 	GalleryCoreApi::requireOnce('modules/core/classes/GalleryController.class');
 	list ($ret, $this->_controller) = GalleryController::loadController($controllerName);
 	if ($ret) {
-	    $this->fail($ret->getAsHtml());
+	    return $this->failWithStatus($ret);
 	}
-    }
-
-    function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
-	global $gallery;
-
-	$gallery->_session->put('session.siteAdminActivityTimestamp', time());
     }
 
     function handleRequest($errorCode=null) {
@@ -59,21 +49,15 @@ class GalleryControllerTestCase extends GalleryTestCase {
 
 	list ($ret, $results) = $this->_controller->handleRequest($form);
 	if (isset($errorCode)) {
-	    if ($ret) {
-		if (($ret->getErrorCode() & $errorCode) != $errorCode) {
-		    $this->fail(
-			    sprintf('Expected error code (%s) but received (%s)',
-				implode(' | ', GalleryStatus::getErrorCodeConstants($errorCode)),
-				implode(' | ', GalleryStatus::getErrorCodeConstants(
-									  $ret->getErrorCode()))));
-		}
-	    } else {
-		$this->fail(sprintf('Expected error code (%s) but test was successful',
-				implode(' | ', GalleryStatus::getErrorCodeConstants($errorCode))));
+	    if (($ret->getErrorCode() & $errorCode) != $errorCode) {
+		$this->assert(false,
+			sprintf('Expected error code (%s) but received (%s)',
+			    implode(' | ', GalleryStatus::getErrorCodeConstants($errorCode)),
+			    implode(' | ', GalleryStatus::getErrorCodeConstants(
+							  $ret->getErrorCode()))));
 	    }
 	} else if ($ret) {
-	    $this->fail($ret->getAsHtml());
-	    return array();
+	    $this->failWithStatus($ret);
 	} else {
 	    /* Check to make sure we got back everything we want */
 	    $this->assert(isset($results['status']), 'controller results missing status');

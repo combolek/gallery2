@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,12 +36,11 @@ class ImageMagickModule extends GalleryModule {
 	$this->setId('imagemagick');
 	$this->setName($gallery->i18n('ImageMagick'));
 	$this->setDescription($gallery->i18n('ImageMagick / GraphicsMagick Graphics Toolkit'));
-	$this->setVersion('1.1.3');
-	$this->_templateVersion = 1;
+	$this->setVersion('1.1.1');
 	$this->setGroup('toolkits', $gallery->i18n('Graphics Toolkits'));
 	$this->setCallbacks('getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 20));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setRequiredCoreApi(array(7, 4));
+	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
@@ -53,7 +52,7 @@ class ImageMagickModule extends GalleryModule {
 	    return $ret;
 	}
 	foreach (array('path' => '', 'jpegQuality' => '75', 'cmykSupport' => 'none',
-		       'versionOk' => '', 'useNewCoalesceOptions' => 0) as $key => $value) {
+		       'versionOk' => '') as $key => $value) {
 	    if (!isset($params[$key])) {
 		$ret = $this->setParameter($key, $value);
 		if ($ret) {
@@ -193,10 +192,6 @@ class ImageMagickModule extends GalleryModule {
      * @see GalleryModule::needsConfiguration
      */
     function needsConfiguration() {
-	/* This module requires exec() */
-	if (in_array('exec', split(',\s*', ini_get('disable_functions')))) {
-	    return array(null, true);
-	}
 	/* This module requires all fields to be filled out before it can be activated. */
 	foreach (array('path', 'jpegQuality', 'cmykSupport', 'versionOk') as $key) {
 	    list ($ret, $value) = $this->getParameter($key);
@@ -208,6 +203,7 @@ class ImageMagickModule extends GalleryModule {
 		return array(null, true);
 	    }
 	}
+
 	return array(null, false);
     }
 
@@ -217,15 +213,11 @@ class ImageMagickModule extends GalleryModule {
     function autoConfigure() {
 	global $gallery;
 
-	/* This module requires exec() */
-	if (in_array('exec', split(',\s*', ini_get('disable_functions')))) {
-	    return array(null, false);
-	}
-
 	list ($ret, $needsConfiguration) = $this->needsConfiguration();
 	if ($ret) {
 	    return array($ret, false);
 	}
+
 	if (!$needsConfiguration) {
 	    return array(null, true);
 	}

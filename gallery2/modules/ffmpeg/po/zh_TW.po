@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Ffmpeg 1.0.11\n"
+"Project-Id-Version: Gallery: Ffmpeg 1.0.7\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-08-08 18:17-0400\n"
 "PO-Revision-Date: 2005-08-08 18:17-0400\n"
@@ -75,11 +75,6 @@ msgstr ""
 "FFMPEG 是一個可以用來處理你上傳到 Gallery 的影片檔案的圖形工具。你必須在你的伺服器上安裝 "
 "FFMPEG 執行檔，然後在下面的文字框中輸入它的路徑。如果你使用的是 UNIX 系統，不要忘記將執行檔設"
 "定為可執行（在正確的目錄下輸入「chmod 755 ffmpeg」即可）。"
-
-msgid ""
-"The exec() function is disabled in your PHP by the <b>disabled_functions</b> parameter in "
-"php.ini.  This module cannot be used until that setting is changed."
-msgstr ""
 
 msgid "Path to FFMPEG:"
 msgstr "FFMPEG 路徑："

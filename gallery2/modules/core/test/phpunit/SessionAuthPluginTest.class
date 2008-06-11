@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,23 +28,21 @@ GalleryCoreApi::requireOnce('modules/core/test/phpunit/UserLoginControllerTest.c
  * @author Bharat Mediratta <bharat@menalto.com>
  * @version $Revision$
  */
-class SessionAuthPluginTest extends GalleryTestCase {
+class SessionAuthTest extends GalleryTestCase {
 
-    function SessionAuthPluginTest($methodName) {
+    function SessionAuthTest($methodName) {
 	$this->GalleryTestCase($methodName);
     }
 
     function setUp() {
 	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	/* Create a new user */
 	list ($ret, $this->_user) = $this->_createRandomUser(null, 'password');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->_markForCleanup($this->_user);
@@ -60,19 +58,18 @@ class SessionAuthPluginTest extends GalleryTestCase {
 	global $gallery;
 	$gallery->_session = $this->_saveSession;
 
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
+	parent::tearDown();
     }
 
     function testSessionAuthValidUser() {
 	$this->_mockSession->setUserId($this->_user->getId());
 
+	GalleryCoreApi::requireOnce('modules/core/classes/SessionAuthPlugin.class');
+
 	$plugin = new SessionAuthPlugin();
 	list ($ret, $user) = $plugin->getUser();
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals($this->_user, $user);
@@ -81,38 +78,20 @@ class SessionAuthPluginTest extends GalleryTestCase {
     function testSessionAuthInvalidUser() {
 	list ($ret, $userId) = $this->_getUnusedId();
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 
 	$this->_mockSession->setUserId($userId);
 
+	GalleryCoreApi::requireOnce('modules/core/classes/SessionAuthPlugin.class');
+
 	$plugin = new SessionAuthPlugin();
 	list ($ret, $user) = $plugin->getUser();
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 
 	$this->assert(!isset($user));
-    }
-
-    function testSessionAuthLoadInvalidEntity() {
-	/* Assume an invalid userId ended up in our session data and attempt to load it */
-	list ($ret, $group) = $this->_createRandomGroup();
-	if ($ret) {
-	    return $ret;
-	}
-	$this->_markForCleanup($group);
-
-	$this->_mockSession->setUserId($group->getId());
-
-	/* The error should be caught and null should be returned. */
-	$plugin = new SessionAuthPlugin();
-	list ($ret, $user) = $plugin->getUser();
-	if ($ret) {
-	    return $ret;
-	}
-
-	$this->assertEquals(null, $user);
     }
 }
 ?>

@@ -1,6 +1,8 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
 <div class="gbBlock gcBackground1">
   <h2> {g->text text="Select Albums and Users"} </h2>
@@ -65,7 +67,7 @@
     <tr class="{cycle values="gbEven,gbOdd"}">
     {foreach name=users key=uid item=username from=$ChooseObjects.newUsers}
       <td>
-	<input type="checkbox" id="cbUser_{$uid}" {if $form.migrateUser.$uid}checked="checked" {/if}
+	<input type="checkbox" id="cbUser_{$uid}"{if $form.migrateUser.$uid} checked="checked"{/if}
 	 name="{g->formVar var="form[migrateUser][$uid]"}"/>
       </td><td>
 	<label for="cbUser_{$uid}"> {$username} </label>
@@ -117,10 +119,10 @@
 
     <select name="{g->formVar var="form[destinationAlbumID]"}">
       {foreach from=$ChooseObjects.g2AlbumTree item=album}
-	<option value="{$album.data.id}"{if $form.destinationAlbumID==$album.data.id
-	 } selected="selected"{/if}>
+	<option value="{$album.data.id}"{if $form.destinationAlbumID==$album.data.id}
+	 selected="selected"{/if}>
 	  {"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"|repeat:$album.depth}--
-	  {$album.data.title|markup:strip|default:$album.data.pathComponent}
+	  {$album.data.title|default:$album.data.pathComponent}
 	</option>
       {/foreach}
     </select>
@@ -143,17 +145,17 @@
   <div>
     <h4> {g->text text="URL Redirection"} </h4>
 
-    <input type="checkbox" id="cbUrlRedirect" {if !empty($form.urlRedirect)}checked="checked" {/if}
+    <input type="checkbox" id="cbUrlRedirect"{if !empty($form.urlRedirect)} checked="checked"{/if}
      name="{g->formVar var="form[urlRedirect]"}"/>
     <label for="cbUrlRedirect">
-      {g->text text="Record G1-&gt;G2 mappings during import"}
+      {g->text text="Record G1->G2 mappings during import"}
     </label>
   </div>
 
   <div>
     <h4> {g->text text="Thumbnail generation"} </h4>
 
-    <input type="checkbox" id="cbThumb" {if !empty($form.generateThumbnails)}checked="checked" {/if}
+    <input type="checkbox" id="cbThumb" {if !empty($form.generateThumbnails)} checked="checked"{/if}
      name="{g->formVar var="form[generateThumbnails]"}"/>
     <label for="cbThumb">
       {g->text text="Normally Gallery will generate thumbnails the first time you look at them, then save them for subsequent views.  If you check this box, we'll create the thumbnails at migration time.  Migration will take longer but the first time you view an album will go much faster."}
@@ -187,8 +189,8 @@
 	<label for="rbTitleCustom"> {g->text text="Custom Field:"} </label>
 	<input type="text" name="{g->formVar var="form[customfield][title]"}" size="20"
 	 {if isset($form.customfield.title)}value="{$form.customfield.title}"
-	 {/if}id="customTitle" style="margin-left:0.6em"{if $form.set.title!="custom"
-	 } disabled="disabled"{/if}/>
+	 {/if}id="customTitle" style="margin-left:0.6em"{if $form.set.title!="custom"}
+	 disabled="disabled"{/if}/>
 	{if isset($form.error.emptyCustomField.title)}
 	  <span class="giError"> {g->text text="Enter a custom field name"} </span>
 	{/if}
@@ -218,8 +220,8 @@
 	<label for="rbSummaryCustom"> {g->text text="Custom Field:"} </label>
 	<input type="text" name="{g->formVar var="form[customfield][summary]"}" size="20"
 	 {if isset($form.customfield.summary)}value="{$form.customfield.summary}"
-	 {/if}id="customSummary" style="margin-left:0.6em"{if $form.set.summary!="custom"
-	 } disabled="disabled"{/if}/>
+	 {/if}id="customSummary" style="margin-left:0.6em"{if $form.set.summary!="custom"}
+	 disabled="disabled"{/if}/>
 	{if isset($form.error.emptyCustomField.summary)}
 	  <span class="giError"> {g->text text="Enter a custom field name"} </span>
 	{/if}
@@ -249,16 +251,16 @@
 	<label for="rbDescriptionCustom"> {g->text text="Custom Field:"} </label>
 	<input type="text" name="{g->formVar var="form[customfield][description]"}" size="20"
 	 {if isset($form.customfield.description)}value="{$form.customfield.description}"
-	 {/if}id="customDescription" style="margin-left:0.6em"{if $form.set.description!="custom"
-	 } disabled="disabled"{/if}/>
+	 {/if}id="customDescription" style="margin-left:0.6em"{if $form.set.description!="custom"}
+	 disabled="disabled"{/if}/>
 	{if isset($form.error.emptyCustomField.description)}
 	  <span class="giError"> {g->text text="Enter a custom field name"} </span>
 	{/if}
 	<br/>
 	<input type="checkbox" id="cbDefaultDescription"
 	 name="{g->formVar var="form[set][defaultDescription]"}" style="margin-left:2em"
-	 {if !empty($form.set.defaultDescription)} checked="checked" {/if}
-	 {if $form.set.description!="custom"} disabled="disabled"{/if}/>
+	 {if !empty($form.set.defaultDescription)}checked="checked"
+	 {/if}{if $form.set.description!="custom"}disabled="disabled"{/if}/>
 	<label for="cbDefaultDescription">
 	  {g->text text="Default to same as summary if custom field not set"}
 	</label>
@@ -291,15 +293,14 @@
       {g->text text="Custom fields will not be imported.  Activate Custom Fields module to enable this option."}
     </p>
     {else}
-      <input type="checkbox" id="cbCustomFields" {if !empty($form.customFields)}checked="checked" {/if} 
-             name="{g->formVar var="form[customFields]"}"/>
+      <input type="checkbox" id="cbCustomFields"{if !empty($form.customFields)}
+       checked="checked"{/if} name="{g->formVar var="form[customFields]"}"/>
       <label for="cbCustomFields">
 	{g->text text="Import custom fields"}
       </label>
       <br/>
-      <input type="checkbox" id="cbSkipCustomItemFields"
-	{if !empty($form.skipCustomItemFields)} checked="checked" {/if} 
-	name="{g->formVar var="form[skipCustomItemFields]"}"/>
+      <input type="checkbox" id="cbSkipCustomItemFields"{if !empty($form.skipCustomItemFields)}
+       checked="checked"{/if} name="{g->formVar var="form[skipCustomItemFields]"}"/>
       <label for="cbSkipCustomItemFields">
 	{g->text text="Do not create Gallery 2 custom fields for fields selected above for title, summary or description"}
       </label>

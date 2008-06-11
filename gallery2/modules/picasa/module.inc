@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,12 +31,11 @@ class PicasaModule extends GalleryModule {
 	$this->setId('picasa');
 	$this->setName($gallery->i18n('Picasa'));
 	$this->setDescription($gallery->i18n('Import for Picasa 2 XML-Exports'));
-	$this->setVersion('1.0.9');
-	$this->_templateVersion = 1;
+	$this->setVersion('1.0.5.1');
 	$this->setGroup('import', $this->translate('Import'));
 	$this->setCallbacks('getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 45));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setRequiredCoreApi(array(7, 4));
+	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**

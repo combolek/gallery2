@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,27 +31,6 @@ class SvnAuditTest extends CodeAuditTestCase {
 	global $gallery;
 	$this->_platform =& $gallery->getPlatform();
 
-	$this->_exceptions = array(
-		'lib/pear/mime.php' => array('svn:eol-style' => 'native'),
-		'lib/pear/mimePart.php' => array('svn:eol-style' => 'native'),
-		'lib/smarty/Smarty.class.php' => array('svn:eol-style' => 'native'),
-		'lib/smarty/Smarty_Compiler.class.php' => array('svn:eol-style' => 'native'),
-		'lib/smarty/Config_File.class.php' => array('svn:eol-style' => 'native'),
-		'lib/yui/animation-min.js' => array('svn:eol-style' => 'native'),
-		'lib/yui/autocomplete-min.js' => array('svn:eol-style' => 'native'),
-		'lib/yui/color.js' => array('svn:eol-style' => 'native'),
-		'lib/yui/connection-min.js' => array('svn:eol-style' => 'native'),
-		'lib/yui/container-min.js' => array('svn:eol-style' => 'native'),
-		'lib/yui/dom-min.js' => array('svn:eol-style' => 'native'),
-		'lib/yui/dragdrop-min.js' => array('svn:eol-style' => 'native'),
-		'lib/yui/event-min.js' => array('svn:eol-style' => 'native'),
-		'lib/yui/slider-min.js' => array('svn:eol-style' => 'native'),
-		'lib/yui/treeview-min.js' => array('svn:eol-style' => 'native'),
-		'lib/yui/utilities.js' => array('svn:eol-style' => 'native'),
-		'lib/yui/yahoo-min.js' => array('svn:eol-style' => 'native'),
-		'lib/yui/yahoo-dom-event.js' => array('svn:eol-style' => 'native'),
-		);
-
 	$this->CodeAuditTestCase($methodName);
 	$this->_errorCount = 0;
     }
@@ -61,8 +40,9 @@ class SvnAuditTest extends CodeAuditTestCase {
      */
     function shouldCheckFile($fileName) {
 	$base = basename($fileName);
+	/* Removed "po" from list below in 2.2 branch, as we changed props to revert some files */
 	return in_array($base, array('MANIFEST', 'GNUmakefile', 'strings.raw'))
-	    || preg_match('{\.(php|inc|class|tpl|html|css|js|txt|xml|po|mo|png|gif|jpg)$}', $base);
+	    || preg_match('{\.(php|inc|class|tpl|html|css|js|txt|xml|mo|png|gif|jpg)$}', $base);
     }
 
     /**
@@ -78,10 +58,8 @@ class SvnAuditTest extends CodeAuditTestCase {
 		dirname($fileName) . "${slash}.svn${slash}prop-base${slash}${base}.svn-base";
 	}
 
-	$g2Path = str_replace($this->_baseDir . '/', '', $fileName);
-	if (isset($this->_exceptions[$g2Path])) {
-	    $expected = $this->_exceptions[$g2Path];
-	} else if (preg_match('{\.txt$}', $base)) {
+	if (in_array($base, array('mime.php', 'mimePart.php')) || preg_match('{\.txt$}', $base)
+		|| preg_match('{.lib.yui.*\.js$}', $fileName)) {
 	    $expected = array('svn:eol-style' => 'native');
 	} else if (in_array($base, array('MANIFEST', 'GNUmakefile', 'strings.raw'))
 		|| preg_match('{\.(php|inc|class|tpl|html|css|js|xml|po)$}', $base)) {

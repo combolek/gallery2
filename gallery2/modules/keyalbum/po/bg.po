@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -23,9 +23,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Keyword Albums 1.0.5\n"
+"Project-Id-Version: Gallery: Keyword Albums 1.0.0\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2007-06-14 17:26-0700\n"
+"POT-Creation-Date: 2006-09-12 11:25-0700\n"
 "PO-Revision-Date: 2005-08-13 11:42-0500\n"
 "Last-Translator: Bisser Dobrev <bdobrev@comcast.net>\n"
 "Language-Team: Bisser Dobrev <bdobrev AT comcast DOT net>\n"
@@ -36,14 +36,14 @@ msgstr ""
 "X-Poedit-Language: Bulgarian\n"
 "X-Poedit-Country: BULGARIA\n"
 
-#, c-format
-msgid "Keyword Album: %s"
-msgstr ""
-
 msgid "Keyword Album"
 msgstr ""
 
 msgid "keyword album"
+msgstr ""
+
+#, c-format
+msgid "Keyword Album: %s"
 msgstr ""
 
 msgid "All album views"
@@ -56,7 +56,7 @@ msgid "Keyword albums"
 msgstr ""
 
 msgid "None"
-msgstr "Без цвят"
+msgstr ""
 
 msgid "&laquo; default theme &raquo;"
 msgstr ""
@@ -68,7 +68,7 @@ msgid "Dynamic albums based on keyword search"
 msgstr ""
 
 msgid "Display"
-msgstr "Показване"
+msgstr ""
 
 msgid "Keywords:"
 msgstr ""
@@ -77,9 +77,6 @@ msgid "Short URL for Keyword Albums"
 msgstr ""
 
 msgid "Keyword to use for dynamic album"
-msgstr ""
-
-msgid "Page number in a dynamic album"
 msgstr ""
 
 msgid "Keyword Album Settings"
@@ -123,7 +120,7 @@ msgid "Display of Keyword Albums"
 msgstr ""
 
 msgid "Sort order"
-msgstr "Сортиране"
+msgstr ""
 
 msgid "with"
 msgstr "с"
@@ -164,3 +161,6 @@ msgstr ""
 
 msgid "Maximum number of keywords (empty for no limit)"
 msgstr ""
+
+#~ msgid "Successfully saved theme settings"
+#~ msgstr "Настройките за стила са успешно записани"

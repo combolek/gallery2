@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -36,9 +36,9 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Keyword Albums 1.0.5\n"
+"Project-Id-Version: Gallery: Keyword Albums 1.0.0\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2007-06-14 17:26-0700\n"
+"POT-Creation-Date: 2006-09-12 11:25-0700\n"
 "PO-Revision-Date: 2003-09-24 22:04-0700\n"
 "Last-Translator: Beckett Madden-Woods <beckett@beckettmw.com>\n"
 "Language-Team: Irish <gallery-devel@lists.sourceforge.net>\n"
@@ -48,14 +48,14 @@ msgstr ""
 "Plural-Forms: nplurals=5; plural=n==0 ? 0 : ( n==1 ? 1 : ( n%20<2 ? 2 : ( (n-1)%10>5 ? 3 : "
 "4 )));\n"
 
-#, c-format
-msgid "Keyword Album: %s"
-msgstr ""
-
 msgid "Keyword Album"
 msgstr ""
 
 msgid "keyword album"
+msgstr ""
+
+#, c-format
+msgid "Keyword Album: %s"
 msgstr ""
 
 msgid "All album views"
@@ -68,7 +68,7 @@ msgid "Keyword albums"
 msgstr ""
 
 msgid "None"
-msgstr "Aon cheann"
+msgstr ""
 
 #, fuzzy
 msgid "&laquo; default theme &raquo;"
@@ -90,9 +90,6 @@ msgid "Short URL for Keyword Albums"
 msgstr ""
 
 msgid "Keyword to use for dynamic album"
-msgstr ""
-
-msgid "Page number in a dynamic album"
 msgstr ""
 
 msgid "Keyword Album Settings"
@@ -178,3 +175,7 @@ msgstr ""
 
 msgid "Maximum number of keywords (empty for no limit)"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Successfully saved theme settings"
+#~ msgstr "Ní raibh aon chomhad curtha."

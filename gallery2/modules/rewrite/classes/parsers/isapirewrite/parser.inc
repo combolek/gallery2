@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,7 +17,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+/**
+ * @package Rewrite
+ * @subpackage Parsers
+ * @version $Revision$
+ * @author Douglas Cau <douglas@cau.se>
+ */
 
+/* Required class */
 GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteParser.class');
 
 /* Status code used by the PHP Path Info parser */
@@ -30,11 +37,6 @@ define('REWRITE_STATUS_HTTPDINI_CANT_WRITE', 34);
  * This URL rewrite parser provides ISAPI_Rewrite support for short URLs.
  *
  *   http://www.isapirewrite.com/
- *
- * @package Rewrite
- * @subpackage Parsers
- * @version $Revision$
- * @author Douglas Cau <douglas@cau.se>
  */
 class IsapiRewriteParser extends RewriteParser {
 
@@ -66,7 +68,7 @@ class IsapiRewriteParser extends RewriteParser {
      * @see RewriteParser::needsConfiguration
      */
     function needsConfiguration() {
-	GalleryCoreApi::requireOnce(
+    	GalleryCoreApi::requireOnce(
 	    'modules/rewrite/classes/parsers/isapirewrite/IsapiRewriteHelper.class');
 	return IsapiRewriteHelper::needsConfiguration($this);
     }
@@ -109,7 +111,7 @@ class IsapiRewriteParser extends RewriteParser {
 	if (!isset($rewriteModule)) {
 	    list($ret, $rewriteModule) = GalleryCoreApi::loadPlugin('module', 'rewrite');
 	    if ($ret) {
-		return array($ret, null);
+	        return array($ret, null);
 	    }
 	}
 
@@ -131,7 +133,7 @@ class IsapiRewriteParser extends RewriteParser {
 		    'create it.');
 		break;
 	    default:
-		return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+	        return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 	    }
 	}
 
@@ -142,7 +144,7 @@ class IsapiRewriteParser extends RewriteParser {
      * @see RewriteParser::loadTestResultsTemplate
      */
     function loadTestResultsTemplate(&$template, &$form) {
-	GalleryCoreApi::requireOnce(
+    	GalleryCoreApi::requireOnce(
 	    'modules/rewrite/classes/parsers/isapirewrite/IsapiRewriteHelper.class');
 	return IsapiRewriteHelper::loadTestResultsTemplate($template, $form);
     }
@@ -175,7 +177,7 @@ class IsapiRewriteParser extends RewriteParser {
      * @see RewriteParser::loadAdminParserTemplate
      */
     function loadAdminParserTemplate(&$template, &$form) {
-	GalleryCoreApi::requireOnce(
+    	GalleryCoreApi::requireOnce(
 	    'modules/rewrite/classes/parsers/isapirewrite/IsapiRewriteHelper.class');
 	return IsapiRewriteHelper::loadAdminRewriteTemplate($template, $form);
     }
@@ -186,10 +188,10 @@ class IsapiRewriteParser extends RewriteParser {
     function handleAdminParserRequest($form) {
 	$error = $status = array();
 
-	GalleryCoreApi::requireOnce(
+    	GalleryCoreApi::requireOnce(
 	    'modules/rewrite/classes/parsers/isapirewrite/IsapiRewriteHelper.class');
-	global $gallery;
-	$platform =& $gallery->getPlatform();
+    	global $gallery;
+    	$platform =& $gallery->getPlatform();
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
@@ -275,7 +277,7 @@ class IsapiRewriteParser extends RewriteParser {
      * @see RewriteParser::fetchEmbedConfig
      */
     function saveEmbedConfig($param) {
-	GalleryCoreApi::requireOnce(
+    	GalleryCoreApi::requireOnce(
 	    'modules/rewrite/classes/parsers/isapirewrite/IsapiRewriteHelper.class');
 
 	list ($ret, $code) = IsapiRewriteHelper::saveEmbedConfig($param, $this, true);

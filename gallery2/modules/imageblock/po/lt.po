@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,38 +16,54 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
-#
 # Darius Žitkevičius <skystis@splius.lt>, 2005, 2006.
-# Stasys Drazdauskas <stasys@drazdauskas.lt>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Image Block 1.1.8\n"
+"Project-Id-Version: Gallery: Image Block 1.1.0\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2006-12-20 09:48-0800\n"
-"PO-Revision-Date: 2007-07-22 18:43+0200\n"
-"Last-Translator: Stasys Drazdauskas <stasys@drazdauskas.lt>\n"
+"PO-Revision-Date: 2006-03-12 23:02+0200\n"
+"Last-Translator: Darius Žitkevičius <skystis@splius.lt>\n"
 "Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%"
+"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%"
 "100>=20) ? 1 : 2);\n"
 "X-Generator: KBabel 1.11.1\n"
 
 msgid "Image Block"
-msgstr "Paveikslėlių blokas"
+msgstr ""
 
 msgid "Random, Most Recent or Most Viewed Photo or Album"
 msgstr ""
 
 msgid "Blocks"
-msgstr "Blokai"
+msgstr ""
+
+msgid "Picture of the Day"
+msgstr ""
+
+msgid "Picture of the Week"
+msgstr ""
+
+msgid "Picture of the Month"
+msgstr ""
+
+msgid "Album of the Day"
+msgstr ""
+
+msgid "Album of the Week"
+msgstr ""
+
+msgid "Album of the Month"
+msgstr ""
 
 msgid "Random Image"
 msgid_plural "Random Images"
-msgstr[0] "Atsitiktinė nuotrauka"
-msgstr[1] "Atsitiktinės nuotraukos"
-msgstr[2] "Atsitiktinių nuotraukų"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 msgid "Newest Image"
 msgid_plural "Newest Images"
@@ -57,9 +73,9 @@ msgstr[2] ""
 
 msgid "Most Viewed Image"
 msgid_plural "Most Viewed Images"
-msgstr[0] "Dažniausiai žiūrėta nuotrauka"
-msgstr[1] "Dažniausiai žiūrėtos nuotraukos"
-msgstr[2] "Dažniausiai žiūrėtų nuotraukų"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 msgid "Random Album"
 msgid_plural "Random Albums"
@@ -78,24 +94,6 @@ msgid_plural "Most Viewed Albums"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
-
-msgid "Picture of the Day"
-msgstr "Dienos nuotrauka"
-
-msgid "Picture of the Week"
-msgstr "Savaitės nuotrauka"
-
-msgid "Picture of the Month"
-msgstr "Mėnesio nuotrauka"
-
-msgid "Album of the Day"
-msgstr "Dienos albumas"
-
-msgid "Album of the Week"
-msgstr "Savaitės albumas"
-
-msgid "Album of the Month"
-msgstr "Mėnesio albumas"
 
 msgid "Date:"
 msgstr "Data:"
@@ -121,10 +119,10 @@ msgid "Settings saved successfully"
 msgstr "Nustatymai išsaugoti sėkmingai"
 
 msgid "Show"
-msgstr "Rodyti"
+msgstr ""
 
 msgid "Heading"
-msgstr "Antraštę"
+msgstr ""
 
 msgid "Title"
 msgstr "Antraštė"
@@ -136,10 +134,10 @@ msgid "View Count"
 msgstr "Pažiūrėta"
 
 msgid "Owner"
-msgstr "Savinikas"
+msgstr "Sąvinikas"
 
 msgid "Frames"
-msgstr "Rėmus"
+msgstr ""
 
 msgid "View samples"
 msgstr ""
@@ -148,7 +146,7 @@ msgid "Album Frame"
 msgstr "Albumo rėmelis"
 
 msgid "Photo Frame"
-msgstr "Nuotraukos rėmelis"
+msgstr "Fotografijos rėmelis"
 
 msgid "Save"
 msgstr "Išsaugoti"
@@ -171,8 +169,8 @@ msgid ""
 msgstr ""
 
 msgid ""
-"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize, rawImage; "
-"the value can also be: none"
+"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize; the value "
+"can also be: none"
 msgstr ""
 
 msgid ""
@@ -225,16 +223,16 @@ msgid ""
 msgstr ""
 
 msgid "Image type"
-msgstr "Paveikslėlio tipas"
+msgstr ""
 
 msgid "Random image"
-msgstr "Atsitiktinis paveikslėlis"
+msgstr ""
 
 msgid "Recent image"
-msgstr "Naujausias paveikslėlis"
+msgstr ""
 
 msgid "Viewed image"
-msgstr "Žiūrėtas paveikslėlis"
+msgstr ""
 
 msgid "Random album"
 msgstr ""
@@ -270,16 +268,16 @@ msgid "Use default settings"
 msgstr ""
 
 msgid "Show heading"
-msgstr "Rodyti antraštę"
+msgstr ""
 
 msgid "Show title"
-msgstr "Rodyti pavadinimą"
+msgstr ""
 
 msgid "Show date"
-msgstr "Rodyti datą"
+msgstr ""
 
 msgid "Show view count"
-msgstr "Rodyti peržiūrėjimų skaičių"
+msgstr ""
 
 msgid "Show owner"
-msgstr "Rodyti savininką"
+msgstr ""

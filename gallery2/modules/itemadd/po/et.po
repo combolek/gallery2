@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Add Items 1.0.6\n"
+"Project-Id-Version: Gallery: Add Items 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-08-04 14:07+0300\n"
 "PO-Revision-Date: 2006-08-04 14:56+0200\n"
@@ -29,14 +29,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#, fuzzy
-msgid "Adding items"
-msgstr "Lisa Pilte"
-
-#, fuzzy
-msgid "Scanning directory"
-msgstr "Ülakataloog"
 
 msgid "From Local Server"
 msgstr "Kohalikust Serverist"
@@ -68,12 +60,11 @@ msgstr "Import"
 msgid "Web/Server"
 msgstr "Veeb/Server"
 
-#, fuzzy
 msgid ""
 "Transfer files that are already on your server into your Gallery.  The files must already "
-"have been uploaded to your server some other way (like FTP) and must be placed in an "
-"accessible directory.  If you're on Unix this means that the files and the directory the "
-"files are in should have modes of at least 755."
+"have been uploaded to your server some other way (like FTP) and must be placed in a "
+"directory where they are accessibly by any element on the server.  If you're on Unix this "
+"means that the files and the directory the files are in should have modes of at least 755."
 msgstr ""
 "Paiguta failid, mis on juba sinu serveril, sinu Galeriisse. Failid peavad olema juba mõnda "
 "teist üles laadimise moodust (näiteks FTP) kasutades sinu serverisse, kohta kus nad on ligi "

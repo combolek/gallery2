@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,9 +20,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Keyword Albums 1.0.5\n"
+"Project-Id-Version: Gallery: Keyword Albums 1.0.0\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2007-06-14 17:26-0700\n"
+"POT-Creation-Date: 2006-09-12 11:25-0700\n"
 "PO-Revision-Date: 2006-05-19 13:03+0200\n"
 "Last-Translator: Piarres Beobide <pi@beobide.net>\n"
 "Language-Team: librezale.org <librezale@librezale.org>\n"
@@ -32,14 +32,14 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 0.6.3.20060126\n"
 
-#, c-format
-msgid "Keyword Album: %s"
-msgstr ""
-
 msgid "Keyword Album"
 msgstr ""
 
 msgid "keyword album"
+msgstr ""
+
+#, c-format
+msgid "Keyword Album: %s"
 msgstr ""
 
 msgid "All album views"
@@ -52,7 +52,7 @@ msgid "Keyword albums"
 msgstr ""
 
 msgid "None"
-msgstr "Bat ere ez"
+msgstr ""
 
 msgid "&laquo; default theme &raquo;"
 msgstr "&laquo; lehenetsitako gaia &raquo;"
@@ -73,9 +73,6 @@ msgid "Short URL for Keyword Albums"
 msgstr ""
 
 msgid "Keyword to use for dynamic album"
-msgstr ""
-
-msgid "Page number in a dynamic album"
 msgstr ""
 
 msgid "Keyword Album Settings"
@@ -160,3 +157,6 @@ msgstr ""
 
 msgid "Maximum number of keywords (empty for no limit)"
 msgstr ""
+
+#~ msgid "Successfully saved theme settings"
+#~ msgstr "Gai ezarpenak behar bezala gor dira"

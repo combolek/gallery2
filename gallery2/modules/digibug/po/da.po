@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,19 +16,19 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
-#
 # Lasse Bang Mikkelsen <lbm@fatalerror.dk>, 2004.
 # Allan Beaufour <allan@beaufour.dk>, 2005.
 # - Bjørn Graabek <bjorn@graabek.com>
 # Bjorn Graabek <bjorn@graabek.com>, 2007.
-#
+# 
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Digibug 1.0.7\n"
+"Project-Id-Version: Gallery: Digibug 1.0.0.1\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2006-12-20 09:51-0800\n"
-"PO-Revision-Date: 2008-05-21 13:50+0100\n"
-"Last-Translator: Jens Hyllegaard <jens.hyllegaard@gmail.com>\n"
+"POT-Creation-Date: 2007-06-14 11:42-0700\n"
+"PO-Revision-Date: 2007-03-16 10:18+0000\n"
+"Last-Translator: Bjørn Graabek <bjorn@graabek.com>\n"
 "Language-Team: Danish <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -42,7 +42,7 @@ msgid "Digibug Photo Printing Module"
 msgstr "Digibug Foto Printing Modul"
 
 msgid "Commerce"
-msgstr "Handel"
+msgstr "Kommercielt"
 
 msgid "[digibug] Print"
 msgstr "[digibug] Print"
@@ -59,25 +59,12 @@ msgstr "Digibug Foto Printing Indstillinger"
 msgid "Settings saved successfully"
 msgstr "Opsætningen blev gemt"
 
-msgid "Sell your photos as prints or printed gift products!"
-msgstr ""
-
-msgid "Simple mode."
-msgstr ""
-
+#, c-format
 msgid ""
-"A percentage of the proceeds of sales are donated to the Gallery project. Thank you for your "
-"support!"
-msgstr ""
-
-msgid "Advanced mode."
-msgstr ""
-
-#, fuzzy, c-format
-msgid ""
-"Visit the %sDigibug configuration page%s for information on registering for a Digibug Pro "
-"Photographer account, and to learn how to obtain your Digibug Company ID and Event ID.  For "
-"general information, please refer to the %sDigibug.com website.%s"
+"Sell your photos as prints or printed gift products!  Visit the %sDigibug configuration page%"
+"s for information on registering for a Digibug Pro Photographer account, and to learn how to "
+"obtain your Digibug Company ID and Event ID.  For general information, please refer to the %"
+"sDigibug.com website.%s"
 msgstr ""
 "Sælg dine foto som udskrifter eller som udskrevne gaveprodukter!  Besøg %sDigibug "
 "configuration page%s for oplysninger om registrering af en Digibug Pro Photographer konto, "
@@ -87,8 +74,8 @@ msgstr ""
 msgid "Digibug Company ID"
 msgstr "Digibug Firma ID"
 
-msgid "You must enter a valid digibug customer id."
-msgstr "Du skal indtaste et gyldigt Digibug kunde-ID"
+msgid "You must enter a digibug customer id."
+msgstr "Du skal indtaste et Digibug kunde ID"
 
 msgid "Event ID"
 msgstr "Event ID"

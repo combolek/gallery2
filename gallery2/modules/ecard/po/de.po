@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: eCard 1.0.3\n"
+"Project-Id-Version: Gallery: eCard 1.0.0\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2006-09-12 10:48-0700\n"
 "PO-Revision-Date: 2006-11-07 19:24+0100\n"
@@ -53,10 +53,6 @@ msgstr "Gallery &lt;gallery&gt;"
 msgid "You have been sent an eCard"
 msgstr "Ihnen wurde eine eCard zugesandt"
 
-#, c-format
-msgid "Hi %s!%s%s (%s) has sent you an eCard:"
-msgstr "Hallo %s!%s%s (%s) hat Ihnen eine eCard geschickt:"
-
 msgid "This eCard was sent with Gallery 2 - Your photos on your website"
 msgstr "Diese eCard wurde mit Gallery 2 versendet - Ihre Bilder auf Ihrer Webseite"
 
@@ -65,6 +61,10 @@ msgstr "[eCard] eCards verschicken"
 
 msgid "Send as eCard"
 msgstr "Als eCard verschicken"
+
+#, c-format
+msgid "Hi %s!%s%s (%s) has sent you an eCard:"
+msgstr "Hallo %s!%s%s (%s) hat Ihnen eine eCard geschickt:"
 
 msgid "eCard Settings"
 msgstr "eCard Einstellungen"

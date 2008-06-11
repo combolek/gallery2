@@ -1,9 +1,9 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
-{include file="gallery:modules/comment/templates/ChangeComment.js.tpl"}
-
 <div class="gbBlock gcBackground1">
   <h2> {g->text text="Latest Comments"} </h2>
 </div>
@@ -29,7 +29,7 @@
 {/if}
 <table>
 {foreach from=$ShowAllComments.comments item=comment}
-<tr id="comment-{$comment.randomId}"><td style="text-align: center; padding: 0 4px">
+<tr><td style="text-align: center; padding: 0 4px">
   {assign var="item" value=$ShowAllComments.itemData[$comment.parentId]}
   <a id="CommentThumb-{$item.id}" href="{g->url arg1="view=core.ShowItem" arg2="itemId=`$item.id`"}">
     {if isset($item.thumb)}
@@ -54,8 +54,7 @@
   <div class="one-comment gcBorder2">
   {include file="gallery:modules/comment/templates/Comment.tpl"
 	   comment=$comment can=$ShowAllComments.can[$comment.id]
-	   item=$item user=$ShowAllComments.commenters[$comment.commenterId]
-           ajaxChangeCallback="changeComment" truncate=1024}
+	   item=$item user=$ShowAllComments.commenters[$comment.commenterId]}
   </div>
 </td></tr>
 {/foreach}

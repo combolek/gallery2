@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -241,30 +241,11 @@ class RewriteModuleExtras {
 	    }
 	    $activeRules = unserialize($activeRules);
 
-	    list ($ret, $modules) = GalleryCoreApi::fetchPluginStatus('module');
-	    if ($ret) {
-		return $ret;
-	    }
-
 	    /*
 	     * Convert active rules from array($moduleId => array($ruleId => $pattern)) to
 	     * array($moduleId => array($ruleId => array('pattern' => $pattern)))
 	     */
 	    foreach (array_keys($activeRules) as $moduleId) {
-		if (!isset($modules[$moduleId]) || empty($modules[$moduleId]['available'])) {
-		    /*
-		     * Archive rules of unavailable modules and remove them from the active rules.
-		     * Use the old history format, it will get converted in the below loop.
-		     */
-		    $ret = $module->setParameter(
-			'history.' . $moduleId, serialize($activeRules[$moduleId]));
-		    if ($ret) {
-			return $ret;
-		    }
-		    unset($activeRules[$moduleId]);
-		    continue;
-		}
-
 		list ($ret, $tmpModule) = GalleryCoreApi::loadPlugin('module', $moduleId, true);
 		if ($ret) {
 		    return $ret;
@@ -306,19 +287,13 @@ class RewriteModuleExtras {
 		    continue;
 		}
 		$history = unserialize($value);
-		$moduleId = substr($key, 8);
 
-		$moduleAvailable = true;
-		if (!isset($modules[$moduleId]) || empty($modules[$moduleId]['available'])) {
-		    $moduleAvailable = false;
-		} else {
-		    list ($ret, $tmpModule) =
-			GalleryCoreApi::loadPlugin('module', $moduleId, true);
-		    if ($ret) {
-			return $ret;
-		    }
-		    $rules = $tmpModule->getRewriteRules();
+		list ($ret, $tmpModule) =
+		    GalleryCoreApi::loadPlugin('module', substr($key, 8), true);
+		if ($ret) {
+		    return $ret;
 		}
+		$rules = $tmpModule->getRewriteRules();
 
 		foreach ($history as $ruleId => $pattern) {
 		    $history[$ruleId] = array();
@@ -326,7 +301,7 @@ class RewriteModuleExtras {
 		     * Only save old pattern if the rule defines a pattern.  Saving a pattern for a
 		     * rule which doesn't define a pattern is invalid.
 		     */
-		    if (!$moduleAvailable || isset($rules[$ruleId]['pattern'])) {
+		    if (isset($rules[$ruleId]['pattern'])) {
 			$history[$ruleId]['pattern'] = $pattern;
 		    }
 		}
@@ -363,15 +338,7 @@ class RewriteModuleExtras {
 	case '1.1.13':
 	case '1.1.13.1':
 	case '1.1.13.2':
-	    /* .mo file migration */
 	case '1.1.13.3':
-	    /* Gallery 2.2.4 security release */
-	case '1.1.13.4':
-	    /* Gallery 2.2.5 security release */
-	case '1.1.14':
-	case '1.1.15':
-	    /* Refactored to new event registration from core API 7.34 */
-	case '1.1.16':
 
 	case 'end of upgrade path':
 	    break;

@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,10 +19,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: EXIF/IPTC 1.2.4\n"
+"Project-Id-Version: Gallery: EXIF/IPTC 1.1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-01 11:59+0200\n"
-"PO-Revision-Date: 2008-03-27 11:46+0100\n"
+"PO-Revision-Date: 2007-01-08 17:20+0100\n"
 "Last-Translator: Ermanno Baschiera <ebaschiera@gmail.com>\n"
 "Language-Team: Italian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -35,7 +35,7 @@ msgid "EXIF/IPTC"
 msgstr "EXIF/IPTC"
 
 msgid "Extract EXIF/IPTC data from JPEG photos"
-msgstr "Estrae i dati EXIF/IPTC dalle foto JPEG"
+msgstr "Estrai dati EXIF/IPTC da foto JPEG"
 
 msgid "Extra Data"
 msgstr "Dati Extra"
@@ -83,10 +83,10 @@ msgid "Battery Level"
 msgstr "Livello Batteria"
 
 msgid "Bits Per Sample"
-msgstr "Bits Per Sample"
+msgstr "Bit Per Campione"
 
 msgid "Blur Warning"
-msgstr "Avvertimento Foto Mossa"
+msgstr "Avvertimento Vibrazione"
 
 msgid "Brightness Value"
 msgstr "Valore Luminosità"
@@ -197,7 +197,7 @@ msgid "Focal Plane X Resolution"
 msgstr "Risoluzione X del Piano Focale"
 
 msgid "Focal Plane Y Resolution"
-msgstr "Risoluzione Y del Piano Focale"
+msgstr "Risoluzione X del Piano Focale"
 
 msgid "Focal Units"
 msgstr "Unità Focali"
@@ -338,16 +338,16 @@ msgid "Reference Black/White"
 msgstr "Riferimento Biano/Nero"
 
 msgid "Related Sound File"
-msgstr "File Sonoro Collegato"
+msgstr "File Suono Collegata"
 
 msgid "Resolution Unit"
 msgstr "Unità Risoluzione"
 
 msgid "Rows Per Strip"
-msgstr "Righe per Strip"
+msgstr "Righe per Striscia"
 
 msgid "Samples Per Pixel"
-msgstr "Samples Per Pixel"
+msgstr "Campionamenti Per Pixel"
 
 msgid "Saturation"
 msgstr "Saturazione"
@@ -398,10 +398,10 @@ msgid "Spectral Sensitivity"
 msgstr "Sensibilità Spettro"
 
 msgid "Strip Byte Counts"
-msgstr "Strip Byte Counts"
+msgstr "Elimina conteggi Byte"
 
 msgid "Strip Offsets"
-msgstr "Strip Offsets"
+msgstr "Elimina Offset"
 
 msgid "SubIFDs"
 msgstr "SubIFDs"
@@ -416,13 +416,13 @@ msgid "Subject Location"
 msgstr "Luogo Soggetto"
 
 msgid "Subsec Time"
-msgstr "Subsec Time"
+msgstr "Orario subsec"
 
 msgid "Subsec Time (Digitized)"
-msgstr "Subsec Time (Digitized)"
+msgstr "Orario subsec (Digitalizzazione)"
 
 msgid "Subsec Time (Original)"
-msgstr "Subsec Time (Original)"
+msgstr "Orario subsec (Originale)"
 
 msgid "TIFF/EP Standard ID"
 msgstr "ID Standard TIFF/EP"
@@ -440,7 +440,7 @@ msgid "Tile Width"
 msgstr "Larghezza Tile"
 
 msgid "Time Zone Offset"
-msgstr "Offset Fuso Orario"
+msgstr "Fuso Orario"
 
 msgid "Tone"
 msgstr "Tono"
@@ -476,10 +476,10 @@ msgid "Y Resolution"
 msgstr "Risoluzione Verticale"
 
 msgid "Exif Image Height"
-msgstr "Altezza Immagine Exif"
+msgstr "Altezza Immagine EXIF"
 
 msgid "Exif Image Width"
-msgstr "Larghezza Immagine Exif"
+msgstr "Larghezza Immagine EXIF"
 
 msgid "GPS: Version"
 msgstr "GPS: Versione"
@@ -634,12 +634,6 @@ msgstr "IPTC: Copyright Flag"
 msgid "IPTC: Time Created"
 msgstr "IPTC: Time Created"
 
-msgid "IPTC: Content Location Name"
-msgstr "IPTC: Content Location Name"
-
-msgid "IPTC: Sub Location"
-msgstr "IPTC: Sub Location"
-
 msgid "EXIF/IPTC Settings"
 msgstr "Configurazione EXIF/IPTC"
 
@@ -718,8 +712,8 @@ msgid ""
 "in each view."
 msgstr ""
 "Possono essere molte le informazioni EXIT/IPTC memorizzate nelle foto. Quei dati vengono "
-"visualizzati in due schermate differenti, sommario e dettagli. È possibile scegliere quali "
-"proprietà visualizzare in ciascuna schermata."
+"visualizzati in due schermate differenti, sommario e dettagli. Puoi scegliere quali "
+"propriet&agrave; visualizzare in ciascuna schermata."
 
 msgid "Available"
 msgstr "Disponibile"
@@ -731,13 +725,13 @@ msgid "Detailed"
 msgstr "Dettagli"
 
 msgid "You must select at least one value in the available column"
-msgstr "È necessario selezionare almeno un valore tra quelli disponibili nella colonna"
+msgstr "Devi selezionare almeno un valore tra quelli diesponibili nella colonna"
 
 msgid "You must select at least one value in the summary column"
-msgstr "È necessario selezionare almeno un valore tra quelli nella colonna del sommario"
+msgstr "Devi selezionare almeno un valore tra quelli nella colonna del sommario"
 
 msgid "You must select at least one value in the detailed column"
-msgstr "È necessario selezionare almeno un valore tra quelli nella colonna dei dettagli"
+msgstr "Devi selezionare almeno un valore tra quelli nella colonna dei dettagli"
 
 msgid "Add to Summary"
 msgstr "Aggiungi al Sommario"
@@ -761,7 +755,7 @@ msgid ""
 "Restore the original values for the Summary and Detailed views.  Use with caution, there is "
 "no undo!"
 msgstr ""
-"Ripristina i valori predefiniti per Sommario e Dettagli.  Usare con cautela, non c'è la "
+"Ripristina i valori predefiniti per Sommario e Dettagli.  Usa con cautela, non c'è la "
 "possibilità di annullare le modifiche!"
 
 msgid "Restore Summary Defaults"
@@ -785,7 +779,7 @@ msgid "Item Description"
 msgstr "Descrizione Oggetto"
 
 msgid "When photos are added to Gallery check for IPTC Keywords and apply to:"
-msgstr "Quando delle foto vengono aggiunte a Gallery controlla le Keywords IPTC e applicale a:"
+msgstr "Quando delle foto vengono aggiunte a Gallery controlla le keywords IPTC e applicale a:"
 
 msgid "Item Keywords"
 msgstr "Keywords Oggetto"
@@ -798,26 +792,17 @@ msgid "Item Title"
 msgstr "Titolo Oggetto"
 
 msgid "When photos are added should we rotate them based on EXIF orientation data?"
-msgstr "Quando delle foto vengono aggiunte, ruotarle in base ai dati EXIF di orientazione?"
+msgstr ""
+"Quando delle foto vengono aggiunte, dobbiamo ruotarle in base ai dati EXIF di orientazione?"
 
 msgid "Rotate pictures automatically"
 msgstr "Ruota immagini automaticamente"
-
-msgid ""
-"Warning: No toolkit support for rotation of JPEG images.  Make sure to activate a toolkit "
-"module if using this option."
-msgstr ""
-"Attenzione: Nessuno strumento di supporto alla rotazione delle immagini JPEG. Assicurarsi di "
-"attivare il modulo relativo se si desidera usare questa opzione."
 
 msgid "Preserve Original on Rotating"
 msgstr "Mantieni Originale se da Ruotare"
 
 msgid "Save"
 msgstr "Salva"
-
-msgid "Loading.."
-msgstr "Caricamento in corso..."
 
 msgid "Photo Properties"
 msgstr "Proprietà Foto"

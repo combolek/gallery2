@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Add Items 1.0.6\n"
+"Project-Id-Version: Gallery: Add Items 1.0.0\n"
 "POT-Creation-Date: 2003-06-05 16:56-0300\n"
 "PO-Revision-Date: 2003-08-27 22:25-0700\n"
 "Last-Translator: Alvaro Cortizo <alvaro@netpandora.com>\n"
@@ -28,14 +28,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-
-#, fuzzy
-msgid "Adding items"
-msgstr "Agregar Items"
-
-#, fuzzy
-msgid "Scanning directory"
-msgstr "Nuevas carpetas"
 
 #, fuzzy
 msgid "From Local Server"
@@ -68,12 +60,11 @@ msgstr "Importar"
 msgid "Web/Server"
 msgstr "Web/Servidor"
 
-#, fuzzy
 msgid ""
 "Transfer files that are already on your server into your Gallery.  The files must already "
-"have been uploaded to your server some other way (like FTP) and must be placed in an "
-"accessible directory.  If you're on Unix this means that the files and the directory the "
-"files are in should have modes of at least 755."
+"have been uploaded to your server some other way (like FTP) and must be placed in a "
+"directory where they are accessibly by any element on the server.  If you're on Unix this "
+"means that the files and the directory the files are in should have modes of at least 755."
 msgstr ""
 "Transferir archivos que ya se encuentran en el servidor a Gallery. Los archivos deben de "
 "haber sido ya subidos al servidor por alguna otra vía (como por ejemplo FTP) y deben de "
@@ -261,7 +252,7 @@ msgid "Add From Server"
 msgstr "Añadir desde el Servidor"
 
 msgid "Security Warning"
-msgstr "Aviso de Seguridad"
+msgstr ""
 
 msgid ""
 "\"Add From Web\" can be abused to attack other websites in your name.  For the attacked "
@@ -269,11 +260,6 @@ msgid ""
 "their website because your Gallery acts on behalf of your users.  Therefore it is "
 "recommended to enable \"Add From Web\" only for trusted users."
 msgstr ""
-"\"Añadir desde la Web\" puede ser usado de forma abusiva para atacar otros sitios web en tu "
-"nombre.  Para la parte atacada parecería como si tú, el administrador de este Gallery, "
-"hubieses atacado deliberadamente su sitio web porque tu Gallery actua en nombre de tus "
-"usuarios.  Por lo tanto solo es recomendable hablitar \"Añadir desde la Web\" a los usuarios "
-"en los cuales confías."
 
 msgid "Local Server Upload Paths"
 msgstr "Direcciones Locales del Servidor para Subida"

@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,9 +19,8 @@
 # Guy Sheffer <guysoft@ort.org.il>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Image Block 1.1.8\n"
-"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2007-06-14 17:24-0700\n"
+"Project-Id-Version: Gallery: Image Block 1.1.0\n"
+"POT-Creation-Date: 2006-04-05 18:02+0300\n"
 "PO-Revision-Date: 2006-04-07 15:27+0300\n"
 "Last-Translator: Guy Sheffer <guysoft@ort.org.il>\n"
 "Language-Team: Hebrew <guysoft@ort.org.il>\n"
@@ -38,6 +37,24 @@ msgstr "אלבום או תמונה אקראי, אחרון או הכי נצפה."
 
 msgid "Blocks"
 msgstr "בלוקים"
+
+msgid "Picture of the Day"
+msgstr "תמונת היום"
+
+msgid "Picture of the Week"
+msgstr "תמונת השבוע"
+
+msgid "Picture of the Month"
+msgstr "תמונת החודש"
+
+msgid "Album of the Day"
+msgstr "אלבום היום"
+
+msgid "Album of the Week"
+msgstr "אלבום השבוע"
+
+msgid "Album of the Month"
+msgstr "אלבום החודש"
 
 #, fuzzy
 msgid "Random Image"
@@ -74,24 +91,6 @@ msgid "Most Viewed Album"
 msgid_plural "Most Viewed Albums"
 msgstr[0] "האלבום הנצפה ביותר"
 msgstr[1] "האלבום הנצפה ביותר"
-
-msgid "Picture of the Day"
-msgstr "תמונת היום"
-
-msgid "Picture of the Week"
-msgstr "תמונת השבוע"
-
-msgid "Picture of the Month"
-msgstr "תמונת החודש"
-
-msgid "Album of the Day"
-msgstr "אלבום היום"
-
-msgid "Album of the Week"
-msgstr "אלבום השבוע"
-
-msgid "Album of the Month"
-msgstr "אלבום החודש"
 
 msgid "Date:"
 msgstr "תאריך:"
@@ -169,10 +168,9 @@ msgstr ""
 "recentAlbum, viewedAlbum, dailyImage, weeklyImage, monthlyImage, dailyAlbum, weeklyAlbum, "
 "monthlyAlbum, specificItem; ברית המחדל הינו  randomImage"
 
-#, fuzzy
 msgid ""
-"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize, rawImage; "
-"the value can also be: none"
+"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize; the value "
+"can also be: none"
 msgstr ""
 "צינור (|) צינור (|) מפריד רשימה שנבחרה בין:title, date, views, owner, heading, fullSize; "
 "הערך יכול להיות גם: none"
@@ -273,7 +271,7 @@ msgid "Monthly album"
 msgstr "אלבום חודשי"
 
 msgid "Number of items"
-msgstr "מספר הפריטים"
+msgstr ""
 
 msgid "Use default settings"
 msgstr "השתמש בהגדרות ברית-המחדל"
@@ -292,3 +290,10 @@ msgstr "הצג מספר צפיות"
 
 msgid "Show owner"
 msgstr "הצג בעלים"
+
+#~ msgid ""
+#~ "Scale images to this maximum size. If maxSize exceeds the thumbnail dimensions, you must "
+#~ "also specify g2_show=fullSize"
+#~ msgstr ""
+#~ "הגדל תמונת לגודל המקסימלה, אם maxSize גדול יותר מהתמונה המוקטנת, עלך להגדיר "
+#~ "\"g2_show=fullSize\""

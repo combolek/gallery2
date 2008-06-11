@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,26 +36,25 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 
     function setUp() {
 	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'register');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
-	foreach (array('emailadmins' => 0, 'emailusers' => 1,
-		       'subject' => 'ConfEmail', 'usersubject' => 'WelcomeEmail',
-		       'validation.level' => 'HIGH') as $key => $value) {
-	    $ret = GalleryCoreApi::setPluginParameter('module', 'register', $key, $value);
-	    if ($ret) {
-		return $ret;
-	    }
+	$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'emailadmins', '0');
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
+	$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'validation.level', 'HIGH');
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
-	$this->_emailSubject = '';
 	$this->_controller->setPluginInstances(array());
     }
 
@@ -69,10 +68,9 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
     }
 
     function testRegisterWithAutomaticActivation() {
-	global $gallery;
 	$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'confirmation', 'auto');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$userName = 'user-selfreg' . rand();
@@ -84,9 +82,6 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 	GalleryUtilities::putRequestVariable('form[password1]', 'password');
 	GalleryUtilities::putRequestVariable('form[password2]', 'password');
 
-	$savePlatform =& $gallery->getPlatform();
-	$gallery->setPlatform(new RegisterDummyPlatform($savePlatform, $this));
-
 	$results = $this->handleRequest();
 	$this->assertEquals(array('redirect' => array(
 				      'view' => 'core.UserAdmin',
@@ -96,26 +91,21 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 	    $results,
 	    'Failed to register user with automatic activation');
 
-	$gallery->setPlatform($savePlatform);
-
-	/* The newly registered user is a real user by now */
+	/* the newly registered user is a real user by now */
 	list ($ret, $user) = GalleryCoreApi::fetchUserByUserName($userName);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
-	$this->assert(GalleryUtilities::isA($user, 'GalleryUser'), 'type is GalleryUser');
-	$this->_markForCleanup($user);
+	$this->assertEquals(GalleryUtilities::isA($user, 'GalleryUser'), true);
 
-	/* Make sure welcome email was "sent" */
-	$this->assert(!empty($this->_emailBody), 'test platform mail() should have been called');
-	$this->assertEquals('WelcomeEmail', $this->_emailSubject, 'email subject');
+	$this->_markForCleanup($user);
     }
 
     function testRegisterWithEMailActivation() {
 	global $gallery;
 	$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'confirmation', 'email');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$userName = 'user-' . rand();
@@ -143,16 +133,12 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 
 	$gallery->setPlatform($savePlatform);
 
-	/* Make sure the pending user exists */
+	/* make sure the pending user exists */
 	list ($ret, $user) = GalleryPendingUserHelper::fetchPendingUserByUserName($userName);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($user);
-
-	/* Make sure confirmation email was "sent" */
-	$this->assert(!empty($this->_emailBody), 'test platform mail() should have been called');
-	$this->assertEquals('ConfEmail', $this->_emailSubject, 'email subject');
     }
 
     function testEntities() {
@@ -161,7 +147,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 	global $gallery;
 	$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'confirmation', 'email');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$userName = $entitizedName = 'test < & > ' . rand();
@@ -194,7 +180,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 	/* make sure the pending user exists */
 	list ($ret, $user) = GalleryPendingUserHelper::fetchPendingUserByUserName($entitizedName);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($user);
 
@@ -206,7 +192,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 	list ($ret, $userEntity) =
 	    GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryUser');
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 	$this->assert(!empty($userEntity), 'factory error');
 	$userEntity->setHashedPassword($user->getHashedPassword());
@@ -273,7 +259,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'confirmation', 'admin');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Create one user */
@@ -307,19 +293,17 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $user) = GalleryPendingUserHelper::fetchPendingUserByUserName($userName);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($user);
     }
 
     function testCreateDuplicateUser() {
-	global $gallery;
-
 	$userName = 'user-selfreg' . rand();
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'confirmation', 'auto');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Create one user */
@@ -331,9 +315,6 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 	GalleryUtilities::putRequestVariable('form[password1]', 'password');
 	GalleryUtilities::putRequestVariable('form[password2]', 'password');
 
-	$savePlatform =& $gallery->getPlatform();
-	$gallery->setPlatform(new RegisterDummyPlatform($savePlatform, $this));
-
 	$results = $this->handleRequest();
 	$this->assertEquals(
 	    array('redirect' => array('view' => 'core.UserAdmin',
@@ -343,10 +324,8 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 	    $results,
 	    'Failed to create first user');
 
-	$gallery->setPlatform($savePlatform);
-
 	/* Create a second user with the same name */
-	/* Fails because we have the existing  user */
+	/* fails because we have the existing  user */
 	$results = $this->handleRequest();
 	$this->assertEquals(
 	    array('delegate' => array('view' => 'core.UserAdmin',
@@ -355,7 +334,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		  'error' => array('form[error][userName][exists]')),
 	    $results, 'Create duplicate');
 
-	/* Find userid */
+	/* find userid */
 	list ($ret, $user) = GalleryCoreApi::fetchUserByUserName($userName);
 	if ($ret) {
 	    return $ret;
@@ -435,11 +414,9 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
      * No plugin errors - user is created successfully
      */
     function testPlugins3() {
-	global $gallery;
-
 	$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'confirmation', 'auto');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$userName = 'user-selfreg' . rand();
@@ -457,9 +434,6 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 
 	$this->_controller->setPluginInstances(array($plugin));
 
-	$savePlatform =& $gallery->getPlatform();
-	$gallery->setPlatform(new RegisterDummyPlatform($savePlatform, $this));
-
 	$results = $this->handleRequest();
 	$this->assertEquals(
 	    array('redirect' => array('view' => 'core.UserAdmin',
@@ -467,8 +441,6 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		  'status' => array(),
 		  'error' => array()),
 	    $results);
-
-	$gallery->setPlatform($savePlatform);
 
 	/* find userid */
 	list ($ret, $user) = GalleryCoreApi::fetchUserByUserName($userName);
@@ -479,15 +451,13 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
     }
 
     function testPluginsOff() {
-	global $gallery;
-
 	$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'validation.level', 'OFF');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'confirmation', 'auto');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$userName = 'user-selfreg' . rand();
@@ -505,9 +475,6 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 	$plugin->setContinue(false);
 	$this->_controller->setPluginInstances(array($plugin));
 
-	$savePlatform =& $gallery->getPlatform();
-	$gallery->setPlatform(new RegisterDummyPlatform($savePlatform, $this));
-
 	$results = $this->handleRequest();
 	$this->assertEquals(
 	    array('redirect' => array('view' => 'core.UserAdmin',
@@ -515,8 +482,6 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		  'status' => array(),
 		  'error' => array()),
 	    $results);
-
-	$gallery->setPlatform($savePlatform);
 
 	list ($ret, $user) = GalleryCoreApi::fetchUserByUserName($userName);
 	if ($ret) {
@@ -534,7 +499,6 @@ class RegisterDummyPlatform {
 
     function mail($to, $subject, $body, $headers=null) {
 	/* Don't actually send email */
-	$this->_test->_emailSubject .= $subject;
 	$this->_test->_emailBody = $body;
 	return true;
     }
@@ -559,10 +523,6 @@ class RegisterDummyPlatform {
 	return $this->_platform->is_writeable($filename);
     }
 
-    function is_readable($filename) {
-	return $this->_platform->is_readable($filename);
-    }
-
     function stat($filename) {
 	return $this->_platform->stat($filename);
     }
@@ -581,10 +541,6 @@ class RegisterDummyPlatform {
 
     function fclose($handle) {
 	return $this->_platform->fclose($handle);
-    }
-
-    function flock($handle, $operation, &$wouldblock) {
-	return $this->_platform->flock($handle, $operation, $wouldblock);
     }
 }
 

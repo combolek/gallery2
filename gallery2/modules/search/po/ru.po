@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,10 +24,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Search 1.0.7\n"
+"Project-Id-Version: Gallery: Search 1.0.5\n"
 "POT-Creation-Date: 2003-07-26 01:39+0200\n"
-"PO-Revision-Date: 2008-03-02 15:33+0300\n"
-"Last-Translator: Ser Moro <webber@morozov-sm.ru>\n"
+"PO-Revision-Date: 2006-01-21 19:51+0300\n"
+"Last-Translator: Konstantin Ivanov <Continental@vollen.ru>\n"
 "Language-Team: Russian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -56,10 +56,10 @@ msgid "You must enter some text to search for!"
 msgstr "Вы должны ввести текст, который хотите найти!"
 
 msgid "Check All"
-msgstr "Отметить всё"
+msgstr "Отметить Все"
 
 msgid "Uncheck All"
-msgstr "Снять отметку со всего"
+msgstr "Снять отметку со Всех"
 
 msgid "Invert"
 msgstr "Интертировать"
@@ -73,7 +73,7 @@ msgid "Show all %d"
 msgstr "Показать все %d"
 
 msgid "No thumbnail"
-msgstr "Миниатюра отсутствует"
+msgstr "Макет отсутствует"
 
 msgid "No results found for"
 msgstr "Ничего не найдено для"
@@ -83,14 +83,14 @@ msgstr "Проосмотреть эти элементы в слайд-шоу"
 
 #, c-format
 msgid "%s Search Results for "
-msgstr "%s Результатов поиска для"
+msgstr "%s Результатов Поиска для"
 
 msgid "Search All Modules"
-msgstr "Искать во всех модулях"
+msgstr "Искать во всех Модулях"
 
 #, c-format
 msgid "Results %d - %d of %d, Page %d of %d"
-msgstr "Результаты %d - %d из %d, страниц %d из %d"
+msgstr "Результаты %d - %d из %d, Страниц %d из %d"
 
 msgid "&laquo; Back"
 msgstr "&laquo; Назад"
@@ -100,9 +100,6 @@ msgstr "Вперед &raquo;"
 
 msgid "Please enter a search term."
 msgstr "Пожалуйста, введите ключевое слово"
-
-msgid "Searching in progress, please wait!"
-msgstr "Идёт поиск, подождите!"
 
 msgid "Advanced Search"
 msgstr "Расширенный поиск"

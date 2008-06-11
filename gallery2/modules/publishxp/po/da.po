@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,25 +22,28 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Windows Publishing Wizard 1.0.13\n"
+"Project-Id-Version: Gallery: Publish XP 1.0.7\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2003-10-19 05:10+0200\n"
-"PO-Revision-Date: 2008-05-21 15:53+0100\n"
-"Last-Translator: Jens Hyllegaard <jens.hyllegaard@gmail.com>\n"
+"PO-Revision-Date: 2007-03-12 17:03+0000\n"
+"Last-Translator: Bjorn Graabek <bjorn@graabek.com>\n"
 "Language-Team: Danish <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Windows Publishing Wizard"
-msgstr "Windows Udgivelsesguide"
+msgid "Windows XP"
+msgstr "Windows XP"
 
-msgid "Publish photos to Gallery directly from Windows"
-msgstr "Send fotos til Gallery direkte fra Windws"
+msgid "Publish XP"
+msgstr "Publish XP"
+
+msgid "Publish photos to Gallery directly from Windows XP"
+msgstr "Send fotos til 'Gallery' direkte fra Windws XP"
 
 msgid "Import"
-msgstr "Import"
+msgstr "Importer"
 
 #, c-format
 msgid "%s at %s"
@@ -54,16 +57,16 @@ msgid "Upload to Gallery"
 msgstr "Upload til Gallery"
 
 msgid ""
-"Microsoft Windows comes with a nice feature that allows you to publish content from your "
-"desktop directly to a web service.  Follow the instructions below to enable this service on "
-"your Windows system."
+"Windows XP comes with a nice feature that allows you to publish content from your desktop "
+"directly to a web service.  Follow the instructions below to enable this service on your "
+"Windows XP system."
 msgstr ""
-"Microsoft Windows har en nyttig funktion der gør det muligt at publicere filer fra dit "
-"skrivebord direkte til en web-tjeneste. Følg instruktionerne nedenfor for at aktivere denne "
-"funktion i dit Windows system."
+"Windows XP har en nyttig funktion der gør det muligt at publicere filer fra dit skrivebord "
+"direkte til en web-tjeneste. Følg instruktionerne forneden for at aktivere denne funktion i "
+"dit Windows XP system."
 
-msgid "Installation"
-msgstr "Installation"
+msgid "Step 1"
+msgstr "Trin 1"
 
 msgid ""
 "Download the configuration file using right-click 'Save Target As...'  Once downloaded, "
@@ -78,54 +81,22 @@ msgstr ""
 "bekræfte at du ønsker at ændre filtypen. Dobbelt-klik på filen og svar 'OK' når du bliver "
 "spurgt om du vil importere værdierne til 'registry'."
 
-msgid "(for Windows Vista)"
-msgstr "(for Windows Vista)"
-
-msgid "(for Windows XP, Windows 2000 and earlier Windows versions)"
-msgstr "(for Windows XP, Windows 2000 og tidligere Windows versioner)"
-
 msgid "Download [install_registry.reg]"
 msgstr "Download [install_registry.reg]"
 
-msgid "Windows Vista"
-msgstr "Windows Vista"
-
-#, c-format
-msgid "Open your %sWindows Photo Gallery%s."
-msgstr "Åben dit %sWindows fotogalleri%s."
-
-msgid "Select one or more images / files in your Windows Photo Gallery."
-msgstr "Vælg et eller flere billeder / filer i dit Windows fotogalleri."
+msgid "Step 2"
+msgstr "Trin 2"
 
 msgid ""
-"Click \"Print...\" and select the online printing option (not the local printing option)."
+"Open your Windows Explorer and browse to a folder containing supported images. Select the "
+"image(s) or a folder and there should be a link on the left that says 'Publish this file to "
+"the web...'  Click this link and then follow the instructions to log into your Gallery, "
+"select an album and publish the image."
 msgstr ""
-"Klik på \"Udskriv...\" og vælg online udskrift funktionen (ikke lokal udskrift funktionen)."
-
-msgid "Select the Gallery 2 printing service."
-msgstr "Vælg Gallery 2 udskriftstjensten."
-
-msgid ""
-"Then follow the instructions to log into your Gallery, select an album and publish the image"
-"(s)."
-msgstr ""
-"Følg derefter instruktionerne i at logge ind i dit Gallery, vælg et album, og udgiv "
-"billederne."
-
-msgid "Windows XP, Windows 2000 and earlier Windows versions"
-msgstr "Windows XP, Windows 2000 og tidligere Windows versioner"
-
-msgid "Open your Windows Explorer and browse to a folder containing supported images."
-msgstr "Åben din Windows Explorer og find en mappe der indholder understøttede billeder."
-
-msgid "Select the image(s) or a folder."
-msgstr "Vælg billeder eller en mappe."
-
-msgid "Click the link on the left that says \"Publish this file to the web...\""
-msgstr "Klik på linket til venstre der lyder sådan: \"Udgiv denne fil på nettet...\""
-
-msgid "Usage"
-msgstr "Brug"
+"Start Windows stifinder og vælg et bibliotek der indeholder billeder. Vælg billederne eller "
+"et bibliotek, der burde da være et link til venstre med teksten 'Publicer denne fil til "
+"web'. Vælg dette link og følg instruktionene for at logge ind på Gallery, vælge et album og "
+"publicere billedet eller billederne."
 
 msgid "Specify the name and title for the new album."
 msgstr "Angiv navn og titel for det nye album."
@@ -193,7 +164,7 @@ msgid "Strip file extensions?"
 msgstr "Fjern filendelser?"
 
 msgid "Set captions on the published items?"
-msgstr "Sæt tekster på de publicerede emner?"
+msgstr "Sæt undertekster på de publicerede elementer?"
 
 msgid "Login to your account"
 msgstr "Login på din konto"
@@ -224,26 +195,3 @@ msgstr "Nyt album"
 
 msgid "You must select an album"
 msgstr "Du skal vælge et album"
-
-#~ msgid "Windows XP"
-#~ msgstr "Windows XP"
-
-#~ msgid "Publish XP"
-#~ msgstr "Publish XP"
-
-#~ msgid "Step 1"
-#~ msgstr "Trin 1"
-
-#~ msgid "Step 2"
-#~ msgstr "Trin 2"
-
-#~ msgid ""
-#~ "Open your Windows Explorer and browse to a folder containing supported images. Select the "
-#~ "image(s) or a folder and there should be a link on the left that says 'Publish this file "
-#~ "to the web...'  Click this link and then follow the instructions to log into your "
-#~ "Gallery, select an album and publish the image."
-#~ msgstr ""
-#~ "Start Windows stifinder og vælg et bibliotek der indeholder billeder. Vælg billederne "
-#~ "eller et bibliotek, der burde da være et link til venstre med teksten 'Publicer denne fil "
-#~ "til web'. Vælg dette link og følg instruktionene for at logge ind på Gallery, vælge et "
-#~ "album og publicere billedet eller billederne."

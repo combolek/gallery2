@@ -1,7 +1,7 @@
-# $Id$
+# $Id: sr.po 16040 2007-03-16 23:04:36Z mindless $
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,10 +19,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Migration 1.0.11\n"
+"Project-Id-Version: Gallery: Migration 1.0.7\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-08-14 16:53+0200\n"
-"PO-Revision-Date: 2007-04-16 05:40+0100\n"
+"PO-Revision-Date: 2005-09-07 13:35+0200\n"
 "Last-Translator: Jozef Selesi <selesi@gmail.com>\n"
 "Language-Team: Srpski <gallery-translations@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -41,10 +41,6 @@ msgid "Creating thumbnails"
 msgstr "Pravljenje umanjenih prikaza"
 
 #, c-format
-msgid "Thumbnail %d of %d"
-msgstr "%d. umanjen prikaz od %d"
-
-#, c-format
 msgid "%sTitle%s was truncated for %sitem %d%s."
 msgstr "%sNaslov%s je skraćen za %sobjekat %d%s."
 
@@ -57,6 +53,10 @@ msgstr "Skup:"
 
 msgid "Truncated:"
 msgstr "Skraćeno:"
+
+#, c-format
+msgid "Thumbnail %d of %d"
+msgstr "%d. umanjen prikaz od %d"
 
 msgid "Migration"
 msgstr "Migracija"
@@ -144,8 +144,7 @@ msgstr "Kodni raspored znakova u izvornom tekstu:"
 msgid "URL Redirection"
 msgstr "Preusmeravanje adrese"
 
-#, fuzzy
-msgid "Record G1-&gt;G2 mappings during import"
+msgid "Record G1->G2 mappings during import"
 msgstr "Sačuvaj G1->G2 mapiranja u toku prenosa"
 
 msgid "Thumbnail generation"
@@ -273,8 +272,7 @@ msgstr "Vaša Galerija 1 će biti konvertovana iz ovog kodnog rasporeda znakova 
 msgid "Encoding: %s"
 msgstr "Kodni raspored: %s"
 
-#, fuzzy
-msgid "G1-&gt;G2 mappings will be recorded for use in URL Redirection"
+msgid "G1->G2 mappings will be recorded for use in URL Redirection"
 msgstr "G1->G2 mapiranja će biti sačuvana za korišćenje prilikom preusmeravanja adresa"
 
 msgid "Thumbnails will be generated during migration"
@@ -305,16 +303,13 @@ msgid "Custom fields imported into item fields above will not be duplicated as c
 msgstr "Posebna polja preneta u polja iznad neće biti duplirana kao posebna polja"
 
 msgid "Hidden Items"
-msgstr "Skriveni objekti"
+msgstr ""
 
 msgid ""
 "Any hidden albums or items will be imported with restricted view permissions. Activate the "
 "Hidden Items module before migration to import these as \"hidden\" which means they are "
 "invisible to guest users until accessed by the direct URL for those items."
 msgstr ""
-"Skriveni albumi ili objekti će biti preneseni sa ograničenim pravima pregleda. Aktivirajte "
-"modul Skriveni objekti pre migracije, ako želite da ih prenesete kao \"skrivene\", što znači "
-"da su nevidljivi gostima sve dok se ne prikažu preko direktne adrese."
 
 msgid "Cancel"
 msgstr "Otkaži"
@@ -416,10 +411,11 @@ msgstr ""
 "Prenos čitave ili dela postojeće instalacije Galerije 1 u vašu Galeriju 2. Vaši podaci u "
 "Galeriji 1 neće ni na koji način biti izmenjeni."
 
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "You don't have any Graphics Toolkit activated to handle JPEG images.  If you import now, you "
-"will not have any thumbnails.  Visit the %sModules%s page to activate a Graphics Toolkit."
+"will not have any thumbnails.  Visit the <a href=\"%s\">Modules</a> page to activate a "
+"Graphics Toolkit."
 msgstr ""
 "Nija aktivirana ni jedna grafička alatka koja može da radi sa JPEG slikama. Ako sada "
 "izvršite prenos, nećete imati ni jedan umenjen prikaz. Otvorite stranu <a href=\"%s"
@@ -452,9 +448,9 @@ msgstr "Nedavno korišćene putanje"
 msgid "Gallery can redirect old Gallery1 URLs to the new Gallery2 pages."
 msgstr "Možete preusmeriti stare adrese iz Galerije 1 na nove stranice Galerije 2."
 
-#, fuzzy, c-format
-msgid "There is one G1-&gt;G2 map entry"
-msgid_plural "There are %d G1-&gt;G2 map entries"
+#, c-format
+msgid "There is one G1->G2 map entry"
+msgid_plural "There are %d G1->G2 map entries"
 msgstr[0] "Postoji jedna stavka u G1->G2 mapi."
 msgstr[1] "Postoji %d stavki u G1->G2 mapi."
 

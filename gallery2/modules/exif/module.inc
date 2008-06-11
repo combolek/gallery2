@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,12 +37,11 @@ class ExifModule extends GalleryModule {
 	$this->setId('exif');
 	$this->setName($gallery->i18n('EXIF/IPTC'));
 	$this->setDescription($gallery->i18n('Extract EXIF/IPTC data from JPEG photos'));
-	$this->setVersion('1.2.4'); /* Update upgrade() function below too */
-	$this->_templateVersion = 1;
+	$this->setVersion('1.1.0'); /* Update upgrade() function below too */
 	$this->setGroup('data', $gallery->i18n('Extra Data'));
 	$this->setCallbacks('getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 41));
-	$this->setRequiredModuleApi(array(3, 9));
+	$this->setRequiredCoreApi(array(7, 10));
+	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
@@ -132,14 +131,6 @@ class ExifModule extends GalleryModule {
 	    case '1.0.7':
 	    case '1.0.8':
 	    case '1.0.9':
-	    case '1.1.0':
-	    case '1.1.0.1':
-	    case '1.2.0':
-		/* .mo file migration */
-	    case '1.2.1':
-	    case '1.2.2':
-		/* Combined YUI libraries into a single file */ 
-	    case '1.2.3':
 
 	    case 'end of upgrade path':
 		/*

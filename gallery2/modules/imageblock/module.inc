@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,33 +32,22 @@ class ImageBlockModule extends GalleryModule {
 	$this->setId('imageblock');
 	$this->setName($gallery->i18n('Image Block'));
 	$this->setDescription($gallery->i18n('Random, Most Recent or Most Viewed Photo or Album'));
-	$this->setVersion('1.1.8');
-	$this->_templateVersion = 1;
+	$this->setVersion('1.1.0');
 	$this->setGroup('blocks', $gallery->i18n('Blocks'));
-	$this->setCallbacks('getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 47));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setCallbacks('registerEventListeners|getSiteAdminViews');
+	$this->setRequiredCoreApi(array(7, 10));
+	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
-     * @see GalleryModule::activate
+     * @see GalleryModule::registerEventListeners
      */
-    function activate($postActivationEvent=true) {
-	/**
-	 * Our cache is probably out of date. Flush it. 
-	 * @todo What about the ImageBlockDisabledMap which is out of date as well?
-	 */
-	$ret = GalleryCoreApi::removeAllMapEntries('ImageBlockCacheMap');
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	list ($ret, $redirect) = parent::activate($postActivationEvent);
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	return array(null, $redirect);
+    function registerEventListeners() {
+	GalleryCoreApi::requireOnce('modules/imageblock/classes/ImageBlockHelper.class');
+	$listener = new ImageBlockHelper();
+	GalleryCoreApi::registerEventListener('Gallery::ViewableTreeChange', $listener);
+	GalleryCoreApi::registerEventListener('GalleryEntity::save', $listener, true);
+	GalleryCoreApi::registerEventListener('GalleryEntity::delete', $listener, true);
     }
 
     /**
@@ -66,9 +55,9 @@ class ImageBlockModule extends GalleryModule {
      */
     function upgrade($currentVersion) {
 	global $gallery;
-	$storage =& $gallery->getStorage();
 
 	if (!empty($currentVersion) && version_compare($currentVersion, '1.0.1', '<')) {
+	    $storage =& $gallery->getStorage();
 	    $ret = $storage->configureStore($this->getId(), array('ImageBlockCacheMap:1.0'));
 	    if ($ret) {
 		return $ret;
@@ -97,27 +86,6 @@ class ImageBlockModule extends GalleryModule {
 	    }
 	}
 
-	if (!empty($currentVersion) && version_compare($currentVersion, '1.1.7', '<=')) {
-	    GalleryCoreApi::requireOnce('modules/imageblock/classes/ImageBlockHelper.class');
-	    $ret = $storage->removeAllMapEntries('ImageBlockCacheMap', true);
-	    if ($ret) {
-		return $ret;
-	    }
-	}
-	if (!empty($currentVersion) && version_compare($currentVersion, '1.1.5', '<=')) {
-	    /* Add ImageBlockCacheMap::random */
-	    $ret = $storage->configureStore($this->getId(), array('ImageBlockCacheMap:1.1'));
-	    if ($ret) {
-		return $ret;
-	    }
-	}
-	if (!empty($currentVersion) && version_compare($currentVersion, '1.1.7', '<=')) {
-	    /* Add proper index with new ::random column */
-	    $ret = $storage->configureStore($this->getId(), array('ImageBlockCacheMap:1.2'));
-	    if ($ret) {
-		return $ret;
-	    }
-	}
 	return null;
     }
 
@@ -125,14 +93,6 @@ class ImageBlockModule extends GalleryModule {
      * @see GalleryModule::performFactoryRegistrations
      */
     function performFactoryRegistrations() {
-	$ret = GalleryCoreApi::registerFactoryImplementation(
-	    'GalleryEventListener', 'ImageBlockHelper', 'ImageBlockHelper', 
-	    'modules/imageblock/classes/ImageBlockHelper.class', 'imageblock', 
-	    array('Gallery::ViewableTreeChange', 'GalleryEntity::delete', 'GalleryEntity::save'));
-	if ($ret) {
-	    return $ret;
-	}
-
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	   'ItemEditOption', 'ImageBlockOption', 'ImageBlockOption',
 	   'modules/imageblock/ImageBlockOption.inc', 'imageblock', array('ItemEditAlbum'));

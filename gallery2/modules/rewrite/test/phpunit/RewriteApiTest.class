@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,35 +36,36 @@ class RewriteApiTest extends GalleryTestCase {
 
     function setUp() {
 	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'rewrite');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Set up our mock parser */
 	$ret = GalleryCoreApi::setPluginParameter('module', 'rewrite',
 						  'parserId', 'rewriteapimock');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Make sure we use the mock parser */
 	GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
 	list ($ret, $parser) = RewriteHelper::getRewriteParser(true);
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals('rewriteapimock', $parser->getParserId(), 'parserId');
 
 	/* Load the api class */
 	list ($ret, $this->_rewriteApi) = GalleryCoreApi::newFactoryInstance('RewriteApi');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Set gallery in embedded mode */
@@ -76,10 +77,7 @@ class RewriteApiTest extends GalleryTestCase {
 
 	GalleryDataCache::remove('G2_EMBED');
 
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
+	parent::tearDown();
     }
 
     function testIsCompatibleWithApi() {
@@ -87,21 +85,21 @@ class RewriteApiTest extends GalleryTestCase {
 
 	list ($ret, $isCompatible) = $this->_rewriteApi->isCompatibleWithApi($currentVersion);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert($isCompatible, 'same version');
 
 	$compatibleVersion = array($currentVersion[0], 0);
 	list ($ret, $isCompatible) = $this->_rewriteApi->isCompatibleWithApi($compatibleVersion);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert($isCompatible, 'should be compatible, requiring same or lower minor version');
 
 	$incompatibleVersion = array(--$currentVersion[0], 0);
 	list ($ret, $isCompatible) = $this->_rewriteApi->isCompatibleWithApi($incompatibleVersion);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(!$isCompatible, 'should be incompatible, requiring lower major version');
     }
@@ -117,7 +115,7 @@ class RewriteApiTest extends GalleryTestCase {
     function testNeedsEmbedConfig1() {
 	list ($ret, $needsConfiguration) = $this->_rewriteApi->needsEmbedConfig();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(true, $needsConfiguration);
@@ -127,7 +125,7 @@ class RewriteApiTest extends GalleryTestCase {
 	GalleryDataCache::remove('G2_EMBED');
 	list ($ret, $needsConfiguration) = $this->_rewriteApi->needsEmbedConfig();
 	if ($ret && !($ret->getErrorCode() & ERROR_UNSUPPORTED_OPERATION)) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assert(ERROR_UNSUPPORTED_OPERATION & $ret->getErrorCode());
@@ -136,7 +134,7 @@ class RewriteApiTest extends GalleryTestCase {
     function testFetchEmbedConfig1() {
 	list ($ret, $params) = $this->_rewriteApi->fetchEmbedConfig();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(array('phpunit' => 'test'), $params);
@@ -146,7 +144,7 @@ class RewriteApiTest extends GalleryTestCase {
 	GalleryDataCache::remove('G2_EMBED');
 	list ($ret, $params) = $this->_rewriteApi->fetchEmbedConfig();
 	if ($ret && !($ret->getErrorCode() & ERROR_UNSUPPORTED_OPERATION)) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assert(ERROR_UNSUPPORTED_OPERATION & $ret->getErrorCode());
@@ -155,7 +153,7 @@ class RewriteApiTest extends GalleryTestCase {
     function testSaveEmbedConfig1() {
 	list ($ret, $code, $errstr) = $this->_rewriteApi->saveEmbedConfig(array('phpunit' => 1));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(REWRITE_STATUS_OK, $code, 'code');
@@ -163,7 +161,7 @@ class RewriteApiTest extends GalleryTestCase {
 
 	list ($ret, $code, $errstr) = $this->_rewriteApi->saveEmbedConfig(array('phpunit' => 0));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(REWRITE_STATUS_INVALID_PATTERN, $code, 'code');
@@ -174,7 +172,7 @@ class RewriteApiTest extends GalleryTestCase {
 	GalleryDataCache::remove('G2_EMBED');
 	list ($ret, $params) = $this->_rewriteApi->saveEmbedConfig(array());
 	if ($ret && !($ret->getErrorCode() & ERROR_UNSUPPORTED_OPERATION)) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assert(ERROR_UNSUPPORTED_OPERATION & $ret->getErrorCode());
@@ -184,13 +182,13 @@ class RewriteApiTest extends GalleryTestCase {
 	list ($ret, $expectedRules, $moduleId) =
 	    $this->_prepareActivateRewriteRulesForModule(REWRITE_STATUS_OK, true, true);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Execute the method under test */
 	list ($ret, $activeRules) = $this->_rewriteApi->fetchActiveRulesForModule($moduleId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Verify the results */
@@ -201,13 +199,13 @@ class RewriteApiTest extends GalleryTestCase {
 	list ($ret, $expectedRules, $moduleId) =
 	    $this->_prepareActivateRewriteRulesForModule(REWRITE_STATUS_OK, false, true);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Execute the method under test */
 	list ($ret, $activeRules) = $this->_rewriteApi->fetchActiveRulesForModule($moduleId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Verify the results */
@@ -217,13 +215,13 @@ class RewriteApiTest extends GalleryTestCase {
     function testActivateRewriteRulesForModule() {
 	list ($ret, $expectedRules, $moduleId) = $this->_prepareActivateRewriteRulesForModule();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Execute the method under test */
 	list ($ret, $success) = $this->_rewriteApi->activateRewriteRulesForModule($moduleId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Verify the results */
@@ -237,14 +235,14 @@ class RewriteApiTest extends GalleryTestCase {
     function testActivateRewriteRulesForModuleOnlySpecificRule() {
 	list ($ret, $expectedRules, $moduleId) = $this->_prepareActivateRewriteRulesForModule();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Execute the method under test */
 	list ($ret, $success) =
 		$this->_rewriteApi->activateRewriteRulesForModule($moduleId, array('rule2'));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Verify the results */
@@ -258,13 +256,13 @@ class RewriteApiTest extends GalleryTestCase {
 	list ($ret, $expectedRules, $moduleId) =
 		$this->_prepareActivateRewriteRulesForModule(REWRITE_STATUS_INVALID_PATTERN);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Execute the method under test */
 	list ($ret, $success) = $this->_rewriteApi->activateRewriteRulesForModule($moduleId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Verify the results */
@@ -275,13 +273,13 @@ class RewriteApiTest extends GalleryTestCase {
 	list ($ret, $expectedRules, $moduleId) =
 		$this->_prepareActivateRewriteRulesForModule(REWRITE_STATUS_OK, true, true);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Execute the method under test */
 	list ($ret, $success) = $this->_rewriteApi->activateRewriteRulesForModule($moduleId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Verify the results */
@@ -293,7 +291,7 @@ class RewriteApiTest extends GalleryTestCase {
 
 	list ($ret, $history) = RewriteHelper::getHistoryForModule($moduleId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(array('rule0' => array('pattern' => 'foo')), $history,
 			    'history for rule1 should have been removed');
@@ -303,14 +301,14 @@ class RewriteApiTest extends GalleryTestCase {
 	list ($ret, $expectedRules, $moduleId) =
 		$this->_prepareActivateRewriteRulesForModule(REWRITE_STATUS_OK, true, true);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Execute the method under test */
 	list ($ret, $success) = $this->_rewriteApi->activateRewriteRulesForModule($moduleId,
 							null, true);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Verify the results */
@@ -322,7 +320,7 @@ class RewriteApiTest extends GalleryTestCase {
 
 	list ($ret, $history) = RewriteHelper::getHistoryForModule($moduleId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(array('rule0' => array('pattern' => 'foo')), $history,
 			    'history for rule1 should have been removed');

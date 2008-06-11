@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,7 +24,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Migration 1.0.11\n"
+"Project-Id-Version: Gallery: Migration 1.0.7\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2006-12-20 07:46-0800\n"
 "PO-Revision-Date: 2007-03-11 11:38+0200\n"
@@ -45,10 +45,6 @@ msgid "Creating thumbnails"
 msgstr "Luomassa Esikatselukuvia"
 
 #, c-format
-msgid "Thumbnail %d of %d"
-msgstr "Esikatselukuva %d/%d"
-
-#, c-format
 msgid "%sTitle%s was truncated for %sitem %d%s."
 msgstr "%3$sKohteen %4$d%5$s %1$sotsikko%2$s jouduttiin lyhentämään."
 
@@ -61,6 +57,10 @@ msgstr "Aseta:"
 
 msgid "Truncated:"
 msgstr "Lyhennetty:"
+
+#, c-format
+msgid "Thumbnail %d of %d"
+msgstr "Esikatselukuva %d/%d"
 
 msgid "Migration"
 msgstr "Siirto"
@@ -148,8 +148,8 @@ msgstr "Lähteen Merkistö (Encoding):"
 msgid "URL Redirection"
 msgstr "URL Uudelleenohjaus"
 
-msgid "Record G1-&gt;G2 mappings during import"
-msgstr "Tallenna G1-&gt;G2 kohdistukset tuonnin aikana"
+msgid "Record G1->G2 mappings during import"
+msgstr "Tallenna G1->G2 kohdistukset tuonnin aikana"
 
 msgid "Thumbnail generation"
 msgstr "Esikatselukuvien luonti"
@@ -277,8 +277,8 @@ msgstr "Galleria 1 muunnetaan tästä merkistöstä UTF-8 merkistöön:"
 msgid "Encoding: %s"
 msgstr "Merkistö: %s"
 
-msgid "G1-&gt;G2 mappings will be recorded for use in URL Redirection"
-msgstr "G1-&gt;G2 ohjausmerkinnät tallennetaan URL uudelleenohjausta varten"
+msgid "G1->G2 mappings will be recorded for use in URL Redirection"
+msgstr "G1->G2 ohjausmerkinnät tallennetaan URL uudelleenohjausta varten"
 
 msgid "Thumbnails will be generated during migration"
 msgstr "Esikatselukuvat luodaan migraation aikana"
@@ -420,11 +420,12 @@ msgstr ""
 #, c-format
 msgid ""
 "You don't have any Graphics Toolkit activated to handle JPEG images.  If you import now, you "
-"will not have any thumbnails.  Visit the %sModules%s page to activate a Graphics Toolkit."
+"will not have any thumbnails.  Visit the <a href=\"%s\">Modules</a> page to activate a "
+"Graphics Toolkit."
 msgstr ""
 "Sinulla ei ole yhtän grafiikkatyökalua aktivoituna, joka käsittelisi JPEG-kuvia. Jos tuot "
-"kuvat nyt, sinulle ei tule yhtään esikatselukuvaa. Käy %smoduulit%s sivulla aktivoimassa "
-"grafiikkatyökalu."
+"kuvat nyt, sinulle ei tule yhtään esikatselukuvaa. Käy <a href=\"%s\">moduulit</a> sivulla "
+"aktivoimassa grafiikkatyökalu."
 
 msgid "Path to Gallery 1 albums directory"
 msgstr "Polku Gallery 1:n albumikansioon"
@@ -454,10 +455,10 @@ msgid "Gallery can redirect old Gallery1 URLs to the new Gallery2 pages."
 msgstr "Galleria voi uudelleenohjata vanhan gallery1:n URL:it uusille Gallery2:n sivuille."
 
 #, c-format
-msgid "There is one G1-&gt;G2 map entry"
-msgid_plural "There are %d G1-&gt;G2 map entries"
-msgstr[0] "On yksi G1-&gt;G2 ohjausmerkintä"
-msgstr[1] "On %d G1-&gt;G2 ohjausmerkintää"
+msgid "There is one G1->G2 map entry"
+msgid_plural "There are %d G1->G2 map entries"
+msgstr[0] "On yksi G1->G2 ohjausmerkintä"
+msgstr[1] "On %d G1->G2 ohjausmerkintää"
 
 msgid ""
 "Deleting map entries will cause old G1 URLs to produce HTTP Not Found errors instead of "
@@ -471,3 +472,7 @@ msgstr "Poista kaikki"
 
 msgid "Map entries deleted successfully"
 msgstr "Ohjausmerkinnät poistettiin onnistuneesti"
+
+#, fuzzy
+#~ msgid "Path"
+#~ msgstr "Hakemisto:"

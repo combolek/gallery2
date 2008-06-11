@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,10 +16,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
-# 
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Image Block 1.1.8\n"
+"Project-Id-Version: Gallery: Image Block 1.1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-09-21 10:00+0100\n"
 "PO-Revision-Date: 2006-06-16 08:34+0100\n"
@@ -34,10 +34,28 @@ msgid "Image Block"
 msgstr "Blocs d'imatges"
 
 msgid "Random, Most Recent or Most Viewed Photo or Album"
-msgstr "Aleatori. Imatge o &agrave;lbum m&eacute;s recents o m&eacute;s visitat."
+msgstr "Aleatori. Imatge o &agravelbum m&eacute;s recents o m&eacute;s visitat."
 
 msgid "Blocks"
 msgstr "Blocs"
+
+msgid "Picture of the Day"
+msgstr "La imatge del dia"
+
+msgid "Picture of the Week"
+msgstr "La imatge de la setmana"
+
+msgid "Picture of the Month"
+msgstr "La imatge del mes"
+
+msgid "Album of the Day"
+msgstr "L' &Agrave;lbum del dia"
+
+msgid "Album of the Week"
+msgstr "L'&Agrave;lbum de la setmana"
+
+msgid "Album of the Month"
+msgstr "L'&Agrave;lbum del mes"
 
 #, fuzzy
 msgid "Random Image"
@@ -74,24 +92,6 @@ msgid "Most Viewed Album"
 msgid_plural "Most Viewed Albums"
 msgstr[0] "L'&Agrave;lbum m&eacute;s vist"
 msgstr[1] "L'&Agrave;lbum m&eacute;s vist"
-
-msgid "Picture of the Day"
-msgstr "La imatge del dia"
-
-msgid "Picture of the Week"
-msgstr "La imatge de la setmana"
-
-msgid "Picture of the Month"
-msgstr "La imatge del mes"
-
-msgid "Album of the Day"
-msgstr "L' &Agrave;lbum del dia"
-
-msgid "Album of the Week"
-msgstr "L'&Agrave;lbum de la setmana"
-
-msgid "Album of the Month"
-msgstr "L'&Agrave;lbum del mes"
 
 msgid "Date:"
 msgstr "Data:"
@@ -171,13 +171,12 @@ msgstr ""
 "randomAlbum, recentAlbum, viewedAlbum, dailyImage, weeklyImage, monthlyImage, dailyAlbum, "
 "weeklyAlbum, monthlyAlbum, specificItem; per defecte es  randomImage"
 
-#, fuzzy
 msgid ""
-"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize, rawImage; "
-"the value can also be: none"
+"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize; the value "
+"can also be: none"
 msgstr ""
 "Llista d'opcions separada per pipelines (|) a escollir entre: t&iacute;tol, data, vistes, "
-"creador, capçalera, mida. El valor tamb&egrave; pot ser: no"
+"creador, capçalera, mida. El valor tamb&egrave pot ser: no"
 
 msgid ""
 "Limit the item selection to the subtree of the gallery under the album with the given id; or "
@@ -296,3 +295,6 @@ msgstr "Mostrar contador de visites"
 
 msgid "Show owner"
 msgstr "Mostrar propietari"
+
+#~ msgid "Scale images to this maximum size"
+#~ msgstr "Escalar imagenes al máximo tamaño posible"

@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,21 +32,20 @@ class ItemCreateReplicaSingleControllerTest extends GalleryControllerTestCase {
     }
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	list ($ret, $this->_rootAlbum) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->_markForCleanup($this->_rootAlbum);
 
 	list ($ret, $this->_destinationAlbum) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->_markForCleanup($this->_destinationAlbum);
@@ -54,7 +53,8 @@ class ItemCreateReplicaSingleControllerTest extends GalleryControllerTestCase {
 	/* Create a data item */
 	list ($ret, $this->_item) = $this->_createRandomDataItem($this->_rootAlbum->getId());
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
     }
 
@@ -96,7 +96,7 @@ class ItemCreateReplicaSingleControllerTest extends GalleryControllerTestCase {
     function testReplicaWithNoViewPermissions() {
 	$ret = GalleryCoreApi::removeItemPermissions($this->_item->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	global $gallery;
@@ -105,7 +105,7 @@ class ItemCreateReplicaSingleControllerTest extends GalleryControllerTestCase {
 	GalleryUtilities::putRequestVariable('form[destination]',
 					     $this->_destinationAlbum->getId());
 
-	$results = $this->handleRequest(ERROR_MISSING_OBJECT);
+	$results = $this->handleRequest(ERROR_PERMISSION_DENIED);
     }
 
     /**
@@ -136,12 +136,7 @@ class ItemCreateReplicaSingleControllerTest extends GalleryControllerTestCase {
 
 	$ret = GalleryCoreApi::removeItemPermissions($this->_destinationAlbum->getId());
 	if ($ret) {
-	    return $ret;
-	}
-	$ret = GalleryCoreApi::addUserPermission(
-	    $this->_destinationAlbum->getId(), $gallery->getActiveUserId(), 'core.view');
-	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* The UI never displays targets that we can't add to */

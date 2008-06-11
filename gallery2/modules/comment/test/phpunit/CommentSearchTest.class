@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,34 +35,21 @@ class CommentSearchTest extends GalleryTestCase {
     function setUp() {
 	global $gallery;
 
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	list ($ret, $moduleStatusList) = GalleryCoreApi::fetchPluginStatus('module');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	if (empty($moduleStatusList['search']['active'])) {
 	    return $this->assert(false, 'Search module not installed');
 	}
 
-	$ret = $this->_markPluginParametersForCleanup('module', 'comment');
-	if ($ret) {
-	    return $ret;
-	}
-
-	$ret = GalleryCoreApi::setPluginParameter('module', 'comment', 'comments.moderate', 0);
-	if ($ret) {
-	    return $ret;
-	}
-
 	list ($ret, $groupId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.everybodyGroup');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->_randomKey = "a" . rand(1,100000) . "z";
@@ -71,17 +58,18 @@ class CommentSearchTest extends GalleryTestCase {
 	for ($j = 0; $j < 4; $j++) {
 	    list ($ret, $this->_item[$j]) = $this->_createRandomDataItem($this->_getRootId());
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 
 	    $this->_markForCleanup($this->_item[$j]);
 
-	    /* Create 3 comments.  The 3rd one is unpublished. */
-	    for ($i = 0; $i < 3; $i++) {
+	    /* Create some comments */
+	    for ($i = 0; $i < 2; $i++) {
 		list ($ret, $this->_comment[$j][$i]) =
 		    GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryComment');
 		if ($ret) {
-		    return $ret;
+		    print $ret->getAsHtml();
+		    return $this->failWithStatus($ret);
 		}
 
 		$this->assert(isset($this->_comment[$j][$i]), 'Missing comment instance');
@@ -94,18 +82,17 @@ class CommentSearchTest extends GalleryTestCase {
 		    $this->_comment[$j][$i]->setAuthor($this->_randomKey . ": test author($j,$i)");
 		}
 		$this->_comment[$j][$i]->setDate(time());
-		if ($i == 2) {
-		    $this->_comment[$j][$i]->setPublishStatus(COMMENT_PUBLISH_STATUS_UNPUBLISHED);
-		}
 		$ret = $this->_comment[$j][$i]->save();
 		if ($ret) {
-		    return $ret;
+		    print $ret->getAsHtml();
+		    return $this->failWithStatus($ret);
 		}
 	    }
 
 	    $ret = GalleryCoreApi::removeItemPermissions($this->_item[$j]->getId());
 	    if ($ret) {
-		return $ret;
+		print $ret->getAsHtml();
+		return $this->failWithStatus($ret);
 	    }
 
 	    switch($j) {
@@ -114,7 +101,8 @@ class CommentSearchTest extends GalleryTestCase {
 							       $gallery->getActiveUserId(),
 							       'core.view');
 		if ($ret) {
-		    return $ret;
+		    print $ret->getAsHtml();
+		    return $this->failWithStatus($ret);
 		}
 		break;
 
@@ -122,7 +110,8 @@ class CommentSearchTest extends GalleryTestCase {
 		$ret = GalleryCoreApi::addGroupPermission($this->_item[$j]->getId(),
 								$groupId, 'comment.view');
 		if ($ret) {
-		    return $ret;
+		    print $ret->getAsHtml();
+		    return $this->failWithStatus($ret);
 		}
 		break;
 
@@ -131,13 +120,15 @@ class CommentSearchTest extends GalleryTestCase {
 							 $gallery->getActiveUserId(),
 							 'comment.view');
 		if ($ret) {
-		    return $ret;
+		    print $ret->getAsHtml();
+		    return $this->failWithStatus($ret);
 		}
 		$ret = GalleryCoreApi::addUserPermission($this->_item[$j]->getId(),
 							 $gallery->getActiveUserId(),
 							 'core.view');
 		if ($ret) {
-		    return $ret;
+		    print $ret->getAsHtml();
+		    return $this->failWithStatus($ret);
 		}
 		break;
 
@@ -145,12 +136,14 @@ class CommentSearchTest extends GalleryTestCase {
 		$ret = GalleryCoreApi::addGroupPermission($this->_item[$j]->getId(),
 							  $groupId, 'comment.view');
 		if ($ret) {
-		    return $ret;
+		    print $ret->getAsHtml();
+		    return $this->failWithStatus($ret);
 		}
 		$ret = GalleryCoreApi::addGroupPermission($this->_item[$j]->getId(),
 							  $groupId, 'core.view');
 		if ($ret) {
-		    return $ret;
+		    print $ret->getAsHtml();
+		    return $this->failWithStatus($ret);
 		}
 		break;
 	    }
@@ -160,14 +153,16 @@ class CommentSearchTest extends GalleryTestCase {
 	    GalleryCoreApi::newFactoryInstance('GallerySearchInterface_1_0',
 					       'GalleryCommentSearch');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assert(isset($this->_commentSearch), 'Missing GalleryCommentSearch instance');
 
 	list ($ret, $this->_module) = GalleryCoreApi::loadPlugin('module', 'comment');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->_user = $gallery->getActiveUser();
@@ -176,7 +171,7 @@ class CommentSearchTest extends GalleryTestCase {
     function testFetchSearchModuleInfo() {
 	list ($ret, $info) = $this->_commentSearch->getSearchModuleInfo();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assert(isset($info['name']), 'name missing');
@@ -193,7 +188,7 @@ class CommentSearchTest extends GalleryTestCase {
 	list ($ret, $results) =
 	    $this->_commentSearch->search(array('comments' => 1), $this->_randomKey);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$subject = $this->_module->translate('Subject');
@@ -254,7 +249,7 @@ class CommentSearchTest extends GalleryTestCase {
 					  1,
 					  2);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$subject = $this->_module->translate('Subject');
@@ -295,7 +290,7 @@ class CommentSearchTest extends GalleryTestCase {
 	    $this->_commentSearch->search(array('comments' => 1),
 					  'some string that will never show up');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(array('start' => 0,

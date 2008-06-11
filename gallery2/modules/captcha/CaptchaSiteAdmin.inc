@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -168,7 +168,7 @@ class CaptchaAdminOption {
     /**
      * Return all available options.
      *
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *               array of string optionId => CaptchaAdminOption instance
      * @static
      */
@@ -214,7 +214,7 @@ class CaptchaAdminOption {
     /**
      * Get data about this configuration option.
      *
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *               string localized title for this option
      *               array(pluginType, pluginId, parameterName) to configure
      *               array of string choices (any of HIGH, MEDIUM, LOW, OFF)

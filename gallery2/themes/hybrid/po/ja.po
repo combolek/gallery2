@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,11 +19,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Hybrid Theme 1.1.8\n"
+"Project-Id-Version: Gallery: Hybrid Theme 1.1.4\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2007-06-14 17:54-0700\n"
-"PO-Revision-Date: 2007-07-20 13:39+0900\n"
-"Last-Translator: momo-i\n"
+"POT-Creation-Date: 2006-12-20 09:56-0800\n"
+"PO-Revision-Date: 2007-03-11 15:48+0900\n"
+"Last-Translator: Kennichi Uehara <ken.w3m+nospam@gmail.com>\n"
 "Language-Team: Japanese <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -112,35 +112,13 @@ msgid "Item Details"
 msgstr "アイテムの詳細"
 
 msgid ""
-"Album view:\n"
-"| space = start slideshow\n"
-"| ctrl-right/left = show/hide sidebar\n"
-"| ctrl-up/down = show/hide item links\n"
-"Image view:\n"
-"| space = start/pause slideshow\n"
-"| escape = return to album view\n"
-"| left/right = next/prev image\n"
-"| up/down = show hide description text\n"
-"| page up/down = scroll description text\n"
-"| ctrl-up/down = select full/fit size\n"
-"Arrow keys scroll image in full size; use shift-arrows for funcs above\n"
-"Item Details showing:\n"
-"| escape = close popup"
+"Album view:\\n| space = start slideshow\\n| ctrl-right/left = show/hide sidebar\\n| ctrl-up/"
+"down = show/hide item links\\nImage view:\\n| space = start/pause slideshow\\n| escape = "
+"return to album view\\n| left/right = next/prev image\\n| up/down = show hide description "
+"text\\n| page up/down = scroll description text\\n| ctrl-up/down = select full/fit size"
+"\\nArrow keys scroll image in full size; use shift-arrows for funcs above\\nItem Details "
+"showing:\\n| escape = close popup"
 msgstr ""
-"アルバムビュー：\n"
-"| スペースキー ＝ スライドショーの開始\n"
-"| Ctrlキー+左右キー ＝ スライドバーの表示(非表示)\n"
-"| Ctrlキー+上下キー ＝ アイテムリンクの表示(非表示)\n"
-"| 画像ビュー：\n"
-"| スペースキー ＝ スライドショーの開始(一時停止)\n"
-"| ESCキー ＝ アルバムビューへ戻る\n"
-"| 左右キー ＝ 次(前)の画像へ\n"
-"| 上下キー ＝ 説明を表示(非表示)\n"
-"| PageUp/Downキー ＝ 説明をスクロール\n"
-"| Ctrlキー+上下キー ＝ サイズをフル/フィットに切り替え\n"
-"矢印キーは、フルサイズに画像をスクロールします；上の機能にShiftキーをt買ってください\n"
-"アイテム概要表示：\n"
-"| ESCキー ＝ ポップアップを閉じる"
 
 msgid "Show text"
 msgstr "テキストを表示"
@@ -161,7 +139,7 @@ msgid "Full Size"
 msgstr "フルサイズ"
 
 msgid "Fit Size"
-msgstr "フィットサイズ"
+msgstr ""
 
 msgid "No Previous Image"
 msgstr "前の画像はありません"
@@ -169,17 +147,11 @@ msgstr "前の画像はありません"
 msgid "Previous Image"
 msgstr "前の画像"
 
-msgid "Previous Image (Load new page)"
-msgstr "前の画像(新しいページで読込)"
-
 msgid "No Next Image"
 msgstr "次の画像はありません"
 
 msgid "Next Image"
 msgstr "次の画像"
-
-msgid "Next Image (Load new page)"
-msgstr "次の画像(新しいページで読み込む)"
 
 msgid "Hide sidebar"
 msgstr "サイドバーを隠す"
@@ -206,7 +178,7 @@ msgid "Keyboard Controls"
 msgstr "キーボードショートカット"
 
 msgid "View"
-msgstr "目的"
+msgstr ""
 
 msgid "guest"
 msgstr "ゲスト"

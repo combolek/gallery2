@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -23,24 +23,24 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Slideshow 1.0.11\n"
+"Project-Id-Version: Gallery: Slideshow 1.0.5\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-23 11:29+0100\n"
-"PO-Revision-Date: 2007-04-01 00:39+0100\n"
-"Last-Translator: Rekedt-Nagy József <jozsef.rnagy@site.hu>\n"
+"PO-Revision-Date: 2007-02-16 17:55+0100\n"
+"Last-Translator: Sandor Dibuz <ha3pg@dwatt.com>\n"
 "Language-Team: magyar <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+
+msgid "Slideshow"
+msgstr "Diavetítés"
 
 #, c-format
 msgid "Slideshow for %s"
 msgstr "%s diavetítése"
-
-msgid "Slideshow"
-msgstr "Diavetítés"
 
 msgid "Display"
 msgstr "Megjelenítés"
@@ -49,178 +49,144 @@ msgid "View Slideshow"
 msgstr "Diavetítés"
 
 msgid "Path to an item (eg, /album/image.jpg.html)"
-msgstr "Egy elem elérési útja (pl: /album/kep.jpg.html)"
+msgstr "Egy elem elérési útja (pl: /album/image.jpg.html)"
+
+msgid "Blend"
+msgstr "Keverés"
 
 #, fuzzy
-msgid "Slideshow Settings"
-msgstr "Diavetítés"
+msgid "Blinds"
+msgstr "Rolók"
+
+msgid "Checkerboard"
+msgstr "Sakktábla"
+
+msgid "Diagonal"
+msgstr "Átlós"
+
+msgid "Doors"
+msgstr "Ajtók"
+
+msgid "Gradient"
+msgstr "Fényes"
+
+msgid "Iris"
+msgstr ""
+
+msgid "Pinwheel"
+msgstr ""
+
+msgid "Pixelate"
+msgstr ""
+
+msgid "Radial"
+msgstr ""
+
+msgid "Rain"
+msgstr "Eső"
+
+msgid "Slide"
+msgstr "Dia"
+
+msgid "Snow"
+msgstr "Hó"
+
+msgid "Spiral"
+msgstr "Spirál"
+
+msgid "Stretch"
+msgstr "Nyújtás"
+
+msgid "RANDOM"
+msgstr "Véletlenszerű"
+
+msgid "This album has no photos to show in a slideshow."
+msgstr "Az album nem tartalmaz diavetítővel megjeleníthető képeket."
+
+msgid "Back to Album View"
+msgstr "Vissza az album nézethez."
 
 #, c-format
-msgid "Installed PicLens version %s"
-msgstr ""
+msgid "Date: %s"
+msgstr "Dátum: %s"
 
-msgid "An error occurred while downloading PicLens!"
-msgstr ""
+msgid "Hide More Info"
+msgstr "További információk elrejtése"
 
-msgid "Uninstalled PicLens"
-msgstr ""
+msgid "Show More Info"
+msgstr "További információk"
 
-#, c-format
-msgid ""
-"Gallery can optionally use a Flash and JavaScript based slideshow from %s to provide users "
-"with the best possible viewing experience.  Gallery can install %s for you automatically, or "
-"you can choose to use an HTML slideshow."
-msgstr ""
+msgid "Resume"
+msgstr "Folytatás"
 
-#, c-format
-msgid "Version %s installed."
-msgstr ""
+msgid "Pause"
+msgstr "Szünet"
 
-msgid "There's a newer version of PicLens available."
-msgstr ""
+msgid "[-]"
+msgstr "[-]"
 
-msgid "PicLens downloads are currently unavailable.  Please try again later."
-msgstr ""
+msgid "[+]"
+msgstr "[+]"
 
-#, c-format
-msgid "Install PicLens version %s"
-msgstr ""
+msgid "Stop"
+msgstr "Megállítás"
 
-#, c-format
-msgid "Update to PicLens version %s"
-msgstr ""
+msgid "Back One Image"
+msgstr "Vissza"
 
-msgid "Uninstall PicLens"
-msgstr ""
+msgid "delay: "
+msgstr "késleltetés: "
 
-#~ msgid "Blend"
-#~ msgstr "Keverés"
+msgid "1 second"
+msgstr "1 másodperc"
 
-#~ msgid "Blinds"
-#~ msgstr "Rolók"
+msgid "3 seconds"
+msgstr "3 másodperc"
 
-#~ msgid "Checkerboard"
-#~ msgstr "Sakktábla"
+msgid "5 seconds"
+msgstr "5 másodperc"
 
-#~ msgid "Diagonal"
-#~ msgstr "Átlós"
+msgid "10 seconds"
+msgstr "10 másodperc"
 
-#~ msgid "Doors"
-#~ msgstr "Ajtók"
+msgid "15 seconds"
+msgstr "15 másodperc"
 
-#~ msgid "Gradient"
-#~ msgstr "Fényes"
+msgid "20 seconds"
+msgstr "20 másodperc"
 
-#~ msgid "Iris"
-#~ msgstr "Írisz"
+msgid "direction: "
+msgstr "irány: "
 
-#~ msgid "Pixelate"
-#~ msgstr "Pixelesítés"
+msgid "forward"
+msgstr "előre"
 
-#~ msgid "Rain"
-#~ msgstr "Eső"
+msgid "reverse"
+msgstr "visszafelé"
 
-#~ msgid "Slide"
-#~ msgstr "Dia"
+msgid "random"
+msgstr "véletlenszerű"
 
-#~ msgid "Snow"
-#~ msgstr "Hó"
+msgid "max size: "
+msgstr "max méret: "
 
-#~ msgid "Spiral"
-#~ msgstr "Spirál"
+msgid "320x320"
+msgstr "320x320"
 
-#~ msgid "Stretch"
-#~ msgstr "Nyújtás"
+msgid "640x640"
+msgstr "640x640"
 
-#~ msgid "RANDOM"
-#~ msgstr "Véletlenszerű"
+msgid "800x800"
+msgstr "800x800"
 
-#~ msgid "This album has no photos to show in a slideshow."
-#~ msgstr "Az album nem tartalmaz diavetítővel megjeleníthető képeket."
+msgid "1024x1024"
+msgstr "1024x1024"
 
-#~ msgid "Back to Album View"
-#~ msgstr "Vissza az album nézethez"
+msgid "1280x1280"
+msgstr "1280x1280"
 
-#~ msgid "Date: %s"
-#~ msgstr "Dátum: %s"
+msgid "no limit"
+msgstr "nincs limit"
 
-#~ msgid "Hide More Info"
-#~ msgstr "További információk elrejtése"
-
-#~ msgid "Show More Info"
-#~ msgstr "További információk"
-
-#~ msgid "Resume"
-#~ msgstr "Folytatás"
-
-#~ msgid "Pause"
-#~ msgstr "Szünet"
-
-#~ msgid "[-]"
-#~ msgstr "[-]"
-
-#~ msgid "[+]"
-#~ msgstr "[+]"
-
-#~ msgid "Stop"
-#~ msgstr "Megállítás"
-
-#~ msgid "Back One Image"
-#~ msgstr "Vissza egy képet"
-
-#~ msgid "delay: "
-#~ msgstr "késleltetés: "
-
-#~ msgid "1 second"
-#~ msgstr "1 másodperc"
-
-#~ msgid "3 seconds"
-#~ msgstr "3 másodperc"
-
-#~ msgid "5 seconds"
-#~ msgstr "5 másodperc"
-
-#~ msgid "10 seconds"
-#~ msgstr "10 másodperc"
-
-#~ msgid "15 seconds"
-#~ msgstr "15 másodperc"
-
-#~ msgid "20 seconds"
-#~ msgstr "20 másodperc"
-
-#~ msgid "direction: "
-#~ msgstr "irány: "
-
-#~ msgid "forward"
-#~ msgstr "előre"
-
-#~ msgid "reverse"
-#~ msgstr "visszafelé"
-
-#~ msgid "random"
-#~ msgstr "véletlenszerű"
-
-#~ msgid "max size: "
-#~ msgstr "max méret: "
-
-#~ msgid "320x320"
-#~ msgstr "320x320"
-
-#~ msgid "640x640"
-#~ msgstr "640x640"
-
-#~ msgid "800x800"
-#~ msgstr "800x800"
-
-#~ msgid "1024x1024"
-#~ msgstr "1024x1024"
-
-#~ msgid "1280x1280"
-#~ msgstr "1280x1280"
-
-#~ msgid "no limit"
-#~ msgstr "nincs limit"
-
-#~ msgid "fade: "
-#~ msgstr "átmenet: "
+msgid "fade: "
+msgstr "áthatás: "

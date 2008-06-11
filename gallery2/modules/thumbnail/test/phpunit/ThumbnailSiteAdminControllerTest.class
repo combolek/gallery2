@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -63,7 +63,7 @@ class ThumbnailSiteAdminControllerTest extends GalleryControllerTestCase {
 	list ($ret, $toolkit, $outputMimeType) =
 	    GalleryCoreApi::getToolkitByOperation('image/gif', 'thumbnail');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	if (!isset($toolkit)) {
 	    echo "<b>Warning</b>: testThumbnailSiteAdminControllerAddBadMime requires an active " .
@@ -77,7 +77,8 @@ class ThumbnailSiteAdminControllerTest extends GalleryControllerTestCase {
 	GalleryUtilities::putRequestVariable('form[name][1]', 'test.jpg');
 	GalleryUtilities::putRequestVariable('form[type][1]', 'image/jpeg');
 	GalleryUtilities::putRequestVariable('form[tmp_name][1]',
-	    GalleryCoreApi::getCodeBasePath('modules/core/test/data/test1.jpg'));
+	    GalleryCoreApi::getPluginBaseDir('module', 'core')
+		. 'modules/core/test/data/test1.jpg');
 
 	$results = $this->handleRequest();
 	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
@@ -93,7 +94,8 @@ class ThumbnailSiteAdminControllerTest extends GalleryControllerTestCase {
 	GalleryUtilities::putRequestVariable('form[name][1]', 'test.gif');
 	GalleryUtilities::putRequestVariable('form[type][1]', 'image/gif');
 	GalleryUtilities::putRequestVariable('form[tmp_name][1]',
-	    GalleryCoreApi::getCodeBasePath('modules/core/test/data/test1.gif'));
+	    GalleryCoreApi::getPluginBaseDir('module', 'core')
+		. 'modules/core/test/data/test1.gif');
 
 	$results = $this->handleRequest();
 	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
@@ -110,7 +112,8 @@ class ThumbnailSiteAdminControllerTest extends GalleryControllerTestCase {
 	GalleryUtilities::putRequestVariable('form[name][1]', 'test.jpg');
 	GalleryUtilities::putRequestVariable('form[type][1]', 'image/jpeg');
 	GalleryUtilities::putRequestVariable('form[tmp_name][1]',
-	    GalleryCoreApi::getCodeBasePath('modules/core/test/data/test1.jpg'));
+	    GalleryCoreApi::getPluginBaseDir('module', 'core')
+		. 'modules/core/test/data/test1.jpg');
 
 	$results = $this->handleRequest();
 	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
@@ -122,13 +125,13 @@ class ThumbnailSiteAdminControllerTest extends GalleryControllerTestCase {
 	list ($ret, $toolkit, $outputMimeType) =
 	    GalleryCoreApi::getToolkitByOperation('test/fakemime', 'thumbnail');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(GalleryUtilities::isA($toolkit, 'ThumbnailToolkit'), 'Toolkit');
 
 	list ($ret, $mimeMap) = ThumbnailHelper::fetchMimeTypeMap();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(isset($mimeMap['test/fakemime']), 'Map entry not found after add');
 	$itemId = $mimeMap['test/fakemime'];
@@ -149,7 +152,7 @@ class ThumbnailSiteAdminControllerTest extends GalleryControllerTestCase {
 	list ($ret, $toolkit, $outputMimeType) =
 	    GalleryCoreApi::getToolkitByOperation('test/fakemime2', 'thumbnail');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(GalleryUtilities::isA($toolkit, 'ThumbnailToolkit'), 'Toolkit');
 
@@ -174,7 +177,7 @@ class ThumbnailSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $mimeMap) = ThumbnailHelper::fetchMimeTypeMap();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(!isset($mimeMap['test/fakemime']), 'Map entry still found after delete');
 	$this->assert(isset($mimeMap['test/fakemime2']), 'Map entry not found after delete');
@@ -183,7 +186,7 @@ class ThumbnailSiteAdminControllerTest extends GalleryControllerTestCase {
 	list ($ret, $toolkit, $outputMimeType) =
 	    GalleryCoreApi::getToolkitByOperation('test/fakemime', 'thumbnail');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(!isset($toolkit), 'Toolkit should not be found');
 
@@ -200,7 +203,7 @@ class ThumbnailSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $mimeMap) = ThumbnailHelper::fetchMimeTypeMap();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(!isset($mimeMap['test/fakemime']), 'Map entry still found after delete');
 	$this->assert(!isset($mimeMap['test/fakemime2']), 'Map entry still found after delete');
@@ -208,7 +211,7 @@ class ThumbnailSiteAdminControllerTest extends GalleryControllerTestCase {
 	list ($ret, $toolkit, $outputMimeType) =
 	    GalleryCoreApi::getToolkitByOperation('test/fakemime2', 'thumbnail');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(!isset($toolkit), 'Toolkit should not be found');
     }

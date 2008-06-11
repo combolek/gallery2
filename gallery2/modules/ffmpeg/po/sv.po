@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Ffmpeg 1.0.11\n"
+"Project-Id-Version: Gallery: Ffmpeg 1.0.7\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2003-09-24 22:12-0700\n"
 "PO-Revision-Date: 2006-08-12 19:05+0200\n"
@@ -86,11 +86,6 @@ msgstr ""
 "laddar upp till Gallery. Du måste installera FFMPEG binärkoden på din server och sen skriva "
 "in sökvägen till den i textrutan nedan.  Om du är på en Unix maskin så glöm inte att göra "
 "binärkoden körbar (<i>chmod 755 ffmpeg</i> på rätt katalog bör fixa det)."
-
-msgid ""
-"The exec() function is disabled in your PHP by the <b>disabled_functions</b> parameter in "
-"php.ini.  This module cannot be used until that setting is changed."
-msgstr ""
 
 msgid "Path to FFMPEG:"
 msgstr "Sökväg till FFMPEG:"

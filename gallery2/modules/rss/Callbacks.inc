@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,9 +33,9 @@ class RssCallbacks {
 	case 'FeedList':
 	    if (empty($params['number'])) {
 		/* we're called during preload, so we have to find the params another way */
-	    	if (!empty($smarty->_tpl_vars['theme']['params']['sidebarBlocks'])) {
-		    $blocks = $smarty->_tpl_vars['theme']['params']['sidebarBlocks'];
+		$blocks = $smarty->_tpl_vars['theme']['params']['sidebarBlocks'];
 
+		if (isset($blocks)) {
 		    foreach ($blocks as $block) {
 			if ($block[0] == 'rss.RssBlock') {
 			    $params = $block[1];

@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,12 +34,11 @@ class MultirootModule extends GalleryModule {
 	$this->setId('multiroot');
 	$this->setName($gallery->i18n('Multiroot'));
 	$this->setDescription($gallery->i18n('Define an alternate guest view of the Gallery'));
-	$this->setVersion('1.0.2');
-	$this->_templateVersion = 1;
+	$this->setVersion('1.0.0');
 	$this->setGroup('display', $this->translate('Display'));
 	$this->setCallbacks('');
-	$this->setRequiredCoreApi(array(7, 27));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setRequiredCoreApi(array(7, 8));
+	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**

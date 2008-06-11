@@ -1,6 +1,8 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
 <div class="gbBlock gcBackground1">
   <h2> {g->text text="Watermark Images"} </h2>
@@ -29,7 +31,7 @@
 <div class="gbBlock">
   <table class="gbDataTable"><tr>
     <td>
-      <input type="checkbox" {if $form.allowUserWatermarks}checked="checked" {/if}
+      <input type="checkbox"{if $form.allowUserWatermarks} checked="checked"{/if}
        name="{g->formVar var="form[allowUserWatermarks]"}" id="allowUserWatermarks"
        {if $form.forceDefaultWatermark}disabled="disabled"{/if}/>
     </td><td>
@@ -37,7 +39,7 @@
 	{g->text text="Allow users to upload their own watermark images"}
       </label>
     </td></tr><tr><td>
-      <input type="checkbox" {if $form.forceDefaultWatermark}checked="checked" {/if}
+      <input type="checkbox"{if $form.forceDefaultWatermark} checked="checked"{/if}
        name="{g->formVar var="form[forceDefaultWatermark]"}" id="forceDefaultWatermark"
        onclick="document.getElementById('allowUserWatermarks').disabled=this.checked"/>
     </td><td>
@@ -77,10 +79,10 @@
 	{g->text text="delete"}
       </a>
     </td><td style="text-align:center">
-      <input type="radio" {if $item.id == $form.hotlinkWatermarkId}checked="checked" {/if}
+      <input type="radio"{if $item.id == $form.hotlinkWatermarkId} checked="checked"{/if}
        name="{g->formVar var="form[hotlinkWatermarkId]"}" value="{$item.id}"/>
     </td><td style="text-align:center">
-      <input type="radio" {if $item.id == $form.defaultWatermarkId}checked="checked" {/if}
+      <input type="radio"{if $item.id == $form.defaultWatermarkId} checked="checked"{/if}
        name="{g->formVar var="form[defaultWatermarkId]"}" value="{$item.id}"/>
     </td>
   </tr>

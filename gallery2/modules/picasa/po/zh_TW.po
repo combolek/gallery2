@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Picasa 1.0.9\n"
+"Project-Id-Version: Gallery: Picasa 1.0.5\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-01-20 22:40-0500\n"
 "PO-Revision-Date: 2006-01-20 22:40-0500\n"
@@ -36,16 +36,6 @@ msgstr "引進相簿"
 msgid "Importing photos"
 msgstr "引進照片"
 
-#, c-format
-msgid "%d megabyte"
-msgid_plural "%d megabytes"
-msgstr[0] "%d MB"
-
-#, c-format
-msgid "%d kilobytes"
-msgid_plural "%d kilobytes"
-msgstr[0] "%d KB"
-
 msgid "Base filename"
 msgstr "基礎檔名"
 
@@ -57,6 +47,16 @@ msgstr "空白"
 
 msgid "From Picasa 2"
 msgstr "從 Picasa 2"
+
+#, c-format
+msgid "%d megabyte"
+msgid_plural "%d megabytes"
+msgstr[0] "%d MB"
+
+#, c-format
+msgid "%d kilobytes"
+msgid_plural "%d kilobytes"
+msgstr[0] "%d KB"
 
 msgid "Picasa"
 msgstr "Picasa"
@@ -223,10 +223,11 @@ msgstr ""
 #, c-format
 msgid ""
 "You don't have any Graphics Toolkit activated to handle JPEG images.  If you import now, you "
-"will not have any thumbnails.  Visit the %sModules%s page to activate a Graphics Toolkit."
+"will not have any thumbnails.  Visit the <a href=\"%s\">Modules</a> page to activate a "
+"Graphics Toolkit."
 msgstr ""
-"你沒有任何以處厘 JPEG 圖像的圖形工具。如果你現在引進，你不會有任何縮略圖。請到%s模組%s頁面啟"
-"用適當的圖形工具。"
+"你沒有任何以處厘 JPEG 圖像的圖形工具。如果你現在引進，你不會有任何縮略圖。請到<a href=\"%s\">"
+"模組</a>頁面啟用適當的圖形工具。"
 
 msgid "Destination Album"
 msgstr "目的相簿"

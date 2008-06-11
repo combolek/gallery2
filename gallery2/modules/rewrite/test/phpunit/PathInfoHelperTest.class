@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,20 +35,19 @@ class PathInfoHelperTest extends GalleryTestCase {
 
     function setUp() {
 	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'rewrite');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Set up our environment */
 	$ret = GalleryCoreApi::setPluginParameter('module', 'rewrite', 'pathinfo.forced', '0');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->_parser = new PathInfoParser();
@@ -63,7 +62,7 @@ class PathInfoHelperTest extends GalleryTestCase {
 	GalleryUtilities::putRequestVariable('pathInfoTest', 'pass');
 	list ($ret, $status, $trueStatus) = PathInfoHelper::checkPathInfo();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(REWRITE_STATUS_OK, $status, 'status');
 	$this->assertEquals(REWRITE_STATUS_OK, $trueStatus, 'trueStatus');
@@ -73,7 +72,7 @@ class PathInfoHelperTest extends GalleryTestCase {
 	GalleryUtilities::putRequestVariable('pathInfoTest', 'fail');
 	list ($ret, $status, $trueStatus) = PathInfoHelper::checkPathInfo();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(REWRITE_STATUS_NO_PATH_INFO, $status, 'status');
 	$this->assertEquals(REWRITE_STATUS_NO_PATH_INFO, $trueStatus, 'trueStatus');
@@ -81,7 +80,7 @@ class PathInfoHelperTest extends GalleryTestCase {
 	GalleryUtilities::putRequestVariable('pathInfoTest', '404');
 	list ($ret, $status, $trueStatus) = PathInfoHelper::checkPathInfo();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(REWRITE_STATUS_NO_PATH_INFO, $status, 'status');
 	$this->assertEquals(REWRITE_STATUS_NO_PATH_INFO, $trueStatus, 'trueStatus');
@@ -90,13 +89,13 @@ class PathInfoHelperTest extends GalleryTestCase {
     function testCheckPathInfoForced() {
 	$ret = GalleryCoreApi::setPluginParameter('module', 'rewrite', 'pathinfo.forced', '1');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	GalleryUtilities::putRequestVariable('pathInfoTest', 'fail');
 	list ($ret, $status, $trueStatus) = PathInfoHelper::checkPathInfo();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(REWRITE_STATUS_OK, $status, 'status');
 	$this->assertEquals(REWRITE_STATUS_NO_PATH_INFO, $trueStatus, 'trueStatus');

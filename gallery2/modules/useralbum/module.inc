@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,28 +32,23 @@ class UserAlbumModule extends GalleryModule /* and GalleryEventListener */ {
 	$this->setId('useralbum');
 	$this->setName($gallery->i18n('User Albums'));
 	$this->setDescription($gallery->i18n('Create an album for each new user'));
-	$this->setVersion('1.0.9');
-	$this->_templateVersion = 1;
+	$this->setVersion('1.0.5');
 	$this->setGroup('gallery', $gallery->i18n('Gallery'));
-	$this->setCallbacks('getSiteAdminViews|getSystemLinks');
-	$this->setRequiredCoreApi(array(7, 53));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setCallbacks('registerEventListeners|getSiteAdminViews|getSystemLinks');
+	$this->setRequiredCoreApi(array(7, 4));
+	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
-     * @see GalleryModule::performFactoryRegistrations
+     * @see GalleryModule::registerEventListeners
      */
-    function performFactoryRegistrations() {
-	$ret = GalleryCoreApi::registerFactoryImplementation(
-	    'GalleryEventListener', 'UserAlbumModule', 'UserAlbumModule', 
-	    'modules/useralbum/module.inc', 'useralbum', 
-	    array('GalleryEntity::delete', 'GalleryEntity::save', 'Gallery::Login'));
-	if ($ret) {
-	    return $ret;
-	}
-
-	return null;
+    function registerEventListeners() {
+	$listener = new UserAlbumModule();
+	GalleryCoreApi::registerEventListener('GalleryEntity::save', $listener, true);
+	GalleryCoreApi::registerEventListener('GalleryEntity::delete', $listener);
+	GalleryCoreApi::registerEventListener('Gallery::Login', $listener);
     }
+
     /**
      * @see GalleryModule::upgrade
      */

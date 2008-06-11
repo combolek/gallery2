@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,7 +19,6 @@
  */
 
 GalleryCoreApi::requireOnce('modules/sizelimit/classes/SizeLimitHelper.class');
-GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
 
 /**
  * SizeLimitHelper tests. Test the areas that are not covered by AddPhotoOption
@@ -37,10 +36,7 @@ class SizeLimitHelperTest extends GalleryTestCase {
     function setUp() {
 	global $gallery;
 
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	/* create custom platform to return dummy filesize, imagesize, etc. */
 	$gallery->setPlatform(new SizeLimitHelperTestPlatform($gallery->getPlatform()));
@@ -50,7 +46,8 @@ class SizeLimitHelperTest extends GalleryTestCase {
 	    'GalleryToolkit', 'SizeLimitHelperTestToolkit', 'SizeLimitHelperTestToolkit',
 	    'modules/sizelimit/test/phpunit/SizeLimitHelperTest.class', 'sizelimitTest', null);
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markToolkitForCleanup('SizeLimitHelperTestToolkit');
 
@@ -59,19 +56,22 @@ class SizeLimitHelperTest extends GalleryTestCase {
 	    array('image/known'), 'test',
 	    array(array('type' => 'int', 'description' => 'size')), 'desc');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	/* we will return dimensions to whoever asks */
 	$ret = GalleryCoreApi::registerToolkitProperty('SizeLimitHelperTestToolkit',
 	    array('image/known'), 'dimensions', 'int,int', 'desc');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($this->_album);
 
@@ -80,7 +80,8 @@ class SizeLimitHelperTest extends GalleryTestCase {
 	    $this->_album->getId(), 'image/known',
 	    array('summary' => 'original summary', 'description' => 'original description'));
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Not all file types can be resized/compressed. Here is an example of such item */
@@ -88,7 +89,8 @@ class SizeLimitHelperTest extends GalleryTestCase {
 	    'image/unknown',
 	    array('summary' => 'plagiarized summary', 'description' => 'plagiarized description'));
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
     }
 
@@ -99,25 +101,25 @@ class SizeLimitHelperTest extends GalleryTestCase {
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'sizelimit',
 		$key, $value, $this->_album->getId());
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	}
 	$ret = SizeLimitHelper::buildDerivativeWithLimits($this->_item, 'test', array(26));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Check to see if we have a preferred source */
 	list ($ret, $resized) = GalleryCoreApi::fetchPreferredSource($this->_item);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(GalleryUtilities::isExactlyA($resized, 'GalleryDerivativeImage'),
 		      'not a derivative image');
 
 	$ret = $resized->rebuildCache();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals('image/known', $resized->getMimeType(), 'MIME Type');
 	$this->assertEquals('test|26', $resized->getDerivativeOperations(), 'Operations');
@@ -136,14 +138,14 @@ class SizeLimitHelperTest extends GalleryTestCase {
 	$ret = GalleryCoreApi::setPluginParameter('module', 'sizelimit',
 	    'size', 1000, $this->_album->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$ret = SizeLimitHelper::applyLimits($this->_item, 'test', array(26));
 	$this->assert(!$ret, 'applyLimits');
 
 	list ($ret, $this->_item) = $this->_item->refresh();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(1000, $this->_item->getSize(), 'Size');
@@ -156,13 +158,13 @@ class SizeLimitHelperTest extends GalleryTestCase {
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'sizelimit',
 		$key, $value, $this->_album->getId());
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	}
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'sizelimit');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = SizeLimitHelper::applyLimits($this->_itemUnknown, 'test', array(26));

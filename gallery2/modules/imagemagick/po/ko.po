@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,9 +19,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: ImageMagick 1.1.3\n"
+"Project-Id-Version: Gallery: ImageMagick 1.1.1\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2007-06-14 17:25-0700\n"
+"POT-Creation-Date: 2006-12-20 09:44-0800\n"
 "PO-Revision-Date: 2006-06-01 11:05+0900\n"
 "Last-Translator: Juice <blackmantle@gmail.com>\n"
 "Language-Team: Korean <gallery-translations@lists.sourceforge.net>\n"
@@ -50,23 +50,23 @@ msgid "target width (# pixels or #% of full size)"
 msgstr ""
 
 msgid "(optional) target height, defaults to same as width"
-msgstr "(선택) 목표 높이, 기본적으로 폭과 같음"
+msgstr ""
 
 msgid "Scale the image to the target size, maintain aspect ratio"
-msgstr "목표 크기에 이미지 크기조정, 비율은 유지"
+msgstr ""
 
 #, no-c-format
 msgid "target height (# pixels or #% of full size)"
 msgstr ""
 
 msgid "Resize the image to the target dimensions"
-msgstr "목표 크기에 이미지 크기조정"
+msgstr ""
 
 msgid "rotation degrees"
-msgstr "회전 각"
+msgstr ""
 
 msgid "Rotate the image"
-msgstr "이미지 회전"
+msgstr ""
 
 msgid "left edge %"
 msgstr ""
@@ -75,37 +75,37 @@ msgid "top edge %"
 msgstr ""
 
 msgid "width %"
-msgstr "폭 %"
+msgstr ""
 
 msgid "height %"
-msgstr "높이 %"
+msgstr ""
 
 msgid "Crop the image"
-msgstr "이미지 잘라내기"
+msgstr ""
 
 msgid "overlay path"
-msgstr "오버레이 경로"
+msgstr ""
 
 msgid "overlay mime type"
-msgstr "오버레이 mime 형식"
+msgstr ""
 
 msgid "overlay width"
-msgstr "오버레이 폭"
+msgstr ""
 
 msgid "overlay height"
-msgstr "오버레이 높이"
+msgstr ""
 
 msgid "alignment type"
-msgstr "정렬 형식"
+msgstr ""
 
 msgid "alignment x %"
-msgstr "정렬 x %"
+msgstr ""
 
 msgid "alignment y %"
-msgstr "정렬 y %"
+msgstr ""
 
 msgid "Overlay source image with a second one"
-msgstr "소스 이미지와 두번째를 겹치기"
+msgstr ""
 
 msgid "page number"
 msgstr ""
@@ -114,13 +114,13 @@ msgid "Select a single page from a multi-page file"
 msgstr ""
 
 msgid "target size in kb"
-msgstr "목표 크기 (kb)"
+msgstr ""
 
 msgid "Reduce image quality to reach target file size"
-msgstr "목표 파일 크기에 맞추기 위해 이미지 품질 감소"
+msgstr ""
 
 msgid "Get the width and height of the image"
-msgstr "이미지의 폭과 높이를 받아옵니다."
+msgstr ""
 
 msgid "Get the number of pages"
 msgstr ""
@@ -129,7 +129,7 @@ msgid "Get the colorspace of the image"
 msgstr ""
 
 msgid "File does not exist"
-msgstr "파일 존재하지 않음"
+msgstr ""
 
 msgid "Problem executing binary:"
 msgstr ""
@@ -150,11 +150,6 @@ msgid ""
 "executable (<i>chmod 755 *</i> in the ImageMagick directory should do it)"
 msgstr ""
 
-msgid ""
-"The exec() function is disabled in your PHP by the <b>disabled_functions</b> parameter in "
-"php.ini.  This module cannot be used until that setting is changed."
-msgstr ""
-
 msgid "Directory to ImageMagick/GraphicsMagick binaries:"
 msgstr ""
 
@@ -170,10 +165,10 @@ msgid ""
 msgstr ""
 
 msgid "The path you entered isn't a valid path."
-msgstr "입력하신 경로는 올바른 경로가 아닙니다."
+msgstr ""
 
 msgid "JPEG Quality:"
-msgstr "JPEG 품질:"
+msgstr ""
 
 msgid ""
 "ImageMagick can detect non-webviewable color spaces like CMYK and create a webviewable copy "
@@ -185,10 +180,10 @@ msgid "CMYK Support:"
 msgstr ""
 
 msgid "Save Settings"
-msgstr "설정 저장"
+msgstr ""
 
 msgid "Test Settings"
-msgstr "설정 시험"
+msgstr ""
 
 msgid "Cancel"
 msgstr "취소"
@@ -200,19 +195,19 @@ msgid "ImageMagick binary test results"
 msgstr ""
 
 msgid "Binary Name"
-msgstr "바이러니 이름"
+msgstr ""
 
 msgid "Pass/Fail"
-msgstr "통과/실패"
+msgstr ""
 
 msgid "Passed"
-msgstr "통과"
+msgstr ""
 
 msgid "Failed"
 msgstr "실패"
 
 msgid "Error messages:"
-msgstr "오류 보고:"
+msgstr ""
 
 msgid "Version"
 msgstr ""
@@ -229,7 +224,7 @@ msgid "Use this version anyway"
 msgstr ""
 
 msgid "Supported MIME Types"
-msgstr "MIME 유형 제공"
+msgstr ""
 
 msgid "The ImageMagick module can support files with the following MIME types:"
 msgstr ""
@@ -238,7 +233,6 @@ msgstr ""
 msgid "Debug output (%d failed test)"
 msgid_plural "Debug output (%d failed tests)"
 msgstr[0] ""
-msgstr[1] ""
 
 msgid ""
 "We gathered this debug output while testing your ImageMagick binaries.  If you read through "

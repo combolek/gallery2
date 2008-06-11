@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 # Previous translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Registration 1.0.12\n"
+"Project-Id-Version: Gallery: Registration 1.0.8\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2006-12-20 09:54-0800\n"
 "PO-Revision-Date: 2006-03-16 10:19+0200\n"
@@ -61,9 +61,6 @@ msgstr "Rekening aktivering"
 
 msgid "New user registration"
 msgstr "Nuwe gebruikersregistrasie"
-
-msgid "Welcome to Gallery"
-msgstr ""
 
 msgid "Register"
 msgstr "Registreer"
@@ -126,18 +123,11 @@ msgstr "Afsender(Van) Epos-adres:"
 msgid "Confirmation Email Subject:"
 msgstr "Bevestigings-Epos Onderwerp:"
 
-msgid "Email Site Administrators for all new registrations"
-msgstr "Epos Werfadministrateurs vir alle nuwe registrasies"
-
 msgid "Admin Email Subject:"
 msgstr "Administrateur Epos Onderwerp:"
 
-msgid "Email new users upon account activation"
-msgstr ""
-
-#, fuzzy
-msgid "Welcome Email Subject:"
-msgstr "Administrateur Epos Onderwerp:"
+msgid "Email Site Administrators for all new registrations"
+msgstr "Epos Werfadministrateurs vir alle nuwe registrasies"
 
 msgid "Save"
 msgstr "Stoor"
@@ -297,5 +287,24 @@ msgstr "Die wagwoorde wat u verskaf het kom nie ooreen nie"
 msgid "Cancel"
 msgstr "Kanselleer"
 
-msgid "Your account is now active. Visit the site listed above to login."
-msgstr ""
+#~ msgid "This procedure is necessary to prevent account abuse."
+#~ msgstr "Hierdie prosedure is noodsaaklik om misbruik van rekeninge te voorkom."
+
+#~ msgid "You can now"
+#~ msgstr "U kan nou"
+
+#~ msgid "login"
+#~ msgstr "inteken"
+
+#~ msgid "to your account with your username and password."
+#~ msgstr "op u rekening met u gebruikersnaam en wagwoord."
+
+#~ msgid "This page can only be called once."
+#~ msgstr "Hierdie bladsy kan slegs eenkeer opgeroep word."
+
+#~ msgid ""
+#~ "This page has been requested before and can only be called once. Probable you have hit "
+#~ "the Reload button. Please proceed to %s."
+#~ msgstr ""
+#~ "Hierdie bladsy is reeds eenkeer aangevra en kan slegs eenmaal gebruik word.  Moontlik het "
+#~ "u op die Reload knop gedruk.  Gaan nou na %s."

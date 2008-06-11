@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,9 +21,9 @@
 # Gidie <gidie at users.sourceforge REMOVE THIS dot net>, 2005
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Image Block 1.1.8\n"
-"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2007-06-14 17:24-0700\n"
+"Project-Id-Version: Gallery: Image Block 1.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-02-12 14:46+0100\n"
 "PO-Revision-Date: 2005-02-12 15:00+0100\n"
 "Last-Translator: Gidie <gidie at users.sourceforge REMOVE THIS dot net>\n"
 "Language-Team: Dutch <gallery-devel@lists.sourceforge.net>\n"
@@ -39,6 +39,24 @@ msgstr "Willekeurig, Meest Recent of Meest Bekeken Foto of Album"
 
 msgid "Blocks"
 msgstr "Blokken"
+
+msgid "Picture of the Day"
+msgstr "Afbeelding van de Dag"
+
+msgid "Picture of the Week"
+msgstr "Afbeelding van de Week"
+
+msgid "Picture of the Month"
+msgstr "Afbeelding van de Maand"
+
+msgid "Album of the Day"
+msgstr "Album van de Dag"
+
+msgid "Album of the Week"
+msgstr "Album van de Week"
+
+msgid "Album of the Month"
+msgstr "Album van de Maand"
 
 #, fuzzy
 msgid "Random Image"
@@ -61,8 +79,8 @@ msgstr[1] "Meest Bekeken Afbeelding"
 #, fuzzy
 msgid "Random Album"
 msgid_plural "Random Albums"
-msgstr[0] "Willekeurig Album"
-msgstr[1] "Willekeurig Album"
+msgstr[0] "Wikkekeurig Album"
+msgstr[1] "Wikkekeurig Album"
 
 #, fuzzy
 msgid "Newest Album"
@@ -76,24 +94,6 @@ msgid_plural "Most Viewed Albums"
 msgstr[0] "Meest Bekeken Album"
 msgstr[1] "Meest Bekeken Album"
 
-msgid "Picture of the Day"
-msgstr "Afbeelding van de Dag"
-
-msgid "Picture of the Week"
-msgstr "Afbeelding van de Week"
-
-msgid "Picture of the Month"
-msgstr "Afbeelding van de Maand"
-
-msgid "Album of the Day"
-msgstr "Album van de Dag"
-
-msgid "Album of the Week"
-msgstr "Album van de Week"
-
-msgid "Album of the Month"
-msgstr "Album van de Maand"
-
 msgid "Date:"
 msgstr "Datum:"
 
@@ -106,7 +106,7 @@ msgid "Owner: %s"
 msgstr "Eigenaar: %s"
 
 msgid "Prevent this album from being displayed in the Image Block"
-msgstr "Voorkom dat dit album wordt weergegeven in het Afbeeling Blok"
+msgstr "Voorkom dat dit album wordt weergegevn in het Afbeeling Blok"
 
 msgid "Apply ImageBlock settings to sub-albums"
 msgstr "Toepassen op sub-albums"
@@ -172,10 +172,9 @@ msgstr ""
 "recentAlbum, viewedAlbum, dailyImage, weeklyImage, monthlyImage, dailyAlbum, weeklyAlbum, "
 "monthlyAlbum, specifiItem; standaard is randomImage"
 
-#, fuzzy
 msgid ""
-"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize, rawImage; "
-"the value can also be: none"
+"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize; the value "
+"can also be: none"
 msgstr ""
 "Pipe(|) aparte lijsten gekozen vanuit: title, date, views, owner, heading fullSize; the "
 "waarde kan ook zijn: none"
@@ -251,7 +250,7 @@ msgid "Viewed image"
 msgstr "Bekeken afbeelding"
 
 msgid "Random album"
-msgstr "Willekeurig album"
+msgstr "Wikkekeurig album"
 
 msgid "Recent album"
 msgstr "Recente album"
@@ -278,7 +277,7 @@ msgid "Monthly album"
 msgstr "Maandelijkse album"
 
 msgid "Number of items"
-msgstr "Aantal items"
+msgstr ""
 
 msgid "Use default settings"
 msgstr "Gebruik standaard instellingen"
@@ -297,3 +296,10 @@ msgstr "Weergave teller weergeven"
 
 msgid "Show owner"
 msgstr "Eigenaar weergeven"
+
+#~ msgid ""
+#~ "Scale images to this maximum size. If maxSize exceeds the thumbnail dimensions, you must "
+#~ "also specify g2_show=fullSize"
+#~ msgstr ""
+#~ "Afbeeldingen schalen naar de maximale grootte. Als maxSize groter is dan de miniatuur "
+#~ "afmetingen dient u ook g2_show=fullSize op te geven"

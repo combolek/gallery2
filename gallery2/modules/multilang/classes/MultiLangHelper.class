@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,7 +32,7 @@ class MultiLangHelper {
      * Get language data for an item
      *
      * @param int $itemId
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *               array (language => array data, ..)
      */
     function getItemData($itemId) {
@@ -54,12 +54,12 @@ class MultiLangHelper {
     /**
      * Set language data for an item, or remove data if all text parameters are empty
      *
-     * @param GalleryItem $item
+     * @param object GalleryItem $item
      * @param string $language
      * @param string $title (optional)
      * @param string $summary (optional)
      * @param string $description (optional)
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function setItemData($item, $language, $title=null, $summary=null, $description=null) {
 	$itemId = $item->getId();
@@ -149,8 +149,8 @@ class MultiLangHelper {
     /**
      * Update item with data for the current language, if available
      *
-     * @param GalleryItem $item
-     * @return GalleryStatus a status code
+     * @param object GalleryItem $item
+     * @return object GalleryStatus a status code
      */
     function onLoad(&$item) {
 	global $gallery;

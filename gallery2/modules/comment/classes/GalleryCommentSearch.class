@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,7 +18,6 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-GalleryCoreApi::requireOnce('modules/comment/module.inc');
 GalleryCoreApi::requireOnce('modules/search/classes/GallerySearchInterface_1_0.class');
 
 /**
@@ -75,7 +74,7 @@ class GalleryCommentSearch extends GallerySearchInterface_1_0 {
 	}
 
 	$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
-	$countQuery = '
+	$countQuery = sprintf('
 	SELECT
 	  COUNT([GalleryChildEntity::id])
 	FROM
@@ -85,16 +84,14 @@ class GalleryCommentSearch extends GallerySearchInterface_1_0 {
 	  AND
 	  [GalleryChildEntity::parentId] = [GalleryAccessSubscriberMap::itemId]
 	  AND
-	  [GalleryAccessSubscriberMap::accessListId] IN (' . $aclMarkers . ')
+	  [GalleryAccessSubscriberMap::accessListId] IN (%s)
 	  AND
 	  ([GalleryComment::subject] LIKE ?
 	   OR
 	   [GalleryComment::comment] LIKE ?)
-          AND
-          [GalleryComment::publishStatus] = ?
-	';
+	', $aclMarkers);
 
-	$query = '
+	$query = sprintf('
 	SELECT
 	  [GalleryChildEntity::id],
 	  [GalleryComment::subject],
@@ -113,20 +110,18 @@ class GalleryCommentSearch extends GallerySearchInterface_1_0 {
 	  AND
 	  [GalleryChildEntity::parentId] = [GalleryAccessSubscriberMap::itemId]
 	  AND
-	  [GalleryAccessSubscriberMap::accessListId] IN (' . $aclMarkers . ')
+	  [GalleryAccessSubscriberMap::accessListId] IN (%s)
 	  AND
 	  ([GalleryComment::subject] LIKE ?
 	   OR
 	   [GalleryComment::comment] LIKE ?)
-          AND
-          [GalleryComment::publishStatus] = ?
 	ORDER BY
-	  [GalleryComment::date] DESC, [GalleryChildEntity::id] DESC';
+	  [GalleryComment::date] DESC, [GalleryChildEntity::id] DESC
+	', $aclMarkers);
 
 	$data = $aclIds;
 	$data[] = '%' . $criteria . '%';
 	$data[] = '%' . $criteria . '%';
-	$data[] = COMMENT_PUBLISH_STATUS_PUBLISHED;
 
 	/* Find the total */
 	list ($ret, $results) = $gallery->search($countQuery, $data);

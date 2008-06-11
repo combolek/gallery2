@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -59,13 +59,12 @@ class CaptchaHelper {
      */
     function generateCaptchaSessionKey() {
 	global $gallery;
-
-	/* These letters are relatively unambiguous when made hard to read */
-	$goodChars = 'ABEHJKMNPSUWXZ';
-	$code = '' ;
-	for ($i = 0; $i < 6; $i++) {
-	    $code .= substr($goodChars, rand(0, strlen($goodChars) - 1), 1);
-	}
+	list ($usec, $sec) = explode(' ', microtime());
+	$random_num = rand();
+	$datekey = date('H i s');
+	$rcode = hexdec(md5(GalleryUtilities::getServerVar('HTTP_USER_AGENT') .
+			    $random_num . $datekey));
+	$code = substr($rcode, 2, 6);
 	$session =& $gallery->getSession();
 	$session->put('captcha.key', $code);
     }

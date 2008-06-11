@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -39,17 +39,16 @@ class HiddenHelper extends HiddenInterface_1_0 {
      * If an album, cascades the effects to all contained items that aren't already hidden.
      * Thus all contents of the album are hidden and become visible when the album is accessed.
      *
-     * @param GalleryItem $item the item to be hidden
+     * @param object GalleryItem $item the item to be hidden
      * @param boolean $useProgressBar (default is false)
      * @param int $hideId used in recursive calls
      * @param int $hiddenAncestor used in recursive calls
      * @param int $passwordAncestor used in recursive calls
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function hideItem(&$item, $useProgressBar=false,
 		      $hideId=null, $hiddenAncestor=null, $passwordAncestor=null) {
 	global $gallery;
-
 	/* If item is already hidden, we're done */
 	if ($item->hasOnLoadHandler('Hidden')) {
 	    return null;
@@ -149,31 +148,23 @@ class HiddenHelper extends HiddenInterface_1_0 {
 
 	/* Set onLoadHandler */
 	if ($itemId == $hideId) {
-	    if (!$item->hasOnLoadHandler('Hidden')) {
-		list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($itemId);
-		if ($ret) {
-		    return $ret;
-		}
-		$ret = GalleryCoreApi::addMapEntry('ItemHiddenMap', array('itemId' => $itemId));
-		if ($ret) {
-		    GalleryCoreApi::releaseLocks($lockId);
-		    return $ret;
-		}
-		list ($ret, $item) = $item->refresh();
-		if ($ret) {
-		    GalleryCoreApi::releaseLocks($lockId);
-		    return $ret;
-		}
-		$item->addOnLoadHandler('Hidden');
-		$ret = $item->save();
-		if ($ret) {
-		    GalleryCoreApi::releaseLocks($lockId);
-		    return $ret;
-		}
-		$ret = GalleryCoreApi::releaseLocks($lockId);
-		if ($ret) {
-		    return $ret;
-		}
+	    list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($itemId);
+	    if ($ret) {
+		return $ret;
+	    }
+	    list ($ret, $item) = $item->refresh();
+	    if ($ret) {
+		return $ret;
+	    }
+	    $item->addOnLoadHandler('Hidden');
+	    $ret = $item->save();
+	    if ($ret) {
+		GalleryCoreApi::releaseLocks($lockId);
+		return $ret;
+	    }
+	    $ret = GalleryCoreApi::releaseLocks($lockId);
+	    if ($ret) {
+		return $ret;
 	    }
 	}
 
@@ -191,8 +182,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 		return $ret;
 	    }
 	    if (!empty($childIds)) {
-		list ($ret, $childItems) =
-		    GalleryCoreApi::loadEntitiesById($childIds, 'GalleryItem');
+		list ($ret, $childItems) = GalleryCoreApi::loadEntitiesById($childIds);
 		if ($ret) {
 		    return $ret;
 		}
@@ -226,12 +216,12 @@ class HiddenHelper extends HiddenInterface_1_0 {
      * user or everybody group if they have either core.viewResizes or core.viewSource.
      * If an album, cascade the effects to all child items that are not hidden themselves.
      *
-     * @param GalleryItem $item the item to unhide
+     * @param object GalleryItem $item the item to unhide
      * @param boolean $useProgressBar (default is false)
      * @param int $hideId used in recursive calls
      * @param int $hiddenAncestor used in recursive calls
      * @param int $passwordAncestor used in recursive calls
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function unHideItem(&$item, $useProgressBar=false,
 			$hideId=null, $hiddenAncestor=null, $passwordAncestor=null) {
@@ -241,7 +231,6 @@ class HiddenHelper extends HiddenInterface_1_0 {
 	    return null;
 	}
 	$itemId = $item->getId();
-
 	if (!isset($hideId)) {
 	    $hideId = $itemId;
 	    $gallery->guaranteeTimeLimit(60);
@@ -299,33 +288,6 @@ class HiddenHelper extends HiddenInterface_1_0 {
 	/* Remove session based permission */
 	if ($item->getId() != $hideId || !$hasPassword) {
 	    $ret = GalleryCoreApi::removeEntityPermission($itemId, $hideId, 'core.view');
-	    if ($ret) {
-		return $ret;
-	    }
-	}
-
-	/* Remove onLoadHandler and remove from ItemHiddenMap */
-	if ($itemId == $hideId) {
-	    $ret = GalleryCoreApi::removeMapEntry('ItemHiddenMap', array('itemId' => $itemId));
-	    if ($ret) {
-		return $ret;
-	    }
-
-	    list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($itemId);
-	    if ($ret) {
-		return $ret;
-	    }
-	    list ($ret, $item) = $item->refresh();
-	    if ($ret) {
-		return $ret;
-	    }
-	    $item->removeOnLoadHandler('Hidden');
-	    $ret = $item->save();
-	    if ($ret) {
-		GalleryCoreApi::releaseLocks($lockId);
-		return $ret;
-	    }
-	    $ret = GalleryCoreApi::releaseLocks($lockId);
 	    if ($ret) {
 		return $ret;
 	    }
@@ -399,6 +361,28 @@ class HiddenHelper extends HiddenInterface_1_0 {
 	    }
 	}
 
+	/* Remove onLoadHandler */
+	if ($itemId == $hideId) {
+	    list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($itemId);
+	    if ($ret) {
+		return $ret;
+	    }
+	    list ($ret, $item) = $item->refresh();
+	    if ($ret) {
+		return $ret;
+	    }
+	    $item->removeOnLoadHandler('Hidden');
+	    $ret = $item->save();
+	    if ($ret) {
+		GalleryCoreApi::releaseLocks($lockId);
+		return $ret;
+	    }
+	    $ret = GalleryCoreApi::releaseLocks($lockId);
+	    if ($ret) {
+		return $ret;
+	    }
+	}
+
 	/* Now apply to children as well, but stop at password protected item */
 	if ($item->getCanContainChildren() && !$hasPassword) {
 	    list ($ret, $childIds) = GalleryCoreApi::fetchChildItemIdsIgnorePermissions($item);
@@ -406,8 +390,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 		return $ret;
 	    }
 	    if (!empty($childIds)) {
-		list ($ret, $childItems) =
-		    GalleryCoreApi::loadEntitiesById($childIds, 'GalleryItem');
+		list ($ret, $childItems) = GalleryCoreApi::loadEntitiesById($childIds);
 		if ($ret) {
 		    return $ret;
 		}
@@ -439,9 +422,9 @@ class HiddenHelper extends HiddenInterface_1_0 {
     /**
      * Check for nearest hidden/password ancestor of given item
      *
-     * @param GalleryItem $item
+     * @param object GalleryItem $item
      * @param mixed $passwordInterface instance of PasswordInterface or false
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *               mixed id of nearest hidden ancestor or false
      *               mixed id of nearest password protected ancestor or false
      * @access private
@@ -472,15 +455,15 @@ class HiddenHelper extends HiddenInterface_1_0 {
     /**
      * Update permissions as needed for appropriate hidden status when moving an item.
      *
-     * @param GalleryItem $item item that has moved
-     * @return GalleryStatus a status code
+     * @param object GalleryItem $item item that has moved
+     * @return object GalleryStatus a status code
      */
     function handleMoveItem($item) {
 	global $gallery;
 	$oldParentId = $item->getOriginalValue('parentId');
 	$newParentId = $item->getParentId();
 	list ($ret, $parents) =
-	    GalleryCoreApi::loadEntitiesById(array($oldParentId, $newParentId), 'GalleryItem');
+	    GalleryCoreApi::loadEntitiesById(array($oldParentId, $newParentId));
 	if ($ret) {
 	    return $ret;
 	}

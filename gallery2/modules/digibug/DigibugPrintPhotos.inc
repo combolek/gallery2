@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -59,27 +59,16 @@ class DigibugPrintPhotosView extends GalleryView {
 	if (empty($cartItemIds) || empty($returnUrl)) {
 	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 	}
-	$ret = $urlGenerator->assertIsInternalUrl($returnUrl);
-	if ($ret) {
-	    return $ret;
-	}
-	
-	/* Load the necessary item data */
-	$itemIds = array_keys($cartItemIds);
-	list ($ret, $items) = GalleryCoreApi::loadEntitiesById($itemIds, 'GalleryPhotoItem');
+	$ret = $this->assertIsInternalUrl($returnUrl);
 	if ($ret) {
 	    return $ret;
 	}
 
-	list ($ret, $permissions) = GalleryCoreApi::fetchPermissionsForItems($itemIds);
+	/* Load the necessary item data */
+	$itemIds = array_keys($cartItemIds);
+	list ($ret, $items) = GalleryCoreApi::loadEntitiesById($itemIds);
 	if ($ret) {
 	    return $ret;
-	}
-	foreach ($itemIds as $id) {
-	    if (empty($permissions[$id]['core.view'])) {
-		/* Avoid information disclosure, act as if the item didn't exist. */
-		return GalleryCoreApi::error(ERROR_MISSING_OBJECT);
-	    }
 	}
 
 	list ($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds($itemIds);
@@ -97,14 +86,18 @@ class DigibugPrintPhotosView extends GalleryView {
 	    return $ret;
 	}
 
+	$ret = GalleryCoreApi::studyPermissions($itemIds);
+	if ($ret) {
+	    return $ret;
+	}
+
 	/* We want to know which are viewable to guests */
 	list ($ret, $anonymousUserId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
 	if ($ret) {
 	    return $ret;
 	}
-	list ($ret, $publicPermissions) =
-	    GalleryCoreApi::fetchPermissionsForItems($itemIds, $anonymousUserId, false);
+	$ret = GalleryCoreApi::studyPermissions($itemIds, $anonymousUserId, false);
 	if ($ret) {
 	    return $ret;
 	}
@@ -114,13 +107,23 @@ class DigibugPrintPhotosView extends GalleryView {
 	$entries = $protectedIds = array();
 	foreach ($items as $item) {
 	    $itemId = $item->getId();
-	    if (!isset($permissions[$itemId]['digibug.print'])) {
-		/* Skip any cart items for which we don't have print permission */
+	    list ($ret, $permissions) = GalleryCoreApi::getPermissions($itemId);
+	    if ($ret) {
+		return $ret;
+	    }
+	    list ($ret, $publicPermissions) =
+		GalleryCoreApi::getPermissions($itemId, $anonymousUserId, false);
+	    if ($ret) {
+		return $ret;
+	    }
+
+	    if (!isset($permissions['digibug.print']) || !isset($permissions['core.view'])) {
+		/* Skip any cart items for which we don't have permission */
 		continue;
 	    }
 
 	    $source = isset($preferreds[$itemId]) ? $preferreds[$itemId] : $item;
-	    $needSession = !isset($publicPermissions[$itemId]['core.viewSource']);
+	    $needSession = !isset($publicPermissions['core.viewSource']);
 
 	    if ($needSession && !isset($dgSession)) {
 		/*
@@ -212,6 +215,55 @@ class DigibugPrintPhotosView extends GalleryView {
 							   'params' => $params));
 	$template->display('gallery:modules/digibug/templates/DigibugPrintPhotos.tpl');
 
+	return null;
+    }
+
+    /**
+     * Assert that the given URL is internal to the application
+     * @param string $url URL to check
+     * @return GalleryStatus a status code
+     * @deprecated This is a copy of GalleryUrlGenerator::assertIsInternalUrl from core API 7.43.
+     */
+    function assertIsInternalUrl($url) {
+	global $gallery;
+	$urlGenerator =& $gallery->getUrlGenerator();
+
+	if (!empty($url)) {
+	    /* Detect header injection attempts */
+	    if (!GalleryUtilities::isSafeHttpHeader($url)) {
+		$message = sprintf('Invalid URL! The requested URL %s contains malicious '
+				 . 'characters.',
+				   $urlGenerator->makeUrl($urlGenerator->getCurrentRequestUri()));
+		return GalleryCoreApi::error(ERROR_PERMISSION_DENIED, __FILE__, __LINE__, $message);
+	    }
+
+	    /*
+	     * Check for phishing attacks, don't allow return URLs to other sites or to other paths.
+	     * Therefore first get the validPath, e.g. '/gallery2/' Do not allow ../ to break out of
+	     * the path Allow all URLs that don't start with a protocol and neither with '/', eg.
+	     * v/albumname but also www.EVIL.com is fine, since it's interpreted as a relative URL
+	     */
+	    $validPath = '/'
+		. str_replace($urlGenerator->makeUrl(''), '', $urlGenerator->getCurrentUrlDir());
+	    /*
+	     * We check for ../ and /../ patterns and on windows \../ would also break out,
+	     * normalize to URL / *nix style paths to check fewer cases
+	     */
+	    $normUrl = str_replace("\\", '/', $url);
+	    if (((empty($urlGenerator->_file[0]) || strpos($url, $urlGenerator->_file[0]) !== 0)
+			&& strpos($normUrl, $validPath) !== 0
+			&& strpos($url, $urlGenerator->getCurrentUrlDir()) !== 0
+			&& !( !preg_match('{^\s*\w*://}i', $normUrl)
+			    && preg_match('{^\s*[^/\s]}i', $normUrl)))
+		    || preg_match('{^\s*\.\./}', $normUrl)
+		    || strpos($normUrl, '/../') !== false) {
+		$message = sprintf('Invalid URL! The requested URL %s tried to insert a '
+				 . 'redirection to %s which is not a part of this Gallery.',
+				   $urlGenerator->makeUrl($urlGenerator->getCurrentRequestUri()),
+				   $url);
+		return GalleryCoreApi::error(ERROR_PERMISSION_DENIED, __FILE__, __LINE__, $message);
+	    }
+	}
 	return null;
     }
 }

@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,7 +31,7 @@ class ColorPackInterface_1_0 {
     /**
      * Get list of available colorpacks
      *
-     * @return array GalleryStatus a status code,
+     * @return array object GalleryStatus a status code,
      *               array of colorpack_id => localized_colorpack_name
      */
     function getColorPacks() {
@@ -40,9 +40,9 @@ class ColorPackInterface_1_0 {
 
     /**
      * Select given colorpack.
-     * @param GalleryTemplate $template
+     * @param object GalleryTemplate $template
      * @param string $colorpack id of colorpack to use
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function selectColorPack(&$template, $colorpack) {
 	return GalleryCoreApi::error(ERROR_UNIMPLEMENTED);

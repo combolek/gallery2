@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Slideshow Applet 1.0.10\n"
+"Project-Id-Version: Gallery: Slideshow Applet 1.0.7\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2006-12-20 09:39-0800\n"
 "PO-Revision-Date: 2006-01-13 18:57+0100\n"
@@ -156,8 +156,7 @@ msgstr ""
 "daca da, prezentarea va descarca fotografiile inainte sa fie necesar, ceea ce va mari "
 "viteza, insa va ocupa conexiunea la Internet"
 
-#, fuzzy
-msgid "color of the slideshow background"
+msgid "color or the slideshow background"
 msgstr "culoarea de fundal a prezentarii"
 
 msgid "size of text overlay"
@@ -171,3 +170,18 @@ msgstr "fotografiile sa fie prezentate in ordine aleatoare?"
 
 msgid "Complete list of variables"
 msgstr "Lista completa a variabilelor"
+
+#~ msgid "Settings saved successfully"
+#~ msgstr "Configuratia a fost salvata"
+
+#~ msgid "Limit the slideshow to: "
+#~ msgstr "Limiteaza prezentarea la:"
+
+#~ msgid "The limit must be a positive number"
+#~ msgstr "Limita trebuie sa fie un numar pozitiv"
+
+#~ msgid "Save"
+#~ msgstr "Salveaza"
+
+#~ msgid "Reset"
+#~ msgstr "Reset"

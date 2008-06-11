@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,12 +30,11 @@ class LinkItemModule extends GalleryModule /* and GalleryEventListener */ {
 	$this->setId('linkitem');
 	$this->setName($gallery->i18n('Link Items'));
 	$this->setDescription($gallery->i18n('Create links to other albums or external urls'));
-	$this->setVersion('1.1.6');
-	$this->_templateVersion = 1;
+	$this->setVersion('1.1.2.1');
 	$this->setGroup('display', $gallery->i18n('Display'));
-	$this->setCallbacks('getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 41));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setCallbacks('registerEventListeners|getSiteAdminViews');
+	$this->setRequiredCoreApi(array(7, 4));
+	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
@@ -117,14 +116,14 @@ class LinkItemModule extends GalleryModule /* and GalleryEventListener */ {
 	    return $ret;
 	}
 
-	$ret = GalleryCoreApi::registerFactoryImplementation(
-	    'GalleryEventListener', 'LinkItemModule', 'LinkItemModule', 
-	    'modules/linkitem/module.inc', 'linkitem', array('GalleryEntity::delete'));
-	if ($ret) {
-	    return $ret;
-	}
-
 	return null;
+    }
+
+    /**
+     * @see GalleryModule::registerEventListeners
+     */
+    function registerEventListeners() {
+	GalleryCoreApi::registerEventListener('GalleryEntity::delete', new LinkItemModule());
     }
 
     /**
@@ -185,7 +184,7 @@ class LinkItemModule extends GalleryModule /* and GalleryEventListener */ {
 		return array($ret, null);
 	    }
 	    while ($result = $searchResults->nextResult()) {
-		$ret = GalleryCoreApi::deleteEntityById($result[0], 'GalleryLinkItem');
+		$ret = GalleryCoreApi::deleteEntityById($result[0]);
 		if ($ret) {
 		    return array($ret, null);
 		}

@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,9 +22,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Rating 1.0.12\n"
-"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2007-06-14 17:38-0700\n"
+"Project-Id-Version: Gallery: Rating 1.0.8\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-09-11 17:35-0700\n"
 "PO-Revision-Date: 2006-08-07 14:55+0200\n"
 "Last-Translator: Yurii Smetana <yura@stryi.com.ua>\n"
 "Language-Team: Russian <gallery-devel@lists.sourceforge.net>\n"
@@ -36,10 +36,6 @@ msgstr ""
 "X-Poedit-Language: Russian\n"
 "X-Poedit-Country: RUSSIAN FEDERATION\n"
 
-#, c-format
-msgid "Rating Album: %s"
-msgstr ""
-
 #, fuzzy
 msgid "Rating Album"
 msgstr "Рейтинг"
@@ -47,6 +43,10 @@ msgstr "Рейтинг"
 #, fuzzy
 msgid "rating album"
 msgstr "Дозволити рейтинги для цього альбому"
+
+#, c-format
+msgid "Rating Album: %s"
+msgstr ""
 
 #, fuzzy, c-format
 msgid "%d vote"
@@ -131,7 +131,7 @@ msgid "Lowest value allowed for rating album threshold"
 msgstr ""
 
 msgid "Invalid number"
-msgstr "Ungültige Zahl"
+msgstr ""
 
 msgid "Description"
 msgstr "Опис"
@@ -157,3 +157,6 @@ msgstr "Відмінити"
 
 msgid "Rating interface"
 msgstr "Інтерфейс Рейтингу"
+
+#~ msgid "Successfully saved theme settings"
+#~ msgstr "Налаштування теми успішно збережено"

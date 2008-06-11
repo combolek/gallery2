@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,19 +43,10 @@ class EditFeedController extends GalleryController {
 	$itemId = !empty($form['itemId']) ? (int)$form['itemId']
 					  : (int)GalleryUtilities::getRequestVariables('itemId');
 
-	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	if ($ret) {
 	    return array($ret, null);
 	}
-	list ($ret, $canView) = GalleryCoreApi::hasItemPermission($item->getId(), 'core.view');
-	if ($ret) {
-	    return array($ret, null);
-	}
-	if (!$canView) {
-	    /* Avoid information disclosure, act as if the item didn't exist. */
-	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
-	}
-
 	list ($ret, $param) = GalleryCoreApi::fetchAllPluginParameters('module', 'rss');
 	if ($ret) {
 	    return array($ret, null);
@@ -103,11 +94,11 @@ class EditFeedController extends GalleryController {
 		$error[] = 'form[error][feedName]';
 	    }
 
-	    /* conditionally check the recursive limit */
-	    if ($form['feedType'] == 'photosRecursive' &&
-		    (!isset($form['photosRecursiveLimit']) ||
-			((int)$form['photosRecursiveLimit']) < 0)) {
-		$error[] = 'form[error][photosRecursiveLimit]';
+	    /* conditionally check the recurse limit */
+	    if ($form['feedType'] == 'photosRecurse' &&
+		    (!isset($form['photosRecurseLimit']) ||
+			((int)$form['photosRecurseLimit']) < 0)) {
+		$error[] = 'form[error][photosRecurseLimit]';
 	    }
 
 	    /* If there are no form errors, create array to be saved to DB */
@@ -124,11 +115,10 @@ class EditFeedController extends GalleryController {
 		    'description' => $form['description'],
 		    'useImage' => (isset($form['useImage']) ? '1' : '0'),
 		    'useEnclosure' => (isset($form['useEnclosure']) ? '1' : '0'),
-		    'useCloud' => (isset($form['useCloud']) ? '1' : '0'),
-		    'useMedia' => (isset($form['useMedia']) ? '1' : '0'));
+		    'useCloud' => (isset($form['useCloud']) ? '1' : '0'));
 
-		if ($parameters['feedType'] == 'photosRecursive') {
-		    $parameters['photosRecursiveLimit'] = $form['photosRecursiveLimit'];
+		if ($parameters['feedType'] == 'photosRecurse') {
+		    $parameters['photosRecurseLimit'] = $form['photosRecurseLimit'];
 		}
 
 		if (isset($form['useCloud'])) {
@@ -230,7 +220,7 @@ class EditFeedView extends GalleryView {
 	}
 
 	$EditFeed = array();
-	$EditFeed['itemId'] = $item->getId();
+	$EditFeed['itemId'] = GalleryUtilities::getRequestVariables('itemId');
 
 	/* Fetch all feed definitions */
 	list ($ret, $feeds) = RssMapHelper::fetchFeedsForItem($EditFeed['itemId']);
@@ -277,13 +267,12 @@ class EditFeedView extends GalleryView {
 			       'useImage' => true,
 			       'useEnclosure' => false,
 			       'useCloud' => false,
-			       'useMedia' => true,
 			       'cloudDomain' => '',
 			       'cloudPort' => '',
 			       'cloudPath' => '',
 			       'cloudRegisterProcedure' => '',
 			       'cloudProtocol' => '',
-			       'photosRecursiveLimit' => '0',
+			       'photosRecurseLimit' => '0',
 			       'ttl' => $param['defaultTtl'],
 			       'category' => '',
 			       'description' => '',

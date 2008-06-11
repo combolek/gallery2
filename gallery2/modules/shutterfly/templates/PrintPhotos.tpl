@@ -1,6 +1,8 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
@@ -24,7 +26,7 @@
   {/literal}</script>
 </head>
 <body onload="go()">
-<form action="http://www.shutterfly.com/c4p/UpdateCart.jsp" method="post" id="shutterflyForm">
+<form action="http://www.shutterfly.com/c4p/UpdateCart.jsp" method="POST" id="shutterflyForm">
   <input type="hidden" name="protocol" value="SFP,100"/>
   <input type="hidden" name="pid" value="C4PP"/>
   <input type="hidden" name="psid" value="GALL"/>

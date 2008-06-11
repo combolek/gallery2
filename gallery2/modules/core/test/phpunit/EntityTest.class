@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,20 +32,19 @@ class EntityTest extends GalleryTestCase {
     }
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 	global $gallery;
 
 	$this->_entity = new EntityTestEntity();
 	$ret = $this->_entity->create();
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$ret = $this->_entity->save();
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($this->_entity);
 
@@ -53,17 +52,20 @@ class EntityTest extends GalleryTestCase {
 	    'GalleryOnLoadHandler', 'EntityTestOnLoadHandler', 'EntityTestOnLoadHandler',
 	     'modules/core/test/phpunit/EntityTest.class', 'coreTest', null);
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markFactoryModuleForCleanup('coreTest');
 	$this->_savedSession = $gallery->_session;
 	$gallery->_session = null;
 	$ret = $gallery->initSession();
 	if ($ret) {
+	    print $ret->getAsHtml();
 	    return $ret;
 	}
 	$ret = $gallery->_session->start();
 	if ($ret) {
+	    print $ret->getAsHtml();
 	    return $ret;
 	}
     }
@@ -72,10 +74,7 @@ class EntityTest extends GalleryTestCase {
 	global $gallery;
 	$gallery->_session = $this->_savedSession;
 
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
+	parent::tearDown();
     }
 
     function testOnLoad() {
@@ -92,7 +91,7 @@ class EntityTest extends GalleryTestCase {
 
 	list ($ret, $newEntity) = GalleryCoreApi::loadEntitiesById($this->_entity->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals('entitytestentity', strtolower(get_class($newEntity)), 'Entity class');
 	$this->assertEquals($this->_entity, $newEntity, 'Entity check');
@@ -107,7 +106,7 @@ class EntityTest extends GalleryTestCase {
 
 	    list ($ret, $newEntity) = GalleryCoreApi::loadEntitiesById($this->_entity->getId());
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 
 	    $this->assertEquals('entitytestentity', strtolower(get_class($newEntity)),
@@ -119,14 +118,14 @@ class EntityTest extends GalleryTestCase {
 	/* Load back from memory cache */
 	list ($ret, $newEntity) = GalleryCoreApi::loadEntitiesById($this->_entity->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(!$newEntity->_wasOnLoadCalled(), 'onLoad for memory cache load');
 
 	/* Refresh from db */
 	list ($ret, $newEntity) = $this->_entity->refresh();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals($this->_entity, $newEntity, 'Entity check 3');
 	$this->assert($newEntity->_wasOnLoadCalled(), 'onLoad for refresh');
@@ -137,7 +136,7 @@ class EntityTest extends GalleryTestCase {
 	$entity = new EntityTestEntity();
 	$ret = $entity->create();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$entity->removeOnLoadHandler('NotThere');
@@ -161,14 +160,14 @@ class EntityTest extends GalleryTestCase {
 
 	$ret = $entity->save();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($entity);
 	$this->assert(!$entity->_wasOnLoadCalled(), 'onLoad for new entity');
 
 	list ($ret, $newEntity) = GalleryCoreApi::loadEntitiesById($entity->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$session =& $gallery->getSession();
@@ -184,7 +183,7 @@ class EntityTest extends GalleryTestCase {
 	$session->put('isUpgrade', true);
 	list ($ret, $newEntity) = GalleryCoreApi::loadEntitiesById($entity->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals('entitytestentity', strtolower(get_class($newEntity)), 'Entity class');
@@ -229,7 +228,7 @@ class EntityTest extends GalleryTestCase {
 	$entity = new EntityTestEntity();
 	$ret = $entity->create();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/*
@@ -249,7 +248,7 @@ class EntityTest extends GalleryTestCase {
 	$entity = new EntityTestEntity();
 	$ret = $entity->create();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assert(!$entity->isModified('onLoadHandlers'));
@@ -263,18 +262,18 @@ class EntityTest extends GalleryTestCase {
 	$entity = new GalleryEntity();
 	$ret = $entity->create();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$entity->setOnLoadHandlers('');
 	$ret = $entity->save();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($entity);
 
 	list ($ret, $entity) = $entity->refresh();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assert(!$entity->isModified('onLoadHandlers'), 'after refresh');
@@ -290,11 +289,11 @@ class EntityTest extends GalleryTestCase {
 	$entity = new GalleryEntity();
 	$ret = $entity->create();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$ret = $entity->save(false);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($entity);
 	$this->assertEquals(null, $listener->getEvent());
@@ -310,7 +309,7 @@ class EntityTest extends GalleryTestCase {
 	$event->setEntity($entity);
 	list ($ret, $result) = GalleryCoreApi::postEvent($event);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$event = $listener->getEvent();
@@ -340,7 +339,7 @@ class EntityTest extends GalleryTestCase {
     function testLinkedMembers() {
 	list ($ret, $photo1, $photo2) = $this->_createLinkedPhotos();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/*
@@ -352,7 +351,7 @@ class EntityTest extends GalleryTestCase {
 
 	list ($ret, $photo2) = GalleryCoreApi::loadEntitiesById($photo2->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Now that we've reloaded photo2, it has linked values */
@@ -363,12 +362,12 @@ class EntityTest extends GalleryTestCase {
     function testDetachLink() {
 	list ($ret, $photo1, $photo2) = $this->_createLinkedPhotos();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $photo2) = GalleryCoreApi::loadEntitiesById($photo2->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$photo2->setWidth(900);
@@ -376,7 +375,7 @@ class EntityTest extends GalleryTestCase {
 
 	$ret = $photo2->detachLink();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(null, $photo2->getLinkId(), 'link id should be empty');
@@ -394,7 +393,7 @@ class EntityTest extends GalleryTestCase {
 	list ($ret, $memberInfo) =
 		GalleryCoreApi::getExternalAccessMemberList('GalleryUser');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(false, $memberInfo['hashedPassword']['read'],
@@ -407,135 +406,6 @@ class EntityTest extends GalleryTestCase {
 			    'read access for the full name of a user ');
 	$this->assertEquals(true, $memberInfo['fullName']['write'],
 			    'write access for the full name of a user ');
-    }
-
-    function testLoadEntitiesByIdAssertsTheRequestedEntityTypeExactMatch() {
-	list ($ret, $entity) =
-	    GalleryCoreApi::loadEntitiesById($this->_getRootId(), 'GalleryAlbumItem');
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assertEquals($this->_getRootId(), $entity->getId());
-    }
-
-    function testLoadEntitiesByIdAssertsTheRequestedEntityTypeSubclassMatch() {
-	list ($ret, $entity) =
-	    GalleryCoreApi::loadEntitiesById($this->_getRootId(), 'GalleryChildEntity');
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assertEquals($this->_getRootId(), $entity->getId());
-    }
-
-    function testLoadEntitiesByIdEntityTypeParameterIsOptional() {
-	list ($ret, $entity) = GalleryCoreApi::loadEntitiesById($this->_getRootId());
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assertEquals($this->_getRootId(), $entity->getId());
-    }
-
-    function testLoadEntitiesByIdAssertsTheRequestedEntityTypeNoMatch() {
-	list ($ret, $entity) =
-	    GalleryCoreApi::loadEntitiesById($this->_getRootId(), 'GalleryDerivative');
-	if ($ret) {
-	    if ($ret->getErrorCode() & ERROR_MISSING_OBJECT) {
-		/* Successfully detected entity-type mismatch */
-	    } else {
-		$this->fail('Unexpected error type');
-		return $ret;
-	    }
-	} else {
-	    $this->fail('Requested entity-type not asserted');
-	}
-	$this->assertEquals(null, $entity);
-    }
-
-    function testLoadEntitiesByIdAssertsTheRequestedEntityTypeForMultipleEntities() {
-	list ($ret, $dataItem) = $this->_createRandomDataItem($this->_getRootId());
-	if ($ret) {
-	    return $ret;
-	}
-	$this->_markForCleanup($dataItem);
-
-	list ($ret, $entities) = GalleryCoreApi::loadEntitiesById(
-	    array($this->_getRootId(), $dataItem->getId()), 'GalleryItem');
-	if ($ret) {
-	    return $ret;
-	}
-
-	if (count($entities) != 2) {
-	    $this->assertEquals(2, count($entities), 'entity count');
-	} else {
-	    $this->assertEquals($this->_getRootId(), $entities[0]->getId(), 'root album id');
-	    $this->assertEquals($dataItem->getId(), $entities[1]->getId(), 'data item id');
-	}
-    }
-
-    function testLoadEntitiesByIdAssertsTheRequestedEntityTypeMismatchForMultipleEntities() {
-	list ($ret, $dataItem) = $this->_createRandomDataItem($this->_getRootId());
-	if ($ret) {
-	    return $ret;
-	}
-	$this->_markForCleanup($dataItem);
-
-	list ($ret, $entities) = GalleryCoreApi::loadEntitiesById(
-	    array($this->_getRootId(), $dataItem->getId()), 'GalleryAlbumItem');
-	if ($ret) {
-	    if ($ret->getErrorCode() & ERROR_MISSING_OBJECT) {
-		/* Successfully detected entity-type mismatch */
-	    } else {
-		$this->fail('Unexpected error type');
-		return $ret;
-	    }
-	} else {
-	    $this->fail('Requested entity-type not asserted');
-	}
-
-	$this->assertEquals(null, $entities);
-    }
-
-    function testLoadEntitiesByIdAssertsTheMultipleRequestedEntityTypes() {
-	/* Any of the entity-types has to match (boolean OR) */
-	list ($ret, $entity) = GalleryCoreApi::loadEntitiesById(
-	    $this->_getRootId(), array('GalleryDerivative', 'GalleryAlbumItem'));
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assertEquals($this->_getRootId(), $entity->getId());
-    }
-
-    function deleteEntityByIdAssertsTheRequestedEntityTypeSubclassMatch() {
-	list ($ret, $album) = $this->_createRandomAlbum($this->_getRootId());
-	$this->_markForCleanup($album);
-	if ($ret) {
-	    return $ret;
-	}
-
-	$ret = GalleryCoreApi::deleteEntityById($album->getId(), 'GalleryChildEntity');
-	if ($ret) {
-	    return $ret;
-	}
-    }
-
-    function deleteEntityByIdAssertsTheRequestedEntityTypeNoMatch() {
-	list ($ret, $album) = $this->_createRandomAlbum($this->_getRootId());
-	if ($ret) {
-	    return $ret;
-	}
-	$this->_markForCleanup($album);
-
-	$ret = GalleryCoreApi::deleteEntityById($album->getId(), 'GalleryDerivative');
-	if ($ret) {
-	    if ($ret->getErrorCode() & ERROR_MISSING_OBJECT) {
-		/* Successfully detected entity-type mismatch */
-	    } else {
-		$this->fail('Unexpected error type');
-		return $ret;
-	    }
-	} else {
-	    $this->fail('Requested entity-type not asserted');
-	}
     }
 }
 

@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Square Thumbnails 1.0.8\n"
+"Project-Id-Version: Gallery: Square Thumbnails 1.0.5\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2003-09-29 21:00+0100\n"
 "PO-Revision-Date: 2006-08-12 18:55+0200\n"
@@ -62,21 +62,18 @@ msgstr "Modul För Kvadratiska Miniatyrbilder"
 #, c-format
 msgid ""
 "This module requires you to have at least one graphics toolkit active in order for it to "
-"operate properly.  Please return to the %sModules%s page and activate a graphics toolkit."
+"operate properly.  Please return to the <a href=\"%s\">Modules</a> page and activate a "
+"graphics toolkit."
 msgstr ""
 "Denna modul kräver att du har minst ett grafiskt verktyg aktivt för att den skall fungera "
-"korrekt. Vänligen återgå till %smodulsidan%s och aktivera ett grafiskt verktyg."
+"korrekt. Vänligen återgå till <a href=\"%s\">modulsidan</a> och aktivera ett grafiskt "
+"verktyg."
 
 msgid "Settings saved successfully"
 msgstr "Inställningarna sparades framgångsrikt"
 
 msgid "Crop images to square"
 msgstr "Beskär bilder kvadratiskt"
-
-msgid ""
-"You need to enable a graphics toolkit module with PPM support to use the \"fit images to "
-"square\" mode."
-msgstr ""
 
 msgid "Fit images to square, padding with background color:"
 msgstr "Passa in bilderna kvadratiskt, fyll ut med bakgrundsfärgen:"

@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,10 +34,7 @@ class Getid3ToolkitTest extends GalleryTestCase {
     }
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	/* Get a toolkit to work with */
 	$this->_toolkit =& new Getid3Toolkit();
@@ -48,7 +45,7 @@ class Getid3ToolkitTest extends GalleryTestCase {
 	    $this->_toolkit->getProperty('video/x-msvideo', 'originationTimestamp',
 					 dirname(__FILE__) . '/../data/test_small.avi');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(array(mktime(15, 06, 18, 1, 15, 2006)),
 			    $results,
@@ -58,7 +55,7 @@ class Getid3ToolkitTest extends GalleryTestCase {
 	    $this->_toolkit->getProperty('video/quicktime', 'originationTimestamp',
 					 dirname(__FILE__) . '/../data/newday.mov');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	/* Use mktime() instead of hardcoding a value */
 	/* mktime(21, 18, 18, 5, 28, 2000) */

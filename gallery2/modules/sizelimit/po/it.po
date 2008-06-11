@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,10 +19,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Size Limit 1.0.8\n"
+"Project-Id-Version: Gallery: Size Limit 1.0.5\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-10-10 19:02+0000\n"
-"PO-Revision-Date: 2008-03-27 20:20+0100\n"
+"PO-Revision-Date: 2007-01-09 13:02+0100\n"
 "Last-Translator: Ermanno Baschiera <ebaschiera@gmail.com>\n"
 "Language-Team: Italian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -62,19 +62,20 @@ msgid "No Limits"
 msgstr "Nessun Limite"
 
 msgid "You must specify at least one of the dimensions"
-msgstr "È necessario specificare almeno una delle dimensioni"
+msgstr "Devi specificare almeno una delle dimensioni"
 
 msgid "Maximum file size of full sized images in kilobytes"
-msgstr "Dimensione massima del file delle immagini a dimensione originale in kilobyte"
+msgstr "Dimensione massima del file delle immagini a dimensione originale in kilobytes"
 
 msgid "You must enter a number (greater than zero)"
-msgstr "È necessario inserire un numero (maggiore di zero)"
+msgstr "Devi inserire un numero (maggiore di zero)"
 
 msgid "Keep original image?"
-msgstr "Mantenere l'immagine originale?"
+msgstr "Mantieni immagine originale?"
 
 msgid "Check here to apply size limits to the pictures in this album and all subalbums"
-msgstr "Applica questi limiti alle immagini in questo album e in tutti i sottoalbum"
+msgstr ""
+"Clicca qui per applicare questi limiti alle immagini in questo album e in tutti i sottoalbum"
 
 msgid "Checking this option will rebuild pictures according to appropriate limits"
 msgstr ""

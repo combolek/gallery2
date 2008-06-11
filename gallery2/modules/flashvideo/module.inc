@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,12 +32,11 @@ class FlashVideoModule extends GalleryModule {
 	$this->setId('flashvideo');
 	$this->setName($gallery->i18n('Flash Video'));
 	$this->setDescription($gallery->i18n('Enable display of Flash video files'));
-	$this->setVersion('1.0.2');
-	$this->_templateVersion = 1;
+	$this->setVersion('1.0.0');
 	$this->setGroup('display', $gallery->i18n('Display'));
 	$this->setCallbacks('');
-	$this->setRequiredCoreApi(array(7, 27));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setRequiredCoreApi(array(7, 9));
+	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
@@ -87,7 +86,7 @@ class FlashVideoModule extends GalleryModule {
 	}
 	while (!empty($ids)) {
 	    $itemIds = array_splice($ids, 0, 100);
-	    list ($ret, $items) = GalleryCoreApi::loadEntitiesById($itemIds, 'GalleryDataItem');
+	    list ($ret, $items) = GalleryCoreApi::loadEntitiesById($itemIds);
 	    if ($ret) {
 		return array($ret, null);
 	    }

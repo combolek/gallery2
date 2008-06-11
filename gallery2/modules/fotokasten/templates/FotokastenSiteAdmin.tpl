@@ -1,6 +1,8 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
 <div class="gbBlock gcBackground1">
   <h2> {g->text text="Fotokasten Settings"} </h2>
@@ -30,7 +32,7 @@
        name="{g->formVar var="form[affiliateId]"}" value="{$form.affiliateId}"/>
 
       {if isset($form.error.affiliateId)}
-	<span class="giError"> {g->text text="Enter a valid affiliate id"} </span>
+	<span class="giError"> {g->text text="Enter a numeric id"} </span>
       {/if}
     </td></tr><tr><td>
       <label for="affiliateIdPass">
@@ -41,7 +43,7 @@
        name="{g->formVar var="form[affiliateIdPass]"}" value="{$form.affiliateIdPass}"/>
 
       {if isset($form.error.affiliateIdPass)}
-	<span class="giError"> {g->text text="Enter a valid affiliate password"} </span>
+	<span class="giError"> {g->text text="Missing value"} </span>
       {/if}
     </td></tr>
   </table>

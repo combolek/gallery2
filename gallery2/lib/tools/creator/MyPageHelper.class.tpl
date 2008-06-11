@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,7 +38,7 @@ class {$viewName}Helper {ldelim}
      * Load a text value out of the database for a given item id.
      *
      * @param int $itemId the item id
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *               string the value
      */
     function getItemValue($itemId) {ldelim}

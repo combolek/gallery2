@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,10 +16,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
-# 
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Migration 1.0.11\n"
+"Project-Id-Version: Gallery: Migration 1.0.7\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-28 14:00+0800\n"
 "PO-Revision-Date: 2006-03-10 12:12+0800\n"
@@ -40,10 +40,6 @@ msgid "Creating thumbnails"
 msgstr "建立缩略图"
 
 #, c-format
-msgid "Thumbnail %d of %d"
-msgstr "缩略图 %d，共 %d"
-
-#, c-format
 msgid "%sTitle%s was truncated for %sitem %d%s."
 msgstr "%3$s项目%4$d%5$s的%1$s主题%2$s被删节了。"
 
@@ -56,6 +52,10 @@ msgstr "设定："
 
 msgid "Truncated:"
 msgstr "删节："
+
+#, c-format
+msgid "Thumbnail %d of %d"
+msgstr "缩略图 %d，共 %d"
 
 msgid "Migration"
 msgstr "迁移"
@@ -70,7 +70,7 @@ msgid "Gallery 1"
 msgstr "图库1"
 
 msgid "G1-&gt;G2 Mapping"
-msgstr "G1-&gt;G2映射"
+msgstr "G1->G2映射"
 
 msgid "G1 path"
 msgstr "G1路径"
@@ -140,8 +140,8 @@ msgstr "原文本字符编码:"
 msgid "URL Redirection"
 msgstr "网址重定向"
 
-msgid "Record G1-&gt;G2 mappings during import"
-msgstr "在导入时记录图库1-&gt;图库2的映射"
+msgid "Record G1->G2 mappings during import"
+msgstr "在导入时记录图库1->图库2的映射"
 
 msgid "Thumbnail generation"
 msgstr "缩略图生成"
@@ -264,8 +264,8 @@ msgstr "您的图库1将会被从此字符编码转换到UTF-8:"
 msgid "Encoding: %s"
 msgstr "编码: %s"
 
-msgid "G1-&gt;G2 mappings will be recorded for use in URL Redirection"
-msgstr "图库1-&gt;图库2映射将被记录用于网址重定向"
+msgid "G1->G2 mappings will be recorded for use in URL Redirection"
+msgstr "图库1->图库2映射将被记录用于网址重定向"
 
 msgid "Thumbnails will be generated during migration"
 msgstr "缩略图将在迁移过程中建立"
@@ -311,8 +311,7 @@ msgstr "取消"
 msgid "Import Complete"
 msgstr "导入完成"
 
-# too many plural forms in some strings
-#, fuzzy, c-format
+#, c-format
 msgid "Successfully imported %d user."
 msgid_plural "Successfully imported %d users."
 msgstr[0] "导入%d 位用户成功。"
@@ -326,7 +325,7 @@ msgstr "没有用户被导入。"
 msgid "Imported %s"
 msgstr "已导入 %s"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Error while importing %d user."
 msgid_plural "Errors while importing %d users."
 msgstr[0] "导入%d 位用户时出现错误。"
@@ -337,7 +336,7 @@ msgstr[2] "导入%d 位用户时出现错误。"
 msgid "Error importing %s"
 msgstr "导入 %s 错误"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Successfully imported %d album."
 msgid_plural "Successfully imported %d albums."
 msgstr[0] "导入%d 个相册成功。"
@@ -347,7 +346,7 @@ msgstr[2] "导入%d 个相册成功。"
 msgid "No albums imported."
 msgstr "没有相册被导入。"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Error while importing %d album."
 msgid_plural "Errors while importing %d albums."
 msgstr[0] "导入%d 个相册时出现错误。"
@@ -407,10 +406,11 @@ msgstr "将现有 Gallery 1 的全部或部分文件拷贝到 Gallery 2 中。�
 #, c-format
 msgid ""
 "You don't have any Graphics Toolkit activated to handle JPEG images.  If you import now, you "
-"will not have any thumbnails.  Visit the %sModules%s page to activate a Graphics Toolkit."
+"will not have any thumbnails.  Visit the <a href=\"%s\">Modules</a> page to activate a "
+"Graphics Toolkit."
 msgstr ""
-"您没有开启任何可处理JPEG的图形工具。如果您现在导入，将不会生成任何缩略图。请访问%s模块%s 页面"
-"开启一种图形工具。"
+"您没有开启任何可处理JPEG的图形工具。如果您现在导入，将不会生成任何缩略图。请访问<a href=\"%s"
+"\">模块</a>页面开启一种图形工具。"
 
 msgid "Path to Gallery 1 albums directory"
 msgstr "Gallery 1 相册目录"
@@ -438,12 +438,12 @@ msgstr "原使用路径"
 msgid "Gallery can redirect old Gallery1 URLs to the new Gallery2 pages."
 msgstr "图库可以重定向原来的图库1网址到新的图库2页面。"
 
-#, fuzzy, c-format
-msgid "There is one G1-&gt;G2 map entry"
-msgid_plural "There are %d G1-&gt;G2 map entries"
-msgstr[0] "有 %d 条图库1-&gt;图库2映射条目"
-msgstr[1] "有 %d 条图库1-&gt;图库2映射条目"
-msgstr[2] "有 %d 条图库1-&gt;图库2映射条目"
+#, c-format
+msgid "There is one G1->G2 map entry"
+msgid_plural "There are %d G1->G2 map entries"
+msgstr[0] "有 %d 条图库1->图库2映射条目"
+msgstr[1] "有 %d 条图库1->图库2映射条目"
+msgstr[2] "有 %d 条图库1->图库2映射条目"
 
 msgid ""
 "Deleting map entries will cause old G1 URLs to produce HTTP Not Found errors instead of "
@@ -456,3 +456,37 @@ msgstr "删除所有"
 
 msgid "Map entries deleted successfully"
 msgstr "映射条目删除成功"
+
+#~ msgid "G1 URL redirect. Use only if G2 is installed where G1 used"
+#~ msgstr "G1 URL 重定向。仅仅在G2安装在G1的目录中"
+
+#~ msgid ""
+#~ "This operation takes data (images, albums, users, etc.) from <strong>Gallery 1</strong> "
+#~ "and brings it into <strong>Gallery 2</strong>."
+#~ msgstr ""
+#~ "此操作将数据（图片、相册、用户等等）从<strong>图库1</strong>转移到<strong>图库2</strong>"
+#~ "中。"
+
+#~ msgid ""
+#~ "Before you migrate any data you must try adding an album and image through the main "
+#~ "gallery interface first.  This will show you if your gallery is correctly set up."
+#~ msgstr ""
+#~ "在您迁移任何数据前，必须首先尝试通过主图库界面添加一个相册和图片。这将告诉您图库是否被正确"
+#~ "设置好了。"
+
+#~ msgid ""
+#~ "This module is unfinished.  It should not harm your Gallery 1 data, but use it at your "
+#~ "own risk."
+#~ msgstr "此模块尚未完成。它应该不会损害您的图库1数据，但使用此模块请风险自负。"
+
+#~ msgid ""
+#~ "This process will copy data from an existing Gallery 1 installation.  It won't modify "
+#~ "your Gallery 1 data in any way.  You must enter the path to your Gallery 1 <i>albums</i> "
+#~ "directory.  If you enter the wrong path, we'll let you know so it's safe to experiment.  "
+#~ "Example: <i>/path/to/albums</i>"
+#~ msgstr ""
+#~ "此处理将从存在的图库1安装中复制数据。它不会修改您图库1的任何数据。您必须输入图库1<i>相册</"
+#~ "i>目录。如果输入错误，我们将提示您，所以您可以安全的尝试。例如：<i>/path/to/albums</i>"
+
+#~ msgid "Path"
+#~ msgstr "路径"

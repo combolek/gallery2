@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -52,9 +52,7 @@ class HiddenItemOption extends ItemEditOption {
 	    return array($ret, null, null);
 	}
 
-	if (false) {
-	    /* Specific translations: */ _('Hide Album'); _('Hide Photo'); _('Hide Movie');
-	}
+	/* Specific translations: _('Hide Album') _('Hide Photo') _('Hide Movie') */
 	$itemTypeNames = array_merge($item->itemTypeName(), $item->itemTypeName(false));
 	$form['HiddenItemOption']['heading'] = $module->_translate(
 		array('text' => 'Hide %s', 'arg1' => $itemTypeNames[0]), $itemTypeNames[2]);

@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,6 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
-
 /**
  * Reupload controller tests
  * @package Reupload
@@ -34,14 +32,12 @@ class ReuploadOptionTest extends ItemEditOptionTestCase {
 
     function setUp() {
 	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->_markForCleanup($this->_album);
@@ -51,20 +47,23 @@ class ReuploadOptionTest extends ItemEditOptionTestCase {
 	    'GalleryToolkit', 'ReuploadOptionTestToolkit', 'ReuploadOptionTestToolkit',
 	    'modules/reupload/test/phpunit/ReuploadOptionTest.class', 'reuploadTest', null);
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markToolkitForCleanup('ReuploadOptionTestToolkit');
 
 	$ret = GalleryCoreApi::registerToolkitProperty('ReuploadOptionTestToolkit',
 	    array('image/known'), 'dimensions', 'int,int', 'desc');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $this->_item) =
 	    $this->_createRandomDataItem($this->_album->getId(), 'image/known');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_itemSize = $this->_item->getSize();
 
@@ -117,7 +116,8 @@ class ReuploadOptionTest extends ItemEditOptionTestCase {
 	/* Size might been changed, but transaction was aborted */
 	list ($ret, $item) = $this->_item->refresh();
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals($this->_itemSize, $item->getSize(), 'Item size');
     }

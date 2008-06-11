@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,10 +20,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Multiroot 1.0.2\n"
+"Project-Id-Version: Gallery: Multiroot 1.0.0\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2006-09-12 11:50-0700\n"
-"PO-Revision-Date: 2008-03-27 14:45+0100\n"
+"PO-Revision-Date: 2007-01-08 18:56+0100\n"
 "Last-Translator: Ermanno Baschiera <ebaschiera@gmail.com>\n"
 "Language-Team: Italian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -37,13 +37,13 @@ msgid "Multiroot"
 msgstr "Multiroot"
 
 msgid "Define an alternate guest view of the Gallery"
-msgstr "Definisce una visualizzazione alternativa di Gallery per i visitatori non regitrati"
+msgstr "Definisci una visualizzazione alternativa di Gallery per i visitatori"
 
 msgid "Display"
 msgstr "Visualizza"
 
 msgid "Configure Multiroot"
-msgstr "Configurazione Multiroot"
+msgstr "Configura Multiroot"
 
 msgid "User created and permissions assigned on target album"
 msgstr "Utente creato e permessi assegnati all'album desiderato"
@@ -53,10 +53,10 @@ msgid ""
 "configuration screen assists in setup and creation of a PHP file for the alternate URL.  "
 "This module never activates and is not needed to use multiroot.  There are two options:"
 msgstr ""
-"Multiroot permette di creare una URL alternativa per visualizzare parte di Gallery. Questa "
-"schermata di configurazione assisterà la preparazione e la creazione di un file PHP per "
-"l'URL alternativa. Questo modulo non si attiva mai e non è obbligatorio utilizzare "
-"multiroot. Ci sono due opzioni:"
+"Multiroot ti permette di creare una URL alternativa per visualizzare parte di Gallery. "
+"Questa schermata di configurazione ti assiterà nella preparazione e nella creazione di un "
+"file PHP per l'URL alternativa. Questo modulo non si attiva mai e non è obbligatorio "
+"utilizzare multiroot. Ci sono due opzioni:"
 
 msgid "Virtual root"
 msgstr "Root virtuale"
@@ -75,10 +75,10 @@ msgstr ""
 "vedranno questo effetto. Tuttavia, i permessi di Gallery non sono modificati, quindi i "
 "moduli come blocco immagine e cerca, oppure le URL inserite manualmente, possono condurre i "
 "visitatori verso oggetti fuori dall'album predefinito. Questa opzione è più semplice da "
-"utilizzare perché utilizza i permessi dei visitatori già definiti in Gallery."
+"utilizzare perché utilizza i permessi dei visitatori già definiti nella tua Gallery."
 
 msgid "Alternate guest user"
-msgstr "Utente visitatore alternativo"
+msgstr "Visitatore alternativo"
 
 msgid ""
 "This option defines a new guest view with permissions defined for exactly what this view "
@@ -105,16 +105,16 @@ msgid ""
 "alternate view.  Just use the set of alternate URLs.  Keep the original Gallery URL "
 "unpublished as it shows the combined set of items."
 msgstr ""
-"L'utente visitatore originale/reale deve avere i permessi di visualizzazione per tutti gli "
-"oggetti accessibili da ogni utente visitatore alternativo. Il form seguente assiste nella "
-"creazione di un utente visitatore alternativo e gli assegnerà i permessi di visualizzazione "
-"per l'album predefinito e per tutti i sottoalbum/oggetti. Se questi album sono già pubblici "
-"e possono rimanere tali, non c'è bisogno di altra configurazione. La configurazione di "
-"visualizzazioni mutuamente esclusive è più complicata; il visitatore originale deve avere "
-"accesso agli oggetti di tutte le visualizzazioni, quindi prima configura quei permessi. "
-"Usare poi usare questi strumenti per creare delle visualizzazioni alternative. Utlizzare "
-"solo il set di URL alternative. Mantenere non pubblicata la URL originale di Gallery poiché "
-"mostra il set combinato di oggetti."
+"Il visitatore originale/reale deve avere i permessi di visualizzazione per tutti gli oggetti "
+"accessibili da ogni visitatore alternativo. Il form seguente ti assiste nella creazione di "
+"un visitatore alternativo e gli assegnerà i permessi di visualizzazione per l'album "
+"predefinito e per tutti i sottoalbum/oggetti. Se questi album sono già pubblici e possono "
+"rimanere tali, non c'è bisogno di altra configurazione. La configurazione di visualizzazioni "
+"mutuamente esclusive è più complicata; il visitatore originale deve avere accesso agli "
+"oggetti di tutte le  visualizzazioni, quindi prima configura quei permessi. Poi usa questi "
+"strumenti per creare delle visualizzazioni alternative. Utlizza solo il set di URL "
+"alternative. Mantieni non pubblicata la URL oiginale di Gallery poiché mostra il set "
+"combinato di oggetti."
 
 msgid "URI for this Gallery:"
 msgstr "URI per questa Gallery:"
@@ -129,16 +129,16 @@ msgid "Root album of new view"
 msgstr "Album radice della nuova visualizzazione"
 
 msgid "Username of alternate guest user:"
-msgstr "Nome utente dell'utente visitatore alternativo:"
+msgstr "Nomeutente del visitatore alternativo:"
 
 msgid "New user will be created if given name does not exist."
 msgstr "Verrà creato un nuovo utente se il nome fornito non esiste."
 
 msgid "Leave blank to define a virtual root."
-msgstr "Lasciare vuoto per definire una radice virtuale."
+msgstr "Lascia vuoto per definire una radice virtuale."
 
 msgid "Generate Files"
-msgstr "Genera i File"
+msgstr "Genera Files"
 
 msgid "Reset"
-msgstr "Reimposta"
+msgstr "Resetta"

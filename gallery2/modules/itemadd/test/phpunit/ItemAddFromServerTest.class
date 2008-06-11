@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,21 +34,20 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
     function setUp() {
 	global $gallery;
 
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	list ($ret, $this->_rootAlbum) =
 	    $this->_createRandomAlbum($this->_getRootId(), array('orderBy' => 'orderWeight'));
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($this->_rootAlbum);
 
 	list ($ret, $this->_lockId) = GalleryCoreApi::acquireReadLock($this->_rootAlbum->getId());
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->_symlinkAllowedPlatform =
@@ -58,24 +57,28 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'itemadd');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->_baseDir = dirname(dirname(__FILE__));
 	$ret = GalleryCoreApi::setPluginParameter('module', 'itemadd', 'uploadLocalServer.dir.1',
 						  $this->_baseDir);
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$ret = GalleryCoreApi::setPluginParameter('module', 'itemadd', 'uploadLocalServer.dir.2',
 						  $gallery->getConfig('data.gallery.base'));
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$ret = GalleryCoreApi::removePluginParameter('module', 'itemadd',
 						     'uploadLocalServer.dir.3');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$gallery->setPlatform($this->_symlinkAllowedPlatform);
@@ -84,50 +87,47 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
     function tearDown() {
 	$ret = GalleryCoreApi::releaseLocks($this->_lockId);
 	if ($ret) {
-	   return $ret;
+	   return $this->failWithStatus($ret);
 	}
 
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
+	parent::tearDown();
     }
 
     function testIsAppropriate() {
 	$ret = GalleryCoreApi::setPluginParameter('module', 'itemadd', 'fromserver', 'off');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	list ($ret, $isAppropriate) = $this->_plugin->isAppropriate();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(false, $isAppropriate, 'off');
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'itemadd', 'fromserver', 'admin');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	list ($ret, $isAppropriate) = $this->_plugin->isAppropriate();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(true, $isAppropriate, 'admin for admin');
 
 	$this->_becomeGuestUser();
 	list ($ret, $isAppropriate) = $this->_plugin->isAppropriate();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(false, $isAppropriate, 'admin for guest');
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'itemadd', 'fromserver', 'on');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	list ($ret, $isAppropriate) = $this->_plugin->isAppropriate();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(true, $isAppropriate, 'on');
     }
@@ -135,12 +135,12 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
     function testAddFromLocalServerCallsIsAppropriate() {
 	$ret = $this->_markPluginParametersForCleanup('module', 'itemadd');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'itemadd', 'fromserver', 'off');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$results = $this->handleRequest($this->_album, ERROR_PERMISSION_DENIED);
 	$this->assertEquals(array(null, null), $results);
@@ -325,35 +325,31 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 	/* Verify item attributes (like order weight) */
 	list ($ret, $ids) = GalleryCoreApi::fetchChildItemIds($this->_rootAlbum);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	if ($addDirectories) {
 	    $this->assertEquals(count($dirs), count($ids), 'top child count');
-	    list ($ret, $subalbums) = GalleryCoreApi::loadEntitiesById($ids, 'GalleryItem');
+	    list ($ret, $subalbums) = GalleryCoreApi::loadEntitiesById($ids);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    list ($ret, $ids) = GalleryCoreApi::fetchChildItemIds($subalbums[0]);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    foreach ($dirs as $dirName) {
 		$subalbum = array_shift($subalbums);
-		if ($subalbum) {
-		    $this->assert(GalleryUtilities::isA($subalbum, 'GalleryAlbumItem'), 'subalbum');
-		    $dirName = $platform->legalizePathComponent($dirName);
-		    $this->assertEquals($dirName, $subalbum->getPathComponent(), 'subalbum path');
-		} else {
-		    $this->fail("Missing sub-album for expected $dirName");
-		}
+		$this->assert(GalleryUtilities::isA($subalbum, 'GalleryAlbumItem'), 'subalbum');
+		$dirName = $platform->legalizePathComponent($dirName);
+		$this->assertEquals($dirName, $subalbum->getPathComponent(), 'subalbum path');
 	    }
 	}
 	$addDirectoriesString = $addDirectories ? ' addDirectories' : ' !addDirectories';
 	$this->assertEquals(count($files), count($ids), 'child count' . $addDirectoriesString);
 
-	list ($ret, $items) = GalleryCoreApi::loadEntitiesById($ids, 'GalleryItem');
+	list ($ret, $items) = GalleryCoreApi::loadEntitiesById($ids);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Organize items array by id */
@@ -383,13 +379,13 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 
 	    list ($ret, $viewCount) = GalleryCoreApi::fetchItemViewCount($item->getId());
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $this->assertEquals(0, $viewCount);
 
 	    list ($ret, $orderWeight) = GalleryCoreApi::fetchItemOrderWeight($item->getId());
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $this->assert(!isset($seenWeights[$item->getParentId()][$orderWeight]),
 			  'Seen this weight before: ' . $orderWeight);
@@ -421,21 +417,20 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 	GalleryUtilities::putRequestVariable('form[set][title]', 1);
 	GalleryUtilities::putRequestVariable('form[set][summary]', 1);
 	/* This is what the browser will send us (urlencoded): */
+ 	GalleryUtilities::putRequestVariable(
+ 	    'form[localServerDirectories][' . urlencode('Black&White') . '][selected]', 1);
 	GalleryUtilities::putRequestVariable(
 	    'form[localServerFiles][' . urlencode('December - <#952>.jpg') . '][selected]', 1);
-	GalleryUtilities::putRequestVariable(
-	    'form[localServerDirectories][' . urlencode('Black&White') . '][selected]', 1);
 
 	$results = $this->handleRequest($this->_rootAlbum);
 	$this->assertEquals(array(), $results[0]);
 	$this->assertEquals(1, count($results[1]));
 	$this->assertEquals(1, count($results[1]['addedFiles']));
 
-	/* Verify added item */
-	list ($ret, $item) =
-	    GalleryCoreApi::loadEntitiesById($results[1]['addedFiles'][0]['id'], 'GalleryDataItem');
+ 	/* Verify added item */
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($results[1]['addedFiles'][0]['id']);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals('December - _#952_.jpg', $item->getPathComponent(), 'pathComponent');
 	$this->assertEquals('December - &lt;#952&gt;', $item->getTitle(), 'title');
@@ -445,15 +440,14 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 	/* Verify added album */
 	list ($ret, $albumIds) = GalleryCoreApi::fetchChildAlbumItemIds($this->_rootAlbum);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	if (empty($albumIds) || count($albumIds) != 1) {
 	    $this->fail('album id ' . print_r($albumIds, true));
 	} else {
-	    list ($ret, $album) =
-		GalleryCoreApi::loadEntitiesById($albumIds[0], 'GalleryAlbumItem');
+	    list ($ret, $album) = GalleryCoreApi::loadEntitiesById($albumIds[0]);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $this->assertEquals('Black&amp;White', $album->getTitle(), 'album title');
 	    $this->assertEquals('Black&amp;White', $album->getSummary(), 'album summary');
@@ -469,7 +463,7 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 
 	list ($ret, $path) = $this->_rootAlbum->fetchPath();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	GalleryUtilities::putRequestVariable('form[action][addFromLocalServer]', 1);
@@ -531,7 +525,7 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 	    $this->_rootAlbum->getId(), $baseDir . 'good<script>evil.jpg', false,
 	    array('title' => 1, 'summary' => 1, 'description' => 1), $status, $error);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals('good&lt;script&gt;evil.jpg', $status['addedFiles'][0]['fileName']);
@@ -539,9 +533,9 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 	$this->assertEquals(null, $error);
 
 	$id = $status['addedFiles'][0]['id'];
-	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($id, 'GalleryItem');
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($id);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals('good&lt;script&gt;evil', $item->getTitle());
@@ -564,15 +558,15 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 	    $this->_rootAlbum->getId(), $baseDir . 'good<script>evil_dir', false,
 	    array('title' => 1, 'summary' => 1, 'description' => 1), $status, $error);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(null, $status);
 	$this->assertEquals(null, $error);
 
-	list ($ret, $album) = GalleryCoreApi::loadEntitiesById($id, 'GalleryItem');
+	list ($ret, $album) = GalleryCoreApi::loadEntitiesById($id);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals('good&lt;script&gt;evil_dir', $album->getTitle());
@@ -621,31 +615,13 @@ class ItemAddFromServerTestPlatform extends GalleryPlatform {
 	}
     }
 
-    function is_readable($path) {
-	switch ($path) {
+    function copy($source, $dest) {
+	switch ($source) {
 	case $this->_baseDir . 'December - <#952>.jpg':
 	case $this->_baseDir . 'Black&White':
 	case $this->_baseDir . '<My "Files">' . $this->_dirSep . 'foo':
 	case $this->_baseDir . 'good<script>evil.jpg':
 	case $this->_baseDir . 'good<script>evil_dir':
-	case $this->_baseDir . "subD\xeer":
-	case $this->_baseDir . "t\xebst.png":
-	case $this->_baseDir . 'apo\'strophe.jpg':
-	case $this->_baseDirRecursive . 'apo\'strophe.jpg':
-	    /* The windows path is a little weird -- but we can live with it */
-	case $this->_baseDir . '\\apo\'strophe.jpg':
-	    return true;
-
-	default:
-	    return $this->_delegate->file_exists($path);
-	}
-    }
-
-    function copy($source, $dest) {
-	switch ($source) {
-	case $this->_baseDir . 'December - <#952>.jpg':
-	case $this->_baseDir . '<My "Files">' . $this->_dirSep . 'foo':
-	case $this->_baseDir . 'good<script>evil.jpg':
 	case $this->_baseDir . "t\xebst.png":
 	case $this->_baseDir . 'apo\'strophe.jpg':
 	case $this->_baseDirRecursive . 'apo\'strophe.jpg':
@@ -661,6 +637,7 @@ class ItemAddFromServerTestPlatform extends GalleryPlatform {
     function symlink($source, $dest) {
 	switch ($source) {
 	case $this->_baseDir . 'December - <#952>.jpg':
+	case $this->_baseDir . 'good<script>evil.jpg':
 	case $this->_baseDir . "t\xebst.png":
 	case $this->_baseDir . 'apo\'strophe.jpg':
 	case $this->_baseDirRecursive . 'apo\'strophe.jpg':

@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,10 +19,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Image Block 1.1.8\n"
+"Project-Id-Version: Gallery: Image Block 1.1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-05-21 15:51+0000\n"
-"PO-Revision-Date: 2008-03-27 12:24+0100\n"
+"PO-Revision-Date: 2007-01-08 18:16+0100\n"
 "Last-Translator: Ermanno Baschiera <ebaschiera@gmail.com>\n"
 "Language-Team: Italian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -39,6 +39,24 @@ msgstr "Foto o Album Casuali, Più Recenti oppure Più Visitati"
 
 msgid "Blocks"
 msgstr "Blocchi"
+
+msgid "Picture of the Day"
+msgstr "Foto del Giorno"
+
+msgid "Picture of the Week"
+msgstr "Foto della Settimana"
+
+msgid "Picture of the Month"
+msgstr "Foto del Mese"
+
+msgid "Album of the Day"
+msgstr "Album del Giorno"
+
+msgid "Album of the Week"
+msgstr "Album della Settimana"
+
+msgid "Album of the Month"
+msgstr "Album del Mese"
 
 msgid "Random Image"
 msgid_plural "Random Images"
@@ -69,24 +87,6 @@ msgid "Most Viewed Album"
 msgid_plural "Most Viewed Albums"
 msgstr[0] "Album più visto"
 msgstr[1] "Album più visti"
-
-msgid "Picture of the Day"
-msgstr "Foto del Giorno"
-
-msgid "Picture of the Week"
-msgstr "Foto della Settimana"
-
-msgid "Picture of the Month"
-msgstr "Foto del Mese"
-
-msgid "Album of the Day"
-msgstr "Album del Giorno"
-
-msgid "Album of the Week"
-msgstr "Album della Settimana"
-
-msgid "Album of the Month"
-msgstr "Album del Mese"
 
 msgid "Date:"
 msgstr "Data:"
@@ -154,7 +154,7 @@ msgid ""
 "Use a PHP block like the one shown below to include an image block in a PHP page outside of "
 "Gallery."
 msgstr ""
-"Usare un blocco PHP come quello mostrato qui sotto per includere un blocco immagine in una "
+"Usa un blocco PHP come quello mostrato qui sotto per includere un blocco immagine in una "
 "pagina PHP al di fuori di Gallery."
 
 msgid ""
@@ -167,11 +167,11 @@ msgstr ""
 "weeklyAlbum, monthlyAlbum, specificItem; il predefinito è randomImage"
 
 msgid ""
-"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize, rawImage; "
-"the value can also be: none"
+"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize; the value "
+"can also be: none"
 msgstr ""
 "Lista separata da pipe(|) di elementi presi tra questi: titolo, data, visite, proprietario, "
-"heading, fullSize, rawImage; il valore può anche essere: nessuno"
+"heading, fullSize; il valore pu&ograve; anche essere: nessuno"
 
 msgid ""
 "Limit the item selection to the subtree of the gallery under the album with the given id; or "
@@ -200,8 +200,8 @@ msgid ""
 "more bandwidth if a much larger image has to be scaled down in your browser."
 msgstr ""
 "Proprio come %smaxSize eccetto che non sostituirà un'immagine più piccola della dimensione "
-"richiesta, così si otterrà una corrispondenza di dimensione il più possibile esatta. Notare "
-"che questo potrebbe utilizzare molta più banda se un'immagine molto più grande debba essere "
+"richiesta, così avrai una corrispondenza di dimensione il più possibile esatta. Nota che "
+"questo potrebbe utilizzare molta più banda se un'immagine molto più debba essere "
 "rimpicciolita nel browser."
 
 msgid ""
@@ -212,7 +212,7 @@ msgstr ""
 
 msgid "Add a link target (for example, to open links in a new browser window)"
 msgstr ""
-"Aggiunge un link target (ad esempio, per aprire i link in una nuova finestra del browser)"
+"Aggiungi un link target (ad esempio, per aprire i link in una nuova finestra del browser)"
 
 msgid "Image frame to use around images"
 msgstr "Cornice immagine da usare intorno le immagini"
@@ -230,7 +230,7 @@ msgid ""
 "Image frames require CSS to be displayed correctly. Include the following in the %s section "
 "to support image frames."
 msgstr ""
-"Le cornici immagine necessitano che il CSS sia visualizzato correttamente. Includere ciò che "
+"Le cornici immagine necessitano che il CSS sia visualizzato correttamente. Includi ciò che "
 "segue nella sezione %s per supportare le cornici immagine."
 
 #, c-format
@@ -239,7 +239,7 @@ msgid ""
 "parameter to support the image frames configured above. Frame ids are the directory names in "
 "the %s directory."
 msgstr ""
-"Specificare l'id della cornice (oppure una lista di id separati da pipe) nel parametro "
+"Specifica l'id della cornice (oppure una lista di id separati da pipe) nel parametro "
 "cornici. Non inserire il parametro per supportare le cornici immagine configurate qui sotto. "
 "Gli id delle cornici sono i nomi delle cartelle nella cartella %s."
 
@@ -283,7 +283,7 @@ msgid "Monthly album"
 msgstr "Album mensile"
 
 msgid "Number of items"
-msgstr "Numero di oggetti"
+msgstr "Numero di Oggetti"
 
 msgid "Use default settings"
 msgstr "Usa configurazione predefinita"
@@ -302,3 +302,10 @@ msgstr "Visualizza contatore visite"
 
 msgid "Show owner"
 msgstr "Visualizza proprietario"
+
+#~ msgid ""
+#~ "Scale images to this maximum size. If maxSize exceeds the thumbnail dimensions, you must "
+#~ "also specify g2_show=fullSize"
+#~ msgstr ""
+#~ "Riscala le immagini a questa dimensione massima. Se maxSize oltrepassa le dimensioni "
+#~ "delle anteprime, devi specificare anche g2_show=fullSize"

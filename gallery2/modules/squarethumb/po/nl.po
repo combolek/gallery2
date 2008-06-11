@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@
 # Gidie <gidie at users.sourceforge REMOVE THIS dot net>, 2005
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Square Thumbnails 1.0.8\n"
+"Project-Id-Version: Gallery: Square Thumbnails 1.0.5\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-02-19 16:48+0100\n"
 "PO-Revision-Date: 2005-02-19 16:50+0100\n"
@@ -55,21 +55,18 @@ msgstr "Vierkant Miniatuur Module"
 #, c-format
 msgid ""
 "This module requires you to have at least one graphics toolkit active in order for it to "
-"operate properly.  Please return to the %sModules%s page and activate a graphics toolkit."
+"operate properly.  Please return to the <a href=\"%s\">Modules</a> page and activate a "
+"graphics toolkit."
 msgstr ""
 "Deze module veriest dat u minimaal een active grafische toolkit heeft om goed te "
-"functioneren. Ga terug naar de %sModules%s pagina en activeer een grafische toolkit."
+"functioneren. Ga terug naar de <a href=\"%s\">Modules</a> pagina en activeer een grafische "
+"toolkit."
 
 msgid "Settings saved successfully"
 msgstr "Instellingen succesvol opgeslagen"
 
 msgid "Crop images to square"
 msgstr "Afbeeldingen bijsnijden naar vierkant"
-
-msgid ""
-"You need to enable a graphics toolkit module with PPM support to use the \"fit images to "
-"square\" mode."
-msgstr ""
 
 msgid "Fit images to square, padding with background color:"
 msgstr "Afbeelding passend maken naar vierkant, opgevuld met achtergrondkleur:"

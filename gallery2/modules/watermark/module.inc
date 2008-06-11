@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,12 +33,11 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
 	$this->setId('watermark');
 	$this->setName($gallery->i18n('Watermark'));
 	$this->setDescription($gallery->i18n('Watermark your images'));
-	$this->setVersion('1.1.5'); /* Update upgrade() too */
-	$this->_templateVersion = 1;
+	$this->setVersion('1.1.0'); /* Update upgrade() too */
 	$this->setGroup('display', $gallery->i18n('Display'));
-	$this->setCallbacks('getSiteAdminViews|getUserAdminViews');
-	$this->setRequiredCoreApi(array(7, 45));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setCallbacks('registerEventListeners|getSiteAdminViews|getUserAdminViews');
+	$this->setRequiredCoreApi(array(7, 4));
+	$this->setRequiredModuleApi(array(3, 5));
     }
 
     /**
@@ -129,8 +128,7 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
 		    return $ret;
 		}
 
-		list ($ret, $derivatives) =
-		    GalleryCoreApi::loadEntitiesById($ids, 'GalleryDerivative');
+		list ($ret, $derivatives) = GalleryCoreApi::loadEntitiesById($ids);
 		if ($ret) {
 		    GalleryCoreApi::releaseLocks($lock);
 		    return $ret;
@@ -173,15 +171,6 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
 	    /* Adding dependency on getRewriteRule() changes */
 	case '1.0.9':
 	case '1.0.10':
-	case '1.1.0':
-	    /* .mo file migration */
-	case '1.1.1':
-	case '1.1.2':
-	    /* Refactored to new event registration from core API 7.34 */
-	case '1.1.3':
-	    /* Combined YUI libraries into a single file */ 
-	case '1.1.4':
-	    /* Require minimum core API 7.45 */
 
 	case 'end of upgrade path':
 	    /*
@@ -267,14 +256,14 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
 	    return $ret;
 	}
 
-	$ret = GalleryCoreApi::registerFactoryImplementation(
-	    'GalleryEventListener', 'WatermarkModule', 'WatermarkModule', 
-	    'modules/watermark/module.inc', 'watermark', array('GalleryEntity::delete'));
-	if ($ret) {
-	    return $ret;
-	}
-
 	return null;
+    }
+
+    /**
+     * @see GalleryModule::registerEventListeners
+     */
+    function registerEventListeners() {
+	GalleryCoreApi::registerEventListener('GalleryEntity::delete', new WatermarkModule());
     }
 
     /**

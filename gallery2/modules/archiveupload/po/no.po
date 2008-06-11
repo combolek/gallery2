@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@
 # - Sverre M. Vikan <sverre AT urven DOT net>
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Archive Upload 1.0.7\n"
+"Project-Id-Version: Gallery: Archive Upload 1.0.6\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-02-01 23:38+0100\n"
 "PO-Revision-Date: 2006-12-15 13:24+0100\n"
@@ -60,11 +60,6 @@ msgstr ""
 "i Gallery.  Du må finne eller installere en unzip-fil på din tjener og skrive inn stien til "
 "den i teksttboksen nedenfor.  Glem ikke å gjøre filen kjørbar om du sitter på en Unix-maskin "
 "(<i>chmod 755 unzip</i> i den rette katalogen bør være nok)"
-
-msgid ""
-"The exec() function is disabled in your PHP by the <b>disabled_functions</b> parameter in "
-"php.ini.  This module cannot be used until that setting is changed."
-msgstr ""
 
 msgid "Path to unzip:"
 msgstr "Sti til unzip:"

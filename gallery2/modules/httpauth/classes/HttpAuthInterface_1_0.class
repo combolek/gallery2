@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,7 +34,7 @@ class HttpAuthInterface_1_0 {
 
     /**
      * Checks if HTTP authentication is enabled.
-     * @return array GalleryStatus a status code,
+     * @return array object GalleryStatus a status code,
      *               bool true if HTTPAuth is enabled,
      *               bool true if ServerAuth is enabled
      *               bool true if it is enabled globally or
@@ -51,7 +51,7 @@ class HttpAuthInterface_1_0 {
      *                                          deactivate (defaults to false).
      * @param bool $useGlobally (optional) Set to true to activate auth for all modules, false to
      *                                     require modules to opt-in for HTTP auth (default),
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function setConfiguration($enableHttpAuth, $enableServerAuth=false, $useGlobally=false) {
 	return GalleryCoreApi::error(ERROR_UNIMPLEMENTED);
@@ -59,7 +59,7 @@ class HttpAuthInterface_1_0 {
 
     /**
      * Prompt the user via HTTP authentication for username / password.
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function requestAuthentication() {
 	return GalleryCoreApi::error(ERROR_UNIMPLEMENTED);

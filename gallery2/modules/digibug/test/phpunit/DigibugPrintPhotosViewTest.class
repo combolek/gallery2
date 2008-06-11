@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,10 +36,7 @@ class DigibugPrintPhotosViewTest extends GalleryTestCase {
 
     function setUp() {
 	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	$this->_view = new DigibugPrintPhotosView();
 
@@ -47,7 +44,8 @@ class DigibugPrintPhotosViewTest extends GalleryTestCase {
 	    $this->_getRootId(), 'application/unknown', array(), __FILE__,
 	    'GalleryPhotoItem');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($this->_item);
 
@@ -55,19 +53,22 @@ class DigibugPrintPhotosViewTest extends GalleryTestCase {
 	    $this->_getRootId(), 'application/unknown', array(), __FILE__,
 	    'GalleryPhotoItem');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($this->_publicItem);
 
 	list ($ret, $everybodyGroupId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.everybodyGroup');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$ret = $ret = GalleryCoreApi::addGroupPermission(
 	    $this->_publicItem->getId(), $everybodyGroupId, 'core.all');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
     }
 
@@ -81,28 +82,28 @@ class DigibugPrintPhotosViewTest extends GalleryTestCase {
 	/* We only have permission to print and view the thumbnail */
 	$ret = GalleryCoreApi::removeItemPermissions($itemId);
 	if ($ret) {
-	    return $ret;
+	    $this->failWithStatus($ret);
 	}
 
 	$ret = GalleryCoreApi::addUserPermission(
 	    $itemId, $gallery->getActiveUserId(), 'digibug.print');
 	if ($ret) {
-	    return $ret;
+	    $this->failWithStatus($ret);
 	}
 
 	$ret = GalleryCoreApi::addUserPermission(
 	    $itemId, $gallery->getActiveUserId(), 'core.view');
 	if ($ret) {
-	    return $ret;
+	    $this->failWithStatus($ret);
 	}
 
 	ob_start();
 	$ret = $this->_view->renderImmediate(array(), array());
+	if ($ret) {
+	    $this->failWithStatus($ret);
+	}
 	$results = ob_get_contents();
 	ob_end_clean();
-	if ($ret) {
-	    return $ret;
-	}
 
 	/* Grab session we provide for the raw image */
 	$session =& $gallery->getSession();
@@ -114,7 +115,7 @@ class DigibugPrintPhotosViewTest extends GalleryTestCase {
 	$digibugSession = new GallerySession();
 	$ret = $digibugSession->init();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(array($itemId), $digibugSession->get('core.isPrintService'),
@@ -133,7 +134,7 @@ class DigibugPrintPhotosViewTest extends GalleryTestCase {
 
 	$ret = GalleryCoreApi::removeItemPermissions($itemId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Give the active user view permissions through session-basd permissions */
@@ -143,27 +144,27 @@ class DigibugPrintPhotosViewTest extends GalleryTestCase {
 	$ret = GalleryCoreApi::addEntityPermission(
 	    $itemId, $sessionPermissionEntityId, 'digibug.print');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = GalleryCoreApi::addEntityPermission(
 	    $itemId, $sessionPermissionEntityId, 'core.viewAll');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = $this->_becomeGuestUser();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	ob_start();
 	$ret = $this->_view->renderImmediate(array(), array());
+	if ($ret) {
+	    $this->failWithStatus($ret);
+	}
 	$results = ob_get_contents();
 	ob_end_clean();
-	if ($ret) {
-	    return $ret;
-	}
 
 	/* Grab session we provide for the raw image */
 	$session =& $gallery->getSession();
@@ -178,7 +179,7 @@ class DigibugPrintPhotosViewTest extends GalleryTestCase {
 	    $digibugSession = new GallerySession();
 	    $ret = $digibugSession->init();
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 
 	    $this->assertEquals(array($itemId), $digibugSession->get('core.isPrintService'),

@@ -1,6 +1,8 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
 <div class="gbBlock gcBackground1">
   <h2> {g->text text="MIME Maintenance"} </h2>
@@ -39,7 +41,6 @@
     <label for="rbAllow">
       {g->text text="Only allow uploads of types selected below"}
     </label>
-  </p>
 </div>
 
 <div class="gbBlock gcBackground1">
@@ -48,7 +49,8 @@
   <input type="submit" class="inputTypeSubmit"
    name="{g->formVar var="form[action][reset]"}" value="{g->text text="Reset"}"/>
   <input type="button" class="inputTypeButton" value="{g->text text="Add new MIME type"}"
-   onclick="document.location='{g->url arg1="view=core.SiteAdmin" arg2="subView=mime.MimeEdit"}'"/>
+   onclick="document.location='{g->url arg1="view=core.SiteAdmin" arg2="subView=mime.MimeEdit"
+   				       htmlEntities=false}'"/>
 </div>
 
 <div class="gbBlock">

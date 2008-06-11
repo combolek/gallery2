@@ -1,6 +1,8 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
 <div class="gbBlock gcBackground1">
   <h2> {g->text text="Link Item Settings"} </h2>
@@ -19,14 +21,14 @@
 	{g->text text="Add small arrow watermark on thumbnails"}
       </label>
     </td><td>
-      <input type="checkbox" id="arrowWatermark" {if $form.arrowWatermark}checked="checked" {/if}
+      <input type="checkbox" id="arrowWatermark"{if $form.arrowWatermark} checked="checked"{/if}
        name="{g->formVar var="form[arrowWatermark]"}"/>
     </td></tr><tr><td>
       <label for="urlSnapshot">
 	{g->text text="Generate webpage snapshot for thumbnails of URL links"}
       </label>
     </td><td>
-      <input type="checkbox" id="urlSnapshot" {if $form.urlSnapshot}checked="checked" {/if}
+      <input type="checkbox" id="urlSnapshot"{if $form.urlSnapshot} checked="checked"{/if}
        name="{g->formVar var="form[urlSnapshot]"}"/>
     </td></tr><tr><td colspan="2">
       <label for="snapshotExec">

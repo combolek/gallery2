@@ -1,21 +1,22 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
 <script type="text/javascript">
   // <![CDATA[
-  function SetSizeLimitOption_toggleXY(chk) {ldelim}
+  function SetSizeLimitOption_toggleXY() {ldelim}
     var frm = document.getElementById('itemAdminForm');
-    frm.elements["{g->formVar var="form[SizeLimitOption][dimensions][width]"}"].disabled = chk;
-    frm.elements["{g->formVar var="form[SizeLimitOption][dimensions][height]"}"].disabled = chk;
-    frm.elements["{g->formVar var="form[SizeLimitOption][keepOriginal]"}"].disabled =
-      chk && frm.elements["{g->formVar var="form[SizeLimitOption][sizeChoice]"}"][0].checked;
+    frm.elements["{g->formVar var="form[SizeLimitOption][dimensions][width]"}"].disabled =
+      !frm.elements["{g->formVar var="form[SizeLimitOption][dimensionChoice]"}"][1].checked;
+    frm.elements["{g->formVar var="form[SizeLimitOption][dimensions][height]"}"].disabled =
+      !frm.elements["{g->formVar var="form[SizeLimitOption][dimensionChoice]"}"][1].checked;
   {rdelim}
-  function SetSizeLimitOption_toggleSize(chk) {ldelim}
+  function SetSizeLimitOption_toggleSize() {ldelim}
     var frm = document.getElementById('itemAdminForm');
-    frm.elements["{g->formVar var="form[SizeLimitOption][filesize]"}"].disabled = chk;
-    frm.elements["{g->formVar var="form[SizeLimitOption][keepOriginal]"}"].disabled =
-      chk && frm.elements["{g->formVar var="form[SizeLimitOption][dimensionChoice]"}"][0].checked;
+    frm.elements["{g->formVar var="form[SizeLimitOption][filesize]"}"].disabled =
+     !frm.elements["{g->formVar var="form[SizeLimitOption][sizeChoice]"}"][1].checked;
   {rdelim}
   // ]]>
 </script>
@@ -27,14 +28,14 @@
     <div style="font-weight: bold">
       {g->text text="Maximum dimensions of full sized images"}
     </div>
-    <input type="radio" id="SizeLimit_DimNone" onclick="SetSizeLimitOption_toggleXY(1)"
+    <input type="radio" id="SizeLimit_DimNone" onclick="SetSizeLimitOption_toggleXY()"
 	   name="{g->formVar var="form[SizeLimitOption][dimensionChoice]"}" value="unlimited"
      {if $SizeLimitOption.dimensionChoice == "unlimited"}checked="checked"{/if}/>
     <label for="SizeLimit_DimNone">
       {g->text text="No Limits"}
     </label>
     <br/>
-    <input type="radio" onclick="SetSizeLimitOption_toggleXY(0)"
+    <input type="radio" onclick="SetSizeLimitOption_toggleXY()"
 	   name="{g->formVar var="form[SizeLimitOption][dimensionChoice]"}" value="explicit"
      {if $SizeLimitOption.dimensionChoice == "explicit"}checked="checked"{/if}/>
     {g->dimensions formVar="form[SizeLimitOption][dimensions]"
@@ -59,14 +60,14 @@
     <div style="font-weight: bold">
       {g->text text="Maximum file size of full sized images in kilobytes"}
     </div>
-    <input type="radio" id="SizeLimit_SizeNone" onclick="SetSizeLimitOption_toggleSize(1)"
+    <input type="radio" id="SizeLimit_SizeNone" onclick="SetSizeLimitOption_toggleSize()"
 	   name="{g->formVar var="form[SizeLimitOption][sizeChoice]"}" value="unlimited"
      {if $SizeLimitOption.sizeChoice == "unlimited"}checked="checked"{/if}/>
     <label for="SizeLimit_SizeNone">
       {g->text text="No Limits"}
     </label>
     <br/>
-    <input type="radio" onclick="SetSizeLimitOption_toggleSize(0)"
+    <input type="radio" onclick="SetSizeLimitOption_toggleSize()"
 	   name="{g->formVar var="form[SizeLimitOption][sizeChoice]"}" value="explicit"
      {if $SizeLimitOption.sizeChoice == "explicit"}checked="checked"{/if}/>
     <input type="text" size="7" maxlength="6"
@@ -83,9 +84,7 @@
 
   <input type="checkbox" id="SizeLimit_KeepOriginal"
 	 name="{g->formVar var="form[SizeLimitOption][keepOriginal]"}"
-   {if $SizeLimitOption.keepOriginal} checked="checked" {/if}{if
-    $SizeLimitOption.dimensionChoice == "unlimited" && $SizeLimitOption.sizeChoice == "unlimited"}
-    disabled="disabled"{/if}/>
+   {if $SizeLimitOption.keepOriginal} checked="checked"{/if}/>
   <label for="SizeLimit_KeepOriginal">
     {g->text text="Keep original image?"}
   </label>

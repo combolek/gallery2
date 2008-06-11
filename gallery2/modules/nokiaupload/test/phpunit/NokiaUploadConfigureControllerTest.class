@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,20 +33,19 @@ class NokiaUploadConfigureControllerTest extends GalleryControllerTestCase {
     }
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->_markForCleanup($this->_album);
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'nokiaupload');
 	if ($ret) {
+	    print $ret->getAsHtml();
 	    return $ret;
 	}
 	$_SERVER['HTTP_USER_AGENT'] = 'Nokia6630/1.0 (2.39.129) Series60/2.6 Profile/MIDP-2.0';
@@ -54,15 +53,13 @@ class NokiaUploadConfigureControllerTest extends GalleryControllerTestCase {
 
     function tearDown() {
 	if (isset($this->_groupId)) {
-	    $ret = GalleryCoreApi::deleteEntityById($this->_groupId, 'GalleryGroup');
+	    $ret = GalleryCoreApi::deleteEntityById($this->_groupId);
 	    if ($ret) {
-		return $ret;
+		print $ret->getAsHtml();
+		return $this->failWithStatus($ret);
 	    }
 	}
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
+	parent::tearDown();
     }
 
     function testCancel() {
@@ -89,12 +86,12 @@ class NokiaUploadConfigureControllerTest extends GalleryControllerTestCase {
 	list ($ret, $groupId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.allUserGroup');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
-	list ($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
+	list ($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	GalleryUtilities::putRequestVariable('form[group]', $group->getGroupName());
@@ -122,17 +119,17 @@ class NokiaUploadConfigureControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'nokiaupload');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	list ($ret, $config) = $module->needsConfiguration();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(false, $config, 'Needs Configuration');
 
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'nokiaupload');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(!empty($params['id.mobileGroup']), 'group param');
 	$this->assert(!empty($params['id.uploadAlbum']), 'album param');
@@ -141,7 +138,7 @@ class NokiaUploadConfigureControllerTest extends GalleryControllerTestCase {
 	list ($ret, $perms) =
 	    GalleryCoreApi::fetchAllPermissionsForItem($params['id.uploadAlbum'], true);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$hasAddDataItem = false;

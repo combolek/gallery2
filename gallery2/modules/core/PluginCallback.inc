@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,6 +28,12 @@
  * @version $Revision$
  */
 class PluginCallbackView extends GalleryView {
+    /**
+     * @var object GalleryRepository
+     * @access private
+     */
+    var $_repository;
+
     /**
      * @see GalleryView::isImmediate
      */
@@ -132,7 +138,7 @@ class PluginCallbackView extends GalleryView {
      *
      * @param string $command (eg. "installModule")
      * @param array $result the location for result data to be sent back to the browser
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      * @static
      */
     function handleCallback($command, &$result) {
@@ -266,6 +272,26 @@ class PluginCallbackView extends GalleryView {
 		$result['status'] = 'success';
 	    }
 
+	    if (empty($this->_repository)) {
+		GalleryCoreApi::requireOnce('modules/core/classes/GalleryRepository.class');
+		$this->_repository = new GalleryRepository();
+		$this->_repository->init('');  /* bogus repository, but that should be ok */
+	    }
+
+	    $ret = $this->_repository->scanPlugin($pluginType, $pluginId);
+	    if ($ret && !($ret->getErrorCode() & ERROR_STORAGE_FAILURE)) {
+		/*
+		 * Something is wrong with this plugin. Maybe it's a 3rd party plugin w/o MANIFEST
+		 * file, maybe it has no revisions in the po files, maybe the module.inc is foobar.
+		 * Just log and ignore it.
+		 */
+		if ($gallery->getDebug()) {
+		    $gallery->debug_r($ret);
+		}
+	    } else if ($ret) {
+		return $ret;
+	    }
+
 	    break;
 
 	case 'uninstall':
@@ -310,7 +336,7 @@ class PluginCallbackView extends GalleryView {
 		}
 
 		$path = sprintf(
-		    "%s%ss/%s", GalleryCoreApi::getCodeBasePath(), $pluginType, $pluginId);
+		    "%s/%ss/%s", dirname(dirname(dirname(__FILE__))), $pluginType, $pluginId);
 		$success = @$platform->recursiveRmdir($path);
 		if (!$success) {
 		    $result['status'] = 'fail';
@@ -340,7 +366,7 @@ class PluginCallbackView extends GalleryView {
     /**
      * Get the state ('active', 'inactive', 'uninstalled', etc) of all modules
      *
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *               array(moduleId => state, ...)
      * @static
      */
@@ -373,9 +399,9 @@ class PluginCallbackView extends GalleryView {
      * Get the state ('active', 'inactive', 'uninstalled', etc) of a given module
      *
      * @param string $type ('module' or 'theme')
-     * @param GalleryPlugin $plugin
+     * @param object GalleryPlugin $plugin
      * @param array $status status of the plugin (from GalleryCoreApi::fetchPluginStatus)
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *               string a state
      * @static
      */

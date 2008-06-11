@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,26 +21,26 @@
 # Branislav Hanacek <brango@brango.sk>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Thumbnail Manager 1.0.13\n"
+"Project-Id-Version: Gallery: Thumbnail Manager 1.0.9\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-03 10:22+0200\n"
-"PO-Revision-Date: 2007-11-29 19:17+0100\n"
-"Last-Translator: Matej Spanik <retsamm@gmail.com>\n"
+"PO-Revision-Date: 2006-09-10 21:10+0200\n"
+"Last-Translator: Branislav Hanacek <brango@brango.sk>\n"
 "Language-Team: Slovak <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"Plural-Forms:  nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: KBabel 1.11.4\n"
 "X-Poedit-Language: Slovak\n"
 "X-Poedit-Country: SLOVAKIA\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
 msgid "Thumbnail Manager"
-msgstr "Správa Náhľadov"
+msgstr ""
 
 msgid "Set default thumbnails for non-image items"
-msgstr "Nastaviť predvoľené náhľady pre neobrázkové položky"
+msgstr ""
 
 msgid "Display"
 msgstr "Zobrazenie"
@@ -50,77 +50,71 @@ msgstr "Náhľady"
 
 #, no-c-format
 msgid "target width (# pixels or #% of full size)"
-msgstr "požadovaná šírka (# bodov alebo #% z celkovej veľkosti)"
+msgstr ""
 
 msgid "(optional) target height, defaults to same as width"
-msgstr "(voliteľné) požadovaná výška, predvolená je rovnaká ako šírka"
+msgstr ""
 
 msgid "Scale the image to the target size, maintain aspect ratio"
-msgstr "Zmeniť veľkost obrázku to požadovanú veľkosť, ponechaním pomeru strán"
+msgstr ""
 
 msgid "Custom Thumbnail"
-msgstr "Vlastný Náhľad"
+msgstr ""
 
 msgid "Remove custom thumbnail for this item"
-msgstr "Zrušiť vlastný náhľad pre túto položku"
+msgstr ""
 
 msgid "Upload a JPEG image to use as the thumbnail for this item."
-msgstr "Nahrať JPEG obrázok, ktorý bude použitý pre túto položku."
+msgstr ""
 
 msgid "Image does not need to be thumbnail size; it will be resized as needed."
-msgstr "Obrázok nemusí byť veľkosti náhľadu/ bude automaticky zmenšený na požadovanú veľkosť."
+msgstr ""
 
 msgid "No toolkit available for resizing so uploaded image must be thumbnail sized."
 msgstr ""
-"Utilita pre menenie veľkosti obrázkov nie je dostupná, takže nahrávaný obrázok musí mať "
-"veľkosť náhľadu."
 
 msgid "Missing image file"
-msgstr "Chýbajúci súbor obrázku"
+msgstr ""
 
 msgid "Thumbnail image must be a JPEG"
-msgstr "Náhľadový obrázok musí byť JPEG"
+msgstr ""
 
 msgid "New image added successfully"
-msgstr "Nový obrázok úspešne pridaný"
+msgstr ""
 
 msgid "New setting added successfully"
-msgstr "Nové nastavenie úspešne pridané"
+msgstr ""
 
 msgid "Image deleted successfully"
-msgstr "Obrázok úspešne zmazaný"
+msgstr ""
 
 msgid "Setting deleted successfully"
-msgstr "Nastavenie úspešne zmazané"
+msgstr ""
 
 msgid "Mime type already assigned"
-msgstr "MIME typ už je priradený"
+msgstr ""
 
 msgid "Missing mime type"
-msgstr "Chýbajúci MIME typ"
+msgstr ""
 
 msgid ""
 "Warning: Other modules provide thumbnail support for some types.  Remove settings below for "
 "these mime types to ensure other modules are used:"
 msgstr ""
-"Varovanie: Iné moduly dodávajú podporu pre niektoré typy.  Zrušte nasledovné nastavenia pre "
-"tieto MIME typy, aby ostatné moduly fungovali správne:"
 
 msgid ""
 "The thumbnail images shown below will be used for new items added to Gallery with the listed "
 "mime types."
 msgstr ""
-"Obrázky náhľadov zobrazené nižšie budú použité pre nové položky, s danými MIME typmi, "
-"pridané do Galérie."
 
 msgid "Mime Types"
-msgstr "MIME Typy"
+msgstr ""
 
 msgid "File"
 msgstr "Súbor"
 
 msgid "Image"
-msgstr "Obrázok"
+msgstr ""
 
 msgid "Action"
 msgstr "Akcia"
@@ -129,37 +123,33 @@ msgid "delete"
 msgstr "odstrániť"
 
 msgid "Delete this image?"
-msgstr "Zmazať tento obrázok?"
+msgstr ""
 
 msgid ""
 "(Will not remove thumbnails from existing items using this image, but those items will be "
 "unable to rebuild thumbs)"
 msgstr ""
-"(Nezruší náhľady z existujúcich položiek používajúcich tento obrázok, ale tieto položky "
-"nebudú schopné pregenerovať náhľady)"
 
 msgid "Thumbnail support provided by module:"
-msgstr "Podpora náhľadov dodávaná modulom:"
+msgstr ""
 
 msgid "New Setting"
-msgstr "Nové nastavenia"
+msgstr ""
 
 msgid "Images do not need to be thumbnail size; they will be resized as needed."
 msgstr ""
-"Obrázky nepotrebujú byť rovnakej veľkosti ako náhľady/ budú automaticky zmenšené na potrebnú "
-"veľkosť"
 
 msgid "Default thumbnail for mime type:"
-msgstr "Predvoľený náhľad pre MIME typ:"
+msgstr ""
 
 msgid "&laquo; Choose type or enter above &raquo;"
-msgstr "&laquo; Vyberte si typ, alebo zadajte hore &raquo;"
+msgstr ""
 
 msgid "New jpeg file:"
-msgstr "Nový jpeg súbor:"
+msgstr ""
 
 msgid "Existing image:"
-msgstr "Existujúci obrázok:"
+msgstr ""
 
 msgid "Save"
 msgstr "Uložiť"

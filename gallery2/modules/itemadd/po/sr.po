@@ -1,7 +1,7 @@
-# $Id$
+# $Id: sr.po 16040 2007-03-16 23:04:36Z mindless $
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,10 +19,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Add Items 1.0.6\n"
+"Project-Id-Version: Gallery: Add Items 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-08-14 16:52+0200\n"
-"PO-Revision-Date: 2007-04-16 02:13+0100\n"
+"PO-Revision-Date: 2005-09-06 17:10+0200\n"
 "Last-Translator: Jozef Selesi <selesi@gmail.com>\n"
 "Language-Team: Srpski <gallery-translations@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -30,14 +30,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: KBabel 1.10\n"
-
-#, fuzzy
-msgid "Adding items"
-msgstr "Dodavanje objekata"
-
-#, fuzzy
-msgid "Scanning directory"
-msgstr "Prethodni direktorijum"
 
 msgid "From Local Server"
 msgstr "Sa lokalnog servera"
@@ -49,32 +41,31 @@ msgid "From Web Page"
 msgstr "Sa web stranice"
 
 msgid "Available to all users with permission to add items"
-msgstr "Na rapolaganju svim korisnicima sa pravima na dodavanje objekata"
+msgstr ""
 
 msgid "Site Admins only"
-msgstr "Samo administratori"
+msgstr ""
 
 msgid "Disabled"
-msgstr "Onemogućeno"
+msgstr ""
 
 msgid "Add Items"
 msgstr "Dodavanje objekata"
 
 msgid "Add items from local server or the web"
-msgstr "Dodajte objekte sa lokalnog servera ili weba"
+msgstr ""
 
 msgid "Import"
-msgstr "Prenos"
+msgstr ""
 
 msgid "Web/Server"
-msgstr "Web/Server"
+msgstr ""
 
-#, fuzzy
 msgid ""
 "Transfer files that are already on your server into your Gallery.  The files must already "
-"have been uploaded to your server some other way (like FTP) and must be placed in an "
-"accessible directory.  If you're on Unix this means that the files and the directory the "
-"files are in should have modes of at least 755."
+"have been uploaded to your server some other way (like FTP) and must be placed in a "
+"directory where they are accessibly by any element on the server.  If you're on Unix this "
+"means that the files and the directory the files are in should have modes of at least 755."
 msgstr ""
 "Prenos datoteka koje se već nalaze na vašem serveru u Galeriju. Datoteke na neki drugi način "
 "(kao što je FTP) već treba da su poslate na server i stavljene u direktorijum gde su "
@@ -144,8 +135,8 @@ msgstr "Koristi simvezu"
 #, c-format
 msgid "%d byte"
 msgid_plural "%d bytes"
-msgstr[0] "%d bajt"
-msgstr[1] "%d bajtova"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Parent Directory"
 msgstr "Prethodni direktorijum"
@@ -222,8 +213,8 @@ msgstr "promeni"
 #, c-format
 msgid "%d url found"
 msgid_plural "%d urls found"
-msgstr[0] "Pronađana %d adresa"
-msgstr[1] "Pronađeno %d adresa"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "(Un)check all"
 msgstr "Obeleži/isključi sve"
@@ -232,22 +223,22 @@ msgid "Add URLs"
 msgstr "Dodaj adrese"
 
 msgid "Add Item Settings"
-msgstr "Parametri dodavanja objekta"
+msgstr ""
 
 msgid "Settings saved successfully"
 msgstr "Parametri uspešno sačuvani"
 
 msgid "Enable"
-msgstr "Omogući"
+msgstr ""
 
 msgid "Add From Web"
-msgstr "Dodaj sa weba"
+msgstr ""
 
 msgid "Add From Server"
-msgstr "Dodaj sa servera"
+msgstr ""
 
 msgid "Security Warning"
-msgstr "Sigurnosno upozorenje"
+msgstr ""
 
 msgid ""
 "\"Add From Web\" can be abused to attack other websites in your name.  For the attacked "
@@ -255,10 +246,6 @@ msgid ""
 "their website because your Gallery acts on behalf of your users.  Therefore it is "
 "recommended to enable \"Add From Web\" only for trusted users."
 msgstr ""
-"\"Dodaj sa weba\" može da se zloupotrebi za napad na druge web sajtove u vaše ime. Za "
-"napadnutog izgleda kao da ste vi, administrator ove Galerije, namerno napali njegov web "
-"sajt, jer vaša Galerija radi u ime vaših korisnika. Prema tome, preporučujemo da opciju "
-"\"Dodaj sa weba\" omogućite samo korisnicima od poverenja."
 
 msgid "Local Server Upload Paths"
 msgstr "Putanje za slanje sa lokalnog servera"

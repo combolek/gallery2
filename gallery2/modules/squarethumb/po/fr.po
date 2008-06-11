@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,9 +19,9 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Square Thumbnails 1.0.8\n"
+"Project-Id-Version: Gallery: Square Thumbnails 1.0.5\n"
 "POT-Creation-Date: 2004-11-28 12:40+0100\n"
-"PO-Revision-Date: 2007-06-17 00:00+0100\n"
+"PO-Revision-Date: 2006-02-20 00:00+0100\n"
 "Last-Translator: Arnaud MOURONVAL <ArnaudMouronval@yahoo.com>\n"
 "Language-Team: French <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -53,10 +53,12 @@ msgstr "Module Vignette carrée"
 #, c-format
 msgid ""
 "This module requires you to have at least one graphics toolkit active in order for it to "
-"operate properly.  Please return to the %sModules%s page and activate a graphics toolkit."
+"operate properly.  Please return to the <a href=\"%s\">Modules</a> page and activate a "
+"graphics toolkit."
 msgstr ""
 "Ce module nécessite qu'au moins une boîte à outils graphiques soit active. Veuillez "
-"retourner à la page des %sModules%s et activer au moins une boîte à outils graphiques ."
+"retourner à la page des <a href=\"%s\">Modules</a> et activer au moins une boîte à outils "
+"graphiques ."
 
 msgid "Settings saved successfully"
 msgstr "Paramètres sauvegardés avec succès"
@@ -64,15 +66,8 @@ msgstr "Paramètres sauvegardés avec succès"
 msgid "Crop images to square"
 msgstr "Rogner les images pour les rendre carrées"
 
-msgid ""
-"You need to enable a graphics toolkit module with PPM support to use the \"fit images to "
-"square\" mode."
-msgstr ""
-"Vous devez activer une boîte à outils graphiques avec le support PPM pour pouvoir utiliser "
-"le mode \"Mettre au carré\"."
-
 msgid "Fit images to square, padding with background color:"
-msgstr "Mettre les images au carré et remplir avec la couleur de fond&nbsp;:"
+msgstr "Faire tenir les images dans des carrés, remplir avec la couleur de fond&nbsp;:"
 
 msgid "Color value missing"
 msgstr "Couleur manquante"

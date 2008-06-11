@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -71,7 +71,7 @@ class SimpleRenderView extends RenderView {
 	foreach (array('copyright' => 'defaultCopyright',
 		      'version' => 'defaultVersion',
 		      'count' => 'defaultCount',
-		      'photosRecursiveLimit' => 'sfPhotosRecursiveLimit',
+		      'photosRecurseLimit' => 'sfPhotosRecurseLimit',
 		      'ttl' => 'defaultTtl') as $name => $defaultName) {
 	    $params[$name] = $params[$defaultName];
 	}
@@ -80,7 +80,6 @@ class SimpleRenderView extends RenderView {
 	$params['useImage'] = true;
 	$params['useEnclosure'] = false;
 	$params['useCloud'] = false;
-	$params['useMedia'] = false;
 
 	$ret = $this->continueRender($params);
 	if ($ret) {

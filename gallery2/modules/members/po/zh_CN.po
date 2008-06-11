@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Members 1.0.7\n"
+"Project-Id-Version: Gallery: Members 1.0.5\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-28 14:00+0800\n"
 "PO-Revision-Date: 2005-03-31 14:00+0800\n"
@@ -87,8 +87,7 @@ msgstr "重置"
 msgid "Member Items for %s"
 msgstr "%s 的用户项目"
 
-# too many plural forms on some strings
-#, fuzzy, c-format
+#, c-format
 msgid "%d item total"
 msgid_plural "%d items total"
 msgstr[0] "共计 %d 个项目"
@@ -132,7 +131,7 @@ msgstr "项目"
 msgid "None"
 msgstr "无"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%d member"
 msgid_plural "%d members"
 msgstr[0] "%d 位用户"
@@ -164,7 +163,7 @@ msgstr "E-mail:"
 msgid "Member Since:"
 msgstr "用户注册日期:"
 
-#, fuzzy, c-format
+#, c-format
 msgid "(%d day)"
 msgid_plural "(%d days)"
 msgstr[0] "(%d 天)"
@@ -180,7 +179,7 @@ msgstr "最后一项:"
 msgid "List All &raquo;"
 msgstr "列出所有 &raquo;"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s member"
 msgid_plural "%s members"
 msgstr[0] "%s 位用户"
@@ -190,3 +189,6 @@ msgstr[2] "%s 位用户"
 #, fuzzy
 msgid "Members Block"
 msgstr "用户"
+
+#~ msgid "Member Profile"
+#~ msgstr "用户档案"

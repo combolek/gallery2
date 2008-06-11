@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,106 +21,106 @@
 # Branislav Hanacek <brango@brango.sk>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Gd 1.1.5\n"
+"Project-Id-Version: Gallery: Gd 1.1.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-03 10:22+0200\n"
-"PO-Revision-Date: 2007-11-28 23:51+0100\n"
-"Last-Translator: Matej Spanik <retsamm@gmail.com>\n"
+"PO-Revision-Date: 2006-09-10 21:10+0200\n"
+"Last-Translator: Branislav Hanacek <brango@brango.sk>\n"
 "Language-Team: Slovak <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"Plural-Forms:  nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: KBabel 1.11.4\n"
 "X-Poedit-Language: Slovak\n"
 "X-Poedit-Country: SLOVAKIA\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
 msgid "Gd"
-msgstr "Gd"
+msgstr ""
 
 msgid "Gd Graphics Toolkit"
-msgstr "Gd Grafická Utilita"
+msgstr ""
 
 msgid "Graphics Toolkits"
 msgstr "Grafické nástroje"
 
 msgid "Convert to a JPEG"
-msgstr "Skonvertovať do JPEG"
+msgstr ""
 
 #, no-c-format
 msgid "target width (# pixels or #% of full size)"
-msgstr "požadovaná šírka (# bodov alebo #% z celkovej veľkosti)"
+msgstr ""
 
 msgid "(optional) target height, defaults to same as width"
-msgstr "(voliteľné) požadovaná výška, predvolená je rovnaká ako šírka"
+msgstr ""
 
 msgid "Scale the image to the target size, maintain aspect ratio"
-msgstr "Zmente veľkost obrázku to požadovanú veľkosť, ponechaním pomeru strán"
+msgstr ""
 
 #, no-c-format
 msgid "target height (# pixels or #% of full size)"
-msgstr "požadovaná výška (# bodov alebo #% z celkovej veľkosti)"
+msgstr ""
 
 msgid "Resize the image to the target dimensions"
-msgstr "Zmeňte veľkosť obrázku na požadované rozmery"
+msgstr ""
 
 msgid "rotation degrees"
-msgstr "otočenie v stupňoch"
+msgstr ""
 
 msgid "Rotate the image"
-msgstr "Otočiť obrázok"
+msgstr ""
 
 msgid "left edge %"
-msgstr "ľavý okraj %"
+msgstr ""
 
 msgid "top edge %"
-msgstr "horný okraj %"
+msgstr ""
 
 msgid "width %"
-msgstr "šírka %"
+msgstr ""
 
 msgid "height %"
-msgstr "výška %"
+msgstr ""
 
 msgid "Crop the image"
-msgstr "Orezať obrázok"
+msgstr ""
 
 msgid "overlay path"
-msgstr "cesta vrstvy"
+msgstr ""
 
 msgid "overlay mime type"
-msgstr "MIME typ vrstvy"
+msgstr ""
 
 msgid "overlay width"
-msgstr "šírka vrstvy (v pixeloch)"
+msgstr ""
 
 msgid "overlay height"
-msgstr "výška vrstvy (v pixeloch)"
+msgstr ""
 
 msgid "alignment type"
-msgstr "typ zarovnania"
+msgstr ""
 
 msgid "alignment x %"
-msgstr "zarovnanie x %"
+msgstr ""
 
 msgid "alignment y %"
-msgstr "zarovnanie y %"
+msgstr ""
 
 msgid "Overlay source image with a second one"
-msgstr "Prekryť obrázok iným obrázkom (vrstvou)"
+msgstr ""
 
 msgid "target size in kb"
-msgstr "požadovaná veľkosť v kb"
+msgstr ""
 
 msgid "Reduce image quality to reach target file size"
-msgstr "Znížte kvalitu obrázku na dosiahnutie požadovanej veľkosti súboru"
+msgstr ""
 
 msgid "Get the width and height of the image"
-msgstr "Získať šírku a výšku obrázku"
+msgstr ""
 
 msgid "Gd Settings"
-msgstr "Nastavenie GD"
+msgstr ""
 
 msgid "Settings saved successfully"
 msgstr "Nastavenia boli úspešne uložené"
@@ -129,11 +129,9 @@ msgid ""
 "Gd is a graphics toolkit that can be used to process images that you upload to Gallery. The "
 "GD-library should be compiled in your PHP (--with-gd)."
 msgstr ""
-"Gd je grafická utilita, ktorá môže byť použitá na spracovanie obrázkov, ktoré nahráte do "
-"Vašej Galérie.  Knižnica GD by mala byť skompilovaná vo Vašom PHP (--with-gd)."
 
 msgid "JPEG Quality:"
-msgstr "Kvalita JPEG: "
+msgstr ""
 
 msgid "Save"
 msgstr "Uložiť"
@@ -145,19 +143,19 @@ msgid "Reset"
 msgstr "Východzie hodnoty"
 
 msgid "GD library version"
-msgstr "Verzia GD knižnice"
+msgstr ""
 
 msgid "GD version"
-msgstr "Verzia GD"
+msgstr ""
 
 msgid "Required"
-msgstr "Požadované"
+msgstr ""
 
 msgid "Pass/fail"
-msgstr "Úspešnosť/Neúspešnosť"
+msgstr ""
 
 msgid "bundled"
-msgstr "zbalené"
+msgstr ""
 
 msgid "Failed"
 msgstr "Chyba"
@@ -166,17 +164,15 @@ msgid ""
 "This GD version is too old and is not supported by this module! Please upgrade your PHP "
 "installation to include the latest GD version."
 msgstr ""
-"Táto verzia GD je príliš stará a nie je podporovaná týmto modulom! Prosím aktualizujte Vašu "
-"inštaláciu PHP najnovšou verziou GD."
 
 msgid "Passed"
-msgstr "Úspešné"
+msgstr ""
 
 msgid "You don't seem to have the GD library available on this PHP installation."
-msgstr "Vyzerá to tak, že nemáte nainštalovanú GD knižnicu v tejto PHP inštalácii."
+msgstr ""
 
 msgid "Supported MIME Types"
-msgstr "Podporované MIME Typy:"
+msgstr ""
 
 msgid "The Gd module will support files with the following MIME types:"
-msgstr "Modul GD podporuje súbory s nasledovnými MIME typmi:"
+msgstr ""

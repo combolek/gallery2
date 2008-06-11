@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,9 +19,9 @@
 # Darius Žitkevičius <skystis@splius.lt>, 2005, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Keyword Albums 1.0.5\n"
+"Project-Id-Version: Gallery: Keyword Albums 1.0.0\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2007-06-14 17:26-0700\n"
+"POT-Creation-Date: 2006-09-12 11:25-0700\n"
 "PO-Revision-Date: 2006-03-12 23:02+0200\n"
 "Last-Translator: Darius Žitkevičius <skystis@splius.lt>\n"
 "Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
@@ -32,14 +32,14 @@ msgstr ""
 "100>=20) ? 1 : 2);\n"
 "X-Generator: KBabel 1.11.1\n"
 
-#, c-format
-msgid "Keyword Album: %s"
-msgstr ""
-
 msgid "Keyword Album"
 msgstr ""
 
 msgid "keyword album"
+msgstr ""
+
+#, c-format
+msgid "Keyword Album: %s"
 msgstr ""
 
 msgid "All album views"
@@ -52,7 +52,7 @@ msgid "Keyword albums"
 msgstr ""
 
 msgid "None"
-msgstr "Nieko"
+msgstr ""
 
 msgid "&laquo; default theme &raquo;"
 msgstr "&laquo; numatyta tema &raquo;"
@@ -64,7 +64,7 @@ msgid "Dynamic albums based on keyword search"
 msgstr ""
 
 msgid "Display"
-msgstr "Vaizdas"
+msgstr ""
 
 msgid "Keywords:"
 msgstr ""
@@ -73,9 +73,6 @@ msgid "Short URL for Keyword Albums"
 msgstr ""
 
 msgid "Keyword to use for dynamic album"
-msgstr ""
-
-msgid "Page number in a dynamic album"
 msgstr ""
 
 msgid "Keyword Album Settings"
@@ -160,3 +157,6 @@ msgstr ""
 
 msgid "Maximum number of keywords (empty for no limit)"
 msgstr ""
+
+#~ msgid "Successfully saved theme settings"
+#~ msgstr "Temos nustatymai išsaugoti sėkmingai"

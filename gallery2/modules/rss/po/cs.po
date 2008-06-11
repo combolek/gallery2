@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: RSS 1.1.5\n"
+"Project-Id-Version: Gallery: RSS 1.1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-19 11:34+0100\n"
 "PO-Revision-Date: 2006-12-08 13:01+0100\n"
@@ -34,6 +34,9 @@ msgstr "Tento feed už neexistuje!"
 
 msgid "Feeds of that type are not allowed!"
 msgstr "Feedy tohoto typu nejsou povoleny!"
+
+msgid "Not permitted to view this item"
+msgstr "Není dovoleno zobrazit tuto položku"
 
 msgid "Incorrect feed type!"
 msgstr "Nesprávný typ zdroje!"
@@ -59,10 +62,6 @@ msgstr "RSS feed pro tuto fotografii"
 msgid "RSS Feed for this Movie"
 msgstr "RSS feed pro toto video"
 
-#, c-format
-msgid "RSS Feed for this %s"
-msgstr "RSS feed pro tuto %s"
-
 msgid "Configure RSS Feeds"
 msgstr "Konfigurace RSS feedů (zdrojů)"
 
@@ -82,8 +81,8 @@ msgid "Short URL for Configurable RSS Feeds"
 msgstr "Krátká URL adresa pro konfigurovatelné RSS Feedy"
 
 #, c-format
-msgid "In album %s"
-msgstr "V albu %s"
+msgid "RSS Feed for this %s"
+msgstr "RSS feed pro tuto %s"
 
 msgid "Items in an album"
 msgstr "Položky v albu"
@@ -103,13 +102,9 @@ msgstr "komentáře k položce"
 msgid "Comments for an album and its subalbums"
 msgstr "Komentáře pro alba a jejich vnořená alba"
 
-#, fuzzy
-msgid "Random items in an album"
-msgstr "Položky v albu"
-
-#, fuzzy
-msgid "Random items in an album and its subalbums"
-msgstr "Položky v albu a jejich vnořená alba"
+#, c-format
+msgid "In album <a href=\"%s\">%s</a>"
+msgstr "V albu <a href=\"%s\">%s</a>"
 
 msgid "RSS Feeds"
 msgstr "RSS feedy"
@@ -194,14 +189,6 @@ msgstr "Komentáře pro toto album"
 msgid "Comments for this album and its subalbums"
 msgstr "Komentáře tohoto alba a jeho vnořených alb"
 
-#, fuzzy
-msgid "Random pictures inside this album"
-msgstr "Položky v tomto albu"
-
-#, fuzzy
-msgid "Random pictures inside this album and its subalbums"
-msgstr "Položky tohoto alba a jejich vnořená alba"
-
 msgid "Comments for this item"
 msgstr "Komentáře pro tuto položku"
 
@@ -285,21 +272,6 @@ msgid ""
 "This adds an enclosure to each image in the feed, that contains the full resolution image"
 msgstr ""
 "To přídá závěr ke každému obrázku ve feedu, který bude obsahovat obrázek v plném rozlišení"
-
-msgid "Use Media RSS"
-msgstr ""
-
-#, fuzzy
-msgid "Include Media RSS tags"
-msgstr "Zahrnout tag obrázku"
-
-msgid ""
-"This adds Media RSS tags to the feed, which allows media-oriented clients to display the "
-"feed in a more useful fashion"
-msgstr ""
-
-msgid "about Media RSS"
-msgstr ""
 
 msgid "Cloud tag (RSS 2.0)"
 msgstr "Cloud tag (RSS 2.0)"
@@ -398,14 +370,6 @@ msgstr "Maximální počet položek ve feedu"
 msgid "Invalid maximum number"
 msgstr "Neplatný maximální počet"
 
-#, fuzzy
-msgid "Maximum age for items in feeds"
-msgstr "Maximální počet položek ve feedu"
-
-#, fuzzy
-msgid "Invalid maximum age number"
-msgstr "Neplatný maximální počet"
-
 msgid "Default ttl"
 msgstr "Výchozí ttl"
 
@@ -468,29 +432,14 @@ msgstr "Povolit RSS feedy fotografií uvnitř alba a jejich vnořených alb"
 msgid "Slower"
 msgstr "Pomaleji"
 
-#, fuzzy
-msgid "Allow RSS feeds of comments of a photo"
+msgid "Allow RSS feeds comments of a photo"
 msgstr "Povolit RSS feedy komentářů fotografie"
 
-#, fuzzy
-msgid "Allow RSS feeds of comments of an album"
+msgid "Allow RSS feeds comments of an album"
 msgstr "Povolit RSS feedy komentářů alba"
 
-#, fuzzy
-msgid "Allow RSS feeds of comments for an album and its subalbums"
+msgid "Allow RSS feeds comments for an album and its subalbums"
 msgstr "Povolit RSS feedy komentářů fotografií uvnitř alba a jejich vnořených alb"
-
-#, fuzzy
-msgid "Allow RSS feeds of random photos inside an album"
-msgstr "Povolit RSS feedy fotografií uvnitř alba"
-
-#, fuzzy
-msgid "Allow RSS feeds of random photos inside an album and its subalbums"
-msgstr "Povolit RSS feedy fotografií uvnitř alba a jejich vnořených alb"
-
-#, fuzzy
-msgid "Slowest"
-msgstr "Pomaleji"
 
 msgid "Save Settings"
 msgstr "Uložit nastavení"
@@ -567,6 +516,3 @@ msgstr "10"
 
 msgid "all"
 msgstr "všechny"
-
-#~ msgid "Not permitted to view this item"
-#~ msgstr "Není dovoleno zobrazit tuto položku"

@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,12 +33,11 @@ class MP3AudioModule extends GalleryModule {
 	$this->setName($gallery->i18n('MP3 Audio'));
 	$this->setDescription(
 		$gallery->i18n('Enable inline play of mp3 audio files with a flash player'));
-	$this->setVersion('1.0.2');
-	$this->_templateVersion = 1;
+	$this->setVersion('1.0.0');
 	$this->setGroup('display', $gallery->i18n('Display'));
 	$this->setCallbacks('');
-	$this->setRequiredCoreApi(array(7, 27));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setRequiredCoreApi(array(7, 9));
+	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
@@ -88,7 +87,7 @@ class MP3AudioModule extends GalleryModule {
 	}
 	while (!empty($ids)) {
 	    $itemIds = array_splice($ids, 0, 100);
-	    list ($ret, $items) = GalleryCoreApi::loadEntitiesById($itemIds, 'GalleryDataItem');
+	    list ($ret, $items) = GalleryCoreApi::loadEntitiesById($itemIds);
 	    if ($ret) {
 		return array($ret, null);
 	    }

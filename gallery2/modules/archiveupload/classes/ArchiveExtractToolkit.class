@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -83,7 +83,7 @@ class ArchiveExtractToolkit extends GalleryToolkit {
      * Remove specified patterns in a directory tree.
      * @param string $dir path
      * @param array $prune ('file' => array of filenames, 'dir' => array of dirnames)
-     * @param GalleryPlatform
+     * @param object GalleryPlatform
      * @return bool true for success
      * @access private
      */

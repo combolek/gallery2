@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,9 +19,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Rating 1.0.12\n"
-"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2007-06-14 17:38-0700\n"
+"Project-Id-Version: Gallery: Rating 1.0.8\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-09-11 17:35-0700\n"
 "PO-Revision-Date: 2006-03-10 01:50+0800\n"
 "Last-Translator: Lyric <lyric@lyricli.com>\n"
 "Language-Team: Chinese Simplefied <gallery-devel@lists.sourceforge.net>\n"
@@ -30,10 +30,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#, c-format
-msgid "Rating Album: %s"
-msgstr ""
-
 #, fuzzy
 msgid "Rating Album"
 msgstr "评等"
@@ -41,6 +37,10 @@ msgstr "评等"
 #, fuzzy
 msgid "rating album"
 msgstr "启用这个相册的评等功能"
+
+#, c-format
+msgid "Rating Album: %s"
+msgstr ""
 
 #, fuzzy, c-format
 msgid "%d vote"
@@ -117,7 +117,7 @@ msgid "Lowest value allowed for rating album threshold"
 msgstr ""
 
 msgid "Invalid number"
-msgstr "不正确的数字"
+msgstr ""
 
 msgid "Description"
 msgstr "描述"
@@ -143,3 +143,6 @@ msgstr "重置"
 
 msgid "Rating interface"
 msgstr "评等界面"
+
+#~ msgid "Successfully saved theme settings"
+#~ msgstr "主题设置保存成功"

@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,9 +26,6 @@
 class MockTemplateAdapter {
     function MockTemplateAdapter($useProgressBar=true) {
 	$this->_useProgressBar = $useProgressBar;
-	$this->_callbacks = array();
-	$this->_completeProgressBar = array();
-	$this->_progress = array();
     }
 
     function registerTrailerCallback($callback, $args) {
@@ -79,13 +76,8 @@ class MockTemplateAdapter {
 	$this->_progress[] = 'error';
     }
 
-    function completeProgressBar($url, $doRedirect=false) {
+    function completeProgressBar($url) {
 	$this->_progress[] = 'complete:' . $url;
-	$this->_completeProgressBar = array($url, $doRedirect);
-    }
-
-    function getCompleteProgressBarDump() {
-	return $this->_completeProgressBar;
     }
 }
 ?>

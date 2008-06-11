@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,9 +19,9 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: EXIF/IPTC 1.2.4\n"
+"Project-Id-Version: Gallery: EXIF/IPTC 1.1.0\n"
 "POT-Creation-Date: 2004-11-25 00:03+0100\n"
-"PO-Revision-Date: 2007-11-01 00:00+0100\n"
+"PO-Revision-Date: 2006-09-30 00:00+0100\n"
 "Last-Translator: Arnaud MOURONVAL <Arnaud.Mouronval@yahoo.com>\n"
 "Language-Team: French <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -33,7 +33,7 @@ msgid "EXIF/IPTC"
 msgstr "EXIF/IPTC"
 
 msgid "Extract EXIF/IPTC data from JPEG photos"
-msgstr "Extraire les données EXIF &amp; IPTC des photos JPEG"
+msgstr "Extraire les données EXIF & IPTC des photos JPEG"
 
 msgid "Extra Data"
 msgstr "Données supplémentaires"
@@ -333,7 +333,7 @@ msgid "Quality"
 msgstr "Qualité"
 
 msgid "Reference Black/White"
-msgstr "Noir&amp;Blanc de référence"
+msgstr "Noir&Blanc de référence"
 
 msgid "Related Sound File"
 msgstr "Fichier son lié"
@@ -510,67 +510,67 @@ msgid "GPS: Receive Status"
 msgstr "GPS&nbsp;: état de réception"
 
 msgid "GPS: Measurement Mode"
-msgstr "GPS&nbsp;: Mode de mesure"
+msgstr "GPS&nbsp;: mode de mesure"
 
 msgid "GPS: Measurement Precision"
-msgstr "GPS&nbsp;: Précision de mesure"
+msgstr "GPS&nbsp;: précision de mesure"
 
 msgid "GPS: Speed Unit"
-msgstr "GPS&nbsp;: Unité de vitesse"
+msgstr "GPS&nbsp;: unité de vitesse"
 
 msgid "GPS: Receiver Speed"
-msgstr "GPS&nbsp;: Vitesse du receveur"
+msgstr "GPS&nbsp;: vitesse du receveur"
 
 msgid "GPS: Movement Direction Reference"
-msgstr "GPS&nbsp;: Direction de mouvement de référence"
+msgstr "GPS&nbsp;: direction de mouvement de référence"
 
 msgid "GPS: Movement Direction"
-msgstr "GPS&nbsp;: Direction de mouvement"
+msgstr "GPS&nbsp;: direction de mouvement"
 
 msgid "GPS: Image Direction Reference"
 msgstr "GPS&nbsp;: direction d'image de référence"
 
 msgid "GPS: Movement Image Direction"
-msgstr "GPS&nbsp;: Directon d'image"
+msgstr "GPS&nbsp;: directon d'image"
 
 msgid "GPS: Geodetic Survey Data"
-msgstr "GPS&nbsp;: Échantillon des données géodésiques"
+msgstr "GPS&nbsp;: échantillon des données géodésiques"
 
 msgid "GPS: Destination Latitude Reference"
-msgstr "GPS&nbsp;: Latitude de destination de référence"
+msgstr "GPS&nbsp;: latitude de destination de référence"
 
 msgid "GPS: Destination Latitude"
-msgstr "GPS&nbsp;: Latitude de destination"
+msgstr "GPS&nbsp;: latitude de destination"
 
 msgid "GPS: Destination Longitude Reference"
-msgstr "GPS&nbsp;: Longitude de destination de références"
+msgstr "GPS&nbsp;: longitude de destination de références"
 
 msgid "GPS: Destination Longitude"
-msgstr "GPS&nbsp;: Longitude de destination"
+msgstr "GPS&nbsp;: longitude de destination"
 
 msgid "GPS: Destination Bearing Reference"
-msgstr "GPS&nbsp;: Cap de destination de référence"
+msgstr "GPS&nbsp;: roulement de destination de référence"
 
 msgid "GPS: Destination Bearing"
-msgstr "GPS&nbsp;: Cap de destination"
+msgstr "GPS&nbsp;: roulement de destination"
 
 msgid "GPS: Destination Distance Reference"
-msgstr "GPS&nbsp;: Distance de destination de référence"
+msgstr "GPS&nbsp;: distance de destination de référence"
 
 msgid "GPS: Destination Distance"
-msgstr "GPS&nbsp;: Distance de destination"
+msgstr "GPS&nbsp;: distance de destination"
 
 msgid "GPS: Processing Method"
-msgstr "GPS&nbsp;: Méthode de traitement"
+msgstr "GPS&nbsp;: méthode de traitement"
 
 msgid "GPS: Area Information"
-msgstr "GPS&nbsp;: Information de zone"
+msgstr "GPS&nbsp;: information de zone"
 
 msgid "GPS: Datestamp"
 msgstr "GPS&nbsp;: Date"
 
 msgid "GPS: Differential Correction"
-msgstr "GPS&nbsp;: Correction différentielle"
+msgstr "GPS&nbsp;: correction différentielle"
 
 msgid "IPTC: Supplemental Categories"
 msgstr "IPTC&nbsp;: Catégories supplémentaires"
@@ -615,7 +615,7 @@ msgid "IPTC: City"
 msgstr "IPTC&nbsp;: Ville"
 
 msgid "IPTC: Province State"
-msgstr "IPTC&nbsp;: État / Région"
+msgstr "IPTC&nbsp;: Etat"
 
 msgid "IPTC: Country Name"
 msgstr "IPTC&nbsp;: Pays"
@@ -631,12 +631,6 @@ msgstr "IPTC&nbsp;: Copyright"
 
 msgid "IPTC: Time Created"
 msgstr "IPTC&nbsp;: Heure de création"
-
-msgid "IPTC: Content Location Name"
-msgstr "IPTC&nbsp;: Localisation du contenu"
-
-msgid "IPTC: Sub Location"
-msgstr "IPTC&nbsp;: Lieu / Quartier"
 
 msgid "EXIF/IPTC Settings"
 msgstr "Paramètres EXIF/IPTC"
@@ -805,21 +799,11 @@ msgstr ""
 msgid "Rotate pictures automatically"
 msgstr "Faire pivoter les images automatiquement"
 
-msgid ""
-"Warning: No toolkit support for rotation of JPEG images.  Make sure to activate a toolkit "
-"module if using this option."
-msgstr ""
-"Attention&nbsp;: Il n'y a aucune boîte à outils graphiques supportant la rotation des JPEG. "
-"Veuillez vous assurer d'activer une de ces boîtes à outils pour utiliser cette option."
-
 msgid "Preserve Original on Rotating"
 msgstr "Préserver l'original après rotation"
 
 msgid "Save"
 msgstr "Sauver"
-
-msgid "Loading.."
-msgstr "Chargement..."
 
 msgid "Photo Properties"
 msgstr "Propriétés de la photo"

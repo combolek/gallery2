@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 # Previous translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Watermark 1.1.5\n"
+"Project-Id-Version: Gallery: Watermark 1.1.0\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2006-12-20 09:54-0800\n"
 "PO-Revision-Date: 2006-03-16 10:28+0200\n"
@@ -56,9 +56,6 @@ msgstr "Watermerk"
 
 msgid "user watermarks"
 msgstr "gebruikerswatermerke"
-
-msgid "Error: Missing watermark. Please see the Event Logs page in the Site Admin."
-msgstr ""
 
 msgid "Watermark your images"
 msgstr "Watermerk vir u beelde"
@@ -317,3 +314,6 @@ msgstr ""
 "Gallery kan outomaties watermerke op beelde toepas waarna geskakel word vanuit eksterne  "
 "werwe buite u Gallery.  Kies 'n watermerk hierbo en aktiveer hotlink watermerk daarna met "
 "behulp van die Rewrite module."
+
+#~ msgid "No watermark selected"
+#~ msgstr "Geen watermerk is gekies nie"

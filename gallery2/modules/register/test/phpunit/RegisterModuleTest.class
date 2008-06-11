@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,14 +32,12 @@ class RegisterModuleTest extends GalleryTestCase {
     }
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	list ($ret, $this->_module) = GalleryCoreApi::loadPlugin('module', 'register');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
     }
 
@@ -49,7 +47,7 @@ class RegisterModuleTest extends GalleryTestCase {
 
 	list ($ret, $links) = $this->_module->getSystemLinks();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	/* None for non-guest */
 	$this->assertEquals(array(), $links, 'admin');
@@ -57,7 +55,7 @@ class RegisterModuleTest extends GalleryTestCase {
 	$gallery->setConfig('anonymousUserId', $gallery->getActiveUserId());
 	list ($ret, $links) = $this->_module->getSystemLinks();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(
 		array('Register' => array('text' => $label,
@@ -70,7 +68,7 @@ class RegisterModuleTest extends GalleryTestCase {
 	$this->_becomeGuestUser();
 	list ($ret, $links) = $this->_module->getSystemLinks();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(
 		array('Register' => array('text' => $label,

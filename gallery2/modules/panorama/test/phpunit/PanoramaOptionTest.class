@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,16 +36,14 @@ class PanoramaOptionTest extends ItemEditOptionTestCase {
     }
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	list ($ret, $this->_item) =
 	    $this->_createRandomDataItem($this->_getRootId(), 'image/test',
 		    array('width' => 10000, 'height' => 100), __FILE__, 'GalleryPhotoItem');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($this->_item);
 
@@ -53,7 +51,8 @@ class PanoramaOptionTest extends ItemEditOptionTestCase {
 		$this->_item, $this->_item->getId(), DERIVATIVE_TYPE_IMAGE_PREFERRED,
 		'test-operation|80', 'image/test', array('width' => 8000, 'height' => 80));
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->_renderer = new PanoramaRenderer();
@@ -62,23 +61,23 @@ class PanoramaOptionTest extends ItemEditOptionTestCase {
     function _makePanoramas() {
 	list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($this->_item->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $this->_item) = $this->_item->refresh();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->_item->setRenderer('PanoramaRenderer');
 	$ret = $this->_item->save();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = GalleryCoreApi::releaseLocks($lockId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	return null;
@@ -92,7 +91,7 @@ class PanoramaOptionTest extends ItemEditOptionTestCase {
 
 	list ($ret, $item) = $this->_item->refresh();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals('PanoramaRenderer', $item->getRenderer());
     }
@@ -100,7 +99,7 @@ class PanoramaOptionTest extends ItemEditOptionTestCase {
     function testPanoramaOff() {
 	$ret = $this->_makePanoramas();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$result = $this->_handleRequestAfterEdit(array(), $this->_item);
@@ -108,7 +107,7 @@ class PanoramaOptionTest extends ItemEditOptionTestCase {
 
 	list ($ret, $item) = $this->_item->refresh();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	/* For Oracle, null is replaced with '' when loading data from the database */
 	$this->assert(in_array($item->getRenderer(), array(null, '')), 'renderer not empty');
@@ -117,7 +116,7 @@ class PanoramaOptionTest extends ItemEditOptionTestCase {
     function testHelper() {
 	list ($ret, $images) = PanoramaHelper::fetchViewableImages(array($this->_item));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(isset($images[$this->_item->getId()]), 'Missing result');
 	$this->assertEquals($this->_derivative->getId(),
@@ -128,7 +127,7 @@ class PanoramaOptionTest extends ItemEditOptionTestCase {
 	/* Make sure we use full urls in applet parameters, and sessionid in image url */
 	$ret = $this->_makePanoramas();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$html = $this->_renderer->render('HTML', $this->_item, $this->_item, array());

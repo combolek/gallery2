@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Keyword Albums 1.0.5\n"
+"Project-Id-Version: Gallery: Keyword Albums 1.0.0\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2006-09-12 11:25-0700\n"
 "PO-Revision-Date: 2006-03-16 16:27+0100\n"
@@ -34,15 +34,15 @@ msgstr ""
 "X-Poedit-Language: Romanian\n"
 "X-Poedit-Country: ROMANIA\n"
 
-#, c-format
-msgid "Keyword Album: %s"
-msgstr "Album Cuvinte-cheie: %s"
-
 msgid "Keyword Album"
 msgstr "Album Cuvinte-cheie"
 
 msgid "keyword album"
 msgstr "album Cuvinte-cheie"
+
+#, c-format
+msgid "Keyword Album: %s"
+msgstr "Album Cuvinte-cheie: %s"
 
 msgid "All album views"
 msgstr "Toate afisarile albumelor"
@@ -75,10 +75,6 @@ msgid "Short URL for Keyword Albums"
 msgstr "URL scurt pentru Album Cuvinte-cheie"
 
 msgid "Keyword to use for dynamic album"
-msgstr "cuvant cheie pentru utilizarea in albumul dinamic"
-
-#, fuzzy
-msgid "Page number in a dynamic album"
 msgstr "cuvant cheie pentru utilizarea in albumul dinamic"
 
 msgid "Keyword Album Settings"

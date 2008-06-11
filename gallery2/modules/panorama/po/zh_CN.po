@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Panorama 1.0.9\n"
+"Project-Id-Version: Gallery: Panorama 1.0.8\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-28 14:00+0800\n"
 "PO-Revision-Date: 2005-03-28 14:00+0800\n"
@@ -95,3 +95,14 @@ msgstr "保存"
 
 msgid "Reset"
 msgstr "重置"
+
+#~ msgid ""
+#~ "This gallery contains items activated for panorama view.  These must be reset to standard "
+#~ "items before this module can be deactivated.  You can reset all items here.  Warning: "
+#~ "there is no undo."
+#~ msgstr ""
+#~ "图库中包含了开启全景浏览的项目。在关闭此模块前，请将这些项目重置为标准项目。您可以在这里重"
+#~ "置所有项目。警告：此操作无法恢复！"
+
+#~ msgid "Reset all items"
+#~ msgstr "重置所有项目"

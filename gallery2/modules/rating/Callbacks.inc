@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,24 +26,13 @@
 class RatingCallbacks {
 
     function callback($params, &$smarty, $callback, $userId) {
-	global $gallery;
 
 	switch ($callback) {
 	case 'LoadRating':
 	    $itemId = $params['itemId'];
-	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
+	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	    if ($ret) {
 		return $ret;
-	    }
-
-	    list ($ret, $hasPermission) =
-		GalleryCoreApi::hasItemPermission($item->getId(), 'core.view');
-	    if ($ret) {
-		return $ret;
-	    }
-	    if (!$hasPermission) {
-		/* Avoid information disclosure, act as if the item didn't exist. */
-		return GalleryCoreApi::error(ERROR_MISSING_OBJECT);
 	    }
 
 	    if (GalleryUtilities::isA($item, 'GalleryAlbumItem')) {
@@ -84,17 +73,14 @@ class RatingCallbacks {
 		return $ret;
 	    }
 
-	    list ($ret, $permission) =
-		GalleryCoreApi::hasItemPermission($itemId, 'rating.add', $userId);
+	    list ($ret, $permission) = GalleryCoreApi::hasItemPermission($itemId,
+		    'rating.add',
+		    $userId);
 	    if ($ret) {
 		return $ret;
 	    }
 	    $RatingData[$itemId]['canRate'] = ($permission ? true : false);
-
-	    $session =& $gallery->getSession();
-	    $authToken = $session->isPersistent() ? $session->getAuthToken() : '';
-	    $RatingSummary = array('ratingValues' => array(1, 2, 3, 4, 5),
-				   'firstCall' => true, 'authToken' => $authToken);
+	    $RatingSummary = array('ratingValues' => array(1, 2, 3, 4, 5), 'firstCall' => true);
 
 	    $block =& $smarty->_tpl_vars['block'];
 	    $block['rating']['RatingData'] = $RatingData[$itemId];

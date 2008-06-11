@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -218,11 +218,15 @@ class UserLoginView extends GalleryView {
 	if ($form['formName'] != 'UserLogin') {
 	    $form['formName'] = 'UserLogin';
 	    $form['username'] = '';
+
+	    /*
+	     * When logging in we don't have a session yet, thus no navigation history / a place
+	     * to store the returnUrl. Thus store the returnUrl in the login form
+	     */
+	    $returnUrl = GalleryUtilities::getRequestVariables('return');
+	    $form['returnUrl'] = !empty($returnUrl) ? $returnUrl : '';
 	}
 
-	$reauthenticate = GalleryUtilities::getRequestVariables('reAuthenticate');
-
-	$template->setVariable('reauthenticate', $reauthenticate);
 	$template->setVariable('controller', 'core.UserLogin');
 	return array(null, array('body' => 'modules/core/templates/UserLogin.tpl'));
     }

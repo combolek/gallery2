@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,16 +32,13 @@ class AdminToolkitPriorityControllerTest extends GalleryControllerTestCase {
     }
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	$ret = GalleryCoreApi::registerToolkitOperation('TestToolkitPriority',
 		array('test/type'), 'test-operation', array(),
 		'test-description', 'test/outputType', 30);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markToolkitForCleanup('TestToolkitPriority');
 
@@ -49,7 +46,7 @@ class AdminToolkitPriorityControllerTest extends GalleryControllerTestCase {
 		array('test/type'), 'test-operation', array(),
 		'test-description', 'test/outputType', 27);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markToolkitForCleanup('TestToolkitPriority2');
     }
@@ -81,7 +78,7 @@ class AdminToolkitPriorityControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $list) = GalleryCoreApi::getRedundantToolkitPriorities();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assert(count($list) >= 2, 'count');

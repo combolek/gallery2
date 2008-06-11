@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,11 +22,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Slideshow Applet 1.0.10\n"
+"Project-Id-Version: Gallery: Slideshow Applet 1.0.7\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-06-12 16:51+0200\n"
-"PO-Revision-Date: 2007-06-17 14:59+0100\n"
-"Last-Translator: Jens Hyllegaard <Jens@linushvj.dk>\n"
+"PO-Revision-Date: 2006-03-30 15:02+0200\n"
+"Last-Translator: Bjorn Graabek <bjorn@graabek.com>\n"
 "Language-Team: Danish <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -43,13 +43,13 @@ msgid "Fullscreen slideshow using a Java applet"
 msgstr "Fuldskærmsfremvisning ved hjælp af en Java applet"
 
 msgid "Display"
-msgstr "Vis"
+msgstr "Visning"
 
 msgid "View Slideshow (Fullscreen)"
 msgstr "Start fremvisning (fuldskærm)"
 
 msgid "Path to an item (eg, /album/image.jpg.html)"
-msgstr "Sti til et emne (f.eks. /album/image.jpg.html)"
+msgstr "Sti til et objekt (f.eks. /album/image.jpg.html)"
 
 msgid "Slideshow"
 msgstr "Fremvisning"
@@ -98,7 +98,7 @@ msgid "Add a new default variable"
 msgstr "Tilfæj en ny standardvariabel"
 
 msgid "You must enter a variable name and value"
-msgstr "Et variabelnavn og værdi skal indtastes"
+msgstr "Et variabeln-avn og værdi skal indtastes"
 
 msgid "New variable"
 msgstr "Ny variabel"
@@ -117,7 +117,7 @@ msgstr ""
 "Brugere vil ikke være i stand til at ændre disse værdier."
 
 msgid "You have no override variables"
-msgstr "Der er ingen tilsidesætnings-variabler"
+msgstr "Der er ingen tilsidesætnings-variable"
 
 msgid "Add a new override variable"
 msgstr "Tilføj en ny tilsidesætnings-variabel"
@@ -126,7 +126,7 @@ msgid "Help"
 msgstr "Hjælp"
 
 msgid "Here are a selection of variables that affect slideshows."
-msgstr "Her er et udvalg af variabler der påvirker fremvisninger."
+msgstr "Her er et udvalg af variable der påvirker fremvisninger."
 
 msgid "variable"
 msgstr "variabel"
@@ -159,8 +159,8 @@ msgstr ""
 "Hvis sandt vil fremvisningen downloade billeder før der er behov for dem. Det kan forøge "
 "hastigheden, men kan også være spild af båndbredde."
 
-msgid "color of the slideshow background"
-msgstr "farven på fremvisningens baggrund"
+msgid "color or the slideshow background"
+msgstr "farve eller baggrund for fremvisningen"
 
 msgid "size of text overlay"
 msgstr "tekst-størrelse (tekst bliver lagt ovenpå billedet)"

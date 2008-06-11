@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -94,7 +94,7 @@ class GalleryEntity extends GalleryPersistent {
 
     /**
      * The target entity this entity is linked to
-     * @var GalleryEntity
+     * @var object GalleryEntity
      */
     var $linkedEntity;
 
@@ -158,7 +158,7 @@ class GalleryEntity extends GalleryPersistent {
     /**
      * Create a new instance of this GalleryEntity in the persistent store
      *
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function create() {
 	global $gallery;
@@ -210,9 +210,9 @@ class GalleryEntity extends GalleryPersistent {
     /**
      * Create a new linked version of this item into a new album
      *
-     * @param GalleryEntity $entity the entity we're linking to
-     * @return array GalleryStatus a status code
-     *               GalleryItem the linked item
+     * @param object GalleryEntity $entity the entity we're linking to
+     * @return array object GalleryStatus a status code
+     *               object GalleryItem the linked item
      */
     function createLink($entity) {
 	global $gallery;
@@ -252,7 +252,7 @@ class GalleryEntity extends GalleryPersistent {
      *
      * @param bool $postEvent post a save event; only disable this during core upgrades
      * @param int $setAclId (optional) ACL id to assign for new entity (used by subclasses)
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function save($postEvent=true, $setAclId=null) {
 	global $gallery;
@@ -325,7 +325,7 @@ class GalleryEntity extends GalleryPersistent {
     /**
      * Refresh this item from the persistent store
      *
-     * @return array GalleryStatus a status code,
+     * @return array object GalleryStatus a status code,
      *               object the refreshed GalleryEntity
      */
     function refresh() {
@@ -351,7 +351,7 @@ class GalleryEntity extends GalleryPersistent {
     /**
      * Delete this GalleryEntity
      *
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function delete() {
 	global $gallery;
@@ -395,15 +395,14 @@ class GalleryEntity extends GalleryPersistent {
      * This is called after an entity is loaded by the GalleryStorage subsystem.
      * Perform any actions that are required after loading the entity.
      *
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function onLoad() {
 	global $gallery;
 
 	$linkId = $this->getLinkId();
 	if (!empty($linkId)) {
-	    list ($ret, $this->linkedEntity) =
-		GalleryCoreApi::loadEntitiesById($linkId, $this->entityType);
+	    list ($ret, $this->linkedEntity) = GalleryCoreApi::loadEntitiesById($linkId);
 	    if ($ret) {
 		return $ret;
 	    }
@@ -462,9 +461,9 @@ class GalleryEntity extends GalleryPersistent {
 		     * data integrity and / or you are sure that your onLoad method does not
 		     * require an activeSession, you can ignore $duringUpgrade.
 		     *
-		     * @param GalleryEntity reference to an entity
+		     * @param object GalleryEntity reference to an entity
 		     * @param boolean whether the onLoad handler is being called during an upgrade
-		     * @return GalleryStatus a status code
+		     * @return object GalleryStatus a status code
 		     */
 		    $ret = $handler->onLoad($this, $isDuringInstallOrUpgrade);
 		    if ($ret) {
@@ -519,7 +518,7 @@ class GalleryEntity extends GalleryPersistent {
      * This is called after an entity is saved by the GalleryStorage subsystem.
      * Perform any actions that are required after saving the entity.
      *
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function onSave() {
 	return null;
@@ -550,7 +549,7 @@ class GalleryEntity extends GalleryPersistent {
      * Detach this entity from the entity it is linked to by the simple expedient
      * of overwriting over all non-null members with the equivalent from the link target.
      *
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function detachLink() {
 	if (!$this->isLinked()) {

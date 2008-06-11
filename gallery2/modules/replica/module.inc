@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,12 +34,11 @@ class ReplicaModule extends GalleryModule {
 	$this->setName($gallery->i18n('Replica'));
 	$this->setDescription(
 		$gallery->i18n('Create item copies sharing the same original data file'));
-	$this->setVersion('1.0.4');
-	$this->_templateVersion = 1;
+	$this->setVersion('1.0.0');
 	$this->setGroup('display', $gallery->i18n('Display'));
 	$this->setCallbacks('getItemLinks|getItemAdminViews');
-	$this->setRequiredCoreApi(array(7, 42));
-	$this->setRequiredModuleApi(array(3, 9));
+	$this->setRequiredCoreApi(array(7, 4));
+	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
@@ -96,10 +95,8 @@ class ReplicaModule extends GalleryModule {
 		return array($ret, null);
 	    }
 	    if ($count > 0) {
-		if (false) {
-		    /* Specific translations: */
-		    _('Replicate Album'); _('Replicate Photo'); _('Replicate Movie');
-		}
+		/* Specific translations: */
+		/* _('Replicate Album') _('Replicate Photo') _('Replicate Movie') */
 		$itemTypeNames = array_merge($item->itemTypeName(), $item->itemTypeName(false));
 		$views[] = array('name' => $this->_translate(
 				   array('text' => 'Replicate %s', 'arg1' => $itemTypeNames[0]),

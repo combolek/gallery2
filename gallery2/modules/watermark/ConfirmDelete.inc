@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,15 +31,6 @@ class ConfirmDeleteController extends GalleryController {
      * @see GalleryController::handleRequest
      */
     function handleRequest($form) {
-	list ($ret, $canView) =
-	    GalleryCoreApi::hasItemPermission($form['watermarkId'], 'core.view');
-	if ($ret) {
-	    return array($ret, null);
-	}
-	if (!$canView) {
-	    /* Avoid information disclosure, act as if the item didn't exist. */
-	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
-	}
 	/* Make sure we have permission to edit this item */
 	$ret = GalleryCoreApi::assertHasItemPermission($form['watermarkId'], 'core.edit');
 	if ($ret) {
@@ -84,23 +75,7 @@ class ConfirmDeleteView extends GalleryView {
 		GalleryUtilities::getRequestVariables('watermarkId', 'fromAdmin');
 	}
 
-	list ($ret, $item) =
-	    GalleryCoreApi::loadEntitiesById($form['watermarkId'], 'WatermarkImage');
-	if ($ret) {
-	    return array($ret, null);
-	}
-	list ($ret, $canView) =
-	    GalleryCoreApi::hasItemPermission($form['watermarkId'], 'core.view');
-	if ($ret) {
-	    return array($ret, null);
-	}
-	if (!$canView) {
-	    /* Avoid information disclosure, act as if the item didn't exist. */
-	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
-	}
-
-	/* Make sure we have permission to edit this item */
-	$ret = GalleryCoreApi::assertHasItemPermission($form['watermarkId'], 'core.edit');
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($form['watermarkId']);
 	if ($ret) {
 	    return array($ret, null);
 	}

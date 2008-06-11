@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,28 +37,20 @@ class DcrawToolkitTest extends GalleryTestCase {
     function setUp() {
 	global $gallery;
 
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'dcraw');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
-	$ret = $this->_setParam('path', '/usr/bin/dcraw');
-	if ($ret) {
-	    return $ret;
-	}
+	$this->_setParam('path', '/usr/bin/dcraw');
 
 	/*
 	 * Simulate a version after the most recent API change we know/care about, which is
 	 * currently 7.73 when they added a numeric argument to the -q flag.
 	 */
-	$ret = $this->_setParam('version', '7.73');
-	if ($ret) {
-	    return $ret;
-	}
+	$this->_setParam('version', '7.73');
 
 	$this->_platform = new UnitTestPlatform();
 	$gallery->setPlatform($this->_platform);
@@ -66,23 +58,20 @@ class DcrawToolkitTest extends GalleryTestCase {
 
     function tearDown() {
 	$this->assert($this->_platform->isComplete(), $this->_platform->getRemaining());
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
+	parent::tearDown();
     }
 
     function _setParam($key, $value) {
-	return GalleryCoreApi::setPluginParameter('module', 'dcraw', $key, $value);
+	$ret = GalleryCoreApi::setPluginParameter('module', 'dcraw', $key, $value);
+	if ($ret) {
+	    $this->failWithStatus($ret);
+	}
     }
 
     function testConvertDcrawToPpmPre773() {
 	global $gallery;
 
-	$ret = $this->_setParam('version', '6.52');
-	if ($ret) {
-	    return $ret;
-	}
+	$this->_setParam('version', '6.52');
 
 	$this->_platform->setReply(
 	    'tempnam', array($gallery->getConfig('data.gallery.tmp'), 'dcraw_'), 'TEMPFILE');
@@ -96,7 +85,7 @@ class DcrawToolkitTest extends GalleryTestCase {
 	    'image/x-dcraw', 'convert-to-image/x-portable-pixmap',
 	    'INPUTFILE', 'OUTPUTFILE', array(), array());
 	if ($ret) {
-	    return $ret;
+	    $this->failWithStatus($ret);
 	}
     }
 
@@ -115,26 +104,7 @@ class DcrawToolkitTest extends GalleryTestCase {
 	    'image/x-dcraw', 'convert-to-image/x-portable-pixmap',
 	    'INPUTFILE', 'OUTPUTFILE', array(), array());
 	if ($ret) {
-	    return $ret;
-	}
-    }
-
-    function testConvertAdobeDngToPpm() {
-	global $gallery;
-
-	$this->_platform->setReply(
-	    'tempnam', array($gallery->getConfig('data.gallery.tmp'), 'dcraw_'), 'TEMPFILE');
-	$this->_platform->setReply('exec', array(array(
-	    array('/usr/bin/dcraw', '-c', '-a', '-q', '0', 'INPUTFILE', '>', 'TEMPFILE'))),
-	    array(1, ''));
-	$this->_platform->setReply('rename', array('TEMPFILE', 'OUTPUTFILE'), 1);
-	$this->_platform->setReply('chmod', array('OUTPUTFILE', null), 1);
-
-	list ($ret, $outputMimeType, $context) = $this->_toolkit->performOperation(
-	    'image/x-adobe-dng', 'convert-to-image/x-portable-pixmap',
-	    'INPUTFILE', 'OUTPUTFILE', array(), array());
-	if ($ret) {
-	    return $ret;
+	    $this->failWithStatus($ret);
 	}
     }
 
@@ -155,6 +125,8 @@ class DcrawToolkitTest extends GalleryTestCase {
     }
 
     function testConvertDcrawToPpmBadMimetype() {
+	global $gallery;
+
 	list ($ret, $outputMimeType, $context) = $this->_toolkit->performOperation(
 	    'bogus/bogus', 'convert-to-image/x-portable-pixmap',
 	    'INPUTFILE', 'OUTPUTFILE', array(), array());
@@ -224,7 +196,8 @@ class DcrawToolkitTest extends GalleryTestCase {
 	    'GalleryToolkit', 'DcrawTestToolkit', 'DcrawTestToolkit',
 	    'modules/dcraw/test/phpunit/DcrawToolkitTest.class', 'dcrawTest', null);
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markToolkitForCleanup('DcrawTestToolkit');
 
@@ -232,13 +205,13 @@ class DcrawToolkitTest extends GalleryTestCase {
 	    'DcrawTestToolkit', array('image/x-portable-pixmap'),
 	    'dimensions', 'int,int', 'test-description');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $results) = $this->_toolkit->getProperty(
 	    'image/x-dcraw', 'dimensions', 'INPUTFILE');
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 	$this->assertEquals(array(1, 2), $results);
     }

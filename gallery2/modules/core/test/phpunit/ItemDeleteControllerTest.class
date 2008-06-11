@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,15 +32,12 @@ class ItemDeleteControllerTest extends GalleryControllerTestCase {
     }
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	    return $ret;
-	}
+	parent::setUp();
 
 	/* create an album to hold all of the test items */
 	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
-	    return $ret;
+	    $this->failWithStatus($ret);
 	}
 
 	$this->_markForCleanup($this->_album);
@@ -52,10 +49,11 @@ class ItemDeleteControllerTest extends GalleryControllerTestCase {
     function testDeleteItem() {
 	global $gallery;
 
+
 	/* Create a random album */
 	list ($ret, $album) = $this->_createRandomAlbum($this->_album->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Use valid inputs */
@@ -74,7 +72,7 @@ class ItemDeleteControllerTest extends GalleryControllerTestCase {
 	/* Make sure the album is actually gone */
 	$ret = $this->_verifyMissing($album->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
     }
 
@@ -90,7 +88,7 @@ class ItemDeleteControllerTest extends GalleryControllerTestCase {
 		list ($ret, $items[$i]) = $this->_createRandomDataItem($this->_album->getId());
 	    }
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	}
 
@@ -128,7 +126,7 @@ class ItemDeleteControllerTest extends GalleryControllerTestCase {
 		list ($ret, $items[$i]) = $this->_createRandomDataItem($this->_album->getId());
 	    }
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	}
 
@@ -168,7 +166,7 @@ class ItemDeleteControllerTest extends GalleryControllerTestCase {
 		list ($ret, $items[$i]) = $this->_createRandomDataItem($this->_album->getId());
 	    }
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	}
 
@@ -193,7 +191,7 @@ class ItemDeleteControllerTest extends GalleryControllerTestCase {
 	foreach ($items as $item) {
 	    $ret = $this->_verifyMissing($item->getId());
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	}
     }
@@ -214,19 +212,14 @@ class ItemDeleteControllerTest extends GalleryControllerTestCase {
 		list ($ret, $items[$i]) = $this->_createRandomDataItem($this->_album->getId());
 	    }
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 
 	    /* remove permissions for some */
 	    if (($i % 3) == 0) {
 		$ret = GalleryCoreApi::removeItemPermissions($items[$i]->getId());
 		if ($ret) {
-		    return $ret;
-		}
-		$ret = GalleryCoreApi::addUserPermission(
-		    $items[$i]->getId(), $gallery->getActiveUserId(), 'core.view');
-		if ($ret) {
-		    return $ret;
+		    return $this->failWithStatus($ret);
 		}
 	    }
 	}
@@ -268,7 +261,7 @@ class ItemDeleteControllerTest extends GalleryControllerTestCase {
     function testDeleteBogusItem() {
 	list ($ret, $bogusId) = $this->_getUnusedId();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Use invalid inputs */
@@ -277,7 +270,7 @@ class ItemDeleteControllerTest extends GalleryControllerTestCase {
 	GalleryUtilities::putRequestVariable('form[action][delete]', 1);
 
 	/* Perform the request and verify that we failed */
-	$results = $this->handleRequest(ERROR_MISSING_OBJECT);
+	$results = $this->handleRequest(ERROR_PERMISSION_DENIED);
     }
 
 }

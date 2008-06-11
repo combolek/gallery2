@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,42 +33,26 @@ class RedirectControllerTest extends GalleryControllerTestCase {
 
     function setUp() {
 	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
-
-    	$this->_registerFactoryImplementationForTest(
-	    'GalleryEventListener', 'MigrateModule', 'MigrateModule', 
-	    'modules/migrate/module.inc', 'migrate', array('GalleryEntity::delete'));
-	if ($ret) {
-	    return $ret;
-	}
+	parent::setUp();
 
 	list ($ret, $this->_item) = $this->_createRandomDataItem($this->_getRootId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($this->_item);
 
 	list ($ret, $this->_thumb) = $this->_createDerivative($this->_item, $this->_item->getId(),
 							      DERIVATIVE_TYPE_IMAGE_THUMBNAIL);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	list ($ret, $this->_sized) = $this->_createDerivative($this->_item, $this->_item->getId(),
 							      DERIVATIVE_TYPE_IMAGE_RESIZE);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
-	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
-	if ($ret) {
-	    return $ret;
-	}
-	$this->_markForCleanup($this->_album);
-
-	$this->_albumId = $this->_album->getId();
+	$this->_albumId = 12345;
 	$this->_albumName = 'testalbum-' . rand();
 	$this->_itemId = $this->_item->getId();
 	$this->_itemName = 'testitem-' . rand();
@@ -78,13 +62,13 @@ class RedirectControllerTest extends GalleryControllerTestCase {
 	    'G1MigrateMap',
 	    array('itemId' => $this->_albumId, 'g1album' => $this->_albumName, 'g1item' => null));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$ret = GalleryCoreApi::addMapEntry(
 	    'G1MigrateMap', array('itemId' => $this->_itemId,
 	    'g1album' => $this->_albumName, 'g1item' => $this->_itemName));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$_SERVER['PHP_SELF'] = '/gallery2/' . GALLERY_MAIN_PHP;
@@ -92,6 +76,16 @@ class RedirectControllerTest extends GalleryControllerTestCase {
 	$this->_phpVm = new MockPhpVm($this);
 	$gallery->_phpVm = $this->_phpVm;
 	$this->_headers = array();
+    }
+
+    function tearDown() {
+	$ret = GalleryCoreApi::removeMapEntry(
+	    'G1MigrateMap', array('g1album' => $this->_albumName));
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	parent::tearDown();
     }
 
     function testRedirect() {
@@ -262,10 +256,6 @@ class MockPhpVm extends GalleryPhpVm {
 
     function header($header) {
 	$this->_test->_headers[] = $header;
-    }
-
-    function exit_($status=null) {
-	$this->_test->_exitCalls[] = $status;
     }
 }
 ?>

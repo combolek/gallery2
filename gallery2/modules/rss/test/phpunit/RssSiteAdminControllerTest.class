@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,14 +37,12 @@ class RssSiteAdminControllerTest extends GalleryControllerTestCase {
     }
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'rss');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
     }
 
@@ -53,15 +51,12 @@ class RssSiteAdminControllerTest extends GalleryControllerTestCase {
 	    foreach ($this->_feedsToDelete as $name) {
 		$ret = RssMapHelper::deleteFeed($name);
 		if ($ret) {
-		    return $ret;
+		    return $this->failWithStatus($ret);
 		}
 	    }
 	}
 
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
+	parent::tearDown();
     }
 
     function testRssSiteAdminControllerReset() {
@@ -102,7 +97,6 @@ class RssSiteAdminControllerTest extends GalleryControllerTestCase {
 	    'defaultVersion' => '2.0',
 	    'defaultCount' => '30',
 	    'maxCount' => '100',
-	    'maxAge' => '35',
 	    'defaultTtl' => '120',
 	    'defaultCopyright' => 'Test copyright',
 	    'allowSimpleFeed' => '1',
@@ -129,7 +123,7 @@ class RssSiteAdminControllerTest extends GalleryControllerTestCase {
 	foreach ($values as $key => $expectedValue) {
 	    list ($ret, $value) = GalleryCoreApi::getPluginParameter('module', 'rss', $key);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $this->assertEquals($expectedValue, $value, $key);
 	}
@@ -141,7 +135,7 @@ class RssSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	$values = array(
 	    'sfAlbumType' => 'photos',
-	    'sfPhotosRecursiveLimit' => '10',
+	    'sfPhotosRecurseLimit' => '10',
 	    'sfDate' => 'new');
 	foreach ($values as $key => $value) {
 	    GalleryUtilities::putRequestVariable('form['.$key.']', $value);
@@ -161,7 +155,7 @@ class RssSiteAdminControllerTest extends GalleryControllerTestCase {
 	foreach ($values as $key => $expectedValue) {
 	    list ($ret, $value) = GalleryCoreApi::getPluginParameter('module', 'rss', $key);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $this->assertEquals($expectedValue, $value, $key);
 	}
@@ -173,7 +167,7 @@ class RssSiteAdminControllerTest extends GalleryControllerTestCase {
 	$params = array('itemId' => $this->_getRootId());
 	$ret = RssMapHelper::createFeed($name, $params);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	GalleryUtilities::putRequestVariable('form[action][delete]', $name);

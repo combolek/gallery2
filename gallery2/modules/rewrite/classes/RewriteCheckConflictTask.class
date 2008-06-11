@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -53,8 +53,8 @@ class RewriteCheckConflictTask extends MaintenanceTask {
 	$templateAdapter =& $gallery->getTemplateAdapter();
 	$urlGenerator =& $gallery->getUrlGenerator();
 	$platform =& $gallery->getPlatform();
-
-	$baseDir = rtrim(GalleryCoreApi::getCodeBasePath(), DIRECTORY_SEPARATOR);
+	$pluginBaseDirs = GalleryCoreApi::getPluginBaseDirs();
+	$baseDir = rtrim($pluginBaseDirs['base'], '/');
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'rewrite');
 	if ($ret) {
@@ -84,8 +84,7 @@ class RewriteCheckConflictTask extends MaintenanceTask {
 	    }
 
 	    if ($platform->file_exists($baseDir . $path) && $path != ('/' . GALLERY_MAIN_PHP)) {
-		list ($ret, $item) =
-		    GalleryCoreApi::loadEntitiesById((int)$result[0], 'GalleryItem');
+		list ($ret, $item) = GalleryCoreApi::loadEntitiesById((int)$result[0]);
 		if ($ret) {
 		    return array($ret, null, null);
 		}

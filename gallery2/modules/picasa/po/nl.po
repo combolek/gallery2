@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,9 +21,9 @@
 # Buut, <buut at users.sourceforge Remove - This dot net>, Eindhoven Feb. 2006
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Picasa 1.0.9\n"
-"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2007-06-14 17:36-0700\n"
+"Project-Id-Version: Gallery: Picasa 1.0.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-02-25 23:06+0100\n"
 "PO-Revision-Date: 2006-03-17 17:27+0100\n"
 "Last-Translator: Buut <buut at users.sourceforge Remove - This dot net>\n"
 "Language-Team: Dutch <gallery-devel@lists.sourceforge.net>\n"
@@ -38,18 +38,6 @@ msgstr "Importeer albums"
 msgid "Importing photos"
 msgstr "Importeer afbeeldingen"
 
-#, c-format
-msgid "%d megabyte"
-msgid_plural "%d megabytes"
-msgstr[0] "%d megabyte"
-msgstr[1] "%d megabytes"
-
-#, c-format
-msgid "%d kilobytes"
-msgid_plural "%d kilobytes"
-msgstr[0] "%d kilobyte"
-msgstr[1] "%d kilobytes"
-
 msgid "Base filename"
 msgstr "Base bestandsnaam"
 
@@ -61,6 +49,18 @@ msgstr "Leeg"
 
 msgid "From Picasa 2"
 msgstr "vanuit Picasa 2"
+
+#, c-format
+msgid "%d megabyte"
+msgid_plural "%d megabytes"
+msgstr[0] "%d megabyte"
+msgstr[1] "%d megabytes"
+
+#, c-format
+msgid "%d kilobytes"
+msgid_plural "%d kilobytes"
+msgstr[0] "%d kilobyte"
+msgstr[1] "%d kilobytes"
 
 msgid "Picasa"
 msgstr "Picasa"
@@ -178,9 +178,6 @@ msgid ""
 "must upload the files separately, use a different upload format, or ask your system "
 "administrator to allow larger uploads."
 msgstr ""
-"<b>Let op:</b> u kunt hier tot %s per keer uploaden. Als u meer wilt uploaden moet u de "
-"bestanden apart uploaden, gebruik maken van een andere upload methode of uw beheerder vragen "
-"om grotere uploads toe te staan."
 
 #, c-format
 msgid ""
@@ -188,9 +185,6 @@ msgid ""
 "If you want to upload more than that, you must upload the files separately, use a different "
 "upload format, or ask your system administrator to allow larger uploads."
 msgstr ""
-"<b>Let op:</b> u kunt hier tot %s per keer uploaden. Een individueel bestand mag niet groter "
-"zijn dan %s. Als u meer wilt uploaden, moet u de bestanden apart upladen, gebruik maken van "
-"een andere upload methode of uw beheerder vragen om grotere uploads to te staan."
 
 msgid "File"
 msgstr "bestand"
@@ -239,11 +233,12 @@ msgstr ""
 #, c-format
 msgid ""
 "You don't have any Graphics Toolkit activated to handle JPEG images.  If you import now, you "
-"will not have any thumbnails.  Visit the %sModules%s page to activate a Graphics Toolkit."
+"will not have any thumbnails.  Visit the <a href=\"%s\">Modules</a> page to activate a "
+"Graphics Toolkit."
 msgstr ""
 "Er zijn geen toolkits geactiveerd welke JPEG afbeeldingen kunnen verwerken. Indien U op dit "
-"moment de import start worden er geen miniaturen gemaakt. Zie %sModules%s hoe de toolkits "
-"geactiveerd moeten worden."
+"moment de import start worden er geen miniaturen gemaakt. Zie <a href=\"%s\">Modules</a> hoe "
+"de toolkits geactiveerd moeten worden."
 
 msgid "Destination Album"
 msgstr "Doel Album"

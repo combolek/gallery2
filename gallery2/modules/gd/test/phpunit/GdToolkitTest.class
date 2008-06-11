@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -48,13 +48,11 @@ class GdToolkitTest extends GalleryTestCase {
     function setUp() {
 	global $gallery;
 
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'gd');
 	if ($ret) {
+	    print $ret->getAsHtml();
 	    return $ret;
 	}
 
@@ -62,7 +60,8 @@ class GdToolkitTest extends GalleryTestCase {
 	foreach (array('jpegQuality' => 75) as $key => $value) {
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'gd', $key, $value);
 	    if ($ret) {
-		return $ret;
+		print $ret->getAsHtml();
+		return $this->failWithStatus($ret);
 	    }
 	}
 
@@ -80,10 +79,7 @@ class GdToolkitTest extends GalleryTestCase {
 
 	$gallery->setConfig('data.gallery.base', $this->_oldBase);
 
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
+	parent::tearDown();
     }
 
     function testPerformOperations() {
@@ -95,7 +91,7 @@ class GdToolkitTest extends GalleryTestCase {
 
 	    list ($ret, $isSupported) = GdToolkitHelper::isGdVersionSupported(null, $gd);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    if (!$isSupported) {
 		continue;
@@ -103,7 +99,7 @@ class GdToolkitTest extends GalleryTestCase {
 
 	    list ($ret, $mimeTypes) = GdToolkitHelper::discoverMimeTypes($gd);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 
 	    foreach ($mimeTypes as $mimeType) {
@@ -112,13 +108,13 @@ class GdToolkitTest extends GalleryTestCase {
 		 * to understand
 		 */
 		if (GdToolkitHelper::isOperationSupported('thumbnail', $gd)) {
-		    list ($ret, $resultMimeType) =
+		    list ($ret, $mimeType) =
 			$this->_toolkit->performOperation($mimeType, 'thumbnail',
 							  '200x200.ext',
 							  '/valid/thumbnail.ext',
 							  array(100, 100));
 		    if ($ret) {
-			return $ret;
+			return $this->failWithStatus($ret);
 		    }
 		    $this->assertEquals(
 			$this->_gdFunctionality->getOutputFileData('/valid/thumbnail.ext'),
@@ -128,13 +124,13 @@ class GdToolkitTest extends GalleryTestCase {
 		}
 
 		if (GdToolkitHelper::isOperationSupported('scale', $gd)) {
-		    list ($ret, $resultMimeType) =
+		    list ($ret, $mimeType) =
 			$this->_toolkit->performOperation($mimeType, 'scale',
 							  '600x400.ext',
 							  '/valid/thumbnail.ext',
 							  array('75%'));
 		    if ($ret) {
-			return $ret;
+			return $this->failWithStatus($ret);
 		    }
 		    $this->assertEquals(
 			$this->_gdFunctionality->getOutputFileData('/valid/thumbnail.ext'),
@@ -144,13 +140,13 @@ class GdToolkitTest extends GalleryTestCase {
 		}
 
 		if (GdToolkitHelper::isOperationSupported('resize', $gd)) {
-		    list ($ret, $resultMimeType) =
+		    list ($ret, $mimeType) =
 			$this->_toolkit->performOperation($mimeType, 'resize',
 							  '600x400.ext',
 							  '/valid/thumbnail.ext',
 							  array('150%', 500));
 		    if ($ret) {
-			return $ret;
+			return $this->failWithStatus($ret);
 		    }
 		    $this->assertEquals(
 			$this->_gdFunctionality->getOutputFileData('/valid/thumbnail.ext'),
@@ -160,13 +156,13 @@ class GdToolkitTest extends GalleryTestCase {
 		}
 
 		if (GdToolkitHelper::isOperationSupported('crop', $gd)) {
-		    list ($ret, $resultMimeType) =
+		    list ($ret, $mimeType) =
 			$this->_toolkit->performOperation($mimeType, 'crop',
 							  '300x300.ext',
 							  '/valid/cropped.ext',
 							  array('24.667', '23.5', '51.375', '52'));
 		    if ($ret) {
-			return $ret;
+			return $this->failWithStatus($ret);
 		    }
 		    $this->assertEquals(
 			$this->_gdFunctionality->getOutputFileData('/valid/cropped.ext'),
@@ -180,13 +176,13 @@ class GdToolkitTest extends GalleryTestCase {
 
 		if (GdToolkitHelper::isOperationSupported('rotate', $gd)) {
 		    $context = array('width' => 300, 'height' => 200);
-		    list ($ret, $resultMimeType, $context) =
+		    list ($ret, $mimeType, $context) =
 			$this->_toolkit->performOperation($mimeType, 'rotate',
 							  '300x200.ext',
 							  '/valid/rotated.ext',
 							  array(90), $context);
 		    if ($ret) {
-			return $ret;
+			return $this->failWithStatus($ret);
 		    }
 		    $this->assertEquals(
 			$this->_gdFunctionality->getOutputFileData('/valid/rotated.ext'),
@@ -199,31 +195,25 @@ class GdToolkitTest extends GalleryTestCase {
 		}
 
 		if (GdToolkitHelper::isOperationSupported('convert-to-image/jpeg', $gd)) {
-		    list ($ret, $resultMimeType) =
+		    list ($ret, $mimeType) =
 			$this->_toolkit->performOperation($mimeType, 'convert-to-image/jpeg',
 							  '400x400.ext',
 							  '/valid/converted.jpeg',
 							  array());
 		    if ($ret) {
-			return $ret;
-		    }
-
-		    $expected = array('x' => '400', 'y' => '400', 'mimeType' => 'image/jpeg');
-		    if (in_array($mimeType, array('image/png', 'image/gif'))) {
-			/* There's an additional copy to remove the transparencies */
-			$expected['copy'] = array ('', 0, 0,  0, 0, 400, 400);
+			return $this->failWithStatus($ret);
 		    }
 		    $this->assertEquals(
-			$expected,
 			$this->_gdFunctionality->getOutputFileData('/valid/converted.jpeg'),
-			"convert-to-image/jpeg from $mimeType");
+			array('x' => '400', 'y' => '400', 'mimeType' => 'image/jpeg'),
+			'convert-to-image/jpeg');
 		    $this->assertEquals(0, $gd->_undestroyedResourceCounter,
 					"memory leak for $mimeType / convert-to-image/jpeg");
 		}
 
 		if (GdToolkitHelper::isOperationSupported('composite', $gd)) {
 		    /* Test a basic composite operation (top right corner) */
-		    list ($ret, $resultMimeType) = $this->_toolkit->performOperation(
+		    list ($ret, $mimeType) = $this->_toolkit->performOperation(
 			$mimeType, 'composite',
 			'300x300.ext', /* composite */
 			'/valid/composited.ext', /* composited */
@@ -233,21 +223,13 @@ class GdToolkitTest extends GalleryTestCase {
 			      'top-right', /* alignment type */
 			      0, 0)); /* image alignment x, y */
 		    if ($ret) {
-			return $ret;
-		    }
-
-		    $expected = array('x' => 300, 'y' => 300, 'mimeType' => $resultMimeType);
-		    if ($mimeType == 'image/png' || $mimeType == 'image/gif') {
-			$expected['copy'] =
-			    array('/valid/50x50.ext', '250', '0', '0', '0', '50', '50');
-		    } else {
-		    	$expected['copy'] = array ('', 0, 0,  0, 0, 300, 300);
-			$expected['history'] = array('copy' => array('/valid/50x50.ext', '250',
-								     '0', '0', '0', '50', '50'));
+			return $this->failWithStatus($ret);
 		    }
 		    $this->assertEquals(
-			$expected,
 			$this->_gdFunctionality->getOutputFileData('/valid/composited.ext'),
+			array('x' => '300', 'y' => '300', 'mimeType' => 'image/jpeg',
+			      'copy' => array('/valid/50x50.ext', '250', '0', '0', '0', '50', '50')
+			      ),
 			'composite #1 ' . $mimeType);
 		    $this->assertEquals(0, $gd->_undestroyedResourceCounter,
 					"memory leak for $mimeType / composite 1");
@@ -255,7 +237,7 @@ class GdToolkitTest extends GalleryTestCase {
 		    /* Test another composite with out of range params that should
 		     * get corrected
 		     */
-		    list ($ret, $resultMimeType) = $this->_toolkit->performOperation(
+		    list ($ret, $mimeType) = $this->_toolkit->performOperation(
 			$mimeType, 'composite',
 			'300x300.png', /* composite */
 			'/valid/composited.ext', /* composited */
@@ -265,7 +247,7 @@ class GdToolkitTest extends GalleryTestCase {
 			      'manual', /* alignment type */
 			      99, 99)); /* image alignment x, y */
 		    if ($ret) {
-			return $ret;
+			return $this->failWithStatus($ret);
 		    }
 		    $this->assertEquals(0, $gd->_undestroyedResourceCounter,
 					"memory leak for $mimeType / composite 2");
@@ -273,18 +255,18 @@ class GdToolkitTest extends GalleryTestCase {
 
 		if (GdToolkitHelper::isOperationSupported('compress', $gd)) {
 		    $this->_gdFunctionality->_counter = 2;
-		    list ($ret, $resultMimeType) =
+		    list ($ret, $mimeType) =
 			$this->_toolkit->performOperation($mimeType, 'compress',
 							  'compressMe.jpg',
 							  '/valid/compressed.jpg',
 							  array(150));
 		    if ($ret) {
-			return $ret;
+			return $this->failWithStatus($ret);
 		    }
 		    $this->assertEquals(
 			$this->_gdFunctionality->getOutputFileData('/valid/compressed.jpg'),
-			array('x' => '0', 'y' => '0', 'mimeType' => $mimeType),
-			"compress a $mimeType");
+			array('x' => '0', 'y' => '0', 'mimeType' => 'image/jpeg'),
+			'compress');
 		    $this->assertEquals(0, $gd->_undestroyedResourceCounter,
 					"memory leak for $mimeType / compress");
 		}
@@ -292,7 +274,7 @@ class GdToolkitTest extends GalleryTestCase {
 	}
 
 	/* Test a functionality that doesn't exist */
-	list ($ret, $resultMimeType) =
+	list ($ret, $mimeType) =
 	    $this->_toolkit->performOperation('image/png', 'BOGUS',
 					      'BOGUS',
 					      'BOGUS',
@@ -314,7 +296,7 @@ class GdToolkitTest extends GalleryTestCase {
 	    list ($ret, $isSupported) =
 		GdToolkitHelper::isGdVersionSupported(null, $this->_gdFunctionality);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    if (!$isSupported) {
 		continue;
@@ -323,7 +305,7 @@ class GdToolkitTest extends GalleryTestCase {
 	    list ($ret, $results) =
 		$this->_toolkit->getProperty('image/gif', 'dimensions', '300x300.gif');
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $this->assertEquals(array(300, 300), $results);
 	    $this->assertEquals(0, $this->_gdFunctionality->_undestroyedResourceCounter,
@@ -419,7 +401,7 @@ class GdToolkitTest extends GalleryTestCase {
 
 	    list ($ret, $results) = GdToolkitHelper::discoverMimeTypes($this->_gdFunctionality);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $this->assertEquals($environment['mimeTypes'],
 				$results,
@@ -437,13 +419,13 @@ class GdToolkitTest extends GalleryTestCase {
 	    list ($ret, $isSupported) =
 		GdToolkitHelper::isGdVersionSupported(null, $this->_gdFunctionality);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 
 	    list ($ret, $results) =
 		GdToolkitHelper::getOperationsAndProperties($this->_gdFunctionality);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    if (!$isSupported) {
 		/* No support, so the function should return empty maps */
@@ -589,38 +571,5 @@ class GdToolkitTest extends GalleryTestCase {
 	}
     }
 
-    function testFlattenAlphaChannelForGifWithoutIndexForTransparentColor() {
-	/* We use the other case (has transparent color index) in other tests for simplicity */
-    	$this->_gdFunctionality->setEnvironment(array_pop($this->_gdEnvironments));
-	$this->_toolkit->setGdFunctionality($this->_gdFunctionality);
-	$gd =& $this->_gdFunctionality;
-
-	list ($ret, $res) = $this->_toolkit->_getTrueColorImageRes(200, 300, true);
-	if ($ret) {
-	    return $ret;
-	}
-
-	$hasTransparency = $this->_toolkit->_canHaveTransparency('image/gif', $res);
-	$this->assert($hasTransparency, 'has transparency');
-
-	/* After some operation, the resource has no transparent color index anymore... */
-	$gd->imagecolortransparent($res, -1);
-	$hasTransparency = $this->_toolkit->_canHaveTransparency('image/gif', $res);
-	$this->assert(!$hasTransparency, 'has transparency 2');
-
-	/* Call the method under test through the save wrapper */
-	$ret = $this->_toolkit->_saveImageResourceToFile(
-	    $res, '/valid/out.gif', 'image/gif', true);
-	if ($ret) {
-	    return $ret;
-	}
-	$this->_toolkit->_free($res);
-
-	$this->assertEquals(0, $gd->_undestroyedResourceCounter, 'memory leak');
-	$this->assertEquals(2, $gd->_resourceCounter, 'total resources used');
-	$this->assertEquals(array('x' => 200, 'y' => 300, 'mimeType' => 'image/gif'),
-			    $this->_gdFunctionality->getOutputFileData('/valid/out.gif'),
-			    'properties / operations on resulting resource');
-    }
 }
 ?>

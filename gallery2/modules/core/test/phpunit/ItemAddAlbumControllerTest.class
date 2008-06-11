@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,14 +32,12 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
     }
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	list ($ret, $this->_parentAlbum) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($this->_parentAlbum);
     }
@@ -57,7 +55,7 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Perform the request and verify that we succeeded */
@@ -76,7 +74,7 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 	/* Create an album */
 	list ($ret, $subAlbum) = $this->_createRandomAlbum($this->_parentAlbum->getId());
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 
 	/* Use valid inputs */
@@ -93,7 +91,7 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Perform the request and verify that we succeeded */
@@ -107,10 +105,9 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 				  'error' => array()),
 			    $results);
 
-	list ($ret, $newAlbum) =
-	    GalleryCoreApi::loadEntitiesById($this->_getSecondChildId(), 'GalleryAlbumItem');
+	list ($ret, $newAlbum) = GalleryCoreApi::loadEntitiesById($this->_getSecondChildId());
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 
 	/* Verify that the new album's path component is unique (it's got _001 as a suffix) */
@@ -170,75 +167,29 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Perform the request and verify that we succeeded */
 	$results = $this->handleRequest();
-	$id = $this->_getChildId();
 	$this->assertEquals(array('redirect' => array('view' => 'core.ItemAdmin',
 						      'subView' => 'core.ItemEdit',
 						      'editPlugin' => 'ItemEditAlbum',
-						      'itemId' => $id),
+						      'itemId' => ($id = $this->_getChildId())),
 				  'status' => array('editMessage' =>
 						$core->translate('Album created successfully.')),
 				  'error' => array()),
 			    $results);
 
-	list ($ret, $newAlbum) = GalleryCoreApi::loadEntitiesById($id, 'GalleryAlbumItem');
+	list ($ret, $newAlbum) = GalleryCoreApi::loadEntitiesById($id);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(trim($name), $newAlbum->getPathComponent(), 'path component');
 
 	list ($ret, $path) = $newAlbum->fetchPath();
 	if ($ret) {
-	    return $ret;
-	}
-	$this->assert($platform->is_dir($path), "directory '$path'");
-	$this->assertEquals(trim($name), basename($path),
-			    'directory name: "' . basename($path) . '"');
-    }
-
-    function testAddAlbumWithPeriodInName() {
-	global $gallery;
-	$platform =& $gallery->getPlatform();
-
-	$name = ' testalbum-' . rand() . '.foobarbaz';
-	GalleryUtilities::putRequestVariable('itemId', $this->_parentAlbum->getId());
-	GalleryUtilities::putRequestVariable('form[action][create]', 1);
-	GalleryUtilities::putRequestVariable('form[pathComponent]', $name);
-	GalleryUtilities::putRequestVariable('form[title]', 'title');
-	GalleryUtilities::putRequestVariable('form[summary]', 'summary');
-	GalleryUtilities::putRequestVariable('form[keywords]', 'keywords');
-	GalleryUtilities::putRequestVariable('form[description]', 'description');
-
-	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret) {
-	    return $ret;
-	}
-
-	/* Perform the request and verify that we succeeded */
-	$results = $this->handleRequest();
-	$id = $this->_getChildId();
-	$this->assertEquals(array('redirect' => array('view' => 'core.ItemAdmin',
-						      'subView' => 'core.ItemEdit',
-						      'editPlugin' => 'ItemEditAlbum',
-						      'itemId' => $id),
-				  'status' => array('editMessage' =>
-						$core->translate('Album created successfully.')),
-				  'error' => array()),
-			    $results);
-
-	list ($ret, $newAlbum) = GalleryCoreApi::loadEntitiesById($id, 'GalleryAlbumItem');
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assertEquals(trim($name), $newAlbum->getPathComponent(), 'path component');
-
-	list ($ret, $path) = $newAlbum->fetchPath();
-	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert($platform->is_dir($path), "directory '$path'");
 	$this->assertEquals(trim($name), basename($path),
@@ -262,7 +213,7 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
     function testMaliciousMarkup() {
 	$ret = $this->_setMarkupType('html', true);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$name = 'testalbum-' . rand();
@@ -276,7 +227,7 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Perform the request and verify that we succeeded */
@@ -290,9 +241,9 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 				  'error' => array()),
 			    $results);
 
-	list ($ret, $newAlbum) = GalleryCoreApi::loadEntitiesById($id, 'GalleryAlbumItem');
+	list ($ret, $newAlbum) = GalleryCoreApi::loadEntitiesById($id);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(' title', $newAlbum->getTitle(), 'title');
 	$this->assertEquals('summary &lt;div&gt;.&lt;/div&gt;', $newAlbum->getSummary(), 'summary');

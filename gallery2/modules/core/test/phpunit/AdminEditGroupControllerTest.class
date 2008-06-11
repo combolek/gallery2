@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,7 +34,7 @@ class AdminEditGroupControllerTest extends GalleryControllerTestCase {
     function testCancel() {
 	list ($ret, $group) = $this->_createGroup();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	GalleryUtilities::putRequestVariable('groupId', $group->getId());
@@ -52,7 +52,7 @@ class AdminEditGroupControllerTest extends GalleryControllerTestCase {
     function testUndo() {
 	list ($ret, $group) = $this->_createGroup();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	GalleryUtilities::putRequestVariable('groupId', $group->getId());
@@ -72,7 +72,7 @@ class AdminEditGroupControllerTest extends GalleryControllerTestCase {
     function testEditGroup() {
 	list ($ret, $group) = $this->_createGroup();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$newGroupName = 'newname-'.rand();
@@ -92,7 +92,7 @@ class AdminEditGroupControllerTest extends GalleryControllerTestCase {
     function testEditGroupMissingName() {
 	list ($ret, $group) = $this->_createGroup();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	GalleryUtilities::putRequestVariable('groupId', $group->getId());
@@ -134,9 +134,9 @@ class AdminEditGroupControllerTest extends GalleryControllerTestCase {
 
     function _deleteGroup($group) {
 	global $gallery;
-	$ret = GalleryCoreApi::deleteEntityById($group->getId(), 'GalleryGroup');
+	$ret = GalleryCoreApi::deleteEntityById($group->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
     }
 }

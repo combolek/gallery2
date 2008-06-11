@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,11 +33,7 @@ class ItemCreateReplicaSingleController extends GalleryController {
     function handleRequest($form) {
 	global $gallery;
 
-	list ($ret, $item) = $this->getItem();
-	if ($ret) {
-	    return array($ret, null);
-	}
-	$itemId = $item->getId();
+	$itemId = GalleryUtilities::getRequestVariables('itemId');
 
 	$status = $error = array();
 	if (isset($form['action']['link'])) {
@@ -55,17 +51,18 @@ class ItemCreateReplicaSingleController extends GalleryController {
 		    return array($ret, null);
 		}
 
-		if (!isset($permissions[$destinationId])) {
-		    /* Avoid information disclosure, act as if the item didn't exist. */
-		    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
-		}
-
 		if (!isset($permissions[$destinationId]['core.addDataItem'])) {
 		    return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED), null);
 		}
 
 		if (!isset($permissions[$itemId]['core.viewSource'])) {
 		    return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED), null);
+		}
+
+		/* Load the item */
+		list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
+		if ($ret) {
+		    return array($ret, null);
 		}
 
 		/* Look out for monkey business */
@@ -166,26 +163,27 @@ class ItemCreateReplicaSingleView extends GalleryView {
     function loadTemplate(&$template, &$form) {
 	global $gallery;
 
-	list ($ret, $item) = $this->getItem();
-	if ($ret) {
-	    return array($ret, null);
-	}
-
+	$itemId = GalleryUtilities::getRequestVariables('itemId');
 	if ($form['formName'] != 'ItemCreateReplicaSingle') {
 	    /* First time around, load the form with item data */
 	    $form['destination'] = '';
 	    $form['formName'] = 'ItemCreateReplicaSingle';
 	}
 
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
+	if ($ret) {
+	    return array($ret, null);
+	}
+
 	/* Find all the possible locations where this item can be linked. */
-	list ($ret, $albumIds) = GalleryCoreApi::fetchAllItemIds(
-	    'GalleryAlbumItem', array('core.addDataItem', 'core.view'));
+	list ($ret, $albumIds) =
+	    GalleryCoreApi::fetchAllItemIds('GalleryAlbumItem', 'core.addDataItem');
 	if ($ret) {
 	    return array($ret, null);
 	}
 
 	/* Load all the album entities */
-	list ($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds, 'GalleryAlbumItem');
+	list ($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds);
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -196,10 +194,6 @@ class ItemCreateReplicaSingleView extends GalleryView {
 
 	$template->setVariable('ItemCreateReplicaSingle', $ItemCreateReplicaSingle);
 	$template->setVariable('controller', 'replica.ItemCreateReplicaSingle');
-	$template->javascript('lib/yui/yahoo-dom-event.js');
-	$template->javascript('lib/yui/container-min.js');
-	$template->javascript('lib/yui/treeview-min.js');
-	$template->style('modules/core/data/tree.css');
 	return array(null,
 		     array('body' => 'modules/replica/templates/ItemCreateReplicaSingle.tpl'));
     }

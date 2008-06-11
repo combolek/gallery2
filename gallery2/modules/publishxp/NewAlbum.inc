@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -72,6 +72,12 @@ class NewAlbumController extends GalleryController {
 		    return array($ret, null);
 		}
 		if (empty($error)) {
+		    /* Give the creator all permissions on the new album */
+		    $ret = GalleryCoreApi::addUserPermission(
+			$newAlbum->getId(), $newAlbum->getOwnerId(), 'core.all', false);
+		    if ($ret) {
+			return array($ret, null);
+		    }
 		    $redirect['view'] = 'publishxp.SelectAlbum';
 		    $redirect['albumId'] = $newAlbum->getId();
 		}
@@ -131,8 +137,7 @@ class NewAlbumView extends GalleryView {
 	    return array($ret, null);
 	}
 
-	list ($ret, $parent) =
-	    GalleryCoreApi::loadEntitiesById($form['parentId'], 'GalleryAlbumItem');
+	list ($ret, $parent) = GalleryCoreApi::loadEntitiesById($form['parentId']);
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -150,12 +155,6 @@ class NewAlbumView extends GalleryView {
 	$NewAlbum = array();
 	$NewAlbum['parents'] = $parents;
 
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'publishxp');
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	$template->title($module->translate('Windows Publishing Wizard'));
 	$template->setVariable('NewAlbum', $NewAlbum);
 	$template->setVariable('controller', 'publishxp.NewAlbum');
 	$template->head('modules/publishxp/templates/Head.tpl');

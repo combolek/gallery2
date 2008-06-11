@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Slideshow 1.0.11\n"
+"Project-Id-Version: Gallery: Slideshow 1.0.5\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2003-02-11 03:09-0800\n"
 "PO-Revision-Date: 2005-08-01 08:08-0500\n"
@@ -36,12 +36,12 @@ msgstr ""
 "X-Poedit-Language: Bulgarian\n"
 "X-Poedit-Country: BULGARIA\n"
 
+msgid "Slideshow"
+msgstr "Преглед"
+
 #, c-format
 msgid "Slideshow for %s"
 msgstr "Преглед за %s"
-
-msgid "Slideshow"
-msgstr "Преглед"
 
 msgid "Display"
 msgstr "Показване"
@@ -52,182 +52,144 @@ msgstr "Преглед"
 msgid "Path to an item (eg, /album/image.jpg.html)"
 msgstr "Пътека към даден елемент (например /album/snimka.jpg.html)"
 
-#, fuzzy
-msgid "Slideshow Settings"
-msgstr "Преглед"
+msgid "Blend"
+msgstr "Сливане"
+
+msgid "Blinds"
+msgstr "Щори"
+
+msgid "Checkerboard"
+msgstr "Шахматно"
+
+msgid "Diagonal"
+msgstr "Диагонално"
+
+msgid "Doors"
+msgstr "Врати"
+
+msgid "Gradient"
+msgstr "Постепенно"
+
+msgid "Iris"
+msgstr "Ирис"
+
+msgid "Pinwheel"
+msgstr "Въртележка"
+
+msgid "Pixelate"
+msgstr "Пикселирано"
+
+msgid "Radial"
+msgstr "Радиално"
+
+msgid "Rain"
+msgstr "Дъжд"
+
+msgid "Slide"
+msgstr "Плъзгащо"
+
+msgid "Snow"
+msgstr "Сняг"
+
+msgid "Spiral"
+msgstr "Спираловидно"
+
+msgid "Stretch"
+msgstr "Разтягащо"
+
+msgid "RANDOM"
+msgstr "ПРОИЗВОЛНО"
+
+msgid "This album has no photos to show in a slideshow."
+msgstr "Този албум няма снимки които да бъдат показани в преглед."
+
+msgid "Back to Album View"
+msgstr "Назад към Албума"
 
 #, c-format
-msgid "Installed PicLens version %s"
-msgstr ""
+msgid "Date: %s"
+msgstr "Дата: %s"
 
-msgid "An error occurred while downloading PicLens!"
-msgstr ""
+msgid "Hide More Info"
+msgstr "По-малко информация"
 
-msgid "Uninstalled PicLens"
-msgstr ""
+msgid "Show More Info"
+msgstr "Повече информация"
 
-#, c-format
-msgid ""
-"Gallery can optionally use a Flash and JavaScript based slideshow from %s to provide users "
-"with the best possible viewing experience.  Gallery can install %s for you automatically, or "
-"you can choose to use an HTML slideshow."
-msgstr ""
+msgid "Resume"
+msgstr "Продължете"
 
-#, c-format
-msgid "Version %s installed."
-msgstr ""
+msgid "Pause"
+msgstr "Пауза"
 
-msgid "There's a newer version of PicLens available."
-msgstr ""
+msgid "[-]"
+msgstr "[-]"
 
-msgid "PicLens downloads are currently unavailable.  Please try again later."
-msgstr ""
+msgid "[+]"
+msgstr "[+]"
 
-#, c-format
-msgid "Install PicLens version %s"
-msgstr ""
+msgid "Stop"
+msgstr "Стоп"
 
-#, c-format
-msgid "Update to PicLens version %s"
-msgstr ""
+msgid "Back One Image"
+msgstr "Една назад"
 
-msgid "Uninstall PicLens"
-msgstr ""
+msgid "delay: "
+msgstr "закъснение:"
 
-#~ msgid "Blend"
-#~ msgstr "Сливане"
+msgid "1 second"
+msgstr "1 Секунда"
 
-#~ msgid "Blinds"
-#~ msgstr "Щори"
+msgid "3 seconds"
+msgstr "3 Секунди"
 
-#~ msgid "Checkerboard"
-#~ msgstr "Шахматно"
+msgid "5 seconds"
+msgstr "5 Секунди"
 
-#~ msgid "Diagonal"
-#~ msgstr "Диагонално"
+msgid "10 seconds"
+msgstr "10 Секунди"
 
-#~ msgid "Doors"
-#~ msgstr "Врати"
+msgid "15 seconds"
+msgstr "15 Секунди"
 
-#~ msgid "Gradient"
-#~ msgstr "Постепенно"
+msgid "20 seconds"
+msgstr "20 Секунди"
 
-#~ msgid "Iris"
-#~ msgstr "Ирис"
+msgid "direction: "
+msgstr "посока:"
 
-#~ msgid "Pinwheel"
-#~ msgstr "Въртележка"
+msgid "forward"
+msgstr "напред"
 
-#~ msgid "Pixelate"
-#~ msgstr "Пикселирано"
+msgid "reverse"
+msgstr "назад"
 
-#~ msgid "Radial"
-#~ msgstr "Радиално"
+msgid "random"
+msgstr "произволно"
 
-#~ msgid "Rain"
-#~ msgstr "Дъжд"
+msgid "max size: "
+msgstr "максимален размер:"
 
-#~ msgid "Slide"
-#~ msgstr "Плъзгащо"
+msgid "320x320"
+msgstr "320x320"
 
-#~ msgid "Snow"
-#~ msgstr "Сняг"
+msgid "640x640"
+msgstr "640x640"
 
-#~ msgid "Spiral"
-#~ msgstr "Спираловидно"
+msgid "800x800"
+msgstr "800x800"
 
-#~ msgid "Stretch"
-#~ msgstr "Разтягащо"
+msgid "1024x1024"
+msgstr "1024x1024"
 
-#~ msgid "RANDOM"
-#~ msgstr "ПРОИЗВОЛНО"
+msgid "1280x1280"
+msgstr "1280x1280"
 
-#~ msgid "This album has no photos to show in a slideshow."
-#~ msgstr "Този албум няма снимки които да бъдат показани в преглед."
+msgid "no limit"
+msgstr "без ограничение"
 
-#~ msgid "Back to Album View"
-#~ msgstr "Назад към Албума"
+msgid "fade: "
+msgstr "избледняване:"
 
-#~ msgid "Date: %s"
-#~ msgstr "Дата: %s"
-
-#~ msgid "Hide More Info"
-#~ msgstr "По-малко информация"
-
-#~ msgid "Show More Info"
-#~ msgstr "Повече информация"
-
-#~ msgid "Resume"
-#~ msgstr "Продължете"
-
-#~ msgid "Pause"
-#~ msgstr "Пауза"
-
-#~ msgid "[-]"
-#~ msgstr "[-]"
-
-#~ msgid "[+]"
-#~ msgstr "[+]"
-
-#~ msgid "Stop"
-#~ msgstr "Стоп"
-
-#~ msgid "Back One Image"
-#~ msgstr "Една назад"
-
-#~ msgid "delay: "
-#~ msgstr "закъснение:"
-
-#~ msgid "1 second"
-#~ msgstr "1 Секунда"
-
-#~ msgid "3 seconds"
-#~ msgstr "3 Секунди"
-
-#~ msgid "5 seconds"
-#~ msgstr "5 Секунди"
-
-#~ msgid "10 seconds"
-#~ msgstr "10 Секунди"
-
-#~ msgid "15 seconds"
-#~ msgstr "15 Секунди"
-
-#~ msgid "20 seconds"
-#~ msgstr "20 Секунди"
-
-#~ msgid "direction: "
-#~ msgstr "посока:"
-
-#~ msgid "forward"
-#~ msgstr "напред"
-
-#~ msgid "reverse"
-#~ msgstr "назад"
-
-#~ msgid "random"
-#~ msgstr "произволно"
-
-#~ msgid "max size: "
-#~ msgstr "максимален размер:"
-
-#~ msgid "320x320"
-#~ msgstr "320x320"
-
-#~ msgid "640x640"
-#~ msgstr "640x640"
-
-#~ msgid "800x800"
-#~ msgstr "800x800"
-
-#~ msgid "1024x1024"
-#~ msgstr "1024x1024"
-
-#~ msgid "1280x1280"
-#~ msgstr "1280x1280"
-
-#~ msgid "no limit"
-#~ msgstr "без ограничение"
-
-#~ msgid "fade: "
-#~ msgstr "избледняване:"
+#~ msgid "view slideshow"
+#~ msgstr "преглед"

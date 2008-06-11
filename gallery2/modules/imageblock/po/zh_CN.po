@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,9 +19,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Image Block 1.1.8\n"
-"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2007-06-14 17:24-0700\n"
+"Project-Id-Version: Gallery: Image Block 1.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-03-28 14:00+0800\n"
 "PO-Revision-Date: 2006-03-10 11:50+0800\n"
 "Last-Translator: Lyric <lyric@lyricli.com>\n"
 "Language-Team: Chinese Simplified <gallery-devel@lists.sourceforge.net>\n"
@@ -38,6 +38,24 @@ msgstr "随机，最近或最具人气照片或相册"
 
 msgid "Blocks"
 msgstr "内容块"
+
+msgid "Picture of the Day"
+msgstr "今日推荐照片"
+
+msgid "Picture of the Week"
+msgstr "本周推荐照片"
+
+msgid "Picture of the Month"
+msgstr "本月推荐照片"
+
+msgid "Album of the Day"
+msgstr "今日推荐相册"
+
+msgid "Album of the Week"
+msgstr "本周推荐相册"
+
+msgid "Album of the Month"
+msgstr "本月推荐相册"
 
 #, fuzzy
 msgid "Random Image"
@@ -74,24 +92,6 @@ msgid "Most Viewed Album"
 msgid_plural "Most Viewed Albums"
 msgstr[0] "最具人气的相册"
 msgstr[1] "最具人气的相册"
-
-msgid "Picture of the Day"
-msgstr "今日推荐照片"
-
-msgid "Picture of the Week"
-msgstr "本周推荐照片"
-
-msgid "Picture of the Month"
-msgstr "本月推荐照片"
-
-msgid "Album of the Day"
-msgstr "今日推荐相册"
-
-msgid "Album of the Week"
-msgstr "本周推荐相册"
-
-msgid "Album of the Month"
-msgstr "本月推荐相册"
 
 msgid "Date:"
 msgstr "日期:"
@@ -169,10 +169,9 @@ msgstr ""
 "recentAlbum, viewedAlbum, dailyImage, weeklyImage, monthlyImage, dailyAlbum, weeklyAlbum, "
 "monthlyAlbum, specificItem"
 
-#, fuzzy
 msgid ""
-"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize, rawImage; "
-"the value can also be: none"
+"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize; the value "
+"can also be: none"
 msgstr ""
 "使用管道符 '|' 分割选择列表：title, date, views, owner, heading, fullSize；此值也可以是：无"
 
@@ -269,7 +268,7 @@ msgid "Monthly album"
 msgstr "每月相册"
 
 msgid "Number of items"
-msgstr "项目数"
+msgstr ""
 
 msgid "Use default settings"
 msgstr "使用默认设置"
@@ -288,3 +287,17 @@ msgstr "显示人气计数器"
 
 msgid "Show owner"
 msgstr "显示所有者"
+
+#~ msgid ""
+#~ "Scale images to this maximum size. If maxSize exceeds the thumbnail dimensions, you must "
+#~ "also specify g2_show=fullSize"
+#~ msgstr "缩放图像到最大尺寸。如果最大尺寸超过缩略图的尺寸，必须设置 g2_show=fullSize"
+
+#~ msgid "Scale images to this maximum size"
+#~ msgstr "缩放图片到最大尺寸"
+
+#~ msgid "Random/Popular"
+#~ msgstr "随机/热门"
+
+#~ msgid "Image Blocks"
+#~ msgstr "图片内容块"

@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,10 +19,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Digibug 1.0.6\n"
+"Project-Id-Version: Gallery: Digibug 1.0.0\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2006-09-12 10:46-0700\n"
-"PO-Revision-Date: 2008-03-26 19:44+0100\n"
+"PO-Revision-Date: 2007-01-07 12:34+0100\n"
 "Last-Translator: Ermanno Baschiera <ebaschiera@gmail.com>\n"
 "Language-Team: Italian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -60,22 +60,22 @@ msgid ""
 "obtain your Digibug Company ID and Event ID.  For general information, please refer to the %"
 "sDigibug.com website.%s"
 msgstr ""
-"Vendi le tuo foto come stampe o gadget stampati! Visita la %spagina di configurazione Digibug"
+"Vendi le tuo foto come stampe o gadget stampati! Visita la %spagine di configurazione Digibug"
 "%s per informazioni su come registrare un account Digibug Pro Photographer, e per imparare "
-"come ottenere i tuoi Digibug Company ID e Event ID. Per informazioni generali, fare "
-"riferimento al sito %sDigibug.com%s."
+"come ottenere i tuoi Digibug Company ID e Event ID. Per informazioni generali, fa' "
+"riferimento al %ssito Digibug.com%s."
 
 msgid "Digibug Company ID"
 msgstr "Digibug Company ID"
 
-msgid "You must enter a valid digibug customer id."
-msgstr "È necessario inserire un id cliente digibug valido."
+msgid "You must enter a digibug customer id."
+msgstr "Devi inserire un id cliente digibug."
 
 msgid "Event ID"
 msgstr "Event ID"
 
 msgid "Please create an event or use your default event id as your pricelist id."
-msgstr "Creare un evento o utilizzare il proprio id evento predefinito come id listino prezzi."
+msgstr "Crea un evento o utilizza il tuo id evento predefinito come id prezziario."
 
 msgid "Save"
 msgstr "Salva"
@@ -84,4 +84,4 @@ msgid "Cancel"
 msgstr "Annulla"
 
 msgid "Reset"
-msgstr "Reimposta"
+msgstr "Resetta"

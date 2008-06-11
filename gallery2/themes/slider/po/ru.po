@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,10 +22,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Slider Theme 1.0.11\n"
+"Project-Id-Version: Gallery: Slider Theme 1.0.7\n"
 "POT-Creation-Date: 2003-02-11 03:09-0800\n"
-"PO-Revision-Date: 2008-03-03 18:12+0300\n"
-"Last-Translator: Ser Moro <webber@morozov-sm.ru>\n"
+"PO-Revision-Date: 2005-11-22 23:03+0300\n"
+"Last-Translator: Konstantin Ivanov <Continental@vollen.ru>\n"
 "Language-Team: Russian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -43,7 +43,6 @@ msgstr ""
 
 msgid "Enable prev/next navigation by clicking in the left/right half of the image"
 msgstr ""
-"Разрешить переход-  предыдущий/следующий путём клика по левой/правой половине изображения"
 
 msgid "Error!"
 msgstr "Ошибка!"
@@ -103,16 +102,16 @@ msgid "Image&nbsp;Bar"
 msgstr "Изображение&nbsp;Меню"
 
 msgid "Horizontal/Vertical"
-msgstr "Горизонтальное/вертикальное"
+msgstr "Горизонтальное/Вертикальное"
 
 msgid "Options"
 msgstr "Опции"
 
 msgid "Pause Slideshow"
-msgstr "Остановить слайд-шоу"
+msgstr "Остановить Слайд-шоу"
 
 msgid "Start Slideshow"
-msgstr "Начать слайд-шоу"
+msgstr "Начать Слайд-шоу"
 
 msgid "Full Size"
 msgstr "Полный размер"
@@ -133,4 +132,7 @@ msgid "Next Image"
 msgstr "Следующее изображение"
 
 msgid "no thumbnail"
-msgstr "миниатюра отсутствует"
+msgstr "макет отсутствует"
+
+#~ msgid "Warning: This site requires javascript."
+#~ msgstr "Предупреждение: для работа этого сайта необходим javascript."

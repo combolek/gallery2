@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,7 +33,8 @@ class RatingPreloads {
 
 	$loaded[$preload] = 1;
 	$template->style('modules/rating/rating.css');
-	$template->javascript('lib/yui/utilities.js');
+	$template->javascript('lib/yui/yahoo-min.js');
+	$template->javascript('lib/yui/connection-min.js');
 	$template->javascript('modules/rating/rating.js');
 	return null;
     }
