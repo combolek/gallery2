@@ -22,7 +22,7 @@ modules/core/AdminToolkitPriority.inc	644097842	1596887885	3244	3349
 modules/core/AdminUsers.inc	3311262088	1852719169	7052	7285
 modules/core/Callbacks.inc	3808511842	1242284360	6588	6798
 modules/core/ChangeLanguage.inc	226784916	2147377064	1514	1563
-modules/core/CombinedJavascript.inc	394942437	2115262422	3506	3615
+modules/core/CombinedJavascript.inc	2788929408	3320886400	3620	3736
 modules/core/CoreModuleExtras.inc	1691017078	673089762	112530	116105
 modules/core/CreateThumbnailOption.inc	841572075	1434710851	2288	2363
 modules/core/DownloadItem.inc	837820202	3090524928	7395	7639
@@ -176,7 +176,7 @@ modules/core/classes/GalleryUrlGenerator.class	2479168340	2787083613	36287	37267
 modules/core/classes/GalleryUser.class	3396427290	2989670888	10660	11058
 modules/core/classes/GalleryUtilities.class	3296625507	1647273932	53331	54990
 modules/core/classes/GalleryValidationPlugin.class	687775064	2005739175	2543	2608
-modules/core/classes/GalleryView.class	167347663	2456784620	22405	23141
+modules/core/classes/GalleryView.class	3987283381	3598331871	22157	22884
 modules/core/classes/Maps.inc	3001125694	2307968062	9967	9994
 modules/core/classes/Maps.xml	3244084721	856932283	20735	21509
 modules/core/classes/OptimizeDatabaseTask.class	2284761034	4268394254	2173	2242
@@ -461,7 +461,7 @@ modules/core/test/phpunit/AdminMaintenanceControllerModeTest.class	3229357978	31
 modules/core/test/phpunit/AdminMaintenanceControllerTest.class	4211802780	1897041021	10966	11310
 modules/core/test/phpunit/AdminPerformanceControllerTest.class	3549674240	3041430121	4664	4808
 modules/core/test/phpunit/AdminRepositoryControllerTest.class	1704508712	3797352692	5607	5783
-modules/core/test/phpunit/AdminRepositoryDownloadAndInstallControllerTest.class	4201164506	2006951985	22247	22847
+modules/core/test/phpunit/AdminRepositoryDownloadAndInstallControllerTest.class	4236794348	611051022	22627	23244
 modules/core/test/phpunit/AdminRepositoryDownloadControllerTest.class	1944719385	3600816240	7032	7260
 modules/core/test/phpunit/AdminThemesControllerTest.class	771855820	2150960194	14961	15431
 modules/core/test/phpunit/AdminToolkitPriorityControllerTest.class	1485410691	1740558562	3260	3368
@@ -472,7 +472,7 @@ modules/core/test/phpunit/CallbacksTest.class	2213101491	1133869361	9130	9401
 modules/core/test/phpunit/CharsetTest.class	1524158989	3390833675	25002	25661
 modules/core/test/phpunit/ChildTest.class	2232439075	718588480	19470	20131
 modules/core/test/phpunit/CodeAuditTest.class	3418232686	98220523	14040	14482
-modules/core/test/phpunit/CombinedJavascriptTest.class	2057209570	1481662680	7185	7404
+modules/core/test/phpunit/CombinedJavascriptTest.class	630533003	2035871291	8549	8804
 modules/core/test/phpunit/ControllerTest.class	3670959615	1744354032	9289	9596
 modules/core/test/phpunit/CoreApiTest.class	1877269123	2280130128	2073	2144
 modules/core/test/phpunit/CoreModuleTest.class	2377848143	3590465038	12235	12616
@@ -524,7 +524,7 @@ modules/core/test/phpunit/LocalizationAuditTest.class	2869319050	2108751785	5611
 modules/core/test/phpunit/LockTest.class	1052553059	3096300561	20670	21391
 modules/core/test/phpunit/LogoutControllerTest.class	3943420936	2034118615	3956	4096
 modules/core/test/phpunit/MailHelperTest.class	2469492283	1354069040	8248	8521
-modules/core/test/phpunit/MainTest.class	2399409231	4212577117	18329	18935
+modules/core/test/phpunit/MainTest.class	3406433543	559246775	19868	20536
 modules/core/test/phpunit/MaintenanceHelperTest.class	3370103818	3070389681	7421	7653
 modules/core/test/phpunit/MapTest.class	2898422242	3823472972	3001	3097
 modules/core/test/phpunit/MarkupTest.class	343505676	3516015783	9916	10189
@@ -575,7 +575,7 @@ modules/core/test/phpunit/UserRecoverPasswordAdminControllerTest.class	401479983
 modules/core/test/phpunit/UserRecoverPasswordConfirmControllerTest.class	3701665655	1729045873	8137	8402
 modules/core/test/phpunit/UserRecoverPasswordControllerTest.class	1339531796	4093692412	17902	18485
 modules/core/test/phpunit/UtilitiesTest.class	4242941041	936656427	68491	70319
-modules/core/test/phpunit/ViewTest.class	1810766562	3309236252	27164	28074
+modules/core/test/phpunit/ViewTest.class	684573638	1016627378	25244	26089
 modules/core/test/phpunit/WebTest.class	3089889320	2674514198	35332	36261
 R	modules/core/test/phpunit/RepositoryUtilitiesDownloadPackagesTest.class
 R	modules/core/templates/blocks/NavigationLinks.tpl
