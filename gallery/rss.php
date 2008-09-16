@@ -52,7 +52,9 @@ function albumSort($a, $b) {
 }
 
 function bestDate($album) {
-	if (isset($album->fields['clicks_date']) && strtotime($album->fields["clicks_date"]) > strtotime($album->fields["last_mod_time"])) {
+	if (isset($album->fields['clicks_date']) &&
+		strtotime($album->fields["clicks_date"]) > strtotime($album->fields["last_mod_time"]))
+	{
 		return $album->fields['clicks_date'];
 	}
 	else {
@@ -67,7 +69,7 @@ function getThumbs($album) {
 	for ($i = 1; $i <= $photoCount; $i += 1) {
 		$photo = $album->getPhoto($i);
 		if (!$photo->isHidden() && !$photo->isMovie() && $photo->thumbnail) {
-			$imgtag = $album->getThumbnailTag($i);
+			$imgtag = $album->getThumbnailTag($i, 0, $tags);
 			$photos .= "<a href=\"" . makeAlbumUrl($album->fields['name'], $i) . "\">" . $imgtag . "</a>\n";
 		}
 	}
@@ -82,7 +84,7 @@ function getThumbsAndCaptions($album) {
 	for ($i = 1; $i <= $photoCount; $i += 1) {
 		$photo = $album->getPhoto($i);
 		if (!$photo->isHidden() && !$photo->isMovie() && is_object($photo->thumbnail)) {
-			$imgtag = $album->getThumbnailTag($i);
+			$imgtag = $album->getThumbnailTag($i, 0, $tags);
 			$caption = $photo->getCaption();
 			$photos .= "<a href=\"" . makeAlbumUrl($album->fields['name'], $i) . "\">" . $imgtag . "</a>";
 			$photos .= $caption . "<br>\n";

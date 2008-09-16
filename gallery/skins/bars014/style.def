@@ -1,13 +1,11 @@
 <?php
 
-/**
- * Gallery SVN ID:
- * $Id: style.def 17081 2007-10-11 16:32:42Z jenst $
+/*
+   $Id: screen.css 143 2008-05-30 22:37:00Z root $
+   default text styles - background and colors overriden by
+   album 'bgcolor', 'background', and 'textcolor' properties.
 */
 
-$name		= _("Bars014");
-$description	= _("White background - red bars, red, white, & grey text. Cheers go out to my Kerstin.");
-$version	= '2.0.0';
-$last_update	= '2008-08-17';
-
+$name = _("bars014");
+$description = _("White background - red bars, red, white, & grey text. Cheers go out to my Kerstin.");
 ?>

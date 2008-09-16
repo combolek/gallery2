@@ -184,93 +184,6 @@ function getParentAlbums($childAlbum, $addChild = false) {
 }
 
 /**
- * This function just displays the prefetching navigation for an the mainpages
- *
- */
-function prefetchRootAlbumNav() {
-	global $gallery, $navigator, $maxPages;
-
-	if ($navigator['page'] > 1) {
-?>
-  <link rel="top" href="<?php echo makeGalleryUrl('albums.php', array('set_albumListPage' => 1)) ?>">
-  <link rel="first" href="<?php echo makeGalleryUrl('albums.php', array('set_albumListPage' => 1)) ?>">
-  <link rel="prev" href="<?php echo makeGalleryUrl('albums.php', array('set_albumListPage' => $navigator['page']-1)) ?>">
-<?php
-	}
-
-	if ($navigator['page'] < $maxPages) {
-?>
-  <link rel="next" href="<?php echo makeGalleryUrl('albums.php', array('set_albumListPage' => $navigator['page']+1)) ?>">
-  <link rel="last" href="<?php echo makeGalleryUrl('albums.php', array('set_albumListPage' => $maxPages)) ?>">
-<?php
-	}
-}
-
-/**
- * This function just displays the RSS Link on the mainpages
- */
-function rootRSSLink() {
-	global $gallery, $galleryTitle;
-
-	if ($gallery->app->rssEnabled == "yes" && !$gallery->session->offline) {
-		$rssTitle = sprintf(gTranslate('common', "%s RSS"), $galleryTitle);
-		$rssHref = $gallery->app->photoAlbumURL . "/rss.php";
-
-		echo "  <link rel=\"alternate\" title=\"$rssTitle\" href=\"$rssHref\" type=\"application/rss+xml\">\n";
-	}
-}
-
-/**
- * This function just displays the prefetching navigation for the albumpages
- */
-function prefetchAlbumNav() {
-	global $gallery;
-	global $first, $previousPage, $last, $nextPage, $maxPages;
-
-	/* prefetching/navigation */
-	if (!isset($first)) { ?>
-  <link rel="first" href="<?php echo makeAlbumUrl($gallery->session->albumName, '', array('page' => 1)) ?>" >
-  <link rel="prev" href="<?php echo makeAlbumUrl($gallery->session->albumName, '', array('page' => $previousPage)) ?>" >
-<?php
-	}
-	if (!isset($last)) { ?>
-  <link rel="next" href="<?php echo makeAlbumUrl($gallery->session->albumName, '', array('page' => $nextPage)) ?>" >
-  <link rel="last" href="<?php echo makeAlbumUrl($gallery->session->albumName, '', array('page' => $maxPages)) ?>" >
-<?php }
-
-	if ($gallery->album->isRoot() &&
-		(!$gallery->session->offline ||
-		isset($gallery->session->offlineAlbums["albums.php"]))) { ?>
-  <link rel="up" href="<?php echo makeAlbumUrl(); ?>" >
-<?php
-	}
-	else if (!$gallery->session->offline ||
-			 isset($gallery->session->offlineAlbums[$gallery->album->fields['parentAlbumName']])) { ?>
-  <link rel="up" href="<?php echo makeAlbumUrl($gallery->album->fields['parentAlbumName']); ?>" >
-<?php
-	}
-	if (!$gallery->session->offline ||
-		isset($gallery->session->offlineAlbums["albums.php"])) { ?>
-  <link rel="top" href="<?php echo makeGalleryUrl('albums.php', array('set_albumListPage' => 1)) ?>" >
-<?php
-	}
-}
-
-/**
- * This function just displays the RSS Link on the albumpages
- *
- */
-function albumRSSLink() {
-	global $gallery, $albumTitle, $albumRSSURL;
-
-	if ($gallery->app->rssEnabled == 'yes' && !$gallery->session->offline) {
-		$rssTitle = htmlentities(sprintf(gTranslate('common', "%s RSS"), $albumTitle));
-
-		echo "  <link rel=\"alternate\" title=\"$rssTitle\" href=\"$albumRSSURL\" type=\"application/rss+xml\">\n";
-	}
-}
-
-/**
  * This function returns the CSS for the settings a user did in the album appearance
  *
  */
@@ -287,10 +200,6 @@ function customCSS() {
 
 	if ($gallery->album->fields["bgcolor"]) {
 		$customCSS .= "  body { background-color:".$gallery->album->fields['bgcolor']."; }\n";
-
-		require_once(dirname(dirname(__FILE__)) . '/classes/Colors.php');
-		$bgcolor = new RGBColor($gallery->album->fields['bgcolor']);
-		$customCSS .= ".g-adminbar, .g-header, .g-sidebarHeader {background:". $bgcolor->getDarken() ."; }\n";
 	}
 
 	if (isset($gallery->album->fields['background']) && $gallery->album->fields['background']) {
@@ -316,12 +225,10 @@ function returnToPathArray($album = NULL, $withCurrentAlbum = true, $photoview =
 
 	$pathArray = array();
 
-	$upArrowAltText = gTranslate('common', "navigate _UP");
+	$upArrowAltText = gTranslate('common', "navigate up");
 	$upArrow = gImage('icons/navigation/nav_home.gif', $upArrowAltText);
 
-	$accesskey = getAccessKey($upArrowAltText);
-	$lastUpArrowAltText = $upArrowAltText . ' '.
-	   sprintf(gTranslate('common', "(accesskey '%s')"), $accesskey);
+	$lastUpArrowAltText = $upArrowAltText;
 
 	$lastUpArrow = gImage('icons/navigation/nav_home.gif', $lastUpArrowAltText);
 
@@ -336,11 +243,7 @@ function returnToPathArray($album = NULL, $withCurrentAlbum = true, $photoview =
 				if($i == $numParents) {
 					$link .= galleryLink(
 							$navAlbum['url'],
-							$navAlbum['title'] ."&nbsp;$lastUpArrow",
-							array('accesskey' => $accesskey),
-							'',
-							false,
-							false
+							$navAlbum['title'] ."&nbsp;$lastUpArrow"
 					);
 				}
 				else {
@@ -352,100 +255,22 @@ function returnToPathArray($album = NULL, $withCurrentAlbum = true, $photoview =
 		}
 		elseif ($photoview) {
 			$pathArray[] = galleryLink(
-						makeAlbumUrl($gallery->album->fields['name']),
-						$gallery->album->fields['title'] ."&nbsp;$lastUpArrow",
-						array('accesskey' => $accesskey),
-						'',
-						false,
-						false
+					makeAlbumUrl($gallery->album->fields['name']),
+					$gallery->album->fields['title'] ."&nbsp;$lastUpArrow"
 			);
 		}
 	}
 	else {
 		$pathArray[] = sprintf(
-				gTranslate('common', "Gallery: %s"),
-				galleryLink(
-					makeGalleryUrl("albums.php"),
-					clearGalleryTitle() ."&nbsp;$lastUpArrow",
-					array('accesskey' => $accesskey), '', false, false)
+			gTranslate('common', "Gallery: %s"),
+			galleryLink(
+				makeGalleryUrl("albums.php"),
+				clearGalleryTitle() ."&nbsp;$lastUpArrow")
 		);
 	}
 
 	return $pathArray;
 }
-
-/**
- * Generates an array that represents an album tree.
- * Each element has this structure:
- * $tree[] = array(
-		'albumUrl' => $albumUrl,
-		'albumName' => $myName,
-		'title' => $title,
-		'clicksText' => $clicksText,
-		'microthumb' => $microthumb,
-		'subTree' => $subtree
-   );
- *
- * This function is recursive, so the subtree is again a tree.
- * @param string    $albumName
- * @param integer   $depth	Maximum depth of the tree
- * @return array    $tree	Structure like described above
- * @author Jens Tkotz
- */
-function createTreeArray($albumName,$depth = 0) {
-	global $gallery;
-
-	$myAlbum = new Album();
-	$myAlbum->load($albumName);
-	$numPhotos = $myAlbum->numPhotos(1);
-
-	$tree = array();
-
-	if ($depth >= $gallery->app->albumTreeDepth) {
-		return $tree;
-	}
-
-	for ($i = 1; $i <= $numPhotos; $i++) {
-		set_time_limit($gallery->app->timeLimit);
-		if ($myAlbum->isAlbum($i) && !$myAlbum->isHidden($i)) {
-			$myName = $myAlbum->getAlbumName($i, false);
-			$nestedAlbum = new Album();
-			$nestedAlbum->load($myName);
-			if ($gallery->user->canReadAlbum($nestedAlbum)) {
-				$title = $nestedAlbum->fields['title'];
-				if (!strcmp($nestedAlbum->fields['display_clicks'], 'yes')
-					&& !$gallery->session->offline)
-				{
-					$clicksText = "(" . gTranslate('common', "1 view", "%d views", $nestedAlbum->getClicks(), '', true) . ")";
-				}
-				else {
-					$clicksText = '';
-				}
-
-				$albumUrl = makeAlbumUrl($myName);
-				$subtree = createTreeArray($myName, $depth+1);
-
-				$highlightTag = $nestedAlbum->getHighlightTag(
-					$gallery->app->default["nav_thumbs_size"],
-					array('class' => 'nav_micro_img', 'alt' => "$title $clicksText")
-				);
-
-				$microthumb = "<a href=\"$albumUrl\">$highlightTag</a> ";
-				$tree[] = array(
-					'albumUrl' => $albumUrl,
-					'albumName' => $myName,
-					'title' => $title,
-					'clicksText' => $clicksText,
-					'microthumb' => $microthumb,
-					'subTree' => $subtree
-				);
-			}
-		}
-	}
-
-	return $tree;
-}
-
 
 /**
  * Test Suite for albums
@@ -608,9 +433,7 @@ function getAlbumCommands($album, $caption = false, $mainpage = true) {
 		$albumCommands[] = array(
 			'text'	=> gTranslate('common', "Add photos"),
 			'html'	=> popup_link(gTranslate('common', "Add photos"),
-						"add_photos_frame.php?set_albumName=$albumName",
-				   		false, true, 550, 600, '', '', 'new.png'
-				   ),
+						"add_photos_frame.php?set_albumName=$albumName"),
 			'value'	=> build_popup_url("add_photos_frame.php?set_albumName=$albumName")
 		);
 	}
@@ -624,7 +447,7 @@ function getAlbumCommands($album, $caption = false, $mainpage = true) {
 							array('parentName' => $albumName),
 							'view_album.php'),
 						gTranslate('common', "New nested album"),
-						array(), 'folder_new.png', true),
+						array(), '', true),
 			'value'	=> doCommand('new-album',
 						array('parentName' => $albumName),
 						'view_album.php')
@@ -645,7 +468,7 @@ function getAlbumCommands($album, $caption = false, $mainpage = true) {
 							'page' => $page,
 							'perPage' => $perPage)),
 						gTranslate('common',"Edit captions"),
-						array(), 'kcmfontinst.gif', true),
+						array(),'', true),
 			'value'	=> makeGalleryUrl("captionator.php", array("set_albumName" => $albumName))
 		);
 	}
@@ -656,9 +479,7 @@ function getAlbumCommands($album, $caption = false, $mainpage = true) {
 		$albumCommands[] = array(
 			'text'	=> gTranslate('common', "Change foldername"),
 			'html'	=> popup_link(gTranslate('common',"Change foldername"),
-						"rename_album.php?set_albumName={$albumName}&useLoad=true",
-						false, true, 550, 600, '', '', 'folder_edit.png'
-				   ),
+						"rename_album.php?set_albumName={$albumName}&useLoad=true"),
 			'value'	=> build_popup_url("rename_album.php?set_albumName={$albumName}&useLoad=true")
 		);
 
@@ -667,8 +488,8 @@ function getAlbumCommands($album, $caption = false, $mainpage = true) {
 			'text'	=> gTranslate('common', "Permissions"),
 			'html'	=> popup_link(gTranslate('common',"Permissions"),
 						"album_permissions.php?set_albumName={$albumName}",
-						false, true, 550, 700, '', '', 'key.png'
-				   ),
+						0, true,
+						550, 700),
 			'value' => build_popup_url("album_permissions.php?set_albumName=$albumName")
 		);
 
@@ -677,8 +498,8 @@ function getAlbumCommands($album, $caption = false, $mainpage = true) {
 			'text'	=> gTranslate('common', "Properties"),
 			'html'	=> popup_link(gTranslate('common',"Properties"),
 						"edit_appearance.php?set_albumName={$albumName}",
-						false, true, 700, 800, '', '', 'options.png'
-				   ),
+						0, true,
+						550, 600),
 			'value'	=> build_popup_url("edit_appearance.php?set_albumName=$albumName")
 		);
 
@@ -688,9 +509,7 @@ function getAlbumCommands($album, $caption = false, $mainpage = true) {
 			$albumCommands[] = array(
 				'text'	=> gTranslate('common', "Watermark&nbsp;album"),
 				'html'	=> popup_link(gTranslate('common',"Watermark&nbsp;album"),
-							"watermark_album.php?set_albumName=$albumName",
-							false, true, 550, 600, '', '', 'camera.gif'
-					   ),
+							"watermark_album.php?set_albumName=$albumName"),
 				'value'	=> build_popup_url("watermark_album.php?set_albumName=$albumName")
 			);
 		}
@@ -704,9 +523,7 @@ function getAlbumCommands($album, $caption = false, $mainpage = true) {
 			$albumCommands[] = array(
 				'text'	=> gTranslate('common', "Delete album"),
 				'html'	=> popup_link(gTranslate('common',"Delete album"),
-							"delete_album.php?set_albumName=$albumName",
-							false, true, 550, 600, '', '', 'delete.gif'
-					   ),
+							"delete_album.php?set_albumName=$albumName"),
 				'value'	=> build_popup_url("delete_album.php?set_albumName=$albumName")
 			);
 		}
@@ -716,18 +533,14 @@ function getAlbumCommands($album, $caption = false, $mainpage = true) {
 			$albumCommands[] = array(
 				'text'	=> gTranslate('common', "Move album"),
 				'html'	=> popup_link(gTranslate('common',"Move album"),
-							"move_rootalbum.php?set_albumName={$albumName}&index=$i&reorder=0",
-							false, true, 550, 600, '', '', 'move.png'
-					    ),
+							"move_album.php?set_albumName={$albumName}&index=$i&reorder=0"),
 				'value'	=> build_popup_url("move_album.php?set_albumName={$albumName}&index=$i&reorder=0")
 			);
 
 			$albumCommands[] = array(
 				'text'	=> gTranslate('common', "Reorder album"),
 				'html'	=> popup_link(gTranslate('common',"Reorder album"),
-							"move_rootalbum.php?set_albumName={$albumName}&index=$i&reorder=1",
-							false, true, 550, 600, '', '', 'move.png'
-					   ),
+							"move_album.php?set_albumName={$albumName}&index=$i&reorder=1"),
 				'value'	=> build_popup_url("move_album.php?set_albumName={$albumName}&index=$i&reorder=1")
 			);
 		}
@@ -745,8 +558,8 @@ function getAlbumCommands($album, $caption = false, $mainpage = true) {
 									'set_albumName'	=> $album->fields['parentAlbumName'],
 									'index' => $i,
 									'id' => $id,
-									'gallery_popup' => true)),
-							array('accesskey' => true, 'icon' => 'delete.gif')),
+									'gallery_popup' => true))
+								),
 				'value'	=> build_popup_url(makeGalleryUrl('delete_item.php',
 								array(
 									'set_albumName' => $album->fields['parentAlbumName'],
@@ -764,45 +577,28 @@ function getAlbumCommands($album, $caption = false, $mainpage = true) {
 			$albumCommands[] = array(
 				'text'	=> gTranslate('common', "Sort items"),
 				'html'	=> popup_link(gTranslate('common',"Sort items"),
-						      "sort_album.php?set_albumName=$albumName",
-						      false, true, 550, 600, '', '', 'puzzle.png'
-					   ),
+								 "sort_album.php?set_albumName=$albumName"),
 				'value'	=> build_popup_url("sort_album.php?set_albumName=$albumName")
 			);
 
 			$albumCommands[] = array(
 				'text'	=> gTranslate('common', "Resize all"),
 				'html'	=> popup_link(gTranslate('common',"Resize all"),
-						      "resize_photo.php?set_albumName={$albumName}&index=0",
-						      false, true, 550, 600, '', '', 'window_fullscreen.gif'
-					   ),
+						      "resize_photo.php?set_albumName={$albumName}&index=0"),
 				'value'	=> build_popup_url("resize_photo.php?set_albumName={$albumName}&index=0")
-			);
-
-			$albumCommands[] = array(
-				'text'	=> gTranslate('common', "Recreate captions"),
-				'html'	=> popup_link(gTranslate('common',"Recreate captions"),
-						      "recreate_captions.php?set_albumName={$albumName}",
-						      false, true, 550, 600, '', '', 'refresh.png'
-					   ),
-				'value'	=> build_popup_url("recreate_captions.php?set_albumName={$albumName}")
 			);
 
 			$albumCommands[] = array(
 				'text'	=> gTranslate('common', "Rebuild thumbs"),
 				'html'	=> popup_link(gTranslate('common',"Rebuild thumbs"),
-						      "rebuild_thumbs.php?set_albumName={$albumName}",
-						      false, true, 550, 600, '', '', 'paint.png'
-					   ),
+						      "rebuild_thumbs.php?set_albumName={$albumName}"),
 				'value'	=> build_popup_url("rebuild_thumbs.php?set_albumName={$albumName}")
 			);
 
 			$albumCommands[] = array(
 				'text'	=> gTranslate('common', "Rearrange items"),
 				'html'	=> popup_link(gTranslate('common',"Rearrange items"),
-						      "rearrange.php?set_albumName={$albumName}",
-						      false, true, 550, 600, '', '', 'arrow_switch.png'
-					   ),
+						      "rearrange.php?set_albumName={$albumName}"),
 				'value'	=> build_popup_url("rearrange.php?set_albumName={$albumName}")
 			);
 
@@ -810,9 +606,7 @@ function getAlbumCommands($album, $caption = false, $mainpage = true) {
 				$albumCommands[] = array(
 					'text'	=> gTranslate('common', "Rebuild capture dates"),
 					'html'	=> popup_link(gTranslate('common',"Rebuild capture dates"),
-							      "rebuild_capture_dates.php?set_albumName={$albumName}",
-							      false, true, 550, 600, '', '', 'folder_clock.png'
-						   ),
+							      "rebuild_capture_dates.php?set_albumName={$albumName}"),
 					'value'	=> build_popup_url("rebuild_capture_dates.php?set_albumName={$albumName}")
 				);
 
@@ -834,9 +628,7 @@ function getAlbumCommands($album, $caption = false, $mainpage = true) {
 			$albumCommands[] = array(
 				'text'	=> gTranslate('common', "Poll reset"),
 				'html'	=> popup_link(gTranslate('common',"Poll reset"),
-						      "reset_votes.php?set_albumName={$albumName}",
-						      false, true, 550, 600, '', '', 'undo.png'
-					   ),
+						      "reset_votes.php?set_albumName={$albumName}"),
 				'value'	=> build_popup_url("reset_votes.php?set_albumName={$albumName}")
 			);
 		}
@@ -867,22 +659,6 @@ function getAlbumCommands($album, $caption = false, $mainpage = true) {
 	}
 
 	return $albumCommands;
-}
-
-/**
- * This function left in place to support patches that use it, but please use
- * lastCommentDate functions in classes Album and AlbumItem.
- *
- * @param object $album
- * @param integer $i
- * @return string
- */
-function mostRecentComment($album, $i) {
-	$id = $album->getPhotoId($i);
-	$index = $album->getPhotoIndex($id);
-	$recentcomment = $album->getComment($index, $album->numComments($i));
-
-	return $recentcomment->getDatePosted();
 }
 
 /**

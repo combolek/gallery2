@@ -28,9 +28,9 @@
 
 /**
  *  Valid return codes:
- *  0:  File was not resized, no processing to be done
- *  1:  File resized, process normally
- *  2:  Existing resized file should be removed
+ *  0: File was not resized, no processing to be done
+ *  1: File resized, process normally
+ *  2: Existing resized file should be removed
  *  10: Error
  */
 function resize_image($src, $dest, $target = 0, $target_fs = 0, $keepProfiles = 0, $createThumbnail = false, $quality = 0) {

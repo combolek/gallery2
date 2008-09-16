@@ -38,49 +38,50 @@ printPopupStart(gTranslate('config', "Check Session"));
 
 configLogin(basename(__FILE__));
 ?>
-  <div class="g-sitedesc left">
-		<?php echo gTranslate('config', "If sessions are configured properly in your PHP installation, then you should see a session id below."); ?>
+	<div class="sitedesc left">
+		<?php echo gTranslate('config', "If sessions are configured properly in your PHP installation, then you should see a session id below.") ?>
 	<br>
-		<?php echo gTranslate('config', "The &quot;page views&quot; number should increase every time you reload the page."); ?>
+		<?php echo gTranslate('config', "The &quot;page views&quot; number should increase every time you reload the page.") ?>
 	<br>
-		<?php echo gTranslate('config', "Clicking &quot;Start over&quot; should reset the page view number back to 1 (But you need to login again)."); ?>
-	<br><br>
-		<?php echo infoBox(array(array(
-			  'type' => 'warning',
-			  'text' =>
-				  gTranslate('config', "If this <b>does not</b> work, then you most likely have a configuration issue with your PHP installation.") .
-				  '<p>' .
-				  gTranslate('config', "Gallery will not work properly until PHP's session management is configured properly.") .
-				  '</p>'
-			  )), '', true);
-		?>
+		<?php printf(gTranslate('config', "Clicking %s should reset the page view number back to 1. (But it will also log you out.)"), '"Start over"') ?>
+	<p>
+		<?php echo gTranslate('config', "If this <b>does not</b> work, then you most likely have a configuration issue with your PHP installation.") ?>   
+		<?php echo gTranslate('config', "Gallery will not work properly until PHP's session management is configured properly.") ?>  
+	</p>
 	</div>
-
-	<br>
-	<table width="50%" align="center">
+	<table width="100%">
+	<tr>
+		<td>
+		<table width="100%" class="inner">
 		<tr>
-			<td class="g-shortdesc"><?php echo gTranslate('config', "Your session id is") ?></td>
-			<td class="g-desc"><?php echo session_id() ?></td>
+			<td class="shortdesc"><?php echo gTranslate('config', "Your session id is") ?></td>
+			<td class="desc"><?php echo session_id() ?></td>
 		</tr>
 		<tr>
-			<td class="g-shortdesc"><?php echo gTranslate('config', "Page views in this session") ?></td>
-			<td class="g-desc"><?php echo $_SESSION['count'] ?></td>
+			<td class="shortdesc"><?php echo gTranslate('config', "Page views in this session") ?></td>
+			<td class="desc"><?php echo $_SESSION['count'] ?></td>
 		</tr>
 		<tr>
-			<td class="g-shortdesc"><?php echo gTranslate('config', "Server IP address") ?></td>
-			<td class="g-desc"><?php echo $_SERVER["SERVER_ADDR"] ?></td>
+			<td class="shortdesc"><?php echo gTranslate('config', "Server IP address") ?></td>
+			<td class="desc"><?php echo $_SERVER["SERVER_ADDR"] ?></td>
 		</tr>
+		</table>
+		</td>
+	</tr>
 	</table>
+	
+	<table width="100%" class="inner">
+	<tr>
+		<td class="desc" align="center">
+			<a href="#" onClick="location.reload()"><?php echo gTranslate('config', "Clicking on this link should reload the page and <b>increase the counter</b>"); ?></a>
+			<br><br>
+			<a href="session_test.php?destroy=1"><?php echo gTranslate('config', "Start over") ?></a>
+		</td>
+     </tr>
+     </table>
+     
+     <p><?php echo returnToConfig(); ?></p>
 
 </div>
-
-<div class="center">
-	<?php echo gButton('reload', gTranslate('config', "_Reload"), 'location.href=\'session_test.php\''); ?>
-	<?php echo gButton('restart', gTranslate('config', "_Start over"), 'location.href=\'session_test.php?destroy=1\''); ?>
-
-	<br><br>
-	<?php echo returnToDiag(); ?><?php echo returnToConfig(); ?>
-</div>
-
 </body>
 </html>

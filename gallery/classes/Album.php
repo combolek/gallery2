@@ -34,94 +34,36 @@ class Album {
 	 * database.  Data like the mirrorUrl which we want to validate
 	 * the first time we touch an album.
 	*/
+	var $transient;
+
 	function Album() {
 		global $gallery;
 
-		$this->transient = new stdClass();
-
-		$this->fields['title']			= gTranslate('core', "Untitled");
-		$this->fields['description']		= '';
-		$this->fields['summary']		= '';
-		$this->fields['nextname']		= "aaa";
-		$this->fields['bgcolor']		= '';
-		$this->fields['textcolor']		= '';
-		$this->fields['linkcolor']		= '';
-		$this->fields['background']		= '';
-		$this->fields['font']			= $gallery->app->default['font'];
-		$this->fields['border']			= $gallery->app->default['border'];
-		$this->fields['bordercolor']		= $gallery->app->default['bordercolor'];
-		$this->fields['returnto']		= $gallery->app->default['returnto'];
-		$this->fields['thumb_size']		= $gallery->app->default['thumb_size'];
-		$this->fields['thumb_ratio']		= $gallery->app->default['thumb_ratio'];
-		$this->fields['resize_size']		= $gallery->app->default['resize_size'];
-		$this->fields['resize_file_size']	= $gallery->app->default['resize_file_size'];
-		$this->fields['max_size']		= $gallery->app->default['max_size'];
-		$this->fields['max_file_size']		= $gallery->app->default['max_file_size'];
-		$this->fields['rows']			= $gallery->app->default['rows'];
-		$this->fields['cols']			= $gallery->app->default['cols'];
-		$this->fields['fit_to_window']		= $gallery->app->default['fit_to_window'];
-		$this->fields['lightbox']		= $gallery->app->default['lightbox'];
-		$this->fields['use_fullOnly']		= $gallery->app->default['use_fullOnly'];
-		$this->fields['print_photos']		= isset($gallery->app->default['print_photos']) ? $gallery->app->default['print_photos'] : '';
-		$this->fields['use_exif']		= isset($gallery->app->use_exif) ? 'yes' : 'no';
-		$this->fields['guid']			= 0;
-		$this->fields['parentAlbumName']	= 0;
-		$this->fields['clicks']			= 0;
-		$this->fields['clicks_date']		= time();
-		$this->fields['display_clicks']		= $gallery->app->default['display_clicks'];
-		$this->fields['serial_number']		= 0;
-		$this->fields['slideshow_type']		= $gallery->app->default['slideshow_type'];
-		$this->fields['slideshow_length']	= $gallery->app->default['slideshow_length'];
-		$this->fields['slideshow_recursive']	= $gallery->app->default['slideshow_recursive'];
-		$this->fields['slideshow_loop']		= $gallery->app->default['slideshow_loop'];
-		$this->fields['album_frame']		= $gallery->app->default['album_frame'];
-		$this->fields['thumb_frame']		= $gallery->app->default['thumb_frame'];
-		$this->fields['image_frame']		= $gallery->app->default['image_frame'];
-		$this->fields['showDimensions']		= $gallery->app->default['showDimensions'];
-		$this->fields['dimensionsAsPopup']	= $gallery->app->default['dimensionsAsPopup'];
-		$this->fields['email_me']		= array();
-		$this->fields['ecards']			= $gallery->app->default['ecards'];
-		$this->fields['highlightIndex']		= 1;
-
-		$this->fields['cached_photo_count']	= 0;
-		$this->fields['photos_separate']	= FALSE;
-
-		$this->fields['item_owner_display']	= $gallery->app->default['item_owner_display'];
-		$this->fields['item_owner_modify']	= $gallery->app->default['item_owner_modify'];
-		$this->fields['item_owner_delete']	= $gallery->app->default['item_owner_delete'];
-		$this->fields['add_to_beginning']	= $gallery->app->default['add_to_beginning'];
-		$this->fields['last_quality']		= $gallery->app->jpegImageQuality;
-
-		// MICRO-THUMB NAV Variables
-		$this->fields['nav_thumbs']		= $gallery->app->default['nav_thumbs'];
-		$this->fields['nav_thumbs_style']	= $gallery->app->default['nav_thumbs_style'];
-		$this->fields['nav_thumbs_first_last']	= $gallery->app->default['nav_thumbs_first_last'];
-		$this->fields['nav_thumbs_prev_shown']	= $gallery->app->default['nav_thumbs_prev_shown'];
-		$this->fields['nav_thumbs_next_shown']	= $gallery->app->default['nav_thumbs_next_shown'];
-		$this->fields['nav_thumbs_location']	= $gallery->app->default['nav_thumbs_location'];
-		$this->fields['nav_thumbs_size']	= $gallery->app->default['nav_thumbs_size'];
-		$this->fields['nav_thumbs_current_bonus'] = $gallery->app->default['nav_thumbs_current_bonus'];
-
-		/* VOTING Variables */
-		$this->fields['poll_type']		= $gallery->app->default['poll_type'];	// none, rank or critique
-		$this->fields['poll_scale']		= $gallery->app->default['poll_scale']; // num of choices to offer voter
-		$this->fields['votes']			= array(); // holds all the votes by UID or session ID
-		$this->fields['poll_nv_pairs']		= $gallery->app->default['poll_nv_pairs'];
-		// allows admin to explicitly set display value and
-		// points for all voting options.  EG "Excellent" -> 4
-		// points; "Good" -> 3 points etc etc
-		$this->fields['poll_hint']		= $gallery->app->default['poll_hint'];
-		// This is displayed above the voting options
-		// for each image.
-		$this->fields['poll_show_results']	= $gallery->app->default['poll_show_results'];
-		// The results graph and breakdown will be displayed
-		// if this is yes.  Note that this should eventually
-		// be part of permissions
-		$this->fields['poll_num_results']	= $gallery->app->default['poll_num_results'];
-		// number of lines of graph to show on the album page
-		$this->fields['voter_class']		= $gallery->app->default['voter_class'];
-		// Nobody, Everybody, Logged in
-		// end of VOTING variables
+		$this->fields["title"] = gTranslate('core', "Untitled");
+		$this->fields["description"] = "";
+		$this->fields["summary"]="";
+		$this->fields["nextname"] = "aaa";
+		$this->fields["bgcolor"] = "";
+		$this->fields["textcolor"] = "";
+		$this->fields["linkcolor"] = "";
+		$this->fields["background"] = "";
+		$this->fields["font"] = $gallery->app->default["font"];
+		$this->fields["border"] = $gallery->app->default["border"];
+		$this->fields["bordercolor"] = $gallery->app->default["bordercolor"];
+		$this->fields["returnto"] = $gallery->app->default["returnto"];
+		$this->fields["thumb_size"] = $gallery->app->default["thumb_size"];
+		$this->fields["thumb_ratio"] = $gallery->app->default["thumb_ratio"];
+		$this->fields["resize_size"] = $gallery->app->default["resize_size"];
+		$this->fields["resize_file_size"] = $gallery->app->default["resize_file_size"];
+		$this->fields["max_size"] = $gallery->app->default["max_size"];
+		$this->fields["max_file_size"] = $gallery->app->default["max_file_size"];
+		$this->fields["rows"] = $gallery->app->default["rows"];
+		$this->fields["cols"] = $gallery->app->default["cols"];
+		$this->fields["fit_to_window"] = $gallery->app->default["fit_to_window"];
+		$this->fields["use_fullOnly"] = $gallery->app->default["use_fullOnly"];
+		$this->fields["print_photos"] = isset($gallery->app->default["print_photos"]) ? $gallery->app->default["print_photos"] : '';
+		$this->fields["use_exif"] = isset($gallery->app->use_exif) ? 'yes' : 'no';
+		$this->fields["guid"] = 0;
 
 		$standardPerm = ($gallery->app->default['defaultPerms']) ? $gallery->app->default['defaultPerms'] : "everybody";
 
@@ -145,18 +87,72 @@ class Album {
 		$this->setPerm("canViewComments", $UserToPerm->getUid(), 1);
 		$this->setPerm("canAddComments", $UserToPerm->getUid(), 1);
 
-		$this->fields['extra_fields'] = split(",", trim($gallery->app->default['extra_fields']));
-		foreach ($this->fields['extra_fields'] as $key => $value) {
+		$this->fields["parentAlbumName"] = 0;
+		$this->fields["clicks"] = 0;
+		$this->fields["clicks_date"] = time();
+		$this->fields["display_clicks"] = $gallery->app->default["display_clicks"];
+		$this->fields["serial_number"] = 0;
+		$this->fields["extra_fields"] = split(",", trim($gallery->app->default["extra_fields"]));
+		foreach ($this->fields["extra_fields"] as $key => $value) {
 			$value = trim($value);
 			if (empty($value)) {
-				unset($this->fields['extra_fields'][$key]);
-			}
-			else {
-				$this->fields['extra_fields'][$key] = $value;
+				unset($this->fields["extra_fields"][$key]);
+			} else {
+				$this->fields["extra_fields"][$key] = $value;
 			}
 		}
 
+		$this->fields["cached_photo_count"] = 0;
+		$this->fields["photos_separate"] = FALSE;
 		$this->transient->photosloaded = TRUE;
+
+		$this->fields["item_owner_display"] = $gallery->app->default["item_owner_display"];
+		$this->fields["item_owner_modify"] = $gallery->app->default["item_owner_modify"];
+		$this->fields["item_owner_delete"] = $gallery->app->default["item_owner_delete"];
+		$this->fields["add_to_beginning"] = $gallery->app->default["add_to_beginning"];
+		$this->fields["last_quality"] = $gallery->app->jpegImageQuality;
+
+		// MICRO-THUMB NAV Variables
+		$this->fields["nav_thumbs"] = $gallery->app->default["nav_thumbs"];
+		$this->fields["nav_thumbs_style"] = $gallery->app->default["nav_thumbs_style"];
+		$this->fields["nav_thumbs_first_last"] = $gallery->app->default["nav_thumbs_first_last"];
+		$this->fields["nav_thumbs_prev_shown"] = $gallery->app->default["nav_thumbs_prev_shown"];
+		$this->fields["nav_thumbs_next_shown"] = $gallery->app->default["nav_thumbs_next_shown"];
+		$this->fields["nav_thumbs_location"] = $gallery->app->default["nav_thumbs_location"];
+		$this->fields["nav_thumbs_size"] = $gallery->app->default["nav_thumbs_size"];
+		$this->fields["nav_thumbs_current_bonus"] = $gallery->app->default["nav_thumbs_current_bonus"];
+
+		/* VOTING Variables */
+		$this->fields["poll_type"]=$gallery->app->default["poll_type"]; // none, rank or critique
+		$this->fields["poll_scale"]=$gallery->app->default["poll_scale"]; // num of choices to offer voter
+		$this->fields["votes"]=array(); // holds all the votes by UID or session ID
+		$this->fields["poll_nv_pairs"]= $gallery->app->default["poll_nv_pairs"];
+		// allows admin to explicitly set display value and
+		// points for all voting options.  EG "Excellent" -> 4
+		// points; "Good" -> 3 points etc etc
+		$this->fields["poll_hint"]=$gallery->app->default["poll_hint"];
+		// This is displayed above the voting options
+		// for each image.
+		$this->fields["poll_show_results"]=$gallery->app->default["poll_show_results"];
+		// The results graph and breakdown will be displayed
+		// if this is yes.  Note that this should eventually
+		// be part of permissions
+		$this->fields["poll_num_results"]=$gallery->app->default["poll_num_results"];
+		// number of lines of graph to show on the album page
+		$this->fields["voter_class"]=$gallery->app->default["voter_class"];
+		// Nobody, Everybody, Logged in
+		// end of VOTING variables
+
+		$this->fields["slideshow_type"]=$gallery->app->default["slideshow_type"];
+		$this->fields["slideshow_length"]=$gallery->app->default["slideshow_length"];
+		$this->fields["slideshow_recursive"]=$gallery->app->default["slideshow_recursive"];
+		$this->fields["slideshow_loop"]=$gallery->app->default["slideshow_loop"];
+		$this->fields["album_frame"]=$gallery->app->default["album_frame"];
+		$this->fields["thumb_frame"]=$gallery->app->default["thumb_frame"];
+		$this->fields["image_frame"]=$gallery->app->default["image_frame"];
+		$this->fields["showDimensions"] = $gallery->app->default["showDimensions"];
+		$this->fields["email_me"] = array();
+		$this->fields["ecards"] = $gallery->app->default["ecards"];
 
 		// Seed new albums with the appropriate version.
 		$this->version = $gallery->album_version;
@@ -357,7 +353,6 @@ class Album {
 			'rows',
 			'cols',
 			'fit_to_window',
-			'lightbox',
 			'use_fullOnly',
 			'print_photos',
 			'display_clicks',
@@ -574,44 +569,6 @@ class Album {
 			$changed = true;
 		}
 
-		/* Move highlight-Index into album data */
-		if ($this->version < 39 && $this->numPhotos(1) > 0) {
-			$highlightIndex = $this->getHighlight(true);
-			$this->setHighlight($highlightIndex);
-			$changed = true;
-		}
-
-		static $configWritten = false;
-		if ($this->version < 40) {
-			$translation1 = gTranslate('core', "description");
-			$translation2 = gTranslate('core', "Description");
-			$removeFields = array('description', 'Description', $translation1, $translation2);
-
-			if(!empty($this->fields['extra_fields'])) {
-				foreach($this->fields['extra_fields'] as $key => $fieldname) {
-					if(in_array($fieldname, $removeFields)) {
-						unset($this->fields['extra_fields'][$key]);
-					}
-				}
-			}
-
-			if(!$configWritten) {
-				$configFile = dirname(dirname(__FILE__)) .'/config.php';
-
-				$config = fs_file_get_contents($configFile);
-				$pattern = '/(description|Description|$translation1|$translation2)\ *,?/';
-				$replacement = '';
-				$newconfig = preg_replace($pattern, '', $config);
-
-				if ($fd = fs_fopen($configFile, "w")) {
-					fwrite($fd, $newconfig);
-					fclose($fd);
-				}
-				$configWritten = true;
-			}
-			$changed = true;
-		}
-
 		/* Special case for EXIF :-( */
 		if (!$this->fields['use_exif']) {
 			if (!empty($gallery->app->use_exif)) {
@@ -663,7 +620,6 @@ class Album {
 		$this->updateSerial = 1;
 
 		shuffle($this->photos);
-		$this->resetHighlightIndex();
 	}
 
 	/**
@@ -709,7 +665,6 @@ class Album {
 			usort($this->photos, array('Album', $func));
 		}
 
-		$this->resetHighlightIndex();
 	}
 
 	/**
@@ -894,28 +849,20 @@ class Album {
 		return 0;
 	}
 
-	function getHighlight($verbose = false) {
-		debugMessage(sprintf(gTranslate('core', "Getting highlight of album with name: %s"), $this->fields['name'])
-			, __FILE__, __LINE__, 3);
+	function getHighlight() {
+		debugMessage(gTranslate('core', "Getting highlight"), __FILE__, __LINE__, 3);
 
 		if ($this->numPhotos(1) == 0) {
 			return null;
 		}
 
-		if(!$verbose) {
-			return $this->fields['highlightIndex'];
-		}
-		else {
-			for ($i = 1; $i <= $this->numPhotos(1); $i++) {
-				$photo = $this->getPhoto($i);
-				if ($photo->isHighlight()) {
-					return $i;
-				}
+		for ($i = 1; $i <= $this->numPhotos(1); $i++) {
+			$photo = $this->getPhoto($i);
+			if ($photo->isHighlight()) {
+				return $i;
 			}
-			// If no highlight was found (?!) return 1
-			debugMessage(gTranslate('core', "No Highlight was found !"), __FILE__, __LINE__, 3);
-			return 1;
 		}
+		return 1;
 	}
 
 	function getHighlightSize() {
@@ -930,20 +877,16 @@ class Album {
 		return $size;
 	}
 
-	function setHighlight($index, $verbose = true) {
+	function setHighlight($index) {
 		debugMessage(gTranslate('core', "Setting highlight"), __FILE__, __LINE__, 3);
 
-		if($verbose) {
-			$this->updateSerial = 1;
-			$numPhotos = $this->numPhotos(1);
+		$this->updateSerial = 1;
+		$numPhotos = $this->numPhotos(1);
 
-			for ($i = 1; $i <= $numPhotos; $i++) {
-				$photo = &$this->getPhoto($i);
-				$photo->setHighlight($this->getAlbumDir(), $i == $index, $this);
-			}
+		for ($i = 1; $i <= $numPhotos; $i++) {
+			$photo = &$this->getPhoto($i);
+			$photo->setHighlight($this->getAlbumDir(), $i == $index, $this);
 		}
-
-		$this->fields['highlightIndex'] = $index;
 	}
 
 	/**
@@ -1091,9 +1034,8 @@ class Album {
 	 * This is so we can translate into appropriate languages for each recipient.
 	 * You will note that we don't currently translate these messages.
 	 */
-	function save($msg = array(), $resetModDate = 1, $updateSerial = false) {
-		global $gallery, $global_notice_messages;
-
+	function save($msg = array(), $resetModDate = 1) {
+		global $gallery;
 		$dir = $this->getAlbumDir();
 
 		if ($resetModDate) {
@@ -1104,7 +1046,7 @@ class Album {
 			fs_mkdir($dir, 0775);
 		}
 
-		if (!empty($this->updateSerial) || $updateSerial == true) {
+		if (!empty($this->updateSerial)) {
 			/* Remove the old serial file, if it exists */
 			$serial = "$dir/serial." . $this->fields['serial_number']. ".dat";
 			if (fs_file_exists($serial)) {
@@ -1162,20 +1104,6 @@ class Album {
 				$this->updateSerial = 0;
 			}
 		}
-
-		if(isDebugging()) {
-			if ($success) {
-				$global_notice_messages[] = array(
-					'type' => 'success',
-					'text' => gTranslate('core', "Album data was saved successfully."));
-			}
-			else {
-				$global_notice_messages[] = array(
-					'type' => 'error',
-					'text' => gTranslate('core', "Album data was NOT saved successfully."));
-			}
-		}
-
 		// send email
 		if ($gallery->app->emailOn == 'yes' && $success && $msg) {
 			if (!is_array($msg)) {
@@ -1196,12 +1124,11 @@ class Album {
 				$text .= "\n  <head>";
 				$text .= "\n  <title>$subject</title>";
 				$text .= "\n  </head>\n<body>\n<p>";
-                		$text .= sprintf(gTranslate('core', "A change has been made to album: %s by %s (IP %s).  The change is: %s"),
+				$text .= sprintf(gTranslate('core', "A change has been made to album: %s by %s (IP %s).  The change is: %s"),
 						'<a href="'. makeAlbumHeaderUrl($this->fields['name']) .'">'. $this->fields['name'] .'</a>',
-						$gallery->user->printableName($gallery->app->name_display),
+						$gallery->user->printableName($gallery->app->comments_display_name),
 						$_SERVER['REMOTE_ADDR'],
-						$msg_str
-				);
+						$msg_str);
 
 				$text .= "\n<p>". gTranslate('core', "If you no longer wish to receive emails about this item, follow the links above and ensure that the 'other' checkbox in the 'Email me' box is unchecked. (You'll need to login first.)");
 				$text .= "\n</p>\n</body>\n</html>";
@@ -1211,12 +1138,16 @@ class Album {
 
 			}
 			else if (isDebugging()) {
-				$global_notice_messages[] = array(
-					'type' => 'information',
-					'text' => gTranslate('core', "Emailing is on, but no email was sent as no valid email address was found."));
+				print "\n<br>". gTranslate('core', "Operation was done successfully. Emailing is on, but no email was sent as no valid email address was found.");
 			}
 		}
-
+		/*
+		if (!$success) {
+		echo gTranslate('core', "Save failed");
+		} else {
+		echo gTranslate('core', "Save OK");
+		}
+		*/
 		return $success;
 	}
 
@@ -1274,12 +1205,12 @@ class Album {
 	 * @param string  $pathToResized
 	 * @param boolean $full
 	 */
-	function resizePhoto($index, $target, $filesize = 0, $pathToResized = '', $full = false) {
+	function resizePhoto($index, $target, $filesize = 0, $pathToResized = '') {
 		$this->updateSerial = 1;
 
 		$photo = &$this->getPhoto($index);
 		if (!$photo->isMovie()) {
-			$photo->resize($this->getAlbumDir(), $target, $filesize, $pathToResized, $full);
+			$photo->resize($this->getAlbumDir(), $target, $filesize, $pathToResized);
 		}
 		else {
 			echo gTranslate('core', "Skipping Movie");
@@ -1289,13 +1220,11 @@ class Album {
 	 * Resize and optionally shrink all photos of an album. Movies are skipped.
 	 * If wanted this can be done recursive.
 	 *
-	 * @param integer  $target	New size of the longest site in pixel.
-	 * @param integer  $filesize	New minimum filesize.
-	 * @param boolean  $recursive	True if you want to resize elements in subalbums, too.
-	 * @param boolean  $full
-	 * @return boolean
+	 * @param integer  $target      New size of the longest site in pixel.
+	 * @param integer  $filesize    New minimum filesize.
+	 * @param boolean  $recursive   True if you want to resize elements in subalbums, too.
 	 */
-	function resizeAllPhotos($target, $filesize = 0, $recursive = false, $full = false) {
+	function resizeAllPhotos($target, $filesize = 0, $recursive = false) {
 		$numItems = $this->numPhotos(1);
 
 		if($numItems == 0) {
@@ -1309,7 +1238,7 @@ class Album {
 		echo addProgressbar(
 			$progressbarID,
 			sprintf(
-				gTranslate('core', "Resizing items in album: '<i>%s</i>' (%s)' with %d items"),
+				gTranslate('core', "Resizing items in album: '<i>%s</i>' (%s) with %d items."),
 				$this->fields['title'],
 				$this->fields['name'],
 				$numItems)
@@ -1327,7 +1256,7 @@ class Album {
 				$nestedAlbum->load($this->getAlbumName($i));
 				$np = $nestedAlbum->numPhotos(1);
 
-				$nestedAlbum->resizeAllPhotos($target, $filesize, $recursive, $full);
+				$nestedAlbum->resizeAllPhotos($target, $filesize, $recursive);
 				$nestedAlbum->save();
 			}
 			else {
@@ -1338,40 +1267,10 @@ class Album {
 
 				// Here is actually the action
 				my_flush();
-				$this->resizePhoto($i, $target, $filesize, '', $full);
+				$this->resizePhoto($i, $target, $filesize);
 			}
 		}
 		$this->save();
-	}
-
-	/**
-	 * Crops an image.
-	 * The width and height give the size of the image that remains after cropping
- 	 * The offsets specify the location of the upper left corner of the cropping region
- 	 * measured downward and rightward with respect to the upper left corner of the image.
-	 *
-	 * @param int $index	Albumitem index
-	 * @param int $offsetX
-	 * @param int $offsetY
-	 * @param int $width
-	 * @param int $height
-	 * @param boolean $cropResized	If true, then the resized version is cropped. Otherwise the full.
-	 * @author Jens Tkotz
-	 */
-	function cropPhoto($index, $offsetX, $offsetY, $width, $height, $cropResized = false) {
-		$this->updateSerial = 1;
-
-		$photo = &$this->getPhoto($index);
-
-		if ($photo->isMovie()) {
-			echo gTranslate('core', "Skipping Movie");
-		}
-		elseif ($photo->isAlbum()) {
-			echo gTranslate('core', "Skipping Subalbum");
-		}
-		else {
-			$photo->crop($this->getAlbumDir(), $offsetX, $offsetY, $width, $height, $cropResized);
-		}
 	}
 
 	/**
@@ -1468,8 +1367,8 @@ class Album {
 
 		if($resize_status == 10) {
 			$errorMsg = ($plainErrorMessage) ?
-					gTranslate('core', "Item looks like an image, but has no dimension? Please verify its not a broken image.") :
-					gallery_error(gTranslate('core', "Item looks like an image, but has no dimension? Please verify its not a broken image."));
+					gTranslate('core', "Item looks like an image, but has no dimensions? Please verify it's not a broken image.") :
+					gallery_error(gTranslate('core', "Item looks like an image, but has no dimensions? Please verify it's not a broken image."));
 
 			return array(false, $errorMsg);
 		}
@@ -1494,15 +1393,9 @@ class Album {
 			$item->setItemCaptureDate('', $this);
 			$item->setUploadDate(time());
 
-			/* Prior to 1.6 'desciption' was an extrafield */
 			if(!empty($extraFields)) {
 				foreach($extraFields as $fieldname => $value) {
-					if($fieldname == 'description' || $fieldname == 'Description') {
-						$item->setDescription($value);
-					}
-					else {
-						$item->setExtraField($fieldname, $value);
-					}
+					$item->setExtraField($fieldname, $value);
 				}
 			}
 
@@ -1747,9 +1640,6 @@ class Album {
 				}
 			}
 		}
-		else {
-			$this->resetHighlightIndex();
-		}
 
 		return true;
 	}
@@ -1845,10 +1735,10 @@ class Album {
 		}
 		else {
 			if(isset($attrList['class'])) {
-				$attrList['class'] .= ' g-title';
+				$attrList['class'] .= 'title';
 			}
 			else {
-				$attrList['class'] = 'g-title';
+				$attrList['class'] = 'title';
 			}
 
 			$attrs = generateAttrs($attrList);
@@ -1886,31 +1776,16 @@ class Album {
 			unset($attrList['alt']);
 
 			if(isset($attrList['class'])) {
-				$attrList['class'] .= ' g-title';
+				$attrList['class'] .= ' title';
 			}
 			else {
-				$attrList['class'] = 'g-title';
+				$attrList['class'] = 'title';
 			}
 
 			$attrs = generateAttrs($attrList);
 
 			return "<span$attrs>". gTranslate('core', "No highlight!") .'</span>';
 		}
-	}
-
-	/**
-	 * Resets the highlight index field.
-	 *
-	 */
-	function resetHighlightIndex() {
-		if ($this->numPhotos(1) == 0) {
-			return;
-		}
-
-		$highlightIndex = $this->getHighlight(true);
-		$this->setHighlight($highlightIndex, false);
-
-		return;
 	}
 
 	function getPhotoTag($index, $full = false, $attrs = array()) {
@@ -2115,7 +1990,7 @@ class Album {
 		}
 	}
 
-	function getIds($show_hidden = 0) {
+	function getIds($show_hidden = false) {
 		foreach ($this->photos as $photo) {
 			if ((!$photo->isHidden() || $show_hidden) && !$photo->getAlbumName()) {
 				$ids[] = $photo->getPhotoId();
@@ -2125,13 +2000,9 @@ class Album {
 	}
 
 	function &getPhoto($index) {
-		global $global_notice_messages;
+		global $errortext;
 
 		$index = intval($index);
-
-		if (!isset($global_notice_messages)) {
-			$global_notice_messages = array();
-		}
 
 		if ($index >= 1 && $index <= sizeof($this->photos)) {
 			$photo = & $this->photos[$index-1];
@@ -2143,12 +2014,6 @@ class Album {
 				sizeof($this->photos)
 			);
 			echo debugMessage($errortext, __FILE__, __LINE__);
-
-			$global_notice_messages[] = array(
-				'type' => 'error',
-				'text' => $errortext
-			);
-
 			$photo = false;
 		}
 
@@ -2187,58 +2052,6 @@ class Album {
 	function setCaption($index, $caption) {
 		$photo = &$this->getPhoto($index);
 		$photo->setCaption($caption);
-	}
-
-	function createCaption($index, $captionType, $recursive = 'no') {
-		$np = $this->numPhotos(1);
-		echo "\n<h3>" . sprintf(_("Recreating %d captions..."), $np) .'</h3>';
-		for ($i = 1; $i <= $np; $i++) {
-			debugMessage(sprintf(_("Processing image %d..."), $i), __FILE__, __LINE__);
-			if ($this->isAlbum($i)) {
-				if($recursive == 'yes') {
-					$nestedAlbum = new Album();
-					$nestedAlbum->load($this->getAlbumName($i));
-
-					$npn = $nestedAlbum->numPhotos(1);
-					echo "<br>". sprintf(gTranslate('core', "Entering album %s, processing %d photos"), $this->getAlbumName($i), $npn);
-					$nestedAlbum->createCaption(false, $captionType, $recursive);
-					$nestedAlbum->save();
-				}
-			}
-			else {
-				$photo = $this->getPhoto($i);
-				$photo->createCaption($this->getAlbumDir("full"), $captionType);
-			}
-		}
-		if($this->save()) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-
-	/**
-	 * Returns the description of an album item
-	 *
-	 * @param integer $index
-	 * @return string
-	 * @author Jens Tkotz
-	 */
-	function getDescription($index) {
-		$photo = $this->getPhoto($index);
-		return $photo->getDescription();
-	}
-
-	/**
-	 * Sets the description of an album item
-	 *
-	 * @param integer   $index
-	 * @param string	$description
-	 */
-	function setDescription($index, $description) {
-		$photo = &$this->getPhoto($index);
-		$photo->setDescription($description);
 	}
 
 	function getItemOwner($index) {
@@ -2542,8 +2355,6 @@ class Album {
 		/* Pull photo out */
 		$photo = array_splice($this->photos, $index-1, 1);
 		array_splice($this->photos, $newIndex, 0, $photo);
-
-		$this->resetHighlightIndex();
 	}
 
 	function rearrangePhotos($newOrder) {
@@ -2565,8 +2376,6 @@ class Album {
 			}
 		}
 		$this->photos = $newList;
-
-		$this->resetHighlightIndex();
 	}
 
 	function isImage($id) {
@@ -2827,7 +2636,6 @@ class Album {
 				$nestedAlbum->fields['rows']			= $this->fields['rows'];
 				$nestedAlbum->fields['cols']			= $this->fields['cols'];
 				$nestedAlbum->fields['fit_to_window']		= $this->fields['fit_to_window'];
-				$nestedAlbum->fields['lightbox']		= $this->fields['lightbox'];
 				$nestedAlbum->fields['use_fullOnly']		= $this->fields['use_fullOnly'];
 				$nestedAlbum->fields['print_photos']		= $this->fields['print_photos'];
 				$nestedAlbum->fields['slideshow_type']		= $this->fields['slideshow_type'];
@@ -2919,10 +2727,7 @@ class Album {
 	 * Note: Added in 1.5.9 that admins are always permitted to do something.
 	*/
 	function getPerm($permName, $uid) {
-		require_once(dirname(__FILE__) .'/Group.php');
-		require_once(dirname(__FILE__) .'/gallery/Group.php');
-
-		global $gallery, $GALLERY_EMBEDDED_INSIDE_TYPE;
+		global $gallery;
 		static $user;
 
 		if(empty($user)) {
@@ -2943,18 +2748,7 @@ class Album {
 		if (isset($perm[$uid])) {
 			return true;
 		}
-		elseif (empty($GALLERY_EMBEDDED_INSIDE_TYPE) || $GALLERY_EMBEDDED_INSIDE_TYPE == 'joomla') {
-			$groupPerms = $this->_getGropupPerms($permName);
-			if(!empty($groupPerms)) {
-				foreach ($groupPerms as $gid) {
-					$tmpGrp = new Gallery_Group();
-					$tmpGrp->load($gid);
-					if($tmpGrp->userIsMember($uid)) {
-						return true;
-					}
-				}
-			}
-		}
+
 
 		/* If everybody has the perm, then we do too */
 		$everybody = $gallery->userDB->getEverybody();
@@ -2996,45 +2790,14 @@ class Album {
 		return false;
 	}
 
-	/**
-	 * Returns an array of groupids that have a given permission.
-	 *
-	 * @param string $permName
-	 * @return array $groupPerms
-	 * @author Jens Tkotz
-	 */
-	function _getGropupPerms($permName) {
-		$groupPerms = array();
-
-		if (empty($this->fields['perms'][$permName])) {
-			return $groupPerms;
-		}
-		foreach ($this->fields['perms'][$permName] as $id => $junk) {
-			if(substr($id, 0,2) == 'g_') {
-				$groupPerms[] = $id;
-			}
-		}
-
-		return $groupPerms;
-	}
-
-	function getPermIds($permName) {
+    function getPermUids($permName) {
 		global $gallery;
-		require_once(dirname(__FILE__) .'/Group.php');
-		require_once(dirname(__FILE__) .'/gallery/Group.php');
 
 		$perms = array();
 		if (!empty($this->fields['perms'][$permName])) {
-			foreach ($this->fields['perms'][$permName] as $id => $junk) {
-				if(substr($id, 0,2) == 'g_') {
-					$tmpGrp = new Gallery_Group();
-					$tmpGrp->load($id);
-					$perms[$id] = $tmpGrp->getName() . ' ' . gTranslate('core', "(Group)");
-				}
-				else {
-					$tmpUser = $gallery->userDB->getUserByUid($id);
-					$perms[$id] = $tmpUser->getUsername();
-				}
+			foreach ($this->fields['perms'][$permName] as $uid => $junk) {
+				$tmpUser = $gallery->userDB->getUserByUid($uid);
+				$perms[$uid] = $tmpUser->getUsername();
 			}
 		}
 
@@ -3146,8 +2909,9 @@ class Album {
 	/**
 	 * Who can see the album?
 	 * Owner (and admins) are always allowed.
-	 * In the default case where there are no permissions for the album,
-	 * let everybody see it.
+	 * NOTE: Added in 1.5.9 that admins are always allowed.
+	 *       REMOVED that everybody can see an album if no permissions are set.
+	 *
 	 *
 	 * @param string   $uid
 	 * @return boolean

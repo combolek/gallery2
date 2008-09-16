@@ -153,8 +153,6 @@ function canVote() {
 function addPolling ($id, $form_pos = -1, $immediate = true) {
 	global $gallery;
 
-	$html = '';
-
 	if ( !canVote()) {
 		return;
 	}
@@ -166,61 +164,59 @@ function addPolling ($id, $form_pos = -1, $immediate = true) {
 		$current_vote = -1;
 	}
 
-	$nv_pairs = $gallery->album->getVoteNVPairs();
-	$html .= $gallery->album->getPollHint();
+	$nv_pairs=$gallery->album->getVoteNVPairs();
+	print $gallery->album->getPollHint();
 	if ($gallery->album->getPollScale() == 1 && $gallery->album->getPollType() == 'critique') {
-		$html .= "\n<input type=\"checkbox\" name=\"votes[$id]\" value=\"1\"";
+		print "\n<input type=checkbox name=\"votes[$id]\" value=\"1\"";
 		if ($current_vote > 0) {
-			$html .= 'checked';
+			print 'checked';
 		}
-		$html .= '>'.$nv_pairs[0]['name'];
+		print '>'.$nv_pairs[0]['name'];
 	}
 	else if ($gallery->album->getPollType() == 'rank') {
 		if ($gallery->album->getPollHorizontal()) {
-			$html .= '<table align="center"><tr>';
+			print '<table><tr>';
 			for ($i = 0; $i < $gallery->album->getPollScale() ; $i++) {
-				$html .= "\n<td align=\"center\">" .
-				"<input type=\"radio\" name=\"votes[$i]\" value=\"$id\" onclick=\"chooseOnlyOne($i, $form_pos,".
+				print "\n<td align=\"center\"><input type=\"radio\" name=\"votes[$i]\" value=$id onclick=\"chooseOnlyOne($i, $form_pos,".
 				$gallery->album->getPollScale().")\" ";
-
 				if ($current_vote === $i) {
-					$html .= 'checked';
+					print 'checked';
 				}
-				$html .= '></td>';
+				print '></td>';
 			}
-			$html .= '</tr><tr>';
+			print '</tr><tr>';
 			for ($i = 0; $i < $gallery->album->getPollScale() ; $i++) {
-				$html .= "\n". '<td class="g-admin">'. $nv_pairs[$i]['name'] .'</td>';
+				print '<td align="center" class="attention">'. $nv_pairs[$i]['name'] .'</td>';
 			}
-			$html .= '</tr></table>';
-		}
+			print '</tr></table>';
+		    }
 		else {
-			$html .= "\n<table align=\"center\">";
+			print '<table>';
 			for ($i = 0; $i < $gallery->album->getPollScale() ; $i++) {
-				$html .= '<tr>';
-				$html .= "\n<td ><input type=\"radio\" name=\"votes[$i]\" value=\"$id\" onclick=\"chooseOnlyOne($i, $form_pos,".
+				print '<tr>';
+				print "\n<td align=\"center\"><input type=\"radio\" name=\"votes[$i]\" value=$id onclick=\"chooseOnlyOne($i, $form_pos,".
 				$gallery->album->getPollScale().")\" ";
 				if ($current_vote === $i) {
-					$html .= 'checked';
+					print 'checked';
 				}
-				$html .= '></td>';
-				$html .= '<td class="g-admin">'. $nv_pairs[$i]['name']. '</td>';
-				$html .= '</tr><tr>';
+				print '></td>';
+				print '<td class="attention">'. $nv_pairs[$i]['name']. '</td>';
+				print '</tr><tr>';
 			}
-			$html .= '</table>';
-		}
+			print '</table>';
+	    	}
 	}
 	else { // "critique"
 		if ($immediate) {
-			$html .= "\n<br><select style=\"FONT-SIZE: 10px;\" name=\"votes[$id]\" ";
-			$html .= "onChange=\"this.form.submit();\">";
+			print "\n<br><select style='FONT-SIZE: 10px;' name=\"votes[$id]\" ";
+			print "onChange='this.form.submit();'>";
 		}
 		else {
-			$html .= "\n<br><select name=\"votes[$id]\">";
+			print "\n<br><select name=\"votes[$id]\">";
 		}
 
 		if ($current_vote == -1) {
-			$html .= '<option value="NULL">'. gTranslate('common', "<<< Vote >>>") ."</option>\n";
+			print '<option value="NULL"><< '. _("Vote") . " >></option>\n";
 		}
 
 		for ($i = 0; $i < $gallery->album->getPollScale() ; $i++) {
@@ -228,11 +224,10 @@ function addPolling ($id, $form_pos = -1, $immediate = true) {
 			if ($current_vote === $i) {
 				$sel = 'selected';
 			}
-			$html .= "<option value=\"$i\" $sel>". $nv_pairs[$i]['name']. "</option>\n";
+			print "<option value=\"$i\" $sel>". $nv_pairs[$i]['name']. "</option>\n";
 		}
-		$html .= '</select>';
+		print '</select>';
 	}
-	return $html;
 }
 
 function showResultsGraph($num_rows) {
@@ -372,6 +367,7 @@ function showResults($id) {
 			}
 		}
 	}
+	// $buf .= "<span class=\"admin\">"._("Poll results:")."</span><br>";
 
 	if (sizeof($vote_tally) === 0) {
 		return gTranslate('common', "No votes");
@@ -385,11 +381,11 @@ function showResults($id) {
 */
 
 	$index = $gallery->album->getIndexByVotingId($id);
-	$html .= "\n<tr><td colspan=\"3\" class=\"left\">" .
-			 sprintf(gTranslate('common',
-					"Position %d overall, due to these votes:"),
-					$gallery->album->getRank($index)) .
-			 "</td></tr>";
+	$html .= "\n<tr><td colspan=\"3\" align=\"". langLeft() . '">' .
+			sprintf(gTranslate('common',
+			"Position %d overall, due to these votes:"),
+			$gallery->album->getRank($index)) .
+			"</td></tr>";
 
 	ksort($vote_tally);
 

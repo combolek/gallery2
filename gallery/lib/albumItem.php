@@ -39,6 +39,8 @@ function getItemActions($i, $withIcons = false, $popupsOnly = false, $caption = 
 	global $gallery;
 	global $nextId;
 
+	static $javascriptSet;
+
 	$id		= $gallery->album->getPhotoId($i);
 	$override	= ($withIcons) ? '' : 'no';
 	$options	= array();
@@ -46,6 +48,29 @@ function getItemActions($i, $withIcons = false, $popupsOnly = false, $caption = 
 	$isAlbum	= false;
 	$isMovie	= false;
 	$isPhoto	= false;
+
+    if (!$gallery->session->offline && empty($javascriptSet) && !$withIcons) { ?>
+  <script language="javascript1.2" type="text/JavaScript">
+  <!-- //
+
+  function imageEditChoice(selected_select) {
+  	var sel_index = selected_select.selectedIndex;
+  	var sel_value = selected_select.options[sel_index].value;
+  	var sel_class = selected_select.options[sel_index].className;
+  	selected_select.options[0].selected = true;
+  	selected_select.blur();
+  	if (sel_class == 'url') {
+  		document.location = sel_value;
+  	} else {
+  		// the only other option should be popup
+  		<?php echo popup('sel_value', 1) ?>
+  	}
+  }
+  //-->
+  </script>
+<?php
+		$javascriptSet = true;
+    }
 
 	if ($gallery->album->isAlbum($i)) {
 		$label = gTranslate('core', "Album");
@@ -85,32 +110,32 @@ function getItemActions($i, $withIcons = false, $popupsOnly = false, $caption = 
 	if (isset($canModify)) {
 		if ($isPhoto) {
 			$options[] = array(
-				'text'	=> gTranslate('core', "Edit _Text"),
+				'text'	=> gTranslate('core', "Edit Text"),
 				'value'	=> showChoice2("edit_caption.php", array("index" => $i)),
 				'icon'	=> ($withIcons) ? 'kcmfontinst.gif' : ''
 			);
 
 			$options[] = array(
-				'text'	=> gTranslate('core', "Edit Th_umbnail"),
+				'text'	=> gTranslate('core', "Edit Thumbnail"),
 				'value'	=> showChoice2('edit_thumb.php', array('index' => $i)),
 				'icon'	=> ($withIcons) ? 'thumbnail.gif' : ''
 			);
 
 			$options[] = array(
-				'text'	=> sprintf(gTranslate('core', "Rotate/_Flip"), $label),
+				'text'	=> sprintf(gTranslate('core', "Rotate/Flip"), $label),
 				'value'	=> showChoice2('rotate_photo.php', array('index' => $i)),
 				'icon'	=> ($withIcons) ? 'reload.gif' : ''
 			);
 
 			$options[] = array(
-				'text'	=> gTranslate('core', "Re_size"),
+				'text'	=> gTranslate('core', "Resize"),
 				'value'	=> showChoice2('resize_photo.php', array('index' => $i)),
 				'icon'	=> ($withIcons) ? 'window_fullscreen.gif' : ''
 			);
 
 			if (!empty($gallery->app->watermarkDir)) {
 				$options[] = array(
-					'text'	=> gTranslate('core', "_Watermark"),
+					'text'	=> gTranslate('core', "Watermark"),
 					'value'	=>  showChoice2('edit_watermark.php', array('index' => $i)),
 					'icon'	=> ($withIcons) ? 'camera.gif' : ''
 				);
@@ -118,15 +143,9 @@ function getItemActions($i, $withIcons = false, $popupsOnly = false, $caption = 
 
 			if(!$popupsOnly) {
 				$options[] = array(
-					'text'	=> gTranslate('core', "Image_Map"),
+					'text'	=> gTranslate('core', "ImageMap"),
 					'value'	=> showChoice2('imagemap.php', array('index' => $i), false),
 					'icon'	=> ($withIcons) ? 'behavior-capplet.gif' : ''
-				);
-
-				$options[] = array(
-					'text'	=> gTranslate('core', "Crop image"),
-					'value'	=> showChoice2('crop_photo.php', array('index' => $i), false),
-					'icon'	=> ($withIcons) ? 'imageedit/cut.png' : ''
 				);
 			}
 		}
@@ -182,8 +201,7 @@ function getItemActions($i, $withIcons = false, $popupsOnly = false, $caption = 
 				if ($gallery->user->canViewComments($myAlbum) && ($myAlbum->lastCommentDate("no") != -1)) {
 					$options[] = array(
 						'text'	=> gTranslate('core', "View Comments"),
-						'value'	=> showChoice2("view_comments.php", array("set_albumName" => $myAlbum->fields["name"]), false),
-						'class' => 'url'
+						'value'	=> showChoice2("view_comments.php", array("set_albumName" => $myAlbum->fields["name"]),"url"),
 					);
 				}
 			}
@@ -191,7 +209,7 @@ function getItemActions($i, $withIcons = false, $popupsOnly = false, $caption = 
 
 		if (! $isAlbum) {
 			$options[] = array(
-				'text' => gTranslate('core', "Cop_y"),
+				'text' => gTranslate('core', "Copy"),
 				'value'	=> showChoice2("copy_photo.php", array("index" => $i)),
 				'icon'	=> ($withIcons) ? 'editcopy.gif' : ''
 			);
@@ -200,21 +218,21 @@ function getItemActions($i, $withIcons = false, $popupsOnly = false, $caption = 
 
 	if ($gallery->user->canWriteToAlbum($gallery->album)) {
 		$options[] = array(
-			'text'	=> gTranslate('core', "_Reorder"),
-			'value'	=> showChoice2("move_albumitem.php", array("index" => $i, 'reorder' => 1)),
+			'text'	=> gTranslate('core', "Reorder"),
+			'value'	=> showChoice2("move_photo.php", array("index" => $i, 'reorder' => 1)),
 			'icon'	=> ($withIcons) ? 'tab_duplicate.gif' : ''
 		);
 
 		$options[] = array(
-			'text'	=> gTranslate('core', "Mo_ve"),
-			'value'	=> showChoice2("move_albumitem.php", array("index" => $i, 'reorder' => 0)),
+			'text'	=> gTranslate('core', "Move"),
+			'value'	=> showChoice2("move_photo.php", array("index" => $i, 'reorder' => 0)),
 			'icon'	=> ($withIcons) ? 'tab_duplicate.gif' : ''
 		);
 
 		/* ----- Item is photo, or subalbum with highlight ----- */
 		if ($isPhoto || (isset($myAlbum) && $myAlbum->hasHighlight())) {
 			$options[] = array(
-				'text'	=> gTranslate('core', "Set as high_light"),
+				'text'	=> gTranslate('core', "Set as highlight"),
 				'value'	=> showChoice2('do_command.php', array('cmd' => 'highlight', 'index' => $i)),
 				'icon'	=> ($withIcons) ? 'viewmag1.gif' : ''
 			);
@@ -223,32 +241,23 @@ function getItemActions($i, $withIcons = false, $popupsOnly = false, $caption = 
 
 	if (isset($isAdmin)) {
 		$options[] = array(
-			'text'	=> gTranslate('core', "Change Ow_ner"),
-			'value'	=> showChoice2("item_owner.php", array("id" => $id)),
+			'text'	=> gTranslate('core', "Change Owner"),
+			'value'	=> showChoice2("photo_owner.php", array("id" => $id)),
 			'icon'	=> ($withIcons) ? 'yast_kuser.gif' : ''
-		);
-
-		$options[] = array(
-			'text'	=> sprintf(gTranslate('core', "Feature %s"), $label),
-			'value'	=> showChoice2('featured-item.php',
-						array('set' => 1,
-						      'set_albumName' => $gallery->album->fields['name'],
-						      'index' => $i)),
-			'icon'	=> ($withIcons) ? 'signal-1.gif' : ''
 		);
 	}
 
 	if (isset($isOwner)) {
 		if ($gallery->album->isHidden($i)) {
 			$options[] = array(
-				'text'	=> gTranslate('core', "_Unhide"),
+				'text'	=> gTranslate('core', "Unhide"),
 				'value'	=> showChoice2("do_command.php", array("cmd" => "show", "index" => $i)),
 				'icon'	=> ($withIcons) ? 'idea.gif' : ''
 			);
 		}
 		else {
 			$options[] = array(
-				'text'	=> gTranslate('core', "_Hide"),
+				'text'	=> gTranslate('core', "Hide"),
 				'value'	=> showChoice2("do_command.php", array("cmd" => "hide", "index" => $i)),
 				'icon'	=> ($withIcons) ? 'no_idea.gif' : ''
 			);
@@ -261,16 +270,16 @@ function getItemActions($i, $withIcons = false, $popupsOnly = false, $caption = 
 		if($isAlbum) {
 			if($gallery->user->canDeleteAlbum($myAlbum)) {
 				$options[] = array(
-					'text'	=> gTranslate('core', "_Delete"),
-					'value'	=> showChoice2("delete_item.php", array('index' => $i)),
+					'text'	=> gTranslate('core', "Delete"),
+					'value'	=> showChoice2("delete_photo.php", array('index' => $i)),
 					'icon'	=> ($withIcons) ? 'delete.gif' : ''
 				);
 			}
 		}
 		else {
 			$options[] = array(
-				'text'	=> gTranslate('core', "_Delete"),
-				'value'	=> showChoice2('delete_item.php', array('index' => $i, 'nextId' => $nextId)),
+				'text'	=> gTranslate('core', "Delete"),
+				'value'	=> showChoice2('delete_photo.php', array('index' => $i, 'nextId' => $nextId)),
 				'icon'	=> ($withIcons) ? 'delete.gif' : ''
 			);
 		}
@@ -283,8 +292,8 @@ function getItemActions($i, $withIcons = false, $popupsOnly = false, $caption = 
 			(isset($gallery->app->use_exif) || isset($gallery->app->exiftags)))
 		{
 			$options['showExif'] = array(
-				'text'	=> gTranslate('core', "Photo _properties"),
-				'value'	=> showChoice2("view_photo_properties.php", array('index' => $i)),
+				'text'	=> gTranslate('core', "Photo properties"),
+				'value'	=> showChoice2("view_photo_properties.php", array("index" => $i)),
 				'icon'	=> ($withIcons) ? 'frame_query.gif' : '',
 				'separate' => true
 			);
@@ -296,7 +305,7 @@ function getItemActions($i, $withIcons = false, $popupsOnly = false, $caption = 
 		   $gallery->app->emailOn == 'yes')
 		{
 			$options['eCard'] = array(
-				'text'	=> gTranslate('core', "Send photo as e_Card"),
+				'text'	=> gTranslate('core', "Send photo as eCard"),
 				'value'	=> showChoice2('ecard_form.php', array('photoIndex' => $i)),
 				'icon'	=> ($withIcons) ? 'ecard.gif' : '',
 				'separate' => true
@@ -334,9 +343,13 @@ function showComments ($index, $albumName, $reverse = false) {
 	$commentdraw['index'] = $index;
 
 	$commentTable = new galleryTable();
-	$commentTable->setAttrs(array('cellspacing'	=> 0,
-				      'cellpadding'	=> 0,
-				      'class'		=> 'g-comment-box')
+	$commentTable->setAttrs(array(
+		'width' => '75%',
+		'style' => 'padding-left:30px;',
+		'border' => 0,
+		'cellspacing' => 0,
+		'cellpadding' => 0,
+		'class' => 'commentbox')
 	);
 
 	$columns = ($gallery->user->canWriteToAlbum($gallery->album)) ? 4 : 3;
@@ -352,21 +365,18 @@ function showComments ($index, $albumName, $reverse = false) {
 
 		$commentTable->addElement(array(
 			'content'	=> gTranslate('core', "From:"),
-			'cellArgs'	=> array('class' => 'left', 'width' => 50, 'height' => '25'))
-		);
+			'cellArgs'	=> array('class' => 'admin', 'width' => 50, 'height' => '25')));
 
 		$commentTable->addElement(array(
 			'content'	=> $commenterName,
-			'cellArgs'	=> array('class' => 'left', 'width' => '55%'))
-		);
+			'cellArgs'	=> array('class' => 'admin', 'width' => '55%')));
 
 		$commentTable->addElement(array(
 			'content'	=> '('. $comment->getDatePosted() .')',
-			'cellArgs'	=> array('class' => 'left'))
-		);
+			'cellArgs'	=> array('class' => 'admin')));
 
 		if ($gallery->user->canWriteToAlbum($gallery->album)) {
-			$url = doCommand('delete-comment',array(
+			$url = doCommand('delete-comment', array(
 								'index'		=> $index,
 								'comment_index'	=> $nr,
 								'albumName'	=> $albumName)
@@ -379,8 +389,10 @@ function showComments ($index, $albumName, $reverse = false) {
 
 		$commentTable->addElement(array(
 			'content'	=> wordwrap($comment->getCommentText(), 100, " ", 1),
-			'cellArgs'	=> array('colspan'	=> $columns,
-						 'class'	=> 'left g-desc-cell g-comment-text-cell'))
+			'cellArgs'	=> array(
+						'colspan'	=> $columns,
+						'style'		=> 'padding-left:10px; border-top:1px solid black',
+						'class'		=> 'albumdesc'))
 		);
 	}
 
@@ -470,29 +482,6 @@ function generateCaption($captionType = 1, $originalFilename, $filename) {
 }
 
 /**
- * Returns the label (photo, movie, or album) of an album item.
- *
- * @param integer   $index
- * @return string   $label
- * @author Jens Tkotz
- */
-function getLabelByIndex($index) {
-	global $gallery;
-
-	if ($gallery->album->isAlbum($index)) {
-		$label = gTranslate('core', "Album");
-	}
-	elseif ($gallery->album->isMovieByIndex($index)) {
-		$label = gTranslate('core', "Movie");
-	}
-	else {
-		$label = gTranslate('core', "Photo");
-	}
-
-	return $label;
-}
-
-/**
  * Processes an image and adds it to $gallery->album
  *
  * @param string    $file
@@ -531,12 +520,12 @@ function processNewImage($file, $ext, $name, $caption, $setCaption = '', $extra_
 		$temp_dirname	= $temp_filename . '.dir';
 
 		if (fs_is_dir($temp_dirname)) {
-			$error = gTranslate('core', "An Error occurred before extracting the archive. Temporary destination exists.");
+			$error = gTranslate('core', "An error occurred before extracting the archive. Temporary destination exists.");
 			return $error;
 		}
 
 		if (! fs_mkdir($temp_dirname)) {
-			$error = gTranslate('core', "An Error occurred before extracting the archive. Temporary destination could not be created.");
+			$error = gTranslate('core', "An error occurred before extracting the archive. Temporary destination could not be created.");
 			return $error;
 		}
 

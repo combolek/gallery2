@@ -73,33 +73,20 @@ elseif (!empty($login)) {
 
 			$messages[] = array(
 				'type' => 'error',
-				'text' => gTranslate('config', "User is not an admin - access denied.")
+
 			);
 		}
 	}
 }
 
 if (isset($gallery->session->resetAdminGuid)) {
-	doctype();
 ?>
-<html>
-<head>
-  <title><?php printf(gTranslate('config', "Reset %s Password"), "admin") ?></title>
-  <?php common_header(); ?>
-</head>
-<body>
-	<div class="g-header">
-		<div class="g-pagetitle"><?php printf(gTranslate('config', "Reset %s Password"), "admin") ?></div>
-	</div>
-<div class="g-sitedesc"><?php
-    printf(gTranslate('config', "To continue the password reset process, you must edit the file &quot;%s&quot;, remove any data currently inside it, and add the text &quot;%s&quot;."), GALLERY_SETUPDIR . '/resetadmin', '<span class="g-information">'. $gallery->session->resetAdminGuid . '</span>');
-    echo "\n<br>";
-    printf(gTranslate('config', "Once you have done that, press the refresh button below.  If you know your current admin password, please remove the &quot;%s&quot; file from the server."), GALLERY_SETUPDIR . "/resetadmin");
-    echo "\n<br>";
-?></div>
-<p align="center">
-<?php echo gButton('refresh',  gTranslate('config', "Refresh"), 'location.reload()'); ?>
-</p>
+<div align="center">
+<div class="header"><?php printf(gTranslate('config', "Reset %s Password"), "admin"); ?></div>
+<div class="desc"><?php printf(gTranslate('config', "To continue the password reset process, you must edit the file &quot;%s&quot;, remove any data currently inside it, and add the text &quot;%s&quot;.  Once you have done that, press the refresh button below.  If you know your current admin password, please remove the &quot;%s&quot; file from the server."), GALLERY_SETUPDIR . "/resetadmin", $gallery->session->resetAdminGuid, GALLERY_SETUPDIR . "/resetadmin"); ?></div>
+<br>
+<input type="button" onclick="location.reload()" value="<?php echo gTranslate('config', "Refresh"); ?>">
+</div>
 </body>
 </html>
 <?php
@@ -110,14 +97,14 @@ elseif (!isset($tmpUser) || !$tmpUser->isAdmin()) {
 		printPopupStart(gTranslate('config', "Gallery"));
 	}
 	// Not logged in
-	echo "\n  ". '<div class="g-warning left g-message">';
+	echo "\n  ". '<div align="center" class="sitedesc">';
 	echo gImage('icons/notice/warning.gif');
 
 	if(isset($gallery->app->config_version) &&
 	    $gallery->app->config_version != $gallery->config_version)
 	{
 		echo gTranslate('config', "Your Gallery needs a reconfiguration.") .
-		     '<p>' .
+		     '<p class="shortdesc">' .
 		     gTranslate('config', "Your Gallery settings were configured with an older version of Gallery, and are out of date. Please re-run the Configuration Wizard!") .
 		     '</p>';
 	}
@@ -130,31 +117,29 @@ elseif (!isset($tmpUser) || !$tmpUser->isAdmin()) {
 
 	echo "\n</div>";
 
-	echo "\n<div align=\"center\">";
+	echo "\n<div align=\"center\">";    
     	echo infoBox($messages);
     	echo makeFormIntro("setup/" . $target, array('name' => 'login_form'));
-    ?>
+?>
 
-    <table align="center">
-    <?php
+<table align="center">
+<tr>
+	<td class="popup"><?php echo gTranslate('config', "Username") ?></td>
+	<td><input type="text" name="username" value="<?php if (isset($username)) echo $username; ?>"></td>
+</tr>
+<tr>
+	<td class="popup"><?php echo gTranslate('config', "Password") ?></td>
+	<td><input type="password" name="gallerypassword"></td>
+</tr>
+</table>
 
-    echo gInput('text', 'username', gTranslate('core', "_Username"), true, $username);
-    echo gInput('password', 'gallerypassword', gTranslate('core', "_Password"), true);
-    ?>
-    </table>
-    <br>
-    <?php
-    	echo gSubmit('login', gTranslate('config', "_Log me in"));
-    	echo gReset('reset', gTranslate('config', "_Reset"));
-    	echo gButton('cancel', gTranslate('config', "_Cancel"), "javascript:location.href='../'");
-    ?>
-    </form>
+<input type="submit" name="login" value="<?php echo gTranslate('config', "Login") ?>">
+<input type="reset" name="reset" value="<?php echo gTranslate('config', "Reset") ?>">
+<input type="button" name="cacle" value="<?php echo gTranslate('config', "Cancel") ?>" onClick="javascript:location.href='../'">
+</form>
 
-    </div>
 </div>
-<script type="text/javascript">
-	document.login_form.username.focus();
-</script>
+</div>
 </body>
 </html>
 <?php

@@ -139,13 +139,6 @@ function makeGalleryUrl($target = '', $args = array()) {
 	/* Add the folder to the url when *Nuke is not direct in the main folder */
 	$addpath = substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], '/'));
 
-	if (stristr($target, 'help') === false) {
-		if((isset($args['type']) && $args['type'] == 'popup') ||
-			!empty($args['gallery_popup'])) {
-			$target = "popups/$target";
-		}
-	}
-
 	if( isset($GALLERY_EMBEDDED_INSIDE) && !$isSetupUrl && where_i_am() != 'config') {
 		switch ($GALLERY_EMBEDDED_INSIDE_TYPE) {
 			case 'phpBB2':
@@ -444,39 +437,11 @@ function broken_link($file) {
 	}
 }
 
-function galleryLink($url = '', $text ='', $attrList = array(), $icon = '', $addBrackets = false, $accesskey = true) {
+function galleryLink($url = '', $text ='', $attrList = array(), $icon = '', $addBrackets = false) {
 	global $gallery;
-	static $accessKeyUsed = array();
-	global $specialIconMode;
 
 	$html = '';
 	$altText = $text;
-
-	$specialIconMode = !empty($specialIconMode) ? $specialIconMode : '';
-
-	if($accesskey && empty($attrList['accesskey']) && !empty($text)) {
-		if(is_int($text) && $text < 10) {
-			$attrList['accesskey'] = $text;
-			$altText = $text;
-		}
-		else {
-			$altText = removeAccessKey($text);
-			// Note: Dont switch these statements. The next function modifies $text
-			$attrList['accesskey'] = getAndSetAccessKey($text);
-		}
-		if(!empty($accesskey) && $gallery->app->useIcons != 'both') {
-			$altText .= ' '. sprintf(gtranslate('common', "(Accesskey '%s')"), $attrList['accesskey']);
-		}
-
-		if(isset($attrList['accesskey'])) {
-			if(!isset($accessKeyUsed[$attrList['accesskey']])) {
-				$accessKeyUsed[$attrList['accesskey']] = true;
-			}
-			else {
-				unset($attrList['accesskey']);
-			}
-		}
-	}
 
 	if (!empty($attrList['altText'])) {
 		$altText = $attrList['altText'];
@@ -486,7 +451,7 @@ function galleryLink($url = '', $text ='', $attrList = array(), $icon = '', $add
 	$attrs = generateAttrs($attrList);
 
 	if(!empty($icon)) {
-		$content = getIconText($icon, $text, $specialIconMode, $addBrackets, $altText);
+		$content = getIconText($icon, $text, '', $addBrackets, $altText);
 	}
 	else {
 		if($addBrackets) {
@@ -510,36 +475,16 @@ function galleryLink($url = '', $text ='', $attrList = array(), $icon = '', $add
 	return $html;
 }
 
-function galleryIconLink($url, $icon, $text, $iconMode = '', $attrList = array(), $useAccesskey = true) {
+function galleryIconLink($url, $icon, $text, $iconMode = '', $attrList = array()) {
 	global $gallery;
-	static $accessKeyUsed = array();
-	global $specialIconMode;
 
 	$html		= '';
 	$altText	= '';
-	$accesskey	= '';
-
-	if($useAccesskey) {
-		$accesskey = isset($attrList['accesskey']) ? $attrList['accesskey'] : getAccessKey($text);
-	}
-
-	if(!empty($specialIconMode)) {
-		$iconMode = $specialIconMode;
-	}
 
 	$iconMode = !empty($iconMode) ? $iconMode : $gallery->app->useIcons;
 
-	if(!isset($accessKeyUsed[$accesskey])) {
-		$attrList['accesskey'] = $accesskey;
-		$accessKeyUsed[$accesskey] = true;
-	}
-
 	if($iconMode == 'yes') {
 		$altText = $text;
-	}
-
-	if(!empty($accesskey) && $iconMode != 'both') {
-		$altText .= ' '. sprintf(gtranslate('common', "(Accesskey '%s')"), $accesskey);
 	}
 
 	$addBrackets = ($iconMode == 'no') ? true : false;
@@ -558,45 +503,4 @@ function galleryIconLink($url, $icon, $text, $iconMode = '', $attrList = array()
 	return $html;
 }
 
-/**
- * This function extract the complete inner Text of the first link inside $link
- * E.g. '<a href="foo.bar"><div class="text">Jens</div></a>'
- * would return '<div class="text">Jens</div>'
- *
- * @param string $link
- * @return string
- * @author Jens Tkotz
- */
-function extractLinkText($link) {
-	$hits = preg_match('{<a(?:\s*[^>]*>)(.*?)</a>}si', $link, $matches);
-
-	if($hits == 0) {
-		return $link;
-	}
-	else {
-		return $matches[1];
-	}
-}
-
-/**
- * Generates a Gallery url that has as basis the Gallery URL.
- * It doesnt hence if Gallery is embedded or not.
- *
- * @param string	$relativePath
- * @param array		$args
- * @return string	$url
- */
-function plainUrl($relativePath, $args = array()) {
-	$baseUrl = getGalleryBaseUrl();
-
-	$url = "$baseUrl/$relativePath";
-
-	if(!empty($args)) {
-		foreach ($args as $arg => $value) {
-			$url = addUrlArg($url, "$arg=$value");
-		}
-	}
-
-	return $url;
-}
 ?>

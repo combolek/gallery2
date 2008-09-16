@@ -39,7 +39,7 @@ class AlbumDB {
 			echo infoBox(array(array(
 				'type' => 'error',
 				'text' => sprintf("Albumdir (%s) not found! Please check the path to the albums folder in your config.php.",
-								  $dir)
+						  $dir)
 			)));
 
 			return false;
@@ -62,49 +62,49 @@ class AlbumDB {
 		$this->albumList = array();
 		$this->brokenAlbums = array();
 		$this->outOfDateAlbums = array();
-			$i = 0;
-			while ($i < sizeof($this->albumOrder)) {
-				$name = $this->albumOrder[$i];
-				if (ereg("^\.", $name)) { // how did this get here??
-					array_splice($this->albumOrder, $i, 1);
-					$changed = 1;
-				}
-				else if (fs_is_dir("$dir/$name")) {
-					$album = new Album;
-					if ($album->load($name,$loadphotos)) {
-						array_push($this->albumList, $album);
-						if ($album->versionOutOfDate()) {
-							array_push($this->outOfDateAlbums, $name);
-						}
-					}
-					else if (!in_array($name, $allowedInvalidAlbums)) {
-						array_push($this->brokenAlbums, $name);
-					}
-					$i++;
-				}
-				else {
-					/* Couldn't find the album -- delete it from order */
-					array_splice($this->albumOrder, $i, 1);
-					$changed = 1;
-				}
+		$i = 0;
+		while ($i < sizeof($this->albumOrder)) {
+			$name = $this->albumOrder[$i];
+			if (ereg("^\.", $name)) { // how did this get here??
+				array_splice($this->albumOrder, $i, 1);
+				$changed = 1;
 			}
+			else if (fs_is_dir("$dir/$name")) {
+				$album = new Album;
+				if ($album->load($name,$loadphotos)) {
+					array_push($this->albumList, $album);
+					if ($album->versionOutOfDate()) {
+						array_push($this->outOfDateAlbums, $name);
+					}
+				}
+				else if (!in_array($name, $allowedInvalidAlbums)) {
+					array_push($this->brokenAlbums, $name);
+				}
+				$i++;
+			}
+			else {
+				/* Couldn't find the album -- delete it from order */
+				array_splice($this->albumOrder, $i, 1);
+				$changed = 1;
+			}
+		}
 
-			if ($fd = fs_opendir($dir)) {
-				while ($file = readdir($fd)) {
-					if (!ereg("^\.", $file) &&
-						fs_is_dir("$dir/$file") &&
-						!in_array($file, $allowedInvalidAlbums) &&
-						!in_array($file, $this->albumOrder))
-					{
-						$album = new Album;
-						$album->load($file,$loadphotos);
-						array_push($this->albumList, $album);
-						array_push($this->albumOrder, $file);
-						$changed = 1;
-					}
+		if ($fd = fs_opendir($dir)) {
+			while ($file = readdir($fd)) {
+				if (!ereg("^\.", $file) &&
+					fs_is_dir("$dir/$file") &&
+					!in_array($file, $allowedInvalidAlbums) &&
+					!in_array($file, $this->albumOrder))
+				{
+					$album = new Album;
+					$album->load($file,$loadphotos);
+					array_push($this->albumList, $album);
+					array_push($this->albumOrder, $file);
+					$changed = 1;
 				}
-				closedir($fd);
 			}
+			closedir($fd);
+		}
 
 		if ($changed) {
 			$this->save();

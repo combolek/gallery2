@@ -1,5 +1,7 @@
 <?php
 
+/* $Id$ */
+
 /**
  * Generats and prints a table with page navigation, forward backward links/icons
  *
@@ -56,12 +58,12 @@ if(!includeTemplate('navigator.tpl')) {
 			$url .= "&amp;";
 		}
 
-		$fpAltText= gTranslate('core', "_First Page ");
-		$ppAltText= gTranslate('core', "_Previous Page");
-		$npAltText= gTranslate('core', "_Next Page");
-		$lpAltText= gTranslate('core', "_Last Page");
+		$fpAltText= gTranslate('core', "First Page");
+		$ppAltText= gTranslate('core', "Previous Page");
+		$npAltText= gTranslate('core', "Next Page");
+		$lpAltText= gTranslate('core', "Last Page");
 
-		$current = $navigator["page"];
+		$current  = $navigator["page"];
 		$prevPage = $current -1;
 		$nextPage = $current +1;
 		$maxPages = $navigator["maxPages"];
@@ -76,11 +78,11 @@ if(!includeTemplate('navigator.tpl')) {
 			);
 
 			$ppContent = galleryIconLink(
-				$url . $navigator['pageVar'] ."=$prevPage",
-				$ppImg,
-				$ppAltText,
-				'yes',
-				array('id' => "g-nav-backward_$navc")
+					$url . $navigator['pageVar'] ."=$prevPage",
+					$ppImg,
+					$ppAltText,
+					'yes',
+					array('id' => "g-nav-backward_$navc")
 			);
 
 			$pClass = 'g-borderright';
@@ -100,10 +102,9 @@ if(!includeTemplate('navigator.tpl')) {
 
 			$mpContent = "\n\t\t". '<table align="center" cellpadding="0" cellspacing="0" class="g-nav-pages"><tr>';
 			if (isset($beginNextBlock)) {
-				$title = sprintf(gTranslate('core', "Jump to page %d (Accesskey '_r')"), $beginNextBlock);
-				$accesskey = getAndRemoveAccessKey($title);
+				$title = sprintf(gTranslate('core', "Jump to page %d"), $beginNextBlock);
 				$link = galleryLink("{$url}${navigator['pageVar']}=$beginNextBlock",
-				    '...', array('title' => $title, 'accesskey' => $accesskey));
+				    '...', array('title' => $title,));
 				$mpContent .= "\n\t<td>$link</td>";
 			}
 			for ($i = $begin; $i <= $end; $i++) {
@@ -133,10 +134,9 @@ if(!includeTemplate('navigator.tpl')) {
 			$mpContent .="\n\t<td>&nbsp;$rightdot";
 
 			if (isset($endNextBlock)) {
-				$title = sprintf(gTranslate('core', "Jump to page %d (Accesskey '_j')"), $endNextBlock);
-				$accesskey = getAndRemoveAccessKey($title);
+				$title = sprintf(gTranslate('core', "Jump to page %d"), $endNextBlock);
 				$link = galleryLink("{$url}${navigator['pageVar']}=$endNextBlock",
-				    '...', array('title' => $title, 'accesskey' => $accesskey));
+				    '...', array('title' => $title));
 				$mpContent .= "\n\t</td><td>$link";
 			}
 			$mpContent .= '</td></tr></table>';
@@ -148,18 +148,18 @@ if(!includeTemplate('navigator.tpl')) {
 		#-- 'next' and 'last' button cell ---
 		if ($current < $maxPages) {
 			$npContent = galleryIconLink(
-				$url . $navigator['pageVar'] ."=$nextPage",
-				$npImg,
-				$npAltText,
-				'yes',
-				array('id' => "g-nav-forward_$navc")
+					$url . $navigator['pageVar'] ."=$nextPage",
+					$npImg,
+					$npAltText,
+					'yes',
+					array('id' => "g-nav-forward_$navc")
 			);
 
 			$lpContent = galleryIconLink(
-				$url . $navigator['pageVar'] .'='. $navigator['maxPages'],
-				$lpImg,
-				$lpAltText,
-				'yes'
+					$url . $navigator['pageVar'] .'='. $navigator['maxPages'],
+					$lpImg,
+					$lpAltText,
+					'yes'
 			);
 
 			$nClass='g-borderleft';

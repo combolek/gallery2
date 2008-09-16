@@ -46,7 +46,8 @@ class Mambo_UserDB extends Abstract_UserDB {
 		$uidList = array();
 		$db = $this->db;
 
-		$results = $db->query('SELECT ' . $this->fields{'uid'} . ' FROM ' . $this->prefix . 'users');
+		$results = $db->query('SELECT ' . $this->fields{'uid'} .
+				      ' FROM ' . $this->prefix . 'users');
 		while ($row = $db->fetch_row($results)) {
 			array_push($uidList, $row[0]);
 		}

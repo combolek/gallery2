@@ -1,6 +1,6 @@
 /**
  * Gallery SVN ID:
- * $Id$
+ * $Id: arrowkey_nav.js 16779 2007-07-18 22:47:38Z jenst $
 */
 
 function cursor_nav(e) {
@@ -24,13 +24,13 @@ function cursor_nav(e) {
 	switch (taste) {
 		case back:
 			if(document.getElementById("g-nav-backward_1")) {
-			backward = document.getElementById("g-nav-backward_1");
+				backward = document.getElementById("g-nav-backward_1");
 			}
 			else if(document.getElementById("g-navmicro-backward_1")) {
 				backward = document.getElementById("g-navmicro-backward_1");
 			}
 
-			if(backward) {
+			if (backward) {
 				window.location.href = backward.href;
 			}
 
@@ -47,7 +47,7 @@ function cursor_nav(e) {
 			}
 
 
-			if(forward) {
+			if (forward) {
 				window.location.href = forward.href;
 			}
 		break;

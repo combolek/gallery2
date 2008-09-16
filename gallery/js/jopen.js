@@ -1,6 +1,6 @@
 /**
  * Gallery SVN ID:
- * $Id$
+ * $Id: jopen.js 16783 2007-07-20 22:48:27Z jenst $
 */
 
 function jopen(element) {

@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  *
- * $Id$
+ * $Id: commentHandling.inc.php 16366 2007-05-02 18:22:26Z jenst $
  */
 
 /**
@@ -32,18 +32,9 @@ if (! isset($gallery)) {
 $comment_messages = array();
 
 if($gallery->user->canAddComments($gallery->album)) {
-	if(enableCaptcha()) {
-		/**
-		 * Captcha classes.
-		 */
-		require(dirname(dirname(dirname(__FILE__))) . '/classes/hn_captcha/hn_captcha.class.x1.php');
-		require(dirname(dirname(__FILE__)) . '/captcha/captcha_init.php');
-		$captcha =& new hn_captcha_X1($CAPTCHA_INIT);
-	}
-
 	if ($gallery->user->isLoggedIn() ) {
 		if (empty($commenter_name) || $gallery->app->comments_anonymous == 'no') {
-		   $commenter_name = $gallery->user->printableName($gallery->app->name_display);
+		   $commenter_name = $gallery->user->printableName($gallery->app->comments_display_name);
 		}
 	}
 	elseif (!isset($commenter_name)) {
@@ -79,14 +70,6 @@ if($gallery->user->canAddComments($gallery->album)) {
 				'text' => gTranslate('core', "Your comment contains forbidden words. It will not be added.")
 			);
 		}
-
-		if(enableCaptcha() && $captcha->validate_submit() == 2) {
-			$comment_messages[] = array(
-				'type' => 'error',
-				'text' => gTranslate('core', "You didn't enter the correct chars/numbers.")
-			);
-		}
-
 
 		// Everything went fine, add the comment
 		if(empty($comment_messages)) {

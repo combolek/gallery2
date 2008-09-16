@@ -24,8 +24,6 @@ if (!isset($gallery->version)) {
 	require_once(dirname(dirname(__FILE__)) . '/init.php');
 }
 
-require(dirname(__FILE__) . '/lib/lib-find_orphans.php');
-
 $action = getRequestVar('action');
 
 // Security check
@@ -36,30 +34,179 @@ if (!$gallery->user->isAdmin()) {
 
 $albumDB = new AlbumDB();
 
+function attachOrphanedAlbums($orphans) {
+	global $albumDB;
+	foreach ($orphans as $childname => $parentname) {
+		if ($parentname == 0) {
+			// Parent was deleted - attach it to root
+			$child = $albumDB->getAlbumByName($childname);
+			$child->fields['parentAlbumName'] = 0;
+			while ($child->save() != true);
+			continue;
+		}
+
+		$parent = $albumDB->getAlbumByName($parentname);
+		$parent->addNestedAlbum($childname);
+
+		// Set a default highlight if appropriate, for the parent
+		if ($parent->numPhotos(1) == 1) {
+			$parent->setHighlight(1);
+		}
+
+		// If the machine is fast, it can find a new album before it
+		// has time to finish physically saving the last one.
+		// Keep trying to save until it works.
+		while ($parent->save() != true);
+	}
+}
+
+function findOrphanedAlbums() {
+	global $albumDB;
+	$orphaned = Array();
+	foreach ($albumDB->albumList as $album) {
+
+		// Root albums can't be orphans
+		if ($album->isRoot()) {
+			continue;
+		}
+
+		$parent = $album->getParentAlbum();
+
+		if (!isset($parent) || !isset($parent->fields['name'])) {
+			// Orphaned, but the parent album is missing - link it to root
+			$orphaned[$album->fields['name']] = 0;
+			continue;
+		}
+
+		// Search for a filename match in the parent album
+		if (!empty($parent->photos)) {
+			foreach ($parent->photos as $photo) {
+				if ($photo->isAlbum() && ($photo->getAlbumName() == $album->fields['name'])) {
+					// Found a matching name - this is not an orphaned album
+					// continue from outer loop
+					continue 2;
+				}
+			}
+		}
+
+		// "Orphaned Album => Parent Album"
+		$orphaned[$album->fields['name']] = $parent->fields['name'];
+	}
+
+	// Sort the array by value (parent) so it can be displayed to the user
+	asort($orphaned);
+	return $orphaned;
+}
+
+function findOrphanedImages() {
+	global $gallery, $albumDB;
+
+	$orphans = Array();
+
+	// "." covers the "." and ".." dir entries
+	$ignoreFiles = array('.', 'dat', 'bak', 'lock');
+
+	foreach ($albumDB->albumList as $album) {
+
+		// Get the album name, build the album path, open the directory
+		$albumName = $album->fields['name'];
+		$albumDir = $gallery->app->albumDir . "/" . $albumName;
+		$dirhandle = fs_opendir($albumDir);
+
+		// Storage array
+		$albumFiles = array();
+
+		// Retrieve each file until the directory ends
+		// Skip the files which have arrays in the ignoreFiles array
+		while (false !== ($file = readdir($dirhandle))) {
+			$file = pathinfo($file);
+
+			if (empty($file['extension']) || in_array($file['extension'], $ignoreFiles))
+				continue;
+
+			$albumFiles[$file['basename']] = 1;
+		}
+
+		// Don't bother doing anything if there are no orphans
+		if (sizeof($albumFiles)) {
+
+			// Only check subkeys if the album has photos
+			if (!empty($album->photos)) {
+				foreach ($album->photos as $photo) {
+					foreach ($photo as $image) {
+
+						// Theoretically we know which keys hold image locations,
+						// however this is to be absolutely safe as we go forward
+						// in case any new keys are added
+
+   						// Since we're iterating through the entire AlbumItem class looking for files
+						// we know we can skip any objects that aren't of the class "Image"
+						if (strcasecmp(get_class($image), "Image")) {
+							continue;
+
+						// If we encounter a file that's in the AlbumItem, and in the file array
+						// purge it, because it's valid
+						} elseif (isset($albumFiles[$image->name . "." . $image->type])) {
+							unset($albumFiles[$image->name . "." . $image->type]);
+						}
+
+						// Resized files have to be handled separately
+						if (!empty($image->resizedName) && isset($albumFiles[$image->resizedName . "." . $image->type])) {
+							unset($albumFiles[$image->resizedName . "." . $image->type]);
+						}
+					}
+				}
+			}
+
+			// Make sure the array isn't empty
+			// It is valid to get here even if the album has no _valid_ photos
+			if (sizeof($albumFiles)) {
+				$orphans[$albumName] = $albumFiles;
+			}
+		}
+	}
+
+	asort($orphans);
+	return $orphans;
+}
+
+function deleteOrphanedImages($orphans) {
+	global $gallery;
+	$unwriteableFiles = array();
+
+	foreach ($orphans as $albumName => $imageVal) {
+		foreach (array_keys($imageVal) as $fileName) {
+			$deleteFile = $gallery->app->albumDir . "/" . $albumName . "/" . $fileName;
+			if (! fs_unlink($deleteFile)) {
+				$unwriteableFiles[] = $deleteFile;
+			}
+		}
+	}
+	return $unwriteableFiles;
+}
+
 clearstatcache() ;
 $orphanAlbums = findOrphanedAlbums();
 $orphanImages = findOrphanedImages();
 
-$messages = array();
-$addon = '';
-$iconElements = array();
+global $GALLERY_EMBEDDED_INSIDE;
 
 $iconElements[] = galleryIconLink(
 				makeGalleryUrl("admin-page.php"),
 				'navigation/return_to.gif',
-				gTranslate('core', "Return to _admin page"));
+				gTranslate('core', "Return to admin page"));
 
 $iconElements[] = galleryIconLink(
 				makeAlbumUrl(),
 				'navigation/return_to.gif',
-				gTranslate('core', "Return to _gallery"));
+				gTranslate('core', "Return to gallery"));
 
 $iconElements[] = LoginLogoutButton(makeGalleryUrl());
 
-$adminbox['text']	 = '<span class="g-title">'. gTranslate('core', "Find Orphans") .'</span>';
-$adminbox['commands']	 = makeIconMenu($iconElements, 'right');
-$adminbox['bordercolor'] = $gallery->app->default['bordercolor'];
+$adminbox['text']	= '<span class="title">'. gTranslate('core', "Find Orphans") .'</span>';
+$adminbox['commands']	= makeIconMenu($iconElements, 'right');
 
+$adminbox["bordercolor"] = $gallery->app->default["bordercolor"];
 $breadcrumb['text'][] = languageSelector();
 
 if (!$GALLERY_EMBEDDED_INSIDE) {
@@ -67,25 +214,26 @@ if (!$GALLERY_EMBEDDED_INSIDE) {
 ?>
 <html>
 <head>
-  <title><?php echo clearGalleryTitle(gTranslate('core', "Find Orphans")) ?></title>
-  <?php common_header(); ?>
+<title><?php echo clearGalleryTitle(gTranslate('core', "Find Orphans")) ?></title>
+<?php
+	common_header();
+?>
 </head>
 <body dir="<?php echo $gallery->direction ?>">
 <?php
 }
+    includeHtmlWrap("gallery.header");
 
-includeTemplate("gallery.header", '', 'classic');
+    includeLayout('navtablebegin.inc');
+    includeLayout('adminbox.inc');
+    includeLayout('navtablemiddle.inc');
+    includeLayout('breadcrumb.inc');
+    includeLayout('navtableend.inc');
 
-includeLayout('adminbox.inc');
-includeLayout('breadcrumb.inc');
-
+echo '<div class="popup left">';
 if (empty($action)) {
-	if (!empty($orphanAlbums)) {
-		printInfoBox(array(array(
-			'type' => 'error',
-			'text' => sprintf(gTranslate('core', "Orphaned Albums: %d"), sizeof($orphanAlbums))
-		)));
-?>
+	if (!empty($orphanAlbums)) { ?>
+		<p><?php echo gTranslate('core', "Orphaned Albums:") . " " . sizeof($orphanAlbums) ?></p>
 		<p><?php echo gTranslate('core', "Orphaned Albums will be re-attached to their parent albums, if at all possible.  If the parent album is missing, the orphan will be attached to the Gallery Root, and it can be moved to a new location from there.") ?></p>
 		<center>
 		<table>
@@ -113,17 +261,15 @@ if (empty($action)) {
 		<br>
 		<?php echo makeFormIntro("tools/find_orphans.php", array("method" => "GET")); ?>
 		<input type="hidden" name="action" value="albums">
-		<?php echo gSubmit('reattach', gTranslate('core', "_Re-Attach Orphaned Albums!")); ?>
+		<input type="submit" value="<?php echo gTranslate('core', "Re-Attach Orphaned Albums!") ?>">
 		</form>
 		</center>
 <?php
 	}
 	elseif (!empty($orphanImages)) {
-		printInfoBox(array(array(
-			'type' => 'error',
-			'text' => sprintf(gTranslate('core', "Orphaned Files: %d"), recursiveCount($orphanImages))
-		)));
 ?>
+
+		<p><?php echo gTranslate('core', "Orphaned Files:") . " " . recursiveCount($orphanImages) ?></p>
 		<p><?php echo gTranslate('core', "Orphaned files will be deleted from the disk.  Orphaned files should never exist - if they do, they are the result of a failed upload attempt, or other more serious issue such as the photos database being overwritten with bad information.") ?></p>
 		<center>
 		<table>
@@ -153,55 +299,42 @@ if (empty($action)) {
 		<br>
 		<?php echo makeFormIntro("tools/find_orphans.php", array("method" => "GET")); ?>
 		<input type="hidden" name="action" value="images">
-		<?php echo gSubmit('delete', gTranslate('core', "_Delete Orphaned Files!")); ?>
+		<?php echo gSubmit('delete', gTranslate('core', "Delete Orphaned Files!")); ?>
 		</form>
 		</center>
 <?php
 	}
 	else {
 		// No Orphans
-		$messages[] = array(
-			'type' => 'success',
-			'text' => gTranslate('core', "There are no orphaned elements in this Gallery."));
+		echo "\n<p align=\"center\" class=\"warning\">" .  gTranslate('core', "No Orphans Found") . "</p>";
+		echo "\n<p align=\"center\">". gTranslate('core', "There are no orphaned elements in this Gallery.") . "</p>\n";
 	}
 } // !isset(update)
 else {
-	$text = ($action == "albums") ? gTranslate('core', "Orphaned albums repaired.") : gTranslate('core', "Orphaned files repaired.");
-	$messages[] = array('type' =>'information', 'text' => $text);
-
-	if ($action == 'albums') {
+	echo "\n<p align=\"center\" class=\"warning\">" .  sprintf(gTranslate('core', "Orphan %s Repaired"), ($action == "albums") ? gTranslate('core', "Albums") : gTranslate('core', "Files")) . "</p>";
+	if ($action == "albums") {
 		attachOrphanedAlbums($orphanAlbums);
 	}
-
-	if ($action == 'images') {
+	if ($action == "images") {
 		$unwriteableFiles = deleteOrphanedImages($orphanImages);
-		if (!empty($unwriteableFiles)) {
-
-			$text = gTranslate('core', "The Webserver has not enough permission to delete the following files:");
-			$text .= "\n<ul>";
+                if (!empty($unwriteableFiles)) {
+			echo "<p>". gallery_error(gTranslate('core', "The Webserver has not enough permission to delete the following files:")) . "</p>";
+			echo "\n<ul>";
 			foreach ($unwriteableFiles as $filename) {
-				$text .= "<li>$filename</li>";
+				echo "<li>$filename</li>";
 			}
-			$text .= "\n</ul>";
-			$text .= "\n<p>". gTranslate('core', "Please check the permission of these files and the folder above. chmod them, or ask your admin to do this.") . "<br>";
-			$text .= "\n</p>";
-
-			$messages[] = array('type' =>'error', 'text' => $text);
-			$addon = gButton('clickme', gTranslate('core', "Reload"), 'location.reload()');
+			echo "\n</ul>";
+			echo "\n<p align=\"center\">". gTranslate('core', "Please check the permission of these files and the folder above. chmod them, or ask your admin to do this.") . "<br>";
+			echo '<button name="Klickmich" type="button" onClick="location.reload()">'. gTranslate('core', "Reload") . '</button></p>';
 		}
 	}
 }
 ?>
 </div>
 <?php
-echo infoBox($messages) . $addon;
-
-includeTemplate("overall.footer");
-
-if (!$GALLERY_EMBEDDED_INSIDE) {
+    includeHtmlWrap("general.footer");
+    if (!$GALLERY_EMBEDDED_INSIDE) {
 ?>
 </body>
 </html>
-<?php
-}
-?>
+<?php } ?>

@@ -45,5 +45,5 @@
 	$nls['default']['charset']	= 	'ISO-8859-1';
 
 /* Direction */
-	$nls['default']['direction']	=	'ltr';
+	$nls['default']['direction'] =	'ltr';
 ?>

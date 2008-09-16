@@ -20,22 +20,6 @@
  * $Id$
  */
 
-/**
- * Functions for the 'normal' slideshow for modern browser.
- *
- * @package Slideshow
- *
- */
-
-/**
- * Horde Browser class to detect the browser and its abilities.
- */
-include_once(GALLERY_BASE .'/classes/horde/Browser.php');
-
-if (class_exists('Browser')) {
-    $browser = &Browser::singleton();
-}
-
 function slideshow_initialize() {
     global $gallery, $albumName, $defaultLoop, $defaultPause, $defaultTransition, $full_option,
 			$album, $recursive, $number, $random, $loop, $borderColor, $borderwidth, $bgcolor,
@@ -165,7 +149,7 @@ function buildSlideshowPhotos(&$full_urls, &$urls, &$captions, $album = null, $r
 
         $caption = $album->getCaption($index);
         if ($recursive) {
-            $caption .= ' (<a href="' . makeAlbumURL($album->fields["name"]) . '">' . $album->fields['title'] . '<\/a>)';
+            $caption .= ' (<a href="' . makeAlbumURL($album->fields["name"]) . '">' . $album->fields['title'] . '</a>)';
         }
         $caption .= $album->getCaptionName($index);
         $caption = str_replace("\"", " ", $caption);
@@ -495,24 +479,25 @@ function slideshow_controlPanel() {
 	global $gallery, $albumName, $defaultLoop, $defaultPause, $defaultTransition, $full_option,
 			$album, $recursive, $number, $random, $loop, $borderColor, $borderwidth, $bgcolor,
 			$url, $full_urls, $urls, $caption, $captions, $photo_count, $title, $transitionNames,
-			$transitionCount, $pixelImage, $stopIconText, $browser;
+			$transitionCount, $pixelImage, $stopIconText;
 
-	global $delayIconText, $loopIconText, $stopIconText, $backwardIconText, $fullSizeIconText;
-?>
+	global $delayIconText, $loopIconText;
+        ?>
 <form name="TopForm" action="#">
 <?php
-    /* First this is set to "stop" */
-    $startStopIconText = $stopIconText;
-    $iconElements[] = '<a href="#" onClick="stopOrStart(); return false;" style="display: block"><span id="stopOrStartText">'. $startStopIconText . '</span></a>';
+	/* First this is set to "stop" */
+	$startStopIconText = $stopIconText;
+        $iconElements[] = '<a href="#" onClick="stopOrStart(); return false;" style="display: block"><span id="stopOrStartText">'. $startStopIconText . '</span></a>';
 
-    $directionIconText = $backwardIconText;
-    $iconElements[] = '<a href="#" onClick="changeDirection(); return false;" style="display: block"><span id="changeDirText">'. $directionIconText .'</span></a>';
+	$directionIconText = getIconText('slideshow/1leftarrow.gif', gTranslate('core', "Reverse direction"));
+        $iconElements[] = '<a href="#" onClick="changeDirection(); return false;" style="display: block"><span id="changeDirText">'. $directionIconText .'</span></a>';
 
-    if ($full_option) {
-        $iconElements[] = '<a href="#" onClick="fullOrNormal(); return false;" style="display: block"><span id="fullOrNormalText">'. $fullSizeIconText .'</span></a>';
-    }
+        if ($full_option) {
+		$fullIconText = getIcontext('window_fullscreen.gif',gTranslate('core', "full size"));
+		$iconElements[] = '<a href="#" onClick="fullOrNormal(); return false;" style="display: block"><span id="fullOrNormalText">'. $fullIconText .'</span></a>';
+        }
 
-    $iconElements[] = $delayIconText .':';
+        $iconElements[] = $delayIconText .':';
 	$iconElements[] = drawSelect("time", array(1 => gTranslate('core', "1 second"),
 				2 => gTranslate('core', "2 seconds"),
 				3 => gTranslate('core', "3 seconds"),
@@ -524,7 +509,7 @@ function slideshow_controlPanel() {
 				60 => gTranslate('core', "1 Minute")),
 				$defaultPause, // default value
 				1, // select size
-				array('onchange' => 'reset_timer()', 'class' => 'g-admin')
+				array('onchange' => 'reset_timer()', 'class' => 'adminform')
 			);
 
 	if ($loop) {
@@ -535,64 +520,71 @@ function slideshow_controlPanel() {
 
 	echo makeIconMenu($iconElements, 'right', false);
 ?>
-    <td class="g-icon-nolink">
-    <?php
-    if ($browser->isBrowser('msie') && $browser->getMajor() >= 4) {
-        echo gTranslate('core', "Transition:");
-        echo "</td><td>";
-        echo drawSelect("transitionType",
+    <td class="noLink"><script type="text/javascript">
+    <!--
+    /* show the blend select if appropriate */
+    if (browserCanBlend) {
+	document.write('<?php echo gTranslate('core', "Transition:"); ?><\/td>');
+	document.write('<td><?php echo str_replace("/", "\/", drawSelect("transitionType",
                   $transitionNames,
                   $defaultTransition,
                   1,
-                 array('onchange' => 'change_transition()', 'class' => 'g-admin'));
+                 array('onchange' => 'change_transition()', 'class' => 'adminform'))); ?>');
     }
-    ?>
-    </td>
-    </tr>
-    </table>
+    // -->
+    </script></td></tr></table>
 </form>
 <?php
     }
 
 
-function slideshow_image() {
+    function slideshow_image() {
 	global $gallery, $albumName, $defaultLoop, $defaultPause, $defaultTransition, $full_option,
 			$album, $recursive, $number, $random, $loop, $borderColor, $borderwidth, $bgcolor,
 			$url, $full_urls, $urls, $caption, $captions, $photo_count, $title, $transitionNames,
 			$transitionCount, $pixelImage;
 
-	if ($photo_count > 0) {
-?>
+        if ($photo_count > 0) {
 
-<div class="center">
-  <script type="text/javascript">
-	<!--
+            ?>
+
+<div align="center">
+    <script type="text/javascript">
 		firstPhotoURL = document.getElementById("photo_urls_" + 1).href;
 		document.write("<img border=<?php echo $borderwidth ?> bgcolor=<?php echo $borderColor ?> src=\"");
 		document.write(firstPhotoURL);
 		document.write("\" name=slide>");
-	// -->
-  </script>
+    </script>
 
-<script type="text/javascript">
-<!--
-/* show the caption */
-document.write('<div class="g-photo-caption" id="caption"><\/div>');
+    <br>
 
-/* Load the first picture */
-setCaption(photo_captions[1]);
-preload_photo(1);
+    <script type="text/javascript">
+    /* show the caption */
+    document.write("<div class='pcaption' id='caption'><\/div>");
 
-/* Start the show. */
-play();
-// -->
-</script>
+    /* Load the first picture */
+    setCaption(photo_captions[1]);
+    preload_photo(1);
+
+    /* Start the show. */
+    play();
+    </script>
 </div>
+<br>
 
 <?php
-	}
-	else {
-		echo "<p><b>". gTranslate('core', "This album has no photos to show in a slide show.") ."</b></p>";
-	}
-}
-?>
+        } else {
+
+            ?>
+
+<br><b><?php echo gTranslate('core', "This album has no photos to show in a slide show.") ?></b>
+<br><br>
+<span class="admin">
+<a href="<?php echo makeGalleryUrl("view_album.php",
+                array("set_albumName" => $gallery->session->albumName)) ?>">[<?php echo gTranslate('core', "back to album") ?>]</a>
+</span>
+
+<?php
+        }
+    }
+    ?>

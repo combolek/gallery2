@@ -132,27 +132,18 @@ if (!$GALLERY_EMBEDDED_INSIDE) {
   common_header();
   ?>
 </head>
-<body>
+<body dir="<?php echo $gallery->direction ?>">
 <?php
 } // End if ! embedded
 
-includeTemplate("photo.header");
+includeHtmlWrap("photo.header");
 
 if (!empty($allImageAreas)) {
 	echo jsHTML('wz/wz_tooltip.js');
-	echo jsHTML('wz/tip_balloon.js');
+	//echo jsHTML('wz/tip_balloon.js');
 }
 
 echo jsHTML('wz/wz_jsgraphics.js');
-echo jsHTML('imagemap.js');
-?>
-  <script type="text/javascript">
-  window.onload = initPaintArea;
-
-  init_mousemove();
-  </script>
-
-<?php
 
 $rows = $gallery->album->fields['rows'];
 $cols = $gallery->album->fields['cols'];
@@ -164,6 +155,9 @@ $iconElements[]	= LoginLogoutButton();
 
 $navigator['id']	= $id;
 $navigator['allIds']	= $gallery->album->getIds($gallery->user->canWriteToAlbum($gallery->album));
+$navigator['fullWidth']	= '100';
+$navigator['widthUnits']= '%';
+$navigator['url']	= '.';
 
 #-- breadcrumb text ---
 $breadcrumb['text'] = returnToPathArray($gallery->album, true);
@@ -176,10 +170,19 @@ $breadcrumb['text'][] = galleryLink(
 
 $adminbox['commands'] = makeIconMenu($iconElements, 'right');
 
+includeLayout('navtablebegin.inc');
 includeLayout('adminbox.inc');
+includeLayout('navtablemiddle.inc');
 
 $breadcrumb['bordercolor'] = $gallery->album->fields['bordercolor'];
 includeLayout('breadcrumb.inc');
+includeLayout('navtableend.inc');
+
+echo "</td></tr>\n";
+echo "\n<!-- End Header Part -->";
+
+echo "\n<!-- Real Content -->";
+echo "\n<tr><td>\n\t";
 
 list($width, $height) = $photo->getDimensions($full);
 
@@ -207,7 +210,7 @@ else {
 }
 ?>
 
-<div class="g-sitedesc">
+<div class="popup" style="text-align: <?php echo langLeft(); ?>">
 <?php
 echo gTranslate('core', "Here you can create, edit or delete imagemaps for the selected photo.");
 echo "\n<br>";
@@ -229,7 +232,7 @@ echo makeFormIntro('imagemap.php',
 ?>
 <table width="100%">
 <tr>
-  <td width="390" style="vertical-align: top;">
+  <td style="vertical-align: top;">
 	<?php $type = (isDebugging()) ? 'text':'hidden'; ?>
 	<input type="<?php echo $type; ?>" name="ausg" id="current_position">
 	<input type="<?php echo $type; ?>" name="xvals">
@@ -237,11 +240,16 @@ echo makeFormIntro('imagemap.php',
 <?php
 	echo showColorpicker(array('name' => 'brushColor', 'value' => '#FFFFFF'), true, true, gTranslate('core', "Brush color:"));
 	echo "\n<br>";
+
 	echo gTranslate('core', "Optional link-url");
 	echo "\n<br>";
+
 	echo gInput('text', 'areaurl', null, false, null, array('size' => 50));
+	echo "\n<br>";
+
 	echo gTranslate('core', "Description");
 	echo "\n<br>";
+
 	if($GALLERY_EMBEDDED_INSIDE_TYPE != 'phpnuke') {
 		echo gInput('textarea', 'areatext', null, false, null, array('cols' => 40, 'rows' => 5));
 	}
@@ -249,6 +257,7 @@ echo makeFormIntro('imagemap.php',
 		echo gInput('text', 'areatext', null, false, null, array('cols' => 40));
 	}
 
+	echo "\n<br>";
 	echo gButton('clearButton', gTranslate('core', "Clear and reset canvas"), 'resetAndClear();');
 	echo gSubmit('create', gTranslate('core', "Save new Imagemap"));
 
@@ -268,10 +277,10 @@ echo makeFormIntro('imagemap.php',
 		}
 		echo "\n</select><br><br>";
 
-		echo "<div class=\"g-emphasis\">".  gTranslate('core', "Selected ImageMap(s):") .'</div>';
+		echo "<div class=\"g-emphasis\">".  gTranslate('core', "Action for selected ImageMap(s):") .'</div>';
 
-		echo gSubmit('delete', gTranslate('core', "_Delete"));
-		echo gSubmit('update', gTranslate('core', "_Update"));
+		echo gSubmit('delete', gTranslate('core', "Delete"));
+		echo gSubmit('update', gTranslate('core', "Update"));
 
 		echo "\n<br><br>";
 
@@ -280,7 +289,7 @@ echo makeFormIntro('imagemap.php',
 		echo "\n</fieldset>";
 	}
 	else {
-		echo gTranslate('core', "No ImageMaps");
+		echo '<p>'. gTranslate('core', "No ImageMaps") . '</p>';
 	}
 ?>
   </td>
@@ -293,18 +302,30 @@ echo makeFormIntro('imagemap.php',
 </table>
 </form>
 
+  </td>
+</tr>
 <!-- End Real Content -->
 <!-- Start Footer Part -->
+<tr>
+  <td>
+<?php
+
+includeLayout('navtablebegin.inc');
+includeLayout('breadcrumb.inc');
+includeLayout('navtableend.inc');
+echo languageSelector();
+
+echo jsHTML('imagemap.js');
+?>
+  <script type="text/javascript">
+  init_mousemove();
+
+  window.onload = initPaintArea;
+  </script>
 
 <?php
 
-includeLayout('breadcrumb.inc');
-
-echo languageSelector();
-
-includeTemplate('info_donation-block');
-
-includeTemplate('overall.footer');
+includeHtmlWrap("photo.footer");
 
 if (!$GALLERY_EMBEDDED_INSIDE) { ?>
 </body>

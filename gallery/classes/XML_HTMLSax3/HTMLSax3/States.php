@@ -1,7 +1,7 @@
 <?php
 /**
  * Gallery SVN info
- * $Id: Browser.php 14237 2006-08-09 05:00:16Z jenst $
+ * $Id$
  */
 
 /* vim: set expandtab tabstop=4 shiftwidth=4: */

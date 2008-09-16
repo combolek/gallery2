@@ -147,9 +147,10 @@ if (!$GALLERY_EMBEDDED_INSIDE) {
 common_header() ;
 ?>
 </head>
-   <body>
+   <body dir="<?php echo $gallery->direction ?>">
 <?php
 }
+
 /* End of HTML begin, lets do some calculations etc. */
 
 $set_albumListPage = intval($set_albumListPage);
@@ -578,8 +579,11 @@ else {
 }
 
 // <!-- stats.header begin -->
-includeTemplate("stats.header");
 
+includeHtmlWrap("stats.header");
+
+$navigator["fullWidth"] = 100;
+$navigator["widthUnits"] = "%";
 $adminText = '';
 if (isset($album)) {
 	if (isset($albumobj)) {
@@ -596,10 +600,10 @@ if (isset($album)) {
 }
 else {
 	if ($type == "comments" ) {
-        $adminText .= sprintf(gTranslate('core', "%d items with comments in this Gallery."), count($arrPhotos));
+        	$adminText .= sprintf(gTranslate('core', "%d items with comments in this Gallery."), count($arrPhotos));
 	}
 	else {
-        $adminText .= sprintf(gTranslate('core', "%d items this Gallery."), count($arrPhotos));
+        	$adminText .= sprintf(gTranslate('core', "%d items this Gallery."), count($arrPhotos));
 	}
 }
 
@@ -607,18 +611,13 @@ if ($gallery->user->isAdmin()) {
 	$iconElements[] = galleryIconLink(
 				makeGalleryUrl("admin-page.php"),
 				'navigation/return_to.gif',
-				gTranslate('core', "Return to _admin page"));
-
-	$iconElements[] = galleryIconLink(
-				makeGalleryUrl("stats-wizard.php"),
-				'navigation/return_to.gif',
-				gTranslate('core', "Back to stats-_wizard"));
+				gTranslate('core', "Return to admin page"));
 }
 
 $iconElements[] = galleryIconLink(
 				makeAlbumUrl(),
 				'navigation/return_to.gif',
-				gTranslate('core', "Return to _gallery"));
+				gTranslate('core', "Return to gallery"));
 
 $iconElements[] = LoginLogoutButton(makeGalleryUrl());
 
@@ -636,17 +635,23 @@ $navigator["pageVar"] = "set_albumListPage";
 $navigator["url"] = makeStatsUrl( $page );
 $navigator["maxPages"] = $lastpage;
 $navigator["spread"] = 6;
+$navigator["fullWidth"] = 100;
+$navigator["widthUnits"] = "%";
 $navigator["bordercolor"] = $borderColor;
 
+includeLayout('navtablebegin.inc');
 includeLayout('adminbox.inc');
+includeLayout('navtablemiddle.inc');
 
+echo "<!-- Begin top nav -->";
 if ($navigator["maxPages"] > 1) {
 	echo '<div class="g-navbar-top">';
 	includeLayout('navigator.inc');
 	echo '</div>';
 }
-
+includeLayout('navtableend.inc');
 echo languageSelector();
+echo "<!-- End top nav -->";
 
 if ($useCache ) {
 	readGalleryStatsCache($cacheFilename, $startPhoto, $photosPerPage );
@@ -654,7 +659,7 @@ if ($useCache ) {
 
 if (isset($stm)) {
 	$time = getmicrotime() - $time_start;
-	printf(gTranslate('core', "Data load time %d seconds."), $time);
+    	printf(gTranslate('core', "Data load time %d seconds."), $time);
 }
 
 /* Start of album layout style. */
@@ -667,13 +672,14 @@ else {
 	$style = '';
 }
 
-//echo '<br clear="all">';
+echo '<br clear="all">';
 
 $statsTable = new galleryTable();
 $statsTable->setColumnCount(2 * $cols);
 $statsTable->setAttrs(array(
 	'id' => 'statsTable',
 	'class' => 'g-vatable',
+	'width' => $navigator["fullWidth"] . $navigator["widthUnits"],
 	'border' => 0,
 	'cellspacing' => 7));
 
@@ -708,7 +714,7 @@ for ($j = $startPhoto; $j < $totalPhotosToDisplay && $j < $startPhoto + $photosP
 						'content' => '<div class="g-vathumb">'.
 									 "<a href=\"$statsUrl\">". $statsAlbum->getThumbnailTag($photoIndex, $thumbSize) . "</a>" .
 									 '</div>',
-						'cellArgs' => array('class' => 'g-vathumb-cell')));
+						'cellArgs' => array('class' => 'g-vathumb-cell', 'style' => 'vertical-align: top')));
 
 					//  Text Cell -->
 					$statsTable->addElement(array(
@@ -721,6 +727,7 @@ for ($j = $startPhoto; $j < $totalPhotosToDisplay && $j < $startPhoto + $photosP
 }
 
 echo $statsTable->render();
+
 
 if (isset($stm)) {
 	$time = getmicrotime() - $time_start;
@@ -761,15 +768,16 @@ echo "<br>";
 
 // <!-- bottom nav -->
 
+includeLayout('navtablebegin.inc');
 if ($navigator["maxPages"] > 1) {
 		echo '<div class="g-navbar-bottom">';
 		includeLayout('navigator.inc');
 		echo '</div>';
 	}
+includeLayout('navtableend.inc');
 
 echo languageSelector();
-
-includeTemplate('overall.footer');
+includeHtmlWrap("general.footer");
 
 if (!$GALLERY_EMBEDDED_INSIDE) { ?>
 </body>

@@ -2,7 +2,7 @@
 
 /**
  * Gallery SVN ID:
- * $Id: toggle.js 16543 2007-06-07 14:40:26Z jenst $
+ * $Id$
 */
 
 if(file_exists(dirname(dirname(__FILE__)) . '/config.php')) {

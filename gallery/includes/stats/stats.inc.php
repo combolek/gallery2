@@ -47,178 +47,120 @@ if (!isset($gallery) || !function_exists('gTranslate')) {
 }
 
 $stats['types'] = array (
-	'views'	=> array(
-			'type' => 'radio',
-			'default' => 'checked',
-			'name' =>'type',
-			'text' => gTranslate('core', "Sort by most viewed image first"),
-			'linktext' => gTranslate('core', "most viewed")
-	),
-	'date'	=> array(
-			'type' => 'radio',
-			'default' => '',
-			'name' =>'type',
-			'text' => gTranslate('core', "Sort by the latest added image first"),
-			'linktext' => gTranslate('core', "latest added")
-	),
-	'cdate'	=> array(
-			'type' => 'radio',
-			'default' => '',
-			'name' =>'type',
-			'text' => gTranslate('core', "Sort by image capture date"),
-			'linktext' => gTranslate('core', "latest shots")
-	),
-	'comments' => array(
-			'type' => 'radio',
-			'default' => '',
-			'name' =>'type',
-			'text' => gTranslate('core', "Show images with comments - latest are shown first"),
-			'linktext' => gTranslate('core', "latest comments")
-	),
-	/*
-	'ratings'	=> array(
-			'type' => 'radio',
-			'default' => '',
-			'name' =>'type',
-			'text' => gTranslate('core', "Show images with the highest ratings first"),
-			'linktext' => gTranslate('core', 'highest ratings')
-	),
-	*/
-	'random' => array(
-		'type' => 'radio',
-		'default' => '',
-		'name' =>'type',
-		'text' => gTranslate('core', "Show random images"),
-		'linktext' => gTranslate('core', "random images")
-	)
+	'views'		=> array('type' => 'radio',
+				 'default' => 'checked',
+				 'name' =>'type',
+				 'text' => _("Sort by most viewed image first"),
+				 'linktext' => _("most viewed")),
+	'date'		=> array('type' => 'radio',
+				 'default' => '',
+				 'name' =>'type',
+				 'text' => _("Sort by the latest added image first"),
+				 'linktext' => _("latest added")),
+	'cdate'		=> array('type' => 'radio',
+				 'default' => '',
+				 'name' =>'type',
+				 'text' => _("Sort by image capture date"),
+				 'linktext' => _("latest shots")),
+	'comments'	=> array('type' => 'radio',
+				 'default' => '',
+				 'name' =>'type',
+				 'text' => _("Show images with comments - latest are shown first"),
+				 'linktext' => _("latest comments")),
+/*
+	'ratings'	=> array('type' => 'radio',
+				 'default' => '',
+				 'name' =>'type',
+				 'text' => _("Show images with the highest ratings first"),
+				 'linktext' => _('highest ratings')),
+*/
+	'random'	=> array('type' => 'radio',
+				 'default' => '',
+				 'name' =>'type',
+				 'text' => _("Show random images"),
+				 'linktext' => _("random images"))
 );
 
 $stats['options'] = array (
-	'sca' => array(
-			'type' => 'checkbox',
-			'default' => 'checked',
-			'text' => gTranslate('core', "Show caption")
-	),
-	'sal' => array(
-			'type' => 'checkbox',
-			'default' => 'checked',
-			'text' => gTranslate('core', "Show album link")
-	),
-	'sde' => array(
-			'type' => 'checkbox',
-			'default' => 'checked',
-			'text' => gTranslate('core', "Show description")
-	),
-	'sco' => array(
-			'type' => 'checkbox',
-			'default' => 'checked',
-			'text' => gTranslate('core', "Show comments")
-	),
-	'scd' => array(
-			'type' => 'checkbox',
-			'default' => '',
-			'text' => gTranslate('core', "Show capture date")
-	),
-	'sud' => array(
-			'type' => 'checkbox',
-			'default' => '',
-			'text' => gTranslate('core', "Show upload date")
-	),
-	'svi' => array(
-			'type' => 'checkbox',
-			'default' => '',
-			'text' => gTranslate('core', "Show number of views")
-	),
-	'sac' => array(
-			'type' => 'checkbox',
-			'default' => 'checked',
-			'text' => gTranslate('core', "Show the add comment link")
-	),
-	/*	'svo' => array(
-				'type' => 'checkbox',
-				'default' => '',
-				'text' => gTranslate('core', "Show the number of 'simplified' votes an image has")),
-				'sav'		=> array(
-				'type' => 'checkbox',
-				'default' => '',
-				'text' => gTranslate('core', "Show the add vote link")),
-	*/
-	'sao' => array(
-			'type' => 'checkbox',
-			'default' => '',
-			'text' => gTranslate('core', "Show the album owners")
-	),
-	'stm' => array(
-		'type' => 'checkbox',
-		'default' => '',
-		'text' => gTranslate('core', "Show timing basic information")
-	)
+	'sca'		=> array('type' => 'checkbox',
+				 'default' => 'checked',
+				 'text' => _("Show caption")),
+	'sal'		=> array('type' => 'checkbox',
+				 'default' => 'checked',
+				 'text' => _("Show album link")),
+	'sde'		=> array('type' => 'checkbox',
+				 'default' => 'checked',
+				 'text' => _("Show description")),
+	'sco'		=> array('type' => 'checkbox',
+				 'default' => 'checked',
+				 'text' => _("Show comments")),
+	'scd'		=> array('type' => 'checkbox',
+				 'default' => '',
+				 'text' => _("Show capture date")),
+	'sud'		=> array('type' => 'checkbox',
+				 'default' => '',
+				 'text' => _("Show upload date")),
+	'svi'		=> array('type' => 'checkbox',
+				 'default' => '',
+				 'text' => _("Show number of views")),
+	'sac'		=> array('type' => 'checkbox',
+				 'default' => 'checked',
+				 'text' => _("Show the add comment link")),
+/*	'svo'		=> array('type' => 'checkbox',
+				 'default' => '',
+				 'text' => _("Show the number of 'simplified' votes an image has")),
+	'sav'		=> array('type' => 'checkbox',
+				 'default' => '',
+				 'text' => _("Show the add vote link")),
+*/
+	'sao'		=> array('type' => 'checkbox',
+
+				 'default' => '',
+				 'text' => _("Show the album owners")),
+	'stm'		=> array('type' => 'checkbox',
+				  'default' => '',
+				 'text' => _("Show timing basic information"))
 );
 
 $stats['layout'] = array(
-	'reverse' => array(
-			'type' => 'checkbox',
-			'default' => '',
-			'text' => gTranslate('core', "Reverses sort order - see above")
-	),
-	'tsz' => array(
-			'type' => 'text',
-			'default' => (isset($gallery->app->default["thumb_size"])) ? $gallery->app->default["thumb_size"]:100,
-			'text' => gTranslate('core', "Thumb size in pixels")
-	),
-	'ppp' => array(
-			'type' => 'text',
-			'default' => '5',
-			'text' => gTranslate('core', "Controls the number of photos displayed on one page")
-	),
-	'total' => array(
-			'type' => 'text',
-			'default' => '-1',
-			'text' => gTranslate('core', "Controls the maximum number of photos listed, -1 for all")
-	),
-	'showGrid' => array(
-			'type' => 'checkbox',
-			'default' => '',
-			'text' => gTranslate('core', "Use Grid Layout")
-	),
-	'rows' => array(
-			'type' => 'text',
-			'default' => (isset($gallery->app->default["rows"])) ? $gallery->app->default["rows"] : 3,
-			'text' => gTranslate('core', "Controls the number of rows to display in grid mode")
-	),
-	'cols' => array(
-			'type' => 'text',
-			'default' => (isset($gallery->app->default["cols"])) ? $gallery->app->default["cols"] : 3,
-			'text' => gTranslate('core', "Controls the number of columns to display in grid mode")
-	),
-	'addLinksPos' => array(
-			'type' => 'select',
-			'options' => array (
-				'abovecomments'	=> gTranslate('core', "Above the comments"),
-				'oncaptionline'	=> gTranslate('core', "In the caption line"),
-				'abovestats'	=> gTranslate('core', "Above the stats"),
-				'belowcomments'	=> gTranslate('core', "Below the comments")
-			),
-			'text' => gTranslate('core', "Position of the add vote and add comment links")
-	)
-);
+	'reverse'	=> array('type' => 'checkbox',
+				 'default' => '',
+				 'text' => _("Reverses sort order - see above")),
+	'tsz'		=> array('type' => 'text',
+				 'default' => (isset($gallery->app->default["thumb_size"])) ? $gallery->app->default["thumb_size"]:100,
+				 'text' => _("Thumb size in pixels")),
+	'ppp'		=> array('type' => 'text',
+				 'default' => '5',
+				 'text' => _("Controls the number of photos displayed on one page")),
+	'total'		=> array('type' => 'text',
+				 'default' => '-1',
+				 'text' => _("Controls the maximum number of photos listed, -1 for all")),
+	'showGrid'		=> array('type' => 'checkbox',
+				 'default' => '',
+				 'text' => _("Use Grid Layout")),
+	'rows'		=> array('type' => 'text',
+				 'default' => (isset($gallery->app->default["rows"])) ? $gallery->app->default["rows"] : 3,
+				 'text' => _("Controls the number of rows to display in grid mode")),
+	'cols'		=> array('type' => 'text',
+				 'default' => (isset($gallery->app->default["cols"])) ? $gallery->app->default["cols"] : 3,
+				 'text' => _("Controls the number of columns to display in grid mode")),
+	'addLinksPos'	=> array('type' => 'select',
+				 'options' => array ('abovecomments'	=> _("Above the comments"),
+						     'oncaptionline'	=> _("In the caption line"),
+						     'abovestats'	=> _("Above the stats"),
+						     'belowcomments'	=> _("Below the comments")),
+				 'text' => _("Position of the add vote and add comment links")));
 
 $stats['filter'] = array(
-	'ty' => array(
-			'type' => 'text',
-			'default' => '',
-			'text' => gTranslate('core', "Filter by year")
-	),
-	'tm' => array(
-			'type' => 'text',
-			'default' => '',
-			'text' => gTranslate('core', "Filter by month")
-	),
-	'td' => array(
-			'type' => 'text',
-			'default' => '',
-			'text' => gTranslate('core', "Filter by day")
-	),
+	'ty'		=> array('type' => 'text',
+				 'default' => '',
+				 'text' => _("Filter by year")),
+	'tm'		=> array('type' => 'text',
+				 'default' => '',
+				 'text' => _("Filter by month")),
+	'td'		=> array('type' => 'text',
+				 'default' => '',
+				 'text' => _("Filter by day")),
 );
 
 /**
@@ -259,23 +201,20 @@ function stats_showBlock($block, $caption=null) {
 		switch ($attr['type']) {
 			case 'radio':
 				echo "\n\t". '<td width="30%"><input type="'. $attr['type'] .'" name="'. $attr['name'] .'" value="'. $option .'" '. $attr['default'] .'></td>';
-			break;
-
+				break;
 			case 'checkbox':
 				echo "\n\t". '<td width="30%"><input type="'. $attr['type'] .'" name="'. $option .'" value="1" '. $attr['default'] .'></td>';
-			break;
-
+				break;
 			case 'select':
 				echo "\n\t". '<td width="30%"><select name="'. $option .'">';
 				foreach ($attr['options'] as $optkey => $optvalue) {
 					echo "\n\t\t<option value=\"$optkey\">$optvalue</option>";
 				}
 				echo "\n\t</select></td>";
-			break;
-
+				break;
 			default:
 				echo "\n\t". '<td width="30%"><input type="'. $attr['type'] .'" name="'. $option .'" value="'. $attr['default'] .'" size="5"></td>';
-			break;
+				break;
 		}
 		echo "\n</tr>";
 	}

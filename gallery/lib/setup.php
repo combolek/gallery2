@@ -21,30 +21,35 @@
  */
 
 function evenOdd_row($fields) {
-	$html = '';
+	global $shortdescWidth;
 
-	$f0 = $fields[0];
-	if ($fields[4]) {
-		$f0 .= '&nbsp;<span class="g-littlered">*</span>';
+	if(empty($shortdescWidth)) {
+		$shortdescWidth = '40%';
 	}
+    $html = '';
 
-	if ($fields[3] == "block_start") {
-		$html .= "\n<tr>" .
-		"\n\t<td class=\"g-shortdesc\" colspan=\"2\">$f0<p>" . $fields[2] ."</p></td>" .
-		"\n</tr>";
-	}
-	else {
-		$html .= "\n<tr>" .
-		"\n\t<td class=\"g-shortdesc\" width=\"30%\">$f0</td>" .
-		"\n\t<td class=\"g-shortdesc\">$fields[1]</td>" .
-		"\n</tr>";
+    $f0 = $fields[0];
+    if ($fields[4]) {
+        $f0 .= '&nbsp;<span class="littlered">*</span>';
+    }
 
-		if (!empty($fields[2])) {
-			$html .= "\n\t<tr><td class=\"g-longdesc\" colspan=\"2\">$fields[2]</td></tr>";
-		}
-	}
+    if ($fields[3] == "block_start") {
+        $html .= "\n<tr>" .
+        "\n\t<td class=\"shortdesc\" colspan=\"2\">$f0<p>" . $fields[2] ."</p></td>" .
+        "\n</tr>";
+    }
+    else {
+        $html .= "\n<tr>" .
+        "\n\t<td class=\"shortdesc\" width=\"$shortdescWidth\">$f0</td>" .
+        "\n\t<td class=\"shortdesc\">$fields[1]</td>" .
+        "\n</tr>";
 
-	return $html;
+        if (!empty($fields[2])) {
+            $html .= "\n\t<tr><td class=\"desc\" colspan=\"2\">$fields[2]</td></tr>";
+        }
+    }
+
+    return $html;
 }
 
 function make_fields($key, $arr) {
@@ -84,10 +89,6 @@ function make_fields($key, $arr) {
 	else if (isset($arr['type']) && $arr['type'] == 'print_services') {
 		$col2 = form_print_services($key, $arr);
 	}
-	else if (isset($arr['type']) && $arr['type'] == 'byteCalculator') {
-		$arr['name'] = $key;
-		$col2 = showByteCalculator($key, $arr['value']);
-	}
 	else {
 		$col2 ='';
 	}
@@ -113,46 +114,13 @@ function form_textarea($key, $arr) {
 }
 
 function form_input($key, $arr) {
-	$html = '';
+    $type  = (isset($arr['type'])) ? 'type="'.$arr['type'].'"' : '';
 
-	$name  = (isset($arr['name'])) ? $arr['name'] : $key;
+    $attrs = (isset($arr['attrs'])) ? generateAttrs($arr['attrs']) : '';
 
-	if($arr['type'] == 'hidden') {
-		return "\n<input name=\"$name\" type=\"hidden\" value=\"{$arr['value']}\">";
-	}
+    $name  = (isset($arr['name'])) ? $arr['name'] : $key;
 
-	$multiInput = false;
-	if(!empty($arr['multiInput'])) {
-		$arr['attrs']['id'] = $name;
-		$name .= '[]';
-		$multiInput = true;
-	}
-	$autocomplete = (isset($arr['autocomplete'])) ? true : false;
-
-	$attrs = (isset($arr['attrs'])) ? $arr['attrs'] : array();
-
-	if(is_array($arr['value'])) {
-		foreach ($arr['value'] as $subkey => $value) {
-			$html .= gInput($arr['type'], $name, null, false, $value, $attrs, $multiInput,
-							$autocomplete);
-
-			if ($multiInput) {
-				$html .= gInput($arr['type'], $name, null, false, $value, $attrs, false, false);
-			}
-
-			$html .= "\n<br>";
-			$multiInput = false;
-			$autocomplete = false;
-		}
-	}
-	else {
-		$attrs['class'] = 'floatleft';
-		$html = gInput($arr['type'], $name, null, false, $arr['value'], $attrs,
-					   $multiInput, $autocomplete);
-	}
-
-	return $html;
-
+    return "<input $type name=\"$name\" value=\"". $arr['value'] ."\" $attrs>";
 }
 
 function form_password($key, $arr) {
@@ -211,7 +179,7 @@ function form_nv_pairs($key, $arr) {
 function form_choice($key, $arr) {
 	$attrs  = !empty($arr['attrs']) ? $arr['attrs'] : array();
 
-	return drawSelect($key, $arr["choices"], $arr["value"], 1, $attrs);
+	return drawSelect($key, $arr["choices"], $arr["value"], 1, $attrs, true);
 }
 
 function form_multiple_choice($key, $arr) {
@@ -1410,6 +1378,16 @@ function inOpenBasedir($dir) {
 	return false;
 }
 
+function make_separator($key, $arr)  {
+    $html = "\n\t<div class=\"separator\">{$arr["title"]}</div>";
+
+    if(!empty($arr["desc"])) {
+		$html .= "\n<div class=\"desc\">{$arr["desc"]}</div>";
+	}
+
+    return $html;
+}
+
 function array_stripslashes($subject) {
 	if (is_string($subject)) {
 		return stripslashes($subject);
@@ -1545,8 +1523,8 @@ function verify_email($emailMaster) {
 	    !strstr($gallery->session->configForm->emailGreeting, "!!NEWPASSWORDLINK!!" ))
 	{
 	       	$fail[]= sprintf(gTranslate('common', "You must include %s or %s in your welcome email."),
-				 "<b>!!PASSWORD!!</b>",
-				 "<b>!!NEWPASSWORDLINK!!</b>");
+				"<b>!!PASSWORD!!</b>",
+				"<b>!!NEWPASSWORDLINK!!</b>");
 	}
 
 	return array($success, $fail);
@@ -1564,24 +1542,19 @@ function check_ecards($num) {
 	return array($success, $fail);
 }
 
+function newIn($version) {
+	$buf = "\n\t<br><font color=blue><b>(";
+	$buf .= sprintf(gTranslate('common', "this is new in version %s."), $version);
+	$buf .= ")</b></font>";
+	return $buf;
+}
 function returnToConfig() {
-	$link = galleryLink(
-		makeGalleryUrl('setup/index.php', array('refresh' => 1, 'this_page' => 'check')),
-		gTranslate('common', "_Configuration Wizard"), array(), '', true);
-
-	return $link;
+	$buf = sprintf(gTranslate('common', "Return to %s."), '<a href="index.php">' .
+			gTranslate('common', "Configuration Wizard") . '</a>');
+	return $buf;
 }
-
-function returnToDiag() {
-	$link = galleryLink(
-		makeGalleryUrl('setup/diagnostics.php'),
-		gTranslate('common', "Gallery Dia_gnostics Page"), array(), '', true);
-
-	return $link;
-}
-
 if (!function_exists('array_filter1')) {
-	function array_filter1($input, $function=NULL) {
+	function array_filter1($input, $function = NULL) {
 		$output = array();
 		foreach ($input as $name => $value) {
 			if ($function && $function($value)) {
@@ -1816,6 +1789,88 @@ function checkVersions($verbose = false) {
 	return $versionStatus;
 }
 
+/**
+ * This function creates a table with tabs for navigating through Config Sections (Groups).
+ *
+ * It analyses a given Array which is in config_data Style:
+ *
+ * "<group_key>" => array (
+ *			"type"		=>
+ *			"name"		=>
+ *			"default"	=>
+ *			"title"		=>
+ *			"desc"		=>
+ *        )
+ *
+ * "type"		: Indicates that a group starts or ends. Possible values: 'group_start' , 'group_end'.
+ * "name"		: To identify the group you have to set a name.
+ * "default"		: Indicates wether the group is visible or not. Possible values: 'inlineÄ', 'none'.
+ * "title"		: When the group is visible, this title is displayed in the header line.
+ * "desc"		: This optional Description is displayed under the title.
+ * "contains_required"	: Indicates that this Group contains field that are required
+ *
+ * Note: - The first group which default is 'inline' will the group that is selected when opening the Page.
+ *	 - You always need a group_end for a group. Otherwise everything below will belong to the group.
+ *
+ * @author Jens Tkotz
+ */
+
+function makeSectionTabs($array, $initialtab = '', $sortByTitle = false, $visibilityKeyword = '', $visibilityValue = '') {
+	$tabs = array();
+
+	foreach ($array as $key => $var) {
+		if(isset($var['type']) && $var['type'] == 'group_start') {
+			$tabs[$key] = $var;
+		}
+	}
+
+	if ($sortByTitle) {
+		array_sort_by_fields($tabs, 'title');
+	}
+
+	echo "\n<div class=\"g-tabset\" style=\"float:". langleft() ."\">\n";
+
+	foreach ($tabs as $cell) {
+		$attrList = array();
+
+		if (($cell['default'] == 'inline' && !$initialtab) || $initialtab == $cell['name']) {
+			$attrList['class'] = 'tab-hi';
+			if (empty($initialtab)) {
+				$initialtab = $cell['name'];
+			}
+		}
+
+		$attrList['id'] = 'tab_'. $cell['name'];
+		$attrList['onClick'] = "section_tabs.toggle('" . $cell['name'] ."')";
+		$attrList['style'] = "float:". langleft();
+		$text = $cell['title'];
+		if (!empty($cell['contains_required'])) {
+			$text .= '<span class="g-littlered">*</span>';
+		}
+
+		echo galleryLink('', $text, $attrList);
+	}
+
+	echo "</div>\n";
+
+    $i = 0;
+	echo '<script language="JavaScript" type="text/javascript">';
+	echo "\n\t". 'var Sections=new Array()';
+	foreach ($tabs as $key => $var) {
+		if(isset($var['type']) && $var['type'] == 'group_start') {
+			echo "\n\tSections[$i] ='". $var['name'] ."' ;";
+			$i++;
+		}
+	}
+
+	echo "\n\tsection_tabs = new configSection('$initialtab')";
+	insertSectionToggle();
+
+	echo "\n</script>\n";
+
+	return $initialtab;
+}
+
 function configLogin($target) {
 	global $gallery;
 
@@ -1930,111 +1985,52 @@ function getCheckStatus($result, $check) {
 }
 
 function checkImageMagick($cmd) {
-	global $gallery;
-	global $debugfile;
+    global $gallery;
+    global $show_details;
+    global $debugfile;
 
-	$status = '';
-	$cmd = fs_executable($gallery->app->ImPath . "/$cmd");
-	$result[] = fs_import_filename($cmd);
-	$ok = true;
+    $cmd = fs_executable($gallery->app->ImPath . "/$cmd");
+    $result[]= fs_import_filename($cmd);
 
-	if (inOpenBasedir($gallery->app->ImPath)) {
-		if (! fs_file_exists($cmd)) {
-			$result['error'] = sprintf(gTranslate('common', "File %s does not exist."), $cmd);
-			return $result;
-		}
-	}
+    $ok = 1;
+    if (inOpenBasedir($gallery->app->ImPath)) {
+        if (! fs_file_exists($cmd)) {
+            $result['error'] = sprintf(gTranslate('common', "File %s does not exist."), $cmd);
+            $ok = 0;
+        }
+    }
 
-	$cmd .= ' -version';
-	fs_exec($cmd, $results, $status, $debugfile);
+    fs_exec("$cmd -version", $results, $status, $debugfile);
 
-	if ($status != $gallery->app->expectedExecStatus) {
-		$result['error'] = sprintf(gTranslate('common', "Expected status: %s, but actually received status %s."),
-			$gallery->app->expectedExecStatus,
-			$status);
-		return $result;
-	}
+    if ($ok) {
+        if ($status != $gallery->app->expectedExecStatus) {
+            $result['error'] = sprintf(gTranslate('common', "Expected status: %s, but actually received status %s."),
+            $gallery->app->expectedExecStatus,
+            $status);
+            $ok = 0;
+        }
+    }
 
-	/*
-	* Windows does not appear to allow us to redirect STDERR output, which
-	* means that we can't detect the version number.
-	*/
-	if (getOS() == OS_WINDOWS) {
-		$result['warning'] = "<i>" . gTranslate('common', "can't detect version on Windows.") ."</i>";
-	}
-	else if (eregi("version: (.*) http(.*)$", $results[0], $regs)) {
-		$version = $regs[1];
-		$result['ok'] = sprintf(gTranslate('common', "OK!  Version: %s"), $version);
-	}
-	else {
-		$result['error'] = $output[0];
-	}
+    /*
+    * Windows does not appear to allow us to redirect STDERR output, which
+    * means that we can't detect the version number.
+    */
+    if ($ok) {
+        if (getOS() == OS_WINDOWS) {
+            $version = "<i>" . gTranslate('common', "can't detect version on Windows.") ."</i>";
+        }
+        else if (eregi("version: (.*) http(.*)$", $results[0], $regs)) {
+            $version = $regs[1];
+        } else {
+            $result['error'] = $results[0];
+            $ok = 0;
+        }
+    }
 
-	return $result;
-}
-
-function checkNetPbm($cmd) {
-	global $gallery;
-	global $debugfile;
-
-	$status = '';
-	$cmd = fs_executable($gallery->app->pnmDir . "/$cmd");
-	$result[] = fs_import_filename($cmd);
-	$ok = true;
-
-	if (inOpenBasedir($gallery->app->pnmDir)) {
-		if (! fs_file_exists($cmd)) {
-			$result['error'] = sprintf(gTranslate('common', "File %s does not exist."), $cmd);
-			$ok = false;
-		}
-	}
-
-	$cmd .= " --version";
-
-	fs_exec($cmd, $results, $status, $debugfile);
-
-	if ($status != $gallery->app->expectedExecStatus) {
-		$result['error'] = sprintf(gTranslate('common', "Expected status: %s, but actually received status %s."),
-			$gallery->app->expectedExecStatus,
-			$status);
-
-		$ok = false;
-	}
-
-	/*
-	* Windows does not appear to allow us to redirect STDERR output, which
-	* means that we can't detect the version number.
-	*/
-	if ($ok) {
-		if (getOS() == OS_WINDOWS) {
-			$result['warning'] = "<i>" . gTranslate('common', "can't detect version on Windows") ."</i>";
-		} else {
-			$output = array();
-			if (file_exists($debugfile)) {
-				if ($fd = fs_fopen($debugfile, "r")) {
-					while (!feof($fd)) {
-						$output[] = fgets($fd, 4096);
-					}
-					fclose($fd);
-				}
-				unlink($debugfile);
-			}
-
-			if (eregi("using lib(pbm|netpbm) from netpbm version: netpbm (.*)[\n\r]$",  $output[0], $regs)) {
-				$version = $regs[2];
-				$result['ok'] = sprintf(gTranslate('common', "OK!  Version: %s"), $version);
-			} else {
-				$result['error'] = $output[0];
-				$ok = false;
-			}
-		}
-
-	}
-	else {
-		$result['error'] = gTranslate('common', "Unknown error occured.");
-	}
-
-	return $result;
+    if (! empty($ok)) {
+        $result['ok'] = sprintf(gTranslate('common', "OK!  Version: %s"), $version);
+    }
+    return $result;
 }
 
 /**
@@ -2097,7 +2093,7 @@ function useSMTP() {
 }
 
 function configError($msg) {
-	$html = '<div class="g-error" style="color: red;">' . $msg . '</div>';
+	$html = "<div class=\"g-error\">$msg</div>";
 
 	return $html;
 }

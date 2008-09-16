@@ -356,22 +356,6 @@ function isXSSclean($string, $level = 1) {
 }
 
 /**
- * Checkes whether a given string has a valid format for a groupId
- *
- * @param string $string
- * @return boolean
- * @author Jens Tkotz
- */
-function hasValidGroupIdFormat($string) {
-	if (ereg("^g_[0-9].*[0-9]$", $string)) {
-		return true;
-	}
-	else {
-		return false;
-	}
-}
-
-/**
  * Checks whether an albuname has unallowed chars
  *
  * @param string $name

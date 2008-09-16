@@ -43,7 +43,7 @@ function gTranslate($domain = null, $singular, $plural = '', $count = null, $non
 
 	$allowedDomain = array('config', 'common', 'core');
 	if(!in_array($domain, $allowedDomain)) {
-		return '<span class="g-error">'. ("-- Translation Domain wrong --") .'</span>';
+		return '<span class="error">'. ("-- Translation Domain wrong --") .'</span>';
 	}
 
 	if ($count == 0 && $nonetext != '') {
@@ -430,7 +430,7 @@ function initLanguage($sendHeader = true) {
 	}
 
 	/* Set Locale*/
-	setlocale(LC_ALL,$gallery->locale);
+	setlocale(LC_ALL, $gallery->locale);
 
 	if($gallery->language == 'tr_TR') {
 		setlocale(LC_CTYPE, 'C');
@@ -719,14 +719,14 @@ function isSupportedCharset($charset) {
 	 * Not all Gallery Charsets are supported by PHP, so only thoselisted are recognized.
 	 */
 	if (in_array($charset, $supportedCharsets) ||
-			 (version_compare(phpversion(), "4.3.2", ">=") && in_array($charset, $supportedCharsetsNewerPHP)) ) {
+	    (version_compare(phpversion(), "4.3.2", ">=") && in_array($charset, $supportedCharsetsNewerPHP)) ) {
 			return true;
-		}
-		else {
-			/* Unsupported Charset*/
-			return false;
-		}
 	}
+	else {
+		/* Unsupported Charset*/
+		return false;
+	}
+}
 
 /**
  * These are custom fields that are turned on and off at an album
@@ -775,10 +775,10 @@ function languageSelector() {
 			$html .= "\n" . '</script>';
 		}
 
-		$html .= makeFormIntro('#', array('name' => 'MLForm', 'class' => 'langselector'));
+		$html .= makeFormIntro('#', array('name' => 'MLForm', 'class' => 'MLForm'));
 		$langSelectTable = new galleryTable();
 		$langSelectTable->setColumnCount(20);
-		$langSelectTable->setAttrs(array('align' => langRight()));
+		$langSelectTable->setAttrs(array('class' => 'languageSelector', 'align' => langRight()));
 
 		$nls = getNLS();
 
@@ -839,7 +839,8 @@ function languageSelector() {
 					$options,
 					$nls['language'][$gallery->language],
 					1,
-					array('style' => 'font-size:8pt;', 'onChange' => 'ML_reload()')
+					array('style' => 'font-size:8pt;', 'onChange' => 'ML_reload()'),
+					true
 			);
 
 			$langSelectTable->addElement(array('content' => $content));

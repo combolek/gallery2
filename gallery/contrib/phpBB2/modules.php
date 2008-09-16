@@ -61,7 +61,8 @@ switch ($_REQUEST['op']) {
 		if (ereg("\.\.",$name) || ereg("\.\.",$file)) {
 			echo 'Nice try :-)';
 			break;
-		} else {
+		}
+		else {
 			include(MODULES_PATH."$name/$file.$phpEx");
 		}
 		break;

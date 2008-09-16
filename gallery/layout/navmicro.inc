@@ -3,9 +3,7 @@
 
 global $navigator, $full, $gallery, $navc;
 
-if($gallery->album->fields['nav_thumbs'] == 'yes') {
-	$navc++;
-}
+$navc++;
 
 if(includeTemplate('navmicro.tpl')) {
 	exit;
@@ -42,7 +40,7 @@ if ( $gallery->album->fields['nav_thumbs_first_last'] == "yes" ) {
 					$gallery->album->fields['nav_thumbs_size'],
 					array('class' => 'nav_micro_first_img'));
 
-	$navThumbsFirst = galleryLink($fpUrl, $fpImage, array(), '', false, false);
+	$navThumbsFirst = galleryLink($fpUrl, $fpImage);
 
 
 	$lpImage = $gallery->album->getThumbnailTagById(
@@ -50,7 +48,7 @@ if ( $gallery->album->fields['nav_thumbs_first_last'] == "yes" ) {
 					$gallery->album->fields['nav_thumbs_size'],
 					array('class' => 'nav_micro_last_img'));
 
-	$navThumbsLast = galleryLink($lpUrl, $lpImage, array(), '', false, false);
+	$navThumbsLast = galleryLink($lpUrl, $lpImage);
 
 }
 else {
@@ -77,7 +75,7 @@ if ($gallery->album->fields['nav_thumbs_style'] == "dynamic") {
 							$gallery->album->fields['nav_thumbs_size'],
 							array('class' => 'nav_micro_img'));
 
-		$navThumbsPrev .= galleryLink($ppUrl, $ppImage, array(), '', false, false);
+		$navThumbsPrev .= galleryLink($ppUrl, $ppImage);
 	}
 
 	/* Create a list of the next thumbs, starting from right after current. */
@@ -95,7 +93,7 @@ if ($gallery->album->fields['nav_thumbs_style'] == "dynamic") {
 							$gallery->album->fields['nav_thumbs_size'],
 							array('class' => 'nav_micro_img'));
 
-		$navThumbsNext .= galleryLink($npUrl, $npImage, array(), '', false, false);
+		$navThumbsNext .= galleryLink($npUrl, $npImage);
 	}
 
 	/* Create the current thumb. */
@@ -156,44 +154,38 @@ if ($gallery->album->fields['nav_thumbs_style'] == "fixed") {
 								array('class' => 'nav_micro_img'));
 		}
 
-		$navBlogThumb .= galleryLink($navBlogUrl, $navBlogThumbImage, array(), '', false, false);
+		$navBlogThumb .= galleryLink($navBlogUrl, $navBlogThumbImage);
 	}
 }
 
-if($gallery->album->fields['nav_thumbs'] == 'yes') {
-	if($navc < 2) {
-		$id = 'id="g-navtable"';
+if($navc < 2) {
+	$id = 'g-navtable';
+	if ($navpage > 0) {
+		$prevPage = $navigator["allIds"][$navpage-1];
+		$ppUrl    = makeAlbumUrl($gallery->session->albumName, $prevPage, ($full) ? array('full' => 1) : NULL);
 
-		if ($navpage > 0) {
-			$prevPage = $navigator["allIds"][$navpage-1];
-			$ppUrl    = makeAlbumUrl($gallery->session->albumName, $prevPage, ($full) ? array('full' => 1) : NULL);
-
-			echo galleryLink($ppUrl, '', array('id' => "g-navmicro-backward_$navc"));
-		}
-
-		if ($navpage < $navcount-1) {
-			$nextPage = $navigator["allIds"][$navpage+1];
-			$npUrl	  = makeAlbumUrl($gallery->session->albumName, $nextPage, ($full) ? array('full' => 1) : NULL);
-
-			echo galleryLink($npUrl, '', array('id' => "g-navmicro-forward_$navc"));
-		}
+		echo galleryLink($ppUrl, '', array('id' => "g-navmicro-backward_$navc"));
 	}
-	else {
-		$id = 'id="g-navtable-bottom"';
+
+	if ($navpage < $navcount-1) {
+		$nextPage = $navigator["allIds"][$navpage+1];
+		$npUrl	  = makeAlbumUrl($gallery->session->albumName, $nextPage, ($full) ? array('full' => 1) : NULL);
+
+		echo galleryLink($npUrl, '', array('id' => "g-navmicro-forward_$navc"));
 	}
 }
 else {
-	$id = '';
+	$id = 'g-navtable-bottom';
 }
 
 ?>
 <!-- Microthumb Photo Navigator -->
 <?php if ($gallery->album->fields['nav_thumbs_style'] == 'dynamic') :?>
 
-<table width="100%" align="center" <?php echo $id; ?> dir="<?php echo $gallery->direction; ?>">
+<table width="100%" align="center" id="<?php echo $id; ?>" dir="<?php echo $gallery->direction; ?>">
 <tr>
 	<td><?php echo $navThumbsFirst; ?></td>
-	<td nowrap width="40%" class="right"><?php echo $navThumbsPrev; ?></td>
+	<td nowrap width="40%" align="right"><?php echo $navThumbsPrev; ?></td>
 	<td width="5"><?php echo $navThumbsCur; ?></td>
 	<td nowrap width="40%" align="left"><?php echo $navThumbsNext; ?></td>
 	<td><?php echo $navThumbsLast; ?></td>
@@ -202,7 +194,7 @@ else {
 
 <?php else : ?>
 
-<table width="100%" align="center" <?php echo $id; ?> dir="<?php echo $gallery->direction; ?>">
+<table width="100%" align="center" id="<?php echo $id; ?>" dir="<?php echo $gallery->direction; ?>">
 <tr>
 	<td><?php echo $navThumbsFirst; ?></td>
 	<td colspan="3" align="center"><?php echo $navBlogThumb; ?></td>
@@ -211,7 +203,7 @@ else {
 </table>
 <?php endif ?>
 <?php
-if($gallery->app->comments_addType != "inside" && $gallery->album->fields['nav_thumbs'] == 'yes') {
+if($gallery->app->comments_addType != "inside") {
 	echo jsHtml('arrowkey_nav.js');
 }
 

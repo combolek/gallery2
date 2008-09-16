@@ -19,7 +19,8 @@
  *
  * $Id$
  */
-
+?>
+<?php
 /**
  * @package Add Photos
  */

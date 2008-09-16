@@ -23,7 +23,7 @@
 		$class = $index % 2 ? 'dark' : 'light';
 
 		if (($localeData['plugins']['core']['percentDone'] < 50 || $localeData['plugins']['common']['percentDone'] <40) &&
-		     $pluginData['percentDone'] < 50) {
+		     $pluginData['percentDone'] <50) {
 			$wclass = 'kicked';
 		}
 		else {

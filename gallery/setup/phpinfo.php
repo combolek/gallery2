@@ -21,9 +21,7 @@
  */
 
 /* load necessary functions */
-require (dirname(__FILE__) . '/init.php');
-	
-configLogin(basename(__FILE__));
-phpinfo(); 
-
+	require (dirname(__FILE__) . '/init.php');
+	configLogin(basename(__FILE__));
+	phpinfo();
 ?>

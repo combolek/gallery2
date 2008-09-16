@@ -35,13 +35,13 @@ if (empty($hash) || empty($uname)) {
 	exit;
 }
 
-	$tmpUser = $gallery->userDB->getUserByUsername($uname);
+$tmpUser = $gallery->userDB->getUserByUsername($uname);
 
 // Invalid username given
 if (empty($tmpUser)) {
-			showInvalidReqMesg();
-			exit;
-		}
+	showInvalidReqMesg();
+	exit;
+}
 
 // Given Hash is wrong
 if(!$tmpUser->checkRecoverPasswordHash($hash)) {
@@ -107,7 +107,7 @@ if (!empty($save)) {
 		echo gallery_success(gTranslate('core', "The password was successfully saved."));
 		echo "\n<br>";
 		echo gButton('main', gTranslate('core', "Go to Gallery"), "location.href='". makeGalleryUrl() ."'");
-		includeTemplate('overall.footer');
+		includeHtmlWrap("popup.footer");
 		exit;
 	}
 }
@@ -132,16 +132,16 @@ echo "\n</div>";
 
 echo makeFormIntro('new_password.php', array('name' => 'usermodify_form', 'style' => 'padding: 15px 50px 0 50px '));
 
-include(dirname(__FILE__) . '/layout/userData.inc');
+include(dirname(__FILE__) . '/html/userData.inc');
 
 ?>
 <p>
 <?php echo gInput('hidden', 'hash', null, false, $hash); ?>
-<?php echo gSubmit('save', gTranslate('core', "_Save")); ?>
-<?php echo gButton('cancel', gTranslate('core', "C_ancel"), "location.href='". $gallery->app->photoAlbumURL ."'"); ?>
+<?php echo gSubmit('save', gTranslate('core', "Save")); ?>
+<?php echo gButton('cancel', gTranslate('core', "Cancel"), "location.href='". $gallery->app->photoAlbumURL ."'"); ?>
 </form>
 
-<?php includeTemplate('overall.footer'); ?>
+</div>
 
 </body>
 </html>

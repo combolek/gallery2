@@ -99,25 +99,11 @@ class Image {
 		return $changed;
 	}
 
-	/**
-	 * Resizes the resized version of an image, deletes it, or copy one over.
-	 *
-	 * @param string	$dir
-	 * @param integer	$target
-	 * @param integer	$filesize
-	 * @param string	$pathToResized
-	 */
-	function resize($dir, $target, $filesize, $pathToResized, $full = false) {
+	function resize($dir, $target, $filesize, $pathToResized) {
 		global $gallery;
 
 		// getting rid of the resized image
 		if (stristr($target, "orig")) {
-
-			// Something went wrong. We dont want to remove the resized in this case.
-			if($full) {
-				return;
-			}
-
 			list($w, $h) = getDimensions("$dir/$this->name.$this->type");
 
 			$this->width = $w;
@@ -133,73 +119,24 @@ class Image {
 			$name = $this->name;
 			$type = $this->type;
 
-			if($full) {
-				$filename = $name;
-			}
-			else {
-				$filename = "$name.sized";
-			}
-
 			if ($pathToResized) {
-				$ret = copy($pathToResized, "$dir/$filename.$this->type");
+				$ret = copy($pathToResized,"$dir/$name.sized.$this->type");
 			}
 			else {
-				$ret = resize_image("$dir/$name.$type", "$dir/$filename.$this->type", $target, $filesize, $full);
+				$ret = resize_image("$dir/$name.$type", "$dir/$name.sized.$this->type", $target, $filesize);
 			}
 
 			#-- resized image is not always a jpeg ---
 			if ($ret == 1) {
-				list($w, $h) = getDimensions("$dir/$filename.$this->type");
-
-				if($full) {
-					$this->name		= $filename;
-					$this->raw_width	= $w;
-					$this->raw_height	= $h;
-				}
-				else {
-					$this->resizedName	= $filename;
-					$this->width		= $w;
-					$this->height		= $h;
-				}
+				$this->resizedName = "$name.sized";
+				list($w, $h) = getDimensions("$dir/$name.sized.$this->type");
+				$this->width = $w;
+				$this->height = $h;
 			}
 			elseif ($ret == 2) {
 				$this->resize($dir, "orig", 0, $pathToResized);
 			}
 		}
-	}
-
-	/**
-	 * Crops an image.
-	 * The width and height give the size of the image that remains after cropping
- 	 * The offsets specify the location of the upper left corner of the cropping region
- 	 * measured downward and rightward with respect to the upper left corner of the image.
-	 *
-	 * @param string $dir	Path to the album
-	 * @param int $offsetX
-	 * @param int $offsetY
-	 * @param int $width
-	 * @param int $height
-	 * @param boolean $cropResized	If true, then the resized version is cropped. Otherwise the full.
-	 * @author Jens Tkotz
-	 */
-	function crop($dir, $offsetX, $offsetY, $width, $height, $cropResized = false) {
-		global $gallery;
-
-		$name = $this->name;
-		$type = $this->type;
-
-		if($cropResized) {
-			$path = "$dir/${name}.sized.$type";
-			$this->width = $width;
-			$this->height = $height;
-		}
-		else {
-			$path = "$dir/$name.$type";
-			$this->raw_width = $width;
-			$this->raw_height = $height;
-		}
-
-		cut_image($path, $path, $offsetX, $offsetY, $width, $height);
 	}
 
 	function delete($dir) {
