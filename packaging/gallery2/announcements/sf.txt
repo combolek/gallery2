@@ -1,0 +1,14 @@
+Gallery 2.1.2 Security Fix Release
+
+Gallery 2.1.2 is now available for download. This release adds no new features. It fixes a minor information leakage in Gallery 2.1 and 2.1.1a and a major session ID disclosure in all versions prior to Gallery 2.1. Note that these flaws only affect installations where Gallery's storage folder is accessible directly from the web, which we strongly discourage during the installation process.
+
+As always before you ask for help, please, please read the README -- we've made an effort to answer all of your questions there. Especially read the known issues section. If you're upgrading, be sure to scan the super easy updating instructions first. Then head on over to the G2 Forums and let us know what you think!
+
+Thanks for your continued support!
+
+Links:
+  README:     http://gallery.menalto.com/files/README-2.1.2.html
+  Download:   http://codex.gallery2.org/index.php/Gallery2:Download
+  Upgrading:  http://codex.gallery2.org/index.php/Gallery2:Upgrading_to_2.1.x
+  G2 Forums:  http://gallery.menalto.com/forums
+
