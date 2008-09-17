@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Image Block 1.1.8\n"
+"Project-Id-Version: Gallery: Image Block 1.1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-04-06 11:14+0900\n"
 "PO-Revision-Date: 2006-04-06 11:36+0900\n"
@@ -41,6 +41,24 @@ msgstr "무작위, 가장 최근또는 가장 많이 본 사진또는 사진첩"
 
 msgid "Blocks"
 msgstr ""
+
+msgid "Picture of the Day"
+msgstr "날짜의 사진"
+
+msgid "Picture of the Week"
+msgstr "주의 사진"
+
+msgid "Picture of the Month"
+msgstr "월의 사진"
+
+msgid "Album of the Day"
+msgstr "날짜의 사진첩"
+
+msgid "Album of the Week"
+msgstr "주의 사진첩"
+
+msgid "Album of the Month"
+msgstr "월의 사진첩"
 
 #, fuzzy
 msgid "Random Image"
@@ -71,24 +89,6 @@ msgstr[0] "가장 최근 사진첩"
 msgid "Most Viewed Album"
 msgid_plural "Most Viewed Albums"
 msgstr[0] "가장 많이 본 사진첩"
-
-msgid "Picture of the Day"
-msgstr "날짜의 사진"
-
-msgid "Picture of the Week"
-msgstr "주의 사진"
-
-msgid "Picture of the Month"
-msgstr "월의 사진"
-
-msgid "Album of the Day"
-msgstr "날짜의 사진첩"
-
-msgid "Album of the Week"
-msgstr "주의 사진첩"
-
-msgid "Album of the Month"
-msgstr "월의 사진첩"
 
 msgid "Date:"
 msgstr "날자:"
@@ -164,8 +164,8 @@ msgid ""
 msgstr ""
 
 msgid ""
-"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize, rawImage; "
-"the value can also be: none"
+"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize; the value "
+"can also be: none"
 msgstr ""
 
 msgid ""
@@ -276,3 +276,10 @@ msgstr "조회수 보기"
 
 msgid "Show owner"
 msgstr "소유자 보기"
+
+#~ msgid ""
+#~ "Scale images to this maximum size. If maxSize exceeds the thumbnail dimensions, you must "
+#~ "also specify g2_show=fullSize"
+#~ msgstr ""
+#~ "이미지의 최대 크기 비율. 만일 썸네일의 최대 크기 이상을 사용하고자 한다면, "
+#~ "g2_show=fullSize로 설정햐여야 합니다."

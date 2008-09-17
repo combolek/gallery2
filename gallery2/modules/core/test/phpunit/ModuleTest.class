@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,39 +29,38 @@ class ModuleTest extends GalleryTestCase {
 
     function setUp() {
 	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	$this->_platform = new ModuleTestPlatform($this);
 	$gallery->setPlatform($this->_platform);
 
 	/* Register a new module */
 	GalleryDataCache::reset(true);
-	$_REQUEST['testCase'] = $this;
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'moduletest');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $this->_rootAlbum) = $this->_createRandomAlbum($this->_getRootId(),
 	    array('onLoadHandlers' => '|ModuleTestOnLoadHandler|'));
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($this->_rootAlbum);
 
 	list ($ret, $this->_item) = $this->_createRandomDataItem($this->_rootAlbum->getId(),
 	    'test/file', array('onLoadHandlers' => '|ModuleTestOnLoadHandler|OtherHandler|'));
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
     }
 
     function tearDown() {
 	/* If a unittest fails it might not deactivate/uninstall the mock module properly */
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'moduletest', true);
+	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'moduletest');
 	if ($ret) {
 	    $this->failWithStatus($ret);
 	}
@@ -87,79 +86,33 @@ class ModuleTest extends GalleryTestCase {
 	    $this->failWithStatus($ret);
 	}
 
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
+	parent::tearDown();
     }
 
     function testModuleCycle() {
 	global $gallery;
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'moduletest');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
-	/*
-	 * Add bogus used theme blocks to test if they're removed after activate(). Bug #1636339
-	 * For now not testing false positives in the same module since we can't easily inject
-	 * blocks into loadAvailableBlocks().
-	 */
-	$ret = GalleryCoreApi::setPluginParameter('theme', 'bogusTheme', 'albumBlocks',
-	    serialize(array(array('moduletest.missingBlock', array()))));
-	if ($ret) {
-	    return $ret;
-	}
-	$ret = GalleryCoreApi::setPluginParameter('theme', 'bogusTheme', 'albumBlocks',
-	    serialize(array(array('bogusModule.someBlock', array()),
-			    array('moduletest.missingBlock', array()))),
-	    42);
-	if ($ret) {
-	    return $ret;
-	}
-
-	/* Add a real theme block if one is available, that should not be removed. */
-	list ($ret, $blocks) = GalleryCoreApi::loadAvailableBlocks();
-	if ($ret) {
-	    return $ret;
-	}
-	$blockAvailable = false;
-	if (!empty($blocks)) {
-	    $blockAvailable = true;
-	    $pluginName = key($blocks);
-	    $blockName = key($blocks[$pluginName]);
-	    $ret = GalleryCoreApi::setPluginParameter('theme', 'bogusTheme', 'albumBlocks',
-		serialize(array(array("$pluginName.$blockName", array()))), 1337);
-	    if ($ret) {
-		return $ret;
-	    }
-	}
-	
 	/* Install the module */
 	$ret = $module->installOrUpgrade();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
-
-	list ($ret, $plugins) = GalleryCoreApi::fetchPluginList('module');
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assert(isset($plugins[$module->getId()]), 'missing PluginMap entry');
-	$this->assert(empty($plugins[$module->getId()]['active']),
-		      'wrong PluginMap value for active');
 
 	/* Verify that the first permission was added*/
 	list ($ret, $ids) = GalleryCoreApi::getPermissionIds();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(array_key_exists('moduletest.one', $ids), 'Permission was not added');
 
 	/* Remove all permissions */
 	$ret = GalleryCoreApi::removeItemPermissions($this->_rootAlbum->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Add a token permission so that we have something tangible to compare */
@@ -167,7 +120,7 @@ class ModuleTest extends GalleryTestCase {
 						 $gallery->getActiveUserId(),
 						 'core.view');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $originalBits) =
@@ -175,7 +128,7 @@ class ModuleTest extends GalleryTestCase {
 					       $gallery->getActiveUserId(),
 					       null);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Assign our permission */
@@ -183,110 +136,60 @@ class ModuleTest extends GalleryTestCase {
 						 $gallery->getActiveUserId(),
 						 'moduletest.one');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Activate the module */
 	list ($ret, $redirect) = $module->activate();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(array(), $redirect, 'activate redirect');
 	list ($ret, $isActive) = $module->isActive();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert($isActive, 'Is active');
-
-	list ($ret, $plugins) = GalleryCoreApi::fetchPluginList('module');
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assert(isset($plugins[$module->getId()]), 'missing PluginMap entry (2)');
-	$this->assert(!empty($plugins[$module->getId()]['active']),
-		      'wrong PluginMap value for active');
 
 	/* Create an entity */
 	$entity = new ModuleTestEntity();
 	$ret = $entity->create();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$ret = $entity->save();
 	if ($ret) {
-	    return $ret;
-	}
-
-	/* Verify that the bogus blocks have been removed from the theme. */
-	list ($ret, $bogusBlock) =
-	    GalleryCoreApi::getPluginParameter('theme', 'bogusTheme', 'albumBlocks');
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assertEquals(array(), unserialize($bogusBlock), 'bogusTheme general parameter');
-	list ($ret, $bogusBlock) =
-	    GalleryCoreApi::getPluginParameter('theme', 'bogusTheme', 'albumBlocks', 42);
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assertEquals(array(array('bogusModule.someBlock', array())),
-			    unserialize($bogusBlock),
-			    'bogusTheme parameter');
-
-	/* Make sure the real block hasn't been removed. */
-	if ($blockAvailable) {
-	    list ($ret, $realBlock) =
-		GalleryCoreApi::getPluginParameter('theme', 'bogusTheme', 'albumBlocks', 1337);
-	    if ($ret) {
-		return $ret;
-	    }
-	    $this->assertEquals(array(array("$pluginName.$blockName", array())),
-				unserialize($realBlock),
-				'Real block removed!');
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Deactivate the module */
 	list ($ret, $redirect) = $module->deactivate();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(array(), $redirect, 'deactivate redirect');
-
-	list ($ret, $plugins) = GalleryCoreApi::fetchPluginList('module');
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assert(isset($plugins[$module->getId()]), 'missing PluginMap entry (3)');
-	$this->assert(empty($plugins[$module->getId()]['active']),
-		      'wrong PluginMap value for active (3)');
 
 	/* Upgrade the module */
 	$module->setVersion('1.0.1');
 	$ret = $module->installOrUpgrade();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Verify that the second permission was added*/
 	list ($ret, $ids) = GalleryCoreApi::getPermissionIds();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(array_key_exists('moduletest.two', $ids), 'Permission was not added');
 
 	/* Uninstall the module */
 	$ret = $module->uninstall();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(!empty($this->_removedDir),
 		      'plugins_data/modules/moduletest directory not removed in uninstall');
-
-	list ($ret, $plugins) = GalleryCoreApi::fetchPluginList('module');
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assert(!isset($plugins[$module->getId()]), 'PluginMap entry still set');
 
 	/* Flush cached permissions */
 	GalleryDataCache::reset();
@@ -302,7 +205,7 @@ class ModuleTest extends GalleryTestCase {
 	/* Verify that the permission itself is gone */
 	list ($ret, $ids) = GalleryCoreApi::getPermissionIds();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	foreach ($ids as $id) {
@@ -313,7 +216,7 @@ class ModuleTest extends GalleryTestCase {
 	/* Verify our OnLoadHandler was removed from all entities */
 	list ($ret, $album) = $this->_rootAlbum->refresh();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	/* For Oracle, null is replaced with '' when loading data from the database */
 	$this->assert(in_array($album->getOnLoadHandlers(), array(null, '')),
@@ -321,7 +224,7 @@ class ModuleTest extends GalleryTestCase {
 
 	list ($ret, $item) = $this->_item->refresh();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals('|OtherHandler|', $item->getOnLoadHandlers(), 'item onLoadHandlers');
 
@@ -329,13 +232,6 @@ class ModuleTest extends GalleryTestCase {
 	list ($ret) = $entity->refresh();
 	$this->assertEquals(GALLERY_ERROR | ERROR_MISSING_OBJECT, $ret->getErrorCode(), 'entity');
 
-	/* Remove all references to the bogus theme from the database. */
-	$ret = GalleryCoreApi::removeMapEntry('GalleryPluginParameterMap',
-					      array('pluginId' => 'bogusTheme'));
-	if ($ret) {
-	    return $ret;
-	}
-	
 	/* TODO: How do we verify that the tables are removed successfully? */
     }
 
@@ -343,7 +239,7 @@ class ModuleTest extends GalleryTestCase {
 	global $gallery;
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'moduletest');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($major, $minor) = $module->getRequiredModuleApi();
@@ -351,7 +247,7 @@ class ModuleTest extends GalleryTestCase {
 
 	$ret = $module->installOrUpgrade();
 	if ($ret && !($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH)) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert($ret && ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH), 'success?');
     }
@@ -360,12 +256,12 @@ class ModuleTest extends GalleryTestCase {
 	global $gallery;
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'moduletest');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = $module->installOrUpgrade();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($major, $minor) = $module->getRequiredModuleApi();
@@ -373,13 +269,13 @@ class ModuleTest extends GalleryTestCase {
 
 	list ($ret, $redirect) = $module->activate();
 	if ($ret && !($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH)) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert($ret && ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH), 'success?');
 
 	list ($ret, $isActive) = $module->isActive();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(!$isActive, 'is active');
     }
@@ -388,7 +284,7 @@ class ModuleTest extends GalleryTestCase {
 	global $gallery;
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'moduletest');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($major, $minor) = $module->getRequiredCoreApi();
@@ -396,7 +292,7 @@ class ModuleTest extends GalleryTestCase {
 
 	$ret = $module->installOrUpgrade();
 	if ($ret && !($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH)) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert($ret && ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH), 'success?');
     }
@@ -405,12 +301,12 @@ class ModuleTest extends GalleryTestCase {
 	global $gallery;
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'moduletest');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = $module->installOrUpgrade();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($major, $minor) = $module->getRequiredCoreApi();
@@ -418,13 +314,13 @@ class ModuleTest extends GalleryTestCase {
 
 	list ($ret, $redirect) = $module->activate();
 	if ($ret && !($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH)) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert($ret && ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH), 'success?');
 
 	list ($ret, $isActive) = $module->isActive();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(!$isActive, 'is active');
     }
@@ -434,30 +330,30 @@ class ModuleTest extends GalleryTestCase {
 	global $gallery;
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'moduletest');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$ret = $module->installOrUpgrade();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$ret = GalleryCoreApi::removeItemPermissions($this->_rootAlbum->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = GalleryCoreApi::addUserPermission($this->_rootAlbum->getId(),
 						 $gallery->getActiveUserId(),
 						 'moduletest.one');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$ret = $module->uninstall();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	list ($ret, $bits) = $this->_fetchPermissionBitsForItem($this->_rootAlbum->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert($bits == 0, 'no bits');
 
@@ -466,11 +362,11 @@ class ModuleTest extends GalleryTestCase {
 						 $gallery->getActiveUserId(),
 						 'core.viewAll');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	list ($ret, $bits) = $this->_fetchPermissionBitsForItem($this->_rootAlbum->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert($bits > 0, 'bits');
     }
@@ -480,11 +376,11 @@ class ModuleTest extends GalleryTestCase {
 	$module = new ModuleTestModule();
 	$ret = $module->setParameter('_version', '0.5.0');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	list ($ret, $ignored) = $module->activate();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$module->_activate = false;
 
@@ -493,64 +389,16 @@ class ModuleTest extends GalleryTestCase {
 	if ($ret && $ret->getErrorCode() & ERROR_CONFIGURATION_REQUIRED) {
 	    /* That's what we expect */
 	} else if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	} else {
 	    $this->fail('should have failed with an activation error');
 	}
 
 	list ($ret, $version) = $module->getParameter('_version');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals('1.0.0', $version, 'version not set after upgrade');
-    }
-
-    function testDeactivatePostsEventAfterFactoryUnregistration() {
-	global $gallery;
-
-	/* Prepare the test by activating a test module with some factory registrations */
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'moduletest');
-	if ($ret) {
-	    return $ret;
-	}
-
-	$ret = $module->installOrUpgrade();
-	if ($ret) {
-	    return $ret;
-	}
-	list ($ret, $redirect) = $module->activate();
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assertEquals(array(), $redirect, 'activate redirect');
-	list ($ret, $isActive) = $module->isActive();
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assert($isActive, 'Is active');
-
-	list ($ret, $handler) = GalleryCoreApi::newFactoryInstanceById('GalleryOnLoadHandler',
-								       'ModuleTestOnLoadHandler');
-	if ($ret) {
-	    return $ret;
-	}							       
-	$this->assert(isset($handler), 'Precondition failed: No factory implementation registered');
-
-	/* Register our event listener to observe the test */
-	$testEventListener = new ModuleTestEventListener();
-	$this->_registerTestEventListener('Gallery::DeactivatePlugin', $testEventListener);
-
-	/* Execute the method under test */
-	list ($ret, $redirect) = $module->deactivate();
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assertEquals(array(), $redirect, 'deactivate redirect');
-
-	$this->assertEquals(1, count($testEventListener->isOnLoadHandlerRegistered),
-	    'number of deactivation events');
-	$this->assertEquals(false, $testEventListener->isOnLoadHandlerRegistered[0],
-	    'Deactivation event was posted before unregistering factory implementations');
     }
 
     function _fetchPermissionBitsForItem($itemId) {
@@ -667,15 +515,8 @@ class ModuleTestModule extends GalleryModule {
 	    'GalleryOnLoadHandler', 'ModuleTestOnLoadHandler', 'ModuleTestOnLoadHandler',
 	     'modules/core/test/phpunit/ModuleTest.class', 'moduletest', null);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
-
-	/*
-	 * registerFactoryImplementation() clears the factory cache. Prevent it from reading the
-	 * data from the storage again.
-	 */
-	$_REQUEST['testCase']->_unregisterFactoryImplementationForTest('GalleryEventListener');
-
 	return null;
     }
 
@@ -720,7 +561,7 @@ class ModuleTestPlatform extends GalleryPlatform {
     }
 
     function opendir($path) {
-	if (strpos($path, 'modules/') !== false) {
+	if (strpos($path, '/modules/') !== false) {
 	    $this->_list = array();
 	    if ($dir = parent::opendir($path)) {
 		while (false !== ($file = parent::readdir($dir))) {
@@ -777,21 +618,6 @@ class ModuleTestPlatform extends GalleryPlatform {
 
     function getDirectorySeparator() {
 	return '/';
-    }
-}
-
-class ModuleTestEventListener {
-    var $isOnLoadHandlerRegistered = array();
-    function handleEvent($event) {
-	if ($event->getEventName() == 'Gallery::DeactivatePlugin') {
-	    list ($ret, $handler) = GalleryCoreApi::newFactoryInstanceById(
-		'GalleryOnLoadHandler', 'ModuleTestOnLoadHandler');
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	    $this->isOnLoadHandlerRegistered[] = isset($handler);
-	}
-	return array(null, null);
     }
 }
 ?>

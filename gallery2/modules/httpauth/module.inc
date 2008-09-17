@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,13 +31,12 @@ class HttpAuthModule extends GalleryModule /* and GalleryEventListener */ {
 
 	$this->setId('httpauth');
 	$this->setName($gallery->i18n('HTTP Auth'));
-	$this->setVersion('1.0.2'); /* Update upgrade() too! */
-	$this->_templateVersion = 1;
+	$this->setVersion('1.0.0'); /* Update upgrade() too! */
 	$this->setDescription($gallery->i18n('Login using HTTP authentication.'));
 	$this->setGroup('authentication', $gallery->i18n('Authentication'));
-	$this->setCallbacks('getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 34));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setCallbacks('getSiteAdminViews|registerEventListeners');
+	$this->setRequiredCoreApi(array(7, 15));
+	$this->setRequiredModuleApi(array(3, 5));
     }
 
     /**
@@ -103,14 +102,29 @@ class HttpAuthModule extends GalleryModule /* and GalleryEventListener */ {
 	if ($ret) {
 	    return $ret;
 	}
+    }
 
-	$ret = GalleryCoreApi::registerFactoryImplementation(
-	    'GalleryEventListener', 'HttpAuthModule', 'HttpAuthModule', 
-	    'modules/httpauth/module.inc', 'httpauth', 
-	    array('Gallery::ActivatePlugin', 'Gallery::Error', 'Gallery::Logout'));
+    /**
+     * @see GalleryModule::registerEventListeners
+     */
+    function registerEventListeners() {
+	$listener = new HttpAuthModule();
+	$ret = GalleryCoreApi::registerEventListener('Gallery::ActivatePlugin', $listener, true);
 	if ($ret) {
 	    return $ret;
 	}
+
+	$ret = GalleryCoreApi::registerEventListener('Gallery::Error', $listener, true);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = GalleryCoreApi::registerEventListener('Gallery::Logout', $listener, true);
+	if ($ret) {
+	    return $ret;
+	}
+
+	return null;
     }
 
     /**
@@ -208,11 +222,6 @@ class HttpAuthModule extends GalleryModule /* and GalleryEventListener */ {
 	case '0.5.1':
 	    /* Version 1.0.0 for Gallery 2.2 release */
 
-	case '1.0.0':
-	    /* .mo file migration */
-	case '1.0.1':
-	    /* Refactored to new event registration from core API 7.34 */
-
 	case 'end of upgrade path':
 	    break;
 
@@ -234,8 +243,6 @@ class HttpAuthModule extends GalleryModule /* and GalleryEventListener */ {
      * @see GalleryModule::getRewriteRules
      */
     function getRewriteRules() {
-	global $gallery;
-
 	$rules = array();
 
 	/*
@@ -337,7 +344,7 @@ class HttpAuthModule extends GalleryModule /* and GalleryEventListener */ {
 		return array($ret, null);
 	    }
 
-	    return array(null, array('errorHandled' => true));
+	    return array(null, null);
 
 	case 'Gallery::Logout':
 	    /*
@@ -357,7 +364,7 @@ class HttpAuthModule extends GalleryModule /* and GalleryEventListener */ {
 
     /**
      * Activate essential rewrite rules.
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function _activateRewriteRules() {
 	list ($ret, $rewriteApi) = GalleryCoreApi::newFactoryInstance('RewriteApi');

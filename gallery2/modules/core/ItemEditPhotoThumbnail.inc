@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -51,9 +51,8 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 
 	if (isset($form['action']['crop']) && isset($thumbnail)) {
 	    /* Get our source */
-	    list ($ret, $source) = GalleryCoreApi::loadEntitiesById(
-		$thumbnail->getDerivativeSourceId(),
-		array('GalleryFileSystemEntity', 'GalleryDerivative'));
+	    list ($ret, $source) =
+		GalleryCoreApi::loadEntitiesById($thumbnail->getDerivativeSourceId());
 	    if ($ret) {
 		return array($ret, null, null, null);
 	    }
@@ -74,15 +73,14 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 		$cropWidth = 100;
 		$cropHeight = 100;
 	    } else {
-		/* Sanitize inputs to fit within 0-100 (if cropper miscalculates) */
 		$cropX = GalleryUtilities::roundToString(
-			max(0, 100 * $form['crop']['x'] / $source->getWidth()), 3);
+				100 * $form['crop']['x'] / $source->getWidth(), 3);
 		$cropY = GalleryUtilities::roundToString(
-			max(0, 100 * $form['crop']['y'] / $source->getHeight()), 3);
+				100 * $form['crop']['y'] / $source->getHeight(), 3);
 		$cropWidth = GalleryUtilities::roundToString(
-			min(100, 100 * $form['crop']['width'] / $source->getWidth()), 3);
+				100 * $form['crop']['width'] / $source->getWidth(), 3);
 		$cropHeight = GalleryUtilities::roundToString(
-			min(100, 100 * $form['crop']['height'] / $source->getHeight()), 3);
+				100 * $form['crop']['height'] / $source->getHeight(), 3);
 	    }
 
 	    list ($ret, $operations) =
@@ -198,9 +196,8 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 	 * display at this point because the resized derivatives though they may be smaller, can
 	 * have different derivative commands from the source.
 	 */
-	list ($ret, $source) = GalleryCoreApi::loadEntitiesById(
-	    $thumbnail->getDerivativeSourceId(),
-	    array('GalleryFileSystemEntity', 'GalleryDerivative'));
+	list ($ret, $source) =
+	    GalleryCoreApi::loadEntitiesById($thumbnail->getDerivativeSourceId());
 	if ($ret) {
 	    return array($ret, null, null);
 	}
@@ -360,7 +357,13 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 		$aspectRatioList[$selectedAspect]['height'];
 	}
 
+	$template->javascript('lib/yui/yahoo-min.js');
+	$template->javascript('lib/yui/dom-min.js');
+	$template->javascript('lib/yui/event-min.js');
+	$template->javascript('lib/yui/dragdrop-min.js');
+	$template->javascript('lib/javascript/Cropper.js');
 	$template->style('modules/core/templates/ItemEditPhotoThumbnail.css');
+
 	$template->setVariable('ItemEditPhotoThumbnail', $ItemEditPhotoThumbnail);
 	$template->setVariable('controller', 'core.ItemEditPhotoThumbnail');
 	return array(null,

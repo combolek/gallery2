@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,10 +19,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Captcha 1.1.6\n"
+"Project-Id-Version: Gallery: Captcha 1.1.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-09-05 17:09+0000\n"
-"PO-Revision-Date: 2008-03-27 11:04+0100\n"
+"PO-Revision-Date: 2007-01-08 11:45+0100\n"
 "Last-Translator: Ermanno Baschiera <ebaschiera@gmail.com>\n"
 "Language-Team: Italian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -44,14 +44,14 @@ msgid "Gallery"
 msgstr "Gallery"
 
 msgid "Reset captcha failure counts"
-msgstr "Azzera il conteggio dei fallimenti di captcha"
+msgstr "Resetta il conteggio dei fallimenti di captcha"
 
 msgid ""
 "Captcha records failure counts in the database when configured for medium security level.  "
 "Run this task to clear all counters."
 msgstr ""
 "Captcha conteggia i fallimenti nel database quando configurato con il livello di sicurezza "
-"medio. Lanciare questa attività per azzerare tutti i contatori."
+"medio. Lancia questo task per azzerare tutti i contatori."
 
 msgid "Successfully reset failure counts"
 msgstr "Azzeramento contatore fallimenti avvenuto con successo"
@@ -63,14 +63,14 @@ msgid ""
 "The Captcha module requires your webserver to have the GD graphics module installed.  The "
 "following GD functions are required."
 msgstr ""
-"Il modulo Captcha necessita che il webserver abbia il modulo grafico GD installato. Le "
-"seguenti funzioni GD sono necessarie."
+"Il modulo Captcha necessita che il tuo webserver abbia le librerie grafiche GD installate. "
+"Le seguenti funzioni GD sono necessarie."
 
 msgid "Function name"
 msgstr "Nome funzione"
 
 msgid "Pass/fail"
-msgstr "OK/errore"
+msgstr "OK/fallito"
 
 msgid "Available"
 msgstr "Disponibile"
@@ -81,11 +81,11 @@ msgstr "Mancante"
 msgid ""
 "Critical GD functions are not available.   Please ask your system administrator for help."
 msgstr ""
-"Funzioni critiche di GD non sono disponibili. Per favore chiedere aiuto all'amministratore "
-"del sistema."
+"Funzioni critiche di GD non sono disponibili. Per favore chiedi aiuto al tuo amministratore "
+"di sistema."
 
 msgid "Your webserver is properly configured to use the Captcha module."
-msgstr "Il webserver è correttamente configurato per usare il modulo Captcha."
+msgstr "Il tuo webserver è correttamente configurato per usare il modulo Captcha."
 
 msgid "Continue"
 msgstr "Continua"
@@ -133,7 +133,7 @@ msgstr ""
 "password, ma nessuna protezione contro gli attacchi automatizzati."
 
 msgid "Configure validation policy for modules using captcha:"
-msgstr "Configurare la politica di validazione per i moduli usando captcha:"
+msgstr "Configura la politica di validazione per i moduli usando captcha:"
 
 msgid "High"
 msgstr "Elevata"
@@ -151,13 +151,13 @@ msgid "Save"
 msgstr "Salva"
 
 msgid "Reset"
-msgstr "Reimposta"
+msgstr "Resetta"
 
-msgid "Type the letters appearing in the picture."
-msgstr "Inserire le lettere che compaiono nella figura"
+msgid "Type the word appearing in the picture."
+msgstr "Inserisci la parola che compare nella figura"
 
-msgid "You must enter the letters appearing in the picture."
-msgstr "È necessario scrivere le lettere che compaiono nella figura."
+msgid "You must enter the number appearing in the picture."
+msgstr "Devi inserire il numero che compare nella figura."
 
-msgid "Incorrect letters."
-msgstr "Lettere non corrette."
+msgid "Incorrect number."
+msgstr "Numero non corretto."

@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,12 +32,11 @@ class ReuploadModule extends GalleryModule {
 	$this->setId('reupload');
 	$this->setName($gallery->i18n('Reupload'));
 	$this->setDescription($gallery->i18n('Allows reupload of pictures.'));
-	$this->setVersion('1.0.6');
-	$this->_templateVersion = 1;
+	$this->setVersion('1.0.5.1');
 	$this->setGroup('data', $gallery->i18n('Extra Data'));
 	$this->setCallbacks('');
-	$this->setRequiredCoreApi(array(7, 20));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setRequiredCoreApi(array(7, 4));
+	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**

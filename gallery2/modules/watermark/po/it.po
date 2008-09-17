@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,10 +19,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Watermark 1.1.5\n"
+"Project-Id-Version: Gallery: Watermark 1.1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-10-11 17:14+0000\n"
-"PO-Revision-Date: 2008-04-02 19:27+0100\n"
+"PO-Revision-Date: 2007-01-09 13:11+0100\n"
 "Last-Translator: Ermanno Baschiera <ebaschiera@gmail.com>\n"
 "Language-Team: Italian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -50,9 +50,6 @@ msgstr "Filigrana"
 
 msgid "user watermarks"
 msgstr "filigrane utente"
-
-msgid "Error: Missing watermark. Please see the Event Logs page in the Site Admin."
-msgstr "Errore: Filigrana mancante. Vedere il Registro Eventi in Amministrazione Sito."
 
 msgid "Watermark your images"
 msgstr "Applica una filigrana alle tue immagini"
@@ -96,8 +93,8 @@ msgid ""
 "You can choose a watermark to apply to all images in this album.  Settings here will replace "
 "any existing watermarks."
 msgstr ""
-"Puoi scegliere una filigrana da applicare a tutte le immagini in questo album. Questa "
-"configurazione sostituirà ogni filigrana esistente."
+"Puoi scegliere una filigrana da applicare a tutte le immagini in questo album. La "
+"configurazione qui sostituirà ogni filigrana esistente."
 
 msgid "You can choose a watermark to apply to this image."
 msgstr "Puoi scegliere la filigrana da applicare a questa immagine."
@@ -124,7 +121,7 @@ msgid "Step 1.  Choose which watermark you want to use"
 msgstr "Fase 1.  Scegli la filigrana che vuoi usare"
 
 msgid "Step 2.  Placement for the watermark"
-msgstr "Fase 2.  Posiziona la filigrana"
+msgstr "Fase 2.  Posizionamento della filigrana"
 
 msgid "watermark"
 msgstr "filigrana"
@@ -157,19 +154,19 @@ msgid "Remove Watermark"
 msgstr "Rimuovi Filigrana"
 
 msgid "My Watermarks"
-msgstr "Le Mie Filigrane"
+msgstr "La Mie Filigrane"
 
 msgid "Watermark added successfully"
-msgstr "Filigrana aggiunta con successo"
+msgstr "filigrana aggiunta con successo"
 
 msgid "Watermark deleted successfully"
-msgstr "Filigrana rimossa con successo"
+msgstr "filigrana rimossa con successo"
 
 msgid "Watermark saved successfully"
-msgstr "Filigrana salvata con successo"
+msgstr "filigrana salvata con successo"
 
 msgid "There was a problem processing your request."
-msgstr "C'è stato un problema nell'elaborazione della tua richiesta."
+msgstr "Ci sono stati problemi nell'elaborazione della tua richiesta."
 
 msgid "Upload Watermarks"
 msgstr "Carica Filigrane"
@@ -311,3 +308,6 @@ msgstr ""
 "Gallery può applicare automaticamente la filigrana alle immagini linkate da fuori Gallery. "
 "Seleziona una filigrana qui sopra e attiva le filigrane con hotlink usando il modulo "
 "Riscrittura URL."
+
+#~ msgid "No watermark selected"
+#~ msgstr "Nessuna filigrana selezionata"

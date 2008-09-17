@@ -1,6 +1,8 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
@@ -24,7 +26,7 @@
   {/literal}</script>
 </head>
 <body onload="go()">
-<form action="http://www.digibug.com/dapi/order.php" method="post" id="digibugForm">
+<form action="http://www.digibug.com/dapi/order.php" method="POST" id="digibugForm">
   <input type="hidden" name="digibug_api_version" value="100"/>
   <input type="hidden" name="company_id" value="{$DigibugPrintPhotos.params.digibugCustomerId}"/>
   <input type="hidden" name="event_id" value="{$DigibugPrintPhotos.params.digibugPricelistId}"/>

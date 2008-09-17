@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,11 +19,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Getid3 1.0.5\n"
+"Project-Id-Version: Gallery: Getid3 1.0.2\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2006-12-20 10:02-0800\n"
-"PO-Revision-Date: 2008-08-16 14:29+0300\n"
-"Last-Translator: Ser Moro <mor0@mail.ru>\n"
+"PO-Revision-Date: 2006-03-17 17:20+0300\n"
+"Last-Translator: Konstantin Ivanov <Continental@vollen.ru>\n"
 "Language-Team: Russian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -55,10 +55,10 @@ msgid "Audio Bit Rate"
 msgstr "Аудио Bit Rate"
 
 msgid "Audio Bit Rate Mode"
-msgstr "Режим аудио Bit Rate"
+msgstr "Режим Аудио Bit Rate"
 
 msgid "Audio Channels"
-msgstr "Аудио каналы"
+msgstr "Аудио Каналы"
 
 msgid "Audio Codec"
 msgstr "Аудиокодек"
@@ -73,7 +73,7 @@ msgid "Copyright"
 msgstr "Авторские права"
 
 msgid "Date/Time"
-msgstr "Дата/время"
+msgstr "Дата/Время"
 
 msgid "Genre"
 msgstr "Жанр"
@@ -85,7 +85,7 @@ msgid "Playtime"
 msgstr "Продолжительность"
 
 msgid "Title"
-msgstr "Названию"
+msgstr "Название"
 
 msgid "Track"
 msgstr "Трэк"
@@ -94,118 +94,118 @@ msgid "Video Bit Rate"
 msgstr "Видео Bit Rate"
 
 msgid "Video Bit Rate Mode"
-msgstr "Режим видео Bit Rate"
+msgstr "Режим Видео Bit Rate"
 
 msgid "Video Codec"
 msgstr "Видеокодек"
 
 msgid "Video Data Format"
-msgstr "Формат видео"
+msgstr "Video Data Format"
 
 msgid "Video Frame Rate"
-msgstr "Отношение сторон экрана"
+msgstr "Video Frame Rate"
 
 msgid "Video Resolution X"
-msgstr "Разрешение по X"
+msgstr "Video Resolution X"
 
 msgid "Video Resolution Y"
-msgstr "Разрешение по Y"
+msgstr "Video Resolution Y"
 
 msgid "Video Software"
-msgstr "Видео редактор"
+msgstr "Программное обеспечение Видео"
 
 msgid "Year"
 msgstr "Год"
 
 msgid "getID3() Settings"
-msgstr "Настройки getID3"
+msgstr "Настройки getID3()"
 
 #, c-format
 msgid "Added %d property to the Summary view"
 msgid_plural "Added %d properties to the Summary view"
-msgstr[0] "К краткому перечню добавлено %d свойство"
-msgstr[1] "К краткому перечню добавлено %d свойства"
-msgstr[2] "К краткому перечню добавлено %d свойств"
+msgstr[0] "Добавлен %d свойство к Краткому перечню"
+msgstr[1] "Добавлен %d свойства к Краткому  перечню"
+msgstr[2] "Добавлен %d свойств к Краткому  перечню"
 
 #, c-format
 msgid "Removed %d property from the Summary view"
 msgid_plural "Removed %d properties from the Summary view"
-msgstr[0] "Из краткого перечня удалено %d свойство"
-msgstr[1] "Из краткого перечня удалено %d свойства"
-msgstr[2] "Из краткого перечня удалено %d свойств"
+msgstr[0] "Удалено %d свойство из Краткого перечня"
+msgstr[1] "Удалено %d свойства из Краткого перечня"
+msgstr[2] "Удалено %d свойств из Краткого перечня"
 
 msgid "Restored the default properties for the Summary view"
-msgstr "Для краткого перечня восстановлены параметры по умолчанию "
+msgstr "Восстановлены параметры по умолчанию для Краткого перечня"
 
 #, c-format
 msgid "Moved %d property up in the Summary view"
 msgid_plural "Moved %d properties up in the Summary view"
-msgstr[0] "В кратком перечне %d свойство  перемещено вверх"
-msgstr[1] "В кратком перечне %d свойства  перемещено вверх"
-msgstr[2] "В кратком перечне %d свойств  перемещено вверх"
+msgstr[0] "Перемещено %d свойство вверх в Кратком перечне"
+msgstr[1] "Перемещено %d свойства вверх в Кратком перечне"
+msgstr[2] "Перемещено %d свойств вверх в Кратком перечне"
 
 #, c-format
 msgid "Moved %d property down in the Summary view"
 msgid_plural "Moved %d properties down in the Summary view"
-msgstr[0] "В кратком перечне %d свойство  перемещено вниз"
-msgstr[1] "В кратком перечне %d свойства  перемещено вниз"
-msgstr[2] "В кратком перечне %d свойств  перемещено вниз"
+msgstr[0] "Перемещено %d свойство вниз в Кратком перечне"
+msgstr[1] "Перемещено %d свойства вниз в Кратком перечне"
+msgstr[2] "Перемещено %d свойств вниз в Кратком перечне"
 
 #, c-format
 msgid "Added %d property to the Detailed view"
 msgid_plural "Added %d properties to the Detailed view"
-msgstr[0] "К полному перечню добавлено %d свойство"
-msgstr[1] "К полному перечню добавлено %d свойства"
-msgstr[2] "К полному перечню добавлено %d свойств"
+msgstr[0] "Добавлено %d свойство к Полному перечню"
+msgstr[1] "Добавлено %d свойства к Полному перечню"
+msgstr[2] "Добавлено %d свойств к Полному перечню"
 
 #, c-format
 msgid "Removed %d property from the Detailed view"
 msgid_plural "Removed %d properties from the Detailed view"
-msgstr[0] "Из полного перечня удалено %d свойство"
-msgstr[1] "Из полного перечня удалено %d свойства"
-msgstr[2] "Из полного перечня удалено %d свойств"
+msgstr[0] "Удалено %d свойство из Полного перечня"
+msgstr[1] "Удалено %d свойства из Полного перечня"
+msgstr[2] "Удалено %d свойств из Полного перечня"
 
 msgid "Restored the default properties for the Detailed view"
-msgstr "Восстановлены параметры по умолчанию для полного перечня"
+msgstr "Восстановлены параметры по умолчанию для Полного перечня"
 
 #, c-format
 msgid "Moved %d property up in the Detailed view"
 msgid_plural "Moved %d properties up in the Detailed view"
-msgstr[0] "В полном перечне %d свойство  перемещено вверх"
-msgstr[1] "В полном перечне %d свойства  перемещены вверх"
-msgstr[2] "В полном перечне %d свойств  перемещено вверх"
+msgstr[0] "Перемещено %d свойство вверх в Полном перечне"
+msgstr[1] "Перемещено %d свойства вверх в Полном перечне"
+msgstr[2] "Перемещено %d свойств вверх в Полном перечне"
 
 #, c-format
 msgid "Moved %d property down in the Detailed view"
 msgid_plural "Moved %d properties down in the Detailed view"
-msgstr[0] "В полном перечне %d свойство  перемещено вниз"
-msgstr[1] "В полном перечне %d свойства  перемещено вниз"
-msgstr[2] "В полном перечне %d свойств  перемещено вниз"
+msgstr[0] "Перемещено %d свойство вниз в Полном перечне"
+msgstr[1] "Перемещено %d свойства вниз в Полном перечне"
+msgstr[2] "Перемещено %d свойств вниз в Полном перечне"
 
 msgid "Settings saved successfully"
 msgstr "Настройки успешно сохранены"
 
 msgid ""
 "getID3() is a PHP4 script that extracts useful information (such as ID3 tags, bitrate, "
-"playtime, etc.) from MP3s &amp; other multimedia file formats (Ogg, WMA, WMV, ASF, WAV, AVI, "
+"playtime, etc.) from MP3s & other multimedia file formats (Ogg, WMA, WMV, ASF, WAV, AVI, "
 "AAC, VQF, FLAC, MusePack, Real, QuickTime, Monkey's Audio, MIDI and more)."
 msgstr ""
-"getID3() является PHP скриптом, который может извлекать полезную информацию (такую, как тэги "
-"ID3, bitrate, продолжительность и т.д.) из MP3  и других мультимедийных файлов (Ogg, WMA, "
-"WMV, ASF, WAV, AVI, AAC, VQF, FLAC, MusePack, Real, QuickTime, Monkey's Audio, MIDI и "
-"других)."
+"getID3() является скриптом на PHP4, которые может извлекать полезную информацию (например, "
+"из данным тэга ID3, bitrate, продолжительность и т.д.) из MP3 и других мультимедия файлов "
+"(Ogg, WMA, WMV, ASF, WAV, AVI, AAC, VQF, FLAC, MusePack, Real, QuickTime, Monkey's Audio, "
+"MIDI и других)."
 
 msgid "Summary and Detailed displays"
-msgstr " Отображение краткого и полного перечня"
+msgstr " Отображение Краткого и Полного перечня"
 
 msgid ""
 "There can be a great deal of information stored in many file formats.  We display that data "
 "in two different views, summary and detailed.  You can choose which properties are displayed "
 "in each view."
 msgstr ""
-"Файлы могут содержать много полезных данных. Отображение этой информации возможно двумя "
-"способами: кратким и полным перечнем. Вы вправе выбрать, какие свойства будут представлены в "
-"каждом из перечней."
+"В многих файлах может быть сохранено много полезных данных. Возможно отображение этой "
+"информации двумя разными способами: кратким и полным перечнем. Вы вправе выбрать, какие "
+"свойства будут представлены в каждом из перечней."
 
 msgid "Available"
 msgstr "Доступные свойства"
@@ -217,19 +217,19 @@ msgid "Detailed"
 msgstr "Полный перечень"
 
 msgid "You must select at least one value in the available column"
-msgstr "Вы должны выбрать по крайней мере одно значение в колонке."
+msgstr "Вы должны выбрать по крайней мере одно значение и доступных колонках."
 
 msgid "You must select at least one value in the summary column"
-msgstr "Вы должны выбрать по крайней мере одно значение в колонке краткого перечня"
+msgstr "Вы должны выбрать по крайней мере одно значение и колонке краткого перечня"
 
 msgid "You must select at least one value in the detailed column"
-msgstr "Вы должны выбрать по крайней мере одно значение в колонке полного перечня"
+msgstr "Вы должны выбрать по крайней мере одно значение и колонке полного перечня"
 
 msgid "Add to Summary"
-msgstr "Добавить к краткому перечню"
+msgstr "Добавить к Краткому перечню"
 
 msgid "Add to Detailed"
-msgstr "Добавить к полному перечню"
+msgstr "Добавить к Полному перечню"
 
 msgid "Remove"
 msgstr "Удалить"
@@ -247,21 +247,20 @@ msgid ""
 "Restore the original values for the Summary and Detailed views.  Use with caution, there is "
 "no undo!"
 msgstr ""
-"Восстанавливает исходные значения для краткого и полного перечня. Используйте это аккуратно, "
-"т.к. возврат к текущим значениям будет невозможен!"
+"Позволяет установить исходные значения для Краткого и Полного перечня. Используйте эту опцию "
+"аккуратно, т.к. возврат к текущим значениям будет невозможен!"
 
 msgid "Restore Summary Defaults"
-msgstr "Восстановить значения по умолчанию для полного перечня"
+msgstr "Восстановить значения по умолчанию для Полного перечня"
 
 msgid "Restore Detailed Defaults"
-msgstr "Восстановить значения по умолчанию для краткого перечня"
+msgstr "Восстановить значения по умолчанию для Краткого перечня"
 
 msgid "Item Upload"
-msgstr " Операции при загрузке элементов"
+msgstr " Операции при загрузки элементов"
 
-msgid "When MP3s are added to Gallery check the ID3 title field and apply to:"
-msgstr ""
-"При добавлении MP3 файлов в Галерею проверять значение ID3 заголовка и добавлять его к:"
+msgid "When mp3's are added to Gallery check id3 Title field and apply to:"
+msgstr "При добавлении mp3 файлов в Галерею проверять значение id3 Title и добавлять его к:"
 
 msgid "Save"
 msgstr "Сохранить"
@@ -270,10 +269,10 @@ msgid "Getid3 Module"
 msgstr "Модуль Getid3"
 
 msgid "This module does not work on Windows, yet."
-msgstr "Данный модуль в настоящее время не функционирует под Windows."
+msgstr "Данный модуль в настоящее время не функционируется на платформе Windows."
 
 msgid "Audio/Video Properties"
-msgstr "Аудио/видео свойства"
+msgstr "Аудио/Видео Свойства"
 
 msgid "summary"
 msgstr "кратко"
@@ -282,7 +281,7 @@ msgid "details"
 msgstr "подробно"
 
 msgid "Archive File List"
-msgstr "Список файлов в архиве"
+msgstr "Список Файлов в Архиве"
 
 msgid "Name"
 msgstr "Имя"
@@ -291,4 +290,4 @@ msgid "Size"
 msgstr "Размер"
 
 msgid "GetID3/Misc info"
-msgstr "GetID3/другая информация"
+msgstr "GetID3/Другая информация"

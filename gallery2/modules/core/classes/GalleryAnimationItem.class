@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -88,7 +88,7 @@ class GalleryAnimationItem extends GalleryDataItem {
      * @param string $targetName the desired name of the new item
      * @param boolean $symlink (optional) a boolean true if we should symlink instead
      *        of copy (default is false).
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function create($parentId, $animationFileName, $mimeType, $targetName=null, $symlink=false) {
 	global $gallery;
@@ -221,11 +221,9 @@ class GalleryAnimationItem extends GalleryDataItem {
 			document.write(\'  <param name="movie" value="%s" />\');
 			document.write(\'  <param name="quality" value="high" />\');
 			document.write(\'  <param name="salign" value="TL" />\');
-			document.write(\'  <param name="swliveconnect" value="true" />\');
-			document.write(\'  <param name="wmode" value="opaque" />\');
 			document.write(\'  <param name="allowNetworking" value="none" />\');
 			document.write(\'  <param name="AllowScriptAccess" value="never" />\');
-			document.write(\'  <param name="swLiveConnect" value="false" />\');
+			document.write(\'  <param name="swliveconnect" value="false" />\');
 			document.write(\'  %s\');
 			document.write(\'</object>\');
 		    } else {
@@ -238,11 +236,9 @@ class GalleryAnimationItem extends GalleryDataItem {
 			document.write(\'  <param name="movie" value="%s" />\');
 			document.write(\'  <param name="quality" value="high" />\');
 			document.write(\'  <param name="salign" value="TL" />\');
-			document.write(\'  <param name="swliveconnect" value="true" />\');
-			document.write(\'  <param name="wmode" value="opaque" />\');
 			document.write(\'  <param name="allowNetworking" value="none" />\');
 			document.write(\'  <param name="AllowScriptAccess" value="never" />\');
-			document.write(\'  <param name="swLiveConnect" value="false" />\');
+			document.write(\'  <param name="swliveconnect" value="false" />\');
 			document.write(\'  %s\');
 			document.write(\'</object>\');
 		    }
@@ -290,7 +286,7 @@ class GalleryAnimationItem extends GalleryDataItem {
 			document.write(\'  <param name="bgColor" value="#000000" />\');
 			document.write(\'  <param name="allowNetworking" value="none" />\');
 			document.write(\'  <param name="AllowScriptAccess" value="never" />\');
-			document.write(\'  <param name="swLiveConnect" value="false" />\');
+			document.write(\'  <param name="swliveconnect" value="false" />\');
 			document.write(\'  %s\');
 			document.write(\'</object>\');
 		    } else {
@@ -302,7 +298,7 @@ class GalleryAnimationItem extends GalleryDataItem {
 			document.write(\'        height="%s">\');
 			document.write(\'  <param name="allowNetworking" value="none" />\');
 			document.write(\'  <param name="AllowScriptAccess" value="never" />\');
-			document.write(\'  <param name="swLiveConnect" value="false" />\');
+			document.write(\'  <param name="swliveconnect" value="false" />\');
 			document.write(\'  %s\');
 			document.write(\'</object>\');
 		    }

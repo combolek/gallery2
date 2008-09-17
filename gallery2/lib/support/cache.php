@@ -1,9 +1,8 @@
+<?php if (!defined('G2_SUPPORT')) { return; } ?>
 <?php
-if (!defined('G2_SUPPORT')) { return; }
-
 function getCaches() {
     $dirs = array(
-	'cached_pages' => array(true, 'clearPageCache', array(), 'Cached HTML pages'),
+	'cached pages' => array(true, 'clearPageCache', array(), 'Cached HTML pages'),
 	'entity' => array(true, 'clearG2dataDir', array('cache/entity'), 'Albums and photo data'),
 	'module' => array(true, 'clearG2dataDir', array('cache/module'), 'Module settings'),
 	'theme' => array(true, 'clearG2dataDir', array('cache/theme'), 'Theme settings'),
@@ -12,21 +11,11 @@ function getCaches() {
 	'tmp' => array(true, 'clearG2dataDir', array('tmp'), 'Temporary directory'),
 	'repository' => array(true, 'clearG2dataDir', array('cache/repository'),
 			      'Downloadable Plugin Cache'),
-	'log' => array(
-	    false, 'clearInstallUpgradeLogs', array(),
-	    'Install/Upgrade log files <span class="subtext important">' .
-	    '(can\'t be recovered!)</span>'),
+	'log' => array(false, 'clearInstallUpgradeLogs', array(), 'Install/Upgrade log files'),
 	'derivative' => array(
 	    false, 'clearG2dataDir', array('cache/derivative'),
-	    'Thumbnails and resizes <span class="subtext important">(expensive to rebuild)</span>')
+	    'Thumbnails and resizes <span class="subtext">(expensive to rebuild)</span>')
 	);
-
-    if (!empty($_COOKIE['g2cache'])) {
-	$set = array_flip(explode(',', $_COOKIE['g2cache']));
-	foreach ($dirs as $key => $ignored) {
-	    $dirs[$key][0] = isset($set[$key]);
-	}
-    }
     return $dirs;
 }
 
@@ -75,7 +64,7 @@ function clearPageCache() {
     global $gallery;
     $storage =& $gallery->getStorage();
 
-    $ret = GalleryCoreApi::removeAllMapEntries('GalleryCacheMap', true);
+    $ret = GalleryCoreApi::removeAllMapEntries('GalleryCacheMap');
     if ($ret) {
 	$status = array(array('error', 'Error deleting page cache!'));
     } else {
@@ -130,7 +119,6 @@ function clearInstallUpgradeLogs() {
 }
 
 $status = array();
-$caches = getCaches();
 if (isset($_REQUEST['clear']) && isset($_REQUEST['target'])) {
     require_once(dirname(__FILE__) . '/../../embed.php');
     $ret = GalleryEmbed::init(array('fullInit' => false));
@@ -139,7 +127,7 @@ if (isset($_REQUEST['clear']) && isset($_REQUEST['target'])) {
 	global $gallery;
 	$gallery->initEmptySession();
     }
-    $remember = array();
+    $caches = getCaches();
     foreach ($_REQUEST['target'] as $key => $ignored) {
 	/* Make sure the dir is legit */
 	if (!array_key_exists($key, $caches)) {
@@ -150,13 +138,11 @@ if (isset($_REQUEST['clear']) && isset($_REQUEST['target'])) {
 	$func = $caches[$key][1];
 	$args = $caches[$key][2];
 	$status = array_merge($status, call_user_func_array($func, $args));
-	$remember[] = $key;
     }
     $ret = GalleryEmbed::done();
     if ($ret) {
 	$status[] = array('error', 'Error completing transaction!');
     }
-    $_COOKIE['g2cache'] = join(',', $remember);
 }
 ?>
 <html>
@@ -167,8 +153,7 @@ if (isset($_REQUEST['clear']) && isset($_REQUEST['target'])) {
   <body>
     <div id="content">
       <div id="title">
-	<a href="../../">Gallery</a> &raquo;
-	<a href="<?php generateUrl('index.php') ?>">Support</a> &raquo; Cache Maintenance
+        <a href="../../">Gallery</a> &raquo; <a href="index.php">Support</a> &raquo; Cache Maintenance
       </div>
       <h2>
 	Gallery caches data on disk to increase performance.
@@ -185,7 +170,7 @@ if (isset($_REQUEST['clear']) && isset($_REQUEST['target'])) {
       </div>
       <?php endif; ?>
 
-      <?php startForm(); ?>
+      <form method="POST">
         <p>
 	  <?php $caches = getCaches(); ?>
 	  <?php foreach ($caches as $key => $info): ?>

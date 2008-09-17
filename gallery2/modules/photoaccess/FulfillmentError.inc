@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,7 +36,7 @@ class FulfillmentErrorView extends GalleryView {
 	    return array($ret, null);
 	}
 
-	$template->title($module->translate('PhotoWorks Fulfillment Error'));
+	$template->title($module->translate('PhotoAccess Fulfillment Error'));
 	return array(null, array('body' => 'modules/photoaccess/templates/FulfillmentError.tpl'));
     }
 }

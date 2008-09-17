@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,12 +33,11 @@ class RegisterModule extends GalleryModule {
 	$this->setId('register');
 	$this->setName($gallery->i18n('Registration'));
 	$this->setDescription($gallery->i18n('New User Registration'));
-	$this->setVersion('1.0.12');
-	$this->_templateVersion = 1;
+	$this->setVersion('1.0.8');
 	$this->setGroup('gallery', $gallery->i18n('Gallery'));
 	$this->setCallbacks('getSystemLinks|getUserAdminViews|getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 35));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setRequiredCoreApi(array(7, 5));
+	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
@@ -50,10 +49,9 @@ class RegisterModule extends GalleryModule {
 	    return $ret;
 	}
 
-	foreach (array('confirmation' => 'admin', 'emailadmins' => 1, 'emailusers' => 1,
+	foreach (array('confirmation' => 'admin', 'emailadmins' => 1,
 		       'subject' => $this->translate('Account activation'),
 		       'adminsubject' => $this->translate('New user registration'),
-		       'usersubject' => $this->translate('Welcome to Gallery'),
 		       'from' => 'webmaster@' . GalleryUtilities::getServerVar('SERVER_NAME'),
 		       'validation.level' => 'HIGH')
 		as $key => $value) {

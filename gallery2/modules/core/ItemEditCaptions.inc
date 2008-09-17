@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,13 +32,7 @@ class ItemEditCaptionsController extends GalleryController {
      * @see GalleryController::handleRequest
      */
     function handleRequest($form) {
-	$page = (int)GalleryUtilities::getRequestVariables('page');
-
-	list ($ret, $item) = $this->getItem();
-	if ($ret) {
-	    return array($ret, null);
-	}
-	$itemId = $item->getId();
+	list ($itemId, $page) = GalleryUtilities::getRequestVariables('itemId', 'page');
 
 	$status = $error = array();
 	if (isset($form['action']['save'])) {
@@ -50,12 +44,12 @@ class ItemEditCaptionsController extends GalleryController {
 	    }
 
 	    /* We'll check permissions one at a time below, but precache them now */
-	    list ($ret, $permissions) = GalleryCoreApi::fetchPermissionsForItems($ids);
+	    $ret = GalleryCoreApi::studyPermissions($ids);
 	    if ($ret) {
 		return array($ret, null);
 	    }
 
-	    list ($ret, $items) = GalleryCoreApi::loadEntitiesById($ids, 'GalleryItem');
+	    list ($ret, $items) = GalleryCoreApi::loadEntitiesById($ids);
 	    if ($ret) {
 		return array($ret, null);
 	    }
@@ -70,12 +64,13 @@ class ItemEditCaptionsController extends GalleryController {
 	    $status['errorCount'] = 0;
 	    foreach ($items as $item) {
 		/* Make sure we have permission to edit this item */
-		$id = $item->getId();
-		if (!isset($permissions[$id]['core.view'])) {
-		    /* Avoid information disclosure, act as if the item didn't exist. */
-		    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
+		list ($ret, $permissions) = GalleryCoreApi::getPermissions($item->getId());
+		if ($ret) {
+		    return array($ret, null);
 		}
-		if (isset($permissions[$id]['core.edit'])) {
+
+		$id = $item->getId();
+		if (isset($permissions['core.edit'])) {
 		    if ($item->getSerialNumber() == $form['items'][$id]['serialNumber']) {
 			if ($markup == 'html') {
 			    /* Strip malicious content if html markup allowed */
@@ -152,52 +147,26 @@ class ItemEditCaptionsController extends GalleryController {
  */
 class ItemEditCaptionsView extends GalleryView {
 
-	/**
-     * Returns sizes for "maxlength" in forms
-     * @todo: this function is duplicated in ItemEdit.inc, so it needs to be consolidated somehow
-     * @param integer $value is the value from 
-     * @return size for "maxlength" in form
-     * @access private
-     */
-    function _getSizesForMaxlength($value) {
-	switch ($value) {
-	case STORAGE_SIZE_SMALL:
-	    $size = 32;
-	    break;
-
-	case STORAGE_SIZE_MEDIUM:
-	    $size = 128;
-	    break;
-
-	case STORAGE_SIZE_LARGE:
-	    $size = 255;
-	    break;
-	}
-	
-	return $size;
-    }
-	
     /**
      * @see GalleryView::loadTemplate
      */
     function loadTemplate(&$template, &$form) {
 	global $gallery;
 
-	list ($page, $selectedId, $albumPage) =
-	    GalleryUtilities::getRequestVariables('page', 'selectedId', 'albumPage');
-
-	list ($ret, $item) = $this->getItem();
-	if ($ret) {
-	    return array($ret, null);
-	}
-	$itemId = $item->getId();
+	list ($itemId, $page, $selectedId, $albumPage) =
+	    GalleryUtilities::getRequestVariables('itemId', 'page', 'selectedId', 'albumPage');
 
 	if ($form['formName'] != 'ItemEditCaption') {
 	    $form['formName'] = 'ItemEditCaption';
 	    $form['numPerPage'] = 9;
 
-	    list ($ret, $childIds) = GalleryCoreApi::fetchChildItemIdsWithPermission(
-		$itemId, array('core.edit', 'core.view'));
+	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
+	    if ($ret) {
+		return array($ret, null);
+	    }
+
+	    list ($ret, $childIds) =
+		GalleryCoreApi::fetchChildItemIdsWithPermission($itemId, 'core.edit');
 	    if ($ret) {
 		return array($ret, null);
 	    }
@@ -235,7 +204,7 @@ class ItemEditCaptionsView extends GalleryView {
 	    $start = $form['numPerPage'] * ($page - 1);
 	    $childIds = array_slice($childIds, $start, $form['numPerPage']);
 
-	    list ($ret, $childItems) = GalleryCoreApi::loadEntitiesById($childIds, 'GalleryItem');
+	    list ($ret, $childItems) = GalleryCoreApi::loadEntitiesById($childIds);
 	    if ($ret) {
 		return array($ret, null);
 	    }
@@ -273,18 +242,11 @@ class ItemEditCaptionsView extends GalleryView {
 	$ItemEditCaptions['page'] = $page;
 	$ItemEditCaptions['numPages'] = $numPages;
 
-	list ($ret, $entityInfo) = GalleryCoreApi::describeEntity('GalleryItem');
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	$ItemEditCaptions['fieldLengths'] = array();
-	$ItemEditCaptions['fieldLengths']['title'] = 
-	    $this->_getSizesForMaxLength($entityInfo['GalleryItem']['members']['title']['size']);
-
 	$template->setVariable('ItemEditCaptions', $ItemEditCaptions);
 	$template->setVariable('controller', 'core.ItemEditCaptions');
-	$template->javascript('lib/yui/yahoo-dom-event.js');
+	$template->javascript('lib/yui/yahoo-min.js');
+	$template->javascript('lib/yui/dom-min.js');
+	$template->javascript('lib/yui/event-min.js');
 	$template->javascript('lib/yui/container-min.js');
 	return array(null, array('body' => 'modules/core/templates/ItemEditCaptions.tpl'));
 

@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -56,10 +56,13 @@ class DownloadDavMountView extends GalleryView {
 
 	list ($itemId, $path) = GalleryUtilities::getRequestVariables('itemId', 'path');
 	if (isset($itemId)) {
-	    list ($ret, $item) =
-		GalleryCoreApi::loadEntitiesById($itemId, 'GalleryFileSystemEntity');
+	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	    if ($ret) {
 		return $ret;
+	    }
+
+	    if (!GalleryUtilities::isA($item, 'GalleryFileSystemEntity')) {
+		return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 	    }
 
 	    list ($ret, $path) = $item->fetchLogicalPath();

@@ -1,137 +1,91 @@
 # $Revision$
 # File crc32 crc32(crlf) size size(crlf)  or  R File
-modules/photoaccess/FulfillmentError.inc	1681193809	3895753385	1516	1559
-modules/photoaccess/PrintPhoto.inc	3591386655	853975991	1913	1976
-modules/photoaccess/classes/PhotoAccessCartPlugin.class	3932852332	1677751409	2346	2420
-modules/photoaccess/classes/PhotoAccessHelper.class	3555351274	1568228368	8348	8588
-modules/photoaccess/module.inc	3487829173	1024067469	4491	4646
+modules/photoaccess/FulfillmentError.inc	1603189642	336311086	1517	1560
+modules/photoaccess/PrintPhoto.inc	3421576039	4107106018	3947	4050
+modules/photoaccess/classes/PhotoAccessCartPlugin.class	362823486	3041883686	2151	2218
+modules/photoaccess/classes/PhotoAccessHelper.class	4248680897	2897697463	8324	8567
+modules/photoaccess/locale/af/LC_MESSAGES/modules_photoaccess.mo	3720712040	3720712040	711	711
+modules/photoaccess/locale/cs/LC_MESSAGES/modules_photoaccess.mo	1261058345	1261058345	1375	1375
+modules/photoaccess/locale/de/LC_MESSAGES/modules_photoaccess.mo	1623268020	1623268020	1299	1299
+modules/photoaccess/locale/en_GB/LC_MESSAGES/modules_photoaccess.mo	4132587997	4132587997	457	457
+modules/photoaccess/locale/es/LC_MESSAGES/modules_photoaccess.mo	3289361699	3289361699	1337	1337
+modules/photoaccess/locale/fi/LC_MESSAGES/modules_photoaccess.mo	22303008	22303008	693	693
+modules/photoaccess/locale/fr/LC_MESSAGES/modules_photoaccess.mo	1373623794	1373623794	1277	1277
+modules/photoaccess/locale/is/LC_MESSAGES/modules_photoaccess.mo	2888599931	2888599931	421	421
+modules/photoaccess/locale/it/LC_MESSAGES/modules_photoaccess.mo	307736397	307736397	1351	1351
+modules/photoaccess/locale/ja/LC_MESSAGES/modules_photoaccess.mo	1488524230	1488524230	1356	1356
+modules/photoaccess/locale/ko/LC_MESSAGES/modules_photoaccess.mo	2779966747	2779966747	1389	1389
+modules/photoaccess/locale/nl/LC_MESSAGES/modules_photoaccess.mo	3394969274	3394969274	1285	1285
+modules/photoaccess/locale/no/LC_MESSAGES/modules_photoaccess.mo	2877594877	2877594877	1306	1306
+modules/photoaccess/locale/pl/LC_MESSAGES/modules_photoaccess.mo	339543376	339543376	1358	1358
+modules/photoaccess/locale/ru/LC_MESSAGES/modules_photoaccess.mo	615368600	615368600	1362	1362
+modules/photoaccess/locale/sr/LC_MESSAGES/modules_photoaccess.mo	1576860629	1576860629	697	697
+modules/photoaccess/locale/sv/LC_MESSAGES/modules_photoaccess.mo	2347457598	2347457598	1387	1387
+modules/photoaccess/locale/tr/LC_MESSAGES/modules_photoaccess.mo	2222783948	2222783948	1388	1388
+modules/photoaccess/locale/zh_CN/LC_MESSAGES/modules_photoaccess.mo	3595438679	3595438679	1316	1316
+modules/photoaccess/locale/zh_TW/LC_MESSAGES/modules_photoaccess.mo	1736155813	1736155813	1253	1253
+modules/photoaccess/module.inc	3643002827	537672338	4151	4294
 modules/photoaccess/po/GNUmakefile	1866879166	2808215985	98	103
-modules/photoaccess/po/af.mo	547953222	547953222	863	863
-modules/photoaccess/po/af.po	2576924653	463026403	2201	2267
-modules/photoaccess/po/bg.mo	2706353785	2706353785	601	601
-modules/photoaccess/po/bg.po	6893655	549376274	2088	2154
-modules/photoaccess/po/ca.mo	3328157280	3328157280	552	552
-modules/photoaccess/po/ca.po	3544712786	3350063398	2015	2078
-modules/photoaccess/po/cs.mo	1428937185	1428937185	1370	1370
-modules/photoaccess/po/cs.po	1529875129	839130172	2272	2337
-modules/photoaccess/po/da.mo	3605962638	3605962638	1240	1240
-modules/photoaccess/po/da.po	2706897037	2009429523	2188	2249
-modules/photoaccess/po/de.mo	2789151222	2789151222	1294	1294
-modules/photoaccess/po/de.po	4141622543	383094958	2329	2395
-modules/photoaccess/po/el.mo	3070331978	3070331978	1567	1567
-modules/photoaccess/po/el.po	1934248533	3965085278	2464	2528
-modules/photoaccess/po/en_GB.mo	2261013226	2261013226	458	458
-modules/photoaccess/po/en_GB.po	3472643742	259486441	2173	2234
-modules/photoaccess/po/es.mo	2004863050	2004863050	1334	1334
-modules/photoaccess/po/es.po	1045304198	2881551517	2343	2408
-modules/photoaccess/po/es_AR.mo	3840944104	3840944104	510	510
-modules/photoaccess/po/es_AR.po	1900598506	3586591371	2270	2333
-modules/photoaccess/po/es_MX.mo	4118649309	4118649309	588	588
-modules/photoaccess/po/es_MX.po	1762848014	1937229952	2356	2421
-modules/photoaccess/po/et.mo	1314446792	1314446792	532	532
-modules/photoaccess/po/et.po	2571289416	2038149628	1875	1934
-modules/photoaccess/po/eu.mo	4115580792	4115580792	570	570
-modules/photoaccess/po/eu.po	382255895	3532571517	1962	2024
-modules/photoaccess/po/fi.mo	2502884272	2502884272	1242	1242
-modules/photoaccess/po/fi.po	2835465603	2910469532	2337	2404
-modules/photoaccess/po/fr.mo	139929561	139929561	1275	1275
-modules/photoaccess/po/fr.po	3516623173	3807273203	2207	2269
-modules/photoaccess/po/ga.mo	461823787	461823787	605	605
-modules/photoaccess/po/ga.po	2236595667	1304664526	2555	2633
-modules/photoaccess/po/hu.mo	817112745	817112745	570	570
-modules/photoaccess/po/hu.po	2006231131	1588311639	2063	2127
-modules/photoaccess/po/is.mo	2514893240	2514893240	422	422
-modules/photoaccess/po/is.po	3256904838	2697351929	1798	1857
-modules/photoaccess/po/it.mo	3838774078	3838774078	1328	1328
-modules/photoaccess/po/it.po	1988449810	9992255	2225	2289
-modules/photoaccess/po/ja.mo	149548012	149548012	1351	1351
-modules/photoaccess/po/ja.po	499969750	1448931343	2237	2298
-modules/photoaccess/po/ko.mo	3446066025	3446066025	1384	1384
-modules/photoaccess/po/ko.po	2310056063	330646925	2310	2375
-modules/photoaccess/po/nl.mo	2316319165	2316319165	1280	1280
-modules/photoaccess/po/nl.po	2169421883	2089191446	2257	2321
-modules/photoaccess/po/no.mo	442228671	442228671	1301	1301
-modules/photoaccess/po/no.po	1262146722	915493125	2306	2370
-modules/photoaccess/po/pl.mo	2601371498	2601371498	1353	1353
-modules/photoaccess/po/pl.po	372853515	18762018	2248	2311
-modules/photoaccess/po/pt_BR.mo	3578451284	3578451284	564	564
-modules/photoaccess/po/pt_BR.po	1267207133	489563708	1913	1973
-modules/photoaccess/po/ro.mo	3916020971	3916020971	555	555
-modules/photoaccess/po/ro.po	3567702506	923322126	2003	2067
-modules/photoaccess/po/ru.mo	3582815509	3582815509	1521	1521
-modules/photoaccess/po/ru.po	1949650897	3118538564	2532	2598
-modules/photoaccess/po/sr.mo	3546848152	3546848152	1306	1306
-modules/photoaccess/po/sr.po	2236123561	4147102353	2196	2258
-modules/photoaccess/po/strings.raw	3790669731	3547632587	669	687
-modules/photoaccess/po/sv.mo	3521007765	3521007765	1379	1379
-modules/photoaccess/po/sv.po	2069662966	3048714622	2611	2684
-modules/photoaccess/po/tr.mo	3622631741	3622631741	1382	1382
-modules/photoaccess/po/tr.po	1303310716	4203409425	2439	2507
-modules/photoaccess/po/vi.mo	3156427088	3156427088	556	556
-modules/photoaccess/po/vi.po	233188574	440394424	1902	1962
-modules/photoaccess/po/zh_CN.mo	892811773	892811773	1309	1309
-modules/photoaccess/po/zh_CN.po	629250817	3423978371	2202	2264
-modules/photoaccess/po/zh_TW.mo	2842619159	2842619159	1248	1248
-modules/photoaccess/po/zh_TW.po	1162229758	2463088919	2142	2204
-modules/photoaccess/templates/FulfillmentError.tpl	924216341	2138027614	648	666
-modules/photoaccess/test/phpunit/PhotoAccessCartPluginTest.class	941153755	1515748136	7236	7458
-modules/photoaccess/test/phpunit/PrintPhotoControllerTest.class	1853199279	2296073020	9034	9324
-R	modules/photoaccess/locale/af/LC_MESSAGES/modules_photoaccess.mo
-R	modules/photoaccess/locale/cs/LC_MESSAGES/modules_photoaccess.mo
+modules/photoaccess/po/af.po	1220398440	2808938080	2225	2293
+modules/photoaccess/po/cs.po	1633645594	2866098624	2325	2393
+modules/photoaccess/po/de.po	4069878956	3635669684	2334	2400
+modules/photoaccess/po/en_GB.po	3554055067	2906842894	2178	2239
+modules/photoaccess/po/es.po	149560922	1221412859	2344	2409
+modules/photoaccess/po/fi.po	3611224672	1128780913	2211	2277
+modules/photoaccess/po/fr.po	674722357	4055225533	2209	2271
+modules/photoaccess/po/is.po	1020331588	2719113213	1800	1859
+modules/photoaccess/po/it.po	392325131	2835118802	2296	2363
+modules/photoaccess/po/ja.po	991138841	3816385882	2242	2303
+modules/photoaccess/po/ko.po	3453152219	3842793027	2315	2380
+modules/photoaccess/po/nl.po	604888901	3939776711	2262	2326
+modules/photoaccess/po/no.po	2686650048	2749679070	2311	2375
+modules/photoaccess/po/pl.po	1523594048	3316346417	2253	2316
+modules/photoaccess/po/ru.po	17104197	3401534267	2505	2574
+modules/photoaccess/po/sr.po	877943586	2384756681	2268	2337
+modules/photoaccess/po/strings.raw	2335160619	2107136996	671	689
+modules/photoaccess/po/sv.po	3445094902	249151810	2619	2692
+modules/photoaccess/po/tr.po	2581380761	3668978268	2477	2548
+modules/photoaccess/po/zh_CN.po	100223122	2939534385	2284	2350
+modules/photoaccess/po/zh_TW.po	3896200574	1910491332	2147	2209
+modules/photoaccess/templates/FulfillmentError.tpl	2833063810	1031770272	805	825
+modules/photoaccess/test/phpunit/PhotoAccessCartPluginTest.class	107942252	479586671	7755	7982
+modules/photoaccess/test/phpunit/PrintPhotoControllerTest.class	1697883346	2932942187	9329	9620
 R	modules/photoaccess/locale/cs_CZ/LC_MESSAGES/modules_photoaccess.mo
 R	modules/photoaccess/locale/cs_CZ/LC_MESSAGES
 R	modules/photoaccess/locale/cs_CZ
-R	modules/photoaccess/locale/de/LC_MESSAGES/modules_photoaccess.mo
 R	modules/photoaccess/locale/de_DE/LC_MESSAGES/modules_photoaccess.mo
 R	modules/photoaccess/locale/de_DE/LC_MESSAGES
 R	modules/photoaccess/locale/de_DE
-R	modules/photoaccess/locale/en_GB/LC_MESSAGES/modules_photoaccess.mo
-R	modules/photoaccess/locale/es/LC_MESSAGES/modules_photoaccess.mo
-R	modules/photoaccess/locale/fi/LC_MESSAGES/modules_photoaccess.mo
-R	modules/photoaccess/locale/fr/LC_MESSAGES/modules_photoaccess.mo
 R	modules/photoaccess/locale/fr_FR/LC_MESSAGES/modules_photoaccess.mo
 R	modules/photoaccess/locale/fr_FR/LC_MESSAGES
 R	modules/photoaccess/locale/fr_FR
-R	modules/photoaccess/locale/is/LC_MESSAGES/modules_photoaccess.mo
 R	modules/photoaccess/locale/is_IS/LC_MESSAGES/modules_photoaccess.mo
 R	modules/photoaccess/locale/is_IS/LC_MESSAGES
 R	modules/photoaccess/locale/is_IS
-R	modules/photoaccess/locale/it/LC_MESSAGES/modules_photoaccess.mo
 R	modules/photoaccess/locale/it_IT/LC_MESSAGES/modules_photoaccess.mo
 R	modules/photoaccess/locale/it_IT/LC_MESSAGES
 R	modules/photoaccess/locale/it_IT
-R	modules/photoaccess/locale/ja/LC_MESSAGES/modules_photoaccess.mo
 R	modules/photoaccess/locale/ja_JP/LC_MESSAGES/modules_photoaccess.mo
 R	modules/photoaccess/locale/ja_JP/LC_MESSAGES
 R	modules/photoaccess/locale/ja_JP
-R	modules/photoaccess/locale/ko/LC_MESSAGES/modules_photoaccess.mo
-R	modules/photoaccess/locale/nl/LC_MESSAGES/modules_photoaccess.mo
 R	modules/photoaccess/locale/nl_NL/LC_MESSAGES/modules_photoaccess.mo
 R	modules/photoaccess/locale/nl_NL/LC_MESSAGES
 R	modules/photoaccess/locale/nl_NL
-R	modules/photoaccess/locale/no/LC_MESSAGES/modules_photoaccess.mo
 R	modules/photoaccess/locale/no_NO/LC_MESSAGES/modules_photoaccess.mo
 R	modules/photoaccess/locale/no_NO/LC_MESSAGES
 R	modules/photoaccess/locale/no_NO
-R	modules/photoaccess/locale/pl/LC_MESSAGES/modules_photoaccess.mo
-R	modules/photoaccess/locale/ru/LC_MESSAGES/modules_photoaccess.mo
 R	modules/photoaccess/locale/ru_RU/LC_MESSAGES/modules_photoaccess.mo
 R	modules/photoaccess/locale/ru_RU/LC_MESSAGES
 R	modules/photoaccess/locale/ru_RU
-R	modules/photoaccess/locale/sr/LC_MESSAGES/modules_photoaccess.mo
 R	modules/photoaccess/locale/sr_YU/LC_MESSAGES/modules_photoaccess.mo
 R	modules/photoaccess/locale/sr_YU/LC_MESSAGES
 R	modules/photoaccess/locale/sr_YU
-R	modules/photoaccess/locale/sv/LC_MESSAGES/modules_photoaccess.mo
 R	modules/photoaccess/locale/sv_SE/LC_MESSAGES/modules_photoaccess.mo
 R	modules/photoaccess/locale/sv_SE/LC_MESSAGES
 R	modules/photoaccess/locale/sv_SE
-R	modules/photoaccess/locale/tr/LC_MESSAGES/modules_photoaccess.mo
 R	modules/photoaccess/locale/tr_TR/LC_MESSAGES/modules_photoaccess.mo
 R	modules/photoaccess/locale/tr_TR/LC_MESSAGES
 R	modules/photoaccess/locale/tr_TR
-R	modules/photoaccess/locale/zh_CN/LC_MESSAGES/modules_photoaccess.mo
-R	modules/photoaccess/locale/zh_TW/LC_MESSAGES/modules_photoaccess.mo
 R	modules/photoaccess/po/cs_CZ.po
 R	modules/photoaccess/po/de_DE.po
 R	modules/photoaccess/po/fr_FR.po

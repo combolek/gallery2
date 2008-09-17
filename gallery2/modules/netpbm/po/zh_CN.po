@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: NetPBM 1.1.2\n"
+"Project-Id-Version: Gallery: NetPBM 1.1.1\n"
 "POT-Creation-Date: 2005-03-28 14:00+0800\n"
 "PO-Revision-Date: 2006-03-10 12:20+0800\n"
 "Last-Translator: Lyric <lyric@lyricli.com>\n"
@@ -134,11 +134,6 @@ msgstr ""
 "在下面的文本框中输入其路径。如果您使用的是UNIX系统，不要忘记设置程序可执行。（设置<i>chmod "
 "755 *</i>即可）"
 
-msgid ""
-"The exec() function is disabled in your PHP by the <b>disabled_functions</b> parameter in "
-"php.ini.  This module cannot be used until that setting is changed."
-msgstr ""
-
 msgid "NetPBM Directory:"
 msgstr "NetPBM目录:"
 
@@ -224,3 +219,9 @@ msgid ""
 "carefully you may discover the reason why your NetPBM binaries failed the tests."
 msgstr ""
 "当测试您的NetPBM程序时采集了这些除错输出。如果仔细阅读您可以发现NetPBM程序测试失败的原因。"
+
+#~ msgid "target width"
+#~ msgstr "目标宽度"
+
+#~ msgid "target height"
+#~ msgstr "目标高度"

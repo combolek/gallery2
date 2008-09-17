@@ -1,6 +1,8 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
 {g->callback type="albumselect.LoadAlbumData" albumTree=true stripTitles=true}
 
@@ -47,8 +49,6 @@
       {$albumTree}.config.useIcons = {if $params.treeIcons}true{else}false{/if};
       {$albumTree}.config.useCookies = {if $params.treeCookies}true{else}false{/if};
       {$albumTree}.config.closeSameLevel = {if $params.treeCloseSameLevel}true{else}false{/if};
-      {$albumTree}.config.cookiePath = '{$block.albumselect.cookiePath}';
-      {$albumTree}.config.cookieDomain = '{$block.albumselect.cookieDomain}';
       {assign var="data" value=$block.albumselect.LoadAlbumData.albumTree}
       {$albumTree}.add(0, -1, " {$data.titlesForJs.root}", '{g->url}');
       {ldelim} var pf = '{$data.links.prefix}';

@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -77,8 +77,6 @@ class AdminFfmpegController extends GalleryController {
 			    $error[] = 'form[error][path][notExecutable]';
 			}
 		    }
-		} else {
-		    $error[] = 'form[error][path][badPath]';
 		}
 
 		if (empty($error)) {
@@ -198,8 +196,7 @@ class AdminFfmpegController extends GalleryController {
 	    if ($ret) {
 		return $ret;
 	    }
-	    list ($ret, $thumbnails) =
-		GalleryCoreApi::loadEntitiesById($idSet, 'GalleryDerivative');
+	    list ($ret, $thumbnails) = GalleryCoreApi::loadEntitiesById($idSet);
 	    if ($ret) {
 		GalleryCoreApi::releaseLocks($lockId);
 		return $ret;
@@ -269,8 +266,7 @@ class AdminFfmpegView extends GalleryView {
 	}
 
 	$platform =& $gallery->getPlatform();
-	$tests = $mimeTypes = $mimeTypesEncoder = $encoderCodecs = array();
-	$version = $encodeWarnings = array();
+	$tests = $mimeTypes = array();
 	$debugSnippet = '';
 	$failCount = 0;
 	if (isset($form['action']['test'])) {
@@ -278,19 +274,12 @@ class AdminFfmpegView extends GalleryView {
 		$form['error']['path']['missing'] = 1;
 	    } else {
 		$gallery->startRecordingDebugSnippet();
-		list ($ret, $tests, $mimeTypes, $supportsOffset,
-		      $mimeTypesEncoder, $encoderCodecs, $version) =
-			FfmpegToolkitHelper::testBinary($form['path']);
-		if (in_array('video/x-flv', $mimeTypesEncoder)
-			&& !in_array('mp3', $encoderCodecs)) {
-		    $encodeWarnings['video/x-flv']['mute'] = true;
-		}
+		list ($ret, $tests, $mimeTypes) = FfmpegToolkitHelper::testBinary($form['path']);
 		$debugSnippet = $gallery->stopRecordingDebugSnippet();
 		if ($ret) {
 		    if ($ret->getErrorCode() & ERROR_BAD_PATH) {
 			$form['error']['path']['badPath'] = 1;
-			$tests = $mimeTypes = $mimeTypesEncoder = array();
-			$encoderCodecs = $version = array();
+			$tests = $mimeTypes = array();
 		    } else {
 			return array($ret, null);
 		    }
@@ -321,13 +310,9 @@ class AdminFfmpegView extends GalleryView {
 	$AdminFfmpeg = array();
 	$AdminFfmpeg['tests'] = $tests;
 	$AdminFfmpeg['mimeTypes'] = $mimeTypes;
-	$AdminFfmpeg['mimeTypesEncoder'] = $mimeTypesEncoder;
-	$AdminFfmpeg['encodeWarnings'] = $encodeWarnings;
-	$AdminFfmpeg['version'] = $version;
 	$AdminFfmpeg['debugSnippet'] = $debugSnippet;
 	$AdminFfmpeg['failCount'] = $failCount;
 	$AdminFfmpeg['isConfigure'] = !$isActive;
-	$AdminFfmpeg['canExec'] = !in_array('exec', split(',\s*', ini_get('disable_functions')));
 	$AdminFfmpeg['canWatermark'] = isset($toolkit);
 
 	if ($failCount > 0) {

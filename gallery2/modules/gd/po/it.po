@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,10 +19,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Gd 1.1.5\n"
+"Project-Id-Version: Gallery: Gd 1.1.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-05-21 15:49+0100\n"
-"PO-Revision-Date: 2008-03-27 12:01+0100\n"
+"PO-Revision-Date: 2007-01-08 17:57+0100\n"
 "Last-Translator: Ermanno Baschiera <ebaschiera@gmail.com>\n"
 "Language-Team: Italian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -80,16 +80,16 @@ msgid "Crop the image"
 msgstr "Ritaglia l'immagine"
 
 msgid "overlay path"
-msgstr "percorso dell'immagine da sovrapporre"
+msgstr "sovrapponi path"
 
 msgid "overlay mime type"
-msgstr "tipo mime della sovrapposizione"
+msgstr "sovrapponi tipo mime"
 
 msgid "overlay width"
-msgstr "larghezza sovrapposizione"
+msgstr "sovrapponi larghezza"
 
 msgid "overlay height"
-msgstr "altezza sovrapposizione"
+msgstr "sovrapponi altezza"
 
 msgid "alignment type"
 msgstr "tipo di allineamento"
@@ -107,7 +107,8 @@ msgid "target size in kb"
 msgstr "dimensione desiderata in kb"
 
 msgid "Reduce image quality to reach target file size"
-msgstr "Riduci la qualità dell'immagine per raggiungere la dimensione del file desiderata"
+msgstr ""
+"Riduci la qualit&agrave; dell'immagine per raggiungere la dimensione del file desiderata"
 
 msgid "Get the width and height of the image"
 msgstr "Ottieni la larghezza e l'altezza dell'immagine"
@@ -123,7 +124,7 @@ msgid ""
 "GD-library should be compiled in your PHP (--with-gd)."
 msgstr ""
 "Gd è un set di strumenti grafici utile per elaborare immagini caricate in Gallery. La "
-"libreria GD deve essere compilata in PHP (--with-gd)."
+"libreria GD deve essere compilata nel tuo PHP (--with-gd)."
 
 msgid "JPEG Quality:"
 msgstr "Qualità JPEG:"
@@ -135,7 +136,7 @@ msgid "Cancel"
 msgstr "Annulla"
 
 msgid "Reset"
-msgstr "Reimposta"
+msgstr "Reset"
 
 msgid "GD library version"
 msgstr "versione libreria GD"
@@ -144,7 +145,7 @@ msgid "GD version"
 msgstr "versione GD"
 
 msgid "Required"
-msgstr "Necessario"
+msgstr "Obbligatorio"
 
 msgid "Pass/fail"
 msgstr "OK/errore"
@@ -159,8 +160,8 @@ msgid ""
 "This GD version is too old and is not supported by this module! Please upgrade your PHP "
 "installation to include the latest GD version."
 msgstr ""
-"Questa versione di GD è troppo vecchia e non è supportata da questo modulo! Fare l'upgrade "
-"dell'installazione PHP in modo da avere l'ultima versione di GD."
+"Questa versione di GD è troppo vecchia e non è supportata da questo modulo! Per favore fa' "
+"l'upgrade della tua installazione PHP in modo da avere l'ultima versione di GD."
 
 msgid "Passed"
 msgstr "OK"

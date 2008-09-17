@@ -21,20 +21,20 @@
  * way that Gallery embeds internationalized text, so let's tack on our
  * own copyrights.
  *
- * Copyright (C) 2002-2008 Bharat Mediratta <bharat@menalto.com>
+ * Copyright 2002-2007 Bharat Mediratta <bharat@menalto.com>
  *
  * $Id$
  */
 
 if (!empty($_SERVER['SERVER_NAME'])) {
-    errorExit("You must run this from the command line\n");
-}
-if (!function_exists('token_get_all')) {
-    errorExit("PHP tokenizer required.\n"
-	    . "Must use a PHP binary that is NOT built with --disable-tokenizer\n");
+    print "You must run this from the command line\n";
+    exit(1);
 }
 
-$exts = '(class|php|inc|css|html|tpl)';
+$exts = '(class|php|inc|tpl|css|html)';
+/* These are in phpdoc and don't really need translations: */
+$skip = array('TEST to be displayed in different languages' => true,
+	      'TT <!-- abbreviation for Translation Test -->' => true);
 $idEmitted = false;
 $strings = array();
 array_shift($_SERVER['argv']);
@@ -93,7 +93,7 @@ function find($dir) {
 		if ($file != 'test') {
 		    $subdirs[] = $filename;
 		}
-	    } else if (preg_match('/\.' . $exts . '$/', $file)) {
+	    } else if (preg_match("/\." . $exts . "$/", $file)) {
 		extractStrings($filename);
 	    }
 	}
@@ -107,166 +107,136 @@ function find($dir) {
  * Grab all translatable strings in a file into $strings array
  */
 function extractStrings($filename) {
-    global $strings;
+    global $strings, $skip;
     $strings["\n/* $filename */"] = array();
     $startSize = count($strings);
     $localStrings = array();
     $data = file_get_contents($filename);
 
     /*
-     * class|inc|php are module and core PHP files.
-     * Parse .html as PHP for installer/upgrader templates/*.html files.
-     * Parse .css as PHP for modules/colorpack/packs/{name}/color.css files.
+     * grab phrases for translate( or i18n( or _( calls; capture string parameter enclosed
+     * in single or double quotes including concatenated strings like 'one' . "two"
      */
-    if (preg_match('/\.(class|inc|php|css|html)$/', $filename)) {
-	/* Tokenize PHP code and process to find translate( or i18n( or _( calls */
-	$tokens = token_get_all($data);
-	for ($i = 0; $i < count($tokens); $i++) {
-	    if (is_array($tokens[$i]) && $tokens[$i][0] == T_STRING
-		    && in_array($tokens[$i][1], array('translate', '_translate', 'i18n', '_'))
-		    && $tokens[$i + 1] === '(') {
-		/* Found a function call for translation, process the contents */
-		for ($i += 2; is_array($tokens[$i]) && $tokens[$i][0] == T_WHITESPACE; $i++) { }
-		if (is_array($tokens[$i]) && $tokens[$i][0] == T_VARIABLE) {
-		    /* Skip translate($variable) */
-		    continue;
-		}
-		for ($buf = '', $parenCount = $ignore = 0; $i < count($tokens); $i++) {
-		    /* Fill $buf with translation params; so end at , or ) not in a nested () */
-		    if (!$parenCount && ($tokens[$i] === ')' || $tokens[$i] === ',')) {
-			break;
-		    }
-		    if ($ignore && $parenCount == $ignore
-			    && ($tokens[$i] === ',' || $tokens[$i] === ')')) {
-			$ignore = false;
-		    }
-		    if ($tokens[$i] === '(') {
-			$parenCount++;
-		    } else if ($tokens[$i] === ')') {
-			$parenCount--;
-		    }
-		    if (is_array($tokens[$i]) && $tokens[$i][0] == T_CONSTANT_ENCAPSED_STRING) {
-			$lastString = $tokens[$i][1];
-		    }
-		    if (!$ignore) {
-			$buf .= is_array($tokens[$i]) ? $tokens[$i][1] : $tokens[$i];
-		    }
-		    if (is_array($tokens[$i]) && $tokens[$i][0] == T_DOUBLE_ARROW
-			    && (substr($lastString, 1, 3) === 'arg'
-				|| substr($lastString, 1, 5) === 'count')) {
-			/*
-			 * Convert 'argN' => code to 'argN' => null so we don't eval that code.
-			 * Add 'null' to $buf now, then ignore content until next , or ) not in
-			 * a deeper nested ().
-			 */
-			$buf .= 'null';
-			$ignore = $parenCount;
-		    }
-		}
-		$param = eval('return ' . $buf . ';');
-		if (is_string($param)) {
-		    /* Escape double quotes and newlines */
-		    $text = strtr($param, array('"' => '\"', "\r\n" => '\n', "\n" => '\n'));
-		    $string = 'gettext("' . $text . '")';
-		    if (!isset($strings[$string])) {
-			$strings[$string] = array();
-		    } else if (!isset($localStrings[$string])) {
-			$strings[$string][] = $filename;
-		    }
-		    $localStrings[$string] = true;
-		} else if (is_array($param)) {
-		    foreach (array('text', 'one', 'many') as $key) {
-			if (isset($param[$key])) {
-			    /* Escape double quotes and newlines */
-			    $param[$key] = strtr($param[$key],
-						 array('"' => '\\"', "\r\n" => '\n', "\n" => '\n'));
-			}
-		    }
-		    if (isset($param['one'])) {
-			$string = 'ngettext("' . $param['one'] . '", "' . $param['many'] . '")';
-		    } else {
-			$string = 'gettext("' . $param['text'] . '")';
-		    }
-		    if (isset($param['cFormat'])) {
-			$string = '/* xgettext:'
-				. ($param['cFormat'] ? '' : 'no-') . "c-format */\n$string";
-		    }
-		    if (!empty($param['hint'])) {
-			$string = '// HINT: ' . str_replace("\n", "\n// ", $param['hint'])
-				. "\n$string";
-		    }
-		    if (!isset($strings[$string])) {
-			$strings[$string] = array();
-		    } else if (!isset($localStrings[$string])) {
-			$strings[$string][] = $filename;
-		    }
-		    $localStrings[$string] = true;
-		}
+    if (preg_match_all("/(translate|i18n|_)\(\s*((?:(?:\s*\.\s*)?(?:'(?:(?:\\')?[^']*?)*[^\\\\]'|\"(?:(?:\")?[^\"]*?)*[^\\\\]\"))+)\s*(?:,\s*(true|false)\s*)?\)/s",
+		       $data, $matches, PREG_SET_ORDER)) {
+	foreach ($matches as $match) {
+	    $text = eval('return ' . $match[2] . ';');
+	    $text = str_replace('"', '\\"', $text);    /* escape double-quotes */
+	    if (isset($skip[$text])) {
+		continue;
 	    }
+	    if (!empty($match[3])) {
+		$hint = '/* xgettext:' . ($match[3] == 'false' ? 'no-' : '') . "c-format */\n";
+	    } else {
+		$hint = '';
+	    }
+	    $string = $hint . sprintf('gettext("%s")', $text);
+	    if (!isset($strings[$string])) {
+		$strings[$string] = array();
+	    } else if (!isset($localStrings[$string])) {
+		$strings[$string][] = $filename;
+	    }
+	    $localStrings[$string] = true;
 	}
-    } else if (preg_match_all('/{\s*g->(?:text|changeInDescendents)\s+.*?[^\\\\]}/s',
-			      $data, $matches)) {
-	/* Use regexp to process tpl files for {g->text ..} and {g->changeInDescendents ..} */
-	foreach ($matches[0] as $string) {
+    }
+
+    /* grab phrases of this format: translate(array('one' => '...', 'many' => '...')) */
+    if (preg_match_all("/translate\(\s*array\(\s*'one'\s*=>\s*((?:(?:\s*\.\s*)?(?:'(?:(?:\\')?[^']*?)*[^\\\\]'|\"(?:(?:\")?[^\"]*?)*[^\\\\]\"))+).*?'many'\s*=>\s*((?:(?:\s*\.\s*)?(?:'(?:(?:\\')?[^']*?)*[^\\\\]'|\"(?:(?:\")?[^\"]*?)*[^\\\\]\"))+)\s*[,)]/s",
+		       $data, $matches, PREG_SET_ORDER)) {
+	foreach ($matches as $match) {
+	    $one = eval('return ' . $match[1] . ';');
+	    $many = eval('return ' . $match[2] . ';');
+	    $one = str_replace('"', '\\"', $one);      /* escape double-quotes */
+	    $many = str_replace('"', '\\"', $many);    /* escape double-quotes */
+	    $string = sprintf('ngettext("%s", "%s")', $one, $many);
+	    if (!isset($strings[$string])) {
+		$strings[$string] = array();
+	    } else if (!isset($localStrings[$string])) {
+		$strings[$string][] = $filename;
+	    }
+	    $localStrings[$string] = true;
+	}
+    }
+
+    /* grab phrases of this format: translate(array('text' => '...', ...)) */
+    if (preg_match_all("/translate\(\s*array\(\s*'text'\s*=>\s*((?:(?:\s*\.\s*)?(?:'(?:(?:\\')?[^']*?)*[^\\\\]'|\"(?:(?:\")?[^\"]*?)*[^\\\\]\"))+)\s*[,)]/s",
+		       $data, $matches, PREG_SET_ORDER)) {
+	foreach ($matches as $match) {
+	    $text = eval('return ' . $match[1] . ';');
+	    $text = str_replace('"', '\\"', $text);    /* escape double-quotes */
+	    $string = sprintf('gettext("%s")', $text);
+	    if (!isset($strings[$string])) {
+		$strings[$string] = array();
+	    } else if (!isset($localStrings[$string])) {
+		$strings[$string][] = $filename;
+	    }
+	    $localStrings[$string] = true;
+	}
+    }
+
+    /* grab phrases of this format: {g->text ..... } or {g->changeInDescendents ... } */
+    if (preg_match_all("/(\{\s*g->(?:text|changeInDescendents)\s+.*?[^\\\]\})/s",
+		       $data, $matches, PREG_SET_ORDER)) {
+	foreach ($matches as $match) {
+	    $string = $match[1];
 	    $text = $one = $many = null;
 
 	    /*
 	     * Ignore translations of the form:
 	     *   text=$foo
 	     * as we expect those to be variables containing values that
-	     * have been marked elsewhere with the i18n() function.
+	     * have been marked elsewhere with the i18n() function
 	     */
-	    if (preg_match('/\stext=\$/', $string)) {
+	    if (preg_match("/text=\\$/", $string)) {
 		continue;
 	    }
 
 	    /* text=..... */
-	    if (preg_match('/\stext="(.*?[^\\\\])"/s', $string, $matches)) {
+	    if (preg_match("/text=\"(.*?[^\\\])\"/s", $string, $matches)) {
 		$text = $matches[1];
-	    } else if (preg_match("/text='(.*?)'/s", $string, $matches)) {
-		$text = str_replace('"', '\"', $matches[1]);    /* Escape double quotes */
+	    } elseif (preg_match("/text='(.*?)'/s", $string, $matches)) {
+		$text = $matches[1];
+		$text = str_replace('"', '\\"', $text);    /* escape double-quotes */
 	    }
 
-	    /* one=..... */
-	    if (preg_match('/\sone="(.*?[^\\\\])"/s', $string, $matches)) {
+	    /* one = ..... */
+	    if (preg_match("/\s+one=\"(.*?[^\\\])\"/s", $string, $matches)) {
 		$one = $matches[1];
-	    } else if (preg_match("/\sone='(.*?)'/s", $string, $matches)) {
-		$one = str_replace('"', '\"', $matches[1]);    /* Escape double quotes */
+	    } elseif (preg_match("/\s+one='(.*?)'/s", $string, $matches)) {
+		$one = $matches[1];
+		$one = str_replace('"', '\\"', $one);    /* escape double-quotes */
 	    }
 
-	    /* many=..... */
-	    if (preg_match('/\smany="(.*?[^\\\\])"/s', $string, $matches)) {
+	    /* many = ..... */
+	    if (preg_match("/\s+many=\"(.*?[^\\\])\"/s", $string, $matches)) {
 		$many = $matches[1];
-	    } else if (preg_match("/\smany='(.*?)'/s", $string, $matches)) {
-		$many = str_replace('"', '\"', $matches[1]);    /* Escape double quotes */
+	    } elseif (preg_match("/\s+many='(.*?)'/s", $string, $matches)) {
+		$many = $matches[1];
+		$many = str_replace('"', '\\"', $many);    /* escape double-quotes */
 	    }
-
-	    /* Hint for translators */
-	    $translatorHint = preg_match('/\shint=((["\']).*?[^\\\\]\2)/s', $string, $matches)
-		? eval('return ' . $matches[1] . ';') : '';
 
 	    /* c-format hint for xgettext */
-	    $cFormatHint = preg_match('/\sc[Ff]ormat=(true|false)/s', $string, $matches)
-		? '/* xgettext:' . ($matches[1] == 'false' ? 'no-' : '') . "c-format */\n" : '';
-
-	    /* Pick gettext() or ngettext() and escape newlines */
-	    if (isset($text)) {
-		$string = 'gettext("' . strtr($text, array("\r\n" => '\n', "\n" => '\n')) . '")';
-	    } else if (isset($one) && isset($many)) {
-		$string = 'ngettext("' . strtr($one, array("\r\n" => '\n', "\n" => '\n')) . '", "'
-			. strtr($many, array("\r\n" => '\n', "\n" => '\n')) . '")';
+	    if (preg_match('/c[Ff]ormat=(true|false)/s', $string, $matches)) {
+		$hint = '/* xgettext:' . ($matches[1] == 'false' ? 'no-' : '') . "c-format */\n";
 	    } else {
-		/* Parse error */
-		$string = str_replace("\n", '\n> ', $string);
-		errorExit("extract.php parse error: $filename:\n> $string\n");
+		$hint = '';
 	    }
 
-	    if ($cFormatHint) {
-		$string = $cFormatHint . $string;
+	    /* pick gettext() or ngettext() */
+	    if ($text != null) {
+		$string = $hint . sprintf('gettext("%s")', $text);
+	    } else if ($one != null && $many != null) {
+		$string = $hint . sprintf('ngettext("%s", "%s")', $one, $many);
+	    } else {
+		/* parse error */
+		$stderr = fopen('php://stderr', 'w');
+		$text = preg_replace("/\n/s", '\n>', $text);
+		fwrite($stderr, "extract.php parse error: $filename:\n");
+		fwrite($stderr, "> $text\n");
+		exit(1);
 	    }
-	    if ($translatorHint) {
-		$string = "// HINT: $translatorHint\n$string";
-	    }
+
+	    $string = str_replace('\\}', '}', $string);    /* unescape right-curly-braces */
 	    if (!isset($strings[$string])) {
 		$strings[$string] = array();
 	    } else if (!isset($localStrings[$string])) {
@@ -278,11 +248,5 @@ function extractStrings($filename) {
     if (count($strings) == $startSize) {
 	unset($strings["\n/* $filename */"]);
     }
-}
-
-function errorExit($message) {
-    $stderr = fopen('php://stderr', 'w');
-    fwrite($stderr, $message);
-    exit(1);
 }
 ?>

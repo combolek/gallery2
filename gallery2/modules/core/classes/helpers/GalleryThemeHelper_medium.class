@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -115,7 +115,7 @@ class GalleryThemeHelper_medium {
     /**
      * @see GalleryCoreApi::loadAvailableBlocks
      */
-    function loadAvailableBlocks($getInactive=false) {
+    function loadAvailableBlocks() {
 	global $gallery;
 	$platform =& $gallery->getPlatform();
 
@@ -125,13 +125,13 @@ class GalleryThemeHelper_medium {
 	}
 
 	$data = array();
-	$base = GalleryCoreApi::getCodeBasePath();
+	$base = dirname(dirname(dirname(dirname(__FILE__))));
 	foreach ($pluginStatus as $pluginId => $status) {
-	    if (empty($status['active']) && !$getInactive) {
+	    if (empty($status['active'])) {
 		continue;
 	    }
 
-	    $configFile = "{$base}modules/$pluginId/templates/blocks/blocks.inc";
+	    $configFile = "$base/$pluginId/templates/blocks/blocks.inc";
 	    if (!$platform->file_exists($configFile)) {
 		continue;
 	    }
@@ -190,8 +190,7 @@ class GalleryThemeHelper_medium {
 		}
 
 		if (isset($form['changeInDescendents'])) {
-		    list ($ret, $item) =
-			GalleryCoreApi::loadEntitiesById($itemId, 'GalleryAlbumItem');
+		    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 		    if ($ret) {
 			return array($ret, null, null);
 		    }

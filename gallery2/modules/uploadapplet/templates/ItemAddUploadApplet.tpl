@@ -1,6 +1,8 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
 <div class="gbBlock">
   {if !empty($ItemAddUploadApplet.NoProtocolError)}
@@ -34,8 +36,6 @@
     {foreach key=key item=value from=$ItemAddUploadApplet.override}
     <param name="GROverride_{$key}" value="{$value}"/>
     {/foreach}
-    <param name="codebase_lookup" value="false"/>
-    <param name="image" value="{g->url href="modules/slideshowapplet/applets/splash.gif"}"/>
 
     <comment>
       <embed
@@ -64,8 +64,6 @@
           {foreach key=key item=value from=$ItemAddUploadApplet.override}
           GROverride_{$key}="{$value}"
           {/foreach}
-          codebase_lookup="false"
-          image="{g->url href="modules/slideshowapplet/applets/splash.gif"}"
       >
           <noembed alt="{g->text text="Your browser doesn't support applets; you should use one of the other upload methods."}">
             {g->text text="Your browser doesn't support applets; you should use one of the other upload methods."}

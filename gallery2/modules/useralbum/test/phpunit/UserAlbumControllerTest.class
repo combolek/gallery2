@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,48 +33,52 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
     }
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'useralbum');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $this->_targetAlbum) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($this->_targetAlbum);
 
 	$ret = GalleryCoreApi::setPluginParameter(
 	    'module', 'useralbum', 'targetLocation', $this->_targetAlbum->getId());
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $this->_userWithAlbum) = $this->_createRandomUser();
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($this->_userWithAlbum);
 
 	GalleryCoreApi::requireOnce('modules/useralbum/classes/UserAlbumHelper.class');
 	$ret = UserAlbumHelper::createUserAlbum($this->_userWithAlbum);
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	list ($ret, $this->_userAlbumId) = GalleryCoreApi::getPluginParameter(
 	    'module', 'useralbum', 'albumId', $this->_userWithAlbum->getId());
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $this->_userWithoutAlbum) = $this->_createRandomUser();
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($this->_userWithoutAlbum);
     }
@@ -98,7 +102,7 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 	/* Disable OnAccess creation and test to verify that album is not created */
 	$ret = GalleryCoreApi::setPluginParameter('module', 'useralbum', 'create', 'immediate');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$results = $this->handleRequest();
@@ -106,7 +110,7 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 	list ($ret, $albumId) = GalleryCoreApi::getPluginParameter(
 	    'module', 'useralbum', 'albumId', $this->_userWithoutAlbum->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(empty($albumId), 'Album should not have been created');
 
@@ -119,7 +123,7 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 	/* Enable OnAccess creation and test to verify that album is created */
 	$ret = GalleryCoreApi::setPluginParameter('module', 'useralbum', 'create', 'access');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$results = $this->handleRequest();
@@ -127,7 +131,7 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 	list ($ret, $albumId) = GalleryCoreApi::getPluginParameter(
 	    'module', 'useralbum', 'albumId', $this->_userWithoutAlbum->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(isset($albumId), 'Album was not created');
 
@@ -153,12 +157,11 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 	global $gallery;
 	list ($ret, $anonymousUserId) = GalleryCoreApi::getAnonymousUserId();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
-	list ($ret, $anonymousUser) =
-	    GalleryCoreApi::loadEntitiesById($anonymousUserId, 'GalleryUser');
+	list ($ret, $anonymousUser) = GalleryCoreApi::loadEntitiesById($anonymousUserId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$gallery->setActiveUser($anonymousUser);
 
@@ -178,25 +181,25 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'useralbum');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'useralbum', 'homeLink', 1);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Create-on-access mode.. should get link whether or not album already exists */
 	$ret = GalleryCoreApi::setPluginParameter('module', 'useralbum', 'create', 'access');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Anonymous should never see link */
 	$this->_becomeGuestUser();
 	list ($ret, $links) = $module->getSystemLinks();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(array(), $links, 'anonymous should not get link');
 
@@ -206,7 +209,7 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $links) = $module->getSystemLinks();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals($albumLink, $links, 'Link not displayed "on access" with album');
 
@@ -216,19 +219,19 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $links) = $module->getSystemLinks();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals($createLink, $links, 'Link not displayed "on access" without album');
 
 	/* Create-when-user-created mode.. should only get link if album already exists */
 	$ret = GalleryCoreApi::setPluginParameter('module', 'useralbum', 'create', 'immediate');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $links) = $module->getSystemLinks();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(array(), $links, 'Link displayed "immediate" without album');
 
@@ -236,60 +239,59 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $links) = $module->getSystemLinks();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals($albumLink, $links, 'Link not displayed "immediate" with album');
 
 	/* User with album should not get a link with homeLink off */
 	$ret = GalleryCoreApi::setPluginParameter('module', 'useralbum', 'homeLink', 0);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $links) = $module->getSystemLinks();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(array(), $links, 'Link displayed, but homeLink off');
     }
 
     function testUserAlbumTitle() {
 	/* Check that album title is set from user fullname, or username if no fullname */
-	list ($ret, $album) =
-	    GalleryCoreApi::loadEntitiesById($this->_userAlbumId, 'GalleryAlbumItem');
+	list ($ret, $album) = GalleryCoreApi::loadEntitiesById($this->_userAlbumId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals($this->_userWithAlbum->getFullName(), $album->getTitle(), 'fullname');
 
 	list ($ret, $lockId) =
 	    GalleryCoreApi::acquireWriteLock(array($this->_userWithoutAlbum->getId()));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->_userWithoutAlbum->setFullName('');
 	$this->_userWithoutAlbum->save();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$ret = GalleryCoreApi::releaseLocks($lockId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = UserAlbumHelper::createUserAlbum($this->_userWithoutAlbum);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	list ($ret, $albumId) = GalleryCoreApi::getPluginParameter(
 	    'module', 'useralbum', 'albumId', $this->_userWithoutAlbum->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
-	list ($ret, $album) = GalleryCoreApi::loadEntitiesById($albumId, 'GalleryAlbumItem');
+	list ($ret, $album) = GalleryCoreApi::loadEntitiesById($albumId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals($this->_userWithoutAlbum->getUserName(),
 			    $album->getTitle(), 'username');
@@ -300,24 +302,24 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 	$gallery->setActiveUser($this->_userWithoutAlbum);
 	list ($ret, $core) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = $this->_setParameters(array('create' => 'access', 'view' => 'everybody',
 					   'fullSize' => true));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$ret = GalleryCoreApi::addGroupPermission($this->_targetAlbum->getId(),
 	    $core['id.everybodyGroup'], 'core.all');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = GalleryCoreApi::addUserPermission($this->_targetAlbum->getId(),
 	    $this->_userWithAlbum->getId(), 'core.all');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$results = $this->handleRequest();
@@ -325,7 +327,7 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 	list ($ret, $albumId) = GalleryCoreApi::getPluginParameter(
 	    'module', 'useralbum', 'albumId', $this->_userWithoutAlbum->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(isset($albumId), 'Album was not created');
 	$secArray = array('core.view' => 1, 'core.viewAll' => 1,
@@ -336,7 +338,7 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 	list ($ret, $permissions) = GalleryCoreApi::fetchPermissionsForItems(
 	    array($albumId), $core['id.everybodyGroup']);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals($secArray, array_intersect_assoc($secArray,
 		    $permissions[$albumId]), 'Everybody Permissions');
@@ -346,7 +348,7 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 	list ($ret, $permissions) = GalleryCoreApi::fetchPermissionsForItems(
 	    array($albumId), $core['id.allUserGroup']);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(empty($permissions), 'Registered Permissions');
 
@@ -355,7 +357,7 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 	list ($ret, $permissions) = GalleryCoreApi::fetchPermissionsForItems(
 	    array($albumId), $this->_userWithoutAlbum->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals($secArray, array_intersect_assoc($secArray, $permissions[$albumId]),
 	    'Specific user');
@@ -364,7 +366,7 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 	list ($ret,$permissions) = GalleryCoreApi::fetchPermissionsForItems(
 	    array($albumId), $this->_userWithAlbum->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals($secArray, array_intersect_assoc($secArray,
 		    $permissions[$albumId]), 'Parent user');
@@ -375,25 +377,25 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 	$gallery->setActiveUser($this->_userWithoutAlbum);
 	list ($ret, $core) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = $this->_setParameters(array('create' => 'access', 'view' => 'allusers',
 					   'fullSize' => false));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = GalleryCoreApi::addGroupPermission($this->_targetAlbum->getId(),
 	    $core['id.everybodyGroup'], 'core.all');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = GalleryCoreApi::addUserPermission($this->_targetAlbum->getId(),
 	    $this->_userWithAlbum->getId(), 'core.all');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$results = $this->handleRequest();
@@ -401,7 +403,7 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 	list ($ret, $albumId) = GalleryCoreApi::getPluginParameter(
 	    'module', 'useralbum', 'albumId', $this->_userWithoutAlbum->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(isset($albumId), 'Album was not created');
 	$secArray = array('core.view' => 1, 'core.viewAll' => 1,
@@ -411,7 +413,7 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 	list ($ret, $permissions) = GalleryCoreApi::fetchPermissionsForItems(
 	    array($albumId), $core['id.everybodyGroup']);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(array(), array_intersect_assoc($secArray,
 		    $permissions[$albumId]), 'Everybody Permissions');
@@ -421,7 +423,7 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 	list ($ret, $permissions) = GalleryCoreApi::fetchPermissionsForItems(
 	    array($albumId), $core['id.allUserGroup']);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	/* full size is disabled for this test */
 	$this->assertEquals(array('core.view' => 1, 'core.viewResizes' => 1),
@@ -432,17 +434,16 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 	list ($ret, $permissions) = GalleryCoreApi::fetchPermissionsForItems(
 	    array($albumId), $this->_userWithoutAlbum->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
-	/* full size is disabled for this test */
-	$this->assertEquals(array('core.view' => 1, 'core.viewResizes' => 1),
-	    array_intersect_assoc($secArray, $permissions[$albumId]), 'Specific user');
+	$this->assertEquals($secArray, array_intersect_assoc($secArray, $permissions[$albumId]),
+	    'Specific user');
 
 	/* check the permissions of the parent album owner */
 	list ($ret,$permissions) = GalleryCoreApi::fetchPermissionsForItems(
 	    array($albumId), $this->_userWithAlbum->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(array('core.view' => 1, 'core.viewResizes' => 1),
 	    array_intersect_assoc($secArray, $permissions[$albumId]), 'Parent user');
@@ -453,32 +454,32 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 	$gallery->setActiveUser($this->_userWithoutAlbum);
 	list ($ret, $core) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Albums viewable by User only */
 	$ret = $this->_setParameters(array('create' => 'access', 'view' => 'user'));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* give all permissions to everybody group, to registered users and to a specific user */
 	$ret = GalleryCoreApi::addGroupPermission($this->_targetAlbum->getId(),
 	    $core['id.everybodyGroup'], 'core.all');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = GalleryCoreApi::addGroupPermission($this->_targetAlbum->getId(),
 	    $core['id.allUserGroup'], 'core.delete');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = GalleryCoreApi::addUserPermission($this->_targetAlbum->getId(),
 	    $this->_userWithAlbum->getId(), 'core.all');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$results = $this->handleRequest();
@@ -486,7 +487,7 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 	list ($ret, $albumId) = GalleryCoreApi::getPluginParameter(
 	    'module', 'useralbum', 'albumId', $this->_userWithoutAlbum->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(isset($albumId), 'Album was not created');
 	$secArray = array('core.view' => 1, 'core.viewAll' => 1,
@@ -497,7 +498,7 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 	list ($ret,$permissions) = GalleryCoreApi::fetchPermissionsForItems(
 	    array($albumId), $core['id.everybodyGroup']);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(array(), array_intersect_assoc($secArray,
 		    $permissions[$albumId]), 'Everybody Permissions');
@@ -507,7 +508,7 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 	list ($ret,$permissions) = GalleryCoreApi::fetchPermissionsForItems(
 	    array($albumId), $core['id.allUserGroup']);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(array(), array_intersect_assoc($secArray,
 		    $permissions[$albumId]), 'Registered Permissions');
@@ -515,7 +516,7 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 	list ($ret,$permissions) = GalleryCoreApi::fetchPermissionsForItems(
 	    array($albumId), $this->_userWithAlbum->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(array(), array_intersect_assoc($secArray,
 		    $permissions[$albumId]), 'Specific user Permissions');
@@ -525,7 +526,7 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 	foreach ($params as $key => $value) {
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'useralbum', $key, $value);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	}
 	return null;

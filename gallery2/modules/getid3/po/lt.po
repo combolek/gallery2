@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,9 +19,9 @@
 # Darius Žitkevičius <skystis@splius.lt>, 2005, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Getid3 1.0.5\n"
+"Project-Id-Version: Gallery: Getid3 1.0.2\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2007-06-14 17:22-0700\n"
+"POT-Creation-Date: 2006-12-20 09:48-0800\n"
 "PO-Revision-Date: 2006-03-12 23:02+0200\n"
 "Last-Translator: Darius Žitkevičius <skystis@splius.lt>\n"
 "Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
@@ -39,16 +39,16 @@ msgid "A toolkit for getting id3 tag information"
 msgstr ""
 
 msgid "Extra Data"
-msgstr "Papildomi duomenys"
+msgstr ""
 
 msgid "Get the origination timestamp"
-msgstr "Gauti sukūrimo laiko žymę"
+msgstr ""
 
 msgid "Album"
 msgstr "Albumas"
 
 msgid "Artist"
-msgstr "Atlikėjas"
+msgstr ""
 
 msgid "Audio Bit Rate"
 msgstr ""
@@ -69,7 +69,7 @@ msgid "Audio Sample Rate"
 msgstr ""
 
 msgid "Copyright"
-msgstr "Autorystės teisės"
+msgstr ""
 
 msgid "Date/Time"
 msgstr "Data/Laikas"
@@ -134,7 +134,7 @@ msgstr[1] ""
 msgstr[2] ""
 
 msgid "Restored the default properties for the Summary view"
-msgstr "Atstatytas numatytas santraukos rodymas"
+msgstr ""
 
 #, c-format
 msgid "Moved %d property up in the Summary view"
@@ -165,7 +165,7 @@ msgstr[1] ""
 msgstr[2] ""
 
 msgid "Restored the default properties for the Detailed view"
-msgstr "Atstatytas numatytas detalaus vaizdo rodymas"
+msgstr ""
 
 #, c-format
 msgid "Moved %d property up in the Detailed view"
@@ -186,7 +186,7 @@ msgstr "Nustatymai išsaugoti sėkmingai"
 
 msgid ""
 "getID3() is a PHP4 script that extracts useful information (such as ID3 tags, bitrate, "
-"playtime, etc.) from MP3s &amp; other multimedia file formats (Ogg, WMA, WMV, ASF, WAV, AVI, "
+"playtime, etc.) from MP3s & other multimedia file formats (Ogg, WMA, WMV, ASF, WAV, AVI, "
 "AAC, VQF, FLAC, MusePack, Real, QuickTime, Monkey's Audio, MIDI and more)."
 msgstr ""
 
@@ -206,52 +206,50 @@ msgid "Summary"
 msgstr "Santrauka"
 
 msgid "Detailed"
-msgstr "Detalus vaizdas"
+msgstr ""
 
 msgid "You must select at least one value in the available column"
-msgstr "Stulpelyje Galimi reikia pažymėti bent vieną reikšmę"
+msgstr ""
 
 msgid "You must select at least one value in the summary column"
-msgstr "Stulpelyje Santrauka reikia pažymėti bent vieną reikšmę"
+msgstr ""
 
 msgid "You must select at least one value in the detailed column"
-msgstr "Stulpelyje Detalus vaizdas reikia pažymėti bent vieną reikšmę"
+msgstr ""
 
 msgid "Add to Summary"
-msgstr "Pridėti į Santrauką"
+msgstr ""
 
 msgid "Add to Detailed"
-msgstr "Pridėti į Detalų vaizdą"
+msgstr ""
 
 msgid "Remove"
 msgstr "Išimti"
 
 msgid "Up"
-msgstr "Aukštyn"
+msgstr ""
 
 msgid "Down"
-msgstr "Žemyn"
+msgstr ""
 
 msgid "Reset to Defaults"
-msgstr "Atstatyti numatytas reikšmes"
+msgstr ""
 
 msgid ""
 "Restore the original values for the Summary and Detailed views.  Use with caution, there is "
 "no undo!"
 msgstr ""
-"Atstatys originalias santraukos ir detalaus vaizdo būsenas. Naudokite atsargiai, nes "
-"sugrįžti nebegalėsite!"
 
 msgid "Restore Summary Defaults"
-msgstr "Atkurti santraukos numatytas reikšmes"
+msgstr ""
 
 msgid "Restore Detailed Defaults"
-msgstr "Atkurti detalaus vaizdo numatytas reikšmes"
+msgstr ""
 
 msgid "Item Upload"
-msgstr "Elemento įkėlimas"
+msgstr ""
 
-msgid "When MP3s are added to Gallery check the ID3 title field and apply to:"
+msgid "When mp3's are added to Gallery check id3 Title field and apply to:"
 msgstr ""
 
 msgid "Save"
@@ -267,10 +265,10 @@ msgid "Audio/Video Properties"
 msgstr ""
 
 msgid "summary"
-msgstr "satrauka"
+msgstr ""
 
 msgid "details"
-msgstr "detalės"
+msgstr ""
 
 msgid "Archive File List"
 msgstr ""
@@ -279,7 +277,7 @@ msgid "Name"
 msgstr "Vardas"
 
 msgid "Size"
-msgstr "Dydis"
+msgstr ""
 
 msgid "GetID3/Misc info"
 msgstr ""

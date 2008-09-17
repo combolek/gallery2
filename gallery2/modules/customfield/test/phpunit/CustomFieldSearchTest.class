@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,15 +34,12 @@ class CustomFieldSearchTest extends GalleryTestCase {
     function setUp() {
 	global $gallery;
 
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	// Make sure search is active..
 	list ($ret, $moduleStatusList) = GalleryCoreApi::fetchPluginStatus('module');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	if (empty($moduleStatusList['search']['active'])) {
@@ -53,13 +50,15 @@ class CustomFieldSearchTest extends GalleryTestCase {
 	list ($ret, $this->_search) =
 	    GalleryCoreApi::newFactoryInstance('GallerySearchInterface_1_0', 'CustomFieldSearch');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(isset($this->_search), 'Missing CustomFieldSearch instance');
 
 	list ($ret, $this->_module) = GalleryCoreApi::loadPlugin('module', 'customfield');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->_randomKey = "a" . rand(1,100000) . "z";
@@ -67,20 +66,22 @@ class CustomFieldSearchTest extends GalleryTestCase {
 	list ($ret, $groupId) = GalleryCoreApi::getPluginParameter('module', 'core',
 								   'id.everybodyGroup');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	// Create an album and define custom fields..
 	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->_markForCleanup($this->_album);
 
 	$ret = GalleryCoreApi::addGroupPermission($this->_album->getId(), $groupId, 'core.view');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = CustomFieldHelper::saveParameters(array(
@@ -97,7 +98,8 @@ class CustomFieldSearchTest extends GalleryTestCase {
 	    )
 	), $this->_album->getId());
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	// Create some items and set custom field values..
@@ -108,11 +110,13 @@ class CustomFieldSearchTest extends GalleryTestCase {
 	    list ($ret, $this->_items[$i]) = $this->_createRandomDataItem(
 		$this->_album->getId(), 'image/test', array(), __FILE__, 'GalleryPhotoItem');
 	    if ($ret) {
-		return $ret;
+		print $ret->getAsHtml();
+		return $this->failWithStatus($ret);
 	    }
 	    $ret = CustomFieldHelper::saveFieldValues($this->_items[$i], $values[$i]);
 	    if ($ret) {
-		return $ret;
+		print $ret->getAsHtml();
+		return $this->failWithStatus($ret);
 	    }
 	}
     }
@@ -120,7 +124,7 @@ class CustomFieldSearchTest extends GalleryTestCase {
     function testGetSearchModuleInfo() {
 	list ($ret, $info) = $this->_search->getSearchModuleInfo();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(
@@ -136,7 +140,7 @@ class CustomFieldSearchTest extends GalleryTestCase {
 	list ($ret, $results) =
 	    $this->_search->search(array('customfield' => 1), $this->_randomKey);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(
@@ -158,7 +162,7 @@ class CustomFieldSearchTest extends GalleryTestCase {
 	list ($ret, $results) =
 	    $this->_search->search(array('customfield' => 1), $this->_randomKey, 1, 2);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(
@@ -178,7 +182,7 @@ class CustomFieldSearchTest extends GalleryTestCase {
 	    $this->_search->search(array('customfield' => 1),
 				   'some string that will never show up');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(array('start' => 0,

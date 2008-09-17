@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -23,11 +23,12 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Core 1.2.36\n"
-"POT-Creation-Date: 2003-05-16 09:41+0300\n"
-"PO-Revision-Date: 2007-11-25 15:32+0200\n"
-"Last-Translator: Tuomo Lahti <tuomo.lahti@gmail.com>\n"
-"Language-Team: Finnish <gallery-devel@lists.sourceforge.net>\n"
+"Project-Id-Version: Gallery: Core 1.2.0.3\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-06-07 09:29-0700\n"
+"PO-Revision-Date: 2007-03-10 09:46+0200\n"
+"Last-Translator: Jyrki Heinonen <jyrki.heinonen@gmail.com>\n"
+"Language-Team: FI <suser-fi@kotoistaminen.novell.fi>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -36,30 +37,6 @@ msgstr ""
 
 msgid "Gallery Email Test"
 msgstr "Gallerian sähköpostin testaus"
-
-#, c-format
-msgid "%d minute"
-msgid_plural "%d minutes"
-msgstr[0] "%d minuutti"
-msgstr[1] "%d minuuttia"
-
-#, c-format
-msgid "%d hour"
-msgid_plural "%d hours"
-msgstr[0] "%d tunti"
-msgstr[1] "%d tuntia"
-
-#, c-format
-msgid "%d day"
-msgid_plural "%d days"
-msgstr[0] "%d päivä"
-msgstr[1] "%d päivää"
-
-#, c-format
-msgid "%d week"
-msgid_plural "%d weeks"
-msgstr[0] "%d viikko"
-msgstr[1] "%d viikkoa"
 
 msgid "forever"
 msgstr "ikuisesti"
@@ -85,33 +62,32 @@ msgstr "Tietokanta"
 msgid "File"
 msgstr "Tiedosto"
 
-msgid "&lt;none&gt;"
-msgstr "&lt;ei valittu&gt;"
-
-#, fuzzy
-msgid "Link"
-msgstr "Kirjaudu Sisään"
+#, c-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] "%d minuutti"
+msgstr[1] "%d minuuttia"
 
 #, c-format
-msgid "Page %d of %d"
-msgstr "Sivu %d/%d"
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] "%d tunti"
+msgstr[1] "%d tuntia"
 
-#, fuzzy
-msgid "Updating Language Settings"
-msgstr "Kielen Asetukset"
+#, c-format
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] "%d päivä"
+msgstr[1] "%d päivää"
 
-msgid "Update completed with errors."
-msgstr "Päivitys valmis virheillä."
+#, c-format
+msgid "%d week"
+msgid_plural "%d weeks"
+msgstr[0] "%d viikko"
+msgstr[1] "%d viikkoa"
 
-msgid "Update complete."
-msgstr "Päivitys valmis"
-
-msgid "Deleting Language Packs"
-msgstr "Poistetaan kielipaketteja"
-
-#, fuzzy
-msgid "Synchronizing Language Packs"
-msgstr "Poistetaan kielipaketteja"
+msgid "<none>"
+msgstr "<ei valittu>"
 
 msgid "No acceleration"
 msgstr "Ei kiihdytystä"
@@ -124,6 +100,42 @@ msgstr "Täysi kiihdytys"
 
 msgid "Themes"
 msgstr "Teema"
+
+msgid "Updating Repository Index"
+msgstr "Päivitetään tietovaraston indeksi"
+
+msgid "Scanning plugins"
+msgstr "Etsitään moduuleita"
+
+msgid "Update Plugin List"
+msgstr "Päivitä moduulilista"
+
+msgid "Done."
+msgstr "Valmis."
+
+msgid "Updating Packages"
+msgstr "Päivitetään paketteja"
+
+#, c-format
+msgid "Preparing %s"
+msgstr "Valmistellaan %s"
+
+#, c-format
+msgid "Downloading %s"
+msgstr "Ladataan %s"
+
+#, c-format
+msgid "Activating %s"
+msgstr "Aktivoidaan %s"
+
+msgid "Deleting Language Packs"
+msgstr "Poistetaan kielipaketteja"
+
+msgid "Update completed with errors."
+msgstr "Päivitys valmis virheillä."
+
+msgid "Update complete."
+msgstr "Päivitys valmis"
 
 msgid "install"
 msgstr "asenna"
@@ -146,11 +158,11 @@ msgstr "Peri asetukset ylemmän tason albumista"
 msgid "Use these settings"
 msgstr "Käytä näitä asetuksia"
 
-msgid "Converting Schema Table"
-msgstr ""
-
 msgid "Installing the core module"
 msgstr "Asennetaan Gallerian ydinmoduuli"
+
+msgid "key"
+msgstr "avain"
 
 msgid "All access"
 msgstr "Täydet käyttöoikeudet"
@@ -185,10 +197,6 @@ msgstr "[ydin] Poista kohde"
 msgid "Upgrading permissions"
 msgstr "Päivittää oikeuksia"
 
-#, c-format
-msgid "Upgrading permissions (%d items complete, %d remaining)"
-msgstr "Päivitetään oikeuksia (%d suoritettu, %d jäljellä)"
-
 msgid "Deleting old permission tables"
 msgstr "Poistaa vanhoja oikeus tietoja"
 
@@ -200,6 +208,46 @@ msgstr "Kaikki Käyttäjät"
 
 msgid "Detecting broken derivatives"
 msgstr "Etsii rikkoutuneita johdannaisia"
+
+msgid "Clearing fast-download cache"
+msgstr "Tyhjentää nopean latauksen välimuistia"
+
+msgid "Deleting old fast-download cache"
+msgstr "Tyhjennetään nopean latauksen välimuisti"
+
+msgid "Updating panorama items"
+msgstr "Päivitetään panoraamakohteita"
+
+msgid "Optimizing AccessSubscriberMap table"
+msgstr "Optimoidaan AccessSubscriberMap taulua"
+
+msgid "Converting Schema Table"
+msgstr ""
+
+msgid "Loading Table Descriptions"
+msgstr ""
+
+msgid "Site Admins"
+msgstr "Gallerian Ylläpitäjät"
+
+msgid "Everybody"
+msgstr "Kaikki"
+
+msgid "Guest"
+msgstr "Vieras"
+
+msgid "Gallery"
+msgstr "Galleria"
+
+msgid "This is the main page of your Gallery"
+msgstr "Tämä on Gallerian etusivu"
+
+msgid "Converting MySQL data to UTF8"
+msgstr "Muutetaan MySQL tietoja UTF8 merkistöön"
+
+#, c-format
+msgid "Upgrading permissions (%d items complete, %d remaining)"
+msgstr "Päivitetään oikeuksia (%d suoritettu, %d jäljellä)"
 
 #, c-format
 msgid "Detecting broken derivatives, loading (%d derivatives checked, %d remaining)"
@@ -221,56 +269,9 @@ msgstr ""
 "Etsitään rikkinäisiä johdannaisia, tallennetaan kohdetta %d / %d (%d johdannaista "
 "tarkastettu, %d jäljellä)"
 
-msgid "Clearing fast-download cache"
-msgstr "Tyhjentää nopean latauksen välimuistia"
-
-msgid "Deleting old fast-download cache"
-msgstr "Tyhjennetään nopean latauksen välimuisti"
-
 #, c-format
 msgid "Deleting old session files (iteration %d)"
 msgstr "Poistaa vanhoja sessiotiedostoja (vaihe %d)"
-
-msgid "Updating panorama items"
-msgstr "Päivitetään panoraamakohteita"
-
-msgid "Optimizing AccessSubscriberMap table"
-msgstr "Optimoidaan AccessSubscriberMap taulua"
-
-#, fuzzy
-msgid "Upgrading Plugin Translations"
-msgstr "Päivittää oikeuksia"
-
-#, fuzzy
-msgid "Creating Package Map"
-msgstr "Päivitetään paketteja"
-
-msgid "Site Admins"
-msgstr "Gallerian Ylläpitäjät"
-
-msgid "Everybody"
-msgstr "Kaikki"
-
-msgid "Guest"
-msgstr "Vieras"
-
-msgid "Gallery"
-msgstr "Galleria"
-
-msgid "This is the main page of your Gallery"
-msgstr "Tämä on Gallerian etusivu"
-
-msgid "Converting MySQL data to UTF8"
-msgstr "Muutetaan MySQL tietoja UTF8 merkistöön"
-
-msgid "Adding items"
-msgstr "Lisää kohteita"
-
-msgid "Processing items"
-msgstr "Käsitellään kohteita"
-
-msgid "Extracting archive"
-msgstr "Puretaan paketti"
 
 msgid "add items"
 msgstr "lisää kuvia"
@@ -283,6 +284,30 @@ msgstr "lisää albumi"
 
 msgid "add items confirmation"
 msgstr "kuvien lisäämisen varmistus"
+
+msgid "Base filename"
+msgstr "Tiedostonimi"
+
+msgid "Caption"
+msgstr "Kuvateksti"
+
+msgid "Blank"
+msgstr "Tyhjä"
+
+msgid "From Web Browser"
+msgstr "Web-selaimesta"
+
+#, c-format
+msgid "%d megabyte"
+msgid_plural "%d megabytes"
+msgstr[0] "%d megatavu"
+msgstr[1] "%d megatavua"
+
+#, c-format
+msgid "%d kilobytes"
+msgid_plural "%d kilobytes"
+msgstr[0] "%d kilotavu"
+msgstr[1] "%d kilotavua"
 
 #, c-format
 msgid "Input file %s exceeds maximum permitted file size"
@@ -300,35 +325,18 @@ msgstr "Tiedosto %s saatiin ladattua vain osittain"
 msgid "Input file %s was not uploaded. Error %d"
 msgstr "Tiedostoa %s ei saatu ladattua. Virhe %d"
 
-#, c-format
-msgid "%d megabyte"
-msgid_plural "%d megabytes"
-msgstr[0] "%d megatavu"
-msgstr[1] "%d megatavua"
-
-#, c-format
-msgid "%d kilobytes"
-msgid_plural "%d kilobytes"
-msgstr[0] "%d kilotavu"
-msgstr[1] "%d kilotavua"
-
-msgid "Base filename"
-msgstr "Tiedostonimi"
-
-msgid "Caption"
-msgstr "Kuvateksti"
-
-msgid "Blank"
-msgstr "Tyhjä"
-
-msgid "From Web Browser"
-msgstr "Web-selaimesta"
-
 msgid "Gallery Item Administration"
 msgstr "Gallerian Kohteen Ylläpito"
 
 msgid "delete an item"
 msgstr "poista kohde"
+
+msgid "delete confirmation"
+msgstr "vahvista poisto"
+
+#, c-format
+msgid "delete %s"
+msgstr "poista %s"
 
 #, c-format
 msgid "edit %s"
@@ -343,10 +351,6 @@ msgstr "Käytä skaalattujen kuvien asetuksia"
 msgid "Preparing..."
 msgstr "Valmistellaan..."
 
-#, c-format
-msgid "Processing image %d of %d"
-msgstr "Käsitellään kuvaa %d/%d"
-
 msgid "Apply thumbnail settings"
 msgstr "Käytä esikatselukuvien asetuksia"
 
@@ -355,6 +359,10 @@ msgstr "Luodaan esikatselukuvat uudelleen..."
 
 msgid "Album"
 msgstr "Albumi"
+
+#, c-format
+msgid "Processing image %d of %d"
+msgstr "Käsitellään kuvaa %d/%d"
 
 msgid "Changes saved successfully"
 msgstr "Muutokset tallennettu"
@@ -493,10 +501,6 @@ msgstr "Muokkaa Kuvaa"
 msgid "Edit Movie"
 msgstr "Muokkaa Videota"
 
-#, c-format
-msgid "Edit %s"
-msgstr "Muokkaa %s"
-
 msgid "Add Album"
 msgstr "Lisää Albumi"
 
@@ -515,10 +519,6 @@ msgstr "Poista Kuva"
 msgid "Delete Movie"
 msgstr "Poista Video"
 
-#, c-format
-msgid "Delete %s"
-msgstr "Poista %s"
-
 msgid "Move Album"
 msgstr "Siirrä Albumi"
 
@@ -528,10 +528,6 @@ msgstr "Siirrä Kuva"
 msgid "Move Movie"
 msgstr "Siirrä Video"
 
-#, c-format
-msgid "Move %s"
-msgstr "Siirrä %s"
-
 msgid "Edit Captions"
 msgstr "Muokkaa Kuvatekstejä"
 
@@ -540,9 +536,6 @@ msgstr "Laita Esimerkkikuvaksi"
 
 msgid "Reorder Items"
 msgstr "Järjestä Kohteet"
-
-msgid "Delete Items"
-msgstr "Poista Kohde"
 
 msgid "Site Admin"
 msgstr "Gallerian Ylläpito"
@@ -568,12 +561,6 @@ msgstr "Ryhmät"
 msgid "Performance"
 msgstr "Suorituskyky"
 
-msgid "Event Logs"
-msgstr "Tapahtumaloki"
-
-msgid "Language Settings"
-msgstr "Kielen Asetukset"
-
 msgid "Toolkit Priority"
 msgstr "Työkalujen Tärkeysjärjestys"
 
@@ -586,28 +573,17 @@ msgstr "Omat Asetukset"
 msgid "Change Password"
 msgstr "Vaihda Salasana"
 
-msgid "Updating Packages"
-msgstr "Päivitetään paketteja"
+#, c-format
+msgid "Edit %s"
+msgstr "Muokkaa %s"
 
 #, c-format
-msgid "Cleaning up obsolete files %s"
-msgstr ""
+msgid "Delete %s"
+msgstr "Poista %s"
 
 #, c-format
-msgid "Activating %s"
-msgstr "Aktivoidaan %s"
-
-msgid "Updating Repository Index"
-msgstr "Päivitetään tietovaraston indeksi"
-
-msgid "Scanning plugins"
-msgstr "Etsitään moduuleita"
-
-msgid "Update Plugin List"
-msgstr "Päivitä moduulilista"
-
-msgid "Done."
-msgstr "Valmis."
+msgid "Move %s"
+msgstr "Siirrä %s"
 
 msgid "Build all thumbnails/resizes"
 msgstr "Tee kaikki kuvakkeet/koon muutokset"
@@ -622,6 +598,9 @@ msgstr ""
 msgid "Build All Thumbnails/Resizes"
 msgstr "Tee Kaikki Kuvakkeet/Koot"
 
+msgid "Debug output for failed items:"
+msgstr "Tulostus vianhakuun epäonnistuneille kohteille:"
+
 #, c-format
 msgid "Checked %d items"
 msgstr "%d kohdetta tarkistettu"
@@ -633,9 +612,6 @@ msgstr "%d kohdetta tehty"
 #, c-format
 msgid "%d items failed"
 msgstr "%d kohdetta epäonnistui"
-
-msgid "Debug output for failed items:"
-msgstr "Tulostus vianhakuun epäonnistuneille kohteille:"
 
 msgid "Convert MySQL database to UTF8"
 msgstr "Muuta MySQL tietokanta UTF8 merkistöön"
@@ -658,35 +634,6 @@ msgstr "Tietokanta muutettu UTF8 merkistöön"
 
 msgid "No conversion required"
 msgstr "Konversiota ei tarvita"
-
-msgid "Backup the database"
-msgstr "Varmuuskopioi tietokanta"
-
-msgid ""
-"Backup all your Gallery data (item data, users, comments, etc.) to a single file in your "
-"storage folder.  The backup does not include the image files.  Before running the backup, "
-"your Gallery installation needs to be set into maintenance mode, as this is not done "
-"automatically."
-msgstr ""
-"Varmuuskopioi Gallerian tiedot (tiedot,käyttäjät,kommentit,jne) yhteen tiedostoon. Tämä "
-"varmuuskopio EI sisällä kuvatiedostoja. Ennen varmuuskopion tekemistä sinun täytyy asettaa "
-"Galleria ylläpitotilaan koska tilan muutosta ei tehdä automaattisesti."
-
-msgid "Backing up Gallery Database"
-msgstr "Varmuuskopioi Gallerian tietokanta"
-
-#, fuzzy
-msgid "Exporting..."
-msgstr "Valmistellaan..."
-
-#, c-format
-msgid "Database backup completed and the backup file is located at: %s"
-msgstr "Tietokannan varmuuskopio onnistui, varmuuskopio sijaitsee: %s "
-
-msgid ""
-"Please note that your backup contains sensitive data (like passwords) and should not be "
-"stored online! We recommend that you download it from your server and keep it safely offline."
-msgstr ""
 
 msgid "Delete user sessions"
 msgstr "Poista käyttäjäsessiot"
@@ -722,12 +669,11 @@ msgstr "Ei voi poistaa hakemistoa: %s"
 msgid "Delete template cache"
 msgstr "Poista template välimuisti"
 
-#, fuzzy
 msgid ""
 "Gallery compiles template files and saves them for increased performance.  If you're "
 "experiencing problems that say <i>Smarty error</i> then you might try running this task.  "
-"Also run this if you add or remove any local/*.tpl or theme override so Smarty will find the "
-"right file."
+"Also run this if you remove a local/*.tpl file so Smarty will switch back to the default tpl "
+"file."
 msgstr ""
 "Galleria kääntää template-tiedostot ja tallentaa ne tarjotaakseen paremman suorituskyvyn. "
 "Jos koet ongelmia joissa lukee <i>Smarty error</i>, voit kokeilla tämän toiminnon "
@@ -812,14 +758,6 @@ msgstr ""
 "Välimuistin alihakemistoa ei voitu luoda. Varmista, että http-palvelimella on "
 "kirjoitusoikeudet kohteeseen"
 
-#, c-format
-msgid "Preparing %s"
-msgstr "Valmistellaan %s"
-
-#, c-format
-msgid "Downloading %s"
-msgstr "Ladataan %s"
-
 msgid "Official Release Repository"
 msgstr "Virallinen julkaisu Repository"
 
@@ -879,10 +817,6 @@ msgstr "Nouseva"
 msgid "Descending"
 msgstr "Laskeva"
 
-#, c-format
-msgid "Powered by Gallery v%s"
-msgstr "Powered by Gallery v%s"
-
 msgid "Validation disabled until you set allowSessionAccess in config.php"
 msgstr "Varmennus poistettu kunnes teet allowSessionAccess asetuksen config.php:ssa"
 
@@ -891,6 +825,13 @@ msgstr "Tämä sivu on käypää XHTML 1.0 -koodia."
 
 msgid "Donate to the Gallery project"
 msgstr "Lahjoita Gallery projektille"
+
+msgid "G2.2: Double Double"
+msgstr "G2.2: Double Double"
+
+#, c-format
+msgid "Powered by Gallery v%s"
+msgstr "Powered by Gallery v%s"
 
 #, c-format
 msgid "Estimated time remaining: %d:%02d"
@@ -997,6 +938,13 @@ msgstr "taulukkolaskenta"
 msgid "file"
 msgstr "tiedosto"
 
+msgid "Back"
+msgstr "Takaisin"
+
+#, c-format
+msgid "Back to %s"
+msgstr "Takaisin %s sivulle"
+
 msgid "User"
 msgstr "Käyttäjä"
 
@@ -1067,14 +1015,6 @@ msgstr "ydin"
 msgid "unknown"
 msgstr "tuntematon"
 
-#, c-format
-msgid "API = Core %s, Module %s, Theme %s, Embed %s"
-msgstr ""
-
-#, fuzzy
-msgid "Gallery URL"
-msgstr "Galleria"
-
 msgid "Gallery version"
 msgstr "Gallerian versio"
 
@@ -1115,65 +1055,6 @@ msgstr "Selain"
 msgid "Rows in %s table = %d"
 msgstr "Taulussa %s on %d riviä"
 
-#, c-format
-msgid "The %s \"%s\" is not installed and will not be backed up."
-msgstr ""
-
-#, c-format
-msgid "\"%s\" has no creation sql and will not be backed up."
-msgstr ""
-
-#, c-format
-msgid "Unable to load table description for \"%s\", no data will be exported."
-msgstr "Ei voida ladata taulun kuvausta taululle \"%s\", tietoja ei voida tuoda."
-
-msgid ""
-"Unable to find the XML parser.  The PHP XML parsing extension must be loaded.  Terminating "
-"database import."
-msgstr ""
-
-#, c-format
-msgid "The exported file is not the correct version. Expecting %s received %s."
-msgstr "Väärä vientitiedoston versio. Odotettu %s saatu %s"
-
-#, c-format
-msgid "Unable to close import file: %s"
-msgstr "Ei voi sulkea tuontitiedostoa: %s"
-
-#, c-format
-msgid "Unable to open import file: %s"
-msgstr "Ei voi avata tuontitiedostoa: %s"
-
-#, c-format
-msgid "Import file doesn't exist: %s"
-msgstr "Tuontitiedostoa ei ole: %s"
-
-#, c-format
-msgid "Plugin %s is not currently available."
-msgstr "Lisäosa %s ei ole juuri nyt saatavilla"
-
-#, c-format
-msgid "The available version of plugin \"%s\" may not be compatible with the imported version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The currently installed core API version required by \"%s\" may not be compatible with the "
-"imported version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The installed module API version required by \"%s\" may not be compatible with the imported "
-"version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The installed theme API version required by \"%s\" is not compatible with the imported "
-"version."
-msgstr ""
-
 msgid "Successfully saved theme settings"
 msgstr "Teeman asetukset tallennettu"
 
@@ -1197,6 +1078,33 @@ msgstr "Pyyntösi toteutuksessa oli ongelma. Katso alta yksityiskohdat."
 
 msgid "Error sending test email, see below for details."
 msgstr "Virhe testisähköpostin lähetyksessä. Katso alta yksityiskohdat."
+
+msgid "Language Settings"
+msgstr "Kielen Asetukset"
+
+msgid ""
+"Select language defaults for Gallery. Individual users can override this setting in their "
+"personal preferences or via the language selector block if available. Gallery will try to "
+"automatically detect the language preference of each user if the browser preference check is "
+"enabled."
+msgstr ""
+"Valitse kielen oletusasetukset Gallerialle. Yksittäiset käyttäjät voivat ohittaa asetukset "
+"henkilökohtaisilla asetuksillaan tai kielivalintalohkosta. Galleria yrittää tunnistaa "
+"käyttäjän kielen automaattisesti selaimen asetuksista, jos ko. valinta on päällä."
+
+msgid "Default language"
+msgstr "Oletuskieli"
+
+msgid "Check Browser Preference"
+msgstr "Tarkista selainvalintasi (oletusselain)"
+
+#, c-format
+msgid ""
+"Your webserver does not support localization.  Please instruct your system administrator to "
+"reconfigure PHP with the %s option enabled."
+msgstr ""
+"HTTP-palvelimesi (Apache, IIS, tms.) ei tue lokalisointia. Ole hyvä ja pyydä Pääkäyttäjää "
+"konfiguroimaan PHP uudelleen %s -määritys enabloituna."
 
 msgid "Date Formats"
 msgstr "Päiväyksen Esitysmuodot"
@@ -1253,10 +1161,6 @@ msgstr "Istunnon Kesto"
 
 msgid "Inactivity Timeout"
 msgstr "Odotusajan Loppuminen"
-
-#, fuzzy
-msgid "Site Administration Session Timeout"
-msgstr "Gallerian Sivuston Ylläpito"
 
 msgid "Embedded Markup"
 msgstr "Upotetut Ulkoasukoodit"
@@ -1665,41 +1569,6 @@ msgid_plural "%d failed login attempts since the last successful login."
 msgstr[0] "%d epäonnistunut kirjaantumisyritys sitten viimeisen onnistuneen kirjautumisen."
 msgstr[1] "%d epäonnistunutta kirjaantumisyritystä sitten viimeisen onnistuneen kirjautumisen."
 
-msgid "Recent Events"
-msgstr "Viimeaikaiset tapahtumat"
-
-msgid "Type"
-msgstr ""
-
-msgid "Location"
-msgstr "Sijainti"
-
-msgid "Client"
-msgstr "Asiakas"
-
-msgid "No events have been reported yet."
-msgstr "Yhtäkään tapahtumaa ei ole vielä raportoitu"
-
-msgid "Event Details"
-msgstr "Tapahtuman yksityiskohdat"
-
-#, fuzzy
-msgid "User Id"
-msgstr "Käyttäjä"
-
-#, fuzzy
-msgid "Referer"
-msgstr "Järjestä uudelleen"
-
-msgid "Details"
-msgstr "Tarkennukset"
-
-msgid "no summary"
-msgstr "ei yhteenvetoa"
-
-msgid "An error occurred while retrieving the event log entry details."
-msgstr "Tapahtui virhe noudettaessa tapahtuman tarkempaa kuvausta."
-
 msgid "Group Management"
 msgstr "Ryhmien Hallinta"
 
@@ -1761,155 +1630,8 @@ msgid_plural "%d groups match your filter"
 msgstr[0] "yksi ryhmä vastaa suodinta"
 msgstr[1] "%d ryhmää vastaa suotimeen"
 
-msgid "Please make sure that your internet connection is set up properly or try again later."
-msgstr ""
-"Ole hyvä ja varmista että Internet yhteytesi on kunnossa tai yritä myöhemmin uudelleen."
-
-#, c-format
-msgid "Failed to scan status from plugin: %s."
-msgstr "Moduulien %s statuskysely epäonnistui."
-
-msgid ""
-"Your local copy of the repository was broken and has been fixed.  Please download the plugin "
-"list again."
-msgstr ""
-"Paikallinen tietovarastosi oli rikki, mutta nyt se on korjattu. Lataa lisäosien lista "
-"uudelleen."
-
-#, fuzzy, c-format
-msgid "Failed to delete the locale directory for %s."
-msgstr "Ei voi poistaa hakemistoa: %s"
-
-#, fuzzy, c-format
-msgid "Failed to download the following language packages for the %s plugin:"
-msgstr "Paketin lataus epäonnistui lisäosalle %s: "
-
-#, fuzzy, c-format
-msgid ""
-"Failed to install language packages for %s plugin because the following files/directories "
-"could not be modified:"
-msgstr ""
-"Lisäosan %s lataaminen epäonnistui, koska seuraavia tiedostoja/kansioita ei pystytty "
-"muokkaamaan:"
-
-#, fuzzy
-msgid "The repository index has been successfully refreshed."
-msgstr "Varaston (repository) indeksin päivitys onnistui."
-
-#, fuzzy
-msgid "The language settings have been saved."
-msgstr "Yhtään pakettia ei ole valittu."
-
-#, fuzzy, c-format
-msgid "%d language pack upgraded or downloaded."
-msgid_plural "%d language packs upgraded or downloaded."
-msgstr[0] "%d kielipaketti poistettiin."
-msgstr[1] "%d kielipakettia poistettiin."
-
-#, c-format
-msgid "%d language pack deleted."
-msgid_plural "%d language packs deleted."
-msgstr[0] "%d kielipaketti poistettiin."
-msgstr[1] "%d kielipakettia poistettiin."
-
-msgid "All the language packages for the selected languages are current"
-msgstr ""
-
-msgid ""
-"Select language defaults for Gallery. Individual users can override this setting in their "
-"personal preferences or via the language selector block if available. Gallery will try to "
-"automatically detect the language preference of each user if the browser preference check is "
-"enabled."
-msgstr ""
-"Valitse kielen oletusasetukset Gallerialle. Yksittäiset käyttäjät voivat ohittaa asetukset "
-"henkilökohtaisilla asetuksillaan tai kielivalintalohkosta. Galleria yrittää tunnistaa "
-"käyttäjän kielen automaattisesti selaimen asetuksista, jos ko. valinta on päällä."
-
-msgid "Default language"
-msgstr "Oletuskieli"
-
-msgid "Check Browser Preference"
-msgstr "Tarkista selainvalintasi (oletusselain)"
-
-#, c-format
-msgid ""
-"Your webserver does not support localization.  Please instruct your system administrator to "
-"reconfigure PHP with the %s option enabled."
-msgstr ""
-"HTTP-palvelimesi (Apache, IIS, tms.) ei tue lokalisointia. Ole hyvä ja pyydä Pääkäyttäjää "
-"konfiguroimaan PHP uudelleen %s -määritys enabloituna."
-
-msgid "Configure your Gallery"
-msgstr "Määritä Galleria"
-
-msgid ""
-"Before you can proceed, you have to change some permissions so that Gallery can install "
-"plugins for you.  It's easy.  Just execute the following in a shell or via your ftp client:"
-msgstr ""
-"Ennenkuin voit jatkaa, sinun täytyy muuttaa pääsyoikeuksia, jotta Galleria voi asentaa "
-"moduleita puolestasi. Tämä on helppoa - suorita seuraavat komennot komentoriviltä tai ftp-"
-"clientista:"
-
-msgid ""
-"Before you can proceed, please insure the following directories and sub-directories are "
-"writable, so that Gallery can install plugins for you:"
-msgstr ""
-
-#, fuzzy
-msgid ""
-"If you have trouble changing permissions, ask your system administrator for assistance.  "
-"When you've fixed the permissions, click the Check Again button to proceed."
-msgstr ""
-"Jos sinulla on hankaluuksia oikeuksien muuttamisessa, pyydä apua järjestelmän "
-"pääkäyttäjältä. Kun oikeudet on asetettu, paina 'Jatka' siirtyäksesi seuraavaan vaiheeseen."
-
-#, fuzzy
-msgid "Check Again"
-msgstr "Valitse Kaikki"
-
-#, fuzzy
-msgid "Add or Remove Languages"
-msgstr "Lisää/Poista Käyttäjiä"
-
-msgid ""
-"Please click on the link below to go to 'Download Plugin List' and choose 'Update Plugin "
-"List' to get the latest language package information."
-msgstr ""
-
-#, fuzzy
-msgid "Administer Repositories"
-msgstr "Käyttäjien tekemä Repository"
-
-#, fuzzy
-msgid "Upgrade"
-msgstr "päivitä"
-
-msgid "Remove"
-msgstr "Poista"
-
-#, fuzzy
-msgid "Download"
-msgstr "lataa"
-
-#, fuzzy
-msgid "No Change"
-msgstr "Muuta"
-
-#, fuzzy
-msgid "Select All"
-msgstr "Valittu"
-
-msgid ""
-"There are no local repository indices from which to determine language packages. Please "
-"click on the link below to go to \"Download Plugin List\" and choose \"Update Plugin List\" "
-"to get the latest language package information."
-msgstr ""
-
 msgid "System Maintenance"
 msgstr "Järjestelmän Ylläpito"
-
-msgid "Gallery must be in maintenance mode before the task can be run."
-msgstr "Galleria täytyy olla ylläpitotilassa ennenkuin tehtävä voidaan suorittaa."
 
 #, c-format
 msgid "Completed %s task successfully."
@@ -1918,38 +1640,6 @@ msgstr "Tehtävä '%s' suoritettu"
 #, c-format
 msgid "The %s task failed to complete successfully."
 msgstr "Tehtävä %s epäonnistui"
-
-msgid "Maintenance Mode has been turned on."
-msgstr "Ylläpitotila on päällä."
-
-msgid "Maintenance Mode has been turned off."
-msgstr "Ylläpitotila on pois päältä."
-
-msgid "Maintenance Mode"
-msgstr "Ylläpitotila"
-
-msgid "Restrict user access to the system while maintenance is being performed."
-msgstr "Rajoita käyttäjien pääsy järjestelmään kunnes ylläpitotoimet on suoritettu."
-
-msgid "Maintenance Mode Url"
-msgstr "Ylläpitotilan URL"
-
-msgid ""
-"The Maintenance Mode Url specifies where requests will be redirected when access to the site "
-"has been restricted by the administrator."
-msgstr ""
-
-msgid ""
-"If left blank Gallery will display a default page with an administrator login link. This "
-"page will be themed when the code base is up to date, otherwise it will display a plain "
-"unstyled page."
-msgstr ""
-
-msgid "For example: /maintenance.html"
-msgstr "Esimerkiksi: /ylläpito.html"
-
-msgid "Set"
-msgstr "Aseta"
 
 msgid "Task name"
 msgstr "Tehtävä"
@@ -2048,21 +1738,6 @@ msgstr "Vieraskäyttäjät"
 msgid "Expires after:"
 msgstr "Vanhenee (jälkeen):"
 
-#, fuzzy
-msgid "Template Cache"
-msgstr "Poista template välimuisti"
-
-#, c-format
-msgid ""
-"For optimal performance, Gallery caches all templates.  If you would like to %scustomize "
-"your template files%s, you should disable template caching temporarily so that changes take "
-"effect immediately without clearing the template cache."
-msgstr ""
-
-#, fuzzy
-msgid "Enable template caching"
-msgstr "Poista template välimuisti"
-
 msgid "Clear Saved Pages"
 msgstr "Poista tallennetut sivut"
 
@@ -2129,7 +1804,7 @@ msgid "This plugin will be uninstalled and its files will be deleted permanently
 msgstr "Tämän moduulin asennus poistetaan ja sen tiedostot tuhotaan."
 
 msgid "The files of this plugin will be deleted permanently."
-msgstr "Tämän lisäosan tiedostot poistetaan lopullisesti."
+msgstr ""
 
 msgid "disabled(__COUNT__)"
 msgstr "disabloi(__COUNT__)"
@@ -2222,25 +1897,28 @@ msgstr "Yhteensopimaton moduuli"
 msgid "Repository"
 msgstr "Varasto"
 
-#, c-format
-msgid "Failed to download the following packages for the %s plugin:"
-msgstr "Paketin lataus epäonnistui lisäosalle %s: "
+msgid "Please make sure that your internet connection is set up properly or try again later."
+msgstr ""
+"Ole hyvä ja varmista että Internet yhteytesi on kunnossa tai yritä myöhemmin uudelleen."
 
-#, fuzzy, c-format
+#, c-format
+msgid "Failed to scan status from plugin: %s."
+msgstr "Moduulien %s statuskysely epäonnistui."
+
 msgid ""
-"Failed to install the %s plugin because the following files/directories could not be "
+"Your local copy of the repository was broken and has been fixed.  Please download the plugin "
+"list again."
+msgstr ""
+"Paikallinen tietovarastosi oli rikki, mutta nyt se on korjattu. Lataa lisäosien lista "
+"uudelleen."
+
+#, c-format
+msgid ""
+"Failed to download the %s plugin because the following files/directories could not be "
 "modified:"
 msgstr ""
 "Lisäosan %s lataaminen epäonnistui, koska seuraavia tiedostoja/kansioita ei pystytty "
 "muokkaamaan:"
-
-#, c-format
-msgid ""
-"Some plugins could not be automatically upgraded because they are in use.  Please return to "
-"the %sPlugins%s page and click the upgrade link for each of the following plugins:"
-msgstr ""
-"Joitain lisäosia ei voitu päivittäää automaattisesti koska ne olivat käytössä. Palaa %"
-"sLisäosien%s sivulle ja valitse päivityslinkki seuraaville lisäosille:"
 
 msgid "The repository index has been successfully updated."
 msgstr "Varaston (repository) indeksin päivitys onnistui."
@@ -2251,6 +1929,12 @@ msgstr "Kaikki Moduulit ovat jo ajantasalla."
 #, c-format
 msgid "%s plugin updated."
 msgstr "%s moduulia päivitettiin."
+
+#, c-format
+msgid "%d language pack deleted."
+msgid_plural "%d language packs deleted."
+msgstr[0] "%d kielipaketti poistettiin."
+msgstr[1] "%d kielipakettia poistettiin."
 
 msgid ""
 "No personal information about you or your Gallery installation is sent to the Gallery server "
@@ -2299,6 +1983,17 @@ msgstr "Sinun tulee valita ainakin yksi repository."
 msgid "Ok"
 msgstr "Ok"
 
+msgid "Configure your Gallery"
+msgstr "Määritä Galleria"
+
+msgid ""
+"Before you can proceed, you have to change some permissions so that Gallery can install "
+"plugins for you.  It's easy.  Just execute the following in a shell or via your ftp client:"
+msgstr ""
+"Ennenkuin voit jatkaa, sinun täytyy muuttaa pääsyoikeuksia, jotta Galleria voi asentaa "
+"moduleita puolestasi. Tämä on helppoa - suorita seuraavat komennot komentoriviltä tai ftp-"
+"clientista:"
+
 msgid ""
 "If you have trouble changing permissions, ask your system administrator for assistance.  "
 "When you've fixed the permissions, click the Continue button to proceed."
@@ -2328,9 +2023,9 @@ msgstr ""
 "kautta. Päivitys saattaa rikkoa joitakin käyttämiäsi moduleita, mutta korvaavia versioita "
 "saattaa tulla tilalle. Tässä näet päivitysohjeet:"
 
-#, c-format
+#, fuzzy, c-format
 msgid "%sDownload%s the new Gallery package"
-msgstr "%sLataa%s uusi Galleria:n ydin"
+msgstr "%sLataa%s Gallery:n ydin"
 
 #, c-format
 msgid "Read the %supgrade instructions%s and perform the upgrade"
@@ -2399,10 +2094,10 @@ msgstr "Lataa %s"
 msgid "No packages have been selected."
 msgstr "Yhtään pakettia ei ole valittu."
 
-#, fuzzy
 msgid ""
 "Download a package in order to use this plugin.  You can upgrade by choosing a newer version "
-"of the package to download."
+"of the package to download.  Language packages are optional, You only need to download the "
+"ones that you want to use on your site."
 msgstr ""
 "Lataa paketti käyttääksesi tätä moduulia. Voit päivittää paketin valitsemalla ja lataamalla "
 "uudemman version. Kielipaketit eivät ole pakollisia, lataa vain ne joita tarvitset omaan "
@@ -2423,9 +2118,12 @@ msgstr "%s: versio %s (build %s) %späivitys vanhempaan versioon ei ole sallittu
 msgid "%sCurrently Installed%s: version %s (build %s)"
 msgstr "%sAsennettu%s: versio %s (build %s)"
 
-#, fuzzy
-msgid "The following language packages are available for this plugin"
-msgstr "Yhteensopivia kielipaketteja ei ole tarjolla"
+msgid "Language Packages"
+msgstr "Kielipaketit"
+
+#, c-format
+msgid "(%sselect all%s%sselect none%s)"
+msgstr "(%svalitse kaikki%s%spoista valinnat%s)"
 
 #, c-format
 msgid "%s version %s (upgrading from %s)"
@@ -2445,6 +2143,9 @@ msgstr "%s versio %s (olemassa oleva asennus)"
 
 msgid "No compatible language packages available"
 msgstr "Yhteensopivia kielipaketteja ei ole tarjolla"
+
+msgid "You must select a base package before choosing language packs."
+msgstr "Sinun täytyy valita peruspaketit ennen kielipakettien valitsemista."
 
 msgid "Update"
 msgstr "Päivitä"
@@ -2501,10 +2202,6 @@ msgstr ""
 msgid "New albums"
 msgstr "Uusia albumeja"
 
-#, c-format
-msgid "To activate more themes visit the %sPlugins%s page."
-msgstr ""
-
 msgid "Save Defaults"
 msgstr "Tallenna oletukset"
 
@@ -2524,6 +2221,9 @@ msgstr "Valitse lohko"
 
 msgid "Selected"
 msgstr "Valittu"
+
+msgid "Remove"
+msgstr "Poista"
 
 msgid "Move Up"
 msgstr "Siirrä Ylös"
@@ -2714,9 +2414,6 @@ msgstr "Virheen Yksityiskohdat"
 msgid "System Information"
 msgstr "Järjestelmätiedot"
 
-msgid "Not all of the specified items have been added successfully."
-msgstr ""
-
 msgid ""
 "You don't have any Graphics Toolkit activated that can handle JPEG images.  If you add "
 "images, you will probably not have any thumbnails."
@@ -2725,8 +2422,8 @@ msgstr ""
 "kuvia. Jos lisäät kuvia, et todennäköisesti saa yhtään esikatselukuvia."
 
 #, c-format
-msgid "Visit the %sModules%s page to activate a Graphics Toolkit."
-msgstr "Käy %sModuulit%s -sivulla ottaaksesi Grafiikkatyökalut käyttöön."
+msgid "Visit the <a href=\"%s\">Modules</a> page to activate a Graphics Toolkit."
+msgstr "Käy <a href=\"%s\">Moduulit</a> -sivulla ottaaksesi Grafiikkatyökalut käyttöön."
 
 msgid "Add Sub-Album"
 msgstr "Lisää Albumi"
@@ -2830,6 +2527,9 @@ msgstr "Aseta otsake tähän:"
 msgid "No Thumbnail"
 msgstr "Ei Esikatselukuvaa"
 
+msgid "Delete Items"
+msgstr "Poista Kohde"
+
 msgid "No items were selected for deletion"
 msgstr "Poistettavia kohteita ei oltu valittu"
 
@@ -2885,12 +2585,24 @@ msgstr "Edellinen Sivu"
 msgid "Next Page"
 msgstr "Seuraava Sivu"
 
-#, c-format
-msgid "Do you really want to delete %s?"
-msgstr "Haluatko todella poistaa %s?"
+msgid "Deletion Complete"
+msgstr "Poistaminen valmis"
 
-msgid "Delete more items..."
-msgstr "Poista muita kohteita..."
+msgid "Item successfully deleted"
+msgstr "Kohde poistettu"
+
+#, c-format
+msgid "Are you sure you want to delete this %s?"
+msgstr "Haluatko varmasti poistaa kohteen %s?"
+
+#, c-format
+msgid "It contains %d item."
+msgid_plural "It contains %d items."
+msgstr[0] "Se sisältää yhden kohteen."
+msgstr[1] "Se sisältää %d kohdetta."
+
+msgid "There is no undo!"
+msgstr "Palautusta ei ole!"
 
 msgid "There was a problem processing your request."
 msgstr "Pyyntösi toteutuksessa oli ongelma."
@@ -3055,10 +2767,6 @@ msgstr "Kohteen tarkka kuvaus."
 msgid "%s Date and Time"
 msgstr "%s Päiväys ja Kellonaika"
 
-#, fuzzy
-msgid "Link Date and Time"
-msgstr "%s Päiväys ja Kellonaika"
-
 msgid "Set the date and time when this image was captured."
 msgstr "Aseta päiväys ja kellonaika jolloin kuva on otettu."
 
@@ -3068,10 +2776,6 @@ msgstr "Aseta päiväys ja kellonaika joka näytetään kohteelle."
 #, c-format
 msgid "Set the date and time to be displayed for this %s."
 msgstr "Aseta päiväys ja kellonaika jotka näytetään tälle %s."
-
-#, fuzzy
-msgid "Set the date and time to be displayed for this link."
-msgstr "Aseta päiväys ja kellonaika joka näytetään kohteelle."
 
 msgid "Date:"
 msgstr "Päiväys:"
@@ -3314,16 +3018,10 @@ msgstr "Lähde"
 msgid "Choose the items you want to move"
 msgstr "Valitse siirrettävät kohteet"
 
-msgid "OK"
-msgstr ""
-
 msgid ""
 "The destination you chose does not accept sub-albums, so all sub-albums have been deselected."
 msgstr ""
 "Valitsemasi määränpää ei hyväksy kansioita, joten kaikki kansiot on poistettu valinnoista."
-
-msgid "Warning"
-msgstr "Varoitus"
 
 msgid ""
 "The destination you chose only accepts sub-albums, so all non-albums have been deselected."
@@ -3530,12 +3228,10 @@ msgstr "Anna URL:n kuvaus"
 msgid "Enter an image URL"
 msgstr "Kirjoita kuvan URL"
 
-#. HINT: Button label for Bold
-msgid "B"
+msgid "B <!-- Button label for Bold -->"
 msgstr "B"
 
-#. HINT: Button label for italic
-msgid "i"
+msgid "i <!-- Button label for italic -->"
 msgstr "i"
 
 msgid "list"
@@ -3554,8 +3250,8 @@ msgid "color"
 msgstr "väri"
 
 #, c-format
-msgid "You can also use the %scolor name%s for example: %sYour Text%s"
-msgstr "Voit myös käyttää %svärin nimi%s esim: %sSinun Teksti%s"
+msgid "You can also use the <a href=\"%s\" target=\"_new\">color name</a> for example: %s"
+msgstr "Voit myös käyttää <a href=\"%s\" target=\"_new\">värin nimi</a> esim: %s"
 
 msgid "Configuration Error: Missing Theme"
 msgstr "Konfigurointivirhe: Puuttuva Teema"
@@ -3675,26 +3371,26 @@ msgstr "Kirjaudu sisään"
 msgid "Your password has been recovered, please login."
 msgstr "Salasanasi on palautettu, ole hyvä ja kirjaudu sisään."
 
-msgid ""
-"The administration session has expired, please re-authenticate to access the administration "
-"area."
-msgstr ""
-
 #, c-format
 msgid ""
 "Logins to this account are temporarily disabled due to multiple failed login attempts.  Wait "
-"for access to be restored, or use the %srecover password%s page to re-enable this account."
+"for access to be restored, or use the <a href=\"%s\">recover password</a> page to re-enable "
+"this account."
 msgstr ""
 "Kirjautuminen näillä käyttäjätunnuksilla on tilapäisesti estetty. Syynä tähän ovat lukuisat "
-"epäonnistuneet kirjautumisyritykset. Odota tilin oikeuksien palautumista tai käytä %spalauta "
-"salasana%s sivua käyttäjätilin palauttamiseen."
+"epäonnistuneet kirjautumisyritykset. Odota tilin oikeuksien palautumista tai käytä <a href="
+"\"%s\">palauta salasana</a> sivua käyttäjätilin palauttamiseen."
 
 msgid "Your login information is incorrect.  Please try again."
 msgstr "Sisäänkirjautumistietosi ovat väärät. Yritä uudelleen."
 
 #, c-format
-msgid "Lost or forgotten passwords can be retrieved using the %srecover password%s page"
-msgstr "Hukatut tai unohtuneet salasanat voi palauttaa käyttämällä %spalauta salasana%s sivua"
+msgid ""
+"Lost or forgotten passwords can be retrieved using the <a href=\"%s\">recover password</a> "
+"page"
+msgstr ""
+"Hukatut tai unohtuneet salasanat voi palauttaa käyttämällä <a href=\"%s\">palauta salasana</"
+"a> sivua"
 
 #, c-format
 msgid "Welcome, %s!"
@@ -3838,18 +3534,18 @@ msgstr "Tämä sivu antaa sinun uudelleenasettaa käyttäjätilisi salasanan."
 #, c-format
 msgid ""
 "There is no request which matches the username and authorization provided. Request a new "
-"authorization from the %slost password page%s."
+"authorization from the <a href=\"%s\">lost password page</a>"
 msgstr ""
 "Pyyntöä joka vastaisi käyttäjätunnusta ja annettua auktorisointitietoa ei löydy. Pyydä uutta "
-"salasanan palautusta %shukattujen salasanojen sivulta%s."
+"salasanan palautusta <a href=\"%s\">hukattujen salasanojen sivulta</a>"
 
 #, c-format
 msgid ""
-"The request you are trying to access has expired.  Request a new authorization from the %"
-"slost password page%s."
+"The request you are trying to access has expired.  Request a new authorization from the <a "
+"href=\"%s\">lost password page</a>."
 msgstr ""
-"Pyyntö jota käytit on mennyt vanhaksi. Pyydä uutta salasanan palautusta %shukattujen "
-"salasanojen sivulta%s."
+"Pyyntö jota käytit on mennyt vanhaksi. Pyydä uutta salasanan palautusta <a href=\"%s"
+"\">hukattujen salasanojen sivulta</a>"
 
 msgid "Authorization missing"
 msgstr "Auktorisointi puuttuu"
@@ -3925,14 +3621,18 @@ msgstr "&laquo; kohteen toiminnot &raquo;"
 msgid "Go"
 msgstr "Siirry"
 
-msgid "WARNING: block $type doesn't exist."
-msgstr ""
+msgid "Navigation"
+msgstr "Navigointi"
 
 msgid "next"
 msgstr "seuraava"
 
 msgid "last"
 msgstr "viimeinen"
+
+#, c-format
+msgid "Page %d of %d"
+msgstr "Sivu %d/%d"
 
 #, c-format
 msgid "%d of %d"
@@ -3980,50 +3680,3 @@ msgstr "Sisään kirjautumisen lohko"
 
 msgid "Links to album/photo peers"
 msgstr "Linkit albumin/kuvan vastapuoliin"
-
-#~ msgid "Language Packages"
-#~ msgstr "Kielipaketit"
-
-#~ msgid "(%sselect all%s%sselect none%s)"
-#~ msgstr "(%svalitse kaikki%s%spoista valinnat%s)"
-
-#~ msgid "You must select a base package before choosing language packs."
-#~ msgstr "Sinun täytyy valita peruspaketit ennen kielipakettien valitsemista."
-
-#~ msgid "Back to %s"
-#~ msgstr "Takaisin %s sivulle"
-
-#~ msgid "Back"
-#~ msgstr "Takaisin"
-
-#~ msgid "Navigation"
-#~ msgstr "Navigointi"
-
-#~ msgid "delete confirmation"
-#~ msgstr "vahvista poisto"
-
-#~ msgid "delete %s"
-#~ msgstr "poista %s"
-
-#~ msgid "Deletion Complete"
-#~ msgstr "Poistaminen valmis"
-
-#~ msgid "Item successfully deleted"
-#~ msgstr "Kohde poistettu"
-
-#~ msgid "Are you sure you want to delete this %s?"
-#~ msgstr "Haluatko varmasti poistaa kohteen %s?"
-
-#~ msgid "It contains %d item."
-#~ msgid_plural "It contains %d items."
-#~ msgstr[0] "Se sisältää yhden kohteen."
-#~ msgstr[1] "Se sisältää %d kohdetta."
-
-#~ msgid "There is no undo!"
-#~ msgstr "Palautusta ei ole!"
-
-#~ msgid "key"
-#~ msgstr "avain"
-
-#~ msgid "G2.2: Double Double"
-#~ msgstr "G2.2: Double Double"

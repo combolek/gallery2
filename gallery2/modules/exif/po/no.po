@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@
 # - Sverre M. Vikan <sverre AT urven DOT net>
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: EXIF/IPTC 1.2.4\n"
+"Project-Id-Version: Gallery: EXIF/IPTC 1.1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-01-10 11:05+0100\n"
 "PO-Revision-Date: 2006-09-28 15:14+0100\n"
@@ -635,14 +635,6 @@ msgstr "IPTC: Kopibeskyttet"
 msgid "IPTC: Time Created"
 msgstr "IPTC: Opprettelsestid"
 
-#, fuzzy
-msgid "IPTC: Content Location Name"
-msgstr "IPTC: Land"
-
-#, fuzzy
-msgid "IPTC: Sub Location"
-msgstr "IPTC: Billedtekst"
-
 msgid "EXIF/IPTC Settings"
 msgstr "EXIF/IPTC-innstillinger"
 
@@ -803,19 +795,11 @@ msgstr "Når bilder blir lagt til, skal vi rotere de, basert på orienteringsdat
 msgid "Rotate pictures automatically"
 msgstr "Rotér bilder automatisk"
 
-msgid ""
-"Warning: No toolkit support for rotation of JPEG images.  Make sure to activate a toolkit "
-"module if using this option."
-msgstr ""
-
 msgid "Preserve Original on Rotating"
 msgstr "Oppretthold originalbilde ved rotering"
 
 msgid "Save"
 msgstr "Lagre"
-
-msgid "Loading.."
-msgstr ""
 
 msgid "Photo Properties"
 msgstr "Bildeegenskaper"

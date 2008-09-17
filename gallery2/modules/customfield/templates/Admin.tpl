@@ -1,6 +1,8 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
 <script type="text/javascript">{literal}
 // <![CDATA[
@@ -34,7 +36,7 @@ var pickdata = new Array();
 {/literal}
 {counter start=-1 print=no}
 {foreach from=$form.set item=set}{foreach from=$form.fields[$set.key] item=item}
-pickdata[{counter}] = '{foreach from=$item.choices item=choice}{$choice|escape:javascript}\n{/foreach}';
+pickdata[{counter}] = '{foreach from=$item.choices item=choice}{$choice}\n{/foreach}';
 {assign var="nonempty" value="1"}
 {/foreach}{/foreach}
 {literal}
@@ -97,10 +99,10 @@ function pickfield(s) {
 	  <input type="hidden" id="i.{$set.key}{$idx}"
 	   name="{g->formVar var="form[`$set.key`][index][$idx]"}" value="{$idx}"/>
 	</td><td style="text-align: center">
-	   <input type="checkbox" id="s.{$set.key}{$idx}" {if $item.summary}checked="checked" {/if}
+	   <input type="checkbox" id="s.{$set.key}{$idx}"{if $item.summary} checked="checked"{/if}
 	    name="{g->formVar var="form[`$set.key`][summary][$idx]"}"/>
 	</td><td style="text-align: center">
-	   <input type="checkbox" id="d.{$set.key}{$idx}" {if $item.detail}checked="checked" {/if}
+	   <input type="checkbox" id="d.{$set.key}{$idx}"{if $item.detail} checked="checked"{/if}
 	    name="{g->formVar var="form[`$set.key`][detail][$idx]"}"/>
 	</td><td>
 	  {if $idx > 0}

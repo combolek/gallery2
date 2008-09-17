@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Captcha 1.1.6\n"
+"Project-Id-Version: Gallery: Captcha 1.1.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-12 08:11-0700\n"
 "PO-Revision-Date: 2006-03-10 01:09+0800\n"
@@ -137,14 +137,25 @@ msgstr "保存"
 msgid "Reset"
 msgstr "重置"
 
-#, fuzzy
-msgid "Type the letters appearing in the picture."
+msgid "Type the word appearing in the picture."
 msgstr "请输入图片中的文字。"
 
-#, fuzzy
-msgid "You must enter the letters appearing in the picture."
+msgid "You must enter the number appearing in the picture."
 msgstr "必须输入出现在图片中的数字。"
 
-#, fuzzy
-msgid "Incorrect letters."
+msgid "Incorrect number."
 msgstr "错误的数字。"
+
+#~ msgid "Low Security - Always Off"
+#~ msgstr "低安全度：永远关闭"
+
+#~ msgid ""
+#~ "Most modules rely solely on the user being authenticated by Gallery and require no "
+#~ "special Captcha interaction."
+#~ msgstr "大部分模块完全依赖用户由图库认证，不需要Captcha"
+
+#~ msgid "Save Settings"
+#~ msgstr "存储设置"
+
+#~ msgid "Cancel"
+#~ msgstr "取消"

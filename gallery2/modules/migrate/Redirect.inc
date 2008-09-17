@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -42,13 +42,6 @@ class RedirectController extends GalleryController {
     }
 
     /**
-     * @see GalleryController::isAllowedInEmbedOnly
-     */
-    function isAllowedInEmbedOnly() {
-	return true;
-    }
-
-    /**
     * @see GalleryController::handleRequest
     */
     function handleRequest($form) {
@@ -82,7 +75,6 @@ class RedirectController extends GalleryController {
 	    if ($ret) {
 		return array($ret, null);
 	    }
-	    $itemId = $id;
 
 	    if (isset($id) && isset($derivative)) {
 		switch ($derivative) {
@@ -106,11 +98,11 @@ class RedirectController extends GalleryController {
 		    break;
 		}
 		if (!empty($data)) {
-		    $derivative = $data[$id];
-		    if (is_array($derivative)) {
-			$derivative = array_shift($derivative);
+		    $item = $data[$id];
+		    if (is_array($item)) {
+			$item = array_shift($item);
 		    }
-		    $id = $derivative->getId();
+		    $id = $item->getId();
 		}
 	    }
 	} else {
@@ -118,18 +110,11 @@ class RedirectController extends GalleryController {
 	    if ($ret) {
 		return array($ret, null);
 	    }
-	    $itemId = $id;
 	}
 
-	if (isset($id)) {
-	    list ($ret, $hasPermission) = GalleryCoreApi::hasItemPermission($itemId, 'core.view');
-	    if ($ret) {
-	    	return array($ret, null);
-	    }
-	}
-	if (!isset($id) || empty($hasPermission)) {
+	if (!isset($id)) {
 	    $phpVm->header('HTTP/1.0 404 Not Found');
-	    $phpVm->exit_();
+	    exit;
 	}
 
 	/* Redirect browser */
@@ -173,13 +158,6 @@ class RedirectView extends GalleryView {
      * @see GalleryView::isImmediate
      */
     function isImmediate() {
-	return true;
-    }
-
-    /**
-     * @see GalleryView::isAllowedInEmbedOnly
-     */
-    function isAllowedInEmbedOnly() {
 	return true;
     }
 

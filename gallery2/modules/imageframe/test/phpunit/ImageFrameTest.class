@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,6 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
-
 /**
  * Test ImageFrameInterface functionality
  *
@@ -35,37 +33,26 @@ class ImageFrameTest extends GalleryTestCase {
     }
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	list ($ret, $this->_imageframe) =
 	    GalleryCoreApi::newFactoryInstance('ImageFrameInterface_1_1', 'ImageFrameImpl');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	if (!isset($this->_imageframe)) {
 	    print 'Missing ImageFrameImpl';
-	    return GalleryCoreApi::error(ERROR_MISSING_OBJECT);
+	    return $this->failWithStatus(
+		GalleryCoreApi::error(ERROR_MISSING_OBJECT));
 	}
     }
 
-    function _resetIFCounter() {
-	if (!function_exists('smarty_function_counter')) {
-	    GalleryCoreApi::requireOnce('lib/smarty/plugins/modifier.counter.php');
-	}
-	$smarty = new Smarty();
-	$params = array('name' => 'ImageFrame_counter', 'print' => true, 'direction' => 'down');
-	while (smarty_function_counter($params, $smarty) > 1);
-	$params['direction'] = 'up';
-	$this->assertEquals(0, smarty_function_counter($params, $smarty));
-    }
 
     function testImageFrameList() {
 	list ($ret, $list) = $this->_imageframe->getImageFrameList();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(isset($list['none']) && isset($list['dots']) && isset($list['wood']));
     }
@@ -74,7 +61,7 @@ class ImageFrameTest extends GalleryTestCase {
 	$template = new ImageFrameDummyGalleryTemplate();
 	$ret = $this->_imageframe->init($template, array('none', 'dots', 'wood'));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(isset($template->data['ImageFrameData']), 'template data');
 	$data = $template->data['ImageFrameData'];
@@ -95,7 +82,7 @@ class ImageFrameTest extends GalleryTestCase {
 	/* Another init should add data, not overwrite */
 	$ret = $this->_imageframe->init($template, array('solid'));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$data = $template->data['ImageFrameData'];
 	$this->assertEquals('none|dots|wood|solid', $data['idList'], 'Id list 2');
@@ -104,12 +91,12 @@ class ImageFrameTest extends GalleryTestCase {
     function testImageFrameSample() {
 	list ($ret, $url) = $this->_imageframe->getSampleUrl();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(strpos($url, 'imageframe.Sample'), 'sample url');
 	list ($ret, $url) = $this->_imageframe->getSampleUrl(12345);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(strpos($url, 'itemId=12345'), 'url2 id');
     }
@@ -123,21 +110,21 @@ class ImageFrameTest extends GalleryTestCase {
 	 * not in $smarty so we can use it.  This unit test verifies this behavior
 	 * (in case it changes in a future version of smarty).
 	 */
-    	$this->_resetIFCounter();
-
-	$template1 = new GalleryTemplate(dirname(dirname(__FILE__)), true, true);
-	$template2 = new GalleryTemplate(dirname(dirname(__FILE__)), true, true);
+	$smarty1 = GalleryTemplate::_getSmarty(true);
+	$smarty2 = GalleryTemplate::_getSmarty(true);
+	$smarty1->template_dir = dirname(dirname(__FILE__));
+	$smarty2->template_dir = dirname(dirname(__FILE__));
 
 	/* Verify these are separate instances */
-	$template1->setVariable('foo', 'bar');
-	$template2->setVariable('foo', 'hoho');
-	$this->assertEquals('bar', $template1->getVariable('foo'));
+	$smarty1->assign('foo', 'bar');
+	$smarty2->assign('foo', 'hoho');
+	$this->assertEquals('bar', $smarty1->get_template_vars('foo'));
 
 	/* Verify {counter} works across smarty instances */
-	$result = $template1->fetch('gallery:data/counter.tpl');
+	$result = $smarty1->fetch('gallery:data/counter.tpl');
 	$result[1] = trim($result[1]);
 	$this->assertEquals(array(null, '1'), $result);
-	$result = $template2->fetch('gallery:data/counter.tpl');
+	$result = $smarty2->fetch('gallery:data/counter.tpl');
 	$result[1] = trim($result[1]);
 	$this->assertEquals(array(null, '2'), $result);
     }

@@ -1,6 +1,8 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
 <table class="gcBackground1" width="100%" cellspacing="0" cellpadding="0">
   <tr valign="top">
@@ -21,25 +23,25 @@
 		{foreach from=$links item=itemLink}
 		  {if $itemLink.moduleId == "cart"}
 		  <td class="gsActionIcon">
-		    <div class="buttonCart">{g->itemLink link=$itemLink
-		     title="`$itemLink.text`" text="" class=""}</div>
+		    <div class="buttonCart"><a href="{g->url params=$itemLink.params}"
+		     title="{$itemLink.text}"></a></div>
 		  </td>
 		  {elseif $itemLink.moduleId == "comment"}
 		    {if $itemLink.params.view == "comment.AddComment" }
 		    <td class="gsActionIcon">
-		      <div class="buttonAddComment">{g->itemLink link=$itemLink
-		     title="`$itemLink.text`" text="" class=""}</div>
+		      <div class="buttonAddComment"><a href="{g->url params=$itemLink.params}"
+		       title="{$itemLink.text}"></a></div>
 		    </td>
 		    {elseif $itemLink.params.view == "comment.ShowAllComments"}
 		    <td class="gsActionIcon">
-		      <div class="buttonViewComments">{g->itemLink link=$itemLink
-		     title="`$itemLink.text`" text="" class=""}</div>
+		      <div class="buttonViewComments"><a href="{g->url params=$itemLink.params}"
+		       title="{$itemLink.text}"></a></div>
 		    </td>
 		    {/if}
 		  {elseif $itemLink.moduleId == "slideshow"}
 		  <td class="gsActionIcon">
-		    <div class="buttonViewSlideshow">{g->itemLink link=$itemLink
-		     title="`$itemLink.text`" text="" class=""}</div>
+		    <div class="buttonViewSlideshow"><a href="{g->url params=$itemLink.params}"
+		     title="{$itemLink.text}"></a></div>
 		  </td>
 		  {/if}
 		{/foreach}

@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,15 +34,13 @@ class ZipCartPluginTest extends GalleryTestCase {
 
     function setUp() {
 	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	list ($ret, $this->_everybodyId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.everybodyGroup');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Register dummy toolkit and operation */
@@ -50,7 +48,8 @@ class ZipCartPluginTest extends GalleryTestCase {
 	    'GalleryToolkit', 'ZipCartToolkit', 'ZipCartToolkit',
 	    'modules/zipcart/test/phpunit/ZipCartPluginTest.class', 'zipcartTest', null);
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markToolkitForCleanup('ZipCartToolkit');
 
@@ -58,19 +57,22 @@ class ZipCartPluginTest extends GalleryTestCase {
 	    array('test/jpeg'), 'testoperation',
 	    array(array('type' => 'int', 'description' => 'size')), 'desc');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = GalleryCoreApi::registerToolkitOperation('ZipCartToolkit',
 	    array('test/jpeg'), 'testconvert', array(), 'desc');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Test album */
 	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($this->_album);
 
@@ -78,31 +80,36 @@ class ZipCartPluginTest extends GalleryTestCase {
 	list ($ret, $this->_items[0]) = $this->_addItem($this->_album->getId(), 'GalleryPhotoItem',
 							'test/jpeg', 'core.viewSource');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Photo with core.viewSource and preferred derivative */
 	list ($ret, $this->_items[1]) = $this->_addItem($this->_album->getId(), 'GalleryPhotoItem',
 							'test/jpeg', 'core.viewSource');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	list ($ret, $derivativeId) =
 	    $this->_addDerivative($this->_items[1], DERIVATIVE_TYPE_IMAGE_PREFERRED);
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Photo with core.viewResizes and resized derivative */
 	list ($ret, $this->_items[2]) = $this->_addItem($this->_album->getId(), 'GalleryPhotoItem',
 							'test/jpeg', 'core.viewResizes');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	list ($ret, $derivativeId) =
 	    $this->_addDerivative($this->_items[2], DERIVATIVE_TYPE_IMAGE_RESIZE);
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Data item with core.viewSource */
@@ -110,19 +117,22 @@ class ZipCartPluginTest extends GalleryTestCase {
 	    $this->_addItem($this->_album->getId(), 'GalleryUnknownItem',
 			    'test/data', 'core.viewSource');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Photo with a derivative of different extension */
 	list ($ret, $this->_items[4]) = $this->_addItem($this->_album->getId(), 'GalleryPhotoItem',
 							'test/jpeg', 'core.viewSource');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	list ($ret, $derivativeId) = $this->_addDerivative(
 	    $this->_items[4], DERIVATIVE_TYPE_IMAGE_PREFERRED, 'testconvert|test/out');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->_savePlatform =& $gallery->getPlatform();
@@ -134,10 +144,7 @@ class ZipCartPluginTest extends GalleryTestCase {
 	if ($ret) {
 	    $this->failWithStatus($ret);
 	}
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
+	parent::tearDown();
     }
 
     function _addItem($parentId, $itemType, $mimeType, $permission=null) {
@@ -202,7 +209,7 @@ class ZipCartPluginTest extends GalleryTestCase {
 	$extension = 'test-' . rand(111, 999);
 	$ret = GalleryCoreApi::addMimeType($extension, 'test/out', false);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	GalleryCoreApi::requireOnce('modules/cart/classes/CartPluginInterface_1_0.class');
@@ -210,7 +217,7 @@ class ZipCartPluginTest extends GalleryTestCase {
 	$cartPlugin = new ZipCartPlugin();
 	list ($ret, $urlParams) = $cartPlugin->fulfillCart($cartItemIds);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(array('view' => 'zipcart.Download',

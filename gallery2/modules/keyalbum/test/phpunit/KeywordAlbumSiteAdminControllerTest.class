@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,19 +33,18 @@ class KeywordAlbumSiteAdminControllerTest extends GalleryControllerTestCase {
     }
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'keyalbum');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $this->_entity) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($this->_entity);
 
@@ -53,14 +52,16 @@ class KeywordAlbumSiteAdminControllerTest extends GalleryControllerTestCase {
 		       'themeSettingsId' => $this->_entity->getId()) as $key => $value) {
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'keyalbum', $key, $value);
 	    if ($ret) {
-		return $ret;
+		print $ret->getAsHtml();
+		return $this->failWithStatus($ret);
 	    }
 	}
 
 	list ($ret, $this->_defaultThemeId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'default.theme');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
     }
 
@@ -90,7 +91,7 @@ class KeywordAlbumSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Perform the request and verify that we succeeded */
@@ -105,7 +106,7 @@ class KeywordAlbumSiteAdminControllerTest extends GalleryControllerTestCase {
 	/* Verify the information in the DB */
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'keyalbum');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	foreach ($params as $key => $value) {
 	    if (in_array($key[0], array('_', 'a'))) {
@@ -125,7 +126,7 @@ class KeywordAlbumSiteAdminControllerTest extends GalleryControllerTestCase {
 	list ($ret, $themeParam) = GalleryCoreApi::getPluginParameter(
 		'theme', 'keyalbumTest', 'perPage', $this->_entity->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals('5', $themeParam, 'Theme param');
     }

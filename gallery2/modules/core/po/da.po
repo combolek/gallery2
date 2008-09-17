@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,14 +19,15 @@
 # Lasse Bang Mikkelsen <lbm@fatalerror.dk>, 2004.
 # Allan Beaufour <allan@beaufour.dk>, 2005.
 # - Bjørn Graabek <bjorn@graabek.com>, 2006-2007
-#
+# 
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Core 1.2.36\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-15 09:02+0200\n"
-"PO-Revision-Date: 2008-05-21 13:49+0100\n"
-"Last-Translator: Jens Hyllegaard <jens.hyllegaard@gmail.com>\n"
+"Project-Id-Version: Gallery: Core 1.2.0.3\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-06-14 11:41-0700\n"
+"PO-Revision-Date: 2007-03-15 21:52+0000\n"
+"Last-Translator: Bjørn Graabek <bjorn@graabek.com>\n"
 "Language-Team: Danish <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -34,7 +35,31 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Gallery Email Test"
-msgstr "Gallery email test"
+msgstr "Gallery Email Test"
+
+msgid "forever"
+msgstr "for altid"
+
+msgid "High Priority (Me first!)"
+msgstr "Høj Prioritet (mig først!)"
+
+msgid "Low Priority (I want to share!)"
+msgstr "Lav Prioritet (jeg ønsker at dele!)"
+
+msgid "No Markup"
+msgstr "Ingen opmærkning"
+
+msgid "BBCode"
+msgstr "BBCode"
+
+msgid "Raw HTML"
+msgstr "Rå HTML"
+
+msgid "Database"
+msgstr "Database"
+
+msgid "File"
+msgstr "Fil"
 
 #, c-format
 msgid "%d minute"
@@ -60,54 +85,8 @@ msgid_plural "%d weeks"
 msgstr[0] "%d uge"
 msgstr[1] "%d uger"
 
-msgid "forever"
-msgstr "for altid"
-
-msgid "High Priority (Me first!)"
-msgstr "Høj prioritet (mig først!)"
-
-msgid "Low Priority (I want to share!)"
-msgstr "Lav prioritet (jeg ønsker at dele!)"
-
-msgid "No Markup"
-msgstr "Ingen opmærkning"
-
-msgid "BBCode"
-msgstr "BBCode"
-
-msgid "Raw HTML"
-msgstr "Rå HTML"
-
-msgid "Database"
-msgstr "Database"
-
-msgid "File"
-msgstr "Fil"
-
-msgid "&lt;none&gt;"
-msgstr "&lt;ingen&gt;"
-
-msgid "Link"
-msgstr "Link"
-
-#, c-format
-msgid "Page %d of %d"
-msgstr "Side %d af %d"
-
-msgid "Updating Language Settings"
-msgstr "Opdaterer sprogindstillinger"
-
-msgid "Update completed with errors."
-msgstr "Opdatering udført med fejl."
-
-msgid "Update complete."
-msgstr "Opdatering udført."
-
-msgid "Deleting Language Packs"
-msgstr "Sletter sprogpakker"
-
-msgid "Synchronizing Language Packs"
-msgstr "Synkronisere sprogpakker"
+msgid "<none>"
+msgstr "<ingen>"
 
 msgid "No acceleration"
 msgstr "Ingen acceleration"
@@ -121,38 +100,74 @@ msgstr "Fuld acceleration"
 msgid "Themes"
 msgstr "Temaer"
 
+msgid "Updating Repository Index"
+msgstr "Opdater Katalog Indeks"
+
+msgid "Scanning plugins"
+msgstr "Gennemsøger plugins"
+
+msgid "Update Plugin List"
+msgstr "Opdater Plugin Liste"
+
+msgid "Done."
+msgstr "Udført."
+
+msgid "Updating Packages"
+msgstr "Opdaterer Pakker"
+
+#, c-format
+msgid "Preparing %s"
+msgstr "Forbereder %s"
+
+#, c-format
+msgid "Downloading %s"
+msgstr "Henter %s"
+
+#, c-format
+msgid "Activating %s"
+msgstr "Aktiverer %s"
+
+msgid "Deleting Language Packs"
+msgstr "Sletter Sprog-pakker"
+
+msgid "Update completed with errors."
+msgstr "Opdatering udført, men med fejl."
+
+msgid "Update complete."
+msgstr "Opdatering fuldført."
+
 msgid "install"
 msgstr "installér"
 
 msgid "upgrade"
-msgstr "opgradér"
+msgstr "opgrader"
 
 msgid "activate"
-msgstr "aktivér"
+msgstr "aktiver"
 
 msgid "uninstall"
 msgstr "afinstallér"
 
 msgid "deactivate"
-msgstr "deaktivér"
+msgstr "deaktiver"
 
 msgid "Inherit settings from parent album"
-msgstr "Nedarv indtillinger fra over-albummet"
+msgstr "Tag indtillinger fra over-albummet"
 
 msgid "Use these settings"
 msgstr "Brug disse indstillinger"
 
-msgid "Converting Schema Table"
-msgstr "Konvertere skema tabel"
-
 msgid "Installing the core module"
 msgstr "Installerer kernemodulet"
+
+msgid "key"
+msgstr "nøgle"
 
 msgid "All access"
 msgstr "Fuld adgang"
 
 msgid "[core] View item"
-msgstr "[kerne] Se emne"
+msgstr "[kerne] Se objekt"
 
 msgid "[core] View resized version(s)"
 msgstr "[kerne] Se mellemstørrelse version(er)"
@@ -167,23 +182,19 @@ msgid "[core] Add sub-album"
 msgstr "[kerne] Tilføj underalbum"
 
 msgid "[core] Add sub-item"
-msgstr "[kerne] Tilføj underemne"
+msgstr "[kerne] Tilføj underelement"
 
 msgid "[core] Edit item"
-msgstr "[kerne] Rediger emne"
+msgstr "[kerne] Rediger element"
 
 msgid "[core] Change item permissions"
-msgstr "[kerne] Ændrer emnetilladelser"
+msgstr "[kerne] Ændrer element tilladelser"
 
 msgid "[core] Delete item"
-msgstr "[kerne] Slet emne"
+msgstr "[kerne] Slet element"
 
 msgid "Upgrading permissions"
-msgstr "Opgraderer tilladelser"
-
-#, c-format
-msgid "Upgrading permissions (%d items complete, %d remaining)"
-msgstr "Opgraderer tilladelser (%d emner færdige, %d tilbage)"
+msgstr "Opgrader tilladelser"
 
 msgid "Deleting old permission tables"
 msgstr "Sletter gamle tilladelsestabeller"
@@ -197,46 +208,23 @@ msgstr "Alle brugere"
 msgid "Detecting broken derivatives"
 msgstr "Finder afledte filer med fejl"
 
-#, c-format
-msgid "Detecting broken derivatives, loading (%d derivatives checked, %d remaining)"
-msgstr "Finder afledte filer med fejl, henter (%d afledte filer kontrolleret, %d tilbage)"
-
-#, c-format
-msgid "Detecting broken derivatives (%d derivatives checked, %d remaining)"
-msgstr "Finder afledte filer med fejl  (%d afledte filer kontrolleret, %d tilbage)"
-
-#, c-format
-msgid "Detecting broken derivatives, saving (%d derivatives checked, %d remaining)"
-msgstr "Finder afledte filer med fejl, gemmer  (%d afledte filer kontrolleret, %d tilbage)"
-
-#, c-format
-msgid ""
-"Detecting broken derivatives, saving item %d of %d (%d derivatives complete, %d remaining)"
-msgstr ""
-"Finder afledte filer med fejl, gemmer emne %d af %d (%d afledte filer kontrolleret, %d "
-"tilbage)"
-
 msgid "Clearing fast-download cache"
 msgstr "Sletter hurtighentningscachen"
 
 msgid "Deleting old fast-download cache"
 msgstr "Sletter gammel cache til hurtig download"
 
-#, c-format
-msgid "Deleting old session files (iteration %d)"
-msgstr "Sletter gamle 'session' filer (gennemløb %d)"
-
 msgid "Updating panorama items"
-msgstr "Opdaterer panorama emner"
+msgstr "Opdaterer panorama elementer"
 
 msgid "Optimizing AccessSubscriberMap table"
 msgstr "Optimerer AccessSubscriberMap tabel"
 
-msgid "Upgrading Plugin Translations"
-msgstr "Opgradere plugin oversættelser"
+msgid "Converting Schema Table"
+msgstr "Konvertere skema tabel"
 
-msgid "Creating Package Map"
-msgstr "Opretter pakkekort"
+msgid "Loading Table Descriptions"
+msgstr "Indlæser tabel beskrivelser"
 
 msgid "Site Admins"
 msgstr "Administratorer"
@@ -256,17 +244,33 @@ msgstr "Dette er hovedsiden af din billedsamling"
 msgid "Converting MySQL data to UTF8"
 msgstr "Konverterer MySQL data til UTF8 format"
 
-msgid "Adding items"
-msgstr "Tilføjer emner"
+#, c-format
+msgid "Upgrading permissions (%d items complete, %d remaining)"
+msgstr "Opgraderer tilladelser (%d opjekter er færdige, der mangler %d)"
 
-msgid "Processing items"
-msgstr "Behandler emner"
+#, fuzzy, c-format
+msgid "Detecting broken derivatives, loading (%d derivatives checked, %d remaining)"
+msgstr "Finder afledte filer med fejl, henter "
 
-msgid "Extracting archive"
-msgstr "Udpakker arkiv"
+#, fuzzy, c-format
+msgid "Detecting broken derivatives (%d derivatives checked, %d remaining)"
+msgstr "Finder afledte filer med fejl, gemmer "
+
+#, fuzzy, c-format
+msgid "Detecting broken derivatives, saving (%d derivatives checked, %d remaining)"
+msgstr "Finder afledte filer med fejl, gemmer "
+
+#, fuzzy, c-format
+msgid ""
+"Detecting broken derivatives, saving item %d of %d (%d derivatives complete, %d remaining)"
+msgstr "Opgraderer tilladelser (%d opjekter er færdige, der mangler %d)"
+
+#, c-format
+msgid "Deleting old session files (iteration %d)"
+msgstr "Sletter gamle 'session' filer (gennemløb %d)"
 
 msgid "add items"
-msgstr "tilføj emner"
+msgstr "tilføj elementer"
 
 msgid "Album created successfully."
 msgstr "Album blev oprettet."
@@ -275,7 +279,31 @@ msgid "add sub-album"
 msgstr "tilføj underalbum"
 
 msgid "add items confirmation"
-msgstr "bekræft tilføjelse af emner"
+msgstr "bekræft tilføjelse af elementer"
+
+msgid "Base filename"
+msgstr "Basisfilnavn"
+
+msgid "Caption"
+msgstr "Billedtekst"
+
+msgid "Blank"
+msgstr "Tomt"
+
+msgid "From Web Browser"
+msgstr "Fra webbrowser"
+
+#, c-format
+msgid "%d megabyte"
+msgid_plural "%d megabytes"
+msgstr[0] "%d megabyte"
+msgstr[1] "%d megabytes"
+
+#, c-format
+msgid "%d kilobytes"
+msgid_plural "%d kilobytes"
+msgstr[0] "%d kilobyte"
+msgstr[1] "%d kilobytes"
 
 #, c-format
 msgid "Input file %s exceeds maximum permitted file size"
@@ -293,35 +321,18 @@ msgstr "Input filen %s blev kun delvist uploadet"
 msgid "Input file %s was not uploaded. Error %d"
 msgstr "Input filen %s blev ikke uploadet. Fejl %d"
 
-#, c-format
-msgid "%d megabyte"
-msgid_plural "%d megabytes"
-msgstr[0] "%d megabyte"
-msgstr[1] "%d megabytes"
-
-#, c-format
-msgid "%d kilobytes"
-msgid_plural "%d kilobytes"
-msgstr[0] "%d kilobyte"
-msgstr[1] "%d kilobytes"
-
-msgid "Base filename"
-msgstr "Basisfilnavn"
-
-msgid "Caption"
-msgstr "Billedtekst"
-
-msgid "Blank"
-msgstr "Tomt"
-
-msgid "From Web Browser"
-msgstr "Fra webbrowser"
-
 msgid "Gallery Item Administration"
-msgstr "Gallery emneadministration"
+msgstr "Gallery elementadministration"
 
 msgid "delete an item"
-msgstr "slet et emne"
+msgstr "slet et element"
+
+msgid "delete confirmation"
+msgstr "bekræftelse af sletning"
+
+#, c-format
+msgid "delete %s"
+msgstr "slet %s"
 
 #, c-format
 msgid "edit %s"
@@ -336,10 +347,6 @@ msgstr "Anvend indstillinger for mellemstørrelse billeder"
 msgid "Preparing..."
 msgstr "Forbereder..."
 
-#, c-format
-msgid "Processing image %d of %d"
-msgstr "Behandler billede %d af %d"
-
 msgid "Apply thumbnail settings"
 msgstr "Anvend indstillinger for miniaturer"
 
@@ -348,6 +355,10 @@ msgstr "Genskaber miniaturer"
 
 msgid "Album"
 msgstr "Album"
+
+#, c-format
+msgid "Processing image %d of %d"
+msgstr "Behandler billede %d af %d"
 
 msgid "Changes saved successfully"
 msgstr "Ændringer blev gemt"
@@ -434,7 +445,7 @@ msgid "make highlight"
 msgstr "fremhæv"
 
 msgid "move item"
-msgstr "flyt emne"
+msgstr "flyt element"
 
 #, c-format
 msgid "move %s"
@@ -445,16 +456,16 @@ msgid "edit %s permissions"
 msgstr "rediger %s tilladelser"
 
 msgid "reorder items"
-msgstr "gensorter emner"
+msgstr "gensorter elementer"
 
 msgid "Maintenance"
 msgstr "Vedligeholdelse"
 
 msgid "Gallery Site Administration"
-msgstr "Gallery websteds administration"
+msgstr "Gallery Administration"
 
 msgid "site admin"
-msgstr "websteds administration"
+msgstr "administration"
 
 msgid "Gallery User Administration"
 msgstr "Gallery brugeradministration"
@@ -475,7 +486,7 @@ msgid "Gallery 2 Core Module"
 msgstr "Gallery 2 kernemodul"
 
 msgid "Add Items"
-msgstr "Tilføj emner"
+msgstr "Tilføj elementer"
 
 msgid "Edit Album"
 msgstr "Rediger album"
@@ -485,10 +496,6 @@ msgstr "Rediger billede"
 
 msgid "Edit Movie"
 msgstr "Rediger film"
-
-#, c-format
-msgid "Edit %s"
-msgstr "Rediger %s"
 
 msgid "Add Album"
 msgstr "Tilføj album"
@@ -508,10 +515,6 @@ msgstr "Slet billede"
 msgid "Delete Movie"
 msgstr "Slet film"
 
-#, c-format
-msgid "Delete %s"
-msgstr "Slet %s"
-
 msgid "Move Album"
 msgstr "Flyt album"
 
@@ -521,10 +524,6 @@ msgstr "Flyt foto"
 msgid "Move Movie"
 msgstr "Flyt film"
 
-#, c-format
-msgid "Move %s"
-msgstr "Flyt %s"
-
 msgid "Edit Captions"
 msgstr "Ret billedtekster"
 
@@ -532,10 +531,7 @@ msgid "Make Highlight"
 msgstr "Fremhæv"
 
 msgid "Reorder Items"
-msgstr "Gensorter emner"
-
-msgid "Delete Items"
-msgstr "Slet emner"
+msgstr "Gensorter elementer"
 
 msgid "Site Admin"
 msgstr "Administration"
@@ -561,46 +557,29 @@ msgstr "Grupper"
 msgid "Performance"
 msgstr "Ydeevne"
 
-msgid "Event Logs"
-msgstr "Hændelseslog"
-
-msgid "Language Settings"
-msgstr "Opsætning af sprog"
-
 msgid "Toolkit Priority"
 msgstr "Værktøjsprioritet"
 
 msgid "Graphics Toolkits"
-msgstr "Grafiske værktøjer"
+msgstr "Grafikværktøjer"
 
 msgid "Account Settings"
-msgstr "Kontoindstillinger"
+msgstr "Kontoopsætning"
 
 msgid "Change Password"
-msgstr "Skift kodeord"
-
-msgid "Updating Packages"
-msgstr "Opdaterer pakker"
+msgstr "Skift adgangskode"
 
 #, c-format
-msgid "Cleaning up obsolete files %s"
-msgstr "Rydder op i forældede filer %s"
+msgid "Edit %s"
+msgstr "Rediger %s"
 
 #, c-format
-msgid "Activating %s"
-msgstr "Aktiverer %s"
+msgid "Delete %s"
+msgstr "Slet %s"
 
-msgid "Updating Repository Index"
-msgstr "Opdaterer katalogindeks"
-
-msgid "Scanning plugins"
-msgstr "Gennemsøger plugins"
-
-msgid "Update Plugin List"
-msgstr "Opdatér pluginliste"
-
-msgid "Done."
-msgstr "Udført."
+#, c-format
+msgid "Move %s"
+msgstr "Flyt %s"
 
 msgid "Build all thumbnails/resizes"
 msgstr "Opret alle miniaturer og størrelsesændringer"
@@ -615,9 +594,12 @@ msgstr ""
 msgid "Build All Thumbnails/Resizes"
 msgstr "Opret alle miniaturer og størrelsesændringer"
 
+msgid "Debug output for failed items:"
+msgstr "Debug informationer for elementer med fejl:"
+
 #, c-format
 msgid "Checked %d items"
-msgstr "Kontrollerede %d emner"
+msgstr "Kontrollerede %d elementer"
 
 #, c-format
 msgid "%d items built"
@@ -625,10 +607,7 @@ msgstr "%d filer bygget."
 
 #, c-format
 msgid "%d items failed"
-msgstr "%d emner fejlede"
-
-msgid "Debug output for failed items:"
-msgstr "Debug informationer for emner med fejl:"
+msgstr "%d elementer fejlede"
 
 msgid "Convert MySQL database to UTF8"
 msgstr "Konverter MySQL database til UTF8 format"
@@ -651,38 +630,6 @@ msgstr "Databasen er blevet konverteret til UTF8 format"
 
 msgid "No conversion required"
 msgstr "Ingen konvertering nødvendig"
-
-msgid "Backup the database"
-msgstr "Sikkerheskopier databasen"
-
-msgid ""
-"Backup all your Gallery data (item data, users, comments, etc.) to a single file in your "
-"storage folder.  The backup does not include the image files.  Before running the backup, "
-"your Gallery installation needs to be set into maintenance mode, as this is not done "
-"automatically."
-msgstr ""
-"Sikkerhedskopiér alle dine Gallery data (emnedata, brugere, kommentarer osv.) til en enkelt "
-"fil i din datamappe. Sikkerhedskopien indeholder ikke billedfilerne. Før du kører denne "
-"sikkerhedskopiering, skal din Gallery installation sættes i vedligeholdelses tilstand, da "
-"dette ikke gøres automatisk."
-
-msgid "Backing up Gallery Database"
-msgstr "Sikkerhedskopierer Gallery databasen"
-
-msgid "Exporting..."
-msgstr "Eksporterer..."
-
-#, c-format
-msgid "Database backup completed and the backup file is located at: %s"
-msgstr "Sikkerhedskopieringen af databasen er færdig, og sikkerhedskopien er placeret her: %s"
-
-msgid ""
-"Please note that your backup contains sensitive data (like passwords) and should not be "
-"stored online! We recommend that you download it from your server and keep it safely offline."
-msgstr ""
-"Bemærk venligst at din sikkerhedskopi indeholder følsomme data (såsom kodeord) og ikke bør "
-"gemmes online! Vi anbefaler at du downloader den fra din server og gemmer den sikkert "
-"offline."
 
 msgid "Delete user sessions"
 msgstr "Slet bruger 'sessions'"
@@ -722,13 +669,13 @@ msgstr "Slet skabeloncache"
 msgid ""
 "Gallery compiles template files and saves them for increased performance.  If you're "
 "experiencing problems that say <i>Smarty error</i> then you might try running this task.  "
-"Also run this if you add or remove any local/*.tpl or theme override so Smarty will find the "
-"right file."
+"Also run this if you remove a local/*.tpl file so Smarty will switch back to the default tpl "
+"file."
 msgstr ""
 "Gallery oversætter skabelonfiler og gemmer dem for at øge hastigheden. Hvis du oplever "
 "problemer hvor der står <i>Smarty error</i> så kan du prøve at køre denne funktion. Kør den "
-"også hvis du tilføjer eller fjerner en local/*.tpl fil eller en tema overskrivning så Smarty "
-"kan finde den rigtige fil."
+"også hvis du fjerner en local/*.tpl fil så Smarty skifter tilbage og bruger standard tpl-"
+"filen."
 
 msgid "Template cache deleted successfully"
 msgstr "Skabeloncachen blev slettet."
@@ -743,10 +690,10 @@ msgid "animation"
 msgstr "animation"
 
 msgid "Gallery Core"
-msgstr "Gallery kerne"
+msgstr "Gallery Kerne"
 
 msgid "Gallery Core Module"
-msgstr "Gallery kernemodul"
+msgstr "Gallery Kernemodul"
 
 msgid "Search descriptions"
 msgstr "Søg i beskrivelser"
@@ -776,7 +723,7 @@ msgid "Owner"
 msgstr "Ejer"
 
 msgid "Dynamic Album"
-msgstr "Dynamisk album"
+msgstr "Dynamisk Album"
 
 msgid "dynamic album"
 msgstr "dynamisk album"
@@ -806,14 +753,6 @@ msgid ""
 "Couldn't create cache subdirectory. Make sure the web server has write permissions in it."
 msgstr ""
 "Kunne ikke oprette cache underbibliotek. Sørg for at webserveren har skriverettigheder deri."
-
-#, c-format
-msgid "Preparing %s"
-msgstr "Forbereder %s"
-
-#, c-format
-msgid "Downloading %s"
-msgstr "Henter %s"
 
 msgid "Official Release Repository"
 msgstr "Katalog for Officielle Udgivelser"
@@ -854,7 +793,7 @@ msgid "Name"
 msgstr "Navn"
 
 msgid "View Count"
-msgstr "Vis antal"
+msgstr "Vis Antal"
 
 msgid "Random"
 msgstr "Tilfældig"
@@ -866,17 +805,13 @@ msgid "Albums First"
 msgstr "Albummer først"
 
 msgid "Most Viewed First"
-msgstr "Mest sete først"
+msgstr "Mest Sete først"
 
 msgid "Ascending"
 msgstr "Stigende"
 
 msgid "Descending"
 msgstr "Faldende"
-
-#, c-format
-msgid "Powered by Gallery v%s"
-msgstr "Køres af Gallery v%s"
 
 msgid "Validation disabled until you set allowSessionAccess in config.php"
 msgstr "Validering er slået fra indtil du sætter allowSessionAccess i config.php"
@@ -885,7 +820,14 @@ msgid "This page is valid XHTML 1.0"
 msgstr "Denne side er gyldig XHTML 1.0"
 
 msgid "Donate to the Gallery project"
-msgstr "Donér penge til Gallery projektet"
+msgstr "Giv penge til Gallery projektet"
+
+msgid "G2.2: Double Double"
+msgstr "G2.2: Double Double"
+
+#, c-format
+msgid "Powered by Gallery v%s"
+msgstr "Køres af Gallery v%s"
 
 #, c-format
 msgid "Estimated time remaining: %d:%02d"
@@ -902,7 +844,7 @@ msgid "Columns per album page"
 msgstr "Kolonner pr. albumside"
 
 msgid "Number of items to show per page"
-msgstr "Antal emner der skal vises pr. side"
+msgstr "Antal elementer der skal vises pr. side"
 
 msgid "Row height (pixels)"
 msgstr "Række højde(pixels)"
@@ -947,7 +889,7 @@ msgid "Album Frame"
 msgstr "Albumramme"
 
 msgid "Item Frame"
-msgstr "Emneramme"
+msgstr "Elementramme"
 
 msgid "Photo Frame"
 msgstr "Fotoramme"
@@ -992,6 +934,13 @@ msgstr "regneark"
 msgid "file"
 msgstr "fil"
 
+msgid "Back"
+msgstr "Tilbage"
+
+#, c-format
+msgid "Back to %s"
+msgstr "Tilbage til %s"
+
 msgid "User"
 msgstr "Bruger"
 
@@ -1008,7 +957,7 @@ msgid ""
 msgstr ""
 "Sæt hastigheden op for din database. Præcis hvor godt det virker afhænger af hvilken "
 "database du bruger, men denne vedligeholdelse vil få Gallery til at køre hurtigere. Den er "
-"specielt nyttig hvis du har tilføjet eller fjernet en masse emner."
+"specielt nyttig hvis du har tilføjet eller fjernet en masse elementer."
 
 msgid "Database optimized successfully"
 msgstr "Databasen er blevet optimeret"
@@ -1020,7 +969,8 @@ msgid ""
 "Reset number of views to zero for all albums and items.  This task flushes the database "
 "cache as well."
 msgstr ""
-"Nulstil visningstællere for alle albums og emner. Denne funktion sletter også databasecachen."
+"Nulstil visningstællere for alle albums og elementer. Denne funktion sletter også "
+"databasecachen."
 
 msgid "View counts reset successfully"
 msgstr "Visningstællerne er blevet nulstillet"
@@ -1032,22 +982,22 @@ msgid ""
 "Update capture date stored in Gallery for all items with an available date in the original "
 "data file (usually from EXIF data)."
 msgstr ""
-"Opdater billed-taget-datoen der er gemt i Gallery for alle emner der har en dato gemt i den "
-"originale datafil (stammer normalt fra EXIF oplysningerne)."
+"Opdater billed-taget-datoen der er gemt i Gallery for alle elementer der har en dato gemt i "
+"den originale datafil (stammer normalt fra EXIF oplysningerne)."
 
 msgid "Processing..."
 msgstr "Behandler..."
 
 msgid "Refresh Capture Dates"
-msgstr "Genopfrisk billed-taget-datoer"
+msgstr "Genopfrisk billed-taget-datoer<"
 
 #, c-format
 msgid "Processing item %d of %d"
-msgstr "Behandler emne %d af %d"
+msgstr "Behandler element %d ud af %d"
 
 #, c-format
 msgid "Updated %d of %d items"
-msgstr "Opdaterede %d af %d emner"
+msgstr "Opdaterede %d ud af %d elementer"
 
 msgid "System information"
 msgstr "Systeminformationer"
@@ -1060,14 +1010,6 @@ msgstr "kerne"
 
 msgid "unknown"
 msgstr "ukendt"
-
-#, c-format
-msgid "API = Core %s, Module %s, Theme %s, Embed %s"
-msgstr "API = kerne %s, modul %s, tema %s, indlejret %s"
-
-#, fuzzy
-msgid "Gallery URL"
-msgstr "Gallery"
 
 msgid "Gallery version"
 msgstr "Gallery version"
@@ -1110,75 +1052,6 @@ msgstr "Gennemse Gallery"
 msgid "Rows in %s table = %d"
 msgstr "Rækker i %s tabel = %d"
 
-#, c-format
-msgid "The %s \"%s\" is not installed and will not be backed up."
-msgstr "%s \"%s\" er ikke installeret og vil ikke blive sikkerhedskopieret."
-
-#, c-format
-msgid "\"%s\" has no creation sql and will not be backed up."
-msgstr "\"%s\" har ikke nogen oprettelses sql og vil ikke blive sikkerhedskopieret."
-
-#, c-format
-msgid "Unable to load table description for \"%s\", no data will be exported."
-msgstr "Kunne ikke indlæse tabelbeskrivelsen for \"%s\", ingen data vil blive eksporteret."
-
-msgid ""
-"Unable to find the XML parser.  The PHP XML parsing extension must be loaded.  Terminating "
-"database import."
-msgstr ""
-"Kunne ikke finde XML fortolkeren. PHP XML fortolker udvidelsen skal være indlæst. Afbryder "
-"database importen."
-
-#, c-format
-msgid "The exported file is not the correct version. Expecting %s received %s."
-msgstr "Den eksporterede fil er ikke den korrekte version. Forventede %s men modtog %s."
-
-#, c-format
-msgid "Unable to close import file: %s"
-msgstr "Kunne ikke lukke importfilen: %s"
-
-#, c-format
-msgid "Unable to open import file: %s"
-msgstr "Kunne ikke åbne importfilen: %s"
-
-#, c-format
-msgid "Import file doesn't exist: %s"
-msgstr "Importfilen eksisterer ikke: %s"
-
-#, c-format
-msgid "Plugin %s is not currently available."
-msgstr "Udvidelsen %s er ikke tilgængelig."
-
-#, c-format
-msgid "The available version of plugin \"%s\" may not be compatible with the imported version."
-msgstr ""
-"Den tilgængelige version af udvidelsen \"%s\" er muligvis ikke kompatibel med den "
-"importerede version."
-
-#, c-format
-msgid ""
-"The currently installed core API version required by \"%s\" may not be compatible with the "
-"imported version."
-msgstr ""
-"Den aktuelt installerede core API version der kræves af \"%s\" er muligvis ikke kompatibel "
-"med den importerede version."
-
-#, c-format
-msgid ""
-"The installed module API version required by \"%s\" may not be compatible with the imported "
-"version."
-msgstr ""
-"Den installerede modul API version der kræves af \"%s\" er muligvis ikke kompatibel med den "
-"importerede version."
-
-#, c-format
-msgid ""
-"The installed theme API version required by \"%s\" is not compatible with the imported "
-"version."
-msgstr ""
-"Den installerede tema API version der kræves af \"%s\" er muligvis ikke kompatibel med den "
-"importerede version."
-
 msgid "Successfully saved theme settings"
 msgstr "Layoutopsætningen blev gemt"
 
@@ -1203,8 +1076,36 @@ msgstr "Din forespørgsel kunne ikke udføres, se nedenstående for flere oplysn
 msgid "Error sending test email, see below for details."
 msgstr "Kunne ikke sende test-email, se nedenstående for detaljer."
 
+msgid "Language Settings"
+msgstr "Opsætning af Sprog"
+
+msgid ""
+"Select language defaults for Gallery. Individual users can override this setting in their "
+"personal preferences or via the language selector block if available. Gallery will try to "
+"automatically detect the language preference of each user if the browser preference check is "
+"enabled."
+msgstr ""
+"Vælg  Gallerys standardsprog. Brugere kan tilsidesætte denne indstilling i deres personlige "
+"indstillinger eller ved hjælp af sprogvælgeren, hvis den er aktiveret nedenfor. Gallery vil "
+"forsøge automatisk at afgøre det foretrukne sprog for hver bruger hvis browser præference er "
+"markeret."
+
+msgid "Default language"
+msgstr "Standard sprog"
+
+msgid "Check Browser Preference"
+msgstr "Kontroller Browser Præference"
+
+#, c-format
+msgid ""
+"Your webserver does not support localization.  Please instruct your system administrator to "
+"reconfigure PHP with the %s option enabled."
+msgstr ""
+"Din webserver har ikke flersprogsunderstøttelse. Bed venligst din system administrator "
+"genkonfigurere PHP med %s slået til."
+
 msgid "Date Formats"
-msgstr "Datoformater"
+msgstr "Dato Formater"
 
 #, c-format
 msgid ""
@@ -1245,7 +1146,7 @@ msgstr ""
 "mapper som Gallery allerede har oprettet."
 
 msgid "New directories"
-msgstr "Nye biblioteker"
+msgstr "Nye mapper"
 
 msgid "New files"
 msgstr "Nye filer"
@@ -1258,9 +1159,6 @@ msgstr "Sessionslevetid"
 
 msgid "Inactivity Timeout"
 msgstr "Tidsgrænse for inaktivitet"
-
-msgid "Site Administration Session Timeout"
-msgstr "Websteds-administrationssession tidsudløb"
 
 msgid "Embedded Markup"
 msgstr "Indlejret opmærkning"
@@ -1346,12 +1244,12 @@ msgid ""
 "'/'."
 msgstr ""
 "Hvis dit galleri er indlejret og du lader de følgende felter være tomme vil alle "
-"DownloadItem links (URLerne for billeder og andre emner) i dit indlejrede galleri have "
+"DownloadItem links (URLerne for billeder og andre elementer) i dit indlejrede galleri have "
 "<b>tilføjet en GALLERYSID streng</b> i URL'en som er en <b>lille sikkerhedsrisiko</b> når "
 "dine galleri brugere kopierer og klistrer billed-URL'er ind i forummer, gæstebøger, osv. "
 "Alternativet er at sætte <b>'cookie' stien</b>. Gallery vil da <b>ikke tilføje GALLERYSID "
 "til indlejrede DownloadITEM URL'er</b>. Dvs. når Gallery ligger på http://www.example.com/"
-"application/gallery2/ og den indlejrede applikation er på http://www.example.com/"
+"application/gallery2/ og den indlejrede application er på http://www.example.com/"
 "application/, så skal du sammenligne stien /application/gallery2/ med /application/. "
 "'cookie' stien er den del af stierne der er ens, i dette tilfælde '/application/'. For det "
 "meste er det bare '/'."
@@ -1454,7 +1352,7 @@ msgstr "Du skal indtaste et gruppenavn"
 
 #, c-format
 msgid "Group '%s' already exists"
-msgstr "Gruppen '%s' eksisterer allerede"
+msgstr "Gruppen '%s' eksistere allerede"
 
 msgid "Create Group"
 msgstr "Opret gruppe"
@@ -1517,7 +1415,7 @@ msgstr "Slet en bruger"
 
 #, c-format
 msgid "User %s is the owner of %s items."
-msgstr "Brugeren %s er ejer af %s emner."
+msgstr "Brugeren %s er ejer af %s elementer."
 
 #, c-format
 msgid "Delete user <strong>%s</strong> and..."
@@ -1525,22 +1423,23 @@ msgstr "Slet brugeren <strong>%s</strong> og..."
 
 #, c-format
 msgid "Assign a new owner for all items of %s"
-msgstr "Tilknyt en ny ejer til alle emner i %s"
+msgstr "Tildel en ny ejer til alle elementer i %s"
 
 #, c-format
 msgid ""
 "Delete all items of %s and assign a new owner for all remaining non empty albums. Items that "
 "%s doesn't have permission to delete will also be reassigned to a new owner."
 msgstr ""
-"Slet alle emner i %s og tildel en ny ejer til alle resterende ikke-tomme albummer. Emner som "
-"%s ikke har rettigheder til at slette vil også blive tildelt til en ny ejer."
+"Slet alle elementer i %s og tildel en ny ejer til alle resterende ikke-tomme albummer. "
+"Elementer som %s ikke har rettigheder til at slette vil også blive tildelt til en ny ejer."
 
 msgid "New owner (leaving blank means one of the Site Admins):"
 msgstr "Ny ejer (et tomt felt vil betyde en administrator):"
 
 #, c-format
 msgid "User '%s' does not exist! Cannot assign items to a nonexistent user."
-msgstr "Brugeren '%s' eksistere ikke! Kan ikke tildele emner til en ikke-eksisterende bruger."
+msgstr ""
+"Brugeren '%s' eksistere ikke! Kan ikke tildele elementer til en ikke-eksisterende bruger."
 
 msgid "The new owner must be a different user than the user we are deleting!"
 msgstr "Den nye ejer skal være en anden bruger end den vi sletter!"
@@ -1670,39 +1569,6 @@ msgid_plural "%d failed login attempts since the last successful login."
 msgstr[0] "%d mislykket login forsøg siden sidste vellykkede login."
 msgstr[1] "%d mislykkede login forsøg siden sidste vellykkede login."
 
-msgid "Recent Events"
-msgstr "Nylige hændelser"
-
-msgid "Type"
-msgstr "Type"
-
-msgid "Location"
-msgstr "Placering"
-
-msgid "Client"
-msgstr "Klient"
-
-msgid "No events have been reported yet."
-msgstr "Ingen hændelser er blevet rapporteret endnu."
-
-msgid "Event Details"
-msgstr "Hændelses detaljer"
-
-msgid "User Id"
-msgstr "BrugerID"
-
-msgid "Referer"
-msgstr "Henviser"
-
-msgid "Details"
-msgstr "Detaljer"
-
-msgid "no summary"
-msgstr "ingen sammendrag"
-
-msgid "An error occurred while retrieving the event log entry details."
-msgstr "En fejl opstod ved hentning af hændelseslog indgangsdetaljer."
-
 msgid "Group Management"
 msgstr "Gruppehåndtering"
 
@@ -1764,152 +1630,8 @@ msgid_plural "%d groups match your filter"
 msgstr[0] "%d gruppe matcher dit filter"
 msgstr[1] "%d grupper matcher dit filter"
 
-msgid "Please make sure that your internet connection is set up properly or try again later."
-msgstr "Sørg for at internetforbindelsen virker eller prøv igen senere."
-
-#, c-format
-msgid "Failed to scan status from plugin: %s."
-msgstr "Kunne ikke skanne status fra plugin: %s."
-
-msgid ""
-"Your local copy of the repository was broken and has been fixed.  Please download the plugin "
-"list again."
-msgstr ""
-"Den lokale kopi af kataloget var i stykker, men er blevet ordnet. Download plugin listen "
-"igen."
-
-#, c-format
-msgid "Failed to delete the locale directory for %s."
-msgstr "Kunne ikke slette sprogmappen for %s."
-
-#, c-format
-msgid "Failed to download the following language packages for the %s plugin:"
-msgstr "Kunne ikke downloade følgende sprogpakker for %s plugin'et:"
-
-#, c-format
-msgid ""
-"Failed to install language packages for %s plugin because the following files/directories "
-"could not be modified:"
-msgstr ""
-"Kunne ikke installere sprogpakken for %s plugin'et da følgende filer/mapper ikke kunne "
-"ændres:"
-
-msgid "The repository index has been successfully refreshed."
-msgstr "Katalog indekset er blevet korrekt opdateret."
-
-msgid "The language settings have been saved."
-msgstr "Sprogindstillingerne er blevet gemt."
-
-#, c-format
-msgid "%d language pack upgraded or downloaded."
-msgid_plural "%d language packs upgraded or downloaded."
-msgstr[0] "%d sprogpakke er opgraderet eller hentet."
-msgstr[1] "%d sprogpakker er opgraderet eller hentet."
-
-#, c-format
-msgid "%d language pack deleted."
-msgid_plural "%d language packs deleted."
-msgstr[0] "%d sprog-pakke slettet."
-msgstr[1] "%d sprog-pakker slettet."
-
-msgid "All the language packages for the selected languages are current"
-msgstr "Alle sprogpakkerne for det valgte sprog er aktuelle"
-
-msgid ""
-"Select language defaults for Gallery. Individual users can override this setting in their "
-"personal preferences or via the language selector block if available. Gallery will try to "
-"automatically detect the language preference of each user if the browser preference check is "
-"enabled."
-msgstr ""
-"Vælg  Gallerys standardsprog. Brugere kan tilsidesætte denne indstilling i deres personlige "
-"indstillinger eller ved hjælp af sprogvælgeren, hvis den er aktiveret nedenfor. Gallery vil "
-"forsøge automatisk at afgøre det foretrukne sprog for hver bruger hvis browser præference er "
-"markeret."
-
-msgid "Default language"
-msgstr "Standard sprog"
-
-msgid "Check Browser Preference"
-msgstr "Kontroller browser præference"
-
-#, c-format
-msgid ""
-"Your webserver does not support localization.  Please instruct your system administrator to "
-"reconfigure PHP with the %s option enabled."
-msgstr ""
-"Din webserver har ikke flersprogsunderstøttelse. Bed venligst din system administrator "
-"genkonfigurere PHP med %s slået til."
-
-msgid "Configure your Gallery"
-msgstr "Konfigurer dit 'Gallery'"
-
-msgid ""
-"Before you can proceed, you have to change some permissions so that Gallery can install "
-"plugins for you.  It's easy.  Just execute the following in a shell or via your ftp client:"
-msgstr ""
-"Før du kan fortsætte skal nogle tilladelser i filsystemet ændres for at Gallery kan "
-"installere plugins for dig. Det er ikke særlig vanskeligt. Udfør blot de følgende kommandoer "
-"på en kommandolinie eller via din ftp klient:"
-
-msgid ""
-"Before you can proceed, please insure the following directories and sub-directories are "
-"writable, so that Gallery can install plugins for you:"
-msgstr ""
-"Før du kan fortsætte, skal du sørge for at følgende mapper og undermapper er skrivbare, så "
-"Gallery kan installere plugins for dig:"
-
-msgid ""
-"If you have trouble changing permissions, ask your system administrator for assistance.  "
-"When you've fixed the permissions, click the Check Again button to proceed."
-msgstr ""
-"Hvis du ikke kan ændre tilladelserne må du bede administratoren om hjælp. Når tilladelserne "
-"er blevet ordnet kan du klikke på Kontrollér igen knappen for at fortsætte."
-
-msgid "Check Again"
-msgstr "Kontrollér igen"
-
-msgid "Add or Remove Languages"
-msgstr "Tilføj eller fjern sprog"
-
-msgid ""
-"Please click on the link below to go to 'Download Plugin List' and choose 'Update Plugin "
-"List' to get the latest language package information."
-msgstr ""
-"Klik venligst på linket nedefor, for at gå til 'Download pluginliste' og vælg 'Opdatér "
-"pluginliste' for at hente de nyeste sprogpakke oplysninger."
-
-msgid "Administer Repositories"
-msgstr "Administrér kataloger"
-
-msgid "Upgrade"
-msgstr "Opgradér"
-
-msgid "Remove"
-msgstr "Fjern"
-
-msgid "Download"
-msgstr "Download"
-
-msgid "No Change"
-msgstr "Ingen ændring"
-
-msgid "Select All"
-msgstr "Markér alt"
-
-msgid ""
-"There are no local repository indices from which to determine language packages. Please "
-"click on the link below to go to \"Download Plugin List\" and choose \"Update Plugin List\" "
-"to get the latest language package information."
-msgstr ""
-"Der er ikke nogen lokale katalogindex fra hvilken der kan bestemmes sprogpakker. Klik "
-"venligst på linket nedenfor for at gå til \"Download pluginliste\" og vælg \"Opdatér "
-"pluginliste\" for at hente de nyeste sprogpakke oplysninger."
-
 msgid "System Maintenance"
 msgstr "Systemvedligeholdese"
-
-msgid "Gallery must be in maintenance mode before the task can be run."
-msgstr "Gallery skal være i vedligeholdelses tilstand før denne opgave kan køres."
 
 #, c-format
 msgid "Completed %s task successfully."
@@ -1918,43 +1640,6 @@ msgstr "Opgaven %s blev udført."
 #, c-format
 msgid "The %s task failed to complete successfully."
 msgstr "Opgaven %s afsluttede ikke korrekt."
-
-msgid "Maintenance Mode has been turned on."
-msgstr "Vedligeholdelses tilstand er aktiveret."
-
-msgid "Maintenance Mode has been turned off."
-msgstr "Vedligeholdelses tilstand er deaktiveret."
-
-msgid "Maintenance Mode"
-msgstr "Vedligeholdelses tilstand"
-
-msgid "Restrict user access to the system while maintenance is being performed."
-msgstr "Begræns brugeradgang til system, mens der foretages vedligeholdelse."
-
-msgid "Maintenance Mode Url"
-msgstr "Vedligeholdelses tilstand URL"
-
-msgid ""
-"The Maintenance Mode Url specifies where requests will be redirected when access to the site "
-"has been restricted by the administrator."
-msgstr ""
-"Vedligeholdelses-tilstands URL'en uddyber hvor forespørgsler vil blive dirigeret hen, når "
-"adgang til webstedet er begrænset af administratoren."
-
-msgid ""
-"If left blank Gallery will display a default page with an administrator login link. This "
-"page will be themed when the code base is up to date, otherwise it will display a plain "
-"unstyled page."
-msgstr ""
-"Hvis den er tom, vil Gallery vise en standardside med et administrator login-link. Denne "
-"side vil være baseret på temaet, når kodebasen er opdateret, ellers vil den vise en standard "
-"formateret side."
-
-msgid "For example: /maintenance.html"
-msgstr "For eksempel: /vedligehold.html"
-
-msgid "Set"
-msgstr "Indstil"
 
 msgid "Task name"
 msgstr "Opgave"
@@ -2000,7 +1685,7 @@ msgstr ""
 "betydeligt reducere mængden af webserver og databse ressourcer nødvendige for at vise en "
 "webside. Ulempen er at den wbside der vises måske ikke er helt up-to-date. Det er dog altid "
 "muligt at se den nyeste version ved at fremtvinge en browser opfriskning (det kan normalt "
-"gøres ved  at holde &lt;shift&gt; tasten nede mens der klikkes på 'reload' knappen)."
+"gøres ved  at holde <shift> tasten nede mens der klikkes på 'reload' knappen)."
 
 msgid "Partial Acceleration"
 msgstr "Delvis Acceleration"
@@ -2053,22 +1738,6 @@ msgstr "Gæstebrugere"
 
 msgid "Expires after:"
 msgstr "Udløber efter:"
-
-msgid "Template Cache"
-msgstr "Skabeloncache"
-
-#, c-format
-msgid ""
-"For optimal performance, Gallery caches all templates.  If you would like to %scustomize "
-"your template files%s, you should disable template caching temporarily so that changes take "
-"effect immediately without clearing the template cache."
-msgstr ""
-"For optimal ydelse, vil Gallery cache alle skabeloner. Hvis du vil %stilpasse dine "
-"skabelonner%s, bør du midlertidigt deaktivere skabelon cache, så ændringer kan træde i kraft "
-"med det samme, uden at du skal tømme skabelon cachen."
-
-msgid "Enable template caching"
-msgstr "Aktiver skabeloncaching"
 
 msgid "Clear Saved Pages"
 msgstr "Slet Gemte Sider"
@@ -2130,8 +1799,9 @@ msgstr "Nej"
 msgid "Do you really want to delete __PLUGIN__?"
 msgstr "Vil du virkelig slette __PLUGIN__?"
 
+#, fuzzy
 msgid "This plugin will be uninstalled and its files will be deleted permanently."
-msgstr "Denne plugin vil blive afinstalleret og dets filer vil blive slettet permanent."
+msgstr "Denne plugin vil blive afinstalleret og dets filer vil blive slettet."
 
 msgid "The files of this plugin will be deleted permanently."
 msgstr "Filerne fra dette plugin vil blive slettet permanent."
@@ -2228,23 +1898,27 @@ msgstr "Inkompatibelt"
 msgid "Repository"
 msgstr "Katalog"
 
-#, c-format
-msgid "Failed to download the following packages for the %s plugin:"
-msgstr "Kunne ikke downloade følgende pakker for %s plugin'et:"
+msgid "Please make sure that your internet connection is set up properly or try again later."
+msgstr "Sørg for at internetforbindelsen virker eller prøv igen senere."
 
 #, c-format
-msgid ""
-"Failed to install the %s plugin because the following files/directories could not be "
-"modified:"
-msgstr "Kunne ikke installere %s pluginet da nedenstående filer/mapper ikke kunne ændres:"
+msgid "Failed to scan status from plugin: %s."
+msgstr "Kunne ikke skanne status fra plugin: %s."
 
-#, c-format
 msgid ""
-"Some plugins could not be automatically upgraded because they are in use.  Please return to "
-"the %sPlugins%s page and click the upgrade link for each of the following plugins:"
+"Your local copy of the repository was broken and has been fixed.  Please download the plugin "
+"list again."
 msgstr ""
-"Nogle plugins kunne ikke blive automatisk opgraderet, da de er i brug. Gå venligst til %"
-"sPlugins%s siden og klik på opgrader linket for hvert af de følgende plugins:"
+"Den lokale kopi af kataloget var i stykker, men er blevet ordnet. Download plugin listen "
+"igen."
+
+#, c-format
+msgid ""
+"Failed to download the %s plugin because the following files/directories could not be "
+"modified:"
+msgstr ""
+"Det lykkedes ikke at downloade %s plugin da de nedenstående filer/mapper ikke kunne "
+"modificeres:"
 
 msgid "The repository index has been successfully updated."
 msgstr "Katalog indekset er blevet opdateret"
@@ -2255,6 +1929,12 @@ msgstr "Alle plugins er allerede up-to-date."
 #, c-format
 msgid "%s plugin updated."
 msgstr "%s plugin opdateret."
+
+#, c-format
+msgid "%d language pack deleted."
+msgid_plural "%d language packs deleted."
+msgstr[0] "%d sprog-pakke slettet."
+msgstr[1] "%d sprog-pakker slettet."
 
 msgid ""
 "No personal information about you or your Gallery installation is sent to the Gallery server "
@@ -2305,6 +1985,17 @@ msgstr "Du skal vælge mindst et katalog."
 msgid "Ok"
 msgstr "Ok"
 
+msgid "Configure your Gallery"
+msgstr "Konfigurer dit 'Gallery'"
+
+msgid ""
+"Before you can proceed, you have to change some permissions so that Gallery can install "
+"plugins for you.  It's easy.  Just execute the following in a shell or via your ftp client:"
+msgstr ""
+"Før du kan fortsætte skal nogle tilladelser i filsystemet ændres for at Gallery kan "
+"installere plugins for dig. Det er ikke særlig vanskeligt. Udfør blot de følgende kommandoer "
+"på en kommandolinie eller via din ftp klient:"
+
 msgid ""
 "If you have trouble changing permissions, ask your system administrator for assistance.  "
 "When you've fixed the permissions, click the Continue button to proceed."
@@ -2316,7 +2007,7 @@ msgid "Continue"
 msgstr "Fortsæt"
 
 msgid "Download Plugin List"
-msgstr "Download pluginliste"
+msgstr "Download Plugin Liste"
 
 msgid "Show Repository List"
 msgstr "Vis Katalog Liste"
@@ -2335,9 +2026,9 @@ msgstr ""
 "virke, mens andre der er afhængige af funktionerne i den nye version bliver tilgængelige. "
 "Her er den foreslåede metode til at opgradere:"
 
-#, c-format
+#, fuzzy, c-format
 msgid "%sDownload%s the new Gallery package"
-msgstr "%sDownload%s den nye Gallery pakke"
+msgstr "%sDownload%s Gallery kerne"
 
 #, c-format
 msgid "Read the %supgrade instructions%s and perform the upgrade"
@@ -2408,10 +2099,12 @@ msgstr "Ingen pakker er blevet valgt."
 
 msgid ""
 "Download a package in order to use this plugin.  You can upgrade by choosing a newer version "
-"of the package to download."
+"of the package to download.  Language packages are optional, You only need to download the "
+"ones that you want to use on your site."
 msgstr ""
-"Download en pakke for at kunne benytte denne plugin.  Du kan opgradere ved at vælge at "
-"downloade en nyere version af pakken."
+"download en pakke for at kunne benytte denne plugin. Du kan opgradere ved at vælge at "
+"downloade en nyere version af pakken. Sprog pakker kan vælges om du vil. Det er kun "
+"nødvendigt at downloade de sprog du ønsker at benytte på dette site."
 
 msgid "Base Packages"
 msgstr "Basispakker"
@@ -2428,8 +2121,12 @@ msgstr "%s: version %s (build %s) %s'nedgradering' er ikke understøttet!%s"
 msgid "%sCurrently Installed%s: version %s (build %s)"
 msgstr "%sInstalleret på nuværende tidspunkt%s version %s (build %s)"
 
-msgid "The following language packages are available for this plugin"
-msgstr "Følgende sprogpakker er tilgængelige for dette plugin"
+msgid "Language Packages"
+msgstr "Sprog-pakker"
+
+#, c-format
+msgid "(%sselect all%s%sselect none%s)"
+msgstr "(%svælg alle%s%svælg ingen%s)"
 
 #, c-format
 msgid "%s version %s (upgrading from %s)"
@@ -2449,6 +2146,9 @@ msgstr "%s version %s (installeret for øjeblikket)"
 
 msgid "No compatible language packages available"
 msgstr "Ingen kompatible sprog-pakker er tilgængelige"
+
+msgid "You must select a base package before choosing language packs."
+msgstr "Du skal vælge en basis pakke før du vælger sprog pakker."
 
 msgid "Update"
 msgstr "Opdater"
@@ -2503,15 +2203,9 @@ msgid ""
 "The %s theme is incompatible with your Gallery version or no longer available.  Please "
 "upgrade the %s theme or pick another default theme."
 msgstr ""
-"Temaet %s er ikke kompatibelt med din version af Gallery, eller det er ikke længere "
-"tilgængeligt. Opgradér venligst temaet %s eller vælg et andet standard tema."
 
 msgid "New albums"
 msgstr "Nye albummer"
-
-#, c-format
-msgid "To activate more themes visit the %sPlugins%s page."
-msgstr "For at aktivere flere temaer besøg da %sPlugins%s siden."
 
 msgid "Save Defaults"
 msgstr "Gem Standard Indstillinger"
@@ -2532,6 +2226,9 @@ msgstr "Vælg en blok"
 
 msgid "Selected"
 msgstr "Valgt"
+
+msgid "Remove"
+msgstr "Fjern"
 
 msgid "Move Up"
 msgstr "Flyt Op"
@@ -2653,7 +2350,7 @@ msgid ""
 "<b>reload that page</b> and try your change again."
 msgstr ""
 "Din rettelse kan ikke blive gemt fordi en anden har lavet en rettelse der påvirker samme "
-"emne. Brug tilbageknappen i din brower for at gå tilbage til den side du var på før, "
+"element. Brug tilbageknappen i din brower for at få tilbage til den side du var på før, "
 "<b>genindlæs</b> derefter siden og prøv at lave rettelsen igen."
 
 msgid "Go back and try again"
@@ -2663,8 +2360,6 @@ msgid ""
 "If this problem happens repeatedly, it may be because of corruption in your cache.  Site "
 "Administrators can clear out this cache."
 msgstr ""
-"Hvis dette problem opstår jævnligt, kan det skyldes en korrumpering af din cache. Websteds "
-"administratorer kan tømme denne cache."
 
 msgid "Clear the cache"
 msgstr "Slet cache indhold"
@@ -2679,8 +2374,6 @@ msgid ""
 "Your change cannot be completed due to a loss of session data. Please try again. If it still "
 "doesn't work, try logging out and logging back in."
 msgstr ""
-"Din ændring kan ikke gennemføres da der mangler sessionsdata. Prøv venligst igen. Hvis det "
-"stadig ikke virker, bør du prøve at logge ud og logge ind igen."
 
 msgid "An error has occurred while interacting with the database."
 msgstr "Der er opstået en fejl i kommunikationen med databasen."
@@ -2708,7 +2401,7 @@ msgstr ""
 "filsystemet, f.eks. ved at foretage en 'restore' af data fra en 'backup'."
 
 msgid "Item not found."
-msgstr "Emnet blev ikke fundet."
+msgstr "Element ikke fundet."
 
 msgid "An error has occurred."
 msgstr "Der er opstået en fejl."
@@ -2722,9 +2415,6 @@ msgstr "Detaljeret fejlbeskrivelse"
 msgid "System Information"
 msgstr "Systeminformationer"
 
-msgid "Not all of the specified items have been added successfully."
-msgstr "Det er ikke alle de valgte emner der blev tilføjet korrekt."
-
 msgid ""
 "You don't have any Graphics Toolkit activated that can handle JPEG images.  If you add "
 "images, you will probably not have any thumbnails."
@@ -2733,8 +2423,8 @@ msgstr ""
 "billeder vil du med stor sandsynlighed ikke have nogle ikoner."
 
 #, c-format
-msgid "Visit the %sModules%s page to activate a Graphics Toolkit."
-msgstr "Besøg %sModulsiden%s for at aktivere et grafikværktøj."
+msgid "Visit the <a href=\"%s\">Modules</a> page to activate a Graphics Toolkit."
+msgstr "Besøg <a href=\"%s\">Modulsiden</a> for at aktivere et grafikværktøj."
 
 msgid "Add Sub-Album"
 msgstr "Tilføj underalbum"
@@ -2838,20 +2528,23 @@ msgstr "Tildel billedtekst til:"
 msgid "No Thumbnail"
 msgstr "Ingen miniature"
 
+msgid "Delete Items"
+msgstr "Slet elementer"
+
 msgid "No items were selected for deletion"
-msgstr "Ingen Emner var valgt til sletning"
+msgstr "Ingen elementer var valgt til sletning"
 
 #, c-format
 msgid "Successfully deleted %d item"
 msgid_plural "Successfully deleted %d items"
-msgstr[0] "%d emne blev slettet korrekt"
-msgstr[1] "%d emner blev slettet korrekt"
+msgstr[0] "%d element blev slettet"
+msgstr[1] "%d elementer blev slettet"
 
 msgid "This album contains no items to delete"
-msgstr "Dette album indeholder ingen emner der kan slettes"
+msgstr "Dette album indeholder ingen elementer"
 
 msgid "Choose the items you want to delete"
-msgstr "Vælg de emner du vil slette"
+msgstr "Vælg elementerne du vil slette"
 
 #, c-format
 msgid "(page %d of %d)"
@@ -2872,17 +2565,17 @@ msgstr "(data)"
 #, c-format
 msgid "(album containing %d item)"
 msgid_plural "(album containing %d items)"
-msgstr[0] "(albummet indeholder %d emne)"
-msgstr[1] "(albummet indeholder %d emner)"
+msgstr[0] "(albummet indeholder %d element)"
+msgstr[1] "(albummet indeholder %d elementer)"
 
 msgid "(empty album)"
 msgstr "(tomt album)"
 
 msgid "Check All"
-msgstr "Markér alle"
+msgstr "Tjek alle"
 
 msgid "Check None"
-msgstr "Markér ingen"
+msgstr "Tjek ingen"
 
 msgid "Invert"
 msgstr "Spejlvend"
@@ -2893,12 +2586,24 @@ msgstr "Forrige side"
 msgid "Next Page"
 msgstr "Næste side"
 
-#, c-format
-msgid "Do you really want to delete %s?"
-msgstr "Vil du virkelig slette %s?"
+msgid "Deletion Complete"
+msgstr "Sletning fuldført"
 
-msgid "Delete more items..."
-msgstr "Slet flere emner"
+msgid "Item successfully deleted"
+msgstr "Elementet blev slettet"
+
+#, c-format
+msgid "Are you sure you want to delete this %s?"
+msgstr "Er du sikker på du vil slette %s?"
+
+#, c-format
+msgid "It contains %d item."
+msgid_plural "It contains %d items."
+msgstr[0] "Indeholder %d element."
+msgstr[1] "Indeholder %d elementer."
+
+msgid "There is no undo!"
+msgstr "Det er ikke muligt at fortryde!"
 
 msgid "There was a problem processing your request."
 msgstr "Din forespørgsel kunne ikke udføres."
@@ -2910,14 +2615,14 @@ msgid ""
 "This sets the sort order for the album.  This applies to all current items, and any newly "
 "added items."
 msgstr ""
-"Dette angiver sorteringen i albummet. Dette anvendes på alle nuværende emner og nyligt "
-"tilføjede emner."
+"Dette angiver sorteringen i albummet. Dette anvendes på alle nuværende elementer og nyligt "
+"tilføjede elementer."
 
 msgid "Apply to all subalbums"
 msgstr "Anvend på alle underalbummer"
 
 msgid " Every item requires a thumbnail. Set the default size in pixels here."
-msgstr " Alle emner kræver en miniature. Angiv standard størrelsen i pixels her."
+msgstr " Alle elementer kræver en miniature. Angiv standard størrelsen i pixels her."
 
 msgid "You must enter a number (greater than zero)"
 msgstr "Du skal indtaste et tal (større end nul)"
@@ -2929,7 +2634,8 @@ msgid "Resized Images"
 msgstr "Mellemstørrelse billeder"
 
 msgid "Each item in your album can have multiple sizes. Define the default sizes here."
-msgstr "Hvert emne i dit album kan have flere størrelser. Definér standard størrelserne her."
+msgstr ""
+"Hvert element i dit album kan have flere størrelser. Definer standard størrelserne her."
 
 msgid "Active"
 msgstr "Aktiv"
@@ -2944,7 +2650,7 @@ msgid "Use these target sizes in all subalbums"
 msgstr "Benyt disse målstørrelser i alle underalbummer"
 
 msgid "Apply settings to existing items"
-msgstr "Anvend indstillinger på eksisterende emner"
+msgstr "Anvend indstillinger på eksisterende elementer"
 
 msgid ""
 "The thumbnail and resized image settings are for all new items. To apply these settings to "
@@ -2953,12 +2659,6 @@ msgid ""
 "Building images now makes this operation take longer, but saves the time to build and cache "
 "each file when it is first viewed."
 msgstr ""
-"Miniature- og billedstørrelses indstillinger er for alle nye emner. For at påføre disse "
-"indstillinger til alle emner i dit album, skal du markere den tilhørende boks. Inkludering "
-"af underalbummer vil påføre hvert album's egne indstillinger til den miniature/størrelser, "
-"hvilken muligvis ikke er de samme indstillinger som ovenfor. Opbygning af billeder nu, vil "
-"gøre at denne handling tager længere tid, men sparer den tid det tager at oprette og cache "
-"hver fil, når den vises første gang."
 
 msgid "Apply album setting to thumbnails"
 msgstr "Anvend albummets indstillinger for miniaturer"
@@ -3000,25 +2700,25 @@ msgid "Height"
 msgstr "Højde"
 
 msgid "There were errors saving some items"
-msgstr "Problemer med at gemme nogle emner"
+msgstr "Problemer med at gemme nogle elementer"
 
 msgid "There were errors saving all items"
-msgstr "Problemer med at gemme alle emner"
+msgstr "Problemer med at gemme alle elementer"
 
 msgid "Successfully saved all items"
-msgstr "Alle emner blev gemt"
+msgstr "Alle elementer blev gemt"
 
 msgid "This album contains no items"
-msgstr "Dette album indeholder ingen emner"
+msgstr "Dette album indeholder ingen elementer"
 
 msgid "Saved successfully."
 msgstr "Opsætningen blev gemt."
 
 msgid "This item was modified by somebody else at the same time.  Your changes were lost."
-msgstr "Dette emne er blevet rettet af en anden lige nu. Dine rettelser er tabt."
+msgstr "Dette element er også blevet rettet af en anden lige nu. Dine rettelser er tabt."
 
 msgid "You do not have permissions to modify this item."
-msgstr "Du har ikke ret til at ændre dette emne."
+msgstr "Du har ikke ret til at ændre dette element."
 
 msgid "Save and Done"
 msgstr "Gem og afslut"
@@ -3035,49 +2735,43 @@ msgid ""
 "The name of this item on your hard disk.  It must be unique in this album.  Only use "
 "alphanumeric characters, underscores or dashes."
 msgstr ""
-"Emnets filnavn på din harddisk. Det skal være unikt i dette album. Brug kun bogstaver, tal, "
-"understreg eller bindestreger."
+"Elementets filnavn på din harddisk. Det skal være unikt i dette album. Brug kun bogstaver, "
+"tal, understreg eller skråstreg."
 
 msgid "Your name contains invalid characters.  Please choose another."
 msgstr "Dit navn indeholder ugyldige tegn. Indtast venligst et nyt."
 
 msgid "You must enter a name for this item."
-msgstr "Du skal indtaste et navn til dette emne."
+msgstr "Du skal indtaste et navn til dette element."
 
 msgid "The name you entered is already in use.  Please choose another."
 msgstr "Det indtastede navn er allerede i brug. Indtast venligst et nyt."
 
 msgid "The title of this item."
-msgstr "Dette emnes titel."
+msgstr "Titel på dette element."
 
 msgid "The root album must have a title."
 msgstr "Hovedalbummet skal have en titel."
 
 msgid "The summary of this item."
-msgstr "Sammendrag af dette emne."
+msgstr "Sammendrag på dette element."
 
 msgid "This is the long description of the item."
-msgstr "Dette er den lange beskrivelse af emnet."
+msgstr "Dette er den lange beskrivelse af elementet."
 
 #, c-format
 msgid "%s Date and Time"
 msgstr "%s Dato og tid"
 
-msgid "Link Date and Time"
-msgstr "Link dato og tid"
-
 msgid "Set the date and time when this image was captured."
 msgstr "Sæt dato og tid da dette billede blev taget."
 
 msgid "Set the date and time to be displayed for this item."
-msgstr "Sæt dato og tid der skal vises for dette emne."
+msgstr "Sæt dato og tid der skal vises for dette element."
 
 #, c-format
 msgid "Set the date and time to be displayed for this %s."
 msgstr "Sæt dato og tid som skal vises for dette %s."
-
-msgid "Set the date and time to be displayed for this link."
-msgstr "Sæt dato og tid der skal vises for dette link."
 
 msgid "Date:"
 msgstr "Dato:"
@@ -3105,11 +2799,11 @@ msgid ""
 "There are no graphics toolkits enabled that support this type of item, so we cannot create "
 "or modify a thumbnail."
 msgstr ""
-"Der er ingen grafiske værktøjer som understøtter denne type emne, der kan derfor ikke "
+"Der er ingen grafiske værktøjer som understøtter denne type element, der kan derfor ikke "
 "oprettes eller ændres en miniature."
 
 msgid "Unable to create a thumbnail for this item"
-msgstr "Ikke muligt at skabe en miniature for dette emne"
+msgstr "Ikke muligt at skabe en miniature for dette objekt"
 
 msgid ""
 "In order for Gallery to properly display this movie, it has to know the movie's width and "
@@ -3264,9 +2958,6 @@ msgid ""
 "version or no longer available.  Please upgrade the %s theme or use another theme for this "
 "album."
 msgstr ""
-"Dette album er sat op til at benytte temaet %s, der enten ikke er kompatibelt med denne "
-"Gallery version, eller ikke længere er tilgængelig. Opgrader venligst temaet %s eller brug "
-"et andet tema for dette album."
 
 #, c-format
 msgid ""
@@ -3297,7 +2988,7 @@ msgid "Album Highlight"
 msgstr "Fremhæv"
 
 msgid "You can make this item the thumbnail for its parent or any ancestor album."
-msgstr "Du kan gøre dette emne til miniature for dets album eller ethvert forældrealbum."
+msgstr "Du kan gøre dette element til miniature for dets album eller ethvert forældrealbum."
 
 msgid "Highlight for:"
 msgstr "Fremhæv for:"
@@ -3306,45 +2997,39 @@ msgid "Highlight"
 msgstr "Fremhæv"
 
 msgid "Move an Item"
-msgstr "Flyt et emne"
+msgstr "Flyt et element"
 
 #, c-format
 msgid "Successfully moved %d item"
 msgid_plural "Successfully moved %d items"
-msgstr[0] "%d emne blev flyttet korrekt"
-msgstr[1] "%d emner blev flyttet korrekt"
+msgstr[0] "%d element blev flyttet"
+msgstr[1] "%d elementer blev flyttet"
 
 msgid "This album contains no items to move."
-msgstr "Dette album indeholder ingen flytbare emner."
+msgstr "Dette album indeholder ingen elementer."
 
 msgid "Source"
 msgstr "Kilde"
 
 msgid "Choose the items you want to move"
-msgstr "Vælg de emner du vil flytte"
-
-msgid "OK"
-msgstr "O.k."
+msgstr "Vælg elementerne du vil flytte"
 
 msgid ""
 "The destination you chose does not accept sub-albums, so all sub-albums have been deselected."
 msgstr "Den valgte destination tillader ikke underalbum, alle underalbum er derfor fravalgt."
-
-msgid "Warning"
-msgstr "Advarsel"
 
 msgid ""
 "The destination you chose only accepts sub-albums, so all non-albums have been deselected."
 msgstr "Den valgte destination tillader kun underalbum, alle ikke-album er derfor fravalgt."
 
 msgid "You are not allowed to move this item away from here."
-msgstr "Du har ikke tilladelse til at flytte emnet væk herfra."
+msgstr "Du har ikke tilladelse til at flytte elementet."
 
 msgid "You are not allowed to move an album to the chosen destination."
 msgstr "Du har ikke tilladelse til at flytte et album til den valgte destination."
 
 msgid "You are not allowed to move an item to the chosen destination."
-msgstr "Du har ikke tilladelse til at flytte et emne til den valgte destination."
+msgstr "Du har ikke tilladelse til at flytte et element til den valgte destination."
 
 msgid "You cannot move an album into its own subtree."
 msgstr "Du kan ikke flytte et album til dets eget undertræ."
@@ -3356,7 +3041,7 @@ msgid "Choose a new album for them"
 msgstr "Vælg et nyt album til dem"
 
 msgid "You don't have the permission to add items in this album"
-msgstr "Du har ikke tilladelse til at tilføje emner i dette album"
+msgstr "Du har ikke tilladelse til at tilføje elementer i dette album"
 
 msgid "No destination chosen"
 msgstr "Ingen destination valgt"
@@ -3396,19 +3081,19 @@ msgid ""
 "if you want to grant permissions to a specific user, you can add (or remove) the user from "
 "the appropriate group."
 msgstr ""
-"Hvert emne har sine egne tilladelser. Ændringer i forældre, har ingen effekt på "
-"underemnerne. Dette gør det muligt at begrænse adgangen til forældren af dette emne, men "
-"giver stadig fuld adgang til dette emne og omvendt. Det anbefales at bruge grupper og "
+"Hvert element har sine egne tilladelser. Ændringer i forældre, har ingen effekt på "
+"underelementerne. Dette gør det muligt at begrænse adgangen til forældren af dette element, "
+"men giver stadig fuld adgang til dette element og omvendt. Det anbefales at bruge grupper og "
 "tildele tilladelser til dem. Hvis du derefter ønsker at tildele tilladelser til en specifik "
 "bruger, kan du blot tilføje (eller fjerne) brugeren fra den relevante gruppe."
 
 #, c-format
 msgid "This item is owned by user: %s"
-msgstr "Dette emne ejes af brugeren: %s"
+msgstr "Dette element ejes af brugeren: %s"
 
 #, c-format
 msgid "This item is owned by user: %s (%s)"
-msgstr "Dette emne ejes af brugeren: %s (%s)"
+msgstr "Dette element ejes af brugeren: %s (%s)"
 
 msgid "New owner"
 msgstr "Ny ejer"
@@ -3417,7 +3102,7 @@ msgid "Change"
 msgstr "Ændrer"
 
 msgid "Apply new owner to sub-items"
-msgstr "Anvend ny ejer på underemner"
+msgstr "Anvend ny ejer på underelementer"
 
 msgid "You must enter a user name"
 msgstr "Du skal indtaste et brugernavn"
@@ -3435,13 +3120,14 @@ msgid ""
 "have many sub-items.  It's more efficient to grant permissions to groups and then add and "
 "remove users from groups whenever possible. Changes are applied to sub-items by default."
 msgstr ""
-"Dette emne har underemner. Ændringer kan anvendes på emnet og/eller alle underemner. Bemærk "
-"at ændringer på underemner flettes med eksisterende tilladelser og kan være tidskrævende ved "
-"mange underemner. Det er mere effektivt at give tilladelse til grupper og derefter tilføje "
-"og fjerne brugere fra grupperne. Ændringer bliver anvendt på underemner som standard."
+"Dette element har underelementer. Ændringer kan anvendes på elementet og/eller alle "
+"underelementer. Bemærk at ændringer på underelementer flettes med eksisterende tilladelser "
+"og kan være tidskrævende ved mange underelementer. Det er mere effektivt at give tilladelse "
+"til grupper og derefter tilføje og fjerne brugere fra grupperne. Ændringer bliver anvendt på "
+"underelementer som standard."
 
 msgid "Apply to sub-items"
-msgstr "Anvend på underemner"
+msgstr "Anvend på underelementer"
 
 msgid "Group Permissions"
 msgstr "Gruppetilladelser"
@@ -3496,10 +3182,10 @@ msgid "change"
 msgstr "ændrer"
 
 msgid "Change the order of the items in this album."
-msgstr "Ændrer rækkefølgen på emner i dette album."
+msgstr "Ændrer rækkefølgen på elementer i dette album."
 
 msgid "Move this item"
-msgstr "Flyt dette emne"
+msgstr "Flyt dette element"
 
 msgid "before"
 msgstr "før"
@@ -3534,12 +3220,10 @@ msgstr "Indtast en beskrivende tekst til URL'en"
 msgid "Enter an image URL"
 msgstr "Indtast en billed URL"
 
-#. HINT: Button label for Bold
-msgid "B"
+msgid "B <!-- Button label for Bold -->"
 msgstr "fed"
 
-#. HINT: Button label for italic
-msgid "i"
+msgid "i <!-- Button label for italic -->"
 msgstr "kursiv"
 
 msgid "list"
@@ -3558,8 +3242,8 @@ msgid "color"
 msgstr "farve"
 
 #, c-format
-msgid "You can also use the %scolor name%s for example: %sYour Text%s"
-msgstr "Du kan også benytte %sfarvenavnet%s for eksempel %sDin tekst%s"
+msgid "You can also use the <a href=\"%s\" target=\"_new\">color name</a> for example: %s"
+msgstr "du kan også benytte <a href=\"%s\" target=\"_new\">farve navnet</a> for eksempel %s"
 
 msgid "Configuration Error: Missing Theme"
 msgstr "Konfigurationsfejl: Mangler Tema"
@@ -3682,28 +3366,26 @@ msgstr "Log på din konto"
 msgid "Your password has been recovered, please login."
 msgstr "Dit kodeord er blevet gendannet, log venligst ind."
 
-msgid ""
-"The administration session has expired, please re-authenticate to access the administration "
-"area."
-msgstr ""
-"Administrationssessionen er udløbet, log venligst ind igen for at komme til "
-"administrationsområdet."
-
 #, c-format
 msgid ""
 "Logins to this account are temporarily disabled due to multiple failed login attempts.  Wait "
-"for access to be restored, or use the %srecover password%s page to re-enable this account."
+"for access to be restored, or use the <a href=\"%s\">recover password</a> page to re-enable "
+"this account."
 msgstr ""
 "Login med denne konto er midlertidigt deaktiveret på grund af flere fejlslagne login forsøg. "
-"Vent på at adgang igen bliver aktiveret, eller benyt %sgendan password%s siden for at "
-"genaktivere denne konto."
+"Vent på at adgang igen bliver aktiveret, eller benyt <a href=\"%s\">gendan password</a> "
+"siden for at genaktivere denne konto."
 
 msgid "Your login information is incorrect.  Please try again."
 msgstr "Dine log ind informationer er ukorrekte. Prøv venligst igen."
 
 #, c-format
-msgid "Lost or forgotten passwords can be retrieved using the %srecover password%s page"
-msgstr "Mistede eller glemte kodeord kan blive gendannet ved at bruge siden %sgendan kodeord%s"
+msgid ""
+"Lost or forgotten passwords can be retrieved using the <a href=\"%s\">recover password</a> "
+"page"
+msgstr ""
+"Mistede eller glemte kodeord kan blive gendannet ved at bruge siden <a href=\"%s\">gendan "
+"kodeord</a>"
 
 #, c-format
 msgid "Welcome, %s!"
@@ -3848,18 +3530,18 @@ msgstr "Denne siden tillader dig at nulstille kodeordet for din konto."
 #, c-format
 msgid ""
 "There is no request which matches the username and authorization provided. Request a new "
-"authorization from the %slost password page%s."
+"authorization from the <a href=\"%s\">lost password page</a>"
 msgstr ""
 "Der er ikke nogen anmodning som passer med det angivne kodeord og autorisation. Anmod om en "
-"ny autorisation fra siden %smistet kodeord%s"
+"ny autorisation fra siden <a href=\"%s\">mistet kodeord</a>"
 
 #, c-format
 msgid ""
-"The request you are trying to access has expired.  Request a new authorization from the %"
-"slost password page%s."
+"The request you are trying to access has expired.  Request a new authorization from the <a "
+"href=\"%s\">lost password page</a>."
 msgstr ""
-"Andmodningen du forsøger at tilgå er udløbet. Anmod om en ny autorisation fra siden %sglemt "
-"kodeord%s."
+"Andmodningen du forsøger at tilgå er udløbet. Anmod om en ny autorisation fra siden <a href="
+"\"%s\">glemt kodeord</a>."
 
 msgid "Authorization missing"
 msgstr "Mangler autorisation"
@@ -3914,14 +3596,14 @@ msgstr "Ejer: %s"
 #, c-format
 msgid "Size: %d item"
 msgid_plural "Size: %d items"
-msgstr[0] "Størrelse: %d emne"
-msgstr[1] "Størrelse: %d emner"
+msgstr[0] "Størrelse: %d element<"
+msgstr[1] "Størrelse: %d elementer"
 
 #, c-format
 msgid "(%d item total)"
 msgid_plural "(%d items total)"
-msgstr[0] "(ialt %d emne)"
-msgstr[1] "(ialt %d emner)"
+msgstr[0] "(ialt %d element)"
+msgstr[1] "(ialt %d elementer)"
 
 #, c-format
 msgid "Views: %d"
@@ -3931,19 +3613,23 @@ msgid "&laquo; album actions &raquo;"
 msgstr "&laquo; albumhandlinger &raquo;"
 
 msgid "&laquo; item actions &raquo;"
-msgstr "&laquo; emnehandlinger &raquo;"
+msgstr "&laquo; elementhandlinger &raquo;"
 
 msgid "Go"
 msgstr "Gå til"
 
-msgid "WARNING: block $type doesn't exist."
-msgstr "ADVARSEL: Blokken $type eksisterer ikke."
+msgid "Navigation"
+msgstr "Navigation"
 
 msgid "next"
 msgstr "næste"
 
 msgid "last"
 msgstr "sidste"
+
+#, c-format
+msgid "Page %d of %d"
+msgstr "Side %d af %d"
 
 #, c-format
 msgid "%d of %d"
@@ -3981,7 +3667,7 @@ msgid "Language selector"
 msgstr "Sprogvælger"
 
 msgid "Item actions"
-msgstr "Emnehandlinger"
+msgstr "Elementhandlinger"
 
 msgid "Use dropdown menu"
 msgstr "Brug rullelistemenu"
@@ -3992,53 +3678,3 @@ msgstr "Loginblok"
 # peers?
 msgid "Links to album/photo peers"
 msgstr "Links til album/foto 'peers'"
-
-#~ msgid "Language Packages"
-#~ msgstr "Sprog-pakker"
-
-#~ msgid "(%sselect all%s%sselect none%s)"
-#~ msgstr "(%svælg alle%s%svælg ingen%s)"
-
-#~ msgid "You must select a base package before choosing language packs."
-#~ msgstr "Du skal vælge en basis pakke før du vælger sprog pakker."
-
-#~ msgid "Back to %s"
-#~ msgstr "Tilbage til %s"
-
-#~ msgid "Back"
-#~ msgstr "Tilbage"
-
-#~ msgid "Navigation"
-#~ msgstr "Navigation"
-
-#~ msgid "Loading Table Descriptions"
-#~ msgstr "Indlæser tabel beskrivelser"
-
-#~ msgid "delete confirmation"
-#~ msgstr "bekræftelse af sletning"
-
-#~ msgid "delete %s"
-#~ msgstr "slet %s"
-
-#~ msgid "Deletion Complete"
-#~ msgstr "Sletning fuldført"
-
-#~ msgid "Item successfully deleted"
-#~ msgstr "Elementet blev slettet"
-
-#~ msgid "Are you sure you want to delete this %s?"
-#~ msgstr "Er du sikker på du vil slette %s?"
-
-#~ msgid "It contains %d item."
-#~ msgid_plural "It contains %d items."
-#~ msgstr[0] "Indeholder %d element."
-#~ msgstr[1] "Indeholder %d elementer."
-
-#~ msgid "There is no undo!"
-#~ msgstr "Det er ikke muligt at fortryde!"
-
-#~ msgid "key"
-#~ msgstr "nøgle"
-
-#~ msgid "G2.2: Double Double"
-#~ msgstr "G2.2: Double Double"

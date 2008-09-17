@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,9 +18,9 @@
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: RSS 1.1.5\n"
+"Project-Id-Version: Gallery: RSS 1.1.0\n"
 "POT-Creation-Date: 2006-02-23 10:15+0100\n"
-"PO-Revision-Date: 2008-03-18 23:26+0100\n"
+"PO-Revision-Date: 2006-12-27 16:36+0100\n"
 "Last-Translator: Kappana <kappana@gnoms.net>\n"
 "Language-Team: Polish <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -36,6 +36,9 @@ msgstr "Kanał RSS nie istnieje!"
 
 msgid "Feeds of that type are not allowed!"
 msgstr "Kanały tego typu są zabronione!"
+
+msgid "Not permitted to view this item"
+msgstr "Brak uprawnień do oglądania tej pozycji"
 
 msgid "Incorrect feed type!"
 msgstr "Nieprawidłowy typ kanału!"
@@ -61,10 +64,6 @@ msgstr "Kanał RSS dla tego zdjęcia"
 msgid "RSS Feed for this Movie"
 msgstr "Kanał RSS dla tego filmu"
 
-#, c-format
-msgid "RSS Feed for this %s"
-msgstr "Kanał RSS dla %s"
-
 msgid "Configure RSS Feeds"
 msgstr "Konfiguruj kanały RSS"
 
@@ -84,8 +83,8 @@ msgid "Short URL for Configurable RSS Feeds"
 msgstr "Skrócony adres URL dla konfigurowalnego kanału RSS"
 
 #, c-format
-msgid "In album %s"
-msgstr "W albumie %s"
+msgid "RSS Feed for this %s"
+msgstr "Kanał RSS dla %s"
 
 msgid "Items in an album"
 msgstr "Pozycje w albumie"
@@ -105,11 +104,9 @@ msgstr "Komentarze pozycji"
 msgid "Comments for an album and its subalbums"
 msgstr "Komentarze albumu i jego podalbumów"
 
-msgid "Random items in an album"
-msgstr "Losowe pozycje w albumie"
-
-msgid "Random items in an album and its subalbums"
-msgstr "Losowe pozycje w albumie i jego podalbumach"
+#, c-format
+msgid "In album <a href=\"%s\">%s</a>"
+msgstr "W albumie <a href=\"%s\">%s</a>"
 
 msgid "RSS Feeds"
 msgstr "Kanały RSS"
@@ -196,12 +193,6 @@ msgstr "Komentarze dla tego albumu"
 msgid "Comments for this album and its subalbums"
 msgstr "Komentarze tego albumu i jego podalbumów"
 
-msgid "Random pictures inside this album"
-msgstr "Losowe zdjęcia w tym albumie"
-
-msgid "Random pictures inside this album and its subalbums"
-msgstr "Losowe zdjęcia w tym albumie i jego podalbumach"
-
 msgid "Comments for this item"
 msgstr "Komentarze dla tej pozycji"
 
@@ -285,22 +276,6 @@ msgid ""
 "This adds an enclosure to each image in the feed, that contains the full resolution image"
 msgstr ""
 "Ta opcja doda załacznik do każdego zdjęcia w kanale, zawierający pełnowymiarowe zdjęcie"
-
-msgid "Use Media RSS"
-msgstr "Użyj znacznika Media RSS"
-
-msgid "Include Media RSS tags"
-msgstr "Dodaj znacznik Media RSS"
-
-msgid ""
-"This adds Media RSS tags to the feed, which allows media-oriented clients to display the "
-"feed in a more useful fashion"
-msgstr ""
-"Ta opcja doda znacznik Media RSS do kanału, pozwalając tym samym klientom obsługującym pliki "
-"medialne wyświetlać kanał w bardziej czytelny sposób"
-
-msgid "about Media RSS"
-msgstr "(dowiedz się więcej o Media RSS)"
 
 msgid "Cloud tag (RSS 2.0)"
 msgstr "Znacznik Cloud (RSS 2.0)"
@@ -401,12 +376,6 @@ msgstr "Maksymalna liczba pozycji w kanale"
 msgid "Invalid maximum number"
 msgstr "Nieprawidłowa wartość maksymalna"
 
-msgid "Maximum age for items in feeds"
-msgstr "Maksymalna liczba pozycji w kanale"
-
-msgid "Invalid maximum age number"
-msgstr "Nieprawidłowa wartość maksymalna"
-
 msgid "Default ttl"
 msgstr "Domyślny TTL"
 
@@ -470,23 +439,14 @@ msgstr "Zezwól na kanały RSS do zdjęć wewnątrz albumu i jego podalbumów"
 msgid "Slower"
 msgstr "Wolniej"
 
-msgid "Allow RSS feeds of comments of a photo"
+msgid "Allow RSS feeds comments of a photo"
 msgstr "Zezwól na kanały RSS do komentarzy zdjęcia"
 
-msgid "Allow RSS feeds of comments of an album"
+msgid "Allow RSS feeds comments of an album"
 msgstr "Zezwól na kanały RSS do komentarzy albumu"
 
-msgid "Allow RSS feeds of comments for an album and its subalbums"
+msgid "Allow RSS feeds comments for an album and its subalbums"
 msgstr "Zezwól na kanały RSS do komentarzy albumu i jego podalbumów"
-
-msgid "Allow RSS feeds of random photos inside an album"
-msgstr "Zezwól na kanały RSS do zdjęć wewnątrz albumu"
-
-msgid "Allow RSS feeds of random photos inside an album and its subalbums"
-msgstr "Zezwól na kanały RSS do zdjęć wewnątrz albumu i jego podalbumów"
-
-msgid "Slowest"
-msgstr "Najwolniej"
 
 msgid "Save Settings"
 msgstr "Zapisz ustawienia"

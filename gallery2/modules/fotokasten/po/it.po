@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,10 +19,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Fotokasten 1.0.10\n"
+"Project-Id-Version: Gallery: Fotokasten 1.0.6\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2006-09-12 10:52-0700\n"
-"PO-Revision-Date: 2008-03-27 09:51+0100\n"
+"PO-Revision-Date: 2007-01-08 17:56+0100\n"
 "Last-Translator: Ermanno Baschiera <ebaschiera@gmail.com>\n"
 "Language-Team: Italian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -42,7 +42,7 @@ msgid "[fotokasten] Print"
 msgstr "[fotokasten] Stampa"
 
 msgid "Print on Fotokasten.de"
-msgstr "Stampa con Fotokasten.de"
+msgstr "Stampa su Fotokasten.de"
 
 msgid "Print with Fotokasten"
 msgstr "Stampa con Fotokasten"
@@ -54,46 +54,49 @@ msgid "Settings saved successfully"
 msgstr "Configurazione salvata con successo"
 
 msgid "Using Gallery Affiliate Id"
-msgstr "Si sta utilizzando l'Id Affiliato di Gallery"
+msgstr "Stai utilizzando l'Id di Affiliato Gallery"
 
 msgid "Enter affiliate settings."
-msgstr "Inserire la configurazione dell'affiliato."
+msgstr "Inserisci la configurazione dell'affiliato"
 
 msgid "Affiliate Id:"
 msgstr "Id Affiliato:"
 
-msgid "Enter a valid affiliate id"
-msgstr "Inserire un id affiliato valido"
+msgid "Enter a numeric id"
+msgstr "Inserisci un id numerico"
 
 msgid "Affiliate Password:"
 msgstr "Password Affiliato:"
 
-msgid "Enter a valid affiliate password"
-msgstr "Inserire una password affiliato valida"
+msgid "Missing value"
+msgstr "Valore mancante"
 
 msgid ""
 "You're currently using the default Gallery affiliate id.  This means that the Gallery "
 "project will receive a small commission for each print made from your website."
 msgstr ""
-"Si sta utilizzando l'id affiliato predefinito di Gallery. Questo significa che il progetto "
-"Gallery riceverà una piccola commissione per ogni stampa effettuata da questo sito web."
+"Stai utilizzando l'id di affiliato predefinito di Gallery. Questo significa che il progetto "
+"Gallery riceverà una piccola commissione per ogni stampa effettuata dal tuo sito web."
 
 msgid "You have specified your own affiliate id."
-msgstr "È stato specificato l'id affiliato dell'utente."
+msgstr "Hai specificato il tuo id di affiliato."
 
 #, c-format
 msgid ""
 "For more information on Fotokasten affiliates, please contact Fotokasten directly via their "
 "website at %s."
 msgstr ""
-"Per ulteriori informazioni sulle affiliazioni di Fotokasten, contattare Fotokasten "
+"Per ulteriori informazioni sulle affiliazioni di Fotokasten, contatta Fotokasten "
 "direttamente tramite il loro sito web %s."
 
 msgid "Save"
 msgstr "Salva"
 
 msgid "Reset"
-msgstr "Reimposta"
+msgstr "Resetta"
 
 msgid "Use Gallery Affiliate Id"
-msgstr "Usa Id Affiliato di Gallery"
+msgstr "Usa Id di Affiliato Gallery"
+
+#~ msgid "Use Defaults"
+#~ msgstr "Usa Valori Predefiniti"

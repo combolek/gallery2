@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,9 +21,9 @@
 # Branislav Hanacek <brango@brango.sk>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: NetPBM 1.1.2\n"
-"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2008-08-25 08:55-0700\n"
+"Project-Id-Version: Gallery: NetPBM 1.1.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-09-03 10:22+0200\n"
 "PO-Revision-Date: 2006-09-10 21:10+0200\n"
 "Last-Translator: Branislav Hanacek <brango@brango.sk>\n"
 "Language-Team: Slovak <gallery-devel@lists.sourceforge.net>\n"
@@ -46,84 +46,84 @@ msgid "Graphics Toolkits"
 msgstr "Grafické nástroje"
 
 msgid "Convert to a JPEG"
-msgstr "Skonvertovať do JPEG"
+msgstr ""
 
 #, no-c-format
 msgid "target width (# pixels or #% of full size)"
-msgstr "požadovaná šírka (# bodov alebo #% z celkovej veľkosti)"
+msgstr ""
 
 msgid "(optional) target height, defaults to same as width"
-msgstr "(voliteľné) požadovaná výška, predvolená je rovnaká ako šírka"
+msgstr ""
 
 msgid "Scale the image to the target size, maintain aspect ratio"
-msgstr "Zmente veľkost obrázku to požadovanú veľkosť, ponechaním pomeru strán"
+msgstr ""
 
 #, no-c-format
 msgid "target height (# pixels or #% of full size)"
-msgstr "požadovaná výška (# bodov alebo #% z celkovej veľkosti)"
+msgstr ""
 
 msgid "Resize the image to the target dimensions"
-msgstr "Zmeňte veľkosť obrázku na požadované rozmery"
+msgstr ""
 
 msgid "rotation degrees"
-msgstr "otočenie v stupňoch"
+msgstr ""
 
 msgid "Rotate the image"
-msgstr "Otočiť obrázok"
+msgstr ""
 
 msgid "left edge %"
-msgstr "ľavý okraj %"
+msgstr ""
 
 msgid "top edge %"
-msgstr "horný okraj %"
+msgstr ""
 
 msgid "width %"
-msgstr "šírka %"
+msgstr ""
 
 msgid "height %"
-msgstr "výška %"
+msgstr ""
 
 msgid "Crop the image"
-msgstr "Orezať obrázok"
+msgstr ""
 
 msgid "overlay path"
-msgstr "cesta vrstvy"
+msgstr ""
 
 msgid "overlay mime type"
-msgstr "MIME typ vrstvy"
+msgstr ""
 
 msgid "overlay width"
-msgstr "šírka vrstvy (v pixeloch)"
+msgstr ""
 
 msgid "overlay height"
-msgstr "výška vrstvy (v pixeloch)"
+msgstr ""
 
 msgid "alignment type"
-msgstr "typ zarovnania"
+msgstr ""
 
 msgid "alignment x %"
-msgstr "zarovnanie x %"
+msgstr ""
 
 msgid "alignment y %"
-msgstr "zarovnanie y %"
+msgstr ""
 
 msgid "Overlay source image with a second one"
-msgstr "Prekryť obrázok iným obrázkom (vrstvou)"
+msgstr ""
 
 msgid "target size in kb"
-msgstr "požadovaná veľkosť v kb"
+msgstr ""
 
 msgid "Reduce image quality to reach target file size"
-msgstr "Znížte kvalitu obrázku na dosiahnutie požadovanej veľkosti súboru"
+msgstr ""
 
 msgid "Get the width and height of the image"
-msgstr "Získať šírku a výšku obrázku"
+msgstr ""
 
 msgid " or "
 msgstr ""
 
 msgid "File does not exist"
-msgstr "Súbor neexistuje."
+msgstr ""
 
 msgid "NetPBM Settings"
 msgstr ""
@@ -138,11 +138,6 @@ msgid ""
 "(<i>chmod 755 *</i> in the NetPBM directory should do it)"
 msgstr ""
 
-msgid ""
-"The exec() function is disabled in your PHP by the <b>disabled_functions</b> parameter in "
-"php.ini.  This module cannot be used until that setting is changed."
-msgstr ""
-
 msgid "NetPBM Directory:"
 msgstr ""
 
@@ -155,10 +150,10 @@ msgid ""
 msgstr ""
 
 msgid "The path you entered isn't a valid path."
-msgstr "Zadaná cesta nie je platný adresár."
+msgstr ""
 
 msgid "JPEG Quality:"
-msgstr "Kvalita JPEG: "
+msgstr ""
 
 msgid ""
 "NetPBM will lose embedded EXIF data if you modify the original image, unless you have the "
@@ -174,10 +169,10 @@ msgid "You should enter a path to the optional jhead binary"
 msgstr ""
 
 msgid "Save Settings"
-msgstr "Nastavenia Ukladania"
+msgstr ""
 
 msgid "Test Settings"
-msgstr "Nastavenia Testovania"
+msgstr ""
 
 msgid "Cancel"
 msgstr "Zrušiť"
@@ -189,19 +184,19 @@ msgid "NetPBM binary test results"
 msgstr ""
 
 msgid "Binary Name"
-msgstr "Meno súboru: "
+msgstr ""
 
 msgid "Pass/Fail"
-msgstr "Úspešnosť/Neúspešnosť"
+msgstr ""
 
 msgid "Passed"
-msgstr "Úspešné"
+msgstr ""
 
 msgid "Failed"
 msgstr "Chyba"
 
 msgid "Error messages:"
-msgstr "Chybové správy: "
+msgstr ""
 
 msgid ""
 "Although your NetPBM installation is not completely functional, you can still use it for the "
@@ -209,7 +204,7 @@ msgid ""
 msgstr ""
 
 msgid "Supported MIME Types"
-msgstr "Podporované MIME Typy"
+msgstr ""
 
 msgid "The NetPBM module can support files with the following MIME types:"
 msgstr ""

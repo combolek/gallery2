@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,10 +24,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Nokia Image Upload 1.0.11\n"
+"Project-Id-Version: Gallery: Nokia Image Upload 1.0.6\n"
 "POT-Creation-Date: 2004-09-06 00:20-0800\n"
-"PO-Revision-Date: 2008-03-14 14:59+0300\n"
-"Last-Translator: Ser Moro <webber@morozov-sm.ru>\n"
+"PO-Revision-Date: 2005-11-22 22:27+0300\n"
+"Last-Translator: Konstantin Ivanov <Continental@vollen.ru>\n"
 "Language-Team: Russian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -37,31 +37,31 @@ msgstr ""
 "X-Poedit-Country: RUSSIAN FEDERATION\n"
 
 msgid "Mobile Users"
-msgstr "Пользователи"
+msgstr "Mobile Users"
 
 msgid "Pictures from mobile phones"
-msgstr "Изображения из мобильников"
+msgstr "Pictures from mobile phones"
 
 msgid "Couldn't fetch directory list."
-msgstr "Невозможно загрузить список папок."
+msgstr "Couldn't fetch directory list."
 
 msgid "Login failed."
-msgstr "Неверный логин."
+msgstr "Login failed."
 
 msgid "Album creation failed."
-msgstr "Ошибка при создании альбома."
+msgstr "Album creation failed."
 
 msgid "Couldn't retrieve settings."
-msgstr "Невозможно извлечь настройки."
+msgstr "Couldn't retrieve settings."
 
 msgid "Upload failed."
-msgstr "Ошибка загрузки."
+msgstr "Upload failed."
 
 msgid "Nokia Image Upload"
-msgstr "Загрузчик изображений Nokia"
+msgstr "Nokia Image Upload"
 
 msgid "Implementation of Nokia Image Upload Server API v1.1"
-msgstr "Загрузчик изображений Nokia Image Upload Server API v1.1"
+msgstr "Внедрение Nokia Image Upload Server API v1.1"
 
 msgid "Import"
 msgstr "Импорт"
@@ -73,62 +73,63 @@ msgid ""
 "To upload to this album you need Image Uploader enabled mobile phone (e.g. Nokia 3650 and "
 "6600). See album description for more details."
 msgstr ""
-"Для загрузки в этот альбом, необходим мобильник, поддерживающий загрузку изображений "
-"(например, Nokia 3650 и 6600). Смотрите описание альбома для более детальной информации."
+"To upload to this album you need Image Uploader enabled mobile phone (e.g. Nokia 3650 and "
+"6600). See album description for more details."
 
+#, fuzzy
 msgid ""
 "You can upload images to this album from your Image Uploader enabled mobile phone (eg. Nokia "
 "3650 and 6600) using the phone's built-in Image Uploader.  New albums will be created under "
 "this folder.  Web address is "
 msgstr ""
-"Вы можете загрузить изображения в этот альбом из телефона, поддерживающго загрузку "
-"изображений (например, Nokia 3650 и 6600), используя встроенный загрузчик изображений Nokia. "
-"Новый альбом будет создан в этой папке. Веб адрес:"
+"You can upload images to this album from your Image Uploader enabled mobile phone (e.g. "
+"Nokia 3650 and 6600) using the phone's built-in Image Uploader. New albums will be created "
+"under this folder. Web address is "
 
 msgid "Username and Password are your Gallery 2 username and password."
-msgstr "Логин и пароль такие же, как ваши в Галерее."
+msgstr "Username and Password are your Gallery 2 username and password."
 
 msgid "Nokia Image Upload Configuration"
-msgstr "Конфигурация загрузчика изображений Nokia"
+msgstr "Nokia Image Upload Configuration"
 
 msgid "Settings saved successfully"
-msgstr "Настройки успешно сохранены"
+msgstr "Settings saved successfully"
 
 msgid ""
 "This module creates a target album for uploaded images.  All users who perform an upload are "
 "automatically added to a group with upload access to this album.  The album and group will "
 "be created using the information below."
 msgstr ""
-"Этот модуль создаёт новый альбом для загружаемых изображений.  Все пользователи, кто "
-"выполнил загрузку автоматически входят в группу, имеющую разрешение добавлять в этот альбом. "
-"Альбом и группа создаются, используя нижеследующее. "
+"This module creates a target album for uploaded images.  All users who perform an upload are "
+"automatically added to a group with upload access to this album.  The album and group will "
+"be created using the information below."
 
 msgid "User Group"
-msgstr "Группа пользователей"
+msgstr "User Group"
 
 msgid "Enter a name for the group"
-msgstr "Введите имя группы"
+msgstr "Enter a name for the group"
 
 msgid "Missing group name"
-msgstr "Недопустимое имя группы"
+msgstr "Missing group name"
 
 msgid "Group name already exists"
-msgstr "Такое имя уже существует"
+msgstr "Group name already exists"
 
 msgid "Upload Album"
-msgstr "Загрузить альбом"
+msgstr "Upload Album"
 
 msgid "Enter a title for the Upload Album"
-msgstr "Введите заголовок для загружаемого альбома"
+msgstr "Enter a title for the Upload Album"
 
 msgid "Missing album title"
-msgstr "Недопустимый заголовок альбома"
+msgstr "Missing album title"
 
 msgid "Choose a location for the Upload Album"
-msgstr "Выберите куда загружать альбом"
+msgstr "Choose a location for the Upload Album"
 
 msgid "Configure"
-msgstr "Настроить"
+msgstr "Configure"
 
 msgid "Cancel"
-msgstr "Отмена"
+msgstr "Cancel"

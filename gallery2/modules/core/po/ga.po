@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,11 +16,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
-# 
+#
 # IRISH PLURAL FORMS (20s system, ordinal non-measurement common nouns)
-# 
+#
 # Group       Numbers             Example
-# 
+#
 # msgstr[0]   0                   Níl aon pheictiúr
 # msgstr[1]   1                   Tá peictiúr amháin
 # msgstr[2]   20,21,40,41,        Tá 20 peictiúr
@@ -33,12 +33,12 @@
 #             11,12,13,14,15,16
 #                22,23,24,25,26
 #             31,32,33,34,...
-# 
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Core 1.2.36\n"
-"Report-Msgid-Bugs-To: <gallery-devel@lists.sourceforge.net>\n"
-"POT-Creation-Date: 2003-05-30 17:11-0700\n"
+"Project-Id-Version: Gallery: Core 1.2.0.3\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-06-07 09:29-0700\n"
 "PO-Revision-Date: 2007-03-14 16:07+0100\n"
 "Last-Translator: Beckett Madden-Woods <beckett@beckettmw.com>\n"
 "Language-Team: Irish <gallery-devel@lists.sourceforge.net>\n"
@@ -51,6 +51,30 @@ msgstr ""
 #, fuzzy
 msgid "Gallery Email Test"
 msgstr "Modúil an Ghailearaí"
+
+msgid "forever"
+msgstr "go deo"
+
+msgid "High Priority (Me first!)"
+msgstr ""
+
+msgid "Low Priority (I want to share!)"
+msgstr ""
+
+msgid "No Markup"
+msgstr ""
+
+msgid "BBCode"
+msgstr ""
+
+msgid "Raw HTML"
+msgstr ""
+
+msgid "Database"
+msgstr ""
+
+msgid "File"
+msgstr "Comhad"
 
 #, c-format
 msgid "%d minute"
@@ -88,60 +112,8 @@ msgstr[2] "%d seachtainí"
 msgstr[3] "%d seachtainí"
 msgstr[4] "%d seachtainí"
 
-msgid "forever"
-msgstr "go deo"
-
-msgid "High Priority (Me first!)"
-msgstr ""
-
-msgid "Low Priority (I want to share!)"
-msgstr ""
-
-msgid "No Markup"
-msgstr ""
-
-msgid "BBCode"
-msgstr ""
-
-msgid "Raw HTML"
-msgstr ""
-
-msgid "Database"
-msgstr ""
-
-msgid "File"
-msgstr "Comhad"
-
-msgid "&lt;none&gt;"
-msgstr "&lt;aon cheann&gt;"
-
-#, fuzzy
-msgid "Link"
-msgstr "Log Ann"
-
-#, fuzzy, c-format
-msgid "Page %d of %d"
-msgstr "Ag féachaint leathanach %d as a %d"
-
-#, fuzzy
-msgid "Updating Language Settings"
-msgstr "Roghanna na teanga"
-
-#, fuzzy
-msgid "Update completed with errors."
-msgstr "Uaslodáil Críochnaithe"
-
-#, fuzzy
-msgid "Update complete."
-msgstr "Uaslodáil Críochnaithe"
-
-#, fuzzy
-msgid "Deleting Language Packs"
-msgstr "Teanga loicthe"
-
-#, fuzzy
-msgid "Synchronizing Language Packs"
-msgstr "Teanga loicthe"
+msgid "<none>"
+msgstr "<aon cheann>"
 
 msgid "No acceleration"
 msgstr ""
@@ -155,6 +127,47 @@ msgstr ""
 #, fuzzy
 msgid "Themes"
 msgstr "Téama"
+
+msgid "Updating Repository Index"
+msgstr ""
+
+msgid "Scanning plugins"
+msgstr ""
+
+#, fuzzy
+msgid "Update Plugin List"
+msgstr "Modúil an Ghailearaí"
+
+#, fuzzy
+msgid "Done."
+msgstr "Críochnaithe"
+
+msgid "Updating Packages"
+msgstr ""
+
+#, c-format
+msgid "Preparing %s"
+msgstr ""
+
+#, c-format
+msgid "Downloading %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "Activating %s"
+msgstr "Aicsin"
+
+#, fuzzy
+msgid "Deleting Language Packs"
+msgstr "Teanga loicthe"
+
+#, fuzzy
+msgid "Update completed with errors."
+msgstr "Uaslodáil Críochnaithe"
+
+#, fuzzy
+msgid "Update complete."
+msgstr "Uaslodáil Críochnaithe"
 
 msgid "install"
 msgstr "suiteáil"
@@ -179,12 +192,12 @@ msgstr ""
 msgid "Use these settings"
 msgstr "Roghanna an Chuntais"
 
-msgid "Converting Schema Table"
-msgstr ""
-
 #, fuzzy
 msgid "Installing the core module"
 msgstr "Modúil Chroí an Ghailearaí"
+
+msgid "key"
+msgstr "eochair"
 
 msgid "All access"
 msgstr "Smacht iomlán"
@@ -220,10 +233,6 @@ msgstr "[croí] Scrios míreanna"
 msgid "Upgrading permissions"
 msgstr "ceadeanna"
 
-#, c-format
-msgid "Upgrading permissions (%d items complete, %d remaining)"
-msgstr ""
-
 #, fuzzy
 msgid "Deleting old permission tables"
 msgstr "ceadeanna"
@@ -239,32 +248,11 @@ msgstr "Úsáideora"
 msgid "Detecting broken derivatives"
 msgstr ""
 
-#, c-format
-msgid "Detecting broken derivatives, loading (%d derivatives checked, %d remaining)"
-msgstr ""
-
-#, c-format
-msgid "Detecting broken derivatives (%d derivatives checked, %d remaining)"
-msgstr ""
-
-#, c-format
-msgid "Detecting broken derivatives, saving (%d derivatives checked, %d remaining)"
-msgstr ""
-
-#, c-format
-msgid ""
-"Detecting broken derivatives, saving item %d of %d (%d derivatives complete, %d remaining)"
-msgstr ""
-
 msgid "Clearing fast-download cache"
 msgstr ""
 
 #, fuzzy
 msgid "Deleting old fast-download cache"
-msgstr "ceadeanna"
-
-#, fuzzy, c-format
-msgid "Deleting old session files (iteration %d)"
 msgstr "ceadeanna"
 
 msgid "Updating panorama items"
@@ -273,13 +261,11 @@ msgstr ""
 msgid "Optimizing AccessSubscriberMap table"
 msgstr ""
 
-#, fuzzy
-msgid "Upgrading Plugin Translations"
-msgstr "ceadeanna"
+msgid "Converting Schema Table"
+msgstr ""
 
-#, fuzzy
-msgid "Creating Package Map"
-msgstr "Dáta Cruthaithe"
+msgid "Loading Table Descriptions"
+msgstr ""
 
 #, fuzzy
 msgid "Site Admins"
@@ -301,16 +287,30 @@ msgstr "Seo é barr do Ghailearaí"
 msgid "Converting MySQL data to UTF8"
 msgstr ""
 
-#, fuzzy
-msgid "Adding items"
-msgstr "cuir míreanna ann"
-
-#, fuzzy
-msgid "Processing items"
-msgstr "Ag féachaint leathanach %d as a %d"
-
-msgid "Extracting archive"
+#, c-format
+msgid "Upgrading permissions (%d items complete, %d remaining)"
 msgstr ""
+
+#, c-format
+msgid "Detecting broken derivatives, loading (%d derivatives checked, %d remaining)"
+msgstr ""
+
+#, c-format
+msgid "Detecting broken derivatives (%d derivatives checked, %d remaining)"
+msgstr ""
+
+#, c-format
+msgid "Detecting broken derivatives, saving (%d derivatives checked, %d remaining)"
+msgstr ""
+
+#, c-format
+msgid ""
+"Detecting broken derivatives, saving item %d of %d (%d derivatives complete, %d remaining)"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "Deleting old session files (iteration %d)"
+msgstr "ceadeanna"
 
 #, fuzzy
 msgid "add items"
@@ -327,21 +327,18 @@ msgstr "cuir albam ann"
 msgid "add items confirmation"
 msgstr "Ceann cúrsa"
 
-#, c-format
-msgid "Input file %s exceeds maximum permitted file size"
+#, fuzzy
+msgid "Base filename"
+msgstr "Ainm Chomhaid"
+
+msgid "Caption"
+msgstr "Ceannteideal"
+
+msgid "Blank"
 msgstr ""
 
-#, c-format
-msgid "Input file %s exceeds file size specified in the form"
-msgstr ""
-
-#, c-format
-msgid "Input file %s was only partially uploaded"
-msgstr ""
-
-#, c-format
-msgid "Input file %s was not uploaded. Error %d"
-msgstr ""
+msgid "From Web Browser"
+msgstr "Cuir as do líonléitheoir"
 
 #, fuzzy, c-format
 msgid "%d megabyte"
@@ -361,18 +358,21 @@ msgstr[2] "%d ochtáin"
 msgstr[3] "%d ochtáin"
 msgstr[4] "%d ochtáin"
 
-#, fuzzy
-msgid "Base filename"
-msgstr "Ainm Chomhaid"
-
-msgid "Caption"
-msgstr "Ceannteideal"
-
-msgid "Blank"
+#, c-format
+msgid "Input file %s exceeds maximum permitted file size"
 msgstr ""
 
-msgid "From Web Browser"
-msgstr "Cuir as do líonléitheoir"
+#, c-format
+msgid "Input file %s exceeds file size specified in the form"
+msgstr ""
+
+#, c-format
+msgid "Input file %s was only partially uploaded"
+msgstr ""
+
+#, c-format
+msgid "Input file %s was not uploaded. Error %d"
+msgstr ""
 
 msgid "Gallery Item Administration"
 msgstr "Riarachán Mír an Ghailearaí"
@@ -380,6 +380,14 @@ msgstr "Riarachán Mír an Ghailearaí"
 #, fuzzy
 msgid "delete an item"
 msgstr "scrios an mhír seo"
+
+#, fuzzy
+msgid "delete confirmation"
+msgstr "scrios an mhír seo"
+
+#, fuzzy, c-format
+msgid "delete %s"
+msgstr "Scrios úsáideoir"
 
 #, fuzzy, c-format
 msgid "edit %s"
@@ -395,10 +403,6 @@ msgstr "Roghanna an Chuntais"
 msgid "Preparing..."
 msgstr ""
 
-#, fuzzy, c-format
-msgid "Processing image %d of %d"
-msgstr "Ag féachaint leathanach %d as a %d"
-
 msgid "Apply thumbnail settings"
 msgstr ""
 
@@ -408,6 +412,10 @@ msgstr "Athghin pictiúrín"
 
 msgid "Album"
 msgstr "Albam"
+
+#, fuzzy, c-format
+msgid "Processing image %d of %d"
+msgstr "Ag féachaint leathanach %d as a %d"
 
 #, fuzzy
 msgid "Changes saved successfully"
@@ -572,10 +580,6 @@ msgstr "Íomhá Mhodhnaithe"
 msgid "Edit Movie"
 msgstr "Scannán"
 
-#, fuzzy, c-format
-msgid "Edit %s"
-msgstr "Athraigh Úsáideoir"
-
 #, fuzzy
 msgid "Add Album"
 msgstr "Cuir Albam"
@@ -600,10 +604,6 @@ msgstr "Scrios úsáideoir"
 msgid "Delete Movie"
 msgstr "Scrios úsáideoir"
 
-#, fuzzy, c-format
-msgid "Delete %s"
-msgstr "Scrios úsáideoir"
-
 #, fuzzy
 msgid "Move Album"
 msgstr "Athshórtáil an tAlbam"
@@ -616,10 +616,6 @@ msgstr "Íomhá Mhodhnaithe"
 msgid "Move Movie"
 msgstr "Roghanna an Chuntais"
 
-#, fuzzy, c-format
-msgid "Move %s"
-msgstr "Bogadh"
-
 #, fuzzy
 msgid "Edit Captions"
 msgstr "Riarachán an Ghailearaí"
@@ -629,10 +625,6 @@ msgstr "Cuir Íomhá Ghealáin"
 
 msgid "Reorder Items"
 msgstr "Athshórtáil na Míreanna"
-
-#, fuzzy
-msgid "Delete Items"
-msgstr "Scrios an mhír seo"
 
 #, fuzzy
 msgid "Site Admin"
@@ -659,13 +651,6 @@ msgstr "Grúpaí"
 msgid "Performance"
 msgstr ""
 
-msgid "Event Logs"
-msgstr ""
-
-#, fuzzy
-msgid "Language Settings"
-msgstr "Roghanna na teanga"
-
 msgid "Toolkit Priority"
 msgstr ""
 
@@ -678,30 +663,17 @@ msgstr "Roghanna an Chuntais"
 msgid "Change Password"
 msgstr "Athraigh focal faire"
 
-msgid "Updating Packages"
-msgstr ""
-
-#, c-format
-msgid "Cleaning up obsolete files %s"
-msgstr ""
+#, fuzzy, c-format
+msgid "Edit %s"
+msgstr "Athraigh Úsáideoir"
 
 #, fuzzy, c-format
-msgid "Activating %s"
-msgstr "Aicsin"
+msgid "Delete %s"
+msgstr "Scrios úsáideoir"
 
-msgid "Updating Repository Index"
-msgstr ""
-
-msgid "Scanning plugins"
-msgstr ""
-
-#, fuzzy
-msgid "Update Plugin List"
-msgstr "Modúil an Ghailearaí"
-
-#, fuzzy
-msgid "Done."
-msgstr "Críochnaithe"
+#, fuzzy, c-format
+msgid "Move %s"
+msgstr "Bogadh"
 
 #, fuzzy
 msgid "Build all thumbnails/resizes"
@@ -716,6 +688,9 @@ msgstr ""
 msgid "Build All Thumbnails/Resizes"
 msgstr "Pictiúrín"
 
+msgid "Debug output for failed items:"
+msgstr ""
+
 #, fuzzy, c-format
 msgid "Checked %d items"
 msgstr "cuir míreanna ann"
@@ -726,9 +701,6 @@ msgstr "cuir míreanna ann"
 
 #, c-format
 msgid "%d items failed"
-msgstr ""
-
-msgid "Debug output for failed items:"
 msgstr ""
 
 msgid "Convert MySQL database to UTF8"
@@ -747,32 +719,6 @@ msgid "Database successfully converted to UTF8"
 msgstr "Ní raibh aon chomhad curtha."
 
 msgid "No conversion required"
-msgstr ""
-
-#, fuzzy
-msgid "Backup the database"
-msgstr "i ndiaidh"
-
-msgid ""
-"Backup all your Gallery data (item data, users, comments, etc.) to a single file in your "
-"storage folder.  The backup does not include the image files.  Before running the backup, "
-"your Gallery installation needs to be set into maintenance mode, as this is not done "
-"automatically."
-msgstr ""
-
-msgid "Backing up Gallery Database"
-msgstr ""
-
-msgid "Exporting..."
-msgstr ""
-
-#, c-format
-msgid "Database backup completed and the backup file is located at: %s"
-msgstr ""
-
-msgid ""
-"Please note that your backup contains sensitive data (like passwords) and should not be "
-"stored online! We recommend that you download it from your server and keep it safely offline."
 msgstr ""
 
 #, fuzzy
@@ -811,8 +757,8 @@ msgstr "Scrios an mhír seo"
 msgid ""
 "Gallery compiles template files and saves them for increased performance.  If you're "
 "experiencing problems that say <i>Smarty error</i> then you might try running this task.  "
-"Also run this if you add or remove any local/*.tpl or theme override so Smarty will find the "
-"right file."
+"Also run this if you remove a local/*.tpl file so Smarty will switch back to the default tpl "
+"file."
 msgstr ""
 
 #, fuzzy
@@ -901,14 +847,6 @@ msgid ""
 "Couldn't create cache subdirectory. Make sure the web server has write permissions in it."
 msgstr ""
 
-#, c-format
-msgid "Preparing %s"
-msgstr ""
-
-#, c-format
-msgid "Downloading %s"
-msgstr ""
-
 msgid "Official Release Repository"
 msgstr ""
 
@@ -973,10 +911,6 @@ msgstr "Ardaithe"
 msgid "Descending"
 msgstr "Íoslaithe"
 
-#, c-format
-msgid "Powered by Gallery v%s"
-msgstr ""
-
 msgid "Validation disabled until you set allowSessionAccess in config.php"
 msgstr ""
 
@@ -987,6 +921,13 @@ msgstr "Tá an leathanach seo bailí mar HTML 4.01"
 #, fuzzy
 msgid "Donate to the Gallery project"
 msgstr "Téigh ar ais go dtí an Mhír"
+
+msgid "G2.2: Double Double"
+msgstr ""
+
+#, c-format
+msgid "Powered by Gallery v%s"
+msgstr ""
 
 #, c-format
 msgid "Estimated time remaining: %d:%02d"
@@ -1104,6 +1045,13 @@ msgstr "athshocraigh"
 msgid "file"
 msgstr "Comhad"
 
+msgid "Back"
+msgstr ""
+
+#, c-format
+msgid "Back to %s"
+msgstr ""
+
 #, fuzzy
 msgid "User"
 msgstr "Úsáideora"
@@ -1174,14 +1122,6 @@ msgstr "roghnaigh"
 msgid "unknown"
 msgstr "Anaithnid"
 
-#, c-format
-msgid "API = Core %s, Module %s, Theme %s, Embed %s"
-msgstr ""
-
-#, fuzzy
-msgid "Gallery URL"
-msgstr "Gailearaí"
-
 #, fuzzy
 msgid "Gallery version"
 msgstr "Gailearaí"
@@ -1229,65 +1169,6 @@ msgstr "Cuairt an Gailearaí"
 msgid "Rows in %s table = %d"
 msgstr ""
 
-#, c-format
-msgid "The %s \"%s\" is not installed and will not be backed up."
-msgstr ""
-
-#, c-format
-msgid "\"%s\" has no creation sql and will not be backed up."
-msgstr ""
-
-#, c-format
-msgid "Unable to load table description for \"%s\", no data will be exported."
-msgstr ""
-
-msgid ""
-"Unable to find the XML parser.  The PHP XML parsing extension must be loaded.  Terminating "
-"database import."
-msgstr ""
-
-#, c-format
-msgid "The exported file is not the correct version. Expecting %s received %s."
-msgstr ""
-
-#, c-format
-msgid "Unable to close import file: %s"
-msgstr ""
-
-#, c-format
-msgid "Unable to open import file: %s"
-msgstr ""
-
-#, c-format
-msgid "Import file doesn't exist: %s"
-msgstr ""
-
-#, c-format
-msgid "Plugin %s is not currently available."
-msgstr ""
-
-#, c-format
-msgid "The available version of plugin \"%s\" may not be compatible with the imported version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The currently installed core API version required by \"%s\" may not be compatible with the "
-"imported version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The installed module API version required by \"%s\" may not be compatible with the imported "
-"version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The installed theme API version required by \"%s\" is not compatible with the imported "
-"version."
-msgstr ""
-
 #, fuzzy
 msgid "Successfully saved theme settings"
 msgstr "Ní raibh aon chomhad curtha."
@@ -1314,6 +1195,32 @@ msgid "There was a problem processing your request, see below for details."
 msgstr ""
 
 msgid "Error sending test email, see below for details."
+msgstr ""
+
+#, fuzzy
+msgid "Language Settings"
+msgstr "Roghanna na teanga"
+
+#, fuzzy
+msgid ""
+"Select language defaults for Gallery. Individual users can override this setting in their "
+"personal preferences or via the language selector block if available. Gallery will try to "
+"automatically detect the language preference of each user if the browser preference check is "
+"enabled."
+msgstr ""
+"Togh an teanga loicthe don Gailearaí. Is féidir an rogha seo ó gach uile úsáideoir a athrú "
+"sna roghanna pearsanta."
+
+msgid "Default language"
+msgstr "Teanga loicthe"
+
+msgid "Check Browser Preference"
+msgstr ""
+
+#, c-format
+msgid ""
+"Your webserver does not support localization.  Please instruct your system administrator to "
+"reconfigure PHP with the %s option enabled."
 msgstr ""
 
 #, fuzzy
@@ -1374,10 +1281,6 @@ msgstr "Roghanna an Seisiún"
 
 msgid "Inactivity Timeout"
 msgstr "Tréimshe Neamhgníomhaíocht"
-
-#, fuzzy
-msgid "Site Administration Session Timeout"
-msgstr "Riarachán an Ghailearaí"
 
 msgid "Embedded Markup"
 msgstr ""
@@ -1764,45 +1667,6 @@ msgstr[2] ""
 msgstr[3] ""
 msgstr[4] ""
 
-msgid "Recent Events"
-msgstr ""
-
-msgid "Type"
-msgstr ""
-
-#, fuzzy
-msgid "Location"
-msgstr "Aicsean"
-
-msgid "Client"
-msgstr ""
-
-msgid "No events have been reported yet."
-msgstr ""
-
-#, fuzzy
-msgid "Event Details"
-msgstr "Luachanna"
-
-#, fuzzy
-msgid "User Id"
-msgstr "Úsáideora"
-
-#, fuzzy
-msgid "Referer"
-msgstr "Athshórtáil"
-
-#, fuzzy
-msgid "Details"
-msgstr "Luachanna"
-
-#, fuzzy
-msgid "no summary"
-msgstr "Achoimre"
-
-msgid "An error occurred while retrieving the event log entry details."
-msgstr ""
-
 msgid "Group Management"
 msgstr "Riarachán na nGrúpaí"
 
@@ -1872,142 +1736,7 @@ msgstr[2] "Tá %d grúpa inchurtha leis do scagaire."
 msgstr[3] "Tá %d ngrúpa inchurtha leis do scagaire."
 msgstr[4] "Tá %d ghrúpa inchurtha leis do scagaire."
 
-msgid "Please make sure that your internet connection is set up properly or try again later."
-msgstr ""
-
-#, c-format
-msgid "Failed to scan status from plugin: %s."
-msgstr ""
-
-msgid ""
-"Your local copy of the repository was broken and has been fixed.  Please download the plugin "
-"list again."
-msgstr ""
-
-#, c-format
-msgid "Failed to delete the locale directory for %s."
-msgstr ""
-
-#, c-format
-msgid "Failed to download the following language packages for the %s plugin:"
-msgstr ""
-
-#, c-format
-msgid ""
-"Failed to install language packages for %s plugin because the following files/directories "
-"could not be modified:"
-msgstr ""
-
-msgid "The repository index has been successfully refreshed."
-msgstr ""
-
-msgid "The language settings have been saved."
-msgstr ""
-
-#, c-format
-msgid "%d language pack upgraded or downloaded."
-msgid_plural "%d language packs upgraded or downloaded."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-
-#, c-format
-msgid "%d language pack deleted."
-msgid_plural "%d language packs deleted."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-
-msgid "All the language packages for the selected languages are current"
-msgstr ""
-
-#, fuzzy
-msgid ""
-"Select language defaults for Gallery. Individual users can override this setting in their "
-"personal preferences or via the language selector block if available. Gallery will try to "
-"automatically detect the language preference of each user if the browser preference check is "
-"enabled."
-msgstr ""
-"Togh an teanga loicthe don Gailearaí. Is féidir an rogha seo ó gach uile úsáideoir a athrú "
-"sna roghanna pearsanta."
-
-msgid "Default language"
-msgstr "Teanga loicthe"
-
-msgid "Check Browser Preference"
-msgstr ""
-
-#, c-format
-msgid ""
-"Your webserver does not support localization.  Please instruct your system administrator to "
-"reconfigure PHP with the %s option enabled."
-msgstr ""
-
-msgid "Configure your Gallery"
-msgstr ""
-
-msgid ""
-"Before you can proceed, you have to change some permissions so that Gallery can install "
-"plugins for you.  It's easy.  Just execute the following in a shell or via your ftp client:"
-msgstr ""
-
-msgid ""
-"Before you can proceed, please insure the following directories and sub-directories are "
-"writable, so that Gallery can install plugins for you:"
-msgstr ""
-
-msgid ""
-"If you have trouble changing permissions, ask your system administrator for assistance.  "
-"When you've fixed the permissions, click the Check Again button to proceed."
-msgstr ""
-
-msgid "Check Again"
-msgstr ""
-
-#, fuzzy
-msgid "Add or Remove Languages"
-msgstr "Cuir/Scrios Úsáideora an Ghrúpa"
-
-msgid ""
-"Please click on the link below to go to 'Download Plugin List' and choose 'Update Plugin "
-"List' to get the latest language package information."
-msgstr ""
-
-msgid "Administer Repositories"
-msgstr ""
-
-#, fuzzy
-msgid "Upgrade"
-msgstr "Gailearaí"
-
-msgid "Remove"
-msgstr "Scrios"
-
-msgid "Download"
-msgstr ""
-
-#, fuzzy
-msgid "No Change"
-msgstr "Athraigh"
-
-#, fuzzy
-msgid "Select All"
-msgstr "Scrios"
-
-msgid ""
-"There are no local repository indices from which to determine language packages. Please "
-"click on the link below to go to \"Download Plugin List\" and choose \"Update Plugin List\" "
-"to get the latest language package information."
-msgstr ""
-
 msgid "System Maintenance"
-msgstr ""
-
-msgid "Gallery must be in maintenance mode before the task can be run."
 msgstr ""
 
 #, fuzzy, c-format
@@ -2017,39 +1746,6 @@ msgstr "Íomhá rothlaithe go rathúil"
 #, fuzzy, c-format
 msgid "The %s task failed to complete successfully."
 msgstr "Albam curtha go rathúil."
-
-msgid "Maintenance Mode has been turned on."
-msgstr ""
-
-msgid "Maintenance Mode has been turned off."
-msgstr ""
-
-msgid "Maintenance Mode"
-msgstr ""
-
-msgid "Restrict user access to the system while maintenance is being performed."
-msgstr ""
-
-msgid "Maintenance Mode Url"
-msgstr ""
-
-msgid ""
-"The Maintenance Mode Url specifies where requests will be redirected when access to the site "
-"has been restricted by the administrator."
-msgstr ""
-
-msgid ""
-"If left blank Gallery will display a default page with an administrator login link. This "
-"page will be themed when the code base is up to date, otherwise it will display a plain "
-"unstyled page."
-msgstr ""
-
-msgid "For example: /maintenance.html"
-msgstr ""
-
-#, fuzzy
-msgid "Set"
-msgstr "Roghanna an Albaim"
 
 #, fuzzy
 msgid "Task name"
@@ -2143,21 +1839,6 @@ msgstr "athraigh úsáideora"
 
 msgid "Expires after:"
 msgstr ""
-
-#, fuzzy
-msgid "Template Cache"
-msgstr "Scrios an mhír seo"
-
-#, c-format
-msgid ""
-"For optimal performance, Gallery caches all templates.  If you would like to %scustomize "
-"your template files%s, you should disable template caching temporarily so that changes take "
-"effect immediately without clearing the template cache."
-msgstr ""
-
-#, fuzzy
-msgid "Enable template caching"
-msgstr "Scrios an mhír seo"
 
 msgid "Clear Saved Pages"
 msgstr ""
@@ -2328,20 +2009,22 @@ msgstr ""
 msgid "Repository"
 msgstr ""
 
+msgid "Please make sure that your internet connection is set up properly or try again later."
+msgstr ""
+
 #, c-format
-msgid "Failed to download the following packages for the %s plugin:"
+msgid "Failed to scan status from plugin: %s."
+msgstr ""
+
+msgid ""
+"Your local copy of the repository was broken and has been fixed.  Please download the plugin "
+"list again."
 msgstr ""
 
 #, c-format
 msgid ""
-"Failed to install the %s plugin because the following files/directories could not be "
+"Failed to download the %s plugin because the following files/directories could not be "
 "modified:"
-msgstr ""
-
-#, c-format
-msgid ""
-"Some plugins could not be automatically upgraded because they are in use.  Please return to "
-"the %sPlugins%s page and click the upgrade link for each of the following plugins:"
 msgstr ""
 
 msgid "The repository index has been successfully updated."
@@ -2353,6 +2036,15 @@ msgstr ""
 #, c-format
 msgid "%s plugin updated."
 msgstr ""
+
+#, c-format
+msgid "%d language pack deleted."
+msgid_plural "%d language packs deleted."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
 
 msgid ""
 "No personal information about you or your Gallery installation is sent to the Gallery server "
@@ -2392,6 +2084,14 @@ msgid "You must select at least one repository."
 msgstr "Caithfidh tú úsáideoir a scrios a toghadh."
 
 msgid "Ok"
+msgstr ""
+
+msgid "Configure your Gallery"
+msgstr ""
+
+msgid ""
+"Before you can proceed, you have to change some permissions so that Gallery can install "
+"plugins for you.  It's easy.  Just execute the following in a shell or via your ftp client:"
 msgstr ""
 
 msgid ""
@@ -2491,7 +2191,8 @@ msgstr ""
 
 msgid ""
 "Download a package in order to use this plugin.  You can upgrade by choosing a newer version "
-"of the package to download."
+"of the package to download.  Language packages are optional, You only need to download the "
+"ones that you want to use on your site."
 msgstr ""
 
 #, fuzzy
@@ -2510,7 +2211,12 @@ msgstr ""
 msgid "%sCurrently Installed%s: version %s (build %s)"
 msgstr ""
 
-msgid "The following language packages are available for this plugin"
+#, fuzzy
+msgid "Language Packages"
+msgstr "Roghanna na teanga"
+
+#, c-format
+msgid "(%sselect all%s%sselect none%s)"
 msgstr ""
 
 #, c-format
@@ -2530,6 +2236,9 @@ msgid "%s version %s (currently installed)"
 msgstr ""
 
 msgid "No compatible language packages available"
+msgstr ""
+
+msgid "You must select a base package before choosing language packs."
 msgstr ""
 
 #, fuzzy
@@ -2594,10 +2303,6 @@ msgstr ""
 msgid "New albums"
 msgstr "athraigh an t-albam seo"
 
-#, c-format
-msgid "To activate more themes visit the %sPlugins%s page."
-msgstr ""
-
 #, fuzzy
 msgid "Save Defaults"
 msgstr "Luachanna"
@@ -2620,6 +2325,9 @@ msgstr ""
 
 #, fuzzy
 msgid "Selected"
+msgstr "Scrios"
+
+msgid "Remove"
 msgstr "Scrios"
 
 #, fuzzy
@@ -2807,16 +2515,13 @@ msgstr ""
 msgid "System Information"
 msgstr "Ceann cúrsa"
 
-msgid "Not all of the specified items have been added successfully."
-msgstr ""
-
 msgid ""
 "You don't have any Graphics Toolkit activated that can handle JPEG images.  If you add "
 "images, you will probably not have any thumbnails."
 msgstr ""
 
 #, c-format
-msgid "Visit the %sModules%s page to activate a Graphics Toolkit."
+msgid "Visit the <a href=\"%s\">Modules</a> page to activate a Graphics Toolkit."
 msgstr ""
 
 #, fuzzy
@@ -2919,6 +2624,10 @@ msgstr "Riarachán an Ghailearaí"
 msgid "No Thumbnail"
 msgstr "Níl pictiúrín ann"
 
+#, fuzzy
+msgid "Delete Items"
+msgstr "Scrios an mhír seo"
+
 msgid "No items were selected for deletion"
 msgstr ""
 
@@ -2980,13 +2689,26 @@ msgstr ""
 msgid "Next Page"
 msgstr "Athraigh Íomhá"
 
-#, fuzzy, c-format
-msgid "Do you really want to delete %s?"
-msgstr "Roghnaigh na míreanna a theastaíonn uait a bhogadh __PLUGIN__"
+#, fuzzy
+msgid "Deletion Complete"
+msgstr "Uaslodáil Críochnaithe"
 
 #, fuzzy
-msgid "Delete more items..."
-msgstr "Scrios an mhír seo"
+msgid "Item successfully deleted"
+msgstr "Ní raibh aon chomhad curtha."
+
+#, fuzzy, c-format
+msgid "Are you sure you want to delete this %s?"
+msgstr "Roghnaigh na míreanna a theastaíonn uait a bhogadh"
+
+#, c-format
+msgid "It contains %d item."
+msgid_plural "It contains %d items."
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "There is no undo!"
+msgstr ""
 
 msgid "There was a problem processing your request."
 msgstr ""
@@ -3150,9 +2872,6 @@ msgstr "Seo é cur síos fada an mír."
 msgid "%s Date and Time"
 msgstr ""
 
-msgid "Link Date and Time"
-msgstr ""
-
 msgid "Set the date and time when this image was captured."
 msgstr ""
 
@@ -3161,9 +2880,6 @@ msgstr ""
 
 #, c-format
 msgid "Set the date and time to be displayed for this %s."
-msgstr ""
-
-msgid "Set the date and time to be displayed for this link."
 msgstr ""
 
 #, fuzzy
@@ -3405,15 +3121,9 @@ msgstr "Bunábhar"
 msgid "Choose the items you want to move"
 msgstr "Roghnaigh na míreanna a theastaíonn uait a bhogadh"
 
-msgid "OK"
-msgstr ""
-
 msgid ""
 "The destination you chose does not accept sub-albums, so all sub-albums have been deselected."
 msgstr "Ní ghlacann an ceann cúrsa seo fo-albaim, agus mar sin bhí gach fo-albam curtha as."
-
-msgid "Warning"
-msgstr ""
 
 msgid ""
 "The destination you chose only accepts sub-albums, so all non-albums have been deselected."
@@ -3629,12 +3339,10 @@ msgstr ""
 msgid "Enter an image URL"
 msgstr ""
 
-#. HINT: Button label for Bold
-msgid "B"
+msgid "B <!-- Button label for Bold -->"
 msgstr "B"
 
-#. HINT: Button label for italic
-msgid "i"
+msgid "i <!-- Button label for italic -->"
 msgstr "i"
 
 msgid "list"
@@ -3655,7 +3363,7 @@ msgid "color"
 msgstr "roghnaigh"
 
 #, c-format
-msgid "You can also use the %scolor name%s for example: %sYour Text%s"
+msgid "You can also use the <a href=\"%s\" target=\"_new\">color name</a> for example: %s"
 msgstr ""
 
 msgid "Configuration Error: Missing Theme"
@@ -3765,22 +3473,20 @@ msgstr "Logáil isteach go dtí do chuid cuntas"
 msgid "Your password has been recovered, please login."
 msgstr ""
 
-msgid ""
-"The administration session has expired, please re-authenticate to access the administration "
-"area."
-msgstr ""
-
 #, c-format
 msgid ""
 "Logins to this account are temporarily disabled due to multiple failed login attempts.  Wait "
-"for access to be restored, or use the %srecover password%s page to re-enable this account."
+"for access to be restored, or use the <a href=\"%s\">recover password</a> page to re-enable "
+"this account."
 msgstr ""
 
 msgid "Your login information is incorrect.  Please try again."
 msgstr "Níl do logainm nó do focal faire bailí. Déan iarracht ar logáil arís."
 
 #, c-format
-msgid "Lost or forgotten passwords can be retrieved using the %srecover password%s page"
+msgid ""
+"Lost or forgotten passwords can be retrieved using the <a href=\"%s\">recover password</a> "
+"page"
 msgstr ""
 
 #, c-format
@@ -3910,13 +3616,13 @@ msgstr ""
 #, c-format
 msgid ""
 "There is no request which matches the username and authorization provided. Request a new "
-"authorization from the %slost password page%s."
+"authorization from the <a href=\"%s\">lost password page</a>"
 msgstr ""
 
 #, c-format
 msgid ""
-"The request you are trying to access has expired.  Request a new authorization from the %"
-"slost password page%s."
+"The request you are trying to access has expired.  Request a new authorization from the <a "
+"href=\"%s\">lost password page</a>."
 msgstr ""
 
 msgid "Authorization missing"
@@ -4000,14 +3706,18 @@ msgstr "&laquo; Aon cheann &raquo;"
 msgid "Go"
 msgstr ""
 
-msgid "WARNING: block $type doesn't exist."
-msgstr ""
+msgid "Navigation"
+msgstr "Stiúradh"
 
 msgid "next"
 msgstr ""
 
 msgid "last"
 msgstr ""
+
+#, fuzzy, c-format
+msgid "Page %d of %d"
+msgstr "Ag féachaint leathanach %d as a %d"
 
 #, fuzzy, c-format
 msgid "%d of %d"
@@ -4060,33 +3770,3 @@ msgstr "Log Ann"
 
 msgid "Links to album/photo peers"
 msgstr ""
-
-#, fuzzy
-#~ msgid "Language Packages"
-#~ msgstr "Roghanna na teanga"
-
-#~ msgid "Navigation"
-#~ msgstr "Stiúradh"
-
-#, fuzzy
-#~ msgid "delete confirmation"
-#~ msgstr "scrios an mhír seo"
-
-#, fuzzy
-#~ msgid "delete %s"
-#~ msgstr "Scrios úsáideoir"
-
-#, fuzzy
-#~ msgid "Deletion Complete"
-#~ msgstr "Uaslodáil Críochnaithe"
-
-#, fuzzy
-#~ msgid "Item successfully deleted"
-#~ msgstr "Ní raibh aon chomhad curtha."
-
-#, fuzzy
-#~ msgid "Are you sure you want to delete this %s?"
-#~ msgstr "Roghnaigh na míreanna a theastaíonn uait a bhogadh"
-
-#~ msgid "key"
-#~ msgstr "eochair"

@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,29 +20,29 @@
 # Previous translators (as far as known, add yourself here, please):
 # - Gergely Dömsödi <doome@uhulinux.hu>
 # - Jozsef R.Nagy <joe7@site.hu>
-#
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: EXIF/IPTC 1.2.4\n"
+"Project-Id-Version: Gallery: EXIF/IPTC 1.1.0\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2007-06-14 17:19-0700\n"
-"PO-Revision-Date: 2007-03-31 15:53+0100\n"
-"Last-Translator: Rekedt-Nagy József <jozsef.rnagy@site.hu>\n"
+"POT-Creation-Date: 2006-12-20 09:37-0800\n"
+"PO-Revision-Date: 2007-03-12 22:23+0100\n"
+"Last-Translator: Sandor Dibuz <ha3pg@dwatt.com>\n"
 "Language-Team: magyar <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms:  nplurals=1; plural=0;\n"
 "X-Generator: KBabel 1.11.4\n"
 
 msgid "EXIF/IPTC"
-msgstr "EXIF/IPTC"
+msgstr ""
 
 msgid "Extract EXIF/IPTC data from JPEG photos"
 msgstr ""
 
 msgid "Extra Data"
-msgstr "Extra adat"
+msgstr ""
 
 msgid "Get the origination timestamp"
 msgstr ""
@@ -81,10 +81,10 @@ msgid "Adapter"
 msgstr "Adapter"
 
 msgid "Artist"
-msgstr "Művész"
+msgstr ""
 
 msgid "Battery Level"
-msgstr "Elem töltöttsége"
+msgstr ""
 
 msgid "Bits Per Sample"
 msgstr ""
@@ -96,7 +96,7 @@ msgid "Brightness Value"
 msgstr ""
 
 msgid "CCD Sensitivity"
-msgstr "CCD érzékenység"
+msgstr ""
 
 msgid "Camera ID"
 msgstr "Kamera azonosító"
@@ -288,7 +288,7 @@ msgid "Macro"
 msgstr "Makró"
 
 msgid "Make"
-msgstr "Gyártmány"
+msgstr ""
 
 msgid "Manual Focus Distance"
 msgstr "Manuális fókusztávolság"
@@ -510,7 +510,7 @@ msgid "GPS: Time"
 msgstr ""
 
 msgid "GPS: Satellite"
-msgstr "GPS: műhold"
+msgstr ""
 
 msgid "GPS: Receive Status"
 msgstr ""
@@ -582,7 +582,7 @@ msgid "IPTC: Supplemental Categories"
 msgstr ""
 
 msgid "IPTC: Keywords"
-msgstr "IPTC: Kulcsszavak"
+msgstr ""
 
 msgid "IPTC: Caption"
 msgstr ""
@@ -637,14 +637,6 @@ msgstr ""
 
 msgid "IPTC: Time Created"
 msgstr "IPTC: Létrehozás ideje"
-
-#, fuzzy
-msgid "IPTC: Content Location Name"
-msgstr "IPTC: Ország neve"
-
-#, fuzzy
-msgid "IPTC: Sub Location"
-msgstr "IPTC: Forrás"
 
 msgid "EXIF/IPTC Settings"
 msgstr ""
@@ -717,7 +709,7 @@ msgid "Available"
 msgstr "Elérhető"
 
 msgid "Summary"
-msgstr "Összefoglaló"
+msgstr "Rövidített"
 
 msgid "Detailed"
 msgstr "Részletes"
@@ -732,10 +724,10 @@ msgid "You must select at least one value in the detailed column"
 msgstr ""
 
 msgid "Add to Summary"
-msgstr "Hozzáadás az összefoglalóhoz"
+msgstr ""
 
 msgid "Add to Detailed"
-msgstr "Hozzáadás a részletezetthez"
+msgstr ""
 
 msgid "Remove"
 msgstr "Törlés"
@@ -755,10 +747,10 @@ msgid ""
 msgstr ""
 
 msgid "Restore Summary Defaults"
-msgstr "Alapétertelmezett összefoglaló visszaállítása"
+msgstr ""
 
 msgid "Restore Detailed Defaults"
-msgstr "Alapétertelmezett részletezett verzió visszaállítása"
+msgstr ""
 
 msgid "Item Upload"
 msgstr "Elem feltöltése"
@@ -767,51 +759,43 @@ msgid "When photos are added to Gallery check for EXIF Image Description and app
 msgstr ""
 
 msgid "Item Summary"
-msgstr "Elem rövid leíráa"
+msgstr ""
 
 msgid "Item Description"
-msgstr "Elem részletes leírása"
+msgstr ""
 
 msgid "When photos are added to Gallery check for IPTC Keywords and apply to:"
 msgstr ""
 
 msgid "Item Keywords"
-msgstr "Elem kulcsszavai"
+msgstr ""
 
 msgid "When photos are added to Gallery check for IPTC Object Name and apply to:"
 msgstr ""
 
 msgid "Item Title"
-msgstr "Elem címe"
+msgstr ""
 
 msgid "When photos are added should we rotate them based on EXIF orientation data?"
 msgstr ""
 
 msgid "Rotate pictures automatically"
-msgstr "Fényképek automatikus forgatása"
-
-msgid ""
-"Warning: No toolkit support for rotation of JPEG images.  Make sure to activate a toolkit "
-"module if using this option."
 msgstr ""
 
 msgid "Preserve Original on Rotating"
-msgstr "Eredeti megörzése forgatáskor"
+msgstr ""
 
 msgid "Save"
 msgstr "Mentés"
 
-msgid "Loading.."
-msgstr "Betöltés.."
-
 msgid "Photo Properties"
-msgstr "Fénykép tulajdonságai"
+msgstr ""
 
 msgid "summary"
-msgstr "összefoglaló"
+msgstr ""
 
 msgid "details"
-msgstr "részletek"
+msgstr ""
 
 msgid "EXIF/IPTC photo info"
-msgstr "EXIF/IPTC képi információk"
+msgstr ""

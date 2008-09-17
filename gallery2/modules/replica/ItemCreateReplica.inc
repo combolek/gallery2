@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,11 +33,7 @@ class ItemCreateReplicaController extends GalleryController {
     function handleRequest($form) {
 	global $gallery;
 
-	list ($ret, $item) = $this->getItem();
-	if ($ret) {
-	    return array($ret, null);
-	}
-	$itemId = $item->getId();
+	$itemId = GalleryUtilities::getRequestVariables('itemId');
 
 	$status = $error = array();
 	if (isset($form['action']['link'])) {
@@ -58,19 +54,13 @@ class ItemCreateReplicaController extends GalleryController {
 		    return array($ret, null);
 		}
 
-		if (!isset($permissions['core.view'])) {
-		    /* Avoid information disclosure, act as if the item didn't exist. */
-		    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
-		}
-
 		if (!isset($permissions['core.addDataItem'])) {
 		    return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED),
 				 null);
 		}
 
 		/* Load the selected items */
-		list ($ret, $selectedItems) =
-		    GalleryCoreApi::loadEntitiesById($selectedIds, 'GalleryItem');
+		list ($ret, $selectedItems) = GalleryCoreApi::loadEntitiesById($selectedIds);
 		if ($ret) {
 		    return array($ret, null);
 		}
@@ -82,11 +72,6 @@ class ItemCreateReplicaController extends GalleryController {
 
 		/* Look out for monkey business */
 		foreach ($selectedItems as $selectedItem) {
-		    if (!isset($permissions[$selectedItem->getId()]['core.view'])) {
-			/* Avoid information disclosure, act as if the item didn't exist. */
-			return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
-		    }
-
 		    if (!isset($permissions[$selectedItem->getId()]['core.viewSource'])) {
 			return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED), null);
 		    }
@@ -217,14 +202,8 @@ class ItemCreateReplicaView extends GalleryView {
     function loadTemplate(&$template, &$form) {
 	global $gallery;
 
-	list ($ret, $item) = $this->getItem();
-	if ($ret) {
-	    return array($ret, null);
-	}
-	$itemId = $item->getId();
-
-	list ($selectedId, $page) =
-	    GalleryUtilities::getRequestVariables('selectedId', 'page');
+	list ($itemId, $selectedId, $page) =
+	    GalleryUtilities::getRequestVariables('itemId', 'selectedId', 'page');
 	if ($form['formName'] != 'ItemCreateReplica') {
 	    /* First time around, load the form with item data */
 	    if ($selectedId) {
@@ -235,9 +214,14 @@ class ItemCreateReplicaView extends GalleryView {
 	    $form['numPerPage'] = 15;
 	}
 
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
+	if ($ret) {
+	    return array($ret, null);
+	}
+
 	/* Get all peers that we can link */
 	list ($ret, $peerIds) = GalleryCoreApi::fetchLinkableChildItemIdsWithPermission(
-	    $item->getId(), array('core.viewSource', 'core.view'));
+						$item->getId(), 'core.viewSource');
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -268,7 +252,7 @@ class ItemCreateReplicaView extends GalleryView {
 	    }
 
 	    /* Load all the peers */
-	    list ($ret, $peerItems) = GalleryCoreApi::loadEntitiesById($peerIds, 'GalleryItem');
+	    list ($ret, $peerItems) = GalleryCoreApi::loadEntitiesById($peerIds);
 	    if ($ret) {
 		return array($ret, null);
 	    }
@@ -303,7 +287,7 @@ class ItemCreateReplicaView extends GalleryView {
 	    }
 
 	    /* Load all the album entities */
-	    list ($ret, $albums) = GalleryCoreApi::loadEntitiesById($ids, 'GalleryAlbumItem');
+	    list ($ret, $albums) = GalleryCoreApi::loadEntitiesById($ids);
 	    if ($ret) {
 		return array($ret, null);
 	    }
@@ -322,11 +306,8 @@ class ItemCreateReplicaView extends GalleryView {
 
 	$template->setVariable('ItemCreateReplica', $ItemCreateReplica);
 	$template->setVariable('controller', 'replica.ItemCreateReplica');
-	$template->javascript('lib/yui/yahoo-dom-event.js');
-	$template->javascript('lib/yui/container-min.js');
-	$template->javascript('lib/yui/treeview-min.js');
-	$template->style('modules/core/data/tree.css');
-	return array(null, array('body' => 'modules/replica/templates/ItemCreateReplica.tpl'));
+	return array(null,
+		     array('body' => 'modules/replica/templates/ItemCreateReplica.tpl'));
     }
 
     /**

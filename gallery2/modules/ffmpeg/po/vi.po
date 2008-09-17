@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,9 +19,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Ffmpeg 1.0.12\n"
+"Project-Id-Version: Gallery: Ffmpeg 1.0.7\n"
 "POT-Creation-Date: 2005-06-03 06:53-0400\n"
-"PO-Revision-Date: 2007-08-10 12:17-0000\n"
+"PO-Revision-Date: 2005-06-05 19:23+0100\n"
 "Last-Translator: Trung Dong Huynh <trungdong@donggiang.com>\n"
 "Language-Team: Vietnamese <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -47,54 +47,11 @@ msgstr "khoảng thời gian bằng giây"
 msgid "Select time offset in movie file"
 msgstr "Chọn khoảng thời gian trong tập tin phim"
 
-#, fuzzy
-msgid "Convert to Flash Video"
-msgstr "Chuyển sang dạng JPEG"
-
-msgid "video width in pixels"
-msgstr ""
-
-msgid "video height in pixels"
-msgstr ""
-
-msgid "Set video dimensions"
-msgstr ""
-
-msgid "frames per second"
-msgstr ""
-
-msgid "Set video frames per second property"
-msgstr ""
-
-msgid "Set same video quality"
-msgstr ""
-
-msgid "number of channels"
-msgstr ""
-
-msgid "Set audio channels property"
-msgstr ""
-
-msgid "audio sample rate (Hz / cycles per second"
-msgstr ""
-
-msgid "Set audio rate property"
-msgstr ""
-
 msgid "Get the width and height of the movie"
 msgstr "Lấy chiều cao và chiều rộng của phim"
 
 msgid "Get the width, height and duration of the movie"
 msgstr "Lấy chiều cao, chiều rộng , và thời lượng của phim"
-
-msgid "Get video frames per seconds of the movie"
-msgstr ""
-
-msgid "Get audio samples per seconds of the movie"
-msgstr ""
-
-msgid "Get number of audio channels in movie"
-msgstr ""
 
 msgid "FFMPEG Settings"
 msgstr "Thông số FFMPEG"
@@ -103,11 +60,12 @@ msgid "Settings saved successfully"
 msgstr "Các thông số đã được lưu"
 
 msgid "Watermark successfully added to movie thumbnails"
-msgstr "Ảnh con của phim đã được thêm watermark"
+msgstr ""
 
 msgid "Watermark successfully removed from movie thumbnails"
-msgstr "Ảnh con của phim đã được bỏ watermark"
+msgstr ""
 
+#, fuzzy
 msgid ""
 "FFMPEG is a graphics toolkit that can be used to process video files that you upload to "
 "Gallery.  You must install the FFMPEG binary on your server, then enter the path to it in "
@@ -116,13 +74,8 @@ msgid ""
 msgstr ""
 "FFMPEG là một bộ công cụ đồ họa để xử lý các tập tin phim bạn tải lên Gallery. Bạn phải cài "
 "chương trình FFMPEG vào máy chủ của bạn và điền đường dẫn đến chương trình vào hộp chữ dưới "
-"đây. Nếu bạn dùng Unix thì nhớ đặt quyền <i>chạy</i> cho chương trình (dùng lệnh <i>chmod "
-"755 ffmpeg</i> trong thư mục chứa FFMPEG)."
-
-msgid ""
-"The exec() function is disabled in your PHP by the <b>disabled_functions</b> parameter in "
-"php.ini.  This module cannot be used until that setting is changed."
-msgstr ""
+"đây. Nếu bạn dùng Unix thì nhớ đặt quyền chạy được cho chương trình (dùng lệnh <i>chmod 755 "
+"ffmpeg</i> )."
 
 msgid "Path to FFMPEG:"
 msgstr "Đường dẫn đến FFMPEG:"
@@ -152,22 +105,20 @@ msgid ""
 "This module can automatically watermark the thumbnails for movies to help distinguish them "
 "from photos."
 msgstr ""
-"Module này có thể tự động thêm watermark cho các ảnh con của phim để giúp phân biệt chúng "
-"với các ảnh chụp bình thường."
 
 msgid "See sample at right."
-msgstr "Hãy xem mẫu ở bên phải."
+msgstr ""
 
 msgid "Watermark new movie thumbnails"
-msgstr "Thêm watermark cho ảnh con mới của phim"
+msgstr ""
 
 #, c-format
 msgid "%sAdd%s or %sRemove%s watermark from all existing movie thumbnails."
-msgstr "%sThêm%s hoặc %sGỡ bỏ%s watermark cho tất cả các ảnh con của phim đang có."
+msgstr ""
 
 msgid ""
 "Activate another graphics toolkit with watermark support to make this function available."
-msgstr "Hãy kích hoạt một bộ công cụ đồ họa có tính năng watermark để chạy được chức năng này."
+msgstr ""
 
 msgid "Save Settings"
 msgstr "Lưu thông số"
@@ -179,7 +130,7 @@ msgid "Cancel"
 msgstr "Hủy"
 
 msgid "Reset"
-msgstr "Làm lại từ đầu"
+msgstr ""
 
 msgid "FFMPEG binary test results"
 msgstr "Kết quả thử chương trình FFMPEG"
@@ -202,19 +153,8 @@ msgstr "Thông báo lỗi:"
 msgid "Supported MIME Types"
 msgstr "Các kiểu MIME được hỗ trợ"
 
-#, fuzzy
-msgid "The FFMPEG module can decode files of the following MIME types"
+msgid "The FFMPEG module can support files with the following MIME types"
 msgstr "Module FFMPEG hỗ trợ tập tin thuộc các kiểu MIME sau"
-
-#, fuzzy
-msgid "The FFMPEG module can encode files to the following MIME types"
-msgstr "Module FFMPEG hỗ trợ tập tin thuộc các kiểu MIME sau"
-
-msgid "Missing required audio codec, encoded videos will not contain sound."
-msgstr ""
-
-msgid "Version Information"
-msgstr ""
 
 #, c-format
 msgid "Debug output (%d failed test)"

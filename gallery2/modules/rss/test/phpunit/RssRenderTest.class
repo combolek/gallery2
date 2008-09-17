@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,14 +40,12 @@ class RssRenderTest extends GalleryControllerTestCase {
     function setUp() {
 	global $gallery;
 
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'rss');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	/* set the expected default parameters */
@@ -58,14 +56,14 @@ class RssRenderTest extends GalleryControllerTestCase {
 		       'allowConfigurableFeed' => 1,
 		       'allowAlbums' => 1,
 		       'allowPhotos' => 1,
-		       'allowPhotosRecursive' => 1,
+		       'allowPhotosRecurse' => 1,
 		       'allowCommentsAlbum' => 1,
 		       'allowCommentsPhoto' => 1,
 		       'defaultCopyright' => '',
 		       'defaultTtl' => 120,
 		       'sfAlbumType' => 'photos',
 		       'sfDate' => 'new',
-		       'sfPhotosRecursiveLimit' => '10',
+		       'sfPhotosRecurseLimit' => '10',
 		    ) as $key => $value) {
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'rss', $key, $value);
 	    if ($ret) {
@@ -79,7 +77,8 @@ class RssRenderTest extends GalleryControllerTestCase {
 	list ($ret, $this->_root) = $this->_createRandomAlbum(
 		$this->_getRootId(), array('modificationTimestamp' => 123456789));
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($this->_root);
 
@@ -90,13 +89,15 @@ class RssRenderTest extends GalleryControllerTestCase {
 		__FILE__,
 		'GalleryPhotoItem');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $this->_album) = $this->_createRandomAlbum(
 		$this->_root->getId(), array('modificationTimestamp' => 123456789));
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $this->_item2) = $this->_createRandomDataItem(
@@ -106,7 +107,8 @@ class RssRenderTest extends GalleryControllerTestCase {
 		__FILE__,
 		'GalleryPhotoItem');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->_simpleRender = new SimpleRenderView();
@@ -145,7 +147,7 @@ class RssRenderTest extends GalleryControllerTestCase {
 	$name = 'test'.rand();
 	$params = array(
 	    'itemId' => $this->_root->getId(),
-	    'feedType' => 'photosRecursive',
+	    'feedType' => 'photosRecurse',
 	    'feedDate' => 'new',
 	    'version' => '2.0',
 	    'count' => '10',
@@ -157,11 +159,11 @@ class RssRenderTest extends GalleryControllerTestCase {
 	    'useImage' => true,
 	    'useEnclosure' => false,
 	    'useCloud' => false,
-	    'photosRecursiveLimit' => '5',
+	    'photosRecurseLimit' => '5',
 	    );
 	$ret = RssMapHelper::createFeed($name, $params);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->_feedsToDelete[] = $name;
@@ -195,12 +197,12 @@ class RssRenderTest extends GalleryControllerTestCase {
 	list ($ret, $version) =
 	    GalleryCoreApi::getPluginParameter('module', 'rss', '_version');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'rss', 'sfAlbumType', 'album');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$gallery->_urlGenerator = new RenderViewTestUrlGenerator();
@@ -208,20 +210,16 @@ class RssRenderTest extends GalleryControllerTestCase {
 	$ret = $this->_simpleRender->renderImmediate(null, null);
 	if ($ret) {
 	    ob_end_clean();
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$results = ob_get_contents();
 	ob_end_clean();
 	$platform =& $gallery->getPlatform();
 
-	$user = $gallery->getActiveUser();
 	$this->assertEquals(
 	    array(
 		'Header: Content-type: text/xml; charset=UTF-8',
-		'Header: Cache-Control: no-cache',
-		'Header: Pragma: no-cache',
-		'Header: Expires: Fri, 06 Feb 2009 23:31:30 GMT',
 		'<rss version="2.0">',
 		'<channel>',
 		'<title><![CDATA[I am Jack\'s title]]></title>',
@@ -236,7 +234,6 @@ class RssRenderTest extends GalleryControllerTestCase {
 		' <link>url:' . $this->_album->getId() . '</link>',
 		' <guid isPermaLink="false">url:' . $this->_album->getId() . '</guid>',
 		' <description><![CDATA[This is my description]]></description>',
-		' <author>' . $user->getFullName() . '</author>',
 		' <category>album</category>',
 		' <pubDate>' . date('r', 1234567890) . '</pubDate>',
 		'</item>',
@@ -252,12 +249,12 @@ class RssRenderTest extends GalleryControllerTestCase {
 	list ($ret, $version) =
 	    GalleryCoreApi::getPluginParameter('module', 'rss', '_version');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'rss', 'sfAlbumType', 'photos');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$gallery->_urlGenerator = new RenderViewTestUrlGenerator();
@@ -265,20 +262,16 @@ class RssRenderTest extends GalleryControllerTestCase {
 	$ret = $this->_simpleRender->renderImmediate(null, null);
 	if ($ret) {
 	    ob_end_clean();
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$results = ob_get_contents();
 	ob_end_clean();
 	$platform =& $gallery->getPlatform();
 
-	$user = $gallery->getActiveUser();
 	$this->assertEquals(
 	    array(
 		'Header: Content-type: text/xml; charset=UTF-8',
-		'Header: Cache-Control: no-cache',
-		'Header: Pragma: no-cache',
-		'Header: Expires: Fri, 06 Feb 2009 23:31:30 GMT',
 		'<rss version="2.0">',
 		'<channel>',
 		'<title><![CDATA[I am Jack\'s title]]></title>',
@@ -293,7 +286,6 @@ class RssRenderTest extends GalleryControllerTestCase {
 		' <link>url:' . $this->_item1->getId() . '</link>',
 		' <guid isPermaLink="false">url:' . $this->_item1->getId() . '</guid>',
 		' <description><![CDATA[This is a description]]></description>',
-		' <author>' . $user->getFullName() . '</author>',
 		' <category>photo</category>',
 		' <pubDate>' . date('r', 1234567890) . '</pubDate>',
 		'</item>',

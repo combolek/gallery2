@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,10 +19,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: MultiLanguage 1.0.11\n"
+"Project-Id-Version: Gallery: MultiLanguage 1.0.7\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-10-11 17:47+0000\n"
-"PO-Revision-Date: 2008-03-27 14:38+0100\n"
+"PO-Revision-Date: 2007-01-08 18:54+0100\n"
 "Last-Translator: Ermanno Baschiera <ebaschiera@gmail.com>\n"
 "Language-Team: Italian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -44,18 +44,6 @@ msgstr "Dati Extra"
 msgid "MultiLanguage Captions"
 msgstr "Didascalie Multi Lingua"
 
-#, c-format
-msgid "Search titles (%s)"
-msgstr "Cerca nei titoli (%s)"
-
-#, c-format
-msgid "Search summaries (%s)"
-msgstr "Cerca nei sommari (%s)"
-
-#, c-format
-msgid "Search descriptions (%s)"
-msgstr "Cerca nelle descrizioni (%s)"
-
 msgid "Title"
 msgstr "Titolo"
 
@@ -64,6 +52,18 @@ msgstr "Sommario"
 
 msgid "Description"
 msgstr "Descrizione"
+
+#, c-format
+msgid "Search titles (%s)"
+msgstr "Cerca nei i titoli (%s)"
+
+#, c-format
+msgid "Search summaries (%s)"
+msgstr "Cerca nei i sommari (%s)"
+
+#, c-format
+msgid "Search descriptions (%s)"
+msgstr "Cerca nelle descrizioni (%s)"
 
 msgid "MultiLanguage Settings"
 msgstr "Configurazione MultiLanguage"
@@ -76,7 +76,7 @@ msgid ""
 "Your webserver does not support localization.  Please instruct your system administrator to "
 "reconfigure PHP with the %s option enabled."
 msgstr ""
-"Il webserver non supporta la localizzazione. Chiedere all'amministratore di sistema di "
+"Il tuo webserver non supporta la localizzazione. Chiedi al tuo amministratore di sistema di "
 "riconfigurare il PHP con l'opzione %s attivata."
 
 msgid "Continue"
@@ -87,7 +87,7 @@ msgid ""
 "below will be used.  If any fields are non-empty then the multilanguage data will be used, "
 "even if some fields are blank."
 msgstr ""
-"Inserire il testo per le lingue aggiuntive. Se tutti i campi sono vuoti allora verranno "
+"Inserisci il testo per le lingue aggiuntive. Se tutti i campi sono vuoti allora verranno "
 "usati i dati primari visualizzati sotto. Se alcuni campi non sono vuoti, allora verranno "
 "usati i dati multilingua, anche se qualche campo è vuoto."
 
@@ -113,7 +113,7 @@ msgid "Save"
 msgstr "Salva"
 
 msgid "Reset"
-msgstr "Reimposta"
+msgstr "Resetta"
 
 msgid "Settings saved successfully"
 msgstr "Configurazione salvata con successo"
@@ -122,8 +122,8 @@ msgid ""
 "Maintain primary language captions using the normal Gallery interface.  Here select the "
 "additional languages to support in the MultiLanguage tab."
 msgstr ""
-"Gestisce le didascalie nella lingua primaria usando la normale interfaccia di Gallery. Qui "
-"si possono selezionare le lingue aggiuntive da supportare nel tab MultiLanguage."
+"Gestisci le didascalie nella lingua primaria usando la normale interfaccia di Gallery. Qui "
+"seleziona le lingue aggiuntive da supportare nel tab MultiLanguage."
 
 msgid "Available"
 msgstr "Disponibile"

@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Fotokasten 1.0.10\n"
+"Project-Id-Version: Gallery: Fotokasten 1.0.6\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2006-09-12 10:52-0700\n"
 "PO-Revision-Date: 2006-03-10 11:45+0800\n"
@@ -63,16 +63,14 @@ msgstr "输入会员设置。"
 msgid "Affiliate Id:"
 msgstr "会员 Id："
 
-#, fuzzy
-msgid "Enter a valid affiliate id"
-msgstr "输入会员设置。"
+msgid "Enter a numeric id"
+msgstr "输入数字id"
 
 msgid "Affiliate Password:"
 msgstr "会员密码："
 
-#, fuzzy
-msgid "Enter a valid affiliate password"
-msgstr "输入会员设置。"
+msgid "Missing value"
+msgstr "缺失值"
 
 msgid ""
 "You're currently using the default Gallery affiliate id.  This means that the Gallery "
@@ -97,8 +95,5 @@ msgstr "重置"
 msgid "Use Gallery Affiliate Id"
 msgstr ""
 
-#~ msgid "Enter a numeric id"
-#~ msgstr "输入数字id"
-
-#~ msgid "Missing value"
-#~ msgstr "缺失值"
+#~ msgid "Use Defaults"
+#~ msgstr "用户默认"

@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Slideshow 1.0.11\n"
+"Project-Id-Version: Gallery: Slideshow 1.0.5\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2003-02-11 03:09-0800\n"
 "PO-Revision-Date: 2005-10-29 12:40+0200\n"
@@ -41,12 +41,12 @@ msgstr ""
 "X-Poedit-Country: SWEDEN\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Slideshow"
+msgstr "Bildspel"
+
 #, c-format
 msgid "Slideshow for %s"
 msgstr "Bildspel för %s"
-
-msgid "Slideshow"
-msgstr "Bildspel"
 
 msgid "Display"
 msgstr "Visa"
@@ -57,182 +57,141 @@ msgstr "Visa Bildspel"
 msgid "Path to an item (eg, /album/image.jpg.html)"
 msgstr "Sökväg till ett objekt (t.ex. /album/image.jpg.html)"
 
-#, fuzzy
-msgid "Slideshow Settings"
-msgstr "Bildspel"
+msgid "Blend"
+msgstr "Sammansmältning"
+
+msgid "Blinds"
+msgstr "Persiennränder"
+
+msgid "Checkerboard"
+msgstr "Rutbräde"
+
+msgid "Diagonal"
+msgstr "Diagonal"
+
+msgid "Doors"
+msgstr "Dörrar"
+
+msgid "Gradient"
+msgstr "Svep"
+
+msgid "Iris"
+msgstr "Kors"
+
+msgid "Pinwheel"
+msgstr "Ekerhjul"
+
+msgid "Pixelate"
+msgstr "Pixlar"
+
+msgid "Radial"
+msgstr "Klocka"
+
+msgid "Rain"
+msgstr "Regn"
+
+msgid "Slide"
+msgstr "Dia"
+
+msgid "Snow"
+msgstr "Snö"
+
+msgid "Spiral"
+msgstr "Spirale"
+
+msgid "Stretch"
+msgstr "Dragning"
+
+msgid "RANDOM"
+msgstr "SLUMPMÄSSIGT"
+
+msgid "This album has no photos to show in a slideshow."
+msgstr "Detta album har inga foton att visa i ett bildspel."
+
+msgid "Back to Album View"
+msgstr "Tillbaka till albumvisning"
 
 #, c-format
-msgid "Installed PicLens version %s"
-msgstr ""
+msgid "Date: %s"
+msgstr "Datum: %s"
 
-msgid "An error occurred while downloading PicLens!"
-msgstr ""
+msgid "Hide More Info"
+msgstr "Göm mer information"
 
-msgid "Uninstalled PicLens"
-msgstr ""
+msgid "Show More Info"
+msgstr "Visa mer information"
 
-#, c-format
-msgid ""
-"Gallery can optionally use a Flash and JavaScript based slideshow from %s to provide users "
-"with the best possible viewing experience.  Gallery can install %s for you automatically, or "
-"you can choose to use an HTML slideshow."
-msgstr ""
+msgid "Resume"
+msgstr "Summering"
 
-#, c-format
-msgid "Version %s installed."
-msgstr ""
+msgid "Pause"
+msgstr "Paus"
 
-msgid "There's a newer version of PicLens available."
-msgstr ""
+msgid "[-]"
+msgstr "[-]"
 
-msgid "PicLens downloads are currently unavailable.  Please try again later."
-msgstr ""
+msgid "[+]"
+msgstr "[+]"
 
-#, c-format
-msgid "Install PicLens version %s"
-msgstr ""
+msgid "Stop"
+msgstr "Stopp"
 
-#, c-format
-msgid "Update to PicLens version %s"
-msgstr ""
+msgid "Back One Image"
+msgstr "Backa en bild"
 
-msgid "Uninstall PicLens"
-msgstr ""
+msgid "delay: "
+msgstr "fördröj: "
 
-#~ msgid "Blend"
-#~ msgstr "Sammansmältning"
+msgid "1 second"
+msgstr "1 sekund"
 
-#~ msgid "Blinds"
-#~ msgstr "Persiennränder"
+msgid "3 seconds"
+msgstr "3 sekunder"
 
-#~ msgid "Checkerboard"
-#~ msgstr "Rutbräde"
+msgid "5 seconds"
+msgstr "5 sekunder"
 
-#~ msgid "Diagonal"
-#~ msgstr "Diagonal"
+msgid "10 seconds"
+msgstr "10 sekunder"
 
-#~ msgid "Doors"
-#~ msgstr "Dörrar"
+msgid "15 seconds"
+msgstr "15 sekunder"
 
-#~ msgid "Gradient"
-#~ msgstr "Svep"
+msgid "20 seconds"
+msgstr "20 sekunder"
 
-#~ msgid "Iris"
-#~ msgstr "Kors"
+msgid "direction: "
+msgstr "riktning: "
 
-#~ msgid "Pinwheel"
-#~ msgstr "Ekerhjul"
+msgid "forward"
+msgstr "framåt"
 
-#~ msgid "Pixelate"
-#~ msgstr "Pixlar"
+msgid "reverse"
+msgstr "bakåt"
 
-#~ msgid "Radial"
-#~ msgstr "Klocka"
+msgid "random"
+msgstr "slumpmässigt"
 
-#~ msgid "Rain"
-#~ msgstr "Regn"
+msgid "max size: "
+msgstr "maximal storlek: "
 
-#~ msgid "Slide"
-#~ msgstr "Dia"
+msgid "320x320"
+msgstr "320x320"
 
-#~ msgid "Snow"
-#~ msgstr "Snö"
+msgid "640x640"
+msgstr "640x640"
 
-#~ msgid "Spiral"
-#~ msgstr "Spirale"
+msgid "800x800"
+msgstr "800x800"
 
-#~ msgid "Stretch"
-#~ msgstr "Dragning"
+msgid "1024x1024"
+msgstr "1024x1024"
 
-#~ msgid "RANDOM"
-#~ msgstr "SLUMPMÄSSIGT"
+msgid "1280x1280"
+msgstr "1280x1280"
 
-#~ msgid "This album has no photos to show in a slideshow."
-#~ msgstr "Detta album har inga foton att visa i ett bildspel."
+msgid "no limit"
+msgstr "ingen begränsning"
 
-#~ msgid "Back to Album View"
-#~ msgstr "Tillbaka till albumvisning"
-
-#~ msgid "Date: %s"
-#~ msgstr "Datum: %s"
-
-#~ msgid "Hide More Info"
-#~ msgstr "Göm mer information"
-
-#~ msgid "Show More Info"
-#~ msgstr "Visa mer information"
-
-#~ msgid "Resume"
-#~ msgstr "Summering"
-
-#~ msgid "Pause"
-#~ msgstr "Paus"
-
-#~ msgid "[-]"
-#~ msgstr "[-]"
-
-#~ msgid "[+]"
-#~ msgstr "[+]"
-
-#~ msgid "Stop"
-#~ msgstr "Stopp"
-
-#~ msgid "Back One Image"
-#~ msgstr "Backa en bild"
-
-#~ msgid "delay: "
-#~ msgstr "fördröj: "
-
-#~ msgid "1 second"
-#~ msgstr "1 sekund"
-
-#~ msgid "3 seconds"
-#~ msgstr "3 sekunder"
-
-#~ msgid "5 seconds"
-#~ msgstr "5 sekunder"
-
-#~ msgid "10 seconds"
-#~ msgstr "10 sekunder"
-
-#~ msgid "15 seconds"
-#~ msgstr "15 sekunder"
-
-#~ msgid "20 seconds"
-#~ msgstr "20 sekunder"
-
-#~ msgid "direction: "
-#~ msgstr "riktning: "
-
-#~ msgid "forward"
-#~ msgstr "framåt"
-
-#~ msgid "reverse"
-#~ msgstr "bakåt"
-
-#~ msgid "random"
-#~ msgstr "slumpmässigt"
-
-#~ msgid "max size: "
-#~ msgstr "maximal storlek: "
-
-#~ msgid "320x320"
-#~ msgstr "320x320"
-
-#~ msgid "640x640"
-#~ msgstr "640x640"
-
-#~ msgid "800x800"
-#~ msgstr "800x800"
-
-#~ msgid "1024x1024"
-#~ msgstr "1024x1024"
-
-#~ msgid "1280x1280"
-#~ msgstr "1280x1280"
-
-#~ msgid "no limit"
-#~ msgstr "ingen begränsning"
-
-#~ msgid "fade: "
-#~ msgstr "tona: "
+msgid "fade: "
+msgstr "tona: "

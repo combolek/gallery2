@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 # Guy Sheffer <guysoft@ort.org.il>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Registration 1.0.12\n"
+"Project-Id-Version: Gallery: Registration 1.0.8\n"
 "POT-Creation-Date: 2006-04-05 17:34+0300\n"
 "PO-Revision-Date: 2006-04-05 17:34+0300\n"
 "Last-Translator: Guy Sheffer <guysoft@ort.org.il>\n"
@@ -60,9 +60,6 @@ msgstr "הפעלת חשבון"
 
 msgid "New user registration"
 msgstr "הרשמת משתמש חדש"
-
-msgid "Welcome to Gallery"
-msgstr ""
 
 msgid "Register"
 msgstr "הרשמה"
@@ -122,18 +119,11 @@ msgstr "דואר שולח (מאת):"
 msgid "Confirmation Email Subject:"
 msgstr "נושא דואר אישור:"
 
-msgid "Email Site Administrators for all new registrations"
-msgstr "ידע את כל מנהלי המערכת על כל ההרשמות החדשות"
-
 msgid "Admin Email Subject:"
 msgstr "נושא דואר מנהל המערכת:"
 
-msgid "Email new users upon account activation"
-msgstr ""
-
-#, fuzzy
-msgid "Welcome Email Subject:"
-msgstr "נושא דואר מנהל המערכת:"
+msgid "Email Site Administrators for all new registrations"
+msgstr "ידע את כל מנהלי המערכת על כל ההרשמות החדשות"
 
 msgid "Save"
 msgstr "שמור"
@@ -291,6 +281,3 @@ msgstr "שדה הסיסמא והאימות אינם תואמים!"
 
 msgid "Cancel"
 msgstr "בטל"
-
-msgid "Your account is now active. Visit the site listed above to login."
-msgstr ""

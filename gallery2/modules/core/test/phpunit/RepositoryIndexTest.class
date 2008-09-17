@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,11 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-GalleryCoreApi::requireOnce('modules/core/classes/GalleryRepository.class');
-GalleryCoreApi::requireOnce('modules/core/classes/GalleryRepositoryIndex.class');
-GalleryCoreApi::requireOnce('modules/core/classes/GalleryRepositoryUtilities.class');
 GalleryCoreApi::requireOnce('modules/core/test/phpunit/RepositoryTestStorage.class');
-GalleryCoreApi::requireOnce('modules/core/classes/GalleryTheme.class');
 
 /**
  * Test repository index functionality
@@ -35,17 +31,16 @@ class RepositoryIndexTest extends GalleryTestCase {
 
     var $_index;
     var $_sampleIndex;
+    var $_galleryStorage;
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	/* Set up mock storage. */
 	global $gallery;
-	$gallery->_storage = new RepositoryTestStorage();
-	$this->_testStorage =& $gallery->_storage;
+	$this->_galleryStorage =& $gallery->_storage;
+	$this->_testStorage =& RepositoryTestStorage::getSingleton();
+	$gallery->_storage =& $this->_testStorage;
 
 	/* Prepare test index. */
 	include(dirname(__FILE__) . '/../../../../lib/tools/repository/test/data/SampleIndex.inc');
@@ -59,12 +54,12 @@ class RepositoryIndexTest extends GalleryTestCase {
     }
 
     function tearDown() {
+	/* Return original storage. */
+	global $gallery;
+	$gallery->_storage =& $this->_galleryStorage;
 	GalleryDataCache::reset();
 
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
+	parent::tearDown();
     }
 
     function testGetDescriptorUrl() {
@@ -81,7 +76,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 	    list ($ret, $url) =
 		$this->_index->getDescriptorUrl($case['pluginType'], $case['pluginId']);
 	    if ($ret) {
-		return ($ret);
+		$this->failWithStatus($ret);
 	    }
 
 	    $this->assertEquals($case['expectedUrl'], $url, 'Unexpected URL returned.');
@@ -120,13 +115,13 @@ class RepositoryIndexTest extends GalleryTestCase {
 	    'package' => 'lang-pt_BR',
 	    'expectedUrl' => 'themes/testTheme-lang-pt_BR-22222-33333.package'));
 
-	$this->_index->utilities = new UnitTestRepositoryUtilities();
+	$this->_index->utilities = new RepositoryIndexTestUtilities();
 
 	foreach ($testcases as $case) {
 	    list ($ret, $url) = $this->_index->getPackageUrl(
 		$case['pluginType'], $case['pluginId'], $case['package']);
 	    if ($ret) {
-		return ($ret);
+		$this->failWithStatus($ret);
 	    }
 
 	    $this->assertEquals($case['expectedUrl'], $url, 'Unexpected URL returned.');
@@ -137,7 +132,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 	global $gallery;
 	list ($ret, $saveLanguage) = $gallery->getActiveLanguageCode();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$testcases = array(
@@ -157,20 +152,20 @@ class RepositoryIndexTest extends GalleryTestCase {
 		      'expectedName' => 'en_GB-themes_testTheme-Test Theme'),
 		);
 
-	$this->_index->utilities = new UnitTestRepositoryUtilities();
+	$this->_index->utilities = new RepositoryIndexTestUtilities();
 
 	foreach ($testcases as $case) {
 	    if (!is_array($case)) {
 		$ret = $gallery->setActiveLanguageCode($case);
 		if ($ret) {
-		    return $ret;
+		    return $this->failWithStatus($ret);
 		}
 		continue;
 	    }
 	    list ($ret, $name) =
 		$this->_index->getPluginName($case['pluginType'], $case['pluginId']);
 	    if ($ret) {
-		return ($ret);
+		$this->failWithStatus($ret);
 	    }
 
 	    $this->assertEquals($case['expectedName'], $name, 'Unexpected name returned.');
@@ -178,7 +173,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 
 	$ret = $gallery->setActiveLanguageCode($saveLanguage);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
     }
 
@@ -195,15 +190,9 @@ class RepositoryIndexTest extends GalleryTestCase {
 
 	/* Prepare mock objects. */
 	$serializedSampleIndex = serialize($this->_sampleIndex);
-	$utilities = new UnitTestRepositoryUtilities();
-	$this->_index->_utilities =& $utilities;
-
-	$utilities->setReply('downloadFile', 
-	    array('http://example.com/repository/test/index', null), 
-	    array(true, $serializedSampleIndex));
-	$utilities->setReply('downloadFile', 
-	    array('http://example.com/repository/test/index.hash', 1), 
-	    array(true, md5($serializedSampleIndex)));
+	$this->_index->_utilities = new RepositoryIndexTestUtilities(
+	    array('http://example.com/repository/test/index' => $serializedSampleIndex,
+		  'http://example.com/repository/test/index.hash' => md5($serializedSampleIndex)));
 
 	$platform = new UnitTestPlatform();
 	$platform->setReply('file_exists',
@@ -226,10 +215,8 @@ class RepositoryIndexTest extends GalleryTestCase {
 	/* Perform update and verify that the sample index has been loaded. */
 	$ret = $this->_index->update();
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
-
-	$this->assert($utilities->isComplete(), $utilities->getRemaining());
 	$this->assertEquals($this->_sampleIndex, $this->_index->_index);
 	$this->assert($this->_index->_isLoaded, 'GalleryRepositoryIndex::isLoaded bit not set.');
 
@@ -268,7 +255,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 
 	list ($ret, $metaData) = $this->_index->getMetaData();
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 	$this->assertEquals(array('timestamp' => 'updateTime',
 				  'moduleCount' => 1,
@@ -304,7 +291,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 
 	$ret = $this->_index->load();
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 	$this->assertEquals($this->_sampleIndex, $this->_index->_index);
 	$this->assert($this->_index->_isLoaded, 'GalleryRepositoryIndex::isLoaded bit not set.');
@@ -341,7 +328,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 
 	$ret = $this->_index->unserializeIndex($serializedIndex = serialize($this->_sampleIndex));
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals($this->_sampleIndex, $this->_index->_index);
@@ -374,7 +361,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 
 	    list ($ret, $header) = $this->_index->getPluginHeader($pluginType, $pluginId);
 	    if ($ret) {
-		return ($ret);
+		$this->failWithStatus($ret);
 	    }
 	    $this->assertEquals($this->_sampleIndex[$pluginType . 's'][$pluginId]['header'],
 				$header);
@@ -382,25 +369,7 @@ class RepositoryIndexTest extends GalleryTestCase {
     }
 
     function testGetAvailableLanguagesInPlugin() {
-	/* Load the cache for testing */
-	$cacheKey = 'GalleryTranslator::SupportedLanguages';
-	$supportedLanguages = array();
-
-	/* English */
-	$supportedLanguages['en']['US']['description'] = 'English (US)';
-	$supportedLanguages['en']['GB']['description'] = 'English (UK)';
-
-	/* Portuguese */
-	$supportedLanguages['pt']['BR']['description'] = 'Portugu&#234;s Brasileiro';
-	$supportedLanguages['pt']['PT']['description'] = 'Portugu&#234;s';
-	GalleryDataCache::put($cacheKey, $supportedLanguages);
-
-	$cacheKey = 'GalleryPluginHelper::getAllPluginIds(module)';
-	GalleryDataCache::put($cacheKey, array('testModule'));
-	$cacheKey = 'GalleryPluginHelper::getAllPluginIds(theme)';
-	GalleryDataCache::put($cacheKey, array('testTheme'));
-
-    	$testCases = array(
+	$testCases = array(
 	     array(
 		 'pluginType' => 'module',
 		 'pluginId' => 'testModule',
@@ -415,38 +384,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 		$this->_index->getAvailableLanguagesInPlugin($case['pluginType'],
 							     $case['pluginId']);
 	    if ($ret) {
-		return ($ret);
-	    }
-	    $this->assertEquals($case['languages'], $languages);
-	}
-    }
-
-    function testGetAvailableLanguagesInPluginFiltered() {
-	/* Load the cache for testing */
-	$cacheKey = 'GalleryTranslator::SupportedLanguages';
-	GalleryDataCache::put($cacheKey, array('en' => array('US' => array('US English'))));
-
-	$cacheKey = 'GalleryPluginHelper::getAllPluginIds(module)';
-	GalleryDataCache::put($cacheKey, array('testModule'));
-	$cacheKey = 'GalleryPluginHelper::getAllPluginIds(theme)';
-	GalleryDataCache::put($cacheKey, array('testTheme'));
-
-	$testCases = array(
-	     array(
-		 'pluginType' => 'module',
-		 'pluginId' => 'testModule',
-		 'languages' => array('en_US' => '33333')),
-	     array(
-		 'pluginType' => 'theme',
-		 'pluginId' => 'testTheme',
-		 'languages' => array('en_US' => '33333')));
-
-	foreach ($testCases as $case) {
-	    list ($ret, $languages) =
-		$this->_index->getAvailableLanguagesInPlugin($case['pluginType'],
-							     $case['pluginId']);
-	    if ($ret) {
-		return ($ret);
+		$this->failWithStatus($ret);
 	    }
 	    $this->assertEquals($case['languages'], $languages);
 	}
@@ -489,7 +427,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 	    list ($ret, $version, $build) = $this->_index->getPackageVersionAndBuild(
 		$case['pluginType'], $case['pluginId'], $case['package']);
 	    if ($ret) {
-		return ($ret);
+		$this->failWithStatus($ret);
 	    }
 	    $this->assertEquals($version, $case['expectedVersion']);
 	    $this->assertEquals($build, $case['expectedBuild']);
@@ -510,7 +448,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 	    'showAll' => false,
 	    'isCompatible' => false,
 	    'isAvailable' => true,
-	    'expectedPlugins' => array('theme' => array()),
+	    'expectedPlugins' => array(),
 	    'expectedVersion' => false), array(
 
 	    'pluginType' => 'module',
@@ -529,249 +467,61 @@ class RepositoryIndexTest extends GalleryTestCase {
 		'testTheme' => $this->_sampleIndex['themes']['testTheme'])),
 	    'expectedVersion' => false));
 
-	$coreApi = GalleryCoreApi::getApiVersion();
-	$i = 0;
 	foreach ($testCases as $case) {
-	    $i++;
+	    $this->_index->_utilities =	new RepositoryIndexTestUtilities(
+		array(), $case['isAvailable'], $case['isCompatible']);
+
+	    list ($ret, $plugins) =
+		$this->_index->getPlugins($case['pluginType'], $case['showAll']);
+	    if ($ret) {
+		$this->failWithStatus($ret);
+	    }
 
 	    $pluginType = $case['pluginType'];
 	    $pluginId = 'test' . ucfirst($pluginType);
-
-	    $utilities = new UnitTestRepositoryUtilities();
-	    $this->_index->_utilities =& $utilities;
-
-	    $pluginApi = $pluginType == 'module' ? GalleryModule::getApiVersion()
-						 : GalleryTheme::getApiVersion();
-	    $utilities->setReply('isPluginCompatible',
-		array($pluginType, $coreApi, $pluginApi, null), $case['isCompatible']);
-	    if ($case['showAll'] || $case['isCompatible']) {
-		$utilities->setReply('isPluginAvailable', 
-		    array($pluginType, $pluginId), array(null, $case['isAvailable']));
-
-		if ($case['isAvailable']) {
-		    $utilities->setReply('getPluginVersion', 
-			array($pluginType, $pluginId), array(null, 'someVersion'));
-		}
-	    }
-
-	    list ($ret, $plugins) = $this->_index->getPlugins($pluginType, $case['showAll']);
-	    if ($ret) {
-		return ($ret);
-	    }
-
 	    if ($case['expectedVersion']) {
 		$case['expectedPlugins'][$pluginType][$pluginId]['localVersion'] = 'someVersion';
 	    }
-	    if (!empty($case['expectedPlugins'][$pluginType])) {
+	    if (!empty($case['expectedPlugins'])) {
 		$case['expectedPlugins'][$pluginType][$pluginId]['isCompatible'] =
 		    $case['isCompatible'];
 	    }
-
-	    $this->assert($utilities->isComplete(), "Case $i " . $utilities->getRemaining());
-	    $this->assertEquals($case['expectedPlugins'], $plugins, "Case $i");
-	}
-    }
-
-    function testGetLanguagePackageFilesScalarInput() {
-	global $gallery;
-
-	/* Since we can't mock the core API, we'll use the cache to store our mock plugin. */
-	GalleryDataCache::put('GalleryPluginHelper::loadPlugin(module, testModule)',
-			      new RepositoryIndexTestModule());
-	GalleryDataCache::put('GalleryPluginHelper::fetchPluginStatus(module)',
-			      array('testModule' => array('active' => 1, 'available' => 1)));
-
-	$testTheme = new RepositoryIndexTestTheme();
-	$themeApi = GalleryTheme::getApiVersion();
-	GalleryDataCache::put('GalleryPluginHelper::loadPlugin(theme, testTheme)', $testTheme);
-	GalleryDataCache::put('GalleryPluginHelper::fetchPluginStatus(theme)',
-			      array('testTheme' => array('active' => 1, 'available' => 1)));
-
-	$utilities = new UnitTestRepositoryUtilities();
-	$this->_setUpRepositoryUtilitiesResponses($utilities);
-	$this->_index->_utilities =& $utilities;
-
-	$ret = $gallery->setActiveLanguageCode('en_GB');
-	if ($ret) {
-	    return $ret;
-	}
-	list ($ret, $files) = $this->_index->getLanguagePackageFiles('en_GB');
-	if ($ret) {
-	    return $ret;
-	}
-
-	$this->assert($utilities->isComplete(), $utilities->getRemaining());
-	$expected = array(
-	    'module' => array('testModule' => 
-		array('name' => 'en_GB-modules_testModule-Test Module',
-		      'files' => array('descriptor' => 'modules/testModule-1.0.0-44444.descriptor',
-				 'en_GB' => 'modules/testModule-lang-en_GB-22222-33333.package'))),
-	    'theme' => array('testTheme' =>
-		array('name' => 'en_GB-themes_testTheme-Test Theme',
-		      'files' => array('descriptor' => 'themes/testTheme-1.0.0-11111.descriptor',
-				 'en_GB' => 'themes/testTheme-lang-en_GB-22222-22222.package'))));
-	$this->assertEquals($expected, $files, 'Unexpected results for single language');
-    }
-
-    function testGetLanguagePackageFilesArrayInput() {
-	global $gallery;
-
-	/* Since we can't mock the core API, we'll use the cache to store our mock plugin. */
-	GalleryDataCache::put('GalleryPluginHelper::loadPlugin(module, testModule)',
-			      new RepositoryIndexTestModule());
-	GalleryDataCache::put('GalleryPluginHelper::fetchPluginStatus(module)',
-			      array('testModule' => array('active' => 1, 'available' => 1)));
-
-	GalleryDataCache::put('GalleryPluginHelper::loadPlugin(theme, testTheme)',
-			      new RepositoryIndexTestTheme());
-	GalleryDataCache::put('GalleryPluginHelper::fetchPluginStatus(theme)',
-			      array('testTheme' => array('active' => 1, 'available' => 1)));
-
-	$utilities = new UnitTestRepositoryUtilities();
-	$this->_setUpRepositoryUtilitiesResponses($utilities);
-	$this->_index->_utilities =& $utilities;
-
-	$ret = $gallery->setActiveLanguageCode('en_GB');
-	if ($ret) {
-	    return $ret;
-	}
-	list ($ret, $files) = $this->_index->getLanguagePackageFiles(array('en_GB', 'pt_BR'));
-	if ($ret) {
-	    return $ret;
-	}
-
-	$this->assert($utilities->isComplete(), $utilities->getRemaining());
-	$expected = array(
-	    'module' => array('testModule' => array(
-		'name' => 'en_GB-modules_testModule-Test Module',
-		'files' => array('descriptor' => 'modules/testModule-1.0.0-44444.descriptor',
-				 'en_GB' => 'modules/testModule-lang-en_GB-22222-33333.package',
-				 'pt_BR' => 'modules/testModule-lang-pt_BR-22222-33333.package'))),
-	    'theme' => array('testTheme' => array('name' => 'en_GB-themes_testTheme-Test Theme',
-		'files' => array('descriptor' => 'themes/testTheme-1.0.0-11111.descriptor',
-				 'en_GB' => 'themes/testTheme-lang-en_GB-22222-22222.package',
-				 'pt_BR' => 'themes/testTheme-lang-pt_BR-22222-33333.package'))));
-	$this->assertEquals($expected, $files, 'Unexpected results for multiple languages');
-    }
-
-    function testGetLanguagePackageFilesVersionMisMatch() {
-	global $gallery;
-
-	/* Since we can't mock the core API, we'll use the cache to store our mock plugin. */
-	GalleryDataCache::put('GalleryPluginHelper::loadPlugin(module, testModule)',
-			      new RepositoryIndexTestModule());
-	GalleryDataCache::put('GalleryPluginHelper::fetchPluginStatus(module)',
-			      array('testModule' => array('active' => 1, 'available' => 1)));
-
-	$testTheme = new RepositoryIndexTestTheme();
-	$themeApi = GalleryTheme::getApiVersion();
-	$themeApi[1]--;
-	$testTheme->_themeApi = $themeApi;
-
-	GalleryDataCache::put('GalleryPluginHelper::loadPlugin(theme, testTheme)', $testTheme);
-	GalleryDataCache::put('GalleryPluginHelper::fetchPluginStatus(theme)',
-			      array('testTheme' => array('active' => 1, 'available' => 1)));
-
-	$utilities = new UnitTestRepositoryUtilities();
-	$this->_setUpRepositoryUtilitiesResponses($utilities, array('noTheme' => 1));
-	$this->_index->_utilities =& $utilities;
-
-	$ret = $gallery->setActiveLanguageCode('en_GB');
-	if ($ret) {
-	    return $ret;
-	}
-	list ($ret, $files) = $this->_index->getLanguagePackageFiles(array('en_GB', 'pt_BR'));
-	if ($ret) {
-	    return $ret;
-	}
-
-	$this->assert($utilities->isComplete(), $utilities->getRemaining());
-	$expected = array(
-	    'module' => array('testModule' => 
-		array('name' => 'en_GB-modules_testModule-Test Module',
-		      'files' => array('descriptor' => 'modules/testModule-1.0.0-44444.descriptor',
-				 'en_GB' => 'modules/testModule-lang-en_GB-22222-33333.package',
-				 'pt_BR' => 'modules/testModule-lang-pt_BR-22222-33333.package'))));
-	$this->assertEquals($expected, $files, 'Unexpected results for multiple languages');
-    }
-
-    function testGetLanguagePackageFilesVersionNotAvailable() {
-	global $gallery;
-
-	/* Since we can't mock the core API, we'll use the cache to store our mock plugin. */
-	GalleryDataCache::put('GalleryPluginHelper::loadPlugin(module, testModule)',
-			      new RepositoryIndexTestModule());
-	GalleryDataCache::put('GalleryPluginHelper::fetchPluginStatus(module)',
-			      array('testModule' => array('active' => 1, 'available' => 1)));
-
-	$testTheme = new RepositoryIndexTestTheme();
-	$themeApi = GalleryTheme::getApiVersion();
-
-	GalleryDataCache::put('GalleryPluginHelper::loadPlugin(theme, testTheme)', $testTheme);
-	GalleryDataCache::put('GalleryPluginHelper::fetchPluginStatus(theme)',
-			      array('testTheme' => array('active' => 1, 'available' => 0)));
-
-	$utilities = new UnitTestRepositoryUtilities();
-	$this->_setUpRepositoryUtilitiesResponses($utilities);
-	$this->_index->_utilities =& $utilities;
-
-	$ret = $gallery->setActiveLanguageCode('en_GB');
-	if ($ret) {
-	    return $ret;
-	}
-	list ($ret, $files) = $this->_index->getLanguagePackageFiles(array('en_GB', 'pt_BR'));
-	if ($ret) {
-	    return $ret;
-	}
-	$expected = array(
-	    'module' => array('testModule' => array(
-		'name' => 'en_GB-modules_testModule-Test Module',
-		'files' => array('descriptor' => 'modules/testModule-1.0.0-44444.descriptor',
-				 'en_GB' => 'modules/testModule-lang-en_GB-22222-33333.package',
-				 'pt_BR' => 'modules/testModule-lang-pt_BR-22222-33333.package'))));
-	$this->assertEquals($expected, $files, 'Unexpected results for multiple languages');
-    }
-
-    function _setUpRepositoryUtilitiesResponses(&$utilities, $options=array()) {
-	$installedPackages =
-	    array('base' => array('locked' => false, 'version' => '1.0.0', 'build' => '44444'),
-		  'lang-en_GB' => array('locked' => 0, 'version' => '1.0.0', 'build' => '44444'),
-		  'lang-pt_PT' => array('locked' => 1, 'version' => '1.0.0', 'build' => '44444'),
-		  'lang-pt_BR' => array('locked' => 0, 'version' => '1.0.0', 'build' => '44444'));
-	$utilities->setReply('getPluginPackages', array('module', 'testModule'),
-	    array(null, $installedPackages));
-	if (empty($options['noTheme'])) {
-	    $installedPackages = array(
-		'base' => array('locked' => false, 'version' => '1.0.0', 'build' => '11111'),
-		'lang-en_GB' => array('locked' => 0, 'version' => '1.0.0', 'build' => '11111'),
-		'lang-pt_PT' => array('locked' => 1, 'version' => '1.0.0', 'build' => '11111'),
-		'lang-pt_BR' => array('locked' => 0, 'version' => '1.0.0', 'build' => '11111'));
-	    $utilities->setReply('getPluginPackages', array('theme', 'testTheme'),
-		array(null, $installedPackages));
+	    $this->assertEquals($case['expectedPlugins'], $plugins);
 	}
     }
 }
 
-class RepositoryIndexTestModule {
+class RepositoryIndexTestUtilities {
 
-    function getRequiredCoreApi() {
-	return GalleryCoreApi::getApiVersion();
+    var $_fileContentsIndex;
+    var $_isPluginAvailable;
+    var $_isPluginCompatible;
+
+    function RepositoryIndexTestUtilities($contents = array(),
+	    $isPluginAvailable = true, $isPluginCompatible = true) {
+	$this->_fileContents = $contents;
+	$this->_isPluginAvailable = $isPluginAvailable;
+	$this->_isPluginCompatible = $isPluginCompatible;
     }
 
-    function getRequiredModuleApi() {
-	return GalleryModule::getApiVersion();
-    }
-}
-
-class RepositoryIndexTestTheme {
-    var $_themeApi;
-
-    function getRequiredCoreApi() {
-	return GalleryCoreApi::getApiVersion();
+    function getLanguageBaseRevision() {
+	return array(null, '2.2');
     }
 
-    function getRequiredThemeApi() {
-	return empty($this->_themeApi) ? GalleryTheme::getApiVersion() : $this->_themeApi;
+    function isPluginAvailable($pluginType, $pluginId) {
+	return array(null, $this->_isPluginAvailable);
+    }
+
+    function getPluginVersion($pluginType, $pluginId) {
+	return array(null, 'someVersion');
+    }
+
+    function isPluginCompatible($pluginType, $requiredCoreApi, $requiredPluginApi, $apis = null) {
+	return $this->_isPluginCompatible;
+    }
+
+    function downloadFile($url) {
+	return array(true, $this->_fileContents[$url]);
     }
 }
 ?>

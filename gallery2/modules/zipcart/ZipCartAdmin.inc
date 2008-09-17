@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -50,8 +50,6 @@ class ZipCartAdminController extends GalleryController {
 		    if (!$platform->is_executable($form['path'])) {
 			$error[] = 'form[error][path][badPath]';
 		    }
-		} else {
-		    $error[] = 'form[error][path][badPath]';
 		}
 	    }
 	    if (empty($error)) {
@@ -154,9 +152,7 @@ class ZipCartAdminView extends GalleryView {
 	    return array($ret, null);
 	}
 
-	$ZipCartAdmin = array('isConfigure' => !$isActive,
-			      'canExec' =>
-				!in_array('exec', split(',\s*', ini_get('disable_functions'))));
+	$ZipCartAdmin = array('isConfigure' => !$isActive);
 	if (isset($form['error']['path']['badZip']) > 0) {
 	    $ZipCartAdmin['debugSnippet'] = GalleryUtilities::getRequestVariables('debugSnippet');
 	    $template->javascript('lib/javascript/BlockToggle.js');

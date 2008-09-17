@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -60,7 +60,7 @@ class GalleryLinkItem extends GalleryItem {
      *
      * @param int $parentId the id of the parent object
      * @param mixed $link the link target: either string url or int id of a GalleryAlbumItem
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function create($parentId, $link) {
 	if (!isset($parentId) || empty($link)) {
@@ -68,9 +68,12 @@ class GalleryLinkItem extends GalleryItem {
 	}
 	if (is_numeric($link)) {
 	    /* Link to an album */
-	    list ($ret, $linkedAlbum) = GalleryCoreApi::loadEntitiesById($link, 'GalleryAlbumItem');
+	    list ($ret, $linkedAlbum) = GalleryCoreApi::loadEntitiesById($link);
 	    if ($ret) {
 		return $ret;
+	    }
+	    if (!GalleryUtilities::isA($linkedAlbum, 'GalleryAlbumItem')) {
+		return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 	    }
 	}
 

@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,67 +36,75 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 
     function setUp() {
 	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 	$this->_userId = $gallery->getActiveUserId();
 	$this->_originalGuestUserId = $gallery->getConfig('anonymousUserId');
 
 	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId(),
 		array('keywords' => 'testkeyword12345'));
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($this->_album);
 
 	$ret = GalleryCoreApi::removeItemPermissions($this->_album->getId());
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	list ($ret, $everybodyGroupId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.everybodyGroup');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$ret = GalleryCoreApi::addUserPermission(
 		$this->_album->getId(), $this->_userId, 'core.all');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$ret = GalleryCoreApi::addGroupPermission(
 		$this->_album->getId(), $everybodyGroupId, 'core.viewAll');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $this->_item) = $this->_createRandomDataItem($this->_album->getId(),
 		'test/file', array('keywords' => 'testkeyword54321; testkeyword99999'));
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$ret = GalleryCoreApi::removeGroupPermission(
 		$this->_item->getId(), $everybodyGroupId, 'core.viewAll');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'keyalbum');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$ret = GalleryCoreApi::setPluginParameter('module', 'keyalbum', 'allKeywords.time', 0);
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$ret = GalleryCoreApi::setPluginParameter('module', 'keyalbum',
 						  'allKeywords.public.time', 0);
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$ret = GalleryCoreApi::setPluginParameter('module', 'keyalbum', 'split', ';,\s');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->_smarty = new GallerySmarty();
@@ -106,10 +114,7 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
     function tearDown() {
 	global $gallery;
 	$gallery->setConfig('anonymousUserId', $this->_originalGuestUserId);
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
+	parent::tearDown();
     }
 
     function testLoadKeywords() {
@@ -118,7 +123,7 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 		      'includeFrequency' => false),
 		$this->_smarty, 'LoadKeywords', $this->_userId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$data = $this->_smarty->_tpl_vars['block']['keyalbum']['keywords'];
@@ -139,7 +144,7 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 		      'includeFrequency' => false),
 		$this->_smarty, 'LoadKeywords', $this->_userId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$data = $this->_smarty->_tpl_vars['block']['keyalbum']['keywords'];
@@ -154,7 +159,7 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
     function testLoadKeywordsSizeLimit() {
 	$ret = GalleryCoreApi::setPluginParameter('module', 'keyalbum', 'allKeywords.3.time', '0');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = $this->_callbacks->callback(
@@ -162,7 +167,7 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 		      'includeFrequency' => true),
 		$this->_smarty, 'LoadKeywords', $this->_userId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$data = $this->_smarty->_tpl_vars['block']['keyalbum']['keywords'];
@@ -171,7 +176,7 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 	list ($ret, $param) =
 	    GalleryCoreApi::getPluginParameter('module', 'keyalbum', 'allKeywords.3');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(serialize($data), $param, 'param');
     }
@@ -180,11 +185,11 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 	$ret = GalleryCoreApi::setPluginParameter('module', 'keyalbum',
 						  'allKeywords', serialize(array()));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$ret = GalleryCoreApi::setPluginParameter('module', 'keyalbum', 'allKeywords.time', time());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = $this->_callbacks->callback(
@@ -192,7 +197,7 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 		      'includeFrequency' => false),
 		$this->_smarty, 'LoadKeywords', $this->_userId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$data = $this->_smarty->_tpl_vars['block']['keyalbum']['keywords'];
@@ -203,17 +208,17 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 	list ($ret, $ignore) = $this->_createRandomDataItem($this->_album->getId(),
 		'test/file', array('keywords' => 'testkeyword54321; testkeyword99999'));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	list ($ret, $ignore) = $this->_createRandomDataItem($this->_album->getId(),
 		'test/file', array('keywords' => 'testkeyword54321'));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = $this->_makeOnlyTestItemsPublic($this->_album->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = $this->_callbacks->callback(
@@ -221,7 +226,7 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 		      'includeFrequency' => true),
 		$this->_smarty, 'LoadKeywords', $this->_userId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$data = $this->_smarty->_tpl_vars['block']['keyalbum']['keywords'];
@@ -243,17 +248,17 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 	list ($ret, $ignore) = $this->_createRandomDataItem($this->_album->getId(),
 		'test/file', array('keywords' => 'testkeyword54321; testkeyword99999'));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	list ($ret, $ignore) = $this->_createRandomDataItem($this->_album->getId(),
 		'test/file', array('keywords' => 'testkeyword54321'));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = $this->_makeOnlyTestItemsPublic($this->_album->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = $this->_callbacks->callback(
@@ -261,7 +266,7 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 		      'includeFrequency' => false),
 		$this->_smarty, 'LoadKeywords', $this->_userId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$data = $this->_smarty->_tpl_vars['block']['keyalbum']['keywords'];
@@ -282,7 +287,7 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 	global $gallery;
 	list ($ret, $guestId) = GalleryCoreApi::getAnonymousUserId();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$aclCacheKey = "GalleryPermissionHelper::fetchAccessListIds(core.view,$guestId,1)";
 	$this->_smarty->_tpl_vars['block']['keyalbum'] = array();
@@ -305,7 +310,7 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 		      . 'WHERE \[GalleryItem::id\] IS NULL\s*$/',
 		      array()),
 		);
-	$gallery->_storage = new KeywordAlbumCallbacksTestStorage($gallery->_storage, $queries);
+	$gallery->_storage =& new KeywordAlbumCallbacksTestStorage($gallery->_storage, $queries);
 
 	$expected = array(
 		array(array('name' => 'four&amp;five', 'raw' => 'four&five', 'weight' => '1'),
@@ -348,7 +353,7 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 		    ) as $i => $params) {
 	    $ret = GalleryCoreApi::removePluginParameter('module', 'keyalbum', $params[0]);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    GalleryDataCache::put($aclCacheKey, $params[5]);
 	    $block = array();
@@ -357,7 +362,7 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 		      'includeFrequency' => $params[3], 'maxCloudFontEnlargement' => $params[4]),
 		$this->_smarty, 'LoadKeywords', $this->_userId);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $this->assertEquals(array('keywords' => $expected[$i]), $block, "output $i");
 	}
@@ -378,14 +383,14 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 	    $ret = $this->_callbacks->callback(array('keywords' => $keywords),
 					       $this->_smarty, 'SplitKeywords', $this->_userId);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $this->assertEquals(array('keywords' => $split), $block, $keywords);
 	}
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'keyalbum', 'split', ',;');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	foreach (array(
@@ -399,7 +404,7 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 	    $ret = $this->_callbacks->callback(array('keywords' => $keywords),
 					       $this->_smarty, 'SplitKeywords', $this->_userId);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $this->assertEquals(array('keywords' => $split), $block, "phase 2: $keywords");
 	}
@@ -409,7 +414,7 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
      * Changes the Gallery-wide anonymous user to a new multiroot guest user which has only view
      * permissions for a subtree of items with the specified root item.
      * @param GalleryItem $item root of the item tree that should be isolated
-     * @return GalleryStatus 
+     * @return object GalleryStatus 
      */
     function _makeOnlyTestItemsPublic($itemId) {
 	global $gallery;
@@ -443,15 +448,20 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
     }
 }
 
+/* Added this class just for 2.2 branch; trunk uses UnitTestStorageSearchResults */
+class KeyalbumUnitTestStorageSearchResults {
+    var $_data;
+    function KeyalbumUnitTestStorageSearchResults($data) { $this->_data = $data; }
+    function resultCount() { return count($this->_data); }
+    function nextResult() { return array_shift($this->_data); }
+}
+
 /**
  * Mock storage for callbacks tests.
  */
 class KeywordAlbumCallbacksTestStorage {
-    function KeywordAlbumCallbacksTestStorage($storage, $queries) {
-	/* Avoid weird reference thing in php4 that makes _extras->_gs point to mock storage */
-	$storage->_extras = null;
-
-	$this->_storage = $storage;
+    function KeywordAlbumCallbacksTestStorage(&$storage, $queries) {
+	$this->_storage =& $storage;
 	$this->_queries = $queries;
     }
 
@@ -464,7 +474,7 @@ class KeywordAlbumCallbacksTestStorage {
 					       'Unexpected query: ' . $query), null);
 	}
 	$result = array_shift($this->_queries);
-	return array(null, new UnitTestStorageSearchResults($result[1]));
+	return array(null, new KeyalbumUnitTestStorageSearchResults($result[1]));
     }
 
     function addMapEntry($mapName, $entry, $nonTrans=false) {

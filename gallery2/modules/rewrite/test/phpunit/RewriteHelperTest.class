@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,33 +35,34 @@ class RewriteHelperTest extends GalleryTestCase {
 
     function setUp() {
 	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'rewrite');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = GalleryCoreApi::setPluginParameter(
 	    'module', 'rewrite', 'accessList', serialize(array('phpunit1', 'phpunit2')));
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Set up our mock parser */
 	$ret = GalleryCoreApi::setPluginParameter(
 	    'module', 'rewrite', 'parserId', 'rewritehelpermock');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Make sure we use the mock parser */
 	list ($ret, $this->_parser) = RewriteHelper::getRewriteParser(true);
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals('rewritehelpermock', $this->_parser->getParserId(), 'parserId');
 
@@ -73,19 +74,22 @@ class RewriteHelperTest extends GalleryTestCase {
 	GalleryDataCache::reset();
 	list ($ret, $this->_module) = GalleryCoreApi::loadPlugin('module', 'rewritehelpermock');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Install it */
 	$ret = $this->_module->installOrUpgrade();
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Activate the module */
 	list ($ret, $redirect) = $this->_module->activate(false);
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->_defaultOptions = array('forceDirect' => false, 'forceServerRelativeUrl' => true,
@@ -104,34 +108,31 @@ class RewriteHelperTest extends GalleryTestCase {
 	    $this->failWithStatus($ret);
 	}
 
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
+	return parent::tearDown();
     }
 
     function testGetRewriteParser() {
 	list ($ret, $parser) = RewriteHelper::getRewriteParser();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals('rewritehelpermock', $parser->getParserId(), 'parserId');
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'rewrite', 'parserId', '');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}	
 
 	/* Should still use the same parser (static check) */
 	list ($ret, $parser) = RewriteHelper::getRewriteParser();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals('rewritehelpermock', $parser->getParserId(), 'static');
 
 	list ($ret, $parser) = RewriteHelper::getRewriteParser(true);
 	if ($ret && !($ret->getErrorCode() & ERROR_MISSING_VALUE)) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(ERROR_MISSING_VALUE & $ret->getErrorCode());
     }
@@ -363,7 +364,7 @@ class RewriteHelperTest extends GalleryTestCase {
 	    list ($ret, $code, $regexRules, $shortUrls, $errno) = RewriteHelper::parseActiveRules(
 		$test[0], $this->_parser, null, $test[6]);
 	    if ($ret) {
-		return ($ret);
+		$this->failWithStatus($ret);
 	    }
 
 	    $this->assertEquals($test[1], $code, 'code ' . $key);
@@ -382,7 +383,7 @@ class RewriteHelperTest extends GalleryTestCase {
 	list ($ret, $code, $regexRules, $shortUrls, $errno) = RewriteHelper::parseActiveRules(
 	    $activeRules, $this->_parser);
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(REWRITE_STATUS_BAD_KEYWORD, $code, 'code');
@@ -400,7 +401,7 @@ class RewriteHelperTest extends GalleryTestCase {
 	list ($ret, $code, $regexRules, $shortUrls, $errno) = RewriteHelper::parseActiveRules(
 	    $activeRules, $this->_parser);
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(REWRITE_STATUS_INVALID_PATTERN, $code, 'code');
@@ -438,7 +439,7 @@ class RewriteHelperTest extends GalleryTestCase {
 	list ($ret, $code, $regexRules, $shortUrls, $errno) = RewriteHelper::parseActiveRules(
 	    $activeRules, $this->_parser);
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(REWRITE_STATUS_OK, $code, 'code');
@@ -538,7 +539,7 @@ class RewriteHelperTest extends GalleryTestCase {
 	    $activeRules, $this->_parser, null, array('default' => array('QSA', 'L'),
 	    					      'mandatory' => array()));
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(REWRITE_STATUS_OK, $code, 'code');
@@ -565,7 +566,7 @@ class RewriteHelperTest extends GalleryTestCase {
 	list ($ret, $code, $regexRules, $shortUrls, $errno) = RewriteHelper::parseActiveRules(
 	    $activeRules, $this->_parser);
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(REWRITE_STATUS_OK, $code, 'code');
@@ -580,24 +581,24 @@ class RewriteHelperTest extends GalleryTestCase {
 	$expected = array('r1' => 'abc', 1 => '.*');
 	$ret = RewriteHelper::setHistoryForModule($moduleId, $expected);
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 
 	list ($ret, $history) = RewriteHelper::getHistoryForModule($moduleId);
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals($expected, $history, 'history after setting');
 
 	$ret = RewriteHelper::setHistoryForModule($moduleId, array());
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 
 	list ($ret, $history) = RewriteHelper::getHistoryForModule($moduleId);
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(array(), $history, 'history removed');
@@ -710,7 +711,7 @@ class RewriteHelperMockPlatform extends GalleryPlatform {
     }
 
     function opendir($path) {
-	if (strpos($path, 'modules/') !== false) {
+	if (strpos($path, '/modules/') !== false) {
 	    $this->_list = array();
 	    if ($dir = parent::opendir($path)) {
 		while (false !== ($file = parent::readdir($dir))) {
@@ -725,7 +726,7 @@ class RewriteHelperMockPlatform extends GalleryPlatform {
     }
 
     function is_dir($path) {
-	if (strpos($path, 'modules/rewritehelpermock') !== false) {
+	if (strpos($path, '/modules/rewritehelpermock') !== false) {
 	    return true;
 	}
 

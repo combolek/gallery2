@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,83 +28,90 @@
  */
 class RepositoryTestStorage {
 
-    /** @todo Convert this to use UnitTestStorage */
     var $_addedMapData;
     var $_updatedMapData;
     var $_searchResults;
     var $_searches;
     var $_removedMapData;
 
-    function RepositoryTestStorage() {
-	$this->reset();
+    function &getSingleton() {
+	static $singleton;
+	if (!isset($singleton)) {
+	    $singleton = new RepositoryTestStorage();
+	}
+
+	return $singleton;
     }
 
     function reset() {
-	$this->_searches = array();
-	$this->_searchResults = array();
-	$this->_addedMapData = array();
-	$this->_updatedMapData = array();
-	$this->_removedMapData = array();
+	$singleton =& $this->getSingleton();
+	$singleton->_searches = array();
+	$singleton->_searchResults = array();
+	$singleton->_addedMapData = array();
+	$singleton->_updatedMapData = array();
+	$singleton->_removedMapData = array();
     }
 
     function search($query, $args) {
-	$this->_searches[] = array('query' => $query, 'arguments' => $args);
+	$singleton =& $this->getSingleton();
+	$singleton->_searches[] = array('query' => $query, 'arguments' => $args);
 
 	return array(null,
-		     new RepositoryTestSearchResults($this->_searchResults));
+		     new RepositoryTestSearchResults($singleton->_searchResults));
     }
 
     function setSearchResults($results) {
-	$this->_searchResults = $results;
+	$singleton =& $this->getSingleton();
+	$singleton->_searchResults = $results;
     }
 
     function getSearches() {
-	return $this->_searches;
+	$singleton =& $this->getSingleton();
+	return $singleton->_searches;
     }
 
     function addMapEntry($map, $data) {
-	$this->_addedMapData[$map][] = $data;
+	$singleton =& $this->getSingleton();
+	$singleton->_addedMapData[$map][] = $data;
 	return null;
     }
 
     function getMapEntry($map, $data, $match) {
-	$this->_searches[] = array('map' => $map, 'select' => $data, 'where' => $match);
+	$singleton =& $this->getSingleton();
+	$singleton->_searches[] = array('map' => $map, 'select' => $data, 'where' => $match);
 
 	return array(null,
-		     new RepositoryTestSearchResults($this->_searchResults));
+		     new RepositoryTestSearchResults($singleton->_searchResults));
     }
 
     function getAddedMapData() {
-	return $this->_addedMapData;
+	$singleton =& $this->getSingleton();
+	return $singleton->_addedMapData;
     }
 
     function updateMapEntry($map, $match, $change) {
-	$this->_updatedMapData[$map][] = array('match' => $match, 'change' => $change);
+	$singleton =& $this->getSingleton();
+	$singleton->_updatedMapData[$map][] = array('match' => $match, 'change' => $change);
 	return null;
     }
 
     function removeMapEntry($map, $match) {
-	$this->_removedMapData[$map][] = array('match' => $match);
+	$singleton =& $this->getSingleton();
+	$singleton->_removedMapData[$map][] = array('match' => $match);
 	return null;
     }
 
     function getUpdatedMapData() {
-	return $this->_updatedMapData;
+	$singleton =& $this->getSingleton();
+	return $singleton->_updatedMapData;
     }
 
     function getRemovedMapData() {
-	return $this->_removedMapData;
+	$singleton =& $this->getSingleton();
+	return $singleton->_removedMapData;
     }
 
     function rollbackTransaction() {
-    }
-
-    function getUniqueId($sequence) {
-	return 1;
-    }
-
-    function getAffectedRows($useNonTransactionalConnection) {
-	return 1;
     }
 }
 

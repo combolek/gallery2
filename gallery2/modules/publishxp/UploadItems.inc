@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,7 +33,7 @@
 class UploadItemsController extends GalleryController {
     /**
      * ItemAddOption instances to use when handling this request.  Only used by test code.
-     * @var array (optionId => ItemAddOption) $_optionInstances
+     * @var array (optionId => object ItemAddOption) $_optionInstances
      * @access private
      */
     var $_optionInstances;
@@ -93,13 +93,30 @@ class UploadItemsController extends GalleryController {
 		$gallery->debug("Source encoding from Windows client: $sourceEncoding");
 	    }
 	    $file['name'] = GalleryCoreApi::convertToUtf8($file['name'], $sourceEncoding);
-
-	    /* Get the mime type. */
-	    list ($ret, $mimeType) = GalleryCoreApi::getMimeType($file['name'], $file['type']);
-	    if ($ret) {
-		return array($ret, null);
+	    /*
+	     * Get the mime type from the upload info.  If we don't get useful data from that
+	     * or its a type we don't recognize, take a swing at it using the file name.
+	     */
+	    $mimeType = $file['type'];
+	    if (!empty($mimeType)) {
+		list ($ret, $exts) = GalleryCoreApi::convertMimeToExtensions($mimeType);
+		if ($ret) {
+		    GalleryCoreApi::releaseLocks($lockIds);
+		    return array($ret, null);
+		}
 	    }
 
+	    if (empty($mimeType) ||
+		    $mimeType == 'application/octet-stream' ||
+		    $mimeType == 'application/unknown' ||
+		    empty($exts)) {
+		$extension = GalleryUtilities::getFileExtension($file['name']);
+		list ($ret, $mimeType) = GalleryCoreApi::convertExtensionToMime($extension);
+		if ($ret) {
+		    GalleryCoreApi::releaseLocks($lockIds);
+		    return array($ret, null);
+		}
+	    }
 	    $title = basename($file['name']);
 	    $caption = '';
 	    $description = '';
@@ -245,7 +262,7 @@ class UploadItemsController extends GalleryController {
 		break;
 	    default: $codePage = 1252;
 	}
-	return 'CP' . $codePage;
+	return 'Windows-' . $codePage;
     }
 }
 
@@ -279,12 +296,6 @@ class UploadItemsView extends GalleryView {
 	    $UploadItems['setCaptions'] = 0;
 	}
 
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'publishxp');
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	$template->title($module->translate('Windows Publishing Wizard'));
 	$template->setVariable('UploadItems', $UploadItems);
 	$template->head('modules/publishxp/templates/Head.tpl');
 

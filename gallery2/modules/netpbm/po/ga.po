@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -36,9 +36,9 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: NetPBM 1.1.2\n"
+"Project-Id-Version: Gallery: NetPBM 1.1.1\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2007-06-14 17:32-0700\n"
+"POT-Creation-Date: 2007-03-16 11:25-0700\n"
 "PO-Revision-Date: 2003-09-24 22:12-0700\n"
 "Last-Translator: Beckett Madden-Woods <beckett@beckettmw.com>\n"
 "Language-Team: Irish <gallery-devel@lists.sourceforge.net>\n"
@@ -54,12 +54,11 @@ msgstr "NetPBM"
 msgid "NetPBM Graphics Toolkit"
 msgstr ""
 
-#, fuzzy
 msgid "Graphics Toolkits"
-msgstr "Bosca uirlisí ImageMagick"
+msgstr ""
 
 msgid "Convert to a JPEG"
-msgstr "Athraigh go JPEG"
+msgstr ""
 
 #, no-c-format
 msgid "target width (# pixels or #% of full size)"
@@ -105,27 +104,25 @@ msgid "Crop the image"
 msgstr "Bearr an íomhá"
 
 msgid "overlay path"
-msgstr "comhadlann an fhorluí"
+msgstr ""
 
 msgid "overlay mime type"
-msgstr "cineál mime an fhorluí"
+msgstr ""
 
 msgid "overlay width"
-msgstr "leithead an fhorluí"
+msgstr ""
 
 msgid "overlay height"
-msgstr "airde an fhorluí"
+msgstr ""
 
 msgid "alignment type"
-msgstr "cineál an eagrú"
+msgstr ""
 
-#, fuzzy
 msgid "alignment x %"
-msgstr "cineál an eagrú"
+msgstr ""
 
-#, fuzzy
 msgid "alignment y %"
-msgstr "cineál an eagrú"
+msgstr ""
 
 msgid "Overlay source image with a second one"
 msgstr ""
@@ -165,11 +162,6 @@ msgstr ""
 "an comhadlann críochnaithe thíos sa mbosca téacs. Má bhíonn tú ar meaisín Unix, ná déan "
 "dearmad ar ríomhoidis i bhfeidhm a dheanamh (Tástáil <i>chmod 755 *</i> sa gcomhadlann na "
 "NetPBM)."
-
-msgid ""
-"The exec() function is disabled in your PHP by the <b>disabled_functions</b> parameter in "
-"php.ini.  This module cannot be used until that setting is changed."
-msgstr ""
 
 msgid "NetPBM Directory:"
 msgstr ""
@@ -263,3 +255,9 @@ msgid ""
 "We gathered this debug output while testing your NetPBM binaries.  If you read through this "
 "carefully you may discover the reason why your NetPBM binaries failed the tests."
 msgstr ""
+
+#~ msgid "target width"
+#~ msgstr "leithead sprioctha"
+
+#~ msgid "target height"
+#~ msgstr "airde sprioctha"

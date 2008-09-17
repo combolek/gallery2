@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,7 +37,7 @@ class CodeAuditTest extends CodeAuditTestCase {
 
 	$this->_exception['endphp'] = array();
 
-	$this->_exception['preamble'] =
+	$this->_exceptions['preamble'] =
 	    '{(?:/TestCase/|templates/blocks/blocks.inc|(?:install|upgrade)/index.php|' .
 	    'data/Sample(?:Descriptors|Index).inc|DataCacheTest_\d+.class|getid3/lib/getid3|' .
 	    'Php43IllegalFunctions.inc|GdFunctionMatrix.inc|frame.inc|iconpack.inc)}';
@@ -54,6 +54,9 @@ class CodeAuditTest extends CodeAuditTestCase {
 		'modules/core/ShowItem.inc' => 1,
 		'main.php' => 1,
 		'modules/core/classes/Gallery.class' => 1,
+		),
+	    'REQUEST' => array(
+		'modules/core/classes/GallerySession.class' => 1,
 		),
 	    'COOKIE' => array(
 		'modules/core/classes/GallerySession.class' => 1,
@@ -88,12 +91,6 @@ class CodeAuditTest extends CodeAuditTestCase {
 	    'main.php' => array(
 		'::_GalleryMain_doRedirect' => 1,
 		),
-	    );
-
-	$this->_exception['errorHandler'] = array(
-	    'init.inc' => 1,
-	    'main.php' => 1,
-	    'modules/core/classes/GalleryEmbed.class' => 1,
 	    );
 
 	$this->_exception['longLineCount'] = array(
@@ -176,7 +173,6 @@ class CodeAuditTest extends CodeAuditTestCase {
 	$fileName = substr($fileName, strlen($this->_baseDir) + 1);
 	$lines = split("(\r\n|\n)", $buffer);
 	$checkSuperglobals = !preg_match('{/test/phpunit|^install/|^upgrade/}', $fileName);
-	$checkEntityType = $fileName != 'modules/core/test/phpunit/EntityTest.class';
 	$currentFunction = null;
 	$currentClass = null;
 	$longLineTable = $returnTable = array();
@@ -186,28 +182,11 @@ class CodeAuditTest extends CodeAuditTestCase {
 	    $this->assert(false, sprintf('%s has Windows line endings', $fileName));
 	}
 	if (substr($fileName, -4) == '.tpl' || substr($fileName, -3) == '.po') {
-	    /* For tpl and po files only perform newlines check */
+	    /* Only perform newlines check on tpl and po files */
 	    return;
 	}
 
 	$this->checkPreamble($fileName, $buffer, $lines);
-
-	/*
-	 * Check for loadEntitiesById and deleteEntityById calls that omit the entity-type parameter
-	 * which will be required after the next major core API bump.
-	 */
-	if ($checkEntityType) {
-	    foreach (array('loadEntitiesById', 'deleteEntityById') as $function) {
-		$calls =
-		    $this->getFunctionCalls($buffer, array('GalleryCoreApi', $function), $fileName);
-		foreach ($calls as $call) {
-		    $params = $this->getFunctionParameters($call);
-		    $this->assert(count($params) == 2,
-				  sprintf('File %s: %s() call without entityType parameter',
-					  $fileName, $function));
-		}
-	    }
-	}
 
 	for ($i = 0; $i < count($lines); $i++) {
 	    if (preg_match('/^\s*class (\S+)/', $lines[$i], $matches)) {
@@ -236,8 +215,9 @@ class CodeAuditTest extends CodeAuditTestCase {
 			       $lines[$i], $matches)) {
 		foreach (array_unique($matches[1]) as $item) {
 		    $this->_errorCount++;
-		    $this->fail(sprintf('%s gets %s by value instead of by reference on line %d',
-					$fileName, $item, $i + 1));
+		    $this->assert(false,
+				  sprintf('%s gets %s by value instead of by reference on line %d',
+					  $fileName, $item, $i + 1));
 		}
 	    }
 
@@ -258,20 +238,11 @@ class CodeAuditTest extends CodeAuditTestCase {
 		    }
 
 		    $this->_errorCount++;
-		    $this->fail(sprintf('%s uses the %s superglobal instead of ' .
-					'its helper on line %d',
-					$fileName, $item, $i + 1));
+		    $this->assert(false,
+				  sprintf('%s uses the %s superglobal instead of ' .
+					  'its helper on line %d',
+					  $fileName, $item, $i + 1));
 		}
-	    }
-
-	    /*
-	     * Check that we don't mess with PHP error handler (allowed in tests).
-	     */
-	    if (preg_match('/((?:set|restore)_error_handler)\s*\(/', $lines[$i], $matches)
-		    && strpos($fileName, '/test/phpunit/') === false
-		    && !isset($this->_exception['errorHandler'][$fileName])) {
-		$this->_errorCount++;
-		$this->fail(sprintf('%s calls %s on line %d', $fileName, $matches[1], $i + 1));
 	    }
 
 	    /*
@@ -329,8 +300,6 @@ class CodeAuditTest extends CodeAuditTestCase {
 
 		    $finalCount = "array($commaCount)";
 		    $returnCount[$function][$i] = array($finalCount, $tmp);
-		} else if (preg_match('/^GalleryCoreApi::error\(.*\)/', $returns[$i])) {
-		    $returnCount[$function][$i] = array("scalar", $returns[$i]);
 		} else if (preg_match('/\w\s*\(.*\)/', $returns[$i])) {
 		    $returnCount[$function][$i] = array("function", $returns[$i]);
 		} else {
@@ -395,7 +364,7 @@ class CodeAuditTest extends CodeAuditTestCase {
     }
 
     function checkPreamble($fileName, $buffer, $lines) {
-	if (preg_match($this->_exception['preamble'], $fileName)) {
+	if (preg_match($this->_exceptions['preamble'], $fileName)) {
 	    return;
 	}
 

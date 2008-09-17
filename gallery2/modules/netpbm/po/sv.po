@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: NetPBM 1.1.2\n"
+"Project-Id-Version: Gallery: NetPBM 1.1.1\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2003-09-17 11:00+0900\n"
 "PO-Revision-Date: 2007-01-02 19:40+0100\n"
@@ -146,11 +146,6 @@ msgstr ""
 "lämnar till Gallery.  Du måste installera NetPBM binärkoden på din server sen skriva in "
 "sökvägen till den i textrutan nedan.  Om du är på en Unix server så glöm inte att göra "
 "binärkoden körbar (<i>chmod 755*</i> på NetPBM katalogen bör fixa det)"
-
-msgid ""
-"The exec() function is disabled in your PHP by the <b>disabled_functions</b> parameter in "
-"php.ini.  This module cannot be used until that setting is changed."
-msgstr ""
 
 msgid "NetPBM Directory:"
 msgstr "NetPBM Katalog:"

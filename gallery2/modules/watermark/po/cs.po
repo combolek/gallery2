@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Watermark 1.1.5\n"
+"Project-Id-Version: Gallery: Watermark 1.1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-02-05 16:22+0100\n"
 "PO-Revision-Date: 2006-12-05 15:44+0100\n"
@@ -54,9 +54,6 @@ msgstr "Vodotisk"
 msgid "user watermarks"
 msgstr "použít vodotisky"
 
-msgid "Error: Missing watermark. Please see the Event Logs page in the Site Admin."
-msgstr ""
-
 msgid "Watermark your images"
 msgstr "Aplikace vodotisků na obrázky"
 
@@ -79,11 +76,7 @@ msgstr ""
 msgid "Delete Watermark"
 msgstr "Smazat vodotisk"
 
-# gettext claims msgstr[0] should have a %d
-# perhaps because msgstr[0] could be used for numbers other than ONE
-# based on the plurals formula in the header of this file.
-# perhaps replace jedné with %d ?
-#, fuzzy, c-format
+#, c-format
 msgid "This watermark is used on one item."
 msgid_plural "This watermark is used on %d items."
 msgstr[0] "Tento vodotisk je použit na jedné položce."
@@ -312,3 +305,6 @@ msgid ""
 msgstr ""
 "Galerie může automaticky aplikovat vodotisk na obrázky linkované z Internetu. Vyberte "
 "vodotisk výše a poté aktivujte vodotisky pro odkazy s použitím Rewrite modulu."
+
+#~ msgid "No watermark selected"
+#~ msgstr "Není vybrán žádný vodotisk"

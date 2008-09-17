@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,10 +19,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Permalinks 1.0.11\n"
+"Project-Id-Version: Gallery: Permalinks 1.0.8\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-03-15 19:04+0100\n"
-"PO-Revision-Date: 2008-03-27 16:00+0100\n"
+"PO-Revision-Date: 2007-01-09 12:28+0100\n"
 "Last-Translator: Ermanno Baschiera <ebaschiera@gmail.com>\n"
 "Language-Team: Italian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -33,23 +33,23 @@ msgid "Permalink(s) deleted successfully"
 msgstr "Permalink eliminati con successo"
 
 msgid "Permalinks"
-msgstr "Permalink"
+msgstr "Permalinks"
 
 msgid "Create simpler permanent aliases to your items space"
-msgstr "Crea degli alias permanenti più semplici per gli oggetti"
+msgstr "Crea degli alias permanenti più semplici per i tuoi oggetti"
 
 msgid "Gallery"
 msgstr "Gallery"
 
 msgid "Name you have defined as an alias to your item"
-msgstr "Il nome definito come alias per un oggetto"
+msgstr "Il nome che hai definito come alias per un tuo oggetto"
 
 msgid ""
 "Enable this rule to allow Permalinks you define to work. Disabling this rule will break your "
 "Permalinks."
 msgstr ""
-"Attivare questa regola per permettere che i Permalink definiti funzionino. Disabilitando "
-"questa regola i Permalink smetteranno di funzionare."
+"Attiva questa regola per permettere che i Permalinks che hai definito funzionino. "
+"Disabilitando questa regola i tuoi Permalinks smetteranno di funzionare."
 
 msgid "Permalink post activation"
 msgstr "Post attivazione Permalink"
@@ -62,19 +62,17 @@ msgid ""
 "Now that you have activated the Permalinks module, you have to activate Permalinks rule in "
 "the %s."
 msgstr ""
-"Ora che è stato attivato il modulo Permalink, è necessario attivare la regola dei Permalink "
-"in %s."
+"Ora che hai attivato il modulo Permalinks, devi attivare la regola dei Permalinks nel %s."
 
 msgid "Edit the permalinks that refer to this item. You can add or delete permalinks."
 msgstr ""
-"Modifica i permalink che puntano a questo oggetto. È possibile aggiungere o rimuovere "
-"permalink."
+"Modifica i permalinks che puntano a questo oggetto. Puoi aggiungere o rimuovere permalinks."
 
 msgid "You have no permalinks"
-msgstr "Non ci sono permalink"
+msgstr "Non ci sono permalinks"
 
 msgid "Existing permalinks"
-msgstr "Permalink esistenti"
+msgstr "Permalinks esistenti"
 
 msgid "Delete"
 msgstr "Elimina"
@@ -84,7 +82,7 @@ msgstr "Nome permalink"
 
 #, c-format
 msgid "Permalink '%s' already exists, possibly on another item"
-msgstr "Il permalink '%s' esiste già, probabilmente per un altro oggetto"
+msgstr "Il permalink '%s' esiste già, probabilmente per un altro oggetto."
 
 msgid "Add a new permalink:"
 msgstr "Aggiungi un nuovo permalink:"
@@ -101,15 +99,15 @@ msgid ""
 "the album will be created, unless a permalink by the same name already exists. You will be "
 "able to remove the permalink if you wish."
 msgstr ""
-"Se si utilizza questa funzione, ogni volta che un nuovo album viene creato, verrà creato "
-"anche un permalink verso di esso con il nome dell'album, a meno che non esista già un "
-"permalink con lo stesso nome. Sarà possibile rimuovere il permalink se lo si desidera."
+"Se utilizzi questa funzione, ogni volta che un nuovo album viene creato, verrà creato anche "
+"un permalink verso di esso con il nome dell'album, a meno che non esista già un permalink "
+"con lo stesso nome. Sarai in grado di rimuovere il permalink se lo vorrai."
 
 msgid "Enable auto-permalink"
 msgstr "Attiva auto-permalink"
 
 msgid "Global list of permalinks"
-msgstr "Lista globale dei permalink"
+msgstr "Lista globale dei permalinks"
 
 msgid "Save"
 msgstr "Salva"

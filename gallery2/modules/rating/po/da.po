@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,33 +16,33 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
-#
 # Previous translators (as far as known, add yourself here, please):
 # - Bjorn Graabek <bjorn@graabek.com>, 2007
 # Bjorn Graabek <bjorn@graabek.com>, 2007.
-#
+# 
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Rating 1.0.12\n"
+"Project-Id-Version: Gallery: Rating 1.0.8\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-11 17:35-0700\n"
-"PO-Revision-Date: 2007-06-17 14:46+0100\n"
-"Last-Translator: Jens Hyllegaard <Jens@linushvj.dk>\n"
+"PO-Revision-Date: 2007-03-15 21:17+0000\n"
+"Last-Translator: Bjørn Graabek <bjorn@graabek.com>\n"
 "Language-Team: Danish <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#, c-format
-msgid "Rating Album: %s"
-msgstr "Vurderings-album: %s"
-
 msgid "Rating Album"
-msgstr "Vurderings-album"
+msgstr "Vurderings-Album"
 
 msgid "rating album"
 msgstr "vurderings-album"
+
+#, c-format
+msgid "Rating Album: %s"
+msgstr ""
 
 #, c-format
 msgid "%d vote"
@@ -57,10 +57,10 @@ msgid "Rating"
 msgstr "Vurdering"
 
 msgid "Item Rating Interface"
-msgstr "Vurderings-grænseflade for emner"
+msgstr "Vurderings-grænseflade for elementer"
 
 msgid "Extra Data"
-msgstr "Ekstra data"
+msgstr "Ekstra Data"
 
 msgid "[rating] Add ratings"
 msgstr "[vurdering] Tilføj vurdering"
@@ -72,10 +72,10 @@ msgid "[rating] All access"
 msgstr "[vurdering] Al adgang"
 
 msgid "Rating limit to use for dynamic album"
-msgstr "Vurderingsgrænse der skal bruges for dynamiske album"
+msgstr ""
 
 msgid "Click a star to rate this item!"
-msgstr "Klik på en stjerne for at vurdere dette emne!"
+msgstr "Klik på en stjerne for at vurdere dette element!"
 
 #, c-format
 msgid "%s vote"
@@ -98,7 +98,7 @@ msgid "... and for all subalbums"
 msgstr "... og for alle under-albummer"
 
 msgid "Rating Settings"
-msgstr "Vurderings indstillinger"
+msgstr "Indstillinger for Vurdering"
 
 msgid "Settings saved successfully"
 msgstr "Indstillinger gemt"
@@ -107,21 +107,19 @@ msgid "There was a problem processing your request."
 msgstr "Din forespørgsel kunne ikke udføres."
 
 msgid "Allow users to rate entire albums, in addition to individual items."
-msgstr "Tillad brugere at vurdere hele albummer, foruden individuelle emner."
+msgstr "Tillad brugere at vurdere hele albummer, foruden individuelle objekter."
 
 #, c-format
 msgid ""
 "The settings below apply to the %sRating Album%s view, which shows highly rated items from "
 "across the Gallery."
 msgstr ""
-"Indstillingerne nedenfor påføres til %sRating Album%s visningen, som viser højt vurderede "
-"emner fra hele galleriet."
 
 msgid "Query limit"
 msgstr "Forespørgsels-grænse"
 
 msgid "Lowest value allowed for rating album threshold"
-msgstr "Laveste værdi der er tilladt for vurderings-album grænseværdi"
+msgstr ""
 
 msgid "Invalid number"
 msgstr "Ugyldigt nummer"
@@ -140,7 +138,7 @@ msgstr "Tema"
 
 #, c-format
 msgid "Settings for %s theme in Rating Album"
-msgstr "Indstillinger for %s temaet i Vurderings-album"
+msgstr ""
 
 msgid "Save"
 msgstr "Gem"

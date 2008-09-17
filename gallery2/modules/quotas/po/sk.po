@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,49 +21,49 @@
 # Branislav Hanacek <brango@brango.sk>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Quotas 1.1.3\n"
+"Project-Id-Version: Gallery: Quotas 1.1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-03 10:22+0200\n"
-"PO-Revision-Date: 2007-11-29 03:17+0100\n"
-"Last-Translator: Matej Spanik <retsamm@gmail.com>\n"
+"PO-Revision-Date: 2006-09-10 21:10+0200\n"
+"Last-Translator: Branislav Hanacek <brango@brango.sk>\n"
 "Language-Team: Slovak <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"Plural-Forms:  nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: KBabel 1.11.4\n"
 "X-Poedit-Language: Slovak\n"
 "X-Poedit-Country: SLOVAKIA\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
 msgid "KB"
-msgstr "KB"
+msgstr ""
 
 msgid "MB"
-msgstr "MB"
+msgstr ""
 
 msgid "GB"
-msgstr "GB"
+msgstr ""
 
 #, c-format
 msgid "Warning: You have reached your disk quota (%s %s), this item will not be added."
-msgstr "Varovanie: Dosiahli ste svoju diskovú kvótu (%s %s), táto položka nebude pridaná."
+msgstr ""
 
 #, c-format
 msgid "You are using %s %s of your allotted %s %s."
-msgstr "Používate %s %s z Vašich pridelených %s %s."
+msgstr ""
 
 msgid "Quotas"
-msgstr "Kvóty"
+msgstr ""
 
 msgid "User/Group Disk Quotas"
-msgstr "Používateľské/Skupinové Diskové Kvóty"
+msgstr ""
 
 msgid "Gallery"
 msgstr "Galéria"
 
 msgid "Create A New Group Quota"
-msgstr "Vytvoriť Novú Kvótu Skupiny"
+msgstr ""
 
 msgid "Group Name"
 msgstr "Meno skupiny"
@@ -73,97 +73,97 @@ msgstr "(požadované)"
 
 #, c-format
 msgid "Group quota for '%s' already exists"
-msgstr "Kvóta pre skupinu '%s' už existuje."
+msgstr ""
 
 msgid "Quota Size"
-msgstr "Veľkosť Kvóty"
+msgstr ""
 
 msgid "You must enter a quota size."
-msgstr "Musíte zadať velkosť kvóty."
+msgstr ""
 
 msgid "Quota size must be less than 2097152 MB (2048 GB)."
-msgstr "Veľkosť kvóty musí byť menšia ako 2097152 MB (2048 GB)."
+msgstr ""
 
 msgid "Invalid quota size, positive numbers and decimals only."
-msgstr "Neplatná veľkosť kvóty, používajte iba kladné desiatkové čísla."
+msgstr ""
 
 msgid "Create Group Quota"
-msgstr "Vytvoriť Kvótu Skupiny"
+msgstr ""
 
 msgid "Cancel"
 msgstr "Zrušiť"
 
 msgid "Create A New User Quota"
-msgstr "Vytvoriť Novú Kvótu Používateľa"
+msgstr ""
 
 msgid "User Name"
-msgstr "Meno Používateľa"
+msgstr ""
 
 #, c-format
 msgid "User quota for '%s' already exists"
-msgstr "Kvóta pre používateľa '%s' už existuje."
+msgstr ""
 
 msgid "Create User Quota"
-msgstr "Vytvoriť Kvótu Používateľa"
+msgstr ""
 
 msgid "Delete A Group Quota"
-msgstr "Vymazať Kvótu Skupiny"
+msgstr ""
 
 msgid "Are you sure?"
 msgstr "Skutočne?"
 
 #, c-format
 msgid "This will completely remove the %s (%s %s) group quota from Gallery.  There is no undo!"
-msgstr "Toto úplne vymaže kvótu skupiny %s (%s %s) z Galérie.  Nenávratne!"
+msgstr ""
 
 msgid "Delete"
 msgstr "Odstrániť"
 
 msgid "Delete A User Quota"
-msgstr "Vymazať Kvótu Používateľa"
+msgstr ""
 
 #, c-format
 msgid "This will completely remove the %s (%s %s) user quota from Gallery. There is no undo!"
-msgstr "Toto úplne vymaže kvótu používateľa %s (%s %s) z Galérie.  Nenávratne!"
+msgstr ""
 
 msgid "Edit A Group Quota"
-msgstr "Upraviť Kvótu Skupiny"
+msgstr ""
 
 msgid "Save"
 msgstr "Uložiť"
 
 msgid "Undo"
-msgstr "Vratit zmeny"
+msgstr ""
 
 msgid "Edit A User Quota"
-msgstr "Upraviť Kvótu Používateľa"
+msgstr ""
 
 msgid "Quotas Administration"
-msgstr "Administrácia Kvót"
+msgstr ""
 
 #, c-format
 msgid "Removed group quota for '%s'"
-msgstr "Kvóta skupiny '%s' zrušená"
+msgstr ""
 
 #, c-format
 msgid "Created group quota for '%s'"
-msgstr "Kvóta skupiny '%s' bola vytvorená."
+msgstr ""
 
 #, c-format
 msgid "Modified group quota for '%s'"
-msgstr "Kvóta skupiny '%s' bola upravená."
+msgstr ""
 
 #, c-format
 msgid "Removed user quota for '%s'"
-msgstr "Kvóta užívateľa '%s' zrušená"
+msgstr ""
 
 #, c-format
 msgid "Created user quota for '%s'"
-msgstr "Kvóta užívateľa '%s' vytvorená"
+msgstr ""
 
 #, c-format
 msgid "Modified user quota for '%s'"
-msgstr "Kvóta užívateľa '%s' upravená"
+msgstr ""
 
 msgid ""
 "This system will let you assign disk space quotas to users. By creating a group quota, any "
@@ -171,37 +171,33 @@ msgid ""
 "the highest quota of all the groups will be assigned. Although, if you create a user quota "
 "that will override any group quotas."
 msgstr ""
-"Tento systém Vám dovolí priradiť diskové miesto pre užívateľov.  Vytvorením skupinovej "
-"kvóty, všetci užívatelia v tejto skupine budú mať túto kvótu.  Ak používateľ patrí do viac "
-"ako jednej skupiny bude mu pridelená najvyššia kvóta zo všetkých skupín. Avšak akákoľvek "
-"užívateľská kvóta má vyššiu prioritu ako skupinové kvóty."
 
 #, c-format
 msgid "There is %d group quota in the system."
 msgid_plural "There are %d total group quotas in the system."
-msgstr[0] "V systéme je %d skupinová kvóta."
-msgstr[1] "V systéme sú %d skupinové kvóty."
-msgstr[2] "V systéme je %d skupinových kvót."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 msgid "Group Quotas"
-msgstr "Skupinové Kvóty"
+msgstr ""
 
 msgid "Create Quota"
-msgstr "Vytvoriť Kvótu"
+msgstr ""
 
 msgid "Edit Quota"
-msgstr "Upraviť Kvótu"
+msgstr ""
 
 msgid "Delete Quota"
-msgstr "Odstrániť Kvótu"
+msgstr ""
 
 #, c-format
 msgid "Group quota for '%s' does not exist. You must create one first."
-msgstr "Skupinová kvóta pre '%s' neexistuje. Najskôr ju musíte vytvoriť."
+msgstr ""
 
 #, c-format
 msgid "Group quota for '%s' already exists."
-msgstr "Skupinová kvóta pre '%s' už existuje."
+msgstr ""
 
 #, c-format
 msgid "Group '%s' does not exist."
@@ -211,7 +207,7 @@ msgid "You must enter a group name"
 msgstr "Musíte zadať meno skupiny"
 
 msgid "Edit Group Quotas (by list)"
-msgstr "Upraviť Skupinové Kvóty (podľa zoznamu)"
+msgstr ""
 
 msgid "&laquo; first"
 msgstr "&laquo; prvý"
@@ -230,7 +226,7 @@ msgid "last &raquo;"
 msgstr "posledný &raquo;"
 
 msgid "Quota"
-msgstr "Kvóta"
+msgstr ""
 
 msgid "Action"
 msgstr "Akcia"
@@ -244,20 +240,20 @@ msgstr "odstrániť"
 #, c-format
 msgid "There is %d user quota in the system."
 msgid_plural "There are %d total user quotas in the system."
-msgstr[0] "V systéme je %d používateľská kvóta."
-msgstr[1] "V systéme sú %d používateľské kvóty."
-msgstr[2] "V systéme je %d používateľských kvót."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 msgid "User Quotas"
-msgstr "Užívateľské Kvóty"
+msgstr ""
 
 #, c-format
 msgid "User quota for '%s' does not exist. You must create one first."
-msgstr "Používateľská kvóta pre '%s' neexistuje. Najskôr ju musíte vytvoriť."
+msgstr ""
 
 #, c-format
 msgid "User quota for '%s' already exists."
-msgstr "Používateľská kvóta pre '%s' už existuje."
+msgstr ""
 
 #, c-format
 msgid "User '%s' does not exist."
@@ -267,25 +263,25 @@ msgid "You must enter a username"
 msgstr "Musíte zadať meno používateľa"
 
 msgid "Edit User Quotas (by list)"
-msgstr "Upraviť Používateľské Kvóty (podľa zoznamu)"
+msgstr ""
 
 msgid "Username"
 msgstr "Používateľské meno"
 
 #, c-format
 msgid "Used: %0.2f %s (%s%%)"
-msgstr "Použité: %0.2f %s (%s%%)"
+msgstr ""
 
 #, c-format
 msgid "Quota: %0.2f %s"
-msgstr "Kvóta: %0.2f %s"
+msgstr ""
 
 #, c-format
 msgid "Used: %0.2f %s"
-msgstr "Použité: %0.2f %s"
+msgstr ""
 
 msgid "Quota: Unlimited"
-msgstr "Kvóta: Bez limitu"
+msgstr ""
 
 msgid "User Quota Block"
-msgstr "Blok Užívateľskej Kvóty"
+msgstr ""

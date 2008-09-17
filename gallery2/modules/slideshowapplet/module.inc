@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,12 +30,11 @@ class SlideshowAppletModule extends GalleryModule {
 	$this->setId('slideshowapplet');
 	$this->setName($gallery->i18n('Slideshow Applet'));
 	$this->setDescription($gallery->i18n('Fullscreen slideshow using a Java applet'));
-	$this->setVersion('1.0.10');
-	$this->_templateVersion = 1;
+	$this->setVersion('1.0.7');
 	$this->setGroup('display', $gallery->i18n('Display'));
 	$this->setCallbacks('getItemLinks|getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 27));
-	$this->setRequiredModuleApi(array(3, 9));
+	$this->setRequiredCoreApi(array(7, 4));
+	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
@@ -91,42 +90,15 @@ class SlideshowAppletModule extends GalleryModule {
      * @see GalleryModule::getItemLinks
      */
     function getItemLinks($items, $wantsDetailedLinks, $permissions) {
-	global $gallery;
-
 	$links = array();
 	foreach ($items as $item) {
 	    $itemId = $item->getId();
 	    if (isset($wantsDetailedLinks[$itemId])) {
-		$showSlideshowLink = false;
-
-		if ($item->getCanContainChildren()) {
-		    if (!isset($userId)) {
-			$userId = $gallery->getActiveUserId();
-		    }
-
-		    list ($ret, $query, $data) = GalleryCoreApi::buildItemQuery(
-			'GalleryChildEntity', 'id', '[GalleryChildEntity::parentId] = ?', null,
-			null, 'GalleryPhotoItem', 'core.view', null, $userId);
-
-		    if (!$ret || !empty($query)) {
-			array_unshift($data, $item->getId());
-			list ($ret, $searchResults) = $gallery->search($query, $data, null);
-
-			if (!$ret) {
-			    $showSlideshowLink = $searchResults->resultCount() > 0;
-			}
-		    }
-		} else {
-		    /** @todo Check with isA instead of entityType (thus matching subclasses). */
-		    $showSlideshowLink = $item->getEntityType() === 'GalleryPhotoItem';
-					}
-		if ($showSlideshowLink) {
-		    $links[$itemId][] =
-			array('text' => $this->translate('View Slideshow (Fullscreen)'),
-			      'params' => array(
-			      'view' => 'slideshowapplet.SlideshowApplet',
-			      'itemId' => $itemId));
-		}
+		$links[$itemId][] =
+		    array('text' => $this->translate('View Slideshow (Fullscreen)'),
+			  'params' => array(
+			  'view' => 'slideshowapplet.SlideshowApplet',
+			  'itemId' => $itemId));
 	    }
 	}
 	return array(null, $links);

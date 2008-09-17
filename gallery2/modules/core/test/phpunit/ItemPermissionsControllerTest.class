@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,31 +32,28 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
     }
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	list ($ret, $this->_albumParent) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($this->_albumParent);
 
 	list ($ret, $this->_albumChild) = $this->_createRandomAlbum($this->_albumParent->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $this->_group) = $this->_createRandomGroup();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($this->_group);
 
 	list ($ret, $this->_user) = $this->_createRandomUser();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($this->_user);
     }
@@ -82,7 +79,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $this->_albumParent) = $this->_albumParent->refresh();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals($this->_user->getId(), $this->_albumParent->getOwnerId());
@@ -110,13 +107,13 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $this->_albumParent) = $this->_albumParent->refresh();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals($this->_user->getId(), $this->_albumParent->getOwnerId());
 	list ($ret, $this->_albumChild) = $this->_albumChild->refresh();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals($this->_user->getId(), $this->_albumChild->getOwnerId());
@@ -178,7 +175,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 	list ($ret, $permissions) =
 	    GalleryCoreApi::fetchAllPermissionsForItem($this->_albumParent->getId(), false);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	foreach ($permissions as $permission) {
 	    if (isset($permission['groupId'])
@@ -201,19 +198,19 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 	list ($ret, $differentPermissionChildAlbum) =
 	    $this->_createRandomAlbum($this->_albumParent->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = GalleryCoreApi::removeItemPermissions($differentPermissionChildAlbum->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = GalleryCoreApi::addUserPermission(
 	    $differentPermissionChildAlbum->getId(), $gallery->getActiveUserId(),
 	    'core.changePermissions', false);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Use valid inputs */
@@ -244,7 +241,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 	    list ($ret, $permissions) =
 		GalleryCoreApi::fetchAllPermissionsForItem($album->getId(), false);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    foreach ($permissions as $permission) {
 		if (isset($permission['groupId'])
@@ -317,7 +314,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 							'core.edit',
 							false);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Use invalid inputs */
@@ -344,7 +341,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 							'core.edit',
 							false);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Use valid inputs */
@@ -371,7 +368,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 	list ($ret, $permissions) =
 	    GalleryCoreApi::fetchAllPermissionsForItem($this->_albumParent->getId(), false);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	foreach ($permissions as $permission) {
 	    if (isset($permission['groupId']) && $permission['groupId'] == $this->_group->getId()) {
@@ -385,7 +382,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 	$ret = GalleryCoreApi::addGroupPermission(
 	    $this->_albumParent->getId(), $this->_group->getId(), 'core.edit', true);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Use valid inputs */
@@ -414,7 +411,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 	    list ($ret, $permissions) =
 		GalleryCoreApi::fetchAllPermissionsForItem($album->getId(), false);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    foreach ($permissions as $permission) {
 		if (isset($permission['groupId'])
@@ -451,7 +448,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 	list ($ret, $permissions) =
 	    GalleryCoreApi::fetchAllPermissionsForItem($this->_albumParent->getId(), false);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	foreach ($permissions as $permission) {
 	    if (isset($permission['userId'])
@@ -474,19 +471,19 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 	list ($ret, $differentPermissionChildAlbum) =
 	    $this->_createRandomAlbum($this->_albumParent->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = GalleryCoreApi::removeItemPermissions($differentPermissionChildAlbum->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = GalleryCoreApi::addUserPermission(
 	    $differentPermissionChildAlbum->getId(), $gallery->getActiveUserId(),
 	    'core.changePermissions', false);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Use valid inputs */
@@ -516,7 +513,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 	    list ($ret, $permissions) =
 		GalleryCoreApi::fetchAllPermissionsForItem($album->getId(), false);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    foreach ($permissions as $permission) {
 		if (isset($permission['userId'])
@@ -587,7 +584,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 							'core.edit',
 							false);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Use invalid inputs */
@@ -613,7 +610,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 							'core.edit',
 							false);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Use valid inputs */
@@ -640,7 +637,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 	list ($ret, $permissions) =
 	    GalleryCoreApi::fetchAllPermissionsForItem($this->_albumParent->getId(), false);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	foreach ($permissions as $permission) {
 	    if (isset($permission['userId'])
@@ -657,7 +654,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 							'core.edit',
 							true);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Use valid inputs */
@@ -686,7 +683,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 	    list ($ret, $permissions) =
 		GalleryCoreApi::fetchAllPermissionsForItem($album->getId(), false);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    foreach ($permissions as $permission) {
 		if (isset($permission['userId'])
@@ -718,7 +715,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 	$ret = GalleryCoreApi::addUserPermission(
 	    $this->_albumParent->getId(), $this->_user->getId(), 'core.all', false);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	GalleryUtilities::putRequestVariable('itemId', $this->_albumParent->getId());
@@ -737,7 +734,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 	$ret = GalleryCoreApi::addUserPermission(
 	    $this->_albumParent->getId(), $this->_user->getId(), 'core.all', false);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	GalleryUtilities::putRequestVariable('itemId', $this->_albumParent->getId());
@@ -760,13 +757,13 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 	list ($ret, $canEdit) = GalleryCoreApi::hasItemPermission($this->_albumParent->getId(),
 								  'core.edit');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert($canEdit, 'user should have core.edit permission');
 	list ($ret, $canChange) = GalleryCoreApi::hasItemPermission($this->_albumParent->getId(),
 								    'core.changePermissions');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert($canChange, 'user should have core.changePermissios permission');
     }
@@ -778,12 +775,12 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 
 	$ret = GalleryCoreApi::addUserToGroup($this->_user->getId(), $this->_group->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$ret = GalleryCoreApi::addGroupPermission(
 	    $this->_albumParent->getId(), $this->_group->getId(), 'core.all', false);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	GalleryUtilities::putRequestVariable('itemId', $this->_albumParent->getId());
@@ -806,7 +803,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 	list ($ret, $permissions) =
 	    GalleryCoreApi::fetchAllPermissionsForItem($this->_albumParent->getId(), true);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$foundEdit = $foundChange = false;
 	foreach ($permissions as $permission) {

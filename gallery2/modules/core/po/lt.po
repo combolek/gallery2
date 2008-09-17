@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,28 +16,50 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
-#
 # Darius Zitkevicius <skystis@splius.lt>, 2007.
-# Stasys Drazdauskas <stasys@drazdauskas.lt>, 2007.
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Core 1.2.36\n"
+"Project-Id-Version: Gallery: Core 1.2.0.3\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2007-06-07 09:29-0700\n"
-"PO-Revision-Date: 2007-07-22 18:05+0200\n"
-"Last-Translator: Stasys Drazdauskas <stasys@drazdauskas.lt>\n"
-"Language-Team:  <stasys@drazdauskas.lt>\n"
+"PO-Revision-Date: 2007-03-09 00:02+0200\n"
+"Last-Translator: Darius Zitkevicius <skystis@splius.lt>\n"
+"Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%"
+"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%"
 "100>=20) ? 1 : 2);\n"
 "X-Generator: KBabel 1.11.4\n"
-"X-Poedit-Language: Lithuanian\n"
-"X-Poedit-Country: LITHUANIA\n"
 
 msgid "Gallery Email Test"
 msgstr "Galerijos testas el. paštu"
+
+msgid "forever"
+msgstr "visada"
+
+msgid "High Priority (Me first!)"
+msgstr "Aukštas prioritetas (Aš pirmas!)"
+
+msgid "Low Priority (I want to share!)"
+msgstr "Žemas prioritetas (Aš noriu dalytis!)"
+
+msgid "No Markup"
+msgstr "Be žymėjimo"
+
+msgid "BBCode"
+msgstr "BBCode"
+
+msgid "Raw HTML"
+msgstr "Grynas HTML"
+
+msgid "Database"
+msgstr "Duombazė"
+
+msgid "File"
+msgstr "Failas"
 
 #, c-format
 msgid "%d minute"
@@ -67,69 +89,56 @@ msgstr[0] "%d savaitė"
 msgstr[1] "%d savaitės"
 msgstr[2] "%d savaičių"
 
-msgid "forever"
-msgstr "visada"
+msgid "<none>"
+msgstr "<tuščia>"
 
-msgid "High Priority (Me first!)"
-msgstr "Aukštas prioritetas (Aš pirmas!)"
+msgid "No acceleration"
+msgstr "Be aksceleracijos"
 
-msgid "Low Priority (I want to share!)"
-msgstr "Žemas prioritetas (Aš noriu dalytis!)"
+msgid "Partial acceleration"
+msgstr "Dalinė aksceleracija"
 
-msgid "No Markup"
-msgstr "Be žymėjimo"
+msgid "Full acceleration"
+msgstr "Pilna aksceleracija"
 
-msgid "BBCode"
-msgstr "BBCode"
+msgid "Themes"
+msgstr "Temos"
 
-msgid "Raw HTML"
-msgstr "Grynas HTML"
+msgid "Updating Repository Index"
+msgstr "Atnaujinamas indeksas"
 
-msgid "Database"
-msgstr "Duomenų bazė"
+msgid "Scanning plugins"
+msgstr "Skenuojami priedai"
 
-msgid "File"
-msgstr "Failas"
+msgid "Update Plugin List"
+msgstr "Atnaujinamas priedų sąrašas"
 
-msgid "&lt;none&gt;"
-msgstr ""
+msgid "Done."
+msgstr "Atlikta."
 
-#, fuzzy
-msgid "Link"
-msgstr "Prisijungti"
+msgid "Updating Packages"
+msgstr "Atnaujinami paketai"
 
 #, c-format
-msgid "Page %d of %d"
-msgstr "Puslapis %d iš %d"
+msgid "Preparing %s"
+msgstr "Ruošiamas %s"
 
-#, fuzzy
-msgid "Updating Language Settings"
-msgstr "Kalbos nustatymai"
+#, c-format
+msgid "Downloading %s"
+msgstr "Atsiunčiama %s"
+
+#, c-format
+msgid "Activating %s"
+msgstr "Aktyvuojamas %s"
+
+msgid "Deleting Language Packs"
+msgstr "Šalinami kalbų paketai"
 
 msgid "Update completed with errors."
 msgstr "Atnaujinimas atliktas su klaidomis."
 
 msgid "Update complete."
 msgstr "Atnaujinimas atliktas."
-
-msgid "Deleting Language Packs"
-msgstr "Šalinami kalbų paketai"
-
-#, fuzzy
-msgid "Synchronizing Language Packs"
-msgstr "Šalinami kalbų paketai"
-
-msgid "No acceleration"
-msgstr "Be akseleracijos"
-
-msgid "Partial acceleration"
-msgstr "Dalinė akceleracija"
-
-msgid "Full acceleration"
-msgstr "Visiška akseleracija"
-
-msgid "Themes"
-msgstr "Temos"
 
 msgid "install"
 msgstr "įdiegti"
@@ -152,11 +161,11 @@ msgstr "Nustatymus paveldėti iš ankstesnio albumo"
 msgid "Use these settings"
 msgstr "Naudoti šiuos nustatymus"
 
-msgid "Converting Schema Table"
-msgstr "Konvertuojama schemos lentelė"
-
 msgid "Installing the core module"
 msgstr "Įdiegiamas pagrindinis modulis"
+
+msgid "key"
+msgstr "raktas"
 
 msgid "All access"
 msgstr "Pinas priėjimas"
@@ -191,10 +200,6 @@ msgstr "[core] Pašalinti elementą"
 msgid "Upgrading permissions"
 msgstr "Atnaujinamos teisės"
 
-#, c-format
-msgid "Upgrading permissions (%d items complete, %d remaining)"
-msgstr "Atnaujinamos prieigos teisės (%d pakeista, liko %d)"
-
 msgid "Deleting old permission tables"
 msgstr "Šalinamos senos teisių lentelės"
 
@@ -207,32 +212,11 @@ msgstr "Visi vartotojai"
 msgid "Detecting broken derivatives"
 msgstr "Trinami blogi pagalbiniai failai"
 
-#, c-format
-msgid "Detecting broken derivatives, loading (%d derivatives checked, %d remaining)"
-msgstr "Ieškoma blogų pagalbinių failų, įkeliama (%d patikrinta, liko %d)"
-
-#, c-format
-msgid "Detecting broken derivatives (%d derivatives checked, %d remaining)"
-msgstr "Ieškoma blogų pagalbinių failų (%d patikrinta, liko %d)"
-
-#, c-format
-msgid "Detecting broken derivatives, saving (%d derivatives checked, %d remaining)"
-msgstr "Ieškoma blogų pagalbinių failų, išsaugoma (%d patikrinta, liko %d)"
-
-#, c-format
-msgid ""
-"Detecting broken derivatives, saving item %d of %d (%d derivatives complete, %d remaining)"
-msgstr "Atnaujinamos prieigos teisės, saugomas elementas %d iš %d (%d pakeista, liko %d)"
-
 msgid "Clearing fast-download cache"
 msgstr "Valoma greito gavimo talpyklė"
 
 msgid "Deleting old fast-download cache"
 msgstr "Trinama sena greito gavimo talpyklė"
-
-#, c-format
-msgid "Deleting old session files (iteration %d)"
-msgstr "Šalinami seni sesijos failai (pakartojimas %d)"
 
 msgid "Updating panorama items"
 msgstr "Atnaujinami panoramos elementai"
@@ -240,13 +224,11 @@ msgstr "Atnaujinami panoramos elementai"
 msgid "Optimizing AccessSubscriberMap table"
 msgstr "Optimizuojama lentelė AccessSubscriberMap"
 
-#, fuzzy
-msgid "Upgrading Plugin Translations"
-msgstr "Atnaujinamos teisės"
+msgid "Converting Schema Table"
+msgstr ""
 
-#, fuzzy
-msgid "Creating Package Map"
-msgstr "Atnaujinami paketai"
+msgid "Loading Table Descriptions"
+msgstr ""
 
 msgid "Site Admins"
 msgstr "Svetainės adminai"
@@ -266,16 +248,30 @@ msgstr "Tai pagrindinis Jūsų galerijos puslapis"
 msgid "Converting MySQL data to UTF8"
 msgstr "Keičiami MySQL duomenys į UTF8"
 
-#, fuzzy
-msgid "Adding items"
-msgstr "pridėti elementus"
+#, c-format
+msgid "Upgrading permissions (%d items complete, %d remaining)"
+msgstr "Atnaujinamos prieigos teisės (%d pakeista, liko %d)"
 
-#, fuzzy
-msgid "Processing items"
-msgstr "Apdorojamas elementas %d iš %d"
+#, c-format
+msgid "Detecting broken derivatives, loading (%d derivatives checked, %d remaining)"
+msgstr "Ieškoma blogų pagalbinių failų, įkeliama (%d patikrinta, liko %d)"
 
-msgid "Extracting archive"
-msgstr ""
+#, c-format
+msgid "Detecting broken derivatives (%d derivatives checked, %d remaining)"
+msgstr "Ieškoma blogų pagalbinių failų (%d patikrinta, liko %d)"
+
+#, c-format
+msgid "Detecting broken derivatives, saving (%d derivatives checked, %d remaining)"
+msgstr "Ieškoma blogų pagalbinių failų, išsaugoma (%d patikrinta, liko %d)"
+
+#, c-format
+msgid ""
+"Detecting broken derivatives, saving item %d of %d (%d derivatives complete, %d remaining)"
+msgstr "Atnaujinamos prieigos teisės, saugomas elementas %d iš %d (%d pakeista, liko %d)"
+
+#, c-format
+msgid "Deleting old session files (iteration %d)"
+msgstr "Šalinami seni sesijos failai (pakartojimas %d)"
 
 msgid "add items"
 msgstr "pridėti elementus"
@@ -289,21 +285,17 @@ msgstr "pridėti vidinį albumą"
 msgid "add items confirmation"
 msgstr "elementų pridėjimo patvirtinimas"
 
-#, c-format
-msgid "Input file %s exceeds maximum permitted file size"
-msgstr "Nurodytas failas %s viršija didžiausią leistiną failo dydį"
+msgid "Base filename"
+msgstr "Bazinis failo vardas"
 
-#, c-format
-msgid "Input file %s exceeds file size specified in the form"
-msgstr "Nurodytas failas %s viršija dydį, kuris nurodytas formoje"
+msgid "Caption"
+msgstr "Antraštė"
 
-#, c-format
-msgid "Input file %s was only partially uploaded"
-msgstr "Įkelta tik failo %s dalis"
+msgid "Blank"
+msgstr "Tuščia"
 
-#, c-format
-msgid "Input file %s was not uploaded. Error %d"
-msgstr "Failas %s neįkeltas. Klaida %d"
+msgid "From Web Browser"
+msgstr "Iš naršyklės"
 
 #, c-format
 msgid "%d megabyte"
@@ -319,23 +311,34 @@ msgstr[0] "%d kilobaitas"
 msgstr[1] "%d kilobaitai"
 msgstr[2] "%d kilobaitų"
 
-msgid "Base filename"
-msgstr "Bazinis failo vardas"
+#, c-format
+msgid "Input file %s exceeds maximum permitted file size"
+msgstr "Nurodytas failas %s viršija didžiausią leistiną failo dydį"
 
-msgid "Caption"
-msgstr "Antraštė"
+#, c-format
+msgid "Input file %s exceeds file size specified in the form"
+msgstr "Nurodytas failas %s viršija dydį, kuris nurodytas formoje"
 
-msgid "Blank"
-msgstr "Tuščia"
+#, c-format
+msgid "Input file %s was only partially uploaded"
+msgstr "Nurodytas failas %s nepilnai įkeltas"
 
-msgid "From Web Browser"
-msgstr "Iš naršyklės"
+#, c-format
+msgid "Input file %s was not uploaded. Error %d"
+msgstr "Nurodytas failas %s neįkeltas. Klaida %d"
 
 msgid "Gallery Item Administration"
 msgstr "Galerijos elemento administravimas"
 
 msgid "delete an item"
 msgstr "pašalinti elementą"
+
+msgid "delete confirmation"
+msgstr "pašalinimo patvirtinimas"
+
+#, c-format
+msgid "delete %s"
+msgstr "trinti %s"
 
 #, c-format
 msgid "edit %s"
@@ -350,10 +353,6 @@ msgstr "Pritaikyti sumažintų vaizdų nustatymus"
 msgid "Preparing..."
 msgstr "Pasiruošimas..."
 
-#, c-format
-msgid "Processing image %d of %d"
-msgstr "Apdorojamas elementas %d iš %d"
-
 msgid "Apply thumbnail settings"
 msgstr "Pritaikyti miniatiūrų nustatymus"
 
@@ -362,6 +361,10 @@ msgstr "Pergeneruojamos miniatiūros..."
 
 msgid "Album"
 msgstr "Albumas"
+
+#, c-format
+msgid "Processing image %d of %d"
+msgstr "Apdorojamas elementas %d iš %d"
 
 msgid "Changes saved successfully"
 msgstr "Pakeitimai išsaugoti sėkmingai"
@@ -373,13 +376,13 @@ msgid "edit captions"
 msgstr "redaguoti antraštes"
 
 msgid "General"
-msgstr "Bendra"
+msgstr "Bedra"
 
 msgid "Movie Size"
 msgstr "Video dydis"
 
 msgid "Photo"
-msgstr "Nuotrauka"
+msgstr "Foto"
 
 msgid "Thumbnail cropped successfully"
 msgstr "Miniatiūra iškirpta sėkmingai"
@@ -388,16 +391,16 @@ msgid "Thumbnail reset successfully"
 msgstr "Miniatiūra atkurta sėkmingai"
 
 msgid "Photo 5x3"
-msgstr "Nuotrauka 5x3"
+msgstr "Foto 5x3"
 
 msgid "Photo 6x4"
-msgstr "Nuotrauka 6x4"
+msgstr "Foto 6x4"
 
 msgid "Photo 7x5"
-msgstr "Nuotrauka 7x5"
+msgstr "Foto 7x5"
 
 msgid "Photo 10x8"
-msgstr "Nuotrauka 10x8"
+msgstr "Foto 10x8"
 
 msgid "Fullscreen 4x3"
 msgstr "Per visą ekraną 4x3"
@@ -412,10 +415,10 @@ msgid "Square 1x1"
 msgstr "Kvadratas 1x1"
 
 msgid "As Image"
-msgstr "Kaip ir nuotrauka"
+msgstr "Kaip ir foto"
 
 msgid "Landscape"
-msgstr "Gulsčias"
+msgstr "Gulščias"
 
 msgid "Portrait"
 msgstr "Stačias"
@@ -427,13 +430,13 @@ msgid "Reverted rotate and scale changes successfully"
 msgstr "Pasukimo ir ištempimo pakeitimai anuliuoti sėkmingai"
 
 msgid "Rotated photo successfully"
-msgstr "Nuotrauka pasukta sėkmingai"
+msgstr "Fotografija pasukta sėkmingai"
 
 msgid "Scaled photo successfully"
-msgstr "Nuotrauka ištempta sėkmingai"
+msgstr "Fotografija ištempta sėkmingai"
 
 msgid "Modify Photo"
-msgstr "Taisyti nuotrauką"
+msgstr "Taisyti foto"
 
 msgid "Successfully changed theme"
 msgstr "Tema sėkmingai pakeista"
@@ -477,7 +480,7 @@ msgid "change password"
 msgstr "keisti slaptažodį"
 
 msgid "your account"
-msgstr "Jūsų paskyra"
+msgstr "jūsų paskyra"
 
 msgid "Password Recovery"
 msgstr "Slaptažodžio atkūrimas"
@@ -500,10 +503,6 @@ msgstr "Keisti foto"
 msgid "Edit Movie"
 msgstr "Keisti video"
 
-#, c-format
-msgid "Edit %s"
-msgstr "Keisti %s"
-
 msgid "Add Album"
 msgstr "Naujas albumas"
 
@@ -522,10 +521,6 @@ msgstr "Pašalinti foto"
 msgid "Delete Movie"
 msgstr "Pašalinti video"
 
-#, c-format
-msgid "Delete %s"
-msgstr "Ištrinti %s"
-
 msgid "Move Album"
 msgstr "Perkelti albumą"
 
@@ -535,10 +530,6 @@ msgstr "Perkelti foto"
 msgid "Move Movie"
 msgstr "Perkelti video"
 
-#, c-format
-msgid "Move %s"
-msgstr "Perkelti %s"
-
 msgid "Edit Captions"
 msgstr "Keisti santrauką"
 
@@ -547,9 +538,6 @@ msgstr "Padaryti tituliniu"
 
 msgid "Reorder Items"
 msgstr "Rūšiuoti elementus"
-
-msgid "Delete Items"
-msgstr "Trinti elementus"
 
 msgid "Site Admin"
 msgstr "Svetainės administravimas"
@@ -575,12 +563,6 @@ msgstr "Grupės"
 msgid "Performance"
 msgstr "Našumas"
 
-msgid "Event Logs"
-msgstr ""
-
-msgid "Language Settings"
-msgstr "Kalbos nustatymai"
-
 msgid "Toolkit Priority"
 msgstr "Įrankių prioritetai"
 
@@ -593,28 +575,17 @@ msgstr "Paskyros nustatymai"
 msgid "Change Password"
 msgstr "Keisti slaptažodį"
 
-msgid "Updating Packages"
-msgstr "Atnaujinami paketai"
+#, c-format
+msgid "Edit %s"
+msgstr "Keisti %s"
 
 #, c-format
-msgid "Cleaning up obsolete files %s"
-msgstr ""
+msgid "Delete %s"
+msgstr "Ištrinti %s"
 
 #, c-format
-msgid "Activating %s"
-msgstr "Aktyvuojamas %s"
-
-msgid "Updating Repository Index"
-msgstr "Atnaujinamas indeksas"
-
-msgid "Scanning plugins"
-msgstr "Skenuojami priedai"
-
-msgid "Update Plugin List"
-msgstr "Atnaujinamas priedų sąrašas"
-
-msgid "Done."
-msgstr "Atlikta."
+msgid "Move %s"
+msgstr "Perkelti %s"
 
 msgid "Build all thumbnails/resizes"
 msgstr "Generuoti visas miniatiūras/keisti matmenis"
@@ -629,6 +600,9 @@ msgstr ""
 msgid "Build All Thumbnails/Resizes"
 msgstr "Generuoti visas miniatiūras/keisti matmenis"
 
+msgid "Debug output for failed items:"
+msgstr "Papildoma informacija apie sugadintus elementus"
+
 #, c-format
 msgid "Checked %d items"
 msgstr "Patikrinta %d elementų"
@@ -641,9 +615,6 @@ msgstr "%d elementų sugeneruota"
 msgid "%d items failed"
 msgstr "%d elementų nepavyko sutvarkyti"
 
-msgid "Debug output for failed items:"
-msgstr "Papildoma informacija apie sugadintus elementus"
-
 msgid "Convert MySQL database to UTF8"
 msgstr "Konvertuoti MySQL duomenys į UTF8"
 
@@ -655,66 +626,39 @@ msgid ""
 "corruption in your cache."
 msgstr ""
 "Jei jūsų duomenų bazė sukurta naudojant MySQL 3.x, atnaujinant į MySQL 4.x lietuviški "
-"simboliai atrodys iškraipyti. Problemą išspręsite konvertavę duomenų bazę į UTF8. Jei "
-"duomenų bazė jau konvertuota, tuomet ši operacija nieko nesugadins, todėl jei Jūs nesate "
-"tikri, ar to reikia, galite drąsiai konvertuoti. Po šios operacijos reikia išvalyti duomenų "
-"bazės talpyklę (Ištrinti duomenų bazės tapyklę), kad talpyklėje neliktų nekonvertuotų tekstų."
+"simboliai atrodys iškraipyti. Problemą išspręsite konvertavę duombazę į UTF8. Jei duombazė "
+"jau konvertuota, tuomet ši operacija nieko nesugadins, todėl jei jūs nesate tikri ar to "
+"reikia, galite drąsiai konvertuoti. Po šios operacijos reikia išvalyti duombazės talpykę "
+"(Delete database cache), kad talpyklėje neliktu nekonvertuotų tekstų."
 
 msgid "Database successfully converted to UTF8"
-msgstr "Duomenų bazė konvertuota į UTF8 sėkmingai"
+msgstr "Duombazė konvertuota į UTF8 sėkmingai"
 
 msgid "No conversion required"
 msgstr "Konvertavimas nereikalingas"
-
-#, fuzzy
-msgid "Backup the database"
-msgstr "Optimizuoti duombazę"
-
-msgid ""
-"Backup all your Gallery data (item data, users, comments, etc.) to a single file in your "
-"storage folder.  The backup does not include the image files.  Before running the backup, "
-"your Gallery installation needs to be set into maintenance mode, as this is not done "
-"automatically."
-msgstr ""
-
-msgid "Backing up Gallery Database"
-msgstr ""
-
-#, fuzzy
-msgid "Exporting..."
-msgstr "Pasiruošimas..."
-
-#, c-format
-msgid "Database backup completed and the backup file is located at: %s"
-msgstr ""
-
-msgid ""
-"Please note that your backup contains sensitive data (like passwords) and should not be "
-"stored online! We recommend that you download it from your server and keep it safely offline."
-msgstr ""
 
 msgid "Delete user sessions"
 msgstr "Ištrinti vartotojo sesijas"
 
 msgid ""
 "Delete all persistent user sessions according to your current session expiration settings."
-msgstr "Pagal Jūsų sesijos pasibaigimo nustatymus ištrinti visas dabartinio vartotojo sesijas."
+msgstr "Pagal jūsų sesijos pasibaigimo nustatymus ištrinti visas dabartinio vartotojo sesijas."
 
 #, c-format
 msgid "Deleted %d sessions."
 msgstr "Ištrinta sesijų %d."
 
 msgid "Delete database cache"
-msgstr "Išvalyti duomenų bazės talpyklą"
+msgstr "Išvalyti duombazės talpyklą"
 
 msgid ""
 "Gallery stores commonly used database information on disk for increased performance. If you "
 "modify the database directly, you should run this task to clean out the cache and force "
 "Gallery to reload the information from the database."
 msgstr ""
-"Kad būtų pagerintas našumas, Galerija dažniausiai naudojamą duomenų bazės informaciją laiko "
-"diske. Jei Jūs keitėte duomenų bazę rankiniu būdu, tuomet reikia įvykdyti šią užduotį, kad "
-"būtų išvalyta Galerijos talpykla ir įkelta pakeista informacija iš duomenų bazės."
+"Galerija, kad pagerinti našumą, dažniausias naudojamą duomenų bazės informaciją laiko "
+"diske.  Jei jūs keitėte duomenų bazę rankiniu būdu, tuomet jums reikia įvykdyti šią užduotį, "
+"kad išvalyti Galerijos talpyklą ir įkelti pakeistą informaciją iš duombazės."
 
 #, c-format
 msgid "Successfully deleted directory: %s"
@@ -727,17 +671,16 @@ msgstr "Negaliu pašalinti aplanko: %s"
 msgid "Delete template cache"
 msgstr "Trinama šablonų talpykla"
 
-#, fuzzy
 msgid ""
 "Gallery compiles template files and saves them for increased performance.  If you're "
 "experiencing problems that say <i>Smarty error</i> then you might try running this task.  "
-"Also run this if you add or remove any local/*.tpl or theme override so Smarty will find the "
-"right file."
+"Also run this if you remove a local/*.tpl file so Smarty will switch back to the default tpl "
+"file."
 msgstr ""
-"Galerija kompiliuoja šablonų failus ir juos išsaugo, kad būtų pagerintas našumas. Jei "
-"gaunate pranešimą <i>Smarty error</i>, tuomet pabandykite įvykdyti šią užduotį. Jei Jūs "
-"pašalinote local/*.tpl failą, Jums taip pat reikia įvykdyti šią užduotį, kad Smarty sugrįžtų "
-"prie numatyto .tpl failo."
+"Galerija kompiliuoja šablonų failus ir juos išsaugo, kad pagerinti našumą. Jei jums gaunate "
+"pranešimas <i>Smarty error</i>, tuomet pabandykite įvykdyti šią užduotį.  Jei jūs pašalinote "
+"local/*.tpl failą, jums taip pat reikia įvykdyti šią užduotį, kad Smarty sugrįžtu prie "
+"numatyto tpl failo."
 
 msgid "Template cache deleted successfully"
 msgstr "Šablonų talpykla pašalinta sėkmingai"
@@ -782,7 +725,7 @@ msgid "Title"
 msgstr "Antraštė"
 
 msgid "Owner"
-msgstr "Savinikas"
+msgstr "Sąvinikas"
 
 msgid "Dynamic Album"
 msgstr "Dinaminis albumas"
@@ -814,15 +757,7 @@ msgstr "Nepavyko sukurti repozicijų talpyklos kelio."
 msgid ""
 "Couldn't create cache subdirectory. Make sure the web server has write permissions in it."
 msgstr ""
-"Nepavyko sukurti talpyklos aplanko. Įsitikinkite, kad web serveris turi teisę į jį rašyti."
-
-#, c-format
-msgid "Preparing %s"
-msgstr "Ruošiamas %s"
-
-#, c-format
-msgid "Downloading %s"
-msgstr "Atsiunčiama %s"
+"Nepavyko sukurti talpyklos aplanko. Įsitikinkite kad web serveris turi teisę į jį rašyti."
 
 msgid "Official Release Repository"
 msgstr "Oficialus leidimas"
@@ -875,26 +810,30 @@ msgid "Albums First"
 msgstr "Pirma albumai"
 
 msgid "Most Viewed First"
-msgstr "Pirma dažniausiai žiūrimi"
+msgstr "Dažniausiai žiūrimi pirmi"
 
 msgid "Ascending"
-msgstr "Didėjimo tvarka"
+msgstr "Didėlimo tvarka"
 
 msgid "Descending"
 msgstr "Mažėjimo tvarka"
 
-#, c-format
-msgid "Powered by Gallery v%s"
-msgstr "Veikia su Galerija v%s"
-
 msgid "Validation disabled until you set allowSessionAccess in config.php"
-msgstr "Patvirtinimas neleistinas, kol nebus nustatytas allowSessionAccess faile config.php"
+msgstr ""
+"Patvirtinimas neįgalintas, kad įgalinti reikia nustatyti allowSessionAccess faile config.php"
 
 msgid "This page is valid XHTML 1.0"
 msgstr "Šis puslapis yra teisingas XHTML 1.0"
 
 msgid "Donate to the Gallery project"
 msgstr "Paremti projektą Gallery"
+
+msgid "G2.2: Double Double"
+msgstr "G2.2: Dvigubas dvejetas"
+
+#, c-format
+msgid "Powered by Gallery v%s"
+msgstr "Veikia su Galerija v%s"
 
 #, c-format
 msgid "Estimated time remaining: %d:%02d"
@@ -920,10 +859,10 @@ msgid "Column width (pixels)"
 msgstr "Stulpelio plotis (taškeliais)"
 
 msgid "Show image owners"
-msgstr "Rodyti paveikslų savininkus"
+msgstr "Rodyti paveikslų sąvininkus"
 
 msgid "Show album owners"
-msgstr "Rodyti albumų savininkus"
+msgstr "Rodyti albumų sąvininkus"
 
 msgid "Show micro navigation thumbnails"
 msgstr "Rodyti miniatiūrinius navigacijos mygtukus"
@@ -959,13 +898,13 @@ msgid "Item Frame"
 msgstr "Elemento rėmelis"
 
 msgid "Photo Frame"
-msgstr "Nuotraukos rėmelis"
+msgstr "Fotografijos rėmelis"
 
 msgid "Color Pack"
 msgstr "Spalvų paketas"
 
 msgid "You must enter a number greater than 0"
-msgstr "Jūs turite įvesti skaičių didesnį už 0"
+msgstr "Jūsų turite įvesti skaičių didesnį už 0"
 
 msgid "Error reading block settings. Clear your browser cache and try again."
 msgstr ""
@@ -1001,6 +940,13 @@ msgstr "skaičiuoklės dokumetas"
 
 msgid "file"
 msgstr "failas"
+
+msgid "Back"
+msgstr "Atgal"
+
+#, c-format
+msgid "Back to %s"
+msgstr "Atgal į %s"
 
 msgid "User"
 msgstr "Vartotojas"
@@ -1072,14 +1018,6 @@ msgstr "pagrindas"
 msgid "unknown"
 msgstr "nežinomas"
 
-#, c-format
-msgid "API = Core %s, Module %s, Theme %s, Embed %s"
-msgstr ""
-
-#, fuzzy
-msgid "Gallery URL"
-msgstr "Galerija"
-
 msgid "Gallery version"
 msgstr "Gallery versija"
 
@@ -1093,10 +1031,10 @@ msgid "Toolkits"
 msgstr "Grafikos įrankiai"
 
 msgid "Acceleration"
-msgstr "Akseleracija"
+msgstr "Aksceleracija"
 
 msgid "Operating system"
-msgstr "Operacinė sistema"
+msgstr "Operacijų sistema"
 
 msgid "Default theme"
 msgstr "Numatyta tema"
@@ -1105,13 +1043,13 @@ msgid "gettext"
 msgstr "gettext"
 
 msgid "enabled"
-msgstr "įjungta"
+msgstr "įgalinta"
 
 msgid "disabled"
-msgstr "išjungta"
+msgstr "uždraustas"
 
 msgid "Locale"
-msgstr "Lokalė"
+msgstr "Localė"
 
 msgid "Browser"
 msgstr "Naršyklė"
@@ -1119,65 +1057,6 @@ msgstr "Naršyklė"
 #, c-format
 msgid "Rows in %s table = %d"
 msgstr "Lentelėje %s yra stulpelių %d"
-
-#, c-format
-msgid "The %s \"%s\" is not installed and will not be backed up."
-msgstr ""
-
-#, c-format
-msgid "\"%s\" has no creation sql and will not be backed up."
-msgstr ""
-
-#, c-format
-msgid "Unable to load table description for \"%s\", no data will be exported."
-msgstr ""
-
-msgid ""
-"Unable to find the XML parser.  The PHP XML parsing extension must be loaded.  Terminating "
-"database import."
-msgstr ""
-
-#, c-format
-msgid "The exported file is not the correct version. Expecting %s received %s."
-msgstr ""
-
-#, fuzzy, c-format
-msgid "Unable to close import file: %s"
-msgstr "Negaliu pašalinti aplanko: %s"
-
-#, fuzzy, c-format
-msgid "Unable to open import file: %s"
-msgstr "Negaliu pašalinti aplanko: %s"
-
-#, c-format
-msgid "Import file doesn't exist: %s"
-msgstr ""
-
-#, c-format
-msgid "Plugin %s is not currently available."
-msgstr ""
-
-#, c-format
-msgid "The available version of plugin \"%s\" may not be compatible with the imported version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The currently installed core API version required by \"%s\" may not be compatible with the "
-"imported version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The installed module API version required by \"%s\" may not be compatible with the imported "
-"version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The installed theme API version required by \"%s\" is not compatible with the imported "
-"version."
-msgstr ""
 
 msgid "Successfully saved theme settings"
 msgstr "Temos nustatymai išsaugoti sėkmingai"
@@ -1198,10 +1077,37 @@ msgid "Test email sent successfully"
 msgstr "Bandomasis el. laiškas išsiųstas sėkmingai"
 
 msgid "There was a problem processing your request, see below for details."
-msgstr "Vykdant Jūsų užklausą kilo problemų, žemiau rasite daugiau informacijos."
+msgstr "Vykdant jūsų užklausą kilo problemų, žemiau rasite daugiau informacijos."
 
 msgid "Error sending test email, see below for details."
 msgstr "Nepavyko išsiųsti bandomojo el. laiško, žemiau rasite daugiau informacijos."
+
+msgid "Language Settings"
+msgstr "Kalbos nustatymai"
+
+msgid ""
+"Select language defaults for Gallery. Individual users can override this setting in their "
+"personal preferences or via the language selector block if available. Gallery will try to "
+"automatically detect the language preference of each user if the browser preference check is "
+"enabled."
+msgstr ""
+"Nurodykite numatytą galerijos kalbą. Atskiri vartotojai galės pakeisti kalbą savo nuožiūra "
+"pasinaudodami kalbos pasirinkimo bloku, jei jis prieinamas. Jei įjungtas naršyklės nustatymų "
+"tikrinimas, tuomet Galerija bandys nustatyti kalbą automatiškai."
+
+msgid "Default language"
+msgstr "Numatyta kalba"
+
+msgid "Check Browser Preference"
+msgstr "Tikrinti naršyklės nustatymus"
+
+#, c-format
+msgid ""
+"Your webserver does not support localization.  Please instruct your system administrator to "
+"reconfigure PHP with the %s option enabled."
+msgstr ""
+"Jūsų web serveris nepalaiko lokalizavimo.  Paprašykite sistemos administratoriaus kad "
+"suderintu PHP su %s palaikymu."
 
 msgid "Date Formats"
 msgstr "Datos formatas"
@@ -1212,9 +1118,9 @@ msgid ""
 "enter a format string.  Note that the display of some tokens varies according to the active "
 "language."
 msgstr ""
-"Nurodoma kaip Galerijoje rodoma data ir laikas. Informacijos, kaip nustatyti šiuos "
-"kintamuosius rasite %sphp.net%s svetainėje. Atkreipkite dėmesį į tai, kad tie patys "
-"kintamieji gali pateikti skirtingus rezultatus priklausomai nuo aktyvios kalbos."
+"Nurodoma kaip Galerijoje rodoma data ir laikas. Informacijos kaip nustatyti šiuos "
+"kintamuosius rasite %sphp.net%s svetainėje.  Atkreipkite dėmesį, kad tie patys kintamieji "
+"gali pateikti skirtingus rezultatus priklausomai nuo aktyvios kalbos."
 
 msgid "Style"
 msgstr "Stilius"
@@ -1223,7 +1129,7 @@ msgid "Format"
 msgstr "Formatas"
 
 msgid "Sample"
-msgstr "Pavyzdys"
+msgstr "Pavizdys"
 
 msgid "Date"
 msgstr "Data"
@@ -1259,10 +1165,6 @@ msgstr "Sesijos gyvavimo laikas"
 msgid "Inactivity Timeout"
 msgstr "Neaktyvumo laiko riba"
 
-#, fuzzy
-msgid "Site Administration Session Timeout"
-msgstr "Galerijos administravimas"
-
 msgid "Embedded Markup"
 msgstr "Integruotas žymėjimas"
 
@@ -1288,10 +1190,10 @@ msgid ""
 "authentication information if required.  Optionally add :port after the server name to use a "
 "non-default port."
 msgstr ""
-"Galerija naudoja į PHP integruotą pašto funkciją, kurios pagalba gali siųsti el. laiškus be "
-"papildomo konfigūravimo. Norėdami naudoti smtp/mail serverį, žemiau nurodykite prisijungimo "
-"informaciją, įskaitant autentifikavimo duomenis, jei jie būtini. Papildomai po serverio "
-"pavadinimo galite nurodyti portą, jei naudojate ne standartinį."
+"Tik įdiegta Galerija naudoja į PHP integruotą pašto funkciją, kurios pagalba gali siųsti "
+"laiškus be papildomo konfigūravimo.  Norint naudoti smtp/mail serverį žemiau nurodykite "
+"prisijungimo informaciją, įskaitant autentifikavimo duomenis jei jie būtini.  Papildomai po "
+"serverio pavadinimo galite nurodyti portą, jei naudojate ne standartinį."
 
 msgid "Server"
 msgstr "Serveris"
@@ -1312,8 +1214,8 @@ msgid ""
 "Send a test email to verify your settings are correct (whether using PHP mail or SMTP "
 "settings above).  Below enter a recipient email address for a test message."
 msgstr ""
-"Išsiųsti bandomą el. laišką, kad būtų patikrinti nustatymai (nesvarbu, ar naudojami PHP ar "
-"SMTP nustatymai). Žemiau nurodykite bandomojo laiško gavėjo el. pašto adresą."
+"Išsiųsti bandomą el. laišką, kad aptikrinti nustatymus (nesvarbu ar naudojami PHP ar SMTP "
+"nustatymai).  Žemiau nurodykite bandomojo laiško gavėjo el. pašto adresą."
 
 msgid "Send Email"
 msgstr "Siųsti laišką"
@@ -1322,16 +1224,16 @@ msgid "Email Test Error"
 msgstr "El. pašto testavimo klaida"
 
 msgid "Cookies"
-msgstr "Slapukai"
+msgstr "Sausainukai"
 
 msgid ""
 "When Gallery is embedded in another application (portal, CMS, forum, etc.), then you have "
 "the choice between two options. Everyone else does not have to care about the cookie "
 "settings. Read on for more details."
 msgstr ""
-"Kai Galerija integruota į kitą sistemą (portalas, turinio valdymo sistema, ar pan.), tuomet "
-"Jūs turite du pasirinkimo variantus. Visiems kitiems šie nustatymai neturėtu rūpėti. Jei "
-"įdomu, spauskite simbolį „+“ ir skaitykite daugiau."
+"Kai galerija integruota į kitą sistemą (portalas, turinio valdymo sistema, ar pan.), tuomet "
+"jūs turite du pasirinkimo variantus. Visiems kitiems šie nustatymai neturėtu rūpėti. Jei "
+"įdomu spauskite simbolį „+“ ir skaitykite daugiau."
 
 msgid ""
 "If your Gallery is embedded and you leave the following fields empty, then all DownloadItem "
@@ -1345,16 +1247,6 @@ msgid ""
 "part of the paths that is equal, in this case it is '/application/'. Most often it is just "
 "'/'."
 msgstr ""
-"Jei Jūsų galerija integruota į kitą sistemą ir neužpildysite tolesnių laukelių, visos "
-"Parsiunčiamų elementų nuorodos (nuotraukų ir kitų elementų nuorodos) integruotoje galerijoje "
-"turės <b>prijungtą GALLERYSID eilutę</b> nuorodoje, kas sudaro <b>nežymią saugumo riziką</"
-"b>, kai Jūsų galerijos vartotojai kopijuoja ir įkelia paveikslėlių  nuorodas forumuose, "
-"svečių knygose ir pan. Alternatyva yra nustatyti <b>slapukų kelią</b>. Tuomet Galerija "
-"<b>nepridės GALLERYSID prie integruoto Parsiunčiamo elemento nuorodos</b>. Pvz., kai "
-"Galerija pasiekiama adresu http://www.pavyzdys.com/programa/gallery/ ir integruotoji "
-"programa yra adresu http://www.pavyzdys.com/programa/, tada turite palyginti kelia /programa/"
-"gallery/ su /programa/. Slapukų kelias yra sutampanti kelių dalis, šiuo atveju '/programa/'. "
-"Dažniausiai tai būna tiesiog '/'."
 
 msgid ""
 "The <b>cookie domain</b> is also only needed for embedded Gallery installs and only if you "
@@ -1365,34 +1257,24 @@ msgid ""
 "to set the cookie domain example.com (the part of the host string that is common to both, "
 "Gallery and the embedding application)."
 msgstr ""
-"<b>Slapukų domenas</b> taip pat reikalingas tik integruotoms Galerijos instaliacijoms ir tik "
-"jeigu norite atsikratyti GALLERYSID eilutės integruotuose ElementųParsiuntimo nuorodose. "
-"<b>Daugeliu atvejų, slapukų domenas gali būti paliktas tuščias.</b> Nustatykite jį tik jeigu "
-"Galerija ir integruota programa pasiekiamos tik <b>skirtinguose subdomenuose</b>, pvz. kai "
-"Galerija yra http://nuotraukos.pavyzdys.com/ o programa http://www.pavyzdys.com/, tuomet Jūs "
-"turite nustatyti slapukų domeną pavyzdys.dom (domeno eilutės dalį, kuri yra bendra tiek "
-"Galerijai, tiek programai, į kurią Galerija yra įtraukta."
 
 msgid ""
 "Once you change the cookie settings, <b>all registered users</b> of your Gallery will "
 "<b>have to clear their browser cookie cache</b>. If they do not, they will experience "
 "login / logout / lost session problems."
 msgstr ""
-"Kai pakeisite slapukų nustatymus, <b>visi</b> Jūsų Galerijos <b>registruoti vartotojai turės "
-"išvalyti savo naršyklių slapukų podėlį</b>. Jeigu jie to nepadarys, susidurs su "
-"prisijungimo / atsijungimo / prarastų sesijų problemomis."
 
 msgid "Path"
 msgstr "Kelias"
 
 msgid "Invalid cookie path"
-msgstr "Netinkamas slapukų kelias"
+msgstr "Netinkamas sausainuko kelias"
 
 msgid "Domain"
 msgstr "Domenas"
 
 msgid "Invalid cookie domain"
-msgstr "Netinkamas slapukų domenas"
+msgstr "Blogas sausainuko domenas"
 
 msgid "Locking System"
 msgstr "Rakinimo sistema"
@@ -1406,13 +1288,13 @@ msgid ""
 "timeouts, you can try switching to database locking instead.  It's ok to switch back and "
 "forth."
 msgstr ""
-"Galerija naudoja rakinimo sistemą, kad būtų išvengta paralelių pakeitimų, kurie vienas su "
-"kitu konfliktuoja. Yra du rakinimo tipai, kiekvienas turi privalumų ir trūkumų. <b>Failo</b> "
-"pagrindu rakinimo sistema yra greita ir efektyvi, tačiau ji neveiks su NFS failų sistema ir "
-"bus nepatikima Windows operacinėje sistemoje. <b>Duomenų bazės</b> rakinimo sistema yra "
-"lėtesnė, tačiau patikima. Jei nežinote, ką pasirinkti, rekomenduojame failų rakinimo "
-"sistemą. Jei naudodamiesi Galerija gaunate daug pranešimų „lock timeout“, tuomet bandykite "
-"pakeisti rakinimo sistemą į duomenų bazės.  Šį nustatymą keisti nepavojinga."
+"Galerija naudoja rakinimo sistemą, kad išvengti paralelių pakeitimų, kurie vienas su kitu "
+"konfliktuoja.  Yra du rakinimo tipai, kiekvienas turi privalumų ir trūkumų.  <b>Failo</b> "
+"pagrindu rakinimo sistema yra greita ir efektinga, tačiau ji neveiks su NFS failų sistema ir "
+"bus nepatikima Windows operacinėje sistemoje.  <b>Duombazės</b> rakinimo sistema yra "
+"lėtesnė, tačiau patikima.  Jei jūs nežinote ką pasirinkti, mes rekomenduojama failų rakinimo "
+"sistemą.  Jei naudodamiesi galerija gaunate daug pranešimų „lock timeout“, tuomet bandykite "
+"pakeisti rakinimo sistemą į duombazės.  Šį nustatimą keisti nepavojinga."
 
 msgid "Lock system"
 msgstr "Rakinimo sistema"
@@ -1427,10 +1309,10 @@ msgid ""
 "priority so that they play nice.  If you're in a shared hosting environment and your web "
 "host is complaining, try setting your priority low."
 msgstr ""
-"Kai kurie Galerijos moduliai vaizdams apdoroti, archyvuoti ir kitoms operacijoms naudos "
-"programas Jūsų serveryje.  Šios programos gali būti labai reiklios kompiuterio resursams ir "
-"įtakoti bendrą web serverio našumą.  Jūs galite nurodyti, kad šios programos veiktų žemesniu "
-"prioritetu, kad nelėtintų kitų apkrauto serverio procesų. Jei naudojate bendrą serverį "
+"Kai kurie Galerijos moduliai, kad apdoroti vaizdus, archyvuoti ir kitoms operacijoms, naudos "
+"jūsų serverio programas.  Šios programos gali būti labai reiklios kompiuterio resursams ir "
+"įtakoti bendrą web serverio našumą.  Jūs galite nurodyti, kad šios programos veiktu žemesniu "
+"prioritetu, kad nestabdytu kitų apkrauto serverio procesų.  Jei jūs naudojate bendrą serverį "
 "(shared hosting) ir paslaugos tiekėjas skundžiasi, tuomet pabandykite nustatyti žemą "
 "prioritetą."
 
@@ -1476,7 +1358,7 @@ msgid "Username '%s' already exists"
 msgstr "Vartotojas „%s“ jau yra"
 
 msgid "Full Name"
-msgstr "Vardas ir pavardė"
+msgstr "Pilnas vardas"
 
 msgid "Email Address"
 msgstr "El. pašto adresas"
@@ -1520,7 +1402,7 @@ msgstr "Pašalinti vartotoją"
 
 #, c-format
 msgid "User %s is the owner of %s items."
-msgstr "Vartotojui %s priklausančių elementų kiekis: %s."
+msgstr "Vartotojui %s priklausanti elementų kiekis: %s."
 
 #, c-format
 msgid "Delete user <strong>%s</strong> and..."
@@ -1536,10 +1418,10 @@ msgid ""
 "%s doesn't have permission to delete will also be reassigned to a new owner."
 msgstr ""
 "Pašalinti visus vartotojo %s elementus ir priskirti naują savininką ne tuštiems albumams. "
-"Elementams, kurių trinti %s neturi teisės, taip pat bus priskirtas naujas savininkas."
+"Elementams kurių trinti %s neturi teisės, taip pat bus priskirtas naujas savininkas."
 
 msgid "New owner (leaving blank means one of the Site Admins):"
-msgstr "Naujas savininkas (neužpildžius reikš vieną iš Svetainės administratorių):"
+msgstr "Naujas savininkas (tuščia reiškia vienas iš svetainės administratorių):"
 
 #, c-format
 msgid "User '%s' does not exist! Cannot assign items to a nonexistent user."
@@ -1585,20 +1467,20 @@ msgid "Members"
 msgstr "Nariai"
 
 msgid "&laquo; first"
-msgstr "&laquo; pirmas"
+msgstr "&laquo; į pradžią"
 
 msgid "&laquo; back"
 msgstr "&laquo; atgal"
 
 #, c-format
 msgid "Viewing page %d of %d"
-msgstr "Žiūrimas puslapis %d iš %d"
+msgstr "Matomas puslapis %d iš %d"
 
 msgid "next &raquo;"
-msgstr "kitas &raquo;"
+msgstr "pirmyn &raquo;"
 
 msgid "last &raquo;"
-msgstr "į pabaigą &raquo;"
+msgstr "į galą &raquo;"
 
 msgid "Filter"
 msgstr "Filtras"
@@ -1654,7 +1536,7 @@ msgid "E-mail Address"
 msgstr "El. pašto adresas"
 
 msgid "(suggested)"
-msgstr "(siūlomas)"
+msgstr "(rekomenduojamas)"
 
 msgid "Options"
 msgstr "Parinktys"
@@ -1677,49 +1559,6 @@ msgid_plural "%d failed login attempts since the last successful login."
 msgstr[0] "Po paskutinio sėkmingo prisijungimo buvo %d nesėkmingas."
 msgstr[1] "Po paskutinio sėkmingo prisijungimo buvo %d nesėkmingi."
 msgstr[2] "Po paskutinio sėkmingo prisijungimo buvo %d nesėkmingų."
-
-#, fuzzy
-msgid "Recent Events"
-msgstr "Anuliuoti peržiūros skaitliukus"
-
-msgid "Type"
-msgstr ""
-
-#, fuzzy
-msgid "Location"
-msgstr "Veiksmas"
-
-#, fuzzy
-msgid "Client"
-msgstr "sąrašas"
-
-#, fuzzy
-msgid "No events have been reported yet."
-msgstr "Nepažymėti jokie paketai."
-
-#, fuzzy
-msgid "Event Details"
-msgstr "Klaidos detalės"
-
-#, fuzzy
-msgid "User Id"
-msgstr "Vartotojas"
-
-#, fuzzy
-msgid "Referer"
-msgstr "Perrūšiuoti"
-
-#, fuzzy
-msgid "Details"
-msgstr "Numatyti nustatymai"
-
-#, fuzzy
-msgid "no summary"
-msgstr "Santrauka"
-
-#, fuzzy
-msgid "An error occurred while retrieving the event log entry details."
-msgstr "Keičiantis duomenimis su duomenų baze įvyko klaida."
 
 msgid "Group Management"
 msgstr "Grupių tvarkymas"
@@ -1784,153 +1623,8 @@ msgstr[0] "Jūsų filtrą atitiko %d grupė"
 msgstr[1] "Jūsų filtrą atitiko %d grupės"
 msgstr[2] "Jūsų filtrą atitiko %d grupių"
 
-msgid "Please make sure that your internet connection is set up properly or try again later."
-msgstr "Įsitikinkite, kad Jūsų interneto ryšys nustatytas tinkamai ar pabandykite vėliau."
-
-#, c-format
-msgid "Failed to scan status from plugin: %s."
-msgstr "Nepavyko nuskaityti priedo %s statuso."
-
-msgid ""
-"Your local copy of the repository was broken and has been fixed.  Please download the plugin "
-"list again."
-msgstr ""
-"Lokali Jūsų saugyklos kopija buvo sugadinta ir dabar sutvarkyta. Atsisiųskite priedų sąrašą "
-"iš naujo."
-
-#, fuzzy, c-format
-msgid "Failed to delete the locale directory for %s."
-msgstr "Negaliu pašalinti aplanko: %s"
-
-#, c-format
-msgid "Failed to download the following language packages for the %s plugin:"
-msgstr ""
-
-#, fuzzy, c-format
-msgid ""
-"Failed to install language packages for %s plugin because the following files/directories "
-"could not be modified:"
-msgstr "Nepavyko gauti priedo %s, nes šie failai/aplankai negali būti keičiami:"
-
-#, fuzzy
-msgid "The repository index has been successfully refreshed."
-msgstr "Saugyklos indeksas sėkmingai atnaujintas."
-
-#, fuzzy
-msgid "The language settings have been saved."
-msgstr "Nepažymėti jokie paketai."
-
-#, fuzzy, c-format
-msgid "%d language pack upgraded or downloaded."
-msgid_plural "%d language packs upgraded or downloaded."
-msgstr[0] "%d kalbos paketas pašalintas."
-msgstr[1] "%d kalbos paketai pašalinti."
-msgstr[2] "%d kalbos paketų pašalinta."
-
-#, c-format
-msgid "%d language pack deleted."
-msgid_plural "%d language packs deleted."
-msgstr[0] "%d kalbos paketas pašalintas."
-msgstr[1] "%d kalbos paketai pašalinti."
-msgstr[2] "%d kalbos paketų pašalinta."
-
-msgid "All the language packages for the selected languages are current"
-msgstr ""
-
-msgid ""
-"Select language defaults for Gallery. Individual users can override this setting in their "
-"personal preferences or via the language selector block if available. Gallery will try to "
-"automatically detect the language preference of each user if the browser preference check is "
-"enabled."
-msgstr ""
-"Nurodykite numatytą galerijos kalbą. Atskiri vartotojai galės pakeisti kalbą savo nuožiūra "
-"pasinaudodami kalbos pasirinkimo bloku, jei jis prieinamas. Jei įjungtas naršyklės nustatymų "
-"tikrinimas, tuomet Galerija bandys nustatyti kalbą automatiškai."
-
-msgid "Default language"
-msgstr "Numatyta kalba"
-
-msgid "Check Browser Preference"
-msgstr "Tikrinti naršyklės nustatymus"
-
-#, c-format
-msgid ""
-"Your webserver does not support localization.  Please instruct your system administrator to "
-"reconfigure PHP with the %s option enabled."
-msgstr ""
-"Jūsų web serveris nepalaiko lokalizavimo. Paprašykite sistemos administratoriaus, kad "
-"suderintų PHP su %s palaikymu."
-
-msgid "Configure your Gallery"
-msgstr "Konfigūruoti Galeriją"
-
-msgid ""
-"Before you can proceed, you have to change some permissions so that Gallery can install "
-"plugins for you.  It's easy.  Just execute the following in a shell or via your ftp client:"
-msgstr ""
-"Prieš pradedant reikia pakeisti keletą prieigos teisių, kad Galerija galėtų įdiegti priedus. "
-"Tai paprasta. Reikia tik įvykdyti šias komandas komandinėje aplinkoje arba ftp kliente:"
-
-msgid ""
-"Before you can proceed, please insure the following directories and sub-directories are "
-"writable, so that Gallery can install plugins for you:"
-msgstr ""
-
-#, fuzzy
-msgid ""
-"If you have trouble changing permissions, ask your system administrator for assistance.  "
-"When you've fixed the permissions, click the Check Again button to proceed."
-msgstr ""
-"Jei jums nepavyksta pakeisti prieigos teisių, paprašykite pagalbos pas sistemos "
-"administratorių. Kai sutvarkysite visas teises, spauskite mygtuką Tęsti."
-
-#, fuzzy
-msgid "Check Again"
-msgstr "Žymėti viską"
-
-#, fuzzy
-msgid "Add or Remove Languages"
-msgstr "Pridėti/Šalinti vartotojus"
-
-msgid ""
-"Please click on the link below to go to 'Download Plugin List' and choose 'Update Plugin "
-"List' to get the latest language package information."
-msgstr ""
-
-#, fuzzy
-msgid "Administer Repositories"
-msgstr "Bendruomenės leidimas"
-
-#, fuzzy
-msgid "Upgrade"
-msgstr "atnaujinti"
-
-msgid "Remove"
-msgstr "Pašalinti"
-
-#, fuzzy
-msgid "Download"
-msgstr "atsisiųsti"
-
-#, fuzzy
-msgid "No Change"
-msgstr "Keisti"
-
-#, fuzzy
-msgid "Select All"
-msgstr "Pasirinkta"
-
-msgid ""
-"There are no local repository indices from which to determine language packages. Please "
-"click on the link below to go to \"Download Plugin List\" and choose \"Update Plugin List\" "
-"to get the latest language package information."
-msgstr ""
-
 msgid "System Maintenance"
 msgstr "Sistemos tvarkymas"
-
-msgid "Gallery must be in maintenance mode before the task can be run."
-msgstr ""
 
 #, c-format
 msgid "Completed %s task successfully."
@@ -1939,41 +1633,6 @@ msgstr "Užduotis %s atlikta sėkmingai."
 #, c-format
 msgid "The %s task failed to complete successfully."
 msgstr "Nepavyko užbaigti užduoties %s"
-
-msgid "Maintenance Mode has been turned on."
-msgstr ""
-
-msgid "Maintenance Mode has been turned off."
-msgstr ""
-
-#, fuzzy
-msgid "Maintenance Mode"
-msgstr "Priežiūra"
-
-msgid "Restrict user access to the system while maintenance is being performed."
-msgstr ""
-
-#, fuzzy
-msgid "Maintenance Mode Url"
-msgstr "Priežiūra"
-
-msgid ""
-"The Maintenance Mode Url specifies where requests will be redirected when access to the site "
-"has been restricted by the administrator."
-msgstr ""
-
-msgid ""
-"If left blank Gallery will display a default page with an administrator login link. This "
-"page will be themed when the code base is up to date, otherwise it will display a plain "
-"unstyled page."
-msgstr ""
-
-msgid "For example: /maintenance.html"
-msgstr ""
-
-#, fuzzy
-msgid "Set"
-msgstr "Nustatymai"
 
 msgid "Task name"
 msgstr "Užduoties pavadinimas"
@@ -1985,7 +1644,7 @@ msgid "Success/Fail"
 msgstr "Sėkmė/Klaida"
 
 msgid "Not run yet"
-msgstr "Dar nevykdyta"
+msgstr "Dar ne vykdyta"
 
 msgid "Success"
 msgstr "Sėkmė"
@@ -2015,14 +1674,14 @@ msgid ""
 "you can always get the most recent version of the page by forcing a refresh in your browser "
 "(typically by holding down the shift key and clicking the reload button)."
 msgstr ""
-"Pagerinti Galerijos našumą išsaugant visus puslapius duomenų bazėje. Tai gali žymiai "
+"Pagerinti Galerijos našumą išsaugant pilnus puslapius duomenų bazėje.  Tai gali žymiai "
 "sumažinti serverio resursų naudojimą. Trūkumas yra tas, kad matomas puslapis gali būti šiek "
-"tiek pasenęs, tačiau naujausią puslapio versiją visada galima pamatyti nurodant naršyklei "
-"parodyti naujausią puslapio versiją (daugumoje naršyklių tai atliekama klavišais ctrl+F5 "
-"arba ctrl+r)."
+"tiek pasenęs, tačiau naujausią puslapio versija visada galima pamatyti forsuojant naršyklę "
+"parodyti naujausią puslapio versiją (daugumoje naršyklių tai atliekama klavišų ctrl+F5 arba "
+"ctrl+r pagalba)."
 
 msgid "Partial Acceleration"
-msgstr "Dalinė akseleracija"
+msgstr "Dalinė aksceleracija"
 
 #, no-c-format
 msgid ""
@@ -2030,13 +1689,13 @@ msgid ""
 "dynamic data (like view counts) will not get updated right away.  All content that appears "
 "in blocks (like the random image block, any sidebar blocks, etc) will always be updated."
 msgstr ""
-"Dalinės akseleracijos pagalba gaunamas maždaug 10-25% našumo pagerėjimas, tačiau kai kurie "
-"dinaminių duomenų laukai (pvz. peržiūrėjimų skaitliukas) nebus atnaujinami tuoj pat. Visas "
-"turinys, kuris rodomas blokuose (atsitiktinio paveikslo blokas, šone esantys blokai, ir "
+"Dalinės aksceleracijos pagalba gaunamas maždaug 10-25% našumo pagerėjimas, tačiau kai kurie "
+"dinaminių duomenų laukai (pvz. pažiūrėjimų skaitliukas) nebus atnaujinami tuoj pat.  Visas "
+"turinys, kuris rodomas blokuose (atsitiktinio paveikslo blogas, šone esantys blokai, ir "
 "pan.) bus visada atnaujinti."
 
 msgid "Full Acceleration"
-msgstr "Visiška akseleracija"
+msgstr "Pilna aksceleracija"
 
 #, no-c-format
 msgid ""
@@ -2044,10 +1703,10 @@ msgid ""
 "image block, other sidebar blocks, number of items in your shopping cart, view counts, etc) "
 "will get updated until the saved page expires."
 msgstr ""
-"Visiškos akseleracijos dėka gaunamas maždaug 90% našumo pagerėjimas, tačiau jokie dinaminiai "
+"Pilnos aksceleracijos dėka gaunamas maždaug 90% našumo pagerėjimas, tačiau jokie dinaminiai "
 "laukai (atsitiktinio paveikslo blokas, kiti šoniniai blokai, pirkėjo kortelėje esančių "
-"prekių skaičius, peržiūrėjimų skaitiukai ir kita) nebus atnaujinami, kol išsaugoti puslapiai "
-"pasibaigs."
+"prekių skaičius, peržiūrėjimų skaitiukai, ir kita) nebus atnaujinami, kol išsaugoti "
+"puslapiai pasibaigs."
 
 msgid ""
 "You can additionally specify when saved pages expire.  Setting a longer expiration time will "
@@ -2055,19 +1714,19 @@ msgid ""
 "Lower expiration times mean that users will see more current data, but they will place a "
 "higher load on your server."
 msgstr ""
-"Papildomai galima nurodyti, kada išsaugoti puslapiai pasibaigs. Nustačius didesnį galiojimo "
-"periodą sumažės serverio apkrova, tačiau pailgės intervalas kol vartotojai pamatys "
-"pasikeitusius duomenis. Mažesnis galiojimo terminas reikš tai, kad vartotojai matys naujesnę "
-"informaciją, tačiau jie ir stipriau apkraus serverį."
+"Papildomai galima nurodyti kada  išsaugoti puslapiai pasibaigs.  Nustačius didesnį galiojimo "
+"periodą sumažės serverio apkrova, tačiau intervalas kol vartotojai pamatys pasikeitusius "
+"duomenis.  Mažesnis galiojimo terminas reikš tai, kad vartotojai matys naujesnę informaciją, "
+"tačiau jie ir stipriau apkraus serverį."
 
 msgid "Here are some standard acceleration profiles:"
-msgstr "Čia yra keletas akseleracijos profilių:"
+msgstr "Čia yra keletas aksceleracijos profilių:"
 
 msgid "Medium acceleration"
-msgstr "Vidutinė akseleracija"
+msgstr "Vidutinė aksceleracija"
 
 msgid "High acceleration"
-msgstr "Aukšta akseleracija"
+msgstr "Aukšta aksceleracija"
 
 msgid "Guest Users"
 msgstr "Neregistruoti vartotojai"
@@ -2075,35 +1734,20 @@ msgstr "Neregistruoti vartotojai"
 msgid "Expires after:"
 msgstr "Nebegalios po:"
 
-#, fuzzy
-msgid "Template Cache"
-msgstr "Trinama šablonų talpykla"
-
-#, c-format
-msgid ""
-"For optimal performance, Gallery caches all templates.  If you would like to %scustomize "
-"your template files%s, you should disable template caching temporarily so that changes take "
-"effect immediately without clearing the template cache."
-msgstr ""
-
-#, fuzzy
-msgid "Enable template caching"
-msgstr "Trinama šablonų talpykla"
-
 msgid "Clear Saved Pages"
 msgstr "Išvalyti išsaugotus puslapius"
 
 msgid "Status: Inactive"
-msgstr "Būsena: neaktyvus"
+msgstr "Būsena: ne aktyvus"
 
 msgid "__PLUGIN__ deactivated"
-msgstr "__PLUGIN__ išjungtas"
+msgstr "__PLUGIN__ deaktyvuotas"
 
 msgid "Status: Active"
-msgstr "Būsena: įjungtas"
+msgstr "Būsena: aktyvus"
 
 msgid "__PLUGIN__ activated"
-msgstr "__PLUGIN__ įjungtas"
+msgstr "__PLUGIN__ aktyvuotas"
 
 msgid "Status: Not Installed"
 msgstr "Būsena: ne įdiegtas"
@@ -2112,10 +1756,10 @@ msgid "__PLUGIN__ uninstalled"
 msgstr "__PLUGIN__ pašalintas"
 
 msgid "Status: Upgrade Required (Inactive)"
-msgstr "Būsena: reikalingas atnaujinimas (neaktyvus)"
+msgstr "Būsena: reikalingas atnaujinimas (ne aktyvus)"
 
 msgid "Status: Incompatible Plugin (Inactive)"
-msgstr "Būsena: nesuderinamas priedas (neaktyvus)"
+msgstr "Būsena: nesuderinamas priedas (ne aktyvus)"
 
 msgid "Status: Inactive (Configuration Required)"
 msgstr "Būsena: Neaktyvus (reikia sukonfigūruoti)"
@@ -2150,11 +1794,12 @@ msgstr "Ne"
 msgid "Do you really want to delete __PLUGIN__?"
 msgstr "Ar tikrai norite pašalinti __PLUGIN__?"
 
+#, fuzzy
 msgid "This plugin will be uninstalled and its files will be deleted permanently."
-msgstr "Šis priedas bus pašalintas ir jo failai bus neatstatomai ištrinti."
+msgstr "Šis priedas bus pašalintas su visais jo failais."
 
 msgid "The files of this plugin will be deleted permanently."
-msgstr "Šio priedo failai bus neatstatomai ištrinti."
+msgstr ""
 
 msgid "disabled(__COUNT__)"
 msgstr "uždrausta(__COUNT__)"
@@ -2163,7 +1808,7 @@ msgid "up to date(__COUNT__)"
 msgstr "atnaujinti(__COUNT__)"
 
 msgid "not installed(__COUNT__)"
-msgstr "neįdiegtas(__COUNT__)"
+msgstr "ne įdiegti(__COUNT__)"
 
 msgid "upgrade required(__COUNT__)"
 msgstr "būtinas atnaujinimas(__COUNT__)"
@@ -2172,7 +1817,7 @@ msgid "incompatible(__COUNT__)"
 msgstr "nesuderinamų(__COUNT__)"
 
 msgid "Failed to completely delete __PLUGIN__"
-msgstr "Visiškai ištrinti nepavyko __PLUGIN__"
+msgstr "Pilnai ištrinti nepavyko __PLUGIN__"
 
 msgid "Gallery Plugins"
 msgstr "Galerijos priedai"
@@ -2186,7 +1831,7 @@ msgid ""
 "started."
 msgstr ""
 "Norite daugiau galimybių? Nauji priedai yra vos už kelių pelės paspaudimų. Norėdami pradėti "
-"spauskite nuorodą %s."
+"spausite nuorodą %s."
 
 msgid ""
 "Gallery features come as separate plugins.  You can download and install plugins to add more "
@@ -2194,11 +1839,11 @@ msgid ""
 "order to use a feature, you must install, configure (if necessary) and activate it.  If you "
 "don't wish to use a feature, you can deactivate it."
 msgstr ""
-"Galerijos galimybės pateiktos kaip atskiri priedai. Norėdami išplėsti Galerijos galimybes "
-"galite atsisiųsti ir įsidiegti daugiau priedų, arba galite išjungti priedus, kurių "
-"neplanuojate naudoti. Norint naudotis priedais, juos reikia įdiegti, sukonfigūruoti (jei "
-"būtina) ir įjungti atitinkamą modulį. Jei daugiau jo nebeplanuojate naudoti, jį galima "
-"išjungti."
+"Galerijos galimybės pateiktos kaip atskiri priedai.  Kad išplėsti Galerijos galimybes jūs "
+"galite atsisiųsti ir įsidiegti daugiau priedų, arba galima išjungti priedus, kurių "
+"neplanuojate naudoti.  Norint naudotis priedais, juos reikia įdiegti, sukonfigūruoti (jei "
+"būtina) ir aktyvuoti atitinkamą modulį.  Jei daugiau jo nebeplanuojate naudoti, jį galima "
+"deaktyvuoti."
 
 msgid "Plugin Name"
 msgstr "Priedo pavadinimas"
@@ -2224,7 +1869,7 @@ msgstr "Nesuderinamas priedas!"
 
 #, c-format
 msgid "Core API Required: %s (available: %s)"
-msgstr "Reikalingas API pagrindas: %s (yra: %s)"
+msgstr "Pagrindo reikalingas API: %s (yra: %s)"
 
 #, c-format
 msgid "Plugin API Required: %s (available: %s)"
@@ -2240,32 +1885,36 @@ msgid "upgrade required"
 msgstr "būtina atnaujinti"
 
 msgid "not installed"
-msgstr "neįdiegtas"
+msgstr "ne įdiegtas"
 
 msgid "incompatible"
 msgstr "nesuderinamas"
 
 msgid "Repository"
-msgstr "Saugykla"
+msgstr "Repozicija"
+
+msgid "Please make sure that your internet connection is set up properly or try again later."
+msgstr "Įsitikinkite kad jūsų interneto ryšys nustatytas tinkamai ir pabandykite vėliau."
 
 #, c-format
-msgid "Failed to download the following packages for the %s plugin:"
-msgstr ""
+msgid "Failed to scan status from plugin: %s."
+msgstr "Nepavyko nuskenuoti priedo %s statuso."
 
-#, fuzzy, c-format
 msgid ""
-"Failed to install the %s plugin because the following files/directories could not be "
+"Your local copy of the repository was broken and has been fixed.  Please download the plugin "
+"list again."
+msgstr ""
+"Lokali jūsų repozicijos kopija buvo sugadinta ir dabar sutvarkyta. Atsisiųskite priedų "
+"sąrašą iš naujo."
+
+#, c-format
+msgid ""
+"Failed to download the %s plugin because the following files/directories could not be "
 "modified:"
-msgstr "Nepavyko gauti priedo %s, nes šie failai/aplankai negali būti keičiami:"
-
-#, c-format
-msgid ""
-"Some plugins could not be automatically upgraded because they are in use.  Please return to "
-"the %sPlugins%s page and click the upgrade link for each of the following plugins:"
-msgstr ""
+msgstr "Nepavyko gauti priedo %s, nes šių failų/aplankų negali būti keičiami:"
 
 msgid "The repository index has been successfully updated."
-msgstr "Saugyklos indeksas sėkmingai atnaujintas."
+msgstr "Repozicijos indeksas sėkmingai atnaujintas."
 
 msgid "All plugins are already up-to-date."
 msgstr "Visų priedų versijos jau yra pačios naujausios."
@@ -2274,12 +1923,19 @@ msgstr "Visų priedų versijos jau yra pačios naujausios."
 msgid "%s plugin updated."
 msgstr "priedas %s atnaujintas."
 
+#, c-format
+msgid "%d language pack deleted."
+msgid_plural "%d language packs deleted."
+msgstr[0] "%d kalbos paketas pašalintas."
+msgstr[1] "%d kalbos paketai pašalinti."
+msgstr[2] "%d kalbos paketų pašalinta."
+
 msgid ""
 "No personal information about you or your Gallery installation is sent to the Gallery server "
 "at any time."
 msgstr ""
-"Diegimo metu jokia asmeninė informacija apie Jus ar Jūsų Galerijos diegimą niekada nebus "
-"siunčiama į  Galerijos serverį."
+"Diegimo metu jokia asmeninė informacija apie jus ar jūsų diegimą nebus siunčiama į  "
+"Galerijos serverį."
 
 #, c-format
 msgid ""
@@ -2306,21 +1962,31 @@ msgstr "paskutinį kartą atnaujintas %s"
 #, c-format
 msgid "Experimental Gallery Project plugins (%scool new features, might be buggy%s)"
 msgstr ""
-"Eksperimentiniai Galerijos projekto priedai (%sįdomios naujos galimybės, bet gali būti daug "
+"Eksperimentiniai Galerijos projekti priedai (%sįdomios naujos galimybės, bet gali būti daug "
 "klaidų%s)"
 
 #, c-format
 msgid "Community plugins (%suse at your own risk!%s)"
-msgstr "Bendruomenės priedai (%snaudokite savo rizika!%s)"
+msgstr "Bendruomenės priedai (%suž pasėkmes niekas neatsako!%s)"
 
 msgid "Repository Error"
-msgstr "Saugyklos klaida"
+msgstr "Repozicijos klaida"
 
 msgid "You must select at least one repository."
-msgstr "Reikia pažymėti bent vieną saugyklą"
+msgstr "Reikia pažymėti bent vieną repoziciją."
 
 msgid "Ok"
 msgstr "Ok"
+
+msgid "Configure your Gallery"
+msgstr "Konfigūruoti Galeriją"
+
+msgid ""
+"Before you can proceed, you have to change some permissions so that Gallery can install "
+"plugins for you.  It's easy.  Just execute the following in a shell or via your ftp client:"
+msgstr ""
+"Prieš pradedant reikia pakeisti keletą prieigos teisių, kad Galerija galėtu įdiegti priedus. "
+"Tai paprasta. Reikia tik įvykdyti šias komandas komandinėje aplinkoje arba ftp kliente:"
 
 msgid ""
 "If you have trouble changing permissions, ask your system administrator for assistance.  "
@@ -2336,7 +2002,7 @@ msgid "Download Plugin List"
 msgstr "Gauti priedų sąrašą"
 
 msgid "Show Repository List"
-msgstr "Rodyti Saugyklos sąrašą"
+msgstr "Rodyti Repozicijų sąrašą"
 
 msgid "Upgrade Gallery"
 msgstr "Naujinti Galeriją"
@@ -2351,16 +2017,16 @@ msgstr ""
 "Atnaujinus kai kurie dabar naudojami priedai gali nebeveikti, tačiau gali atsirasti naujų, "
 "kuriems būtinos naujos Galerijos galimybės. Norint atnaujinti rekomenduojami šie veiksmai:"
 
-#, c-format
+#, fuzzy, c-format
 msgid "%sDownload%s the new Gallery package"
-msgstr "%sGauti%s naują Galerijos pagrindą"
+msgstr "%sGauti%s Galerijos pagrindą"
 
 #, c-format
 msgid "Read the %supgrade instructions%s and perform the upgrade"
 msgstr "Perskaitykite %satnaujinimo instrukcijas%s ir atlikite atnaujinimą"
 
 msgid "Incompatible plugins are marked with an exclamation icon."
-msgstr "Nesuderinami priedai pažymėti šauktuko piktograma."
+msgstr "Nesuderinami priedai pažymėti šauktuko ikona."
 
 #, c-format
 msgid ""
@@ -2368,9 +2034,9 @@ msgid ""
 "installed core module, which are not shown here. You can view a %scomplete list%s of "
 "plugins, including incompatible ones, which are marked with a red icon."
 msgstr ""
-"Yra nauja pagrindinio modulio versija. Gali būti priedų, kurie nesuderinami su įdiegtu "
-"pagrindiniu moduliu, ir jie čia nerodomi. Jūs galite peržiūrėti %svisą priedų sąrašą%s, "
-"įskaitant nesuderinamus, kurie bus pažymėti raudona piktograma."
+"Yra nauja pagrindinio modulio versija. Gali būti priedų, kurie nesuderinamų įdiegtu "
+"pagrindiniu moduliu, ir jie čia nerodomi. Jūs galite peržiūrėti %spilną priedų sąrašą%s, "
+"įskaitant nesuderinamus, kurie bus pažymėti raudona ikona."
 
 msgid "upgrade available"
 msgstr "yra atnaujinimas"
@@ -2409,7 +2075,7 @@ msgid ""
 "Gallery can automatically upgrade your themes and modules to the latest available versions. "
 "No new plugins will be downloaded."
 msgstr ""
-"Galerija gali automatiškai atnaujinti Jūsų temas ir modulius į naujausias egzistuojančias "
+"Galerija gali automatiškai atnaujinti jūsų temas ir modulius į naujausias egzistuojančias "
 "versijas. Nauji priedai nebus atsiunčiami."
 
 msgid "Upgrade All"
@@ -2422,12 +2088,12 @@ msgstr "Gauti %s"
 msgid "No packages have been selected."
 msgstr "Nepažymėti jokie paketai."
 
-#, fuzzy
 msgid ""
 "Download a package in order to use this plugin.  You can upgrade by choosing a newer version "
-"of the package to download."
+"of the package to download.  Language packages are optional, You only need to download the "
+"ones that you want to use on your site."
 msgstr ""
-"Norint naudoti šį priedą reikia atsisiųsti paketą. Atnaujinti galite pasirinkdami naujesnę "
+"Kad naudoti šį priedą reikia atsisiųsti paketą. Atnaujinti galite pasirinkdami naujesnę "
 "paketo versiją. Kalbos paketai nebūtini, atsisiųskite tik tuos, kuriuos naudosite savo "
 "svetainėje."
 
@@ -2446,9 +2112,12 @@ msgstr "%s: versija %s (surinkimas %s) %satsisiuntimas nepalaikomas!%s"
 msgid "%sCurrently Installed%s: version %s (build %s)"
 msgstr "%sĮdiegta%s: versija %s (surinkimas %s)"
 
-#, fuzzy
-msgid "The following language packages are available for this plugin"
-msgstr "Suderinamų kalbos paketų nėra"
+msgid "Language Packages"
+msgstr "Kalbos paketai"
+
+#, c-format
+msgid "(%sselect all%s%sselect none%s)"
+msgstr "(%spažymėti viską%s%snežymėti nieko%s)"
 
 #, c-format
 msgid "%s version %s (upgrading from %s)"
@@ -2460,7 +2129,7 @@ msgstr "%s versija %s"
 
 #, c-format
 msgid "%s version %s (%snewer version %s is installed%s)"
-msgstr "%s versija %s (%snaujesnė versija %s yra įdiegta%s)"
+msgstr "%s versija %s (%snaujasnė versija %s yra įdiegta%s)"
 
 #, c-format
 msgid "%s version %s (currently installed)"
@@ -2468,6 +2137,9 @@ msgstr "%s versija %s (jau įdiegta)"
 
 msgid "No compatible language packages available"
 msgstr "Suderinamų kalbos paketų nėra"
+
+msgid "You must select a base package before choosing language packs."
+msgstr "Prieš pasirenkant kalbos paketus, reikia pasirinkti bazinė paketą."
 
 msgid "Update"
 msgstr "Atnaujinti"
@@ -2522,15 +2194,9 @@ msgid ""
 "The %s theme is incompatible with your Gallery version or no longer available.  Please "
 "upgrade the %s theme or pick another default theme."
 msgstr ""
-"Tema %s yra nesuderinama su Jūsų Galerijos versija arba nebeprieinama. Atnaujinkite temą %s "
-"arba pasirinkite kitą pagrindinę temą."
 
 msgid "New albums"
 msgstr "Naujas albumas"
-
-#, c-format
-msgid "To activate more themes visit the %sPlugins%s page."
-msgstr ""
 
 msgid "Save Defaults"
 msgstr "Išsaugoti numatytus nustatymus"
@@ -2551,7 +2217,10 @@ msgid "Choose a block"
 msgstr "Pasirinkite bloką"
 
 msgid "Selected"
-msgstr "Pasirinkta"
+msgstr "Parinkti"
+
+msgid "Remove"
+msgstr "Išimti"
 
 msgid "Move Up"
 msgstr "Aukščiau"
@@ -2575,8 +2244,8 @@ msgid ""
 "The toolkits shown below have some overlap in supported operations and mime types.  Rank the "
 "toolkits here to determine which will perform these operations."
 msgstr ""
-"Žemiau nurodytų įrankių kai kurios palaikomos operacijos ir mime tipai persidengia. "
-"Surūšiuokite juos nurodydami, kurie iš jų atliks šias operacijas."
+"Žemiau išvardintų įrankių kai kurios palaikomos operacijos ir mime tipai persidengia.  "
+"Surūšiuokite juos tam kad nurodyti kuriam iš jų teikiamas prioritetas."
 
 msgid "Toolkit"
 msgstr "Įrankių rinkinys"
@@ -2603,7 +2272,7 @@ msgstr "Sukurtas vartotojas „%s“"
 
 #, c-format
 msgid "Modified user '%s'"
-msgstr "Pakoreguotas vartotojas „%s“"
+msgstr "Pataisytas vartotojas „%s“"
 
 #, c-format
 msgid "There is %d user in the system."
@@ -2619,7 +2288,7 @@ msgid "You cannot delete yourself!"
 msgstr "Negalima ištrinti savęs!"
 
 msgid "You cannot delete the special guest user."
-msgstr "Negalima ištrinti specialaus vartotojo 'Svečias'."
+msgstr "Negalima ištrinti specialaus vartotojo svečias."
 
 msgid "Edit User (by list)"
 msgstr "Redaguoti vartotoją (pagal sąrašą)"
@@ -2639,7 +2308,7 @@ msgid ""
 "create them at upload time it makes viewing albums for the first time go faster at the "
 "expense of a longer upload time."
 msgstr ""
-"Galerija gali sugeneruoti miniatiūras įkeliant elementus, arba tik tada, kai jų prireiks. "
+"Galerija gali sugeneruoti miniatiūras įkeliant elementus, arba tik tada kai jos prireiks. "
 "Bet kokiu atveju miniatiūra bus sukurta ir išsaugota, tačiau jei miniatiūros bus "
 "generuojamos įkeliant elementus, tuomet pirmą kartą albumų peržiūra vyks greičiau, to kaina "
 "- šiek tiek lėtesnis elementų įkėlimas."
@@ -2657,7 +2326,7 @@ msgid "Security Violation"
 msgstr "Saugumo pažeidimas"
 
 msgid "Database Error"
-msgstr "Duomenų bazės klaida"
+msgstr "Duombazės klaida"
 
 msgid "Platform Error"
 msgstr "Platformos klaida"
@@ -2674,7 +2343,7 @@ msgid ""
 "<b>reload that page</b> and try your change again."
 msgstr ""
 "Jūsų pakeitimai negali būti užbaigti, kadangi kažkas kitas atliko pakeitimą konfliktuojantį "
-"su jūsiškiu. Sugrįžkite atgal į puslapį, kuriame buvote, tada <b>atnaujinkite</b> (reload) "
+"su jusiškiu.  Sugrįžkite atgal į puslapį kuriame buvote, tada <b>atnaujinkite</b> (reload) "
 "puslapį ir pabandykite redaguoti vėl."
 
 msgid "Go back and try again"
@@ -2692,11 +2361,11 @@ msgstr "Išvalyti podelį"
 
 msgid "Alternatively, you can return to the main Gallery page and resume browsing."
 msgstr ""
-"Kaip alternatyva, Jūs galite sugrįžti į pagrindinį Galerijos puslapį ir pradėti naršyti iš "
+"Kaip alternatyva, jūs galite sugrįžti į pagrindinį Galerijos puslapį ir pradėti naršyti iš "
 "naujo."
 
 msgid "The action you attempted is not permitted."
-msgstr "Veiksmas, kurį bandote atlikti, draudžiamas."
+msgstr "Veiksmas kurį bandote atlikti draudžiamas."
 
 msgid ""
 "Your change cannot be completed due to a loss of session data. Please try again. If it still "
@@ -2727,7 +2396,7 @@ msgid ""
 "system, e.g. by restoring data from a backup."
 msgstr ""
 "Tiksli platformos klaidos priežastis nežinoma. Greičiausiai nepakanka failų sistemos teisių. "
-"Taip galėjo atsitikti jei Jūsų paslaugų tiekėjas ką nors keitė failų sistemoje, pvz. "
+"Taip galėjo atsitikti jei jūsų paslaugų tiekėjas ką nors keitė failų sistemoje, pvz. "
 "atstatinėjo duomenis iš atsarginės kopijos."
 
 msgid "Item not found."
@@ -2745,21 +2414,18 @@ msgstr "Klaidos detalės"
 msgid "System Information"
 msgstr "Sistemos informacija"
 
-msgid "Not all of the specified items have been added successfully."
-msgstr ""
-
 msgid ""
 "You don't have any Graphics Toolkit activated that can handle JPEG images.  If you add "
 "images, you will probably not have any thumbnails."
 msgstr ""
-"Jūs neturite aktyvuoto jokio grafikos įrankių rinkinio, todėl negalite apdoroti JPEG "
-"paveikslėlių. Jei pridėsite naujų paveikslėlių, Jūs greičiausiai neturėsite sugeneruotų "
+"Jūs neturite aktyvuoto jokio grafikos įrankių rinkinio, todėl negalite padoroti JPEG "
+"paveikslėlių. Jei pridėsite naujų paveikslėlių, jūs greičiausiai netturėsite sugeneruotų "
 "miniatiūrų."
 
-#, fuzzy, c-format
-msgid "Visit the %sModules%s page to activate a Graphics Toolkit."
+#, c-format
+msgid "Visit the <a href=\"%s\">Modules</a> page to activate a Graphics Toolkit."
 msgstr ""
-"Aplankykite puslapį <a href=\"%s\">Moduliai</a> kad įjungtumėte Grafinių įrankių rinkinius."
+"Aplankykite puslapį <a href=\"%s\">Moduliai</a> kad aktyvuoti grafinių įrankių rinkinius."
 
 msgid "Add Sub-Album"
 msgstr "Pridėti vidinį albumą"
@@ -2788,10 +2454,10 @@ msgid "This is the album summary."
 msgstr "Tai albumo santrauka."
 
 msgid "Keywords are not visible, but are searchable."
-msgstr "Raktiniai žodžiai nebus matomi, tačiau pagal juos bus vykdoma paieška."
+msgstr "Raktiniai žodžiai nebus matomi, tačiau pagal juos vykdoma paieška."
 
 msgid "This is the long description of the album."
-msgstr "Tai albumo visas aprašymas."
+msgstr "Tai albumo pilnas aprašymas."
 
 msgid "Create"
 msgstr "Sukurti"
@@ -2825,13 +2491,13 @@ msgid ""
 "Please contact your system administrator for assistance."
 msgstr ""
 "Jūsų web serveris neleidžia įkelti failų iš naršyklės.  Susisiekite su sistemos "
-"administratoriumi dėl pagalbos."
+"administratoriumi konsultacijoms."
 
 msgid "Upload files directly from your computer."
-msgstr "Įkelti failus tiesiai iš Jūsų kompiuterio."
+msgstr "Įkelti failus tiesiai iš jūsų kompiuterio."
 
 msgid "Enter the full path to the file and an optional caption in the boxes below."
-msgstr "Nurodykite visą kelią iki failo, papildomai galite įrašyti antraštę laukuose žemiau."
+msgstr "Nurodykite pilną kelią iki failo, papildomai galite įrašyti antraštę laukuose žemiau."
 
 #, c-format
 msgid ""
@@ -2841,7 +2507,7 @@ msgid ""
 msgstr ""
 "<b>Dėmesio:</b> Įkelti galima ne daugiau nei %s vienu metu.  Jei norite įkelti daugiau, "
 "tuomet reikia įkelti failus keliais žingsniais, naudoti kitokį failų  įkėlimo būdą, arba "
-"paprašyti administratoriaus, kad suteiktų galimybę atlikti didesnius įkėlimus."
+"paprašyti administratoriaus, kad suteiktu galimybę atlikti didesnius įkėlimus."
 
 #, c-format
 msgid ""
@@ -2851,7 +2517,7 @@ msgid ""
 msgstr ""
 "<b>Dėmesio:</b> Įkelti galima nedaugiau nei %s vienu metu.  Vienas failas negali būti "
 "didesnis nei %s. Jei norite įkelti daugiau, tuomet reikia įkelti failus keliais žingsniais, "
-"naudoti kitokį failų  įkėlimo būdą, arba paprašyti administratoriaus, kad suteiktų galimybę "
+"naudoti kitokį failų  įkėlimo būdą, arba paprašyti administratoriaus, kad suteiktu galimybę "
 "atlikti didesnius įkėlimus."
 
 msgid "More Upload Boxes..."
@@ -2866,6 +2532,9 @@ msgstr "Antraštę priskirti:"
 msgid "No Thumbnail"
 msgstr "Be miniatiūros"
 
+msgid "Delete Items"
+msgstr "Trinti elementus"
+
 msgid "No items were selected for deletion"
 msgstr "Trynimui nieko nepažymėta"
 
@@ -2877,7 +2546,7 @@ msgstr[1] "Sėkmingai ištrinti %d elementai"
 msgstr[2] "Sėkmingai ištrinta %d elementų"
 
 msgid "This album contains no items to delete"
-msgstr "Šiame albume nėra elementų, kurie galėtų būti trinami"
+msgstr "Šiame albume nėra nieko trynimui"
 
 msgid "Choose the items you want to delete"
 msgstr "Nurodykite elementus, kuriuos norite ištrinti"
@@ -2913,7 +2582,7 @@ msgid "Check All"
 msgstr "Žymėti viską"
 
 msgid "Check None"
-msgstr "Nežymėti nieko"
+msgstr "Nežymėti visko"
 
 msgid "Invert"
 msgstr "Iversija"
@@ -2922,18 +2591,30 @@ msgid "Previous Page"
 msgstr "Ankstesnis puslapis"
 
 msgid "Next Page"
-msgstr "Kitas puslapis"
+msgstr "Sekantis puslapis"
 
-#, fuzzy, c-format
-msgid "Do you really want to delete %s?"
-msgstr "Ar tikrai norite pašalinti __PLUGIN__?"
+msgid "Deletion Complete"
+msgstr "Trynimas atliktas"
 
-#, fuzzy
-msgid "Delete more items..."
-msgstr "Trinti elementus"
+msgid "Item successfully deleted"
+msgstr "Elementas sėkmingai ištrintas"
+
+#, c-format
+msgid "Are you sure you want to delete this %s?"
+msgstr "Ar tikrai norite ištrinti %s?"
+
+#, c-format
+msgid "It contains %d item."
+msgid_plural "It contains %d items."
+msgstr[0] "Jame yra %d elementas."
+msgstr[1] "Jame yra %d elementai."
+msgstr[2] "Jame yra %d elementų."
+
+msgid "There is no undo!"
+msgstr "Galimybės atšauti nebus!"
 
 msgid "There was a problem processing your request."
-msgstr "Vykdant Jūsų užklausą iškilo problemų."
+msgstr "Vykdant jūsų užklausą iškilo problemų."
 
 msgid "Sort order"
 msgstr "Rūšiavimo tvarka"
@@ -2949,7 +2630,7 @@ msgid "Apply to all subalbums"
 msgstr "Taikyti visiems subalbumams"
 
 msgid " Every item requires a thumbnail. Set the default size in pixels here."
-msgstr "Kiekvienam elementui reikalinga miniatiūra. Čia nurodykite numatytą dydį taškeliais."
+msgstr " Kiekvienam elementui reikalinga miniatiūra. Čia nurodykite numatytą dydį taškeliais."
 
 msgid "You must enter a number (greater than zero)"
 msgstr "Reikia įvesti skaičių (didesnį už nulį)"
@@ -2977,7 +2658,7 @@ msgid "Use these target sizes in all subalbums"
 msgstr "Visiems subalbumams naudoti šiuos nustatytus matmenis"
 
 msgid "Apply settings to existing items"
-msgstr "Taikyti nuostatas egzistuojantiems elementams"
+msgstr "Taikyti nuostatas egzistuojančiams elementams"
 
 msgid ""
 "The thumbnail and resized image settings are for all new items. To apply these settings to "
@@ -2986,8 +2667,8 @@ msgid ""
 "Building images now makes this operation take longer, but saves the time to build and cache "
 "each file when it is first viewed."
 msgstr ""
-"Miniatiūros ir sumažintų variantų nustatymai taikomi visiems naujiems elementams. Tam, kad "
-"šie nustatymai būtų taikomi visiems albumo elementams, uždėkite atitinkamą varnelę. Tuomet "
+"Miniatiūros ir sumažintų variantų nustatymai taikomi visiems naujiems elementams. Tam kad "
+"šie nustatymai būtu taikomi visiems albumo elementams, uždėkite atitinkamą varnelę. Tuomet "
 "nustatymai bus pritaikyti albumui ir visiems subalbumams. Jei failai bus generuojami dabar, "
 "tuomet ši operacija gali užtrukti, bet bus sutaupomas laikas pirmą kart peržiūrint šiuos "
 "elementus."
@@ -3015,18 +2696,18 @@ msgid ""
 "browser.  Note that changing these values does <b>not</b> change the animation itself so "
 "experimenting won't cause harm."
 msgstr ""
-"Kad Galerija galėtų tinkamai parodyti šią animaciją, jai reikia žinoti animacijos aukštį ir "
-"plotį. Jei sistemoje yra įdiegtas grafikos įrankių rinkinys, kuris gali apdoroti animacijas, "
-"tuomet šios reikšmės jau gali būti nustatytos. Jei ne, jos gali būti lygios 0. Jei čia "
-"nenurodysite teisingų reikšmių, naršyklėje animacijos gali atrodyti ištampytos. Atkreipkite "
-"dėmesį į tai, kad šių reikšmių keitimas <b>nekeičia</b> pačios animacijos, todėl galite "
-"drąsiai eksperimentuoti."
+"Kad Galerija galėtu tinkamai parodyti šią animaciją, jai reikia žinoti animacijos aukštį ir "
+"plotį.  Jei sistemoje yra įdiegtas grafikos įrankių rinkinys, kuris gali apdoroti "
+"animacijas, tuomet šios reikšmės jau gali būti nustatytos.  Jei ne, jos gali būti lygios 0.  "
+"Jei čia nenurodysite teisingų reikšmių, animacijos naršyklėje gali atrodyti ištampytos.  "
+"Atkreipkite dėmesį į tai, kad šių reikšmių keitimas <b>nekeičia</b> pačios animacijos, todėl "
+"galite drąsiai eksperimentuoti."
 
 msgid "Width"
 msgstr "Plotis"
 
 msgid "You must enter a value greater than or equal to 0"
-msgstr "Reikia įvesti didesnį už nulį ar lygų nuliui skaičių"
+msgstr "Reikia įvesti didesnį ar lygų nuliui skaičių"
 
 msgid "Height"
 msgstr "Aukštis"
@@ -3035,7 +2716,7 @@ msgid "There were errors saving some items"
 msgstr "Išsaugant kai kuriuos elementus įvyko klaidos"
 
 msgid "There were errors saving all items"
-msgstr "Išsaugant visus elementus įvyko klaidos"
+msgstr "Saugant visus elementus įvyko klaidos"
 
 msgid "Successfully saved all items"
 msgstr "Visi elementai sėkmingai išsaugoti"
@@ -3095,10 +2776,6 @@ msgstr "Tai šio elemento pilnas aprašymas."
 msgid "%s Date and Time"
 msgstr "%s data ir laikas"
 
-#, fuzzy
-msgid "Link Date and Time"
-msgstr "%s data ir laikas"
-
 msgid "Set the date and time when this image was captured."
 msgstr "Nustatyti datą ir laiką pagal fotografavimo laiką."
 
@@ -3108,10 +2785,6 @@ msgstr "Nustatyti šio elemento rodomą datą ir laiką."
 #, c-format
 msgid "Set the date and time to be displayed for this %s."
 msgstr "Nustatyti šio %s rodomą datą ir laiką."
-
-#, fuzzy
-msgid "Set the date and time to be displayed for this link."
-msgstr "Nustatyti šio elemento rodomą datą ir laiką."
 
 msgid "Date:"
 msgstr "Data:"
@@ -3134,7 +2807,7 @@ msgid ""
 "Set the size of the thumbnail.  The largest side of the thumbnail will be no larger than "
 "this value. Leave this field blank if you don't want a thumbnail."
 msgstr ""
-"Nustatyti miniatiūros dydį.  Didžiausioji miniatiūros kraštinė šios reikšmės neviršys. Jei "
+"Nustatyti miniatiūros dydį.  Didesnis miniatiūros matmuo šios reikšmės viršyti. Jei jums "
 "miniatiūra nereikalinga, galite šį laukelį palikti tuščią."
 
 msgid ""
@@ -3155,35 +2828,36 @@ msgid ""
 "changing these values do <b>not</b> change the movie itself so experimentation won't cause "
 "harm."
 msgstr ""
-"Kad Galerija galėtų tinkamai parodyti šį filmą, jai reikia žinoti filmo aukštį ir plotį. Jei "
-"sistemoje yra įdiegtas grafikos įrankių rinkinys, kuris gali apdoroti šio tipo filmus, "
-"tuomet šios reikšmės jau gali būti nustatytos. Jei ne, jos gali būti lygios 0. Jei čia "
-"nenurodysite teisingų reikšmių, vaizdas gali atrodyti iškraipytas. Atkreipkite dėmesį į tai, "
-"kad šių reikšmių keitimas <b>nekeičia</b> pačio filmo, todėl galite drąsiai eksperimentuoti."
+"Kad Galerija galėtu tinkamai parodyti šį filmą, jai reikia žinoti medžiagos aukštį ir "
+"plotį.  Jei sistemoje yra įdiegtas grafikos įrankių rinkinys, kuris gali apdoroti šio tipo "
+"filmus, tuomet šios reikšmės jau gali būti nustatytos.  Jei ne, jos gali būti lygios 0.  Jei "
+"čia nenurodysite teisingų reikšmių, vaizdas gali atrodyti iškraipytas.  Atkreipkite dėmesį į "
+"tai, kad šių reikšmių keitimas <b>nekeičia</b> pačio filmo, todėl galite drąsiai "
+"eksperimentuoti."
 
 msgid "Resized Photos"
-msgstr "Sumažintos nuotraukos"
+msgstr "Sumažintos foto"
 
 msgid ""
 "These sizes are alternate resized versions of the original you would like to have available "
 "for viewing."
 msgstr ""
-"Šie paveikslėliai yra alternatyvūs, sumažinti originalių nuotraukų variantai, kuriuos "
+"Šie paveikslėliai yra alternatyvūs, sumažinti originalių fotografijų variantai, kuriuos "
 "patogiau peržiūrėti."
 
 msgid ""
 "There are no graphics toolkits enabled that support this type of photo, so we cannot create "
 "or modify resized versions."
 msgstr ""
-"Nėra aktyvių grafinių įrankių, kurie galėtu apdoroti šio tipo nuotrauką, todėl neįmanoma "
+"Nėra aktyvių grafinių įrankių, kurie galėtu apdoroti šio tipo fotografiją, todėl neįmanoma "
 "sukurti ar pakeisti jos sumažinto varianto."
 
 msgid ""
 "You can select which part of the photo will be used for the thumbnail.  This will have no "
 "effect on the resized or original versions of the image."
 msgstr ""
-"Jūs galite pasirinkti, kuri nuotraukos dalis bus naudojama miniatiūroje.  Tai neturės įtakos "
-"sumažintai ir originaliai nuotraukai."
+"Jūs galite pasirinkti kuri fotografijos dalis bus naudojama miniatiūroje.  Tai neturės "
+"įtakos sumažintai ir originaliai fotografijai."
 
 msgid "Aspect Ratio: "
 msgstr "Santykiniai matmenys: "
@@ -3201,14 +2875,14 @@ msgid ""
 "There are no graphics toolkits enabled that support this type of photo, so we cannot crop "
 "the thumbnail."
 msgstr ""
-"Nėra aktyvių grafinių įrankių, kurie galėtu apdoroti šio tipo nuotrauką, todėl iškirpti "
+"Nėra aktyvių grafinių įrankių, kurie galėtu apdoroti šio tipo fotografiją, todėl iškirpti "
 "miniatiūros neįmanoma."
 
 msgid "Rotate"
 msgstr "Pasukti"
 
 msgid "You can only rotate the photo in 90 degree increments."
-msgstr "Pasukti galima tik po 90 laipsnių."
+msgstr "Pasukti galima tik kas 90 laipsnių."
 
 msgid "CC 90&deg;"
 msgstr "Pagal laikrodžio rod. 90&deg;"
@@ -3223,7 +2897,7 @@ msgid ""
 "There are no graphics toolkits enabled that support this type of photo, so we cannot rotate "
 "it."
 msgstr ""
-"Nėra aktyvių grafinių įrankių, kurie galėtu apdoroti šio tipo nuotrauką, todėl jos pasukti "
+"Nėra aktyvių grafinių įrankių, kurie galėtu apdoroti šio tipo fotografiją, todėl jos pasukti "
 "neįmanoma."
 
 msgid "Scale"
@@ -3234,16 +2908,16 @@ msgid ""
 "aspect ratio (height to width) of the original photo to avoid distortion.  Your photo will "
 "be scaled until it fits inside a bounding box with the size you enter here."
 msgstr ""
-"Sumažinti ar padidinti originalią nuotrauką. Keisdama nuotraukos matmenis, Galerija išsaugo "
-"originalius santykinius matmenis (aukščio ir pločio santykį), kad neatsirastų iškraipymas. "
-"Jūsų nuotraukos matmenys bus pakeisti taip, kad ji tilptų į Jūsų nurodytas ribas."
+"Sumažinti ar padidinti originalią foto.  Keisdama paveikslėlio matmenys, galerija išsaugo "
+"originalius santykinius matmenis (aukščio ir pločio santykį), kad neatsirastu ištampymas.  "
+"Jūsų foto matmenys bus pakeisti taip, kad ji tilptu į jūsų nurodytas ribas."
 
 msgid ""
 "There are no graphics toolkits enabled that support this type of photo, so we cannot scale "
 "it."
 msgstr ""
-"Nėra aktyvių grafinių įrankių, kurie galėtu apdoroti šio tipo nuotrauką, todėl pakeisti jos "
-"matmenų neįmanoma."
+"Nėra aktyvių grafinių įrankių, kurie galėtu apdoroti šio tipo fotografiją, todėl pakeisti "
+"jos matmenų neįmanoma."
 
 msgid "You must enter a size"
 msgstr "Reikia įvesti dydį"
@@ -3257,16 +2931,16 @@ msgid ""
 "prevents your original from getting damaged.  Disabling this option will cause any actions "
 "(rotating, scaling, etc) to modify the original."
 msgstr ""
-"Apdorojant nuotraukas (keičiant matmenis ar pasukant), Galerija nekeičia originalių failų, "
+"Apdorojant fotografijas (keičiant matmenis ar pasukant), Galerija nekeičia originalių failų, "
 "ji padaro naują failo kopiją, kurią ir apdoroja.  Tai reikalauja šiek tiek papildomos "
 "vietos, tačiau padeda išvengti originalaus failo sugadinimo.  Išjungus šią apsaugą, visi "
 "veiksmai bus atliekami su originalu."
 
 msgid "This is a link to another photo, so you cannot change the original"
-msgstr "Tai tik nuoroda į kitą nuotrauką, todėl jums neleidžiama jos keisti"
+msgstr "Tai tik nuoroda į kitą foto, todėl jums neleidžiama jos keisti"
 
 msgid "There are links to this photo, so you cannot change the original"
-msgstr "Yra sukurtų nuorodų, kurios nukreipia į šią nuotrauką, todėl negalite keisti originalo"
+msgstr "Yra sukurtų nuorodų, kurios rodo į šią foto, todėl jūs negalite keisti originalo"
 
 msgid ""
 "There is no toolkit support to modify the original so operations may only be applied to the "
@@ -3276,18 +2950,18 @@ msgstr ""
 "pritaikomi kopijoms"
 
 msgid "Preserve Original Photo"
-msgstr "Išsaugoti originalią nuotrauką"
+msgstr "Išsaugoti originalią foto"
 
 msgid "Modified Photo"
-msgstr "Pakeista nuotrauka"
+msgstr "Pakeista foto"
 
 msgid ""
 "You are using a copy of the original photo that has been scaled or rotated.  The original "
 "photo is still available, but is no longer being used.  Any changes you make will be applied "
 "to the copy instead."
 msgstr ""
-"Jūs naudojate originalios nuotraukos kopiją, kuri yra pasukta arba pakeisti jos matmenys. "
-"Originali nuotrauka vis dar yra išsaugota, tik ji nebenaudojama.  Visi jūsų atlikti "
+"Jūs naudojate originalios fotografijos kopiją, kuri yra pasukta arba pakeisti jos matmenys. "
+"Originali fotografija vis dar yra išsaugota, tik ji nebenaudojama.  Visi jūsų atlikti "
 "pakeitimai bus atliekami su šia kopija."
 
 msgid "Restore original"
@@ -3302,8 +2976,6 @@ msgid ""
 "version or no longer available.  Please upgrade the %s theme or use another theme for this "
 "album."
 msgstr ""
-"Šis albumas sukonfigūruotas naudoti %s temą, kuri arba yra nesuderinama su šios Galerijos "
-"versija arba nebeprieinama. Prašome atnaujinti %s temą, arba naudoti kitą temą šiam albumui."
 
 #, c-format
 msgid ""
@@ -3331,10 +3003,10 @@ msgid "Use these settings in all subalbums that use the %s theme"
 msgstr "Šiuos nustatymus naudoti visuose subalbumuose, kurie naudoja temą %s"
 
 msgid "Album Highlight"
-msgstr "Albumo antraštė"
+msgstr "Albumo titulinė"
 
 msgid "You can make this item the thumbnail for its parent or any ancestor album."
-msgstr "Šį elementą galima nustatyti kaip jo aukštesnio ar bet kokio subalbumo miniatiūrą."
+msgstr "Šį elementą galima nustatyti kaip jo tėvo ir visų protėvių albumų miniatiūra."
 
 msgid "Highlight for:"
 msgstr "Titulinis: "
@@ -3361,21 +3033,14 @@ msgstr "Šaltinis"
 msgid "Choose the items you want to move"
 msgstr "Pasirinkite kuriuos elementus norite perkelti"
 
-msgid "OK"
-msgstr ""
-
 msgid ""
 "The destination you chose does not accept sub-albums, so all sub-albums have been deselected."
 msgstr "Pasirinkta paskirtis nepriima albumų, todėl albumai čia negali būti perkelti."
 
-#, fuzzy
-msgid "Warning"
-msgstr "Dėmesio!"
-
 msgid ""
 "The destination you chose only accepts sub-albums, so all non-albums have been deselected."
 msgstr ""
-"Pasirinkta paskirtis priima tik albumus, todėl elementai, kurie yra ne albumai, neperkeliami."
+"Pasirinkta paskirtis priima tik albumus, todėl elementai kurie yra ne albumai neperkeliami."
 
 msgid "You are not allowed to move this item away from here."
 msgstr "Jūs neturite teisės perkelti šį elementą į kitą vietą."
@@ -3387,7 +3052,7 @@ msgid "You are not allowed to move an item to the chosen destination."
 msgstr "Jūs neturite teisės elementą perkelti į nurodytą vietą."
 
 msgid "You cannot move an album into its own subtree."
-msgstr "Negalima perkelti albumo į jį patį."
+msgstr "Negalima perkelti albumą į jį patį."
 
 msgid "Destination"
 msgstr "Paskirtis"
@@ -3436,12 +3101,12 @@ msgid ""
 "if you want to grant permissions to a specific user, you can add (or remove) the user from "
 "the appropriate group."
 msgstr ""
-"Kiekvienas Galerijos elementas turi savo nepriklausomą prieigos teisių rinkinį.  Aukštesnio "
-"albumo prieigos teisių keitimas neturi įtakos jo subalbumų prieigos teisėms. Tai suteikia "
-"galimybę uždrausti prieigą prie aukštesnio elemento, tačiau paliekama visiškos prieigos "
-"teises šiam elementui, ir atvirkščiai.  Efektyviausias būdas naudoti prieigos teisių sistemą "
-"- tai grupių kūrimas ir teisių suteikimas grupėms.  Tuomet norėdami vartotojui suteikti tam "
-"tikras teises, Jūs galėsite jį įtraukti (arba pašalinti) į tam tikrą grupę."
+"Kiekvienas Galerijos elementas turi savo nepriklausomą prieigos teisių rinkinį.  Keičiant jo "
+"tėvo prieigos teises neturi įtakos jo vaiko prieigos teisėms. Tai suteikia galimybę "
+"uždrausti prieigą prie elemento tėvo, tačiau palikti pilnas prieigos teises šiam elementui, "
+"ir atvirkščiai.  Efektyviausias būdas naudoti prieigos teisių sistemą - tai grupių kūrimas "
+"ir teisių suteikimas grupėms.  Tuomet norėdami vartotojui suteikti tam tikras teises, jūs "
+"galėsite jį įtraukti (arba pašalinti) į tam tikrą grupę."
 
 #, c-format
 msgid "This item is owned by user: %s"
@@ -3476,11 +3141,11 @@ msgid ""
 "have many sub-items.  It's more efficient to grant permissions to groups and then add and "
 "remove users from groups whenever possible. Changes are applied to sub-items by default."
 msgstr ""
-"Šis elementas turi vidinių elementų. Pakeitimai atlikti su šiuo elementu gali būti taikomi "
-"tik jam, arba jam ir visiems jo vidiniams elementams. Atkreipkite dėmesį į tai, kad "
-"pakeitimus taikant vidiniams elementams, naujos teisės bus jungiamos su jau "
-"egzistuojančiomis vidinių elementų teisėmis, šis procesas gali užtrukti gana ilgai, ypač jei "
-"yra daug vidinių elementų. Daug efektyviau, kada tik įmanoma suteikti teises grupėms, o tada "
+"Šis elementas turi vidinių elementų.  Pakeitimai atlikti su šiuo elementu gali būti taikomi "
+"tik jam, arba jam ir visiems jo vaikams (vidiniams elementams).  Atkreipkite dėmesį į tai, "
+"kad pakeitimus taikant vidiniams elementams, naujos teisės bus jungiamos su jau "
+"egzistuojančiomis vidinių elementų teisėmis, šis procesas gali užtrukti gana ilgai ypač jei "
+"yra daug vidinių elementų. Daug efektyviau kada tik įmanoma suteikti teises grupėms, o tada "
 "vartotojus įtraukti ar pašalinti iš tam tikrų grupių. Numatyta, kad pakeitimai vidiniams "
 "elementams taikomi."
 
@@ -3559,12 +3224,12 @@ msgid ""
 "is either disabled or not supported by your browser. Please enable JavaScript by changing "
 "your browser options, then try again."
 msgstr ""
-"Kad šis puslapis tinkamai veiktų, turi būti leidžiami JavaScript. Taičiau atrodo, kad "
-"JavaScript Jūsų naršyklėje išjungtas arba nepalaikomas. Leiskite JavaScript naudojimą savo "
+"Kad šis puslapis tinkamai veiktu, turi būti įgalintas JavaScript. Taičiau atrodo, kad "
+"JavaScript jūsų naršyklėje išjungtas arba nepalaikomas. Įgalinkite JavaScript naudojimą savo "
 "naršyklėje ir pabandykite dar kartą."
 
 msgid "Site is temporarily down for maintenance."
-msgstr "Svetainė laikinai išjungta priežiūrai."
+msgstr "Svetainė laikinai išjungta remontui."
 
 msgid "Admin Login"
 msgstr "Administratoriaus prisijungimas"
@@ -3578,13 +3243,11 @@ msgstr "Įveskite tekstą apibūdinantį šį URL"
 msgid "Enter an image URL"
 msgstr "Įveskite paveikslo URL"
 
-#. HINT: Button label for Bold
-msgid "B"
-msgstr ""
+msgid "B <!-- Button label for Bold -->"
+msgstr "B"
 
-#. HINT: Button label for italic
-msgid "i"
-msgstr ""
+msgid "i <!-- Button label for italic -->"
+msgstr "i"
 
 msgid "list"
 msgstr "sąrašas"
@@ -3601,8 +3264,8 @@ msgstr "paveikslėlis"
 msgid "color"
 msgstr "spalva"
 
-#, fuzzy, c-format
-msgid "You can also use the %scolor name%s for example: %sYour Text%s"
+#, c-format
+msgid "You can also use the <a href=\"%s\" target=\"_new\">color name</a> for example: %s"
 msgstr ""
 "Taip pat galite naudoti <a href=\"%s\" target=\"_new\">spalvos pavadinimas</a> pavyzdžiui: %s"
 
@@ -3617,7 +3280,7 @@ msgid ""
 "This page is configured to use the %s theme, but it is either inactive, not installed, or "
 "incompatible."
 msgstr ""
-"Šis puslapis sukonfigūruotas naudoti temą %s, tačiau ji arba neįdiegta, arba ne aktyvi, arba "
+"Šis puslapis sukonfigūruotas naudoti temą %s, tačiau jį arba neįdiegta, arba ne aktyvi, arba "
 "nesuderinama."
 
 #, c-format
@@ -3625,7 +3288,7 @@ msgid ""
 "This album is configured to use the %s theme, but it is either inactive, not installed, or "
 "incompatible."
 msgstr ""
-"Šis albumas sukonfigūruotas naudoti temą %s, tačiau tačiau ji arba neįdiegta, arba ne "
+"Šis albumas sukonfigūruotas naudoti temą %s, tačiau tačiau jį arba neįdiegta, arba ne "
 "aktyvi, arba nesuderinama."
 
 #, c-format
@@ -3633,7 +3296,7 @@ msgid ""
 "To fix this problem you can %sinstall or activate this theme%s or select another default "
 "theme."
 msgstr ""
-"Kad išspręstumėt šią problemą, reikia %sįdiegti arba aktyvuoti temą%s, arba nurodyti kitą "
+"Kad išspręsti šią problemą, reikia %sįdiegti arba aktyvuoti temą%s arba nurodyti kitą "
 "numatytą temą."
 
 #, c-format
@@ -3641,15 +3304,15 @@ msgid ""
 "To fix this problem you can %slogin as a site administrator%s and then %sinstall or activate "
 "this theme%s or select another default theme."
 msgstr ""
-"Kad išspręstumėt šią problemą, reikia %sprisijungti kaip svetainės administratorius%s, "
-"tuomet %sįdiegti arba aktyvuoti temą%s, arba nurodyti kitą numatytą temą."
+"Kad išspręsti šią problemą, reikia %sprisijungti kaip svetainės administratorius%s, tuomet %"
+"sįdiegti arba aktyvuoti temą%s arba nurodyti kitą numatytą temą."
 
 #, c-format
 msgid ""
 "To fix this problem you can either %schoose a new theme for this album%s or %sinstall or "
 "activate this theme%s."
 msgstr ""
-"Kad išspręstumėt šią problemą, galite %sšiam albumui parinkti naują temą%s arba %sįdiegti ir "
+"Kad išspręsti šią problemą jūs galite %sšiam albumui parinkti naują temą%s arba %sįdiegti ir "
 "aktyvuoti šią temą%s."
 
 #, c-format
@@ -3657,7 +3320,7 @@ msgid ""
 "To fix this problem you can either %schoose a new theme for this album%s or %slogin as a "
 "site administrator%s and then %sinstall or activate this theme%s."
 msgstr ""
-"Kad išspręstumėt šią problemą, galite %sšiam albumui parinkti naują temą%s arba %"
+"Kad išspręsti šią problemą jūs galite %sšiam albumui parinkti naują temą%s arba %"
 "sprisijungti kaip svetainės administratorius%s ir tada %sįdiegti ir aktyvuoti šią temą%s."
 
 #, c-format
@@ -3665,7 +3328,7 @@ msgid ""
 "To fix this problem you can either %slogin%s and then %schoose a new theme for this album%s "
 "or %slogin as a site administrator%s and then %sinstall or activate this theme%s."
 msgstr ""
-"Kad išspręstumėt šią problemą, galite %sprisijungti%s ir tuomet %sparinkti kitą šio albumo "
+"Kad išspręsti šią problemą jūs galite %sprisijungti%s ir tuomet %sparinkti kitą šio albumo "
 "temą%s arba %sprisijungti kaip svetainės administratorius%s ir tuomet %sįdiegti ar aktyvuoti "
 "šią temą%s."
 
@@ -3682,8 +3345,8 @@ msgid ""
 "You must enter your current password to prove that it's you, then enter your new password "
 "twice to make sure that you didn't make a mistake."
 msgstr ""
-"Jums reikia įvesti savo dabartinį slaptažodį, kad įrodytumėte, kad tai tikrai Jūs, tuomet "
-"Jūsų naują slaptažodį du kartus. Būkite atidūs, kad neįveltumėte klaidos."
+"Jums reikia įvesti savo dabartinį slaptažodį, kad įrodytumėte kad tai tikrai jūs, tuomet "
+"jūsų naują slaptažodį du kartus. Būkite atidūs, kad neįveltumėte klaidos."
 
 msgid "Current Password"
 msgstr "Dabartinis slaptažodis"
@@ -3716,24 +3379,20 @@ msgid ""
 "Your administrator has locked this account, preventing changes from being made to the "
 "account information."
 msgstr ""
-"Administratorius užrakino šią paskyrą, kad būtų išvengta bet kokių šios paskyros "
-"informacijos pakeitimų."
+"Administratorius užrakino šią paskyrą, kad išvengti bet kokių šios paskyros informacijos "
+"pakeitimų."
 
 msgid "Login to your account"
-msgstr "Prisijungti į savo paskyrą"
+msgstr "Prisijungi į savo paskyrą"
 
 msgid "Your password has been recovered, please login."
 msgstr "Jūsų slaptažodis atkurtas, prašom prisijungti."
 
-msgid ""
-"The administration session has expired, please re-authenticate to access the administration "
-"area."
-msgstr ""
-
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Logins to this account are temporarily disabled due to multiple failed login attempts.  Wait "
-"for access to be restored, or use the %srecover password%s page to re-enable this account."
+"for access to be restored, or use the <a href=\"%s\">recover password</a> page to re-enable "
+"this account."
 msgstr ""
 "Prisijungimas prie šios paskyros laikinai uždraustas, kadangi daug kartų buvo bandoma "
 "prisijungti nesėkmingai. Palaukite kol prieiga bus vėl leidžiama, arba pasinaudokite <a href="
@@ -3742,30 +3401,32 @@ msgstr ""
 msgid "Your login information is incorrect.  Please try again."
 msgstr "Jūsų prisijungimo informacija neteisinga.  Prašome bandyti dar kartą."
 
-#, fuzzy, c-format
-msgid "Lost or forgotten passwords can be retrieved using the %srecover password%s page"
+#, c-format
+msgid ""
+"Lost or forgotten passwords can be retrieved using the <a href=\"%s\">recover password</a> "
+"page"
 msgstr ""
 "Pamesti ar užmiršti slaptažodžiai gali būti atkurti naudojant <a href=\"%s\">slaptažodžio "
 "atkūrimo</a> puslapį"
 
 #, c-format
 msgid "Welcome, %s!"
-msgstr "Sveiki atvykę, %s!"
+msgstr "Labas, %s!"
 
 msgid "Account settings saved successfully"
 msgstr "Paskyros nustatymai išsaugoti sėkmingai"
 
 msgid "(required, password required for change)"
-msgstr "(privaloma, pakeitimui būtinas slaptažodis)"
+msgstr "(privaloma, slaptažodį pakeisti būtina)"
 
 msgid "(suggested, password required for change)"
-msgstr "(rekomenduojama, pakeitimui būtinas slaptažodis)"
+msgstr "(rekomenduojama, slaptažodį pakeisti būtina)"
 
 msgid "(required to change the e-mail address)"
 msgstr "(el. pašto adresą pakeisti būtina)"
 
 msgid "You must enter your current password to change the e-mail address"
-msgstr "El. pašto adresui pakeisti reikia įvesti Jūsų dabartinį slaptažodį"
+msgstr "Kad pakeisti el. pašto adresą reikia įvesti dabartinį slaptažodį"
 
 msgid "Recover a lost or forgotten password"
 msgstr "Atkurti pamestą ar užmirštą slaptažodį"
@@ -3778,13 +3439,13 @@ msgid ""
 "period.  A recovery confirmation is valid for seven days.  If it is not used during that "
 "time, it will be purged from the system and a new request will have to be made."
 msgstr ""
-"Slaptažodžio atkūrimui būtina, kad Jūsų vartotojo paskyroje būtu nurodytas el. pašto "
-"adresas, ir kad Jūs galėtumete šį paštą perskaityti. El. paštu Jums bus išsiųstas laiškas su "
-"nuoroda, kurią paspaudus atsidarys naujo paskyros slaptažodžio kūrimo dialogas. Siekiant "
+"Slaptažodžio atstatymui būtina, kad jūsų vartotojo paskyroje būtu nurodytas el. pašto "
+"adresas, ir kad jūs galėtumete šį paštą perskaityti.  El. paštu jums bus išsiųstas laiškas "
+"su nuoroda, kurią paspaudus atsidarys naujo paskyros slaptažodžio kūrimo dialogas.  Kad "
 "išvengti piktavaliavimo, slaptažodžio atkūrimo užklausa negali būti vykdoma dažniau nei kas "
-"20 min.  Atstatymo patvirtinimas galios septynias dienas. Jei jis per šį laiką "
-"nepanaudojamas, tuomet šis patvirtinimas pašalinamas iš sistemos, ir norint atkurti "
-"slaptažodį po šio laikotarpio, reikės išsiųsti naują užklausą."
+"20 min.  Atstatymo patvirtinimas galios septynias dienas.  Jei jis per šį laiką "
+"nepanaudojamas, tuomet šis patvirtinimas pašalinamas iš sistemos, norint atkurti slaptažodį "
+"po šio laikotarpio, reikia išsiųsti naują užklausą."
 
 msgid "Your recovery request has been sent!"
 msgstr "Atstatymo užklausa išsiųsta!"
@@ -3793,7 +3454,7 @@ msgid ""
 "Note that if the account does not have an email address, you may not receive the email and "
 "you should contact your system administrator for help."
 msgstr ""
-"Atkreipkite dėmesį, į tai, kad jei Jūsų paskyroje nėra duomenų apie Jūsų el. paštą, tuomet "
+"Atkreipkite dėmesį, į tai, kad jei jūsų paskyroje nėra duomenų apie jūsų el. paštą, tuomet "
 "jūs negalėsite gauti laiško. Tokiu atveju susisiekite su sistemos administratoriumi."
 
 #, c-format
@@ -3802,8 +3463,8 @@ msgid ""
 "if they fail to receive recovery email due to server problems, or lack of a working email "
 "address."
 msgstr ""
-"Administratoriai gali pasinaudoti %sAtsarginiu slaptažodžio atkūrimo%s puslapiu, kad atkurtų "
-"administratoriaus paskyrą, kai nepavyksta gauti el. pašto ar trūksta veikiančių el. pašto "
+"Administratoriai gali pasinaudoti %sAtsarginiu slaptažodžio atkūrimo%s puslapiu, kad atkurti "
+"administratoriau paskyrą, kai nepavyksta gauti el. pašto , ar trūksta veikiančių el. pašto "
 "dėžučių."
 
 msgid "Recover"
@@ -3817,10 +3478,11 @@ msgid ""
 "new text file called %s in your gallery2 directory. It must contain the following randomly "
 "generated characters:"
 msgstr ""
-"Slaptažodčiui pakeisti reikia įsitikinti, kad Jūs esate tas asmuo kuriuo dedatės.  "
-"Geriausias būdas tai padaryti, yra paprašyti Jūsų atlikti mažą pakeitimą Galerijos aplanke, "
-"tai patvirtins, kad Jūs turite tinkamas teises. Taigi, paprašysime gallery2 aplanke sukurti "
-"naują tekstinį failą pavadinimu %s, kuriame turi būti šie atsitiktinai sugeneruoti simboliai:"
+"Kad pakeisti slaptažodį, reikia įsitikinti, kad jūs esate tas asmuo kuriuo dedatės.  "
+"Geriausias būdas tuo įsitikinti, yra paprašyti jūsų atlikti mažą pakeitimą Galerijos "
+"aplanke, tai patvirtins, kad jūs turite tinkamas teises.  Taigi, paprašysiu gallery2 aplanke "
+"sukurti naują tekstinį failą pavadinimu %s, kuriame turi būti šie atsitiktinai sugeneruoti "
+"simboliai:"
 
 #, c-format
 msgid "%s"
@@ -3831,8 +3493,8 @@ msgid ""
 "As a convenience to you, we've prepared a %scorrect version of login.txt%s for you.  "
 "Download that and copy it into your install directory and you're all set."
 msgstr ""
-"Jūsų patogumui yra paruošta %stinkama login.txt failo versija%s.  Atsisiųskite jo kopiją ir "
-"išsaugokite ją įdiegimo aplanke ir viskas bus nustatyta."
+"Jūsų patogumui yra paruošta %stinkama login.txt failo versija%s.  Atsisiųskite šią kopiją ir "
+"nukopijuokite į įdiegimo aplanką. Tada jūs nūsite pasiruošęs."
 
 msgid "Once you've uploaded the file, click refresh to continue."
 msgstr "Kai įkelsite failą į reikiamą vietą, paspauskite įkelti iš naujo."
@@ -3844,7 +3506,7 @@ msgid ""
 "This page can be used by a system administrator to securely reset the password on any "
 "account."
 msgstr ""
-"Šiuo puslapiu gali pasinaudoti sistemos administratorius, kad saugiai atkurtų savo paskyros "
+"Šiuo puslapiu gali pasinaudoti sistemos administratorius, kad saugiai atkurti savo paskyros "
 "slaptažodį."
 
 msgid "Authorization Confirmed"
@@ -3854,8 +3516,8 @@ msgid ""
 "Your authorization has been confirmed.  Please enter your new password below.  After setting "
 "your new password you will be taken to the login page."
 msgstr ""
-"Jūsų autorizacija patvirtinta.  Įveskite savo naują slaptažodį žemiau.  Po to, kai "
-"nustatysite naują slaptažodį, būsite perkeltas į prisijungimo puslapį."
+"Jūsų autorizacija patvirtinta.  Įveskite savo naują slaptažodį žemiau.  Po to kai "
+"nustatysite naują slaptažodį, jūs būsite perkeltas į prisijungimo puslapį."
 
 msgid "Recover Password for Username"
 msgstr "Slaptažodžio atkūrimas vartotojui"
@@ -3867,7 +3529,7 @@ msgid "The username you entered does not exist."
 msgstr "Įvestas vartotojas neegzistuoja."
 
 msgid "Authorization Incorrect"
-msgstr "Autorizacija neteisinga"
+msgstr "Autorizacija ne teisinga"
 
 msgid "Recovery Instructions"
 msgstr "Atkūrimo instrukcijos"
@@ -3888,18 +3550,18 @@ msgstr "Įkelti iš naujo"
 msgid "This page will allow you to reset the password on your account."
 msgstr "Šiame puslapyje galite pakeisti savo paskyros slaptažodį."
 
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "There is no request which matches the username and authorization provided. Request a new "
-"authorization from the %slost password page%s."
+"authorization from the <a href=\"%s\">lost password page</a>"
 msgstr ""
 "Nėra užklausos, kurioje būtu nurodytas vartotojas ir naudojama autorizacija.  Užsakykite "
 "naują autorizaciją puslapyje <a href=\"%s\">parastas slaptažodis</a>"
 
-#, fuzzy, c-format
+#, c-format
 msgid ""
-"The request you are trying to access has expired.  Request a new authorization from the %"
-"slost password page%s."
+"The request you are trying to access has expired.  Request a new authorization from the <a "
+"href=\"%s\">lost password page</a>."
 msgstr ""
 "Užklausa, kurią bandote panaudoti, nebegalioja.  Užsakykite naują autorizaciją puslapyje <a "
 "href=\"%s\">parastas slaptažodis</a>"
@@ -3915,7 +3577,7 @@ msgstr "Patvirtinti"
 
 #, c-format
 msgid "Hello %s,"
-msgstr "Labas, %s,"
+msgstr "Sveikas %s,"
 
 #, c-format
 msgid "You receive this email because a password recovery for %s was requested by %s at %s"
@@ -3928,7 +3590,8 @@ msgstr "Jūsų vartotojo vardas: %s"
 msgid ""
 "To finish the password recovery process please click the following link and enter the "
 "required information:"
-msgstr "Slaptažodžio atkūrimui užbaigti sekite šią nuorodą ir įveskite būtiną informaciją:"
+msgstr ""
+"Kad užbaigti slaptažodžio atkūrimą, prašau sekti šią nuorodą ir įvesti būtiną informaciją:"
 
 msgid "If you did not request this recovery email, you may safely ignore it."
 msgstr "Jei jūs šio slaptažodžio atkūrimo neužsakėte, tuomet šį laišką galite ignoruoti."
@@ -3963,7 +3626,7 @@ msgid "(%d item total)"
 msgid_plural "(%d items total)"
 msgstr[0] "(viso %d elementas)"
 msgstr[1] "(viso %d elementai)"
-msgstr[2] "(iš viso %d elementų)"
+msgstr[2] "(viso %d elementų)"
 
 #, c-format
 msgid "Views: %d"
@@ -3978,14 +3641,18 @@ msgstr "&laquo; elemento veiksmai &raquo;"
 msgid "Go"
 msgstr "Pirmyn"
 
-msgid "WARNING: block $type doesn't exist."
-msgstr ""
+msgid "Navigation"
+msgstr "Navigacija"
 
 msgid "next"
-msgstr "kitas"
+msgstr "sekantis"
 
 msgid "last"
 msgstr "paskutinis"
+
+#, c-format
+msgid "Page %d of %d"
+msgstr "Puslapis %d iš %d"
 
 #, c-format
 msgid "%d of %d"
@@ -4014,7 +3681,7 @@ msgid "Full size: "
 msgstr "Pilnas dydis: "
 
 msgid "Setting"
-msgstr "Nustatymai"
+msgstr "Nustaymai"
 
 msgid "Use Global"
 msgstr "Naudoti globalią"
@@ -4032,64 +3699,4 @@ msgid "Login block"
 msgstr "Prisijungimo blokas"
 
 msgid "Links to album/photo peers"
-msgstr "Nuorodos į albumus/nuotraukas"
-
-#~ msgid "Language Packages"
-#~ msgstr "Kalbos paketai"
-
-#~ msgid "(%sselect all%s%sselect none%s)"
-#~ msgstr "(%spažymėti viską%s%snežymėti nieko%s)"
-
-#~ msgid "You must select a base package before choosing language packs."
-#~ msgstr "Prieš pasirenkant kalbos paketus, reikia pasirinkti bazinį paketą."
-
-#~ msgid "Back to %s"
-#~ msgstr "Atgal į %s"
-
-#~ msgid "Back"
-#~ msgstr "Atgal"
-
-#~ msgid "Navigation"
-#~ msgstr "Navigacija"
-
-#~ msgid "<none>"
-#~ msgstr "<tuščia>"
-
-#~ msgid "key"
-#~ msgstr "raktas"
-
-#~ msgid "Loading Table Descriptions"
-#~ msgstr "Nuskaitomi lentelės aprašymai"
-
-#~ msgid "delete confirmation"
-#~ msgstr "pašalinimo patvirtinimas"
-
-#~ msgid "delete %s"
-#~ msgstr "trinti %s"
-
-#~ msgid "G2.2: Double Double"
-#~ msgstr "G2.2: Dvigubas dvejetas"
-
-#~ msgid "Deletion Complete"
-#~ msgstr "Trynimas atliktas"
-
-#~ msgid "Item successfully deleted"
-#~ msgstr "Elementas sėkmingai ištrintas"
-
-#~ msgid "Are you sure you want to delete this %s?"
-#~ msgstr "Ar tikrai norite ištrinti %s?"
-
-#~ msgid "It contains %d item."
-#~ msgid_plural "It contains %d items."
-#~ msgstr[0] "Jame yra %d elementas."
-#~ msgstr[1] "Jame yra %d elementai."
-#~ msgstr[2] "Jame yra %d elementų."
-
-#~ msgid "There is no undo!"
-#~ msgstr "Galimybės atšaukti nebus!"
-
-#~ msgid "B <!-- Button label for Bold -->"
-#~ msgstr "B"
-
-#~ msgid "i <!-- Button label for italic -->"
-#~ msgstr "i"
+msgstr "Nuorodos į albumus/fotografijas"

@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Migration 1.0.11\n"
+"Project-Id-Version: Gallery: Migration 1.0.7\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-02-05 17:54+0100\n"
 "PO-Revision-Date: 2006-01-15 14:34+0100\n"
@@ -43,10 +43,6 @@ msgid "Creating thumbnails"
 msgstr "Vytváření náhledů"
 
 #, c-format
-msgid "Thumbnail %d of %d"
-msgstr "Náhled %d z %d"
-
-#, c-format
 msgid "%sTitle%s was truncated for %sitem %d%s."
 msgstr "Byl zkrácen %stitulek%s pro %spoložku %d%s."
 
@@ -59,6 +55,10 @@ msgstr "Nastaveno:"
 
 msgid "Truncated:"
 msgstr "Zkráceno:"
+
+#, c-format
+msgid "Thumbnail %d of %d"
+msgstr "Náhled %d z %d"
 
 msgid "Migration"
 msgstr "Migrace"
@@ -146,8 +146,8 @@ msgstr "Znakové kódování zdrojového textu:"
 msgid "URL Redirection"
 msgstr "Přesměrování URL"
 
-msgid "Record G1-&gt;G2 mappings during import"
-msgstr "Během importu zaznamenat G1 --&gt; G2 mapování"
+msgid "Record G1->G2 mappings during import"
+msgstr "Během importu zaznamenat G1 --> G2 mapování"
 
 msgid "Thumbnail generation"
 msgstr "Generování náhledů"
@@ -275,8 +275,8 @@ msgstr "Vaše data z G1 budou převedena z následující znakové sady do UTF-8
 msgid "Encoding: %s"
 msgstr "Kódování: %s"
 
-msgid "G1-&gt;G2 mappings will be recorded for use in URL Redirection"
-msgstr "Pro přesměrování URL bude zaznamenáno G1 --&gt; G2 mapování"
+msgid "G1->G2 mappings will be recorded for use in URL Redirection"
+msgstr "Pro přesměrování URL bude zaznamenáno G1 --> G2 mapování"
 
 msgid "Thumbnails will be generated during migration"
 msgstr "Náhledy budou vygenerovány při migraci"
@@ -324,8 +324,7 @@ msgstr "Zrušit"
 msgid "Import Complete"
 msgstr "Import kompletní"
 
-# missing %d in msgstr[0]
-#, fuzzy, c-format
+#, c-format
 msgid "Successfully imported %d user."
 msgid_plural "Successfully imported %d users."
 msgstr[0] "Úspěšně naimportován jeden uživatel."
@@ -339,8 +338,7 @@ msgstr "Žádní uživatelé nebyli importováni"
 msgid "Imported %s"
 msgstr "Naimportováno: %s"
 
-# missing %d in msgstr[0]
-#, fuzzy, c-format
+#, c-format
 msgid "Error while importing %d user."
 msgid_plural "Errors while importing %d users."
 msgstr[0] "Chyba při importu jednoho uživatele."
@@ -351,8 +349,7 @@ msgstr[2] "Chyba při importu %d uživatelů."
 msgid "Error importing %s"
 msgstr "Chyba importu %s"
 
-# missing %d in msgstr[0]
-#, fuzzy, c-format
+#, c-format
 msgid "Successfully imported %d album."
 msgid_plural "Successfully imported %d albums."
 msgstr[0] "Úspěšně naimportováno jedno album."
@@ -362,8 +359,7 @@ msgstr[2] "Úspěšně naimportováno %d alb."
 msgid "No albums imported."
 msgstr "Žádná alba nenaimportována."
 
-# missing %d in msgstr[0]
-#, fuzzy, c-format
+#, c-format
 msgid "Error while importing %d album."
 msgid_plural "Errors while importing %d albums."
 msgstr[0] "Chyba při importu jednoho alba."
@@ -428,10 +424,12 @@ msgstr ""
 #, c-format
 msgid ""
 "You don't have any Graphics Toolkit activated to handle JPEG images.  If you import now, you "
-"will not have any thumbnails.  Visit the %sModules%s page to activate a Graphics Toolkit."
+"will not have any thumbnails.  Visit the <a href=\"%s\">Modules</a> page to activate a "
+"Graphics Toolkit."
 msgstr ""
 "Nemáte aktivovaný žádný grafický nástroj pro obrázky JPEG. Pokud nyní provedete import, "
-"nebudete mít žádné náhledy. Navštivte stránku %sModuly%s a aktivujte grafický nástroj."
+"nebudete mít žádné náhledy. Navštivte stránku <a href=\"%s\">Moduly</a> a aktivujte grafický "
+"nástroj."
 
 msgid "Path to Gallery 1 albums directory"
 msgstr "Cesta k adresáři s alby Galerie 1"
@@ -460,16 +458,12 @@ msgstr "Nedávno použité cesty"
 msgid "Gallery can redirect old Gallery1 URLs to the new Gallery2 pages."
 msgstr "Galerie může přesměrovat staré G1 URL adresy na nové G2 stránky."
 
-# gettext claims msgstr[0] should have a %d
-# perhaps because msgstr[0] could be used for numbers other than ONE
-# based on the plurals formula in the header of this file.
-# perhaps replace jedné with %d ?
-#, fuzzy, c-format
-msgid "There is one G1-&gt;G2 map entry"
-msgid_plural "There are %d G1-&gt;G2 map entries"
-msgstr[0] "Zaznamenáno G1 --&gt; G2 mapování jedné položky"
-msgstr[1] "Zaznamenáno G1 --&gt; G2 mapování %d položek"
-msgstr[2] "Zaznamenáno G1 --&gt; G2 mapování %d položek"
+#, c-format
+msgid "There is one G1->G2 map entry"
+msgid_plural "There are %d G1->G2 map entries"
+msgstr[0] "Zaznamenáno G1 --> G2 mapování jedné položky"
+msgstr[1] "Zaznamenáno G1 --> G2 mapování %d položek"
+msgstr[2] "Zaznamenáno G1 --> G2 mapování %d položek"
 
 msgid ""
 "Deleting map entries will cause old G1 URLs to produce HTTP Not Found errors instead of "
@@ -483,3 +477,8 @@ msgstr "Smazat všechny"
 
 msgid "Map entries deleted successfully"
 msgstr "Položky mapování úspěšně vymazány"
+
+#~ msgid "G1 URL redirect. Use only if G2 is installed where G1 used"
+#~ msgstr ""
+#~ "Přesměrování URL adresy G1. Použijte pouze pokud je G2 nainstalována tam, kde dříve byla "
+#~ "G1"

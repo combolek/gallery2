@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -56,14 +56,11 @@ class DownloadRegistryFileView extends GalleryView {
 	    return $ret;
 	}
 	list ($ret, $hasPermission) = GalleryCoreApi::hasItemPermission($rootId, 'core.view');
-	if ($ret) {
-	    return $ret;
-	}
 	if (!$hasPermission) {
 	    /* Avoid information disclosure, use a default title */
 	    $title = 'Gallery';
 	} else {
-	    list ($ret, $root) = GalleryCoreApi::loadEntitiesById($rootId, 'GalleryItem');
+	    list ($ret, $root) = GalleryCoreApi::loadEntitiesById($rootId);
 	    if ($ret) {
 		return $ret;
 	    }
@@ -211,7 +208,7 @@ class DownloadRegistryFileView extends GalleryView {
 		break;
 	    default: $codePage = 1252;
 	}
-	return 'CP' . $codePage;
+	return 'Windows-' . $codePage;
     }
 }
 ?>

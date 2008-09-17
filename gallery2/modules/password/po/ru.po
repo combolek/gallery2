@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,11 +19,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Password Protected Albums 1.0.8\n"
+"Project-Id-Version: Gallery: Password Items 1.0.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-03-17 02:54-0800\n"
-"PO-Revision-Date: 2008-07-29 11:21+0300\n"
-"Last-Translator: Ser Moro <webber@morozov-sm.ru>\n"
+"PO-Revision-Date: 2006-03-17 14:04+0300\n"
+"Last-Translator: Konstantin Ivanov <Continental@vollen.ru>\n"
 "Language-Team: RUSSIAN <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -34,31 +34,29 @@ msgstr ""
 "|| n%100>=20) ? 1 : 2);\n"
 
 msgid "Password Entry"
-msgstr "Запись пароля"
+msgstr "Запись Пароля"
 
-msgid "Password Protected Albums"
-msgstr "Альбомы, защищённые паролем"
+msgid "Password Items"
+msgstr "Защита Паролем"
 
-msgid "Assign passwords for viewing particular albums"
-msgstr "Закрыть паролями отдельные альбомы"
+msgid "Assign passwords for viewing particular albums or items"
+msgstr "Защита паролем просмотра конкретных альбомов или элементов"
 
 msgid "Display"
 msgstr "Отображение"
 
-msgid "Password Items"
-msgstr "Защита паролем"
-
+#, fuzzy
 msgid "Set Password"
-msgstr "Установить пароль"
+msgstr "Новый Пароль:"
 
 msgid "Update permissions"
-msgstr "Обновить правила доступа"
+msgstr ""
 
 msgid "Remove Password"
-msgstr "Удалить пароль"
+msgstr "Удалить Пароль"
 
-msgid "Password Protected Album"
-msgstr "Альбом, защищённый паролем"
+msgid "Password Protected Item"
+msgstr "Элемент, защищенный паролем"
 
 msgid "Enter the password!"
 msgstr "Введите пароль!"
@@ -74,20 +72,20 @@ msgid ""
 "guests have permission to view resizes and/or original items before assigning a password."
 msgstr ""
 "Задайте пароль, который будет необходимо ввести гостям или другим пользователями для "
-"получения доступа. Убедитесь, что гости имеют право  просмотра изображений промежуточных "
-"размеров и/или оригиналов элементов перед тем, как назначать пароль."
+"получения доступа. Убедитесь, что гости имеют право доступа на просмотри изображений "
+"промежуточных размеров и/или оригиналов элементов перед тем, как назначать пароль."
 
 msgid "This item is already password protected."
 msgstr "Данный элемент уже защищен паролем."
 
 msgid "New Password:"
-msgstr "Новый пароль:"
+msgstr "Новый Пароль:"
 
 msgid "Password:"
 msgstr "Пароль:"
 
 msgid "Confirm Password:"
-msgstr "Подтвердите пароль:"
+msgstr "Подтвердите Пароль:"
 
 msgid "The passwords you entered did not match"
-msgstr "Введенные пароли не совпадают"
+msgstr "Введенные Вами пароли не совпадают"

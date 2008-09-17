@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,14 +19,13 @@
 #
 # Branislav Hanacek <brango@radegast>, 2006.
 # Branislav Hanacek <brango@brango.sk>, 2006.
-# Matej Spanik <retsamm@gmail.com>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Core 1.2.36\n"
+"Project-Id-Version: Gallery: Core 1.2.0.3\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2007-06-07 09:29-0700\n"
-"PO-Revision-Date: 2007-11-28 03:52+0100\n"
-"Last-Translator: Matej Spanik <retsamm@gmail.com>\n"
+"PO-Revision-Date: 2007-03-14 14:54+0100\n"
+"Last-Translator: Branislav Hanacek <brango@brango.sk>\n"
 "Language-Team: Slovak <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,6 +38,30 @@ msgstr ""
 
 msgid "Gallery Email Test"
 msgstr "Skúška pošty z Galérie"
+
+msgid "forever"
+msgstr "navždy"
+
+msgid "High Priority (Me first!)"
+msgstr "Vysoká priorita (Mne najskôr!)"
+
+msgid "Low Priority (I want to share!)"
+msgstr "Nízka priorita (Chcem zdieľať) "
+
+msgid "No Markup"
+msgstr "Neznačkovať"
+
+msgid "BBCode"
+msgstr "BBCode"
+
+msgid "Raw HTML"
+msgstr "Čisté HTML"
+
+msgid "Database"
+msgstr "Databáza"
+
+msgid "File"
+msgstr "Súbor"
 
 #, c-format
 msgid "%d minute"
@@ -68,57 +91,8 @@ msgstr[0] "%d týždeň"
 msgstr[1] "%d týždne"
 msgstr[2] "%d týždňov"
 
-msgid "forever"
-msgstr "navždy"
-
-msgid "High Priority (Me first!)"
-msgstr "Vysoká priorita (Mne najskôr!)"
-
-msgid "Low Priority (I want to share!)"
-msgstr "Nízka priorita (Chcem zdieľať) "
-
-msgid "No Markup"
-msgstr "Neznačkovať"
-
-msgid "BBCode"
-msgstr "BBCode"
-
-msgid "Raw HTML"
-msgstr "Čisté HTML"
-
-msgid "Database"
-msgstr "Databáza"
-
-msgid "File"
-msgstr "Súbor"
-
-msgid "&lt;none&gt;"
-msgstr ""
-
-#, fuzzy
-msgid "Link"
-msgstr "Prihlásiť"
-
-#, c-format
-msgid "Page %d of %d"
-msgstr "Stránka %d z %d"
-
-#, fuzzy
-msgid "Updating Language Settings"
-msgstr "Nastavenie jazyka"
-
-msgid "Update completed with errors."
-msgstr "Aktualizácia skončila s chybami."
-
-msgid "Update complete."
-msgstr "Aktualizácia dokončená."
-
-msgid "Deleting Language Packs"
-msgstr "Vymazavam Jazykove Balicky"
-
-#, fuzzy
-msgid "Synchronizing Language Packs"
-msgstr "Vymazavam Jazykove Balicky"
+msgid "<none>"
+msgstr "<žiadne>"
 
 msgid "No acceleration"
 msgstr "Bez akcelerácie"
@@ -131,6 +105,45 @@ msgstr "Plná akcelerácia"
 
 msgid "Themes"
 msgstr "Témy"
+
+#, fuzzy
+msgid "Updating Repository Index"
+msgstr "Aktualizovať index"
+
+msgid "Scanning plugins"
+msgstr "Prehľadávajú sa zásuvné moduly"
+
+#, fuzzy
+msgid "Update Plugin List"
+msgstr "Aktualizovať všetky zásuvné moduly"
+
+msgid "Done."
+msgstr "Hotovo."
+
+msgid "Updating Packages"
+msgstr "Aktualizujú sa balíčky"
+
+#, fuzzy, c-format
+msgid "Preparing %s"
+msgstr "Spracováva sa ..."
+
+#, c-format
+msgid "Downloading %s"
+msgstr "Sťahuje sa %s"
+
+#, fuzzy, c-format
+msgid "Activating %s"
+msgstr "Akcie"
+
+#, fuzzy
+msgid "Deleting Language Packs"
+msgstr "Východzí jazyk"
+
+msgid "Update completed with errors."
+msgstr "Aktualizácia skončila s chybami."
+
+msgid "Update complete."
+msgstr "Aktualizácia dokončená."
 
 msgid "install"
 msgstr "inštalovať"
@@ -153,11 +166,11 @@ msgstr "Zdediť nastavenia od rodičovského albumu"
 msgid "Use these settings"
 msgstr "Použiť tieto nastavenia"
 
-msgid "Converting Schema Table"
-msgstr "Konvertuje sa tabulka schem"
-
 msgid "Installing the core module"
 msgstr "Inštalujú sa základné moduly"
+
+msgid "key"
+msgstr "kľúč"
 
 msgid "All access"
 msgstr "Voľný prístup"
@@ -192,10 +205,6 @@ msgstr "(jadro) Zmazanie položky"
 msgid "Upgrading permissions"
 msgstr "Aktualizujú sa oprávnenia"
 
-#, c-format
-msgid "Upgrading permissions (%d items complete, %d remaining)"
-msgstr "Aktualizujú sa oprávnenia (%d položiek hotových, %d zostáva)"
-
 msgid "Deleting old permission tables"
 msgstr "Mažú sa staré tabuľky oprávnení"
 
@@ -208,32 +217,11 @@ msgstr "Všetci používatelia"
 msgid "Detecting broken derivatives"
 msgstr "Odhaľujú sa chybné zmenšeniny"
 
-#, c-format
-msgid "Detecting broken derivatives, loading (%d derivatives checked, %d remaining)"
-msgstr "Odhaľujú sa chybné zmenšeniny, nahráva sa (%d skontrolovanych, zostava %d)"
-
-#, c-format
-msgid "Detecting broken derivatives (%d derivatives checked, %d remaining)"
-msgstr "Odhaľujú sa chybné zmenšeniny (%d skontrolovanych, zostava %d)"
-
-#, c-format
-msgid "Detecting broken derivatives, saving (%d derivatives checked, %d remaining)"
-msgstr "Odhaľujú sa chybné zmenšeniny, ukladá sa (%d skontrolovanych, zostava %d)"
-
-#, c-format
-msgid ""
-"Detecting broken derivatives, saving item %d of %d (%d derivatives complete, %d remaining)"
-msgstr "Odhaľujú sa chybné zmenšeniny, ukladá sa polozka %d z %d (%d hotovych, zostava %d)"
-
 msgid "Clearing fast-download cache"
 msgstr "Vymazáva sa vyrovnávacia pamäť rýchlych sťahovaní"
 
 msgid "Deleting old fast-download cache"
 msgstr "Vymazáva sa obsah starej vyrovnávacej pamäti rýchlych sťahovaní"
-
-#, c-format
-msgid "Deleting old session files (iteration %d)"
-msgstr "Mažú sa staré súbory sedení (prechod %d)"
 
 msgid "Updating panorama items"
 msgstr "Aktualizujú sa položky panoráma"
@@ -241,13 +229,11 @@ msgstr "Aktualizujú sa položky panoráma"
 msgid "Optimizing AccessSubscriberMap table"
 msgstr "Optimalizuje sa tabuľka AccessSubscriberMap"
 
-#, fuzzy
-msgid "Upgrading Plugin Translations"
-msgstr "Aktualizujú sa oprávnenia"
+msgid "Converting Schema Table"
+msgstr ""
 
-#, fuzzy
-msgid "Creating Package Map"
-msgstr "Aktualizujú sa balíčky"
+msgid "Loading Table Descriptions"
+msgstr ""
 
 msgid "Site Admins"
 msgstr "Správcovia"
@@ -267,16 +253,30 @@ msgstr "Toto je hlavná stránka vašej Galérie"
 msgid "Converting MySQL data to UTF8"
 msgstr "Údaje z MySQL sa konvertujú do UTF8"
 
-#, fuzzy
-msgid "Adding items"
-msgstr "pridať položky"
+#, c-format
+msgid "Upgrading permissions (%d items complete, %d remaining)"
+msgstr "Aktualizujú sa oprávnenia (%d položiek hotových, %d zostáva)"
 
-#, fuzzy
-msgid "Processing items"
-msgstr "Spracováva sa položka %d z %d"
+#, fuzzy, c-format
+msgid "Detecting broken derivatives, loading (%d derivatives checked, %d remaining)"
+msgstr "Odhaľujú sa chybné zmenšeniny, nahráva sa "
 
-msgid "Extracting archive"
-msgstr ""
+#, fuzzy, c-format
+msgid "Detecting broken derivatives (%d derivatives checked, %d remaining)"
+msgstr "Odhaľujú sa chybné zmenšeniny, ukladá sa"
+
+#, fuzzy, c-format
+msgid "Detecting broken derivatives, saving (%d derivatives checked, %d remaining)"
+msgstr "Odhaľujú sa chybné zmenšeniny, ukladá sa"
+
+#, fuzzy, c-format
+msgid ""
+"Detecting broken derivatives, saving item %d of %d (%d derivatives complete, %d remaining)"
+msgstr "Aktualizujú sa oprávnenia (%d položiek hotových, %d zostáva)"
+
+#, c-format
+msgid "Deleting old session files (iteration %d)"
+msgstr "Mažú sa staré súbory sedení (prechod %d)"
 
 msgid "add items"
 msgstr "pridať položky"
@@ -289,6 +289,32 @@ msgstr "pridať vnorený album"
 
 msgid "add items confirmation"
 msgstr "potvrdenie pridania položiek"
+
+msgid "Base filename"
+msgstr "Meno súboru"
+
+msgid "Caption"
+msgstr "Nadpis"
+
+msgid "Blank"
+msgstr "Prázdne"
+
+msgid "From Web Browser"
+msgstr "Z webového prehliadača"
+
+#, c-format
+msgid "%d megabyte"
+msgid_plural "%d megabytes"
+msgstr[0] "%d megabyte"
+msgstr[1] "%d megabyty"
+msgstr[2] "%d megabytov"
+
+#, c-format
+msgid "%d kilobytes"
+msgid_plural "%d kilobytes"
+msgstr[0] "%d kilobyte"
+msgstr[1] "%d kilobyty"
+msgstr[2] "%d kilobytov"
 
 #, c-format
 msgid "Input file %s exceeds maximum permitted file size"
@@ -306,37 +332,18 @@ msgstr "Vstupný súbor %s bol stiahnutý iba čiastočne"
 msgid "Input file %s was not uploaded. Error %d"
 msgstr "Vstupný súbor %s nebol prijatý. Chyba %d"
 
-#, c-format
-msgid "%d megabyte"
-msgid_plural "%d megabytes"
-msgstr[0] "%d megabyte"
-msgstr[1] "%d megabyty"
-msgstr[2] "%d megabytov"
-
-#, c-format
-msgid "%d kilobytes"
-msgid_plural "%d kilobytes"
-msgstr[0] "%d kilobyte"
-msgstr[1] "%d kilobyty"
-msgstr[2] "%d kilobytov"
-
-msgid "Base filename"
-msgstr "Meno súboru"
-
-msgid "Caption"
-msgstr "Nadpis"
-
-msgid "Blank"
-msgstr "Prázdne"
-
-msgid "From Web Browser"
-msgstr "Z webového prehliadača"
-
 msgid "Gallery Item Administration"
 msgstr "Správa položky Galérie"
 
 msgid "delete an item"
 msgstr "odstrániť položku"
+
+msgid "delete confirmation"
+msgstr "potvrdenie odstránenia"
+
+#, c-format
+msgid "delete %s"
+msgstr "odstrániť %s"
 
 #, c-format
 msgid "edit %s"
@@ -345,15 +352,13 @@ msgstr "upraviť %s"
 msgid "Settings saved successfully."
 msgstr "Nastavenia boli úspešne uložené."
 
+#, fuzzy
 msgid "Apply resized image settings"
-msgstr "Aplikovat nastavenia transformovanych obrazkov"
+msgstr "Nastavenie témy bolo obnovené"
 
+#, fuzzy
 msgid "Preparing..."
-msgstr "Pripravuje sa ..."
-
-#, c-format
-msgid "Processing image %d of %d"
-msgstr "Spracováva sa  obrázok %d z %d"
+msgstr "Spracováva sa ..."
 
 msgid "Apply thumbnail settings"
 msgstr "Použiť nastavenie náhľadov"
@@ -362,7 +367,11 @@ msgid "Rebuilding thumbnails..."
 msgstr "Znovu sa vytvárajú náhledy..."
 
 msgid "Album"
-msgstr "Album"
+msgstr "album"
+
+#, c-format
+msgid "Processing image %d of %d"
+msgstr "Spracováva sa  obrázok %d z %d"
 
 msgid "Changes saved successfully"
 msgstr "Zmeny boli úspešne uložené"
@@ -436,8 +445,9 @@ msgstr "Mierka bola úspešne zmenená"
 msgid "Modify Photo"
 msgstr "Upraviť fotografiu"
 
+#, fuzzy
 msgid "Successfully changed theme"
-msgstr "Téma bola úspešne zmenena"
+msgstr "Téma %s bola úspešne aktivovaná"
 
 msgid "&laquo; default theme &raquo;"
 msgstr "&laquo; východzia téma &raquo;"
@@ -501,10 +511,6 @@ msgstr "Upraviť foto"
 msgid "Edit Movie"
 msgstr "Upraviť video"
 
-#, c-format
-msgid "Edit %s"
-msgstr "Upraviť %s"
-
 msgid "Add Album"
 msgstr "Pridať album"
 
@@ -523,10 +529,6 @@ msgstr "Odstrániť fotku"
 msgid "Delete Movie"
 msgstr "Odstrániť video"
 
-#, c-format
-msgid "Delete %s"
-msgstr "Odstrániť %s"
-
 msgid "Move Album"
 msgstr "Presunúť album"
 
@@ -536,10 +538,6 @@ msgstr "Presunúť fotku"
 msgid "Move Movie"
 msgstr "Presunúť video"
 
-#, c-format
-msgid "Move %s"
-msgstr "Presunúť %s"
-
 msgid "Edit Captions"
 msgstr "Upraviť nadpisy"
 
@@ -548,9 +546,6 @@ msgstr "Zvýrazniť"
 
 msgid "Reorder Items"
 msgstr "Zmeniť poradie položiek"
-
-msgid "Delete Items"
-msgstr "Odstrániť položky"
 
 msgid "Site Admin"
 msgstr "Administrácia"
@@ -576,12 +571,6 @@ msgstr "Skupiny"
 msgid "Performance"
 msgstr "Výkon"
 
-msgid "Event Logs"
-msgstr ""
-
-msgid "Language Settings"
-msgstr "Nastavenie jazyka"
-
 msgid "Toolkit Priority"
 msgstr "Priorita nástrojov"
 
@@ -594,28 +583,17 @@ msgstr "Nastavenie účtu"
 msgid "Change Password"
 msgstr "Zmeniť heslo"
 
-msgid "Updating Packages"
-msgstr "Aktualizujú sa balíčky"
+#, c-format
+msgid "Edit %s"
+msgstr "Upraviť %s"
 
 #, c-format
-msgid "Cleaning up obsolete files %s"
-msgstr ""
+msgid "Delete %s"
+msgstr "Odstrániť %s"
 
 #, c-format
-msgid "Activating %s"
-msgstr "Aktivuje sa %s"
-
-msgid "Updating Repository Index"
-msgstr "Aktualizovať index"
-
-msgid "Scanning plugins"
-msgstr "Prehľadávajú sa moduly"
-
-msgid "Update Plugin List"
-msgstr "Aktualizovať všetky moduly"
-
-msgid "Done."
-msgstr "Hotovo."
+msgid "Move %s"
+msgstr "Presunúť %s"
 
 msgid "Build all thumbnails/resizes"
 msgstr "Vytvorenie všetkých náhľadov/zmenšenín"
@@ -630,6 +608,9 @@ msgstr ""
 msgid "Build All Thumbnails/Resizes"
 msgstr "Vytvoriť všetky náhľady a zmenšené obrázky"
 
+msgid "Debug output for failed items:"
+msgstr "Ladiaci výstup pre položky ktoré zlyhali:"
+
 #, c-format
 msgid "Checked %d items"
 msgstr "Skontrolované %d položiek"
@@ -642,11 +623,9 @@ msgstr "vytvorených %d položiek"
 msgid "%d items failed"
 msgstr "%d položiek zlyhalo"
 
-msgid "Debug output for failed items:"
-msgstr "Ladiaci výstup pre položky ktoré zlyhali:"
-
+#, fuzzy
 msgid "Convert MySQL database to UTF8"
-msgstr "Údaje z MySQL konvertovat do UTF8"
+msgstr "Údaje z MySQL sa konvertujú do UTF8"
 
 msgid ""
 "If you created your database with MySQL 3.x and you upgrade to MySQL 4.x, you will "
@@ -655,43 +634,12 @@ msgid ""
 "After using this, you should run the 'Delete database cache' task to get rid of any "
 "corruption in your cache."
 msgstr ""
-"Ak ste vytvorili Vasu databazu s MySQL 3.x a potom ste presli na MySQL 4.x budete mat "
-"problemy s chybnymi znakmi pokial neskonvertujete databazu na UTF8.  Tato operacia je "
-"neskodna ak vasa databaza je uz skonvertovana, takze je bezpecne vyskusat to, ak si nieste "
-"isty.  Po pouziti tejto akcie by ste mali spustit 'Vymazanie vyrovnavacej pamate (cache) "
-"databazy' aby ste sa zbavili akejkolvek chyby vo vyrovnavacej pamati."
 
+#, fuzzy
 msgid "Database successfully converted to UTF8"
-msgstr "Databaza uspesne skonvertovana do UTF8"
+msgstr "Optimalizácia databázy prebehla úspešne"
 
 msgid "No conversion required"
-msgstr "Konverzia nie je potrebna"
-
-#, fuzzy
-msgid "Backup the database"
-msgstr "Optimalizácia databázy"
-
-msgid ""
-"Backup all your Gallery data (item data, users, comments, etc.) to a single file in your "
-"storage folder.  The backup does not include the image files.  Before running the backup, "
-"your Gallery installation needs to be set into maintenance mode, as this is not done "
-"automatically."
-msgstr ""
-
-msgid "Backing up Gallery Database"
-msgstr ""
-
-#, fuzzy
-msgid "Exporting..."
-msgstr "Pripravuje sa ..."
-
-#, c-format
-msgid "Database backup completed and the backup file is located at: %s"
-msgstr ""
-
-msgid ""
-"Please note that your backup contains sensitive data (like passwords) and should not be "
-"stored online! We recommend that you download it from your server and keep it safely offline."
 msgstr ""
 
 msgid "Delete user sessions"
@@ -702,9 +650,9 @@ msgid ""
 msgstr ""
 "Vymaže všetky trvalé sedenia (sessions) používateľa podľa aktuálneho nastavení expirácie."
 
-#, c-format
+#, fuzzy, c-format
 msgid "Deleted %d sessions."
-msgstr "Zmazanych %d sedeni (session)."
+msgstr "Odstránenie sedení (session) používateľa"
 
 msgid "Delete database cache"
 msgstr "Vyprázdnenie vyrovnávacej pamäti databázy"
@@ -729,12 +677,11 @@ msgstr "Nie je možné zmazať adresár: %s"
 msgid "Delete template cache"
 msgstr "Vyprázdnenie vyrovnávacej pamäte pre šablóny"
 
-#, fuzzy
 msgid ""
 "Gallery compiles template files and saves them for increased performance.  If you're "
 "experiencing problems that say <i>Smarty error</i> then you might try running this task.  "
-"Also run this if you add or remove any local/*.tpl or theme override so Smarty will find the "
-"right file."
+"Also run this if you remove a local/*.tpl file so Smarty will switch back to the default tpl "
+"file."
 msgstr ""
 "Galérie kvôli zvýšeniu výkonu prekladá súbory šablón (templates) a výsledky ukladá do "
 "vyrovnávacej pamäte. Ak narazíte na problém <i>Smarty error</i>, mali by ste skúsiť spustiť "
@@ -786,11 +733,13 @@ msgstr "Titulok"
 msgid "Owner"
 msgstr "Vlastník"
 
+#, fuzzy
 msgid "Dynamic Album"
-msgstr "Dynamicky Album"
+msgstr "Upraviť album"
 
+#, fuzzy
 msgid "dynamic album"
-msgstr "dynamicky album"
+msgstr "Upraviť album"
 
 msgid "Group"
 msgstr "Skupina"
@@ -819,22 +768,16 @@ msgstr ""
 "Nepodarilo sa vytvoriť adresár pre vyrovnávaciu pamäť. Skontrolujte, či má web-server právo "
 "zápisu do tohto adresára."
 
-#, c-format
-msgid "Preparing %s"
-msgstr "Pripravuje sa %s"
-
-#, c-format
-msgid "Downloading %s"
-msgstr "Sťahuje sa %s"
-
 msgid "Official Release Repository"
 msgstr "Úložisko oficiálne vydaných verzií"
 
+#, fuzzy
 msgid "Experimental Repository"
-msgstr "Experimentalne Úložisko"
+msgstr "Úložisko"
 
+#, fuzzy
 msgid "Community Repository"
-msgstr "Úložisko Komunity"
+msgstr "Úložisko"
 
 #, c-format
 msgid "Error downloading index from '%s'."
@@ -886,10 +829,6 @@ msgstr "Vzostupne"
 msgid "Descending"
 msgstr "Zostupne"
 
-#, c-format
-msgid "Powered by Gallery v%s"
-msgstr "Poháňané Galériou v%s"
-
 msgid "Validation disabled until you set allowSessionAccess in config.php"
 msgstr "Overovanie je vypnuté pokiaľ nenastavíte allowSessionAccess v config.php"
 
@@ -898,6 +837,13 @@ msgstr "Tato stránka je validné XHTML 1.0"
 
 msgid "Donate to the Gallery project"
 msgstr "Finančná podpora projektu Galéria"
+
+msgid "G2.2: Double Double"
+msgstr ""
+
+#, c-format
+msgid "Powered by Gallery v%s"
+msgstr "Poháňané Galériou v%s"
 
 #, c-format
 msgid "Estimated time remaining: %d:%02d"
@@ -941,16 +887,17 @@ msgid "Blocks to show on photo pages"
 msgstr "Bloky pre zobrazenie na stránkach fotografií"
 
 msgid "Thumbnail links in dynamic albums"
-msgstr "Linky nahladov v dynamickych albumoch"
+msgstr ""
 
+#, fuzzy
 msgid "Browse dynamic album"
-msgstr "Prezerat dynamicky album"
+msgstr "Upraviť album"
 
 msgid "Jump to original album"
-msgstr "Skocit na original album"
+msgstr ""
 
 msgid "Separate link to original album"
-msgstr "Zvlast linka na original album"
+msgstr ""
 
 msgid "View Samples"
 msgstr "Zobraziť vzorky"
@@ -971,7 +918,7 @@ msgid "You must enter a number greater than 0"
 msgstr "Musíte zadať číslo väčšie ako 0"
 
 msgid "Error reading block settings. Clear your browser cache and try again."
-msgstr "Chyba pri citani nastavenia bloku. Vymazte cache na vasom prehliadaci a skuste znovu."
+msgstr ""
 
 #, c-format
 msgid "%dx%d"
@@ -1001,8 +948,16 @@ msgstr "Tabuľka"
 msgid "spreadsheet"
 msgstr "tabuľka"
 
+#, fuzzy
 msgid "file"
-msgstr "súbor"
+msgstr "Súbor"
+
+msgid "Back"
+msgstr "Naspäť"
+
+#, c-format
+msgid "Back to %s"
+msgstr "Naspäť na %s"
 
 msgid "User"
 msgstr "Používateľ"
@@ -1074,14 +1029,6 @@ msgstr "jadro"
 msgid "unknown"
 msgstr "neznámy"
 
-#, c-format
-msgid "API = Core %s, Module %s, Theme %s, Embed %s"
-msgstr ""
-
-#, fuzzy
-msgid "Gallery URL"
-msgstr "Galéria"
-
 msgid "Gallery version"
 msgstr "Verzia Galérie"
 
@@ -1106,11 +1053,13 @@ msgstr "Východzia schéma"
 msgid "gettext"
 msgstr "gettext"
 
+#, fuzzy
 msgid "enabled"
-msgstr "zapnute"
+msgstr "Nainštalovaný"
 
+#, fuzzy
 msgid "disabled"
-msgstr "vypnute"
+msgstr "%d položiek zlyhalo"
 
 msgid "Locale"
 msgstr "Lokalita"
@@ -1121,65 +1070,6 @@ msgstr "Prehliadač"
 #, c-format
 msgid "Rows in %s table = %d"
 msgstr "Riadkov v %s tabuľke = %d"
-
-#, c-format
-msgid "The %s \"%s\" is not installed and will not be backed up."
-msgstr ""
-
-#, c-format
-msgid "\"%s\" has no creation sql and will not be backed up."
-msgstr ""
-
-#, c-format
-msgid "Unable to load table description for \"%s\", no data will be exported."
-msgstr ""
-
-msgid ""
-"Unable to find the XML parser.  The PHP XML parsing extension must be loaded.  Terminating "
-"database import."
-msgstr ""
-
-#, c-format
-msgid "The exported file is not the correct version. Expecting %s received %s."
-msgstr ""
-
-#, fuzzy, c-format
-msgid "Unable to close import file: %s"
-msgstr "Nie je možné zmazať adresár: %s"
-
-#, fuzzy, c-format
-msgid "Unable to open import file: %s"
-msgstr "Nie je možné zmazať adresár: %s"
-
-#, c-format
-msgid "Import file doesn't exist: %s"
-msgstr ""
-
-#, c-format
-msgid "Plugin %s is not currently available."
-msgstr ""
-
-#, c-format
-msgid "The available version of plugin \"%s\" may not be compatible with the imported version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The currently installed core API version required by \"%s\" may not be compatible with the "
-"imported version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The installed module API version required by \"%s\" may not be compatible with the imported "
-"version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The installed theme API version required by \"%s\" is not compatible with the imported "
-"version."
-msgstr ""
 
 msgid "Successfully saved theme settings"
 msgstr "Nastavenie témy bolo úspešne uložené"
@@ -1204,6 +1094,34 @@ msgstr "Pri spracovaní Vašej požiadavky sa vyskytol problém, ďalšie inform
 
 msgid "Error sending test email, see below for details."
 msgstr "Chyba pri odosielaní skúšobného e-mailu, ďalšie informácie nižšie."
+
+msgid "Language Settings"
+msgstr "Nastavenie jazyka"
+
+msgid ""
+"Select language defaults for Gallery. Individual users can override this setting in their "
+"personal preferences or via the language selector block if available. Gallery will try to "
+"automatically detect the language preference of each user if the browser preference check is "
+"enabled."
+msgstr ""
+"Zvoľte východzie jazykové nastavenie Galérie. Každý používateľ si môže zvoliť vlastné "
+"nastavenie v profile používateľa a tiež použiť prepínač jazyka (ak je nižšie aktivovaný). Ak "
+"zvolíte kontrolu preferencie prehliadača, Galéria sa pokúsi automaticky zistiť preferovaný "
+"jazyk u každého používateľa."
+
+msgid "Default language"
+msgstr "Východzí jazyk"
+
+msgid "Check Browser Preference"
+msgstr "Kontrolovať preferenciu prehliadača"
+
+#, c-format
+msgid ""
+"Your webserver does not support localization.  Please instruct your system administrator to "
+"reconfigure PHP with the %s option enabled."
+msgstr ""
+"Tento webový server nepodporuje lokalizáciu. Informujte prosím správcu serveru o možnosti "
+"konfigurácie PHP s aktivovanou voľbou %s."
 
 msgid "Date Formats"
 msgstr "Formáty dátumu a času"
@@ -1260,10 +1178,6 @@ msgstr "Životnosť sedenia (session)"
 
 msgid "Inactivity Timeout"
 msgstr "Časový limit nečinnosti"
-
-#, fuzzy
-msgid "Site Administration Session Timeout"
-msgstr "Administrácia Galérie"
 
 msgid "Embedded Markup"
 msgstr "Vstavané značkovanie"
@@ -1365,18 +1279,12 @@ msgid ""
 "to set the cookie domain example.com (the part of the host string that is common to both, "
 "Gallery and the embedding application)."
 msgstr ""
-"<b>Domena cookie</b> je tiez potrebna pre vlozene instalacie Galerie a iba ak sa chcete "
-"zbavit GALLERYSID retazca vo vlozenej DownloadItem URL. <b>Vo vacsine pripadov domena cookie "
-"moze byt ponechana prazdna</b>"
 
 msgid ""
 "Once you change the cookie settings, <b>all registered users</b> of your Gallery will "
 "<b>have to clear their browser cookie cache</b>. If they do not, they will experience "
 "login / logout / lost session problems."
 msgstr ""
-"Akonahle zmenite nastavenie cookie, <b>vsetci registrovany uzivatelia</b> Vasej Galerie budu "
-"<b>musiet vymazat ich cache prehliadaca</b>. Ak to nespravia budu mat problemy s "
-"prihlasovanim / odhlasovanim / stratenymi sedeniami (session)."
 
 msgid "Path"
 msgstr "Cesta"
@@ -1402,12 +1310,6 @@ msgid ""
 "timeouts, you can try switching to database locking instead.  It's ok to switch back and "
 "forth."
 msgstr ""
-"Galeria pouziva system zamykania na riesenie problemu viacerych zmien, ktore by navzajom "
-"kolidovali.  Su dva sposoby zamykania, kazdy so svojimi vyhodami a nevyhodami.  Zamykanie "
-"zalozene na <b>suboroch</b> je rychle a efektivne, ale nefunguje na NFS systemoch a je "
-"nespolahlive na Windowsoch.  <b>Databazove</b> zamykanie je pomalsie, ale viac spolahlive.  "
-"Ak si nie ste isty, ktore vybrat, odporucame vybrat suborove zamykanie.  Ak by ste mali "
-"problemy, tak prepnite na databazove zamykanie.  Je v poriadku prepinat tam a naspat."
 
 msgid "Lock system"
 msgstr "Systém zamykania"
@@ -1422,10 +1324,6 @@ msgid ""
 "priority so that they play nice.  If you're in a shared hosting environment and your web "
 "host is complaining, try setting your priority low."
 msgstr ""
-"Niektore moduly Galerie budu pouzivat programy na Vasom servery na spracovanie obrazkov a "
-"archovovanie.  Tieto programy mozu byt velmi narocne na vykon a mozu mat dopad na vykon "
-"celeho serveru.  Mozete tieto programy nastavit tak, aby bezali s mensou prioritou, takze "
-"vsetko pojde plynulo."
 
 msgid "Priority"
 msgstr "Priorita"
@@ -1652,65 +1550,24 @@ msgstr "(odporúča sa vyplniť)"
 msgid "Options"
 msgstr "Možnosti"
 
+#, fuzzy
 msgid "Lock user."
-msgstr "Zablokovat uzivatela."
+msgstr "Systém zamykania"
 
 msgid ""
 "Locked users are unable to edit their own account information. (Password, Name, Email, etc.)"
-msgstr "Zamknuty uzivatelia nemozu menit ich nastavenia uctu. (Heslo, Meno, Email, atd)"
+msgstr ""
 
+#, fuzzy
 msgid "Reset failed login count."
-msgstr "Vynulovanie poctu chybnych prihlaseni."
+msgstr "Vynulovanie počítadla zobrazení"
 
 #, c-format
 msgid "%d failed login attempt since the last successful login."
 msgid_plural "%d failed login attempts since the last successful login."
-msgstr[0] "%d neuspesne prihlasenie od posledneho uspesneho prihlasenia."
-msgstr[1] "%d neuspesne prihlasenia od posledneho uspesneho prihlasenia."
-msgstr[2] "%d neuspesnych prihlaseni od posledneho uspesneho prihlasenia."
-
-#, fuzzy
-msgid "Recent Events"
-msgstr "Vynulovanie počítadla zobrazení"
-
-msgid "Type"
-msgstr ""
-
-#, fuzzy
-msgid "Location"
-msgstr "Akcia"
-
-#, fuzzy
-msgid "Client"
-msgstr "zoznam"
-
-#, fuzzy
-msgid "No events have been reported yet."
-msgstr "Neboli vybrané žiadne balíčky."
-
-#, fuzzy
-msgid "Event Details"
-msgstr "Detail chyby"
-
-#, fuzzy
-msgid "User Id"
-msgstr "Používateľ"
-
-#, fuzzy
-msgid "Referer"
-msgstr "Zoradit"
-
-#, fuzzy
-msgid "Details"
-msgstr "Východzie hodnoty"
-
-#, fuzzy
-msgid "no summary"
-msgstr "Súhrn"
-
-#, fuzzy
-msgid "An error occurred while retrieving the event log entry details."
-msgstr "Nastala chyba pri komunikácii s databázou."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 msgid "Group Management"
 msgstr "Správa skupín"
@@ -1775,158 +1632,8 @@ msgstr[0] "%d skupina zodpovedá zvolenému filtru"
 msgstr[1] "%d skupiny zodpovedajú zvolenému filtru"
 msgstr[2] "%d skupín zodpovedá zvolenému filtru"
 
-msgid "Please make sure that your internet connection is set up properly or try again later."
-msgstr ""
-"Skontrolujte prosím, či je Vaše internetové pripojenie správne nakonfigurované a skúste to "
-"znovu."
-
-#, c-format
-msgid "Failed to scan status from plugin: %s."
-msgstr "Nepodarilo sa zistit status z modulu: %s."
-
-msgid ""
-"Your local copy of the repository was broken and has been fixed.  Please download the plugin "
-"list again."
-msgstr ""
-"Vasa lokalna kopia uloziska bola pokazena a nasledne opravnea.  Prosim stihanite si zoznam "
-"modulov este raz."
-
-#, fuzzy, c-format
-msgid "Failed to delete the locale directory for %s."
-msgstr "Nie je možné zmazať adresár: %s"
-
-#, c-format
-msgid "Failed to download the following language packages for the %s plugin:"
-msgstr ""
-
-#, fuzzy, c-format
-msgid ""
-"Failed to install language packages for %s plugin because the following files/directories "
-"could not be modified:"
-msgstr ""
-"Nepodarilo sa stiahnut modul %s, pretoze nasledovne subory/adresare nemozu byt modifikovane:"
-
-#, fuzzy
-msgid "The repository index has been successfully refreshed."
-msgstr "Index úložiska bol úspešne aktualizovaný."
-
-#, fuzzy
-msgid "The language settings have been saved."
-msgstr "Neboli vybrané žiadne balíčky."
-
-#, fuzzy, c-format
-msgid "%d language pack upgraded or downloaded."
-msgid_plural "%d language packs upgraded or downloaded."
-msgstr[0] "Jeden jazykovy balik bol vymazany."
-msgstr[1] "%d jazykove baliky boli vymazane."
-msgstr[2] "%d jazykovych balikov bolo vymazanych."
-
-#, c-format
-msgid "%d language pack deleted."
-msgid_plural "%d language packs deleted."
-msgstr[0] "Jeden jazykovy balik bol vymazany."
-msgstr[1] "%d jazykove baliky boli vymazane."
-msgstr[2] "%d jazykovych balikov bolo vymazanych."
-
-msgid "All the language packages for the selected languages are current"
-msgstr ""
-
-msgid ""
-"Select language defaults for Gallery. Individual users can override this setting in their "
-"personal preferences or via the language selector block if available. Gallery will try to "
-"automatically detect the language preference of each user if the browser preference check is "
-"enabled."
-msgstr ""
-"Zvoľte východzie jazykové nastavenie Galérie. Každý používateľ si môže zvoliť vlastné "
-"nastavenie v profile používateľa a tiež použiť prepínač jazyka (ak je nižšie aktivovaný). Ak "
-"zvolíte kontrolu preferencie prehliadača, Galéria sa pokúsi automaticky zistiť preferovaný "
-"jazyk u každého používateľa."
-
-msgid "Default language"
-msgstr "Východzí jazyk"
-
-msgid "Check Browser Preference"
-msgstr "Kontrolovať preferenciu prehliadača"
-
-#, c-format
-msgid ""
-"Your webserver does not support localization.  Please instruct your system administrator to "
-"reconfigure PHP with the %s option enabled."
-msgstr ""
-"Tento webový server nepodporuje lokalizáciu. Informujte prosím správcu serveru o možnosti "
-"konfigurácie PHP s aktivovanou voľbou %s."
-
-msgid "Configure your Gallery"
-msgstr "Nastaviť Galériu"
-
-msgid ""
-"Before you can proceed, you have to change some permissions so that Gallery can install "
-"plugins for you.  It's easy.  Just execute the following in a shell or via your ftp client:"
-msgstr ""
-"Predtým, než budete pokračovať , musíte zmeniť niektoré prístupové práva tak, aby Galéria "
-"mohla nainštalovať Vaše zásuvné moduly. Je to jednoduché. Vykonajte len nasledovné cez shell "
-"alebo FTP klienta:"
-
-msgid ""
-"Before you can proceed, please insure the following directories and sub-directories are "
-"writable, so that Gallery can install plugins for you:"
-msgstr ""
-
-#, fuzzy
-msgid ""
-"If you have trouble changing permissions, ask your system administrator for assistance.  "
-"When you've fixed the permissions, click the Check Again button to proceed."
-msgstr ""
-"Ak mate problemy s menenim prav, kontaktujte systemoveho administratora.  Ked ste opravili "
-"prava, kliknite na Pokracovat."
-
-#, fuzzy
-msgid "Check Again"
-msgstr "Vybrat vsetko"
-
-#, fuzzy
-msgid "Add or Remove Languages"
-msgstr "Pridať/odstrániť používateľov"
-
-msgid ""
-"Please click on the link below to go to 'Download Plugin List' and choose 'Update Plugin "
-"List' to get the latest language package information."
-msgstr ""
-
-#, fuzzy
-msgid "Administer Repositories"
-msgstr "Úložisko Komunity"
-
-#, fuzzy
-msgid "Upgrade"
-msgstr "aktualizovať"
-
-msgid "Remove"
-msgstr "Odstrániť"
-
-#, fuzzy
-msgid "Download"
-msgstr "stiahnuť"
-
-#, fuzzy
-msgid "No Change"
-msgstr "Zmeniť"
-
-#, fuzzy
-msgid "Select All"
-msgstr "Zvolené"
-
-msgid ""
-"There are no local repository indices from which to determine language packages. Please "
-"click on the link below to go to \"Download Plugin List\" and choose \"Update Plugin List\" "
-"to get the latest language package information."
-msgstr ""
-
 msgid "System Maintenance"
 msgstr "Údržba systému"
-
-msgid "Gallery must be in maintenance mode before the task can be run."
-msgstr ""
 
 #, c-format
 msgid "Completed %s task successfully."
@@ -1935,41 +1642,6 @@ msgstr "Úspešne dokončená uloha: %s."
 #, c-format
 msgid "The %s task failed to complete successfully."
 msgstr "Chyba pri úlohe: %s."
-
-msgid "Maintenance Mode has been turned on."
-msgstr ""
-
-msgid "Maintenance Mode has been turned off."
-msgstr ""
-
-#, fuzzy
-msgid "Maintenance Mode"
-msgstr "Údržba"
-
-msgid "Restrict user access to the system while maintenance is being performed."
-msgstr ""
-
-#, fuzzy
-msgid "Maintenance Mode Url"
-msgstr "Údržba"
-
-msgid ""
-"The Maintenance Mode Url specifies where requests will be redirected when access to the site "
-"has been restricted by the administrator."
-msgstr ""
-
-msgid ""
-"If left blank Gallery will display a default page with an administrator login link. This "
-"page will be themed when the code base is up to date, otherwise it will display a plain "
-"unstyled page."
-msgstr ""
-
-msgid "For example: /maintenance.html"
-msgstr ""
-
-#, fuzzy
-msgid "Set"
-msgstr "Nastavenie"
 
 msgid "Task name"
 msgstr "Meno úlohy"
@@ -2011,10 +1683,6 @@ msgid ""
 "you can always get the most recent version of the page by forcing a refresh in your browser "
 "(typically by holding down the shift key and clicking the reload button)."
 msgstr ""
-"Zlepsite vykon vasej Galerie ukladanim stranok do databazy.  Toto moze velmi znizit mnozstvo "
-"zdrojov, ktore potrebuje server na zobrazenie stranky.  Nevyhoda je, ze stranka moze byt "
-"trosku zastarala, ale vzdy mozete ziskat najnovsiu verziu donutenim prehliadaca na znovu "
-"nacitanie stranky. (vacsinou podrzanim shift tlacitka a kliknutim na reload tlacitko)."
 
 msgid "Partial Acceleration"
 msgstr "Čiastočná akcelerácia"
@@ -2025,9 +1693,6 @@ msgid ""
 "dynamic data (like view counts) will not get updated right away.  All content that appears "
 "in blocks (like the random image block, any sidebar blocks, etc) will always be updated."
 msgstr ""
-"Ciastocna akceleracia Vam poskytne priblizne o 10-25% lepsi vykon, ale niektore informacie "
-"nebudu aktualizovane okamzite.  Vsetky data, ktore sa nachadzaju v blokoch budu vzdy "
-"aktualizovane."
 
 msgid "Full Acceleration"
 msgstr "Plná akcelerácia"
@@ -2038,8 +1703,6 @@ msgid ""
 "image block, other sidebar blocks, number of items in your shopping cart, view counts, etc) "
 "will get updated until the saved page expires."
 msgstr ""
-"Plna akceleracie Vam poskytne priblizne o 90% lepsi vykon, ale ziadne informacie nebudu "
-"aktualizovane pokial ulozena stranka neexpiruje."
 
 msgid ""
 "You can additionally specify when saved pages expire.  Setting a longer expiration time will "
@@ -2047,12 +1710,9 @@ msgid ""
 "Lower expiration times mean that users will see more current data, but they will place a "
 "higher load on your server."
 msgstr ""
-"Mozete tiez urcit kedy ulozene stranky expiruju. Nastavenie vyssieho casu znizi zatazenie "
-"vaseho serveru, ale zvysi interval pocas ktoreho uzivatelia nevidia zmeny.  Nizsi cas "
-"znamena, ze uzivatelia uvidia aktualnejsie data, ale budu viac zatazovat server."
 
 msgid "Here are some standard acceleration profiles:"
-msgstr "Tu su standardne akceleracne profily:"
+msgstr ""
 
 msgid "Medium acceleration"
 msgstr "Stredná akcelerácia"
@@ -2066,118 +1726,111 @@ msgstr "Návštevníci"
 msgid "Expires after:"
 msgstr "Vyprší po:"
 
-#, fuzzy
-msgid "Template Cache"
-msgstr "Vyprázdnenie vyrovnávacej pamäte pre šablóny"
-
-#, c-format
-msgid ""
-"For optimal performance, Gallery caches all templates.  If you would like to %scustomize "
-"your template files%s, you should disable template caching temporarily so that changes take "
-"effect immediately without clearing the template cache."
-msgstr ""
-
-#, fuzzy
-msgid "Enable template caching"
-msgstr "Vyprázdnenie vyrovnávacej pamäte pre šablóny"
-
 msgid "Clear Saved Pages"
 msgstr "Vymazanie uložených stránok"
 
 msgid "Status: Inactive"
-msgstr "Stav: Neaktívny"
+msgstr "Stav: Neaktívny "
 
+#, fuzzy
 msgid "__PLUGIN__ deactivated"
-msgstr "__PLUGIN__ deaktivovany"
+msgstr "__PLUGIN__ deaktivovať"
 
 msgid "Status: Active"
 msgstr "Stav: Aktívny"
 
 msgid "__PLUGIN__ activated"
-msgstr "__PLUGIN__ aktivovany"
+msgstr ""
 
 msgid "Status: Not Installed"
 msgstr "Stav: Nenainštalovaný"
 
 msgid "__PLUGIN__ uninstalled"
-msgstr "__PLUGIN__ odistalovany"
+msgstr ""
 
 msgid "Status: Upgrade Required (Inactive)"
 msgstr "Status: Potrebná aktualizácia (Neaktívny)"
 
+#, fuzzy
 msgid "Status: Incompatible Plugin (Inactive)"
 msgstr "Stav: Nekompatibilný modul (Neaktívny)"
 
 msgid "Status: Inactive (Configuration Required)"
-msgstr "Status: Neaktivny (Potrebna konfiguracia)"
+msgstr ""
 
 msgid "__PLUGIN__ needs configuration"
-msgstr "__PLUGIN__ modul potrebuje konfiguraciu"
+msgstr ""
 
+#, fuzzy
 msgid "__PLUGIN__ deleted"
-msgstr "__PLUGIN__ vymazany"
+msgstr "__PLUGIN__ deaktivovať"
 
+#, fuzzy
 msgid "Warning!"
-msgstr "Varovanie!"
+msgstr "Varovanie:"
 
+#, fuzzy
 msgid "Do you really want to uninstall __PLUGIN__?"
 msgstr "Naozaj chcete odinštalovať modul __PLUGIN__?"
 
 msgid "This will also remove any permissions and clean up any data created by this module."
-msgstr "Toto tiez zrusi akekolvek prava a vycisti vsetky data vytvorene tymto modulom."
+msgstr ""
 
 msgid ""
 "This plugin will be uninstalled, but its files will be kept so that you can reinstall it."
 msgstr ""
-"Tento modul bude odistalovany, ale jeho subory budu ponechane, takze ho budete moct "
-"preinstalovat."
 
 msgid "Yes"
-msgstr "Ano"
+msgstr ""
 
 msgid "No"
-msgstr "Nie"
+msgstr ""
 
+#, fuzzy
 msgid "Do you really want to delete __PLUGIN__?"
-msgstr "Naozaj chcete vymazat modul __PLUGIN__?"
+msgstr "Naozaj chcete odinštalovať modul __PLUGIN__?"
 
 msgid "This plugin will be uninstalled and its files will be deleted permanently."
-msgstr "Tento modul bude odistalovany a jeho subory budu permanentne vymazane."
+msgstr ""
 
 msgid "The files of this plugin will be deleted permanently."
-msgstr "Subory tohoto modulu budu permanentne vymazane."
+msgstr ""
 
 msgid "disabled(__COUNT__)"
 msgstr "vyradený(__COUNT__)"
 
+#, fuzzy
 msgid "up to date(__COUNT__)"
-msgstr "najnovsie(__COUNT__)"
+msgstr "Aktualizovať (__COUNT__)"
 
+#, fuzzy
 msgid "not installed(__COUNT__)"
-msgstr "nenainstalovane(__COUNT__)"
+msgstr "odinštalovať (__COUNT__)"
 
+#, fuzzy
 msgid "upgrade required(__COUNT__)"
-msgstr "potrebna aktualizacia(__COUNT__)"
+msgstr "(požadované) (__COUNT__)"
 
+#, fuzzy
 msgid "incompatible(__COUNT__)"
-msgstr "Nekompatibilný(__COUNT__)"
+msgstr "Nekompatibilný zásuvný modul (__COUNT__)"
 
 msgid "Failed to completely delete __PLUGIN__"
-msgstr "Nepodarilo sa uplne vymazat modul __PLUGIN__"
+msgstr ""
 
+#, fuzzy
 msgid "Gallery Plugins"
 msgstr "Moduly Galérie"
 
+#, fuzzy
 msgid "Get More Plugins"
-msgstr "Ziskat Viac Modulov"
+msgstr "Moduly Galérie"
 
 #, c-format
 msgid ""
 "Want more features?  New plugins are just a click away.  Just click the %s link to get "
 "started."
 msgstr ""
-"Chcete viac funkcii?  Nove moduly su iba jeden klik daleko.  Iba kliknite na %s linku a "
-"zacnite."
 
 msgid ""
 "Gallery features come as separate plugins.  You can download and install plugins to add more "
@@ -2185,13 +1838,10 @@ msgid ""
 "order to use a feature, you must install, configure (if necessary) and activate it.  If you "
 "don't wish to use a feature, you can deactivate it."
 msgstr ""
-"Funkcie Galerie su dodavane ako zvlast moduly.  Moduly mozete stiahnut a nainstalovat na "
-"pridanie novych funkcii, alebo zrusit niektore funkcie, ak ich nechcete pouzivat.  Pre "
-"pouzitie jednotilivych funkcii ich musite nainstalovat, nakonfigurovat (ak je potrebne) a "
-"aktivovat.  Ak niektoru funkciu pouzivat nechcete, mozete ju deaktivovat."
 
+#, fuzzy
 msgid "Plugin Name"
-msgstr "Meno Modulu"
+msgstr "Meno a priezvisko"
 
 msgid "Installed"
 msgstr "Nainštalovaný"
@@ -2203,11 +1853,11 @@ msgid "Actions"
 msgstr "Akcie"
 
 msgid "help"
-msgstr "pomoc"
+msgstr ""
 
 #, c-format
 msgid "Screenshot for %s"
-msgstr "Screenshot pre %s"
+msgstr ""
 
 msgid "Incompatible plugin!"
 msgstr "Nekompatibilný zásuvný modul!"
@@ -2223,36 +1873,43 @@ msgstr "Zásuvný modul vyžaduje API: %s (dostupné: %s)"
 msgid "configure"
 msgstr "konfigurovať"
 
+#, fuzzy
 msgid "up to date"
-msgstr "Aktualizovany"
+msgstr "Aktualizovať"
 
+#, fuzzy
 msgid "upgrade required"
-msgstr "potrebne aktualizovat"
+msgstr "(požadované)"
 
+#, fuzzy
 msgid "not installed"
-msgstr "nenainstalovany"
+msgstr "odinštalovať"
 
+#, fuzzy
 msgid "incompatible"
-msgstr "Nekompatibilný"
+msgstr "Nekompatibilný zásuvný modul"
 
 msgid "Repository"
 msgstr "Úložisko"
 
+msgid "Please make sure that your internet connection is set up properly or try again later."
+msgstr ""
+"Skontrolujte prosím, či je Vaše internetové pripojenie správne nakonfigurované a skúste to "
+"znovu."
+
 #, c-format
-msgid "Failed to download the following packages for the %s plugin:"
+msgid "Failed to scan status from plugin: %s."
 msgstr ""
 
-#, fuzzy, c-format
 msgid ""
-"Failed to install the %s plugin because the following files/directories could not be "
+"Your local copy of the repository was broken and has been fixed.  Please download the plugin "
+"list again."
+msgstr ""
+
+#, c-format
+msgid ""
+"Failed to download the %s plugin because the following files/directories could not be "
 "modified:"
-msgstr ""
-"Nepodarilo sa stiahnut modul %s, pretoze nasledovne subory/adresare nemozu byt modifikovane:"
-
-#, c-format
-msgid ""
-"Some plugins could not be automatically upgraded because they are in use.  Please return to "
-"the %sPlugins%s page and click the upgrade link for each of the following plugins:"
 msgstr ""
 
 msgid "The repository index has been successfully updated."
@@ -2263,14 +1920,19 @@ msgstr "Všetky zásuvné moduly sú aktuálne."
 
 #, c-format
 msgid "%s plugin updated."
-msgstr "%s modul aktualizovany."
+msgstr ""
+
+#, c-format
+msgid "%d language pack deleted."
+msgid_plural "%d language packs deleted."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 msgid ""
 "No personal information about you or your Gallery installation is sent to the Gallery server "
 "at any time."
 msgstr ""
-"Ziadne sukromne informacie o Vas alebo Vasej instalacii Galerie nebudu nikdy poslene na "
-"Gallery server."
 
 #, c-format
 msgid ""
@@ -2280,52 +1942,61 @@ msgid ""
 "chosen, you must periodically download the latest plugin list to find out about available "
 "updates. %s On slower connections the process might take a minute or two."
 msgstr ""
-"Stiahnite a nainstalujte nove moduly rychlo a jednoducho.  Ak sa rozhodnete, ze sa Vam modul "
-"nepaci, mozete ho z Galerie vymazat.  Je viac roznych ulozisk pre moduly. Mozete si vybrat, "
-"ktore chcete pouzivat (je v poriadku pouzivat vsetky naraz).  Ked ste si vybrali, musite "
-"pravidelne stahovat najnovsi zoznam modulov, aby ste ziskali najnovsie aktualizacie. %s Na "
-"pomalsich pripojeniach moze tento proces trvat minutu, alebo dve."
 
 #, c-format
 msgid "Officially Released Gallery Project plugins (%srecommended%s)"
-msgstr "Oficialne Vydane Gallery moduly (%sodporucane%s)"
+msgstr ""
 
 #, c-format
 msgid "last updated on %s"
-msgstr "naspoledy aktualizovane %s"
+msgstr ""
 
 #, c-format
 msgid "Experimental Gallery Project plugins (%scool new features, might be buggy%s)"
-msgstr "Experimentalne Gallery moduly (%ssuper nove funkcie, mozu byt chybne%s)"
+msgstr ""
 
 #, c-format
 msgid "Community plugins (%suse at your own risk!%s)"
 msgstr "Zásuvné moduly od používateľov Galérie (%spoužiť na vlastnú zodpovednosť!%s)"
 
+#, fuzzy
 msgid "Repository Error"
-msgstr "Chyba Úložiska"
+msgstr "Úložisko"
 
+#, fuzzy
 msgid "You must select at least one repository."
-msgstr "Musíte vybrať aspon jedno Úložisko."
+msgstr "Musíte vybrať používateľa, ktorého chcete odstrániť."
 
 msgid "Ok"
-msgstr "Ok"
+msgstr ""
+
+msgid "Configure your Gallery"
+msgstr "Nastaviť Galériu"
+
+msgid ""
+"Before you can proceed, you have to change some permissions so that Gallery can install "
+"plugins for you.  It's easy.  Just execute the following in a shell or via your ftp client:"
+msgstr ""
+"Predtým, než budete pokračovať , musíte zmeniť niektoré prístupové práva tak, aby Galéria "
+"mohla nainštalovať Vaše zásuvné moduly. Je to jednoduché. Vykonajte len nasledovné cez shell "
+"alebo FTP klienta:"
 
 msgid ""
 "If you have trouble changing permissions, ask your system administrator for assistance.  "
 "When you've fixed the permissions, click the Continue button to proceed."
 msgstr ""
-"Ak mate problemy s menenim prav, kontaktujte systemoveho administratora.  Ked ste opravili "
-"prava, kliknite na Pokracovat."
 
+#, fuzzy
 msgid "Continue"
-msgstr "Pokračovať"
+msgstr "Pokračovať..."
 
+#, fuzzy
 msgid "Download Plugin List"
-msgstr "Zoznam Stiahnutelnych Modulov"
+msgstr "Sťahuje sa %s"
 
+#, fuzzy
 msgid "Show Repository List"
-msgstr "Zobraz Úložisko"
+msgstr "Úložisko"
 
 msgid "Upgrade Gallery"
 msgstr "Aktualizovať Galériu"
@@ -2341,16 +2012,16 @@ msgstr ""
 "ďalšie sa môžu stať s novou verziou Galérie dostupnými. Tu sú doporučené kroky na ich "
 "aktualizáciu."
 
-#, c-format
+#, fuzzy, c-format
 msgid "%sDownload%s the new Gallery package"
-msgstr "%sStiahnuť%s novy balik Galérie"
+msgstr "%sStiahnuť%s jadro Galérie"
 
 #, c-format
 msgid "Read the %supgrade instructions%s and perform the upgrade"
-msgstr "Precitajte si %sinstrukcie aktualizacie%s a spravte aktualizaciu"
+msgstr ""
 
 msgid "Incompatible plugins are marked with an exclamation icon."
-msgstr "Nekompatibilne moduly su oznacene vykricnikom."
+msgstr ""
 
 #, c-format
 msgid ""
@@ -2363,11 +2034,12 @@ msgstr ""
 "zoznam%s zásuvných modulov, včítane tých nekompatibilných - tie budú označené červenou "
 "ikonou. "
 
+#, fuzzy
 msgid "upgrade available"
-msgstr "aktualizacia dostupna"
+msgstr "Aktualizovať Galériu"
 
 msgid "locked"
-msgstr "zamknute"
+msgstr ""
 
 msgid "Theme Name"
 msgstr "Meno témy"
@@ -2379,13 +2051,14 @@ msgid "Latest"
 msgstr "Najnovší"
 
 msgid "Locked Plugin"
-msgstr "Zamknuty Modul"
+msgstr ""
 
 msgid "Incompatible Plugin"
 msgstr "Nekompatibilný zásuvný modul"
 
+#, fuzzy
 msgid "Upgrade Available"
-msgstr "Aktualizacia Dostupna"
+msgstr "Aktualizovať všetko"
 
 msgid "download"
 msgstr "stiahnuť"
@@ -2400,65 +2073,68 @@ msgid ""
 "Gallery can automatically upgrade your themes and modules to the latest available versions. "
 "No new plugins will be downloaded."
 msgstr ""
-"Galeria moze automaticky aktualizovat Vase temy a moduly na najnovsie dostupne versie. "
-"Ziadne nove moduly nebudu stiahnute."
 
 msgid "Upgrade All"
 msgstr "Aktualizovať všetko"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Download %s"
-msgstr "Sťiahnut %s"
+msgstr "Sťahuje sa %s"
 
 msgid "No packages have been selected."
 msgstr "Neboli vybrané žiadne balíčky."
 
-#, fuzzy
 msgid ""
 "Download a package in order to use this plugin.  You can upgrade by choosing a newer version "
-"of the package to download."
+"of the package to download.  Language packages are optional, You only need to download the "
+"ones that you want to use on your site."
 msgstr ""
-"Stiahnite balik, ak chcete tento modul pouzivat.  Mozete aktualizovat vybratim novsej verzie "
-"baliku.  Jazykove baliky su nepovinne. Potrebujete stiahnut iba tie, ktore chcete pouzivat "
-"na Vasej stranke."
 
+#, fuzzy
 msgid "Base Packages"
-msgstr "Základné baliky"
+msgstr "Základné súbory"
 
 #, c-format
 msgid "%s: version %s (build %s)"
-msgstr "%s: verzia %s (build %s)"
+msgstr ""
 
 #, c-format
 msgid "%s: version %s (build %s) %sdowngrading is not supported!%s"
-msgstr "%s: verzia %s (build %s) %sprechod na nizsiu verziu nepodporovany!%s"
+msgstr ""
 
 #, c-format
 msgid "%sCurrently Installed%s: version %s (build %s)"
-msgstr "%sMomentalne Nainstalovane%s: version %s (build %s)"
+msgstr ""
 
 #, fuzzy
-msgid "The following language packages are available for this plugin"
-msgstr "Ziadne kompatibilne jazykove balicky nie su dostupne"
+msgid "Language Packages"
+msgstr "Nastavenie jazyka"
+
+#, c-format
+msgid "(%sselect all%s%sselect none%s)"
+msgstr ""
 
 #, c-format
 msgid "%s version %s (upgrading from %s)"
-msgstr "%s verzia %s (aktualizovanie z %s)"
+msgstr ""
 
-#, c-format
+#, fuzzy, c-format
 msgid "%s version %s"
-msgstr "%s verzia %s"
+msgstr "Verzia PHP"
 
 #, c-format
 msgid "%s version %s (%snewer version %s is installed%s)"
-msgstr "%s verzia %s (%snovsia verzia %s nainstalovana%s)"
+msgstr ""
 
 #, c-format
 msgid "%s version %s (currently installed)"
-msgstr "%s verzia %s (momentalne nainstalovane)"
+msgstr ""
 
 msgid "No compatible language packages available"
-msgstr "Ziadne kompatibilne jazykove balicky nie su dostupne"
+msgstr ""
+
+msgid "You must select a base package before choosing language packs."
+msgstr ""
 
 msgid "Update"
 msgstr "Aktualizovať"
@@ -2513,18 +2189,13 @@ msgid ""
 "The %s theme is incompatible with your Gallery version or no longer available.  Please "
 "upgrade the %s theme or pick another default theme."
 msgstr ""
-"Tema %s nie je kompatibilna s vasou verziou Galerie, alebo uz nie je dostupna.  Prosim "
-"aktualizujte temu %s, alebo vyberte inu predvolenu temu."
 
 msgid "New albums"
 msgstr "Nový album"
 
-#, c-format
-msgid "To activate more themes visit the %sPlugins%s page."
-msgstr ""
-
+#, fuzzy
 msgid "Save Defaults"
-msgstr "Ulozit východzie hodnoty"
+msgstr "Východzie hodnoty"
 
 #, c-format
 msgid "%s Theme Settings"
@@ -2544,6 +2215,9 @@ msgstr "Zvoľte si blok"
 msgid "Selected"
 msgstr "Zvolené"
 
+msgid "Remove"
+msgstr "Odstrániť"
+
 msgid "Move Up"
 msgstr "Presunúť vyššie"
 
@@ -2559,15 +2233,14 @@ msgstr "Hodnota"
 msgid "There are no settings for this theme"
 msgstr "Neexistujú žiadne nastavenia pre túto tému"
 
+#, fuzzy
 msgid "Save Theme Settings"
-msgstr "Ulozit nastavenie témy"
+msgstr "Nastavenie témy %s"
 
 msgid ""
 "The toolkits shown below have some overlap in supported operations and mime types.  Rank the "
 "toolkits here to determine which will perform these operations."
 msgstr ""
-"Zobrazene utility sa prekryvaju v podporovanych operaciach a mime typoch.  Ohodnotte "
-"utility, aby sa zistilo, ktore budu vykonavat dane operacie."
 
 msgid "Toolkit"
 msgstr "Nástroj"
@@ -2615,11 +2288,13 @@ msgstr "Návštevník je špeciálny používateľ a nemôžete ho zmazať."
 msgid "Edit User (by list)"
 msgstr "Upraviť používateľa (podľa zoznamu)"
 
+#, fuzzy
 msgid "Locked"
-msgstr "Zamknute"
+msgstr "Lokalita"
 
+#, fuzzy
 msgid "Failed Logins"
-msgstr "Chybne Prihlasenia"
+msgstr "Chyba"
 
 msgid "Thumbnails"
 msgstr "Náhľady"
@@ -2652,8 +2327,9 @@ msgstr "Chyba databázy"
 msgid "Platform Error"
 msgstr "Chyba platformy"
 
+#, fuzzy
 msgid "Authentication Failure"
-msgstr "Chyba Autentifikacie"
+msgstr "Veľkosť animácie"
 
 msgid "Error"
 msgstr "Chyba"
@@ -2663,35 +2339,29 @@ msgid ""
 "same item.  Use the back button in your browser to go back to the page you were on, then "
 "<b>reload that page</b> and try your change again."
 msgstr ""
-"Vasa zmena nemohla byt dokoncena, pretoze niekto iny spravil konfliktujucu zmenu na rovnakej "
-"polozke.  Pouzite tlacitko Spat (Back) na vasom prehliadaci a nasledne <b>Obnovte stranku</"
-"b> a vyskusajte Vasu zmenu znovu."
 
 msgid "Go back and try again"
-msgstr "Ist naspat a skusit znovu"
+msgstr ""
 
 msgid ""
 "If this problem happens repeatedly, it may be because of corruption in your cache.  Site "
 "Administrators can clear out this cache."
 msgstr ""
-"Ak problem pretrvava, moze to byt koli porusenej vyrovnavacej pamati (cache).  Administrator "
-"moze tuto pamat vycistit."
 
+#, fuzzy
 msgid "Clear the cache"
-msgstr "Vymazat uložene stránky"
+msgstr "Vymazanie uložených stránok"
 
 msgid "Alternatively, you can return to the main Gallery page and resume browsing."
 msgstr "Prípadne sa môžete vrátiť na hlavnú stránku Galérie a pokračovať v prezeraní."
 
 msgid "The action you attempted is not permitted."
-msgstr "Akcia ktoru ste sa pokusili spravit je zakazana."
+msgstr ""
 
 msgid ""
 "Your change cannot be completed due to a loss of session data. Please try again. If it still "
 "doesn't work, try logging out and logging back in."
 msgstr ""
-"Vasa zmena nemohla byt vykonana koli strate dat sedenia (session).  Prosim skuste znovu.  Ak "
-"by sa to znovu nepodarilo, skuste sa odhlasit a znovu prihlasit."
 
 msgid "An error has occurred while interacting with the database."
 msgstr "Nastala chyba pri komunikácii s databázou."
@@ -2701,10 +2371,6 @@ msgid ""
 "config.php.  Before seeking support for this error please enable buffered debug output and "
 "retry the operation.  Look near the bottom of the lengthy debug output to find error details."
 msgstr ""
-"Presny dovod chyb databazy nie je zachyteny pokial nema Galeria zapnuty debug mod v subore "
-"config.php.  Predtym ako sa budete pokusat ziskat pomoc pre tento problem prosim zapnite "
-"\"buffered debug\" vystup a vyskusajte operaciu znovu.  Detaily chyby hladajte v spodnej "
-"casti dlheho vystupu."
 
 msgid "An error has occurred while interacting with the platform."
 msgstr "Nastala chyba pri komunikácii s platformou."
@@ -2714,12 +2380,9 @@ msgid ""
 "system permissions. This can happen if you or your webhost changed something in the file "
 "system, e.g. by restoring data from a backup."
 msgstr ""
-"Presny dovod tejto chyby nie je znamy.  Vacsinou sa jedna o nedostatocne prava na pristup k "
-"suborom.  Toto sa moze stat, ak Vy, alebo Vas administrator nieco zmenil v suborovom "
-"systeme, napr. obnovil data zo zalohy."
 
 msgid "Item not found."
-msgstr "Polozka nebola najdena."
+msgstr ""
 
 msgid "An error has occurred."
 msgstr "Vyskytla sa chyba."
@@ -2733,18 +2396,13 @@ msgstr "Detail chyby"
 msgid "System Information"
 msgstr "Systémové informácie"
 
-msgid "Not all of the specified items have been added successfully."
-msgstr ""
-
 msgid ""
 "You don't have any Graphics Toolkit activated that can handle JPEG images.  If you add "
 "images, you will probably not have any thumbnails."
 msgstr ""
-"Nemate ziadnu graficku utilitu, ktora moze spracovavat JPEG obrazky.  Ak pridate obrazky, "
-"pravdepodobne nebudu mat ziadny nahlad."
 
-#, fuzzy, c-format
-msgid "Visit the %sModules%s page to activate a Graphics Toolkit."
+#, c-format
+msgid "Visit the <a href=\"%s\">Modules</a> page to activate a Graphics Toolkit."
 msgstr "<a href=\"%s\"></a> aktivácia."
 
 msgid "Add Sub-Album"
@@ -2764,35 +2422,34 @@ msgid "You must enter a name for this album."
 msgstr "Musíte zadať meno pre tento album."
 
 msgid "The name you entered is already in use.  Please enter another."
-msgstr "Meno ktore ste zadali je uz pouzivane. Zadajte prosim ine."
+msgstr ""
 
 msgid "This is the album title."
-msgstr "Toto je titulok albumu."
+msgstr ""
 
 msgid "This is the album summary."
-msgstr "Toto je zhrnutie albumu."
+msgstr ""
 
 msgid "Keywords are not visible, but are searchable."
-msgstr "Klucove slova nie su viditelne, ale su vyhladavatelne."
+msgstr ""
 
 msgid "This is the long description of the album."
-msgstr "Toto je dlhy popis albumu."
+msgstr ""
 
 msgid "Create"
 msgstr "Vytvoriť"
 
 msgid "Upload Complete"
-msgstr "Nahravanie Dokoncene"
+msgstr ""
 
 #, c-format
 msgid "Successfully added %d file."
 msgid_plural "Successfully added %d files."
-msgstr[0] "Uspesne pridany %d subor."
-msgstr[1] "Uspesne pridane %d subory"
-msgstr[2] "Uspesne pridanych %d suborov."
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "No files added."
-msgstr "Ziadne subory neboli pridane."
+msgstr ""
 
 #, c-format
 msgid "Added %s"
@@ -2800,7 +2457,7 @@ msgstr "Pridané %s"
 
 #, c-format
 msgid "Failed to add %s"
-msgstr "Nepodarilo sa pridat %s"
+msgstr ""
 
 msgid "Add more files"
 msgstr "Pridať viacero súborov"
@@ -2809,14 +2466,12 @@ msgid ""
 "Your webserver is configured to disallow file uploads from your web browser at this time.  "
 "Please contact your system administrator for assistance."
 msgstr ""
-"Server je nakonfigurovany na zakazovanie nahravania suborov z Vasho prehliadaca.  Prosim "
-"kontaktujte administratora serveru."
 
 msgid "Upload files directly from your computer."
-msgstr "Nahrajte subory priamo z Vasho pocitaca."
+msgstr ""
 
 msgid "Enter the full path to the file and an optional caption in the boxes below."
-msgstr "Zadaj plnu cestu ku suboru a nepovinny nadpis v polickach dolu."
+msgstr ""
 
 #, c-format
 msgid ""
@@ -2824,9 +2479,6 @@ msgid ""
 "must upload the files separately, use a different upload format, or ask your system "
 "administrator to allow larger uploads."
 msgstr ""
-"<b>Poznamka:</b> Mozes nahrat maximalne %s naraz.  Ak chces nahrat viac, tak musis nahravat "
-"subory zvlast, pouzit iny format, alebo sa spytat systemoveho administratora aby povolil "
-"nahravanie vacsich suborov."
 
 #, c-format
 msgid ""
@@ -2834,51 +2486,49 @@ msgid ""
 "If you want to upload more than that, you must upload the files separately, use a different "
 "upload format, or ask your system administrator to allow larger uploads."
 msgstr ""
-"<b>Poznamka:</b> Mozes nahrat maximalne %s naraz.  Ziadny subor nemoze presahovat %s. Ak "
-"chces nahrat viac, tak musis nahravat subory zvlast, pouzit iny format, alebo sa spytat "
-"systemoveho administratora aby povolil nahravanie vacsich suborov."
 
 msgid "More Upload Boxes..."
-msgstr "Viac Nahravacich Policok..."
+msgstr ""
 
 msgid "Set item titles from:"
-msgstr "Nastav titulok poloziek z:"
+msgstr ""
 
 msgid "Assign caption to:"
 msgstr "Priradiť popis k:"
 
 msgid "No Thumbnail"
-msgstr "Ziadny nahlad"
+msgstr ""
+
+msgid "Delete Items"
+msgstr "Odstrániť položky"
 
 msgid "No items were selected for deletion"
-msgstr "Ziadne polozky neboli vybrate na vymazanie"
+msgstr ""
 
 #, c-format
 msgid "Successfully deleted %d item"
 msgid_plural "Successfully deleted %d items"
-msgstr[0] "Uspesne vymazana %d polozka"
-msgstr[1] "Uspesne vymazane %d polozky"
-msgstr[2] "Uspesne vymazanych %d poloziek"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "This album contains no items to delete"
-msgstr "Tento album neobsahuje nic na zmazanie"
+msgstr ""
 
 msgid "Choose the items you want to delete"
-msgstr "Vyber polozky, ktore chces zmazat"
+msgstr ""
 
 #, c-format
 msgid "(page %d of %d)"
-msgstr "(strana %d z %d)"
+msgstr ""
 
 msgid "Items selected here will remain selected when moving between pages."
-msgstr "Vybrate polozky zostanu vybrate pri prechadzani medzi strankami."
+msgstr ""
 
 #, c-format
 msgid "One item selected on other pages."
 msgid_plural "%d items selected on other pages."
-msgstr[0] "Jedna polozka vybrata na inych strankach."
-msgstr[1] "%d polozky vybrate na inych strankach."
-msgstr[2] "%d poloziek vybratych na inych strankach."
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "(data)"
 msgstr "(dáta)"
@@ -2886,18 +2536,17 @@ msgstr "(dáta)"
 #, c-format
 msgid "(album containing %d item)"
 msgid_plural "(album containing %d items)"
-msgstr[0] "(album obsahuje %d polozku)"
-msgstr[1] "(album obsahuje %d polozky)"
-msgstr[2] "(album obsahuje %d poloziek)"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "(empty album)"
 msgstr "(prázdny album)"
 
 msgid "Check All"
-msgstr "Vybrat vsetko"
+msgstr ""
 
 msgid "Check None"
-msgstr "Odznacit vsetko"
+msgstr ""
 
 msgid "Invert"
 msgstr "Invertovať"
@@ -2908,16 +2557,27 @@ msgstr "Predchádzajúca stránka"
 msgid "Next Page"
 msgstr "Nasledujúca stránka"
 
-#, fuzzy, c-format
-msgid "Do you really want to delete %s?"
-msgstr "Naozaj chcete vymazat modul __PLUGIN__?"
+msgid "Deletion Complete"
+msgstr ""
 
-#, fuzzy
-msgid "Delete more items..."
-msgstr "Odstrániť položky"
+msgid "Item successfully deleted"
+msgstr ""
+
+#, c-format
+msgid "Are you sure you want to delete this %s?"
+msgstr ""
+
+#, c-format
+msgid "It contains %d item."
+msgid_plural "It contains %d items."
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "There is no undo!"
+msgstr ""
 
 msgid "There was a problem processing your request."
-msgstr "Nastal problem pri spracovani Vasej poziadavky."
+msgstr ""
 
 msgid "Sort order"
 msgstr "Poradie triedenia"
@@ -2926,20 +2586,18 @@ msgid ""
 "This sets the sort order for the album.  This applies to all current items, and any newly "
 "added items."
 msgstr ""
-"Toto nastavi smer zoradovania pre album.  Aplikuje sa na vsetky sucastne polozky a novo "
-"pridane polozky."
 
 msgid "Apply to all subalbums"
 msgstr "Aplikovať na všetky vnorené albumy"
 
 msgid " Every item requires a thumbnail. Set the default size in pixels here."
-msgstr " Kazda polozka potrebuje nahlad. Nastav predvolenu velkost v bodoch tu."
+msgstr ""
 
 msgid "You must enter a number (greater than zero)"
-msgstr "Musis zadat cislo (vacsie ako nula)"
+msgstr ""
 
 msgid "Use this thumbnail size in all subalbums"
-msgstr "Pouzit tuto velkost nahladu vo vsetkych podalbumoch"
+msgstr ""
 
 msgid "Resized Images"
 msgstr "Zmenšené obrázky"
@@ -2951,13 +2609,13 @@ msgid "Active"
 msgstr "Aktívne"
 
 msgid "Target Size (pixels)"
-msgstr "Pozadovana Velkost (v bodoch)"
+msgstr ""
 
 msgid "You must enter a valid size"
-msgstr "Musis zada spravnu velkost"
+msgstr ""
 
 msgid "Use these target sizes in all subalbums"
-msgstr "Pouzit tieto velkosti vo vsetkych podalbumoch"
+msgstr ""
 
 msgid "Apply settings to existing items"
 msgstr "Použiť nastavenia pre existujúce položky"
@@ -2969,12 +2627,6 @@ msgid ""
 "Building images now makes this operation take longer, but saves the time to build and cache "
 "each file when it is first viewed."
 msgstr ""
-"Nastavenia pre nahlady a obrazky so zmenenou velkostou su platne pre nove polozky.  Na "
-"aplikaciu tychto nastavenie na vsetky polozky vo Vasom albume, zaskrtnite prislusne "
-"policko.  Podalbumy tohoto albumu budu aplikovat svoje vlastne nastavenia, ktore nemusia byt "
-"zhodne s tymito nastaveniami.  Vytvaranie obrazkov sposobi, ze tato operacia moze trvat "
-"dlhsi cas, ale usetria cas na vytvorenie a zalohovanie kazdeho suboru ked bude prvy krat "
-"pozreny."
 
 msgid "Apply album setting to thumbnails"
 msgstr "Použiť nastavenie albumu na náhľady"
@@ -2982,11 +2634,13 @@ msgstr "Použiť nastavenie albumu na náhľady"
 msgid "... and for all subalbums"
 msgstr "... a pre všetky vnorené albumy"
 
+#, fuzzy
 msgid "Build thumbnails too"
-msgstr "Tiez vytvorit nahlady"
+msgstr "Znovu sa vytvárajú náhledy..."
 
+#, fuzzy
 msgid "Apply album setting to resized images"
-msgstr "Aplikovat nastavenia albumu na transformovane obrazky"
+msgstr "Znovu sa vytvárajú zmenšeniny"
 
 msgid "Build resizes too"
 msgstr "Vytvoriť aj zmenšeniny"
@@ -2999,41 +2653,36 @@ msgid ""
 "browser.  Note that changing these values does <b>not</b> change the animation itself so "
 "experimenting won't cause harm."
 msgstr ""
-"Aby Galeria spravne zobrazila tuto animaciu musi vediet sirku a vysku animacie.  Ak ste "
-"nainstalovali graficku utilitu ktora vie spravovat animacie, tak tieto hodnoty by mali byt "
-"nastavene automaticky. Ak nie mozu byt nastavene na hodnotu 0. Ak nezadate spravne hodnoty, "
-"animacia moze byt zobrazovana nespravne. Zmena tychto hodnot <b>nemeni</b> animaciu, takze "
-"mozete kludne experimentovat."
 
 msgid "Width"
 msgstr "Šírka"
 
 msgid "You must enter a value greater than or equal to 0"
-msgstr "Musis zadat hodnotu vacsiu alebo rovnu nule"
+msgstr ""
 
 msgid "Height"
 msgstr "Výška"
 
 msgid "There were errors saving some items"
-msgstr "Nastali chyby pri ukladani niektorych poloziek"
+msgstr ""
 
 msgid "There were errors saving all items"
-msgstr "Nastali chyby pri ukladani vsetkych poloziek"
+msgstr ""
 
 msgid "Successfully saved all items"
-msgstr "Uspesne ulozene vsetky polozky"
+msgstr ""
 
 msgid "This album contains no items"
-msgstr "Tento album neobsahuje ziadne polozky"
+msgstr ""
 
 msgid "Saved successfully."
-msgstr "Uspesne ulozene."
+msgstr ""
 
 msgid "This item was modified by somebody else at the same time.  Your changes were lost."
-msgstr "Tato polozka bola upravena niekym inym v rovnakom case.  Vase zmeny boli stratene."
+msgstr ""
 
 msgid "You do not have permissions to modify this item."
-msgstr "Nemas pravo na upravovanie tejto polozky."
+msgstr ""
 
 msgid "Save and Done"
 msgstr "Uložiť a ukončiť"
@@ -3050,51 +2699,41 @@ msgid ""
 "The name of this item on your hard disk.  It must be unique in this album.  Only use "
 "alphanumeric characters, underscores or dashes."
 msgstr ""
-"Meno tejto polozky na Vasom hard disku.  Musi byt unikatne pre tento album.  Pouzivajte iba "
-"alfanumericke znaky, podciarovniky alebo pomlcky."
 
 msgid "Your name contains invalid characters.  Please choose another."
-msgstr "Vase meno obsahuje neplatne znaky.  Zvolte prosim ine."
+msgstr ""
 
 msgid "You must enter a name for this item."
-msgstr "Musis zadat meno pre tuto polozku."
+msgstr ""
 
 msgid "The name you entered is already in use.  Please choose another."
-msgstr "Meno ktore si zadal je uz pouzite.  Vyber prosim ine."
+msgstr ""
 
 msgid "The title of this item."
-msgstr "Meno tejto polozky."
+msgstr ""
 
 msgid "The root album must have a title."
-msgstr "Hlavny album musi mat titulok."
+msgstr ""
 
 msgid "The summary of this item."
-msgstr "Zhrnutie k tejto polozke."
+msgstr ""
 
 msgid "This is the long description of the item."
-msgstr "Toto je dlhy popis k tejto polozke."
+msgstr ""
 
 #, c-format
 msgid "%s Date and Time"
 msgstr "%s Dátum a čas"
 
-#, fuzzy
-msgid "Link Date and Time"
-msgstr "%s Dátum a čas"
-
 msgid "Set the date and time when this image was captured."
-msgstr "Nastav datum a cas ked bol tento obrazok odfoteny."
+msgstr ""
 
 msgid "Set the date and time to be displayed for this item."
-msgstr "Nastav datum a cas, ktory ma byt zobrazeny pre tuto polozku."
+msgstr ""
 
 #, c-format
 msgid "Set the date and time to be displayed for this %s."
-msgstr "Nastav datum a cas, ktory ma byt zobrazeny pre %s."
-
-#, fuzzy
-msgid "Set the date and time to be displayed for this link."
-msgstr "Nastav datum a cas, ktory ma byt zobrazeny pre tuto polozku."
+msgstr ""
 
 msgid "Date:"
 msgstr "Dátum:"
@@ -3103,10 +2742,10 @@ msgid "Time:"
 msgstr "Čas:"
 
 msgid "Use the original capture date and time from file information (e.g. Exif tag):"
-msgstr "Pouzit original cas, kedy bol obrazok odfoteny z informacii v subore (nap. Exif tag):"
+msgstr ""
 
 msgid "You must enter a valid date and time"
-msgstr "Musis zadat spravny cas a datum"
+msgstr ""
 
 msgid "Thumbnail"
 msgstr "Náhľad"
@@ -3115,18 +2754,14 @@ msgid ""
 "Set the size of the thumbnail.  The largest side of the thumbnail will be no larger than "
 "this value. Leave this field blank if you don't want a thumbnail."
 msgstr ""
-"Nastavte velkost nahladu.  Najdlhsia strana nahladu nebude nikdy vacsia ako tato hodnota.  "
-"Nechajte toto policko prazdne ak nechcete mat nahlady."
 
 msgid ""
 "There are no graphics toolkits enabled that support this type of item, so we cannot create "
 "or modify a thumbnail."
 msgstr ""
-"Nie su nainstalovane ziadne graficke utility, ktore by podporovali tento typ polozky, takze "
-"nemozeme vytvarat, alebo modifikovat nahlad."
 
 msgid "Unable to create a thumbnail for this item"
-msgstr "Nepodarilo sa vytvorit nahlad pre tuto polozku"
+msgstr ""
 
 msgid ""
 "In order for Gallery to properly display this movie, it has to know the movie's width and "
@@ -3136,11 +2771,6 @@ msgid ""
 "changing these values do <b>not</b> change the movie itself so experimentation won't cause "
 "harm."
 msgstr ""
-"Aby Galeria spravne zobrazila toto video, musi vediet sirku a vysku videa. Ak ste "
-"nainstalovali graficku utilitu ktora vie spravovat videa, tak tieto hodnoty by mali byt "
-"nastavene automaticky. Ak nie mozu byt nastavene na hodnotu 0. Ak nezadate spravne hodnoty, "
-"video moze byt zobrazovane nespravne. Zmena tychto hodnot <b>nemeni</b> video, takze mozete "
-"kludne experimentovat."
 
 msgid "Resized Photos"
 msgstr "Zmenšené fotografie"
@@ -3149,21 +2779,16 @@ msgid ""
 "These sizes are alternate resized versions of the original you would like to have available "
 "for viewing."
 msgstr ""
-"Tieto velkosti su pre alternativne verzie obrazkov, ktore chcete mat dostupne pre prezeranie."
 
 msgid ""
 "There are no graphics toolkits enabled that support this type of photo, so we cannot create "
 "or modify resized versions."
 msgstr ""
-"Nie je nainstalovana ziadna graficka utilita, ktora by podporovala tento typ fotografie, "
-"takze nemozeme vytvarat ani modifikovat zmenene verzie."
 
 msgid ""
 "You can select which part of the photo will be used for the thumbnail.  This will have no "
 "effect on the resized or original versions of the image."
 msgstr ""
-"Mozete vybrat ktora cast obrazka bude pouzita ako nahlad.  Toto nebude mat ziadny efekt na "
-"zmenene a originalne verzie obrazka."
 
 msgid "Aspect Ratio: "
 msgstr "Zachovať pomer: "
@@ -3171,8 +2796,9 @@ msgstr "Zachovať pomer: "
 msgid "Crop"
 msgstr "Orezať"
 
+#, fuzzy
 msgid "Undo Changes"
-msgstr "Vratit zmeny"
+msgstr "Zmeniť"
 
 msgid "Reset to default"
 msgstr "Východzie hodnoty"
@@ -3181,14 +2807,12 @@ msgid ""
 "There are no graphics toolkits enabled that support this type of photo, so we cannot crop "
 "the thumbnail."
 msgstr ""
-"Nie je nainstalovana ziadna graficka utilita, ktora by podporovala tento typ fotografie, "
-"takze nemozeme orezat nahlad."
 
 msgid "Rotate"
 msgstr "Otočiť"
 
 msgid "You can only rotate the photo in 90 degree increments."
-msgstr "Fotku mozes otacat iba po 90 stupnovych krokoch."
+msgstr ""
 
 msgid "CC 90&deg;"
 msgstr "PSHR 90&deg;"
@@ -3203,8 +2827,6 @@ msgid ""
 "There are no graphics toolkits enabled that support this type of photo, so we cannot rotate "
 "it."
 msgstr ""
-"Nie su zapnute ziadne graficke utility, ktore by podporovali tento typ fotografie, takze ju "
-"nemozeme otocit."
 
 msgid "Scale"
 msgstr "Mierka"
@@ -3214,19 +2836,14 @@ msgid ""
 "aspect ratio (height to width) of the original photo to avoid distortion.  Your photo will "
 "be scaled until it fits inside a bounding box with the size you enter here."
 msgstr ""
-"Zmensi alebo zvacsi original fotku.  Ked Galeria zmeni velkost fotky, ponecha rovnaky pomer "
-"stran ako ma origina fotka.  Vasa fotka bude zvacsena/zmensena tak, aby sa zmestila do "
-"ramceku velkosti aku tu zadate."
 
 msgid ""
 "There are no graphics toolkits enabled that support this type of photo, so we cannot scale "
 "it."
 msgstr ""
-"Nie su zapnute ziadne graficke utility, ktore by podporovali tento typ fotografie, takze jej "
-"nemozeme zmenit velkost."
 
 msgid "You must enter a size"
-msgstr "Musis zadat velkost"
+msgstr ""
 
 msgid "Preserve Original"
 msgstr "Zachovať pôvodné"
@@ -3237,43 +2854,36 @@ msgid ""
 "prevents your original from getting damaged.  Disabling this option will cause any actions "
 "(rotating, scaling, etc) to modify the original."
 msgstr ""
-"Galeria nemodifikuje Vase originalne fotky, ked ich otacate, alebo menite ich velkost.  "
-"Namiesto toho ich duplikuje a pracuje s kopiami.  Toto potrebuje trosku viac diskoveho "
-"miesta, ale zabranuje tomu, aby bol original poskodeny.  Zrusenie nasledovnej moznosti "
-"sposobi, ze akakolvek akcia (otacanie, menenie velkosti, atd) bude modifikovat original."
 
 msgid "This is a link to another photo, so you cannot change the original"
-msgstr "Toto je linka na inu fotografiu, takze nemozes zmenit original"
+msgstr ""
 
 msgid "There are links to this photo, so you cannot change the original"
-msgstr "Na tuto fotografiu existuju linky, takze nemozes zmenit original"
+msgstr ""
 
 msgid ""
 "There is no toolkit support to modify the original so operations may only be applied to the "
 "copies"
 msgstr ""
-"Neexistuje utilita na upravu originalu, takze operacie mozu byt vykonane iba na kopiach"
 
 msgid "Preserve Original Photo"
-msgstr "Ponechat Original Fotku"
+msgstr ""
 
 msgid "Modified Photo"
-msgstr "Upravena Fotka"
+msgstr ""
 
 msgid ""
 "You are using a copy of the original photo that has been scaled or rotated.  The original "
 "photo is still available, but is no longer being used.  Any changes you make will be applied "
 "to the copy instead."
 msgstr ""
-"Pouzivate kopiu original fotografie, ktora bola otocena, alebo jej bola zmenena velkost.  "
-"Original fotografia je stale dostupna, ale uz nie je pouzivana.  Akekolvek zmeny spravite "
-"budu aplikovane na kopiu fotografie."
 
 msgid "Restore original"
 msgstr "Obnoviť originál"
 
+#, fuzzy
 msgid "Choose a theme"
-msgstr "Zvoľte si temu"
+msgstr "Zvoľte si blok"
 
 #, c-format
 msgid ""
@@ -3281,44 +2891,38 @@ msgid ""
 "version or no longer available.  Please upgrade the %s theme or use another theme for this "
 "album."
 msgstr ""
-"Tento album je nakonfigurovany, aby pouzival temu %s. Tato tema je nekompatibilna, alebo nie "
-"je dostupna.  Prosim aktualizujte temu %s alebo pouzite pre tento album inu temu."
 
 #, c-format
 msgid ""
 "Themes control the look and feel of the album.  You can choose a different theme for each "
 "album.  If you don't choose a theme, we'll use the %s theme by default."
 msgstr ""
-"Temy kontroluju vzhlad albumu.  Mozete vybrat rozne temy pre kazdy album.  Ak nevyberiete "
-"temu bude sa pouzivat %s tema."
 
 msgid "Use this theme in all subalbums"
-msgstr "Pouzit tuto temu vo vsetkych podalbumoch"
+msgstr ""
 
 msgid "Choose Theme"
-msgstr "Vyber Temu"
+msgstr ""
 
 #, c-format
 msgid "Configure the %s theme"
 msgstr "Nastaviť %s tému"
 
 msgid "These settings only apply to the theme for this album."
-msgstr "Tieto nastavenia su iba pre temu na tomto albume."
+msgstr ""
 
 #, c-format
 msgid "Use these settings in all subalbums that use the %s theme"
-msgstr "Pouzit tieto nastavenia vo vsetkych podalbumoch ktore pouzivaju temu %s"
+msgstr ""
 
 msgid "Album Highlight"
 msgstr "Zvýrazniť album"
 
 msgid "You can make this item the thumbnail for its parent or any ancestor album."
 msgstr ""
-"Mozes pouzit tuto polozku ako nahlad pre jej rodicovsku polozku, alebo akukolvek polozku "
-"predchadzajucu rodicovskej."
 
 msgid "Highlight for:"
-msgstr "Zvyraznenie pre:"
+msgstr ""
 
 msgid "Highlight"
 msgstr "Zvýrazniť"
@@ -3329,58 +2933,49 @@ msgstr "Presunúť položku"
 #, c-format
 msgid "Successfully moved %d item"
 msgid_plural "Successfully moved %d items"
-msgstr[0] "Uspesne presunuta %d polozka"
-msgstr[1] "Uspesne presunute %d polozky"
-msgstr[2] "Uspesne presunutych %d poloziek"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "This album contains no items to move."
-msgstr "Tento album neobsahuje ziadne polozky na presunutie."
+msgstr ""
 
 msgid "Source"
 msgstr "Zdroj"
 
 msgid "Choose the items you want to move"
-msgstr "Vyber polozky, ktore chces presunut"
-
-msgid "OK"
 msgstr ""
 
 msgid ""
 "The destination you chose does not accept sub-albums, so all sub-albums have been deselected."
-msgstr "Ciel ktory si vybral neprijima podalbumy, takze vsetky podalbumy boli odznacene."
-
-#, fuzzy
-msgid "Warning"
-msgstr "Varovanie!"
+msgstr ""
 
 msgid ""
 "The destination you chose only accepts sub-albums, so all non-albums have been deselected."
 msgstr ""
-"Ciel ktory si vybral prijima iba podalbumy, takze vsetko co nie je album bolo odznacene."
 
 msgid "You are not allowed to move this item away from here."
-msgstr "Nemas dovolene presunut tuto polozku prec."
+msgstr ""
 
 msgid "You are not allowed to move an album to the chosen destination."
-msgstr "Nemas dovolene presunut album do zvolenej lokacie."
+msgstr ""
 
 msgid "You are not allowed to move an item to the chosen destination."
-msgstr "Nemas dovolene presunut polozku do zvolenej lokacie."
+msgstr ""
 
 msgid "You cannot move an album into its own subtree."
-msgstr "Nemozes presunut album do jeho vlastneho podstromu."
+msgstr ""
 
 msgid "Destination"
 msgstr "Cieľ"
 
 msgid "Choose a new album for them"
-msgstr "Vyber pre ne novy album"
+msgstr ""
 
 msgid "You don't have the permission to add items in this album"
-msgstr "Nemas povolenie na pridavanie poloziek do tohoto albumu"
+msgstr ""
 
 msgid "No destination chosen"
-msgstr "Nebola zvolena ziadna cielova lokacia"
+msgstr ""
 
 msgid "Move"
 msgstr "Presunúť"
@@ -3389,25 +2984,25 @@ msgid "Successfully moved"
 msgstr "Úspešne presunuté"
 
 msgid "Choose a destination album"
-msgstr "Vyber cielovy album"
+msgstr ""
 
 msgid "Permissions"
 msgstr "Oprávnenia"
 
 msgid "Owner changed successfully"
-msgstr "Vlastnik uspesne zmeneny"
+msgstr ""
 
 msgid "Group permission added successfully"
-msgstr "Prava skupiny uspesne pridane"
+msgstr ""
 
 msgid "User permission added successfully"
-msgstr "Prava uzivatela uspesne pridane"
+msgstr ""
 
 msgid "Group permission removed successfully"
-msgstr "Prava skupiny uspesne zrusene"
+msgstr ""
 
 msgid "User permission removed successfully"
-msgstr "Prava uzivatela uspesne zrusene"
+msgstr ""
 
 msgid ""
 "Each item has its own independent set of permissions.  Changing the parent's permissions has "
@@ -3417,19 +3012,14 @@ msgid ""
 "if you want to grant permissions to a specific user, you can add (or remove) the user from "
 "the appropriate group."
 msgstr ""
-"Kazda polozka ma svoj vlastny zoznam prav.  Zmenenie tychto prav rodicovskej polozke nema "
-"ziadny efekt na prava jej detskych poloziek.  Toto Vam dovoluje zrusit pristup na rodicovsku "
-"polozku, ale stale ponechat pristup na tuto polozku, alebo naopak.  Najefektivnejsi sposob "
-"ako pouzivat tento system je vytvorit skupiny a priradit prava priamo im.  Potom ak "
-"potrebujete povolit prava specifickemu uzivatelovi mozete ho pridat do prislusnej skupiny."
 
 #, c-format
 msgid "This item is owned by user: %s"
-msgstr "Tuto polozku vlastni uzivatel: %s"
+msgstr ""
 
 #, c-format
 msgid "This item is owned by user: %s (%s)"
-msgstr "Tuto polozku vlastni uzivatel: %s (%s)"
+msgstr ""
 
 msgid "New owner"
 msgstr "Nový vlastník"
@@ -3441,10 +3031,10 @@ msgid "Apply new owner to sub-items"
 msgstr "Nastaviť nového vlastníka pre vnorené albumy"
 
 msgid "You must enter a user name"
-msgstr "Musis zadat meno uzivatela"
+msgstr ""
 
 msgid "The user name you entered is invalid"
-msgstr "Meno uzivatela, ktore si zadal je neplatne"
+msgstr ""
 
 msgid "Apply changes"
 msgstr "Aplikovať zmeny"
@@ -3456,12 +3046,6 @@ msgid ""
 "have many sub-items.  It's more efficient to grant permissions to groups and then add and "
 "remove users from groups whenever possible. Changes are applied to sub-items by default."
 msgstr ""
-"Tato polozka ma pod-polozky.  Zmeny ktore tu spravite mozu byt aplikovane iba na tuto "
-"polozku, alebo ich mozete aplikovat na vsetky pod-polozky.  Aplikovane zmeny na tuto polozku "
-"budu potom aplikovane na vsetky pod-polozky, co moze byt velmi casovo narocne, ak mate vela "
-"pod-poloziek.  Najefektivnejsi sposob je vytvorit skupiny a priradit prava priamo im.  Potom "
-"ak potrebujete povolit prava specifickemu uzivatelovi mozete ho pridat do prislusnej "
-"skupiny. Zmeny su aplikovane na pod-polozky pokial nedefinujete inak."
 
 msgid "Apply to sub-items"
 msgstr "Použiť pre vnorené položky"
@@ -3476,53 +3060,51 @@ msgid "Permission"
 msgstr "Oprávnenie"
 
 msgid "New Group Permission"
-msgstr "Nove Prava Skupiny"
+msgstr ""
 
 msgid "Add Permission"
 msgstr "Pridať oprávnenie"
 
 msgid "The permission you chose is invalid"
-msgstr "Prava ktore si vybral su neplatne"
+msgstr ""
 
 msgid "The group name you entered is invalid"
-msgstr "Meno skupiny ktore si vybral je neplatne"
+msgstr ""
 
 msgid "Group already has this permission (check sub-permissions)"
-msgstr "Skupina uz tieto prava ma (skontroluj pod-prava)"
+msgstr ""
 
 msgid "User Permissions"
-msgstr "Prava Uzivatela"
+msgstr ""
 
 msgid "User name"
 msgstr "Meno používateľa"
 
 msgid "New User Permission"
-msgstr "Nove pravo uzivatela"
+msgstr ""
 
 msgid "The user already has this permission (check sub-permissions)"
-msgstr "Uzivatel uz toto pravo ma (skontroluj pod-prava)"
+msgstr ""
 
 msgid "Reorder Album"
-msgstr "Zorad Album"
+msgstr ""
 
 msgid "Order saved successfully"
-msgstr "Poradie uspesne ulozene"
+msgstr ""
 
 msgid ""
 "This album has an automatic sort order specified, so you cannot change the order of items "
 "manually.  You must remove the automatic sort order to continue."
 msgstr ""
-"Tento album ma nastavene automaticke zoradovanie, takze nemozete zmenite zoradenie poloziek "
-"manualne.  Musite zrusit automaticke zoradovanie."
 
 msgid "change"
 msgstr "zmeniť"
 
 msgid "Change the order of the items in this album."
-msgstr "Zmen poradie poloziek v tomto albume."
+msgstr ""
 
 msgid "Move this item"
-msgstr "Presunut polozku"
+msgstr ""
 
 msgid "before"
 msgstr "pred"
@@ -3531,18 +3113,16 @@ msgid "after"
 msgstr "za"
 
 msgid "Reorder"
-msgstr "Zoradit"
+msgstr ""
 
 msgid ""
 "JavaScript must be enabled for this page to function properly. However, it seems JavaScript "
 "is either disabled or not supported by your browser. Please enable JavaScript by changing "
 "your browser options, then try again."
 msgstr ""
-"JavaScript musi byt zapnuty, aby tato stranka fungovala. Vyzera to tak, ze na Vasom "
-"prehliadaci je vypnuty."
 
 msgid "Site is temporarily down for maintenance."
-msgstr "Stranka je docasne vypnuta koli udrzbe."
+msgstr ""
 
 msgid "Admin Login"
 msgstr "Prihlásenie správcu"
@@ -3556,13 +3136,11 @@ msgstr "Zadajte popis k URL"
 msgid "Enter an image URL"
 msgstr "Zadajte URL obrázka"
 
-#. HINT: Button label for Bold
-msgid "B"
-msgstr ""
+msgid "B <!-- Button label for Bold -->"
+msgstr "T"
 
-#. HINT: Button label for italic
-msgid "i"
-msgstr ""
+msgid "i <!-- Button label for italic -->"
+msgstr "k"
 
 msgid "list"
 msgstr "zoznam"
@@ -3576,97 +3154,81 @@ msgstr "URL"
 msgid "image"
 msgstr "obrázok"
 
+#, fuzzy
 msgid "color"
-msgstr "farba"
+msgstr "jadro"
 
-#, fuzzy, c-format
-msgid "You can also use the %scolor name%s for example: %sYour Text%s"
-msgstr "Mozes tiez pouzite <a href=\"%s\" target=\"_new\">meno farby</a> napriklad: %s"
+#, c-format
+msgid "You can also use the <a href=\"%s\" target=\"_new\">color name</a> for example: %s"
+msgstr ""
 
 msgid "Configuration Error: Missing Theme"
 msgstr "Chyba konfigurácie: Chýbajúca téma"
 
 msgid "Missing Theme"
-msgstr "Chybajuca tema"
+msgstr ""
 
 #, c-format
 msgid ""
 "This page is configured to use the %s theme, but it is either inactive, not installed, or "
 "incompatible."
 msgstr ""
-"Tato stranka je nakonfigurovana, aby pouzivala temu %s, ale tato je bud neaktivna, "
-"nenainstalovana, alebo nekompatibilna."
 
 #, c-format
 msgid ""
 "This album is configured to use the %s theme, but it is either inactive, not installed, or "
 "incompatible."
 msgstr ""
-"Tento album je nakonfigurovany, aby pouzival temu %s, ale tato je bud neaktivna, "
-"nenainstalovana, alebo nekompatibilna."
 
 #, c-format
 msgid ""
 "To fix this problem you can %sinstall or activate this theme%s or select another default "
 "theme."
 msgstr ""
-"Na opravenie tohoto problemu mozete %snainstalovat alebo aktivovat tuto temu%s alebo vybrat "
-"inu temu."
 
 #, c-format
 msgid ""
 "To fix this problem you can %slogin as a site administrator%s and then %sinstall or activate "
 "this theme%s or select another default theme."
 msgstr ""
-"Na opravenie tohoto problemu sa mozete %sprihlasit ako administrator%s a potom %"
-"snainstalovat alebo aktivovat tuto temu%s alebo vybrat inu temu."
 
 #, c-format
 msgid ""
 "To fix this problem you can either %schoose a new theme for this album%s or %sinstall or "
 "activate this theme%s."
 msgstr ""
-"Na opravenie tohoto problemu mozete %svybrat inu temu pre tento album%s alebo %snainstalovat "
-"alebo aktivovat tuto temu%s."
 
 #, c-format
 msgid ""
 "To fix this problem you can either %schoose a new theme for this album%s or %slogin as a "
 "site administrator%s and then %sinstall or activate this theme%s."
 msgstr ""
-"Na opravenie tohoto problemu mozete %svybrat inu temu pre tento album%s alebo sa %sprihlasit "
-"ako administrator%s a potom %snainstalovat alebo aktivovat tuto temu%s."
 
 #, c-format
 msgid ""
 "To fix this problem you can either %slogin%s and then %schoose a new theme for this album%s "
 "or %slogin as a site administrator%s and then %sinstall or activate this theme%s."
 msgstr ""
-"Na opravenie tohoto problemu sa mozete %sprihlasit%s a potom %svybrat inu temu pre tento "
-"album%s alebo sa %sprihlasit ako administrator%s a potom %snainstalovat alebo aktivovat tuto "
-"temu%s."
 
 msgid "Admin Options"
 msgstr "Voľby správcu"
 
 msgid "User Options"
-msgstr "Uzivatelske Nastavenia"
+msgstr ""
 
 msgid "Password changed successfully"
-msgstr "Heslo uspesne zmenene"
+msgstr ""
 
 msgid ""
 "You must enter your current password to prove that it's you, then enter your new password "
 "twice to make sure that you didn't make a mistake."
 msgstr ""
-"Musite zadat Vase sucastne heslo pre dokaz, ze ste to naozaj Vy. Potom zadajte nove heslo "
-"dva krat pre istotu, aby sme si boli isty, ze ste nespravili chybu."
 
 msgid "Current Password"
 msgstr "Aktuálne heslo"
 
 msgid "You must enter your current password"
-msgstr "Musite zadat Vase sucastne heslo"
+msgstr ""
 
 msgid "Incorrect password"
 msgstr "Nesprávne heslo"
@@ -3678,49 +3240,42 @@ msgid "You must enter a new password"
 msgstr "Musíte zadať nové heslo"
 
 msgid "Verify New Password"
-msgstr "Overenie Noveho Hesla"
+msgstr ""
 
 msgid "You must enter your new password again!"
-msgstr "Musis zadat nove heslo este raz!"
+msgstr ""
 
 msgid ""
 "This account is not allowed to modify account settings.  Please contact your Gallery "
 "administrator"
-msgstr "Tento ucet nema dovolene menit si nastavenia.  Prosim kontaktujte administratora."
+msgstr ""
 
 msgid ""
 "Your administrator has locked this account, preventing changes from being made to the "
 "account information."
-msgstr "Administrator zablokoval tento ucet."
+msgstr ""
 
 msgid "Login to your account"
-msgstr "Prihlasenie na Vas ucet"
+msgstr ""
 
 msgid "Your password has been recovered, please login."
-msgstr "Vase heslo bolo obnovene, prosim prihlaste sa."
-
-msgid ""
-"The administration session has expired, please re-authenticate to access the administration "
-"area."
 msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Logins to this account are temporarily disabled due to multiple failed login attempts.  Wait "
-"for access to be restored, or use the %srecover password%s page to re-enable this account."
+"for access to be restored, or use the <a href=\"%s\">recover password</a> page to re-enable "
+"this account."
 msgstr ""
-"Prihlasovanie na tento ucet je docasne zrusene koli vela neuspesnym prihlaseniam.  Pockajte "
-"kym sa obnovi pristup, alebo pouzite <a href=\"%s\">obnovenie hesla</a> na znovu aktivovanie "
-"tohoto uctu."
 
 msgid "Your login information is incorrect.  Please try again."
-msgstr "Vase prihlasovacie udaje su neplatne.  Prosim skuste znovu."
-
-#, fuzzy, c-format
-msgid "Lost or forgotten passwords can be retrieved using the %srecover password%s page"
 msgstr ""
-"Stratene alebo zabudnute hesla mozu byt ziskane pouzitim <a href=\"%s\">obnov heslo</a> "
-"stranky"
+
+#, c-format
+msgid ""
+"Lost or forgotten passwords can be retrieved using the <a href=\"%s\">recover password</a> "
+"page"
+msgstr ""
 
 #, c-format
 msgid "Welcome, %s!"
@@ -3730,19 +3285,19 @@ msgid "Account settings saved successfully"
 msgstr "Nastavenia účtu boli úspešne uložené"
 
 msgid "(required, password required for change)"
-msgstr "(potrebne, heslo potrebne pre zmenu)"
+msgstr ""
 
 msgid "(suggested, password required for change)"
-msgstr "(odporucane, heslo potrebne pre zmenu)"
+msgstr ""
 
 msgid "(required to change the e-mail address)"
-msgstr "(potrebne pre zmenu e-mail adresy)"
+msgstr ""
 
 msgid "You must enter your current password to change the e-mail address"
-msgstr "Musis zadat svoje sucastne heslo pre zmenu e-mailovej adresy"
+msgstr ""
 
 msgid "Recover a lost or forgotten password"
-msgstr "Obnovit stratene alebo zabudnute heslo"
+msgstr ""
 
 msgid ""
 "Recovering your password requires that your user account has an email address assigned, and "
@@ -3752,21 +3307,14 @@ msgid ""
 "period.  A recovery confirmation is valid for seven days.  If it is not used during that "
 "time, it will be purged from the system and a new request will have to be made."
 msgstr ""
-"Obnovenie heslo potrebuje, aby Vase uzivatelske konto malo e-mailovu adresu a aby ste mali "
-"pristup k zadanej emailovej adrese.  Potvrdenie Vam bude poslane na tuto adresu. Bude "
-"obsahovat URL, ktoru musite navstivit na nastavenie noveho heslo k Vasmu uctu. Na predidenie "
-"zneuzitia sa obnova hesla da spravit maximalne raz za 20 minut.  Potvrdzovaci email je "
-"platny 7 dni."
 
 msgid "Your recovery request has been sent!"
-msgstr "Poziadavka odoslana!"
+msgstr ""
 
 msgid ""
 "Note that if the account does not have an email address, you may not receive the email and "
 "you should contact your system administrator for help."
 msgstr ""
-"Ak ucet nema emailovu adresu, tak nedostanes email. V tomto pripade by si mal kontaktovat "
-"administratora."
 
 #, c-format
 msgid ""
@@ -3789,10 +3337,6 @@ msgid ""
 "new text file called %s in your gallery2 directory. It must contain the following randomly "
 "generated characters:"
 msgstr ""
-"Aby ste mohli pokracovat s obnovenim hesla musime overit, ze ste kto hovorite.  Najlepsi "
-"sposob ako toto spravit je, ze spravite malu zmenu v adresary Galerie, ktora potvrdi, ze ste "
-"kto tvrdite.  Takze vas prosime, aby ste vytvorili subor s menom %s v gallery2 adresary.  "
-"Musi obsahovat nasledovne nahodne generovane znaky: "
 
 #, c-format
 msgid "%s"
@@ -3807,7 +3351,7 @@ msgstr ""
 "stiahnuť a skopírovať do inštalačného adresára."
 
 msgid "Once you've uploaded the file, click refresh to continue."
-msgstr "Akonahle ste nahrali subor, kliknite na obnovenie pre pokracovanie."
+msgstr ""
 
 msgid "Emergency Administrator Password Reset"
 msgstr "Núdzové nastavenie hesla správcu"
@@ -3816,7 +3360,6 @@ msgid ""
 "This page can be used by a system administrator to securely reset the password on any "
 "account."
 msgstr ""
-"Tato stranka moze byt pouzita administratorom na bezpecne resetnutie hesla akehokolvek uctu."
 
 msgid "Authorization Confirmed"
 msgstr "Autorizácia potvrdená"
@@ -3825,23 +3368,21 @@ msgid ""
 "Your authorization has been confirmed.  Please enter your new password below.  After setting "
 "your new password you will be taken to the login page."
 msgstr ""
-"Vasa autorizacia bola potvrdena.  Prosim zadajte nove heslo.  Po zadani hesla budete "
-"presunuty na prihlasovaciu stranku."
 
 msgid "Recover Password for Username"
-msgstr "Obnova Hesla pre Uzivatela"
+msgstr ""
 
 msgid "You must enter a username to recover the password for."
-msgstr "Musis zadat uzivatela ktoremu chces obnovit heslo."
+msgstr ""
 
 msgid "The username you entered does not exist."
-msgstr "Meno ktore si zadal neexistuje."
+msgstr ""
 
 msgid "Authorization Incorrect"
 msgstr "Chybná autorizácia"
 
 msgid "Recovery Instructions"
-msgstr "Instrukcie k obnove"
+msgstr ""
 
 msgid "AuthFile Missing"
 msgstr "Chýba súbor AuthFile"
@@ -3851,62 +3392,54 @@ msgstr "Súbor AuthFile je nečitateľný"
 
 #, c-format
 msgid "Your %s file is not readable. Please give Gallery read permissions on the file."
-msgstr "Vas %s subor nie je citatelny.  Prosim dajte Galerii prava na citatie na tomto subore."
+msgstr ""
 
 msgid "Refresh"
 msgstr "Obnoviť"
 
 msgid "This page will allow you to reset the password on your account."
-msgstr "Tato stranka Vam dovoli obnovit heslo na Vasom ucte."
+msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "There is no request which matches the username and authorization provided. Request a new "
-"authorization from the %slost password page%s."
+"authorization from the <a href=\"%s\">lost password page</a>"
 msgstr ""
-"Neexistuje zaznam ktory by hovoril o zadanej autorizacii. Poziadaj o novu autorizaciu z <a "
-"href=\"%s\">stranky strateneho hesla</a>"
 
-#, fuzzy, c-format
+#, c-format
 msgid ""
-"The request you are trying to access has expired.  Request a new authorization from the %"
-"slost password page%s."
+"The request you are trying to access has expired.  Request a new authorization from the <a "
+"href=\"%s\">lost password page</a>."
 msgstr ""
-"Autorizacia vyprsala.Poziadaj o novu autorizaciu z <a href=\"%s\">stranky strateneho hesla</"
-"a>"
 
 msgid "Authorization missing"
 msgstr "Chýba autorizácia"
 
 msgid "Username missing"
-msgstr "Chyba uzivatelske meno"
+msgstr ""
 
 msgid "Submit"
 msgstr "Odoslať"
 
 #, c-format
 msgid "Hello %s,"
-msgstr "Ahoj %s,"
+msgstr ""
 
 #, c-format
 msgid "You receive this email because a password recovery for %s was requested by %s at %s"
 msgstr ""
-"Tento mail ste dostali, pretoze bola odoslana poziadavka pre obnovenie hesla pre %s "
-"uzivatelom %s %s"
 
 #, c-format
 msgid "Your username is: %s"
-msgstr "Vase uzivatelske meno je: %s"
+msgstr ""
 
 msgid ""
 "To finish the password recovery process please click the following link and enter the "
 "required information:"
 msgstr ""
-"Pre dokoncenie obnovy hesla prosim kliknite na nasledujuci linku a zadajte potrebne "
-"informacie:"
 
 msgid "If you did not request this recovery email, you may safely ignore it."
-msgstr "Ak ste nepozadovali obnovu hesla, mozete tento email pokojne ignorovat."
+msgstr ""
 
 msgid "Thank you!"
 msgstr "Vďaka!"
@@ -3929,38 +3462,40 @@ msgstr "Vlastník: %s"
 #, c-format
 msgid "Size: %d item"
 msgid_plural "Size: %d items"
-msgstr[0] "Velkost: %d polozka"
-msgstr[1] "Velkost: %d polozky"
-msgstr[2] "Velkost: %d poloziek"
+msgstr[0] ""
+msgstr[1] ""
 
 #, c-format
 msgid "(%d item total)"
 msgid_plural "(%d items total)"
-msgstr[0] "(%d polozka celkovo)"
-msgstr[1] "(%d polozky celkovo)"
-msgstr[2] "(%d poloziek celkovo)"
+msgstr[0] ""
+msgstr[1] ""
 
 #, c-format
 msgid "Views: %d"
 msgstr "Zobrazené: %d-krát "
 
 msgid "&laquo; album actions &raquo;"
-msgstr "&laquo; akcie albumu &raquo;"
+msgstr ""
 
 msgid "&laquo; item actions &raquo;"
-msgstr "&laquo; akcie polozky &raquo;"
+msgstr ""
 
 msgid "Go"
 msgstr "Prejsť na"
 
-msgid "WARNING: block $type doesn't exist."
-msgstr ""
+msgid "Navigation"
+msgstr "Navigácia"
 
 msgid "next"
 msgstr "ďalší"
 
 msgid "last"
 msgstr "posledný"
+
+#, c-format
+msgid "Page %d of %d"
+msgstr "Stránka %d z %d"
 
 #, c-format
 msgid "%d of %d"
@@ -3995,73 +3530,16 @@ msgid "Use Global"
 msgstr "Použiť globálne"
 
 msgid "Language selector"
-msgstr "Vyber jazyka"
+msgstr ""
 
 msgid "Item actions"
-msgstr "Akcie polozky"
+msgstr ""
 
 msgid "Use dropdown menu"
-msgstr "Pozite rozkladacie menu"
+msgstr ""
 
 msgid "Login block"
-msgstr "Prihlasovaci blok"
+msgstr ""
 
 msgid "Links to album/photo peers"
-msgstr "Linky na iny album/fotku"
-
-#~ msgid "Language Packages"
-#~ msgstr "Jazykove Balicky"
-
-#~ msgid "(%sselect all%s%sselect none%s)"
-#~ msgstr "(%svybrat vsetky%s%sodznacit vsetky%s)"
-
-#~ msgid "You must select a base package before choosing language packs."
-#~ msgstr "Musite vybrat zakladny balicek predtym ako vyberiete jazykove balicky."
-
-#~ msgid "<none>"
-#~ msgstr "<žiadne>"
-
-#~ msgid "key"
-#~ msgstr "kľúč"
-
-#~ msgid "delete confirmation"
-#~ msgstr "potvrdenie odstránenia"
-
-#~ msgid "delete %s"
-#~ msgstr "odstrániť %s"
-
-#~ msgid "G2.2: Double Double"
-#~ msgstr "G2.2: Double Double"
-
-#~ msgid "Back"
-#~ msgstr "Naspäť"
-
-#~ msgid "Back to %s"
-#~ msgstr "Naspäť na %s"
-
-#~ msgid "Deletion Complete"
-#~ msgstr "Vymazanie uspesne"
-
-#~ msgid "Item successfully deleted"
-#~ msgstr "Polozka bola uspesne vymazana"
-
-#~ msgid "Are you sure you want to delete this %s?"
-#~ msgstr "Si si isty, ze chces vymazat %s?"
-
-#~ msgid "It contains %d item."
-#~ msgid_plural "It contains %d items."
-#~ msgstr[0] "Obsahuje %d polozku."
-#~ msgstr[1] "Obsahuje %d polozky."
-#~ msgstr[2] "Obsahuje %d poloziek."
-
-#~ msgid "There is no undo!"
-#~ msgstr "Tato akcia je nenavratna!"
-
-#~ msgid "B <!-- Button label for Bold -->"
-#~ msgstr "T"
-
-#~ msgid "i <!-- Button label for italic -->"
-#~ msgstr "k"
-
-#~ msgid "Navigation"
-#~ msgstr "Navigácia"
+msgstr ""

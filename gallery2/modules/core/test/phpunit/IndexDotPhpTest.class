@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -53,7 +53,7 @@ class IndexDotPhpTest extends GalleryTestCase {
 	    $session = new GallerySession();
 	    $ret = $session->initEmpty(true);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $url = GalleryUrlGenerator::appendParamsToUrl(
 		$url, array($session->getKey() => $session->getId()));
@@ -61,10 +61,7 @@ class IndexDotPhpTest extends GalleryTestCase {
 	    /* Make the HTTP request */
 	    list ($success, $body, $response, $headers) = GalleryCoreApi::fetchWebPage($url);
 	    $this->assert($success, "Could not retrieve G2 page: $url");
-	    if (!preg_match('{^HTTP/1\.\d 200 OK$}', $response)) {
-		$this->assertEquals($response, 'HTTP/1.1 200 OK',
-				    "Could not retrieve G2 page: $url");
-	    }
+	    $this->assertEquals($response, 'HTTP/1.1 200 OK', "Could not retrieve G2 page: $url");
 	    $this->assert(isset($headers['Set-Cookie']), "Set-Cookie header not set: $url");
 	    if (isset($headers['Set-Cookie'])) {
 		/* Check if the G2 cookie is present */

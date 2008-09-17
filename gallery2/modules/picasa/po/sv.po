@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Picasa 1.0.9\n"
+"Project-Id-Version: Gallery: Picasa 1.0.5\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-03-13 20:58+0100\n"
 "PO-Revision-Date: 2006-08-12 19:30+0200\n"
@@ -38,18 +38,6 @@ msgstr "Importerar album"
 msgid "Importing photos"
 msgstr "Importerar foton"
 
-#, c-format
-msgid "%d megabyte"
-msgid_plural "%d megabytes"
-msgstr[0] "%d megabyte"
-msgstr[1] "%d megabytes"
-
-#, c-format
-msgid "%d kilobytes"
-msgid_plural "%d kilobytes"
-msgstr[0] "%d kilobyte"
-msgstr[1] "%d kilobytes"
-
 msgid "Base filename"
 msgstr "Bas filnamn"
 
@@ -61,6 +49,18 @@ msgstr "Blank"
 
 msgid "From Picasa 2"
 msgstr "Från Picasa 2"
+
+#, c-format
+msgid "%d megabyte"
+msgid_plural "%d megabytes"
+msgstr[0] "%d megabyte"
+msgstr[1] "%d megabytes"
+
+#, c-format
+msgid "%d kilobytes"
+msgid_plural "%d kilobytes"
+msgstr[0] "%d kilobyte"
+msgstr[1] "%d kilobytes"
 
 msgid "Picasa"
 msgstr "Picasa"
@@ -237,11 +237,12 @@ msgstr ""
 #, c-format
 msgid ""
 "You don't have any Graphics Toolkit activated to handle JPEG images.  If you import now, you "
-"will not have any thumbnails.  Visit the %sModules%s page to activate a Graphics Toolkit."
+"will not have any thumbnails.  Visit the <a href=\"%s\">Modules</a> page to activate a "
+"Graphics Toolkit."
 msgstr ""
 "Du har inte någon Grafisk verktygslåda aktiverad som kan hantera JPEG bilder. Om du "
-"importerar nu så kommer du inte få några tumnaglar. Gå till %sModules%s sidan och aktivera "
-"en Grafisk verktygslåda."
+"importerar nu så kommer du inte få några tumnaglar. Gå till <a href=\"%s\">Modules</a> sidan "
+"och aktivera en Grafisk verktygslåda."
 
 msgid "Destination Album"
 msgstr "Destinations Album"

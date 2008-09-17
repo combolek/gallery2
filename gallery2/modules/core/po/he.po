@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,8 +19,9 @@
 # Guy Sheffer <guysoft@ort.org.il>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Core 1.2.36\n"
-"POT-Creation-Date: 2004-12-18 15:28+0200\n"
+"Project-Id-Version: Gallery: Core 1.2.0.3\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-06-07 09:29-0700\n"
 "PO-Revision-Date: 2007-03-14 16:14+0100\n"
 "Last-Translator: Guy Sheffer <guysoft@ort.org.il>\n"
 "Language-Team: hebrew <guysoft@ort.org.il>\n"
@@ -32,30 +33,6 @@ msgstr ""
 
 msgid "Gallery Email Test"
 msgstr "ניסוי דואר גלרייה"
-
-#, c-format
-msgid "%d minute"
-msgid_plural "%d minutes"
-msgstr[0] "(דקה %d)"
-msgstr[1] "(%d דקות)"
-
-#, c-format
-msgid "%d hour"
-msgid_plural "%d hours"
-msgstr[0] "(שעה %d)"
-msgstr[1] "(%d שעות)"
-
-#, c-format
-msgid "%d day"
-msgid_plural "%d days"
-msgstr[0] "(יום %d)"
-msgstr[1] "(%d ימים)"
-
-#, c-format
-msgid "%d week"
-msgid_plural "%d weeks"
-msgstr[0] "(שבוע %d)"
-msgstr[1] "(%d שבועות)"
 
 msgid "forever"
 msgstr "לתמיד"
@@ -81,36 +58,32 @@ msgstr "מסד נתונים"
 msgid "File"
 msgstr "קובץ"
 
-msgid "&lt;none&gt;"
-msgstr "&lt;ללא&gt;"
-
-#, fuzzy
-msgid "Link"
-msgstr "כניסה"
+#, c-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] "(דקה %d)"
+msgstr[1] "(%d דקות)"
 
 #, c-format
-msgid "Page %d of %d"
-msgstr "עמוד %d מתוך %d"
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] "(שעה %d)"
+msgstr[1] "(%d שעות)"
 
-#, fuzzy
-msgid "Updating Language Settings"
-msgstr "הגדרות שפה"
+#, c-format
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] "(יום %d)"
+msgstr[1] "(%d ימים)"
 
-#, fuzzy
-msgid "Update completed with errors."
-msgstr "העלאה הושלמה"
+#, c-format
+msgid "%d week"
+msgid_plural "%d weeks"
+msgstr[0] "(שבוע %d)"
+msgstr[1] "(%d שבועות)"
 
-#, fuzzy
-msgid "Update complete."
-msgstr "העלאה הושלמה"
-
-#, fuzzy
-msgid "Deleting Language Packs"
-msgstr "שפת ברירת המחדל"
-
-#, fuzzy
-msgid "Synchronizing Language Packs"
-msgstr "שפת ברירת המחדל"
+msgid "<none>"
+msgstr "<ללא>"
 
 msgid "No acceleration"
 msgstr "ללא תאוצה"
@@ -123,6 +96,46 @@ msgstr "תאוצה מלאה"
 
 msgid "Themes"
 msgstr "עיצוב"
+
+msgid "Updating Repository Index"
+msgstr ""
+
+msgid "Scanning plugins"
+msgstr ""
+
+#, fuzzy
+msgid "Update Plugin List"
+msgstr "allery Modules"
+
+msgid "Done."
+msgstr "הושלם."
+
+msgid "Updating Packages"
+msgstr ""
+
+#, c-format
+msgid "Preparing %s"
+msgstr ""
+
+#, c-format
+msgid "Downloading %s"
+msgstr "מוריד %s"
+
+#, fuzzy, c-format
+msgid "Activating %s"
+msgstr "פעולות"
+
+#, fuzzy
+msgid "Deleting Language Packs"
+msgstr "שפת ברירת המחדל"
+
+#, fuzzy
+msgid "Update completed with errors."
+msgstr "העלאה הושלמה"
+
+#, fuzzy
+msgid "Update complete."
+msgstr "העלאה הושלמה"
 
 msgid "install"
 msgstr "התקנה"
@@ -145,11 +158,11 @@ msgstr "קבל הגדרות מאלבום-האב"
 msgid "Use these settings"
 msgstr "השתמש בהגדרות אלה"
 
-msgid "Converting Schema Table"
-msgstr ""
-
 msgid "Installing the core module"
 msgstr "מתקיד את מודות הגלעין"
+
+msgid "key"
+msgstr "מפתח"
 
 msgid "All access"
 msgstr "כל הגישות"
@@ -184,10 +197,6 @@ msgstr "[ליבה] מחק פריט"
 msgid "Upgrading permissions"
 msgstr "עריכת הרשאות"
 
-#, c-format
-msgid "Upgrading permissions (%d items complete, %d remaining)"
-msgstr "משדרג הרשאות (%d פריטים הושלמו, נותרו %d פריטים)"
-
 msgid "Deleting old permission tables"
 msgstr "מוחק טבלת הרשאות ישנה"
 
@@ -200,32 +209,11 @@ msgstr "כל המשתמשים"
 msgid "Detecting broken derivatives"
 msgstr "מזהה נגזרות שבורות"
 
-#, fuzzy, c-format
-msgid "Detecting broken derivatives, loading (%d derivatives checked, %d remaining)"
-msgstr "מזהה נגזרות שבורות, טוען "
-
-#, fuzzy, c-format
-msgid "Detecting broken derivatives (%d derivatives checked, %d remaining)"
-msgstr "מזהה נגזרות שבורות, שומר "
-
-#, fuzzy, c-format
-msgid "Detecting broken derivatives, saving (%d derivatives checked, %d remaining)"
-msgstr "מזהה נגזרות שבורות, שומר "
-
-#, fuzzy, c-format
-msgid ""
-"Detecting broken derivatives, saving item %d of %d (%d derivatives complete, %d remaining)"
-msgstr "משדרג הרשאות (%d פריטים הושלמו, נותרו %d פריטים)"
-
 msgid "Clearing fast-download cache"
 msgstr "מנקה את מטמון של ההורדות-המהירות"
 
 msgid "Deleting old fast-download cache"
 msgstr "מוחקת את המטמון הישן של ההורדות-המהירות"
-
-#, c-format
-msgid "Deleting old session files (iteration %d)"
-msgstr "מוחק את קבצי הסשן הישנים (מחזור %d)"
 
 msgid "Updating panorama items"
 msgstr ""
@@ -233,13 +221,11 @@ msgstr ""
 msgid "Optimizing AccessSubscriberMap table"
 msgstr ""
 
-#, fuzzy
-msgid "Upgrading Plugin Translations"
-msgstr "עריכת הרשאות"
+msgid "Converting Schema Table"
+msgstr ""
 
-#, fuzzy
-msgid "Creating Package Map"
-msgstr "תאריך יצירה"
+msgid "Loading Table Descriptions"
+msgstr ""
 
 msgid "Site Admins"
 msgstr "מנהלי מערכת"
@@ -259,16 +245,30 @@ msgstr "זהו העמוד הראשי של הגלרייה שלך"
 msgid "Converting MySQL data to UTF8"
 msgstr "ממיר את המידע במסד MySQL לקידוד utf8."
 
-#, fuzzy
-msgid "Adding items"
-msgstr "הוסף פריטים"
+#, c-format
+msgid "Upgrading permissions (%d items complete, %d remaining)"
+msgstr "משדרג הרשאות (%d פריטים הושלמו, נותרו %d פריטים)"
 
-#, fuzzy
-msgid "Processing items"
-msgstr "מציג עמוד %d מתוך %d"
+#, fuzzy, c-format
+msgid "Detecting broken derivatives, loading (%d derivatives checked, %d remaining)"
+msgstr "מזהה נגזרות שבורות, טוען "
 
-msgid "Extracting archive"
-msgstr ""
+#, fuzzy, c-format
+msgid "Detecting broken derivatives (%d derivatives checked, %d remaining)"
+msgstr "מזהה נגזרות שבורות, שומר "
+
+#, fuzzy, c-format
+msgid "Detecting broken derivatives, saving (%d derivatives checked, %d remaining)"
+msgstr "מזהה נגזרות שבורות, שומר "
+
+#, fuzzy, c-format
+msgid ""
+"Detecting broken derivatives, saving item %d of %d (%d derivatives complete, %d remaining)"
+msgstr "משדרג הרשאות (%d פריטים הושלמו, נותרו %d פריטים)"
+
+#, c-format
+msgid "Deleting old session files (iteration %d)"
+msgstr "מוחק את קבצי הסשן הישנים (מחזור %d)"
 
 msgid "add items"
 msgstr "הוסף פריטים"
@@ -281,6 +281,30 @@ msgstr "הוסף תת-אלבום"
 
 msgid "add items confirmation"
 msgstr "אישור הוספת פריטים"
+
+msgid "Base filename"
+msgstr "שם קובץ בסיסי"
+
+msgid "Caption"
+msgstr "כותרת"
+
+msgid "Blank"
+msgstr "ריק"
+
+msgid "From Web Browser"
+msgstr "מהדפדפן"
+
+#, c-format
+msgid "%d megabyte"
+msgid_plural "%d megabytes"
+msgstr[0] "(%d מגהבייט)"
+msgstr[1] "(%d מגהבייט)"
+
+#, c-format
+msgid "%d kilobytes"
+msgid_plural "%d kilobytes"
+msgstr[0] "(%d קילובייט)"
+msgstr[1] "(%d קילובייט)"
 
 #, c-format
 msgid "Input file %s exceeds maximum permitted file size"
@@ -298,35 +322,18 @@ msgstr ""
 msgid "Input file %s was not uploaded. Error %d"
 msgstr ""
 
-#, c-format
-msgid "%d megabyte"
-msgid_plural "%d megabytes"
-msgstr[0] "(%d מגהבייט)"
-msgstr[1] "(%d מגהבייט)"
-
-#, c-format
-msgid "%d kilobytes"
-msgid_plural "%d kilobytes"
-msgstr[0] "(%d קילובייט)"
-msgstr[1] "(%d קילובייט)"
-
-msgid "Base filename"
-msgstr "שם קובץ בסיסי"
-
-msgid "Caption"
-msgstr "כותרת"
-
-msgid "Blank"
-msgstr "ריק"
-
-msgid "From Web Browser"
-msgstr "מהדפדפן"
-
 msgid "Gallery Item Administration"
 msgstr "Gallery Item Administration"
 
 msgid "delete an item"
 msgstr "מחק פריט"
+
+msgid "delete confirmation"
+msgstr "אישור מחיקה"
+
+#, c-format
+msgid "delete %s"
+msgstr "מחיקת %s"
 
 #, c-format
 msgid "edit %s"
@@ -342,10 +349,6 @@ msgstr "הגדרות תבנית שוחזרו"
 msgid "Preparing..."
 msgstr ""
 
-#, c-format
-msgid "Processing image %d of %d"
-msgstr "מעבד תמונה %d מתוך %d"
-
 msgid "Apply thumbnail settings"
 msgstr ""
 
@@ -354,6 +357,10 @@ msgstr "מייצר מחדש תמונות מוקטנות"
 
 msgid "Album"
 msgstr "אלבום"
+
+#, c-format
+msgid "Processing image %d of %d"
+msgstr "מעבד תמונה %d מתוך %d"
 
 msgid "Changes saved successfully"
 msgstr "שינויים נשמרו בהצלחה"
@@ -493,10 +500,6 @@ msgstr "ערוך תמונה"
 msgid "Edit Movie"
 msgstr "ערוך סרט"
 
-#, c-format
-msgid "Edit %s"
-msgstr "ערוך %s"
-
 msgid "Add Album"
 msgstr "הוסף אלבום"
 
@@ -515,10 +518,6 @@ msgstr "מחק תמונה"
 msgid "Delete Movie"
 msgstr "מחק סרט"
 
-#, c-format
-msgid "Delete %s"
-msgstr "מחק %s"
-
 msgid "Move Album"
 msgstr "הזז אלבום"
 
@@ -528,10 +527,6 @@ msgstr "הזז תמונה"
 msgid "Move Movie"
 msgstr "הזז סרט"
 
-#, c-format
-msgid "Move %s"
-msgstr "העבר %s"
-
 msgid "Edit Captions"
 msgstr "ערוך כותרות"
 
@@ -540,10 +535,6 @@ msgstr "הצג הדגשות"
 
 msgid "Reorder Items"
 msgstr "סדר פריטים מחדש"
-
-#, fuzzy
-msgid "Delete Items"
-msgstr "מחק פריט"
 
 msgid "Site Admin"
 msgstr "פאנל ניהול"
@@ -569,12 +560,6 @@ msgstr "קבוצות"
 msgid "Performance"
 msgstr "ביצועים"
 
-msgid "Event Logs"
-msgstr ""
-
-msgid "Language Settings"
-msgstr "הגדרות שפה"
-
 msgid "Toolkit Priority"
 msgstr "עדיפות ערכת כלים"
 
@@ -587,29 +572,17 @@ msgstr "הגדרות חשבון משתמש"
 msgid "Change Password"
 msgstr "שנה סיסמה"
 
-msgid "Updating Packages"
-msgstr ""
+#, c-format
+msgid "Edit %s"
+msgstr "ערוך %s"
 
 #, c-format
-msgid "Cleaning up obsolete files %s"
-msgstr ""
+msgid "Delete %s"
+msgstr "מחק %s"
 
-#, fuzzy, c-format
-msgid "Activating %s"
-msgstr "פעולות"
-
-msgid "Updating Repository Index"
-msgstr ""
-
-msgid "Scanning plugins"
-msgstr ""
-
-#, fuzzy
-msgid "Update Plugin List"
-msgstr "allery Modules"
-
-msgid "Done."
-msgstr "הושלם."
+#, c-format
+msgid "Move %s"
+msgstr "העבר %s"
 
 msgid "Build all thumbnails/resizes"
 msgstr "צור מחדש תמונות מוקטנות ותמונות בגודל שונה"
@@ -622,6 +595,9 @@ msgstr "וודא כי כל קבצי המידע המידע הנובעים (תמו
 msgid "Build All Thumbnails/Resizes"
 msgstr "בנה מחדש את כל תמונות המוקטנות/תמונות בגודל שונה"
 
+msgid "Debug output for failed items:"
+msgstr "הצג דיבאגיג בשביל פריטים שנכשלו"
+
 #, c-format
 msgid "Checked %d items"
 msgstr "%d פריטים מסומנים"
@@ -633,9 +609,6 @@ msgstr "%d פריטים נבנו"
 #, c-format
 msgid "%d items failed"
 msgstr "%d פריטים נכשלו"
-
-msgid "Debug output for failed items:"
-msgstr "הצג דיבאגיג בשביל פריטים שנכשלו"
 
 #, fuzzy
 msgid "Convert MySQL database to UTF8"
@@ -654,32 +627,6 @@ msgid "Database successfully converted to UTF8"
 msgstr "פריט נמחק בהצלחה"
 
 msgid "No conversion required"
-msgstr ""
-
-#, fuzzy
-msgid "Backup the database"
-msgstr "תאריך:"
-
-msgid ""
-"Backup all your Gallery data (item data, users, comments, etc.) to a single file in your "
-"storage folder.  The backup does not include the image files.  Before running the backup, "
-"your Gallery installation needs to be set into maintenance mode, as this is not done "
-"automatically."
-msgstr ""
-
-msgid "Backing up Gallery Database"
-msgstr ""
-
-msgid "Exporting..."
-msgstr ""
-
-#, c-format
-msgid "Database backup completed and the backup file is located at: %s"
-msgstr ""
-
-msgid ""
-"Please note that your backup contains sensitive data (like passwords) and should not be "
-"stored online! We recommend that you download it from your server and keep it safely offline."
 msgstr ""
 
 #, fuzzy
@@ -719,8 +666,8 @@ msgstr "מחק פריט"
 msgid ""
 "Gallery compiles template files and saves them for increased performance.  If you're "
 "experiencing problems that say <i>Smarty error</i> then you might try running this task.  "
-"Also run this if you add or remove any local/*.tpl or theme override so Smarty will find the "
-"right file."
+"Also run this if you remove a local/*.tpl file so Smarty will switch back to the default tpl "
+"file."
 msgstr ""
 
 #, fuzzy
@@ -802,14 +749,6 @@ msgid ""
 "Couldn't create cache subdirectory. Make sure the web server has write permissions in it."
 msgstr ""
 
-#, c-format
-msgid "Preparing %s"
-msgstr ""
-
-#, c-format
-msgid "Downloading %s"
-msgstr "מוריד %s"
-
 msgid "Official Release Repository"
 msgstr ""
 
@@ -872,10 +811,6 @@ msgstr "סדר עולה"
 msgid "Descending"
 msgstr "סדר יורד"
 
-#, c-format
-msgid "Powered by Gallery v%s"
-msgstr ""
-
 msgid "Validation disabled until you set allowSessionAccess in config.php"
 msgstr ""
 
@@ -885,6 +820,13 @@ msgstr "עמוד זה הוא עמוד XHTML 1.0 תקני"
 #, fuzzy
 msgid "Donate to the Gallery project"
 msgstr "חזרה לגלרייה"
+
+msgid "G2.2: Double Double"
+msgstr ""
+
+#, c-format
+msgid "Powered by Gallery v%s"
+msgstr ""
 
 #, c-format
 msgid "Estimated time remaining: %d:%02d"
@@ -995,6 +937,13 @@ msgstr "גיליון אלקטרוני"
 msgid "file"
 msgstr "קובץ"
 
+msgid "Back"
+msgstr "חזרה"
+
+#, c-format
+msgid "Back to %s"
+msgstr "חזרה ל %s"
+
 msgid "User"
 msgstr "משתמש"
 
@@ -1062,14 +1011,6 @@ msgstr "הגדרות"
 msgid "unknown"
 msgstr "לא ידוע"
 
-#, c-format
-msgid "API = Core %s, Module %s, Theme %s, Embed %s"
-msgstr ""
-
-#, fuzzy
-msgid "Gallery URL"
-msgstr "גלרייה"
-
 #, fuzzy
 msgid "Gallery version"
 msgstr "Gallery %s"
@@ -1119,65 +1060,6 @@ msgstr "מהדפדפן"
 msgid "Rows in %s table = %d"
 msgstr ""
 
-#, c-format
-msgid "The %s \"%s\" is not installed and will not be backed up."
-msgstr ""
-
-#, c-format
-msgid "\"%s\" has no creation sql and will not be backed up."
-msgstr ""
-
-#, c-format
-msgid "Unable to load table description for \"%s\", no data will be exported."
-msgstr ""
-
-msgid ""
-"Unable to find the XML parser.  The PHP XML parsing extension must be loaded.  Terminating "
-"database import."
-msgstr ""
-
-#, c-format
-msgid "The exported file is not the correct version. Expecting %s received %s."
-msgstr ""
-
-#, c-format
-msgid "Unable to close import file: %s"
-msgstr ""
-
-#, c-format
-msgid "Unable to open import file: %s"
-msgstr ""
-
-#, c-format
-msgid "Import file doesn't exist: %s"
-msgstr ""
-
-#, c-format
-msgid "Plugin %s is not currently available."
-msgstr ""
-
-#, c-format
-msgid "The available version of plugin \"%s\" may not be compatible with the imported version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The currently installed core API version required by \"%s\" may not be compatible with the "
-"imported version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The installed module API version required by \"%s\" may not be compatible with the imported "
-"version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The installed theme API version required by \"%s\" is not compatible with the imported "
-"version."
-msgstr ""
-
 msgid "Successfully saved theme settings"
 msgstr "הגדרות התבנית נשמרו בהצלחה"
 
@@ -1203,6 +1085,31 @@ msgstr "התגלתה שגיאה בעת ביצוע הבקשה שלך."
 
 msgid "Error sending test email, see below for details."
 msgstr ""
+
+msgid "Language Settings"
+msgstr "הגדרות שפה"
+
+#, fuzzy
+msgid ""
+"Select language defaults for Gallery. Individual users can override this setting in their "
+"personal preferences or via the language selector block if available. Gallery will try to "
+"automatically detect the language preference of each user if the browser preference check is "
+"enabled."
+msgstr "בחר את שפת ברירת המחדל למערכת. כל משתמש יכול לשנות הגדרה זו לעצמו."
+
+msgid "Default language"
+msgstr "שפת ברירת המחדל"
+
+msgid "Check Browser Preference"
+msgstr ""
+
+#, fuzzy, c-format
+msgid ""
+"Your webserver does not support localization.  Please instruct your system administrator to "
+"reconfigure PHP with the %s option enabled."
+msgstr ""
+"השרת שלך לא תומך בלוקליזציה.  אנא בקש ממנהל השרת שלך להגדיר מחדש את PHP עם אפשרות <a href="
+"\"http://php.net/gettext\">gettext</a> מופעלת."
 
 #, fuzzy
 msgid "Date Formats"
@@ -1261,10 +1168,6 @@ msgstr "Session Lifetime"
 
 msgid "Inactivity Timeout"
 msgstr "Timeout עקב חוסר פעילות"
-
-#, fuzzy
-msgid "Site Administration Session Timeout"
-msgstr "Gallery Site Administration"
 
 msgid "Embedded Markup"
 msgstr "טאגים מובנים"
@@ -1633,46 +1536,6 @@ msgid_plural "%d failed login attempts since the last successful login."
 msgstr[0] ""
 msgstr[1] ""
 
-msgid "Recent Events"
-msgstr ""
-
-msgid "Type"
-msgstr ""
-
-#, fuzzy
-msgid "Location"
-msgstr "פעולה"
-
-#, fuzzy
-msgid "Client"
-msgstr "רשימה"
-
-msgid "No events have been reported yet."
-msgstr ""
-
-#, fuzzy
-msgid "Event Details"
-msgstr "ברירות מחדל"
-
-#, fuzzy
-msgid "User Id"
-msgstr "משתמש"
-
-#, fuzzy
-msgid "Referer"
-msgstr "סדר מחדש"
-
-#, fuzzy
-msgid "Details"
-msgstr "ברירות מחדל"
-
-#, fuzzy
-msgid "no summary"
-msgstr "תקציר"
-
-msgid "An error occurred while retrieving the event log entry details."
-msgstr ""
-
 msgid "Group Management"
 msgstr "ניהול קבוצה"
 
@@ -1734,139 +1597,7 @@ msgid_plural "%d groups match your filter"
 msgstr[0] "קבוצת משתמשים %d תואמת לסינון שלך"
 msgstr[1] "%d קבוצות משתמשים תואמות לסינון שלך"
 
-msgid "Please make sure that your internet connection is set up properly or try again later."
-msgstr ""
-
-#, c-format
-msgid "Failed to scan status from plugin: %s."
-msgstr ""
-
-msgid ""
-"Your local copy of the repository was broken and has been fixed.  Please download the plugin "
-"list again."
-msgstr ""
-
-#, c-format
-msgid "Failed to delete the locale directory for %s."
-msgstr ""
-
-#, c-format
-msgid "Failed to download the following language packages for the %s plugin:"
-msgstr ""
-
-#, c-format
-msgid ""
-"Failed to install language packages for %s plugin because the following files/directories "
-"could not be modified:"
-msgstr ""
-
-msgid "The repository index has been successfully refreshed."
-msgstr ""
-
-msgid "The language settings have been saved."
-msgstr ""
-
-#, c-format
-msgid "%d language pack upgraded or downloaded."
-msgid_plural "%d language packs upgraded or downloaded."
-msgstr[0] ""
-msgstr[1] ""
-
-#, c-format
-msgid "%d language pack deleted."
-msgid_plural "%d language packs deleted."
-msgstr[0] ""
-msgstr[1] ""
-
-msgid "All the language packages for the selected languages are current"
-msgstr ""
-
-#, fuzzy
-msgid ""
-"Select language defaults for Gallery. Individual users can override this setting in their "
-"personal preferences or via the language selector block if available. Gallery will try to "
-"automatically detect the language preference of each user if the browser preference check is "
-"enabled."
-msgstr "בחר את שפת ברירת המחדל למערכת. כל משתמש יכול לשנות הגדרה זו לעצמו."
-
-msgid "Default language"
-msgstr "שפת ברירת המחדל"
-
-msgid "Check Browser Preference"
-msgstr ""
-
-#, fuzzy, c-format
-msgid ""
-"Your webserver does not support localization.  Please instruct your system administrator to "
-"reconfigure PHP with the %s option enabled."
-msgstr ""
-"השרת שלך לא תומך בלוקליזציה.  אנא בקש ממנהל השרת שלך להגדיר מחדש את PHP עם אפשרות <a href="
-"\"http://php.net/gettext\">gettext</a> מופעלת."
-
-msgid "Configure your Gallery"
-msgstr ""
-
-msgid ""
-"Before you can proceed, you have to change some permissions so that Gallery can install "
-"plugins for you.  It's easy.  Just execute the following in a shell or via your ftp client:"
-msgstr ""
-
-msgid ""
-"Before you can proceed, please insure the following directories and sub-directories are "
-"writable, so that Gallery can install plugins for you:"
-msgstr ""
-
-msgid ""
-"If you have trouble changing permissions, ask your system administrator for assistance.  "
-"When you've fixed the permissions, click the Check Again button to proceed."
-msgstr ""
-
-#, fuzzy
-msgid "Check Again"
-msgstr "בחר הכל"
-
-#, fuzzy
-msgid "Add or Remove Languages"
-msgstr "הוסף/מחק משתמשים"
-
-msgid ""
-"Please click on the link below to go to 'Download Plugin List' and choose 'Update Plugin "
-"List' to get the latest language package information."
-msgstr ""
-
-#, fuzzy
-msgid "Administer Repositories"
-msgstr "מאגר"
-
-#, fuzzy
-msgid "Upgrade"
-msgstr "שדרוג"
-
-msgid "Remove"
-msgstr "הסר"
-
-#, fuzzy
-msgid "Download"
-msgstr "למטה"
-
-#, fuzzy
-msgid "No Change"
-msgstr "שנה"
-
-#, fuzzy
-msgid "Select All"
-msgstr "מסומן"
-
-msgid ""
-"There are no local repository indices from which to determine language packages. Please "
-"click on the link below to go to \"Download Plugin List\" and choose \"Update Plugin List\" "
-"to get the latest language package information."
-msgstr ""
-
 msgid "System Maintenance"
-msgstr ""
-
-msgid "Gallery must be in maintenance mode before the task can be run."
 msgstr ""
 
 #, fuzzy, c-format
@@ -1876,41 +1607,6 @@ msgstr "תמונה סובבה בהצלחה"
 #, fuzzy, c-format
 msgid "The %s task failed to complete successfully."
 msgstr "תמונה מוקטנת נגזרה בהצלחה"
-
-msgid "Maintenance Mode has been turned on."
-msgstr ""
-
-msgid "Maintenance Mode has been turned off."
-msgstr ""
-
-#, fuzzy
-msgid "Maintenance Mode"
-msgstr "אחזקה"
-
-msgid "Restrict user access to the system while maintenance is being performed."
-msgstr ""
-
-#, fuzzy
-msgid "Maintenance Mode Url"
-msgstr "אחזקה"
-
-msgid ""
-"The Maintenance Mode Url specifies where requests will be redirected when access to the site "
-"has been restricted by the administrator."
-msgstr ""
-
-msgid ""
-"If left blank Gallery will display a default page with an administrator login link. This "
-"page will be themed when the code base is up to date, otherwise it will display a plain "
-"unstyled page."
-msgstr ""
-
-msgid "For example: /maintenance.html"
-msgstr ""
-
-#, fuzzy
-msgid "Set"
-msgstr "הגדרה"
 
 #, fuzzy
 msgid "Task name"
@@ -2003,21 +1699,6 @@ msgstr "משתמשים רשומים"
 
 msgid "Expires after:"
 msgstr ""
-
-#, fuzzy
-msgid "Template Cache"
-msgstr "מחק פריט"
-
-#, c-format
-msgid ""
-"For optimal performance, Gallery caches all templates.  If you would like to %scustomize "
-"your template files%s, you should disable template caching temporarily so that changes take "
-"effect immediately without clearing the template cache."
-msgstr ""
-
-#, fuzzy
-msgid "Enable template caching"
-msgstr "מחק פריט"
 
 msgid "Clear Saved Pages"
 msgstr ""
@@ -2192,20 +1873,22 @@ msgstr "מודול לא מתאים"
 msgid "Repository"
 msgstr "מאגר"
 
+msgid "Please make sure that your internet connection is set up properly or try again later."
+msgstr ""
+
 #, c-format
-msgid "Failed to download the following packages for the %s plugin:"
+msgid "Failed to scan status from plugin: %s."
+msgstr ""
+
+msgid ""
+"Your local copy of the repository was broken and has been fixed.  Please download the plugin "
+"list again."
 msgstr ""
 
 #, c-format
 msgid ""
-"Failed to install the %s plugin because the following files/directories could not be "
+"Failed to download the %s plugin because the following files/directories could not be "
 "modified:"
-msgstr ""
-
-#, c-format
-msgid ""
-"Some plugins could not be automatically upgraded because they are in use.  Please return to "
-"the %sPlugins%s page and click the upgrade link for each of the following plugins:"
 msgstr ""
 
 msgid "The repository index has been successfully updated."
@@ -2217,6 +1900,12 @@ msgstr ""
 #, c-format
 msgid "%s plugin updated."
 msgstr ""
+
+#, c-format
+msgid "%d language pack deleted."
+msgid_plural "%d language packs deleted."
+msgstr[0] ""
+msgstr[1] ""
 
 msgid ""
 "No personal information about you or your Gallery installation is sent to the Gallery server "
@@ -2257,6 +1946,14 @@ msgid "You must select at least one repository."
 msgstr "לא בחרת משתמש להסרה"
 
 msgid "Ok"
+msgstr ""
+
+msgid "Configure your Gallery"
+msgstr ""
+
+msgid ""
+"Before you can proceed, you have to change some permissions so that Gallery can install "
+"plugins for you.  It's easy.  Just execute the following in a shell or via your ftp client:"
 msgstr ""
 
 msgid ""
@@ -2361,7 +2058,8 @@ msgstr ""
 
 msgid ""
 "Download a package in order to use this plugin.  You can upgrade by choosing a newer version "
-"of the package to download."
+"of the package to download.  Language packages are optional, You only need to download the "
+"ones that you want to use on your site."
 msgstr ""
 
 #, fuzzy
@@ -2380,7 +2078,12 @@ msgstr ""
 msgid "%sCurrently Installed%s: version %s (build %s)"
 msgstr ""
 
-msgid "The following language packages are available for this plugin"
+#, fuzzy
+msgid "Language Packages"
+msgstr "הגדרות שפה"
+
+#, c-format
+msgid "(%sselect all%s%sselect none%s)"
 msgstr ""
 
 #, c-format
@@ -2400,6 +2103,9 @@ msgid "%s version %s (currently installed)"
 msgstr ""
 
 msgid "No compatible language packages available"
+msgstr ""
+
+msgid "You must select a base package before choosing language packs."
 msgstr ""
 
 #, fuzzy
@@ -2461,10 +2167,6 @@ msgstr ""
 msgid "New albums"
 msgstr "אלבומים חדשים"
 
-#, c-format
-msgid "To activate more themes visit the %sPlugins%s page."
-msgstr ""
-
 #, fuzzy
 msgid "Save Defaults"
 msgstr "ברירות מחדל"
@@ -2487,6 +2189,9 @@ msgstr ""
 
 msgid "Selected"
 msgstr "מסומן"
+
+msgid "Remove"
+msgstr "הסר"
 
 msgid "Move Up"
 msgstr "העבר למעלה"
@@ -2672,9 +2377,6 @@ msgstr ""
 msgid "System Information"
 msgstr "אישור הוספת פריטים"
 
-msgid "Not all of the specified items have been added successfully."
-msgstr ""
-
 msgid ""
 "You don't have any Graphics Toolkit activated that can handle JPEG images.  If you add "
 "images, you will probably not have any thumbnails."
@@ -2683,8 +2385,8 @@ msgstr ""
 "לא יהיו להן גירסאות מוקטנות."
 
 #, c-format
-msgid "Visit the %sModules%s page to activate a Graphics Toolkit."
-msgstr "כנס לעמוד %sהמודולים%s על מנת להפעיל את ערכת הכלים הגרפיים."
+msgid "Visit the <a href=\"%s\">Modules</a> page to activate a Graphics Toolkit."
+msgstr "כנס לעמוד <a href=\"%s\">המודולים</a>על מנת להפעיל את ערכת הכלים הגרפיים."
 
 msgid "Add Sub-Album"
 msgstr "הוסף תת-אלבום"
@@ -2785,6 +2487,10 @@ msgstr ""
 msgid "No Thumbnail"
 msgstr "תמונה מוקטנת לא קיימת"
 
+#, fuzzy
+msgid "Delete Items"
+msgstr "מחק פריט"
+
 msgid "No items were selected for deletion"
 msgstr "לא נבחרו פריטים למחיקה"
 
@@ -2840,13 +2546,24 @@ msgstr "עמוד קודם"
 msgid "Next Page"
 msgstr "עמוד הבא"
 
-#, fuzzy, c-format
-msgid "Do you really want to delete %s?"
-msgstr "האם אתה בטוח שברצונך להסיר את מודול __PLUGIN__?"
+msgid "Deletion Complete"
+msgstr "מחיקה הסתיימה"
 
-#, fuzzy
-msgid "Delete more items..."
-msgstr "מחק פריט"
+msgid "Item successfully deleted"
+msgstr "פריט נמחק בהצלחה"
+
+#, c-format
+msgid "Are you sure you want to delete this %s?"
+msgstr "האם אתה בטוח שברצונך למחוק את %s זה?"
+
+#, c-format
+msgid "It contains %d item."
+msgid_plural "It contains %d items."
+msgstr[0] "מכיל פריט %d"
+msgstr[1] "מכיל %d פריטים"
+
+msgid "There is no undo!"
+msgstr "אין אפשרות לבטל!"
 
 msgid "There was a problem processing your request."
 msgstr "התגלתה שגיאה בעת ביצוע הבקשה שלך."
@@ -3014,9 +2731,6 @@ msgstr "זהו התיאור הארוך של הפריט"
 msgid "%s Date and Time"
 msgstr ""
 
-msgid "Link Date and Time"
-msgstr ""
-
 msgid "Set the date and time when this image was captured."
 msgstr ""
 
@@ -3025,9 +2739,6 @@ msgstr ""
 
 #, c-format
 msgid "Set the date and time to be displayed for this %s."
-msgstr ""
-
-msgid "Set the date and time to be displayed for this link."
 msgstr ""
 
 msgid "Date:"
@@ -3267,15 +2978,9 @@ msgstr "מקור"
 msgid "Choose the items you want to move"
 msgstr "בחר את הפריטים שברצונך להעביר"
 
-msgid "OK"
-msgstr ""
-
 msgid ""
 "The destination you chose does not accept sub-albums, so all sub-albums have been deselected."
 msgstr "היעד שבחרת אינו מקבל תת-אלבומים, אז סימון כל תת-האלבומים בוטל."
-
-msgid "Warning"
-msgstr ""
 
 msgid ""
 "The destination you chose only accepts sub-albums, so all non-albums have been deselected."
@@ -3483,12 +3188,10 @@ msgstr "הכנס טקסט המתאר את הכתובת"
 msgid "Enter an image URL"
 msgstr "הכנס כתובת לתמונה"
 
-#. HINT: Button label for Bold
-msgid "B"
+msgid "B <!-- Button label for Bold -->"
 msgstr "B"
 
-#. HINT: Button label for italic
-msgid "i"
+msgid "i <!-- Button label for italic -->"
 msgstr "i"
 
 msgid "list"
@@ -3508,7 +3211,7 @@ msgid "color"
 msgstr "הגדרות"
 
 #, c-format
-msgid "You can also use the %scolor name%s for example: %sYour Text%s"
+msgid "You can also use the <a href=\"%s\" target=\"_new\">color name</a> for example: %s"
 msgstr ""
 
 msgid "Configuration Error: Missing Theme"
@@ -3614,22 +3317,20 @@ msgstr "כניסה לחשבון שלך"
 msgid "Your password has been recovered, please login."
 msgstr ""
 
-msgid ""
-"The administration session has expired, please re-authenticate to access the administration "
-"area."
-msgstr ""
-
 #, c-format
 msgid ""
 "Logins to this account are temporarily disabled due to multiple failed login attempts.  Wait "
-"for access to be restored, or use the %srecover password%s page to re-enable this account."
+"for access to be restored, or use the <a href=\"%s\">recover password</a> page to re-enable "
+"this account."
 msgstr ""
 
 msgid "Your login information is incorrect.  Please try again."
 msgstr "פרטי הכניסה שלך שגויים. אנא נסה שנית."
 
 #, c-format
-msgid "Lost or forgotten passwords can be retrieved using the %srecover password%s page"
+msgid ""
+"Lost or forgotten passwords can be retrieved using the <a href=\"%s\">recover password</a> "
+"page"
 msgstr ""
 
 #, c-format
@@ -3759,13 +3460,13 @@ msgstr ""
 #, c-format
 msgid ""
 "There is no request which matches the username and authorization provided. Request a new "
-"authorization from the %slost password page%s."
+"authorization from the <a href=\"%s\">lost password page</a>"
 msgstr ""
 
 #, c-format
 msgid ""
-"The request you are trying to access has expired.  Request a new authorization from the %"
-"slost password page%s."
+"The request you are trying to access has expired.  Request a new authorization from the <a "
+"href=\"%s\">lost password page</a>."
 msgstr ""
 
 msgid "Authorization missing"
@@ -3842,14 +3543,18 @@ msgstr "&laquo; פעולות בפריט &raquo;"
 msgid "Go"
 msgstr "Go"
 
-msgid "WARNING: block $type doesn't exist."
-msgstr ""
+msgid "Navigation"
+msgstr "ניווט"
 
 msgid "next"
 msgstr "הבא"
 
 msgid "last"
 msgstr "אחרון"
+
+#, c-format
+msgid "Page %d of %d"
+msgstr "עמוד %d מתוך %d"
 
 #, c-format
 msgid "%d of %d"
@@ -3900,42 +3605,3 @@ msgstr "כניסה"
 
 msgid "Links to album/photo peers"
 msgstr ""
-
-#, fuzzy
-#~ msgid "Language Packages"
-#~ msgstr "הגדרות שפה"
-
-#~ msgid "Back to %s"
-#~ msgstr "חזרה ל %s"
-
-#~ msgid "Back"
-#~ msgstr "חזרה"
-
-#~ msgid "Navigation"
-#~ msgstr "ניווט"
-
-#~ msgid "delete confirmation"
-#~ msgstr "אישור מחיקה"
-
-#~ msgid "delete %s"
-#~ msgstr "מחיקת %s"
-
-#~ msgid "Deletion Complete"
-#~ msgstr "מחיקה הסתיימה"
-
-#~ msgid "Item successfully deleted"
-#~ msgstr "פריט נמחק בהצלחה"
-
-#~ msgid "Are you sure you want to delete this %s?"
-#~ msgstr "האם אתה בטוח שברצונך למחוק את %s זה?"
-
-#~ msgid "It contains %d item."
-#~ msgid_plural "It contains %d items."
-#~ msgstr[0] "מכיל פריט %d"
-#~ msgstr[1] "מכיל %d פריטים"
-
-#~ msgid "There is no undo!"
-#~ msgstr "אין אפשרות לבטל!"
-
-#~ msgid "key"
-#~ msgstr "מפתח"

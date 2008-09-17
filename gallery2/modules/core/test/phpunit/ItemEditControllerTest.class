@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,14 +32,11 @@ class ItemEditControllerTest extends GalleryControllerTestCase {
     }
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->_markForCleanup($this->_album);
@@ -47,35 +44,34 @@ class ItemEditControllerTest extends GalleryControllerTestCase {
 	list ($ret, $this->_item) =
 	    $this->_createRandomDataItem($this->_album->getId(), 'test/file');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
-	$this->_markFactoryForCleanup();
-	$this->_unregisterFactoryImplementationForTest('ItemEditPlugin');
-	$this->_unregisterFactoryImplementationForTest('ItemEditOption');
-
 	$path = 'modules/core/test/phpunit/ItemEditControllerTest.class';
-	$this->_registerFactoryImplementationForTest(
+	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'ItemEditPlugin', 'ItemEditControllerTestPluginSuccess',
-	    'ItemEditControllerTestPluginSuccess', $path, 'coreTest');
+	    'ItemEditControllerTestPluginSuccess', $path, 'coreTest', null);
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
 
-	$this->_registerFactoryImplementationForTest(
+	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'ItemEditPlugin', 'ItemEditControllerTestPluginFailAndWarn',
-	    'ItemEditControllerTestPluginFailAndWarn', $path, 'coreTest');
+	    'ItemEditControllerTestPluginFailAndWarn', $path, 'coreTest', null);
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
 
-	$this->_registerFactoryImplementationForTest(
+	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'ItemEditOption', 'ItemEditControllerTestOption', 'ItemEditControllerTestOption',
-	    $path, 'coreTest', array('ItemEditControllerTestPluginFailAndWarn',
-				     'ItemEditControllerTestPluginRequiresProgressBar'));
-
-	$this->_registerFactoryImplementationForTest(
-	    'ItemEditPlugin', 'ItemEditControllerTestPluginRequiresProgressBar',
-	    'ItemEditControllerTestPluginRequiresProgressBar', $path, 'coreTest');
-
-	$this->_registerFactoryImplementationForTest(
-	    'ItemEditOption', 'ItemEditControllerTestOptionWithProgressBar',
-	    'ItemEditControllerTestOptionWithProgressBar', $path, 'coreTest',
-	    array('ItemEditControllerTestPluginSuccess'));
+	    $path, 'coreTest', array('ItemEditControllerTestPluginFailAndWarn'));
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
+	$this->_markFactoryModuleForCleanup('coreTest');
     }
 
     function testHandleRequestWithPreferred() {
@@ -83,7 +79,7 @@ class ItemEditControllerTest extends GalleryControllerTestCase {
 	    $this->_createDerivative($this->_item, $this->_item->getId(),
 				     DERIVATIVE_TYPE_IMAGE_PREFERRED, 'rotate|90');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
@@ -138,73 +134,6 @@ class ItemEditControllerTest extends GalleryControllerTestCase {
 		  ),
 	    $results);
     }
-
-    function testHandleRequestPluginWithoutProgressBarOptionRequiresProgressBar() {
-	global $gallery;
-
-	list ($ret, $this->_preferred) =
-	    $this->_createDerivative($this->_item, $this->_item->getId(),
-				     DERIVATIVE_TYPE_IMAGE_PREFERRED, 'rotate|90');
-	if ($ret) {
-	    return $ret;
-	}
-
-	GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
-	GalleryUtilities::putRequestVariable('form[serialNumber]', $this->_item->getSerialNumber());
-	GalleryUtilities::putRequestVariable('editPlugin', 'ItemEditControllerTestPluginSuccess');
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-
-	$gallery->_templateAdapter = new MockTemplateAdapter();
-	$templateAdapter =& $gallery->getTemplateAdapter();
-
-	$results = $this->handleRequest();
-	$this->assertEquals(
-	    array('delegate' => array('view' => 'core.ProgressBar'),
-		  'status' => array('editMessage' => 'success',
-				    'warning' => array()),
-		  'error' => array()),
-	    $results);
-
-	if ($templateAdapter->getCallbackCount() !== 1) {
-	    $this->assertEquals(1, $templateAdapter->getCallbackCount(),
-			  'Wrong callback count. One callback required for Edit-option.');
-	} else {
-	    $callback = $templateAdapter->getCallback(0);
-	    $callbackMethod = $callback[0][1];
-	    $this->assertEquals('runProgressBarOptions', $callbackMethod);
-	}
-    }
-
-    function testHandleRequestPluginRequiresProgressBarOptionDoesNot() {
-	global $gallery;
-
-	GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
-	GalleryUtilities::putRequestVariable('form[serialNumber]', $this->_item->getSerialNumber());
-	GalleryUtilities::putRequestVariable(
-	    'editPlugin', 'ItemEditControllerTestPluginRequiresProgressBar');
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-
-	$gallery->_templateAdapter = new MockTemplateAdapter();
-	$templateAdapter =& $gallery->getTemplateAdapter();
-
-	$results = $this->handleRequest();
-	$this->assertEquals(
-	    array('delegate' => array('view' => 'core.ProgressBar'),
-		  'status' => array('editMessage' => 'success',
-				    'warning' => array()),
-		  'error' => array()
-		  ),
-	    $results);
-
-	if ($templateAdapter->getCallbackCount() !== 1) {
-	    $this->assertEquals(1, $templateAdapter->getCallbackCount(),
-			  'Wrong callback count. One callback required for Edit-option.');
-	} else {
-	    $callback = $templateAdapter->getCallback(0);
-	    $callbackMethod = $callback[0][1];
-	    $this->assertEquals('runProgressBarOptions', $callbackMethod);
-	}
-    }
 }
 
 /**
@@ -248,21 +177,8 @@ class ItemEditControllerTestPluginFailAndWarn extends ItemEditPlugin {
     }
 }
 
-
 /**
- * Test plugin that requires a progress bar
- *
- * @package GalleryCore
- * @subpackage PHPUnit
- */
-class ItemEditControllerTestPluginRequiresProgressBar extends ItemEditPlugin {
-    function handleRequest($form, &$item, &$preferred) {
-	return array(null, array(), 'success', true);
-    }
-}
-
-/**
- * Test ItemEditOption that returns warnings and errors and doesn't require a progress bar.
+ * Test ItemEditOption that returns warnings and errors
  *
  * @package GalleryCore
  * @subpackage PHPUnit
@@ -279,25 +195,4 @@ class ItemEditControllerTestOption extends ItemEditOption {
     }
 }
 
-/**
- * Test ItemEditOption that returns warnings and errors and requires a progress bar.
- *
- * @package GalleryCore
- * @subpackage PHPUnit
- */
-class ItemEditControllerTestOptionWithProgressBar extends ItemEditOption {
-    function isAppropriate($item, $thumbnail) {
-	return array(null, true);
-    }
-
-    function handleRequestAfterEdit($form, &$item, &$preferred) {
-	return array(null,
-		     array('another error'),
-		     array('another warning'));
-    }
-
-    function requiresProgressBar($form) {
-	return true;
-    }
-}
 ?>

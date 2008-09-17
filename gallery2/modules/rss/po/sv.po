@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: RSS 1.1.5\n"
+"Project-Id-Version: Gallery: RSS 1.1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-03-13 23:34+0100\n"
 "PO-Revision-Date: 2007-03-08 08:30+0100\n"
@@ -35,6 +35,9 @@ msgstr "Den här matningskällan existerar inte längre!"
 
 msgid "Feeds of that type are not allowed!"
 msgstr "Matningskällor av den här typen är inte tillåtna!"
+
+msgid "Not permitted to view this item"
+msgstr "Inte tillåten att se detta objekt"
 
 msgid "Incorrect feed type!"
 msgstr "Felaktig matningskälltyp"
@@ -60,10 +63,6 @@ msgstr "RSS Matning för detta foto"
 msgid "RSS Feed for this Movie"
 msgstr "RSS Matning för denna film"
 
-#, c-format
-msgid "RSS Feed for this %s"
-msgstr "RSS Matning för %s"
-
 msgid "Configure RSS Feeds"
 msgstr "Konfigurera RSS Matning"
 
@@ -83,8 +82,8 @@ msgid "Short URL for Configurable RSS Feeds"
 msgstr "Kort URL för konfigurerbar RSS Matning"
 
 #, c-format
-msgid "In album %s"
-msgstr "I albumet %s"
+msgid "RSS Feed for this %s"
+msgstr "RSS Matning för %s"
 
 msgid "Items in an album"
 msgstr "Objekt i ett album"
@@ -104,13 +103,9 @@ msgstr "Kommentarer till ett objekt"
 msgid "Comments for an album and its subalbums"
 msgstr "Kommentarer till ett album och dess underalbum"
 
-#, fuzzy
-msgid "Random items in an album"
-msgstr "Objekt i ett album"
-
-#, fuzzy
-msgid "Random items in an album and its subalbums"
-msgstr "Objekt i ett album och dess underalbum"
+#, c-format
+msgid "In album <a href=\"%s\">%s</a>"
+msgstr "I albumet <a href=\"%s\">%s</a>"
 
 msgid "RSS Feeds"
 msgstr "RSS Matning"
@@ -197,14 +192,6 @@ msgstr "Kommentarer till detta album"
 msgid "Comments for this album and its subalbums"
 msgstr "Kommentarer till detta album och dess underalbum"
 
-#, fuzzy
-msgid "Random pictures inside this album"
-msgstr "Objekt i detta album"
-
-#, fuzzy
-msgid "Random pictures inside this album and its subalbums"
-msgstr "Objekt i detta album och dess underalbum"
-
 msgid "Comments for this item"
 msgstr "Kommentarer till detta objekt"
 
@@ -289,21 +276,6 @@ msgid ""
 msgstr ""
 "Det här adderar en bilaga till varje bild i matningen som innehåller en bild med full "
 "upplösning"
-
-msgid "Use Media RSS"
-msgstr ""
-
-#, fuzzy
-msgid "Include Media RSS tags"
-msgstr "Inkludera bild tag"
-
-msgid ""
-"This adds Media RSS tags to the feed, which allows media-oriented clients to display the "
-"feed in a more useful fashion"
-msgstr ""
-
-msgid "about Media RSS"
-msgstr ""
 
 msgid "Cloud tag (RSS 2.0)"
 msgstr "Moln tag (RSS 2.0)"
@@ -401,14 +373,6 @@ msgstr "Maximalt antal objekt i matningarna"
 msgid "Invalid maximum number"
 msgstr "Ogiltigt max värde"
 
-#, fuzzy
-msgid "Maximum age for items in feeds"
-msgstr "Maximalt antal objekt i matningarna"
-
-#, fuzzy
-msgid "Invalid maximum age number"
-msgstr "Ogiltigt max värde"
-
 msgid "Default ttl"
 msgstr "Standard ttl"
 
@@ -472,29 +436,14 @@ msgstr "Tillåt RSS matning av foton inuti ett album och dess underalbum"
 msgid "Slower"
 msgstr "Långsammare"
 
-#, fuzzy
-msgid "Allow RSS feeds of comments of a photo"
+msgid "Allow RSS feeds comments of a photo"
 msgstr "Tillåt RSS matning av kommentarer till ett foto"
 
-#, fuzzy
-msgid "Allow RSS feeds of comments of an album"
+msgid "Allow RSS feeds comments of an album"
 msgstr "Tillåt RSS matning av komentarer till ett album"
 
-#, fuzzy
-msgid "Allow RSS feeds of comments for an album and its subalbums"
+msgid "Allow RSS feeds comments for an album and its subalbums"
 msgstr "Tillåt RSS matning av kommentarer inuti ett album och dess underalbum"
-
-#, fuzzy
-msgid "Allow RSS feeds of random photos inside an album"
-msgstr "Tillåt RSS matning av foton inuti ett album"
-
-#, fuzzy
-msgid "Allow RSS feeds of random photos inside an album and its subalbums"
-msgstr "Tillåt RSS matning av foton inuti ett album och dess underalbum"
-
-#, fuzzy
-msgid "Slowest"
-msgstr "Långsammare"
 
 msgid "Save Settings"
 msgstr "Spara Inställningar"
@@ -571,6 +520,3 @@ msgstr "10"
 
 msgid "all"
 msgstr "alla"
-
-#~ msgid "Not permitted to view this item"
-#~ msgstr "Inte tillåten att se detta objekt"

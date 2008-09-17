@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,25 +27,15 @@ class ExifCallbacks {
 
     function callback($params, &$smarty, $callback, $userId=null) {
 	global $gallery;
-	static $blockNum = 0;
 
 	switch ($callback) {
 	case 'LoadExifInfo':
+
 	    GalleryCoreApi::requireOnce('modules/exif/classes/ExifHelper.class');
 
-	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($params['itemId'], 'GalleryItem');
+	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($params['itemId']);
 	    if ($ret) {
 		return $ret;
-	    }
-
-	    list ($ret, $hasPermission) =
-		GalleryCoreApi::hasItemPermission($item->getId(), 'core.view');
-	    if ($ret) {
-		return $ret;
-	    }
-	    if (!$hasPermission) {
-		/* Avoid information disclosure, act as if the item didn't exist. */
-		return GalleryCoreApi::error(ERROR_MISSING_OBJECT);
 	    }
 
 	    /* We only work on JPEG/raw data items */
@@ -69,7 +59,11 @@ class ExifCallbacks {
 		}
 	    }
 
-	    $filter = ($mode == 'detailed') ? EXIF_DETAILED : EXIF_SUMMARY;
+	    if ($mode == 'detailed') {
+		$filter = EXIF_DETAILED;
+	    } else {
+		$filter = EXIF_SUMMARY;
+	    }
 
 	    list ($ret, $exifData) = ExifHelper::getExifData($path, $filter);
 	    if ($ret) {
@@ -90,12 +84,9 @@ class ExifCallbacks {
 		return null;
 	    }
 
-	    $ajaxBlockNum = GalleryUtilities::getRequestVariables('blockNum');
-	    $thisBlockNum = !empty($ajaxBlockNum) ? $ajaxBlockNum : ++$blockNum;
 	    $block =& $smarty->_tpl_vars['block'];
-	    $block['exif']['LoadExifInfo'] = array('exifData' => $exifData,
-						   'mode' => $mode,
-						   'blockNum' => $thisBlockNum);
+	    $block['exif']['LoadExifInfo']['exifData'] = $exifData;
+	    $block['exif']['LoadExifInfo']['mode'] = $mode;
 
 	    return null;
 	}

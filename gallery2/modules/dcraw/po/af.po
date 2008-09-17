@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 # Previous translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Dcraw 1.0.10\n"
+"Project-Id-Version: Gallery: Dcraw 1.0.8\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-05-11 20:45+0200\n"
 "PO-Revision-Date: 2006-03-16 10:01+0200\n"
@@ -74,11 +74,6 @@ msgstr ""
 
 msgid "<b>Note</b>: Gallery supports Dcraw v5.40 and more recent."
 msgstr "<b>Let op</b>: Gallery ondersteun Dcraw v5.40 en hoër."
-
-msgid ""
-"The exec() function is disabled in your PHP by the <b>disabled_functions</b> parameter in "
-"php.ini.  This module cannot be used until that setting is changed."
-msgstr ""
 
 msgid "Path to dcraw binary:"
 msgstr "Pad na dcraw program:"
@@ -141,3 +136,6 @@ msgid ""
 msgstr ""
 "Ons het hierdie debug uitvoer versamel tydens die toets van u Dcraw program.  As u versigtig "
 "daardeur lees mag u dalk die rede waarom u Dcraw program nie werk nie vasstel."
+
+#~ msgid "Dcraw Graphics Toolkit"
+#~ msgstr "Dcraw Grafische Toolkit"

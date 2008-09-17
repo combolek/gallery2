@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,20 +33,19 @@ class MP3AudioRendererTest extends GalleryTestCase {
     }
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	list ($ret, $this->_renderer) =
 	    GalleryCoreApi::newFactoryInstance('GalleryRenderer', 'MP3AudioRenderer');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $this->_item) = $this->_createRandomDataItem($this->_getRootId(), 'audio/mpeg');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($this->_item);
     }
@@ -54,7 +53,7 @@ class MP3AudioRendererTest extends GalleryTestCase {
     function testCanBeViewedInline() {
 	list ($ret, $item) = GalleryCoreApi::newItemByMimeType('image/jpeg');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$item->setMimeType('image/jpeg');
 	$item->setWidth(100);
@@ -63,14 +62,14 @@ class MP3AudioRendererTest extends GalleryTestCase {
 
 	list ($ret, $item) = GalleryCoreApi::newItemByMimeType('audio/wav');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$item->setMimeType('audio/wav');
 	$this->assert(!$this->_renderer->canBeViewedInline($item), 'wav');
 
 	list ($ret, $item) = GalleryCoreApi::newItemByMimeType('audio/mpeg');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$item->setMimeType('audio/mpeg');
 	$this->assert($this->_renderer->canBeViewedInline($item), 'mp3');
@@ -81,7 +80,7 @@ class MP3AudioRendererTest extends GalleryTestCase {
     function testRender() {
 	$html = $this->_renderer->render('HTML', $this->_item, $this->_item,
 					 array('fallback' => 'FALLBACK'));
-	$this->assert(strpos($html, '<div id="soContent"') !== false, 'flash <div> placeholder');
+	$this->assert(strpos($html, '<object') !== false, '<object');
 	$this->assert(strpos($html, '.swf'), '.swf');
 	$this->assert(strpos($html, 'http'), 'http');
 	$this->assert(strpos($html, (string)$this->_item->getId()), 'itemId');

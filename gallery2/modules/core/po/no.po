@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,14 +16,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
-# 
+#
 # Previous translators (as far as known, add yourself here, please):
 # - Sverre M. Vikan <sverre AT urven DOT net>
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Core 1.2.36\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-01 23:38+0100\n"
+"Project-Id-Version: Gallery: Core 1.2.0.3\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-06-07 09:29-0700\n"
 "PO-Revision-Date: 2007-03-02 20:41+0100\n"
 "Last-Translator: Sverre M. Vikan <sverre AT urven DOT net>\n"
 "Language-Team: Norwegian <gallery-devel@lists.sourceforge.net>\n"
@@ -34,30 +34,6 @@ msgstr ""
 
 msgid "Gallery Email Test"
 msgstr "Gallery e-posttest"
-
-#, c-format
-msgid "%d minute"
-msgid_plural "%d minutes"
-msgstr[0] "%d minutt"
-msgstr[1] "%d minutter"
-
-#, c-format
-msgid "%d hour"
-msgid_plural "%d hours"
-msgstr[0] "%d time"
-msgstr[1] "%d timer"
-
-#, c-format
-msgid "%d day"
-msgid_plural "%d days"
-msgstr[0] "%d dag"
-msgstr[1] "%d dager"
-
-#, c-format
-msgid "%d week"
-msgid_plural "%d weeks"
-msgstr[0] "%d uke"
-msgstr[1] "%d uker"
 
 msgid "forever"
 msgstr "uendelig"
@@ -83,33 +59,32 @@ msgstr "Database"
 msgid "File"
 msgstr "Fil"
 
-msgid "&lt;none&gt;"
-msgstr ""
-
-#, fuzzy
-msgid "Link"
-msgstr "Logg inn"
+#, c-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] "%d minutt"
+msgstr[1] "%d minutter"
 
 #, c-format
-msgid "Page %d of %d"
-msgstr "Side %d av %d"
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] "%d time"
+msgstr[1] "%d timer"
 
-#, fuzzy
-msgid "Updating Language Settings"
-msgstr "Språkinnstillinger"
+#, c-format
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] "%d dag"
+msgstr[1] "%d dager"
 
-msgid "Update completed with errors."
-msgstr "Oppdatering fullført med feil."
+#, c-format
+msgid "%d week"
+msgid_plural "%d weeks"
+msgstr[0] "%d uke"
+msgstr[1] "%d uker"
 
-msgid "Update complete."
-msgstr "Oppdatering fullført."
-
-msgid "Deleting Language Packs"
-msgstr "Sletter språkpakker"
-
-#, fuzzy
-msgid "Synchronizing Language Packs"
-msgstr "Sletter språkpakker"
+msgid "<none>"
+msgstr "<ingen>"
 
 msgid "No acceleration"
 msgstr "Ingen akselerasjon"
@@ -122,6 +97,42 @@ msgstr "Full akselerasjon"
 
 msgid "Themes"
 msgstr "Tema"
+
+msgid "Updating Repository Index"
+msgstr "Oppdaterer kodelagerindeksen"
+
+msgid "Scanning plugins"
+msgstr "Gjennomsøker programtillegg"
+
+msgid "Update Plugin List"
+msgstr "Oppdater liste over programtillegg"
+
+msgid "Done."
+msgstr "Utført."
+
+msgid "Updating Packages"
+msgstr "Oppdaterer pakker"
+
+#, c-format
+msgid "Preparing %s"
+msgstr "Forbereder %s"
+
+#, c-format
+msgid "Downloading %s"
+msgstr "Laster ned %s"
+
+#, c-format
+msgid "Activating %s"
+msgstr "Aktiverer %s"
+
+msgid "Deleting Language Packs"
+msgstr "Sletter språkpakker"
+
+msgid "Update completed with errors."
+msgstr "Oppdatering fullført med feil."
+
+msgid "Update complete."
+msgstr "Oppdatering fullført."
 
 msgid "install"
 msgstr "installer"
@@ -144,11 +155,11 @@ msgstr "Arve innstillinger fra hovedalbum"
 msgid "Use these settings"
 msgstr "Bruk disse innstillingene"
 
-msgid "Converting Schema Table"
-msgstr ""
-
 msgid "Installing the core module"
 msgstr "Installerer kjernemodulen"
+
+msgid "key"
+msgstr "nøkkel"
 
 msgid "All access"
 msgstr "Alle tilganger"
@@ -183,10 +194,6 @@ msgstr "[kjerne] Slett objekt"
 msgid "Upgrading permissions"
 msgstr "Oppgraderer tilganger"
 
-#, c-format
-msgid "Upgrading permissions (%d items complete, %d remaining)"
-msgstr "Oppgraderer tilganger (%d objekter fullført, %d gjenstår)"
-
 msgid "Deleting old permission tables"
 msgstr "Sletter gamle tilgangstabeller"
 
@@ -198,6 +205,46 @@ msgstr "Alle brukere"
 
 msgid "Detecting broken derivatives"
 msgstr "Gjenkjenner ugyldige avledninger"
+
+msgid "Clearing fast-download cache"
+msgstr "Renser hurtigminne for rask nedlasting"
+
+msgid "Deleting old fast-download cache"
+msgstr "Sletter gammelt hurtigminne for rask nedlasting"
+
+msgid "Updating panorama items"
+msgstr "Oppdaterer panoramaobjekter"
+
+msgid "Optimizing AccessSubscriberMap table"
+msgstr "Optimaliserer tabellen AccessSubscriberMap"
+
+msgid "Converting Schema Table"
+msgstr ""
+
+msgid "Loading Table Descriptions"
+msgstr ""
+
+msgid "Site Admins"
+msgstr "Nettstedadministratorer"
+
+msgid "Everybody"
+msgstr "Alle"
+
+msgid "Guest"
+msgstr "Gjest"
+
+msgid "Gallery"
+msgstr "Gallery"
+
+msgid "This is the main page of your Gallery"
+msgstr "Dette er ditt galleris hovedside"
+
+msgid "Converting MySQL data to UTF8"
+msgstr "Omdanner MySQL-data til UTF8"
+
+#, c-format
+msgid "Upgrading permissions (%d items complete, %d remaining)"
+msgstr "Oppgraderer tilganger (%d objekter fullført, %d gjenstår)"
 
 #, c-format
 msgid "Detecting broken derivatives, loading (%d derivatives checked, %d remaining)"
@@ -218,58 +265,9 @@ msgstr ""
 "Gjenkjenner ødelagte avledninger, lagrer enhet %d av %d (%d avledninger fullført, %d "
 "gjenstår)"
 
-msgid "Clearing fast-download cache"
-msgstr "Renser hurtigminne for rask nedlasting"
-
-msgid "Deleting old fast-download cache"
-msgstr "Sletter gammelt hurtigminne for rask nedlasting"
-
 #, c-format
 msgid "Deleting old session files (iteration %d)"
 msgstr "Sletter gamle tilgangstabeller (iterasjon %d)"
-
-msgid "Updating panorama items"
-msgstr "Oppdaterer panoramaobjekter"
-
-msgid "Optimizing AccessSubscriberMap table"
-msgstr "Optimaliserer tabellen AccessSubscriberMap"
-
-#, fuzzy
-msgid "Upgrading Plugin Translations"
-msgstr "Oppgraderer tilganger"
-
-#, fuzzy
-msgid "Creating Package Map"
-msgstr "Oppdaterer pakker"
-
-msgid "Site Admins"
-msgstr "Nettstedadministratorer"
-
-msgid "Everybody"
-msgstr "Alle"
-
-msgid "Guest"
-msgstr "Gjest"
-
-msgid "Gallery"
-msgstr "Gallery"
-
-msgid "This is the main page of your Gallery"
-msgstr "Dette er ditt galleris hovedside"
-
-msgid "Converting MySQL data to UTF8"
-msgstr "Omdanner MySQL-data til UTF8"
-
-#, fuzzy
-msgid "Adding items"
-msgstr "legg til objekter"
-
-#, fuzzy
-msgid "Processing items"
-msgstr "Behandler objekt %d av %d"
-
-msgid "Extracting archive"
-msgstr ""
 
 msgid "add items"
 msgstr "legg til objekter"
@@ -282,6 +280,30 @@ msgstr "legg til underalbum"
 
 msgid "add items confirmation"
 msgstr "bekreftelse av tilleggelse av objekter"
+
+msgid "Base filename"
+msgstr "Basisfilnavn"
+
+msgid "Caption"
+msgstr "Billedtekst"
+
+msgid "Blank"
+msgstr "Blank"
+
+msgid "From Web Browser"
+msgstr "Fra nettleser"
+
+#, c-format
+msgid "%d megabyte"
+msgid_plural "%d megabytes"
+msgstr[0] "%d megabyte"
+msgstr[1] "%d megabyte"
+
+#, c-format
+msgid "%d kilobytes"
+msgid_plural "%d kilobytes"
+msgstr[0] "%d kilobyte"
+msgstr[1] "%d kilobyte"
 
 #, c-format
 msgid "Input file %s exceeds maximum permitted file size"
@@ -299,35 +321,18 @@ msgstr "Inndatafilen %s ble bare delvis lastet opp"
 msgid "Input file %s was not uploaded. Error %d"
 msgstr "Inndatafilen %s ble ikke lastet opp. Feil %d"
 
-#, c-format
-msgid "%d megabyte"
-msgid_plural "%d megabytes"
-msgstr[0] "%d megabyte"
-msgstr[1] "%d megabyte"
-
-#, c-format
-msgid "%d kilobytes"
-msgid_plural "%d kilobytes"
-msgstr[0] "%d kilobyte"
-msgstr[1] "%d kilobyte"
-
-msgid "Base filename"
-msgstr "Basisfilnavn"
-
-msgid "Caption"
-msgstr "Billedtekst"
-
-msgid "Blank"
-msgstr "Blank"
-
-msgid "From Web Browser"
-msgstr "Fra nettleser"
-
 msgid "Gallery Item Administration"
 msgstr "Administrasjon av Gallery-objekter"
 
 msgid "delete an item"
 msgstr "slett et objekt"
+
+msgid "delete confirmation"
+msgstr "bekreftelse av sletting"
+
+#, c-format
+msgid "delete %s"
+msgstr "slett %s"
 
 #, c-format
 msgid "edit %s"
@@ -342,10 +347,6 @@ msgstr "Bruk innstillinger for bilder med endrede størrelser"
 msgid "Preparing..."
 msgstr "Forbereder ..."
 
-#, c-format
-msgid "Processing image %d of %d"
-msgstr "Behandler bilde %d av %d"
-
 msgid "Apply thumbnail settings"
 msgstr "Bruk miniatyrinnstillinger"
 
@@ -354,6 +355,10 @@ msgstr "Gjenskaper miniatyrbilder ..."
 
 msgid "Album"
 msgstr "Album"
+
+#, c-format
+msgid "Processing image %d of %d"
+msgstr "Behandler bilde %d av %d"
 
 msgid "Changes saved successfully"
 msgstr "Vellykket lagring av endringer"
@@ -492,10 +497,6 @@ msgstr "Rediger foto"
 msgid "Edit Movie"
 msgstr "Rediger film"
 
-#, c-format
-msgid "Edit %s"
-msgstr "Rediger %s"
-
 msgid "Add Album"
 msgstr "Legg til album"
 
@@ -514,10 +515,6 @@ msgstr "Slett foto"
 msgid "Delete Movie"
 msgstr "Slett film"
 
-#, c-format
-msgid "Delete %s"
-msgstr "Slett %s"
-
 msgid "Move Album"
 msgstr "Flytt album"
 
@@ -527,10 +524,6 @@ msgstr "Flytt foto"
 msgid "Move Movie"
 msgstr "Flytt film"
 
-#, c-format
-msgid "Move %s"
-msgstr "Flytt %s"
-
 msgid "Edit Captions"
 msgstr "Rediger billedtekster"
 
@@ -539,9 +532,6 @@ msgstr "Lag forgrunnsbilde"
 
 msgid "Reorder Items"
 msgstr "Ordne objekter"
-
-msgid "Delete Items"
-msgstr "Slett objekter"
 
 msgid "Site Admin"
 msgstr "Nettstedadministrasjon"
@@ -567,12 +557,6 @@ msgstr "Grupper"
 msgid "Performance"
 msgstr "Ytelse"
 
-msgid "Event Logs"
-msgstr ""
-
-msgid "Language Settings"
-msgstr "Språkinnstillinger"
-
 msgid "Toolkit Priority"
 msgstr "Verktøyprioritet"
 
@@ -585,28 +569,17 @@ msgstr "Kontoinnstillinger"
 msgid "Change Password"
 msgstr "Endre passord"
 
-msgid "Updating Packages"
-msgstr "Oppdaterer pakker"
+#, c-format
+msgid "Edit %s"
+msgstr "Rediger %s"
 
 #, c-format
-msgid "Cleaning up obsolete files %s"
-msgstr ""
+msgid "Delete %s"
+msgstr "Slett %s"
 
 #, c-format
-msgid "Activating %s"
-msgstr "Aktiverer %s"
-
-msgid "Updating Repository Index"
-msgstr "Oppdaterer kodelagerindeksen"
-
-msgid "Scanning plugins"
-msgstr "Gjennomsøker programtillegg"
-
-msgid "Update Plugin List"
-msgstr "Oppdater liste over programtillegg"
-
-msgid "Done."
-msgstr "Utført."
+msgid "Move %s"
+msgstr "Flytt %s"
 
 msgid "Build all thumbnails/resizes"
 msgstr "Opprett alle miniatyrbilder/skaleringer"
@@ -621,6 +594,9 @@ msgstr ""
 msgid "Build All Thumbnails/Resizes"
 msgstr "Opprett alle miniatyrbilder/skaleringer"
 
+msgid "Debug output for failed items:"
+msgstr "Feilrettingsutdata for mislykkede objekter:"
+
 #, c-format
 msgid "Checked %d items"
 msgstr "Markerte %d objekter"
@@ -632,9 +608,6 @@ msgstr "%d objekter opprettet"
 #, c-format
 msgid "%d items failed"
 msgstr "%d objekter mislyktes"
-
-msgid "Debug output for failed items:"
-msgstr "Feilrettingsutdata for mislykkede objekter:"
 
 msgid "Convert MySQL database to UTF8"
 msgstr "KOnverter MySQL-database til UTF8"
@@ -657,33 +630,6 @@ msgstr "Vellykket konvertering til UTF8"
 
 msgid "No conversion required"
 msgstr "Ingen konvertering nødvendig"
-
-#, fuzzy
-msgid "Backup the database"
-msgstr "Optimaliser database"
-
-msgid ""
-"Backup all your Gallery data (item data, users, comments, etc.) to a single file in your "
-"storage folder.  The backup does not include the image files.  Before running the backup, "
-"your Gallery installation needs to be set into maintenance mode, as this is not done "
-"automatically."
-msgstr ""
-
-msgid "Backing up Gallery Database"
-msgstr ""
-
-#, fuzzy
-msgid "Exporting..."
-msgstr "Forbereder ..."
-
-#, c-format
-msgid "Database backup completed and the backup file is located at: %s"
-msgstr ""
-
-msgid ""
-"Please note that your backup contains sensitive data (like passwords) and should not be "
-"stored online! We recommend that you download it from your server and keep it safely offline."
-msgstr ""
 
 msgid "Delete user sessions"
 msgstr "Slett brukerøkter"
@@ -720,12 +666,11 @@ msgstr "Kan ikke slette katalog: %s"
 msgid "Delete template cache"
 msgstr "Slett hurtigminne for maler"
 
-#, fuzzy
 msgid ""
 "Gallery compiles template files and saves them for increased performance.  If you're "
 "experiencing problems that say <i>Smarty error</i> then you might try running this task.  "
-"Also run this if you add or remove any local/*.tpl or theme override so Smarty will find the "
-"right file."
+"Also run this if you remove a local/*.tpl file so Smarty will switch back to the default tpl "
+"file."
 msgstr ""
 "Gallery kompilerer malfiler og lagrer dem for økt ytelse.  Du kan forsøke å kjøre denne "
 "oppgaven om du opplever problemer som sier <i>Smart error</i>.  Kjør også denne oppgaven om "
@@ -809,14 +754,6 @@ msgstr ""
 "Kunne ikke opprette underkatalog for hurtigminne. Sørg for at nettjeneren har "
 "skrivetilganger i den."
 
-#, c-format
-msgid "Preparing %s"
-msgstr "Forbereder %s"
-
-#, c-format
-msgid "Downloading %s"
-msgstr "Laster ned %s"
-
 msgid "Official Release Repository"
 msgstr "Offisielt utgivelseskodelager"
 
@@ -876,10 +813,6 @@ msgstr "Stigende"
 msgid "Descending"
 msgstr "Synkende"
 
-#, c-format
-msgid "Powered by Gallery v%s"
-msgstr "Drives av Gallery v%s"
-
 msgid "Validation disabled until you set allowSessionAccess in config.php"
 msgstr "Gyldighetssjekk er deaktivert til du velger allowSessionAccess i config.php"
 
@@ -888,6 +821,13 @@ msgstr "Denne siden er gyldig XHTML 1.0"
 
 msgid "Donate to the Gallery project"
 msgstr "Doner til Gallery-prosjektet"
+
+msgid "G2.2: Double Double"
+msgstr "G2.2: Double Double"
+
+#, c-format
+msgid "Powered by Gallery v%s"
+msgstr "Drives av Gallery v%s"
 
 #, c-format
 msgid "Estimated time remaining: %d:%02d"
@@ -994,6 +934,13 @@ msgstr "regneark"
 msgid "file"
 msgstr "fil"
 
+msgid "Back"
+msgstr "Tilbake"
+
+#, c-format
+msgid "Back to %s"
+msgstr "Tilbake til %s"
+
 msgid "User"
 msgstr "Bruker"
 
@@ -1065,14 +1012,6 @@ msgstr "kjerne"
 msgid "unknown"
 msgstr "ukjent"
 
-#, c-format
-msgid "API = Core %s, Module %s, Theme %s, Embed %s"
-msgstr ""
-
-#, fuzzy
-msgid "Gallery URL"
-msgstr "Gallery"
-
 msgid "Gallery version"
 msgstr "Gallery-versjon"
 
@@ -1113,65 +1052,6 @@ msgstr "Nettleser"
 msgid "Rows in %s table = %d"
 msgstr "Rader i tabell %s = %d"
 
-#, c-format
-msgid "The %s \"%s\" is not installed and will not be backed up."
-msgstr ""
-
-#, c-format
-msgid "\"%s\" has no creation sql and will not be backed up."
-msgstr ""
-
-#, c-format
-msgid "Unable to load table description for \"%s\", no data will be exported."
-msgstr ""
-
-msgid ""
-"Unable to find the XML parser.  The PHP XML parsing extension must be loaded.  Terminating "
-"database import."
-msgstr ""
-
-#, c-format
-msgid "The exported file is not the correct version. Expecting %s received %s."
-msgstr ""
-
-#, fuzzy, c-format
-msgid "Unable to close import file: %s"
-msgstr "Kan ikke slette katalog: %s"
-
-#, fuzzy, c-format
-msgid "Unable to open import file: %s"
-msgstr "Kan ikke slette katalog: %s"
-
-#, c-format
-msgid "Import file doesn't exist: %s"
-msgstr ""
-
-#, c-format
-msgid "Plugin %s is not currently available."
-msgstr ""
-
-#, c-format
-msgid "The available version of plugin \"%s\" may not be compatible with the imported version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The currently installed core API version required by \"%s\" may not be compatible with the "
-"imported version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The installed module API version required by \"%s\" may not be compatible with the imported "
-"version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The installed theme API version required by \"%s\" is not compatible with the imported "
-"version."
-msgstr ""
-
 msgid "Successfully saved theme settings"
 msgstr "Vellykket lagring av temainnstillinger"
 
@@ -1195,6 +1075,33 @@ msgstr "Det oppstod et problem under behandling av din forespørsel, se nedenfor
 
 msgid "Error sending test email, see below for details."
 msgstr "Feil under utsendelse av e-posttest, se nedenfor for detaljer."
+
+msgid "Language Settings"
+msgstr "Språkinnstillinger"
+
+msgid ""
+"Select language defaults for Gallery. Individual users can override this setting in their "
+"personal preferences or via the language selector block if available. Gallery will try to "
+"automatically detect the language preference of each user if the browser preference check is "
+"enabled."
+msgstr ""
+"Velg språkstandarder for Gallery. Individuelle brukere kan overstyre disse innstillingene i "
+"sine personlige innstillinger eller via språkvelgerblokken hvis den er tilgjengelig. Gallery "
+"vil forsøke å oppdage språkvalg automatisk om kontroll av nettleserinnstillinger er aktivert."
+
+msgid "Default language"
+msgstr "Standardspråk"
+
+msgid "Check Browser Preference"
+msgstr "Kontroller nettleserinnstillinger"
+
+#, c-format
+msgid ""
+"Your webserver does not support localization.  Please instruct your system administrator to "
+"reconfigure PHP with the %s option enabled."
+msgstr ""
+"Din nettjener støtter ikke lokaltilpasning.  Vennligst be systemansvarlig om å sette opp PHP "
+"med valget %s aktivert."
 
 msgid "Date Formats"
 msgstr "Datoformater"
@@ -1250,10 +1157,6 @@ msgstr "Oktlevetid"
 
 msgid "Inactivity Timeout"
 msgstr "Tidsavbrudd grunnet inaktivitet"
-
-#, fuzzy
-msgid "Site Administration Session Timeout"
-msgstr "Nettstedadministrasjon"
 
 msgid "Embedded Markup"
 msgstr "Integrert formatering"
@@ -1663,49 +1566,6 @@ msgid_plural "%d failed login attempts since the last successful login."
 msgstr[0] "%d mislykket innloggingsforsøk siden siste vellykkede innlogging."
 msgstr[1] "%d mislykkede innloggingsforsøk siden siste vellykkede innlogging."
 
-#, fuzzy
-msgid "Recent Events"
-msgstr "Nullstill visningsteller"
-
-msgid "Type"
-msgstr ""
-
-#, fuzzy
-msgid "Location"
-msgstr "Behandling"
-
-#, fuzzy
-msgid "Client"
-msgstr "liste"
-
-#, fuzzy
-msgid "No events have been reported yet."
-msgstr "Ingen pakker er valgt."
-
-#, fuzzy
-msgid "Event Details"
-msgstr "Feildetalj"
-
-#, fuzzy
-msgid "User Id"
-msgstr "Bruker"
-
-#, fuzzy
-msgid "Referer"
-msgstr "Ordne"
-
-#, fuzzy
-msgid "Details"
-msgstr "Standarder"
-
-#, fuzzy
-msgid "no summary"
-msgstr "Sammendrag"
-
-#, fuzzy
-msgid "An error occurred while retrieving the event log entry details."
-msgstr "En feil har oppstått under samhandling med databasen."
-
 msgid "Group Management"
 msgstr "Gruppebehandling"
 
@@ -1767,153 +1627,8 @@ msgid_plural "%d groups match your filter"
 msgstr[0] "%d gruppe passer med ditt filter"
 msgstr[1] "%d grupper passer med ditt filter"
 
-msgid "Please make sure that your internet connection is set up properly or try again later."
-msgstr ""
-"Vennligst påse at din Internettforbindelse er satt opp riktig eller forsøk igjen senere."
-
-#, c-format
-msgid "Failed to scan status from plugin: %s."
-msgstr "Kunne ikke hente status fra programtillegg: %s."
-
-msgid ""
-"Your local copy of the repository was broken and has been fixed.  Please download the plugin "
-"list again."
-msgstr ""
-"Din lokale kopi av kodelageret var ødelagt og er reparert. Vennligst last ned listen over "
-"programtillegg på nytt."
-
-#, fuzzy, c-format
-msgid "Failed to delete the locale directory for %s."
-msgstr "Kan ikke slette katalog: %s"
-
-#, c-format
-msgid "Failed to download the following language packages for the %s plugin:"
-msgstr ""
-
-#, fuzzy, c-format
-msgid ""
-"Failed to install language packages for %s plugin because the following files/directories "
-"could not be modified:"
-msgstr ""
-"Feil ved nedlasting av programtillegget %s fordi følgende filer/kataloger ikke kunne endres:"
-
-#, fuzzy
-msgid "The repository index has been successfully refreshed."
-msgstr "Vellykket oppdatering av kodelagerindeksen"
-
-#, fuzzy
-msgid "The language settings have been saved."
-msgstr "Ingen pakker er valgt."
-
-#, fuzzy, c-format
-msgid "%d language pack upgraded or downloaded."
-msgid_plural "%d language packs upgraded or downloaded."
-msgstr[0] "%d språkpakke ble slettet"
-msgstr[1] "%d språkpakker ble slettet."
-
-#, c-format
-msgid "%d language pack deleted."
-msgid_plural "%d language packs deleted."
-msgstr[0] "%d språkpakke ble slettet"
-msgstr[1] "%d språkpakker ble slettet."
-
-msgid "All the language packages for the selected languages are current"
-msgstr ""
-
-msgid ""
-"Select language defaults for Gallery. Individual users can override this setting in their "
-"personal preferences or via the language selector block if available. Gallery will try to "
-"automatically detect the language preference of each user if the browser preference check is "
-"enabled."
-msgstr ""
-"Velg språkstandarder for Gallery. Individuelle brukere kan overstyre disse innstillingene i "
-"sine personlige innstillinger eller via språkvelgerblokken hvis den er tilgjengelig. Gallery "
-"vil forsøke å oppdage språkvalg automatisk om kontroll av nettleserinnstillinger er aktivert."
-
-msgid "Default language"
-msgstr "Standardspråk"
-
-msgid "Check Browser Preference"
-msgstr "Kontroller nettleserinnstillinger"
-
-#, c-format
-msgid ""
-"Your webserver does not support localization.  Please instruct your system administrator to "
-"reconfigure PHP with the %s option enabled."
-msgstr ""
-"Din nettjener støtter ikke lokaltilpasning.  Vennligst be systemansvarlig om å sette opp PHP "
-"med valget %s aktivert."
-
-msgid "Configure your Gallery"
-msgstr "Innstillinger for Gallery"
-
-msgid ""
-"Before you can proceed, you have to change some permissions so that Gallery can install "
-"plugins for you.  It's easy.  Just execute the following in a shell or via your ftp client:"
-msgstr ""
-"Før du kan fortsette må du endre noen tilganger slik at Gallery kan installere "
-"programtillegg for deg. Det er enkelt. Bare kjør følgende i et skall eller via en FTP-klient:"
-
-msgid ""
-"Before you can proceed, please insure the following directories and sub-directories are "
-"writable, so that Gallery can install plugins for you:"
-msgstr ""
-
-#, fuzzy
-msgid ""
-"If you have trouble changing permissions, ask your system administrator for assistance.  "
-"When you've fixed the permissions, click the Check Again button to proceed."
-msgstr ""
-"OM du har problemer med å endre tilganger, be din systemadministrator om assistanse. Når du "
-"har ordnet tilgangene klikker du Fortsett for å gå videre."
-
-#, fuzzy
-msgid "Check Again"
-msgstr "Marker alle"
-
-#, fuzzy
-msgid "Add or Remove Languages"
-msgstr "Legg til/fjern brukere"
-
-msgid ""
-"Please click on the link below to go to 'Download Plugin List' and choose 'Update Plugin "
-"List' to get the latest language package information."
-msgstr ""
-
-#, fuzzy
-msgid "Administer Repositories"
-msgstr "Fellesskapskodelager"
-
-#, fuzzy
-msgid "Upgrade"
-msgstr "oppgrader"
-
-msgid "Remove"
-msgstr "Fjern"
-
-#, fuzzy
-msgid "Download"
-msgstr "last ned"
-
-#, fuzzy
-msgid "No Change"
-msgstr "Endre"
-
-#, fuzzy
-msgid "Select All"
-msgstr "Valgt"
-
-msgid ""
-"There are no local repository indices from which to determine language packages. Please "
-"click on the link below to go to \"Download Plugin List\" and choose \"Update Plugin List\" "
-"to get the latest language package information."
-msgstr ""
-
 msgid "System Maintenance"
 msgstr "Systemvedlikehold"
-
-msgid "Gallery must be in maintenance mode before the task can be run."
-msgstr ""
 
 #, c-format
 msgid "Completed %s task successfully."
@@ -1922,41 +1637,6 @@ msgstr "Vellykket fullføring av oppgaven %s."
 #, c-format
 msgid "The %s task failed to complete successfully."
 msgstr "Mislykket fullføring av oppgaven %s."
-
-msgid "Maintenance Mode has been turned on."
-msgstr ""
-
-msgid "Maintenance Mode has been turned off."
-msgstr ""
-
-#, fuzzy
-msgid "Maintenance Mode"
-msgstr "Vedlikehold"
-
-msgid "Restrict user access to the system while maintenance is being performed."
-msgstr ""
-
-#, fuzzy
-msgid "Maintenance Mode Url"
-msgstr "Vedlikehold"
-
-msgid ""
-"The Maintenance Mode Url specifies where requests will be redirected when access to the site "
-"has been restricted by the administrator."
-msgstr ""
-
-msgid ""
-"If left blank Gallery will display a default page with an administrator login link. This "
-"page will be themed when the code base is up to date, otherwise it will display a plain "
-"unstyled page."
-msgstr ""
-
-msgid "For example: /maintenance.html"
-msgstr ""
-
-#, fuzzy
-msgid "Set"
-msgstr "Innstilling"
 
 msgid "Task name"
 msgstr "Oppgavenavn"
@@ -2055,21 +1735,6 @@ msgstr "Gjestebrukere"
 
 msgid "Expires after:"
 msgstr "Utløper etter:"
-
-#, fuzzy
-msgid "Template Cache"
-msgstr "Slett hurtigminne for maler"
-
-#, c-format
-msgid ""
-"For optimal performance, Gallery caches all templates.  If you would like to %scustomize "
-"your template files%s, you should disable template caching temporarily so that changes take "
-"effect immediately without clearing the template cache."
-msgstr ""
-
-#, fuzzy
-msgid "Enable template caching"
-msgstr "Slett hurtigminne for maler"
 
 msgid "Clear Saved Pages"
 msgstr "Fjern lagrede sider"
@@ -2231,22 +1896,27 @@ msgstr "Ikke-kompatibelt"
 msgid "Repository"
 msgstr "Kodelager"
 
-#, c-format
-msgid "Failed to download the following packages for the %s plugin:"
+msgid "Please make sure that your internet connection is set up properly or try again later."
 msgstr ""
+"Vennligst påse at din Internettforbindelse er satt opp riktig eller forsøk igjen senere."
 
-#, fuzzy, c-format
+#, c-format
+msgid "Failed to scan status from plugin: %s."
+msgstr "Kunne ikke hente status fra programtillegg: %s."
+
 msgid ""
-"Failed to install the %s plugin because the following files/directories could not be "
+"Your local copy of the repository was broken and has been fixed.  Please download the plugin "
+"list again."
+msgstr ""
+"Din lokale kopi av kodelageret var ødelagt og er reparert. Vennligst last ned listen over "
+"programtillegg på nytt."
+
+#, c-format
+msgid ""
+"Failed to download the %s plugin because the following files/directories could not be "
 "modified:"
 msgstr ""
 "Feil ved nedlasting av programtillegget %s fordi følgende filer/kataloger ikke kunne endres:"
-
-#, c-format
-msgid ""
-"Some plugins could not be automatically upgraded because they are in use.  Please return to "
-"the %sPlugins%s page and click the upgrade link for each of the following plugins:"
-msgstr ""
 
 msgid "The repository index has been successfully updated."
 msgstr "Vellykket oppdatering av kodelagerindeksen"
@@ -2257,6 +1927,12 @@ msgstr "Alle programtillegg er allerede oppdaterte."
 #, c-format
 msgid "%s plugin updated."
 msgstr "Programtillegg %s er oppdatert."
+
+#, c-format
+msgid "%d language pack deleted."
+msgid_plural "%d language packs deleted."
+msgstr[0] "%d språkpakke ble slettet"
+msgstr[1] "%d språkpakker ble slettet."
 
 msgid ""
 "No personal information about you or your Gallery installation is sent to the Gallery server "
@@ -2305,6 +1981,16 @@ msgstr "Du må velge minst ett kodelager."
 
 msgid "Ok"
 msgstr "Ok"
+
+msgid "Configure your Gallery"
+msgstr "Innstillinger for Gallery"
+
+msgid ""
+"Before you can proceed, you have to change some permissions so that Gallery can install "
+"plugins for you.  It's easy.  Just execute the following in a shell or via your ftp client:"
+msgstr ""
+"Før du kan fortsette må du endre noen tilganger slik at Gallery kan installere "
+"programtillegg for deg. Det er enkelt. Bare kjør følgende i et skall eller via en FTP-klient:"
 
 msgid ""
 "If you have trouble changing permissions, ask your system administrator for assistance.  "
@@ -2407,10 +2093,10 @@ msgstr "Last ned %s"
 msgid "No packages have been selected."
 msgstr "Ingen pakker er valgt."
 
-#, fuzzy
 msgid ""
 "Download a package in order to use this plugin.  You can upgrade by choosing a newer version "
-"of the package to download."
+"of the package to download.  Language packages are optional, You only need to download the "
+"ones that you want to use on your site."
 msgstr ""
 "Last ned en pakke for å bruke dette tillegget. Du kan oppgradere ved å velge å laste ned en "
 "nyere versjon av pakken. Språkpakker er valgfrie, og du trenger bare laste ned de du ønsker "
@@ -2431,9 +2117,12 @@ msgstr "%s: versjon %s (build %s) %snedgradering støttes ikke!%s"
 msgid "%sCurrently Installed%s: version %s (build %s)"
 msgstr "%sNåværende installasjon%s: versjon %s (build %s)"
 
-#, fuzzy
-msgid "The following language packages are available for this plugin"
-msgstr "Ingen passende språkpakker er tilgjengelige"
+msgid "Language Packages"
+msgstr "Språkpakker"
+
+#, c-format
+msgid "(%sselect all%s%sselect none%s)"
+msgstr "(%svelg alle%s%sikke velg noen%s)"
 
 #, c-format
 msgid "%s version %s (upgrading from %s)"
@@ -2453,6 +2142,9 @@ msgstr "%s versjon %s (nåværende installasjon)"
 
 msgid "No compatible language packages available"
 msgstr "Ingen passende språkpakker er tilgjengelige"
+
+msgid "You must select a base package before choosing language packs."
+msgstr "Du må velge en basispakke før du kan velge språkpakker."
 
 msgid "Update"
 msgstr "Oppdater"
@@ -2510,10 +2202,6 @@ msgstr ""
 msgid "New albums"
 msgstr "Nye album"
 
-#, c-format
-msgid "To activate more themes visit the %sPlugins%s page."
-msgstr ""
-
 msgid "Save Defaults"
 msgstr "Lagre standarder"
 
@@ -2533,6 +2221,9 @@ msgstr "Velg en blokk"
 
 msgid "Selected"
 msgstr "Valgt"
+
+msgid "Remove"
+msgstr "Fjern"
 
 msgid "Move Up"
 msgstr "Flytt opp"
@@ -2723,9 +2414,6 @@ msgstr "Feildetalj"
 msgid "System Information"
 msgstr "Systeminformasjon"
 
-msgid "Not all of the specified items have been added successfully."
-msgstr ""
-
 msgid ""
 "You don't have any Graphics Toolkit activated that can handle JPEG images.  If you add "
 "images, you will probably not have any thumbnails."
@@ -2733,8 +2421,8 @@ msgstr ""
 "Du har ingen grafikkverktøy aktivert som kan behandle JPEG-bilder.  Du vil sannsynligvis "
 "ikke få noen miniatyrbilder om du legger til bilder."
 
-#, fuzzy, c-format
-msgid "Visit the %sModules%s page to activate a Graphics Toolkit."
+#, c-format
+msgid "Visit the <a href=\"%s\">Modules</a> page to activate a Graphics Toolkit."
 msgstr "Besøk <a href=\"%s\">Modul</a>-siden for å aktivere et grafikkverktøy."
 
 msgid "Add Sub-Album"
@@ -2839,6 +2527,9 @@ msgstr "Gi billedtekst til:"
 msgid "No Thumbnail"
 msgstr "Miniatyrbilde mangler"
 
+msgid "Delete Items"
+msgstr "Slett objekter"
+
 msgid "No items were selected for deletion"
 msgstr "Ingen objekter ble merket for sletting"
 
@@ -2894,13 +2585,24 @@ msgstr "Forrige side"
 msgid "Next Page"
 msgstr "Neste side"
 
-#, fuzzy, c-format
-msgid "Do you really want to delete %s?"
-msgstr "Vil du virkelig slette __PLUGIN__?"
+msgid "Deletion Complete"
+msgstr "Sletting fullført"
 
-#, fuzzy
-msgid "Delete more items..."
-msgstr "Slett objekter"
+msgid "Item successfully deleted"
+msgstr "Vellykket sletting av objekt"
+
+#, c-format
+msgid "Are you sure you want to delete this %s?"
+msgstr "Er du sikker på at du ønsker å slette dette %s?"
+
+#, c-format
+msgid "It contains %d item."
+msgid_plural "It contains %d items."
+msgstr[0] "Den inneholder %d fil."
+msgstr[1] "Den inneholder %d filer."
+
+msgid "There is no undo!"
+msgstr "Du kan ikke angre!"
 
 msgid "There was a problem processing your request."
 msgstr "Det oppstod et problem under behandlingen av din forespørsel."
@@ -3065,10 +2767,6 @@ msgstr "Dette er den lange beskrivelsen av objektet."
 msgid "%s Date and Time"
 msgstr "%s dato og tid"
 
-#, fuzzy
-msgid "Link Date and Time"
-msgstr "%s dato og tid"
-
 msgid "Set the date and time when this image was captured."
 msgstr "Angi dato og tid for når dette bildet ble tatt."
 
@@ -3078,10 +2776,6 @@ msgstr "Angi dato og tid som skal vises for dette objektet."
 #, c-format
 msgid "Set the date and time to be displayed for this %s."
 msgstr "Angi dato og tid som skal vises for dette %s."
-
-#, fuzzy
-msgid "Set the date and time to be displayed for this link."
-msgstr "Angi dato og tid som skal vises for dette objektet."
 
 msgid "Date:"
 msgstr "Dato:"
@@ -3323,17 +3017,10 @@ msgstr "Kilde"
 msgid "Choose the items you want to move"
 msgstr "Velg de objektene du ønsker å flytte"
 
-msgid "OK"
-msgstr ""
-
 msgid ""
 "The destination you chose does not accept sub-albums, so all sub-albums have been deselected."
 msgstr ""
 "Målet du valgte aksepterer ikke underkataloger, så alle underkataloger er nå demarkerte."
-
-#, fuzzy
-msgid "Warning"
-msgstr "Advarsel!"
 
 msgid ""
 "The destination you chose only accepts sub-albums, so all non-albums have been deselected."
@@ -3540,12 +3227,10 @@ msgstr "Skriv inn en tekst som beskriver nettadressen"
 msgid "Enter an image URL"
 msgstr "Skriv inn en nettadresse til et bilde"
 
-#. HINT: Button label for Bold
-msgid "B"
+msgid "B <!-- Button label for Bold -->"
 msgstr "F"
 
-#. HINT: Button label for italic
-msgid "i"
+msgid "i <!-- Button label for italic -->"
 msgstr "K"
 
 msgid "list"
@@ -3563,8 +3248,8 @@ msgstr "bilde"
 msgid "color"
 msgstr "farge"
 
-#, fuzzy, c-format
-msgid "You can also use the %scolor name%s for example: %sYour Text%s"
+#, c-format
+msgid "You can also use the <a href=\"%s\" target=\"_new\">color name</a> for example: %s"
 msgstr "Du kan også bruke <a href=\"%s\" target=\"_new\">fargenavnet</a>, for eksempel: %s"
 
 msgid "Configuration Error: Missing Theme"
@@ -3687,15 +3372,11 @@ msgstr "Logg inn på din konto"
 msgid "Your password has been recovered, please login."
 msgstr "Passordet ditt er gjenopprettet, vennligst logg inn."
 
-msgid ""
-"The administration session has expired, please re-authenticate to access the administration "
-"area."
-msgstr ""
-
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Logins to this account are temporarily disabled due to multiple failed login attempts.  Wait "
-"for access to be restored, or use the %srecover password%s page to re-enable this account."
+"for access to be restored, or use the <a href=\"%s\">recover password</a> page to re-enable "
+"this account."
 msgstr ""
 "Innlogging til denne kontoen er midlertidig deaktivert grunnet gjentatte mislykkede "
 "innloggingsforsøk. Vent på at tilgang skal bli gjenopprettet, eller bruk <a href=\"%s"
@@ -3704,8 +3385,10 @@ msgstr ""
 msgid "Your login information is incorrect.  Please try again."
 msgstr "Din innlogginsinformasjon er ukorrekt.  Vennligst forsøk igjen."
 
-#, fuzzy, c-format
-msgid "Lost or forgotten passwords can be retrieved using the %srecover password%s page"
+#, c-format
+msgid ""
+"Lost or forgotten passwords can be retrieved using the <a href=\"%s\">recover password</a> "
+"page"
 msgstr ""
 "Mistet eller glemt passord kan gjenopprettes ved å <a href=\"%s\">gjenopprette passord</a>"
 
@@ -3848,18 +3531,18 @@ msgstr "Oppdater"
 msgid "This page will allow you to reset the password on your account."
 msgstr "Denne siden lar deg nullstille passordet for din konto."
 
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "There is no request which matches the username and authorization provided. Request a new "
-"authorization from the %slost password page%s."
+"authorization from the <a href=\"%s\">lost password page</a>"
 msgstr ""
 "Det er ingen forespørsel som passer til brukernavnet og autorisasjonen som ble sendt. En "
 "forespørsel om ny autorisasjon kan sendes fra siden <a href=\"%s\">glemt passord</a>"
 
-#, fuzzy, c-format
+#, c-format
 msgid ""
-"The request you are trying to access has expired.  Request a new authorization from the %"
-"slost password page%s."
+"The request you are trying to access has expired.  Request a new authorization from the <a "
+"href=\"%s\">lost password page</a>."
 msgstr ""
 "Forespørselen du prøver å nå er forfalt.  Forespør ny autorisasjon fra siden <a href=\"%s"
 "\">glemt passord</a>."
@@ -3940,14 +3623,18 @@ msgstr "&laquo; behandle objekt &raquo;"
 msgid "Go"
 msgstr "Gå"
 
-msgid "WARNING: block $type doesn't exist."
-msgstr ""
+msgid "Navigation"
+msgstr "Navigering"
 
 msgid "next"
 msgstr "neste"
 
 msgid "last"
 msgstr "siste"
+
+#, c-format
+msgid "Page %d of %d"
+msgstr "Side %d av %d"
 
 #, c-format
 msgid "%d of %d"
@@ -3995,50 +3682,3 @@ msgstr "Innloggingsblokk"
 
 msgid "Links to album/photo peers"
 msgstr "Lenker til album/fotonoder"
-
-#~ msgid "Language Packages"
-#~ msgstr "Språkpakker"
-
-#~ msgid "(%sselect all%s%sselect none%s)"
-#~ msgstr "(%svelg alle%s%sikke velg noen%s)"
-
-#~ msgid "You must select a base package before choosing language packs."
-#~ msgstr "Du må velge en basispakke før du kan velge språkpakker."
-
-#~ msgid "Back to %s"
-#~ msgstr "Tilbake til %s"
-
-#~ msgid "Back"
-#~ msgstr "Tilbake"
-
-#~ msgid "Navigation"
-#~ msgstr "Navigering"
-
-#~ msgid "delete confirmation"
-#~ msgstr "bekreftelse av sletting"
-
-#~ msgid "delete %s"
-#~ msgstr "slett %s"
-
-#~ msgid "Deletion Complete"
-#~ msgstr "Sletting fullført"
-
-#~ msgid "Item successfully deleted"
-#~ msgstr "Vellykket sletting av objekt"
-
-#~ msgid "Are you sure you want to delete this %s?"
-#~ msgstr "Er du sikker på at du ønsker å slette dette %s?"
-
-#~ msgid "It contains %d item."
-#~ msgid_plural "It contains %d items."
-#~ msgstr[0] "Den inneholder %d fil."
-#~ msgstr[1] "Den inneholder %d filer."
-
-#~ msgid "There is no undo!"
-#~ msgstr "Du kan ikke angre!"
-
-#~ msgid "key"
-#~ msgstr "nøkkel"
-
-#~ msgid "G2.2: Double Double"
-#~ msgstr "G2.2: Double Double"

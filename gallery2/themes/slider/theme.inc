@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,8 +35,8 @@ class SliderTheme extends GalleryTheme {
 	$this->setName($gallery->i18n('Slider'));
 	$this->setDescription(
 	    $gallery->i18n('Image viewer/slideshow; subalbums/other items not shown'));
-	$this->setVersion('1.0.11');
-	$this->setRequiredCoreApi(array(7, 36));
+	$this->setVersion('1.0.7.2');
+	$this->setRequiredCoreApi(array(7, 4));
 	$this->setRequiredThemeApi(array(2, 5));
 	$this->setStandardSettings(array(
 	    'colorpack' => '',
@@ -97,8 +97,7 @@ class SliderTheme extends GalleryTheme {
 	$renderId = GalleryUtilities::getRequestVariables('renderId');
 	if (!empty($renderId)) {
 	    /* Render this item */
-	    list ($ret, $image) = GalleryCoreApi::loadEntitiesById(
-		    $renderId, array('GalleryDataItem', 'GalleryDerivative'));
+	    list ($ret, $image) = GalleryCoreApi::loadEntitiesById($renderId);
 	    if ($ret) {
 		return array($ret, null);
 	    }
@@ -112,8 +111,7 @@ class SliderTheme extends GalleryTheme {
 	}
 
 	/* Otherwise, load the parent with initial view of this item  */
-	list ($ret, $parent) =
-	    GalleryCoreApi::loadEntitiesById($item->getParentId(), 'GalleryItem');
+	list ($ret, $parent) = GalleryCoreApi::loadEntitiesById($item->getParentId());
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -196,7 +194,7 @@ class SliderTheme extends GalleryTheme {
 	    if ($ret) {
 		return array($ret, null, null);
 	    }
-	    list ($ret, $childItems) = GalleryCoreApi::loadEntitiesById($childIds, 'GalleryItem');
+	    list ($ret, $childItems) = GalleryCoreApi::loadEntitiesById($childIds);
 	    if ($ret) {
 		return array($ret, null, null);
 	    }

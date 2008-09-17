@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Slideshow 1.0.11\n"
+"Project-Id-Version: Gallery: Slideshow 1.0.5\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2006-12-20 09:41-0800\n"
 "PO-Revision-Date: 2006-06-16 15:39+0100\n"
@@ -33,11 +33,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#, c-format
-msgid "Slideshow for %s"
+msgid "Slideshow"
 msgstr ""
 
-msgid "Slideshow"
+#, c-format
+msgid "Slideshow for %s"
 msgstr ""
 
 msgid "Display"
@@ -49,46 +49,141 @@ msgstr ""
 msgid "Path to an item (eg, /album/image.jpg.html)"
 msgstr ""
 
-msgid "Slideshow Settings"
+msgid "Blend"
+msgstr ""
+
+msgid "Blinds"
+msgstr ""
+
+msgid "Checkerboard"
+msgstr ""
+
+msgid "Diagonal"
+msgstr ""
+
+msgid "Doors"
+msgstr ""
+
+msgid "Gradient"
+msgstr ""
+
+msgid "Iris"
+msgstr ""
+
+msgid "Pinwheel"
+msgstr ""
+
+msgid "Pixelate"
+msgstr ""
+
+msgid "Radial"
+msgstr ""
+
+msgid "Rain"
+msgstr ""
+
+msgid "Slide"
+msgstr ""
+
+msgid "Snow"
+msgstr ""
+
+msgid "Spiral"
+msgstr ""
+
+msgid "Stretch"
+msgstr ""
+
+msgid "RANDOM"
+msgstr ""
+
+msgid "This album has no photos to show in a slideshow."
+msgstr ""
+
+msgid "Back to Album View"
 msgstr ""
 
 #, c-format
-msgid "Installed PicLens version %s"
+msgid "Date: %s"
+msgstr "Data: %s"
+
+msgid "Hide More Info"
 msgstr ""
 
-msgid "An error occurred while downloading PicLens!"
+msgid "Show More Info"
 msgstr ""
 
-msgid "Uninstalled PicLens"
+msgid "Resume"
 msgstr ""
 
-#, c-format
-msgid ""
-"Gallery can optionally use a Flash and JavaScript based slideshow from %s to provide users "
-"with the best possible viewing experience.  Gallery can install %s for you automatically, or "
-"you can choose to use an HTML slideshow."
+msgid "Pause"
 msgstr ""
 
-#, c-format
-msgid "Version %s installed."
+msgid "[-]"
 msgstr ""
 
-msgid "There's a newer version of PicLens available."
+msgid "[+]"
 msgstr ""
 
-msgid "PicLens downloads are currently unavailable.  Please try again later."
+msgid "Stop"
 msgstr ""
 
-#, c-format
-msgid "Install PicLens version %s"
+msgid "Back One Image"
 msgstr ""
 
-#, c-format
-msgid "Update to PicLens version %s"
+msgid "delay: "
 msgstr ""
 
-msgid "Uninstall PicLens"
+msgid "1 second"
 msgstr ""
 
-#~ msgid "Date: %s"
-#~ msgstr "Data: %s"
+msgid "3 seconds"
+msgstr ""
+
+msgid "5 seconds"
+msgstr ""
+
+msgid "10 seconds"
+msgstr ""
+
+msgid "15 seconds"
+msgstr ""
+
+msgid "20 seconds"
+msgstr ""
+
+msgid "direction: "
+msgstr ""
+
+msgid "forward"
+msgstr ""
+
+msgid "reverse"
+msgstr ""
+
+msgid "random"
+msgstr ""
+
+msgid "max size: "
+msgstr ""
+
+msgid "320x320"
+msgstr ""
+
+msgid "640x640"
+msgstr ""
+
+msgid "800x800"
+msgstr ""
+
+msgid "1024x1024"
+msgstr ""
+
+msgid "1280x1280"
+msgstr ""
+
+msgid "no limit"
+msgstr ""
+
+msgid "fade: "
+msgstr ""

@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: New Items 1.0.7\n"
+"Project-Id-Version: Gallery: New Items 1.0.5\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2005-08-15 22:05+0900\n"
 "PO-Revision-Date: 2007-03-11 15:32+0900\n"
@@ -40,10 +40,10 @@ msgid "Display"
 msgstr "表示"
 
 msgid "New"
-msgstr "新着"
+msgstr "新規"
 
 msgid "Updated"
-msgstr "更新"
+msgstr "アップデート完了"
 
 msgid "New Items First"
 msgstr "新しいアイテムを最初に"
@@ -58,7 +58,7 @@ msgid "Album sorts reset successfully"
 msgstr "アルバムソート順のリセットに成功しました"
 
 msgid "Reset albums with New Items sort to enable deactivation (see below)"
-msgstr "非有効化を有効にするために新規アイテムの順番でアルバムをリセットする(以下を参照)"
+msgstr ""
 
 msgid ""
 "Enter length of time in days items should be marked as new and updated, or zero to disable."
@@ -86,9 +86,6 @@ msgid ""
 "another sort type before this module can be deactivated.  You can reset the default to "
 "manual sort order here."
 msgstr ""
-"このGalleryはデフォルトアルバムの並び順で新規アイテムの並び順を使用しています。このモジュール"
-"を無効化する前にその他の並び順のタイプに変更しなければなりません。ここで並び順をデフォルトに"
-"リセットしてください。"
 
 #, c-format
 msgid ""
@@ -98,9 +95,6 @@ msgid_plural ""
 "This gallery contains %d albums using New Items sort.  These must be reset to the default "
 "sort before this module can be deactivated.  You can reset all albums here."
 msgstr[0] ""
-"このGalleryは新規アイテム順の使用で%dつのアルバムを含んでいます。このモジュールを無効化する前"
-"にデフォルト順にこれらをリセットしなければなりません。ここで全てのアルバムをリセットすること"
-"ができます。"
 
 msgid "Warning: there is no undo."
 msgstr "注意: 可能なアンドゥはありません。"

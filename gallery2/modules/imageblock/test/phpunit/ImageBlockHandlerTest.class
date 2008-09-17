@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,16 +33,13 @@ class ImageBlockHandlerTest extends GalleryTestCase {
 
     function setUp() {
 	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 	GalleryCoreApi::requireOnce('modules/imageblock/classes/ImageBlockHelper.class');
 
 	list ($ret, $this->_topAlbum, $this->_topItems) =
 	    $this->_createSubAlbumWithItems($this->_getRootId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->_markForCleanup($this->_topAlbum);
@@ -50,20 +47,17 @@ class ImageBlockHandlerTest extends GalleryTestCase {
 	list ($ret, $this->_subAlbum, $this->_subItems) =
 	    $this->_createSubAlbumWithItems($this->_topAlbum->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
     }
 
     function tearDown() {
 	$ret = ImageBlockHelper::setDisabledFlag($this->_topAlbum, true, false);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
+	parent::tearDown();
     }
 
     function _createSubAlbumWithItems($parentId) {
@@ -93,30 +87,30 @@ class ImageBlockHandlerTest extends GalleryTestCase {
 	$ret = GalleryCoreApi::addMapEntry(
 	    'ImageBlockDisabledMap', array('itemId' => $this->_topAlbum->getId()));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $this->_handlerItem) = $this->_createRandomDataItem($this->_topAlbum->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$handlerItemId = $this->_handlerItem->getId();
 
 	list ($ret, $disabledFlag) = ImageBlockHelper::getDisabledFlag($handlerItemId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert($disabledFlag, 'Add eventHandler failed');
 
-	$ret = GalleryCoreApi::deleteEntityById($this->_handlerItem->getId(), 'GalleryDataItem');
+	$ret = GalleryCoreApi::deleteEntityById($this->_handlerItem->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $disabledFlag) = ImageBlockHelper::getDisabledFlag($handlerItemId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(!$disabledFlag, 'Delete eventHandler failed');
     }
@@ -226,7 +220,7 @@ class ImageBlockHandlerTest extends GalleryTestCase {
 	/* Execute the test */
 	list ($ret, $item) = $this->_createRandomDataItem($this->_subAlbum->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Verification: Is it in the disabled list? */
@@ -245,7 +239,7 @@ class ImageBlockHandlerTest extends GalleryTestCase {
 	/* Execute the test */
 	list ($ret, $item) = $this->_createRandomDataItem($this->_subAlbum->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Verification: Is it in the disabled list? */
@@ -257,7 +251,7 @@ class ImageBlockHandlerTest extends GalleryTestCase {
 	list ($ret, $albumItem, $this->_subItems2) =
 	    $this->_createSubAlbumWithItems($this->_topAlbum->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Add the album to the disabled map */
@@ -284,7 +278,7 @@ class ImageBlockHandlerTest extends GalleryTestCase {
 	list ($ret, $albumItem, $this->_subItems2) =
 	    $this->_createSubAlbumWithItems($this->_topAlbum->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Make sure the album is not in the disabled map */
@@ -311,7 +305,7 @@ class ImageBlockHandlerTest extends GalleryTestCase {
 	list ($ret, $albumItem, $this->_subItems2) =
 	    $this->_createSubAlbumWithItems($this->_topAlbum->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Make sure the album is in the disabled map */
@@ -338,7 +332,7 @@ class ImageBlockHandlerTest extends GalleryTestCase {
 	list ($ret, $albumItem, $this->_subItems2) =
 	    $this->_createSubAlbumWithItems($this->_topAlbum->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Make sure the album is not in the disabled map */
@@ -372,7 +366,7 @@ class ImageBlockHandlerTest extends GalleryTestCase {
 	/* Execute the test */
 	list ($ret, $albumItem) = $this->_createRandomAlbum($this->_subAlbum->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Verification: Is it in the disabled list? */
@@ -391,7 +385,7 @@ class ImageBlockHandlerTest extends GalleryTestCase {
 	/* Execute the test */
 	list ($ret, $albumItem) = $this->_createRandomAlbum($this->_subAlbum->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Verification: Is it in the disabled list? */
@@ -409,31 +403,31 @@ class ImageBlockHandlerTest extends GalleryTestCase {
 	/* Execute the test */
 	list ($ret, $user) = $this->_createRandomUser();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($user);
 
 	$user->setFullName('new name to trigger new save');
 	list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($user->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$ret = $user->save();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$ret = GalleryCoreApi::releaseLocks($lockId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
     }
 
     /*
      * Move an item into a new album
      *
-     * @param GalleryItem $item item to move
-     * @param GalleryAlbumItem $oldParent the old / current parent album
-     * @param GalleryAlbumItem $newParent the new parent album
+     * @param object GalleryItem $item item to move
+     * @param object GalleryAlbumItem $oldParent the old / current parent album
+     * @param object GalleryAlbumItem $newParent the new parent album
      */
     function _moveItem(&$item, &$oldParent, &$newParent) {
 	$lockIds = array();
@@ -443,15 +437,15 @@ class ImageBlockHandlerTest extends GalleryTestCase {
 	    GalleryCoreApi::acquireReadLock(array($newParent->getId(),
 						  $oldParent->getId()));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	list ($ret, $lockIds[]) = GalleryCoreApi::acquireWriteLock($item->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$ret = $item->move($newParent->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$ret = $item->save();
 	if ($ret) {
@@ -460,11 +454,11 @@ class ImageBlockHandlerTest extends GalleryTestCase {
 	     * disabled list if it already was in the list, else we'd see the result here
 	     * as an error
 	     */
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$ret = GalleryCoreApi::releaseLocks($lockIds);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
     }
 
@@ -473,7 +467,7 @@ class ImageBlockHandlerTest extends GalleryTestCase {
 	foreach ($items as $item) {
 	    list ($ret, $disabledFlag) = ImageBlockHelper::getDisabledFlag($item->getId());
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $this->assertEquals($expectedValue, !empty($disabledFlag),
 				'item is / is not in disabledFlag map');
@@ -484,12 +478,12 @@ class ImageBlockHandlerTest extends GalleryTestCase {
     function _setAndAssertDisabledFlag($item, $value) {
 	$ret = ImageBlockHelper::setDisabledFlag($item, false, $value);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	/* Assert that the item is in the disable map, or not */
 	list ($ret, $disabledFlag) = ImageBlockHelper::getDisabledFlag($item->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals($value, !empty($disabledFlag),
 			    'item disabledFlag map assertion failed');

@@ -1,6 +1,8 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
 <form action="{g->url}" enctype="application/x-www-form-urlencoded" method="post"
  id="publishXpForm">
@@ -8,7 +10,8 @@
     <script type="text/javascript">
       // <![CDATA[
       {capture name=url}{g->url arg1="view=publishxp.NewAlbum"}{/capture}
-      setSubtitle("{g->text text="Choose an album for new photos, or create a new album." arg1=$smarty.capture.url forJavascript=true}");
+      setSubtitle("{g->text text="Choose an album for new photos, or create a new album." arg1=$smarty.capture.url}");
+      setOnBackUrl("{g->url arg1="view=publishxp.SelectAlbum"}");
       setSubmitOnNext(true);
       setButtons(false, true, false);
       // ]]>
@@ -28,7 +31,7 @@
 	  <option value="{$album.data.id}"
     	    {if ($album.data.id == $form.albumId)}selected="selected"{/if}>
 	    {"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"|repeat:$album.depth}--
-	    {$album.data.title|markup:strip|default:$album.data.pathComponent}
+	    {$album.data.title|default:$album.data.pathComponent}
 	  </option>
 	{/foreach}
       </select>

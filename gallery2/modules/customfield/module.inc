@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,12 +35,11 @@ class CustomFieldModule extends GalleryModule {
 	$this->setId('customfield');
 	$this->setName($gallery->i18n('Custom Fields'));
 	$this->setDescription($gallery->i18n('Create custom data fields for Gallery items'));
-	$this->setVersion('1.0.12');
-	$this->_templateVersion = 1;
+	$this->setVersion('1.0.8');
 	$this->setGroup('data', $gallery->i18n('Extra Data'));
-	$this->setCallbacks('getSiteAdminViews|getItemSummaries');
-	$this->setRequiredCoreApi(array(7, 34));
-	$this->setRequiredModuleApi(array(3, 9));
+	$this->setCallbacks('registerEventListeners|getSiteAdminViews|getItemSummaries');
+	$this->setRequiredCoreApi(array(7, 10));
+	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
@@ -58,6 +57,14 @@ class CustomFieldModule extends GalleryModule {
 	}
 
 	return null;
+    }
+
+    /**
+     * @see GalleryModule::registerEventListeners
+     */
+    function registerEventListeners() {
+	GalleryCoreApi::requireOnce('modules/customfield/classes/CustomFieldHelper.class');
+	GalleryCoreApi::registerEventListener('GalleryEntity::delete', new CustomFieldHelper());
     }
 
     /**
@@ -118,15 +125,6 @@ class CustomFieldModule extends GalleryModule {
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'GallerySearchInterface_1_0', 'CustomFieldSearch', 'CustomField',
 	    'modules/customfield/classes/CustomFieldSearch.class', 'customfield', null);
-	if ($ret) {
-	    return $ret;
-	}
-
-	/* Register event listeners */
-	$ret = GalleryCoreApi::registerFactoryImplementation('GalleryEventListener',
-	    'CustomFieldHelper', 'CustomFieldHelper',
-	    'modules/customfield/classes/CustomFieldHelper.class', 'customfield',
-	    array('GalleryEntity::delete'));
 	if ($ret) {
 	    return $ret;
 	}

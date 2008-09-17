@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Password Protected Albums 1.0.8\n"
+"Project-Id-Version: Gallery: Password Items 1.0.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-03-13 23:12+0100\n"
 "PO-Revision-Date: 2007-01-02 22:30+0100\n"
@@ -33,19 +33,14 @@ msgstr ""
 msgid "Password Entry"
 msgstr "Ange Lösenord"
 
-#, fuzzy
-msgid "Password Protected Albums"
-msgstr "Lösenordsskyddat objekt"
+msgid "Password Items"
+msgstr "Lösenordsskydda"
 
-#, fuzzy
-msgid "Assign passwords for viewing particular albums"
+msgid "Assign passwords for viewing particular albums or items"
 msgstr "Tilldela lösenord för skydd av album och objekt"
 
 msgid "Display"
 msgstr "Visa"
-
-msgid "Password Items"
-msgstr "Lösenordsskydda"
 
 msgid "Set Password"
 msgstr "Sätt lösenord"
@@ -56,8 +51,7 @@ msgstr "Uppdatera rättigheter"
 msgid "Remove Password"
 msgstr "Tag bort lösenord"
 
-#, fuzzy
-msgid "Password Protected Album"
+msgid "Password Protected Item"
 msgstr "Lösenordsskyddat objekt"
 
 msgid "Enter the password!"

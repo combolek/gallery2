@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,9 +18,10 @@
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Core 1.2.36\n"
-"POT-Creation-Date: 2006-02-23 10:15+0100\n"
-"PO-Revision-Date: 2008-08-27 15:55+0100\n"
+"Project-Id-Version: Gallery: Core 1.2.0.3\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-06-07 09:29-0700\n"
+"PO-Revision-Date: 2007-03-02 19:07+0100\n"
 "Last-Translator: Kappana <kappana@gnoms.net>\n"
 "Language-Team: Polish <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -33,6 +34,30 @@ msgstr ""
 
 msgid "Gallery Email Test"
 msgstr "Wysłanie wiadomości testowej"
+
+msgid "forever"
+msgstr "na zawsze"
+
+msgid "High Priority (Me first!)"
+msgstr "Wysoki priorytet (Najpierw ja!)"
+
+msgid "Low Priority (I want to share!)"
+msgstr "Niski priorytet (Chcę się podzielić!)"
+
+msgid "No Markup"
+msgstr "Bez znaczników"
+
+msgid "BBCode"
+msgstr "BBCode"
+
+msgid "Raw HTML"
+msgstr "Czysty HTML"
+
+msgid "Database"
+msgstr "Baza danych"
+
+msgid "File"
+msgstr "Plik"
 
 #, c-format
 msgid "%d minute"
@@ -62,54 +87,8 @@ msgstr[0] "%d tydzień"
 msgstr[1] "%d tygodnie"
 msgstr[2] "%d tygodni"
 
-msgid "forever"
-msgstr "na zawsze"
-
-msgid "High Priority (Me first!)"
-msgstr "Wysoki priorytet (Najpierw ja!)"
-
-msgid "Low Priority (I want to share!)"
-msgstr "Niski priorytet (Chcę się podzielić!)"
-
-msgid "No Markup"
-msgstr "Bez znaczników"
-
-msgid "BBCode"
-msgstr "BBCode"
-
-msgid "Raw HTML"
-msgstr "Czysty HTML"
-
-msgid "Database"
-msgstr "Baza danych"
-
-msgid "File"
-msgstr "Plik"
-
-msgid "&lt;none&gt;"
-msgstr "&lt;nic&gt;"
-
-msgid "Link"
-msgstr "Link"
-
-#, c-format
-msgid "Page %d of %d"
-msgstr "Oglądasz stronę %d z %d"
-
-msgid "Updating Language Settings"
-msgstr "Aktualizowanie ustawień językowych"
-
-msgid "Update completed with errors."
-msgstr "Aktualizacja zakończona z błędami."
-
-msgid "Update complete."
-msgstr "Aktualizacja zakończona."
-
-msgid "Deleting Language Packs"
-msgstr "Usuwanie wersji językowej"
-
-msgid "Synchronizing Language Packs"
-msgstr "Synchronizowanie wersji językowych"
+msgid "<none>"
+msgstr "<nic>"
 
 msgid "No acceleration"
 msgstr "Bez przyspieszenia"
@@ -122,6 +101,42 @@ msgstr "Pełne przyspieszenie"
 
 msgid "Themes"
 msgstr "Tematy"
+
+msgid "Updating Repository Index"
+msgstr "Aktualizuj listę Repozytorium"
+
+msgid "Scanning plugins"
+msgstr "Skanowanie modułów"
+
+msgid "Update Plugin List"
+msgstr "Aktualizuj listę modułów"
+
+msgid "Done."
+msgstr "Gotowe"
+
+msgid "Updating Packages"
+msgstr "Aktualizowanie Pakietów"
+
+#, c-format
+msgid "Preparing %s"
+msgstr "Przygotowywanie %s"
+
+#, c-format
+msgid "Downloading %s"
+msgstr "Pobieranie %s"
+
+#, c-format
+msgid "Activating %s"
+msgstr "Aktywowanie %s"
+
+msgid "Deleting Language Packs"
+msgstr "Usuwanie pakietu językowego"
+
+msgid "Update completed with errors."
+msgstr "Aktualizacja zakończona z błędami."
+
+msgid "Update complete."
+msgstr "Aktualizacja zakończona."
 
 msgid "install"
 msgstr "instaluj"
@@ -144,11 +159,11 @@ msgstr "Pobierz ustawienia z macierzystego albumu"
 msgid "Use these settings"
 msgstr "Użyj tych ustawień"
 
-msgid "Converting Schema Table"
-msgstr "Konwertowanie schematu tabeli"
-
 msgid "Installing the core module"
 msgstr "Instalacja modułu głównego"
+
+msgid "key"
+msgstr "klucz"
 
 msgid "All access"
 msgstr "Pełny dostęp"
@@ -181,11 +196,7 @@ msgid "[core] Delete item"
 msgstr "[core] Usunięcie pozycji"
 
 msgid "Upgrading permissions"
-msgstr "Aktualizowanie uprawnień"
-
-#, c-format
-msgid "Upgrading permissions (%d items complete, %d remaining)"
-msgstr "Aktualizowanie uprawnień (zakończonych pozycji: %d; pozostało: %d)"
+msgstr "Aktualizacja uprawnień"
 
 msgid "Deleting old permission tables"
 msgstr "Usuwanie starych tablic uprawnień"
@@ -198,6 +209,46 @@ msgstr "Wszyscy użytkownicy"
 
 msgid "Detecting broken derivatives"
 msgstr "Wykrywanie uszkodzonych zmiennych"
+
+msgid "Clearing fast-download cache"
+msgstr "Czyszczenie pamięci podręcznej"
+
+msgid "Deleting old fast-download cache"
+msgstr "Usuwanie starej pamięci podręcznej"
+
+msgid "Updating panorama items"
+msgstr "Aktualizowanie panoram"
+
+msgid "Optimizing AccessSubscriberMap table"
+msgstr "Optymalizacja tabeli AccessSubscriberMap"
+
+msgid "Converting Schema Table"
+msgstr ""
+
+msgid "Loading Table Descriptions"
+msgstr ""
+
+msgid "Site Admins"
+msgstr "Administratorzy strony"
+
+msgid "Everybody"
+msgstr "Wszyscy"
+
+msgid "Guest"
+msgstr "Gość"
+
+msgid "Gallery"
+msgstr "Galeria"
+
+msgid "This is the main page of your Gallery"
+msgstr "To jest początek twojej galerii"
+
+msgid "Converting MySQL data to UTF8"
+msgstr "Konwertowanie danych MySQL do UTF8"
+
+#, c-format
+msgid "Upgrading permissions (%d items complete, %d remaining)"
+msgstr "Aktualizacja uprawnień (zakończonych pozycji: %d; pozostało: %d)"
 
 #, c-format
 msgid "Detecting broken derivatives, loading (%d derivatives checked, %d remaining)"
@@ -218,54 +269,9 @@ msgstr ""
 "Wykrywanie uszkodzonych zmiennych, zapisywanie pozycji %d z %d (zakończonych: %d; pozostało: "
 "%d)"
 
-msgid "Clearing fast-download cache"
-msgstr "Czyszczenie pamięci podręcznej"
-
-msgid "Deleting old fast-download cache"
-msgstr "Usuwanie starej pamięci podręcznej"
-
 #, c-format
 msgid "Deleting old session files (iteration %d)"
 msgstr "Usuwanie starych plików sesji (krok %d)"
-
-msgid "Updating panorama items"
-msgstr "Aktualizowanie panoram"
-
-msgid "Optimizing AccessSubscriberMap table"
-msgstr "Optymalizacja tabeli AccessSubscriberMap"
-
-msgid "Upgrading Plugin Translations"
-msgstr "Aktualizowanie lokalizacji modułu"
-
-msgid "Creating Package Map"
-msgstr "Tworzenie mapy Pakietów"
-
-msgid "Site Admins"
-msgstr "Administratorzy strony"
-
-msgid "Everybody"
-msgstr "Wszyscy"
-
-msgid "Guest"
-msgstr "Gość"
-
-msgid "Gallery"
-msgstr "Galeria"
-
-msgid "This is the main page of your Gallery"
-msgstr "To jest początek twojej galerii"
-
-msgid "Converting MySQL data to UTF8"
-msgstr "Konwertowanie danych MySQL do UTF8"
-
-msgid "Adding items"
-msgstr "Dodawanie pozycji"
-
-msgid "Processing items"
-msgstr "Przetwarzanie pozycji"
-
-msgid "Extracting archive"
-msgstr "Wypakowywanie archiwum"
 
 msgid "add items"
 msgstr "dodaj pozycję"
@@ -278,6 +284,32 @@ msgstr "dodaj podalbum"
 
 msgid "add items confirmation"
 msgstr "potwierdzenie dodania pozycji"
+
+msgid "Base filename"
+msgstr "Nazwa pliku"
+
+msgid "Caption"
+msgstr "Podpis"
+
+msgid "Blank"
+msgstr "Puste"
+
+msgid "From Web Browser"
+msgstr "Z przeglądarki internetowej"
+
+#, c-format
+msgid "%d megabyte"
+msgid_plural "%d megabytes"
+msgstr[0] "%d MB"
+msgstr[1] "%d MB"
+msgstr[2] "%d MB"
+
+#, c-format
+msgid "%d kilobytes"
+msgid_plural "%d kilobytes"
+msgstr[0] "%d KB"
+msgstr[1] "%d KB"
+msgstr[2] "%d KB"
 
 #, c-format
 msgid "Input file %s exceeds maximum permitted file size"
@@ -295,37 +327,18 @@ msgstr "Wejściowy plik %s został tylko częściowo załadowany"
 msgid "Input file %s was not uploaded. Error %d"
 msgstr "Wejściowy plik %s nie został załadowany. Błąd %d"
 
-#, c-format
-msgid "%d megabyte"
-msgid_plural "%d megabytes"
-msgstr[0] "%d MB"
-msgstr[1] "%d MB"
-msgstr[2] "%d MB"
-
-#, c-format
-msgid "%d kilobytes"
-msgid_plural "%d kilobytes"
-msgstr[0] "%d KB"
-msgstr[1] "%d KB"
-msgstr[2] "%d KB"
-
-msgid "Base filename"
-msgstr "Nazwa pliku"
-
-msgid "Caption"
-msgstr "Podpis"
-
-msgid "Blank"
-msgstr "Puste"
-
-msgid "From Web Browser"
-msgstr "Z przeglądarki internetowej"
-
 msgid "Gallery Item Administration"
 msgstr "Administracja pozycjami galerii"
 
 msgid "delete an item"
 msgstr "usuń pozycję"
+
+msgid "delete confirmation"
+msgstr "potwierdzenie usunięcia"
+
+#, c-format
+msgid "delete %s"
+msgstr "usuń %s"
 
 #, c-format
 msgid "edit %s"
@@ -340,10 +353,6 @@ msgstr "Zastosuj ustawienia przeskalowanych zdjęć"
 msgid "Preparing..."
 msgstr "Przygotowywanie..."
 
-#, c-format
-msgid "Processing image %d of %d"
-msgstr "Przetwarzanie %d z %d obrazów"
-
 msgid "Apply thumbnail settings"
 msgstr "Zastosuj ustawienia miniaturek"
 
@@ -352,6 +361,10 @@ msgstr "Odtwarzanie miniaturek..."
 
 msgid "Album"
 msgstr "Album"
+
+#, c-format
+msgid "Processing image %d of %d"
+msgstr "Przetwarzanie %d z %d obrazów"
 
 msgid "Changes saved successfully"
 msgstr "Zmiany zostały zapisane"
@@ -452,7 +465,7 @@ msgid "reorder items"
 msgstr "zmień porządek pozycji"
 
 msgid "Maintenance"
-msgstr "Konserwacja"
+msgstr "Obsługa"
 
 msgid "Gallery Site Administration"
 msgstr "Administracja stroną galerii"
@@ -490,10 +503,6 @@ msgstr "Edytuj zdjęcie"
 msgid "Edit Movie"
 msgstr "Edytuj film"
 
-#, c-format
-msgid "Edit %s"
-msgstr "Edytuj %s"
-
 msgid "Add Album"
 msgstr "Dodaj album"
 
@@ -512,10 +521,6 @@ msgstr "Usuń zdjęcie"
 msgid "Delete Movie"
 msgstr "Usuń film"
 
-#, c-format
-msgid "Delete %s"
-msgstr "Usuń %s"
-
 msgid "Move Album"
 msgstr "Przenieś album"
 
@@ -525,10 +530,6 @@ msgstr "Przenieś zdjęcie"
 msgid "Move Movie"
 msgstr "Przenieś film"
 
-#, c-format
-msgid "Move %s"
-msgstr "Przenieś %s"
-
 msgid "Edit Captions"
 msgstr "Edytuj podpis"
 
@@ -537,9 +538,6 @@ msgstr "Utwórz reprezentację"
 
 msgid "Reorder Items"
 msgstr "Zmień uporządkowanie pozycji"
-
-msgid "Delete Items"
-msgstr "Usuń pozycje"
 
 msgid "Site Admin"
 msgstr "Administracja"
@@ -565,12 +563,6 @@ msgstr "Grupy"
 msgid "Performance"
 msgstr "Wydajność"
 
-msgid "Event Logs"
-msgstr "Dziennik zdarzeń"
-
-msgid "Language Settings"
-msgstr "Ustawienia językowe"
-
 msgid "Toolkit Priority"
 msgstr "Priorytet narzędzi"
 
@@ -583,28 +575,17 @@ msgstr "Ustawienia konta"
 msgid "Change Password"
 msgstr "Zmień hasło"
 
-msgid "Updating Packages"
-msgstr "Aktualizowanie pakietów"
+#, c-format
+msgid "Edit %s"
+msgstr "Edytuj %s"
 
 #, c-format
-msgid "Cleaning up obsolete files %s"
-msgstr "Czyszczenie zdezaktualizowanych plików %s"
+msgid "Delete %s"
+msgstr "Usuń %s"
 
 #, c-format
-msgid "Activating %s"
-msgstr "Aktywowanie %s"
-
-msgid "Updating Repository Index"
-msgstr "Aktualizowanie listy repozytorium"
-
-msgid "Scanning plugins"
-msgstr "Skanowanie modułów"
-
-msgid "Update Plugin List"
-msgstr "Aktualizuj listę modułów"
-
-msgid "Done."
-msgstr "Gotowe"
+msgid "Move %s"
+msgstr "Przenieś %s"
 
 msgid "Build all thumbnails/resizes"
 msgstr "Budowanie miniaturek/przeskalowanych zdjęć"
@@ -619,6 +600,9 @@ msgstr ""
 msgid "Build All Thumbnails/Resizes"
 msgstr "Budowanie miniaturek/przeskalowanych zdjęć"
 
+msgid "Debug output for failed items:"
+msgstr "Wynik debugowania dla błędnych pozycji:"
+
 #, c-format
 msgid "Checked %d items"
 msgstr "Sprawdzono pozycji: %d"
@@ -630,9 +614,6 @@ msgstr "Stworzono pozycji: %d"
 #, c-format
 msgid "%d items failed"
 msgstr "Błędnych pozycji: %d"
-
-msgid "Debug output for failed items:"
-msgstr "Wynik debugowania dla błędnych pozycji:"
 
 msgid "Convert MySQL database to UTF8"
 msgstr "Konwersja bazy danych MySQL do UTF8"
@@ -656,39 +637,6 @@ msgstr "Baza danych została przekonwertowana do UTF8"
 
 msgid "No conversion required"
 msgstr "Konwersja nie wymagana"
-
-msgid "Backup the database"
-msgstr "Tworzenie kopii zapasowej bazy danych"
-
-msgid ""
-"Backup all your Gallery data (item data, users, comments, etc.) to a single file in your "
-"storage folder.  The backup does not include the image files.  Before running the backup, "
-"your Gallery installation needs to be set into maintenance mode, as this is not done "
-"automatically."
-msgstr ""
-"Tworzy kopię zapasową danych galerii (pozycje, użytkownicy, komentarze, itp.).  Uwaga: kopia "
-"zapasowa nie zawiera samych plików zdjęć.  Zanim proces kopiowania zostanie uruchomiony, "
-"galeria musi być ustawiona w trybie koserwacji, jako, że nie jest to robione automatycznie."
-
-msgid "Backing up Gallery Database"
-msgstr "Tworzenie kopii zapasowej bazy danych galerii"
-
-msgid "Exporting..."
-msgstr "Eksportowanie..."
-
-#, c-format
-msgid "Database backup completed and the backup file is located at: %s"
-msgstr ""
-"Tworzenie kopii zapasowej bazy danych galerii zostało zakończone. Plik kopii zapasowej "
-"znajduje się w: %s"
-
-msgid ""
-"Please note that your backup contains sensitive data (like passwords) and should not be "
-"stored online! We recommend that you download it from your server and keep it safely offline."
-msgstr ""
-"Proszę pamiętać, że kopia zapasaowa bazy danych zawiera dane wrażliwe (takie jak hasła) i "
-"nie powinna być przechowywana on-line! Zalecane jest pobranie kopii z serwera i "
-"zabezpieczenie jej off-line."
 
 msgid "Delete user sessions"
 msgstr "Kasowanie sesje użytkowników"
@@ -729,13 +677,14 @@ msgstr "Usuwanie pamięci podręcznej szablonów"
 msgid ""
 "Gallery compiles template files and saves them for increased performance.  If you're "
 "experiencing problems that say <i>Smarty error</i> then you might try running this task.  "
-"Also run this if you add or remove any local/*.tpl or theme override so Smarty will find the "
-"right file."
+"Also run this if you remove a local/*.tpl file so Smarty will switch back to the default tpl "
+"file."
 msgstr ""
 "Galeria przekompiluje pliki szablonów w celu zwiększenia wydajności działania. Jeżeli "
 "wystąpi problem typu <i>Smarty error</i> uruchomienie tego zadania może pomóc w usunięciu "
-"tego problemu. Zadanie to należy również uruchomić w przypadku, gdy został dodany lub "
-"usunięty jakikolwiek plik local/*.tpl lub został napisany temat."
+"tego problemu. Zadanie to należy również uruchomić w przypadku, gdy usunięte zostały pliki "
+"local/*.tpl - Smarty wykorzysta wtedy domyślne pliki tpl, aby poprawnie wyświetlić strony "
+"WWW."
 
 msgid "Template cache deleted successfully"
 msgstr "Pamięć podręczna szablonów usunięta"
@@ -815,14 +764,6 @@ msgstr ""
 "Nie można stworzyć podkatalogu pamięci podręcznej. Proszę upewnić się, że serwer WWW ma "
 "ustawione prawa zapisu."
 
-#, c-format
-msgid "Preparing %s"
-msgstr "Przygotowywanie %s"
-
-#, c-format
-msgid "Downloading %s"
-msgstr "Pobieranie %s"
-
 msgid "Official Release Repository"
 msgstr "Repozytorium oficjalne"
 
@@ -882,10 +823,6 @@ msgstr "Rosnąco"
 msgid "Descending"
 msgstr "Malejąco"
 
-#, c-format
-msgid "Powered by Gallery v%s"
-msgstr "Powered by Gallery v%s"
-
 msgid "Validation disabled until you set allowSessionAccess in config.php"
 msgstr ""
 "Walidacja wyłączona dopóki nie zostanie ustawiony parametr allowSessionAccess w pliku config."
@@ -896,6 +833,13 @@ msgstr "Ta strona napisana jest w prawidłowym XHTML 1.0"
 
 msgid "Donate to the Gallery project"
 msgstr "Wspieraj projekt Gallery"
+
+msgid "G2.2: Double Double"
+msgstr "G2.2: Double Double"
+
+#, c-format
+msgid "Powered by Gallery v%s"
+msgstr "Powered by Gallery v%s"
 
 #, c-format
 msgid "Estimated time remaining: %d:%02d"
@@ -1004,6 +948,13 @@ msgstr "Arkusz"
 msgid "file"
 msgstr "plik"
 
+msgid "Back"
+msgstr "Powrót"
+
+#, c-format
+msgid "Back to %s"
+msgstr "Powrót do %s"
+
 msgid "User"
 msgstr "Użytkownik"
 
@@ -1074,15 +1025,8 @@ msgstr "moduł główny"
 msgid "unknown"
 msgstr "nieznany"
 
-#, c-format
-msgid "API = Core %s, Module %s, Theme %s, Embed %s"
-msgstr "API = Core %s, Module %s, Theme %s, Embed %s"
-
-msgid "Gallery URL"
-msgstr "Adres URL galerii"
-
 msgid "Gallery version"
-msgstr "Wersja galerii"
+msgstr "Wersja Gallery"
 
 msgid "PHP version"
 msgstr "Wersja PHP"
@@ -1121,73 +1065,6 @@ msgstr "Przeglądarka"
 msgid "Rows in %s table = %d"
 msgstr "Rzędów w tabeli %s = %d"
 
-#, c-format
-msgid "The %s \"%s\" is not installed and will not be backed up."
-msgstr "%s \"%s\" nie jest zainstalowany i nie jest dla niego tworzona kopia zapasowa."
-
-#, c-format
-msgid "\"%s\" has no creation sql and will not be backed up."
-msgstr "\"%s\" nie tworzy sql i nie jest dla niego tworzona kopia zapasowa."
-
-#, c-format
-msgid "Unable to load table description for \"%s\", no data will be exported."
-msgstr "Nie można załadować opisu tabeli dla \"%s\", żadne dane nie będą eksportowane."
-
-msgid ""
-"Unable to find the XML parser.  The PHP XML parsing extension must be loaded.  Terminating "
-"database import."
-msgstr ""
-"Nie można zlokalizować parsera XML. Konieczne jest załadowanie rozszerzenia parsera PHP/"
-"XML.  Import bazy danych został przerwany."
-
-#, c-format
-msgid "The exported file is not the correct version. Expecting %s received %s."
-msgstr "Wyeksportowany plik nie jest prawidłowej wersji. Oczekiwano %s, otrzymano %s."
-
-#, c-format
-msgid "Unable to close import file: %s"
-msgstr "Nie można zamknąć pliku importu: %s"
-
-#, c-format
-msgid "Unable to open import file: %s"
-msgstr "Nie można otworzyć pliku importu: %s"
-
-#, c-format
-msgid "Import file doesn't exist: %s"
-msgstr "Plik importu nie istnieje: %s"
-
-#, c-format
-msgid "Plugin %s is not currently available."
-msgstr "Moduł %s nie jest obecnie dostępny."
-
-#, c-format
-msgid "The available version of plugin \"%s\" may not be compatible with the imported version."
-msgstr "Dostępna wersja modułu \"%s\" może nie być kompatybilna z importowaną wersją."
-
-#, c-format
-msgid ""
-"The currently installed core API version required by \"%s\" may not be compatible with the "
-"imported version."
-msgstr ""
-"Aktualnie zainstalowana wersja API modułu głównego wymagana przez \"%s\" może nie być "
-"kompatybilna z importowaną wersją."
-
-#, c-format
-msgid ""
-"The installed module API version required by \"%s\" may not be compatible with the imported "
-"version."
-msgstr ""
-"Aktualnie zainstalowana wersja API modułu wymagana przez \"%s\" może nie być kompatybilna z "
-"importowaną wersją."
-
-#, c-format
-msgid ""
-"The installed theme API version required by \"%s\" is not compatible with the imported "
-"version."
-msgstr ""
-"Aktualnie zainstalowana wersja API tematu wymagana przez \"%s\" może nie być kompatybilna z "
-"importowaną wersją."
-
 msgid "Successfully saved theme settings"
 msgstr "Ustawienia tematu zapisano poprawnie"
 
@@ -1211,6 +1088,33 @@ msgstr "W trakcie przetwarzania danych wystąpił błąd, szczegóły poniżej."
 
 msgid "Error sending test email, see below for details."
 msgstr "W trakcie wysyłania testowej wiadomości e-mail wystąpił błąd, szczegóły poniżej."
+
+msgid "Language Settings"
+msgstr "Ustawienia języka"
+
+msgid ""
+"Select language defaults for Gallery. Individual users can override this setting in their "
+"personal preferences or via the language selector block if available. Gallery will try to "
+"automatically detect the language preference of each user if the browser preference check is "
+"enabled."
+msgstr ""
+"Określa standardowy język galerii. Indywidualni użytkownicy mogą zmienić to ustawienie w "
+"swoich osobistych preferencjach. Galeria automatycznie wykrywa ustawienia języka o ile opcja "
+"ta jest włączona w ustawieniach przeglądarki."
+
+msgid "Default language"
+msgstr "Język standardowy"
+
+msgid "Check Browser Preference"
+msgstr "Sprawdź ustawienia przeglądarki"
+
+#, c-format
+msgid ""
+"Your webserver does not support localization.  Please instruct your system administrator to "
+"reconfigure PHP with the %s option enabled."
+msgstr ""
+"Serwer WWW nie obsługuje lokalizacji. Proszę zgłosić to do administratora serwera WWW, aby "
+"zrekonfigurował PHP i uaktywnił opcję %s."
 
 msgid "Date Formats"
 msgstr "Format daty"
@@ -1267,9 +1171,6 @@ msgstr "Czas trwania sesji"
 
 msgid "Inactivity Timeout"
 msgstr "Maksymalny czas nieaktywności"
-
-msgid "Site Administration Session Timeout"
-msgstr "Maksymalny czas nieaktywności administratora"
 
 msgid "Embedded Markup"
 msgstr "Wbudowany system znaczników"
@@ -1686,39 +1587,6 @@ msgstr[0] "Jedna błędna próba logowania od ostatniego zalogowania."
 msgstr[1] "%d błędne próby logowania od ostatniego zalogowania."
 msgstr[2] "%d błędnych prób logowania od ostatniego zalogowania."
 
-msgid "Recent Events"
-msgstr "Ostatnie zdarzenia"
-
-msgid "Type"
-msgstr "Typ"
-
-msgid "Location"
-msgstr "Lokalizacja"
-
-msgid "Client"
-msgstr "Klient"
-
-msgid "No events have been reported yet."
-msgstr "Żadne zdarzenie nie zostało odnotowane."
-
-msgid "Event Details"
-msgstr "Szczegóły zdarzenia"
-
-msgid "User Id"
-msgstr "Id użytkownika"
-
-msgid "Referer"
-msgstr "Odnośnik"
-
-msgid "Details"
-msgstr "Właściwości"
-
-msgid "no summary"
-msgstr "brak podsumowania"
-
-msgid "An error occurred while retrieving the event log entry details."
-msgstr "Wystąpił błąd podczas pobierania szczegółów wejściowych dziennika zdarzeń."
-
 msgid "Group Management"
 msgstr "Zarządzanie grupą"
 
@@ -1782,156 +1650,8 @@ msgstr[0] "%d grupa odpowiada twojemu filtrowi"
 msgstr[1] "%d grupy odpowiadają twojemu filtrowi"
 msgstr[2] "%d grup odpowiada twojemu filtrowi"
 
-msgid "Please make sure that your internet connection is set up properly or try again later."
-msgstr ""
-"Proszę upewnić się, że połączenie z internetem jest ustawione poprawnie lub spróbować "
-"później."
-
-#, c-format
-msgid "Failed to scan status from plugin: %s."
-msgstr "Nieudane pobranie statusu dla modułu: %s"
-
-msgid ""
-"Your local copy of the repository was broken and has been fixed.  Please download the plugin "
-"list again."
-msgstr ""
-"Lokalna kopia repozytorium była uszkodzona i została naprawiona.  Proszę ponownie pobrać "
-"listę modułów."
-
-#, c-format
-msgid "Failed to delete the locale directory for %s."
-msgstr "Nie można usunąć katalogu lokalnego dla %s."
-
-#, c-format
-msgid "Failed to download the following language packages for the %s plugin:"
-msgstr "Nieudane pobranie następujących wersji językowych dla modułu %s:"
-
-#, c-format
-msgid ""
-"Failed to install language packages for %s plugin because the following files/directories "
-"could not be modified:"
-msgstr ""
-"Nieudana instalacja wersji językowej dla modułu %s ze względu na brak uprawnień do "
-"modyfikacji następujących plików/katalogów:"
-
-msgid "The repository index has been successfully refreshed."
-msgstr "Lista repozytorium została odświeżona."
-
-msgid "The language settings have been saved."
-msgstr "Ustawienia językowe zostały zapisane."
-
-#, c-format
-msgid "%d language pack upgraded or downloaded."
-msgid_plural "%d language packs upgraded or downloaded."
-msgstr[0] "Zaktualizowano lub pobrano %d wersję językową."
-msgstr[1] "Zaktualizowano lub pobrano %d wersje językowe."
-msgstr[2] "Zaktualizowano lub pobrano %d wersji językowych."
-
-#, c-format
-msgid "%d language pack deleted."
-msgid_plural "%d language packs deleted."
-msgstr[0] "Skasowano %d wersję językową."
-msgstr[1] "Skasowano %d wersje językowe."
-msgstr[2] "Skasowano %d wersji językowych."
-
-msgid "All the language packages for the selected languages are current"
-msgstr "Wszystkie wersje językowe dla wybranych języków są aktualne"
-
-msgid ""
-"Select language defaults for Gallery. Individual users can override this setting in their "
-"personal preferences or via the language selector block if available. Gallery will try to "
-"automatically detect the language preference of each user if the browser preference check is "
-"enabled."
-msgstr ""
-"Określa standardowy język galerii. Indywidualni użytkownicy mogą zmienić to ustawienie w "
-"swoich osobistych preferencjach. Galeria automatycznie wykrywa ustawienia języka o ile opcja "
-"ta jest włączona w ustawieniach przeglądarki."
-
-msgid "Default language"
-msgstr "Język domyślny"
-
-msgid "Check Browser Preference"
-msgstr "Sprawdź ustawienia przeglądarki"
-
-#, c-format
-msgid ""
-"Your webserver does not support localization.  Please instruct your system administrator to "
-"reconfigure PHP with the %s option enabled."
-msgstr ""
-"Serwer WWW nie obsługuje lokalizacji. Proszę zgłosić to do administratora serwera WWW, aby "
-"zrekonfigurował PHP i uaktywnił opcję %s."
-
-msgid "Configure your Gallery"
-msgstr "Skonfiguruj galerię"
-
-msgid ""
-"Before you can proceed, you have to change some permissions so that Gallery can install "
-"plugins for you.  It's easy.  Just execute the following in a shell or via your ftp client:"
-msgstr ""
-"Zanim proces będzie kontynuowany, konieczne jest nadanie galerii uprawnień umożliwiających "
-"instalowanie modułów. W tym celu wystarczy tylko uruchomić w shell'u lub przez klienta ftp "
-"następujące komendy:"
-
-msgid ""
-"Before you can proceed, please insure the following directories and sub-directories are "
-"writable, so that Gallery can install plugins for you:"
-msgstr ""
-"Zanim proces będzie kontynuowany, proszę upewnić się, że następujące katalogi i podkatalogi "
-"mają ustawione prawa zapisu: "
-
-msgid ""
-"If you have trouble changing permissions, ask your system administrator for assistance.  "
-"When you've fixed the permissions, click the Check Again button to proceed."
-msgstr ""
-"W razie problemów ze zmianą uprawnień, proszę poprosić o pomoc administratora. Kiedy "
-"uprawnienia zostaną poprawione, proszę kliknąć przycisk Sprawdź ponownie aby kontynuować "
-"proces."
-
-msgid "Check Again"
-msgstr "Sprawdź ponownie"
-
-msgid "Add or Remove Languages"
-msgstr "Dodaj/Usuń języki"
-
-msgid ""
-"Please click on the link below to go to 'Download Plugin List' and choose 'Update Plugin "
-"List' to get the latest language package information."
-msgstr ""
-"Aby pobrać informację na temat najnowszych wersji językowych należy kliknąć w poniższy link "
-"prowadzący do 'Pobierania modułów' i wybrać opcję 'Aktualizuj listę modułów'."
-
-msgid "Administer Repositories"
-msgstr "Zarządzaj repozytoriami"
-
-msgid "Upgrade"
-msgstr "Aktualizuj"
-
-msgid "Remove"
-msgstr "Usuń"
-
-msgid "Download"
-msgstr "Pobierz"
-
-msgid "No Change"
-msgstr "Bez zmian"
-
-msgid "Select All"
-msgstr "Wybierz wszystko"
-
-msgid ""
-"There are no local repository indices from which to determine language packages. Please "
-"click on the link below to go to \"Download Plugin List\" and choose \"Update Plugin List\" "
-"to get the latest language package information."
-msgstr ""
-"Nie wskazano lokalnego repozytorium. Aby pobrać informację na temat najnowszych wersji "
-"językowych należy kliknąć w poniższy link prowadzący do 'Pobierania modułów' i wybrać opcję "
-"'Aktualizuj listę modułów'."
-
 msgid "System Maintenance"
 msgstr "Konserwacja systemu"
-
-msgid "Gallery must be in maintenance mode before the task can be run."
-msgstr "Galeria musi być w trybie konserwacji, zanim zostanie uruchomione to zadanie."
 
 #, c-format
 msgid "Completed %s task successfully."
@@ -1940,44 +1660,6 @@ msgstr "Zadanie %s zakończone sukcesem."
 #, c-format
 msgid "The %s task failed to complete successfully."
 msgstr "Nie udało się zakończyć zadania %s."
-
-msgid "Maintenance Mode has been turned on."
-msgstr "Tryb konserwacji został włączony."
-
-msgid "Maintenance Mode has been turned off."
-msgstr "Tryb konserwacji został wyłączony."
-
-msgid "Maintenance Mode"
-msgstr "Tryb konserwacji"
-
-msgid "Restrict user access to the system while maintenance is being performed."
-msgstr "Zablokuj dostęp użytkownikom na czas trwania konserwacji."
-
-msgid "Maintenance Mode Url"
-msgstr "URL trybu konserwacji"
-
-msgid ""
-"The Maintenance Mode Url specifies where requests will be redirected when access to the site "
-"has been restricted by the administrator."
-msgstr ""
-"URL trybu konserwacji określa gdzie będą przekierowywane zapytania podczas trwania procesu "
-"konsweracji."
-
-msgid ""
-"If left blank Gallery will display a default page with an administrator login link. This "
-"page will be themed when the code base is up to date, otherwise it will display a plain "
-"unstyled page."
-msgstr ""
-"Jeśli adres URL nie zostanie podany, wówczas galeria wyświetli domyślną stronę z linkiem "
-"logowania administratora. Strona ta będzie wyświetlona w określonym temacie o ile kod "
-"źródłowy tematu będzie aktualny, w przeciwnym razie wyświetlana strona będzie pozbawiona "
-"jakiejkolwiek szaty graficznej."
-
-msgid "For example: /maintenance.html"
-msgstr "Na przykład: /maintenance.html"
-
-msgid "Set"
-msgstr "Ustaw"
 
 msgid "Task name"
 msgstr "Nazwa zadania"
@@ -2078,23 +1760,6 @@ msgstr "Goście"
 msgid "Expires after:"
 msgstr "Wygasa po:"
 
-msgid "Template Cache"
-msgstr "Pamięć podręczna szablonów"
-
-#, c-format
-msgid ""
-"For optimal performance, Gallery caches all templates.  If you would like to %scustomize "
-"your template files%s, you should disable template caching temporarily so that changes take "
-"effect immediately without clearing the template cache."
-msgstr ""
-"Dla lepszej wydajności, galeria zapisuje wszystkie szablony w pamięci podręcznej. W "
-"przypadku gdy zachodzi potrzeba ich %smodyfikacji%s, konieczne jest czasowe wyłączenie "
-"pamięci podręcznej szablonów. Dzięki temu zmiana będzie widoczna natychmiast bez "
-"konieczności czyszczenia pamięci."
-
-msgid "Enable template caching"
-msgstr "Włącz pamięć podręczną szablonów "
-
 msgid "Clear Saved Pages"
 msgstr "Wyczyść zapisane strony"
 
@@ -2157,11 +1822,12 @@ msgstr "Nie"
 msgid "Do you really want to delete __PLUGIN__?"
 msgstr "Czy napewno chcesz skasować moduł __PLUGIN__?"
 
+#, fuzzy
 msgid "This plugin will be uninstalled and its files will be deleted permanently."
 msgstr "Ten moduł będzie odinstalowany, a jego pliki zostaną skasowane."
 
 msgid "The files of this plugin will be deleted permanently."
-msgstr "Pliki tego modułu zostaną nieodwracalnie skasowane."
+msgstr ""
 
 msgid "disabled(__COUNT__)"
 msgstr "wyłączonych (__COUNT__)"
@@ -2254,25 +1920,29 @@ msgstr "niekompatybilne"
 msgid "Repository"
 msgstr "Repozytorium"
 
+msgid "Please make sure that your internet connection is set up properly or try again later."
+msgstr ""
+"Proszę upewnić się, że połączenie z internetem jest ustawione poprawnie lub spróbować "
+"później."
+
 #, c-format
-msgid "Failed to download the following packages for the %s plugin:"
-msgstr "Nieudane pobranie następujących pakietów dla modułóu %s:"
+msgid "Failed to scan status from plugin: %s."
+msgstr "Nieudane pobranie statusu z modułu: %s"
+
+msgid ""
+"Your local copy of the repository was broken and has been fixed.  Please download the plugin "
+"list again."
+msgstr ""
+"Lokalna kopia repozytorium była uszkodzona i została naprawiona.  Proszę ponownie pobrać "
+"listę modułów."
 
 #, c-format
 msgid ""
-"Failed to install the %s plugin because the following files/directories could not be "
+"Failed to download the %s plugin because the following files/directories could not be "
 "modified:"
 msgstr ""
-"Nieudana instalacja modułu %s ze względu na brak uprawnień do modyfikacji następujących "
-"plików/katalogów:"
-
-#, c-format
-msgid ""
-"Some plugins could not be automatically upgraded because they are in use.  Please return to "
-"the %sPlugins%s page and click the upgrade link for each of the following plugins:"
-msgstr ""
-"Niektóre moduły nie mogą być automatycznie zaktualizowane ze względu na ich użycie.Proszę "
-"przejść do strony %sModułów%s i kliknąć link aktualizacyjny dla następujących modułów:"
+"Nieudane pobranie modułu %s ze względu na brak uprawnień do modyfikacji następujących plików/"
+"katalogów:"
 
 msgid "The repository index has been successfully updated."
 msgstr "Lista repozytorium została zaktualizowana"
@@ -2284,12 +1954,19 @@ msgstr "Wszystkie moduły są aktualne."
 msgid "%s plugin updated."
 msgstr "Zaktualizowano %s modułów."
 
+#, c-format
+msgid "%d language pack deleted."
+msgid_plural "%d language packs deleted."
+msgstr[0] "Skasowano %d pakiet językowy."
+msgstr[1] "Skasowano %d pakiety językowe."
+msgstr[2] "Skasowano %d pakietów językowych."
+
 msgid ""
 "No personal information about you or your Gallery installation is sent to the Gallery server "
 "at any time."
 msgstr ""
-"Żadne dane osobowe ani żadne dane na temat instalacji nie są przesyłane do serwera projektu "
-"Gallery w żadnym momencie."
+"Żadne dane osobowe ani żadne dane na temat instalacji nie są przesyłane do serwera Gallery w "
+"żadnym momencie."
 
 #, c-format
 msgid ""
@@ -2331,6 +2008,17 @@ msgstr "Proszę wybrać przynajmniej jedno repozytorium."
 msgid "Ok"
 msgstr "OK"
 
+msgid "Configure your Gallery"
+msgstr "Skonfiguruj galerię"
+
+msgid ""
+"Before you can proceed, you have to change some permissions so that Gallery can install "
+"plugins for you.  It's easy.  Just execute the following in a shell or via your ftp client:"
+msgstr ""
+"Zanim proces będzie kontynuowany, konieczne jest nadanie galerii uprawnień umożliwiających "
+"instalowanie modułów. W tym celu wystarczy tylko uruchomić w shell'u lub przez klienta ftp "
+"następujące komendy:"
+
 msgid ""
 "If you have trouble changing permissions, ask your system administrator for assistance.  "
 "When you've fixed the permissions, click the Continue button to proceed."
@@ -2348,7 +2036,7 @@ msgid "Show Repository List"
 msgstr "Pokaż listę repozytorium"
 
 msgid "Upgrade Gallery"
-msgstr "Aktualizuj galerię"
+msgstr "Aktualizuj Gallery"
 
 msgid ""
 "A new version of Gallery is available, but it cannot be upgraded through this interface. "
@@ -2356,13 +2044,13 @@ msgid ""
 "the features of the new version may become available. Here are the recommended steps for "
 "upgrading:"
 msgstr ""
-"Nowa wersja galerii jest dostępna, ale nie może być zaktualizowana przy pomocy tego "
+"Nowa wersja Gallery jest dostępna, ale nie może być zaktualizowana przy pomocy tego "
 "interfejsu. Aktualizacja mogłaby spowodować zatrzymanie działania niektórych dodatków. "
 "Zalecane kroki aktualizacji:"
 
-#, c-format
+#, fuzzy, c-format
 msgid "%sDownload%s the new Gallery package"
-msgstr "%sPobierz%s nowy pakiet galerii"
+msgstr "%sPobierz%s moduł główny galerii"
 
 #, c-format
 msgid "Read the %supgrade instructions%s and perform the upgrade"
@@ -2434,10 +2122,12 @@ msgstr "Żaden pakiet nie został wybrany."
 
 msgid ""
 "Download a package in order to use this plugin.  You can upgrade by choosing a newer version "
-"of the package to download."
+"of the package to download.  Language packages are optional, You only need to download the "
+"ones that you want to use on your site."
 msgstr ""
 "Aby użyć danego modułu wystarczy pobrać odpowiedni pakiet. Aby zaktualizować moduł wystarczy "
-"pobrać nowszą wersję pakietu."
+"pobrać nowszą wersję pakietu. Pakiety językowe są opcjonalne, konieczne są tylko te, które "
+"są używane przez galerię."
 
 msgid "Base Packages"
 msgstr "Pakiety podstawowe"
@@ -2454,8 +2144,12 @@ msgstr "%s: wersja %s (build %s) %saktualizacja wstecz nie jest możliwa!%s"
 msgid "%sCurrently Installed%s: version %s (build %s)"
 msgstr "%sAktualnie zainstalowana%s: wersja %s (build %s)"
 
-msgid "The following language packages are available for this plugin"
-msgstr "Dla tego modułu dostępne są następujące wersje językowe"
+msgid "Language Packages"
+msgstr "Pakiety językowe"
+
+#, c-format
+msgid "(%sselect all%s%sselect none%s)"
+msgstr "(%swybierz wszystko%s%sodznacz wszystko%s)"
 
 #, c-format
 msgid "%s version %s (upgrading from %s)"
@@ -2474,7 +2168,10 @@ msgid "%s version %s (currently installed)"
 msgstr "%s wersja %s (aktualnie zainstalowana)"
 
 msgid "No compatible language packages available"
-msgstr "Brak kompatybilnych wersji językowych"
+msgstr "Brak kompatybilnych pakietów językowych"
+
+msgid "You must select a base package before choosing language packs."
+msgstr "Przed wybraniem pakietu językowego proszę wybrać pakiet podstawowy."
 
 msgid "Update"
 msgstr "Aktualizuj"
@@ -2527,15 +2224,9 @@ msgid ""
 "The %s theme is incompatible with your Gallery version or no longer available.  Please "
 "upgrade the %s theme or pick another default theme."
 msgstr ""
-"Temat %s jest niekompatybilny z aktualną wersją galerii lub też nie jest dłużej dostępny. "
-"Proszę zaktualizować temat %s lub ustawić inny jako domyślny."
 
 msgid "New albums"
 msgstr "Nowe albumy"
-
-#, c-format
-msgid "To activate more themes visit the %sPlugins%s page."
-msgstr "Aby aktywować więcej tematów proszę przejść do strony %sModułów%s."
 
 msgid "Save Defaults"
 msgstr "Zapisz wartości domyślne"
@@ -2556,6 +2247,9 @@ msgstr "Wybierz blok"
 
 msgid "Selected"
 msgstr "Wybrane"
+
+msgid "Remove"
+msgstr "Usuń"
 
 msgid "Move Up"
 msgstr "Przenieś do góry"
@@ -2748,9 +2442,6 @@ msgstr "Szczegóły błędu"
 msgid "System Information"
 msgstr "Informacja o systemie"
 
-msgid "Not all of the specified items have been added successfully."
-msgstr "Nie wszystkie wybrane pozycje zostały dodane."
-
 msgid ""
 "You don't have any Graphics Toolkit activated that can handle JPEG images.  If you add "
 "images, you will probably not have any thumbnails."
@@ -2759,8 +2450,10 @@ msgstr ""
 "widać żadnych miniaturek."
 
 #, c-format
-msgid "Visit the %sModules%s page to activate a Graphics Toolkit."
-msgstr "Proszę przejść do sekcji %sModuły%s, aby aktywować jedno z narzędzi graficznych."
+msgid "Visit the <a href=\"%s\">Modules</a> page to activate a Graphics Toolkit."
+msgstr ""
+"Proszę przejść do sekcji <a href=\"%s\">Moduły</a>, aby aktywować jedno z narzędzi "
+"graficznych."
 
 msgid "Add Sub-Album"
 msgstr "Dodaj podalbum"
@@ -2866,6 +2559,9 @@ msgstr "Ustaw podpis do:"
 msgid "No Thumbnail"
 msgstr "Brak miniaturki"
 
+msgid "Delete Items"
+msgstr "Usuń pozycje"
+
 msgid "No items were selected for deletion"
 msgstr "Nie zaznaczono żadnych pozycji do usunięcia"
 
@@ -2925,12 +2621,25 @@ msgstr "Poprzednia strona"
 msgid "Next Page"
 msgstr "Następna strona"
 
-#, c-format
-msgid "Do you really want to delete %s?"
-msgstr "Czy napewno chcesz skasować %s?"
+msgid "Deletion Complete"
+msgstr "Usuwanie zakończone"
 
-msgid "Delete more items..."
-msgstr "Usuń więcej pozycji..."
+msgid "Item successfully deleted"
+msgstr "Pozycja została skasowana"
+
+#, c-format
+msgid "Are you sure you want to delete this %s?"
+msgstr "Czy napewno chcesz usunąć pozycję %s?"
+
+#, c-format
+msgid "It contains %d item."
+msgid_plural "It contains %d items."
+msgstr[0] "Zawiera %d pozycję."
+msgstr[1] "Zawiera %d pozycje."
+msgstr[2] "Zawiera %d pozycji."
+
+msgid "There is no undo!"
+msgstr "Operacja jest nieodwracalna!"
 
 msgid "There was a problem processing your request."
 msgstr "Wystapił błąd podczas przetwarzania."
@@ -3098,9 +2807,6 @@ msgstr "Szerszy opis tej pozycji."
 msgid "%s Date and Time"
 msgstr "Data i czas (%s)"
 
-msgid "Link Date and Time"
-msgstr "Data i czas linku"
-
 msgid "Set the date and time when this image was captured."
 msgstr "Ustaw datę i czas, kiedy zdjęcie zostało zrobione."
 
@@ -3110,9 +2816,6 @@ msgstr "Ustaw datę i czas, jakie mają być wyświetlane dla tej pozycji."
 #, c-format
 msgid "Set the date and time to be displayed for this %s."
 msgstr "Ustaw datę i czas, jakie mają być wyświetlane dla %s."
-
-msgid "Set the date and time to be displayed for this link."
-msgstr "Ustaw datę i czas, jakie mają być wyświetlane dla tego linku."
 
 msgid "Date:"
 msgstr "Data:"
@@ -3140,8 +2843,8 @@ msgid ""
 "There are no graphics toolkits enabled that support this type of item, so we cannot create "
 "or modify a thumbnail."
 msgstr ""
-"Ze względu na brak zainstalowanych narzędzi graficznych wspierających ten typ obrazu, nie "
-"można tworzyć ani modyfikować miniaturek."
+"Nie ma zainstalowanych żadnych narzędzi graficznych wspierających ten typ pozycji, nie można "
+"tworzyć ani modyfikować miniaturek."
 
 msgid "Unable to create a thumbnail for this item"
 msgstr "Nie można stworzyć miniaturki dla tej pozycji"
@@ -3303,9 +3006,6 @@ msgid ""
 "version or no longer available.  Please upgrade the %s theme or use another theme for this "
 "album."
 msgstr ""
-"Ten album został skonfigurowany w ten sposób, aby używać tematu %s. Niestety temat ten jest "
-"niekompatybilny z aktualną wersją galerii lub też nie jest dłużej dostępny. Proszę "
-"zaktualizować temat %s lub ustawić inny dla tego albumu."
 
 #, c-format
 msgid ""
@@ -3366,17 +3066,11 @@ msgstr "Źródło"
 msgid "Choose the items you want to move"
 msgstr "Proszę wybrać pozycje, które chcesz przenieść"
 
-msgid "OK"
-msgstr "OK"
-
 msgid ""
 "The destination you chose does not accept sub-albums, so all sub-albums have been deselected."
 msgstr ""
 "Wybrane miejsce docelowe nie akceptuje podalbumów, tak więc wszystkie podalbumy zostały "
 "pozostawione."
-
-msgid "Warning"
-msgstr "Uwaga"
 
 msgid ""
 "The destination you chose only accepts sub-albums, so all non-albums have been deselected."
@@ -3571,7 +3265,7 @@ msgstr ""
 "Javastript jest włączony, a następnie sprobować ponownie."
 
 msgid "Site is temporarily down for maintenance."
-msgstr "W związku z konserwacją, strona jest tymczasowo niedostępna."
+msgstr "W związku z aktualizacją strona jest tymczasowo niedostępna."
 
 msgid "Admin Login"
 msgstr "Admin Login"
@@ -3585,12 +3279,10 @@ msgstr "Wpisz opis do adresu URL"
 msgid "Enter an image URL"
 msgstr "Wpisz adres URL zdjęcia"
 
-#. HINT: Button label for Bold
-msgid "B"
+msgid "B <!-- Button label for Bold -->"
 msgstr "pogrubienie"
 
-#. HINT: Button label for italic
-msgid "i"
+msgid "i <!-- Button label for italic -->"
 msgstr "kursywa"
 
 msgid "list"
@@ -3609,8 +3301,8 @@ msgid "color"
 msgstr "kolor"
 
 #, c-format
-msgid "You can also use the %scolor name%s for example: %sYour Text%s"
-msgstr "Możliwe jest również użycie %skolorowych nazw%s np.: %sTekst przykładowy%s"
+msgid "You can also use the <a href=\"%s\" target=\"_new\">color name</a> for example: %s"
+msgstr "Możliwe jest również użycie <a href=\"%s\" target=\"_new\">kolorowych nazw</a> np.: %s"
 
 msgid "Configuration Error: Missing Theme"
 msgstr "Błąd konfiguracji: brak tematu"
@@ -3729,25 +3421,23 @@ msgstr "Zaloguj się na swoje konto"
 msgid "Your password has been recovered, please login."
 msgstr "Hasło zostało zmienione, proszę się zalogować."
 
-msgid ""
-"The administration session has expired, please re-authenticate to access the administration "
-"area."
-msgstr "Sesja administracyjna wygasła. Aby kontynuować, proszę zalogować się ponownie."
-
 #, c-format
 msgid ""
 "Logins to this account are temporarily disabled due to multiple failed login attempts.  Wait "
-"for access to be restored, or use the %srecover password%s page to re-enable this account."
+"for access to be restored, or use the <a href=\"%s\">recover password</a> page to re-enable "
+"this account."
 msgstr ""
 "Logowanie jest tymczasowo wyłaczone ze względu na zbyt wiele nieudanych prób. Proszę "
-"poczekać na odnowienie dostępu lub użyć strony %sodzyskiwania hasła%s."
+"poczekać na odnowienie dostępu lub użyć strony <a href=\"%s\">odzyskiwania hasła</a>."
 
 msgid "Your login information is incorrect.  Please try again."
 msgstr "Login lub hasło są nieprawidłowe. Proszę spróbować ponownie."
 
 #, c-format
-msgid "Lost or forgotten passwords can be retrieved using the %srecover password%s page"
-msgstr "Zapomniane hasło może być odzyskane %stutaj%s."
+msgid ""
+"Lost or forgotten passwords can be retrieved using the <a href=\"%s\">recover password</a> "
+"page"
+msgstr "Zapomniane hasło może być odzyskane <a href=\"%s\">tutaj</a>."
 
 #, c-format
 msgid "Welcome, %s!"
@@ -3888,16 +3578,17 @@ msgstr "Na tej stronie można zresetować hasło do swojego konta."
 #, c-format
 msgid ""
 "There is no request which matches the username and authorization provided. Request a new "
-"authorization from the %slost password page%s."
+"authorization from the <a href=\"%s\">lost password page</a>"
 msgstr ""
 "Podana nazwa użytkownika i kod autoryzacyjny nie pasują do tego żadnego zgłoszenia. Prośbę o "
-"nowy kod autoryzacyjny można zgłosić %stutaj%s."
+"nowy kod autoryzacyjny można zgłosić <a href=\"%s\">tutaj</a>."
 
 #, c-format
 msgid ""
-"The request you are trying to access has expired.  Request a new authorization from the %"
-"slost password page%s."
-msgstr "Zgłoszenie wygasło. Prośbę o nowy kod autoryzacyjny można zgłosić %stutaj%s."
+"The request you are trying to access has expired.  Request a new authorization from the <a "
+"href=\"%s\">lost password page</a>."
+msgstr ""
+"Zgłoszenie wygasło. Prośbę o nowy kod autoryzacyjny można zgłosić <a href=\"%s\">tutaj</a>."
 
 msgid "Authorization missing"
 msgstr "Brak autoryzacji"
@@ -3977,14 +3668,18 @@ msgstr "&laquo; opcje zdjęcia &raquo;"
 msgid "Go"
 msgstr "Idź do"
 
-msgid "WARNING: block $type doesn't exist."
-msgstr "UWAGA: blok $type nie istnieje."
+msgid "Navigation"
+msgstr "Nawigacja"
 
 msgid "next"
 msgstr "Następna strona"
 
 msgid "last"
 msgstr "Ostatnia strona"
+
+#, c-format
+msgid "Page %d of %d"
+msgstr "Oglądasz stronę %d z %d"
 
 #, c-format
 msgid "%d of %d"
@@ -4019,7 +3714,7 @@ msgid "Use Global"
 msgstr "Użyj globalnych"
 
 msgid "Language selector"
-msgstr "Wybór języka"
+msgstr "Ustawienia języka"
 
 msgid "Item actions"
 msgstr "Opcje pozycji"

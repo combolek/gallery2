@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,10 +34,7 @@ class ToolkitTest extends GalleryTestCase {
     }
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	/* Register a dummy toolkit */
 	$path = 'modules/core/test/phpunit/ToolkitTest.class';
@@ -45,14 +42,16 @@ class ToolkitTest extends GalleryTestCase {
 	    'GalleryToolkit', 'TestToolkit', 'TestToolkit',
 	    $path, 'coreTest', null);
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'GalleryToolkit', 'TestToolkit2', 'TestToolkit2',
 	    $path, 'coreTest', null);
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markToolkitForCleanup('TestToolkit');
 	$this->_markToolkitForCleanup('TestToolkit2');
@@ -71,13 +70,13 @@ class ToolkitTest extends GalleryTestCase {
 						       'test-description',
 						       'test/outputType');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Get the operation */
 	list ($ret, $operations) = GalleryCoreApi::getToolkitOperations('test/type');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(1, sizeof($operations));
@@ -90,7 +89,7 @@ class ToolkitTest extends GalleryTestCase {
 	list ($ret, $toolkit, $outputMimeType) =
 	    GalleryCoreApi::getToolkitByOperation('test/type', 'test-operation');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(new TestToolkit(), $toolkit);
@@ -104,14 +103,14 @@ class ToolkitTest extends GalleryTestCase {
 						       'test-description2',
 						       'test/outputType', 3);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Get the toolkit */
 	list ($ret, $toolkit, $outputMimeType) =
 	    GalleryCoreApi::getToolkitByOperation('test/type', 'test-operation');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(new TestToolkit2(), $toolkit);
@@ -120,18 +119,18 @@ class ToolkitTest extends GalleryTestCase {
 	/* Unregister */
 	$ret = GalleryCoreApi::unregisterToolkit('TestToolkit');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$ret = GalleryCoreApi::unregisterToolkit('TestToolkit2');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Get the toolkit */
 	list ($ret, $toolkit, $outputMimeType) =
 	    GalleryCoreApi::getToolkitByOperation('test/type', 'test-operation');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(null, $toolkit);
@@ -144,13 +143,13 @@ class ToolkitTest extends GalleryTestCase {
 						      'int',
 						      'test-description');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Get the property */
 	list ($ret, $properties) = GalleryCoreApi::getToolkitProperties('test/type');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(1, sizeof($properties));
@@ -162,7 +161,7 @@ class ToolkitTest extends GalleryTestCase {
 	list ($ret, $toolkit) =
 	    GalleryCoreApi::getToolkitByProperty('test/type', 'test-property');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(new TestToolkit(), $toolkit);
@@ -170,14 +169,14 @@ class ToolkitTest extends GalleryTestCase {
 	/* Unregister */
 	$ret = GalleryCoreApi::unregisterToolkit('TestToolkit');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Get the toolkit */
 	list ($ret, $toolkit) =
 	    GalleryCoreApi::getToolkitByProperty('test/type', 'test-property');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(null, $toolkit);
@@ -190,7 +189,7 @@ class ToolkitTest extends GalleryTestCase {
 						      'int',
 						      'test-description');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$ret = GalleryCoreApi::registerToolkitProperty('TestToolkit2',
 						      array('test/type'),
@@ -198,14 +197,14 @@ class ToolkitTest extends GalleryTestCase {
 						      'int',
 						      'test-description');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Get the toolkits */
 	list ($ret, $toolkits) =
 	    GalleryCoreApi::getToolkitsByProperty('test/type', 'test-property');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Order is non-deterministic (varies by db) */
@@ -218,18 +217,18 @@ class ToolkitTest extends GalleryTestCase {
 	/* Unregister */
 	$ret = GalleryCoreApi::unregisterToolkit('TestToolkit2');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$ret = GalleryCoreApi::unregisterToolkit('TestToolkit');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Get the toolkits */
 	list ($ret, $toolkitIds) =
 	    GalleryCoreApi::getToolkitByProperty('test/type', 'test-property');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(null, $toolkitIds);
@@ -248,7 +247,7 @@ class ToolkitTest extends GalleryTestCase {
 						       'test-description',
 						       'test/type2');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = GalleryCoreApi::registerToolkitOperation('TestToolkit',
@@ -258,14 +257,14 @@ class ToolkitTest extends GalleryTestCase {
 						       'test-description',
 						       'test/type3');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $isSupported, $outputMimeType) =
 	    GalleryCoreApi::isSupportedOperationSequence('test/type1',
 							 'test-operation1|1,2;test-operation2|1,2');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assert($isSupported, '1-1');
@@ -275,14 +274,14 @@ class ToolkitTest extends GalleryTestCase {
 	$ret = GalleryCoreApi::unregisterToolkitOperation('TestToolkit', 'test-operation1',
 					 array('test/unused', 'test/nonexist'));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $isSupported, $outputMimeType) =
 	    GalleryCoreApi::isSupportedOperationSequence('test/type1',
 							 'test-operation1|1,2;test-operation2|1,2');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assert($isSupported, '2-1');
@@ -291,14 +290,14 @@ class ToolkitTest extends GalleryTestCase {
 	/* Unregister single operation */
 	$ret = GalleryCoreApi::unregisterToolkitOperation('TestToolkit', 'test-operation2');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $isSupported, $outputMimeType) =
 	    GalleryCoreApi::isSupportedOperationSequence('test/type1',
 							 'test-operation1|1,2;test-operation2|1,2');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assert(!$isSupported, '3-1');
@@ -306,14 +305,14 @@ class ToolkitTest extends GalleryTestCase {
 	/* Unregister toolkit */
 	$ret = GalleryCoreApi::unregisterToolkit('TestToolkit');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $isSupported, $outputMimeType) =
 	    GalleryCoreApi::isSupportedOperationSequence('test/type1',
 							 'test-operation1|1,2;test-operation2|1,2');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assert(!$isSupported, '4-1');
@@ -333,12 +332,12 @@ class ToolkitTest extends GalleryTestCase {
 						       'test-description',
 						       'test/outputType');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $data) = GalleryCoreApi::getToolkitOperationMimeTypes('test-operation');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(isset($data['test/type']) && in_array('TestToolkit', $data['test/type']),
 		      'Operation mime type');
@@ -347,7 +346,7 @@ class ToolkitTest extends GalleryTestCase {
     function testEstimateDerivativeDimensions() {
 	list ($ret, $source) = GalleryCoreApi::newItemByMimeType('image/jpeg');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(GalleryUtilities::isA($source, 'GalleryPhotoItem'));
 
@@ -357,7 +356,7 @@ class ToolkitTest extends GalleryTestCase {
 	list ($ret, $derivative) =
 	    GalleryCoreApi::newFactoryInstanceByHint('GalleryDerivative', $source->getEntityType());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(GalleryUtilities::isA($derivative, 'GalleryDerivativeImage'));
 
@@ -367,7 +366,7 @@ class ToolkitTest extends GalleryTestCase {
 
 	$ret = GalleryCoreApi::estimateDerivativeDimensions($derivative, $source);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(200, $derivative->getWidth());
@@ -377,7 +376,7 @@ class ToolkitTest extends GalleryTestCase {
     function testEstimateDerivativeDimensions2() {
 	list ($ret, $source) = GalleryCoreApi::newItemByMimeType('image/jpeg');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(GalleryUtilities::isA($source, 'GalleryPhotoItem'));
 
@@ -387,7 +386,7 @@ class ToolkitTest extends GalleryTestCase {
 	list ($ret, $derivative) =
 	    GalleryCoreApi::newFactoryInstanceByHint('GalleryDerivative', $source->getEntityType());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(GalleryUtilities::isA($derivative, 'GalleryDerivativeImage'));
 
@@ -397,7 +396,7 @@ class ToolkitTest extends GalleryTestCase {
 
 	$ret = GalleryCoreApi::estimateDerivativeDimensions($derivative, $source);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(150, $derivative->getWidth());
@@ -407,7 +406,7 @@ class ToolkitTest extends GalleryTestCase {
     function testEstimateDerivativeDimensions3() {
 	list ($ret, $source) = GalleryCoreApi::newItemByMimeType('image/jpeg');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(GalleryUtilities::isA($source, 'GalleryPhotoItem'));
 
@@ -417,7 +416,7 @@ class ToolkitTest extends GalleryTestCase {
 	list ($ret, $derivative) =
 	    GalleryCoreApi::newFactoryInstanceByHint('GalleryDerivative', $source->getEntityType());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(GalleryUtilities::isA($derivative, 'GalleryDerivativeImage'));
 
@@ -427,7 +426,7 @@ class ToolkitTest extends GalleryTestCase {
 
 	$ret = GalleryCoreApi::estimateDerivativeDimensions($derivative, $source);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(0, $derivative->getWidth());
@@ -443,7 +442,7 @@ class ToolkitTest extends GalleryTestCase {
 	 */
 	list ($ret, $orig) = GalleryCoreApi::newItemByMimeType('image/jpeg');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(GalleryUtilities::isA($orig, 'GalleryPhotoItem'), 'photo item');
 
@@ -453,7 +452,7 @@ class ToolkitTest extends GalleryTestCase {
 	list ($ret, $source) =
 	    GalleryCoreApi::newFactoryInstanceByHint('GalleryDerivative', $orig->getEntityType());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(GalleryUtilities::isA($source, 'GalleryDerivativeImage'), 'source deriv');
 
@@ -464,7 +463,7 @@ class ToolkitTest extends GalleryTestCase {
 	list ($ret, $derivative) =
 	    GalleryCoreApi::newFactoryInstanceByHint('GalleryDerivative', $orig->getEntityType());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(GalleryUtilities::isA($derivative, 'GalleryDerivativeImage'), 'target deriv');
 
@@ -474,7 +473,7 @@ class ToolkitTest extends GalleryTestCase {
 
 	$ret = GalleryCoreApi::estimateDerivativeDimensions($derivative, $source);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(200, $derivative->getWidth(), 'width 1');
@@ -489,7 +488,7 @@ class ToolkitTest extends GalleryTestCase {
 
 	$ret = GalleryCoreApi::estimateDerivativeDimensions($derivative, $orig);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(123, $derivative->getWidth(), 'width 2');
@@ -553,12 +552,12 @@ class ToolkitTest extends GalleryTestCase {
 		array('test/type'), 'test-operation', array(),
 		'test-description', 'test/outputType', 40);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $priority) = GalleryCoreApi::getMaximumManagedToolkitPriority();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(40, $priority);
@@ -569,19 +568,19 @@ class ToolkitTest extends GalleryTestCase {
 		array('test/type'), 'test-operation', array(),
 		'test-description', 'test/outputType', 30);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = GalleryCoreApi::registerToolkitOperation('TestToolkit2',
 		array('test/type'), 'test-operation', array(),
 		'test-description', 'test/outputType', 27);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $list) = GalleryCoreApi::getRedundantToolkitPriorities();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assert(count($list) >= 2, 'count');
@@ -594,20 +593,20 @@ class ToolkitTest extends GalleryTestCase {
 		array('test/type'), 'test-operation', array(),
 		'test-description', 'test/outputType', 30);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Validate that toolkit priority is returned correctly */
 	list ($ret, $priority) = GalleryCoreApi::getToolkitPriorityById('TestToolkit');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(30, $priority, 'Toolkit Priority Doesn\'t Match');
 
 	/* Test return for an undefined toolkit */
 	list ($ret, $priority) = GalleryCoreApi::getToolkitPriorityById('TestToolkit2');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(null, $priority, 'Returned value for undefined toolkit');
     }
@@ -662,31 +661,31 @@ class ToolkitTest extends GalleryTestCase {
 						       'test-description',
 						       'test/outputType');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = GalleryCoreApi::registerToolkitProperty(
 	    'TestToolkit2', array('test/type'), 'test-property',
 	    'int', 'test-description');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = GalleryCoreApi::unregisterToolkitsByModuleId('coreTest');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Get the operation */
 	list ($ret, $operations) = GalleryCoreApi::getToolkitOperations('test/type');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(0, sizeof($operations), 'all operations should be gone');
 
 	list ($ret, $properties) = GalleryCoreApi::getToolkitProperties('test/type');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(0, sizeof($properties), 'all properties should be gone');
     }

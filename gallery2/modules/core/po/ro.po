@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,12 +17,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
 # Ermanno Baschiera <ermannob@inwind.it>, 2004.
-# 
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Core 1.2.36\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-25 16:49+0200\n"
+"Project-Id-Version: Gallery: Core 1.2.0.3\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-06-07 09:29-0700\n"
 "PO-Revision-Date: 2006-03-16 16:27+0100\n"
 "Last-Translator: Serban Constantinescu <serban.constantinescu@gmail.com>\n"
 "Language-Team: <none>\n"
@@ -36,30 +36,6 @@ msgstr ""
 
 msgid "Gallery Email Test"
 msgstr "E-mail-ul de test al galeriei"
-
-#, c-format
-msgid "%d minute"
-msgid_plural "%d minutes"
-msgstr[0] "%d minut"
-msgstr[1] "%d minute"
-
-#, c-format
-msgid "%d hour"
-msgid_plural "%d hours"
-msgstr[0] "%d ora"
-msgstr[1] "%d ore"
-
-#, c-format
-msgid "%d day"
-msgid_plural "%d days"
-msgstr[0] "%d zi"
-msgstr[1] "%d zile"
-
-#, c-format
-msgid "%d week"
-msgid_plural "%d weeks"
-msgstr[0] "%d saptamana"
-msgstr[1] "%d saptamani"
 
 msgid "forever"
 msgstr "intotdeauna"
@@ -85,33 +61,32 @@ msgstr "Baza de date"
 msgid "File"
 msgstr "Fisier"
 
-msgid "&lt;none&gt;"
-msgstr "&lt;fara&gt;"
-
-#, fuzzy
-msgid "Link"
-msgstr "Login"
+#, c-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] "%d minut"
+msgstr[1] "%d minute"
 
 #, c-format
-msgid "Page %d of %d"
-msgstr "Pagina %d din %d"
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] "%d ora"
+msgstr[1] "%d ore"
 
-#, fuzzy
-msgid "Updating Language Settings"
-msgstr "Configurari de limba"
+#, c-format
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] "%d zi"
+msgstr[1] "%d zile"
 
-msgid "Update completed with errors."
-msgstr "Actualizarea s-a facut cu erori."
+#, c-format
+msgid "%d week"
+msgid_plural "%d weeks"
+msgstr[0] "%d saptamana"
+msgstr[1] "%d saptamani"
 
-msgid "Update complete."
-msgstr "Actualizare completa"
-
-msgid "Deleting Language Packs"
-msgstr "Sterg module de limba"
-
-#, fuzzy
-msgid "Synchronizing Language Packs"
-msgstr "Sterg module de limba"
+msgid "<none>"
+msgstr "<fara>"
 
 msgid "No acceleration"
 msgstr "Fara accelerare"
@@ -124,6 +99,42 @@ msgstr "Accelerare totala"
 
 msgid "Themes"
 msgstr "Teme"
+
+msgid "Updating Repository Index"
+msgstr "Actualizeaza Index"
+
+msgid "Scanning plugins"
+msgstr "Scaneaza module"
+
+msgid "Update Plugin List"
+msgstr "Actualizeaza lista modulelor"
+
+msgid "Done."
+msgstr "Gata."
+
+msgid "Updating Packages"
+msgstr "Actualizeaza modulele"
+
+#, c-format
+msgid "Preparing %s"
+msgstr "Prepara %s"
+
+#, c-format
+msgid "Downloading %s"
+msgstr "Descarca %s"
+
+#, c-format
+msgid "Activating %s"
+msgstr "Activez %s"
+
+msgid "Deleting Language Packs"
+msgstr "Sterg module de limba"
+
+msgid "Update completed with errors."
+msgstr "Actualizarea s-a facut cu erori."
+
+msgid "Update complete."
+msgstr "Actualizare completa"
 
 msgid "install"
 msgstr "instaleaza"
@@ -146,11 +157,11 @@ msgstr "Preia setarile de la albumul parinte"
 msgid "Use these settings"
 msgstr "Foloseste aceste setari"
 
-msgid "Converting Schema Table"
-msgstr ""
-
 msgid "Installing the core module"
 msgstr "Instalez modulul de baza"
+
+msgid "key"
+msgstr "cheie"
 
 msgid "All access"
 msgstr "Fara restrictie"
@@ -185,10 +196,6 @@ msgstr "[baza] Sterge articol"
 msgid "Upgrading permissions"
 msgstr "Actualizarea permisiunilor"
 
-#, c-format
-msgid "Upgrading permissions (%d items complete, %d remaining)"
-msgstr "Actualizeaza permisiunile (%d complete, %d ramase)"
-
 msgid "Deleting old permission tables"
 msgstr "Sterge vechile tabele de permisiuni"
 
@@ -201,32 +208,11 @@ msgstr "Toti utilizatorii"
 msgid "Detecting broken derivatives"
 msgstr "Detectez derivatii pierduti"
 
-#, c-format
-msgid "Detecting broken derivatives, loading (%d derivatives checked, %d remaining)"
-msgstr "Detectez derivati distrusi, incarc (%d derivati verificati, %d ramasi)"
-
-#, c-format
-msgid "Detecting broken derivatives (%d derivatives checked, %d remaining)"
-msgstr "Detectez derivati distrusi (%d derivati verificati, %d ramasi)"
-
-#, c-format
-msgid "Detecting broken derivatives, saving (%d derivatives checked, %d remaining)"
-msgstr "Detectez derivati distrusi, salvez (%d derivati verificati, %d ramasi)"
-
-#, c-format
-msgid ""
-"Detecting broken derivatives, saving item %d of %d (%d derivatives complete, %d remaining)"
-msgstr "Detectez derivatii distrusi, salvez articol %d din %d (%d complete, %d ramase)"
-
 msgid "Clearing fast-download cache"
 msgstr "Sterg cache download rapid"
 
 msgid "Deleting old fast-download cache"
 msgstr "Sterg vechiul cache download rapid"
-
-#, c-format
-msgid "Deleting old session files (iteration %d)"
-msgstr "Sterg vechile fisiere sesiune (iteratia %d)"
 
 msgid "Updating panorama items"
 msgstr "Actualizez articolele pentru panorama"
@@ -234,13 +220,11 @@ msgstr "Actualizez articolele pentru panorama"
 msgid "Optimizing AccessSubscriberMap table"
 msgstr "Optimizez tabela AccessSubscriberMap"
 
-#, fuzzy
-msgid "Upgrading Plugin Translations"
-msgstr "Actualizarea permisiunilor"
+msgid "Converting Schema Table"
+msgstr ""
 
-#, fuzzy
-msgid "Creating Package Map"
-msgstr "Actualizeaza modulele"
+msgid "Loading Table Descriptions"
+msgstr ""
 
 msgid "Site Admins"
 msgstr "Administratori site"
@@ -260,16 +244,30 @@ msgstr "Aceasta este pagina principala a Gallery"
 msgid "Converting MySQL data to UTF8"
 msgstr "Convertesc datele MySQL la UTF8"
 
-#, fuzzy
-msgid "Adding items"
-msgstr "adauga articole"
+#, c-format
+msgid "Upgrading permissions (%d items complete, %d remaining)"
+msgstr "Actualizeaza permisiunile (%d complete, %d ramase)"
 
-#, fuzzy
-msgid "Processing items"
-msgstr "Proceseaza articolul %d din %d"
+#, c-format
+msgid "Detecting broken derivatives, loading (%d derivatives checked, %d remaining)"
+msgstr "Detectez derivati distrusi, incarc (%d derivati verificati, %d ramasi)"
 
-msgid "Extracting archive"
-msgstr ""
+#, c-format
+msgid "Detecting broken derivatives (%d derivatives checked, %d remaining)"
+msgstr "Detectez derivati distrusi (%d derivati verificati, %d ramasi)"
+
+#, c-format
+msgid "Detecting broken derivatives, saving (%d derivatives checked, %d remaining)"
+msgstr "Detectez derivati distrusi, salvez (%d derivati verificati, %d ramasi)"
+
+#, c-format
+msgid ""
+"Detecting broken derivatives, saving item %d of %d (%d derivatives complete, %d remaining)"
+msgstr "Detectez derivatii distrusi, salvez articol %d din %d (%d complete, %d ramase)"
+
+#, c-format
+msgid "Deleting old session files (iteration %d)"
+msgstr "Sterg vechile fisiere sesiune (iteratia %d)"
 
 msgid "add items"
 msgstr "adauga articole"
@@ -282,6 +280,30 @@ msgstr "adauga sub-album"
 
 msgid "add items confirmation"
 msgstr "confirma adaugarea articolelor"
+
+msgid "Base filename"
+msgstr "Baza numelui de fisier"
+
+msgid "Caption"
+msgstr "Descriere"
+
+msgid "Blank"
+msgstr "Gol"
+
+msgid "From Web Browser"
+msgstr "Din browser-ul web"
+
+#, c-format
+msgid "%d megabyte"
+msgid_plural "%d megabytes"
+msgstr[0] "%d megabyte"
+msgstr[1] "%d megabyte"
+
+#, c-format
+msgid "%d kilobytes"
+msgid_plural "%d kilobytes"
+msgstr[0] "%d kilobyte"
+msgstr[1] "%d kilobyte"
 
 #, c-format
 msgid "Input file %s exceeds maximum permitted file size"
@@ -299,35 +321,18 @@ msgstr "Fisierul %s a fost incarcat partial"
 msgid "Input file %s was not uploaded. Error %d"
 msgstr "Fisierul %s nu a fost incarcat. Eroare %d"
 
-#, c-format
-msgid "%d megabyte"
-msgid_plural "%d megabytes"
-msgstr[0] "%d megabyte"
-msgstr[1] "%d megabyte"
-
-#, c-format
-msgid "%d kilobytes"
-msgid_plural "%d kilobytes"
-msgstr[0] "%d kilobyte"
-msgstr[1] "%d kilobyte"
-
-msgid "Base filename"
-msgstr "Baza numelui de fisier"
-
-msgid "Caption"
-msgstr "Descriere"
-
-msgid "Blank"
-msgstr "Gol"
-
-msgid "From Web Browser"
-msgstr "Din browser-ul web"
-
 msgid "Gallery Item Administration"
 msgstr "Administrarea articolelor din galerie"
 
 msgid "delete an item"
 msgstr "sterge un articol"
+
+msgid "delete confirmation"
+msgstr "confirma stergerea"
+
+#, c-format
+msgid "delete %s"
+msgstr "sterge %s"
 
 #, c-format
 msgid "edit %s"
@@ -342,10 +347,6 @@ msgstr "Aplica setarile imaginilor redimensionate"
 msgid "Preparing..."
 msgstr "Pregatesc..."
 
-#, c-format
-msgid "Processing image %d of %d"
-msgstr "Procesez imaginea %d din %d"
-
 msgid "Apply thumbnail settings"
 msgstr "Aplica setarile pentru thumbnail-uri"
 
@@ -354,6 +355,10 @@ msgstr "Reconstruire thumbnail-uri..."
 
 msgid "Album"
 msgstr "Album"
+
+#, c-format
+msgid "Processing image %d of %d"
+msgstr "Procesez imaginea %d din %d"
 
 msgid "Changes saved successfully"
 msgstr "Modificari salvate cu success"
@@ -492,10 +497,6 @@ msgstr "Modifica Foto"
 msgid "Edit Movie"
 msgstr "Modifica Film"
 
-#, c-format
-msgid "Edit %s"
-msgstr "Modifica %s"
-
 msgid "Add Album"
 msgstr "Adauga Album"
 
@@ -514,10 +515,6 @@ msgstr "Sterge Foto"
 msgid "Delete Movie"
 msgstr "Sterge Film"
 
-#, c-format
-msgid "Delete %s"
-msgstr "Sterge %s"
-
 msgid "Move Album"
 msgstr "Muta Album"
 
@@ -527,10 +524,6 @@ msgstr "Muta Foto"
 msgid "Move Movie"
 msgstr "Muta Film"
 
-#, c-format
-msgid "Move %s"
-msgstr "Muta %s"
-
 msgid "Edit Captions"
 msgstr "Modifica Descriere"
 
@@ -539,9 +532,6 @@ msgstr "Evidentiaza"
 
 msgid "Reorder Items"
 msgstr "Rearanjeaza articole"
-
-msgid "Delete Items"
-msgstr "Sterge obiecte"
 
 msgid "Site Admin"
 msgstr "Administrare Site"
@@ -567,12 +557,6 @@ msgstr "Grupuri"
 msgid "Performance"
 msgstr "Performanta"
 
-msgid "Event Logs"
-msgstr ""
-
-msgid "Language Settings"
-msgstr "Configurari de limba"
-
 msgid "Toolkit Priority"
 msgstr "Prioritate instrumente"
 
@@ -585,28 +569,17 @@ msgstr "Configurari Profil"
 msgid "Change Password"
 msgstr "Modifica Parola"
 
-msgid "Updating Packages"
-msgstr "Actualizeaza modulele"
+#, c-format
+msgid "Edit %s"
+msgstr "Modifica %s"
 
 #, c-format
-msgid "Cleaning up obsolete files %s"
-msgstr ""
+msgid "Delete %s"
+msgstr "Sterge %s"
 
 #, c-format
-msgid "Activating %s"
-msgstr "Activez %s"
-
-msgid "Updating Repository Index"
-msgstr "Actualizeaza Index"
-
-msgid "Scanning plugins"
-msgstr "Scaneaza module"
-
-msgid "Update Plugin List"
-msgstr "Actualizeaza lista modulelor"
-
-msgid "Done."
-msgstr "Gata."
+msgid "Move %s"
+msgstr "Muta %s"
 
 msgid "Build all thumbnails/resizes"
 msgstr "Construieste toate thumbnail-urile/redimensionarile"
@@ -621,6 +594,9 @@ msgstr ""
 msgid "Build All Thumbnails/Resizes"
 msgstr "Construieste toate Thumbnail-urile/Redimensionarile"
 
+msgid "Debug output for failed items:"
+msgstr "Debug pentru erorile obiectelor:"
+
 #, c-format
 msgid "Checked %d items"
 msgstr "Am verificat %d articole"
@@ -632,9 +608,6 @@ msgstr "%d articole construite"
 #, c-format
 msgid "%d items failed"
 msgstr "%d articole eronate"
-
-msgid "Debug output for failed items:"
-msgstr "Debug pentru erorile obiectelor:"
 
 msgid "Convert MySQL database to UTF8"
 msgstr "Converteste baza de date MYSQL la UTF8"
@@ -652,33 +625,6 @@ msgstr "Baza de date a fost convertita la UTF8"
 
 msgid "No conversion required"
 msgstr "Nu e necesara conversia"
-
-#, fuzzy
-msgid "Backup the database"
-msgstr "Optimizeaza baza de date"
-
-msgid ""
-"Backup all your Gallery data (item data, users, comments, etc.) to a single file in your "
-"storage folder.  The backup does not include the image files.  Before running the backup, "
-"your Gallery installation needs to be set into maintenance mode, as this is not done "
-"automatically."
-msgstr ""
-
-msgid "Backing up Gallery Database"
-msgstr ""
-
-#, fuzzy
-msgid "Exporting..."
-msgstr "Pregatesc..."
-
-#, c-format
-msgid "Database backup completed and the backup file is located at: %s"
-msgstr ""
-
-msgid ""
-"Please note that your backup contains sensitive data (like passwords) and should not be "
-"stored online! We recommend that you download it from your server and keep it safely offline."
-msgstr ""
 
 msgid "Delete user sessions"
 msgstr "Sterge sesiunile utilizatorilor"
@@ -714,12 +660,11 @@ msgstr "Nu pot sterge folderul: %s"
 msgid "Delete template cache"
 msgstr "Sterge cache-ul temelor"
 
-#, fuzzy
 msgid ""
 "Gallery compiles template files and saves them for increased performance.  If you're "
 "experiencing problems that say <i>Smarty error</i> then you might try running this task.  "
-"Also run this if you add or remove any local/*.tpl or theme override so Smarty will find the "
-"right file."
+"Also run this if you remove a local/*.tpl file so Smarty will switch back to the default tpl "
+"file."
 msgstr ""
 "Gallery compileaza fisierele temelor si le salveaza pentru cresterea performantelor. Daca "
 "intilniti eroarea <i>Smarty error</i>, atunci rulati acest program De asemenea rulati acest "
@@ -803,14 +748,6 @@ msgstr ""
 "Nu pot crea sub-folderul pentru cache. Verifica daca serverul web are drepturi de scriere "
 "acolo"
 
-#, c-format
-msgid "Preparing %s"
-msgstr "Prepara %s"
-
-#, c-format
-msgid "Downloading %s"
-msgstr "Descarca %s"
-
 msgid "Official Release Repository"
 msgstr "Repository-ul oficial"
 
@@ -870,10 +807,6 @@ msgstr "Ascendent"
 msgid "Descending"
 msgstr "Descendent"
 
-#, c-format
-msgid "Powered by Gallery v%s"
-msgstr "Cu Gallery v%s"
-
 msgid "Validation disabled until you set allowSessionAccess in config.php"
 msgstr "Validare dezactivata pina cind setati allowSessionAccess in config.php"
 
@@ -882,6 +815,13 @@ msgstr "Aceasta pagina este conforma cu XHTML 1.0"
 
 msgid "Donate to the Gallery project"
 msgstr "Faceti o donatie proiectului Gallery"
+
+msgid "G2.2: Double Double"
+msgstr "G2.2: Double Double"
+
+#, c-format
+msgid "Powered by Gallery v%s"
+msgstr "Cu Gallery v%s"
 
 #, c-format
 msgid "Estimated time remaining: %d:%02d"
@@ -990,6 +930,13 @@ msgstr "spreadsheet"
 msgid "file"
 msgstr "fisier"
 
+msgid "Back"
+msgstr "Inapoi"
+
+#, c-format
+msgid "Back to %s"
+msgstr "Inapoi la %s"
+
 msgid "User"
 msgstr "Utilizator"
 
@@ -1060,14 +1007,6 @@ msgstr "nucleu"
 msgid "unknown"
 msgstr "necunoscut"
 
-#, c-format
-msgid "API = Core %s, Module %s, Theme %s, Embed %s"
-msgstr ""
-
-#, fuzzy
-msgid "Gallery URL"
-msgstr "Gallery"
-
 msgid "Gallery version"
 msgstr "Versiune Gallery"
 
@@ -1108,65 +1047,6 @@ msgstr "Browser"
 msgid "Rows in %s table = %d"
 msgstr "Rinduri in tabela %s = %d"
 
-#, c-format
-msgid "The %s \"%s\" is not installed and will not be backed up."
-msgstr ""
-
-#, c-format
-msgid "\"%s\" has no creation sql and will not be backed up."
-msgstr ""
-
-#, c-format
-msgid "Unable to load table description for \"%s\", no data will be exported."
-msgstr ""
-
-msgid ""
-"Unable to find the XML parser.  The PHP XML parsing extension must be loaded.  Terminating "
-"database import."
-msgstr ""
-
-#, c-format
-msgid "The exported file is not the correct version. Expecting %s received %s."
-msgstr ""
-
-#, fuzzy, c-format
-msgid "Unable to close import file: %s"
-msgstr "Nu pot sterge folderul: %s"
-
-#, fuzzy, c-format
-msgid "Unable to open import file: %s"
-msgstr "Nu pot sterge folderul: %s"
-
-#, c-format
-msgid "Import file doesn't exist: %s"
-msgstr ""
-
-#, c-format
-msgid "Plugin %s is not currently available."
-msgstr ""
-
-#, c-format
-msgid "The available version of plugin \"%s\" may not be compatible with the imported version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The currently installed core API version required by \"%s\" may not be compatible with the "
-"imported version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The installed module API version required by \"%s\" may not be compatible with the imported "
-"version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The installed theme API version required by \"%s\" is not compatible with the imported "
-"version."
-msgstr ""
-
 msgid "Successfully saved theme settings"
 msgstr "Modificarile de tema au fost salvate cu success"
 
@@ -1190,6 +1070,33 @@ msgstr "Este o problema la procesarea cererii, vezi mai jos pentru detalii."
 
 msgid "Error sending test email, see below for details."
 msgstr "Eroare la trimiterea e-mail-ului de teste, vezi mai jos pentru detalii"
+
+msgid "Language Settings"
+msgstr "Configurari de limba"
+
+msgid ""
+"Select language defaults for Gallery. Individual users can override this setting in their "
+"personal preferences or via the language selector block if available. Gallery will try to "
+"automatically detect the language preference of each user if the browser preference check is "
+"enabled."
+msgstr ""
+"Selectati limba predefinita pentru Gallery. Fiecare utilizator poate schimba aceasta in "
+"pagina de preferinte personale sau in modulul de selectie limba. Gallery va incerca sa "
+"detecteze limba preferata a fiecarui utilizator daca browser-ul are activata aceasta optiune"
+
+msgid "Default language"
+msgstr "Limba predefinita"
+
+msgid "Check Browser Preference"
+msgstr "Verifica setarile din browser"
+
+#, c-format
+msgid ""
+"Your webserver does not support localization.  Please instruct your system administrator to "
+"reconfigure PHP with the %s option enabled."
+msgstr ""
+"Webserver-ul tau nu suporta localizare. Administratorul tau trebuie sa iti reconfigureze PHP "
+"cu optiunea %s activata."
 
 msgid "Date Formats"
 msgstr "Formatul datei"
@@ -1246,10 +1153,6 @@ msgstr "Durata Sesiunii"
 
 msgid "Inactivity Timeout"
 msgstr "Perioada de inactivitate"
-
-#, fuzzy
-msgid "Site Administration Session Timeout"
-msgstr "Administrarea sitului Gallery"
 
 msgid "Embedded Markup"
 msgstr "Markup Integrat"
@@ -1662,49 +1565,6 @@ msgid_plural "%d failed login attempts since the last successful login."
 msgstr[0] "a existat %d incercare nereusita de intrare de la ultima intrare"
 msgstr[1] "au existat %d incercari nereusite de intrare de la ultima intrare"
 
-#, fuzzy
-msgid "Recent Events"
-msgstr "Reseteaza numaratoarele de vizualizare"
-
-msgid "Type"
-msgstr ""
-
-#, fuzzy
-msgid "Location"
-msgstr "Actiune"
-
-#, fuzzy
-msgid "Client"
-msgstr "lista"
-
-#, fuzzy
-msgid "No events have been reported yet."
-msgstr "Nici un pachet nu a fost selectat."
-
-#, fuzzy
-msgid "Event Details"
-msgstr "Detaliile erorii"
-
-#, fuzzy
-msgid "User Id"
-msgstr "Utilizator"
-
-#, fuzzy
-msgid "Referer"
-msgstr "Reordoneaza"
-
-#, fuzzy
-msgid "Details"
-msgstr "Defaults"
-
-#, fuzzy
-msgid "no summary"
-msgstr "Sumar"
-
-#, fuzzy
-msgid "An error occurred while retrieving the event log entry details."
-msgstr "O eroare a aparut in lucrul cu baza de date."
-
 msgid "Group Management"
 msgstr "Gestiunea grupurilor"
 
@@ -1766,153 +1626,8 @@ msgid_plural "%d groups match your filter"
 msgstr[0] "%d grup se potriveste filtrului"
 msgstr[1] "%d grupuri se potrivesc filtrului"
 
-msgid "Please make sure that your internet connection is set up properly or try again later."
-msgstr "Verifica daca conexiunea la Internet este in regula si mai incearca o data"
-
-#, c-format
-msgid "Failed to scan status from plugin: %s."
-msgstr "Am esuat in identificarea starii modulului: %s."
-
-msgid ""
-"Your local copy of the repository was broken and has been fixed.  Please download the plugin "
-"list again."
-msgstr ""
-"Copia locala a repository-ului era stricata si a fost reparata. Descarca lista modulelor  "
-"inca o data."
-
-#, fuzzy, c-format
-msgid "Failed to delete the locale directory for %s."
-msgstr "Nu pot sterge folderul: %s"
-
-#, c-format
-msgid "Failed to download the following language packages for the %s plugin:"
-msgstr ""
-
-#, fuzzy, c-format
-msgid ""
-"Failed to install language packages for %s plugin because the following files/directories "
-"could not be modified:"
-msgstr ""
-"Am esuat sa descarc modulul %s pentru ca urmatoarele fisiere/foldere nu pot fi modificate:"
-
-#, fuzzy
-msgid "The repository index has been successfully refreshed."
-msgstr "Index-ul repository a fost actualizat."
-
-#, fuzzy
-msgid "The language settings have been saved."
-msgstr "Nici un pachet nu a fost selectat."
-
-#, fuzzy, c-format
-msgid "%d language pack upgraded or downloaded."
-msgid_plural "%d language packs upgraded or downloaded."
-msgstr[0] "%d modul de limba sters."
-msgstr[1] "%d module de limba sterse."
-
-#, c-format
-msgid "%d language pack deleted."
-msgid_plural "%d language packs deleted."
-msgstr[0] "%d modul de limba sters."
-msgstr[1] "%d module de limba sterse."
-
-msgid "All the language packages for the selected languages are current"
-msgstr ""
-
-msgid ""
-"Select language defaults for Gallery. Individual users can override this setting in their "
-"personal preferences or via the language selector block if available. Gallery will try to "
-"automatically detect the language preference of each user if the browser preference check is "
-"enabled."
-msgstr ""
-"Selectati limba predefinita pentru Gallery. Fiecare utilizator poate schimba aceasta in "
-"pagina de preferinte personale sau in modulul de selectie limba. Gallery va incerca sa "
-"detecteze limba preferata a fiecarui utilizator daca browser-ul are activata aceasta optiune"
-
-msgid "Default language"
-msgstr "Limba predefinita"
-
-msgid "Check Browser Preference"
-msgstr "Verifica setarile din browser"
-
-#, c-format
-msgid ""
-"Your webserver does not support localization.  Please instruct your system administrator to "
-"reconfigure PHP with the %s option enabled."
-msgstr ""
-"Webserver-ul tau nu suporta localizare. Administratorul tau trebuie sa iti reconfigureze PHP "
-"cu optiunea %s activata."
-
-msgid "Configure your Gallery"
-msgstr "Configureaza Gallery"
-
-msgid ""
-"Before you can proceed, you have to change some permissions so that Gallery can install "
-"plugins for you.  It's easy.  Just execute the following in a shell or via your ftp client:"
-msgstr ""
-"Inainte sa mergi mai departe, trebuie sa modifici niste permisiuni pentru ca Gallery sa "
-"poata instala modulele pentru tine. Lanseaza urmatoarea comanda in shell sau prin clientul "
-"ftp:"
-
-msgid ""
-"Before you can proceed, please insure the following directories and sub-directories are "
-"writable, so that Gallery can install plugins for you:"
-msgstr ""
-
-#, fuzzy
-msgid ""
-"If you have trouble changing permissions, ask your system administrator for assistance.  "
-"When you've fixed the permissions, click the Check Again button to proceed."
-msgstr ""
-"Daca ai probleme cu schimbarea permisiunilor, intreaba administratorul de system pentru "
-"asistenta. Cind ai rezolvat problema cu permisiunile, apasa pe butonul Continua."
-
-#, fuzzy
-msgid "Check Again"
-msgstr "Selecteaza tot"
-
-#, fuzzy
-msgid "Add or Remove Languages"
-msgstr "Adauga/Sterge utilizatori"
-
-msgid ""
-"Please click on the link below to go to 'Download Plugin List' and choose 'Update Plugin "
-"List' to get the latest language package information."
-msgstr ""
-
-#, fuzzy
-msgid "Administer Repositories"
-msgstr "Repository-ul comunitatii"
-
-#, fuzzy
-msgid "Upgrade"
-msgstr "actualizeaza"
-
-msgid "Remove"
-msgstr "Sterge"
-
-#, fuzzy
-msgid "Download"
-msgstr "descarca"
-
-#, fuzzy
-msgid "No Change"
-msgstr "Modifica"
-
-#, fuzzy
-msgid "Select All"
-msgstr "Selectat"
-
-msgid ""
-"There are no local repository indices from which to determine language packages. Please "
-"click on the link below to go to \"Download Plugin List\" and choose \"Update Plugin List\" "
-"to get the latest language package information."
-msgstr ""
-
 msgid "System Maintenance"
 msgstr "Mentenanta sistem"
-
-msgid "Gallery must be in maintenance mode before the task can be run."
-msgstr ""
 
 #, c-format
 msgid "Completed %s task successfully."
@@ -1921,41 +1636,6 @@ msgstr "Operatiunea %s s-a terminat cu succes."
 #, c-format
 msgid "The %s task failed to complete successfully."
 msgstr "Operatiunea %s s-a terminat cu eroare."
-
-msgid "Maintenance Mode has been turned on."
-msgstr ""
-
-msgid "Maintenance Mode has been turned off."
-msgstr ""
-
-#, fuzzy
-msgid "Maintenance Mode"
-msgstr "Mentenanta"
-
-msgid "Restrict user access to the system while maintenance is being performed."
-msgstr ""
-
-#, fuzzy
-msgid "Maintenance Mode Url"
-msgstr "Mentenanta"
-
-msgid ""
-"The Maintenance Mode Url specifies where requests will be redirected when access to the site "
-"has been restricted by the administrator."
-msgstr ""
-
-msgid ""
-"If left blank Gallery will display a default page with an administrator login link. This "
-"page will be themed when the code base is up to date, otherwise it will display a plain "
-"unstyled page."
-msgstr ""
-
-msgid "For example: /maintenance.html"
-msgstr ""
-
-#, fuzzy
-msgid "Set"
-msgstr "Configurari"
 
 msgid "Task name"
 msgstr "Numele operatiunii"
@@ -2052,21 +1732,6 @@ msgstr "Utilizatori neinregistrati"
 
 msgid "Expires after:"
 msgstr "Expira dupa::"
-
-#, fuzzy
-msgid "Template Cache"
-msgstr "Sterge cache-ul temelor"
-
-#, c-format
-msgid ""
-"For optimal performance, Gallery caches all templates.  If you would like to %scustomize "
-"your template files%s, you should disable template caching temporarily so that changes take "
-"effect immediately without clearing the template cache."
-msgstr ""
-
-#, fuzzy
-msgid "Enable template caching"
-msgstr "Sterge cache-ul temelor"
 
 msgid "Clear Saved Pages"
 msgstr "Sterge Paginile Salvate"
@@ -2225,22 +1890,26 @@ msgstr "incompatibil"
 msgid "Repository"
 msgstr "Repository"
 
-#, c-format
-msgid "Failed to download the following packages for the %s plugin:"
-msgstr ""
+msgid "Please make sure that your internet connection is set up properly or try again later."
+msgstr "Verifica daca conexiunea la Internet este in regula si mai incearca o data"
 
-#, fuzzy, c-format
+#, c-format
+msgid "Failed to scan status from plugin: %s."
+msgstr "Am esuat in identificarea starii modulului: %s."
+
 msgid ""
-"Failed to install the %s plugin because the following files/directories could not be "
+"Your local copy of the repository was broken and has been fixed.  Please download the plugin "
+"list again."
+msgstr ""
+"Copia locala a repository-ului era stricata si a fost reparata. Descarca lista modulelor  "
+"inca o data."
+
+#, c-format
+msgid ""
+"Failed to download the %s plugin because the following files/directories could not be "
 "modified:"
 msgstr ""
 "Am esuat sa descarc modulul %s pentru ca urmatoarele fisiere/foldere nu pot fi modificate:"
-
-#, c-format
-msgid ""
-"Some plugins could not be automatically upgraded because they are in use.  Please return to "
-"the %sPlugins%s page and click the upgrade link for each of the following plugins:"
-msgstr ""
 
 msgid "The repository index has been successfully updated."
 msgstr "Index-ul repository a fost actualizat."
@@ -2251,6 +1920,12 @@ msgstr "Toate modulele sunt actualizate la zi."
 #, c-format
 msgid "%s plugin updated."
 msgstr "modulul %s actualizat."
+
+#, c-format
+msgid "%d language pack deleted."
+msgid_plural "%d language packs deleted."
+msgstr[0] "%d modul de limba sters."
+msgstr[1] "%d module de limba sterse."
 
 msgid ""
 "No personal information about you or your Gallery installation is sent to the Gallery server "
@@ -2297,6 +1972,17 @@ msgstr "Trebuie sa selectezi cel putin un repository."
 
 msgid "Ok"
 msgstr "Ok"
+
+msgid "Configure your Gallery"
+msgstr "Configureaza Gallery"
+
+msgid ""
+"Before you can proceed, you have to change some permissions so that Gallery can install "
+"plugins for you.  It's easy.  Just execute the following in a shell or via your ftp client:"
+msgstr ""
+"Inainte sa mergi mai departe, trebuie sa modifici niste permisiuni pentru ca Gallery sa "
+"poata instala modulele pentru tine. Lanseaza urmatoarea comanda in shell sau prin clientul "
+"ftp:"
 
 msgid ""
 "If you have trouble changing permissions, ask your system administrator for assistance.  "
@@ -2401,7 +2087,8 @@ msgstr "Nici un pachet nu a fost selectat."
 
 msgid ""
 "Download a package in order to use this plugin.  You can upgrade by choosing a newer version "
-"of the package to download."
+"of the package to download.  Language packages are optional, You only need to download the "
+"ones that you want to use on your site."
 msgstr ""
 
 msgid "Base Packages"
@@ -2419,9 +2106,12 @@ msgstr "%s: version %s (build %s) %sdowngrading is not supported!%s"
 msgid "%sCurrently Installed%s: version %s (build %s)"
 msgstr "%sInstalat acum%s: version %s (build %s)"
 
-#, fuzzy
-msgid "The following language packages are available for this plugin"
-msgstr "Nici un modul de limba compatibil disponibil"
+msgid "Language Packages"
+msgstr "Module de limba"
+
+#, c-format
+msgid "(%sselect all%s%sselect none%s)"
+msgstr "(%sselecteaza tot%s%sdeselecteaza tot%s)"
 
 #, c-format
 msgid "%s version %s (upgrading from %s)"
@@ -2441,6 +2131,9 @@ msgstr "%s version %s (instalata)"
 
 msgid "No compatible language packages available"
 msgstr "Nici un modul de limba compatibil disponibil"
+
+msgid "You must select a base package before choosing language packs."
+msgstr "Trebuie sa selectezi un modul de baza inainte sa selectezi un pachet de limba."
 
 msgid "Update"
 msgstr "Actualizeaza"
@@ -2499,10 +2192,6 @@ msgstr ""
 msgid "New albums"
 msgstr "Albume noi"
 
-#, c-format
-msgid "To activate more themes visit the %sPlugins%s page."
-msgstr ""
-
 msgid "Save Defaults"
 msgstr "Salveaza predefinitele"
 
@@ -2523,6 +2212,9 @@ msgstr "Selecteaza un bloc"
 
 msgid "Selected"
 msgstr "Selectat"
+
+msgid "Remove"
+msgstr "Sterge"
 
 msgid "Move Up"
 msgstr "Muta in sus"
@@ -2713,9 +2405,6 @@ msgstr "Detaliile erorii"
 msgid "System Information"
 msgstr "Informatii despre Sistem"
 
-msgid "Not all of the specified items have been added successfully."
-msgstr ""
-
 msgid ""
 "You don't have any Graphics Toolkit activated that can handle JPEG images.  If you add "
 "images, you will probably not have any thumbnails."
@@ -2724,8 +2413,8 @@ msgstr ""
 "probabil ca nu vor avea thumbnail-uri."
 
 #, c-format
-msgid "Visit the %sModules%s page to activate a Graphics Toolkit."
-msgstr "Viziteaza pagina de %sModule%s pentru a activa un instrument grafic."
+msgid "Visit the <a href=\"%s\">Modules</a> page to activate a Graphics Toolkit."
+msgstr "Viziteaza pagina de <a href=\"%s\">Module</a> pentru a activa un instrument grafic."
 
 msgid "Add Sub-Album"
 msgstr "Adauga sub-Album"
@@ -2830,6 +2519,9 @@ msgstr "Asigneaza descriere la:"
 msgid "No Thumbnail"
 msgstr "Fara thumbnail-uri"
 
+msgid "Delete Items"
+msgstr "Sterge obiecte"
+
 msgid "No items were selected for deletion"
 msgstr "Nici un obiect nu a fost selectat pentru stergere"
 
@@ -2885,13 +2577,24 @@ msgstr "Pagina Precedenta"
 msgid "Next Page"
 msgstr "Pagina Urmatoare"
 
-#, fuzzy, c-format
-msgid "Do you really want to delete %s?"
-msgstr "Esti sigur ca vrei sa dezinstalezi modulul __PLUGIN__ ?"
+msgid "Deletion Complete"
+msgstr "Stergere completa"
 
-#, fuzzy
-msgid "Delete more items..."
-msgstr "Sterge obiecte"
+msgid "Item successfully deleted"
+msgstr "Obiect sters"
+
+#, c-format
+msgid "Are you sure you want to delete this %s?"
+msgstr "Esti sigur ca vrei sa stergi acest %s?"
+
+#, c-format
+msgid "It contains %d item."
+msgid_plural "It contains %d items."
+msgstr[0] "Contine %d obiect."
+msgstr[1] "Contine %d obiecte."
+
+msgid "There is no undo!"
+msgstr "Nu exista 'undo'!"
 
 msgid "There was a problem processing your request."
 msgstr "Exista o problema la procesarea cererii tale."
@@ -3060,10 +2763,6 @@ msgstr "Descrierea lunga a acestui obiect."
 msgid "%s Date and Time"
 msgstr "Data si Ora %s"
 
-#, fuzzy
-msgid "Link Date and Time"
-msgstr "Data si Ora %s"
-
 msgid "Set the date and time when this image was captured."
 msgstr "Seteaza data si ora de cind a fost facuta fotografia."
 
@@ -3073,10 +2772,6 @@ msgstr "Seteaza data si ora ce va fi afisata pentru acest articol."
 #, c-format
 msgid "Set the date and time to be displayed for this %s."
 msgstr "Seteaza data si ora ce va fi afisata pentru acest %s."
-
-#, fuzzy
-msgid "Set the date and time to be displayed for this link."
-msgstr "Seteaza data si ora ce va fi afisata pentru acest articol."
 
 msgid "Date:"
 msgstr "Data:"
@@ -3321,15 +3016,9 @@ msgstr "Sursa"
 msgid "Choose the items you want to move"
 msgstr "Alege obiectele pe care vrei sa le muti"
 
-msgid "OK"
-msgstr ""
-
 msgid ""
 "The destination you chose does not accept sub-albums, so all sub-albums have been deselected."
 msgstr "Destinatia aleasa nu permite sub-albume, deci toate sub-albumele au fost deselectate."
-
-msgid "Warning"
-msgstr "Atentie"
 
 msgid ""
 "The destination you chose only accepts sub-albums, so all non-albums have been deselected."
@@ -3535,12 +3224,10 @@ msgstr "Introduceti descrierea URL"
 msgid "Enter an image URL"
 msgstr "Introduceti URL-ul unei imagini"
 
-#. HINT: Button label for Bold
-msgid "B"
+msgid "B <!-- Button label for Bold -->"
 msgstr "B"
 
-#. HINT: Button label for italic
-msgid "i"
+msgid "i <!-- Button label for italic -->"
 msgstr "i"
 
 msgid "list"
@@ -3558,9 +3245,9 @@ msgstr "imagine"
 msgid "color"
 msgstr "color"
 
-#, fuzzy, c-format
-msgid "You can also use the %scolor name%s for example: %sYour Text%s"
-msgstr "Poti sa folosesti %snume culoare%s de exemplu: %s"
+#, c-format
+msgid "You can also use the <a href=\"%s\" target=\"_new\">color name</a> for example: %s"
+msgstr "Poti sa folosesti <a href=\"%s\" target=\"_new\">nume culoare</a> de exemplu: %s"
 
 msgid "Configuration Error: Missing Theme"
 msgstr "Eroare de configurare: Lipseste tema"
@@ -3677,25 +3364,26 @@ msgstr "Mergi la contul tau"
 msgid "Your password has been recovered, please login."
 msgstr "Parola ta a fost recuperata, te rog autentifica-te."
 
-msgid ""
-"The administration session has expired, please re-authenticate to access the administration "
-"area."
-msgstr ""
-
 #, c-format
 msgid ""
 "Logins to this account are temporarily disabled due to multiple failed login attempts.  Wait "
-"for access to be restored, or use the %srecover password%s page to re-enable this account."
+"for access to be restored, or use the <a href=\"%s\">recover password</a> page to re-enable "
+"this account."
 msgstr ""
 "Intrarea pe acest cont este temporar dezactivata din cauza multiplelor erori de parola. Poti "
-"sa astepti un pic sau sa folosesti %srecupereaza parola%s pentru a reactiva contul."
+"sa astepti un pic sau sa folosesti <a href=\"%s\"recupereaza parola</a> pentru a reactiva "
+"contul."
 
 msgid "Your login information is incorrect.  Please try again."
 msgstr "Informatia de autentificare este incorecta. Mai incearca."
 
 #, c-format
-msgid "Lost or forgotten passwords can be retrieved using the %srecover password%s page"
-msgstr "Parolele pierdute sau uitate pot fi recuperate folosind pagina %srecupereaza parola%s"
+msgid ""
+"Lost or forgotten passwords can be retrieved using the <a href=\"%s\">recover password</a> "
+"page"
+msgstr ""
+"Parolele pierdute sau uitate pot fi recuperate folosind pagina <a href=\"%s\">recupereaza "
+"parola</a>"
 
 #, c-format
 msgid "Welcome, %s!"
@@ -3839,18 +3527,18 @@ msgstr "Aceasta pagina iti permite sa resetezi parola pentru contul tau."
 #, c-format
 msgid ""
 "There is no request which matches the username and authorization provided. Request a new "
-"authorization from the %slost password page%s."
+"authorization from the <a href=\"%s\">lost password page</a>"
 msgstr ""
 "Nu exista nici o cerere care sa se potriveasca cu autorizarea prezentata. Faceti o noua "
-"cerere de autorizare din %srecupereaza parola%s."
+"cerere de autorizare din <a href=\"%s\">recupereaza parola</a>."
 
 #, c-format
 msgid ""
-"The request you are trying to access has expired.  Request a new authorization from the %"
-"slost password page%s."
+"The request you are trying to access has expired.  Request a new authorization from the <a "
+"href=\"%s\">lost password page</a>."
 msgstr ""
 "Cererea pe care incerci sa o autentifici a expirat. Faceti o noua cerere de autorizare de pe "
-"pagina %srecupereaza parola%s."
+"pagina <a href=\"%s\">recupereaza parola</a>."
 
 msgid "Authorization missing"
 msgstr "Lipseste autorizarea"
@@ -3928,14 +3616,18 @@ msgstr "&laquo; actiuni obiect &raquo;"
 msgid "Go"
 msgstr "Du-te"
 
-msgid "WARNING: block $type doesn't exist."
-msgstr ""
+msgid "Navigation"
+msgstr "Navigare"
 
 msgid "next"
 msgstr "urmatorul"
 
 msgid "last"
 msgstr "ultimul"
+
+#, c-format
+msgid "Page %d of %d"
+msgstr "Pagina %d din %d"
 
 #, c-format
 msgid "%d of %d"
@@ -3983,50 +3675,3 @@ msgstr "Bloc login"
 
 msgid "Links to album/photo peers"
 msgstr "Link-uri catre albume/corespondenti"
-
-#~ msgid "Language Packages"
-#~ msgstr "Module de limba"
-
-#~ msgid "(%sselect all%s%sselect none%s)"
-#~ msgstr "(%sselecteaza tot%s%sdeselecteaza tot%s)"
-
-#~ msgid "You must select a base package before choosing language packs."
-#~ msgstr "Trebuie sa selectezi un modul de baza inainte sa selectezi un pachet de limba."
-
-#~ msgid "Back to %s"
-#~ msgstr "Inapoi la %s"
-
-#~ msgid "Back"
-#~ msgstr "Inapoi"
-
-#~ msgid "Navigation"
-#~ msgstr "Navigare"
-
-#~ msgid "delete confirmation"
-#~ msgstr "confirma stergerea"
-
-#~ msgid "delete %s"
-#~ msgstr "sterge %s"
-
-#~ msgid "Deletion Complete"
-#~ msgstr "Stergere completa"
-
-#~ msgid "Item successfully deleted"
-#~ msgstr "Obiect sters"
-
-#~ msgid "Are you sure you want to delete this %s?"
-#~ msgstr "Esti sigur ca vrei sa stergi acest %s?"
-
-#~ msgid "It contains %d item."
-#~ msgid_plural "It contains %d items."
-#~ msgstr[0] "Contine %d obiect."
-#~ msgstr[1] "Contine %d obiecte."
-
-#~ msgid "There is no undo!"
-#~ msgstr "Nu exista 'undo'!"
-
-#~ msgid "key"
-#~ msgstr "cheie"
-
-#~ msgid "G2.2: Double Double"
-#~ msgstr "G2.2: Double Double"

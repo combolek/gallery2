@@ -1,6 +1,8 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
       <div id="gsContent" class="gcBorder1">
         <div id="gbTitleBar" class="gbBlock gcBackground1">
@@ -57,17 +59,12 @@
 
             {if ($child.canContainChildren || $child.entityType == 'GalleryLinkItem')}
 		{assign var=frameType value="albumFrame"}
-		{capture assign=linkUrl}{g->url arg1="view=core.ShowItem" 
-			                        arg2="itemId=`$child.id`"}{/capture}
+		{capture assign=linkUrl}{g->url arg1="view=core.ShowItem"
+						arg2="itemId=`$child.id`"}{/capture}
 	    {else}
 		{assign var=frameType value="itemFrame"}
-		{capture assign=linkUrl}{strip}
-		  {if $theme.params.dynamicLinks == 'jump'}
-		    {g->url arg1="view=core.ShowItem" arg2="itemId=`$child.id`"}
-		  {else}
-		    {g->url params=$theme.pageUrl arg1="itemId=`$child.id`"}
-		  {/if}
-		{/strip}{/capture}
+		{capture assign=linkUrl}{g->url params=$theme.pageUrl
+						arg1="itemId=`$child.id`"}{/capture}
 	    {/if}
 
             {strip}

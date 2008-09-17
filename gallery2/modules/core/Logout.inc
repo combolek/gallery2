@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -41,8 +41,7 @@ class LogoutController extends GalleryController {
 	global $gallery;
 
 	$event = GalleryCoreApi::newEvent('Gallery::Logout');
-	$activeUser = $gallery->getActiveUser();
-	$event->setEntity($activeUser);
+	$event->setEntity($gallery->getActiveUser());
 	list ($ret, $eventResults) = GalleryCoreApi::postEvent($event);
 	if ($ret) {
 	    return array($ret, null);
@@ -65,7 +64,7 @@ class LogoutController extends GalleryController {
 	if ($ret) {
 	    return array($ret, null);
 	}
-	list ($ret, $guestUser) = GalleryCoreApi::loadEntitiesById($anonymousId, 'GalleryUser');
+	list ($ret, $guestUser) = GalleryCoreApi::loadEntitiesById($anonymousId);
 	if ($ret) {
 	    return array($ret, null);
 	}

@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -55,7 +55,7 @@ class SitemapView extends GalleryView {
      * Output a site map rooted at the given id
      *
      * @param int $rootId
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function renderSitemap($rootId) {
 	global $gallery;
@@ -80,7 +80,6 @@ class SitemapView extends GalleryView {
 	print 'http://www.google.com/schemas/sitemap/0.84/sitemap.xsd">';
 	print "\n";
 
-	$gallery->guaranteeTimeLimit(120);
 	list ($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds(
 	    'core.view', $gallery->getActiveUserId());
 	if ($ret) {
@@ -127,7 +126,6 @@ class SitemapView extends GalleryView {
 	    ', $phpVm->time(), $matchJoin, $matchFrag,
 	       GalleryUtilities::makeMarkers(count($aclIds)));
 
-	    $gallery->guaranteeTimeLimit(120);
 	    list ($ret, $searchResults) = $gallery->search($query, array_merge($data, $aclIds));
 	    if ($ret) {
 		return $ret;
@@ -139,11 +137,7 @@ class SitemapView extends GalleryView {
 		7 * 24 * 3600 => 'weekly',
 		30 * 24 * 3600 => 'monthly',
 		365 * 24 * 3600 => 'yearly');
-	    $i = 0;
 	    while ($result = $searchResults->nextResult()) {
-		if (($i++ % 100) == 0) {
-		    $gallery->guaranteeTimeLimit(200);
-		}
 		$loc = $urlGenerator->generateUrl(
 		    array('view' => 'core.ShowItem', 'itemId' => $result[0]),
 		    array('forceSessionId' => false, 'forceFullUrl' => true));

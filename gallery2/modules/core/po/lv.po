@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,12 +16,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
-# 
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Core 1.2.36\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-01 22:31+0300\n"
+"Project-Id-Version: Gallery: Core 1.2.0.3\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-06-07 09:29-0700\n"
 "PO-Revision-Date: 2006-10-02 00:30+0200\n"
 "Last-Translator: Jānis Baiža <jbaiza@inbox.lv>\n"
 "Language-Team: Latvian <gallery-translations@lists.sourceforge.net>\n"
@@ -34,6 +34,30 @@ msgstr ""
 
 msgid "Gallery Email Test"
 msgstr "Galerijas e-pasta tests"
+
+msgid "forever"
+msgstr "pavisam"
+
+msgid "High Priority (Me first!)"
+msgstr "Augsta prioritāte (Es pirmais!)"
+
+msgid "Low Priority (I want to share!)"
+msgstr "Zema prioritāte (Es vēlos dalīties!)"
+
+msgid "No Markup"
+msgstr "Nav starpibas"
+
+msgid "BBCode"
+msgstr "BBKods"
+
+msgid "Raw HTML"
+msgstr "Neapstrādts HTML"
+
+msgid "Database"
+msgstr "Datubāze"
+
+msgid "File"
+msgstr "Fails"
 
 #, c-format
 msgid "%d minute"
@@ -63,58 +87,8 @@ msgstr[0] "%d nedēļa"
 msgstr[1] "%d nedēļas"
 msgstr[2] "%d nedēļas"
 
-msgid "forever"
-msgstr "pavisam"
-
-msgid "High Priority (Me first!)"
-msgstr "Augsta prioritāte (Es pirmais!)"
-
-msgid "Low Priority (I want to share!)"
-msgstr "Zema prioritāte (Es vēlos dalīties!)"
-
-msgid "No Markup"
-msgstr "Nav starpibas"
-
-msgid "BBCode"
-msgstr "BBKods"
-
-msgid "Raw HTML"
-msgstr "Neapstrādts HTML"
-
-msgid "Database"
-msgstr "Datubāze"
-
-msgid "File"
-msgstr "Fails"
-
-msgid "&lt;none&gt;"
-msgstr "&lt;nav&gt;"
-
-#, fuzzy
-msgid "Link"
-msgstr "Pieteikties"
-
-#, c-format
-msgid "Page %d of %d"
-msgstr ""
-
-#, fuzzy
-msgid "Updating Language Settings"
-msgstr "Valodas iestatījumi"
-
-msgid "Update completed with errors."
-msgstr ""
-
-msgid "Update complete."
-msgstr ""
-
-#, fuzzy
-msgid "Deleting Language Packs"
-msgstr "Noklusētā valoda"
-
-#, fuzzy
-msgid "Synchronizing Language Packs"
-msgstr "Noklusētā valoda"
+msgid "<none>"
+msgstr "<nav>"
 
 msgid "No acceleration"
 msgstr "Nav paātrinājuma"
@@ -127,6 +101,45 @@ msgstr "Pilns pāatrinājums"
 
 msgid "Themes"
 msgstr "Tēmas"
+
+#, fuzzy
+msgid "Updating Repository Index"
+msgstr "Atjauno repozitorija indeksus"
+
+msgid "Scanning plugins"
+msgstr "Skanē spraudņus"
+
+msgid "Update Plugin List"
+msgstr ""
+
+msgid "Done."
+msgstr "Pabeigts."
+
+#, fuzzy
+msgid "Updating Packages"
+msgstr "Atjauno panorāmas vienumus"
+
+#, fuzzy, c-format
+msgid "Preparing %s"
+msgstr "Sagatavo..."
+
+#, c-format
+msgid "Downloading %s"
+msgstr "Lejupielādē %s"
+
+#, c-format
+msgid "Activating %s"
+msgstr "Aktivizē %s"
+
+#, fuzzy
+msgid "Deleting Language Packs"
+msgstr "Noklusētā valoda"
+
+msgid "Update completed with errors."
+msgstr ""
+
+msgid "Update complete."
+msgstr ""
 
 msgid "install"
 msgstr "instalēt"
@@ -149,11 +162,11 @@ msgstr "Mantot iestatījumus no albūma - vecāka"
 msgid "Use these settings"
 msgstr "Lietot šos iestatījumus"
 
-msgid "Converting Schema Table"
-msgstr ""
-
 msgid "Installing the core module"
 msgstr "Instalē kodola moduli"
+
+msgid "key"
+msgstr "atslēga"
 
 msgid "All access"
 msgstr "Visa pieeja"
@@ -188,10 +201,6 @@ msgstr "[kodols] Dzēst vienu u"
 msgid "Upgrading permissions"
 msgstr "Atjauno tiesības"
 
-#, c-format
-msgid "Upgrading permissions (%d items complete, %d remaining)"
-msgstr "Atjauno tiesības (%d vienumi pabeigti, %d atlikuši)"
-
 msgid "Deleting old permission tables"
 msgstr "Dzēš veco tiesību tabulu"
 
@@ -204,32 +213,11 @@ msgstr "Visi lietotāji"
 msgid "Detecting broken derivatives"
 msgstr "Nosaka sabojātos atvasinājumus"
 
-#, fuzzy, c-format
-msgid "Detecting broken derivatives, loading (%d derivatives checked, %d remaining)"
-msgstr "Nosaka sabojātos atvasinājumus, ielādē"
-
-#, fuzzy, c-format
-msgid "Detecting broken derivatives (%d derivatives checked, %d remaining)"
-msgstr "Nosaka sabojātos atvasinājumus, saglabā"
-
-#, fuzzy, c-format
-msgid "Detecting broken derivatives, saving (%d derivatives checked, %d remaining)"
-msgstr "Nosaka sabojātos atvasinājumus, saglabā"
-
-#, fuzzy, c-format
-msgid ""
-"Detecting broken derivatives, saving item %d of %d (%d derivatives complete, %d remaining)"
-msgstr "Atjauno tiesības (%d vienumi pabeigti, %d atlikuši)"
-
 msgid "Clearing fast-download cache"
 msgstr "Tīra ātrās lejupielādes kešatmiņu"
 
 msgid "Deleting old fast-download cache"
 msgstr "Dzēš veco ātrās lejupielādes kešatmiņu"
-
-#, c-format
-msgid "Deleting old session files (iteration %d)"
-msgstr "Dzēš vecos sesiju failus (%d iterācija)"
 
 msgid "Updating panorama items"
 msgstr "Atjauno panorāmas vienumus"
@@ -237,13 +225,11 @@ msgstr "Atjauno panorāmas vienumus"
 msgid "Optimizing AccessSubscriberMap table"
 msgstr "Optivizē AccessSubscriberMap tabulu"
 
-#, fuzzy
-msgid "Upgrading Plugin Translations"
-msgstr "Atjauno tiesības"
+msgid "Converting Schema Table"
+msgstr ""
 
-#, fuzzy
-msgid "Creating Package Map"
-msgstr "Atjauno panorāmas vienumus"
+msgid "Loading Table Descriptions"
+msgstr ""
 
 msgid "Site Admins"
 msgstr "Vietnes administratori"
@@ -263,16 +249,30 @@ msgstr "Šī ir Jūsu Galerijas pamatlapa"
 msgid "Converting MySQL data to UTF8"
 msgstr "Konvertē MySQL datus uz UTF8"
 
-#, fuzzy
-msgid "Adding items"
-msgstr "pievienot vienumus"
+#, c-format
+msgid "Upgrading permissions (%d items complete, %d remaining)"
+msgstr "Atjauno tiesības (%d vienumi pabeigti, %d atlikuši)"
 
-#, fuzzy
-msgid "Processing items"
-msgstr "Apstrādā %d vienumu no %d"
+#, fuzzy, c-format
+msgid "Detecting broken derivatives, loading (%d derivatives checked, %d remaining)"
+msgstr "Nosaka sabojātos atvasinājumus, ielādē"
 
-msgid "Extracting archive"
-msgstr ""
+#, fuzzy, c-format
+msgid "Detecting broken derivatives (%d derivatives checked, %d remaining)"
+msgstr "Nosaka sabojātos atvasinājumus, saglabā"
+
+#, fuzzy, c-format
+msgid "Detecting broken derivatives, saving (%d derivatives checked, %d remaining)"
+msgstr "Nosaka sabojātos atvasinājumus, saglabā"
+
+#, fuzzy, c-format
+msgid ""
+"Detecting broken derivatives, saving item %d of %d (%d derivatives complete, %d remaining)"
+msgstr "Atjauno tiesības (%d vienumi pabeigti, %d atlikuši)"
+
+#, c-format
+msgid "Deleting old session files (iteration %d)"
+msgstr "Dzēš vecos sesiju failus (%d iterācija)"
 
 msgid "add items"
 msgstr "pievienot vienumus"
@@ -285,6 +285,32 @@ msgstr "pievienot apakšalbumu"
 
 msgid "add items confirmation"
 msgstr "pievienot vienumu konfigurāciju"
+
+msgid "Base filename"
+msgstr "Pamata faila nosaukums"
+
+msgid "Caption"
+msgstr "Uzraksts"
+
+msgid "Blank"
+msgstr "Tukšs"
+
+msgid "From Web Browser"
+msgstr "No pārlūkprogrammas"
+
+#, c-format
+msgid "%d megabyte"
+msgid_plural "%d megabytes"
+msgstr[0] "%d megabaits"
+msgstr[1] "%d megabaiti"
+msgstr[2] "%d megabaiti"
+
+#, c-format
+msgid "%d kilobytes"
+msgid_plural "%d kilobytes"
+msgstr[0] "%d kilobaits"
+msgstr[1] "%d kilobaiti"
+msgstr[2] "%d kilobaiti"
 
 #, c-format
 msgid "Input file %s exceeds maximum permitted file size"
@@ -302,37 +328,18 @@ msgstr "Ieejas fails %s tika augšupielādēts tikai daļēji"
 msgid "Input file %s was not uploaded. Error %d"
 msgstr "Ieejas fails %s netika augšupielādēts. Kļūda %d"
 
-#, c-format
-msgid "%d megabyte"
-msgid_plural "%d megabytes"
-msgstr[0] "%d megabaits"
-msgstr[1] "%d megabaiti"
-msgstr[2] "%d megabaiti"
-
-#, c-format
-msgid "%d kilobytes"
-msgid_plural "%d kilobytes"
-msgstr[0] "%d kilobaits"
-msgstr[1] "%d kilobaiti"
-msgstr[2] "%d kilobaiti"
-
-msgid "Base filename"
-msgstr "Pamata faila nosaukums"
-
-msgid "Caption"
-msgstr "Uzraksts"
-
-msgid "Blank"
-msgstr "Tukšs"
-
-msgid "From Web Browser"
-msgstr "No pārlūkprogrammas"
-
 msgid "Gallery Item Administration"
 msgstr "Galerijas vienumu administrēšana"
 
 msgid "delete an item"
 msgstr "dzēst vienumu"
+
+msgid "delete confirmation"
+msgstr "dzēšanas apstiprinājums"
+
+#, c-format
+msgid "delete %s"
+msgstr "dzēst %s"
 
 #, c-format
 msgid "edit %s"
@@ -347,10 +354,6 @@ msgstr ""
 msgid "Preparing..."
 msgstr "Sagatavo..."
 
-#, c-format
-msgid "Processing image %d of %d"
-msgstr "Apstrādā attēlu %d no %d"
-
 msgid "Apply thumbnail settings"
 msgstr ""
 
@@ -359,6 +362,10 @@ msgstr "Pārbūvē sīktēlus..."
 
 msgid "Album"
 msgstr "Albums"
+
+#, c-format
+msgid "Processing image %d of %d"
+msgstr "Apstrādā attēlu %d no %d"
 
 msgid "Changes saved successfully"
 msgstr "Izmaiņas veiksmīgi saglabātas"
@@ -498,10 +505,6 @@ msgstr "Labot foto"
 msgid "Edit Movie"
 msgstr "Labot filmu"
 
-#, c-format
-msgid "Edit %s"
-msgstr "Labot %s"
-
 msgid "Add Album"
 msgstr "Pievienot albumu"
 
@@ -520,10 +523,6 @@ msgstr "Dzēst foto"
 msgid "Delete Movie"
 msgstr "Dzēst filmu"
 
-#, c-format
-msgid "Delete %s"
-msgstr "Dzēst %s"
-
 msgid "Move Album"
 msgstr "Pārvietot albumu"
 
@@ -533,10 +532,6 @@ msgstr "Pārvietot foto"
 msgid "Move Movie"
 msgstr "Pārvietot filmu"
 
-#, c-format
-msgid "Move %s"
-msgstr "Pārvietot %s"
-
 msgid "Edit Captions"
 msgstr "Labot uzrakstus"
 
@@ -545,9 +540,6 @@ msgstr "Izcelt"
 
 msgid "Reorder Items"
 msgstr "Pārkārtot vienumus"
-
-msgid "Delete Items"
-msgstr ""
 
 msgid "Site Admin"
 msgstr "Vietnes admin"
@@ -573,12 +565,6 @@ msgstr "Grupas"
 msgid "Performance"
 msgstr "Veiktspēja"
 
-msgid "Event Logs"
-msgstr ""
-
-msgid "Language Settings"
-msgstr "Valodas iestatījumi"
-
 msgid "Toolkit Priority"
 msgstr "Rīku prioritātes"
 
@@ -591,30 +577,17 @@ msgstr "Konta iestatījumi"
 msgid "Change Password"
 msgstr "Mainīt paroli"
 
-#, fuzzy
-msgid "Updating Packages"
-msgstr "Atjauno panorāmas vienumus"
+#, c-format
+msgid "Edit %s"
+msgstr "Labot %s"
 
 #, c-format
-msgid "Cleaning up obsolete files %s"
-msgstr ""
+msgid "Delete %s"
+msgstr "Dzēst %s"
 
 #, c-format
-msgid "Activating %s"
-msgstr "Aktivizē %s"
-
-#, fuzzy
-msgid "Updating Repository Index"
-msgstr "Atjauno repozitorija indeksus"
-
-msgid "Scanning plugins"
-msgstr "Skanē spraudņus"
-
-msgid "Update Plugin List"
-msgstr ""
-
-msgid "Done."
-msgstr "Pabeigts."
+msgid "Move %s"
+msgstr "Pārvietot %s"
 
 msgid "Build all thumbnails/resizes"
 msgstr "Veidot visus sīktēlus/attēlus ar izmainītu izmēru"
@@ -627,6 +600,9 @@ msgstr ""
 msgid "Build All Thumbnails/Resizes"
 msgstr "Veidot visus sīktēlus/attēlus ar izmainītu izmēru"
 
+msgid "Debug output for failed items:"
+msgstr "Lāgošanas izvads kļūdainajiem vienumiem:"
+
 #, c-format
 msgid "Checked %d items"
 msgstr "Atzīmēti %d vienumi"
@@ -638,9 +614,6 @@ msgstr "Izveidoti %d vienumi"
 #, c-format
 msgid "%d items failed"
 msgstr "%d vienumu viedošana neizdevās"
-
-msgid "Debug output for failed items:"
-msgstr "Lāgošanas izvads kļūdainajiem vienumiem:"
 
 #, fuzzy
 msgid "Convert MySQL database to UTF8"
@@ -659,33 +632,6 @@ msgid "Database successfully converted to UTF8"
 msgstr "Datubāze veiksmīgi optimizēta"
 
 msgid "No conversion required"
-msgstr ""
-
-#, fuzzy
-msgid "Backup the database"
-msgstr "Optimizēt datubāzi"
-
-msgid ""
-"Backup all your Gallery data (item data, users, comments, etc.) to a single file in your "
-"storage folder.  The backup does not include the image files.  Before running the backup, "
-"your Gallery installation needs to be set into maintenance mode, as this is not done "
-"automatically."
-msgstr ""
-
-msgid "Backing up Gallery Database"
-msgstr ""
-
-#, fuzzy
-msgid "Exporting..."
-msgstr "Sagatavo..."
-
-#, c-format
-msgid "Database backup completed and the backup file is located at: %s"
-msgstr ""
-
-msgid ""
-"Please note that your backup contains sensitive data (like passwords) and should not be "
-"stored online! We recommend that you download it from your server and keep it safely offline."
 msgstr ""
 
 msgid "Delete user sessions"
@@ -724,8 +670,8 @@ msgstr "Dzēst veidņu kešatmiņu"
 msgid ""
 "Gallery compiles template files and saves them for increased performance.  If you're "
 "experiencing problems that say <i>Smarty error</i> then you might try running this task.  "
-"Also run this if you add or remove any local/*.tpl or theme override so Smarty will find the "
-"right file."
+"Also run this if you remove a local/*.tpl file so Smarty will switch back to the default tpl "
+"file."
 msgstr ""
 
 msgid "Template cache deleted successfully"
@@ -804,14 +750,6 @@ msgid ""
 "Couldn't create cache subdirectory. Make sure the web server has write permissions in it."
 msgstr ""
 
-#, fuzzy, c-format
-msgid "Preparing %s"
-msgstr "Sagatavo..."
-
-#, c-format
-msgid "Downloading %s"
-msgstr "Lejupielādē %s"
-
 msgid "Official Release Repository"
 msgstr ""
 
@@ -871,10 +809,6 @@ msgstr "Augoši"
 msgid "Descending"
 msgstr "Dilstoši"
 
-#, c-format
-msgid "Powered by Gallery v%s"
-msgstr ""
-
 msgid "Validation disabled until you set allowSessionAccess in config.php"
 msgstr "Validācija atspējota līdz Jūs uzstādīsiest allowSessionAccess config.php failā"
 
@@ -883,6 +817,13 @@ msgstr "Šī lapa ir XHTML 1.0 valīda"
 
 msgid "Donate to the Gallery project"
 msgstr "Ziedot Galerija projektam"
+
+msgid "G2.2: Double Double"
+msgstr ""
+
+#, c-format
+msgid "Powered by Gallery v%s"
+msgstr ""
 
 #, c-format
 msgid "Estimated time remaining: %d:%02d"
@@ -990,6 +931,13 @@ msgstr "izklājlapa"
 msgid "file"
 msgstr "fails"
 
+msgid "Back"
+msgstr "Atpakaļ"
+
+#, c-format
+msgid "Back to %s"
+msgstr "Atpakaļ uz %s"
+
 msgid "User"
 msgstr "Lietotājs"
 
@@ -1053,14 +1001,6 @@ msgstr "kodols"
 msgid "unknown"
 msgstr "nezināms"
 
-#, c-format
-msgid "API = Core %s, Module %s, Theme %s, Embed %s"
-msgstr ""
-
-#, fuzzy
-msgid "Gallery URL"
-msgstr "Galerija"
-
 msgid "Gallery version"
 msgstr "Galerijas versija"
 
@@ -1101,65 +1041,6 @@ msgstr "Pārlūkprogramma"
 msgid "Rows in %s table = %d"
 msgstr ""
 
-#, c-format
-msgid "The %s \"%s\" is not installed and will not be backed up."
-msgstr ""
-
-#, c-format
-msgid "\"%s\" has no creation sql and will not be backed up."
-msgstr ""
-
-#, c-format
-msgid "Unable to load table description for \"%s\", no data will be exported."
-msgstr ""
-
-msgid ""
-"Unable to find the XML parser.  The PHP XML parsing extension must be loaded.  Terminating "
-"database import."
-msgstr ""
-
-#, c-format
-msgid "The exported file is not the correct version. Expecting %s received %s."
-msgstr ""
-
-#, fuzzy, c-format
-msgid "Unable to close import file: %s"
-msgstr "Nav iespējams izdzēst direktoriju: %s"
-
-#, fuzzy, c-format
-msgid "Unable to open import file: %s"
-msgstr "Nav iespējams izdzēst direktoriju: %s"
-
-#, c-format
-msgid "Import file doesn't exist: %s"
-msgstr ""
-
-#, c-format
-msgid "Plugin %s is not currently available."
-msgstr ""
-
-#, c-format
-msgid "The available version of plugin \"%s\" may not be compatible with the imported version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The currently installed core API version required by \"%s\" may not be compatible with the "
-"imported version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The installed module API version required by \"%s\" may not be compatible with the imported "
-"version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The installed theme API version required by \"%s\" is not compatible with the imported "
-"version."
-msgstr ""
-
 msgid "Successfully saved theme settings"
 msgstr "Tēmas iestatījumie veiksmīgi saglabāti"
 
@@ -1183,6 +1064,28 @@ msgstr ""
 
 msgid "Error sending test email, see below for details."
 msgstr "Kļūda sūtot testa e-pastu, sīkākas detaļas zemāk."
+
+msgid "Language Settings"
+msgstr "Valodas iestatījumi"
+
+msgid ""
+"Select language defaults for Gallery. Individual users can override this setting in their "
+"personal preferences or via the language selector block if available. Gallery will try to "
+"automatically detect the language preference of each user if the browser preference check is "
+"enabled."
+msgstr ""
+
+msgid "Default language"
+msgstr "Noklusētā valoda"
+
+msgid "Check Browser Preference"
+msgstr "Pārbaudīt pārlūkprogrammas iestatījumus"
+
+#, c-format
+msgid ""
+"Your webserver does not support localization.  Please instruct your system administrator to "
+"reconfigure PHP with the %s option enabled."
+msgstr ""
 
 msgid "Date Formats"
 msgstr "Datumu formāti"
@@ -1234,10 +1137,6 @@ msgstr "Sesijas dzīves ilgums"
 
 msgid "Inactivity Timeout"
 msgstr "Bezdarbības taimauts"
-
-#, fuzzy
-msgid "Site Administration Session Timeout"
-msgstr "Galerijas vietnes administrēšana"
 
 msgid "Embedded Markup"
 msgstr "Iestiprinātā starpība"
@@ -1602,46 +1501,6 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#, fuzzy
-msgid "Recent Events"
-msgstr "Atiestatīt skatīšanās reižu skaitu"
-
-msgid "Type"
-msgstr ""
-
-#, fuzzy
-msgid "Location"
-msgstr "Uzraksts"
-
-msgid "Client"
-msgstr ""
-
-msgid "No events have been reported yet."
-msgstr ""
-
-#, fuzzy
-msgid "Event Details"
-msgstr "Noklusētie"
-
-#, fuzzy
-msgid "User Id"
-msgstr "Lietotājs"
-
-#, fuzzy
-msgid "Referer"
-msgstr "Webserveris"
-
-#, fuzzy
-msgid "Details"
-msgstr "Noklusētie"
-
-#, fuzzy
-msgid "no summary"
-msgstr "Kopsavilkums"
-
-msgid "An error occurred while retrieving the event log entry details."
-msgstr ""
-
 msgid "Group Management"
 msgstr ""
 
@@ -1703,134 +1562,7 @@ msgid_plural "%d groups match your filter"
 msgstr[0] ""
 msgstr[1] ""
 
-msgid "Please make sure that your internet connection is set up properly or try again later."
-msgstr ""
-
-#, c-format
-msgid "Failed to scan status from plugin: %s."
-msgstr ""
-
-msgid ""
-"Your local copy of the repository was broken and has been fixed.  Please download the plugin "
-"list again."
-msgstr ""
-
-#, fuzzy, c-format
-msgid "Failed to delete the locale directory for %s."
-msgstr "Nav iespējams izdzēst direktoriju: %s"
-
-#, c-format
-msgid "Failed to download the following language packages for the %s plugin:"
-msgstr ""
-
-#, c-format
-msgid ""
-"Failed to install language packages for %s plugin because the following files/directories "
-"could not be modified:"
-msgstr ""
-
-msgid "The repository index has been successfully refreshed."
-msgstr ""
-
-msgid "The language settings have been saved."
-msgstr ""
-
-#, c-format
-msgid "%d language pack upgraded or downloaded."
-msgid_plural "%d language packs upgraded or downloaded."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#, c-format
-msgid "%d language pack deleted."
-msgid_plural "%d language packs deleted."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-msgid "All the language packages for the selected languages are current"
-msgstr ""
-
-msgid ""
-"Select language defaults for Gallery. Individual users can override this setting in their "
-"personal preferences or via the language selector block if available. Gallery will try to "
-"automatically detect the language preference of each user if the browser preference check is "
-"enabled."
-msgstr ""
-
-msgid "Default language"
-msgstr "Noklusētā valoda"
-
-msgid "Check Browser Preference"
-msgstr "Pārbaudīt pārlūkprogrammas iestatījumus"
-
-#, c-format
-msgid ""
-"Your webserver does not support localization.  Please instruct your system administrator to "
-"reconfigure PHP with the %s option enabled."
-msgstr ""
-
-msgid "Configure your Gallery"
-msgstr ""
-
-msgid ""
-"Before you can proceed, you have to change some permissions so that Gallery can install "
-"plugins for you.  It's easy.  Just execute the following in a shell or via your ftp client:"
-msgstr ""
-
-msgid ""
-"Before you can proceed, please insure the following directories and sub-directories are "
-"writable, so that Gallery can install plugins for you:"
-msgstr ""
-
-msgid ""
-"If you have trouble changing permissions, ask your system administrator for assistance.  "
-"When you've fixed the permissions, click the Check Again button to proceed."
-msgstr ""
-
-msgid "Check Again"
-msgstr ""
-
-msgid "Add or Remove Languages"
-msgstr ""
-
-msgid ""
-"Please click on the link below to go to 'Download Plugin List' and choose 'Update Plugin "
-"List' to get the latest language package information."
-msgstr ""
-
-msgid "Administer Repositories"
-msgstr ""
-
-#, fuzzy
-msgid "Upgrade"
-msgstr "atjaunot"
-
-msgid "Remove"
-msgstr ""
-
-#, fuzzy
-msgid "Download"
-msgstr "lejupielādēt"
-
-msgid "No Change"
-msgstr ""
-
-#, fuzzy
-msgid "Select All"
-msgstr "Dzēst albumu"
-
-msgid ""
-"There are no local repository indices from which to determine language packages. Please "
-"click on the link below to go to \"Download Plugin List\" and choose \"Update Plugin List\" "
-"to get the latest language package information."
-msgstr ""
-
 msgid "System Maintenance"
-msgstr ""
-
-msgid "Gallery must be in maintenance mode before the task can be run."
 msgstr ""
 
 #, c-format
@@ -1839,40 +1571,6 @@ msgstr ""
 
 #, c-format
 msgid "The %s task failed to complete successfully."
-msgstr ""
-
-msgid "Maintenance Mode has been turned on."
-msgstr ""
-
-msgid "Maintenance Mode has been turned off."
-msgstr ""
-
-#, fuzzy
-msgid "Maintenance Mode"
-msgstr "Uzturēšana"
-
-msgid "Restrict user access to the system while maintenance is being performed."
-msgstr ""
-
-#, fuzzy
-msgid "Maintenance Mode Url"
-msgstr "Uzturēšana"
-
-msgid ""
-"The Maintenance Mode Url specifies where requests will be redirected when access to the site "
-"has been restricted by the administrator."
-msgstr ""
-
-msgid ""
-"If left blank Gallery will display a default page with an administrator login link. This "
-"page will be themed when the code base is up to date, otherwise it will display a plain "
-"unstyled page."
-msgstr ""
-
-msgid "For example: /maintenance.html"
-msgstr ""
-
-msgid "Set"
 msgstr ""
 
 msgid "Task name"
@@ -1957,21 +1655,6 @@ msgstr ""
 
 msgid "Expires after:"
 msgstr ""
-
-#, fuzzy
-msgid "Template Cache"
-msgstr "Dzēst veidņu kešatmiņu"
-
-#, c-format
-msgid ""
-"For optimal performance, Gallery caches all templates.  If you would like to %scustomize "
-"your template files%s, you should disable template caching temporarily so that changes take "
-"effect immediately without clearing the template cache."
-msgstr ""
-
-#, fuzzy
-msgid "Enable template caching"
-msgstr "Dzēst veidņu kešatmiņu"
 
 msgid "Clear Saved Pages"
 msgstr ""
@@ -2122,20 +1805,22 @@ msgstr ""
 msgid "Repository"
 msgstr ""
 
+msgid "Please make sure that your internet connection is set up properly or try again later."
+msgstr ""
+
 #, c-format
-msgid "Failed to download the following packages for the %s plugin:"
+msgid "Failed to scan status from plugin: %s."
+msgstr ""
+
+msgid ""
+"Your local copy of the repository was broken and has been fixed.  Please download the plugin "
+"list again."
 msgstr ""
 
 #, c-format
 msgid ""
-"Failed to install the %s plugin because the following files/directories could not be "
+"Failed to download the %s plugin because the following files/directories could not be "
 "modified:"
-msgstr ""
-
-#, c-format
-msgid ""
-"Some plugins could not be automatically upgraded because they are in use.  Please return to "
-"the %sPlugins%s page and click the upgrade link for each of the following plugins:"
 msgstr ""
 
 msgid "The repository index has been successfully updated."
@@ -2147,6 +1832,13 @@ msgstr ""
 #, c-format
 msgid "%s plugin updated."
 msgstr ""
+
+#, c-format
+msgid "%d language pack deleted."
+msgid_plural "%d language packs deleted."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 msgid ""
 "No personal information about you or your Gallery installation is sent to the Gallery server "
@@ -2185,6 +1877,14 @@ msgid "You must select at least one repository."
 msgstr ""
 
 msgid "Ok"
+msgstr ""
+
+msgid "Configure your Gallery"
+msgstr ""
+
+msgid ""
+"Before you can proceed, you have to change some permissions so that Gallery can install "
+"plugins for you.  It's easy.  Just execute the following in a shell or via your ftp client:"
 msgstr ""
 
 msgid ""
@@ -2273,14 +1973,15 @@ msgstr ""
 
 #, c-format
 msgid "Download %s"
-msgstr ""
+msgstr "Lejuplādēt %s"
 
 msgid "No packages have been selected."
 msgstr ""
 
 msgid ""
 "Download a package in order to use this plugin.  You can upgrade by choosing a newer version "
-"of the package to download."
+"of the package to download.  Language packages are optional, You only need to download the "
+"ones that you want to use on your site."
 msgstr ""
 
 msgid "Base Packages"
@@ -2298,7 +1999,12 @@ msgstr ""
 msgid "%sCurrently Installed%s: version %s (build %s)"
 msgstr ""
 
-msgid "The following language packages are available for this plugin"
+#, fuzzy
+msgid "Language Packages"
+msgstr "Valodas iestatījumi"
+
+#, c-format
+msgid "(%sselect all%s%sselect none%s)"
 msgstr ""
 
 #, c-format
@@ -2318,6 +2024,9 @@ msgid "%s version %s (currently installed)"
 msgstr ""
 
 msgid "No compatible language packages available"
+msgstr ""
+
+msgid "You must select a base package before choosing language packs."
 msgstr ""
 
 #, fuzzy
@@ -2376,10 +2085,6 @@ msgstr ""
 msgid "New albums"
 msgstr ""
 
-#, c-format
-msgid "To activate more themes visit the %sPlugins%s page."
-msgstr ""
-
 #, fuzzy
 msgid "Save Defaults"
 msgstr "Noklusētie"
@@ -2399,6 +2104,9 @@ msgid "Choose a block"
 msgstr ""
 
 msgid "Selected"
+msgstr ""
+
+msgid "Remove"
 msgstr ""
 
 msgid "Move Up"
@@ -2574,16 +2282,13 @@ msgstr ""
 msgid "System Information"
 msgstr ""
 
-msgid "Not all of the specified items have been added successfully."
-msgstr ""
-
 msgid ""
 "You don't have any Graphics Toolkit activated that can handle JPEG images.  If you add "
 "images, you will probably not have any thumbnails."
 msgstr ""
 
 #, c-format
-msgid "Visit the %sModules%s page to activate a Graphics Toolkit."
+msgid "Visit the <a href=\"%s\">Modules</a> page to activate a Graphics Toolkit."
 msgstr ""
 
 msgid "Add Sub-Album"
@@ -2678,6 +2383,9 @@ msgstr ""
 msgid "No Thumbnail"
 msgstr ""
 
+msgid "Delete Items"
+msgstr ""
+
 msgid "No items were selected for deletion"
 msgstr ""
 
@@ -2733,13 +2441,24 @@ msgstr ""
 msgid "Next Page"
 msgstr ""
 
-#, c-format
-msgid "Do you really want to delete %s?"
+msgid "Deletion Complete"
 msgstr ""
 
-#, fuzzy
-msgid "Delete more items..."
-msgstr "dzēst vienumu"
+msgid "Item successfully deleted"
+msgstr ""
+
+#, c-format
+msgid "Are you sure you want to delete this %s?"
+msgstr ""
+
+#, c-format
+msgid "It contains %d item."
+msgid_plural "It contains %d items."
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "There is no undo!"
+msgstr ""
 
 msgid "There was a problem processing your request."
 msgstr ""
@@ -2890,9 +2609,6 @@ msgstr ""
 msgid "%s Date and Time"
 msgstr ""
 
-msgid "Link Date and Time"
-msgstr ""
-
 msgid "Set the date and time when this image was captured."
 msgstr ""
 
@@ -2901,9 +2617,6 @@ msgstr ""
 
 #, c-format
 msgid "Set the date and time to be displayed for this %s."
-msgstr ""
-
-msgid "Set the date and time to be displayed for this link."
 msgstr ""
 
 msgid "Date:"
@@ -3114,14 +2827,8 @@ msgstr ""
 msgid "Choose the items you want to move"
 msgstr ""
 
-msgid "OK"
-msgstr ""
-
 msgid ""
 "The destination you chose does not accept sub-albums, so all sub-albums have been deselected."
-msgstr ""
-
-msgid "Warning"
 msgstr ""
 
 msgid ""
@@ -3311,12 +3018,10 @@ msgstr ""
 msgid "Enter an image URL"
 msgstr ""
 
-#. HINT: Button label for Bold
-msgid "B"
+msgid "B <!-- Button label for Bold -->"
 msgstr "B"
 
-#. HINT: Button label for italic
-msgid "i"
+msgid "i <!-- Button label for italic -->"
 msgstr "i"
 
 msgid "list"
@@ -3335,7 +3040,7 @@ msgid "color"
 msgstr ""
 
 #, c-format
-msgid "You can also use the %scolor name%s for example: %sYour Text%s"
+msgid "You can also use the <a href=\"%s\" target=\"_new\">color name</a> for example: %s"
 msgstr ""
 
 msgid "Configuration Error: Missing Theme"
@@ -3437,22 +3142,20 @@ msgstr ""
 msgid "Your password has been recovered, please login."
 msgstr ""
 
-msgid ""
-"The administration session has expired, please re-authenticate to access the administration "
-"area."
-msgstr ""
-
 #, c-format
 msgid ""
 "Logins to this account are temporarily disabled due to multiple failed login attempts.  Wait "
-"for access to be restored, or use the %srecover password%s page to re-enable this account."
+"for access to be restored, or use the <a href=\"%s\">recover password</a> page to re-enable "
+"this account."
 msgstr ""
 
 msgid "Your login information is incorrect.  Please try again."
 msgstr ""
 
 #, c-format
-msgid "Lost or forgotten passwords can be retrieved using the %srecover password%s page"
+msgid ""
+"Lost or forgotten passwords can be retrieved using the <a href=\"%s\">recover password</a> "
+"page"
 msgstr ""
 
 #, c-format
@@ -3576,13 +3279,13 @@ msgstr ""
 #, c-format
 msgid ""
 "There is no request which matches the username and authorization provided. Request a new "
-"authorization from the %slost password page%s."
+"authorization from the <a href=\"%s\">lost password page</a>"
 msgstr ""
 
 #, c-format
 msgid ""
-"The request you are trying to access has expired.  Request a new authorization from the %"
-"slost password page%s."
+"The request you are trying to access has expired.  Request a new authorization from the <a "
+"href=\"%s\">lost password page</a>."
 msgstr ""
 
 msgid "Authorization missing"
@@ -3657,13 +3360,17 @@ msgstr ""
 msgid "Go"
 msgstr ""
 
-msgid "WARNING: block $type doesn't exist."
+msgid "Navigation"
 msgstr ""
 
 msgid "next"
 msgstr ""
 
 msgid "last"
+msgstr ""
+
+#, c-format
+msgid "Page %d of %d"
 msgstr ""
 
 #, c-format
@@ -3712,22 +3419,3 @@ msgstr ""
 
 msgid "Links to album/photo peers"
 msgstr ""
-
-#, fuzzy
-#~ msgid "Language Packages"
-#~ msgstr "Valodas iestatījumi"
-
-#~ msgid "Back to %s"
-#~ msgstr "Atpakaļ uz %s"
-
-#~ msgid "Back"
-#~ msgstr "Atpakaļ"
-
-#~ msgid "delete confirmation"
-#~ msgstr "dzēšanas apstiprinājums"
-
-#~ msgid "delete %s"
-#~ msgstr "dzēst %s"
-
-#~ msgid "key"
-#~ msgstr "atslēga"

@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,10 +22,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Image Block 1.1.8\n"
+"Project-Id-Version: Gallery: Image Block 1.1.0\n"
 "POT-Creation-Date: 2003-02-11 03:09-0800\n"
-"PO-Revision-Date: 2008-03-01 20:44+0300\n"
-"Last-Translator: Ser Moro <webber@morozov-sm.ru>\n"
+"PO-Revision-Date: 2006-01-22 16:14+0300\n"
+"Last-Translator: Konstantin Ivanov <Continental@vollen.ru>\n"
 "Language-Team: Russian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,61 +35,67 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Image Block"
-msgstr "Блок изображений"
+msgstr "Блок Изображения"
 
 msgid "Random, Most Recent or Most Viewed Photo or Album"
-msgstr "Работа со случайными, популярными фотографиями или альбомами"
+msgstr "Случайные, последние или самые просматриваемые Фотография или Альбом"
 
 msgid "Blocks"
 msgstr "Блоки"
 
-msgid "Random Image"
-msgid_plural "Random Images"
-msgstr[0] "Случайное изображение"
-msgstr[1] "Случайные изображения"
-
-msgid "Newest Image"
-msgid_plural "Newest Images"
-msgstr[0] "Последнее изображение"
-msgstr[1] "Последние изображения"
-
-msgid "Most Viewed Image"
-msgid_plural "Most Viewed Images"
-msgstr[0] "Часто просматриваемое изображение"
-msgstr[1] "Часто просматриваемые изображения"
-
-msgid "Random Album"
-msgid_plural "Random Albums"
-msgstr[0] "Случайный альбом"
-msgstr[1] "Случайные альбомы"
-
-msgid "Newest Album"
-msgid_plural "Newest Albums"
-msgstr[0] "Последний альбом"
-msgstr[1] "Последние альбомы"
-
-msgid "Most Viewed Album"
-msgid_plural "Most Viewed Albums"
-msgstr[0] "Часто просматриваемый альбом"
-msgstr[1] "Часто просматриваемые альбомы"
-
 msgid "Picture of the Day"
-msgstr "Фотография дня"
+msgstr "Фотография Дня"
 
 msgid "Picture of the Week"
-msgstr "Фотография недели"
+msgstr "Фотография Недели"
 
 msgid "Picture of the Month"
-msgstr "Фотография месяца"
+msgstr "Фотография Месяца"
 
 msgid "Album of the Day"
-msgstr "Альбом дня"
+msgstr "Альбом Дня"
 
 msgid "Album of the Week"
-msgstr "Альбом недели"
+msgstr "Альбом Недели"
 
 msgid "Album of the Month"
-msgstr "Альбом месяца"
+msgstr "Альбом Месяца"
+
+#, fuzzy
+msgid "Random Image"
+msgid_plural "Random Images"
+msgstr[0] "Случайное Изображение"
+msgstr[1] "Случайное Изображение"
+
+#, fuzzy
+msgid "Newest Image"
+msgid_plural "Newest Images"
+msgstr[0] "Последнее Изображение"
+msgstr[1] "Последнее Изображение"
+
+#, fuzzy
+msgid "Most Viewed Image"
+msgid_plural "Most Viewed Images"
+msgstr[0] "Просматриваемое Изображение"
+msgstr[1] "Просматриваемое Изображение"
+
+#, fuzzy
+msgid "Random Album"
+msgid_plural "Random Albums"
+msgstr[0] "Случайный Альбом"
+msgstr[1] "Случайный Альбом"
+
+#, fuzzy
+msgid "Newest Album"
+msgid_plural "Newest Albums"
+msgstr[0] "Последний Альбом"
+msgstr[1] "Последний Альбом"
+
+#, fuzzy
+msgid "Most Viewed Album"
+msgid_plural "Most Viewed Albums"
+msgstr[0] "Просматриваемый Альбом"
+msgstr[1] "Просматриваемый Альбом"
 
 msgid "Date:"
 msgstr "Дата:"
@@ -103,13 +109,13 @@ msgid "Owner: %s"
 msgstr "Владелец: %s"
 
 msgid "Prevent this album from being displayed in the Image Block"
-msgstr "Не отображать этот альбом в Блоке изображений"
+msgstr "Не отображать этот альбом в Блоке Изображений"
 
 msgid "Apply ImageBlock settings to sub-albums"
-msgstr "Применить настройки  Блока изображений  к вложенным альбомам"
+msgstr "Применить настройки Блока Изображения к подальбомам"
 
 msgid "Image Block Settings"
-msgstr "Настройки Блока изображений"
+msgstr "Настройки Блока Изображения"
 
 msgid "Settings saved successfully"
 msgstr "Настройки успешно сохранены"
@@ -139,10 +145,10 @@ msgid "View samples"
 msgstr "Посмотреть образцы"
 
 msgid "Album Frame"
-msgstr "Рамка альбома"
+msgstr "Рамка Альбома"
 
 msgid "Photo Frame"
-msgstr "Рамка фотографии"
+msgstr "Рамка Фотографии"
 
 msgid "Save"
 msgstr "Сохранить"
@@ -151,13 +157,13 @@ msgid "Reset"
 msgstr "Сбросить"
 
 msgid "External Image Block"
-msgstr "Внешний  блок изображений"
+msgstr "Внешний Блок Изображения"
 
 msgid ""
 "Use a PHP block like the one shown below to include an image block in a PHP page outside of "
 "Gallery."
 msgstr ""
-"Используйте нижеуказанный код PHP для отображения блока изображения на PHP странице вне "
+"Используйте нижеуказанный код PHP для отображения Блока Изображения на PHP странице вне "
 "Галереи."
 
 msgid ""
@@ -170,11 +176,11 @@ msgstr ""
 "dailyAlbum, weeklyAlbum, monthlyAlbum, specificItem; значение по умолчанию randomImage"
 
 msgid ""
-"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize, rawImage; "
-"the value can also be: none"
+"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize; the value "
+"can also be: none"
 msgstr ""
 "Выбирете необходимые параметры из списка, разделив их чертой (|):  title, date, views, "
-"owner, heading, fullSize, rawImage; значение так же может быть: none"
+"owner, heading, fullSize; значение так же может быть: none"
 
 msgid ""
 "Limit the item selection to the subtree of the gallery under the album with the given id; or "
@@ -190,10 +196,6 @@ msgid ""
 "browser. If specified along with %sshow=fullSize the full size image will always be used and "
 "scaled down as necessary."
 msgstr ""
-"Увеличить изображения до этого максимального размера. Если задать определённую величину, "
-"Галерея найдёт соответствующее изображение  - изображения с бо'льшим размером будут "
-"уменьшены, как потребует браузер. Если задать так: %sshow=fullSize всегда будет "
-"использоваться полноразмерное изображение. "
 
 #, c-format
 msgid ""
@@ -201,19 +203,14 @@ msgid ""
 "request, so you'll get the closest match in size possible.  Note that this may use a lot "
 "more bandwidth if a much larger image has to be scaled down in your browser."
 msgstr ""
-"Только как %smaxSize, за исключением того, что изображение меньшего размера, чем вы задали, "
-"не будет заменено. Так, вы получите ближайший к заданному размер. Можно использовать набор "
-"различных размеров, если  большое изображение уменьшается в вашем браузере."
 
 msgid ""
 "Href for link on image; value of none for no link; default is link to item in the Gallery"
 msgstr ""
-"Href для ссылки на изображение; величина отсутствует, если нет ссылки; по умолчанию это "
-"ссылка на элемент в Галерее"
 
 msgid "Add a link target (for example, to open links in a new browser window)"
 msgstr ""
-"Добавить назначение (target) ссылки (например, что бы открывать ссылки в новом окне браузера)"
+"Добавить назначение (target) ссылки (например, что бы открыть ссылки в новом окне браузера)"
 
 msgid "Image frame to use around images"
 msgstr "Рамка вокруг изображения для фотографий"
@@ -240,7 +237,7 @@ msgid ""
 "the %s directory."
 msgstr ""
 "Укажите id рамки (или список id, разделенных чертой) в параметрах рамок. Для отображения "
-"вышесконфигурированных рамок вы не должны использовать этот параметр. Значение id для рамки "
+"вышесконфигурированных рамок Вы не должны использовать этот параметр. Значение id для рамки "
 "может быть получено из названия папки в директории %s."
 
 msgid "Image type"
@@ -283,7 +280,7 @@ msgid "Monthly album"
 msgstr "Альбом месяца"
 
 msgid "Number of items"
-msgstr "Количество элементов"
+msgstr ""
 
 msgid "Use default settings"
 msgstr "Использовать настройки по умолчанию"
@@ -298,7 +295,23 @@ msgid "Show date"
 msgstr "Отображать дату"
 
 msgid "Show view count"
-msgstr "Отображать количество просмотров"
+msgstr "Отображать просмотры"
 
 msgid "Show owner"
 msgstr "Отображать владельца"
+
+#~ msgid ""
+#~ "Scale images to this maximum size. If maxSize exceeds the thumbnail dimensions, you must "
+#~ "also specify g2_show=fullSize"
+#~ msgstr ""
+#~ "Маштабировать изображения до максимального размера. Если значение maxSize превышает "
+#~ "размеры макета превью, Вы должны так же указать параметр g2_show=fullSize"
+
+#~ msgid "Scale images to this maximum size"
+#~ msgstr "Масштабировать изображение до максимального размера"
+
+#~ msgid "Random/Popular"
+#~ msgstr "Случайный/Популярный"
+
+#~ msgid "Image Blocks"
+#~ msgstr "Блоки Изображений"

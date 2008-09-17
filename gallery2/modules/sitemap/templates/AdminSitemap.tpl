@@ -1,6 +1,8 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
 <div class="gbBlock gcBackground1">
   <h2> {g->text text="Sitemap settings"} </h2>
@@ -27,6 +29,6 @@
       {g->text text="URL Rewrite Module"}</a>
   {/strip}{/capture}
   <p class="giDescription">
-    {g->text text="You can change the Sitemap url using the %s." arg1=$link}
+    {g->text text="You can change the Sitemap url using the %s." arg1=$link} </p>
   </p>
 </div>

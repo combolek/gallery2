@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -75,9 +75,6 @@ class RepositoryCallbackView extends GalleryView {
 	    if ($ret) {
 		return $ret;
 	    }
-
-	    /* Remove the default repositories from the data cache */
-	    GalleryRepository::clearRepositoryCache();
 	}
 	return null;
     }

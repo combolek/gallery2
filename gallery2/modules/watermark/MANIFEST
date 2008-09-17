@@ -1,108 +1,102 @@
 # $Revision$
 # File crc32 crc32(crlf) size size(crlf)  or  R File
-modules/watermark/ConfirmDelete.inc	1227471917	714496992	3867	3988
-modules/watermark/DownloadItem.inc	3502088223	4244976683	7976	8240
-modules/watermark/ItemEditWatermark.inc	3690978326	1488788463	12551	12959
-modules/watermark/UserWatermarkEdit.inc	3339217219	4229010002	1988	2051
-modules/watermark/UserWatermarks.inc	603494297	2787703126	5328	5497
-modules/watermark/WatermarkOption.inc	993072536	2209248195	4431	4566
-modules/watermark/WatermarkSiteAdmin.inc	727498185	2802871543	5414	5584
-modules/watermark/WatermarkSiteAdminEdit.inc	2630146484	384300215	2234	2308
+modules/watermark/ConfirmDelete.inc	531375821	1512924678	3034	3130
+modules/watermark/DownloadItem.inc	426006379	598509811	6128	6335
+modules/watermark/ItemEditWatermark.inc	2251690806	1134398150	12637	13047
+modules/watermark/UserWatermarkEdit.inc	1749233413	3357651461	1988	2051
+modules/watermark/UserWatermarks.inc	1096277755	128881118	5328	5497
+modules/watermark/WatermarkOption.inc	2093227932	521585014	3824	3940
+modules/watermark/WatermarkSiteAdmin.inc	3197956659	3044635404	5399	5569
+modules/watermark/WatermarkSiteAdminEdit.inc	1906694888	3342410001	2024	2088
 modules/watermark/classes/Entities.inc	1688696014	256561824	1495	1516
 modules/watermark/classes/GNUmakefile	1995366819	843025639	51	52
 modules/watermark/classes/GalleryStorage/GNUmakefile	1465776782	2009162633	61	62
-modules/watermark/classes/GalleryStorage/schema.tpl	3978047140	3299013688	7032	7245
+modules/watermark/classes/GalleryStorage/schema.tpl	1324237631	1289064361	5870	6048
 modules/watermark/classes/GalleryStorage/xml-src/A_WatermarkImage_1.0.xml	739496766	586525217	475	495
-modules/watermark/classes/WatermarkHelper.class	2814044062	3573000965	20997	21715
-modules/watermark/classes/WatermarkImage.class	2787681394	2358175147	13305	13843
-modules/watermark/module.inc	3996894557	4019900808	10796	11181
+modules/watermark/classes/WatermarkHelper.class	415280235	2009912845	19919	20599
+modules/watermark/classes/WatermarkImage.class	59759412	930956367	13306	13843
+modules/watermark/locale/af/LC_MESSAGES/modules_watermark.mo	3144929691	3144929691	6007	6007
+modules/watermark/locale/ar/LC_MESSAGES/modules_watermark.mo	894821003	894821003	1174	1174
+modules/watermark/locale/ca/LC_MESSAGES/modules_watermark.mo	742449387	742449387	6508	6508
+modules/watermark/locale/cs/LC_MESSAGES/modules_watermark.mo	2358488474	2358488474	8493	8493
+modules/watermark/locale/da/LC_MESSAGES/modules_watermark.mo	375129792	375129792	7303	7303
+modules/watermark/locale/de/LC_MESSAGES/modules_watermark.mo	2196986722	2196986722	9273	9273
+modules/watermark/locale/en_GB/LC_MESSAGES/modules_watermark.mo	438770527	438770527	667	667
+modules/watermark/locale/es/LC_MESSAGES/modules_watermark.mo	348842875	348842875	8940	8940
+modules/watermark/locale/eu/LC_MESSAGES/modules_watermark.mo	156950060	156950060	5919	5919
+modules/watermark/locale/fi/LC_MESSAGES/modules_watermark.mo	1744515649	1744515649	1163	1163
+modules/watermark/locale/fr/LC_MESSAGES/modules_watermark.mo	2658653379	2658653379	8823	8823
+modules/watermark/locale/hu/LC_MESSAGES/modules_watermark.mo	3164625172	3164625172	6114	6114
+modules/watermark/locale/is/LC_MESSAGES/modules_watermark.mo	3115364700	3115364700	461	461
+modules/watermark/locale/it/LC_MESSAGES/modules_watermark.mo	2184963133	2184963133	8571	8571
+modules/watermark/locale/ja/LC_MESSAGES/modules_watermark.mo	116700415	116700415	9249	9249
+modules/watermark/locale/ko/LC_MESSAGES/modules_watermark.mo	219670155	219670155	3654	3654
+modules/watermark/locale/lt/LC_MESSAGES/modules_watermark.mo	1679260884	1679260884	1240	1240
+modules/watermark/locale/nl/LC_MESSAGES/modules_watermark.mo	3021185014	3021185014	6157	6157
+modules/watermark/locale/no/LC_MESSAGES/modules_watermark.mo	1562448347	1562448347	8278	8278
+modules/watermark/locale/pl/LC_MESSAGES/modules_watermark.mo	1107300134	1107300134	8445	8445
+modules/watermark/locale/pt_BR/LC_MESSAGES/modules_watermark.mo	2200931155	2200931155	6875	6875
+modules/watermark/locale/ro/LC_MESSAGES/modules_watermark.mo	1010837378	1010837378	8172	8172
+modules/watermark/locale/ru/LC_MESSAGES/modules_watermark.mo	271276541	271276541	8970	8970
+modules/watermark/locale/sk/LC_MESSAGES/modules_watermark.mo	1912994667	1912994667	1168	1168
+modules/watermark/locale/sr/LC_MESSAGES/modules_watermark.mo	2934797088	2934797088	5999	5999
+modules/watermark/locale/sv/LC_MESSAGES/modules_watermark.mo	3674448034	3674448034	8791	8791
+modules/watermark/locale/tr/LC_MESSAGES/modules_watermark.mo	1682001239	1682001239	3377	3377
+modules/watermark/locale/uk/LC_MESSAGES/modules_watermark.mo	3302021666	3302021666	1296	1296
+modules/watermark/locale/vi/LC_MESSAGES/modules_watermark.mo	2206710395	2206710395	1111	1111
+modules/watermark/locale/zh_CN/LC_MESSAGES/modules_watermark.mo	3568161037	3568161037	5544	5544
+modules/watermark/locale/zh_TW/LC_MESSAGES/modules_watermark.mo	2370047741	2370047741	7901	7901
+modules/watermark/module.inc	413029549	180681633	10454	10828
 modules/watermark/po/GNUmakefile	1866879166	2808215985	98	103
-modules/watermark/po/af.mo	986754315	986754315	6007	6007
-modules/watermark/po/af.po	3592389307	4017506709	8757	9076
-modules/watermark/po/ar.mo	3577880213	3577880213	1174	1174
-modules/watermark/po/ar.po	2382475560	3091930610	6273	6567
-modules/watermark/po/ca.mo	2153021016	2153021016	6508	6508
-modules/watermark/po/ca.po	1481004041	3338292870	9258	9575
-modules/watermark/po/cs.mo	4242233572	4242233572	8261	8261
-modules/watermark/po/cs.po	1756421505	3746987285	9552	9866
-modules/watermark/po/da.mo	3573623232	3573623232	8541	8541
-modules/watermark/po/da.po	2914272522	1126597654	9501	9817
-modules/watermark/po/de.mo	2826328895	2826328895	9447	9447
-modules/watermark/po/de.po	4067201400	2527765495	10431	10757
-modules/watermark/po/el.mo	945379932	945379932	12040	12040
-modules/watermark/po/el.po	1001427795	1954728157	12937	13254
-modules/watermark/po/en_GB.mo	4294660999	4294660999	667	667
-modules/watermark/po/en_GB.po	141115789	2524775336	8957	9266
-modules/watermark/po/es.mo	2691096836	2691096836	9154	9154
-modules/watermark/po/es.po	1828495718	2610609042	10068	10388
-modules/watermark/po/eu.mo	1943845351	1943845351	5919	5919
-modules/watermark/po/eu.po	948986451	1149701108	8569	8883
-modules/watermark/po/fi.mo	2391703525	2391703525	1163	1163
-modules/watermark/po/fi.po	1252247038	2531988459	6344	6642
-modules/watermark/po/fr.mo	3153880340	3153880340	9087	9087
-modules/watermark/po/fr.po	149129792	1077755053	9872	10187
-modules/watermark/po/hu.mo	1740121223	1740121223	6114	6114
-modules/watermark/po/hu.po	1034498988	634534331	8826	9139
-modules/watermark/po/is.mo	1263195820	1263195820	461	461
-modules/watermark/po/is.po	818581732	3762869874	5990	6283
-modules/watermark/po/it.mo	1666629107	1666629107	8734	8734
-modules/watermark/po/it.po	1794944856	785293929	9550	9863
-modules/watermark/po/ja.mo	2372365221	2372365221	9457	9457
-modules/watermark/po/ja.po	1730811929	900011328	10177	10483
-modules/watermark/po/ko.mo	3985443075	3985443075	3723	3723
-modules/watermark/po/ko.po	3992123780	4072283606	7729	8035
-modules/watermark/po/lt.mo	66792698	66792698	2790	2790
-modules/watermark/po/lt.po	3409267032	3601269582	7009	7307
-modules/watermark/po/nl.mo	3783333970	3783333970	8536	8536
-modules/watermark/po/nl.po	4118592602	358655567	9600	9919
-modules/watermark/po/no.mo	3997862872	3997862872	8278	8278
-modules/watermark/po/no.po	132236950	3010260642	9224	9535
-modules/watermark/po/pl.mo	6942901	6942901	8633	8633
-modules/watermark/po/pl.po	2041833400	4031743351	9423	9735
-modules/watermark/po/pt_BR.mo	1253717552	1253717552	6875	6875
-modules/watermark/po/pt_BR.po	4178347997	3127797805	9849	10180
-modules/watermark/po/ro.mo	2908164787	2908164787	8172	8172
-modules/watermark/po/ro.po	178354871	3111527372	9164	9472
-modules/watermark/po/ru.mo	2106086074	2106086074	12515	12515
-modules/watermark/po/ru.po	2575003223	4290477859	13405	13728
-modules/watermark/po/sk.mo	4265960934	4265960934	1622	1622
-modules/watermark/po/sk.po	1962503393	4027866763	6609	6910
-modules/watermark/po/sl.mo	2040986636	2040986636	8500	8500
-modules/watermark/po/sl.po	710163737	2306789171	9405	9720
-modules/watermark/po/sr.mo	3956258828	3956258828	8307	8307
-modules/watermark/po/sr.po	1424130537	1658001940	9206	9519
-modules/watermark/po/strings.raw	2913428915	2561926919	4912	5014
-modules/watermark/po/sv.mo	1042123652	1042123652	8791	8791
-modules/watermark/po/sv.po	3947424467	3363556397	9809	10131
-modules/watermark/po/tr.mo	3459958273	3459958273	6350	6350
-modules/watermark/po/tr.po	574055329	549683683	8426	8730
-modules/watermark/po/uk.mo	246396687	246396687	1296	1296
-modules/watermark/po/uk.po	3239973818	3287623543	6627	6926
-modules/watermark/po/vi.mo	1361051235	1361051235	1209	1209
-modules/watermark/po/vi.po	742353363	484604397	6273	6567
-modules/watermark/po/zh_CN.mo	2756406010	2756406010	5327	5327
-modules/watermark/po/zh_CN.po	343068195	2861517317	8141	8447
-modules/watermark/po/zh_TW.mo	1162531936	1162531936	7901	7901
-modules/watermark/po/zh_TW.po	3140421909	524684530	8694	8992
-modules/watermark/templates/ConfirmDelete.tpl	3752961915	3252501375	1229	1261
-modules/watermark/templates/ItemEditWatermark.tpl	2850912367	300714015	5454	5600
-modules/watermark/templates/UserWatermarkEdit.tpl	2118966936	557904157	233	238
-modules/watermark/templates/UserWatermarks.tpl	4214049674	4043731848	2045	2113
-modules/watermark/templates/WatermarkEdit.tpl	3627520804	3016463024	4243	4365
-modules/watermark/templates/WatermarkOption.tpl	1128399985	815391097	2127	2184
-modules/watermark/templates/WatermarkSiteAdmin.tpl	1140550999	257806434	4312	4424
-modules/watermark/templates/WatermarkSiteAdminEdit.tpl	3589683621	3671144263	238	243
-modules/watermark/test/data/SiteAdminControllerMaliciousFile.php	753305439	3790688835	849	870
-modules/watermark/test/data/UserWatermarkControllerTestFile.yyy	2462724539	2462724539	26	26
-modules/watermark/test/phpunit/ConfirmDeleteControllerTest.class	606763741	2019873974	5450	5623
-modules/watermark/test/phpunit/ItemEditWatermarkPluginTest.class	3037529235	2492621072	17420	17897
-modules/watermark/test/phpunit/UserWatermarkEditControllerTest.class	805382120	187313931	13375	13741
-modules/watermark/test/phpunit/UserWatermarksControllerTest.class	4074639372	2970497951	11625	11986
-modules/watermark/test/phpunit/WatermarkOptionTest.class	140883854	1961365492	11738	12096
-modules/watermark/test/phpunit/WatermarkSiteAdminControllerTest.class	542418040	1361982791	16187	16667
-modules/watermark/test/phpunit/WatermarkSiteAdminEditControllerTest.class	571050493	1551848105	10312	10589
-modules/watermark/test/phpunit/WatermarkTest.class	1930607904	3281285602	9766	10091
-modules/watermark/watermark.js	1363252951	1563226077	3672	3763
+modules/watermark/po/af.po	1506272428	4284107769	8737	9056
+modules/watermark/po/ar.po	663603252	1998655945	6178	6469
+modules/watermark/po/ca.po	2497368595	1537087396	9245	9562
+modules/watermark/po/cs.po	885108992	3674287055	9321	9631
+modules/watermark/po/da.po	37256240	2562441670	8880	9188
+modules/watermark/po/de.po	1218946512	113766586	10340	10665
+modules/watermark/po/en_GB.po	2333287430	1916388034	8862	9168
+modules/watermark/po/es.po	2594492471	1156155904	9852	10167
+modules/watermark/po/eu.po	2036562774	2009681717	8546	8860
+modules/watermark/po/fi.po	4016224296	4239975542	6251	6546
+modules/watermark/po/fr.po	3290029486	2545522007	9601	9909
+modules/watermark/po/hu.po	3856392746	605570520	8802	9115
+modules/watermark/po/is.po	1858484808	929362308	5895	6185
+modules/watermark/po/it.po	3047087389	1133846803	9461	9774
+modules/watermark/po/ja.po	3059098402	4107992722	9979	10283
+modules/watermark/po/ko.po	510833221	2974043245	7674	7980
+modules/watermark/po/lt.po	3063891378	1064574418	6301	6595
+modules/watermark/po/nl.po	180454532	110325256	9008	9327
+modules/watermark/po/no.po	4076801447	1239053067	9129	9437
+modules/watermark/po/pl.po	3545292239	1828176244	9241	9550
+modules/watermark/po/pt_BR.po	43783528	2348146136	9836	10167
+modules/watermark/po/ro.po	1711330042	365219000	9364	9684
+modules/watermark/po/ru.po	2216410888	471149057	12286	12610
+modules/watermark/po/sk.po	2212471789	2135233365	6320	6618
+modules/watermark/po/sr.po	1134911468	958919275	8572	8885
+modules/watermark/po/strings.raw	2217357242	2582831771	4798	4897
+modules/watermark/po/sv.po	18204095	2779284470	9714	10033
+modules/watermark/po/tr.po	3791537487	604735443	7390	7696
+modules/watermark/po/uk.po	3994105069	2852251402	6532	6828
+modules/watermark/po/vi.po	910994421	1122685336	6144	6435
+modules/watermark/po/zh_CN.po	3345102361	989021033	8080	8385
+modules/watermark/po/zh_TW.po	668729965	843681177	8599	8894
+modules/watermark/templates/ConfirmDelete.tpl	1802347798	1389347787	1385	1419
+modules/watermark/templates/ItemEditWatermark.tpl	4050722428	2683984883	5589	5737
+modules/watermark/templates/UserWatermarkEdit.tpl	1959533073	2660653996	389	396
+modules/watermark/templates/UserWatermarks.tpl	988650015	3221978837	2201	2271
+modules/watermark/templates/WatermarkEdit.tpl	2935001859	2529376519	4396	4520
+modules/watermark/templates/WatermarkOption.tpl	1246756527	3920391788	2283	2342
+modules/watermark/templates/WatermarkSiteAdmin.tpl	2632304324	3153230780	4464	4578
+modules/watermark/templates/WatermarkSiteAdminEdit.tpl	2348114205	1073288311	394	401
+modules/watermark/test/phpunit/ConfirmDeleteControllerTest.class	1797745289	2587583207	5841	6017
+modules/watermark/test/phpunit/ItemEditWatermarkPluginTest.class	2217341372	652979926	17945	18422
+modules/watermark/test/phpunit/UserWatermarkEditControllerTest.class	4269423376	2028405660	13648	14009
+modules/watermark/test/phpunit/UserWatermarksControllerTest.class	3930615366	2852835390	12034	12393
+modules/watermark/test/phpunit/WatermarkOptionTest.class	2767976065	2642954378	11618	11952
+modules/watermark/test/phpunit/WatermarkSiteAdminControllerTest.class	2968109558	256618035	14186	14583
+modules/watermark/test/phpunit/WatermarkSiteAdminEditControllerTest.class	1048658991	2691193642	10757	11039
+modules/watermark/test/phpunit/WatermarkTest.class	1295215003	3745451689	10388	10710
+modules/watermark/watermark.js	687590512	3006689366	3672	3763
 R	modules/watermark/classes/GalleryStorage/DatabaseStorage/schema/GNUmakefile
 R	modules/watermark/classes/GalleryStorage/DatabaseStorage/schema/platform/GNUmakefile
 R	modules/watermark/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/A_WatermarkImage_1.0.sql
@@ -131,76 +125,45 @@ R	modules/watermark/classes/GalleryStorage/DatabaseStorage
 R	modules/watermark/classes/interfaces/GNUmakefile
 R	modules/watermark/classes/interfaces/WatermarkImage.inc
 R	modules/watermark/classes/interfaces
-R	modules/watermark/locale/af/LC_MESSAGES/modules_watermark.mo
-R	modules/watermark/locale/ar/LC_MESSAGES/modules_watermark.mo
-R	modules/watermark/locale/ca/LC_MESSAGES/modules_watermark.mo
-R	modules/watermark/locale/cs/LC_MESSAGES/modules_watermark.mo
 R	modules/watermark/locale/cs_CZ/LC_MESSAGES/modules_watermark.mo
 R	modules/watermark/locale/cs_CZ/LC_MESSAGES
 R	modules/watermark/locale/cs_CZ
-R	modules/watermark/locale/da/LC_MESSAGES/modules_watermark.mo
-R	modules/watermark/locale/de/LC_MESSAGES/modules_watermark.mo
 R	modules/watermark/locale/de_DE/LC_MESSAGES/modules_watermark.mo
 R	modules/watermark/locale/de_DE/LC_MESSAGES
 R	modules/watermark/locale/de_DE
-R	modules/watermark/locale/en_GB/LC_MESSAGES/modules_watermark.mo
-R	modules/watermark/locale/es/LC_MESSAGES/modules_watermark.mo
-R	modules/watermark/locale/eu/LC_MESSAGES/modules_watermark.mo
 R	modules/watermark/locale/eu_ES/LC_MESSAGES/modules_watermark.mo
 R	modules/watermark/locale/eu_ES/LC_MESSAGES
 R	modules/watermark/locale/eu_ES
-R	modules/watermark/locale/fi/LC_MESSAGES/modules_watermark.mo
-R	modules/watermark/locale/fr/LC_MESSAGES/modules_watermark.mo
 R	modules/watermark/locale/fr_FR/LC_MESSAGES/modules_watermark.mo
 R	modules/watermark/locale/fr_FR/LC_MESSAGES
 R	modules/watermark/locale/fr_FR
-R	modules/watermark/locale/hu/LC_MESSAGES/modules_watermark.mo
-R	modules/watermark/locale/is/LC_MESSAGES/modules_watermark.mo
 R	modules/watermark/locale/is_IS/LC_MESSAGES/modules_watermark.mo
 R	modules/watermark/locale/is_IS/LC_MESSAGES
 R	modules/watermark/locale/is_IS
-R	modules/watermark/locale/it/LC_MESSAGES/modules_watermark.mo
 R	modules/watermark/locale/it_IT/LC_MESSAGES/modules_watermark.mo
 R	modules/watermark/locale/it_IT/LC_MESSAGES
 R	modules/watermark/locale/it_IT
-R	modules/watermark/locale/ja/LC_MESSAGES/modules_watermark.mo
 R	modules/watermark/locale/ja_JP/LC_MESSAGES/modules_watermark.mo
 R	modules/watermark/locale/ja_JP/LC_MESSAGES
 R	modules/watermark/locale/ja_JP
-R	modules/watermark/locale/ko/LC_MESSAGES/modules_watermark.mo
-R	modules/watermark/locale/lt/LC_MESSAGES/modules_watermark.mo
-R	modules/watermark/locale/nl/LC_MESSAGES/modules_watermark.mo
 R	modules/watermark/locale/nl_NL/LC_MESSAGES/modules_watermark.mo
 R	modules/watermark/locale/nl_NL/LC_MESSAGES
 R	modules/watermark/locale/nl_NL
-R	modules/watermark/locale/no/LC_MESSAGES/modules_watermark.mo
 R	modules/watermark/locale/no_NO/LC_MESSAGES/modules_watermark.mo
 R	modules/watermark/locale/no_NO/LC_MESSAGES
 R	modules/watermark/locale/no_NO
-R	modules/watermark/locale/pl/LC_MESSAGES/modules_watermark.mo
-R	modules/watermark/locale/pt_BR/LC_MESSAGES/modules_watermark.mo
-R	modules/watermark/locale/ro/LC_MESSAGES/modules_watermark.mo
-R	modules/watermark/locale/ru/LC_MESSAGES/modules_watermark.mo
 R	modules/watermark/locale/ru_RU/LC_MESSAGES/modules_watermark.mo
 R	modules/watermark/locale/ru_RU/LC_MESSAGES
 R	modules/watermark/locale/ru_RU
-R	modules/watermark/locale/sk/LC_MESSAGES/modules_watermark.mo
-R	modules/watermark/locale/sr/LC_MESSAGES/modules_watermark.mo
 R	modules/watermark/locale/sr_YU/LC_MESSAGES/modules_watermark.mo
 R	modules/watermark/locale/sr_YU/LC_MESSAGES
 R	modules/watermark/locale/sr_YU
-R	modules/watermark/locale/sv/LC_MESSAGES/modules_watermark.mo
 R	modules/watermark/locale/sv_SE/LC_MESSAGES/modules_watermark.mo
 R	modules/watermark/locale/sv_SE/LC_MESSAGES
 R	modules/watermark/locale/sv_SE
-R	modules/watermark/locale/tr/LC_MESSAGES/modules_watermark.mo
 R	modules/watermark/locale/tr_TR/LC_MESSAGES/modules_watermark.mo
 R	modules/watermark/locale/tr_TR/LC_MESSAGES
 R	modules/watermark/locale/tr_TR
-R	modules/watermark/locale/uk/LC_MESSAGES/modules_watermark.mo
-R	modules/watermark/locale/vi/LC_MESSAGES/modules_watermark.mo
-R	modules/watermark/locale/zh_CN/LC_MESSAGES/modules_watermark.mo
-R	modules/watermark/locale/zh_TW/LC_MESSAGES/modules_watermark.mo
 R	modules/watermark/po/cs_CZ.po
 R	modules/watermark/po/de_DE.po
 R	modules/watermark/po/eu_ES.po

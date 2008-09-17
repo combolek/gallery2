@@ -13,7 +13,7 @@
  * $Id$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -48,7 +48,6 @@ require_once($g2Base . 'install/GalleryStub.class');
 require_once($g2Base . 'install/InstallStep.class');
 require_once($g2Base . 'install/StatusTemplate.class');
 require_once($g2Base . 'modules/core/classes/GalleryUtilities.class');
-require_once($g2Base . 'modules/core/classes/GalleryDataCache.class');
 require_once($g2Base . 'lib/support/GallerySetupUtilities.class');
 define('INDEX_PHP', basename(__FILE__));
 
@@ -95,7 +94,7 @@ if (function_exists('dgettext')) {
     $translator = new GalleryTranslator();
     $translator->init($_SESSION['language'], true);
     unset($gallery);
-    bindtextdomain('gallery2_install', dirname(dirname(__FILE__)) . '/locale');
+    bindtextdomain('gallery2_install', dirname(__FILE__) . '/locale');
     textdomain('gallery2_install');
     if (function_exists('bind_textdomain_codeset')) {
 	bind_textdomain_codeset('gallery2_install', 'UTF-8');

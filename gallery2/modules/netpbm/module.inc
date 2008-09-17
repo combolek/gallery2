@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,12 +33,11 @@ class NetPbmModule extends GalleryModule {
 	$this->setId('netpbm');
 	$this->setName($gallery->i18n('NetPBM'));
 	$this->setDescription($gallery->i18n('NetPBM Graphics Toolkit'));
-	$this->setVersion('1.1.2');
-	$this->_templateVersion = 1;
+	$this->setVersion('1.1.1');
 	$this->setGroup('toolkits', $gallery->i18n('Graphics Toolkits'));
 	$this->setCallbacks('getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 20));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setRequiredCoreApi(array(7, 4));
+	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
@@ -82,11 +81,6 @@ class NetPbmModule extends GalleryModule {
      */
     function autoConfigure() {
 	global $gallery;
-
-	/* This module requires exec() */
-	if (in_array('exec', split(',\s*', ini_get('disable_functions')))) {
-	    return array(null, false);
-	}
 
 	list ($ret, $needsConfiguration) = $this->needsConfiguration();
 	if ($ret) {
@@ -154,7 +148,7 @@ class NetPbmModule extends GalleryModule {
 	/* Now try each path in turn to see which ones work */
 	$success = false;
 	foreach ($paths as $path) {
-	    if ($platform->isRestrictedByOpenBaseDir($path) || !$platform->file_exists($path)) {
+	    if (!$platform->isRestrictedByOpenBaseDir($path) && !$platform->file_exists($path)) {
 		continue;
 	    }
 
@@ -262,10 +256,6 @@ class NetPbmModule extends GalleryModule {
      * @see GalleryModule::needsConfiguration
      */
     function needsConfiguration() {
-	/* This module requires exec() */
-	if (in_array('exec', split(',\s*', ini_get('disable_functions')))) {
-	    return array(null, true);
-	}
 	/* This module requires all fields to be filled out before it can be activated. */
 	foreach (array('path', 'jpegQuality', 'pnmtojpeg', 'bmptopnm', 'pnmcomp') as $key) {
 	    list ($ret, $value) = $this->getParameter($key);
@@ -277,6 +267,7 @@ class NetPbmModule extends GalleryModule {
 		return array(null, true);
 	    }
 	}
+
 	return array(null, false);
     }
 

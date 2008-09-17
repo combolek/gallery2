@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,14 +33,11 @@ class PlatformTest extends GalleryTestCase {
 
     function setUp() {
 	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	$ret = GalleryCoreApi::addMimeType('xxx', 'test/test', false);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->_platform =& $gallery->getPlatform();
@@ -57,7 +54,10 @@ class PlatformTest extends GalleryTestCase {
 	    array_splice($this->_platform->_blacklistedFileExtensions, $pos, 1);
 	}
 
-	return parent::tearDown();
+	$ret = parent::tearDown();
+	if ($ret) {
+	    $this->failWithStatus($ret);
+	}
     }
 
     function testCopy() {
@@ -69,30 +69,6 @@ class PlatformTest extends GalleryTestCase {
 	if ($this->_platform->isSymlinkSupported()) {
 	    $this->assert($this->_platform->symlink($this->_sourceFile, $this->_destFile));
 	    $this->assert($this->_platform->unlink($this->_destFile));
-	}
-    }
-
-    function testTempnam() {
-	global $gallery;
-	$platform =& $gallery->getPlatform();
-
-	if ($this->_platform->isSymlinkSupported()) {
-	    $sourceDir = $dataBase = $gallery->getConfig('data.gallery.tmp');
-	    foreach (array('platformTest', 'srcDir') as $subDir) {
-	    	$sourceDir .= "$subDir/";
-		$this->assert(mkdir($sourceDir, 0777),
-			      'Failed to create test directory: ' . $subDir);
-	    }
-
-	    $symlink = $dataBase . 'platformTest/data';
-	    $this->assert(symlink($sourceDir, $symlink), 'Failed to create test symlink');
-	    $tempName = $platform->tempnam($symlink . '/', 'test');
-
-	    $this->assertEquals($symlink, dirname($tempName), 'Directories don\'t match');
-	    $this->assert(unlink($tempName), 'Failed to delete temporary file');
-	    $this->assert(unlink($symlink), 'Failed to delete symlink');
-	    $this->assert(rmdir($sourceDir), 'Failed to delete test source directory');
-	    $this->assert(rmdir(dirname($sourceDir)), 'Failed to delete test directory');
 	}
     }
 
@@ -240,11 +216,6 @@ class PlatformTest extends GalleryTestCase {
 			    $this->_platform->legalizePathComponent('test.php.jpg'));
     }
 
-    function testLegalizePathComponentForDirectory() {
-	$this->assertEquals('test_.php.jpg_',
-			    $this->_platform->legalizePathComponent('test!.php.jpg$', true));
-    }
-
     function testPathComponentLegalCharactersConserved() {
 	$this->assertEquals(true,
 			    $this->_platform->isLegalPathComponent('TheQuickBrownFox'));
@@ -292,11 +263,6 @@ class PlatformTest extends GalleryTestCase {
 			    $this->_platform->isLegalPathComponent('._test'));
 	$this->assertEquals('__test',
 			    $this->_platform->legalizePathComponent('._test'));
-    }
-
-    function testIsLegalPathComponentWithDotForDirectory() {
-	$this->assertEquals(true,
-			    $this->_platform->isLegalPathComponent('some._test', true));
     }
 
     function testLegalizePathComponentWithBlacklistedExtension() {
@@ -357,14 +323,14 @@ class PlatformTest extends GalleryTestCase {
 	    }
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'core', 'permissions.file', '600');
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $this->_platform->resetPlatform();
 	    $this->_permissionTest(0600, 1, array('copy', 'atomicWrite', 'symlink'));
 
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'core', 'permissions.file', '664');
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $this->_platform->resetPlatform();
 	    $this->_permissionTest(0664, 2, array('copy', 'symlink', 'atomicWrite'));
@@ -372,7 +338,7 @@ class PlatformTest extends GalleryTestCase {
 	    $this->assert($this->_platform->copy($this->_sourceFile, $this->_destFile), 'copy');
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'core', 'permissions.file', '612');
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $this->_platform->resetPlatform();
 	    $this->_permissionTest(0612, 3, array('chmod'));
@@ -381,7 +347,7 @@ class PlatformTest extends GalleryTestCase {
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'core',
 						      'permissions.directory', '751');
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $this->_platform->resetPlatform();
 	    $this->_permissionTest(0751, 4, array('chmod'));
@@ -467,15 +433,15 @@ class PlatformTest extends GalleryTestCase {
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'core');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'permissions.directory', '734');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'permissions.file', '652');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	return null;
     }
@@ -484,7 +450,7 @@ class PlatformTest extends GalleryTestCase {
 	/* Set dir and file permissions by system prefs */
 	$ret = $this->_setupChmodTest();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->_platform->resetPlatform();
@@ -515,7 +481,7 @@ class PlatformTest extends GalleryTestCase {
 	/* Set given dir permission, don't change file permissions */
 	$ret = $this->_setupChmodTest();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$fileStat = $this->_platform->stat($this->_destFile . '/1/2');
@@ -547,7 +513,7 @@ class PlatformTest extends GalleryTestCase {
 	/* Set given file permission, don't change dir permissions */
 	$ret = $this->_setupChmodTest();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$dirStat = $this->_platform->stat($this->_destFile . '/1');
@@ -766,14 +732,12 @@ class PlatformTest extends GalleryTestCase {
 	@$this->_platform->fclose($fd);
     }
 
-    function ignore_error_handler($errno, $errstr) { return true; }
-
     /**
      * Try opening a socket to a bogus web server.
      */
     function testFsockopenBadHost() {
-	/* We know this is going to bomb so bypass PHPunit's error handler */
-	set_error_handler(array('PlatformTest', 'ignore_error_handler'));
+	/* We know this is going to bomb so unset PHPunit's error handler */
+	restore_error_handler();
 
 	$fd = @$this->_platform->fsockopen('www.BOGUSBOGUSBOGUSBOGUS.com', $_SERVER['SERVER_PORT'],
 					   $errno, $errstr, 30);
@@ -809,8 +773,8 @@ class PlatformTest extends GalleryTestCase {
     }
 
     function testOpenMissingFile() {
-	/* We know this is going to bomb so bypass PHPunit's error handler */
-	set_error_handler(array('PlatformTest', 'ignore_error_handler'));
+	/* We know this is going to bomb so unset PHPunit's error handler */
+	restore_error_handler();
 
 	/* And suppress warnings when we call fopen */
 	$fd = @$this->_platform->fopen(sprintf('%s_BOGUS_BOGUS', __FILE__), 'rb');
@@ -898,11 +862,11 @@ class PlatformTest extends GalleryTestCase {
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'core');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'smtp.host', null);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$gallery->_phpVm = new PlatformTestPhpVm(dirname(__FILE__), $this);

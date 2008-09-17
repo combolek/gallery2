@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,7 +43,7 @@ class ItemAddPluginTestCase extends GalleryTestCase {
 	list ($ret, $this->_plugin) =
 	    GalleryCoreApi::newFactoryInstanceById('ItemAddPlugin', $pluginName);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	if (!isset($this->_plugin)) {
 	    return $this->assert(false, "Unable to create ItemAddPlugin, type $pluginName");
@@ -51,27 +51,25 @@ class ItemAddPluginTestCase extends GalleryTestCase {
 
 	list ($ret, $this->_module) = GalleryCoreApi::loadPlugin('module', $moduleName);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
     }
 
-    function handleRequest(&$item, $errorCode=null) {
+    function handleRequest(&$item, $errorCode=null, $options=array()) {
 	/* Get our form variables */
 	$form = GalleryUtilities::getFormVariables('form');
 
-	$this->_addController = new ItemAddPluginTestItemAddController();
-	list ($ret, $error, $status) =
-	    $this->_plugin->handleRequest($form, $item, $this->_addController);
+	list ($ret, $error, $status) = $this->_plugin->handleRequest($form, $item, $options);
 	if (isset($errorCode)) {
-	    if ($ret && ($ret->getErrorCode() & $errorCode) != $errorCode) {
+	    if (($ret->getErrorCode() & $errorCode) != $errorCode) {
 		$this->assert(false,
 			sprintf('Expected error code (%s) but received (%s)',
 			    implode(' | ', GalleryStatus::getErrorCodeConstants($errorCode)),
-			    implode(' | ', $ret ? '' : GalleryStatus::getErrorCodeConstants(
+			    implode(' | ', GalleryStatus::getErrorCodeConstants(
 							  $ret->getErrorCode()))));
 	    }
 	} else if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	} else {
 	    /* Check to make sure we got back everything we want */
 	    $this->assert(isset($error) && is_array($error), 'plugin error results missing');
@@ -88,22 +86,6 @@ class ItemAddPluginTestCase extends GalleryTestCase {
 
     function _translate($message) {
 	return $this->_module->translate($message);
-    }
-}
-
-/**
- * Mock ItemAddController to observe post-processing calls.
- */
-class ItemAddPluginTestItemAddController {
-    var $_calls = array();
-
-    function getCalls() {
-	return $this->_calls;
-    }
-
-    function postprocessItems($form, &$status) {
-	$this->_calls[] = array($form, $status);
-	return null;
     }
 }
 ?>

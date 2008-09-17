@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,9 +20,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Windows Publishing Wizard 1.0.13\n"
+"Project-Id-Version: Gallery: Publish XP 1.0.7\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2007-06-14 17:36-0700\n"
+"POT-Creation-Date: 2006-12-20 09:39-0800\n"
 "PO-Revision-Date: 2006-03-16 16:27+0100\n"
 "Last-Translator: Serban Constantinescu <serban.constantinescu@gmail.com>\n"
 "Language-Team: <none>\n"
@@ -34,14 +34,17 @@ msgstr ""
 "X-Poedit-Language: Romanian\n"
 "X-Poedit-Country: ROMANIA\n"
 
-msgid "Windows Publishing Wizard"
+msgid "Windows XP"
 msgstr ""
 
-msgid "Publish photos to Gallery directly from Windows"
+msgid "Publish XP"
+msgstr ""
+
+msgid "Publish photos to Gallery directly from Windows XP"
 msgstr ""
 
 msgid "Import"
-msgstr "Import"
+msgstr ""
 
 #, c-format
 msgid "%s at %s"
@@ -55,12 +58,12 @@ msgid "Upload to Gallery"
 msgstr ""
 
 msgid ""
-"Microsoft Windows comes with a nice feature that allows you to publish content from your "
-"desktop directly to a web service.  Follow the instructions below to enable this service on "
-"your Windows system."
+"Windows XP comes with a nice feature that allows you to publish content from your desktop "
+"directly to a web service.  Follow the instructions below to enable this service on your "
+"Windows XP system."
 msgstr ""
 
-msgid "Installation"
+msgid "Step 1"
 msgstr ""
 
 msgid ""
@@ -72,52 +75,18 @@ msgid ""
 "imported successfully.  Click 'Ok' again."
 msgstr ""
 
-msgid "(for Windows Vista)"
-msgstr ""
-
-msgid "(for Windows XP, Windows 2000 and earlier Windows versions)"
-msgstr ""
-
 msgid "Download [install_registry.reg]"
 msgstr ""
 
-msgid "Windows Vista"
-msgstr ""
-
-#, c-format
-msgid "Open your %sWindows Photo Gallery%s."
-msgstr ""
-
-msgid "Select one or more images / files in your Windows Photo Gallery."
+msgid "Step 2"
 msgstr ""
 
 msgid ""
-"Click \"Print...\" and select the online printing option (not the local printing option)."
+"Open your Windows Explorer and browse to a folder containing supported images. Select the "
+"image(s) or a folder and there should be a link on the left that says 'Publish this file to "
+"the web...'  Click this link and then follow the instructions to log into your Gallery, "
+"select an album and publish the image."
 msgstr ""
-
-msgid "Select the Gallery 2 printing service."
-msgstr ""
-
-msgid ""
-"Then follow the instructions to log into your Gallery, select an album and publish the image"
-"(s)."
-msgstr ""
-
-msgid "Windows XP, Windows 2000 and earlier Windows versions"
-msgstr ""
-
-msgid "Open your Windows Explorer and browse to a folder containing supported images."
-msgstr ""
-
-msgid "Select the image(s) or a folder."
-msgstr ""
-
-msgid "Click the link on the left that says \"Publish this file to the web...\""
-msgstr ""
-
-#, fuzzy
-msgid "Usage"
-msgstr "Nume utilizator"
 
 msgid "Specify the name and title for the new album."
 msgstr ""

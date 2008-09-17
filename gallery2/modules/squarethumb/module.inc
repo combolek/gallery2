@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,12 +36,11 @@ class SquareThumbModule extends GalleryModule /* and GalleryEventListener */ {
 	$this->setId('squarethumb');
 	$this->setName($gallery->i18n('Square Thumbnails'));
 	$this->setDescription($gallery->i18n('Build all thumbnails so they are square'));
-	$this->setVersion('1.0.8');
-	$this->_templateVersion = 1;
+	$this->setVersion('1.0.5');
 	$this->setGroup('display', $gallery->i18n('Display'));
-	$this->setCallbacks('getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 34));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setCallbacks('registerEventListeners|getSiteAdminViews');
+	$this->setRequiredCoreApi(array(7, 4));
+	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
@@ -70,13 +69,6 @@ class SquareThumbModule extends GalleryModule /* and GalleryEventListener */ {
      */
     function performFactoryRegistrations() {
 	$ret = GalleryCoreApi::registerFactoryImplementation(
-	    'GalleryEventListener', 'SquareThumbModule', 'SquareThumbModule', 
-	    'modules/squarethumb/module.inc', 'squarethumb', array('Gallery::DeactivatePlugin'));
-	if ($ret) {
-	    return $ret;
-	}
-
-	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'GalleryToolkit', 'SquareThumbToolkit', 'SquareThumb',
 	    'modules/squarethumb/classes/SquareThumbToolkit.class', 'squarethumb', null);
 	if ($ret) {
@@ -87,10 +79,24 @@ class SquareThumbModule extends GalleryModule /* and GalleryEventListener */ {
     }
 
     /**
+     * @see GalleryModule::registerEventListeners
+     */
+    function registerEventListeners() {
+	GalleryCoreApi::registerEventListener('Gallery::DeactivatePlugin',
+					      new SquareThumbModule());
+    }
+
+    /**
      * @see GalleryModule::getSiteAdminViews
      */
     function getSiteAdminViews() {
-	return array(null,
+	/* Omit site admin view if no ppm support; only use crop-to-square in that case */
+	list ($ret, $toolkit) = GalleryCoreApi::getToolkitByOperation('image/x-portable-pixmap',
+								      'convert-to-image/jpeg');
+	if ($ret) {
+	    return array($ret, null);
+	}
+	return array(null, !isset($toolkit) ? array() :
 		     array(array('name' => $this->translate('Square Thumbnails'),
 				 'view' => 'squarethumb.SquareThumbSiteAdmin')));
     }
@@ -148,7 +154,7 @@ class SquareThumbModule extends GalleryModule /* and GalleryEventListener */ {
      *    thumbnail, dimensions and crop [or composite]
      *
      * @param boolean $useComposite true to include types with composite support
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *               array mime types
      * @access private
      */

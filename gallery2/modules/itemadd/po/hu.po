@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,24 +19,16 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Add Items 1.0.6\n"
+"Project-Id-Version: Gallery: Add Items 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-11-04 20:08+0100\n"
-"PO-Revision-Date: 2007-03-31 17:56+0100\n"
-"Last-Translator: Rekedt-Nagy József <jozsef.rnagy@site.hu>\n"
+"PO-Revision-Date: 2006-01-06 17:02+0100\n"
+"Last-Translator: Jozsef R.Nagy <joe7@site.hu>\n"
 "Language-Team: Hungarian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-
-#, fuzzy
-msgid "Adding items"
-msgstr "Elemek hozzáadása"
-
-#, fuzzy
-msgid "Scanning directory"
-msgstr "Szülőkönyvtár"
 
 msgid "From Local Server"
 msgstr "Helyi szerverről"
@@ -49,38 +41,35 @@ msgstr "Weboldalról"
 
 msgid "Available to all users with permission to add items"
 msgstr ""
-"Minden felhasználó részére hozzáférhető aki rendelkezik jogosultsággal elemek hozzáadásához"
 
-# Admin should be translated as "Rendszergazda" imo.
 msgid "Site Admins only"
-msgstr "Csak az oldal adminisztrátorai részére"
+msgstr ""
 
 msgid "Disabled"
-msgstr "Kikapcsolva"
+msgstr ""
 
 msgid "Add Items"
 msgstr "Elemek hozzáadása"
 
 msgid "Add items from local server or the web"
-msgstr "Elemek hozzáadása a helyi szerverről vagy a webről"
+msgstr ""
 
 msgid "Import"
-msgstr "Importálás"
+msgstr ""
 
 msgid "Web/Server"
-msgstr "Web/Kiszolgáló"
+msgstr ""
 
-#, fuzzy
 msgid ""
 "Transfer files that are already on your server into your Gallery.  The files must already "
-"have been uploaded to your server some other way (like FTP) and must be placed in an "
-"accessible directory.  If you're on Unix this means that the files and the directory the "
-"files are in should have modes of at least 755."
+"have been uploaded to your server some other way (like FTP) and must be placed in a "
+"directory where they are accessibly by any element on the server.  If you're on Unix this "
+"means that the files and the directory the files are in should have modes of at least 755."
 msgstr ""
-"Képek áthelyezése a Galériába a szerverről. A fájloknak már a szerveren kell lenniük "
+"Képek áthelyezése a Galériába a szerverről. A fájloknak mar a szerveren kell lenniük "
 "(például FTP-vel feltöltve) egy olyan könyvtárban, amit bármilyen program elérhet. Ha ön egy "
-"Unix szervert használ, akkor ez azt jelenti, hogy a fájlokon és könyvtárakon lévő "
-"jogosultsági értékeknek legalább 755-nek kell lenniük."
+"Unix szervert használ, akkor ez azt jelenti, hogy a fájloknak és könyvtáraknak legalább 755-"
+"ös joggal kell rendelkezniük."
 
 msgid ""
 "For security purposes, you can't use this feature until the Gallery Site Administrator "
@@ -121,7 +110,7 @@ msgid "modify"
 msgstr "módosítás"
 
 msgid "Recent Directories"
-msgstr "Legutóbbi könyvtárak"
+msgstr "Friss könyvtárak"
 
 msgid "Find Files"
 msgstr "Fájlok keresése"
@@ -145,7 +134,8 @@ msgstr "Szimbolikus link használata"
 #, c-format
 msgid "%d byte"
 msgid_plural "%d bytes"
-msgstr[0] "%d byte"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Parent Directory"
 msgstr "Szülőkönyvtár"
@@ -210,7 +200,7 @@ msgid "Nothing added since no items were selected"
 msgstr "Nem adtunk hozzá semmit, mivel nincs elem kiválasztva"
 
 msgid "Recent URLs"
-msgstr "Legutóbbi URL-ek"
+msgstr "Friss URL-ek"
 
 #, c-format
 msgid "URL: %s"
@@ -222,31 +212,32 @@ msgstr "változtatás"
 #, c-format
 msgid "%d url found"
 msgid_plural "%d urls found"
-msgstr[0] "%d webcímet (url) találtunk"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "(Un)check all"
 msgstr "Mind ki/bekapcsol"
 
 msgid "Add URLs"
-msgstr "URL-ek hozzáadása"
+msgstr "URLek hozzáadása"
 
 msgid "Add Item Settings"
-msgstr "Elemek hozzáadásának beállításai"
+msgstr ""
 
 msgid "Settings saved successfully"
 msgstr "Beállítások sikeresen elmentve"
 
 msgid "Enable"
-msgstr "Bekapcsolás"
+msgstr ""
 
 msgid "Add From Web"
-msgstr "Hozzáadás a kiszolgálóról"
+msgstr ""
 
 msgid "Add From Server"
-msgstr "Hozzáadás a kiszolgálóról"
+msgstr ""
 
 msgid "Security Warning"
-msgstr "Biztonsági Figyelmeztetés"
+msgstr ""
 
 msgid ""
 "\"Add From Web\" can be abused to attack other websites in your name.  For the attacked "
@@ -299,7 +290,7 @@ msgid "The webserver does not have permissions to read that directory."
 msgstr "A webszervernek nincs jogosultsága a könyvtár olvasásának."
 
 msgid "The path you specified is not a valid directory."
-msgstr "A beírt útvonal nem egy valós könyvtár."
+msgstr "A beírt útvonal nem egy könyvtár"
 
 msgid "Save"
 msgstr "Mentés"

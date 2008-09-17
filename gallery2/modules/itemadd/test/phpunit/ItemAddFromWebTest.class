@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,21 +43,19 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
     }
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	list ($ret, $this->_album) =
 	    $this->_createRandomAlbum($this->_getRootId(), array('orderBy' => 'orderWeight'));
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($this->_album);
 
 	list ($ret, $this->_lockIds) = GalleryCoreApi::acquireReadLock($this->_album->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	global $gallery;
@@ -93,52 +91,49 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 	    $session->remove('itemadd.view.ItemAddFromWeb.recentUrls');
 	}
 
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
+	parent::tearDown();
     }
 
     function testIsAppropriate() {
 	$ret = $this->_markPluginParametersForCleanup('module', 'itemadd');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'itemadd', 'fromweb', 'off');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	list ($ret, $isAppropriate) = $this->_plugin->isAppropriate();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(false, $isAppropriate, 'off');
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'itemadd', 'fromweb', 'admin');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	list ($ret, $isAppropriate) = $this->_plugin->isAppropriate();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(true, $isAppropriate, 'admin for admin');
 
 	$this->_becomeGuestUser();
 	list ($ret, $isAppropriate) = $this->_plugin->isAppropriate();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(false, $isAppropriate, 'admin for guest');
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'itemadd', 'fromweb', 'on');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	list ($ret, $isAppropriate) = $this->_plugin->isAppropriate();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(true, $isAppropriate, 'on');
     }
@@ -146,12 +141,12 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
     function testAddFromWebPageCallsIsAppropriate() {
 	$ret = $this->_markPluginParametersForCleanup('module', 'itemadd');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'itemadd', 'fromweb', 'off');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$results = $this->handleRequest($this->_album, ERROR_PERMISSION_DENIED);
 	$this->assertEquals(array(null, null), $results);
@@ -199,14 +194,14 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 
 	list ($ret, $ids) = GalleryCoreApi::fetchChildItemIds($this->_album);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$i = 0;
 	foreach ($ids as $id) {
-	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($id, 'GalleryItem');
+	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($id);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $base = $basenames[$i];
 	    $this->assertEquals($base, $item->getTitle(), "title $i");
@@ -240,12 +235,12 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 
 	list ($ret, $ids) = GalleryCoreApi::fetchChildItemIds($this->_album);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
-	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($ids[0], 'GalleryItem');
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($ids[0]);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals('evil&lt;script&gt;', $item->getTitle(), 'title');
@@ -273,13 +268,13 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
     }
 
     function testParserHtml() {
-	$template = new UnitTestTemplate();
+	$template = new ItemAddFromWebTestTemplate();
 	$form = array('formName' => 'ItemAddFromWeb',
 		      'action' => array('findFilesFromWebPage' => true),
 		      'webPage' => 'http://www.test.com/t/index.php?foo=bar');
 	list ($ret) = $this->_plugin->loadTemplate($template, $form, $this->_album);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(array('ItemAddFromWeb' =>
@@ -319,13 +314,13 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
     function testParserNoUrls() {
 	$this->_session->put('itemadd.view.ItemAddFromWeb.recentUrls',
 		array('http://www.test.com/page.php' => 1, 'http://blah.com/other.html' => 1));
-	$template = new UnitTestTemplate();
+	$template = new ItemAddFromWebTestTemplate();
 	$form = array('formName' => 'ItemAddFromWeb',
 		      'action' => array('findFilesFromWebPage' => true),
 		      'webPage' => 'http://www.test.com/page.php');
 	list ($ret) = $this->_plugin->loadTemplate($template, $form, $this->_album);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(array('ItemAddFromWeb' =>
@@ -348,13 +343,13 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
     }
 
     function testParserDirectToImage() {
-	$template = new UnitTestTemplate();
+	$template = new ItemAddFromWebTestTemplate();
 	$form = array('formName' => 'ItemAddFromWeb',
 		      'action' => array('findFilesFromWebPage' => true),
 		      'webPage' => 'http://www.test.com/img.jpg');
 	list ($ret) = $this->_plugin->loadTemplate($template, $form, $this->_album);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(
@@ -375,13 +370,13 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
     }
 
     function testParserDirectToImageMalformedContentTypeHeader() {
-	$template = new UnitTestTemplate();
+	$template = new ItemAddFromWebTestTemplate();
 	$form = array('formName' => 'ItemAddFromWeb',
 		      'action' => array('findFilesFromWebPage' => true),
 		      'webPage' => 'http://www.test.com/img2.jpg');
 	list ($ret) = $this->_plugin->loadTemplate($template, $form, $this->_album);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(
@@ -404,13 +399,13 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
     function testParserRedirectToImage() {
 	$this->_session->put('itemadd.view.ItemAddFromWeb.recentUrls',
 			     array('http://blah.com/other.html' => 1));
-	$template = new UnitTestTemplate();
+	$template = new ItemAddFromWebTestTemplate();
 	$form = array('formName' => 'ItemAddFromWeb',
 		      'action' => array('findFilesFromWebPage' => true),
 		      'webPage' => 'http://www.test.com/redirect.php');
 	list ($ret) = $this->_plugin->loadTemplate($template, $form, $this->_album);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(array('ItemAddFromWeb' =>
@@ -434,12 +429,12 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
     }
 
     function testParserMissingUrl() {
-	$template = new UnitTestTemplate();
+	$template = new ItemAddFromWebTestTemplate();
 	$form = array('formName' => 'ItemAddFromWeb',
 		      'action' => array('findFilesFromWebPage' => true));
 	list ($ret) = $this->_plugin->loadTemplate($template, $form, $this->_album);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(array('formName' => 'ItemAddFromWeb',
@@ -450,13 +445,13 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
     }
 
     function testParserInvalidUrl() {
-	$template = new UnitTestTemplate();
+	$template = new ItemAddFromWebTestTemplate();
 	$form = array('formName' => 'ItemAddFromWeb',
 		      'action' => array('findFilesFromWebPage' => true),
 		      'webPage' => 'bogus:url.html');
 	list ($ret) = $this->_plugin->loadTemplate($template, $form, $this->_album);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(array('formName' => 'ItemAddFromWeb',
@@ -468,13 +463,13 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
     }
 
     function testParserUnavailable() {
-	$template = new UnitTestTemplate();
+	$template = new ItemAddFromWebTestTemplate();
 	$form = array('formName' => 'ItemAddFromWeb',
 		      'action' => array('findFilesFromWebPage' => true),
 		      'webPage' => 'http://www.test.com/404.jpg');
 	list ($ret) = $this->_plugin->loadTemplate($template, $form, $this->_album);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(array('formName' => 'ItemAddFromWeb',
@@ -483,40 +478,6 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 				  'error' => array('webPage' => array('unavailable' => 1)),
 				  'set' => array('title' => 1, 'summary' => 0, 'description' => 0)),
 			    $form);
-    }
-
-    function testParserBaseElement() {
-	$template = new UnitTestTemplate();
-	$form = array('formName' => 'ItemAddFromWeb',
-		      'action' => array('findFilesFromWebPage' => true),
-		      'webPage' => 'http://www.test.com/t/index.php?base=abs');
-	list ($ret) = $this->_plugin->loadTemplate($template, $form, $this->_album);
-	if ($ret) {
-	    return $ret;
-	}
-
-	$this->assertEquals(array('ItemAddFromWeb' =>
-		    array('webPageUrlCount' => 4,
-			  'recentUrls' => array('http://www.test.com/t/index.php?base=abs'))),
-		    $template->_data, 'template');
-	$this->assertEquals(
-		array('http://www.test.com/t/index.php?base=abs' => 1),
-		$this->_session->get('itemadd.view.ItemAddFromWeb.recentUrls'), 'session urls');
-	$this->assertEquals(
-		array('formName' => 'ItemAddFromWeb',
-		      'action' => array('findFilesFromWebPage' => true),
-		      'webPage' => 'http://www.test.com/t/index.php?base=abs',
-		      'webPageUrls' => array(
-			  array('url' => 'http://gallery.test.com/img.jpg',
-				'itemType' => $this->_photo),
-			  array('url' => 'http://other.com/blah.png',
-				'itemType' => $this->_photo),
-			  array('url' => 'http://other.com/images/test.gif',
-				'itemType' => $this->_photo),
-			  array('url' => 'http://other.com/images/test.mov',
-				'itemType' => $this->_movie)),
-		      'set' => array('title' => 1, 'summary' => 0, 'description' => 0)),
-		$form, 'form data');
     }
 }
 
@@ -623,25 +584,6 @@ class ItemAddFromWebTestPlatform  {
 		$buffer[] = '<input type=text value="http://blah.com/blah.jpg"/>';
 		$buffer[] = '<input type=text value=\'https://blah.com/blah.jpg\'/>';
 		$buffer[] = '</body></html>';
-		$this->_readBuffer[$handle] = $buffer;
-		return strlen($string);
-
-	    case "GET /t/index.php?base=abs HTTP/1.0\r\nHost: www.test.com\r\n\r\n":
-		/*
-		 * Not testing relative base URLs, since they're not well supported in modern
-		 * browsers (Opera 9 handles them correctly, but IE7 and FF2 not).
-		 */
-		$buffer = array();
-		$buffer[] = 'HTTP/1.1 200 OK';
-		$buffer[] = 'Connection: close';
-		$buffer[] = 'Date: Mon, 13 Feb 2006 21:10:03 GMT';
-		$buffer[] = 'Content-type: text/html';
-		$buffer[] = '';
-		$buffer[] = '<html><head><base href="http://other.com/images/"/></head><body>';
-		$buffer[] = '<img src="http://gallery.test.com/img.jpg"/>';
-		$buffer[] = 'abc <img src=\'/blah.png\' alt=test/> def';
-		$buffer[] = 'test <img';
-		$buffer[] = 'src=test.gif> <a href="test.mov">hi</a></body></html>';
 		$this->_readBuffer[$handle] = $buffer;
 		return strlen($string);
 
@@ -919,6 +861,22 @@ class ItemAddFromWebTestPlatform  {
     function exec($cmd) {
 	/* In case add of jpeg tries to get 'colorspace' property */
 	return array(true, array(''), array());
+    }
+}
+
+/**
+ * Test template
+ *
+ * @package ItemAdd
+ * @subpackage PHPUnit
+ */
+class ItemAddFromWebTestTemplate {
+    function ItemAddFromWebTestTemplate() {
+	$this->_data = array();
+    }
+
+    function setVariable($key, $value) {
+	$this->_data[$key] = $value;
     }
 }
 ?>

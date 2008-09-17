@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,12 +34,18 @@ class ItemEditController extends GalleryController {
 	global $gallery;
 
 	$editPlugin = GalleryUtilities::getRequestVariables('editPlugin');
-
-	list ($ret, $item) = $this->getItem();
+	$itemId = (int)GalleryUtilities::getRequestVariables('itemId');
+	
+	/* Load the item */
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	if ($ret) {
 	    return array($ret, null);
 	}
-	$itemId = $item->getId();
+
+	if (!GalleryUtilities::isA($item, 'GalleryItem')) {
+	    /* Invalid itemId given, return MISSING_OBJECT to get standard error page */
+	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
+	}
 
 	/* Make sure we have permission to edit this item */
 	$ret = GalleryCoreApi::assertHasItemPermission($item->getId(), 'core.edit');
@@ -96,7 +102,7 @@ class ItemEditController extends GalleryController {
 	if (isset($form['action']['save'])) {
 	    $progressBarOptions = array();
 	    foreach ($optionInstances as $option) {
-		if ($requiresProgressBar || $option->requiresProgressBar($form)) {
+		if ($option->requiresProgressBar($form)) {
 		    $progressBarOptions[] = $option;
 		} else {
 		    list ($ret, $optionErrors, $optionWarnings) =
@@ -145,8 +151,6 @@ class ItemEditController extends GalleryController {
 
 	$error = array();
 	foreach ($options as $option) {
-	    $gallery->guaranteeTimeLimit(60);
-
 	    list ($ret, $optionErrors, $optionWarnings) =
 		$option->handleRequestAfterEdit($form, $item, $preferred);
 	    if ($ret) {
@@ -157,13 +161,13 @@ class ItemEditController extends GalleryController {
 	    $status['warning'] = array_merge($status['warning'], $optionWarnings);
 	}
 	$session =& $gallery->getSession();
-	$session->putStatus($status);
 
 	$redirect = array();
 	$redirect['view'] = 'core.ItemAdmin';
 	$redirect['subView'] = 'core.ItemEdit';
 	$redirect['itemId'] = $item->getId();
 	$redirect['editPlugin'] = $editPlugin;
+	$redirect['statusId'] = $session->putStatus($status);
 
 	$urlGenerator =& $gallery->getUrlGenerator();
 	$templateAdapter->completeProgressBar($urlGenerator->generateUrl($redirect));
@@ -177,32 +181,6 @@ class ItemEditController extends GalleryController {
  */
 class ItemEditView extends GalleryView {
 
-    /**
-     * Returns sizes for "maxlength" in forms
-     * @todo This function is duplicated in ItemEditCaptions.inc, so it needs to be consolidated
-     *       somehow.
-     * @param integer $value is the value from 
-     * @return size for "maxlength" in form
-     * @access private
-     */
-    function _getSizesForMaxlength($value) {
-	switch ($value) {
-	case STORAGE_SIZE_SMALL:
-	    $size = 32;
-	    break;
-
-	case STORAGE_SIZE_MEDIUM:
-	    $size = 128;
-	    break;
-
-	case STORAGE_SIZE_LARGE:
-	    $size = 255;
-	    break;
-	}
-	
-	return $size;
-    }
-    
     /**
      * @see GalleryView::loadTemplate
      */
@@ -332,15 +310,6 @@ class ItemEditView extends GalleryView {
 	    }
 	}
 
-	list ($ret, $entityInfo) = GalleryCoreApi::describeEntity('GalleryItem');
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	$ItemEdit['fieldLengths'] = array();
-	$ItemEdit['fieldLengths']['title'] =
-	     $this->_getSizesForMaxLength($entityInfo['GalleryItem']['members']['title']['size']);
-
 	$template->setVariable('ItemEdit', $ItemEdit);
 	$template->setVariable('controller', 'core.ItemEdit');
 	return array(null, array('body' => 'modules/core/templates/ItemEdit.tpl'));
@@ -377,8 +346,8 @@ class ItemEditPlugin {
     /**
      * Does this plugin support the given item type?
      *
-     * @param GalleryItem $item
-     * @param GalleryDerivative $thumbnail item's thumbnail
+     * @param object GalleryItem $item
+     * @param object GalleryDerivative $thumbnail item's thumbnail
      * @return boolean true if it's supported
      */
     function isSupported($item, $thumbnail) {
@@ -389,11 +358,11 @@ class ItemEditPlugin {
      * Load the template with data from this plugin
      * @see GalleryView::loadTemplate
      *
-     * @param GalleryTemplate $template
+     * @param object GalleryTemplate $template
      * @param array $form the form values
-     * @param GalleryItem $item
-     * @param GalleryDerivative $thumbnail item's thumbnail
-     * @return array GalleryStatus a status code
+     * @param object GalleryItem $item
+     * @param object GalleryDerivative $thumbnail item's thumbnail
+     * @return array object GalleryStatus a status code
      *               string the path to a template file to include
      *               string localization domain for the template file
      */
@@ -406,9 +375,9 @@ class ItemEditPlugin {
      * @see GalleryController::handleRequest
      *
      * @param array $form the form values
-     * @param GalleryItem $item
-     * @param GalleryDerivative $preferred item's preferred derivative, if there is one
-     * @return array GalleryStatus a status code
+     * @param object GalleryItem $item
+     * @param object GalleryDerivative $preferred item's preferred derivative, if there is one
+     * @return array object GalleryStatus a status code
      *               array error messages
      *               string localized status message
      *               boolean true if progress bar is needed
@@ -421,7 +390,7 @@ class ItemEditPlugin {
     /**
      * Return a localized title for this plugin, suitable for display to the user
      *
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *               string localized title
      */
     function getTitle() {
@@ -433,7 +402,7 @@ class ItemEditPlugin {
      *
      * @param string $operation the operation (eg. 'rotate' or 'scale')
      * @param array $mimeTypes
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *               bool true if any of the mime types are supported
      * @access protected
      */
@@ -465,10 +434,10 @@ class ItemEditOption {
      * Return all the available option plugins
      *
      * @param string $editPlugin name of ItemEditPlugin
-     * @param GalleryItem $item
-     * @param GalleryDerivative $thumbnail
-     * @return array GalleryStatus a status code
-     *               array ItemEditOption instances
+     * @param object GalleryItem $item
+     * @param object GalleryDerivative $thumbnail
+     * @return array object GalleryStatus a status code
+     *               array object ItemEditOption instances
      * @static
      */
     function getAllOptions($editPlugin, $item, $thumbnail) {
@@ -503,10 +472,10 @@ class ItemEditOption {
      * Load the template with data from this plugin
      * @see GalleryView::loadTemplate
      *
-     * @param GalleryTemplate $template
+     * @param object GalleryTemplate $template
      * @param array $form the form values
-     * @param GalleryItem $item
-     * @return array GalleryStatus a status code
+     * @param object GalleryItem $item
+     * @return array object GalleryStatus a status code
      *               string the path to a template file to include
      *               string localization domain for the template file
      */
@@ -519,9 +488,9 @@ class ItemEditOption {
      * @see GalleryController::handleRequest
      *
      * @param array $form the form values
-     * @param GalleryItem $item reference to the item
-     * @param GalleryDerivative $preferred reference to preferred derivative
-     * @return array GalleryStatus a status code
+     * @param object GalleryItem $item reference to the item
+     * @param object GalleryDerivative $preferred reference to preferred derivative
+     * @return array object GalleryStatus a status code
      *               array error messages
      *               array localized warning messages
      */
@@ -532,9 +501,9 @@ class ItemEditOption {
     /**
      * Is this option appropriate at this time?
      *
-     * @param GalleryItem $item
-     * @param GalleryDerivative $thumbnail
-     * @return array GalleryStatus a status code
+     * @param object GalleryItem $item
+     * @param object GalleryDerivative $thumbnail
+     * @return array object GalleryStatus a status code
      *               boolean true or false
      */
     function isAppropriate($item, $thumbnail) {

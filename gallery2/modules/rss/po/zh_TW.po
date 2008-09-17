@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: RSS 1.1.5\n"
+"Project-Id-Version: Gallery: RSS 1.1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-13 10:12-0500\n"
 "PO-Revision-Date: 2006-02-13 10:12-0500\n"
@@ -35,6 +35,9 @@ msgstr "這個新聞派送已經不存在了！"
 
 msgid "Feeds of that type are not allowed!"
 msgstr "不允許這種新聞派送種類！"
+
+msgid "Not permitted to view this item"
+msgstr "沒有可以觀看這個項目的權限"
 
 msgid "Incorrect feed type!"
 msgstr "不正確的新聞派送種類！"
@@ -60,10 +63,6 @@ msgstr "這個照片的 RSS 新聞派送"
 msgid "RSS Feed for this Movie"
 msgstr "這個影片的 RSS 新聞派送"
 
-#, c-format
-msgid "RSS Feed for this %s"
-msgstr "這個%s的新聞派送"
-
 msgid "Configure RSS Feeds"
 msgstr "設定 RSS 新聞派送"
 
@@ -83,8 +82,8 @@ msgid "Short URL for Configurable RSS Feeds"
 msgstr "可調式 RSS 新聞派送的短式網址"
 
 #, c-format
-msgid "In album %s"
-msgstr "在相簿%s中"
+msgid "RSS Feed for this %s"
+msgstr "這個%s的新聞派送"
 
 msgid "Items in an album"
 msgstr "相簿中的項目"
@@ -104,13 +103,9 @@ msgstr "項目的回應"
 msgid "Comments for an album and its subalbums"
 msgstr "一個相簿和其子相簿中的回應"
 
-#, fuzzy
-msgid "Random items in an album"
-msgstr "相簿中的項目"
-
-#, fuzzy
-msgid "Random items in an album and its subalbums"
-msgstr "相簿和其子相簿中的項目"
+#, c-format
+msgid "In album <a href=\"%s\">%s</a>"
+msgstr "在相簿<a href=\"%s\">%s</a>中"
 
 msgid "RSS Feeds"
 msgstr "RSS 新聞派送"
@@ -193,14 +188,6 @@ msgstr "這個相簿的回應"
 msgid "Comments for this album and its subalbums"
 msgstr "這個相簿和其子相簿中的回應"
 
-#, fuzzy
-msgid "Random pictures inside this album"
-msgstr "這個相簿中的項目"
-
-#, fuzzy
-msgid "Random pictures inside this album and its subalbums"
-msgstr "這個相簿和其子相簿中的項目"
-
 msgid "Comments for this item"
 msgstr "這個項目的回應"
 
@@ -281,21 +268,6 @@ msgstr "包含附件標籤"
 msgid ""
 "This adds an enclosure to each image in the feed, that contains the full resolution image"
 msgstr "在新聞派送中的每個圖像加上含有全尺寸圖像的附件"
-
-msgid "Use Media RSS"
-msgstr ""
-
-#, fuzzy
-msgid "Include Media RSS tags"
-msgstr "包含圖像標籤"
-
-msgid ""
-"This adds Media RSS tags to the feed, which allows media-oriented clients to display the "
-"feed in a more useful fashion"
-msgstr ""
-
-msgid "about Media RSS"
-msgstr ""
 
 msgid "Cloud tag (RSS 2.0)"
 msgstr "群組標籤（RSS 2.0）"
@@ -393,14 +365,6 @@ msgstr "最大新聞派送項目數"
 msgid "Invalid maximum number"
 msgstr "不正確的最大值"
 
-#, fuzzy
-msgid "Maximum age for items in feeds"
-msgstr "最大新聞派送項目數"
-
-#, fuzzy
-msgid "Invalid maximum age number"
-msgstr "不正確的最大值"
-
 msgid "Default ttl"
 msgstr "預設 ttl"
 
@@ -456,29 +420,14 @@ msgstr "允許相簿和其子相簿中照片的 RSS 新聞派送"
 msgid "Slower"
 msgstr "更慢"
 
-#, fuzzy
-msgid "Allow RSS feeds of comments of a photo"
+msgid "Allow RSS feeds comments of a photo"
 msgstr "允許照片回應的 RSS 新聞派送"
 
-#, fuzzy
-msgid "Allow RSS feeds of comments of an album"
+msgid "Allow RSS feeds comments of an album"
 msgstr "允許相簿回應的 RSS 新聞派送"
 
-#, fuzzy
-msgid "Allow RSS feeds of comments for an album and its subalbums"
+msgid "Allow RSS feeds comments for an album and its subalbums"
 msgstr "允許相簿和其子相簿回應的 RSS 新聞派送"
-
-#, fuzzy
-msgid "Allow RSS feeds of random photos inside an album"
-msgstr "允許在相簿中的照片的 RSS 新聞派送"
-
-#, fuzzy
-msgid "Allow RSS feeds of random photos inside an album and its subalbums"
-msgstr "允許相簿和其子相簿中照片的 RSS 新聞派送"
-
-#, fuzzy
-msgid "Slowest"
-msgstr "更慢"
 
 msgid "Save Settings"
 msgstr "儲存設定"
@@ -554,6 +503,3 @@ msgstr "10"
 
 msgid "all"
 msgstr "全部"
-
-#~ msgid "Not permitted to view this item"
-#~ msgstr "沒有可以觀看這個項目的權限"

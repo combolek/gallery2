@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,7 +36,7 @@
 $_commonOperations = array(
     'thumbnail' => array(
 	'convert' => array('-size', '%width%x%height%', '-geometry', '%width%x%height%',
-	    		   '+profile', '*', '%src%', '%dst%'),
+			   '+profile', '*', '%src%', '%dst%'),
     ),
     'scale' => array(
 	'convert' => array('-size', '%width%x%height%', '-geometry', '%width%x%height%',
@@ -53,13 +53,13 @@ $_commonOperations = array(
 	'convert' => array('-rotate', '%angle%', '%src%', '%dst%'),
     ),
     'convert-to-image/jpeg' => array(
-	'convert' => array('%src%', '%dst%'),
+	'convert' => array('%src%', 'jpeg:%dst%'),
     ),
     'composite' => array(
 	'composite' => array('-geometry', '+%x%+%y%', '%image%', '%src%', '%dst%'),
     ),
     'convert-to-image/png' => array(
-	'convert' => array('%src%', '%dst%'),
+	'convert' => array('%src%', 'png:%dst%'),
     ),
     'select-page' => array(
 	'convert' => array('%src%', '%dst%'),
@@ -102,7 +102,7 @@ $imEnvironment[] = array(
 	'operations' => array_merge($_commonOperations, array(
 	    'thumbnail' => array(
 		'convert' => array('-size', '%width%x%height%', '-geometry', '%width%x%height%',
-		    '%src%', '%dst%'),
+				   '%src%', '%dst%'),
 	    ),
 	    'scale' => array(
 		'convert' => array('-size', '%width%x%height%', '-geometry', '%width%x%height%',
@@ -284,7 +284,7 @@ $imEnvironment[] = array(
 	'removeMetaDataSwitch' => array('+profile', '*'),
 	'operations' => array_merge($_commonOperations, array(
 	    'convert-to-image/jpeg' => array(
-		'convert' => array('-colorspace', 'RGB', '%src%', '%dst%')))),
+		'convert' => array('-colorspace', 'RGB', '%src%', 'jpeg:%dst%')))),
 	'identify' => array(
 		'' => 'Version: ImageMagick 6.0.7 09/11/04 Q16 http://www.imagemagick.org
 Copyright: Copyright (C) 1999-2004 ImageMagick Studio LLC
@@ -394,7 +394,7 @@ $imEnvironment[] = array(
 		array('convert' => array('-size', '%width%x%height%',
 		      '-geometry', '%width%x%height%', '-strip', '%src%', '%dst%')),
 	    'convert-to-image/jpeg' => array(
-		'convert' => array('-colorspace', 'RGB', '%src%', '%dst%')))),
+		'convert' => array('-colorspace', 'RGB', '%src%', 'jpeg:%dst%')))),
 	'identify' => array(
 		'' => 'Version: ImageMagick 6.1.3 11/01/04 Q16 http://www.imagemagick.org
 Copyright: Copyright (C) 1999-2004 ImageMagick Studio LLC
@@ -459,17 +459,6 @@ test.pdf[1] PDF 612x792 612x792+0+0 PseudoClass 256c 947kb 0.030u 0:01',
 				   'rgb_file' => 'DirectClassRGB'),
 	),
 );
-
-/* --------------------------------------------------------------------------
- * ImageMagick 6.2.7 (coalesce / deconstruct changes) 
- * --------------------------------------------------------------------------
- */
-
-$im627 = $imEnvironment[count($imEnvironment) - 1];
-$im627['version'] = '6.2.7';
-$im627['identify'][''] = 'Version: ImageMagick 6.2.7 11/01/05 Q16 http://www.imagemagick.org
-Copyright: Copyright (C) 1999-2004 ImageMagick Studio LLC';
-$imEnvironment[] = $im627;
 
 /* --------------------------------------------------------------------------
  * GraphicsMagick 1.0.5

@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,15 +18,15 @@
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
 #
 # Previous translators (as far as known, add yourself here, please):
-# - İshak Göker Işık <admin@ansolon.org>
-# - Roman Neumüller <email@katpatuka.org>
-#
+# - Jens Tkotz <jens@peino.de>
+# - Frederik Kunz <frederik.kunz@web.de>
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Ffmpeg 1.0.12\n"
+"Project-Id-Version: Gallery: Ffmpeg 1.0.7\n"
 "POT-Creation-Date: 2003-10-19 05:25+0200\n"
-"PO-Revision-Date: 2007-09-12 14:08+0200\n"
-"Last-Translator: Roman Neumüller <email@katpatuka.org>\n"
+"PO-Revision-Date: 2005-10-06 07:56+0200\n"
+"Last-Translator: Goker ISIK <admin@ansolon.com>\n"
 "Language-Team: Turkish <admin@ansolon.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -54,54 +54,11 @@ msgstr ""
 msgid "Select time offset in movie file"
 msgstr ""
 
-#, fuzzy
-msgid "Convert to Flash Video"
-msgstr "JPEG'e dönüştür"
-
-msgid "video width in pixels"
-msgstr ""
-
-msgid "video height in pixels"
-msgstr ""
-
-msgid "Set video dimensions"
-msgstr ""
-
-msgid "frames per second"
-msgstr ""
-
-msgid "Set video frames per second property"
-msgstr ""
-
-msgid "Set same video quality"
-msgstr ""
-
-msgid "number of channels"
-msgstr ""
-
-msgid "Set audio channels property"
-msgstr ""
-
-msgid "audio sample rate (Hz / cycles per second"
-msgstr ""
-
-msgid "Set audio rate property"
-msgstr ""
-
 msgid "Get the width and height of the movie"
 msgstr "Filmin genişliğini ve yüksekliğini al"
 
 msgid "Get the width, height and duration of the movie"
 msgstr "Filmin genişlik, yükseklik ve süresini al"
-
-msgid "Get video frames per seconds of the movie"
-msgstr ""
-
-msgid "Get audio samples per seconds of the movie"
-msgstr ""
-
-msgid "Get number of audio channels in movie"
-msgstr ""
 
 msgid "FFMPEG Settings"
 msgstr "FFMPEG Ayarları"
@@ -110,10 +67,10 @@ msgid "Settings saved successfully"
 msgstr "Ayarlar başarıyla kaydedildi"
 
 msgid "Watermark successfully added to movie thumbnails"
-msgstr "Bütün film tırnak resimleri için filigranı başarıyla eklendi."
+msgstr ""
 
 msgid "Watermark successfully removed from movie thumbnails"
-msgstr "Bütün film tırnak resimleri için filigranı başarıyla kaldırıldı."
+msgstr ""
 
 msgid ""
 "FFMPEG is a graphics toolkit that can be used to process video files that you upload to "
@@ -121,16 +78,6 @@ msgid ""
 "the text box below.  If you're on a Unix machine, don't forget to make the binary executable "
 "(<i>chmod 755 ffmpeg</i> in the right directory should do it)"
 msgstr ""
-"FFmpeg bir video ve ses çevricisidir. FFmpeg binary sunucuda olması gerek. Klasör yolu "
-"aşağıdaki alana girip %s ile çalıştırılabilir haline getirmen lazım."
-
-msgid ""
-"The exec() function is disabled in your PHP by the <b>disabled_functions</b> parameter in "
-"php.ini.  This module cannot be used until that setting is changed."
-msgstr ""
-"Uyarı: exec() fonksiyonu php.ini de bulunan <b>disabled_functions</b> parametresi "
-"kullanılarak kapalı duruma getirilmiş. Modülü kullanılmadığı için bu nedenle bu özelliği "
-"global php.ini dosyasından değiştirmelisiniz."
 
 msgid "Path to FFMPEG:"
 msgstr "FFMPEG klasör yolu:"
@@ -161,14 +108,14 @@ msgid ""
 msgstr ""
 
 msgid "See sample at right."
-msgstr "Sağdaki örneğine bak."
+msgstr ""
 
 msgid "Watermark new movie thumbnails"
-msgstr "Yeni filmin tırnak resimler için filigranı uygula"
+msgstr ""
 
 #, c-format
 msgid "%sAdd%s or %sRemove%s watermark from all existing movie thumbnails."
-msgstr "Bütün film tırnak resimlerin için filigranı %sEkle%s ya da %sKaldır%s."
+msgstr ""
 
 msgid ""
 "Activate another graphics toolkit with watermark support to make this function available."
@@ -207,19 +154,8 @@ msgstr "Hata Mesajları:"
 msgid "Supported MIME Types"
 msgstr "Desteklenen MIME Türleri"
 
-#, fuzzy
-msgid "The FFMPEG module can decode files of the following MIME types"
+msgid "The FFMPEG module can support files with the following MIME types"
 msgstr "FFMPEG modülü bu MIME türündeki dosyaları destekler"
-
-#, fuzzy
-msgid "The FFMPEG module can encode files to the following MIME types"
-msgstr "FFMPEG modülü bu MIME türündeki dosyaları destekler"
-
-msgid "Missing required audio codec, encoded videos will not contain sound."
-msgstr ""
-
-msgid "Version Information"
-msgstr ""
 
 #, c-format
 msgid "Debug output (%d failed test)"
@@ -231,5 +167,3 @@ msgid ""
 "We gathered this debug output while testing your Ffmpeg installation.  If you read through "
 "this carefully you may discover the reason why Ffmpeg failed the tests."
 msgstr ""
-"Ffmpeg binary denetlerken, bu hata çıktısını oluşturuldu. Eğer bu çıktıyı dikkatlice "
-"okursanız, Ffmpeg binary test sırasında neden dolayı başarısız olduğunu öğrenebilirsiniz."

@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,9 +21,9 @@
 # Branislav Hanacek <brango@brango.sk>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Picasa 1.0.9\n"
-"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2008-08-25 08:55-0700\n"
+"Project-Id-Version: Gallery: Picasa 1.0.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-09-03 10:22+0200\n"
 "PO-Revision-Date: 2006-09-10 21:10+0200\n"
 "Last-Translator: Branislav Hanacek <brango@brango.sk>\n"
 "Language-Team: Slovak <gallery-devel@lists.sourceforge.net>\n"
@@ -42,6 +42,18 @@ msgstr ""
 msgid "Importing photos"
 msgstr ""
 
+msgid "Base filename"
+msgstr "Meno súboru"
+
+msgid "Picasa Caption"
+msgstr ""
+
+msgid "Blank"
+msgstr "Prázdne"
+
+msgid "From Picasa 2"
+msgstr ""
+
 #, c-format
 msgid "%d megabyte"
 msgid_plural "%d megabytes"
@@ -56,18 +68,6 @@ msgstr[0] "%d kilobyte"
 msgstr[1] "%d kilobyty"
 msgstr[2] "%d kilobytov"
 
-msgid "Base filename"
-msgstr "Meno súboru"
-
-msgid "Picasa Caption"
-msgstr ""
-
-msgid "Blank"
-msgstr "Prázdne"
-
-msgid "From Picasa 2"
-msgstr ""
-
 msgid "Picasa"
 msgstr ""
 
@@ -75,7 +75,7 @@ msgid "Import for Picasa 2 XML-Exports"
 msgstr ""
 
 msgid "Import"
-msgstr "Import"
+msgstr ""
 
 msgid "Picasa 2"
 msgstr ""
@@ -171,14 +171,12 @@ msgid ""
 "Your webserver is configured to disallow file uploads from your web browser at this time.  "
 "Please contact your system administrator for assistance."
 msgstr ""
-"Server je nakonfigurovany na zakazovanie nahravania suborov z Vasho prehliadaca.  Prosim "
-"kontaktujte administratora serveru."
 
 msgid "Upload archived Picasa export files directly from your computer."
 msgstr ""
 
 msgid "Enter the full path to the file and an optional caption in the boxes below."
-msgstr "Zadaj plnu cestu ku suboru a nepovinny nadpis v polickach dolu."
+msgstr ""
 
 #, c-format
 msgid ""
@@ -186,9 +184,6 @@ msgid ""
 "must upload the files separately, use a different upload format, or ask your system "
 "administrator to allow larger uploads."
 msgstr ""
-"<b>Poznamka:</b> Mozes nahrat maximalne %s naraz.  Ak chces nahrat viac, tak musis nahravat "
-"subory zvlast, pouzit iny format, alebo sa spytat systemoveho administratora aby povolil "
-"nahravanie vacsich suborov."
 
 #, c-format
 msgid ""
@@ -196,9 +191,6 @@ msgid ""
 "If you want to upload more than that, you must upload the files separately, use a different "
 "upload format, or ask your system administrator to allow larger uploads."
 msgstr ""
-"<b>Poznamka:</b> Mozes nahrat maximalne %s naraz.  Ziadny subor nemoze presahovat %s. Ak "
-"chces nahrat viac, tak musis nahravat subory zvlast, pouzit iny format, alebo sa spytat "
-"systemoveho administratora aby povolil nahravanie vacsich suborov."
 
 msgid "File"
 msgstr "Súbor"
@@ -218,7 +210,7 @@ msgid "The archive you uploaded is not a valid Picasa export."
 msgstr ""
 
 msgid "Set item titles from:"
-msgstr "Nastav titulok poloziek z:"
+msgstr ""
 
 msgid "Assign Picasa caption to:"
 msgstr ""
@@ -243,7 +235,8 @@ msgstr ""
 #, c-format
 msgid ""
 "You don't have any Graphics Toolkit activated to handle JPEG images.  If you import now, you "
-"will not have any thumbnails.  Visit the %sModules%s page to activate a Graphics Toolkit."
+"will not have any thumbnails.  Visit the <a href=\"%s\">Modules</a> page to activate a "
+"Graphics Toolkit."
 msgstr ""
 
 msgid "Destination Album"

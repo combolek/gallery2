@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,127 +16,101 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
-#
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Comments 1.1.12\n"
+"Project-Id-Version: Gallery: Comments 1.1.3\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2007-03-16 11:10-0700\n"
-"PO-Revision-Date: 2007-03-24 16:14+0200\n"
-"Last-Translator: Anthi Andreou <tp_s@hotmail.com>\n"
+"POT-Creation-Date: 2007-05-31 10:31-0700\n"
+"PO-Revision-Date: 2003-03-06 16:30+0200\n"
+"Last-Translator: Nikos Batsis <nickthegreek@yahoo.com>\n"
 "Language-Team: Greek <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: Greek\n"
-"X-Poedit-Country: GREECE\n"
 
+#, fuzzy
 msgid "Add Comment"
 msgstr "Προσθέστε σχόλιο"
 
 msgid "add comment"
 msgstr "Προσθέστε Σχόλιο"
 
-msgid "moderate spam"
-msgstr ""
-
-msgid "Checking all comments with Akismet"
-msgstr ""
-
 #, fuzzy
-msgid "Done checking comments"
-msgstr "Πρόσφατα Σχόλια"
-
-msgid "Published"
-msgstr ""
-
-msgid "Unpublished"
-msgstr ""
-
-msgid "Spam"
-msgstr ""
-
 msgid "show comments"
-msgstr "Εμφάνιση Σχολίων"
+msgstr "Σχόλια"
 
 msgid "Comments"
 msgstr "Σχόλια"
 
+#, fuzzy
 msgid "User commenting system"
-msgstr "Χρησιμοποιήστε το σύστημα σχολίων"
+msgstr "Σχόλια"
 
 msgid "Extra Data"
 msgstr "Επιπρόσθετα Στοιχεία"
 
 msgid "[comment] Add comments"
-msgstr "[comment] Προσθήκη σχολίων"
+msgstr "[comment] Προσθέστε σχόλια"
 
 msgid "[comment] Edit comments"
-msgstr "[comment] Επεξεργασία σχολίων"
+msgstr "[comment] Edit comments"
 
 msgid "[comment] Delete comments"
 msgstr "[comment] Διαγραφή σχολίων"
 
+#, fuzzy
 msgid "[comment] View comments"
-msgstr "[comment] Προβολή Σχολίων"
+msgstr "[comment] Edit comments"
 
 msgid "[comment] All access"
-msgstr "[comment] Πλήρης Πρόσβαση"
+msgstr "[comment] All access"
 
+#, fuzzy
 msgid "View Latest Comments"
-msgstr "Προβολή Τελευταίων Σχολίων"
+msgstr "Σχόλια"
 
-#, c-format
-msgid "Comments: %d"
-msgstr "Σχόλια: %d"
-
+#, fuzzy
 msgid "View Comments"
-msgstr "Προβολή Σχολίων"
+msgstr "Σχόλια"
+
+#, fuzzy, c-format
+msgid "Comments: %d"
+msgstr "Σχόλιο: "
 
 #, fuzzy
-msgid "Moderate Comments"
-msgstr "Τελευταία σχόλια"
-
-#, fuzzy
-msgid "Comment Added"
-msgstr "Module Σχολίων"
-
-#, c-format
-msgid ""
-"A new comment has been posted on %s. The full comment is provided below. \n"
-"\n"
-"%s\n"
-"\n"
-"To view the new comment at the site click here:\n"
-"%s"
-msgstr ""
-
 msgid "Guest Comments"
-msgstr "Σχόλια Επισκεπτών"
+msgstr "Σχόλια"
 
+#, fuzzy
 msgid "Comment Module"
-msgstr "Module Σχολίων"
+msgstr "Σχόλιο: "
 
+#, fuzzy
 msgid "Search comments"
-msgstr "Αναζήτηση Σχολίων"
+msgstr "[comment] Προσθέστε σχόλια"
 
 msgid "Subject"
 msgstr "Θέμα"
 
+#, fuzzy
 msgid "Comment"
 msgstr "Σχόλιο:"
 
+#, fuzzy
 msgid "Commenter"
 msgstr "Σχολιαστής:"
 
 msgid "guest"
 msgstr "επισκέπτης"
 
+#, fuzzy
 msgid "Comment Preview"
-msgstr "Προεπισκόπηση"
+msgstr "Σχόλιο: "
 
+#, fuzzy
 msgid "Name"
-msgstr "Όνομα"
+msgstr "Πλήρες Όνομα"
 
 msgid "Posted by"
 msgstr "Καταχωρήθηκε από"
@@ -148,78 +122,25 @@ msgstr "%s (%s)"
 msgid "(required)"
 msgstr "(απαιτείται)"
 
+#, fuzzy
 msgid "You must enter a comment!"
-msgstr "Πρέπει να γράψετε ένα σχόλιο!"
+msgstr "Πρέπει να βάλετε μια ημερομηνία"
 
-msgid "Please wait a little longer before posting another comment"
-msgstr ""
-
+#, fuzzy
 msgid "Preview"
-msgstr "Προεπισκόπηση"
+msgstr "Σχόλιο: "
 
 msgid "Save"
 msgstr "Αποθήκευση"
 
 msgid "Cancel"
-msgstr "Ακύρωση"
-
-#, fuzzy
-msgid "Comments Awaiting Moderation"
-msgstr "Επιβεβαίωση αλλαγής σχόλιου"
-
-msgid "All spam comments deleted."
-msgstr ""
-
-#, fuzzy
-msgid "There are no comments awaiting moderation."
-msgstr "Δεν υπάρχουν σχόλια για τη φωτογραφία"
-
-#, c-format
-msgid "There is %d spam comment in the queue."
-msgid_plural "There are %d spam comments in the queue."
-msgstr[0] ""
-msgstr[1] ""
-
-msgid ""
-"You can delete all spam comments at once, but check them carefully because you can't restore "
-"deleted comments."
-msgstr ""
-
-msgid "Delete All Spam"
-msgstr ""
-
-msgid "Delete this comment?"
-msgstr "Διαγραφή αυτού του σχολίου;"
-
-msgid "Are you sure you want to delete this comment?"
-msgstr ""
-
-msgid "This comment has been deleted."
-msgstr ""
-
-msgid "This comment has been marked as not spam. __UNDO__"
-msgstr ""
-
-msgid "This comment has been marked as spam. __UNDO__"
-msgstr ""
-
-msgid "Yes"
-msgstr ""
-
-msgid "Undo"
-msgstr ""
+msgstr "Ακυρο"
 
 msgid "edit"
 msgstr "Επεξεργασία"
 
 msgid "delete"
 msgstr "Διαγραφή"
-
-msgid "mark as not spam"
-msgstr ""
-
-msgid "mark as spam"
-msgstr ""
 
 msgid "show full"
 msgstr "Πλήρης προβολή"
@@ -249,8 +170,9 @@ msgstr "Επιβεβαίωση αλλαγής σχόλιου"
 msgid "Comment added successfully"
 msgstr "Το σχόλιο προστέθηκε με επιτυχία"
 
+#, fuzzy
 msgid "Comment deleted successfully"
-msgstr "Τα σχόλια διαγράφτηκαν με επιτυχία"
+msgstr "[comment] Διαγραφή σχολίων"
 
 msgid "Comment modified successfully"
 msgstr "Το σχόλιο επεξεργάστηκε με επιτυχία"
@@ -259,24 +181,13 @@ msgstr "Το σχόλιο επεξεργάστηκε με επιτυχία"
 msgid "Back to %s"
 msgstr "Πίσω στο %s"
 
-msgid "Settings saved successfully"
-msgstr "Οι ρυθμίσεις αποθηκεύτηκαν με επιτυχία"
-
-#, fuzzy, c-format
-msgid "Checked %d comment."
-msgid_plural "Checked %d comments."
-msgstr[0] "Προσθέστε Σχόλιο"
-msgstr[1] "Προσθέστε Σχόλιο"
-
-#, fuzzy, c-format
-msgid "Found %d spam comment."
-msgid_plural "Found %d spam comments."
-msgstr[0] "Προσθέστε Σχόλιο"
-msgstr[1] "Προσθέστε Σχόλιο"
+#, fuzzy
+msgid "Comments Settings"
+msgstr "Σχόλια"
 
 #, fuzzy
-msgid "General Settings"
-msgstr "Ρυθμίσεις Σχολίων"
+msgid "Settings saved successfully"
+msgstr "[comment] Διαγραφή σχολίων"
 
 msgid "Show link for Latest Comments:"
 msgstr "Προβολή σύνδεσης για Τελευταία Σχόλια:"
@@ -287,53 +198,18 @@ msgstr "Αριθμός σχολιων στην σελίδα Τελευταίων
 msgid "Invalid value"
 msgstr "Άκυρο περιεχόμενο"
 
-#, fuzzy
-msgid "Moderation Settings"
-msgstr "Ρυθμίσεις Σχολίων"
-
-msgid "Require administrator approval prior to publishing comments."
-msgstr ""
-
-#, fuzzy
-msgid "Moderate all comments:"
-msgstr "Διαγραφή αυτού του σχολίου;"
-
-#, fuzzy
-msgid "Anti-Spam Settings"
-msgstr "Ρυθμίσεις Σχολίων"
-
-#, c-format
-msgid ""
-"You can reduce the amount of spam comments that you receive by using a service called %"
-"sAkismet%s.  This service is free for personal use.  In order to use it, you will need to %"
-"sregister for an API key%s and enter that key in the box below."
-msgstr ""
-
-msgid "Akismet is active."
-msgstr ""
-
-msgid "Akismet is not active."
-msgstr ""
-
-msgid "API key:"
-msgstr ""
-
-#, fuzzy
-msgid "Invalid API key."
-msgstr "Άκυρο περιεχόμενο"
-
-#, fuzzy
-msgid "Check all comments now"
-msgstr "(Δείτε όλα τα %d σχόλια)"
-
 msgid "Reset"
 msgstr "Επαναφορά"
+
+msgid "Delete this comment?"
+msgstr "Διαγραφή αυτού του σχολίου;"
 
 msgid "Are you sure?"
 msgstr "Είστε σίγουροι;"
 
+#, fuzzy
 msgid "Delete this comment?  There is no undo!"
-msgstr "Διαγραφή αυτού του σχολίου; Δεν υπάρχει αναίρεση!"
+msgstr "Διαγραφή αυτού του σχολίου;"
 
 msgid "Delete"
 msgstr "Διαγραφή"
@@ -342,22 +218,22 @@ msgid "Edit comment"
 msgstr "Επεξεργασία σχολίου"
 
 msgid "You must enter a username."
-msgstr "Πρέπει να δώσετε όνομα χρήστη."
+msgstr "Πρέπει να βάλετε όνομα χρήστη."
 
 msgid "The username you entered is invalid."
-msgstr "Το όνομα χρήστη που δώσατε είναι άκυρο."
+msgstr "Το όνομα χρήστη που βάλατε είναι άκυρο."
 
+#, fuzzy
 msgid "Host"
-msgstr "Host"
+msgstr "Host: "
 
+#, fuzzy
 msgid "You must enter a comment"
-msgstr "Πρέπει να γράψετε ένα σχόλιο"
+msgstr "Πρέπει να βάλετε μια ημερομηνία"
 
-msgid "Publish Status"
-msgstr ""
-
+#, fuzzy
 msgid "Latest Comments"
-msgstr "Τελευταία σχόλια"
+msgstr "Σχόλια"
 
 msgid "Comment changed successfully"
 msgstr "Το σχόλιο τροποποιήθηκε με επιτυχία"
@@ -370,13 +246,15 @@ msgstr "Πρόσφατα Σχόλια"
 
 #, c-format
 msgid "(view all %d comments)"
-msgstr "(Δείτε όλα τα %d σχόλια)"
+msgstr "Δείτε και τα %d σχόλια"
 
+#, fuzzy
 msgid "Show comments"
-msgstr "Εμφάνιση Σχολίων"
+msgstr "Σχόλια"
 
+#, fuzzy
 msgid "Number of comments"
-msgstr "Αριθμός σχολίων"
+msgstr "[comment] Προσθέστε σχόλια"
 
 msgid "1"
 msgstr "1"
@@ -415,13 +293,23 @@ msgid "Show a text box that expands into the full form"
 msgstr "Εμφάνιση κουτιού κειμένου το οποίο επεκτείνεται σε πλήρη φόρμα"
 
 #, fuzzy
-#~ msgid "Spam Comments"
-#~ msgstr "Σχόλια"
+#~ msgid "Date"
+#~ msgstr "Ημερομηνία:"
+
+#~ msgid "The date you entered is invalid."
+#~ msgstr "Η υπερομηνία που βάλατε είναι άκυρη."
+
+#~ msgid "You must enter a date"
+#~ msgstr "Πρέπει να βάλετε μια ημερομηνία"
 
 #, fuzzy
-#~ msgid "There are no spam comments in the queue."
-#~ msgstr "Δεν υπάρχουν σχόλια για τη φωτογραφία"
+#~ msgid "You must enter a subject!"
+#~ msgstr "Πρέπει να βάλετε μια ημερομηνία"
 
 #, fuzzy
-#~ msgid "Mark this comment as spam?"
-#~ msgstr "Διαγραφή αυτού του σχολίου;"
+#~ msgid "You must enter a subject"
+#~ msgstr "Πρέπει να βάλετε μια ημερομηνία"
+
+#, fuzzy
+#~ msgid "[comment] Search comments"
+#~ msgstr "[comment] Προσθέστε σχόλια"

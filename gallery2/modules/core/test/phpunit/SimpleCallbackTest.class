@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,15 +32,13 @@ class SimpleCallbackTest extends GalleryTestCase {
     }
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	$this->_tag = 'SmplCb-' . rand(0, 999999);
 	list ($ret, $this->_view) = GalleryView::loadView('core.SimpleCallback');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_userNames = $this->_groupNames = array();
 	GalleryDataCache::reset();
@@ -50,7 +48,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 	list ($ret, $user) =
 	    $this->_createRandomUser($this->_tag . '-' . count($this->_userNames));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($user);
 	$this->_users[] = $user;
@@ -61,7 +59,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 	list ($ret, $group) =
 	    $this->_createRandomGroup($this->_tag . '-' . count($this->_groupNames));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($group);
 	$this->_groupNames[] = $group->getGroupName();
@@ -73,7 +71,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 	$results = ob_get_contents();
 	ob_end_clean();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	return $results;
@@ -367,9 +365,7 @@ class SimpleCallbackTest extends GalleryTestCase {
     }
 }
 
-/**
- * For the directory listing tests, we need a mock PHP VM
- */
+/* For the directory listing tests, we need a mock PHP VM */
 class SimpleCallbackTestPhpVm {
     function function_exists($functionName) {
 	/* make it use our charset tables, they work on all platforms */

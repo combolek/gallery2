@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,12 +37,11 @@ class PermalinksModule extends GalleryModule /* and GalleryEventListener */ {
 	$this->setName($gallery->i18n('Permalinks'));
 	$this->setDescription(
 		$gallery->i18n('Create simpler permanent aliases to your items space'));
-	$this->setVersion('1.0.11');
-	$this->_templateVersion = 1;
+	$this->setVersion('1.0.8');
 	$this->setGroup('gallery', $gallery->i18n('Gallery'));
-	$this->setCallbacks('getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 34));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setCallbacks('registerEventListeners|getSiteAdminViews');
+	$this->setRequiredCoreApi(array(7, 10));
+	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
@@ -74,24 +73,8 @@ class PermalinksModule extends GalleryModule /* and GalleryEventListener */ {
 	    return array($ret, null);
 	}
 
-	/* Automatically activate the rewrite rules, if the rewrite module is active */
-	$success = false;
-	list ($ret, $rewriteApi) = GalleryCoreApi::newFactoryInstance('RewriteApi');
-	if ($ret) {
-	    return array($ret, null);
-	}
-	if (isset($rewriteApi)) {
-	    list ($ret, $success) = $rewriteApi->activateRewriteRulesForModule('permalinks');
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	}
-
-	if (!$success) {
-	    return array(null, array('view' => 'core.SiteAdmin',
-				     'subView' => 'permalinks.ActivationWarning'));
-	}
-	return array(null, array());
+	return array(null, array('view' => 'core.SiteAdmin',
+						     'subView' => 'permalinks.ActivationWarning'));
     }
 
     /**
@@ -105,15 +88,16 @@ class PermalinksModule extends GalleryModule /* and GalleryEventListener */ {
 	    return $ret;
 	}
 
-	$ret = GalleryCoreApi::registerFactoryImplementation(
-	    'GalleryEventListener', 'PermalinksModule', 'PermalinksModule',
-	    'modules/permalinks/module.inc', 'permalinks',
-	    array('Gallery::DeactivatePlugin', 'GalleryEntity::delete', 'GalleryEntity::save'));
-	if ($ret) {
-	    return $ret;
-	}
-
 	return null;
+    }
+
+    /**
+     * @see GalleryModule::registerEventListeners
+     */
+    function registerEventListeners() {
+	GalleryCoreApi::registerEventListener('GalleryEntity::delete', new PermalinksModule());
+	GalleryCoreApi::registerEventListener('Gallery::DeactivatePlugin', new PermalinksModule());
+	GalleryCoreApi::registerEventListener('GalleryEntity::save', new PermalinksModule(), true);
     }
 
     /**

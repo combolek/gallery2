@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,10 +22,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: EXIF/IPTC 1.2.4\n"
+"Project-Id-Version: Gallery: EXIF/IPTC 1.1.0\n"
 "POT-Creation-Date: 2003-02-11 03:09-0800\n"
-"PO-Revision-Date: 2008-03-05 11:53+0300\n"
-"Last-Translator: Ser Moro <webber@morozov-sm.ru>\n"
+"PO-Revision-Date: 2006-01-21 18:19+0300\n"
+"Last-Translator: Konstantin Ivanov <Continental@vollen.ru>\n"
 "Language-Team: Russian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -45,7 +45,7 @@ msgid "Extra Data"
 msgstr "Дополнительно"
 
 msgid "Get the origination timestamp"
-msgstr "Получить дату создания"
+msgstr "Получить изначальную дату создания"
 
 msgid "Aperture Value"
 msgstr "Значение диафрагмы"
@@ -66,16 +66,16 @@ msgid "ACD Comment"
 msgstr "Комментарий ACD"
 
 msgid "AE Warning"
-msgstr "Авто фокус - Предупреждение"
+msgstr "AE Предупреждение"
 
 msgid "AF Focus Position"
-msgstr "Авто фокус - Позиция фокуса"
+msgstr "AF Focus Position"
 
 msgid "AF Point Selected"
-msgstr "Авто фокус - Выбранная точка"
+msgstr "AF Point Selected"
 
 msgid "AF Point Used"
-msgstr "Авто фокус - Использованная точка "
+msgstr "AF Point Used"
 
 msgid "Adapter"
 msgstr "Адаптер"
@@ -90,7 +90,7 @@ msgid "Bits Per Sample"
 msgstr "Бит на образец"
 
 msgid "Blur Warning"
-msgstr "Предупреждение о размытии"
+msgstr "Предупреждение Размытие"
 
 msgid "Brightness Value"
 msgstr "Зачение яркости"
@@ -99,22 +99,22 @@ msgid "CCD Sensitivity"
 msgstr "Чувствительность CCD"
 
 msgid "Camera ID"
-msgstr "Идентификатор камеры"
+msgstr "ID Камеры"
 
 msgid "Camera Serial Number"
-msgstr "Серийный номер камеры"
+msgstr "Серийный номер Камеры"
 
 msgid "Color"
 msgstr "Цвета"
 
 msgid "Color Mode"
-msgstr " Режим цвета"
+msgstr "Цветной Режим"
 
 msgid "Color Space"
 msgstr "Цветовое пространство"
 
 msgid "Components Configuration"
-msgstr "Конфигурация компонентов"
+msgstr "Конфигурация модулей"
 
 msgid "Compressed Bits Per Pixel"
 msgstr "Компрессия  бит/пискель"
@@ -123,7 +123,7 @@ msgid "Compression"
 msgstr "Компрессия"
 
 msgid "Continuous Taking Bracket"
-msgstr "Группа последовательных снимков"
+msgstr "Continuous Taking Bracket"
 
 msgid "Contrast"
 msgstr "Контрастность"
@@ -138,10 +138,10 @@ msgid "Custom Functions"
 msgstr "Дополнительные функции"
 
 msgid "Customer Render"
-msgstr "Обработка изображения"
+msgstr "Customer Render"
 
 msgid "Date/Time"
-msgstr "Дата/время"
+msgstr "Дата/Время"
 
 msgid "Digital Zoom"
 msgstr "Цифровое увеличение"
@@ -150,28 +150,28 @@ msgid "Digital Zoom Ratio"
 msgstr "Отношение цифрового увеличения"
 
 msgid "DriveMode"
-msgstr "Режим съёмки"
+msgstr "Режим съемки"
 
 msgid "Easy Shooting"
-msgstr "Легкая съёмка"
+msgstr "Легкая съемка"
 
 msgid "Exposure Bias Value"
-msgstr "Компенсация экспозиции"
+msgstr "Поправка диафрагмы"
 
 msgid "Exposure Index"
-msgstr "Индекс экспозиции"
+msgstr "Exposure Index"
 
 msgid "Exposure Mode"
-msgstr "Режим экспонирования"
+msgstr "Режим диафрагмы"
 
 msgid "Exposure Program"
-msgstr "Программа экспонирования"
+msgstr "Программа диафрагмы"
 
 msgid "File Source"
-msgstr "Источник изображения"
+msgstr "Источник Файла"
 
 msgid "Firmware Version"
-msgstr "Версия прошивки камеры"
+msgstr "Версия Firmware"
 
 msgid "Flash Bias"
 msgstr "Поправка вспышки"
@@ -186,22 +186,22 @@ msgid "Flash Mode"
 msgstr "Режим вспышки"
 
 msgid "Flash Pix Version"
-msgstr "Версия Flash Pix формата"
+msgstr "Flash Pix Version"
 
 msgid "Flash Setting"
-msgstr "Настройки вспышки"
+msgstr "Установки вспышки"
 
 msgid "Flash Strength"
 msgstr "Сила вспышки"
 
 msgid "Focal Plane Resolution Unit"
-msgstr "Единица измерения плотности сенсоров"
+msgstr "Focal Plane Resolution Unit"
 
 msgid "Focal Plane X Resolution"
-msgstr "Плотность сенсоров по X"
+msgstr "Разрешение фокальной плоскости X"
 
 msgid "Focal Plane Y Resolution"
-msgstr "Плотность сенсоров по Y"
+msgstr "Разрешение фокальной плоскости Y"
 
 msgid "Focal Units"
 msgstr "Focal Units"
@@ -213,10 +213,10 @@ msgid "Focus Mode"
 msgstr "Режим фокусировки"
 
 msgid "Focus Warning"
-msgstr "Предупреждение фокуса"
+msgstr "Предупреждения фокуса"
 
 msgid "Gain Control"
-msgstr "Регулировка усиления"
+msgstr "Gain Control"
 
 msgid "Image Adjustment"
 msgstr "Поправки изображения"
@@ -234,7 +234,7 @@ msgid "Image Number"
 msgstr "Номер изображения"
 
 msgid "Image Sharpening"
-msgstr "Резкость  изображения"
+msgstr "Image Sharpening"
 
 msgid "Image Size"
 msgstr "Размер изображения"
@@ -246,34 +246,34 @@ msgid "Image Width"
 msgstr "Ширина изображения"
 
 msgid "Inter Color Profile"
-msgstr "Цветовой профиль"
+msgstr "Inter Color Profile"
 
 msgid "Interlace"
-msgstr "Чередование"
+msgstr "Interlace"
 
 msgid "Interoperability Index"
-msgstr "Индекс взаимодействия"
+msgstr "Interoperability Index"
 
 msgid "Interoperability Version"
-msgstr "Версия взаимосовместимости"
+msgstr "Interoperability Version"
 
 msgid "Related Image File Format"
-msgstr "Формат файла изображения"
+msgstr "Related Image File Format"
 
 msgid "Related Image Length"
-msgstr "Длина изображения"
+msgstr "Related Image Length"
 
 msgid "Related Image Width"
-msgstr "Ширина изображения"
+msgstr "Related Image Width"
 
 msgid "JPEG Tables"
-msgstr "JPEG таблицы"
+msgstr "JPEG Таблица"
 
 msgid "Jpeg IF Byte Count"
-msgstr "Размер Jpeg данных в байтах"
+msgstr "Jpeg IF Byte Count"
 
 msgid "Jpeg IF Offset"
-msgstr "Положение Jpeg данных в файле JPEG"
+msgstr "Jpeg IF Offset"
 
 msgid "Jpeg Quality"
 msgstr "Качество Jpeg"
@@ -282,7 +282,7 @@ msgid "Light Source"
 msgstr "Источник освещения"
 
 msgid "Long Focal Length"
-msgstr "Длинное фокусное расстояние"
+msgstr "Long Focal Length"
 
 msgid "Macro"
 msgstr "Макро"
@@ -291,7 +291,7 @@ msgid "Make"
 msgstr "Камера"
 
 msgid "Manual Focus Distance"
-msgstr "Расстояние при ручной фокусировке"
+msgstr "Длина при ручной фокусировке"
 
 msgid "Max Aperture Value"
 msgstr "Максимальное значение диафрагмы"
@@ -303,19 +303,19 @@ msgid "Model"
 msgstr "Модель"
 
 msgid "Noise"
-msgstr "Шум"
+msgstr "Шумы"
 
 msgid "Noise Reduction"
-msgstr "Уменьшение шума"
+msgstr "Уменьшение шумов"
 
 msgid "Orientation"
-msgstr "Ориентация камеры при съёмке"
+msgstr "Ориентация"
 
 msgid "Owner Name"
-msgstr "Имя владельца"
+msgstr "Имя Владельца"
 
 msgid "Photometric Interpretation"
-msgstr "Фотометрическая интерпретация"
+msgstr "Photometric Interpretation"
 
 msgid "Photoshop Settings"
 msgstr "Настройки Photoshop"
@@ -327,45 +327,43 @@ msgid "Picture Mode"
 msgstr "Режим изображения"
 
 msgid "Planar Configuration"
-msgstr "Планарная конфигурация"
+msgstr "Planar Configuration"
 
 msgid "Predictor"
-msgstr "Прогнозатор"
+msgstr "Predictor"
 
 msgid "Primary Chromaticities"
-msgstr "Основные цвета"
+msgstr "Primary Chromaticities"
 
 msgid "Quality"
 msgstr "Качество"
 
 msgid "Reference Black/White"
-msgstr "Информация о белом и чёрном"
+msgstr "Reference Black/White"
 
 msgid "Related Sound File"
-msgstr "Связанный звуковой файл"
+msgstr "Связанный Звуковой Файл"
 
-#  1 - дюймы, 2 - см
 msgid "Resolution Unit"
-msgstr "Единица длины, на которую приведено разрешение"
+msgstr "Resolution Unit"
 
 msgid "Rows Per Strip"
-msgstr "Число строк на полосу"
+msgstr "Rows Per Strip"
 
-# Для RGB изображения = 3
 msgid "Samples Per Pixel"
-msgstr "Число компонентов на точку"
+msgstr "Samples Per Pixel"
 
 msgid "Saturation"
 msgstr "Насыщенность"
 
 msgid "Scene Capture Mode"
-msgstr "Пользовательский режим съёмки"
+msgstr "Пользовательский режим съемки"
 
 msgid "Scene Type"
 msgstr "Тип "
 
 msgid "Security Classification"
-msgstr "Категория безопасности"
+msgstr "Security Classification"
 
 msgid "Self Timer"
 msgstr "Автоспуск"
@@ -374,7 +372,7 @@ msgid "Self Timer Mode"
 msgstr "Режим автоспуска"
 
 msgid "Sensing Method"
-msgstr "Тип сенсора"
+msgstr "Sensing Method"
 
 msgid "Sequence Number"
 msgstr "Порядковый номер"
@@ -383,97 +381,97 @@ msgid "Sharpness"
 msgstr "Резкость"
 
 msgid "Short Focal Length"
-msgstr "Короткое фокусное расстояние"
+msgstr "Short Focal Length"
 
 msgid "Slow Sync"
-msgstr "Медленная синхронизация"
+msgstr "Медленная Синхронизация"
 
 msgid "Software"
 msgstr "Программное обеспечение"
 
 msgid "Software Release"
-msgstr "Версия программного обеспечения"
+msgstr "Версия Программного обеспечения"
 
 msgid "Spatial Frequency Response"
-msgstr "Пространственная частотная характеристика"
+msgstr "Spatial Frequency Response"
 
 msgid "Special Mode"
-msgstr "Специальный режим"
+msgstr "Special Mode"
 
 msgid "Spectral Sensitivity"
-msgstr "Спектральная чувствительность"
+msgstr "Spectral Sensitivity"
 
 msgid "Strip Byte Counts"
-msgstr "Размер полосы в байтах"
+msgstr "Strip Byte Counts"
 
 msgid "Strip Offsets"
-msgstr "Смещения полос"
+msgstr "Strip Offsets"
 
 msgid "SubIFDs"
-msgstr "Описания частей TIFF - файла"
+msgstr "SubIFDs"
 
 msgid "Subfile Type"
-msgstr "Тип файлов, составляющих  TIFF"
+msgstr "Subfile Type"
 
 msgid "Subject Distance"
 msgstr "Расстояние до объекта"
 
 msgid "Subject Location"
-msgstr "Расположение объекта"
+msgstr "Subject Location"
 
 msgid "Subsec Time"
-msgstr "Дата/время"
+msgstr "Subsec Time"
 
 msgid "Subsec Time (Digitized)"
-msgstr "Дата/время создания файла"
+msgstr "Subsec Time (Digitized)"
 
 msgid "Subsec Time (Original)"
-msgstr "Дата/время оригинала"
+msgstr "Subsec Time (Original)"
 
 msgid "TIFF/EP Standard ID"
-msgstr "Идентификатор стандарта TIFF/EP"
+msgstr "TIFF/EP Standard ID"
 
 msgid "Tile Byte Counts"
-msgstr "Размер элемента мозаики в байтах"
+msgstr "Tile Byte Counts"
 
 msgid "Tile Length"
-msgstr "Длина мозаичного элемента"
+msgstr "Tile Length"
 
 msgid "Tile Offsets"
-msgstr "Смещение мозаичного элемента"
+msgstr "Tile Offsets"
 
 msgid "Tile Width"
-msgstr "Ширина мозаичного элемента"
+msgstr "Tile Width"
 
 msgid "Time Zone Offset"
-msgstr "Смещение часового пояса"
+msgstr "Time Zone Offset"
 
 msgid "Tone"
 msgstr "Тональность"
 
 msgid "Transfer Function"
-msgstr "Передаточная функция"
+msgstr "Transfer Function"
 
 msgid "User Comment"
-msgstr "Комментарий пользователя"
+msgstr "Пользовательский комментарий"
 
 msgid "Version"
 msgstr "Версия"
 
 msgid "White Balance"
-msgstr "Баланс белого"
+msgstr "Баланс Белого"
 
 msgid "White Point"
-msgstr "Белая точка"
+msgstr "Белая Точка"
 
 msgid "Y/Cb/Cr Coefficients"
-msgstr "Y/Cb/Cr коэффициенты"
+msgstr "Y/Cb/Cr Коэффициенты"
 
 msgid "Y/Cb/Cr Positioning"
-msgstr "Положение точки, определяющей цвет в ячейке YСbCr данных"
+msgstr "Y/Cb/Cr Positioning"
 
 msgid "Y/Cb/Cr Sub-Sampling"
-msgstr "Y/Cb/Cr субдискретизация"
+msgstr "Y/Cb/Cr Sub-Sampling"
 
 msgid "X Resolution"
 msgstr "Разрешение по оси X"
@@ -482,31 +480,28 @@ msgid "Y Resolution"
 msgstr "Разрешение по оси Y"
 
 msgid "Exif Image Height"
-msgstr "Exif высота изображения"
+msgstr "Exif Высота Изображения"
 
 msgid "Exif Image Width"
-msgstr "Exif ширина изображения"
+msgstr "Exif Ширина Изображения"
 
 msgid "GPS: Version"
 msgstr "GPS: Версия"
 
-# N-северная широта; S- южная широта
 msgid "GPS: Latitude Reference"
-msgstr "GPS: Сведения о широте"
+msgstr "GPS: Относительная Широта"
 
 msgid "GPS: Latitude"
 msgstr "GPS: Широта"
 
-# E - восточная долгота; W - западная долгота
 msgid "GPS: Longitude Reference"
-msgstr "GPS: Сведения о долготе"
+msgstr "GPS: Относительная Долгота"
 
 msgid "GPS: Longitude"
 msgstr "GPS: Долгота"
 
-# 0 - выше уровня моря; 1 - ниже уровня моря
 msgid "GPS: Altitude Reference"
-msgstr "GPS: Сведения о высоте"
+msgstr "GPS: Относительная Высота"
 
 msgid "GPS: Altitude"
 msgstr "GPS: Высота"
@@ -515,93 +510,88 @@ msgid "GPS: Time"
 msgstr "GPS: Время"
 
 msgid "GPS: Satellite"
-msgstr "GPS: Спутник"
+msgstr "GPS: Антенна"
 
 msgid "GPS: Receive Status"
 msgstr "GPS: Статус приема"
 
 msgid "GPS: Measurement Mode"
-msgstr "GPS: Метод измерения"
+msgstr "GPS: Режим измерения"
 
 msgid "GPS: Measurement Precision"
 msgstr "GPS: Точность измерения"
 
 msgid "GPS: Speed Unit"
-msgstr "GPS: Единица скорости"
+msgstr "GPS: Скорость объекта"
 
 msgid "GPS: Receiver Speed"
 msgstr "GPS: Скорость ресивера"
 
-# T или М
 msgid "GPS: Movement Direction Reference"
-msgstr "GPS: Сведения о направлении движения"
+msgstr "GPS: Относительное направление движения"
 
-# Градусы
 msgid "GPS: Movement Direction"
-msgstr "GPS: Направление движения"
+msgstr "GPS: Направления движения"
 
-# T или М
 msgid "GPS: Image Direction Reference"
-msgstr "GPS: Сведения о направлении изображения"
+msgstr "GPS: Относительное направление изображения"
 
 msgid "GPS: Movement Image Direction"
-msgstr "GPS: Направление движения изображения"
+msgstr "GPS: Направление изображения в движении"
 
 msgid "GPS: Geodetic Survey Data"
-msgstr "GPS: Геодезические данные съёмки"
+msgstr "GPS: Геодезические Данные Исследования"
 
 msgid "GPS: Destination Latitude Reference"
-msgstr "GPS: Сведения о широте точки назначения"
+msgstr "GPS: Относительная Широта Назначения"
 
 msgid "GPS: Destination Latitude"
-msgstr "GPS: Широта места назначения"
+msgstr "CPS: Широта Назначения"
 
 msgid "GPS: Destination Longitude Reference"
-msgstr "GPS: Сведения о долготе точки назначения"
+msgstr "GPS: Относительная Долгота Назначения"
 
 msgid "GPS: Destination Longitude"
-msgstr "GPS: Долгота места назначения"
+msgstr "GPS: Долгота Назначения"
 
-# T или М
 msgid "GPS: Destination Bearing Reference"
-msgstr "GPS: Сведения об азимуте точки назначения"
+msgstr "GPS: Destination Bearing Reference"
 
 msgid "GPS: Destination Bearing"
-msgstr "GPS: Аазимут места назначения"
+msgstr "GPS: Destination Bearing"
 
-# K - км; M - мили; N - узлы
 msgid "GPS: Destination Distance Reference"
-msgstr "GPS: Сведения об единице измерения расстояния до точки назначения"
+msgstr "GPS: Относительная Дистанция Назначения"
 
 msgid "GPS: Destination Distance"
-msgstr "GPS: Расстояние до точки назначения"
+msgstr "GPS: Дистанция Назначения"
 
 msgid "GPS: Processing Method"
 msgstr "GPS: Метод обработки"
 
 msgid "GPS: Area Information"
-msgstr "GPS: Информация о местности"
+msgstr "GPS: Информация о Местности"
 
 msgid "GPS: Datestamp"
-msgstr "GPS: Дата и время измерения"
+msgstr "GPS: Datestamp"
 
 msgid "GPS: Differential Correction"
 msgstr "GPS: Дифференциальная коррекция"
 
 msgid "IPTC: Supplemental Categories"
-msgstr "IPTC: Дополнительные категории"
+msgstr "IPTC: Дополнительные Категории"
 
 msgid "IPTC: Keywords"
 msgstr "IPTC: Ключевые слова"
 
 msgid "IPTC: Caption"
-msgstr "IPTC: Подпись"
+msgstr "IPTC: Заголовок"
 
 msgid "IPTC: Caption Writer"
-msgstr "IPTC: Автор подписи"
+msgstr "IPTC: Автор Заголовка"
 
 msgid "IPTC: Headline"
-msgstr "IPTC: Заголовок"
+msgstr "IPTC: Headline"
 
 msgid "IPTC: Special Instructions"
 msgstr "IPTC: Специальные инструкции"
@@ -610,10 +600,10 @@ msgid "IPTC: Category"
 msgstr "IPTC: Категория"
 
 msgid "IPTC: Byline"
-msgstr "IPTC: Имя автора"
+msgstr "IPTC: Byline"
 
 msgid "IPTC: Byline Title"
-msgstr "IPTC: Заголовок автора"
+msgstr "IPTC: Byline Title"
 
 msgid "IPTC: Credit"
 msgstr "IPTC: Credit"
@@ -625,7 +615,7 @@ msgid "IPTC: Copyright Notice"
 msgstr "IPTC: Замечания об авторском праве"
 
 msgid "IPTC: Object Name"
-msgstr "IPTC: Название объекта"
+msgstr "IPTC: Название Объекта"
 
 msgid "IPTC: City"
 msgstr "IPTC: Город"
@@ -637,22 +627,16 @@ msgid "IPTC: Country Name"
 msgstr "IPTC: Название страны"
 
 msgid "IPTC: Original Transmission Reference"
-msgstr "IPTC: Место оригинальной передачи"
+msgstr "IPTC: Original Transmission Reference"
 
 msgid "IPTC: Date Created"
-msgstr "IPTC: Дата создания"
+msgstr "IPTC: Дата Создания"
 
 msgid "IPTC: Copyright Flag"
-msgstr "IPTC: Отметка о правах копирования"
+msgstr "IPTC: Copyright Flag"
 
 msgid "IPTC: Time Created"
-msgstr "IPTC: Время создания"
-
-msgid "IPTC: Content Location Name"
-msgstr "IPTC: Место съёмки - страна"
-
-msgid "IPTC: Sub Location"
-msgstr "IPTC: Место съёмки - город"
+msgstr "IPTC: Время Создания"
 
 msgid "EXIF/IPTC Settings"
 msgstr "Настройки EXIF/IPTC"
@@ -660,64 +644,64 @@ msgstr "Настройки EXIF/IPTC"
 #, c-format
 msgid "Added %d property to the Summary view"
 msgid_plural "Added %d properties to the Summary view"
-msgstr[0] "К краткому перечню добавлено %d свойство"
-msgstr[1] "К краткому перечню добавлено %d свойства"
-msgstr[2] "К краткому перечню добавлено %d свойств"
+msgstr[0] "Добавлено %d свойство к Краткому перечню"
+msgstr[1] "Добавлено %d свойства к Краткому перечню"
+msgstr[2] "Добавлено %d свойств к Краткому перечню"
 
 #, c-format
 msgid "Removed %d property from the Summary view"
 msgid_plural "Removed %d properties from the Summary view"
-msgstr[0] "Из краткого перечня удалено %d свойство"
-msgstr[1] "Из краткого перечня удалено %d свойства"
-msgstr[2] "Из краткого перечня удалено %d свойств"
+msgstr[0] "Удалено %d свойство из Краткого перечня"
+msgstr[1] "Удалено %d свойства из Краткого перечня"
+msgstr[2] "Удалено %d свойств из Краткого перечня"
 
 msgid "Restored the default properties for the Summary view"
-msgstr "Для краткого перечня восстановлены значения по умолчанию"
+msgstr "Восстановлены значения по умолчанию для настроек Краткого перечня"
 
 #, c-format
 msgid "Moved %d property up in the Summary view"
 msgid_plural "Moved %d properties up in the Summary view"
-msgstr[0] "В кратком перечне %d свойство  перемещено вверх"
-msgstr[1] "В кратком перечне %d свойства  перемещены вверх"
-msgstr[2] "В кратком перечне %d свойств  перемещено вверх"
+msgstr[0] "Перемещено %d свойство вверх в Кратком перечне"
+msgstr[1] "Перемещено %d свойства вверх в Кратком перечне"
+msgstr[2] "Перемещено %d свойств вверх в Кратком перечне"
 
 #, c-format
 msgid "Moved %d property down in the Summary view"
 msgid_plural "Moved %d properties down in the Summary view"
-msgstr[0] "В кратком перечне %d свойство  перемещено вниз"
-msgstr[1] "В кратком перечне %d свойства  перемещены вниз"
-msgstr[2] "В кратком перечне %d свойств  перемещено вниз"
+msgstr[0] "Перемещено %d свойство вниз в Кратком перечне"
+msgstr[1] "Перемещено %d свойства вниз в Кратком перечне"
+msgstr[2] "Перемещено %d свойств вниз в Кратком перечне"
 
 #, c-format
 msgid "Added %d property to the Detailed view"
 msgid_plural "Added %d properties to the Detailed view"
-msgstr[0] "К полному перечню добавлено %d свойство"
-msgstr[1] "К полному перечню добавлено %d свойства"
-msgstr[2] "К полному перечню добавлено %d свойств"
+msgstr[0] "Добавлено %d свойство к Полному перечню"
+msgstr[1] "Добавлено %d свойства к Полному перечню"
+msgstr[2] "Добавлено %d свойств к Полному перечню"
 
 #, c-format
 msgid "Removed %d property from the Detailed view"
 msgid_plural "Removed %d properties from the Detailed view"
-msgstr[0] "Из полного перечня удалено %d свойство"
-msgstr[1] "Из полного перечня удалено %d свойства"
-msgstr[2] "Из полного перечня удалено %d свойств"
+msgstr[0] "Удалено %d свойство из Полного перечня"
+msgstr[1] "Удалено %d свойства из Полного перечня"
+msgstr[2] "Удалено %d свойств из Полного перечня"
 
 msgid "Restored the default properties for the Detailed view"
-msgstr "Для полного перечня восстановлены значения по умолчанию "
+msgstr "Восстановлены значения по умолчанию для настроек Полного перечня"
 
 #, c-format
 msgid "Moved %d property up in the Detailed view"
 msgid_plural "Moved %d properties up in the Detailed view"
-msgstr[0] "В полном перечне %d свойство  перемещено вверх"
-msgstr[1] "В полном перечне %d свойства  перемещены вверх"
-msgstr[2] "В полном перечне %d свойств перемещено вверх"
+msgstr[0] "Перемещено %d свойство вверх в Полном перечне"
+msgstr[1] "Перемещено %d свойства вверх в Полном перечне"
+msgstr[2] "Перемещено %d свойств вверх в Полном перечне"
 
 #, c-format
 msgid "Moved %d property down in the Detailed view"
 msgid_plural "Moved %d properties down in the Detailed view"
-msgstr[0] "В полном перечне %d свойство  перемещено вниз"
-msgstr[1] "В полном перечне %d свойства  перемещены вниз"
-msgstr[2] "В полном перечне %d свойств  перемещено вниз"
+msgstr[0] "Перемещено %d свойство вниз в Полном перечне"
+msgstr[1] "Перемещено %d свойства вниз в Полном перечне"
+msgstr[2] "Перемещено %d свойств вниз в Полном перечне"
 
 msgid "Settings saved successfully"
 msgstr "Настройки успешно сохранены"
@@ -727,20 +711,20 @@ msgid ""
 "Gallery can also display IPTC data that was added to the photos by some IPTC enabled "
 "software."
 msgstr ""
-"Галерея может отображать данные EXIF, встроенные в фотографии. EXIF поддерживается "
+"Галерея может отображать данные EXIF, внедренные в фотографии, которые поддерживаются "
 "большинством цифровых камер. Галерея так же может отображать данные IPTC, которые были "
-"добавлены к фотографии программами, поддерживающими IPTC."
+"добавлены к фотографии программами с поддержкой IPTC."
 
 msgid "Summary and Detailed EXIF/IPTC displays"
-msgstr "Отображение краткого и полного перечня данных EXIF/IPTC"
+msgstr "Отображение Краткого и Полного перечня данных EXIF/IPTC"
 
 msgid ""
 "There can be a great deal of EXIF/IPTC information stored in photos.  We display that data "
 "in two different views, summary and detailed.  You can choose which properties are displayed "
 "in each view."
 msgstr ""
-"Фотографии могут содержать большой объём данных EXIF/IPTC. Отображение этой информации "
-"возможно двумя разными способами: кратким и полным перечнем. Вы в праве выбрать, какие "
+"В фотографиях может быть сохранено много данных EXIF/IPTC. Возможно отображение этой "
+"информации двумя разными способами: кратким и полным перечнем. Вы в праве выбрать, какие "
 "свойства будут представлены в каждом из перечней."
 
 msgid "Available"
@@ -783,70 +767,63 @@ msgid ""
 "Restore the original values for the Summary and Detailed views.  Use with caution, there is "
 "no undo!"
 msgstr ""
-"Позволяет восстановить исходные значения для краткого и полного перечня. Используйте эту "
-"опцию аккуратно, т.к. возврат к текущим значениям будет невозможен!"
+"Позволяет установить исходные значения для Краткого и Полного перечня. Используйте эту опцию "
+"аккуратно, т.к. возврат к текущим значениям будет невозможен!"
 
 msgid "Restore Summary Defaults"
-msgstr "Восстановить значения по умолчанию для краткого перечня"
+msgstr "Восстановить значения по умолчанию для Краткого перечня"
 
 msgid "Restore Detailed Defaults"
-msgstr "Восстановить значения по умолчанию для полного перечня"
+msgstr "Восстановить значения по умолчанию для Полного перечня"
 
 msgid "Item Upload"
-msgstr "Операции при загрузке элементов"
+msgstr "Операции при загрузки элементов"
 
 msgid "When photos are added to Gallery check for EXIF Image Description and apply to:"
 msgstr ""
-"При добавлении фотографий в Галерею проверять свойство  EXIF - ''Описание изобажения''  и "
+"При добавлении фотографий в Галерею проверять свойство  EXIF - Описание Изобажения - и "
 "добавлять его к:"
 
 msgid "Item Summary"
-msgstr "Подзаголовку элемента"
+msgstr "Заголовоку элемента"
 
 msgid "Item Description"
 msgstr "Описанию элемента"
 
 msgid "When photos are added to Gallery check for IPTC Keywords and apply to:"
 msgstr ""
-"При добавлении фотогафий в Галерею проверять свойство  IPTC - ''Ключевые слова'' и добавлять "
-"его к:"
+"При добавлении фотогафий в Галерею проверять свойство  IPTC - Ключевые слова и добавлять его "
+"к:"
 
 msgid "Item Keywords"
-msgstr "Ключевым словам элемента"
+msgstr "Ключевые слова элемента"
 
+#, fuzzy
 msgid "When photos are added to Gallery check for IPTC Object Name and apply to:"
 msgstr ""
-"При добавлении фотогафий в Галерею проверять свойство  IPTC - ''Описание изобажения'' и "
-"применить его к:"
+"При добавлении фотогафий в Галерею проверять свойство  IPTC - Ключевые слова и добавлять его "
+"к:"
 
 msgid "Item Title"
-msgstr "Заголовку элемента"
+msgstr ""
 
+#, fuzzy
 msgid "When photos are added should we rotate them based on EXIF orientation data?"
 msgstr ""
-"При добавлении фотографий в Галерею поворачивать ли изобажение в соответствии с данными EXIF?"
+"При добавлении фотографий в Галерею проверять свойство  EXIF - Описание Изобажения - и "
+"добавлять его к:"
 
 msgid "Rotate pictures automatically"
-msgstr "Поворачивать картинку автоматически"
-
-msgid ""
-"Warning: No toolkit support for rotation of JPEG images.  Make sure to activate a toolkit "
-"module if using this option."
 msgstr ""
-"Предупреждение: Нет графического инструмента для вращения JPEG изображений. Если вы "
-"собираетесь поворачивать изображения, активизируйте соответствующий модуль."
 
 msgid "Preserve Original on Rotating"
-msgstr "Сохранить оригинал при вращении"
+msgstr ""
 
 msgid "Save"
 msgstr "Сохранить"
 
-msgid "Loading.."
-msgstr "Загрузка..."
-
 msgid "Photo Properties"
-msgstr "Свойства фотографии"
+msgstr "Свойства Фотографии"
 
 msgid "summary"
 msgstr "кратко"

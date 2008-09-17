@@ -1,16 +1,12 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
 <div class="gbBlock gcBackground1">
   <h2> {g->text text="Add Items"} </h2>
 </div>
-
-{if !empty($form.error.itemsAddedDespiteFormErrors)}
-<div class="gbBlock giError">
-  {g->text text="Not all of the specified items have been added successfully."}
-</div>
-{/if}
 
 {if (!$ItemAdd.hasToolkit)}
 <div class="gbBlock giWarning">
@@ -19,7 +15,7 @@
     {g->url arg1="view=core.SiteAdmin" arg2="subView=core.AdminPlugins"}
   {/capture}
   {if $ItemAdd.isAdmin}
-    {g->text text="Visit the %sModules%s page to activate a Graphics Toolkit." arg1="<a href=\"`$smarty.capture.url`\">" arg2="</a>"}
+    {g->text text="Visit the <a href=\"%s\">Modules</a> page to activate a Graphics Toolkit." arg1=$smarty.capture.url}
   {/if}
 </div>
 {/if}

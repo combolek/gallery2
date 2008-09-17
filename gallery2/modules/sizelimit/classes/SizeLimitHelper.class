@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,11 +31,11 @@ class SizeLimitHelper {
     /**
      * Reduce the item file size without preserving the original
      *
-     * @param GalleryPhotoItem $item
+     * @param object GalleryPhotoItem $item
      * @param string $operation ('scale' to reduce dimensions, 'compress' to reduce filesize)
      * @param array $args operation arguments to pass through to the toolkit
-     * @return array GalleryStatus a status code,
-     *               array (errors), array (warnings)
+     * @return array (object GalleryStatus a status code,
+     *                array (errors), array (warnings))
      */
     function applyLimits(&$item, $operation, $args) {
 
@@ -109,11 +109,11 @@ class SizeLimitHelper {
     /**
      * Set up a preferred derivative that conforms to size limits
      *
-     * @param GalleryPhotoItem $item
+     * @param object GalleryPhotoItem $item
      * @param string $operation ('scale' to reduce dimensions, 'compress' to reduce filesize)
      * @param array $args passthru to the toolkit
-     * @return array GalleryStatus a status code,
-     *               array (errors), array (warnings)
+     * @return array (object GalleryStatus a status code,
+     *                array (errors), array (warnings))
      */
     function buildDerivativeWithLimits($item, $operation, $args) {
 	/* Check to see if we have a preferred source */
@@ -204,7 +204,7 @@ class SizeLimitHelper {
      * @param int $itemId
      * @param int $imageWidth new fullsize width
      * @param int $imageHeight new fullsize height
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function _updateResizes($itemId, $imageWidth, $imageHeight) {
 	/* Remove larger or equal sized resizes if necessary */
@@ -220,8 +220,7 @@ class SizeLimitHelper {
 		    $height = empty($matches[2]) ? $width : $matches[2];
 		    if ($imageWidth <= $width && $imageHeight <= $height) {
 			/* The resize is larger or has the same size as the fullsize */
-			$ret = GalleryCoreApi::deleteEntityById($derivative->getId(),
-								'GalleryDerivative');
+			$ret = GalleryCoreApi::deleteEntityById($derivative->getId());
 			if ($ret) {
 			    return $ret;
 			}

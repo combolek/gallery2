@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,7 +36,7 @@ class CoreApiTest extends GalleryTestCase {
 
 	list ($ret, $defaultId) = GalleryCoreApi::getDefaultAlbumId();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals($expectedId, $defaultId);
@@ -50,22 +50,10 @@ class CoreApiTest extends GalleryTestCase {
 
 	list ($ret, $defaultId) = GalleryCoreApi::getDefaultAlbumId();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals($expectedId, $defaultId);
-    }
-
-    function testLoadAvailableBlocks() {
-	list ($ret, $blocks) = GalleryCoreApi::loadAvailableBlocks();
-	if ($ret) {
-	    return $ret;
-	}
-	$this->assert(!empty($blocks), 'No blocks found!');
-	$this->assert(isset($blocks['core']['LanguageSelector']));
-	$this->assert(isset($blocks['core']['ItemLinks']));
-	$this->assert(isset($blocks['core']['LoginBlock']));
-	$this->assert(isset($blocks['core']['PeerList']));
     }
 }
 ?>

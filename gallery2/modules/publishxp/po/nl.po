@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@
 # Gidie <gidie at users.sourceforge REMOVE THIS dot net>, 2005
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Windows Publishing Wizard 1.0.13\n"
+"Project-Id-Version: Gallery: Publish XP 1.0.7\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-05-11 09:12+0200\n"
 "PO-Revision-Date: 2005-05-11 09:15+0200\n"
@@ -31,10 +31,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "Windows Publishing Wizard"
-msgstr ""
+msgid "Windows XP"
+msgstr "Windows XP"
 
-msgid "Publish photos to Gallery directly from Windows"
+msgid "Publish XP"
+msgstr "Publiceren XP"
+
+msgid "Publish photos to Gallery directly from Windows XP"
 msgstr ""
 
 msgid "Import"
@@ -51,18 +54,17 @@ msgstr "Publiceer uw Foto's en Films naar %s"
 msgid "Upload to Gallery"
 msgstr "Upload naar Gallery"
 
-#, fuzzy
 msgid ""
-"Microsoft Windows comes with a nice feature that allows you to publish content from your "
-"desktop directly to a web service.  Follow the instructions below to enable this service on "
-"your Windows system."
+"Windows XP comes with a nice feature that allows you to publish content from your desktop "
+"directly to a web service.  Follow the instructions below to enable this service on your "
+"Windows XP system."
 msgstr ""
 "Windows XP heeft een mooie functionaliteit waarmee u direct vanuit uw computer naar een web "
 "service kunt publiceren. Volg de instructies hieronder om deze service op uw Windows XP "
 "systeem aan te zetten."
 
-msgid "Installation"
-msgstr ""
+msgid "Step 1"
+msgstr "Stap 1"
 
 msgid ""
 "Download the configuration file using right-click 'Save Target As...'  Once downloaded, "
@@ -80,53 +82,22 @@ msgstr ""
 "waarden naar het register wilt importeren. Klik op 'Ok'. Nu zal u worden meegedeeld dat de "
 "bestanden siccesvol zijn geïmporteerd. Klik opnieuw op 'Ok'."
 
-msgid "(for Windows Vista)"
-msgstr ""
-
-msgid "(for Windows XP, Windows 2000 and earlier Windows versions)"
-msgstr ""
-
 msgid "Download [install_registry.reg]"
 msgstr "Download [install_registry.reg]"
 
-#, fuzzy
-msgid "Windows Vista"
-msgstr "Windows XP"
-
-#, c-format
-msgid "Open your %sWindows Photo Gallery%s."
-msgstr ""
-
-msgid "Select one or more images / files in your Windows Photo Gallery."
-msgstr ""
+msgid "Step 2"
+msgstr "Stap 2"
 
 msgid ""
-"Click \"Print...\" and select the online printing option (not the local printing option)."
+"Open your Windows Explorer and browse to a folder containing supported images. Select the "
+"image(s) or a folder and there should be a link on the left that says 'Publish this file to "
+"the web...'  Click this link and then follow the instructions to log into your Gallery, "
+"select an album and publish the image."
 msgstr ""
-
-msgid "Select the Gallery 2 printing service."
-msgstr ""
-
-msgid ""
-"Then follow the instructions to log into your Gallery, select an album and publish the image"
-"(s)."
-msgstr ""
-
-msgid "Windows XP, Windows 2000 and earlier Windows versions"
-msgstr ""
-
-msgid "Open your Windows Explorer and browse to a folder containing supported images."
-msgstr ""
-
-msgid "Select the image(s) or a folder."
-msgstr ""
-
-msgid "Click the link on the left that says \"Publish this file to the web...\""
-msgstr ""
-
-#, fuzzy
-msgid "Usage"
-msgstr "Gebruikersnaam"
+"Open uw Windows Verkenner en ga naar een map die ondersteunde afbeeldingen bevat. Selecteer "
+"de afbeelding(en) of een map en dan moet er een link aan de linker kant verschijnen dat "
+"aangeeft 'Dit bestand op het web publiceren' Klik op deze link en volg de instructies om in "
+"uw Gallery in te loggen, selecteer een album en publiceer de afbeelding."
 
 msgid "Specify the name and title for the new album."
 msgstr "Geef de naam en titel voor het nieuwe album op."
@@ -226,22 +197,5 @@ msgstr "Nieuw Album"
 msgid "You must select an album"
 msgstr "U dient een album te selecteren"
 
-#~ msgid "Publish XP"
-#~ msgstr "Publiceren XP"
-
-#~ msgid "Step 1"
-#~ msgstr "Stap 1"
-
-#~ msgid "Step 2"
-#~ msgstr "Stap 2"
-
-#~ msgid ""
-#~ "Open your Windows Explorer and browse to a folder containing supported images. Select the "
-#~ "image(s) or a folder and there should be a link on the left that says 'Publish this file "
-#~ "to the web...'  Click this link and then follow the instructions to log into your "
-#~ "Gallery, select an album and publish the image."
-#~ msgstr ""
-#~ "Open uw Windows Verkenner en ga naar een map die ondersteunde afbeeldingen bevat. "
-#~ "Selecteer de afbeelding(en) of een map en dan moet er een link aan de linker kant "
-#~ "verschijnen dat aangeeft 'Dit bestand op het web publiceren' Klik op deze link en volg de "
-#~ "instructies om in uw Gallery in te loggen, selecteer een album en publiceer de afbeelding."
+#~ msgid "Implementation for direct publishing from XP"
+#~ msgstr "Implementatie voor direct publiceren vanuit XP"

@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,9 +20,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Ffmpeg 1.0.12\n"
+"Project-Id-Version: Gallery: Ffmpeg 1.0.7\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2007-06-14 17:19-0700\n"
+"POT-Creation-Date: 2006-12-20 09:39-0800\n"
 "PO-Revision-Date: 2006-03-16 16:27+0100\n"
 "Last-Translator: Serban Constantinescu <serban.constantinescu@gmail.com>\n"
 "Language-Team: <none>\n"
@@ -44,7 +44,7 @@ msgid "Graphics Toolkits"
 msgstr "Instrumente Grafice"
 
 msgid "Convert to a JPEG"
-msgstr "Converteste la JPEG"
+msgstr ""
 
 msgid "offset in seconds"
 msgstr ""
@@ -52,53 +52,10 @@ msgstr ""
 msgid "Select time offset in movie file"
 msgstr ""
 
-#, fuzzy
-msgid "Convert to Flash Video"
-msgstr "Converteste la JPEG"
-
-msgid "video width in pixels"
-msgstr ""
-
-msgid "video height in pixels"
-msgstr ""
-
-msgid "Set video dimensions"
-msgstr ""
-
-msgid "frames per second"
-msgstr ""
-
-msgid "Set video frames per second property"
-msgstr ""
-
-msgid "Set same video quality"
-msgstr ""
-
-msgid "number of channels"
-msgstr ""
-
-msgid "Set audio channels property"
-msgstr ""
-
-msgid "audio sample rate (Hz / cycles per second"
-msgstr ""
-
-msgid "Set audio rate property"
-msgstr ""
-
 msgid "Get the width and height of the movie"
 msgstr ""
 
 msgid "Get the width, height and duration of the movie"
-msgstr ""
-
-msgid "Get video frames per seconds of the movie"
-msgstr ""
-
-msgid "Get audio samples per seconds of the movie"
-msgstr ""
-
-msgid "Get number of audio channels in movie"
 msgstr ""
 
 msgid "FFMPEG Settings"
@@ -118,11 +75,6 @@ msgid ""
 "Gallery.  You must install the FFMPEG binary on your server, then enter the path to it in "
 "the text box below.  If you're on a Unix machine, don't forget to make the binary executable "
 "(<i>chmod 755 ffmpeg</i> in the right directory should do it)"
-msgstr ""
-
-msgid ""
-"The exec() function is disabled in your PHP by the <b>disabled_functions</b> parameter in "
-"php.ini.  This module cannot be used until that setting is changed."
 msgstr ""
 
 msgid "Path to FFMPEG:"
@@ -164,10 +116,10 @@ msgid ""
 msgstr ""
 
 msgid "Save Settings"
-msgstr "Salveaza setarile"
+msgstr ""
 
 msgid "Test Settings"
-msgstr "Testeaza setarile"
+msgstr ""
 
 msgid "Cancel"
 msgstr "Anuleaza"
@@ -182,30 +134,21 @@ msgid "Binary Name"
 msgstr ""
 
 msgid "Pass/Fail"
-msgstr "Success/Eroare"
+msgstr ""
 
 msgid "Passed"
-msgstr "Ok"
+msgstr ""
 
 msgid "Failed"
 msgstr "Eroare"
 
 msgid "Error messages:"
-msgstr "Mesaje de eroare:"
+msgstr ""
 
 msgid "Supported MIME Types"
-msgstr "MIME Types suportate"
-
-msgid "The FFMPEG module can decode files of the following MIME types"
 msgstr ""
 
-msgid "The FFMPEG module can encode files to the following MIME types"
-msgstr ""
-
-msgid "Missing required audio codec, encoded videos will not contain sound."
-msgstr ""
-
-msgid "Version Information"
+msgid "The FFMPEG module can support files with the following MIME types"
 msgstr ""
 
 #, c-format

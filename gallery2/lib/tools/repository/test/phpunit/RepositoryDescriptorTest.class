@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -39,10 +39,7 @@ class RepositoryDescriptorTest extends GalleryTestCase {
     var $_testModule;
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 	global $gallery;
 
 	/* This maps to ../data/MANIFEST */
@@ -52,26 +49,17 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 		    'bytes' => '12121', 'hash' => '1908582732',
 		    'packages' => array('base')),
 		'file.1' => array(
-		    'bytes' => '11111', 'bytes_crlf' => '61111',
-		    'hash' => '12345', 'hash_crlf' => '62345', 'packages' => array('base')),
+		    'bytes' => '11111', 'hash' => '12345', 'packages' => array('base')),
 		'file.2' => array(
-		    'bytes' => '11111', 'bytes_crlf' => '61111',
-		    'hash' => '12345', 'hash_crlf' => '62345', 'packages' => array('base')),
+		    'bytes' => '11111', 'hash' => '12345', 'packages' => array('base')),
 		'po/strings.raw' => array(
-		    'bytes' => '11111', 'bytes_crlf' => '61111',
-		    'hash' => '12345', 'hash_crlf' => '62345', 'packages' => array('base')),
+		    'bytes' => '11111', 'hash' => '12345', 'packages' => array('base')),
 		'po/aa.po' => array(
-		    'bytes' => '11111', 'bytes_crlf' => '61111',
-		    'hash' => '12345', 'hash_crlf' => '62345', 'packages' => array('lang-aa')),
-		'po/aa.mo' => array(
-		    'bytes' => '11111', 'bytes_crlf' => '61111',
-		    'hash' => '12345', 'hash_crlf' => '62345', 'packages' => array('lang-aa')),
+		    'bytes' => '11111', 'hash' => '12345', 'packages' => array('lang-aa')),
 		'locale/aa/LC_MESSAGES/test.mo' => array(
-		    'bytes' => '11111', 'bytes_crlf' => '61111',
-		    'hash' => '12345', 'hash_crlf' => '62345', 'packages' => array('lang-aa')),
+		    'bytes' => '11111', 'hash' => '12345', 'packages' => array('lang-aa')),
 		'test/phpunit/file.test' => array(
-		    'bytes' => '11111', 'bytes_crlf' => '61111',
-		    'hash' => '12345', 'hash_crlf' => '62345', 'packages' => array())),
+		    'bytes' => '11111', 'hash' => '12345', 'packages' => array())),
 	    'directories' => array(
 		'po' => array('packages' => array('base')),
 		'locale/aa/LC_MESSAGES' => array('packages' => array('lang-aa')),
@@ -90,8 +78,9 @@ class RepositoryDescriptorTest extends GalleryTestCase {
     function _getDescriptorWithFakeFileMetadata() {
 	$data = array();
 	$utils = new RepositoryDescriptorTestUtilities();
-	$utils->setGetFileRevision('/MANIFEST', '14604');
-	$utils->setGetFileRevision('/po/aa.po', '14444');
+	$utils->setGetFirstBytesFromFile(array('/MANIFEST', 128), '# $' . 'Revision: 14604 $');
+	$utils->setGetFirstBytesFromFile(
+	    array('/po/aa.po', 128), '# $' . 'Id: de.po 14444 2006-09-03 08:03:07Z bharat $');
 	$descriptor = new RepositoryDescriptor_FakeFileMetaDataTest($this->_canonicalFileMetaData);
 	$descriptor->setUtilities($utils);
 	$descriptor->setTemplate(new RepositoryTestTemplate());
@@ -106,7 +95,7 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 	$descriptor = $this->_getDescriptorWithFakeFileMetadata();
 	$ret = $descriptor->generate(new RepositoryDescriptorTestPlugin());
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(
@@ -131,29 +120,17 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 			  'bytes' => '12121', 'hash' => '1908582732',
 			  'packages' => array('base')),
 		      'file.1' => array(
-			  'bytes' => '11111', 'bytes_crlf' => '61111',
-			  'hash' => '12345', 'hash_crlf' => '62345', 'packages' => array('base')),
+			  'bytes' => '11111', 'hash' => '12345', 'packages' => array('base')),
 		      'file.2' => array(
-			  'bytes' => '11111', 'bytes_crlf' => '61111',
-			  'hash' => '12345', 'hash_crlf' => '62345', 'packages' => array('base')),
+			  'bytes' => '11111', 'hash' => '12345', 'packages' => array('base')),
 		      'po/strings.raw' => array(
-			  'bytes' => '11111', 'bytes_crlf' => '61111',
-			  'hash' => '12345', 'hash_crlf' => '62345', 'packages' => array('base')),
+			  'bytes' => '11111', 'hash' => '12345', 'packages' => array('base')),
 		      'po/aa.po' => array(
-			  'bytes' => '11111', 'bytes_crlf' => '61111',
-			  'hash' => '12345', 'hash_crlf' => '62345',
-			  'packages' => array('lang-aa')),
-		      'po/aa.mo' => array(
-			  'bytes' => '11111', 'bytes_crlf' => '61111',
-			  'hash' => '12345', 'hash_crlf' => '62345',
-			  'packages' => array('lang-aa')),
+			  'bytes' => '11111', 'hash' => '12345', 'packages' => array('lang-aa')),
 		      'locale/aa/LC_MESSAGES/test.mo' => array(
-			  'bytes' => '11111', 'bytes_crlf' => '61111',
-			  'hash' => '12345', 'hash_crlf' => '62345',
-			  'packages' => array('lang-aa')),
+			  'bytes' => '11111', 'hash' => '12345', 'packages' => array('lang-aa')),
 		      'test/phpunit/file.test' => array(
-			  'bytes' => '11111', 'bytes_crlf' => '61111',
-			  'hash' => '12345', 'hash_crlf' => '62345', 'packages' => array())),
+			  'bytes' => '11111', 'hash' => '12345', 'packages' => array())),
 		  'directories' => array(
 		      'locale/aa/LC_MESSAGES' => array('packages' => array('lang-aa')),
 		      'locale/aa' => array('packages' => array('lang-aa')),
@@ -173,7 +150,7 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 	$descriptor = $this->_getDescriptorWithFakeFileMetadata();
 	$ret = $descriptor->generate(new RepositoryDescriptorTestPlugin());
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 	$this->assertEquals(array(),
 	    $descriptor->_data,
@@ -187,13 +164,12 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 	$data = array();
 	$descriptor = new RepositoryDescriptor();
 	$utils = new RepositoryDescriptorTestUtilities();
-	$utils->setGetFileRevision($testDataDir . 'po/strings.raw', '22222');
+	$utils->setGetFirstBytesFromFile(
+	    array($testDataDir . 'po/strings.raw', 128),
+	    '# $' . 'Id: strings.raw 22222 2006-07-08 23:55:12Z bharat $');
 	$descriptor->setUtilities($utils);
 
 	$platform = new UnitTestPlatform();
-
-	$manifestLines = file($testDataDir . 'MANIFEST');
-	$platform->setReply('file', array($testDataDir . 'MANIFEST', null), $manifestLines);
 
 	$platform->setReply('file_get_contents', array($testDataDir . 'MANIFEST'),
 			    str_repeat('x', 12121));
@@ -208,7 +184,7 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 	$descriptor = $this->_getDescriptorWithFakeFileMetadata();
 	$ret = $descriptor->generate(new RepositoryDescriptorTestPlugin());
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(
@@ -228,7 +204,7 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 	$descriptor = $this->_getDescriptorWithFakeFileMetadata();
 	$ret = $descriptor->generate(new RepositoryDescriptorTestPlugin());
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(
@@ -236,7 +212,7 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 	    $descriptor->getFilesInPackage('base'));
 
 	$this->assertEquals(
-	    array('locale/aa/LC_MESSAGES/test.mo', 'po/aa.mo', 'po/aa.po'),
+	    array('locale/aa/LC_MESSAGES/test.mo', 'po/aa.po'),
 	    $descriptor->getFilesInPackage('lang-aa'));
     }
 
@@ -244,7 +220,7 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 	$descriptor = $this->_getDescriptorWithFakeFileMetadata();
 	$ret = $descriptor->generate(new RepositoryDescriptorTestPlugin());
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(
@@ -257,7 +233,7 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 	$descriptor = $this->_getDescriptorWithFakeFileMetadata();
 	$ret = $descriptor->generate(new RepositoryDescriptorTestPlugin());
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 
 	$platform = new UnitTestPlatform();
@@ -281,7 +257,7 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 	$descriptor = $this->_getDescriptorWithFakeFileMetadata();
 	$ret = $descriptor->generate(new RepositoryDescriptorTestPlugin());
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 
 	$phpVm = new RepositoryDescriptorTestPhpVm();
@@ -289,7 +265,6 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 	$phpVm->setCrc32('file.2',      12345); /* correct checksum */
 	$phpVm->setCrc32('strings.raw', 12345); /* correct checksum */
 	$phpVm->setCrc32('aa.po',       12345); /* correct checksum */
-	$phpVm->setCrc32('aa.mo',       12345); /* correct checksum */
 	$phpVm->setCrc32('test.mo',     12345); /* correct checksum */
 	$phpVm->setCrc32('file.test',   12345); /* correct checksum */
 	$gallery->_phpVm = $phpVm;
@@ -315,15 +290,11 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 	$platform->setReply('file_exists', array($base . 'po/aa.po'), true);
 	$platform->setReply('file_get_contents', array($base . 'po/aa.po'), 'aa.po');
 	$platform->setReply('stat', array($base . 'po/aa.po'), array(7 => 11111, 9 => 1));
-	$platform->setReply('file_exists', array($base . 'po/aa.mo'), true);
-	$platform->setReply('file_get_contents', array($base . 'po/aa.mo'), 'aa.mo');
- 	$platform->setReply('stat', array($base . 'po/aa.mo'),
- 			    array(7 => 11111, 9 => 1));
 	$platform->setReply('file_exists', array($base . 'locale/aa/LC_MESSAGES/test.mo'), true);
 	$platform->setReply('file_get_contents',
 			    array($base . 'locale/aa/LC_MESSAGES/test.mo'), 'test.mo');
-  	$platform->setReply('stat', array($base . 'locale/aa/LC_MESSAGES/test.mo'),
-  			    array(7 => 11111, 9 => 1));
+ 	$platform->setReply('stat', array($base . 'locale/aa/LC_MESSAGES/test.mo'),
+ 			    array(7 => 11111, 9 => 1));
  	$platform->setReply('file_exists', array($base . 'test/phpunit/file.test'), true);
  	$platform->setReply('file_get_contents',
  			    array($base . 'test/phpunit/file.test'), 'file.test');
@@ -415,13 +386,17 @@ class RepositoryDescriptorTestTranslator {
 }
 
 class RepositoryDescriptorTestUtilities {
-    function setGetFileRevision($expected, $reply) {
-	$this->_matches[$expected] = $reply;
+    function setGetFirstBytesFromFile($expected, $reply) {
+	$this->_matches[serialize($expected)] = $reply;
     }
 
-    function getFileRevision($file) {
-	return array(null, $this->_matches[$file]);
+    function getFirstBytesFromFile($file, $bytes) {
+	return array(null, $this->_matches[serialize(array($file, $bytes))]);
     }
 
+    function extractRevision($string) {
+	preg_match('/([\d]{5})/', $string, $matches);
+	return array(null, $matches[0]);
+    }
 }
 ?>

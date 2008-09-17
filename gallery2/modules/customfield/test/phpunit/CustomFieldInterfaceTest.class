@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,27 +34,25 @@ class CustomFieldInterfaceTest extends GalleryTestCase {
     }
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 	global $gallery;
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'customfield');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 	list ($ret, $this->_interface) =
 	    GalleryCoreApi::newFactoryInstance('CustomFieldInterface_1_0', 'CustomFieldHelper');
 	if ($ret || !isset($this->_interface)) {
 	    print $ret->getAsHtml();
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 
 	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->_markForCleanup($this->_album);
@@ -62,18 +60,21 @@ class CustomFieldInterfaceTest extends GalleryTestCase {
 	list ($ret, $this->_item) = $this->_createRandomDataItem($this->_album->getId(),
 		'image/test', array(), __FILE__, 'GalleryPhotoItem');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'customfield');
 	if ($ret) {
+	    print $ret->getAsHtml();
 	    return $ret;
 	}
 
 	foreach (array('common' => '', 'album' => '', 'photo' => 'Test`0`1') as $key => $value) {
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'customfield', $key, $value);
 	    if ($ret) {
-		return $ret;
+		print $ret->getAsHtml();
+		return $this->failWithStatus($ret);
 	    }
 	}
     }
@@ -83,13 +84,13 @@ class CustomFieldInterfaceTest extends GalleryTestCase {
 	// Create global fields..
 	list ($ret, $duplicates) = $this->_interface->createCustomFields(array('One', 'Two'));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(array(), $duplicates, 'Add global 1');
 
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'customfield');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	foreach ($params as $key => $value) {
 	    if ($key[0] == '_') {
@@ -106,13 +107,13 @@ class CustomFieldInterfaceTest extends GalleryTestCase {
 	list ($ret, $duplicates) =
 	    $this->_interface->createCustomFields(array('Test', 'Three', 'Two'));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(array('Test', 'Two'), $duplicates, 'Add global 2');
 
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'customfield');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	foreach ($params as $key => $value) {
 	    if ($key[0] == '_') {
@@ -130,14 +131,14 @@ class CustomFieldInterfaceTest extends GalleryTestCase {
 	    $this->_interface->createCustomFields(array('Photographer', 'Location', 'One'),
 						  $this->_album->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(array(), $duplicates, 'Add album');
 
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'customfield',
 									$this->_album->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	ksort($params);
 	$this->assertEquals(array('common' => 'Photographer`0`1|Location`0`1|One`0`1'),
@@ -147,13 +148,13 @@ class CustomFieldInterfaceTest extends GalleryTestCase {
 	$ret = $this->_interface->setCustomFieldValues($this->_item->getId(),
 		array('Photographer' => 'Me', 'Location' => 'Here'));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $data, $tmp, $isContainer) =
 		CustomFieldHelper::fetchFieldValues(array($this->_item));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(array('Photographer' => 'Me', 'Location' => 'Here'),
 			    $data[$this->_item->getId()], 'Field values');

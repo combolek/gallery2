@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -23,10 +23,11 @@
 # Gidie <gidie at users.sourceforge REMOVE THIS dot net>, 2005
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Core 1.2.36\n"
-"POT-Creation-Date: 2003-02-11 03:09-0800\n"
-"PO-Revision-Date: 2008-07-23 13:38+0100\n"
-"Last-Translator: Marijke van Velsen <slayegirl@hetnet.nl>\n"
+"Project-Id-Version: Gallery: Core 1.2.0.3\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-06-07 09:29-0700\n"
+"PO-Revision-Date: 2007-03-14 15:43+0100\n"
+"Last-Translator: Buut <buut at users.sourceforge Remove - This dot net>\n"
 "Language-Team: Dutch <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,6 +36,30 @@ msgstr ""
 
 msgid "Gallery Email Test"
 msgstr "Gallery Email Test"
+
+msgid "forever"
+msgstr "altijd"
+
+msgid "High Priority (Me first!)"
+msgstr "Hoge Prioriteit (Ik eerst!)"
+
+msgid "Low Priority (I want to share!)"
+msgstr "Lage Prioriteir (I wil delen!)"
+
+msgid "No Markup"
+msgstr "Geen Inhoudsbeschrijving"
+
+msgid "BBCode"
+msgstr "BBCode"
+
+msgid "Raw HTML"
+msgstr "Ruwe HTML"
+
+msgid "Database"
+msgstr "Database"
+
+msgid "File"
+msgstr "Bestand"
 
 #, c-format
 msgid "%d minute"
@@ -60,55 +85,8 @@ msgid_plural "%d weeks"
 msgstr[0] "%d week"
 msgstr[1] "%d weken"
 
-msgid "forever"
-msgstr "altijd"
-
-msgid "High Priority (Me first!)"
-msgstr "Hoge Prioriteit (Ik eerst!)"
-
-msgid "Low Priority (I want to share!)"
-msgstr "Lage Prioriteir (Ik wil delen!)"
-
-msgid "No Markup"
-msgstr "Geen Opmaak"
-
-msgid "BBCode"
-msgstr "BBCode"
-
-msgid "Raw HTML"
-msgstr "Ruwe HTML"
-
-msgid "Database"
-msgstr "Database"
-
-msgid "File"
-msgstr "Bestand"
-
-msgid "&lt;none&gt;"
-msgstr "&lt;geen&gt;"
-
-msgid "Link"
-msgstr "Link"
-
-#, c-format
-msgid "Page %d of %d"
-msgstr "Pagina %d van %d"
-
-#, fuzzy
-msgid "Updating Language Settings"
-msgstr "Taal Instellingen"
-
-msgid "Update completed with errors."
-msgstr "Update compleet met fouten."
-
-msgid "Update complete."
-msgstr "Update compleet."
-
-msgid "Deleting Language Packs"
-msgstr "Taal Pakketten verwijderen"
-
-msgid "Synchronizing Language Packs"
-msgstr "Taal Pakketten Synchronizeren"
+msgid "<none>"
+msgstr "<geen>"
 
 msgid "No acceleration"
 msgstr "Geen versnelling"
@@ -121,6 +99,47 @@ msgstr "Volledige versnelling"
 
 msgid "Themes"
 msgstr "Thema's"
+
+#, fuzzy
+msgid "Updating Repository Index"
+msgstr "Index Bijwerken"
+
+msgid "Scanning plugins"
+msgstr ""
+
+#, fuzzy
+msgid "Update Plugin List"
+msgstr "Alle Plugins Bijwerken"
+
+msgid "Done."
+msgstr "Klaar."
+
+msgid "Updating Packages"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "Preparing %s"
+msgstr "Verwerken..."
+
+#, c-format
+msgid "Downloading %s"
+msgstr "Downloaden van %s"
+
+#, fuzzy, c-format
+msgid "Activating %s"
+msgstr "Acties"
+
+#, fuzzy
+msgid "Deleting Language Packs"
+msgstr "Standaard taal"
+
+#, fuzzy
+msgid "Update completed with errors."
+msgstr "Upload Klaar"
+
+#, fuzzy
+msgid "Update complete."
+msgstr "Upload Klaar"
 
 msgid "install"
 msgstr "installeren"
@@ -143,11 +162,11 @@ msgstr "Instellingen overnemen van bovenliggend album"
 msgid "Use these settings"
 msgstr "Gebruik deze instellingen"
 
-msgid "Converting Schema Table"
-msgstr "Schema Tabel Converteren"
-
 msgid "Installing the core module"
 msgstr "Installeer de Gallery Core Module"
+
+msgid "key"
+msgstr "toets"
 
 msgid "All access"
 msgstr "Altijd toegang"
@@ -182,10 +201,6 @@ msgstr "[core] Verwijder item"
 msgid "Upgrading permissions"
 msgstr "Bijwerken rechten"
 
-#, c-format
-msgid "Upgrading permissions (%d items complete, %d remaining)"
-msgstr "Permissie wijzigingen doorvoeren (%d items gereed, %d te gaan)"
-
 msgid "Deleting old permission tables"
 msgstr "Verwijderen oude rechten tabellen"
 
@@ -198,46 +213,23 @@ msgstr "Alle Gebruikers"
 msgid "Detecting broken derivatives"
 msgstr "Detecteren foute afgeleiden"
 
-#, c-format
-msgid "Detecting broken derivatives, loading (%d derivatives checked, %d remaining)"
-msgstr "Detecteren van kapotte afgeleiden, laden(%d derivatives gecontroleerd, %d te gaan)"
-
-#, c-format
-msgid "Detecting broken derivatives (%d derivatives checked, %d remaining)"
-msgstr "Detecteren van kapotte afgeleiden (%d derivatives gecontroleerd, %d te gaan)"
-
-#, c-format
-msgid "Detecting broken derivatives, saving (%d derivatives checked, %d remaining)"
-msgstr "Detecteren van kapotte afgeleiden, opslaan (%d derivatives gecontroleerd, %d te gaan)"
-
-#, c-format
-msgid ""
-"Detecting broken derivatives, saving item %d of %d (%d derivatives complete, %d remaining)"
-msgstr ""
-"Detecteren van kapotte afgeleiden, opslaan item %d van %d (%d derivatives gereed, %d te gaan)"
-
 msgid "Clearing fast-download cache"
 msgstr "Fast-download cache leegmaken"
 
 msgid "Deleting old fast-download cache"
 msgstr "Oude fast-download cache verwijderen"
 
-#, c-format
-msgid "Deleting old session files (iteration %d)"
-msgstr "Verwijder oude sessie bestanden (iteration %d)"
-
 msgid "Updating panorama items"
-msgstr "Panorama items worden bijgewerkt"
+msgstr ""
 
 msgid "Optimizing AccessSubscriberMap table"
-msgstr "AccesSubscriberMap tabel wordt geoptimaliseerd"
+msgstr ""
 
-msgid "Upgrading Plugin Translations"
-msgstr "Bijwerken Plugin vertalingen"
+msgid "Converting Schema Table"
+msgstr ""
 
-#, fuzzy
-msgid "Creating Package Map"
-msgstr "Pakketten worden bijgewerkt"
+msgid "Loading Table Descriptions"
+msgstr ""
 
 msgid "Site Admins"
 msgstr "Site Beheer"
@@ -257,14 +249,30 @@ msgstr "Dit is de startpagina van uw Gallery"
 msgid "Converting MySQL data to UTF8"
 msgstr "Converteer MySQL data naar UTF8"
 
-msgid "Adding items"
-msgstr "Items toevoegen"
+#, c-format
+msgid "Upgrading permissions (%d items complete, %d remaining)"
+msgstr "Permissie wijzigingen doorvoeren (%d items gereed, %d te gaan)"
 
-msgid "Processing items"
-msgstr "Verwerken van items"
+#, fuzzy, c-format
+msgid "Detecting broken derivatives, loading (%d derivatives checked, %d remaining)"
+msgstr "Detecteren foute afgeleiden, laden "
 
-msgid "Extracting archive"
-msgstr "Archief wordt uitgepakt"
+#, fuzzy, c-format
+msgid "Detecting broken derivatives (%d derivatives checked, %d remaining)"
+msgstr "Detecteren foute afgeleiden, opslaan "
+
+#, fuzzy, c-format
+msgid "Detecting broken derivatives, saving (%d derivatives checked, %d remaining)"
+msgstr "Detecteren foute afgeleiden, opslaan "
+
+#, fuzzy, c-format
+msgid ""
+"Detecting broken derivatives, saving item %d of %d (%d derivatives complete, %d remaining)"
+msgstr "Permissie wijzigingen doorvoeren (%d items gereed, %d te gaan)"
+
+#, c-format
+msgid "Deleting old session files (iteration %d)"
+msgstr "Verwijder oude sessie bestanden (iteration %d)"
 
 msgid "add items"
 msgstr "items toevoegen"
@@ -278,21 +286,17 @@ msgstr "sub-album toevoegen"
 msgid "add items confirmation"
 msgstr "bevestiging items toevoeging"
 
-#, c-format
-msgid "Input file %s exceeds maximum permitted file size"
-msgstr "Input bestand %s is groter dan de maximale toegestane bestandsgrootte"
+msgid "Base filename"
+msgstr "Basis bestandsnaam"
 
-#, c-format
-msgid "Input file %s exceeds file size specified in the form"
-msgstr "Input bestand %s is groter dan de grootte gespecificeerd in het formulier"
+msgid "Caption"
+msgstr "Bijschrift"
 
-#, c-format
-msgid "Input file %s was only partially uploaded"
-msgstr "Input bestand %s is maar gedeeltelijk geupload"
+msgid "Blank"
+msgstr "Blanco"
 
-#, c-format
-msgid "Input file %s was not uploaded. Error %d"
-msgstr "Input bestand %s is niet geupload. Error %d"
+msgid "From Web Browser"
+msgstr "Vanuit de Browser"
 
 #, c-format
 msgid "%d megabyte"
@@ -306,23 +310,34 @@ msgid_plural "%d kilobytes"
 msgstr[0] "%d kilobyte"
 msgstr[1] "%d kilobytes"
 
-msgid "Base filename"
-msgstr "Basis bestandsnaam"
+#, c-format
+msgid "Input file %s exceeds maximum permitted file size"
+msgstr ""
 
-msgid "Caption"
-msgstr "Bijschrift"
+#, c-format
+msgid "Input file %s exceeds file size specified in the form"
+msgstr ""
 
-msgid "Blank"
-msgstr "Blanco"
+#, c-format
+msgid "Input file %s was only partially uploaded"
+msgstr ""
 
-msgid "From Web Browser"
-msgstr "Vanuit de Browser"
+#, c-format
+msgid "Input file %s was not uploaded. Error %d"
+msgstr ""
 
 msgid "Gallery Item Administration"
 msgstr "Gallery item administratie"
 
 msgid "delete an item"
 msgstr "verwijder een item"
+
+msgid "delete confirmation"
+msgstr "verwijder bevestiging"
+
+#, c-format
+msgid "delete %s"
+msgstr "verwijder %s"
 
 #, c-format
 msgid "edit %s"
@@ -331,24 +346,26 @@ msgstr "bewerk %s"
 msgid "Settings saved successfully."
 msgstr "Instellingen succesvol opgeslagen."
 
+#, fuzzy
 msgid "Apply resized image settings"
-msgstr "Pas instellingen toe op geschaalde afbeeldingen"
+msgstr "Thema instelling hersteld"
 
+#, fuzzy
 msgid "Preparing..."
 msgstr "Verwerken..."
 
-#, c-format
-msgid "Processing image %d of %d"
-msgstr "Verwerken afbeelding %d van %d"
-
 msgid "Apply thumbnail settings"
-msgstr "Pas miniatuur instellingen toe"
+msgstr ""
 
 msgid "Rebuilding thumbnails..."
 msgstr "Creëer miniaturen opnieuw..."
 
 msgid "Album"
 msgstr "Album"
+
+#, c-format
+msgid "Processing image %d of %d"
+msgstr "Verwerken afbeelding %d van %d"
 
 msgid "Changes saved successfully"
 msgstr "Verandering succesvol opgeslagen"
@@ -399,7 +416,7 @@ msgid "Square 1x1"
 msgstr "Vierkant 1x1"
 
 msgid "As Image"
-msgstr "Zelfde als Afbeelding"
+msgstr "Zelfde als Afbeeling"
 
 msgid "Landscape"
 msgstr "Liggend"
@@ -422,8 +439,9 @@ msgstr "Foto succesvol geschaald"
 msgid "Modify Photo"
 msgstr "Bewerk Foto"
 
+#, fuzzy
 msgid "Successfully changed theme"
-msgstr "Thema veranderen geslaagd"
+msgstr "Succesvol thema %s geactiveerd"
 
 msgid "&laquo; default theme &raquo;"
 msgstr "&laquo; standaard thema &raquo;"
@@ -487,10 +505,6 @@ msgstr "Bewerk Foto"
 msgid "Edit Movie"
 msgstr "Bewerk Film"
 
-#, c-format
-msgid "Edit %s"
-msgstr "Bewerk %s"
-
 msgid "Add Album"
 msgstr "Album Toevoegen"
 
@@ -509,10 +523,6 @@ msgstr "Verwijder Foto"
 msgid "Delete Movie"
 msgstr "Verwijder Film"
 
-#, c-format
-msgid "Delete %s"
-msgstr "Verwijder %s"
-
 msgid "Move Album"
 msgstr "Verplaats Album"
 
@@ -522,10 +532,6 @@ msgstr "Verplaats Foto"
 msgid "Move Movie"
 msgstr "Verplaats Film"
 
-#, c-format
-msgid "Move %s"
-msgstr "Verplaats %s"
-
 msgid "Edit Captions"
 msgstr "Bewerk Bijschriften"
 
@@ -534,9 +540,6 @@ msgstr "Maak Albumafbeelding"
 
 msgid "Reorder Items"
 msgstr "Items volgorde"
-
-msgid "Delete Items"
-msgstr "Verwijder Items"
 
 msgid "Site Admin"
 msgstr "Site Beheer"
@@ -551,7 +554,7 @@ msgid "Logout"
 msgstr "Uitloggen"
 
 msgid "Plugins"
-msgstr "Plugins"
+msgstr ""
 
 msgid "Users"
 msgstr "Gebruikers"
@@ -561,12 +564,6 @@ msgstr "Groepen"
 
 msgid "Performance"
 msgstr "Prestatie"
-
-msgid "Event Logs"
-msgstr "Gebeurtenissen Logs"
-
-msgid "Language Settings"
-msgstr "Taal Instellingen"
 
 msgid "Toolkit Priority"
 msgstr "Toolkit Prioriteit"
@@ -580,28 +577,17 @@ msgstr "Account Instellingen"
 msgid "Change Password"
 msgstr "Wijzig Wachtwoord"
 
-msgid "Updating Packages"
-msgstr "Pakketten worden bijgewerkt"
+#, c-format
+msgid "Edit %s"
+msgstr "Bewerk %s"
 
 #, c-format
-msgid "Cleaning up obsolete files %s"
-msgstr "Verouderde bestanden opruimen %s"
+msgid "Delete %s"
+msgstr "Verwijder %s"
 
 #, c-format
-msgid "Activating %s"
-msgstr "Activeren %s"
-
-msgid "Updating Repository Index"
-msgstr "Index Repository Bijwerken"
-
-msgid "Scanning plugins"
-msgstr "Plugins scannen"
-
-msgid "Update Plugin List"
-msgstr "Plugin lijst Bijwerken"
-
-msgid "Done."
-msgstr "Klaar."
+msgid "Move %s"
+msgstr "Verplaats %s"
 
 msgid "Build all thumbnails/resizes"
 msgstr "Alle miniaturen/schalen opbouwen"
@@ -610,11 +596,14 @@ msgid ""
 "Ensure data files for all derivatives (thumbnails, etc) have been built and rebuild broken "
 "ones."
 msgstr ""
-"Zorg ervoor dat alle data bestanden voor alle afgeleiden (miniaturen etc.) zijn opgebouwd en "
-"bouw foute opnieuw op."
+"Zorg ervoor dat data bestanden voor alle afgeleiden (miniaturen etc.) zijn opgebouwd en bouw "
+"foute opnieuw op."
 
 msgid "Build All Thumbnails/Resizes"
 msgstr "Opbouwen Alle Miniaturen/Schalen"
+
+msgid "Debug output for failed items:"
+msgstr "Debug uitvoer voor alle mislukte items:"
 
 #, c-format
 msgid "Checked %d items"
@@ -628,11 +617,9 @@ msgstr "%d items gebouwd"
 msgid "%d items failed"
 msgstr "%d items mislukt"
 
-msgid "Debug output for failed items:"
-msgstr "Debug uitvoer voor alle mislukte items:"
-
+#, fuzzy
 msgid "Convert MySQL database to UTF8"
-msgstr "Converteer MySQL database naar UTF8"
+msgstr "Converteer MySQL data naar UTF8"
 
 msgid ""
 "If you created your database with MySQL 3.x and you upgrade to MySQL 4.x, you will "
@@ -641,47 +628,13 @@ msgid ""
 "After using this, you should run the 'Delete database cache' task to get rid of any "
 "corruption in your cache."
 msgstr ""
-"Als u uw database gemaakt heeft met MySQL 3.x en u heeft deze geupgrade naar MySQL4.x, dan "
-"kunt u ervaren dat karakters er raar uit zien tot u de database geconverteerd heeft naar "
-"UTF8. Deze operatie is risicoloos als de database al geconverteerd is, het is dus veilig om "
-"dit te proberen als u niet zeker bent. Als u dit gebruikt geeft moet u 'Verwijder database "
-"cache' draaien om problemen in de cache weg te halen."
 
+#, fuzzy
 msgid "Database successfully converted to UTF8"
-msgstr "Database is succesvol geconferteerd naar UTF8"
+msgstr "Item succesvol verwijderd"
 
 msgid "No conversion required"
-msgstr "Geen conversie vereist"
-
-msgid "Backup the database"
-msgstr "Backup de database"
-
-msgid ""
-"Backup all your Gallery data (item data, users, comments, etc.) to a single file in your "
-"storage folder.  The backup does not include the image files.  Before running the backup, "
-"your Gallery installation needs to be set into maintenance mode, as this is not done "
-"automatically."
 msgstr ""
-"Backup al uw Gallery data (item data, gebruikers, commentaar, etc.) in een enkel bestand in "
-"uw opslagfolder. De backup bevat geen foto bestanden. Voordat u de backup draait, moet u uw "
-"Gallery installatie in Onderhoud Modus instellen, dit wordt niet automatisch gedaan."
-
-msgid "Backing up Gallery Database"
-msgstr "Gallery Database wordt gebackupt"
-
-msgid "Exporting..."
-msgstr "Exporteren..."
-
-#, c-format
-msgid "Database backup completed and the backup file is located at: %s"
-msgstr "Database backup is compleet en het backupbestand is opgeslagen in: %s"
-
-msgid ""
-"Please note that your backup contains sensitive data (like passwords) and should not be "
-"stored online! We recommend that you download it from your server and keep it safely offline."
-msgstr ""
-"Let op! Uw backup bevat gevoelige data (zoals wachtwoorden) en mag niet online opgeslagen "
-"worden. We raden u aan om het te downloaden van de server en het offline veilig op te slaan."
 
 msgid "Delete user sessions"
 msgstr "Verwijder gebruikers sessies"
@@ -690,9 +643,9 @@ msgid ""
 "Delete all persistent user sessions according to your current session expiration settings."
 msgstr "Verwijder alle gebruikers sessies volgens de sessieduur instellingen"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Deleted %d sessions."
-msgstr "%d sessies zijn verwijderd."
+msgstr "Verwijder gebruikers sessies"
 
 msgid "Delete database cache"
 msgstr "Verwijder database cache"
@@ -720,13 +673,13 @@ msgstr "Verwijder template cache"
 msgid ""
 "Gallery compiles template files and saves them for increased performance.  If you're "
 "experiencing problems that say <i>Smarty error</i> then you might try running this task.  "
-"Also run this if you add or remove any local/*.tpl or theme override so Smarty will find the "
-"right file."
+"Also run this if you remove a local/*.tpl file so Smarty will switch back to the default tpl "
+"file."
 msgstr ""
-"Gallery compileert template bestanden en bewaard deze voor een hogere snelheid. Als u "
+"Gallery compiled template bestanden en bewaard deze voor een hogere snelheid. Als u "
 "problemen ervaart waarin wordt vermeld <i>Smarty error</i> dan kunt u proberen deze taak te "
-"draaien. Draai dit ook als u een local/*.tpl bestand heeft verwijderd, zodat Smarty het "
-"juiste bestand zal vinden."
+"draaien. Draai dit ook als u een local/*.tpl bestand verwijderd, zodat Smarty terug zal gaan "
+"naar het standaard tpl bestand."
 
 msgid "Template cache deleted successfully"
 msgstr "Template cache succesvol verwijderd"
@@ -773,11 +726,13 @@ msgstr "Titel"
 msgid "Owner"
 msgstr "Eigenaar"
 
+#, fuzzy
 msgid "Dynamic Album"
-msgstr "Dynamisch Album"
+msgstr "Bewerk Album"
 
+#, fuzzy
 msgid "dynamic album"
-msgstr "dynamisch album"
+msgstr "Bewerk Album"
 
 msgid "Group"
 msgstr "Groep"
@@ -805,22 +760,16 @@ msgid ""
 msgstr ""
 "Kan de cache directory niet aanmaken, zorg dat de web server hier de juiste rechten heeft. "
 
-#, c-format
-msgid "Preparing %s"
-msgstr "Voorbereiden %s"
-
-#, c-format
-msgid "Downloading %s"
-msgstr "Downloaden van %s"
-
 msgid "Official Release Repository"
-msgstr "Officieel Uitgebrachte Repository"
+msgstr ""
 
+#, fuzzy
 msgid "Experimental Repository"
-msgstr "Experimentele Repository"
+msgstr "Repository"
 
+#, fuzzy
 msgid "Community Repository"
-msgstr "Community Repository"
+msgstr "Repository"
 
 #, c-format
 msgid "Error downloading index from '%s'."
@@ -872,10 +821,6 @@ msgstr "Oplopend"
 msgid "Descending"
 msgstr "Aflopend"
 
-#, c-format
-msgid "Powered by Gallery v%s"
-msgstr "Powered by Gallery v%s"
-
 msgid "Validation disabled until you set allowSessionAccess in config.php"
 msgstr "Validatie uitgeschakeld, totdat u allowSessionAccess in config.php heeft ingesteld"
 
@@ -884,6 +829,13 @@ msgstr "Deze pagina is geldig XHTML 1.0"
 
 msgid "Donate to the Gallery project"
 msgstr "Terug naar de gallery"
+
+msgid "G2.2: Double Double"
+msgstr ""
+
+#, c-format
+msgid "Powered by Gallery v%s"
+msgstr ""
 
 #, c-format
 msgid "Estimated time remaining: %d:%02d"
@@ -903,10 +855,10 @@ msgid "Number of items to show per page"
 msgstr "Aantal weer te geven items per pagina"
 
 msgid "Row height (pixels)"
-msgstr "Rij hoogte(pixels)"
+msgstr ""
 
 msgid "Column width (pixels)"
-msgstr "Column breedte(pixels)"
+msgstr ""
 
 msgid "Show image owners"
 msgstr "Afbeelding eigenaren weergeven"
@@ -926,17 +878,19 @@ msgstr "Blokken om weer te geven op album pagina's"
 msgid "Blocks to show on photo pages"
 msgstr "Blokken om weer te geven op foto pagina's"
 
+#, fuzzy
 msgid "Thumbnail links in dynamic albums"
-msgstr "Miniatuur links in een dynamische albums"
+msgstr "Gebruik deze miniatuur grootte in alle subalbums"
 
+#, fuzzy
 msgid "Browse dynamic album"
-msgstr "Blader dynamisch album door"
+msgstr "Bewerk Album"
 
 msgid "Jump to original album"
-msgstr "Spring naar orgineel album"
+msgstr ""
 
 msgid "Separate link to original album"
-msgstr "Aparte link naar origineel album"
+msgstr ""
 
 msgid "View Samples"
 msgstr "Voorbeelden Weergeven"
@@ -958,8 +912,6 @@ msgstr "U moet een nummer ingeven (groter dan nul)"
 
 msgid "Error reading block settings. Clear your browser cache and try again."
 msgstr ""
-"Fout bij het lezen van block instellingen. Wis de cache van uw browser en probeer en "
-"nogmaals."
 
 #, c-format
 msgid "%dx%d"
@@ -989,8 +941,16 @@ msgstr "Spreadsheet"
 msgid "spreadsheet"
 msgstr "spreadsheet"
 
+#, fuzzy
 msgid "file"
-msgstr "bestand"
+msgstr "Bestand"
+
+msgid "Back"
+msgstr "Terug"
+
+#, c-format
+msgid "Back to %s"
+msgstr "Terug naar %s"
 
 msgid "User"
 msgstr "Gebruiker"
@@ -1063,14 +1023,6 @@ msgstr "core"
 msgid "unknown"
 msgstr "onbekend"
 
-#, c-format
-msgid "API = Core %s, Module %s, Theme %s, Embed %s"
-msgstr "API = Core %s, Module %s, Thema %s, Embed %s"
-
-#, fuzzy
-msgid "Gallery URL"
-msgstr "Gallery"
-
 msgid "Gallery version"
 msgstr "Gallery versie"
 
@@ -1095,11 +1047,13 @@ msgstr "Standaard thema"
 msgid "gettext"
 msgstr "gettext"
 
+#, fuzzy
 msgid "enabled"
-msgstr "geactiveerd"
+msgstr "%d items mislukt"
 
+#, fuzzy
 msgid "disabled"
-msgstr "niet geactiveerd"
+msgstr "%d items mislukt"
 
 msgid "Locale"
 msgstr "Talen"
@@ -1109,75 +1063,7 @@ msgstr "Browser"
 
 #, c-format
 msgid "Rows in %s table = %d"
-msgstr "Rijen in %s tabel = %d"
-
-#, c-format
-msgid "The %s \"%s\" is not installed and will not be backed up."
-msgstr "De %s \"%s\" is niet geïstalleerd en zal niet gebackupt worden."
-
-#, c-format
-msgid "\"%s\" has no creation sql and will not be backed up."
-msgstr "\"%s\" heeft geen creatie sql and zal niet gebackupt worden."
-
-#, c-format
-msgid "Unable to load table description for \"%s\", no data will be exported."
 msgstr ""
-"Laden van tabel omschrijving voor \"%s\" is mislukt, geen data zal worden geëxporteerd."
-
-msgid ""
-"Unable to find the XML parser.  The PHP XML parsing extension must be loaded.  Terminating "
-"database import."
-msgstr ""
-"XML parses is niet gevonden. De PHP XML parsing extensie moet geladen zijn. Database import "
-"wordt afgebroken."
-
-#, c-format
-msgid "The exported file is not the correct version. Expecting %s received %s."
-msgstr "Het geëporteerde is niet de juiste versie. Verwacht %s ontvangen %s."
-
-#, c-format
-msgid "Unable to close import file: %s"
-msgstr "Kan geïmporteerd bestand niet sluiten: %s"
-
-#, c-format
-msgid "Unable to open import file: %s"
-msgstr "Kan geïmporteerd bestand niet openen: %s"
-
-#, c-format
-msgid "Import file doesn't exist: %s"
-msgstr "Geïporteerde bestand bestaat niet: %s"
-
-#, c-format
-msgid "Plugin %s is not currently available."
-msgstr "Plugin %s is op dit moment niet beschikbaar."
-
-#, c-format
-msgid "The available version of plugin \"%s\" may not be compatible with the imported version."
-msgstr "De aanwezige versie van plugin  \"%s\" is niet compatibel met de geïmporteerde versie."
-
-#, c-format
-msgid ""
-"The currently installed core API version required by \"%s\" may not be compatible with the "
-"imported version."
-msgstr ""
-"De huidigge geïnstalleerde core API versie die verplicht is voor \"%s\" is niet compatibel "
-"met de geïmporteerde versie."
-
-#, c-format
-msgid ""
-"The installed module API version required by \"%s\" may not be compatible with the imported "
-"version."
-msgstr ""
-"De geïnstalleerde module API versie die verplicht is voor \"%s\" is niet compatibel met de "
-"geïmporteerde versie."
-
-#, c-format
-msgid ""
-"The installed theme API version required by \"%s\" is not compatible with the imported "
-"version."
-msgstr ""
-"De geïnstalleerde thema API versie die verplicht is voor \"%s\" is niet compatibel met de "
-"geïmporteerde versie."
 
 msgid "Successfully saved theme settings"
 msgstr "Succesvol thema instellingen opgeslagen"
@@ -1203,6 +1089,34 @@ msgstr ""
 
 msgid "Error sending test email, see below for details."
 msgstr "Fout bij het verzenden van test email, zie hieronder voor details."
+
+msgid "Language Settings"
+msgstr "Taal Instellingen"
+
+msgid ""
+"Select language defaults for Gallery. Individual users can override this setting in their "
+"personal preferences or via the language selector block if available. Gallery will try to "
+"automatically detect the language preference of each user if the browser preference check is "
+"enabled."
+msgstr ""
+"Selecteer de standaard taal instellingen voor Gallery. Gebruikers kunnen dit individueel "
+"aanpassen in hun persoonlijke instellingen of indien beschikbaar in het taalkiezer blok."
+"Gallery zal proberen om van elke gebruiker de taalvoorkeur automatisch vast te stellen, als "
+"de controle voor bowser voorkeur aan staat."
+
+msgid "Default language"
+msgstr "Standaard taal"
+
+msgid "Check Browser Preference"
+msgstr "Controleer Browser Voorkeur"
+
+#, c-format
+msgid ""
+"Your webserver does not support localization.  Please instruct your system administrator to "
+"reconfigure PHP with the %s option enabled."
+msgstr ""
+"Uw webserver ondersteund geen meerdere talen. Raadpleeg uw beheerder om in PHP de %s "
+"functionaliteit aan te zetten."
 
 msgid "Date Formats"
 msgstr "Datum Opmaak"
@@ -1243,7 +1157,7 @@ msgid ""
 "apply to files/directories that Gallery has already created."
 msgstr ""
 "Hier kunt u de standaard rechten opgeven voor bestanden en directories die Gallery aanmaakt. "
-"Dit wordt niet gewijzigd in bestanden/directories die nu al bestaan."
+"Dit wordt niet gewijzigt in bestanden/directories die nu al bestaan."
 
 msgid "New directories"
 msgstr "Nieuwe directories"
@@ -1260,22 +1174,18 @@ msgstr "Sessie levensduur"
 msgid "Inactivity Timeout"
 msgstr "Inactiviteitsonderbreking"
 
-#, fuzzy
-msgid "Site Administration Session Timeout"
-msgstr "Gallery Site Beheer"
-
 msgid "Embedded Markup"
-msgstr "Ingebouwde Opmaak"
+msgstr "Ingebouwde Inhoudsbeschrijving"
 
 msgid ""
 "What kind of markup should we allow in user-entered fields?  For security reasons we do not "
 "recommend that you allow raw HTML.  BBCode is a special kind of markup that is secure and "
 "allows for simple text formatting like bold, italics, lists, images and urls."
 msgstr ""
-"Welke soorten opmaak moeten we toestaan voor velden die door gebruikers worden ingevuld? Om "
-"beveiligingsredenen raden wij aan dat u geen ruwe HTML toestaat. BBCode is een speciale "
-"soort opmaak die veilig is en simpel tekst op kan maken met opties als vet, cursief, "
-"lijsten, afbeeldingen en URLs mogelijk maakt."
+"Welke soorten inhoudsbeschrijving moeten we toestaan voor velden die door gebruikers worden "
+"ingevuld? Om beveiligingsredenen raden wij aan dat u geen ruwe HTML toestaat. BBCode is een "
+"speciale soort inhoudsbeschrijving die veilig is en simpele tekst opmaak, zoals vet, "
+"cursief, lijsten, afbeeldingen en URLs mogelijk maakt."
 
 msgid "Markup"
 msgstr "Inhoudsbeschrijving"
@@ -1662,56 +1572,23 @@ msgstr "(voorstel)"
 msgid "Options"
 msgstr "Opties"
 
+#, fuzzy
 msgid "Lock user."
-msgstr "Lock gebruiker."
+msgstr "Lock systeem"
 
 msgid ""
 "Locked users are unable to edit their own account information. (Password, Name, Email, etc.)"
 msgstr ""
-"Locked gebruikers kunnen hun geen account informatie veranderen. (Wachtwoord, Naam, Email, "
-"etc.)"
 
+#, fuzzy
 msgid "Reset failed login count."
-msgstr "Reset mislukte loginpogingen."
+msgstr "Weergave tellers terugzetten"
 
 #, c-format
 msgid "%d failed login attempt since the last successful login."
 msgid_plural "%d failed login attempts since the last successful login."
-msgstr[0] "%d mislukte loginpoging sinds laatste succesvolle login."
-msgstr[1] "%d mislukte loginpogingen sinds laatste succesvolle login."
-
-msgid "Recent Events"
-msgstr "Recente Gebeurtenissen"
-
-msgid "Type"
-msgstr "Type"
-
-msgid "Location"
-msgstr "Locatie"
-
-msgid "Client"
-msgstr "Client"
-
-msgid "No events have been reported yet."
-msgstr "Er zijn nog geen gebeurtenissen zijn gerapporteerd."
-
-msgid "Event Details"
-msgstr "Gebeurtenis Details"
-
-msgid "User Id"
-msgstr "Gebruikers Id"
-
-msgid "Referer"
-msgstr "Referer"
-
-msgid "Details"
-msgstr "Details"
-
-msgid "no summary"
-msgstr "geen samenvatting"
-
-msgid "An error occurred while retrieving the event log entry details."
-msgstr "Er is een fout opgetreden bij het ophalen van de gebeurtenis log details."
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Group Management"
 msgstr "Groepsbeheer"
@@ -1774,161 +1651,8 @@ msgid_plural "%d groups match your filter"
 msgstr[0] "%d groep komt overeen met uw filter"
 msgstr[1] "%d groepen komen overeen met uw filter"
 
-msgid "Please make sure that your internet connection is set up properly or try again later."
-msgstr "Zorg dat uw internet verbinding juist is ingesteld of probeer het later opnieuw."
-
-#, c-format
-msgid "Failed to scan status from plugin: %s."
-msgstr "Status van plugin %s controleren is mislukt."
-
-msgid ""
-"Your local copy of the repository was broken and has been fixed.  Please download the plugin "
-"list again."
-msgstr ""
-"Er waren problemen met uw locale kopie van de repository, deze zijn opgelost. Laad de plugin "
-"lijst nogmaals."
-
-#, fuzzy, c-format
-msgid "Failed to delete the locale directory for %s."
-msgstr "Kan directory niet verwijderen: %s"
-
-#, fuzzy, c-format
-msgid "Failed to download the following language packages for the %s plugin:"
-msgstr "Downloaden is mislukt van de volgende pakketten voor de %s plugin:"
-
-#, fuzzy, c-format
-msgid ""
-"Failed to install language packages for %s plugin because the following files/directories "
-"could not be modified:"
-msgstr ""
-"Installeren is mislukt van %s plugin omdat de volgende bestanden/mappen niet bewerkt kunnen "
-"worden:"
-
-#, fuzzy
-msgid "The repository index has been successfully refreshed."
-msgstr "De repository index is succesvol bijgewerkt."
-
-#, fuzzy
-msgid "The language settings have been saved."
-msgstr "Er zijn geen paketten geselecteerd."
-
-#, fuzzy, c-format
-msgid "%d language pack upgraded or downloaded."
-msgid_plural "%d language packs upgraded or downloaded."
-msgstr[0] "%d taal pakket verwijderd"
-msgstr[1] "%d taal pakketten verwijderd"
-
-#, c-format
-msgid "%d language pack deleted."
-msgid_plural "%d language packs deleted."
-msgstr[0] "%d taal pakket verwijderd"
-msgstr[1] "%d taal pakketten verwijderd"
-
-msgid "All the language packages for the selected languages are current"
-msgstr "Alle taalpakketen voor de geselecteerde talen zijn actueel"
-
-msgid ""
-"Select language defaults for Gallery. Individual users can override this setting in their "
-"personal preferences or via the language selector block if available. Gallery will try to "
-"automatically detect the language preference of each user if the browser preference check is "
-"enabled."
-msgstr ""
-"Selecteer de standaard taal instellingen voor Gallery. Gebruikers kunnen dit individueel "
-"aanpassen in hun persoonlijke instellingen of indien beschikbaar in het taalkiezer blok."
-"Gallery zal proberen om van elke gebruiker de taalvoorkeur automatisch vast te stellen, als "
-"de controle voor bowser voorkeur aan staat."
-
-msgid "Default language"
-msgstr "Standaard taal"
-
-msgid "Check Browser Preference"
-msgstr "Controleer Browser Voorkeur"
-
-#, c-format
-msgid ""
-"Your webserver does not support localization.  Please instruct your system administrator to "
-"reconfigure PHP with the %s option enabled."
-msgstr ""
-"Uw webserver ondersteund geen meerdere talen. Raadpleeg uw beheerder om in PHP de %s "
-"functionaliteit aan te zetten."
-
-msgid "Configure your Gallery"
-msgstr "Configureer uw Gallery"
-
-msgid ""
-"Before you can proceed, you have to change some permissions so that Gallery can install "
-"plugins for you.  It's easy.  Just execute the following in a shell or via your ftp client:"
-msgstr ""
-"Voor u door kunt gaan moet u een aantal rechter veranderder zodat Gallery de plugins kan "
-"installeren. Dit is makkelijk. Voer het volgende uit in een shell of via uw ftp client:"
-
-msgid ""
-"Before you can proceed, please insure the following directories and sub-directories are "
-"writable, so that Gallery can install plugins for you:"
-msgstr ""
-"Voordat u door kunt gaan moet u er voor zorgen dat de volgende mappen en submappen "
-"schrijfbaar zijn, zodat dat Gallery plugins kan installeren voor u:"
-
-#, fuzzy
-msgid ""
-"If you have trouble changing permissions, ask your system administrator for assistance.  "
-"When you've fixed the permissions, click the Check Again button to proceed."
-msgstr ""
-"Als u problemen heeft met het veranderen van rechten, vraag dan uw systeembeheerder voor "
-"assistentie. Als de rechten veranderd zijn druk dan op de Doorgaan knop om verder te gaan."
-
-#, fuzzy
-msgid "Check Again"
-msgstr "Selecteer Alles"
-
-#, fuzzy
-msgid "Add or Remove Languages"
-msgstr "Gebruikers toevoegen/verwijderen"
-
-msgid ""
-"Please click on the link below to go to 'Download Plugin List' and choose 'Update Plugin "
-"List' to get the latest language package information."
-msgstr ""
-"Klik op de link hieronder of ga naar 'Download Plugin Lijst' en kies 'Update Plugin Lijst' "
-"om de laatste taalpakket informatie te krijgen."
-
-#, fuzzy
-msgid "Administer Repositories"
-msgstr "Community Repository"
-
-#, fuzzy
-msgid "Upgrade"
-msgstr "opwaarderen"
-
-msgid "Remove"
-msgstr "Verwijderen"
-
-#, fuzzy
-msgid "Download"
-msgstr "download"
-
-#, fuzzy
-msgid "No Change"
-msgstr "Wijzigen"
-
-#, fuzzy
-msgid "Select All"
-msgstr "Geselecteerd"
-
-msgid ""
-"There are no local repository indices from which to determine language packages. Please "
-"click on the link below to go to \"Download Plugin List\" and choose \"Update Plugin List\" "
-"to get the latest language package information."
-msgstr ""
-"Er zijn geen locale repository index om de taalpakket te bepalen. Klik op de link hieronder "
-"of ga naar  \"Download Plugin Lijst\" and kies \"Update Plugin Lijst\"  om de laatste "
-"taalpaket informatie op te halen."
-
 msgid "System Maintenance"
 msgstr "Systeem Onderhoud"
-
-msgid "Gallery must be in maintenance mode before the task can be run."
-msgstr "Gallery moet in onderhoud modus gezet worden voor deze taak gedraaid kan worden."
 
 #, c-format
 msgid "Completed %s task successfully."
@@ -1937,43 +1661,6 @@ msgstr "Taak %s is succesvol afgerond."
 #, c-format
 msgid "The %s task failed to complete successfully."
 msgstr "De %s taak is niet succesvol afgerond."
-
-msgid "Maintenance Mode has been turned on."
-msgstr "Onderhoud Modus is ingeschakeld."
-
-msgid "Maintenance Mode has been turned off."
-msgstr "Onderhoud Modus is uitgeschakeld."
-
-msgid "Maintenance Mode"
-msgstr "Onderhoud Modus"
-
-msgid "Restrict user access to the system while maintenance is being performed."
-msgstr "Beperkt gebruikers toegang tot het systeem als er onderhoud wordt uitgevoerd."
-
-msgid "Maintenance Mode Url"
-msgstr "Onderhoud Modus URL"
-
-msgid ""
-"The Maintenance Mode Url specifies where requests will be redirected when access to the site "
-"has been restricted by the administrator."
-msgstr ""
-"De Onderhoud Modus Url specificeert waar de aanvragen naar toe gestuurd worden als de "
-"toegang tot de site beperkt zijn door de beheerder."
-
-msgid ""
-"If left blank Gallery will display a default page with an administrator login link. This "
-"page will be themed when the code base is up to date, otherwise it will display a plain "
-"unstyled page."
-msgstr ""
-"Als dit leeg gelaten wordt zal Gallery een standaard pagina weergeven met een beheer login "
-"link. De pagina zal een thema krijgen als de code basis bijgewerkt is, anders zal er een "
-"platte pagina zonder opmaak weergegeven worden."
-
-msgid "For example: /maintenance.html"
-msgstr "Als voorbeeld: /maintenance.html"
-
-msgid "Set"
-msgstr "Instellen"
 
 msgid "Task name"
 msgstr "Taak naam"
@@ -2073,63 +1760,52 @@ msgstr "Gast bezoekers"
 msgid "Expires after:"
 msgstr "Verloopt na: "
 
-msgid "Template Cache"
-msgstr "Template Cache"
-
-#, c-format
-msgid ""
-"For optimal performance, Gallery caches all templates.  If you would like to %scustomize "
-"your template files%s, you should disable template caching temporarily so that changes take "
-"effect immediately without clearing the template cache."
-msgstr ""
-"Voor de beste werking cached Gallery alle templates. Als u besluit %stemplates te veranderen%"
-"s, dan moet u template caching tijdelijk uiztetten zodat de veranderen direct te zien zijn "
-"zonder de template cache steeds te hoeven wissen."
-
-msgid "Enable template caching"
-msgstr "Activeer template cache "
-
 msgid "Clear Saved Pages"
 msgstr "Wis de opgeslagen pagina's "
 
 msgid "Status: Inactive"
 msgstr "Status: Niet Actief"
 
+#, fuzzy
 msgid "__PLUGIN__ deactivated"
-msgstr "__PLUGIN__ gedeactiveerd"
+msgstr "deactiveren __PLUGIN__"
 
 msgid "Status: Active"
 msgstr "Status: Actief"
 
 msgid "__PLUGIN__ activated"
-msgstr "__PLUGIN__ geactiveerd"
+msgstr ""
 
 msgid "Status: Not Installed"
 msgstr "Status: Niet Geïnstalleerd"
 
 msgid "__PLUGIN__ uninstalled"
-msgstr "__PLUGIN__ gedeïnstalleerd"
+msgstr ""
 
 msgid "Status: Upgrade Required (Inactive)"
 msgstr "Status: Opwaardering Noodzakelijk (Inactief)"
 
+#, fuzzy
 msgid "Status: Incompatible Plugin (Inactive)"
-msgstr "Status: Niet Compatibele Plugin(Inactief)"
+msgstr "Statis: Niet compaitbele Module (Inactief)"
 
 msgid "Status: Inactive (Configuration Required)"
-msgstr "tatus: inactief(Configuratie Vereist)"
+msgstr ""
 
 msgid "__PLUGIN__ needs configuration"
-msgstr "__PLUGIN__ moet geconfigureerd worden"
+msgstr ""
 
+#, fuzzy
 msgid "__PLUGIN__ deleted"
-msgstr "__PLUGIN__ verwijdert"
+msgstr "deactiveren __PLUGIN__"
 
+#, fuzzy
 msgid "Warning!"
-msgstr "Pas Op!"
+msgstr "LET OP:"
 
+#, fuzzy
 msgid "Do you really want to uninstall __PLUGIN__?"
-msgstr "Weet u zeker dat u de __PLUGIN__  wilt deïnstalleren?"
+msgstr "Weet u zeker dat u de __PLUGIN__ module wilt deïnstalleren?"
 
 msgid "This will also remove any permissions and clean up any data created by this module."
 msgstr ""
@@ -2139,70 +1815,75 @@ msgstr ""
 msgid ""
 "This plugin will be uninstalled, but its files will be kept so that you can reinstall it."
 msgstr ""
-"Deze plugin wordt gedeïnstalleerd, maar de bestanden worden bewaard zodat u de plugin "
-"opnieuw kan installeren."
 
 msgid "Yes"
-msgstr "Ja"
+msgstr ""
 
 msgid "No"
-msgstr "Nee"
+msgstr ""
 
+#, fuzzy
 msgid "Do you really want to delete __PLUGIN__?"
-msgstr "Weet u zeker dat u de __PLUGIN__ module wilt verwijderen?"
+msgstr "Weet u zeker dat u de __PLUGIN__ module wilt deïnstalleren?"
 
 msgid "This plugin will be uninstalled and its files will be deleted permanently."
-msgstr "Deze plugin wordt gedeïnstalleerd en alle bestanden worden definitief verwijderd."
+msgstr ""
 
 msgid "The files of this plugin will be deleted permanently."
-msgstr "De bestanden van de plugin worden definitief verwijderd."
+msgstr ""
 
 msgid "disabled(__COUNT__)"
-msgstr "gedeactiveerd(__COUNT__)"
+msgstr ""
 
+#, fuzzy
 msgid "up to date(__COUNT__)"
-msgstr "laatste versie (__COUNT__)"
+msgstr "Bijwerken (__COUNT__)"
 
+#, fuzzy
 msgid "not installed(__COUNT__)"
-msgstr "niet geïnstalleerd (__COUNT__)"
+msgstr "deïnstalleren (__COUNT__)"
 
+#, fuzzy
 msgid "upgrade required(__COUNT__)"
-msgstr "upgrade verplicht (__COUNT__)"
+msgstr "(verplicht) (__COUNT__)"
 
+#, fuzzy
 msgid "incompatible(__COUNT__)"
-msgstr "Niet Compatibel (__COUNT__)"
+msgstr "Niet Compatibele Plugin (__COUNT__)"
 
 msgid "Failed to completely delete __PLUGIN__"
-msgstr "Compleet verwijderen __PLUGIN__ is mislukt"
+msgstr ""
 
+#, fuzzy
 msgid "Gallery Plugins"
-msgstr "Gallery Plugins"
+msgstr "Gallery Modules"
 
+#, fuzzy
 msgid "Get More Plugins"
-msgstr "Haal meer Plugins"
+msgstr "Gallery Modules"
 
 #, c-format
 msgid ""
 "Want more features?  New plugins are just a click away.  Just click the %s link to get "
 "started."
 msgstr ""
-"Meer mogelijkheden nodig? Nieuwe plugins zijn een klik verwijderd. Klik de %s link om te "
-"starten."
 
+#, fuzzy
 msgid ""
 "Gallery features come as separate plugins.  You can download and install plugins to add more "
 "features to your Gallery, or you can disable features if you don't want to use them.  In "
 "order to use a feature, you must install, configure (if necessary) and activate it.  If you "
 "don't wish to use a feature, you can deactivate it."
 msgstr ""
-"Gallery functionaliteiten zijn beschikbaar in afzonderlijke modules.  U kunt modules "
-"downloaden en installeren om meer functionaliteit aan uw Gallery toe te voegen, of u kunt "
-"modules uitschakelen als u die niet wilt gebruiken. Om een functionaliteit te gebruiken moet "
-"u de module installeren, configureren (indien nodig) en activeren. Als u geen gebruik wilt "
-"maken van een module kunt u deze deactiveren."
+"Gallery functionaliteit is beschikbaar in afzonderlijke modules. U kunt modules downloaden "
+"en installeren om meer functionaliteit aan uw Gallery toe te voegen, of u kunt modules "
+"uitschakelen als u die niet wilt gebruiken. Om een functionaliteit te gebruiken moet u de "
+"module installeren, configureren (indien nodig) en activeren. Als u geen gebruik wilt maken "
+"van een module kunt u deze deactiveren."
 
+#, fuzzy
 msgid "Plugin Name"
-msgstr "Plugin Naam"
+msgstr "Volledige naam"
 
 msgid "Installed"
 msgstr "Geïnstalleerd"
@@ -2214,11 +1895,11 @@ msgid "Actions"
 msgstr "Acties"
 
 msgid "help"
-msgstr "help"
+msgstr ""
 
 #, c-format
 msgid "Screenshot for %s"
-msgstr "Screenshot voor %s"
+msgstr ""
 
 msgid "Incompatible plugin!"
 msgstr "Niet compatibele plugin!"
@@ -2234,40 +1915,42 @@ msgstr "Plugin API Vereist: %s (beschikbaar: %s)"
 msgid "configure"
 msgstr "configureren"
 
+#, fuzzy
 msgid "up to date"
-msgstr "laatste versie"
+msgstr "Bijwerken"
 
+#, fuzzy
 msgid "upgrade required"
-msgstr "upgrade verplicht"
+msgstr "(verplicht)"
 
+#, fuzzy
 msgid "not installed"
-msgstr "niet geïstalleerd"
+msgstr "deïnstalleren"
 
+#, fuzzy
 msgid "incompatible"
-msgstr "niet compatibele "
+msgstr "Niet Compatibele Plugin"
 
 msgid "Repository"
 msgstr "Repository"
 
+msgid "Please make sure that your internet connection is set up properly or try again later."
+msgstr "Zorg dat uw internet verbinding juist is ingesteld of probeer het later opnieuw."
+
 #, c-format
-msgid "Failed to download the following packages for the %s plugin:"
-msgstr "Downloaden is mislukt van de volgende pakketten voor de %s plugin:"
+msgid "Failed to scan status from plugin: %s."
+msgstr ""
+
+msgid ""
+"Your local copy of the repository was broken and has been fixed.  Please download the plugin "
+"list again."
+msgstr ""
 
 #, c-format
 msgid ""
-"Failed to install the %s plugin because the following files/directories could not be "
+"Failed to download the %s plugin because the following files/directories could not be "
 "modified:"
 msgstr ""
-"Installeren is mislukt van %s plugin omdat de volgende bestanden/mappen niet bewerkt kunnen "
-"worden:"
-
-#, c-format
-msgid ""
-"Some plugins could not be automatically upgraded because they are in use.  Please return to "
-"the %sPlugins%s page and click the upgrade link for each of the following plugins:"
-msgstr ""
-"Een aantal plugins konden niet automatisch bijgewerkt worden omdat ze in gebruik zijn. Ga "
-"terug naar de %sPlugins%s pagina en klik de upgrade link voor iedere genoemde plugins:"
 
 msgid "The repository index has been successfully updated."
 msgstr "De repository index is succesvol bijgewerkt."
@@ -2277,12 +1960,18 @@ msgstr "De plugins zijn reeds bijgewerkt."
 
 #, c-format
 msgid "%s plugin updated."
-msgstr "%s plugin is geupdate"
+msgstr ""
+
+#, c-format
+msgid "%d language pack deleted."
+msgid_plural "%d language packs deleted."
+msgstr[0] ""
+msgstr[1] ""
 
 msgid ""
 "No personal information about you or your Gallery installation is sent to the Gallery server "
 "at any time."
-msgstr "Er wordt geen persoonlijk informatie over u of over uw Gallery verzonden."
+msgstr ""
 
 #, c-format
 msgid ""
@@ -2292,54 +1981,58 @@ msgid ""
 "chosen, you must periodically download the latest plugin list to find out about available "
 "updates. %s On slower connections the process might take a minute or two."
 msgstr ""
-"Download en installeer nieuwe plugins snel en makkelijk. Als u besluit dat een plugin toch "
-"niet bevalt, kunt u deze verwijderen uit uw Gallery. Er zijn een aantal verschillende plugin "
-"repositories waar u uit kunt kiezen (ze kunnen allemaal tegelijk gebruikt worden). Als u die "
-"eenmaal heeft gekozen moet u regelmatige te laatste pluginlijst downloaden om te zien of er "
-"updates aanwezig zijn. %s Met een langzamere verbinding kan dit proces een minuut of 2 duren."
 
 #, c-format
 msgid "Officially Released Gallery Project plugins (%srecommended%s)"
-msgstr "Officieel Uitgebracht Gallery Project plugins (%saangeraden%s)"
+msgstr ""
 
 #, c-format
 msgid "last updated on %s"
-msgstr "Laatste update op %s"
+msgstr ""
 
 #, c-format
 msgid "Experimental Gallery Project plugins (%scool new features, might be buggy%s)"
 msgstr ""
-"Experimentele Gallery Project plugins (%sleuke nieuwe mogelijkheden, maar kunnen fouten "
-"bevatten%s)"
 
 #, c-format
 msgid "Community plugins (%suse at your own risk!%s)"
-msgstr "Community plugins (%sgebruik op eigen risico!%s)"
+msgstr ""
 
+#, fuzzy
 msgid "Repository Error"
-msgstr "Repository Fout"
+msgstr "Repository"
 
+#, fuzzy
 msgid "You must select at least one repository."
-msgstr "U moet een repository selecteren om te verwijderen."
+msgstr "U moet een gebruiker selecteren om te verwijderen."
 
 msgid "Ok"
-msgstr "Ok"
+msgstr ""
+
+msgid "Configure your Gallery"
+msgstr ""
+
+msgid ""
+"Before you can proceed, you have to change some permissions so that Gallery can install "
+"plugins for you.  It's easy.  Just execute the following in a shell or via your ftp client:"
+msgstr ""
 
 msgid ""
 "If you have trouble changing permissions, ask your system administrator for assistance.  "
 "When you've fixed the permissions, click the Continue button to proceed."
 msgstr ""
-"Als u problemen heeft met het veranderen van rechten, vraag dan uw systeembeheerder voor "
-"assistentie. Als de rechten veranderd zijn druk dan op de Doorgaan knop om verder te gaan."
 
+#, fuzzy
 msgid "Continue"
-msgstr "Doorgaan"
+msgstr "Doorgaan..."
 
+#, fuzzy
 msgid "Download Plugin List"
-msgstr "Download Plugin Lijst"
+msgstr "Download eenhid testen"
 
+#, fuzzy
 msgid "Show Repository List"
-msgstr "Toon Repository Lijst"
+msgstr "Repository"
 
 msgid "Upgrade Gallery"
 msgstr "Gallery Opwaarderen"
@@ -2355,9 +2048,9 @@ msgstr ""
 "plugins niet mee werken, maar andere die steunen op de functies van de nieuwe versie kunnen "
 "beschikbaar komen. Hieronder staan de aanbevolen stappen om te upgraden:"
 
-#, c-format
+#, fuzzy, c-format
 msgid "%sDownload%s the new Gallery package"
-msgstr "%sDownload%s nieuw Gallery pakket"
+msgstr "%sDownload%s Gallery core"
 
 #, c-format
 msgid "Read the %supgrade instructions%s and perform the upgrade"
@@ -2377,11 +2070,12 @@ msgstr ""
 "scomplete lijst%s van alle plugins opvragen, inclusief degene die niet compatibel zijn. Deze "
 "zijn gemarkeerd met een rood icoon."
 
+#, fuzzy
 msgid "upgrade available"
-msgstr "nieuwe versie beschikbaar"
+msgstr "Gallery Opwaarderen"
 
 msgid "locked"
-msgstr "locked"
+msgstr ""
 
 msgid "Theme Name"
 msgstr "Thema Naam"
@@ -2393,19 +2087,20 @@ msgid "Latest"
 msgstr "Laatste"
 
 msgid "Locked Plugin"
-msgstr "Locked Plugin"
+msgstr ""
 
 msgid "Incompatible Plugin"
 msgstr "Niet Compatibele Plugin"
 
+#, fuzzy
 msgid "Upgrade Available"
-msgstr "Nieuwe Versie Beschikbaar"
+msgstr "Alles Opwaarderen"
 
 msgid "download"
 msgstr "download"
 
 msgid "modify"
-msgstr "verander"
+msgstr ""
 
 msgid "Upgrade All Plugins"
 msgstr "Alle Plugins Bijwerken"
@@ -2420,59 +2115,64 @@ msgstr ""
 msgid "Upgrade All"
 msgstr "Alles Opwaarderen"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Download %s"
-msgstr "Download %s"
+msgstr "Downloaden van %s"
 
 msgid "No packages have been selected."
 msgstr "Er zijn geen paketten geselecteerd."
 
-#, fuzzy
 msgid ""
 "Download a package in order to use this plugin.  You can upgrade by choosing a newer version "
-"of the package to download."
+"of the package to download.  Language packages are optional, You only need to download the "
+"ones that you want to use on your site."
 msgstr ""
-"Download een pakket om deze plugin te gebruiken. U kunt upgraden door een nieuwere versie te "
-"kiezen van het te downloaden pakket. Taal pakketten zijn optioneel. U hoeft alleen de taal "
-"pakketten te downloaden die u op uw site gebruikt."
 
+#, fuzzy
 msgid "Base Packages"
-msgstr "Basis Pakketten"
+msgstr "Basis Bestanden"
 
 #, c-format
 msgid "%s: version %s (build %s)"
-msgstr "%s: versie %s (bouw %s)"
+msgstr ""
 
 #, c-format
 msgid "%s: version %s (build %s) %sdowngrading is not supported!%s"
-msgstr "%s: versie %s (bouw %s) %sdowngrading wordt niet ondersteund!%s"
+msgstr ""
 
 #, c-format
 msgid "%sCurrently Installed%s: version %s (build %s)"
-msgstr "%sNu geïnstalleerd%s: versie %s (bouw %s)"
+msgstr ""
 
 #, fuzzy
-msgid "The following language packages are available for this plugin"
-msgstr "Geen compatibele taal pakketten beschikbaar"
+msgid "Language Packages"
+msgstr "Taal Instellingen"
+
+#, c-format
+msgid "(%sselect all%s%sselect none%s)"
+msgstr ""
 
 #, c-format
 msgid "%s version %s (upgrading from %s)"
-msgstr "%s versie %s (upgrading van %s)"
+msgstr ""
 
-#, c-format
+#, fuzzy, c-format
 msgid "%s version %s"
-msgstr "%s versie %s"
+msgstr "PHP versie"
 
 #, c-format
 msgid "%s version %s (%snewer version %s is installed%s)"
-msgstr "%s versie %s (%s nieuwere versie %s is geïnstalleerd %s)"
+msgstr ""
 
 #, c-format
 msgid "%s version %s (currently installed)"
-msgstr "%s versie %s (is nu geïnstalleerd)"
+msgstr ""
 
 msgid "No compatible language packages available"
-msgstr "Geen compatibele taal pakketten beschikbaar"
+msgstr ""
+
+msgid "You must select a base package before choosing language packs."
+msgstr ""
 
 msgid "Update"
 msgstr "Bijwerken"
@@ -2527,18 +2227,13 @@ msgid ""
 "The %s theme is incompatible with your Gallery version or no longer available.  Please "
 "upgrade the %s theme or pick another default theme."
 msgstr ""
-"Het %s thema is incompatibel met de Gallery versie die gebruikt wordt of is niet langer "
-"beschikbaar. Upgrade het %s thema of kies een ander standaard thema."
 
 msgid "New albums"
 msgstr "Nieuwe albums"
 
-#, c-format
-msgid "To activate more themes visit the %sPlugins%s page."
-msgstr "Bezoek de %sPlugins%s pagina om meer thema's te activeren."
-
+#, fuzzy
 msgid "Save Defaults"
-msgstr "Standaard instellingen opslaan"
+msgstr "Standaard instellingen"
 
 #, c-format
 msgid "%s Theme Settings"
@@ -2558,6 +2253,9 @@ msgstr "Kies een blok"
 msgid "Selected"
 msgstr "Geselecteerd"
 
+msgid "Remove"
+msgstr "Verwijderen"
+
 msgid "Move Up"
 msgstr "Naar Boven"
 
@@ -2573,8 +2271,9 @@ msgstr "Waarde"
 msgid "There are no settings for this theme"
 msgstr "Er zijn geen instellingen voor dit thema"
 
+#, fuzzy
 msgid "Save Theme Settings"
-msgstr "Thema instellingen opslaan"
+msgstr "%s Thema Instellingen"
 
 msgid ""
 "The toolkits shown below have some overlap in supported operations and mime types.  Rank the "
@@ -2628,11 +2327,13 @@ msgstr "U mag de speciale gastgebruiker niet verwijderen."
 msgid "Edit User (by list)"
 msgstr "Bewerk Gebruiker (volgens lijst)"
 
+#, fuzzy
 msgid "Locked"
-msgstr "locked"
+msgstr "Talen"
 
+#, fuzzy
 msgid "Failed Logins"
-msgstr "Mislukte Logins"
+msgstr "Mislukt"
 
 msgid "Thumbnails"
 msgstr "Miniaturen"
@@ -2666,8 +2367,9 @@ msgstr "Database Fout"
 msgid "Platform Error"
 msgstr "Platform Fout"
 
+#, fuzzy
 msgid "Authentication Failure"
-msgstr "Authorisatie Mislukt"
+msgstr "Authorisatie Bevestigd"
 
 msgid "Error"
 msgstr "Fout"
@@ -2689,11 +2391,10 @@ msgid ""
 "If this problem happens repeatedly, it may be because of corruption in your cache.  Site "
 "Administrators can clear out this cache."
 msgstr ""
-"Als dit probleem voor blijft komen kan dit veroorzaakt worden door een probleem in de cache. "
-"Site beheerders kunnen dze cache verwijderen."
 
+#, fuzzy
 msgid "Clear the cache"
-msgstr "Wis de cache"
+msgstr "Wis de opgeslagen pagina's "
 
 msgid "Alternatively, you can return to the main Gallery page and resume browsing."
 msgstr ""
@@ -2706,8 +2407,6 @@ msgid ""
 "Your change cannot be completed due to a loss of session data. Please try again. If it still "
 "doesn't work, try logging out and logging back in."
 msgstr ""
-"De verandering kan niet afgerond worden door verlies van sessie data. Probeer het nogmaals. "
-"Als het nog steeds niet werkt, probeer dan uit te loggen en weer in te loggen."
 
 msgid "An error has occurred while interacting with the database."
 msgstr "Er is een fout opgetreden bij de interactie met de database."
@@ -2735,7 +2434,7 @@ msgstr ""
 "het bestandsysteem, bijv. terugzetten van data van een backup."
 
 msgid "Item not found."
-msgstr "Item niet gevonden."
+msgstr ""
 
 msgid "An error has occurred."
 msgstr "Er is een fout opgetreden."
@@ -2749,9 +2448,6 @@ msgstr "Fout Detail"
 msgid "System Information"
 msgstr "Systeem Informatie"
 
-msgid "Not all of the specified items have been added successfully."
-msgstr "Niet alle gespecificeerde items zijn succesvol toegevoegd."
-
 msgid ""
 "You don't have any Graphics Toolkit activated that can handle JPEG images.  If you add "
 "images, you will probably not have any thumbnails."
@@ -2760,8 +2456,8 @@ msgstr ""
 "afbeeldingen toevoegd, zult u waarschijning geen miniaturen kunnen maken."
 
 #, c-format
-msgid "Visit the %sModules%s page to activate a Graphics Toolkit."
-msgstr "Ga naar de %sModules%s pagina om een Grafische Toolkit te activeren."
+msgid "Visit the <a href=\"%s\">Modules</a> page to activate a Graphics Toolkit."
+msgstr "Ga naar de <a href<\"%s\">Modules</a> pagina om een Grafische Toolkit te activeren."
 
 msgid "Add Sub-Album"
 msgstr "Sub-Album toevoegen"
@@ -2855,7 +2551,7 @@ msgstr ""
 "een andere upload methode of uw beheerder vragen om grotere uploads to te staan."
 
 msgid "More Upload Boxes..."
-msgstr "Meer uploadboxen..."
+msgstr ""
 
 msgid "Set item titles from:"
 msgstr "Bepaald item titels van:"
@@ -2865,6 +2561,9 @@ msgstr "Wijs bijschriften toe aan:"
 
 msgid "No Thumbnail"
 msgstr "Geen Miniatuur"
+
+msgid "Delete Items"
+msgstr "Verwijder Items"
 
 msgid "No items were selected for deletion"
 msgstr "Er waren geen items geselecteerd voor verwijdering"
@@ -2921,12 +2620,24 @@ msgstr "Vorige Pagina"
 msgid "Next Page"
 msgstr "Volgende Pagina"
 
-#, c-format
-msgid "Do you really want to delete %s?"
-msgstr "Weet u zeker dat u %s wil verwijderen?"
+msgid "Deletion Complete"
+msgstr "Verwijdering Is Afgerond"
 
-msgid "Delete more items..."
-msgstr "Verwijder meer items..."
+msgid "Item successfully deleted"
+msgstr "Item succesvol verwijderd"
+
+#, c-format
+msgid "Are you sure you want to delete this %s?"
+msgstr "Weet u zeker dat u %s echt wilt verwijderen?"
+
+#, c-format
+msgid "It contains %d item."
+msgid_plural "It contains %d items."
+msgstr[0] "Het bevat %d item."
+msgstr[1] "Het bevat %d items."
+
+msgid "There is no undo!"
+msgstr "U kunt dit niet ongedaan maken!"
 
 msgid "There was a problem processing your request."
 msgstr "Er is een fout opgetreden bij het verwerken van uw aanvraag."
@@ -2971,8 +2682,9 @@ msgstr "U moet een gebruikersnaam opgeven"
 msgid "Use these target sizes in all subalbums"
 msgstr "Gebruik deze grootte in alle subalbums"
 
+#, fuzzy
 msgid "Apply settings to existing items"
-msgstr "Ook toepassen op bestaande items"
+msgstr "Sub-items ook aanpassen"
 
 msgid ""
 "The thumbnail and resized image settings are for all new items. To apply these settings to "
@@ -2981,28 +2693,24 @@ msgid ""
 "Building images now makes this operation take longer, but saves the time to build and cache "
 "each file when it is first viewed."
 msgstr ""
-"De miniatuur en geschaalde afbeeldingen instelling is voor alle nieuwe items. Om deze "
-"instelling ook toe te passen op alle items in uw album moet u de bijbehorende box aanvinken. "
-"Door deze ook op alle subalbums toe te passen zal ieder albums zijn eigen instelling  "
-"toepassen op miniaturen/geschaalde afbeeldingen, deze kunnen ongelijk zijn als de "
-"bovenstaande instellingen. Afbeelding nu maken zal deze operatie langer laten duren, maar "
-"bespaart de tijd voor het bouwen en opslaan van ieder item als deze voor het eerst bekeken "
-"wordt."
 
 msgid "Apply album setting to thumbnails"
-msgstr "Pas album instelling toe op miniaturen"
+msgstr ""
 
+#, fuzzy
 msgid "... and for all subalbums"
-msgstr "...en voor alle subalbums"
+msgstr "Toepassen op subalbums"
 
+#, fuzzy
 msgid "Build thumbnails too"
-msgstr "Creëer ook miniaturen"
+msgstr "Creëer miniaturen opnieuw..."
 
+#, fuzzy
 msgid "Apply album setting to resized images"
-msgstr "Pas deze instelling toe op geschaalde afbeeldingen"
+msgstr "Geschaalde afbeeldingen opnieuw aanmaken"
 
 msgid "Build resizes too"
-msgstr "Creëer ook geschaalde afbeeldingen"
+msgstr ""
 
 msgid ""
 "In order for Gallery to properly display this animation, it has to know the animation's "
@@ -3095,10 +2803,6 @@ msgstr "Dit is de lange beschrijving van dit item."
 msgid "%s Date and Time"
 msgstr "%s Datum en Tijd"
 
-#, fuzzy
-msgid "Link Date and Time"
-msgstr "%s Datum en Tijd"
-
 msgid "Set the date and time when this image was captured."
 msgstr "Bepaal de datum en tijd wanneer deze afbeelding is genomen."
 
@@ -3108,10 +2812,6 @@ msgstr "Bepaal de weer te geven datum en tijd voor dit item."
 #, c-format
 msgid "Set the date and time to be displayed for this %s."
 msgstr "Bepaal de weer te geven datum en tijd voor dit %s."
-
-#, fuzzy
-msgid "Set the date and time to be displayed for this link."
-msgstr "Bepaal de weer te geven datum en tijd voor dit item."
 
 msgid "Date:"
 msgstr "Datum:"
@@ -3125,7 +2825,7 @@ msgstr ""
 "Exif label):"
 
 msgid "You must enter a valid date and time"
-msgstr "U moet een geldige datum en tijd opgeven"
+msgstr "U moet een valide datum en tijd opgeven"
 
 msgid "Thumbnail"
 msgstr "Miniatuur"
@@ -3144,8 +2844,9 @@ msgstr ""
 "Er zijn geen grafische toolkits beschikbaar die dit type foto of item ondersteund, dus kan "
 "er geen miniatuur aangemaakt of aangepast worden."
 
+#, fuzzy
 msgid "Unable to create a thumbnail for this item"
-msgstr "Er kan geen miniatuur gemaakt worden voor dit item"
+msgstr "U moet een naam voor dit item opgeven."
 
 msgid ""
 "In order for Gallery to properly display this movie, it has to know the movie's width and "
@@ -3192,8 +2893,9 @@ msgstr "Verhouding: "
 msgid "Crop"
 msgstr "Bijsnijden"
 
+#, fuzzy
 msgid "Undo Changes"
-msgstr "Wijzigingen ongedaan maken"
+msgstr "Wijzigen"
 
 msgid "Reset to default"
 msgstr "Terugzetten naar standaard"
@@ -3274,8 +2976,6 @@ msgid ""
 "There is no toolkit support to modify the original so operations may only be applied to the "
 "copies"
 msgstr ""
-"Er is geen toolkit support om het orgineel aan te passen dus de opertie kunnen alleen "
-"toegepast worden op kopieën"
 
 msgid "Preserve Original Photo"
 msgstr "Behoud Originele Foto"
@@ -3295,8 +2995,9 @@ msgstr ""
 msgid "Restore original"
 msgstr "Originieel herstellen"
 
+#, fuzzy
 msgid "Choose a theme"
-msgstr "Kies een thema"
+msgstr "Kies een blok"
 
 #, c-format
 msgid ""
@@ -3304,34 +3005,32 @@ msgid ""
 "version or no longer available.  Please upgrade the %s theme or use another theme for this "
 "album."
 msgstr ""
-"Dit album is geconfigureerd om het %s thema te gebruiken die of niet compatibel is met deze "
-"Gallery versie of de versie is niet langer beschikbaar. Upgrade %s thema of gebruik een "
-"ander thema voor dit album."
 
 #, c-format
 msgid ""
 "Themes control the look and feel of the album.  You can choose a different theme for each "
 "album.  If you don't choose a theme, we'll use the %s theme by default."
 msgstr ""
-"Thema's zorgen voor de look en feel van een album. U kunt voor ieder album een verschillend "
-"thema kiezen. Als u geen thema kiest, zullen we het %s thema als standaard gebruiken."
 
 msgid "Use this theme in all subalbums"
 msgstr "Gebruik dit thema in alle subalbums"
 
 msgid "Choose Theme"
-msgstr "Kies Thema"
+msgstr ""
 
-#, c-format
+#, fuzzy, c-format
 msgid "Configure the %s theme"
-msgstr "Configureer %s thema"
+msgstr "Eenheids test thema"
 
+#, fuzzy
 msgid "These settings only apply to the theme for this album."
-msgstr "Deze instellingen zijn alleen van toepassing op het thema van dit album."
+msgstr ""
+"Dit album is ingesteld om gebruik te maken van het <b>%s</b> thema. Deze instellingen zijn "
+"alleen van toepassing op het thema van dit album."
 
-#, c-format
+#, fuzzy, c-format
 msgid "Use these settings in all subalbums that use the %s theme"
-msgstr "Gebruik deze instellingen in alle subalbums die het %s thema gebruiken"
+msgstr "Gebruik deze instellingen in alle subalbums welke het %s thema gebruiken."
 
 msgid "Album Highlight"
 msgstr "Albumafbeelding"
@@ -3365,16 +3064,10 @@ msgstr "Bron"
 msgid "Choose the items you want to move"
 msgstr "Kies de items die u wilt verplaatsen"
 
-msgid "OK"
-msgstr "OK"
-
 msgid ""
 "The destination you chose does not accept sub-albums, so all sub-albums have been deselected."
 msgstr ""
 "Het opgegeven doel accepteerd geen sub-albums, daarom zijn alle sub-albums gedeselecteerd."
-
-msgid "Warning"
-msgstr "Waarschuwing:"
 
 msgid ""
 "The destination you chose only accepts sub-albums, so all non-albums have been deselected."
@@ -3418,7 +3111,7 @@ msgid "Permissions"
 msgstr "Rechten"
 
 msgid "Owner changed successfully"
-msgstr "Eigenaar succesvol aangepast"
+msgstr "Eigenar succesvol aangepast"
 
 msgid "Group permission added successfully"
 msgstr "Groepsrechten succesvol toegevoegd"
@@ -3564,9 +3257,6 @@ msgid ""
 "is either disabled or not supported by your browser. Please enable JavaScript by changing "
 "your browser options, then try again."
 msgstr ""
-"JavaScript moet geactiveerd zijn om de pagina te laten functioneren. Maar het lijkt dat "
-"Javascript gedeactiveerd is of niet ondersteund wordt door uw browser. Activeer Javascript "
-"via de browser opties en probeer het nogmaals."
 
 msgid "Site is temporarily down for maintenance."
 msgstr "Site is tijdelijk niet beschikbaar vanwege onderhoud."
@@ -3578,17 +3268,15 @@ msgid "Enter a URL"
 msgstr "Geef een URL in"
 
 msgid "Enter some text describing the URL"
-msgstr "Geef tekst op die de URL beschrijft"
+msgstr "Geef text op die de URL beschrijft"
 
 msgid "Enter an image URL"
 msgstr "Geef een URL van een afbeelding in"
 
-#. HINT: Button label for Bold
-msgid "B"
+msgid "B <!-- Button label for Bold -->"
 msgstr "B"
 
-#. HINT: Button label for italic
-msgid "i"
+msgid "i <!-- Button label for italic -->"
 msgstr "i"
 
 msgid "list"
@@ -3603,12 +3291,13 @@ msgstr "url"
 msgid "image"
 msgstr "afbeelding"
 
+#, fuzzy
 msgid "color"
-msgstr "kleur"
+msgstr "core"
 
 #, c-format
-msgid "You can also use the %scolor name%s for example: %sYour Text%s"
-msgstr "U kunt ook de %skleur naam%s gebruiken voorbeeld : %sJouw tekst%s"
+msgid "You can also use the <a href=\"%s\" target=\"_new\">color name</a> for example: %s"
+msgstr ""
 
 msgid "Configuration Error: Missing Theme"
 msgstr "Configuratie Fout: Missend Thema"
@@ -3714,15 +3403,11 @@ msgid ""
 "This account is not allowed to modify account settings.  Please contact your Gallery "
 "administrator"
 msgstr ""
-"De account instellingen mogen niet gewijzigd worden. Neem contact op met de Galler "
-"administrator"
 
 msgid ""
 "Your administrator has locked this account, preventing changes from being made to the "
 "account information."
 msgstr ""
-"De site beheerder heeft dit account gelocked, daardoor kan er geen account informatie "
-"gewijzig worden."
 
 msgid "Login to your account"
 msgstr "Inloggen met uw gebruikersnaam"
@@ -3730,30 +3415,23 @@ msgstr "Inloggen met uw gebruikersnaam"
 msgid "Your password has been recovered, please login."
 msgstr "Uw wachtwoord is opnieuw ingesteld, u kunt nu inloggen."
 
-msgid ""
-"The administration session has expired, please re-authenticate to access the administration "
-"area."
-msgstr ""
-"De administrator sessie is verlopen,  graag opnieuw authenticeren voor voor toegang tot het "
-"administratiepanel."
-
 #, c-format
 msgid ""
 "Logins to this account are temporarily disabled due to multiple failed login attempts.  Wait "
-"for access to be restored, or use the %srecover password%s page to re-enable this account."
+"for access to be restored, or use the <a href=\"%s\">recover password</a> page to re-enable "
+"this account."
 msgstr ""
-"Inloggen voor dit account zijn tijdelijk geblokkeerd door meerdere mislukte inlog pogingen. "
-"Wacht tot de toegang hersteld wordt of gebruikt %srecover password%s pagina en deblokkeer "
-"dit account."
 
 msgid "Your login information is incorrect.  Please try again."
 msgstr "Uw login informatie is onjuist.  Probeer opnieuw. "
 
 #, c-format
-msgid "Lost or forgotten passwords can be retrieved using the %srecover password%s page"
+msgid ""
+"Lost or forgotten passwords can be retrieved using the <a href=\"%s\">recover password</a> "
+"page"
 msgstr ""
-"Verloren of vergeten wachtwoorden kunnen ontvangen worden met gebruik van de  %shestel "
-"wachtwoord%s pagina"
+"Verloren of vergeten wachtwoorden kunnen ontvangen worden met gebruik van de <a href=\"%s"
+"\">wachtwoord vergeten pagina</a> pagina"
 
 #, c-format
 msgid "Welcome, %s!"
@@ -3890,7 +3568,7 @@ msgstr "AuthBestand Onleesbaar"
 
 #, c-format
 msgid "Your %s file is not readable. Please give Gallery read permissions on the file."
-msgstr "Uw %s bestand is niet leesbaar. Geef Gallery leesrechten op dit bestand."
+msgstr "Uw %s bestand is niet leesbaar. Geef Gallery lees rechten op dit bestand."
 
 msgid "Refresh"
 msgstr "Vernieuwen"
@@ -3901,18 +3579,18 @@ msgstr "Deze pagina zal u toestaan om het wachtwoord van uw account opnieuw in t
 #, c-format
 msgid ""
 "There is no request which matches the username and authorization provided. Request a new "
-"authorization from the %slost password page%s."
+"authorization from the <a href=\"%s\">lost password page</a>"
 msgstr ""
 "Er is geen verzoek dat overeenkomst met de aangeboden gebruikersnaam en authorisatie. Vraag "
-"een nieuwe authorisatie aan vanuit de %swachtwoord vergeten pagina %s."
+"een nieuwe authorisatie aan vanuit de <a href=\"%s\">wachtwoord vergeten pagina</a>."
 
 #, c-format
 msgid ""
-"The request you are trying to access has expired.  Request a new authorization from the %"
-"slost password page%s."
+"The request you are trying to access has expired.  Request a new authorization from the <a "
+"href=\"%s\">lost password page</a>."
 msgstr ""
 "Het verzoek waatoe u toegang probeert te verkrijgen is verlopen. Vraag een nieuwe "
-"authorisatie aan vanuit de %swachtwoord vergeten pagina%s."
+"authorisatie aan vanuit de <a href=\"%s\">wachtwoord vergeten pagina</a>."
 
 msgid "Authorization missing"
 msgstr "Authorisatie ontbreekt"
@@ -3947,7 +3625,7 @@ msgstr ""
 msgid "If you did not request this recovery email, you may safely ignore it."
 msgstr ""
 "Als u deze email voor wachtwoord vernieuwing niet heeft aangevraagd, kunt u deze veilig "
-"negeren."
+"nergeren."
 
 msgid "Thank you!"
 msgstr "Dank u wel!"
@@ -3992,14 +3670,18 @@ msgstr "&laquo; item acties &raquo;"
 msgid "Go"
 msgstr "Gaan"
 
-msgid "WARNING: block $type doesn't exist."
-msgstr "Let op! block $type bestaat niet."
+msgid "Navigation"
+msgstr "Navigatie"
 
 msgid "next"
 msgstr "volgende"
 
 msgid "last"
 msgstr "laatste"
+
+#, c-format
+msgid "Page %d of %d"
+msgstr "Pagina %d van %d"
 
 #, c-format
 msgid "%d of %d"
@@ -4047,47 +3729,3 @@ msgstr "Inlog blok"
 
 msgid "Links to album/photo peers"
 msgstr "Linken naar album/foto gelijken"
-
-#~ msgid "Language Packages"
-#~ msgstr "Taal Pakketten"
-
-#~ msgid "(%sselect all%s%sselect none%s)"
-#~ msgstr "(%sselecteer alles%s%sselecteer niks%s)"
-
-#~ msgid "You must select a base package before choosing language packs."
-#~ msgstr "U moet een basis pakket selecteren voor u een taal pakketten kan selecteren."
-
-#~ msgid "Back to %s"
-#~ msgstr "Terug naar %s"
-
-#~ msgid "Back"
-#~ msgstr "Terug"
-
-#~ msgid "Navigation"
-#~ msgstr "Navigatie"
-
-#~ msgid "delete confirmation"
-#~ msgstr "verwijder bevestiging"
-
-#~ msgid "delete %s"
-#~ msgstr "verwijder %s"
-
-#~ msgid "Deletion Complete"
-#~ msgstr "Verwijdering Is Afgerond"
-
-#~ msgid "Item successfully deleted"
-#~ msgstr "Item succesvol verwijderd"
-
-#~ msgid "Are you sure you want to delete this %s?"
-#~ msgstr "Weet u zeker dat u %s echt wilt verwijderen?"
-
-#~ msgid "It contains %d item."
-#~ msgid_plural "It contains %d items."
-#~ msgstr[0] "Het bevat %d item."
-#~ msgstr[1] "Het bevat %d items."
-
-#~ msgid "There is no undo!"
-#~ msgstr "U kunt dit niet ongedaan maken!"
-
-#~ msgid "key"
-#~ msgstr "toets"

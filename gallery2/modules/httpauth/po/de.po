@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: HTTP Auth 1.0.2\n"
+"Project-Id-Version: Gallery: HTTP Auth 1.0.0\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2006-11-16 00:56+0100\n"
 "PO-Revision-Date: 2006-11-16 03:32+0100\n"
@@ -230,3 +230,19 @@ msgid "If you're not automatically redirected, %sclick here to finish logging ou
 msgstr ""
 "Falls Sie nicht automatisch weitergeleitet werden, %sklicken Sie bitte hier um sich "
 "abzumelden%s."
+
+#~ msgid "Rewrite rule not configured"
+#~ msgstr "Regel für kurze URLs nicht konfiguriert"
+
+#~ msgid ""
+#~ "You are running Gallery with the PHP CGI server API but the Authorization HTTP header "
+#~ "rewrite rule isn't enabled.  HTTP authentication against Gallery's user database won't "
+#~ "work without this rule because CGI scripts ordinarily can't access the Authorization HTTP "
+#~ "header in which usernames and passwords are sent.  Web server authentication will still "
+#~ "work."
+#~ msgstr ""
+#~ "Ihre Gallery Installation läuft auf einem Web-Server, der PHP-CGI verwendet (im Gegensatz "
+#~ "zu mod_php). Das heisst, dass Sie die Regel für kurze URLs für dieses Modul aktivieren "
+#~ "müssen, damit HTTP Authentifizierung funktionieren kann.  Solange diese Regel für kurze "
+#~ "URLs nicht aktiviert ist, funktioniert bloss die Web-Server Authentifizierung, nicht aber "
+#~ "die HTTP Authentifizierung."

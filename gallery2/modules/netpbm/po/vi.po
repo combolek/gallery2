@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,9 +19,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: NetPBM 1.1.2\n"
+"Project-Id-Version: Gallery: NetPBM 1.1.1\n"
 "POT-Creation-Date: 2005-06-03 06:51-0400\n"
-"PO-Revision-Date: 2007-08-10 11:25-0000\n"
+"PO-Revision-Date: 2005-08-02 12:23+0100\n"
 "Last-Translator: Trung Dong Huynh <trungdong@donggiang.com>\n"
 "Language-Team: Vietnamese <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -43,7 +43,7 @@ msgstr "Chuyển sang dạng JPEG"
 
 #, no-c-format
 msgid "target width (# pixels or #% of full size)"
-msgstr "chiều rộng đích (# điểm ảnh hoặc #% ảnh gốc)"
+msgstr ""
 
 msgid "(optional) target height, defaults to same as width"
 msgstr "(không bắt buộc) chiều cao đích, mặc định là bằng chiều rộng"
@@ -53,7 +53,7 @@ msgstr "Thu/phóng ảnh theo kích thước đích, giữ nguyên tỷ lệ"
 
 #, no-c-format
 msgid "target height (# pixels or #% of full size)"
-msgstr "chiều cao đích (# điểm ảnh hoặc #% ảnh gốc)"
+msgstr ""
 
 msgid "Resize the image to the target dimensions"
 msgstr "Thu/phóng ảnh theo kích thước đích"
@@ -124,6 +124,7 @@ msgstr "Thông số NetPBM"
 msgid "Settings saved successfully"
 msgstr "Các thông số đã được lưu"
 
+#, fuzzy
 msgid ""
 "NetPBM is a graphics toolkit that can be used to process images that you upload to Gallery.  "
 "You must install the NetPBM binaries on your server, then enter the path to them in the text "
@@ -132,13 +133,8 @@ msgid ""
 msgstr ""
 "NetPBM là một bộ công cụ đồ họa có thể được dùng để xử lý các tập tin ảnh bạn tải lên "
 "Gallery. Bạn phải cài các chương trình của NetPBM vào máy chủ của bạn và nhập đường dẫn đến "
-"chúng ở hộp chữ dưới đây. Nếu bạn dùng Unix thì nhớ đặt quyền <i>chạy</i> cho các tập tin "
-"chương trình này (dùng lệnh <i>chmod 755 *</i> trong thư mục của NetPBM)."
-
-msgid ""
-"The exec() function is disabled in your PHP by the <b>disabled_functions</b> parameter in "
-"php.ini.  This module cannot be used until that setting is changed."
-msgstr ""
+"chúng ở hộp chữ dưới đây. Nếu bạn dùng Unix thì nhớ đặt quyền chạy cho các tập tin chương "
+"trình này (dùng lệnh <i>chmod 755 *</i> trong thư mục của NetPBM)."
 
 msgid "NetPBM Directory:"
 msgstr "Thư mục NetPBM:"
@@ -159,6 +155,7 @@ msgstr "Đường dẫn bạn nhập vào không phải là một đường dẫ
 msgid "JPEG Quality:"
 msgstr "Chất lượng JPEG:"
 
+#, fuzzy
 msgid ""
 "NetPBM will lose embedded EXIF data if you modify the original image, unless you have the "
 "optional <b>jhead</b> binary installed on your server.  If you have jhead installed, enter "
@@ -187,7 +184,7 @@ msgid "Cancel"
 msgstr "Hủy"
 
 msgid "Reset"
-msgstr "Làm lại từ đầu"
+msgstr ""
 
 msgid "NetPBM binary test results"
 msgstr "Kết quả thử chương trình NetPBM"
@@ -233,3 +230,9 @@ msgstr ""
 "Chúng tôi thu thập kết xuất debug này khi thử các chương trình NetPBM của bạn. Nếu bạn xem "
 "kỹ trong kết xuất này thì có thể phát hiện được tại sao các chương trình NetPBM của bạn lại "
 "thất bại khi thử."
+
+#~ msgid "target width"
+#~ msgstr "chiều rộng đích"
+
+#~ msgid "target height"
+#~ msgstr "chiều cao đích"

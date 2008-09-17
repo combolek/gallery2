@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,7 +31,7 @@ class ImageBlockHelper /* extends GalleryEventListener */ {
     /**
      * Load image block data into template.
      *
-     * @param GalleryTemplate $template
+     * @param object GalleryTemplate $template
      * @param array $params (optional) image block parameters (to override module settings)
      * @return GalleryStatus a status code
      */
@@ -222,7 +222,7 @@ class ImageBlockHelper /* extends GalleryEventListener */ {
 		/* Ignore permission error.. just don't add a block */
 		return array(null, array());
 	    }
-	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($parentId, 'GalleryItem');
+	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($parentId);
 	    if ($ret) {
 		return array($ret, null);
 	    }
@@ -262,7 +262,7 @@ class ImageBlockHelper /* extends GalleryEventListener */ {
 		if ($ret || !$ok) {
 		    /* Just pick a new item if this one is inaccessible or missing */
 		} else {
-		    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
+		    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 		    if ($ret) {
 			return array($ret, null);
 		    }
@@ -305,164 +305,176 @@ class ImageBlockHelper /* extends GalleryEventListener */ {
 
 	foreach ($data as $itemData) {
 	    $id = $itemData['id'];
-	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($id, 'GalleryItem');
+	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($id);
 	    if ($ret) {
 		return array($ret, null);
 	    }
-	    list ($ret, $owner) =
-		GalleryCoreApi::loadEntitiesById($item->getOwnerId(), 'GalleryUser');
+	    list ($ret, $owner) = GalleryCoreApi::loadEntitiesById($item->getOwnerId());
 	    if ($ret) {
 		return array($ret, null);
 	    }
-	    list ($ret, $thumbnail) = GalleryCoreApi::fetchThumbnailsByItemIds(array($id));
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	    $thumbnail = isset($thumbnail[$id]) ? $thumbnail[$id] : null;
-	    $image = $source = null;
-	    $derivativeParentId = $id;
-	    if (GalleryUtilities::isA($item, 'GalleryAlbumItem') && ($fullSize || $maxSize)) {
-		/* If we may use a size larger than thumbnail, find derivative source for album */
-		if (!isset($thumbnail)) {
-		    /* No thumbnail, no source for larger size.. just skip this block */
-		    continue;
-		}
-		$source = $thumbnail;
-		while (GalleryUtilities::isA($source, 'GalleryDerivative')
-			&& $source->getDerivativeType() != DERIVATIVE_TYPE_IMAGE_PREFERRED) {
-		    list ($ret, $source) = GalleryCoreApi::loadEntitiesById(
-			    $source->getDerivativeSourceId(),
-			    array('GalleryFileSystemEntity', 'GalleryDerivative'));
-		    if ($ret) {
-			return array($ret, null);
-		    }
-		}
-
-		$derivativeParentId = GalleryUtilities::isA($source, 'GalleryDerivative')
-		    ? $source->getParentId() : $source->getId();
-
-		list ($ret, $ok) = GalleryCoreApi::hasItemPermission(
-			$derivativeParentId, 'core.view', $userId);
+	    $image = null;
+	    if ($fullSize && GalleryUtilities::isA($item, 'GalleryDataItem')) {
+		$ret = GalleryCoreApi::assertHasItemPermission($item->getId(), 'core.viewSource');
 		if ($ret) {
-		    return array($ret, null);
-		}
-		if (!$ok) {
-		    if ($fullSize) {
-			/* Can't view source item, so no fullsize is available */
-			continue;
-		    }
-		    /* Can't view source item, so just stick with album thumbnail */
-		    $derivativeParentId = $id;
-		    $source = null;
-		}
-	    }
-	    if ($fullSize) {
-		list ($ret, $ok) = GalleryCoreApi::hasItemPermission(
-			$derivativeParentId, 'core.viewSource', $userId);
-		if ($ret) {
-		    return array($ret, null);
-		}
-		if (!$ok) {
 		    /* Ignore permission error.. just don't add a block */
 		    continue;
 		}
-		if (isset($source)) {
-		    /* Use full size source of album thumbnail, located above */
-		    $image = $source;
-		} else {
-		    list ($ret, $preferred) = GalleryCoreApi::fetchPreferredsByItemIds(array($id));
-		    if ($ret) {
-			return array($ret, null);
-		    }
-		    $image = isset($preferred[$id]) ? $preferred[$id] : $item;
-		}
-	    } else if ($maxSize && isset($thumbnail) && ($thumbnail->getWidth() >= $maxSize
-			|| $thumbnail->getHeight() >= $maxSize)) {
-		/* Thumbnail is big enough */
-		$image = $thumbnail;
-	    } else if (!$maxSize) {
-		/* Use thumbnail if there is one */
-		$image = $thumbnail;
-	    } else {
-		/*
-		 * Gather the differences in image sizes from the requested max size.
-		 *
-		 * We use absolute values for the differentials because they could be a negative
-		 * value.  We want the closest match, so -100 is closer than +125.
-		 *
-		 * If $biggerOnly is set, then we don't want any negative differentials.
-		 */
-
-		/* Get the preferred item object */
-		list ($ret, $ok) = GalleryCoreApi::hasItemPermission(
-			$derivativeParentId, 'core.viewSource', $userId);
+		list ($ret, $preferred) = GalleryCoreApi::fetchPreferredsByItemIds(array($id));
 		if ($ret) {
 		    return array($ret, null);
 		}
-		if ($ok) {
-		    if (isset($source)) {
-			/* Use full size source of album thumbnail, located above */
-			$image = $source;
-		    } else {
-			list ($ret, $preferred) =
-			    GalleryCoreApi::fetchPreferredsByItemIds(array($id));
+		$image = isset($preferred[$id]) ? $preferred[$id] : $item;
+	    } else {
+		list ($ret, $thumbnail) = GalleryCoreApi::fetchThumbnailsByItemIds(array($id));
+		if ($ret) {
+		    return array($ret, null);
+		}
+		if (isset($thumbnail[$id])) {
+		    $image = $thumbnail[$id];
+
+		    if (($fullSize || $maxSize) &&
+			    GalleryUtilities::isA($item, 'GalleryAlbumItem')) {
+			/* Fullsize for album highlight.. get preferred derivative source */
+			$source = $image;
+			while (GalleryUtilities::isA($source, 'GalleryDerivative') &&
+			       $source->getDerivativeType() != DERIVATIVE_TYPE_IMAGE_PREFERRED) {
+			    list ($ret, $source) =
+				GalleryCoreApi::loadEntitiesById($source->getDerivativeSourceId());
+			    if ($ret) {
+				return array($ret, null);
+			    }
+			}
+
+			list ($ret, $hasPermission) = GalleryCoreApi::hasItemPermission(
+			    (GalleryUtilities::isA($source, 'GalleryDerivative') ?
+			     $source->getParentId() : $source->getId()),
+			    'core.viewSource');
 			if ($ret) {
 			    return array($ret, null);
 			}
-			$image = isset($preferred[$id]) ? $preferred[$id] : $item;
-		    }
-		}
-		/*
-		 * Start with an arbitrarily large differential, in case we can't view the full
-		 * size or we don't have a height/width for the raw image (maybe it's not viewable?)
-		 */
-		$imageDifferential = $imageSize = 1000000;
-		if (isset($image) && method_exists($image, 'getWidth')) {
-		    $imageDifferential = abs(($image->getHeight() - $maxSize)
-					     + ($image->getWidth() - $maxSize));
-		    $imageSize = $image->getHeight() * $image->getWidth();
-		}
 
-		/* Get the list of resizes */
-		$resizes = array();
-		list ($ret, $ok) = GalleryCoreApi::hasItemPermission(
-			$derivativeParentId, 'core.viewResizes', $userId);
-		if ($ret) {
-		    return array($ret, null);
-		}
-		if ($ok) {
-		    list ($ret, $resizes) =
-			GalleryCoreApi::fetchResizesByItemIds(array($derivativeParentId));
-		    if ($ret) {
-			return array($ret, null);
-		    }
-		    $resizes = isset($resizes[$derivativeParentId]) ? $resizes[$derivativeParentId]
-								    : array();
-		}
-		if (isset($thumbnail)) {
-		    $resizes[] = $thumbnail;
-		}
+			if ($hasPermission) {
+			    $image = $source;
+			} else {
+			    if ($fullSize) {
+				/* Ignore permission error.. just don't add a block */
+				continue;
+			    }
 
-		foreach ($resizes as $imageObject) {
-		    $rawDifferential = ($imageObject->getHeight() - $maxSize)
-				     + ($imageObject->getWidth() - $maxSize);
-		    if ($biggerOnly && $rawDifferential < 0) {
-			continue;
+			    /*
+			     * We can't use this preferred because we don't have permissions
+			     * for it.  But we may still be able to use the thumbnail.
+			     */
+			    $image = $thumbnail[$id];
+			}
 		    }
-		    $resizeDifferential = abs($rawDifferential);
-		    $resizeSize = $imageObject->getHeight() * $imageObject->getWidth();
 
-		    /*
-		     * If this differential is smaller than the last, update the image target and
-		     * the comparison value.
-		     * If two differentials are equidistant, use the larger based on image size.
-		     */
-		    if ($resizeDifferential < $imageDifferential
-			    || $resizeDifferential == $imageDifferential
-			       && $resizeSize > $imageSize) {
-			$image = $imageObject;
-			$imageDifferential = $resizeDifferential;
-			$imageSize = $resizeSize;
+		    if ($maxSize && !$fullSize) {
+			/* Get the preferred item object */
+			if (!GalleryUtilities::isA($item, 'GalleryAlbumItem')) {
+			    list ($ret, $preferred) =
+				GalleryCoreApi::fetchPreferredsByItemIds(array($item->getId()));
+			    if ($ret) {
+				return array($ret, null);
+			    }
+
+			    /* Fetch resized images for size comparisons */
+			    $image = isset($preferred[$id]) ? $preferred[$id] : $item;
+			}
+
+			/* Fetch thumbnail for size comparison */
+			if (isset($thumbnail[$id])) {
+			    $thumb = $thumbnail[$id];
+			}
+
+			if ($thumb->getWidth() >= $maxSize || $thumb->getHeight() >= $maxSize) {
+			    $image = $thumb;
+			} else {
+			    /*
+			     * Gather the differences in image sizes from the requested max size
+			     *
+			     * We use absolute values for the differentials because they
+			     * could be a negative value.  We want the closest match, so
+			     * -100 is closer than +125.
+			     *
+			     * If $biggerOnly is set, then we don't want any negative differentials.
+			     */
+			    if (method_exists($image, 'getWidth')) {
+				$imageDifferential = abs(($image->getHeight() - $maxSize) +
+							 ($image->getWidth() - $maxSize));
+			    } else {
+				/*
+				 * We don't have a height/width for the raw image (maybe it's not
+				 * viewable?)  Use an arbitrarily large differential to avoid it
+				 * getting picked.
+				 */
+				$imageDifferential = 1000000;
+			    }
+			    $thumbDifferential = abs(($thumb->getHeight() - $maxSize) +
+						     ($thumb->getWidth() - $maxSize));
+
+			    /* Get the list of resizes */
+			    list ($ret, $resizes) =
+				GalleryCoreApi::fetchResizesByItemIds(array($item->getId()));
+			    if ($ret) {
+				return array($ret, null);
+			    }
+
+			    if (!empty($resizes)) {
+				foreach ($resizes as $resizedImage) {
+				    foreach ($resizedImage as $imageObject) {
+					$rawDifferential = ($imageObject->getHeight() - $maxSize) +
+					    ($imageObject->getWidth() - $maxSize);
+					if ($biggerOnly && $rawDifferential < 0) {
+					    continue;
+					}
+					$resizeDifferential = abs($rawDifferential);
+					$resizeSize =
+					    $imageObject->getHeight() * $imageObject->getWidth();
+
+					/*
+					 * If this is the first resize, or if this differential is
+					 * smaller than the last, update the image target and the
+					 * comparison value
+					 *
+					 * If two differentials are equidistant, use the larger of
+					 * the two based on image size
+					 */
+					if ($resizeDifferential < $imageDifferential) {
+					    if (!isset($lastDifferential)
+						    || ($resizeDifferential <= $lastDifferential
+							&& $resizeSize > $lastSize)) {
+						$image = $imageObject;
+						$lastDifferential = abs($resizeDifferential);
+						$lastSize = $resizeSize;
+					    } else {
+						continue;
+					    }
+					}
+				    }
+				}
+			    }
+
+
+			    /*
+			     * If the thumbnail is a closer match to the target than the full size
+			     * image or any of the resizes, use the thumbnail, unless we only want
+			     * to use bigger images to avoid having whitespace.
+			     */
+			    if (!isset($lastDifferential)) {
+				$lastDifferential = $imageDifferential;
+			    }
+
+			    if (!$biggerOnly && $thumbDifferential < $lastDifferential) {
+				$image = $thumb;
+			    }
+			}
+		    }
+
+		    /* {g->image} won't work with item!=image and image not a derivative */
+		    if (!GalleryUtilities::isA($image, 'GalleryDerivative')) {
+			$forceItem = true;
 		    }
 		}
 	    }
@@ -472,8 +484,7 @@ class ImageBlockHelper /* extends GalleryEventListener */ {
 		$itemData['deriv'] = (array)$image;
 		$itemData['owner'] = (array)$owner;
 		$itemData['thumb'] = (array)$image;
-		/* {g->image} won't work with item!=image and image not a derivative */
-		if ($image->getId() != $id && !GalleryUtilities::isA($image, 'GalleryDerivative')) {
+		if (isset($forceItem)) {
 		    $itemData['forceItem'] = true;
 		}
 		$blocks[] = $itemData;
@@ -506,23 +517,6 @@ class ImageBlockHelper /* extends GalleryEventListener */ {
 	    return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
 	}
 
-	list ($ret, $orderBy) = ImageBlockHelper::_buildOrderBy($order);
-	if ($ret) {
-	    return array($ret, null);
-	}
-	
-	list ($ret, $isCached) = ImageBlockHelper::_isCached($userId);
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	if (!$isCached) {
-	    $ret = ImageBlockHelper::cacheViewableTree($userId);
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	}
-	
 	/* Prepare the query */
 	$select[] = '[ImageBlockCacheMap::itemId]';
 	$from[] = '[ImageBlockCacheMap] LEFT JOIN [ImageBlockDisabledMap] ON ' .
@@ -532,6 +526,11 @@ class ImageBlockHelper /* extends GalleryEventListener */ {
 	$where[] = '[ImageBlockDisabledMap::itemId] IS NULL';
 	$data[] = (int)$userId;
 	$data[] = $typeMap[$itemType];
+
+	list ($ret, $orderBy) = ImageBlockHelper::_buildOrderBy($order);
+	if ($ret) {
+	    return array($ret, null);
+	}
 
 	if ($order == 'viewed' || isset($parentId)) {
 	    $select[] = '[GalleryItemAttributesMap::viewCount]';
@@ -545,9 +544,7 @@ class ImageBlockHelper /* extends GalleryEventListener */ {
 	    return array($ret, null);
 	}
 	/* Only use LIKE statement if necessary */
-	$parentSequence = null;
 	if (isset($parentId) && $parentId != $rootAlbumId) {
-	    /** @todo Evaluate adding parentSequence to the ImageBlockCachedMap (and its index) */
 	    $where[] = '[GalleryItemAttributesMap::parentSequence] LIKE ?';
 	    list ($ret, $sequence) = GalleryCoreApi::fetchParentSequence($parentId);
 	    if ($ret) {
@@ -558,21 +555,7 @@ class ImageBlockHelper /* extends GalleryEventListener */ {
 	    } else {
 		$sequence = '';
 	    }
-	    $data[] = $parentSequence = $sequence . $parentId . '/%';
-	}
-
-	if ($order == 'random') {
-	    /* Prepare where clause for use in second query below */
-	    $whereRequery = $where;
-	    $whereRequery[] = '[ImageBlockCacheMap::random] < ?';
-	    $where[] = '[ImageBlockCacheMap::random] > ?';
-	    list ($ret, $minMax) = ImageBlockHelper::getRandomKeyRange(
-		(int)$userId, $typeMap[$itemType], $parentSequence);
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	    /* We want that the returned integer is smaller than any number in the range */
-	    $data[] = ImageBlockHelper::getRandomKey($minMax[0], $minMax[1]) - 1;
+	    $data[] = $sequence . $parentId . '/%';
 	}
 
 	/* Build the query */
@@ -586,32 +569,21 @@ class ImageBlockHelper /* extends GalleryEventListener */ {
 	    return array($ret, null);
 	}
 
-	list ($ret, $results) = ImageBlockHelper::_runQuery($query, $data);
+	list ($ret, $isCached) = ImageBlockHelper::_isCached($userId);
 	if ($ret) {
 	    return array($ret, null);
 	}
 
-	/* Requery if necessary to fill requested count */
-	$remainder = $count - count($results);
-	if ($order == 'random' && $remainder > 0) {
-	    /* Using exact same query as above except for where clause */
-	    $query = 'SELECT ' . implode(', ', $select) .
-		     ' FROM ' . implode(', ', $from) .
-		     ' WHERE ' . implode(' AND ', $whereRequery) .
-		     ' ORDER BY ' . $orderBy;
-
-	    list ($ret, $query) = $storage->getFunctionSql('LIMIT', array($remainder, $query));
+	if (!$isCached) {
+	    $ret = ImageBlockHelper::cacheViewableTree($userId);
 	    if ($ret) {
 		return array($ret, null);
 	    }
+	}
 
-	    list ($ret, $resultsRequery) = ImageBlockHelper::_runQuery($query, $data);
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	    
-	    /* Combine results from both queries */
-	    $results = array_merge($results, $resultsRequery);
+	list ($ret, $results) = ImageBlockHelper::_runQuery($query, $data);
+	if ($ret) {
+	    return array($ret, null);
 	}
 
 	foreach ($results as $i => $result) {
@@ -640,7 +612,11 @@ class ImageBlockHelper /* extends GalleryEventListener */ {
 
 	switch ($order) {
 	case 'random':
-	    $orderBy = '[ImageBlockCacheMap::random] ASC';
+	    $storage =& $gallery->getStorage();
+	    list ($ret, $orderBy) = $storage->getFunctionSql('RAND', array());
+	    if ($ret) {
+		return array($ret, null);
+	    }
 	    break;
 	case 'recent':
 	    $orderBy = '[ImageBlockCacheMap::itemTimestamp] DESC';
@@ -692,8 +668,7 @@ class ImageBlockHelper /* extends GalleryEventListener */ {
     /**
      * Cache viewable data for user
      * @param int $userId
-     * @return GalleryStatus a status code
-     * @todo Respect DisabledMap on INSERT such that we don't have to join the DisabledMap on SELECT
+     * @return object GalleryStatus a status code
      */
     function cacheViewableTree($userId) {
 	global $gallery;
@@ -708,16 +683,11 @@ class ImageBlockHelper /* extends GalleryEventListener */ {
 	}
 	$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
 
-	list ($ret, $randStatement) = $storage->getFunctionSql('RANDOM_INTEGER', array());
-	if ($ret) {
-	    return $ret;
-	}
-
 	$query = '
 	INSERT INTO
 	  [ImageBlockCacheMap]
 	SELECT DISTINCT
-	  ?, ?, [GalleryEntity::creationTimestamp], [GalleryEntity::id], ' . $randStatement . '
+	  ?, ?, [GalleryEntity::creationTimestamp], [GalleryEntity::id]
 	FROM
 	  [GalleryEntity], [%s], [GalleryAccessSubscriberMap],
 	  [GalleryChildEntity], [GalleryDerivative]
@@ -877,11 +847,11 @@ class ImageBlockHelper /* extends GalleryEventListener */ {
     /**
      * Set the disabled flag for an album
      *
-     * @param GalleryAlbumItem $parentAlbum AlbumItem which is to be flagged
+     * @param object GalleryAlbumItem $parentAlbum AlbumItem which is to be flagged
      * @param boolean $recursive whether to set the disabledFlag recursively to all subalbums
      * @param boolean $disabled whether to set the disabledFlag to true or to false
      * @param boolean $useProgressBar (optional) use a progressbar during update? (default=false)
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function setDisabledFlag($parentAlbum, $recursive, $disabled, $useProgressBar=false) {
 	global $gallery;
@@ -972,7 +942,7 @@ class ImageBlockHelper /* extends GalleryEventListener */ {
      * Get the disabled flag for an item
      *
      * @param int $itemId entityId of a GalleryItem for which the flag is to be retrieved
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *               boolean disabledFlag for the GalleryDataItem
      */
     function getDisabledFlag($itemId) {
@@ -987,70 +957,6 @@ class ImageBlockHelper /* extends GalleryEventListener */ {
 	    $result = (bool)$rec[0];
 	}
 	return array(null, $result);
-    }
-
-    /**
-     * Get a random number that can be used to search later
-     * @param  int $min(optional) the minimum number to generate (default: 0)
-     * @param  int $max(optional) the maximim number to generate (default: 2147483647)
-     * @return int a number between 0 and 2147483647.
-     */
-    function getRandomKey($min=0, $max=2147483647) {
-    	global $gallery;
-    	$phpVm = $gallery->getPhpVm();
-	static $initialized = false;
-
-	if (!$initialized) {
-	    list($usec, $sec) = explode(' ', microtime());
-	    srand($sec + $usec * 100000);
-	    $initialized = true;
-	}
-	return $phpVm->rand($min, $max);
-    }
-
-    /**
-     * Determine the highest and lowest numbers currently in the random index.
-     *
-     * @param int $userId User id
-     * @param int $itemType ImageBlock itemType
-     * @param string $parentSequence (optional) Optional parent sequence condition
-     * @return array GalleryStatus a status code
-     *		     array int Minimum value of the random number to be genereated
-     *			   int Maximum value of the random number to be generated
-     */
-    function getRandomKeyRange($userId, $itemType, $parentSequence=null) {
-	global $gallery;
-	$storage = $gallery->getStorage();
-
-	$from[] = '[ImageBlockCacheMap] LEFT JOIN [ImageBlockDisabledMap] ON '
-		. '[ImageBlockCacheMap::itemId]=[ImageBlockDisabledMap::itemId]';
-	$where[] = '[ImageBlockCacheMap::userId] = ?';
-	$where[] = '[ImageBlockCacheMap::itemType] = ?';
-	$where[] = '[ImageBlockCacheMap::random] IS NOT NULL';
-	$where[] = '[ImageBlockDisabledMap::itemId] IS NULL';
-	$data = array($userId, $itemType);
-	if (!empty($parentSequence)) {
-	    $from[] = '[GalleryItemAttributesMap]';
-	    $where[] = '[ImageBlockCacheMap::itemId] = [GalleryItemAttributesMap::itemId]';
-	    $where[] = '[GalleryItemAttributesMap::parentSequence] LIKE ?';
-	    $data[] = $parentSequence;
-	}
-
-	$query = '
-	SELECT MIN([ImageBlockCacheMap::random]), MAX([ImageBlockCacheMap::random])
-	FROM ' . implode(', ', $from) . '
-	WHERE ' . implode(' AND ', $where);
-
-	list ($ret, $results) = $storage->search($query, $data);
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	if ($row = $results->nextResult()) {
-	    $min = $row[0];
-	    $max = $row[1];
-	}
-	return array(null, array($min, $max));
     }
 }
 ?>

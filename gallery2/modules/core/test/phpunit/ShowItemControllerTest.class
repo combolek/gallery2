@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,16 +33,14 @@ class ShowItemControllerTest extends GalleryControllerTestCase {
 
     function setUp() {
 	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	/* Bend the rules */
 	$this->_saveSession = $gallery->_session;
 	$gallery->_session = new GallerySession();
 	$ret = $gallery->_session->initEmpty();
 	if ($ret) {
+	    print $ret->getAsHtml();
 	    return $ret;
 	}
     }
@@ -53,10 +51,7 @@ class ShowItemControllerTest extends GalleryControllerTestCase {
 	/* Restore our session */
 	$gallery->_session = $this->_saveSession;
 
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
+	parent::tearDown();
     }
 
     function testTurnOnGuestPreviewMode() {

@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Rating 1.0.12\n"
+"Project-Id-Version: Gallery: Rating 1.0.8\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-11 17:35-0700\n"
 "PO-Revision-Date: 2006-05-24 13:08+0200\n"
@@ -30,10 +30,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.2\n"
 
-#, c-format
-msgid "Rating Album: %s"
-msgstr ""
-
 #, fuzzy
 msgid "Rating Album"
 msgstr "Balorazioa"
@@ -41,6 +37,10 @@ msgstr "Balorazioa"
 #, fuzzy
 msgid "rating album"
 msgstr "Album honentzat balorazioa gaitu"
+
+#, c-format
+msgid "Rating Album: %s"
+msgstr ""
 
 #, fuzzy, c-format
 msgid "%d vote"
@@ -145,3 +145,6 @@ msgstr "Berezarri"
 
 msgid "Rating interface"
 msgstr "Balorazio interfazea"
+
+#~ msgid "Successfully saved theme settings"
+#~ msgstr "Gai ezarpenak behar bezala gor dira"

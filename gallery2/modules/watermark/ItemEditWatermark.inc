@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -58,8 +58,7 @@ class ItemEditWatermark extends ItemEditPlugin {
 	    }
 
 	    if (empty($error)) {
-		list ($ret, $watermark) =
-		    GalleryCoreApi::loadEntitiesById($form['watermarkId'], 'WatermarkImage');
+		list ($ret, $watermark) = GalleryCoreApi::loadEntitiesById($form['watermarkId']);
 		if ($ret) {
 		    return array($ret, null, null, null);
 		}
@@ -141,7 +140,7 @@ class ItemEditWatermark extends ItemEditPlugin {
 	$total = count($itemIds);
 	while (!empty($itemIds)) {
 	    $batchIds = array_splice($itemIds, 0, 100);
-	    list ($ret, $items) = GalleryCoreApi::loadEntitiesById($batchIds, 'GalleryItem');
+	    list ($ret, $items) = GalleryCoreApi::loadEntitiesById($batchIds);
 	    if ($ret) {
 		return $ret;
 	    }
@@ -236,7 +235,7 @@ class ItemEditWatermark extends ItemEditPlugin {
 		    return $ret;
 		}
 
-		$ret = GalleryCoreApi::deleteEntityById($preferred->getId(), 'GalleryDerivative');
+		$ret = GalleryCoreApi::deleteEntityById($preferred->getId());
 		if ($ret) {
 		    return $ret;
 		}
@@ -330,7 +329,10 @@ class ItemEditWatermark extends ItemEditPlugin {
 				   'image' => isset($displayImage) ? (array)$displayImage : null,
 				   'isAlbum' => GalleryUtilities::isA($item, 'GalleryAlbumItem'));
 
-	$template->javascript('lib/yui/utilities.js');
+	$template->javascript('lib/yui/yahoo-min.js');
+	$template->javascript('lib/yui/dom-min.js');
+	$template->javascript('lib/yui/event-min.js');
+	$template->javascript('lib/yui/dragdrop-min.js');
 	$template->javascript('modules/watermark/watermark.js');
 
 	$template->setVariable('ItemEditWatermark', $ItemEditWatermark);
@@ -340,7 +342,7 @@ class ItemEditWatermark extends ItemEditPlugin {
 
     /**
      * @see ItemEditPlugin::isSupported
-     * @todo Broaden this interface to allow a GalleryStatus return code
+     * @TODO: Broaden this interface to allow a GalleryStatus return code
      */
     function isSupported($item, $thumbnail) {
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'watermark');

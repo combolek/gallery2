@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,7 +19,6 @@
  */
 
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryTheme.class');
-GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
 
 /**
  * Test GalleryTheme functionality
@@ -36,10 +35,7 @@ class ThemeTest extends GalleryTestCase {
 
     function setUp() {
 	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	$this->_platform = new ThemeTestPlatform();
 	$gallery->setPlatform($this->_platform);
@@ -47,19 +43,20 @@ class ThemeTest extends GalleryTestCase {
 	GalleryDataCache::reset();
 	list ($ret, $this->_theme) = GalleryCoreApi::loadPlugin('theme', 'ThemeTest');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_theme->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
 	$this->_theme->setRequiredThemeApi(GalleryTheme::getApiVersion());
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'core');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $this->_item) = $this->_createRandomDataItem($this->_getRootId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($this->_item);
     }
@@ -87,10 +84,7 @@ class ThemeTest extends GalleryTestCase {
 	    $this->failWithStatus($ret);
 	}
 
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
+	parent::tearDown();
     }
 
     function testPackSettingBlockList1() {
@@ -229,7 +223,7 @@ class ThemeTest extends GalleryTestCase {
 
 	$ret = $this->_theme->installOrUpgrade();
 	if ($ret && !($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH)) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert($ret && ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH),
 	    'success?');
@@ -238,7 +232,7 @@ class ThemeTest extends GalleryTestCase {
     function testActivateBadThemeApiActivate() {
 	$ret = $this->_theme->installOrUpgrade();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($major, $minor) = $this->_theme->getRequiredThemeApi();
@@ -246,13 +240,13 @@ class ThemeTest extends GalleryTestCase {
 
 	list ($ret, $redirect) = $this->_theme->activate();
 	if ($ret && !($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH)) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert($ret && ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH), 'success?');
 
 	list ($ret, $isActive) = $this->_theme->isActive();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(!$isActive, 'is active');
     }
@@ -263,7 +257,7 @@ class ThemeTest extends GalleryTestCase {
 
 	$ret = $this->_theme->installOrUpgrade();
 	if ($ret && !($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH)) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert($ret && ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH), 'success?');
     }
@@ -271,7 +265,7 @@ class ThemeTest extends GalleryTestCase {
     function testActivateBadCoreApiActivate() {
 	$ret = $this->_theme->installOrUpgrade();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($major, $minor) = $this->_theme->getRequiredCoreApi();
@@ -279,13 +273,13 @@ class ThemeTest extends GalleryTestCase {
 
 	list ($ret, $redirect) = $this->_theme->activate();
 	if ($ret && !($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH)) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert($ret && ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH), 'success?');
 
 	list ($ret, $isActive) = $this->_theme->isActive();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(!$isActive, 'is active');
     }
@@ -294,12 +288,12 @@ class ThemeTest extends GalleryTestCase {
 	$ret = GalleryCoreApi::setPluginParameter(
 	    'module', 'core', 'default.theme', 'themetest');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $redirect) = $this->_theme->deactivate();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(array('href' => 'upgrade/'), $redirect);
@@ -312,7 +306,7 @@ class ThemeTest extends GalleryTestCase {
 	$ret = $this->_theme->loadCommonTemplateData($template, $this->_item,
 						     array(), array(), array(), false);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$theme['foo'] = 'bar';
@@ -336,79 +330,12 @@ class ThemeTest extends GalleryTestCase {
 		    'photoBlocks' => $block[3], 'moreBlocks' => $block[4]),
 		array('body' => 'test.tpl'));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(
 		array('core.ThemeTestBlock1', 'core.ThemeTestBlock2', 'core.ThemeTestBlock3',
 		      'core.ThemeTestBlock4'),
 		array_keys($this->_theme->_preloadedBlocks));
-    }
-
-    function testSplitHtml() {
-    	$html = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" ...>
-	    <html lang="de-DE" xmlns="...">
-	    <head>
-	    <foo>
-	    </head>
-	    <body some="foo">
-	    <p>Example</p>
-	    </body>
-	    </html>
-    	';
-	$extraHtml = array('sidebarBlocksHtml' => 'sidebar stuff', 'other' => 1);
-
-	$results = $this->_theme->splitHtml($html, $extraHtml);
-	$this->assertEquals(array(
-	    'headHtml' => '
-	    <foo>
-	    ',
-	    'bodyHtml' => '
-	    <p>Example</p>
-	    ',
-	    'sidebarBlocksHtml' => 'sidebar stuff'),
-	    $results);
-    }
-
-    function testSplitHtmlWorksWithDefaultBacktraceLimit() {
-    	/*
-    	 * Feed splitHtml with far over 100k characters to test whether it runs into
-    	 * PHP 5.2.0's default pcre.backtrack_limit.
-    	 */
-    	$backtraceLimit = ini_get('pcre.backtrack_limit');
-    	ini_set('pcre.backtrack_limit', 100000);
-
-    	/* Generate some random HTML that exceeds the backtrace limit in length */
-    	$randomHtml = '<meta foo="bar">body head </meta>';
-    	$randomHtml = str_repeat($randomHtml, 160000 / strlen($randomHtml));
-    	$html = '
-	    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" ...>
-    	
-	    <html lang="de-DE" xmlns="...">
-	    
-	    <head>
-	    ' . $randomHtml . 'for head
-	    </head>
-	    
-	    <body some="foo">
-	    ' . $randomHtml . 'for body
-	    </body>
-	    
-	    </html>
-	    
-    	';
-    	$extraHtml = array('sidebarBlocksHtml' => 'sidebar stuff', 'other' => 1);
-
-	$results = $this->_theme->splitHtml($html, $extraHtml);
-	$this->assertEquals(array(
-	    'headHtml' => '
-	    ' . $randomHtml . 'for head
-	    ',
-	    'bodyHtml' => '
-	    ' . $randomHtml . 'for body
-	    ',
-	    'sidebarBlocksHtml' => 'sidebar stuff'),
-	    $results);
-	ini_set('pcre.backtrack_limit', $backtraceLimit);
     }
 }
 
@@ -444,7 +371,7 @@ class ThemeTestView extends GalleryView {
  */
 class ThemeTestPlatform extends GalleryPlatform {
     function opendir($path) {
-	if (strpos($path, 'themes/') !== false) {
+	if (strpos($path, '/themes/') !== false) {
 	    $this->_list = array();
 	    if ($dir = parent::opendir($path)) {
 		while (false !== ($file = parent::readdir($dir))) {
@@ -459,7 +386,7 @@ class ThemeTestPlatform extends GalleryPlatform {
     }
 
     function is_dir($path) {
-	if (strpos($path, 'themes/themetest') !== false) {
+	if (strpos($path, '/themes/themetest') !== false) {
 	    return true;
 	}
 

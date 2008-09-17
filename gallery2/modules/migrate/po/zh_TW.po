@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Migration 1.0.11\n"
+"Project-Id-Version: Gallery: Migration 1.0.7\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-08-04 17:53-0400\n"
 "PO-Revision-Date: 2005-08-04 17:53-0400\n"
@@ -40,10 +40,6 @@ msgid "Creating thumbnails"
 msgstr "建立縮略圖"
 
 #, c-format
-msgid "Thumbnail %d of %d"
-msgstr "第 %2$d 之 %1$d 個縮略圖"
-
-#, c-format
 msgid "%sTitle%s was truncated for %sitem %d%s."
 msgstr "%3$s項目%4$d%5$s的%1$s主題%2$s被刪節了。"
 
@@ -56,6 +52,10 @@ msgstr "設定："
 
 msgid "Truncated:"
 msgstr "刪節："
+
+#, c-format
+msgid "Thumbnail %d of %d"
+msgstr "第 %2$d 之 %1$d 個縮略圖"
 
 msgid "Migration"
 msgstr "遷移"
@@ -142,8 +142,8 @@ msgstr "來源文字的字元編碼："
 msgid "URL Redirection"
 msgstr "網址重導"
 
-msgid "Record G1-&gt;G2 mappings during import"
-msgstr "在引進時記錄 Gallery 1 -&gt; Gallery 2的映射"
+msgid "Record G1->G2 mappings during import"
+msgstr "在引進時記錄 Gallery 1 -> Gallery 2的映射"
 
 msgid "Thumbnail generation"
 msgstr "縮略圖生成"
@@ -266,8 +266,8 @@ msgstr "你的Gallery 1將會被從這個字元編碼轉換到UTF-8:"
 msgid "Encoding: %s"
 msgstr "編碼: %s"
 
-msgid "G1-&gt;G2 mappings will be recorded for use in URL Redirection"
-msgstr "Gallery 1-&gt;Gallery 2映射將被記錄用於網址重導"
+msgid "G1->G2 mappings will be recorded for use in URL Redirection"
+msgstr "Gallery 1->Gallery 2映射將被記錄用於網址重導"
 
 msgid "Thumbnails will be generated during migration"
 msgstr "縮略圖將在遷移過程中建立"
@@ -401,10 +401,11 @@ msgstr ""
 #, c-format
 msgid ""
 "You don't have any Graphics Toolkit activated to handle JPEG images.  If you import now, you "
-"will not have any thumbnails.  Visit the %sModules%s page to activate a Graphics Toolkit."
+"will not have any thumbnails.  Visit the <a href=\"%s\">Modules</a> page to activate a "
+"Graphics Toolkit."
 msgstr ""
-"你沒有開啟任何可處理 JPEG 的圖形工具。如果你現在引進，將不會生成任何縮略圖。請前往%s模組%s頁"
-"面啟用一個圖形工具。"
+"你沒有開啟任何可處理 JPEG 的圖形工具。如果你現在引進，將不會生成任何縮略圖。請前往<a href=\"%"
+"s\">模組</a>頁面啟用一個圖形工具。"
 
 msgid "Path to Gallery 1 albums directory"
 msgstr "到 Gallery 1 相簿目錄的路徑"
@@ -433,8 +434,8 @@ msgid "Gallery can redirect old Gallery1 URLs to the new Gallery2 pages."
 msgstr "圖庫可以把原來的 Gallery 1 網址轉到新的 Gallery 2 頁面。"
 
 #, c-format
-msgid "There is one G1-&gt;G2 map entry"
-msgid_plural "There are %d G1-&gt;G2 map entries"
+msgid "There is one G1->G2 map entry"
+msgid_plural "There are %d G1->G2 map entries"
 msgstr[0] "有 %d 個 Gallery 1 到 Gallery 2 的對映項目"
 
 msgid ""
@@ -449,3 +450,6 @@ msgstr "刪除全部"
 
 msgid "Map entries deleted successfully"
 msgstr "對映項目刪除成功"
+
+#~ msgid "G1 URL redirect. Use only if G2 is installed where G1 used"
+#~ msgstr "G1 網址重導。只有在 G2 是安裝在 G1 原來的位置上時使用"

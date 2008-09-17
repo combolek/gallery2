@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Windows Publishing Wizard 1.0.13\n"
+"Project-Id-Version: Gallery: Publish XP 1.0.7\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-07-28 12:07-0400\n"
 "PO-Revision-Date: 2005-07-28 12:07-0400\n"
@@ -31,11 +31,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-msgid "Windows Publishing Wizard"
-msgstr ""
+msgid "Windows XP"
+msgstr "Windows XP"
 
-#, fuzzy
-msgid "Publish photos to Gallery directly from Windows"
+msgid "Publish XP"
+msgstr "發表 XP"
+
+msgid "Publish photos to Gallery directly from Windows XP"
 msgstr "把相片直接從 Windows XP 發表到 Gallery"
 
 msgid "Import"
@@ -52,17 +54,16 @@ msgstr "把你的照片和影片發表到%s"
 msgid "Upload to Gallery"
 msgstr "上傳到 Gallery"
 
-#, fuzzy
 msgid ""
-"Microsoft Windows comes with a nice feature that allows you to publish content from your "
-"desktop directly to a web service.  Follow the instructions below to enable this service on "
-"your Windows system."
+"Windows XP comes with a nice feature that allows you to publish content from your desktop "
+"directly to a web service.  Follow the instructions below to enable this service on your "
+"Windows XP system."
 msgstr ""
 "Windows XP 中有一個很好用的功能，它可以把你的電腦中的文件直接發表到網站上。照著下面的指示以啟"
 "動你的 Windows XP 系統中的這個功能。"
 
-msgid "Installation"
-msgstr ""
+msgid "Step 1"
+msgstr "步驟一"
 
 msgid ""
 "Download the configuration file using right-click 'Save Target As...'  Once downloaded, "
@@ -77,53 +78,21 @@ msgstr ""
 "選合併選項（應該在選單的頂端）。它會問你是否要引進這些值到你的 registry 中。按「OK」。它會告"
 "訴你檔案已經引進成功。再按一次「OK」"
 
-msgid "(for Windows Vista)"
-msgstr ""
-
-msgid "(for Windows XP, Windows 2000 and earlier Windows versions)"
-msgstr ""
-
 msgid "Download [install_registry.reg]"
 msgstr "下載［install_registry.reg］"
 
-#, fuzzy
-msgid "Windows Vista"
-msgstr "Windows XP"
-
-#, c-format
-msgid "Open your %sWindows Photo Gallery%s."
-msgstr ""
-
-msgid "Select one or more images / files in your Windows Photo Gallery."
-msgstr ""
+msgid "Step 2"
+msgstr "步驟二"
 
 msgid ""
-"Click \"Print...\" and select the online printing option (not the local printing option)."
+"Open your Windows Explorer and browse to a folder containing supported images. Select the "
+"image(s) or a folder and there should be a link on the left that says 'Publish this file to "
+"the web...'  Click this link and then follow the instructions to log into your Gallery, "
+"select an album and publish the image."
 msgstr ""
-
-msgid "Select the Gallery 2 printing service."
-msgstr ""
-
-msgid ""
-"Then follow the instructions to log into your Gallery, select an album and publish the image"
-"(s)."
-msgstr ""
-
-msgid "Windows XP, Windows 2000 and earlier Windows versions"
-msgstr ""
-
-msgid "Open your Windows Explorer and browse to a folder containing supported images."
-msgstr ""
-
-msgid "Select the image(s) or a folder."
-msgstr ""
-
-msgid "Click the link on the left that says \"Publish this file to the web...\""
-msgstr ""
-
-#, fuzzy
-msgid "Usage"
-msgstr "用戶名稱"
+"打開你的 Windows Explorer 然後瀏覽到含有支援的圖檔類型的檔案夾。選擇圖檔或檔案夾，然後左邊應"
+"該會有一個「把這個檔案發表到網頁上...」的鏈接。按這個鏈接然後遵循它的指示，登入你的 Gallery，"
+"選擇一個相簿並出版選取的圖片。"
 
 msgid "Specify the name and title for the new album."
 msgstr "請指定新相簿的名稱和主題。"
@@ -221,21 +190,14 @@ msgstr "新相簿"
 msgid "You must select an album"
 msgstr "你必需選擇一個相簿"
 
-#~ msgid "Publish XP"
-#~ msgstr "發表 XP"
+#~ msgid "Implementation for direct publishing from XP"
+#~ msgstr "直接從 XP 出版的功能"
 
-#~ msgid "Step 1"
-#~ msgstr "步驟一"
+#~ msgid "Specify your authentication credentials."
+#~ msgstr "請指定你的認證證明"
 
-#~ msgid "Step 2"
-#~ msgstr "步驟二"
+#~ msgid "Specify extra options for uploaded photos"
+#~ msgstr "指定上傳的照片的額外選項。"
 
-#~ msgid ""
-#~ "Open your Windows Explorer and browse to a folder containing supported images. Select the "
-#~ "image(s) or a folder and there should be a link on the left that says 'Publish this file "
-#~ "to the web...'  Click this link and then follow the instructions to log into your "
-#~ "Gallery, select an album and publish the image."
-#~ msgstr ""
-#~ "打開你的 Windows Explorer 然後瀏覽到含有支援的圖檔類型的檔案夾。選擇圖檔或檔案夾，然後左邊"
-#~ "應該會有一個「把這個檔案發表到網頁上...」的鏈接。按這個鏈接然後遵循它的指示，登入你的 "
-#~ "Gallery，選擇一個相簿並出版選取的圖片。"
+#~ msgid "Choose an album"
+#~ msgstr "選擇一個相簿"

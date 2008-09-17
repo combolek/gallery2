@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,6 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
-
 /**
  * ItemMoveSingle controller tests
  * @package GalleryCore
@@ -34,10 +32,7 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
     }
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	/* Register a dummy toolkit */
 	$path = 'modules/core/test/phpunit/ItemMoveSingleControllerTest.class';
@@ -45,7 +40,8 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 	    'GalleryToolkit', 'ItemMoveSingleTestToolkit', 'ItemMoveSingleTestToolkit', $path,
 	    'coreTest', null);
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markToolkitForCleanup('ItemMoveSingleTestToolkit');
 
@@ -56,7 +52,8 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 		      array('type' => 'int', 'description' => 'foo')),
 		'test-description');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$ret = GalleryCoreApi::registerToolkitOperation('ItemMoveSingleTestToolkit',
 		array('image/test'), 'scale',
@@ -64,7 +61,8 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 		      array('type' => 'int', 'description' => 'foo')),
 		'test-description');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$ret = GalleryCoreApi::registerToolkitOperation('ItemMoveSingleTestToolkit',
 		array('image/test'), 'crop',
@@ -73,12 +71,14 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 		      array('type' => 'float', 'description' => 'foo'),
 		      array('type' => 'float', 'description' => 'foo')), 'test-description');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $this->_rootAlbum) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->_markForCleanup($this->_rootAlbum);
@@ -86,7 +86,8 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $this->_destinationAlbum) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->_markForCleanup($this->_destinationAlbum);
@@ -96,7 +97,8 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 	list ($ret, $this->_item) = $this->_createRandomDataItem(
 		$this->_rootAlbum->getId(), 'image/test', array('width' => 1000));
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
     }
 
@@ -106,18 +108,21 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 	$thumbSize = array_shift($args);
 	$ret = GalleryCoreApi::removeDerivativePreferencesForItem($itemId);
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$ret = GalleryCoreApi::addDerivativePreference(0, $itemId,
 		   DERIVATIVE_TYPE_IMAGE_THUMBNAIL, 'thumbnail|' . $thumbSize);
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	foreach ($args as $i => $resizeSize) {
 	    $ret = GalleryCoreApi::addDerivativePreference($i+1, $itemId,
 			DERIVATIVE_TYPE_IMAGE_RESIZE, 'scale|' . $resizeSize);
 	    if ($ret) {
-		return $ret;
+		print $ret->getAsHtml();
+		return $this->failWithStatus($ret);
 	    }
 	}
     }
@@ -129,7 +134,8 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 	$data = array();
 	list ($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds($itemIds);
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	foreach ($thumbnails as $id => $deriv) {
 	    $data[$id][] = array('type' => $deriv->getDerivativeType(),
@@ -137,7 +143,8 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 	}
 	list ($ret, $resizes) = GalleryCoreApi::fetchResizesByItemIds($itemIds);
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	foreach ($resizes as $id => $derivs) {
 	    foreach ($derivs as $deriv) {
@@ -156,7 +163,7 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 	$ret = GalleryCoreApi::addExistingItemToAlbum(
 				$this->_item, $this->_rootAlbum->getId(), true);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Verify derivatives were created ok */
@@ -183,7 +190,7 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 	/* Verify parent sequence */
 	list ($ret, $parentSequence) = GalleryCoreApi::fetchParentSequence($this->_item->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(array($this->_getRootId(),
 				  $this->_destinationAlbum->getId()),
@@ -213,7 +220,7 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 	/* Verify parent sequence */
 	list ($ret, $parentSequence) = GalleryCoreApi::fetchParentSequence($this->_item->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(array($this->_getRootId(),
 				  $this->_rootAlbum->getId()),
@@ -265,7 +272,8 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
     function testMoveItemIntoChild() {
 	list ($ret, $this->_childAlbum) = $this->_createRandomAlbum($this->_rootAlbum->getId());
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	GalleryUtilities::putRequestVariable('itemId', $this->_rootAlbum->getId());
@@ -284,8 +292,6 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
      * Test moving an item into a container where we have no add permissions
      */
     function testMoveItemIntoAlbumWithNoPermissions() {
-    	global $gallery;
-
 	GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
 	GalleryUtilities::putRequestVariable('form[action][move]', 1);
 	GalleryUtilities::putRequestVariable('form[destination]',
@@ -293,13 +299,7 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 
 	$ret = GalleryCoreApi::removeItemPermissions($this->_destinationAlbum->getId());
 	if ($ret) {
-	    return $ret;
-	}
-
-	$ret = GalleryCoreApi::addUserPermission(
-	    $this->_destinationAlbum->getId(), $gallery->getActiveUserId(), 'core.view');
-	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	// The UI never displays targets that we can't add to
@@ -310,8 +310,6 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
      * Test moving an item that we can't delete
      */
     function testMoveItemWithNoDeletePermissions() {
-	global $gallery;
-
 	GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
 	GalleryUtilities::putRequestVariable('form[action][move]', 1);
 	GalleryUtilities::putRequestVariable('form[destination]',
@@ -319,12 +317,7 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 
 	$ret = GalleryCoreApi::removeItemPermissions($this->_item->getId());
 	if ($ret) {
-	    return $ret;
-	}
-	$ret = GalleryCoreApi::addUserPermission(
-	    $this->_item->getId(), $gallery->getActiveUserId(), 'core.view');
-	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	// The UI shouldn't allow us to try to move an item that we can't delete
@@ -339,28 +332,28 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 	$ret = GalleryCoreApi::addExistingItemToAlbum(
 				$this->_item, $this->_rootAlbum->getId(), true);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Add crop operation */
 	list ($ret, $thumbnails) =
 	    GalleryCoreApi::fetchThumbnailsByItemIds(array($this->_item->getId()));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$thumb = $thumbnails[$this->_item->getId()];
 	list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($thumb->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$thumb->setDerivativeOperations('crop|0,0,50,50;' . $thumb->getDerivativeOperations());
 	$ret = $thumb->save();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$ret = GalleryCoreApi::releaseLocks($lockId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Verify derivatives were created ok */

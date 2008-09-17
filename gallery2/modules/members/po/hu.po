@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -23,11 +23,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Members 1.0.7\n"
+"Project-Id-Version: Gallery: Members 1.0.5\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-23 11:29+0100\n"
-"PO-Revision-Date: 2007-03-31 18:01+0100\n"
-"Last-Translator: Rekedt-Nagy József <jozsef.rnagy@site.hu>\n"
+"PO-Revision-Date: 2007-03-10 23:57+0100\n"
+"Last-Translator: Sándor Dibuz <ha3pg@dwatt.com>\n"
 "Language-Team: magyar <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -36,23 +36,22 @@ msgstr ""
 "X-Generator: KBabel 1.11.4\n"
 
 msgid "Everybody"
-msgstr "Mindenki"
+msgstr "mindenki"
 
 msgid "Registered Users"
-msgstr "Regisztrált felhasználók"
+msgstr "regisztrált felhasználók"
 
 msgid "Site Admins"
-msgstr "Adminisztrátorok"
+msgstr "adminisztrátorok"
 
 msgid "Show Email Addresses"
-msgstr "Mutassa az email címeket"
+msgstr "mutassa meg az email címeket"
 
 msgid "Don't Show Email Addresses"
-msgstr "Ne mutassa az email címeket"
+msgstr "ne mutassa meg az email címeket"
 
-# Items != Photos
 msgid "Member Items"
-msgstr "Tag Elemei"
+msgstr "Tag képei"
 
 msgid "Members List"
 msgstr "Tagok listája"
@@ -64,7 +63,7 @@ msgid "Members"
 msgstr "Tagok"
 
 msgid "Members List and Profiles"
-msgstr "Tagok listája és adatai"
+msgstr "Tagok listája, es adatai"
 
 msgid "Gallery"
 msgstr "Galéria"
@@ -76,7 +75,7 @@ msgid "Settings saved successfully"
 msgstr "Beállítások sikeresen elmentve"
 
 msgid "This will select who can see the members list and member profiles."
-msgstr "Itt adhatod meg, hogy ki tekintheti meg a tagok listáját és adatait."
+msgstr "Itt adhatja meg, hogy ki tekintheti meg a tagok listáját és adatait."
 
 msgid ""
 "This will select if email addresses are displayed in the member profiles.  Administrators "
@@ -93,7 +92,7 @@ msgstr "Visszaállítás"
 
 #, c-format
 msgid "Member Items for %s"
-msgstr "%s elemei"
+msgstr "%s képei"
 
 #, c-format
 msgid "%d item total"
@@ -101,20 +100,20 @@ msgid_plural "%d items total"
 msgstr[0] "összesen %d elem"
 
 msgid "&laquo; first"
-msgstr "&laquo; első"
+msgstr "&laquo;·első"
 
 msgid "&laquo; back"
-msgstr "&laquo; vissza"
+msgstr "&laquo;·vissza"
 
 #, c-format
 msgid "Viewing page %d of %d"
 msgstr "Oldal: %d/%d"
 
 msgid "next &raquo;"
-msgstr "következő &raquo;"
+msgstr "következő·&raquo;"
 
 msgid "last &raquo;"
-msgstr "utolsó &raquo;"
+msgstr "utolsó·&raquo;"
 
 msgid "Type"
 msgstr "Típus"
@@ -141,6 +140,7 @@ msgstr "Nincs"
 msgid "%d member"
 msgid_plural "%d members"
 msgstr[0] "%d tag"
+msgstr[1] "%d tag"
 
 msgid "#"
 msgstr "#"
@@ -171,6 +171,7 @@ msgstr "Tagság kezdete:"
 msgid "(%d day)"
 msgid_plural "(%d days)"
 msgstr[0] "(%d nap)"
+msgstr[1] "(%d nap)"
 
 msgid "(today)"
 msgstr "(ma)"
@@ -185,6 +186,7 @@ msgstr "Valamennyi listázása &raquo;"
 msgid "%s member"
 msgid_plural "%s members"
 msgstr[0] "%s tag"
+msgstr[1] "%s tag"
 
 msgid "Members Block"
 msgstr "Tag blokk"

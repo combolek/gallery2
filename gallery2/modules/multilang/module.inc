@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,12 +33,18 @@ class MultiLangModule extends GalleryModule /* and GalleryEventListener */ {
 	$this->setId('multilang');
 	$this->setName($gallery->i18n('MultiLanguage'));
 	$this->setDescription($gallery->i18n('Support item captions in multiple languages'));
-	$this->setVersion('1.0.11');
-	$this->_templateVersion = 1;
+	$this->setVersion('1.0.7');
 	$this->setGroup('data', $gallery->i18n('Extra Data'));
-	$this->setCallbacks('getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 43));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setCallbacks('getSiteAdminViews|registerEventListeners');
+	$this->setRequiredCoreApi(array(7, 10));
+	$this->setRequiredModuleApi(array(3, 0));
+    }
+
+    /**
+     * @see GalleryModule::registerEventListeners
+     */
+    function registerEventListeners() {
+	GalleryCoreApi::registerEventListener('GalleryEntity::delete', new MultiLangModule());
     }
 
     /**
@@ -80,13 +86,6 @@ class MultiLangModule extends GalleryModule /* and GalleryEventListener */ {
 	    return $ret;
 	}
 
-	$ret = GalleryCoreApi::registerFactoryImplementation(
-	    'GalleryEventListener', 'MultiLangModule', 'MultiLangModule', 
-	    'modules/multilang/module.inc', 'multilang', array('GalleryEntity::delete'));
-	if ($ret) {
-	    return $ret;
-	}
-	
 	return null;
     }
 

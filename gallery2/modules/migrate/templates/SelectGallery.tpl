@@ -1,6 +1,8 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
 <div class="gbBlock gcBackground1">
   <h2> {g->text text="Import from Gallery 1"} </h2>
@@ -15,7 +17,7 @@
   {capture name="url"}
     {g->url arg1="view=core.SiteAdmin" arg2="subView=core.AdminPlugins"}
   {/capture}
-  {g->text text="You don't have any Graphics Toolkit activated to handle JPEG images.  If you import now, you will not have any thumbnails.  Visit the %sModules%s page to activate a Graphics Toolkit." arg1="<a href=\"`$smarty.capture.url`\">" arg2="</a>"}
+  {g->text text="You don't have any Graphics Toolkit activated to handle JPEG images.  If you import now, you will not have any thumbnails.  Visit the <a href=\"%s\">Modules</a> page to activate a Graphics Toolkit." arg1=$smarty.capture.url}
 </p></div>
 {/if}
 
@@ -88,7 +90,7 @@
 
   {if $SelectGallery.mapCount>0}
     <span>
-      {g->text one="There is one G1-&gt;G2 map entry" many="There are %d G1-&gt;G2 map entries"
+      {g->text one="There is one G1->G2 map entry" many="There are %d G1->G2 map entries"
 	       count=$SelectGallery.mapCount arg1=$SelectGallery.mapCount}
     </span>
     &nbsp;

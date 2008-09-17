@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,7 +24,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Image Block 1.1.8\n"
+"Project-Id-Version: Gallery: Image Block 1.1.0\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2003-02-11 03:09-0800\n"
 "PO-Revision-Date: 2005-08-11 08:29-0500\n"
@@ -45,6 +45,24 @@ msgstr "Случайна, ай-нова или най-гледана снимк�
 
 msgid "Blocks"
 msgstr "Блокове"
+
+msgid "Picture of the Day"
+msgstr "Снимка на деня"
+
+msgid "Picture of the Week"
+msgstr "Снимка на седмицата"
+
+msgid "Picture of the Month"
+msgstr "Снимка на месеца"
+
+msgid "Album of the Day"
+msgstr "Албум на деня"
+
+msgid "Album of the Week"
+msgstr "Албум на седмицата"
+
+msgid "Album of the Month"
+msgstr "Албум на месеца"
 
 #, fuzzy
 msgid "Random Image"
@@ -81,24 +99,6 @@ msgid "Most Viewed Album"
 msgid_plural "Most Viewed Albums"
 msgstr[0] "Най-гледан Албум"
 msgstr[1] "Най-гледан Албум"
-
-msgid "Picture of the Day"
-msgstr "Снимка на деня"
-
-msgid "Picture of the Week"
-msgstr "Снимка на седмицата"
-
-msgid "Picture of the Month"
-msgstr "Снимка на месеца"
-
-msgid "Album of the Day"
-msgstr "Албум на деня"
-
-msgid "Album of the Week"
-msgstr "Албум на седмицата"
-
-msgid "Album of the Month"
-msgstr "Албум на месеца"
 
 msgid "Date:"
 msgstr "Дата:"
@@ -179,10 +179,9 @@ msgstr ""
 "randomAlbum, recentAlbum, viewedAlbum, dailyImage, weeklyImage, monthlyImage, dailyAlbum, "
 "weeklyAlbum, monthlyAlbum, specificItem; презададеното е randomImage"
 
-#, fuzzy
 msgid ""
-"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize, rawImage; "
-"the value can also be: none"
+"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize; the value "
+"can also be: none"
 msgstr ""
 "Разделен с '|' списък с избрани от следните параметри: title, date, views, owner, heading, "
 "fullSize;  стойноста също така може и да е: none"
@@ -304,3 +303,9 @@ msgstr "Показване на броя прегледи"
 
 msgid "Show owner"
 msgstr "Показване на притежателя"
+
+#~ msgid "Scale images to this maximum size"
+#~ msgstr "Оразмерете то следната максимална големина"
+
+#~ msgid "Random/Popular"
+#~ msgstr "Случайно/Най-популярно"

@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,6 +38,7 @@ class PasswordEntryController extends GalleryController {
      * @see GalleryController::handleRequest
      */
     function handleRequest($form) {
+	global $gallery;
 	$status = $error = array();
 
 	if (isset($form['action']['password'])
@@ -55,7 +56,7 @@ class PasswordEntryController extends GalleryController {
 		    return array($ret, null);
 		}
 		if (isset($hiddenInterface)) {
-		    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
+		    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 		    if (!$ret) {
 			list ($ret, $canSee) = $hiddenInterface->isHidden($item);
 			if ($ret) {
@@ -118,8 +119,14 @@ class PasswordEntryController extends GalleryController {
 	    }
 
 	    if (empty($error) && $isCorrect) {
-		GalleryCoreApi::addPermissionToSession($itemId);
-
+		$session =& $gallery->getSession();
+		if (!$session->exists(GALLERY_PERMISSION_SESSION_KEY)) {
+		    $session->put(GALLERY_PERMISSION_SESSION_KEY, array());
+		}
+		$sessionPerms =& $session->get(GALLERY_PERMISSION_SESSION_KEY);
+		if (!in_array($itemId, $sessionPerms)) {
+		    $sessionPerms[] = (int)$itemId;
+		}
 		$results['redirect']['view'] = 'core.ShowItem';
 		$results['redirect']['itemId'] = $itemId;
 	    } else if (empty($error)) {

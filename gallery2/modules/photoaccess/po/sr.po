@@ -1,7 +1,7 @@
-# $Id$
+# $Id: sr.po 16040 2007-03-16 23:04:36Z mindless $
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,10 +19,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: PhotoWorks 1.0.12\n"
+"Project-Id-Version: Gallery: PhotoWorks 1.0.7\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-08-14 16:53+0200\n"
-"PO-Revision-Date: 2007-04-16 03:29+0100\n"
+"PO-Revision-Date: 2005-09-07 20:45+0200\n"
 "Last-Translator: Jozef Selesi <selesi@gmail.com>\n"
 "Language-Team: Srpski <gallery-translations@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -30,33 +30,40 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.10\n"
 
-msgid "PhotoWorks Fulfillment Error"
-msgstr "Greška u komunikaciji sa PhotoWorks servisom"
+msgid "PhotoAccess Fulfillment Error"
+msgstr "Greška u komunikaciji sa PhotoAccess servisom"
 
 msgid "PhotoWorks"
-msgstr "PhotoWorks"
+msgstr ""
 
+#, fuzzy
 msgid "PhotoWorks Photo Printing Module"
-msgstr "Modul za izradu fotografija preko PhotoWorks servisa"
+msgstr "Modul za izradu fotografija preko PhotoAccess servisa"
 
 msgid "Commerce"
 msgstr "Komercijalni"
 
-msgid "[photoworks] Print"
-msgstr "[photoworks] Štampa"
+#, fuzzy
+msgid "[photoaccess] Print"
+msgstr "PhotoAccess"
 
+#, fuzzy
 msgid "Print on PhotoWorks.com"
-msgstr "Izrada preko PhotoWorks.com"
+msgstr "Izrada preko PhotoAccess.com"
 
-msgid "Print with PhotoWorks"
-msgstr "Izrada (PhotoWorks)"
+msgid "Print with PhotoAccess"
+msgstr "Izrada (PhotoAccess)"
 
+#, fuzzy
 msgid ""
 "An error occurred while sending your photos over to PhotoWorks.com for printing.  If this "
 "failure occurs more than once, please contact your system administrator for assistance."
 msgstr ""
-"Desila se greška u toku slanja vaših fotografija na PhotoWorks.com na izradu. Ako se ova "
+"Desila se greška u toku slanja vaših fotografija na PhotoAccess.com na izradu. Ako se ova "
 "greška javi više puta, potražite pomoć od vašeg administratora sistema."
 
 msgid "View your cart"
 msgstr "Pregled vaše korpe"
+
+#~ msgid "PhotoAccess"
+#~ msgstr "PhotoAccess"

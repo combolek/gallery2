@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -26,9 +26,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: EXIF/IPTC 1.2.4\n"
+"Project-Id-Version: Gallery: EXIF/IPTC 1.1.0\n"
 "POT-Creation-Date: 2003-02-11 03:09-0800\n"
-"PO-Revision-Date: 2008-07-25 23:42+0100\n"
+"PO-Revision-Date: 2006-10-11 22:22+0100\n"
 "Last-Translator: Jens Tkotz <jens@peino.de>\n"
 "Language-Team: German <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -622,7 +622,7 @@ msgid "IPTC: City"
 msgstr "IPTC: Ort/Stadt"
 
 msgid "IPTC: Province State"
-msgstr "IPTC: Bundesland/Staat"
+msgstr "IPTC: Bundesland"
 
 msgid "IPTC: Country Name"
 msgstr "IPTC: Land"
@@ -638,12 +638,6 @@ msgstr "IPTC: Copyright-Status"
 
 msgid "IPTC: Time Created"
 msgstr "IPTC: Erstellungszeit"
-
-msgid "IPTC: Content Location Name"
-msgstr "IPTC: Örtlichkeit"
-
-msgid "IPTC: Sub Location"
-msgstr "IPTC: Untergeordnete Örtlichkeit"
 
 msgid "EXIF/IPTC Settings"
 msgstr "EXIF/IPTC-Einstellungen"
@@ -808,21 +802,11 @@ msgstr ""
 msgid "Rotate pictures automatically"
 msgstr "Bilder automatisch drehen"
 
-msgid ""
-"Warning: No toolkit support for rotation of JPEG images.  Make sure to activate a toolkit "
-"module if using this option."
-msgstr ""
-"Warnung: Keines Ihrer aktiven Graphikwerkzeuge unterstützt das rotieren von JPEG Bilder.  "
-"Aktivieren Sie ein Graphikwerkzeug, das dies Funktionalität hat um dieses Modul zu nutzen."
-
 msgid "Preserve Original on Rotating"
 msgstr "Originalbild trotz Drehung bewahren"
 
 msgid "Save"
 msgstr "Speichern"
-
-msgid "Loading.."
-msgstr "Lade..."
 
 msgid "Photo Properties"
 msgstr "Photo-Eigenschaften"

@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,10 +21,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Slideshow 1.0.11\n"
+"Project-Id-Version: Gallery: Slideshow 1.0.5\n"
 "POT-Creation-Date: 2003-02-11 03:09-0800\n"
-"PO-Revision-Date: 2008-06-17 16:10+0100\n"
-"Last-Translator: Jure Babnik <jure@salve.si>\n"
+"PO-Revision-Date: 2006-04-29 13:17+0100\n"
+"Last-Translator: Janez <janez@tegleda.com>\n"
 "Language-Team: Slovenian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -32,198 +32,157 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: KBabel 1.10\n"
 
+msgid "Slideshow"
+msgstr "Diapozitivi"
+
 #, c-format
 msgid "Slideshow for %s"
 msgstr "Diapozitivi za %s"
-
-msgid "Slideshow"
-msgstr "Diapozitivi"
 
 msgid "Display"
 msgstr "Prikaži"
 
 msgid "View Slideshow"
-msgstr "Poglej diapozitive"
+msgstr "Poglej Diapozitive"
 
 msgid "Path to an item (eg, /album/image.jpg.html)"
 msgstr "Pot do predmeta (eg, /album/image.jpg.html)"
 
-#, fuzzy
-msgid "Slideshow Settings"
-msgstr "Diapozitivi"
+msgid "Blend"
+msgstr "Preliv"
+
+msgid "Blinds"
+msgstr "Prehod"
+
+msgid "Checkerboard"
+msgstr "Sestavljanje"
+
+msgid "Diagonal"
+msgstr "Po diagonali"
+
+msgid "Doors"
+msgstr "Vrata"
+
+msgid "Gradient"
+msgstr "Gradientni"
+
+msgid "Iris"
+msgstr "Iris"
+
+msgid "Pinwheel"
+msgstr "Kolo"
+
+msgid "Pixelate"
+msgstr "Po pikslih"
+
+msgid "Radial"
+msgstr "Radial"
+
+msgid "Rain"
+msgstr "Dež"
+
+msgid "Slide"
+msgstr "Dapozitivi"
+
+msgid "Snow"
+msgstr "Sneg"
+
+msgid "Spiral"
+msgstr "Spiralno"
+
+msgid "Stretch"
+msgstr "Skrči"
+
+msgid "RANDOM"
+msgstr "NAKLJUČNO"
+
+msgid "This album has no photos to show in a slideshow."
+msgstr "Ta Album nima nobenih slik."
+
+msgid "Back to Album View"
+msgstr "Nazaj Na Album"
 
 #, c-format
-msgid "Installed PicLens version %s"
-msgstr ""
+msgid "Date: %s"
+msgstr "Datum %s"
 
-msgid "An error occurred while downloading PicLens!"
-msgstr ""
+msgid "Hide More Info"
+msgstr "Skrij Več Informacij"
 
-msgid "Uninstalled PicLens"
-msgstr ""
+msgid "Show More Info"
+msgstr "Prikaži Več Informacij"
 
-#, c-format
-msgid ""
-"Gallery can optionally use a Flash and JavaScript based slideshow from %s to provide users "
-"with the best possible viewing experience.  Gallery can install %s for you automatically, or "
-"you can choose to use an HTML slideshow."
-msgstr ""
+msgid "Resume"
+msgstr "Nadaljuj"
 
-#, c-format
-msgid "Version %s installed."
-msgstr ""
+msgid "Pause"
+msgstr "Pavza"
 
-msgid "There's a newer version of PicLens available."
-msgstr ""
+msgid "[-]"
+msgstr "[-]"
 
-msgid "PicLens downloads are currently unavailable.  Please try again later."
-msgstr ""
+msgid "[+]"
+msgstr "[+]"
 
-#, c-format
-msgid "Install PicLens version %s"
-msgstr ""
+msgid "Stop"
+msgstr "Ustavi"
 
-#, c-format
-msgid "Update to PicLens version %s"
-msgstr ""
+msgid "Back One Image"
+msgstr "Eno Sliko Nazaj"
 
-msgid "Uninstall PicLens"
-msgstr ""
+msgid "delay: "
+msgstr "Zamik:"
 
-#~ msgid "Blend"
-#~ msgstr "Preliv"
+msgid "1 second"
+msgstr "1 Sekunda"
 
-#~ msgid "Blinds"
-#~ msgstr "Prehod"
+msgid "3 seconds"
+msgstr "3 Sekunde"
 
-#~ msgid "Checkerboard"
-#~ msgstr "Sestavljanje"
+msgid "5 seconds"
+msgstr "5 Sekund"
 
-#~ msgid "Diagonal"
-#~ msgstr "Po diagonali"
+msgid "10 seconds"
+msgstr "10 Sekund"
 
-#~ msgid "Doors"
-#~ msgstr "Vrata"
+msgid "15 seconds"
+msgstr "15 Sekund"
 
-#~ msgid "Gradient"
-#~ msgstr "Gradientni"
+msgid "20 seconds"
+msgstr "20 Sekund"
 
-#~ msgid "Iris"
-#~ msgstr "Iris"
+msgid "direction: "
+msgstr "Smer:"
 
-#~ msgid "Pinwheel"
-#~ msgstr "Kolo"
+msgid "forward"
+msgstr "naprej"
 
-#~ msgid "Pixelate"
-#~ msgstr "Po pikslih"
+msgid "reverse"
+msgstr "vzvratno"
 
-#~ msgid "Radial"
-#~ msgstr "Radial"
+msgid "random"
+msgstr "naključno"
 
-#~ msgid "Rain"
-#~ msgstr "Dež"
+msgid "max size: "
+msgstr "Največja velikost:"
 
-#~ msgid "Slide"
-#~ msgstr "Dapozitivi"
+msgid "320x320"
+msgstr "320x320"
 
-#~ msgid "Snow"
-#~ msgstr "Sneg"
+msgid "640x640"
+msgstr "640x640"
 
-#~ msgid "Spiral"
-#~ msgstr "Spiralno"
+msgid "800x800"
+msgstr "800x800"
 
-#~ msgid "Stretch"
-#~ msgstr "Skrči"
+msgid "1024x1024"
+msgstr "1024x1024"
 
-#~ msgid "RANDOM"
-#~ msgstr "NAKLJUČNO"
+msgid "1280x1280"
+msgstr "1280x1280"
 
-#~ msgid "This album has no photos to show in a slideshow."
-#~ msgstr "Ta album nima nobenih slik."
+msgid "no limit"
+msgstr "Brez Omejitve"
 
-#~ msgid "Back to Album View"
-#~ msgstr "Nazaj na album"
-
-#~ msgid "Date: %s"
-#~ msgstr "Datum %s"
-
-#~ msgid "Hide More Info"
-#~ msgstr "Skrij več informacij"
-
-#~ msgid "Show More Info"
-#~ msgstr "Več informacij"
-
-#~ msgid "Resume"
-#~ msgstr "Nadaljuj"
-
-#~ msgid "Pause"
-#~ msgstr "Pavza"
-
-#~ msgid "[-]"
-#~ msgstr "[-]"
-
-#~ msgid "[+]"
-#~ msgstr "[+]"
-
-#~ msgid "Stop"
-#~ msgstr "Ustavi"
-
-#~ msgid "Back One Image"
-#~ msgstr "Eno nazaj"
-
-#~ msgid "delay: "
-#~ msgstr "Zamik:"
-
-#~ msgid "1 second"
-#~ msgstr "1 sekunda"
-
-#~ msgid "3 seconds"
-#~ msgstr "3 sekunde"
-
-#~ msgid "5 seconds"
-#~ msgstr "5 sekund"
-
-#~ msgid "10 seconds"
-#~ msgstr "10 sekund"
-
-#~ msgid "15 seconds"
-#~ msgstr "15 sekund"
-
-#~ msgid "20 seconds"
-#~ msgstr "20 sekund"
-
-#~ msgid "direction: "
-#~ msgstr "Smer:"
-
-#~ msgid "forward"
-#~ msgstr "naprej"
-
-#~ msgid "reverse"
-#~ msgstr "vzvratno"
-
-#~ msgid "random"
-#~ msgstr "naključno"
-
-#~ msgid "max size: "
-#~ msgstr "Največja velikost:"
-
-#~ msgid "320x320"
-#~ msgstr "320x320"
-
-#~ msgid "640x640"
-#~ msgstr "640x640"
-
-#~ msgid "800x800"
-#~ msgstr "800x800"
-
-#~ msgid "1024x1024"
-#~ msgstr "1024x1024"
-
-#~ msgid "1280x1280"
-#~ msgstr "1280x1280"
-
-#~ msgid "no limit"
-#~ msgstr "Brez omejitve"
-
-#~ msgid "fade: "
-#~ msgstr "prehod:"
+msgid "fade: "
+msgstr "prehod:"

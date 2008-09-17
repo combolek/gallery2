@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,7 +32,8 @@ class CoreCallbacks {
 	switch($callback) {
 	case 'LoadLanguageSelector':
 	    $languageList = array();
-	    $supportedLanguages = GalleryCoreApi::getSupportedLanguages();
+	    $translator =& $gallery->getTranslator();
+	    $supportedLanguages = $translator->getSupportedLanguages();
 	    foreach ($supportedLanguages as $language => $countryList) {
 		foreach ($countryList as $country => $languageData) {
 		    $languageList[$language . '_' . $country] = $languageData['description'];
@@ -90,8 +91,7 @@ class CoreCallbacks {
 		    return $ret;
 		}
 		if ($canViewParent) {
-		    list ($ret, $parent) =
-			GalleryCoreApi::loadEntitiesById($item['parentId'], 'GalleryItem');
+		    list ($ret, $parent) = GalleryCoreApi::loadEntitiesById($item['parentId']);
 		    if ($ret) {
 			return $ret;
 		    }
@@ -132,7 +132,7 @@ class CoreCallbacks {
 		    $peerMap[$peerLast] = $peerIds[$peerLast];
 		}
 
-		list ($ret, $peerItems) = GalleryCoreApi::loadEntitiesById($peerMap, 'GalleryItem');
+		list ($ret, $peerItems) = GalleryCoreApi::loadEntitiesById($peerMap);
 		if ($ret) {
 		    return $ret;
 		}

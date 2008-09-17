@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,13 +31,12 @@ class WebDavModule extends GalleryModule /* and GalleryEventListener */ {
 
 	$this->setId('webdav');
 	$this->setName($gallery->i18n('WebDAV'));
-	$this->setVersion('1.0.8'); /* Update upgrade() too! */
-	$this->_templateVersion = 1;
+	$this->setVersion('1.0.0.4'); /* Update upgrade() too! */
 	$this->setDescription($gallery->i18n('Mount Gallery on your desktop.'));
 	$this->setGroup('interfaces', $gallery->i18n('Remote Interfaces'));
-	$this->setCallbacks('getItemLinks|getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 53));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setCallbacks('getItemLinks|getSiteAdminViews|registerEventListeners');
+	$this->setRequiredCoreApi(array(7, 17));
+	$this->setRequiredModuleApi(array(3, 5));
     }
 
     /**
@@ -50,15 +49,14 @@ class WebDavModule extends GalleryModule /* and GalleryEventListener */ {
 	if ($ret) {
 	    return $ret;
 	}
+    }
 
-	$ret = GalleryCoreApi::registerFactoryImplementation(
-	    'GalleryEventListener', 'WebDavModule', 'WebDavModule', 
-	    'modules/webdav/module.inc', 'webdav', array('Gallery::ActivatePlugin'));
-	if ($ret) {
-	    return $ret;
-	}
-
-	return null;
+    /**
+     * @see GalleryModule::registerEventListeners
+     */
+    function registerEventListeners() {
+	return GalleryCoreApi::registerEventListener(
+	    'Gallery::ActivatePlugin', new WebDavModule(), true);
     }
 
     /**
@@ -139,29 +137,15 @@ class WebDavModule extends GalleryModule /* and GalleryEventListener */ {
 	    /* Version 1.0.0 for Gallery 2.2 release */
 
 	case '1.0.0':
-	    /* .mo file migration */
-
-	case '1.0.1':
 	    /* Avoid matching paths starting with 'w[^/]' with URL rewrite rule keyword */
 	    $ret = $this->_activateRewriteRules();
 	    if ($ret && !($ret->getErrorCode() & ERROR_CONFIGURATION_REQUIRED)) {
 		return $ret;
 	    }
-
 	case '1.0.0.1':
-	    /* Changes from version 1.0.2 merged into branch_2_2 */
-	case '1.0.2':
+	    /* Fix entity-type bug (1681406) */
 	case '1.0.0.2':
-	case '1.0.3':
 	case '1.0.0.3':
-	case '1.0.0.4':
-	    /* Gallery 2.2.4 security release */
-	case '1.0.4':
-	    /* Refactored to new event registration from core API 7.34 */
-	case '1.0.5':
-	case '1.0.6':
-	    /* Require minimum core API 7.45 */
-	case '1.0.7':
 
 	case 'end of upgrade path':
 	    break;
@@ -363,7 +347,7 @@ class WebDavModule extends GalleryModule /* and GalleryEventListener */ {
 	    }
 
 	    /* Suppress generating HTML error pages for WebDAV clients */
-	    return array(null, array('suppressBody' => true, 'errorHandled' => true));
+	    return array(null, array('suppressBody' => true));
 	}
 
 	return array(null, null);
@@ -371,7 +355,7 @@ class WebDavModule extends GalleryModule /* and GalleryEventListener */ {
 
     /**
      * Activate essential rewrite rules.
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function _activateRewriteRules() {
 	list ($ret, $rewriteApi) = GalleryCoreApi::newFactoryInstance('RewriteApi');

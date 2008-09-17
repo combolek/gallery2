@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Slideshow 1.0.11\n"
+"Project-Id-Version: Gallery: Slideshow 1.0.5\n"
 "POT-Creation-Date: 2006-02-01 15:09+0100\n"
 "PO-Revision-Date: 2006-02-26 17:03-0500\n"
 "Last-Translator: Alex\n"
@@ -29,12 +29,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Slideshow"
+msgstr "Slideshow"
+
 #, c-format
 msgid "Slideshow for %s"
 msgstr "Slideshow para %s"
-
-msgid "Slideshow"
-msgstr "Slideshow"
 
 msgid "Display"
 msgstr "Mostrar"
@@ -45,137 +45,141 @@ msgstr "Ver Slideshow"
 msgid "Path to an item (eg, /album/image.jpg.html)"
 msgstr "Caminho para um item (exemplo, /album/imagem.jpg.html)"
 
-#, fuzzy
-msgid "Slideshow Settings"
-msgstr "Slideshow"
+msgid "Blend"
+msgstr ""
+
+msgid "Blinds"
+msgstr ""
+
+msgid "Checkerboard"
+msgstr ""
+
+msgid "Diagonal"
+msgstr ""
+
+msgid "Doors"
+msgstr ""
+
+msgid "Gradient"
+msgstr ""
+
+msgid "Iris"
+msgstr ""
+
+msgid "Pinwheel"
+msgstr ""
+
+msgid "Pixelate"
+msgstr ""
+
+msgid "Radial"
+msgstr ""
+
+msgid "Rain"
+msgstr ""
+
+msgid "Slide"
+msgstr ""
+
+msgid "Snow"
+msgstr ""
+
+msgid "Spiral"
+msgstr ""
+
+msgid "Stretch"
+msgstr ""
+
+msgid "RANDOM"
+msgstr "ALEATÓRIO"
+
+msgid "This album has no photos to show in a slideshow."
+msgstr "Este álbum não contém fotos para mostrar no slideshow."
+
+msgid "Back to Album View"
+msgstr "Voltar para o Álbum"
 
 #, c-format
-msgid "Installed PicLens version %s"
-msgstr ""
+msgid "Date: %s"
+msgstr "Data: %s"
 
-msgid "An error occurred while downloading PicLens!"
-msgstr ""
+msgid "Hide More Info"
+msgstr "Esconder Mais Informações"
 
-msgid "Uninstalled PicLens"
-msgstr ""
+msgid "Show More Info"
+msgstr "Mostrar Mais Informações"
 
-#, c-format
-msgid ""
-"Gallery can optionally use a Flash and JavaScript based slideshow from %s to provide users "
-"with the best possible viewing experience.  Gallery can install %s for you automatically, or "
-"you can choose to use an HTML slideshow."
-msgstr ""
+msgid "Resume"
+msgstr "Resumir"
 
-#, c-format
-msgid "Version %s installed."
-msgstr ""
+msgid "Pause"
+msgstr "Pausar"
 
-msgid "There's a newer version of PicLens available."
-msgstr ""
+msgid "[-]"
+msgstr "[-]"
 
-msgid "PicLens downloads are currently unavailable.  Please try again later."
-msgstr ""
+msgid "[+]"
+msgstr "[+]"
 
-#, c-format
-msgid "Install PicLens version %s"
-msgstr ""
+msgid "Stop"
+msgstr "Parar"
 
-#, c-format
-msgid "Update to PicLens version %s"
-msgstr ""
+msgid "Back One Image"
+msgstr "Voltar Uma Imagem"
 
-msgid "Uninstall PicLens"
-msgstr ""
+msgid "delay: "
+msgstr "atraso: "
 
-#~ msgid "RANDOM"
-#~ msgstr "ALEATÓRIO"
+msgid "1 second"
+msgstr "1 segundo"
 
-#~ msgid "This album has no photos to show in a slideshow."
-#~ msgstr "Este álbum não contém fotos para mostrar no slideshow."
+msgid "3 seconds"
+msgstr "3 segundos"
 
-#~ msgid "Back to Album View"
-#~ msgstr "Voltar para o Álbum"
+msgid "5 seconds"
+msgstr "5 segundos"
 
-#~ msgid "Date: %s"
-#~ msgstr "Data: %s"
+msgid "10 seconds"
+msgstr "10 segundos"
 
-#~ msgid "Hide More Info"
-#~ msgstr "Esconder Mais Informações"
+msgid "15 seconds"
+msgstr "15 segundos"
 
-#~ msgid "Show More Info"
-#~ msgstr "Mostrar Mais Informações"
+msgid "20 seconds"
+msgstr "20 segundos"
 
-#~ msgid "Resume"
-#~ msgstr "Resumir"
+msgid "direction: "
+msgstr "direção:"
 
-#~ msgid "Pause"
-#~ msgstr "Pausar"
+msgid "forward"
+msgstr "para frente"
 
-#~ msgid "[-]"
-#~ msgstr "[-]"
+msgid "reverse"
+msgstr "para trás"
 
-#~ msgid "[+]"
-#~ msgstr "[+]"
+msgid "random"
+msgstr "aleatório"
 
-#~ msgid "Stop"
-#~ msgstr "Parar"
+msgid "max size: "
+msgstr "tamanho máximo"
 
-#~ msgid "Back One Image"
-#~ msgstr "Voltar Uma Imagem"
+msgid "320x320"
+msgstr "320x320"
 
-#~ msgid "delay: "
-#~ msgstr "atraso: "
+msgid "640x640"
+msgstr "640x640"
 
-#~ msgid "1 second"
-#~ msgstr "1 segundo"
+msgid "800x800"
+msgstr "800x600"
 
-#~ msgid "3 seconds"
-#~ msgstr "3 segundos"
+msgid "1024x1024"
+msgstr "1024x1024"
 
-#~ msgid "5 seconds"
-#~ msgstr "5 segundos"
+msgid "1280x1280"
+msgstr "1280x1280"
 
-#~ msgid "10 seconds"
-#~ msgstr "10 segundos"
+msgid "no limit"
+msgstr "sem limite"
 
-#~ msgid "15 seconds"
-#~ msgstr "15 segundos"
-
-#~ msgid "20 seconds"
-#~ msgstr "20 segundos"
-
-#~ msgid "direction: "
-#~ msgstr "direção:"
-
-#~ msgid "forward"
-#~ msgstr "para frente"
-
-#~ msgid "reverse"
-#~ msgstr "para trás"
-
-#~ msgid "random"
-#~ msgstr "aleatório"
-
-#~ msgid "max size: "
-#~ msgstr "tamanho máximo"
-
-#~ msgid "320x320"
-#~ msgstr "320x320"
-
-#~ msgid "640x640"
-#~ msgstr "640x640"
-
-#~ msgid "800x800"
-#~ msgstr "800x600"
-
-#~ msgid "1024x1024"
-#~ msgstr "1024x1024"
-
-#~ msgid "1280x1280"
-#~ msgstr "1280x1280"
-
-#~ msgid "no limit"
-#~ msgstr "sem limite"
-
-#~ msgid "fade: "
-#~ msgstr "transição:"
+msgid "fade: "
+msgstr "transição:"

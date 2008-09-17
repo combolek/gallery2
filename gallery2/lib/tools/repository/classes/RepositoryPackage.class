@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -41,9 +41,9 @@ class RepositoryPackage extends RepositoryObject {
      * This method should be called after instantiating the class. It
      * loads the package templates and sets the output directory.
      *
-     * @param RepositoryDescriptor $descriptor an initialized RepositoryDescriptor
+     * @param object RepositoryDescriptor $descriptor an initialized RepositoryDescriptor
      * @param string $outputDir output directory
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function init($descriptor, $outputDir) {
 	parent::init();
@@ -67,7 +67,7 @@ class RepositoryPackage extends RepositoryObject {
      *
      * @param boolean $overwritePackages specifies whether to overwrite existing packages
      * @param boolean $compressToo write a compressed version also?
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *		     array packages created for this plugin
      */
     function writeAllPackagesToDisk($overwritePackages=false, $compressToo=false) {
@@ -96,7 +96,7 @@ class RepositoryPackage extends RepositoryObject {
      * @param string $packageType
      * @param boolean $overwritePackage overwrite package on disk if it already exists
      * @param boolean $compressToo write a compressed version also?
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function writeSinglePackageToDisk($packageType, $overwritePackage=false, $compressToo=false) {
 	global $gallery;
@@ -105,7 +105,6 @@ class RepositoryPackage extends RepositoryObject {
 	$this->_template->setVariable('random', $randomString);
 
 	/* Directory structure creation code. */
-	$packageDirectories = array();
 	foreach ($this->_descriptor->getDirectoriesInPackage($packageType) as $dir) {
 	    $packageDirectories[] = $dir;
 	}

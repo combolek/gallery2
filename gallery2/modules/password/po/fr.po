@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,33 +19,28 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Password Protected Albums 1.0.8\n"
+"Project-Id-Version: Gallery: Password Items 1.0.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-19 16:14+0100\n"
-"PO-Revision-Date: 2008-07-19 13:08+0100\n"
-"Last-Translator: Arnaud Mouronval <arnaud.mouronval@yahoo.com>\n"
+"PO-Revision-Date: 2007-01-01 00:00+0100\n"
+"Last-Translator: Arnaud MOURONVAL <ArnaudMouronval@yahoo.com>\n"
 "Language-Team: French <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Poedit-Language: French\n"
-"X-Poedit-Country: FRANCE\n"
 
 msgid "Password Entry"
-msgstr "Saisie du mot de passe"
-
-msgid "Password Protected Albums"
-msgstr "Albums protégés par mot de passe"
-
-msgid "Assign passwords for viewing particular albums"
-msgstr "Assigner des mots de passe pour afficher certains albums"
-
-msgid "Display"
-msgstr "Affichage"
+msgstr "Entrée de mot de passe"
 
 msgid "Password Items"
 msgstr "Mots de passe pour éléments"
+
+msgid "Assign passwords for viewing particular albums or items"
+msgstr "Assigner des mots de passe pour afficher certains albums ou éléments"
+
+msgid "Display"
+msgstr "Affichage"
 
 msgid "Set Password"
 msgstr "Assigner un mot de passe"
@@ -56,11 +51,11 @@ msgstr "Mettre à jour les permissions"
 msgid "Remove Password"
 msgstr "Supprimer le mot de passe"
 
-msgid "Password Protected Album"
-msgstr "Album protégé par mot de passe"
+msgid "Password Protected Item"
+msgstr "Élément protégé par un mot de passe"
 
 msgid "Enter the password!"
-msgstr "Veuillez saisir le mot de passe&nbsp;!"
+msgstr "Veuillez saisir le mot de passe&nbsp!"
 
 msgid "Submit"
 msgstr "Valider"

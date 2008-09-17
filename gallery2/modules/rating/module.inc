@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,25 +32,24 @@ class RatingModule extends GalleryModule {
 	$this->setId('rating');
 	$this->setName($gallery->i18n('Rating'));
 	$this->setDescription($gallery->i18n('Item Rating Interface'));
-	$this->setVersion('1.0.12'); /* Update upgrade() too */
-	$this->_templateVersion = 1;
-	$this->setCallbacks('getSiteAdminViews|getItemSummaries');
+	$this->setVersion('1.0.8'); /* Update upgrade() too */
+	$this->setCallbacks('getSiteAdminViews|getItemSummaries|registerEventListeners');
 	$this->setGroup('data', $gallery->i18n('Extra Data'));
-	$this->setRequiredCoreApi(array(7, 41));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setRequiredCoreApi(array(7, 10));
+	$this->setRequiredModuleApi(array(3, 3));
+    }
+
+    /**
+     * @see GalleryModule::registerEventListeners
+     */
+    function registerEventListeners() {
+	GalleryCoreApi::registerEventListener('GalleryEntity::delete', new RatingModule());
     }
 
     /**
      * @see GalleryModule::performFactoryRegistrations
      */
     function performFactoryRegistrations() {
-	$ret = GalleryCoreApi::registerFactoryImplementation(
-	    'GalleryEventListener', 'RatingModule', 'RatingModule', 
-	    'modules/rating/module.inc', 'rating', array('GalleryEntity::delete'));
-	if ($ret) {
-	    return $ret;
-	}
-
 	$ret = GalleryCoreApi::registerFactoryImplementation('ItemEditOption', 'RatingItemEdit',
 		'RatingItemEdit', 'modules/rating/RatingItemEdit.inc', 'rating',
 		array('ItemEditAlbum'));
@@ -105,14 +104,12 @@ class RatingModule extends GalleryModule {
 	GalleryCoreApi::requireOnce('modules/rating/classes/RatingHelper.class');
 
 	$template->style('modules/rating/rating.css');
-	$template->javascript('lib/yui/utilities.js');
+	$template->javascript('lib/yui/yahoo-min.js');
+	$template->javascript('lib/yui/connection-min.js');
 	$template->javascript('modules/rating/rating.js');
 
 	$template->setVariable('l10Domain', $this->getL10Domain());
-	$session =& $gallery->getSession();
-	$authToken = $session->isPersistent() ? $session->getAuthToken() : '';
-	$RatingSummary = array('ratingValues' => array(1, 2, 3, 4, 5),
-			       'firstCall' => true, 'authToken' => $authToken);
+	$RatingSummary = array('ratingValues' => array(1, 2, 3, 4, 5), 'firstCall' => true);
 
 	/* Check to see if album rating is allowed */
 	list ($ret, $allowAlbumRating) = GalleryCoreApi::getPluginParameter('module', 'rating',
@@ -197,7 +194,6 @@ class RatingModule extends GalleryModule {
 	    }
 
 	    /* Give everybody rating permission by default */
-	    $gallery->guaranteeTimeLimit(300);
 	    $ret = GalleryCoreApi::addGroupPermission(
 		$coreParams['id.rootAlbum'], $coreParams['id.everybodyGroup'],
 		'rating.all', true);
@@ -214,15 +210,6 @@ class RatingModule extends GalleryModule {
 	case '1.0.5':
 	case '1.0.6':
 	case '1.0.7':
-	case '1.0.8':
-	case '1.0.8.1':
-	case '1.0.8.2':
-	    /* .mo file migration */
-	case '1.0.9':
-	case '1.0.10':
-	    /* Refactored to new event registration from core API 7.34 */
-	case '1.0.11':
-	    /* Combined YUI libraries into a single file */ 
 
 	case 'end of upgrade path':
 	    break;
@@ -249,17 +236,7 @@ class RatingModule extends GalleryModule {
 	if (!isset($params['themeSettingsId'])) {
 	    list ($ret, $entity) =
 		GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryEntity');
-	    if ($ret) {
-		return $ret;
-	    }
-	    if (!isset($entity)) {
-		return GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__,
-					     'Unable to get a GalleryEntity instance');
-	    }
-	    $ret = $entity->create();
-	    if ($ret) {
-		return $ret;
-	    }
+	    $entity->create();
 	    $ret = $entity->save(false);
 	    if ($ret) {
 		return $ret;

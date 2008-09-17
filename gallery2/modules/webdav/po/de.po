@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: WebDAV 1.0.8\n"
+"Project-Id-Version: Gallery: WebDAV 1.0.0\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2006-11-16 01:37+0100\n"
 "PO-Revision-Date: 2007-03-03 22:11+0100\n"
@@ -248,3 +248,22 @@ msgstr ""
 
 msgid "WebDAV URL"
 msgstr "WebDAV URL"
+
+#, fuzzy
+#~ msgid "This album's WebDAV URL is:"
+#~ msgstr "Bitte öffnen Sie die WebDAV URL dieses Albums mit einem WebDAV Client Programm:"
+
+#~ msgid "Access WebDAV"
+#~ msgstr "WebDAV Zugriff"
+
+#~ msgid "You can drag & drop items into Gallery by mounting it with a %s client"
+#~ msgstr ""
+#~ "Mit einem %s Client Programm können Sie Gallery als Netzwerklaufwerk mit Ihrem Computer "
+#~ "verbinden und Dateien wie im Explorer ganz einfach mit der Maus hochladen, runterladen, "
+#~ "verschieben, löschen, usw."
+
+#~ msgid "Open this album's %s URL with a %s client: "
+#~ msgstr "Bitte öffnen Sie die %s URL dieses Albums mit einem %s Client Programm:"
+
+#~ msgid "Mount Gallery with HTTP filesystem interface"
+#~ msgstr "Gallery als Netzlaufwerk bereitstellen"

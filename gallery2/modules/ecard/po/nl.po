@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,11 +21,11 @@
 # - Arjen Gideonse <ArjenGideonse at xs4all REMOVE THIS dot nl)
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: eCard 1.0.3\n"
+"Project-Id-Version: Gallery: eCard 1.0.0\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2006-09-12 10:48-0700\n"
-"PO-Revision-Date: 2008-01-03 12:22+0100\n"
-"Last-Translator: Marijke <marijke@primosite.nl>\n"
+"PO-Revision-Date: 2005-11-07 12:35+0100\n"
+"Last-Translator: Arjen Gideonse <ArjenGideonse at xs4all.nl REMOVE THIS dot nl>\n"
 "Language-Team: Dutch <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -50,26 +50,28 @@ msgid "Commerce"
 msgstr "Zakelijk"
 
 msgid "Gallery &lt;gallery&gt;"
-msgstr "Gallery &lt;gallery&gt;"
+msgstr ""
 
 msgid "You have been sent an eCard"
-msgstr "U heeft een eCard ontvangen"
-
-#, c-format
-msgid "Hi %s!%s%s (%s) has sent you an eCard:"
-msgstr "Hallo %s!%s%s (%s) heeft een eCard verzonden:"
+msgstr ""
 
 msgid "This eCard was sent with Gallery 2 - Your photos on your website"
-msgstr "Deze eCard is verzonden met Gallery2 - Your photos on your website"
+msgstr ""
 
+#, fuzzy
 msgid "[ecard] Send eCards"
-msgstr "[ecard]Verzend eCard"
+msgstr "Verzend eCard"
 
 msgid "Send as eCard"
 msgstr "Verzend als eCard"
 
+#, c-format
+msgid "Hi %s!%s%s (%s) has sent you an eCard:"
+msgstr ""
+
+#, fuzzy
 msgid "eCard Settings"
-msgstr "eCard instellingen"
+msgstr "Instellingen opslaan"
 
 msgid "Settings saved successfully"
 msgstr "Instellingen succesvol opgeslagen"
@@ -90,8 +92,9 @@ msgstr "(laat leeg voor een door de gebruiker op te geven naam van verzender)"
 msgid "E-mail subject:"
 msgstr "E-mail onderwerp:"
 
+#, fuzzy
 msgid "E-mail BCC:"
-msgstr "E-mail BCC:"
+msgstr "E-mail verzender:"
 
 msgid "E-mail header:"
 msgstr "E-mail kop:"
@@ -141,8 +144,9 @@ msgstr "Uw e-mail adres"
 msgid "(required)"
 msgstr "(verplicht)"
 
+#, fuzzy
 msgid "You must enter an e-mail address!"
-msgstr "U moet een geldig e-mail adres opgeven!"
+msgstr "U dient een geldig e-mail adres op te geven!"
 
 msgid "You must enter a valid e-mail address!"
 msgstr "U dient een geldig e-mail adres op te geven!"
@@ -156,8 +160,9 @@ msgstr "E-mail adres ontvanger"
 msgid "Text"
 msgstr "Tekst"
 
+#, fuzzy
 msgid "You must enter text!"
-msgstr "U moet tekst opgeven!"
+msgstr "U dient een tekst op te geven!"
 
 msgid "Preview"
 msgstr "Voorbeeld"

@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,13 +33,9 @@ class EditCommentController extends GalleryController {
     function handleRequest($form) {
 	global $gallery;
 
-	list ($ret, $item) = $this->getItem();
-	if ($ret) {
-	    return array($ret, null);
-	}
-	$itemId = $item->getId();
-
-	$commentId = (int)GalleryUtilities::getRequestVariables('commentId');
+	list ($itemId, $commentId) = GalleryUtilities::getRequestVariables('itemId', 'commentId');
+	$itemId = (int) $itemId;
+	$commentId = (int) $commentId;
 
 	/* Make sure we have permission to edit a comment */
 	$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'comment.edit');
@@ -51,7 +47,7 @@ class EditCommentController extends GalleryController {
 	$error = array();
 	if (isset($form['action']['save'])) {
 	    /* Edit the comment */
-	    list ($ret, $comment) = GalleryCoreApi::loadEntitiesById($commentId, 'GalleryComment');
+	    list ($ret, $comment) = GalleryCoreApi::loadEntitiesById($commentId);
 	    if ($ret) {
 		return array($ret, null);
 	    }
@@ -76,8 +72,9 @@ class EditCommentController extends GalleryController {
 		$form['subject'] = '';
 	    }
 
-	    list($ret, $isAnonymousUser) = GalleryCoreApi::isAnonymousUser(
-		isset($commenter) ? $commenter->getId() : $comment->getCommenterId());
+	    list($ret, $isAnonymousUser) = 
+		GalleryCoreApi::isAnonymousUser(isset($commenter) ?
+						$commenter->getId() : $comment->getCommenterId());
 	    if ($ret) {
 		return array($ret, null);
 	    }
@@ -88,14 +85,6 @@ class EditCommentController extends GalleryController {
 
 	    if (empty($form['comment'])) {
 		$error[] = 'form[error][comment][missing]';
-	    }
-
-	    if (!in_array($form['publishStatus'],
-			  array(COMMENT_PUBLISH_STATUS_PUBLISHED,
-				COMMENT_PUBLISH_STATUS_UNPUBLISHED,
-				COMMENT_PUBLISH_STATUS_SPAM))) {
-		/* UI doesn't allow this so don't bother with a clean error */
-		return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 	    }
 
 	    if (empty($error)) {
@@ -126,7 +115,6 @@ class EditCommentController extends GalleryController {
 		$comment->setSubject($form['subject']);
 		$comment->setComment($form['comment']);
 		$comment->setAuthor($form['author']);
-		$comment->setPublishStatus($form['publishStatus']);
 		$ret = $comment->save();
 		if ($ret) {
 		    return array($ret, null);
@@ -213,7 +201,7 @@ class EditCommentView extends GalleryView {
 	$commentId = (int) GalleryUtilities::getRequestVariables('commentId');
 
 	/* Load the specific comment */
-	list ($ret, $comment) = GalleryCoreApi::loadEntitiesById($commentId, 'GalleryComment');
+	list ($ret, $comment) = GalleryCoreApi::loadEntitiesById($commentId);
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -225,16 +213,16 @@ class EditCommentView extends GalleryView {
 
 	/* Associate the commenter's info */
 	$commenterId = $comment->getCommenterId();
-	list ($ret, $commenter) = GalleryCoreApi::loadEntitiesById($commenterId, 'GalleryUser');
+	list ($ret, $commenter) = GalleryCoreApi::loadEntitiesById($commenterId);
 	if ($ret) {
 	    return array($ret, null);
 	}
-
+	
 	list($ret, $isAnonymousUser) = GalleryCoreApi::isAnonymousUser($comment->getCommenterId());
 	if ($ret) {
 	    return array($ret, null);
 	}
-
+	
 	if ($form['formName'] != 'EditComment') {
 	    $form['commenterName'] = $commenter->getUserName();
 	    $form['host'] = $comment->getHost();
@@ -242,17 +230,7 @@ class EditCommentView extends GalleryView {
 	    $form['subject'] = $comment->getSubject();
 	    $form['author'] = $comment->getAuthor();
 	    $form['formName'] = 'EditComment';
-	    $form['publishStatus'] = $comment->getPublishStatus();
 	}
-
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'comment');
-	if ($ret) {
-	    return array($ret, null);
-	}
-	$EditComment['publishStatusList'] = array(
-	    COMMENT_PUBLISH_STATUS_PUBLISHED => $module->translate('Published'),
-	    COMMENT_PUBLISH_STATUS_UNPUBLISHED => $module->translate('Unpublished'),
-	    COMMENT_PUBLISH_STATUS_SPAM => $module->translate('Spam'));
 
 	$EditComment['comment'] = (array)$comment;
 	$EditComment['itemId'] = $item->getId();

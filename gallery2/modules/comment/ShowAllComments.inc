@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,13 +27,6 @@
  */
 class ShowAllCommentsView extends GalleryView {
 
-    /**
-     * @see GalleryView::autoCacheControl
-     */
-    function autoCacheControl() {
-        return false;
-    }
-    
     /**
      * @see GalleryView::loadTemplate
      */
@@ -73,12 +66,11 @@ class ShowAllCommentsView extends GalleryView {
 
 	    /* Extract the member data */
 	    $comments[$i] = (array)$comments[$i];
-	    $comments[$i]['randomId'] = $comments[$i]['id'] . '-' . rand() ;
 	}
 
 	if (!empty($commenters)) {
 	    list ($ret, $commentersList) =
-		GalleryCoreApi::loadEntitiesById(array_keys($commenters), 'GalleryUser');
+		GalleryCoreApi::loadEntitiesById(array_keys($commenters));
 	    if ($ret) {
 		return array($ret, null);
 	    }
@@ -94,7 +86,7 @@ class ShowAllCommentsView extends GalleryView {
 	    if ($ret) {
 		return array($ret, null);
 	    }
-	    list ($ret, $itemList) = GalleryCoreApi::loadEntitiesById($itemIds, 'GalleryItem');
+	    list ($ret, $itemList) = GalleryCoreApi::loadEntitiesById($itemIds);
 	    if ($ret) {
 		return array($ret, null);
 	    }
@@ -109,42 +101,14 @@ class ShowAllCommentsView extends GalleryView {
 	    }
 	}
 
-	$cacheControl = false;
-	/* Pages shouldn't be cached if any of the comments is not accessible for anonymous */ 
-	list ($ret, $anonymousUserId) = GalleryCoreApi::getAnonymousUserId();
-	if ($ret) {
-	    return array($ret, null);
-	}
 	foreach ($comments as $comment) {
 	    list ($ret, $permissions) = GalleryCoreApi::getPermissions($comment['parentId']);
 	    if ($ret) {
 		return array($ret, null);
 	    }
 	    foreach (array('delete' => 'comment.delete',
-			   'edit' => 'comment.edit',
-			   'markSpam' => 'comment.edit') as $canFlag => $permission) {
+			   'edit' => 'comment.edit') as $canFlag => $permission) {
 		$can[$comment['id']][$canFlag] = isset($permissions[$permission]);
-	    }
-	    /* If we already set cache control, don't check any more */
-	    if (!$cacheControl) {
-		/* If !comment.view || !core.view */
-		list ($ret, $anonymousViewable) = GalleryCoreApi::hasItemPermission(
-		    $comment['parentId'], 'comment.view', $anonymousUserId, false);
-		if ($ret) {
-		    return array($ret, null);
-		}
-		if ($anonymousViewable) {
-		    list ($ret, $anonymousViewable) = GalleryCoreApi::hasItemPermission(
-			$comment['parentId'], 'core.view', $anonymousUserId, false);
-		    if ($ret) {
-			return array($ret, null);
-		    }
-		}
-		
-		if (!$anonymousViewable) {
-		    $this->setCacheControl($template, 'no-cache');
-		    $cacheControl = true;
-		}
 	    }
 
 	    if (!isset($itemData[$comment['parentId']])) {
@@ -185,7 +149,9 @@ class ShowAllCommentsView extends GalleryView {
 	    'itemData' => $itemData,
 	    'navigator' => $navigator));
 	$template->style('modules/comment/comment.css');
-	$template->javascript('lib/yui/utilities.js');
+	$template->javascript('lib/yui/yahoo-min.js');
+	$template->javascript('lib/yui/dom-min.js');
+	$template->javascript('lib/yui/event-min.js');
 	$template->javascript('lib/yui/container-min.js');
 	return array(null,
 		     array('body' => 'modules/comment/templates/ShowAllComments.tpl'));

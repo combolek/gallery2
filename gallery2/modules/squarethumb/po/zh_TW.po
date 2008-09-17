@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Square Thumbnails 1.0.8\n"
+"Project-Id-Version: Gallery: Square Thumbnails 1.0.5\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-28 14:00+0800\n"
 "PO-Revision-Date: 2005-03-28 14:00+0800\n"
@@ -54,20 +54,17 @@ msgstr "方形縮略圖模組"
 #, c-format
 msgid ""
 "This module requires you to have at least one graphics toolkit active in order for it to "
-"operate properly.  Please return to the %sModules%s page and activate a graphics toolkit."
+"operate properly.  Please return to the <a href=\"%s\">Modules</a> page and activate a "
+"graphics toolkit."
 msgstr ""
-"你至少需要啟用一個圖形工具才能讓這個模其正確操作。請返回%s模組%s頁面並啟用一個圖形工具。"
+"你至少需要啟用一個圖形工具才能讓這個模其正確操作。請返回<a href=\"%s\">模組</a>頁面並啟用一個"
+"圖形工具。"
 
 msgid "Settings saved successfully"
 msgstr "設定儲存成功"
 
 msgid "Crop images to square"
 msgstr "將圖片裁切為方形"
-
-msgid ""
-"You need to enable a graphics toolkit module with PPM support to use the \"fit images to "
-"square\" mode."
-msgstr ""
 
 msgid "Fit images to square, padding with background color:"
 msgstr "將圖片縮到方形中，在週圍填入背景色："

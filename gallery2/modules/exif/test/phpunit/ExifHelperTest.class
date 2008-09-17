@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,8 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
-GalleryCoreApi::requireOnce('modules/exif/classes/ExifHelper.class');
 
 /**
  * Test Exif Helper functionality
@@ -55,35 +53,37 @@ class ExifHelperTest extends GalleryTestCase {
     }
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	list ($ret, $this->_save['summary']) = ExifHelper::getProperties(EXIF_SUMMARY);
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $this->_save['detailed']) = ExifHelper::getProperties(EXIF_DETAILED);
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = ExifHelper::setDefaultProperties(EXIF_SUMMARY);
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = ExifHelper::setDefaultProperties(EXIF_DETAILED);
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $this->_saveFormat) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'format.datetime');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
     }
 
@@ -104,10 +104,7 @@ class ExifHelperTest extends GalleryTestCase {
 	    $this->failWithStatus($ret);
 	}
 
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
+	parent::tearDown();
     }
 
     /**
@@ -118,7 +115,7 @@ class ExifHelperTest extends GalleryTestCase {
 	    ExifHelper::getExifData(dirname(__FILE__) . '/../data/CanonS30.small.jpg',
 				    EXIF_SUMMARY);
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 
 	/*
@@ -155,13 +152,13 @@ class ExifHelperTest extends GalleryTestCase {
     function testGetExifDataWithEmbeddedScript() {
 	$ret = ExifHelper::setProperties(EXIF_SUMMARY, array('Copyright'));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $exifData) = ExifHelper::getExifData(
 	    dirname(__FILE__) . '/../data/exif-embedded-script.jpg', EXIF_SUMMARY);
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals('Copyright', $exifData[0]['title']);
@@ -174,7 +171,7 @@ class ExifHelperTest extends GalleryTestCase {
     function testGetExifKeys() {
 	/* There are a bajillion keys.  Do a quick sanity check */
 	$exifKeys = ExifHelper::getExifKeys();
-	$this->assertEquals(199, sizeof($exifKeys));
+	$this->assertEquals(197, sizeof($exifKeys));
 	$this->assert(isset($exifKeys['ImageType']));
 	$this->assert(isset($exifKeys['IPTC/Keywords']));
 	$this->assert(isset($exifKeys['GPS/Latitude']));
@@ -188,7 +185,7 @@ class ExifHelperTest extends GalleryTestCase {
 	list ($ret, $iptcObj) =
 	    ExifHelper::getIptcObject(dirname(__FILE__) . '/../data/exif-iptc-xmp-ps.jpg');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(isset($iptcObj));
 
@@ -281,7 +278,7 @@ class ExifHelperTest extends GalleryTestCase {
 	list ($ret, $iptcObj) =
 	    ExifHelper::getIptcObject(dirname(__FILE__) . '/../data/iptc-exifer.jpg');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(isset($iptcObj));
 
@@ -315,7 +312,7 @@ class ExifHelperTest extends GalleryTestCase {
 	list ($ret, $iptcObj) =
 	    ExifHelper::getIptcObject(dirname(__FILE__) . '/../data/iptc-irfanview.jpg');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(isset($iptcObj));
 
@@ -379,7 +376,7 @@ class ExifHelperTest extends GalleryTestCase {
 	list ($ret, $iptcObj) =
 	    ExifHelper::getIptcObject(dirname(__FILE__) . '/../data/iptc-iso-8859-1.jpg');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(isset($iptcObj));
 
@@ -396,13 +393,13 @@ class ExifHelperTest extends GalleryTestCase {
     function testGetIptcDataWithEmbeddedScript() {
 	$ret = ExifHelper::setProperties(EXIF_SUMMARY, array('IPTC/Keywords'));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $exifData) = ExifHelper::getExifData(
 	    dirname(__FILE__) . '/../data/iptc-embedded-script.jpg', EXIF_SUMMARY);
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals('IPTC: Keywords', $exifData[0]['title']);
@@ -418,7 +415,7 @@ class ExifHelperTest extends GalleryTestCase {
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'format.datetime', '%x %X');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(
@@ -476,7 +473,7 @@ class ExifHelperTest extends GalleryTestCase {
     function testAddDefaultIptcPropertiesSummary() {
 	list ($ret, $properties) = ExifHelper::getProperties(EXIF_SUMMARY);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Remove all IPTC values. */
@@ -484,11 +481,11 @@ class ExifHelperTest extends GalleryTestCase {
 	array_splice($properties, array_search('IPTC/CopyrightNotice', $properties), 1);
 	$ret = ExifHelper::setProperties(EXIF_SUMMARY, $properties);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	list ($ret, $properties) = ExifHelper::getProperties(EXIF_SUMMARY);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Make sure they are gone. */
@@ -498,12 +495,12 @@ class ExifHelperTest extends GalleryTestCase {
 	/* Add them back with the function to test. */
 	$ret = ExifHelper::addDefaultIptcProperties(EXIF_SUMMARY);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $properties) = ExifHelper::getProperties(EXIF_SUMMARY);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Make sure they are back again. */
@@ -517,7 +514,7 @@ class ExifHelperTest extends GalleryTestCase {
     function testAddDefaultIptcPropertiesDetailed() {
 	list ($ret, $properties) = ExifHelper::getProperties(EXIF_DETAILED);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Remove all IPTC values. */
@@ -527,11 +524,11 @@ class ExifHelperTest extends GalleryTestCase {
 
 	$ret = ExifHelper::setProperties(EXIF_DETAILED, $properties);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	list ($ret, $properties) = ExifHelper::getProperties(EXIF_DETAILED);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Make sure they are gone. */
@@ -542,12 +539,12 @@ class ExifHelperTest extends GalleryTestCase {
 	/* Add them back with the function to test. */
 	$ret = ExifHelper::addDefaultIptcProperties(EXIF_DETAILED);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $properties) = ExifHelper::getProperties(EXIF_DETAILED);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Make sure they are back again. */

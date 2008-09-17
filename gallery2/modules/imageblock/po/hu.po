@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Image Block 1.1.8\n"
+"Project-Id-Version: Gallery: Image Block 1.1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-11-04 20:09+0100\n"
 "PO-Revision-Date: 2007-03-05 21:50+0100\n"
@@ -42,6 +42,24 @@ msgstr "Véletlen, legfrissebb vagy a legtöbbször megtekintett fotó vagy albu
 
 msgid "Blocks"
 msgstr "Blokkok"
+
+msgid "Picture of the Day"
+msgstr "A nap képe"
+
+msgid "Picture of the Week"
+msgstr "A hét képe"
+
+msgid "Picture of the Month"
+msgstr "A hónap képe"
+
+msgid "Album of the Day"
+msgstr "A nap albuma"
+
+msgid "Album of the Week"
+msgstr "A hét albuma"
+
+msgid "Album of the Month"
+msgstr "A hónap albuma"
 
 msgid "Random Image"
 msgid_plural "Random Images"
@@ -72,24 +90,6 @@ msgid "Most Viewed Album"
 msgid_plural "Most Viewed Albums"
 msgstr[0] "Legtöbbször megnézett album"
 msgstr[1] "Legtöbbször megnézett albumok"
-
-msgid "Picture of the Day"
-msgstr "A nap képe"
-
-msgid "Picture of the Week"
-msgstr "A hét képe"
-
-msgid "Picture of the Month"
-msgstr "A hónap képe"
-
-msgid "Album of the Day"
-msgstr "A nap albuma"
-
-msgid "Album of the Week"
-msgstr "A hét albuma"
-
-msgid "Album of the Month"
-msgstr "A hónap albuma"
 
 msgid "Date:"
 msgstr "Dátum: "
@@ -165,8 +165,8 @@ msgid ""
 msgstr ""
 
 msgid ""
-"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize, rawImage; "
-"the value can also be: none"
+"Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize; the value "
+"can also be: none"
 msgstr ""
 
 msgid ""

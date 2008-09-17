@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,14 +33,12 @@ class SlideshowAppletSiteAdminControllerTest extends GalleryControllerTestCase {
     }
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'slideshowapplet');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
     }
 
@@ -48,7 +46,7 @@ class SlideshowAppletSiteAdminControllerTest extends GalleryControllerTestCase {
 	list ($ret, $orig) = GalleryCoreApi::getPluginParameter('module', 'slideshowapplet',
 								'slideshowdefaultVariables');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	GalleryUtilities::putRequestVariable('form[default][name]', 'name');
 	GalleryUtilities::putRequestVariable('form[default][value]', 'value');
@@ -67,7 +65,7 @@ class SlideshowAppletSiteAdminControllerTest extends GalleryControllerTestCase {
 	    list ($ret, $value) =
 		GalleryCoreApi::getPluginParameter('module', 'slideshowapplet', $key);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $this->assertEquals($expectedValue, $value, $key);
 	}
@@ -86,7 +84,7 @@ class SlideshowAppletSiteAdminControllerTest extends GalleryControllerTestCase {
 	    list ($ret, $value) =
 		GalleryCoreApi::getPluginParameter('module', 'slideshowapplet', $key);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $this->assertEquals($expectedValue, $value, $key);
 	}
@@ -96,7 +94,7 @@ class SlideshowAppletSiteAdminControllerTest extends GalleryControllerTestCase {
 	list ($ret, $orig) = GalleryCoreApi::getPluginParameter('module', 'slideshowapplet',
 								'slideshowoverrideVariables');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	GalleryUtilities::putRequestVariable('form[override][name]', 'name');
 	GalleryUtilities::putRequestVariable('form[override][value]', 'value');
@@ -115,7 +113,7 @@ class SlideshowAppletSiteAdminControllerTest extends GalleryControllerTestCase {
 	    list ($ret, $value) =
 		GalleryCoreApi::getPluginParameter('module', 'slideshowapplet', $key);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $this->assertEquals($expectedValue, $value, $key);
 	}
@@ -125,7 +123,7 @@ class SlideshowAppletSiteAdminControllerTest extends GalleryControllerTestCase {
 	list ($ret, $orig) = GalleryCoreApi::getPluginParameter('module', 'slideshowapplet',
 								'slideshowdefaultVariables');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	GalleryUtilities::putRequestVariable('form[default][name]', 'name');
 	GalleryUtilities::putRequestVariable('form[default][value]', 'value');
@@ -144,7 +142,7 @@ class SlideshowAppletSiteAdminControllerTest extends GalleryControllerTestCase {
 	    list ($ret, $value) =
 		GalleryCoreApi::getPluginParameter('module', 'slideshowapplet', $key);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $this->assertEquals($expectedValue, $value, $key);
 	}
@@ -166,7 +164,7 @@ class SlideshowAppletSiteAdminControllerTest extends GalleryControllerTestCase {
 	    list ($ret, $value) =
 		GalleryCoreApi::getPluginParameter('module', 'slideshowapplet', $key);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $this->assertEquals($expectedValue, $value, $key);
 	}

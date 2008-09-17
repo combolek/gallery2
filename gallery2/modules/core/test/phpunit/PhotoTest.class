@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,6 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
-
 /**
  * Test Photo functionality
  * @package GalleryCore
@@ -34,10 +32,7 @@ class PhotoTest extends GalleryTestCase {
     }
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	/* Register a dummy toolkit */
 	$path = 'modules/core/test/phpunit/PhotoTest.class';
@@ -45,14 +40,15 @@ class PhotoTest extends GalleryTestCase {
 	    'GalleryToolkit', 'PhotoTestToolkit', 'PhotoTestToolkit',
 	    $path, 'coreTest', null);
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markToolkitForCleanup('PhotoTestToolkit');
 
 	$ret = GalleryCoreApi::registerToolkitProperty(
 	    'PhotoTestToolkit', array('image/test'), 'colorspace', 'string', 'phototest property');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
     }
 
@@ -64,29 +60,29 @@ class PhotoTest extends GalleryTestCase {
 	 */
 	list ($ret, $photo) = GalleryCoreApi::newItemByMimeType('image/jpeg');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $lockId) = GalleryCoreApi::acquireReadLock($this->_getRootId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = $photo->create($this->_getRootId(),
 			      dirname(__FILE__) . '/../data/test1.jpg',
 			      'image/jpeg');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = $photo->save();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = GalleryCoreApi::releaseLocks($lockId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/*
@@ -94,10 +90,9 @@ class PhotoTest extends GalleryTestCase {
 	 */
 	GalleryDataCache::reset();
 
-	list ($ret, $newPhoto) =
-	    GalleryCoreApi::loadEntitiesById($photo->getId(), 'GalleryPhotoItem');
+	list ($ret, $newPhoto) = GalleryCoreApi::loadEntitiesById($photo->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals($photo, $newPhoto);
@@ -105,9 +100,9 @@ class PhotoTest extends GalleryTestCase {
 	/*
 	 * Delete the photo
 	 */
-	$ret = GalleryCoreApi::deleteEntityById($photo->getId(), 'GalleryPhotoItem');
+	$ret = GalleryCoreApi::deleteEntityById($photo->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
     }
 
@@ -115,28 +110,28 @@ class PhotoTest extends GalleryTestCase {
 	/* Test that mime type gets -cmyk appended if toolkit says it uses CMYK colorspace */
 	list ($ret, $photo) = GalleryCoreApi::newItemByMimeType('image/test');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $lockId) = GalleryCoreApi::acquireReadLock($this->_getRootId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = $photo->create($this->_getRootId(), __FILE__, 'image/test');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = $photo->save();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($photo);
 
 	$ret = GalleryCoreApi::releaseLocks($lockId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals('image/test-cmyk', $photo->getMimeType(), 'cmyk mime type');
@@ -146,29 +141,29 @@ class PhotoTest extends GalleryTestCase {
 	/* Test that mime type is not affected if toolkit says it uses RGB colorspace */
 	list ($ret, $photo) = GalleryCoreApi::newItemByMimeType('image/test');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $lockId) = GalleryCoreApi::acquireReadLock($this->_getRootId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = $photo->create($this->_getRootId(),
 			      dirname(__FILE__) . '/../data/test1.gif', 'image/test');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = $photo->save();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($photo);
 
 	$ret = GalleryCoreApi::releaseLocks($lockId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals('image/test', $photo->getMimeType(), 'mime type');

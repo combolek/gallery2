@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -173,7 +173,7 @@ class GallerySession {
 
     /**
      * Either create a new session, or attach to an existing one.
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function init() {
 	global $gallery;
@@ -294,7 +294,7 @@ class GallerySession {
 
     /**
      * Start session by ensuring we've got a valid, unique sessionId and send cookie if necessary.
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function start() {
 	if (!$this->_isPersistentSessionAllowedForRequest() && !$this->_forceSaveSession) {
@@ -346,11 +346,9 @@ class GallerySession {
     /**
      * Save any session changes to the store.  Does not save sessions that don't have a sessionId
      * yet.  Triggers the expiration of existing persistent sessions in 2% of all calls.
-     * @param boolean $useNonTransactionalConnection (optional) set to true if we should save this
-     *                session outside of any existing transaction.
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
-    function save($useNonTransactionalConnection=false) {
+    function save() {
 	global $gallery;
 	$phpVm = $gallery->getPhpVm();
 	$dieRoll = $phpVm->rand(1, 100);
@@ -369,34 +367,33 @@ class GallerySession {
 		    $ret = $this->_acquireNewPersistentSession();
 		} else {
 		    $this->_modificationTime = $phpVm->time();
-		    $ret = GalleryCoreApi::updateMapEntry(
-			'GallerySessionMap',
-			array('id' => $this->_sessionId),
-			array('userId' => $this->_userId,
-			      'remoteIdentifier' => serialize($this->_remoteIdentifier),
-			      'creationTimestamp' => $this->_creationTime,
-			      'modificationTimestamp' => $this->_modificationTime,
-			      'data' => serialize($this->_sessionData)),
-			$useNonTransactionalConnection);
+		    $ret = GalleryCoreApi::updateMapEntry('GallerySessionMap',
+			array('id' => $this->_sessionId), array('userId' => $this->_userId,
+			'remoteIdentifier' => serialize($this->_remoteIdentifier),
+			'creationTimestamp' => $this->_creationTime,
+			'modificationTimestamp' => $this->_modificationTime,
+			'data' => serialize($this->_sessionData)));
 		}
 		if ($ret) {
 		    return $ret;
 		}
 		$this->_isSessionSaved = true;
 	    } else if (!$this->_isSessionSaved) {
-		/* Update the session modification timestamp 5% of the time to avoid expiration. */
+		/*
+		 * 5% of the time touch the session file so that it doesn't get expired.  We can't
+		 * count on the atime being set, since you can disable that on some operating
+		 * systems to get performance gains.
+		 */
 		if ($dieRoll <= 5) {
 		    $this->_modificationTime = $phpVm->time();
-		    $ret = GalleryCoreApi::updateMapEntry(
-			'GallerySessionMap',
+		    $ret = GalleryCoreApi::updateMapEntry('GallerySessionMap',
 			array('id' => $this->_sessionId),
-			array('modificationTimestamp' => $this->_modificationTime),
-			$useNonTransactionalConnection);
+			array('modificationTimestamp' => $this->_modificationTime));
 		    if ($ret) {
 			return $ret;
 		    }
 		    $this->_isSessionSaved = true;
-	    }
+		}
 	    }
 
 	    $this->_loadedSessionData = $this->_getSerializedSession();
@@ -418,7 +415,7 @@ class GallerySession {
      * Set a new/unused sessionid.
      * @param boolean $emptyRemoteId (optional) if true don't initialize remoteIdentifier
      * @param int $userId (optional) user for session, defaults to anonymous
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function initEmpty($emptyRemoteId=false, $userId=null) {
 	$this->_emptySessionData();
@@ -452,7 +449,7 @@ class GallerySession {
 
     /**
      * Clean/remove and reinitialize a session.
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function reset() {
 	global $gallery;
@@ -490,7 +487,7 @@ class GallerySession {
 
     /**
      * Regenerate the session id to prevent a session fixation attack by a hostile website.
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function regenerate() {
 	/* Store the current session data */
@@ -526,13 +523,25 @@ class GallerySession {
 		    preg_replace($match, $replace, GalleryUtilities::getRequestVariables($key)));
 	    }
 	}
+
+	if ($this->exists('core.navigation')) {
+	    $navigation = $this->get('core.navigation');
+	    foreach (array_keys($navigation) as $navId) {
+		if (isset($navigation[$navId]['data']['returnUrl'])) {
+		    $navigation[$navId]['data']['returnUrl'] =
+			preg_replace($match, $replace, $navigation[$navId]['data']['returnUrl']);
+		}
+	    }
+	    $this->put('core.navigation', $navigation);
+	}
+
 	return null;
     }
 
     /**
      * Send back a cookie to the browser.
      * @param boolean $delete (optional) whether to delete the cookie
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      * @access private
      */
     function _setCookie($delete=false) {
@@ -670,7 +679,7 @@ class GallerySession {
 
     /**
      * Acquire a new persistent session and guarantee we've got a valid, unqiue sessionId.
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function _acquireNewPersistentSession() {
 	global $gallery;
@@ -697,7 +706,7 @@ class GallerySession {
 	    }
 	    $this->_sessionId = $data['id'] = GalleryUtilities::strToLower($this->_sessionId);
 
-	    $ret = @GalleryCoreApi::addMapEntry('GallerySessionMap', $data, true);
+	    $ret = @GalleryCoreApi::addMapEntry('GallerySessionMap', $data);
 	    if ($ret) {
 		if (!($ret->getErrorCode() & ERROR_STORAGE_FAILURE)) {
 		    /* No luck after x attempts, give up, stop hitting the server with DB queries */
@@ -705,6 +714,14 @@ class GallerySession {
 		}
 	    } else {
 		$success = true;
+	    }
+	    /*
+	     * Make sure the session exists before other requests (DownloadItem, printing shops,
+	     * ...) arrive that rely on it
+	     */
+	    $ret = $storage->checkPoint();
+	    if ($ret) {
+		return $ret;
 	    }
 	} while (!$success && $attempt++ < 4);
 
@@ -730,7 +747,7 @@ class GallerySession {
      * the session based permission cache and the navigation isn't regarded important enough to
      * create a session.
      *
-     * @return array GalleryStatus a status code, boolean session is necessary
+     * @return array object GalleryStatus a status code, boolean session is necessary
      * @access private
      */
     function _isPersistentSessionRequired() {
@@ -830,7 +847,7 @@ class GallerySession {
     /**
      * Load the session data or generate a new session with new data.  Also sets
      * $this->_isPersistent to true if loaded from persistent store.
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      * @access private
      */
     function _loadSessionData() {
@@ -861,17 +878,14 @@ class GallerySession {
 		      'modificationTimestamp', 'data'),
 		array('id' => $this->_sessionId));
 	    if ($ret) {
-		/*
-		 * Before upgrading to 1.2.18, describeMap() (used by getMapEntry) doesn't work
-		 * yet.  And before 1.0.22, there was no SessionMap table yet.
-		 */
+		/* When upgrading from versions before 1.0.22, there's no DB table yet */
 		list ($ret2, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 		if ($ret2) {
 		    return $ret;
 		}
 		$instVersions = $module->getInstalledVersions();
-		if (!empty($instVersions['core'])
-			&& version_compare($instVersions['core'], '1.2.18', '<')) {
+		if (!empty($instVersions['core']) &&
+			version_compare($instVersions['core'], '1.0.22', '<')) {
 		    $this->_emptySessionData();
 		    return null;
 		}
@@ -902,7 +916,7 @@ class GallerySession {
 		    $this->_sessionId = '';
 		}
 	    } else { /*  There's no session with this sessionId in the database */
-	    	$this->_sessionId = '';
+		$this->_sessionId = '';
 	    }
 
 	    if (!$this->_isPersistent) {
@@ -1038,7 +1052,7 @@ class GallerySession {
     /**
      * Get rid of any sessions that have not been accessed within our inactivity timeout or have
      * exceeded the max lifetime.
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      * @access private
      */
     function _expireSessions() {
@@ -1180,8 +1194,8 @@ class GallerySession {
      * By default, don't set the cookie domain.  Only set it, if Gallery is configured to set it
      * (eg. because it is a) embedded AND b) different subdomains are involved)
      *
-     * @return array GalleryStatus a status code,
-     *               string the cookie domain, or '' if no cookie domain should be set
+     * @return array (object GalleryStatus a status code,
+     *                string the cookie domain, or '' if no cookie domain should be set)
      */
     function getCookieDomain() {
 	if (!isset($this->_cookieDomain)) {
@@ -1305,21 +1319,51 @@ class GallerySession {
     /**
      * Store a status message.
      * @param array $statusData
+     * @return string the status id
      */
     function putStatus($statusData) {
-	$this->put('core.status', $statusData);
+	$tod = gettimeofday();
+	/*
+	 * Prefix the status id with a character so that it doesn't wind up being entirely numeric
+	 * because PHP will renumber numeric keys in associative arrays when you run it through
+	 * functions like array_splice()
+	 */
+	$statusId = 'x' . substr(md5($tod['usec'] + rand(1, 1000)), 0, 8);
+
+	$status =& $this->get('core.status');
+	if (!isset($status)) {
+	    $status = array();
+	}
+
+	$status[$statusId] = $statusData;
+
+	/* Prune extra status messages */
+	$maxStatusMessages = 5;
+	if (sizeof($status) > $maxStatusMessages) {
+	    $status = array_splice($status, -$maxStatusMessages);
+	}
+	$this->put('core.status', $status);
+
+	return $statusId;
     }
 
     /**
      * Get a status message.
+     * @param string $statusId
      * @param boolean $remove (optional)
      * @return array the status message
      */
-    function getStatus($remove=true) {
-	$statusData = $this->get('core.status');
-	if (isset($statusData) && $remove) {
-	    $this->put('core.status', null);
+    function getStatus($statusId, $remove=true) {
+	$status = $this->get('core.status');
+	$statusData = null;
+	if (isset($status) && isset($status[$statusId])) {
+	    $statusData = $status[$statusId];
+	    if ($remove) {
+		unset($status[$statusId]);
+		$this->put('core.status', $status);
+	    }
 	}
+
 	return $statusData;
     }
 
@@ -1340,32 +1384,92 @@ class GallerySession {
      *                    'returnUrl' => ...
      *                    ['returnNavId' => ...])
      * @return string the navigation id
-     * @deprecated
-     * @todo will be removed in the next API branch
      */
     function addToNavigation($navigationData) {
-        return null;
+	$tod = gettimeofday();
+	$navId = 'x' . substr(md5($tod['usec'] + rand(1, 1000)), 0, 8);
+
+	$navigation =& $this->get('core.navigation');
+	if (!isset($navigation)) {
+	    $navigation = array();
+	}
+	$navigation[$navId] = array();
+	$navigation[$navId]['data'] = $navigationData;
+	$navigation[$navId]['nextIds'] = array();
+
+	/* Tell our predecessor that he's got a new successor */
+	if (isset($navigationData['returnNavId'])) {
+	    $returnNavId = $navigationData['returnNavId'];
+	    $navigation[$returnNavId]['nextIds'][$navId] = true;
+	}
+
+	/* Prune oldest navigation branches */
+	$maxNavBranches = 10;
+	if (sizeof($navigation) > $maxNavBranches) {
+	    $navigation = array_splice($navigation, -$maxNavBranches);
+	}
+
+	$this->put('core.navigation', $navigation);
+
+	return $navId;
     }
 
     /**
      * Get data for a specific navigation id.
      * @param string $navId the navigation id
      * @return array the navigation data
-     * @deprecated
-     * @todo will be removed in the next API branch
      */
     function getNavigation($navId) {
-	return array();
+	$navigation = $this->get('core.navigation');
+	$navigationData = array();
+	if (isset($navigation[$navId]['data'])) {
+	    $navigationData[] = $navigation[$navId]['data'];
+	    /* Add data from our predecessors, if available */
+	    while (isset($navigation[$navId]['data']['returnNavId'])
+			&& isset($navigation[$navigation[$navId]['data']['returnNavId']]['data'])) {
+		$navId = $navigation[$navId]['data']['returnNavId'];
+		$navigationData[] = $navigation[$navId]['data'];
+	    }
+	}
+
+	return $navigationData;
     }
 
     /**
      * Jump back from one navigation point to one of its predecessors.
      * @param string $fromNavId the source navigation id
      * @param string $destNavId the destination navigation id.  If empty, go back to root.
-     * @deprecated
-     * @todo will be removed in the next API branch
      */
     function jumpNavigation($fromNavId, $destNavId = '') {
+	global $gallery;
+	$gallery->debug("navigation: Jumping back from $fromNavId to $destNavId");
+
+	$navigation = $this->get('core.navigation');
+	$currentId = $fromNavId;
+	/*
+	 * Iterate back to root, deleting everything, until we reach destNavId or an navId that has
+	 * other successors
+	 */
+	while (true) {
+	    $gallery->debug("navigation: deleting $currentId");
+	    $returnNavId = null;
+	    if (isset($navigation[$currentId]['data']['returnNavId'])) {
+		$returnNavId = $navigation[$currentId]['data']['returnNavId'];
+	    }
+	    unset($navigation[$currentId]);
+	    if ($returnNavId == null) {
+		break;
+	    }
+	    unset($navigation[$returnNavId]['nextIds'][$currentId]);
+	    if (count($navigation[$returnNavId]['nextIds']) > 0) {
+		break;
+	    }
+	    if ($returnNavId == $destNavId) {
+		break;
+	    }
+	    $currentId = $returnNavId;
+	}
+	$this->put('core.navigation', $navigation);
     }
 
     /**
@@ -1432,25 +1536,6 @@ class GallerySession {
 	    return true;
 	}
     }
-
-    /**
-     * Check if the site admininstration session timeout has expired
-     * @return array GalleryStatus a status code
-     * 		     boolean true if the timeout has expired.
-     * @access public
-     */
-    function hasSiteAdminSessionExpired() {
-	global $gallery;
-	$phpVm = $gallery->getPhpVm();
-
-	list ($ret, $siteAdministrationTimeout) = GalleryCoreApi::getPluginParameter('module',
-	    'core', 'session.siteAdministrationTimeout');
-	if ($ret) {
-	    return array($ret, null);
-	}
-	$lastActivity = (int)$this->get('session.siteAdminActivityTimestamp');
-	return array(null, ($lastActivity + (int)$siteAdministrationTimeout) < $phpVm->time());
-    }
 }
 
 /**
@@ -1469,7 +1554,7 @@ class SessionAuthPlugin /* extends GalleryAuthPlugin */ {
 
 	$userId = $session->getUserId();
 	if (!empty($userId)) {
-	    list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
+	    list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId);
 
 	    /* ERROR_MISSING_OBJECT check to suppress error if user id doesn't exist */
 	    if ($ret && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {

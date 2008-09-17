@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,12 +40,6 @@ class Php43CompatibilityTest extends CodeAuditTestCase {
 	$this->_exceptions['mysqli_get_client_info']['GalleryStorage.class'] = 1;
 	$this->_exceptions['pg_version']['PostgreSqlStorage.class'] = 1;
 	$this->_exceptions['oci_server_version']['OracleStorage.class'] = 1;
-	$this->_exceptions['imagesavealpha']['GdFunctionality.class'] = 1;
-	$this->_exceptions['imagesavealpha']['GdToolkit.class'] = 1;
-	$this->_exceptions['imagesavealpha']['TestGdFunctionality.class'] = 1;
-	$this->_exceptions['imagecolorallocatealpha']['GdFunctionality.class'] = 1;
-	$this->_exceptions['imagecolorallocatealpha']['GdToolkit.class'] = 1;
-	$this->_exceptions['imagecolorallocatealpha']['TestGdFunctionality.class'] = 1;
     }
 
     /**

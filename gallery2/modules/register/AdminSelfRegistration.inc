@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,9 +40,8 @@ class AdminSelfRegistrationController extends GalleryController {
 	if (isset($form['action']['save'])) {
 
 	    $form['emailadmins'] = isset($form['emailadmins']) ? 1 : 0;
-	    $form['emailusers'] = isset($form['emailusers']) ? 1 : 0;
-	    foreach (array('confirmation', 'emailadmins', 'adminsubject', 'subject', 'from',
-			   'emailusers', 'usersubject') as $key) {
+	    foreach (array('confirmation', 'emailadmins', 'adminsubject', 'subject', 'from')
+		    as $key) {
 		if (isset($form[$key])) {
 		    $ret = GalleryCoreApi::setPluginParameter(
 					   'module', 'register', $key, trim($form[$key]));
@@ -56,8 +55,7 @@ class AdminSelfRegistrationController extends GalleryController {
 	} else if (isset($form['action']['activate'])) {
 	    GalleryCoreApi::requireOnce(
 		'modules/register/classes/GalleryPendingUserHelper.class');
-	    list ($ret, $pendingUser) =
-		GalleryCoreApi::loadEntitiesById($form['userId'], 'GalleryPendingUser');
+	    list ($ret, $pendingUser) = GalleryCoreApi::loadEntitiesById($form['userId']);
 	    if ($ret) {
 		if (!($ret->getErrorCode() &  ERROR_MISSING_OBJECT)) {
 		    return array($ret, null);
@@ -71,8 +69,7 @@ class AdminSelfRegistrationController extends GalleryController {
 		$status['activated'] = $userName;
 	    }
 	} else if (isset($form['action']['delete'])) {
-	    list ($ret, $pendingUser) =
-		GalleryCoreApi::loadEntitiesById($form['userId'], 'GalleryPendingUser');
+	    list ($ret, $pendingUser) = GalleryCoreApi::loadEntitiesById($form['userId']);
 	    if ($ret) {
 		if (!($ret->getErrorCode() &  ERROR_MISSING_OBJECT)) {
 		    return array($ret, null);
@@ -132,8 +129,8 @@ class AdminSelfRegistrationView extends GalleryView {
 
 	/* Load our default values if we didn't just come from this form. */
 	if ($form['formName'] != 'AdminSelfRegistration') {
-	    foreach (array('confirmation', 'emailadmins', 'adminsubject', 'subject', 'from',
-			   'emailusers', 'usersubject') as $key) {
+	    foreach (array('confirmation', 'emailadmins', 'adminsubject', 'subject', 'from')
+		    as $key) {
 		list ($ret, $form[$key]) =
 		    GalleryCoreApi::getPluginParameter('module', 'register', $key);
 		if ($ret) {

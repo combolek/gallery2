@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,10 +24,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Gd 1.1.5\n"
+"Project-Id-Version: Gallery: Gd 1.1.1\n"
 "POT-Creation-Date: 2004-08-19 20:09+0100\n"
-"PO-Revision-Date: 2008-03-14 00:48+0300\n"
-"Last-Translator: Ser Moro <webber@morozov-sm.ru>\n"
+"PO-Revision-Date: 2005-11-22 22:53+0300\n"
+"Last-Translator: Konstantin Ivanov <Continental@vollen.ru>\n"
 "Language-Team: Russian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -37,10 +37,10 @@ msgstr ""
 "X-Poedit-Country: RUSSIAN FEDERATION\n"
 
 msgid "Gd"
-msgstr "GD"
+msgstr "Gd"
 
 msgid "Gd Graphics Toolkit"
-msgstr "Графический инструмент GD"
+msgstr "GD Графические Инструменты"
 
 msgid "Graphics Toolkits"
 msgstr "Графические инструменты"
@@ -50,17 +50,17 @@ msgstr "Преобразовать в JPEG"
 
 #, no-c-format
 msgid "target width (# pixels or #% of full size)"
-msgstr "Новая ширина (# пикселей или #% от полного размера)"
+msgstr ""
 
 msgid "(optional) target height, defaults to same as width"
-msgstr "(дополнительно) конечная высота, по умолчанию равна ширине "
+msgstr "(дополнительно) конечная высота, по умолчанию аналогична ширине "
 
 msgid "Scale the image to the target size, maintain aspect ratio"
 msgstr "Масштабировать изображение до желаемого размера, сохраняя отношение сторон"
 
 #, no-c-format
 msgid "target height (# pixels or #% of full size)"
-msgstr "Новая высота (# пикселей или #% от полного размера)"
+msgstr ""
 
 msgid "Resize the image to the target dimensions"
 msgstr "Изменить размеры изображения для желаемых размеров"
@@ -87,16 +87,16 @@ msgid "Crop the image"
 msgstr "Обрезать изображение"
 
 msgid "overlay path"
-msgstr "Наложение, путь"
+msgstr "overlay путь"
 
 msgid "overlay mime type"
-msgstr "наложение, MIME тип"
+msgstr "overlay mime тип"
 
 msgid "overlay width"
-msgstr "Наложение, ширина"
+msgstr "overlay ширина"
 
 msgid "overlay height"
-msgstr "Наложение, высота"
+msgstr "overlay высота"
 
 msgid "alignment type"
 msgstr "выравнивание"
@@ -108,10 +108,10 @@ msgid "alignment y %"
 msgstr "Выравнивание по оси y %"
 
 msgid "Overlay source image with a second one"
-msgstr "Наложить изображение на другое"
+msgstr "Overlay source image with a second one"
 
 msgid "target size in kb"
-msgstr "конечный размер в КБ"
+msgstr "конечный размер в Кб"
 
 msgid "Reduce image quality to reach target file size"
 msgstr "Уменьшить качество изображения для достижения желаемого размера файла"
@@ -129,8 +129,9 @@ msgid ""
 "Gd is a graphics toolkit that can be used to process images that you upload to Gallery. The "
 "GD-library should be compiled in your PHP (--with-gd)."
 msgstr ""
-"GD является графическим инструментом для работы с изображениями, которые вы загружаете. "
-"Библиотека GD должна поддерживаться сборкой PHP вашего сервера."
+"Gd является графическим инструментом, который может быть использован для работы с "
+"изображениями, которые Вы закачиваете. Библиотека GD должна быть скомпилирована в Вашем язке "
+"PHP (--with-gd)."
 
 msgid "JPEG Quality:"
 msgstr "Качество JPEG:"
@@ -154,7 +155,7 @@ msgid "Required"
 msgstr "Необходимо"
 
 msgid "Pass/fail"
-msgstr "Успешно/неудачно"
+msgstr "Успешно/Неудачно"
 
 msgid "bundled"
 msgstr "bundled"
@@ -166,17 +167,23 @@ msgid ""
 "This GD version is too old and is not supported by this module! Please upgrade your PHP "
 "installation to include the latest GD version."
 msgstr ""
-"Эта версия GD устарела и не поддерживается этим модулем. Пожалуйста, обновите  сборку PHP "
-"вашего сервера для включения последней версии GD."
+"Эта версия GD устарела и не поддерживается этим модулем. Пожалуйста, обновите Вашу сборку "
+"PHP и включите последнюю версию GD."
 
 msgid "Passed"
 msgstr "Успешно"
 
 msgid "You don't seem to have the GD library available on this PHP installation."
-msgstr "Скорее всего вы не имеете нужной GD библиотеки,  в сборке PHP вашего сервера."
+msgstr "Скорее всего Вы не имеете GD библиотеку, доступную в Вашей инсталляции PHP."
 
 msgid "Supported MIME Types"
 msgstr "Поддерживаемые MIME типы"
 
 msgid "The Gd module will support files with the following MIME types:"
-msgstr "Модуль GD поддерживает работу с  файлами следующих MIME типов:"
+msgstr "Модуль Gd поддерживает работу с  файлами следующих MIME типов "
+
+#~ msgid "target width"
+#~ msgstr "конечная ширина"
+
+#~ msgid "target height"
+#~ msgstr "конечная высота"

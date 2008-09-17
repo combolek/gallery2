@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -469,16 +469,11 @@ class AdminThemesView extends GalleryView {
 		    $settingTypes[$setting['type']] = 1;
 		}
 	    }
-        }
 
-	if ($theme && isset($AdminThemes['settings'])) {
-	     foreach ($AdminThemes['settings'] as $setting) {
-		if ($setting['type'] == 'block-list') {
-		    /* Query param is "version".. bump if data format in js changes */
-		    $template->javascript('lib/javascript/BlockSelectWidget.js?1');
-		    break;
-		}
-	     }
+	    if (isset($settingTypes['block-list'])) {
+		/* Query param is "version".. bump if data format in js changes */
+		$template->javascript('lib/javascript/BlockSelectWidget.js?1');
+	    }
 	}
 
 	$AdminThemes['themes'] = $themes;

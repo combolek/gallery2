@@ -1,6 +1,8 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
 <div class="gbBlock gcBackground1">
   <h2> {g->text text="getID3() Settings"} </h2>
@@ -62,7 +64,7 @@
 
 <div class="gbBlock">
   <p class="giDescription">
-    {g->text text="getID3() is a PHP4 script that extracts useful information (such as ID3 tags, bitrate, playtime, etc.) from MP3s &amp; other multimedia file formats (Ogg, WMA, WMV, ASF, WAV, AVI, AAC, VQF, FLAC, MusePack, Real, QuickTime, Monkey's Audio, MIDI and more)."}
+    {g->text text="getID3() is a PHP4 script that extracts useful information (such as ID3 tags, bitrate, playtime, etc.) from MP3s & other multimedia file formats (Ogg, WMA, WMV, ASF, WAV, AVI, AAC, VQF, FLAC, MusePack, Real, QuickTime, Monkey's Audio, MIDI and more)."}
   </p>
 </div>
 
@@ -156,10 +158,10 @@
   <h3> {g->text text="Item Upload"} </h3>
 
   <p class="giDescription">
-    {g->text text="When MP3s are added to Gallery check the ID3 title field and apply to:"}
+    {g->text text="When mp3's are added to Gallery check id3 Title field and apply to:"}
   </p>
   <p class="giDescription">
-    <input type="checkbox" id="cbMp3Title" {if $form.item.mp3title}checked="checked" {/if}
+    <input type="checkbox" id="cbMp3Title"{if $form.item.mp3title} checked="checked"{/if}
      name="{g->formVar var="form[item][mp3title]"}"/>
     <label for="cbMp3Title">
       {g->text text="Title"}

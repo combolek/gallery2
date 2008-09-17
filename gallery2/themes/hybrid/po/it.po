@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,10 +19,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Hybrid Theme 1.1.8\n"
+"Project-Id-Version: Gallery: Hybrid Theme 1.1.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-11 10:10+0000\n"
-"PO-Revision-Date: 2008-03-28 17:07+0100\n"
+"PO-Revision-Date: 2006-09-28 23:05+0100\n"
 "Last-Translator: Ermanno Baschiera <ebaschiera@gmail.com>\n"
 "Language-Team: Italian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -35,7 +35,7 @@ msgid "Hybrid"
 msgstr "Hybrid"
 
 msgid "Combined album/image/slideshow dynamic view"
-msgstr "Vista dinamica combinata album/immagini/presentazione"
+msgstr "Vista dinamica combinata album/immagine/presentazione"
 
 msgid "Show text with thumbnails"
 msgstr "Mostra il testo assieme alle anteprime"
@@ -93,7 +93,7 @@ msgid "Keywords: "
 msgstr "Parole chiave:"
 
 msgid "Link to this item:"
-msgstr "Link a questo oggetto:"
+msgstr "Links a questo oggetto:"
 
 msgid "Error!"
 msgstr "Errore!"
@@ -105,43 +105,29 @@ msgid "Hide Details"
 msgstr "Nascondi Dettagli"
 
 msgid "Show Item Links"
-msgstr "Visualizza Link degli Oggetti"
+msgstr "Visualizza Link Oggetti"
 
 msgid "Hide Item Links"
-msgstr "Nascondi Link degli Oggetti"
+msgstr "Nascondi Link Oggetti"
 
 msgid "Item Details"
 msgstr "Dettagli Oggetto"
 
 msgid ""
-"Album view:\n"
-"| space = start slideshow\n"
-"| ctrl-right/left = show/hide sidebar\n"
-"| ctrl-up/down = show/hide item links\n"
-"Image view:\n"
-"| space = start/pause slideshow\n"
-"| escape = return to album view\n"
-"| left/right = next/prev image\n"
-"| up/down = show hide description text\n"
-"| page up/down = scroll description text\n"
-"| ctrl-up/down = select full/fit size\n"
-"Arrow keys scroll image in full size; use shift-arrows for funcs above\n"
-"Item Details showing:\n"
-"| escape = close popup"
+"Album view:\\n| space = start slideshow\\n| ctrl-right/left = show/hide sidebar\\n| ctrl-up/"
+"down = show/hide item links\\nImage view:\\n| space = start/pause slideshow\\n| escape = "
+"return to album view\\n| left/right = next/prev image\\n| up/down = show hide description "
+"text\\n| page up/down = scroll description text\\n| ctrl-up/down = select full/fit size"
+"\\nArrow keys scroll image in full size; use shift-arrows for funcs above\\nItem Details "
+"showing:\\n| escape = close popup"
 msgstr ""
-"Vista album:\\n| spazio = inizia slideshow\n"
-"| ctrl-destra/sinistra = mostra/nascondi barra laterale\n"
-"| ctrl-su/giu = mostra/nascondi link oggetto\n"
-"Vista immagine:\\n| spazio = inizia/pausa slideshow\n"
-"| esc = ritorna alla vista album\n"
-"| sinistra/destra = immagine precedente/successiva\n"
-"| su/giu = mostra/nascondi testo descrizione\n"
-"| pg su/giu = scorri testo descrizione\n"
-"| ctrl-su/giu = seleziona dimensione intera/adattata\n"
-"I tasti freccia fanno scorrere l'immagine a dimensione intera; usa maiusc-frecce per le "
-"funzioni in alto\n"
-"Visualizzazione Dettagli Oggetto:\n"
-"| esc = chiudi finestra"
+"Vista album:\\n| spazio = inizia slideshow\\n| ctrl-destra/sinistra = mostra/nascondi barra "
+"laterale\\n| ctrl-su/giu = mostra/nascondi link oggetto\\nVista immagine:\\n| spazio = "
+"inizia/pausa slideshow\\n| esc = ritorna alla vista album\\n| sinistra/destra = immagine "
+"precedente/successiva\\n| su/giu = mostra/nascondi testo descrizione\\n| pg su/giu = scorri "
+"testo descrizione\\n| ctrl-su/giu = seleziona dimensione intera/adattata\\nI tasti freccia "
+"fanno scorrere l'immagine a dimensione intera; usa maiusc-frecce per le funzioni in alto"
+"\\nVisualizzazione Dettagli Oggetto:\\n| esc = chiudi finestra"
 
 msgid "Show text"
 msgstr "Visualizza testo"
@@ -170,17 +156,11 @@ msgstr "Nessuna Immagine Precedente"
 msgid "Previous Image"
 msgstr "Immagine Precedente"
 
-msgid "Previous Image (Load new page)"
-msgstr "Immagine Precedente (Carica nuova pagina)"
-
 msgid "No Next Image"
 msgstr "Nessuna Immagine Successiva"
 
 msgid "Next Image"
 msgstr "Immagine Successiva"
-
-msgid "Next Image (Load new page)"
-msgstr "Immagine Successiva (Carica nuova pagina)"
 
 msgid "Hide sidebar"
 msgstr "Nascondi sidebar"
@@ -243,7 +223,10 @@ msgid "forward"
 msgstr "avanti"
 
 msgid "reverse"
-msgstr "all'indietro"
+msgstr "indietro"
 
 msgid "random"
 msgstr "casuale"
+
+#~ msgid "Warning: This site requires javascript"
+#~ msgstr "Attenzione: Questo sito necessita di javascript"

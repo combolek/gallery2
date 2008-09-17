@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -23,11 +23,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: WebCam 1.1.5\n"
+"Project-Id-Version: Gallery: WebCam 1.0.5\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-12-07 13:31+0100\n"
-"PO-Revision-Date: 2008-07-24 18:43+0100\n"
-"Last-Translator: Jens A. Tkotz <jens@peino.de>\n"
+"PO-Revision-Date: 2005-05-14 12:56+0100\n"
+"Last-Translator: Frederik Kunz <frederik.kunz@web.de>\n"
 "Language-Team: German <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,15 +38,6 @@ msgstr ""
 
 msgid "WebCam/Live Image"
 msgstr "WebCam/Live-Bild"
-
-msgid "Available to all users with permission to add items"
-msgstr "Verfügbar für alle Benutzer die das Recht haben Elemente hinzuzufügen"
-
-msgid "Site Admins only"
-msgstr "Nur Administratoren"
-
-msgid "Disabled"
-msgstr "Deaktiviert"
 
 msgid "WebCam"
 msgstr "WebCam"
@@ -66,8 +57,8 @@ msgstr "URL"
 msgid "You must enter a URL to an image"
 msgstr "Sie müssen die URL zu einem Bild angeben"
 
-msgid "The URL entered must begin with http:// or file://"
-msgstr "Die eingegebene URL muss mit http:// oder file:// beginnen"
+msgid "The URL entered must begin with http://"
+msgstr "Die eingegebene URL muss mit http:// beginnen"
 
 msgid "The image URL you specified is unavailable"
 msgstr "Die von Ihnen eingegeben URL ist nicht abrufbar"
@@ -93,35 +84,6 @@ msgstr "WebCam-Einstellungen"
 
 msgid "Settings saved successfully"
 msgstr "Einstellungen erfolgreich gespeichert"
-
-msgid "Enable"
-msgstr "Aktiviert"
-
-msgid "Add From Web (http://)"
-msgstr "Aus dem Netz hinzufügen (http://)"
-
-msgid "Security Warning"
-msgstr "Sicherheitswarnung"
-
-msgid ""
-"The webcam module can be abused to attack other websites in your name.  For the attacked "
-"party it would seem as if you, the administrator of this Gallery, deliberately attacked "
-"their website because your Gallery acts on behalf of your users.  Therefore it is "
-"recommended to enable this feature only for trusted users."
-msgstr ""
-"Das Webcam Module kann misbraucht werden um andere Webseiten in Ihrem Namen anzugreifen.  "
-"Für die angegriffene Webseite sieht es so aus, als würden SIE den Angriff durchgeführt, da "
-"nach aussen die Gallery in Ihrem Namen auftritt. Daher empfehlen wir dieses Feature nur für "
-"bekannte Benutzer freizuschalten."
-
-msgid ""
-"The webcam module also allows you to add files from the local server (e.g. with \"file://"
-"home/youraccount/images/foo.jpg\"). This particular feature is limited to site "
-"administrators since it gives access to the local file system."
-msgstr ""
-"Das Webcam Module erlaubt es auch Dateien von Ihrem Server hochzuladen. (z.B. via \"file://"
-"home/youraccount/images/jens.jpg\"). Diese spezielle Feature ist jedoch Administratoren "
-"vorbehalten, da es den Zugriff zum Dateisystem erlaubt."
 
 msgid ""
 "Enter length of time a webcam item should keep one image before refreshing from the source "

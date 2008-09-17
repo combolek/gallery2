@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -193,7 +193,6 @@ class AdminDcrawView extends GalleryView {
 	$AdminDcraw['debugSnippet'] = $debugSnippet;
 	$AdminDcraw['failCount'] = $failCount;
 	$AdminDcraw['isConfigure'] = !$isActive;
-	$AdminDcraw['canExec'] = !in_array('exec', split(',\s*', ini_get('disable_functions')));
 
 	if ($failCount > 0) {
 	    $template->javascript('lib/javascript/BlockToggle.js');

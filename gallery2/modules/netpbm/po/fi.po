@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,7 +24,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: NetPBM 1.1.2\n"
+"Project-Id-Version: Gallery: NetPBM 1.1.1\n"
 "POT-Creation-Date: 2003-05-16 09:42+0300\n"
 "PO-Revision-Date: 2007-03-11 10:37+0200\n"
 "Last-Translator: Jyrki Heinonen <jyrki.heinonen@gmail.com>\n"
@@ -140,11 +140,6 @@ msgstr ""
 "tiedostoihin tulee syöttää oheiseen laatikkoon. Jos koneesi on Unix-laite, älä unohda "
 "laittaa binaari-tiedostoja ajettaviksi (<i>chmod 755 *</i> NetPBM:n hakemistossa riittänee)"
 
-msgid ""
-"The exec() function is disabled in your PHP by the <b>disabled_functions</b> parameter in "
-"php.ini.  This module cannot be used until that setting is changed."
-msgstr ""
-
 msgid "NetPBM Directory:"
 msgstr "NetPBM Hakemisto:"
 
@@ -236,3 +231,9 @@ msgid ""
 msgstr ""
 "Tämä virheenkorjaustuloste kerättiin testattaessa NetPBM binääreitä. Jos luet sen tarkasti "
 "lävitse, saatat löytää syyn, miksi NetPBM binäärien testi epäonnistui."
+
+#~ msgid "target width"
+#~ msgstr "kohteen leveys"
+
+#~ msgid "target height"
+#~ msgstr "kohteen korkeus"

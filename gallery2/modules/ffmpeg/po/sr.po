@@ -1,7 +1,7 @@
-# $Id$
+# $Id: sr.po 16040 2007-03-16 23:04:36Z mindless $
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,10 +19,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Ffmpeg 1.0.12\n"
+"Project-Id-Version: Gallery: Ffmpeg 1.0.7\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-08-14 16:53+0200\n"
-"PO-Revision-Date: 2007-04-16 00:00+0100\n"
+"PO-Revision-Date: 2005-09-05 09:31+0200\n"
 "Last-Translator: Jozef Selesi <selesi@gmail.com>\n"
 "Language-Team: Srpski <gallery-translations@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -49,54 +49,11 @@ msgstr "odstupanje u sekundama"
 msgid "Select time offset in movie file"
 msgstr "Izaberite vremenski pomak u filmskoj datoteci"
 
-#, fuzzy
-msgid "Convert to Flash Video"
-msgstr "Konverzija u JPEG"
-
-msgid "video width in pixels"
-msgstr ""
-
-msgid "video height in pixels"
-msgstr ""
-
-msgid "Set video dimensions"
-msgstr ""
-
-msgid "frames per second"
-msgstr ""
-
-msgid "Set video frames per second property"
-msgstr ""
-
-msgid "Set same video quality"
-msgstr ""
-
-msgid "number of channels"
-msgstr ""
-
-msgid "Set audio channels property"
-msgstr ""
-
-msgid "audio sample rate (Hz / cycles per second"
-msgstr ""
-
-msgid "Set audio rate property"
-msgstr ""
-
 msgid "Get the width and height of the movie"
 msgstr "Odredi širinu i visinu filma"
 
 msgid "Get the width, height and duration of the movie"
 msgstr "Odredi širinu, visinu i trajanje filma"
-
-msgid "Get video frames per seconds of the movie"
-msgstr ""
-
-msgid "Get audio samples per seconds of the movie"
-msgstr ""
-
-msgid "Get number of audio channels in movie"
-msgstr ""
 
 msgid "FFMPEG Settings"
 msgstr "FFMPEG parametri"
@@ -105,10 +62,10 @@ msgid "Settings saved successfully"
 msgstr "Parametri uspešno sačuvani"
 
 msgid "Watermark successfully added to movie thumbnails"
-msgstr "Vodeni žig uspešno dodat na umanjene prikaze filmova"
+msgstr ""
 
 msgid "Watermark successfully removed from movie thumbnails"
-msgstr "Vodeni žig uspešno uklonjen sa umanjenih prikaza filmova"
+msgstr ""
 
 msgid ""
 "FFMPEG is a graphics toolkit that can be used to process video files that you upload to "
@@ -121,11 +78,6 @@ msgstr ""
 "unesete njenu putanju u pilje ispod. Ako ste na Unix računaru, nemojte zaboraviti da "
 "datoteku podesite da bude izvršna (<i>chmod 755 ffmpeg</i> u odgovarajućem direktorijumu bi "
 "trebalo to da uradi)."
-
-msgid ""
-"The exec() function is disabled in your PHP by the <b>disabled_functions</b> parameter in "
-"php.ini.  This module cannot be used until that setting is changed."
-msgstr ""
 
 msgid "Path to FFMPEG:"
 msgstr "FFMPEG putanja:"
@@ -154,23 +106,20 @@ msgid ""
 "This module can automatically watermark the thumbnails for movies to help distinguish them "
 "from photos."
 msgstr ""
-"Ovaj modul može automatski da stavi vodeni žig na umanjene prikaze filmova kako bi se lakše "
-"razlikovali od fotografija."
 
 msgid "See sample at right."
-msgstr "Pogledajte primer desno."
+msgstr ""
 
 msgid "Watermark new movie thumbnails"
-msgstr "Stavi vodeni žig na nove umanjene prikaze filmova"
+msgstr ""
 
 #, c-format
 msgid "%sAdd%s or %sRemove%s watermark from all existing movie thumbnails."
-msgstr "%sDodaj%s ili %sukloni%s vodeni žig sa svih postojećih umanjenih prikaza filmova."
+msgstr ""
 
 msgid ""
 "Activate another graphics toolkit with watermark support to make this function available."
 msgstr ""
-"Aktivirajte drugu grafičku alatku sa podrškom za vodene žigove da biste imali ovu mogućnost."
 
 msgid "Save Settings"
 msgstr "Sačuvaj parametre"
@@ -205,19 +154,8 @@ msgstr "Poruke o greškama:"
 msgid "Supported MIME Types"
 msgstr "Podržani MIME tipovi"
 
-#, fuzzy
-msgid "The FFMPEG module can decode files of the following MIME types"
+msgid "The FFMPEG module can support files with the following MIME types"
 msgstr "FFMPEG modul može da podrži datoteke sa sledećim MIME tipovima"
-
-#, fuzzy
-msgid "The FFMPEG module can encode files to the following MIME types"
-msgstr "FFMPEG modul može da podrži datoteke sa sledećim MIME tipovima"
-
-msgid "Missing required audio codec, encoded videos will not contain sound."
-msgstr ""
-
-msgid "Version Information"
-msgstr ""
 
 #, c-format
 msgid "Debug output (%d failed test)"

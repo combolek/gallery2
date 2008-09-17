@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -44,14 +44,6 @@ class GdToolkit extends GalleryToolkit {
     var $_hasImageCreateTrueColor;
 
     /**
-     * The color used to replace transparent areas is the output format doesn't support
-     * transparency.  An RGB triple.
-     * 
-     * @access private
-     */
-    var $_transparencyReplacementColor = array(255, 255, 255);
-
-    /**
      * Return the current set gdFunctionality.
      * Default is GdFunctionality.class if no other is set.
      *
@@ -81,7 +73,7 @@ class GdToolkit extends GalleryToolkit {
     /**
      * Do we have a working version of imageCreateTrueColor()?
      *
-     * @return array GalleryStatus
+     * @return array object GalleryStatus
      *	       boolean true if this function should work
      * @access private
      */
@@ -137,7 +129,6 @@ class GdToolkit extends GalleryToolkit {
 	if ($ret) {
 	    return array($ret, null, null);
 	}
-	$hasTransparency = $this->_canHaveTransparency($mimeType, $sourceRes);
 
 	if (in_array($operationName, array('thumbnail', 'scale', 'resize'))) {
 	    $usePercent = substr($parameters[0], -1) == '%'
@@ -173,8 +164,8 @@ class GdToolkit extends GalleryToolkit {
 
 	    list ($destWidth, $destHeight) = GalleryUtilities::scaleDimensionsToFit(
 					     $width, $height, $parameters[0], $targetHeight);
-	    list ($ret, $destRes) =
-		$this->_resizeImageResource($sourceRes, $destWidth, $destHeight, $hasTransparency);
+	    list ($ret, $destRes) = $this->_resizeImageResource($sourceRes,
+								$destWidth, $destHeight);
 	    $this->_free($sourceRes);
 	    if ($ret) {
 		return array($ret, null, null);
@@ -190,8 +181,8 @@ class GdToolkit extends GalleryToolkit {
 	     * $parameters[0]: target width
 	     * $parameters[1]: target height
 	     */
-	    list ($ret, $destRes) = $this->_resizeImageResource(
-		$sourceRes, $parameters[0], $parameters[1], $hasTransparency);
+	    list ($ret, $destRes) = $this->_resizeImageResource($sourceRes,
+								$parameters[0], $parameters[1]);
 	    $this->_free($sourceRes);
 	    if ($ret) {
 		return array($ret, null, null);
@@ -239,8 +230,7 @@ class GdToolkit extends GalleryToolkit {
 	    $pixelWidth = round($parameters[2] / 100 * $width);
 	    $pixelHeight = round($parameters[3] / 100 * $height);
 
-	    list ($ret, $destRes) =
-		$this->_getTrueColorImageRes($pixelWidth, $pixelHeight, $hasTransparency);
+	    list ($ret, $destRes) = $this->_getTrueColorImageRes($pixelWidth, $pixelHeight);
 	    if ($ret) {
 		$this->_free($sourceRes);
 		return array($ret, null, null);
@@ -375,7 +365,6 @@ class GdToolkit extends GalleryToolkit {
 	    if ($ret) {
 		return array($ret, null, null);
 	    }
-	    $hasTransparency = true;
 	    break;
 
 	case 'compress':
@@ -394,15 +383,8 @@ class GdToolkit extends GalleryToolkit {
 	    $maxQuality = 100;
 	    $minQuality = 5;
 	    do {
-		/* _saveImageResourceToFile changes the resource. Get a fresh one. */
-	    	$this->_free($sourceRes);
-	    	list ($ret, $sourceRes) = $this->_getImageResource($mimeType, $sourceFilename);
-		if ($ret) {
-		    return array($ret, null, null);
-		}
-
 		$ret = $this->_saveImageResourceToFile($sourceRes, $destFilename, $outputMimeType,
-						       $hasTransparency, $quality);
+						       $quality);
 		if ($ret) {
 		    $this->_free($sourceRes);
 		    return array($ret, null, null);
@@ -428,8 +410,7 @@ class GdToolkit extends GalleryToolkit {
 	}
 
 	if (isset($destRes)) {
-	    $ret = $this->_saveImageResourceToFile(
-		$destRes, $destFilename, $outputMimeType, $hasTransparency);
+	    $ret = $this->_saveImageResourceToFile($destRes, $destFilename, $outputMimeType);
 	    $this->_free($destRes);
 	    if ($ret) {
 		return array($ret, null, null);
@@ -452,7 +433,7 @@ class GdToolkit extends GalleryToolkit {
      *
      * @param string $mimeType the mime-type of the image
      * @param string $filename the path to the file to read
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *	       resource the GD resource
      * @access private
      */
@@ -495,15 +476,11 @@ class GdToolkit extends GalleryToolkit {
      * On GD >= 2.0.1 there is a function to do this directly.  On earlier versions, we need to
      * create a temporary JPEG image and create the image from that.
      *
-     * @param int $width
-     * @param int $height
-     * @param bool $prepareAlpha (optional) whether the resource should be prepared to host any
-     *                                      transparencies
-     * @return array GalleryStatus
+     * @return array object GalleryStatus
      *	       resource the GD resource
      * @access private
      */
-    function _getTrueColorImageRes($width, $height, $prepareAlpha=false) {
+    function _getTrueColorImageRes($width, $height) {
 	$gd =& $this->_getGdFunctionality();
 	list ($ret, $hasImageCreateTrueColor) = $this->_hasImageCreateTrueColor();
 	if ($ret) {
@@ -538,12 +515,6 @@ class GdToolkit extends GalleryToolkit {
 	if (!$res) {
 	    return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null);
 	}
-
-	if ($prepareAlpha) {
-	    $this->_prepareResourceForAlphaChannel($res);
-	    /* Ignore errors */
-	}
-
 	return array(null, $res);
     }
 
@@ -553,22 +524,12 @@ class GdToolkit extends GalleryToolkit {
      * @param resource $res
      * @param string $filename the path to the file to read
      * @param string $mimeType the mime-type of the image
-     * @param bool $hasTransparency (optional) set to false to prevent dithering
      * @param string $jpegQuality (optional)
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      * @access private
      */
-    function _saveImageResourceToFile($res, $filename, $mimeType, $hasTransparency=true,
-				      $jpegQuality=null) {
+    function _saveImageResourceToFile($res, $filename, $mimeType, $jpegQuality=null) {
 	$gd =& $this->_getGdFunctionality();
-
-	if ($hasTransparency) {
-	    $ret = $this->_flattenAlphaChannel($res, $mimeType);
-	    if ($ret) {
-		return $ret;
-	    }
-	}
-
 	switch ($mimeType) {
 	case 'image/gif':
 	    $ret = $gd->imageGif($res, $filename);
@@ -609,12 +570,11 @@ class GdToolkit extends GalleryToolkit {
      * @param resource $sourceRes the source GD-resource
      * @param int $destWidth the destination width
      * @param int $destHeight the destination height
-     * @param bool $hasAlpha (optional) whether the source image has any transparency
-     * @return array GalleryStatus
+     * @return array object GalleryStatus
      *	       resource the destination GD-resource
      * @access private
      */
-    function _resizeImageResource($sourceRes, $destWidth, $destHeight, $hasAlpha=false) {
+    function _resizeImageResource($sourceRes, $destWidth, $destHeight) {
 	$gd =& $this->_getGdFunctionality();
 
 	list ($ret, $sourceWidth) = $gd->imageSX($sourceRes);
@@ -626,7 +586,7 @@ class GdToolkit extends GalleryToolkit {
 	    return array($ret, null);
 	}
 
-	list ($ret, $destRes) = $this->_getTrueColorImageRes($destWidth, $destHeight, $hasAlpha);
+	list ($ret, $destRes) = $this->_getTrueColorImageRes($destWidth, $destHeight);
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -676,7 +636,7 @@ class GdToolkit extends GalleryToolkit {
     /**
      * Get the image dimentions for an already opened GD resource.
      *
-     * @return array GalleryStatus
+     * @return array object GalleryStatus
      *	       int width
      *	       int height
      * @access private
@@ -703,7 +663,7 @@ class GdToolkit extends GalleryToolkit {
      * We will use GD's "resample" functionality and fallback to "resize"
      * if "resample" is not available.
      *
-     * @return GalleryStatus
+     * @return object GalleryStatus
      * @access private
      */
     function _imageCopyResampled($dstRes, $srcRes, $dstX, $dstY, $srcX, $srcY,
@@ -724,175 +684,6 @@ class GdToolkit extends GalleryToolkit {
     }
 
     /**
-     * Prepares a resource to handle alpha inherited from a source resource.
-     * Images that have transparency must have the background filled with the indexed color for
-     * transparency, otherwise the transparent color will appear as black.
-     *
-     * The code is based on phpthumb by James Heinrich <info@silisoftware.com>.
-     * This version only works for PHP >= 4.3.2
-     *
-     * @param resource $res 
-     * @param int $width
-     * @param int $height
-     * @return GalleryStatus
-     */
-    function _prepareResourceForAlphaChannel(&$res) {
-	$gd =& $this->_getGdFunctionality();
-
-    	list ($ret, $success) = $gd->imagesavealpha($res, true);
-    	if ($ret) {
-	    return $ret;
-    	}
-	if (!$success) {
-	    return GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE);
-	}
-
-	list ($ret, $width, $height) = $this->_getImageDimensionsForResource($res);
-	if ($ret) {
-	    return $ret;
-	}
-
-	$success = $gd->imagealphablending($res, false);
-    	if (!$success) {
-	    return GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE);
-	}
-
-	list ($ret, $alphaColor) = $gd->imagecolorallocatealpha($res, 255, 255, 255, 127);
-	if ($ret) {
-	    return $ret;
-	}
-
-	$success = $gd->imagefilledrectangle($res, 0, 0, $width, $height, $alphaColor);
-	if (!$success) {
-	    return GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE);
-	}
-
-	return null;
-    }
-
-    /**
-     * Handle the resouce according to the capabilities of the output format.
-     *  - For formats that support an alpha channel, don't do anything.
-     *  - For formats that support a single transparent color, interpret everything that is more
-     *    than 50% opaque as transparent.
-     *  - For formats that don't support any form of transparency, fill the transparent area
-     *    with a predefined background color.
-     *
-     * The code is based on phpthumb by James Heinrich <info@silisoftware.com>.
-     *
-     * @param resource $res
-     * @param string $outputMimeType
-     * @return GalleryStatus
-     */
-    function _flattenAlphaChannel($res, $outputMimeType) {
-	$gd =& $this->_getGdFunctionality();
-	if ($this->_canHaveAlphaChannel($outputMimeType)) {
-	    /* Input and output have transparency, no need to flatten. */
-	    return null;
-	} else if ($this->_canHaveTransparency($outputMimeType)) {
-	    /* The output can only have a single transparency color. */
-	    $transparentColor = $gd->imagecolortransparent($res);
-	    /* No operation if the transparent color is already defined */
-	    if ($transparentColor == -1) {
-		/* No transparency color defined */
-		list ($ret, $width, $height) = $this->_getImageDimensionsForResource($res);
-		if ($ret) {
-		    return $ret;
-		}
-
-		list ($ret, $alphaMixdownDitherImage) =
-		    $this->_getTrueColorImageRes($width, $height, true);
-		if ($ret) {
-		    return $ret;
-		}
-		for ($i = 0; $i <= 255; $i++) {
-		    $ditherColors[$i] =
-			$gd->imagecolorallocate($alphaMixdownDitherImage, $i, $i, $i);
-		}
-
-		/*
-		 * Scan through the true-color image and the copy alpha channel to the temp image as
-		 * grayscale.
-		 */
-		for ($x = 0; $x < $width; $x++) {
-		    for ($y = 0; $y < $height; $y++) {
-			$pixelColor =
-			    $gd->imagecolorsforindex($res, $gd->imagecolorat($res, $x, $y));
-			/* The alpha channel has a max value of 127 */
-			$gd->imagesetpixel($alphaMixdownDitherImage, $x, $y,
-					   $ditherColors[($pixelColor['alpha'] * 2)]);
-		    }
-		}
-
-		/* Dither alpha channel grayscale version down to 2 colors */
-		$gd->imagetruecolortopalette($alphaMixdownDitherImage, true, 2);
-
-		/*
-		 * Reduce color palette to 256-1 colors (leave one palette position for transparent
-		 * color).
-		 */
-		$gd->imagetruecolortopalette($res, true, 255);
-
-		/* Allocate a new (random, hopefully unused) color for transparent color index.*/
-		$transparentColor = $gd->imagecolorallocate($res, 1, 254, 253);
-		$gd->imagecolortransparent($res, $transparentColor);
-
-		/*
-		 * Scan through the alpha channel image and replace all pixels with > 50% alpha
-		 * with the transparency color.
-		 */
-		for ($x = 0; $x < $width; $x++) {
-		    for ($y = 0; $y < $height; $y++) {
-			$alphaChannelPixel = $gd->imagecolorsforindex($alphaMixdownDitherImage,
-			    $gd->imagecolorat($alphaMixdownDitherImage, $x, $y));
-			if ($alphaChannelPixel['red'] > 127) {
-			    $gd->imagesetpixel($res, $x, $y, $transparentColor);
-			}
-		    }
-		}
-		$this->_free($alphaMixdownDitherImage);
-	    }
-	} else {
-	    /* The output image can't store any transparencies. Use a background color instead. */
-	    list ($ret, $width, $height) = $this->_getImageDimensionsForResource($res);
-	    if ($ret) {
-		return $ret;
-	    }
-
-	    list ($ret, $tempImage) = $this->_getTrueColorImageRes($width, $height, false);
-	    if ($ret) {
-		return $ret;
-	    }
-
-	    $backgroundColor = $gd->imagecolorallocate($tempImage,
-		$this->_transparencyReplacementColor[0],
-		$this->_transparencyReplacementColor[1],
-		$this->_transparencyReplacementColor[2]);
-
-	    $gd->imagefilledrectangle($tempImage, 0, 0, $width, $height, $backgroundColor);
-
-	    $ret = $gd->imageCopy($tempImage, $res, 0, 0, 0, 0, $width, $height);
-	    if ($ret) {
-		$this->_free($tempImage);
-	    	return $ret;
-	    }
-
-	    $gd->imagealphablending($res, true);
-	    $gd->imagesavealpha($res, false);
-	    /* Ignore errors */
-
-	    $gd->imagecolortransparent($res, -1);
-	    $ret = $gd->imageCopy($res, $tempImage, 0, 0, 0, 0, $width, $height);
-	    $this->_free($tempImage);
-	    if ($ret) {
-		return $ret;
-	    }
-	}
-
-	return null;
-    }
-
-    /**
      * @see GdFunctionality::imagedestroy
      */
     function _free($resource) {
@@ -900,34 +691,6 @@ class GdToolkit extends GalleryToolkit {
 	    $gd =& $this->_getGdFunctionality();
 	    $gd->imagedestroy($resource);
 	}
-    }
-
-    /**
-     * Checks whether files of the given mime-type can have transparencies.
-     * @param string $mimeType
-     * @param resource $res (optional) If specified, additional checks are executed
-     * @return bool
-     */
-    function _canHaveTransparency($mimeType, $res=null) {
-    	$canHaveTransparency =
-	    in_array($mimeType, array('image/gif', 'image/png', 'image/tiff', 'image/ico'));
-	if ($mimeType == 'image/gif' && $res) {
-	    /* Don't unnecessarily dither */
-	    $gd =& $this->_getGdFunctionality();
-	    $transparentColor = $gd->imagecolortransparent($res);
-	    $canHaveTransparency = $transparentColor != -1;
-	}
-
-	return $canHaveTransparency;
-    }
-
-    /**
-     * Checks whether files of the given mime-type can have a whole alpha channel.
-     * @param string $mimeType
-     * @return bool
-     */
-    function _canHaveAlphaChannel($mimeType) {
-	return in_array($mimeType, array('image/png', 'image/tiff', 'image/ico'));
     }
 }
 ?>

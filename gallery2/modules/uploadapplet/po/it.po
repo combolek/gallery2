@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,10 +19,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Upload Applet 1.0.8\n"
+"Project-Id-Version: Gallery: Upload Applet 1.0.7\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-09-16 11:17+0000\n"
-"PO-Revision-Date: 2008-03-28 16:22+0100\n"
+"PO-Revision-Date: 2007-01-09 13:09+0100\n"
 "Last-Translator: Ermanno Baschiera <ebaschiera@gmail.com>\n"
 "Language-Team: Italian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -38,21 +38,20 @@ msgid "Easy to use upload applet for media"
 msgstr "Un'applet per caricare facilmente nuovi media"
 
 msgid "Import"
-msgstr "Importazione"
+msgstr "Importa"
 
 msgid ""
 "The upload applet relies on a G2 module that is not currently enabled.  Please ask an "
 "administrator to enable the 'remote' module."
 msgstr ""
-"L'applet di upload si basa su un modulo di G2 che attualmente non è attivo. Chiedere a un "
-"amministratore di attivare il modulo 'controllo remoto'."
+"L'applet di upload si basa su un modulo di G2 che attualmente non è attivo. Chiedi a un "
+"amministratore di attivare il modulo 'remote'."
 
 msgid "Downloading the Gallery Remote Applet"
-msgstr "Scaricamento in corso di Gallery Remote Applet"
+msgstr "Scarica la Gallery Remote Applet"
 
 msgid "Your browser doesn't support applets; you should use one of the other upload methods."
-msgstr ""
-"Il browser non supporta le applet; sarà necessario usare uno degli altri metodi di upload."
+msgstr "Il tuo browser non supporta le applet; dovrai usare uno degli altri metodi di upload."
 
 msgid "Uploading files..."
 msgstr "Caricamento file..."
@@ -64,7 +63,7 @@ msgid ""
 "You can keep uploading or go to some of the pictures you uploaded by clicking on the links "
 "above"
 msgstr ""
-"È possibile effettuare altri caricamenti oppure andare alle immagini caricate cliccando sui "
+"Puoi continuare il caricamento oppure andare alle immagini che hai caricato cliccando sui "
 "link qui sopra"
 
 msgid "Upload Applet Settings"
@@ -78,13 +77,13 @@ msgid ""
 "able to override these defaults by making changes in the user interface of the applets, or "
 "by changing their local defaults file."
 msgstr ""
-"Queste variabili forniscono valori predefiniti per le applet che gli utenti eseguono nel "
-"sito. Gli utenti saranno in grado di scavalcare questi valori predefiniti agendo "
-"nell'interfaccia utente dell'applet, oppure modificando il loro file dei valori predefiniti "
-"locale."
+"Queste variabili forniscono valori predefiniti per le applet che gli utenti lanciano dal tuo "
+"sito. Gli utenti saranno in grado di scavalcare questi valori predefiniti facendo delle "
+"modifiche dall'interfaccia utente dell'applet, oppure modificando il loro file dei valori "
+"predefiniti locale."
 
 msgid "You have no default variables"
-msgstr "Non ci sono variabili predefinite"
+msgstr "Non hai variabili predefinite"
 
 msgid "Variable"
 msgstr "Variabile"
@@ -99,7 +98,7 @@ msgid "Add a new default variable"
 msgstr "Aggiungi una nuova variabile predefinita"
 
 msgid "You must enter a variable name and value"
-msgstr "È necessario inserire un nome e un valore per la variabile"
+msgstr "Devi inserire un nome e un valore per la variabile"
 
 msgid "New variable"
 msgstr "Nuova variabile"
@@ -118,7 +117,7 @@ msgstr ""
 "sito. Gli utenti non potranno cambiare questi valori."
 
 msgid "You have no override variables"
-msgstr "Non ci sono variabili di scavalcamento"
+msgstr "Non hai variabili di scavalcamento"
 
 msgid "Add a new override variable"
 msgstr "Aggiungi una nuova variabile di scavalcamento"
@@ -126,8 +125,8 @@ msgstr "Aggiungi una nuova variabile di scavalcamento"
 msgid "Help"
 msgstr "Aiuto"
 
-msgid "Here is a selection of variables that affect uploads."
-msgstr "Qui c'è una selezione di variabili che influenzano gli upload."
+msgid "Here are a selection of variables that affect uploads."
+msgstr "Qui c'è una selezione di variabili che influenzano gli uploads."
 
 msgid "variable"
 msgstr "variabile"
@@ -142,8 +141,8 @@ msgid ""
 "instructs the applet to resize pictures before uploading to the album; by default, resizes "
 "to the album's intermediate image size"
 msgstr ""
-"fa in modo che l'applet ridimensioni le immagini prima di fare il caricamento nell'album; "
-"per default le ridimensiona alla dimensione delle immagini intermedie dell'album"
+"fa in modo che l'applet rdimensioni le immagini prima di fare il caricamento nell'album; per "
+"default le ridimensiona alla dimensione delle immagini intermedie dell'album"
 
 msgid "dimension the images will be resized to; this overrides album settings"
 msgstr ""
@@ -157,7 +156,7 @@ msgid "use filenames for captions"
 msgstr "usa il nome del file come didascalia"
 
 msgid "if using the filename for captions, strip the extension"
-msgstr "se si usa il nome del file come didascalia, rimuove l'estensione"
+msgstr "se usi il nome del file come didascalia, rimuovi l'estensione"
 
 msgid "use EXIF extension for caption"
 msgstr "usa l'estensione EXIF come didascalia"
@@ -173,7 +172,7 @@ msgid ""
 "set to false if you want to avoid losing EXIF data when the image is resized and ImageMagick "
 "is not found"
 msgstr ""
-"impostare a falso se si vuole evitare di perdere i dati EXIF quando l'immagine viene "
+"imposta a falso se vuoi evitare di perdere i dati EXIF quando l'immagine viene "
 "ridimensionata e ImageMagick non è stato trovato"
 
 msgid "if true, the applet will not complain if it can't find ImageMagick"

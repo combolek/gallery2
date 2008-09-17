@@ -1,6 +1,8 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
 <div class="gbBlock gcBackground1">
   <h2> {g->text text="Import from Picasa 2"} </h2>
@@ -15,7 +17,7 @@
     {capture name="url"}
       {g->url arg1="view=core.SiteAdmin" arg2="subView=core.AdminPlugins"}
     {/capture}
-    {g->text text="You don't have any Graphics Toolkit activated to handle JPEG images.  If you import now, you will not have any thumbnails.  Visit the %sModules%s page to activate a Graphics Toolkit." arg1="<a href=\"`$smarty.capture.url`\">" arg2="</a>"}
+    {g->text text="You don't have any Graphics Toolkit activated to handle JPEG images.  If you import now, you will not have any thumbnails.  Visit the <a href=\"%s\">Modules</a> page to activate a Graphics Toolkit." arg1=$smarty.capture.url}
   </p></div>
 {/if}
 
@@ -33,10 +35,10 @@
 
   <select name="{g->formVar var="form[destinationAlbumId]"}">
     {foreach from=$SelectPicasaExportPath.g2AlbumTree item=album}
-      <option value="{$album.data.id}"{if $form.destinationAlbumId==$album.data.id
-       } selected="selected"{/if}>
+      <option value="{$album.data.id}"{if $form.destinationAlbumId==$album.data.id}
+          selected="selected"{/if}>
         {"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"|repeat:$album.depth}--
-        {$album.data.title|markup:strip|default:$album.data.pathComponent}
+        {$album.data.title|default:$album.data.pathComponent}
       </option>
     {/foreach}
   </select>

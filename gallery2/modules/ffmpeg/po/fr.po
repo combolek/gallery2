@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,20 +16,18 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
-#
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Ffmpeg 1.0.12\n"
+"Project-Id-Version: Gallery: Ffmpeg 1.0.7\n"
 "POT-Creation-Date: 2004-11-28 12:45+0100\n"
-"PO-Revision-Date: 2008-08-14 10:14+0100\n"
-"Last-Translator: Arnaud Mouronval <arnaud.mouronval@yahoo.com>\n"
+"PO-Revision-Date: 2006-02-20 00:00+0100\n"
+"Last-Translator: Arnaud MOURONVAL <ArnaudMouronval@yahoo.com>\n"
 "Language-Team: French <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Poedit-Language: French\n"
-"X-Poedit-Country: FRANCE\n"
 
 msgid "Ffmpeg"
 msgstr "FFMPEG"
@@ -49,53 +47,11 @@ msgstr "décalage en secondes"
 msgid "Select time offset in movie file"
 msgstr "Sélectionner le décalage de temps dans le fichier du film"
 
-msgid "Convert to Flash Video"
-msgstr "Convertir en vidéo Flash"
-
-msgid "video width in pixels"
-msgstr "largeur de la vidéo en pixels"
-
-msgid "video height in pixels"
-msgstr "hauteur de la vidéo en pixels"
-
-msgid "Set video dimensions"
-msgstr "Définir les dimensions de la vidéo"
-
-msgid "frames per second"
-msgstr "images par seconde"
-
-msgid "Set video frames per second property"
-msgstr "Spécifier le nombre d'images par seconde"
-
-msgid "Set same video quality"
-msgstr "Spécifier la qualité vidéo"
-
-msgid "number of channels"
-msgstr "nombre de canaux"
-
-msgid "Set audio channels property"
-msgstr "Spécifier les canaux audio"
-
-msgid "audio sample rate (Hz / cycles per second"
-msgstr "Fréquence d'échantillonage audio (Hz)"
-
-msgid "Set audio rate property"
-msgstr "Spécifier la fréquence audio"
-
 msgid "Get the width and height of the movie"
 msgstr "Récupérer la hauteur et la largeur du film"
 
 msgid "Get the width, height and duration of the movie"
 msgstr "Récupérer la hauteur, la largeur et la durée du film"
-
-msgid "Get video frames per seconds of the movie"
-msgstr "Obtenir le nombre d'échantillons vidéo par seconde du film"
-
-msgid "Get audio samples per seconds of the movie"
-msgstr "Obtenir le nombre d'échantillons audio par seconde du film"
-
-msgid "Get number of audio channels in movie"
-msgstr "Obtenir le nombre de pistes audio dans le film"
 
 msgid "FFMPEG Settings"
 msgstr "Paramètres de FFMPEG"
@@ -120,14 +76,6 @@ msgstr ""
 "serveur, ensuite saisir le chemin d'accès dans le champ ci-dessous. Si vous êtes sous Unix, "
 "n'oubliez pas de rendre le binaire exécutable (commande <i>chmod 755 ffmpeg</i> dans le bon "
 "répertoire)"
-
-msgid ""
-"The exec() function is disabled in your PHP by the <b>disabled_functions</b> parameter in "
-"php.ini.  This module cannot be used until that setting is changed."
-msgstr ""
-"La fonction exec() est désactivée pour PHP dans le fichier php.ini à l'aide du paramètre "
-"<b>disabled_functions</b>. Ce module ne peut pas être utilisé tant que ce paramètre n'est "
-"pas modifié."
 
 msgid "Path to FFMPEG:"
 msgstr "Chemin vers FFMPEG&nbsp;:"
@@ -209,17 +157,8 @@ msgstr "Messages d'erreur&nbsp;:"
 msgid "Supported MIME Types"
 msgstr "Types MIME supportés"
 
-msgid "The FFMPEG module can decode files of the following MIME types"
-msgstr "Le module FFMPEG peut décoder les fichiers avec les types MIME suivants"
-
-msgid "The FFMPEG module can encode files to the following MIME types"
-msgstr "Le module FFMPEG peut encoder les fichiers avec les types MIME suivants"
-
-msgid "Missing required audio codec, encoded videos will not contain sound."
-msgstr "Codec audio requis absent du système, les vidéos encodés ne contiendront pas de son."
-
-msgid "Version Information"
-msgstr "Informations de version"
+msgid "The FFMPEG module can support files with the following MIME types"
+msgstr "Le module FFMPEG supporte les fichiers avec les types MIME suivants"
 
 #, c-format
 msgid "Debug output (%d failed test)"

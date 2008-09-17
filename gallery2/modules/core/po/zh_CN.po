@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,11 +16,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
-# 
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Core 1.2.36\n"
-"POT-Creation-Date: 2005-03-28 14:00+0800\n"
+"Project-Id-Version: Gallery: Core 1.2.0.3\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-06-07 09:29-0700\n"
 "PO-Revision-Date: 2007-03-14 16:16+0100\n"
 "Last-Translator: Lyric <lyric@lyricli.com>\n"
 "Language-Team: Chinese Simplified <gallery-devel@lists.sourceforge.net>\n"
@@ -31,30 +32,6 @@ msgstr ""
 
 msgid "Gallery Email Test"
 msgstr "图库电子邮件测试"
-
-#, c-format
-msgid "%d minute"
-msgid_plural "%d minutes"
-msgstr[0] "%d 分钟"
-msgstr[1] "%d 分钟"
-
-#, c-format
-msgid "%d hour"
-msgid_plural "%d hours"
-msgstr[0] "%d 小时"
-msgstr[1] "%d 小时"
-
-#, c-format
-msgid "%d day"
-msgid_plural "%d days"
-msgstr[0] "%d 天"
-msgstr[1] "%d 天"
-
-#, c-format
-msgid "%d week"
-msgid_plural "%d weeks"
-msgstr[0] "%d 星期"
-msgstr[1] "%d 星期"
 
 msgid "forever"
 msgstr "永久"
@@ -80,36 +57,32 @@ msgstr "数据库"
 msgid "File"
 msgstr "文件"
 
-msgid "&lt;none&gt;"
-msgstr "&lt;无&gt;"
-
-#, fuzzy
-msgid "Link"
-msgstr "登录"
+#, c-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] "%d 分钟"
+msgstr[1] "%d 分钟"
 
 #, c-format
-msgid "Page %d of %d"
-msgstr "第 %d 页，共 %d 页"
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] "%d 小时"
+msgstr[1] "%d 小时"
 
-#, fuzzy
-msgid "Updating Language Settings"
-msgstr "语言设置"
+#, c-format
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] "%d 天"
+msgstr[1] "%d 天"
 
-#, fuzzy
-msgid "Update completed with errors."
-msgstr "上传完成"
+#, c-format
+msgid "%d week"
+msgid_plural "%d weeks"
+msgstr[0] "%d 星期"
+msgstr[1] "%d 星期"
 
-#, fuzzy
-msgid "Update complete."
-msgstr "上传完成"
-
-#, fuzzy
-msgid "Deleting Language Packs"
-msgstr "默认语言"
-
-#, fuzzy
-msgid "Synchronizing Language Packs"
-msgstr "默认语言"
+msgid "<none>"
+msgstr "<无>"
 
 msgid "No acceleration"
 msgstr "不加速"
@@ -122,6 +95,47 @@ msgstr "全加速"
 
 msgid "Themes"
 msgstr "主题"
+
+#, fuzzy
+msgid "Updating Repository Index"
+msgstr "更新索引"
+
+msgid "Scanning plugins"
+msgstr ""
+
+#, fuzzy
+msgid "Update Plugin List"
+msgstr "升级所有插件"
+
+msgid "Done."
+msgstr "完成"
+
+msgid "Updating Packages"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "Preparing %s"
+msgstr "处理中..."
+
+#, c-format
+msgid "Downloading %s"
+msgstr "正在下载 %s"
+
+#, fuzzy, c-format
+msgid "Activating %s"
+msgstr "操作"
+
+#, fuzzy
+msgid "Deleting Language Packs"
+msgstr "默认语言"
+
+#, fuzzy
+msgid "Update completed with errors."
+msgstr "上传完成"
+
+#, fuzzy
+msgid "Update complete."
+msgstr "上传完成"
 
 msgid "install"
 msgstr "安装"
@@ -144,11 +158,11 @@ msgstr "从上层相册中继承设置值"
 msgid "Use these settings"
 msgstr "使用这些设置"
 
-msgid "Converting Schema Table"
-msgstr ""
-
 msgid "Installing the core module"
 msgstr "正在安装核心模块"
+
+msgid "key"
+msgstr "主键"
 
 msgid "All access"
 msgstr "完全存取"
@@ -183,10 +197,6 @@ msgstr "[核心] 删除项目"
 msgid "Upgrading permissions"
 msgstr "正在升级权限"
 
-#, c-format
-msgid "Upgrading permissions (%d items complete, %d remaining)"
-msgstr "升级权限 （%d 项目完成，%d 保留）"
-
 msgid "Deleting old permission tables"
 msgstr "正在删除旧的权限数据表"
 
@@ -199,32 +209,11 @@ msgstr "所有用户"
 msgid "Detecting broken derivatives"
 msgstr "检查受损衍生对象"
 
-#, fuzzy, c-format
-msgid "Detecting broken derivatives, loading (%d derivatives checked, %d remaining)"
-msgstr "检查受损衍生对象，加载......"
-
-#, fuzzy, c-format
-msgid "Detecting broken derivatives (%d derivatives checked, %d remaining)"
-msgstr "检查受损衍生对象，保存....."
-
-#, fuzzy, c-format
-msgid "Detecting broken derivatives, saving (%d derivatives checked, %d remaining)"
-msgstr "检查受损衍生对象，保存....."
-
-#, fuzzy, c-format
-msgid ""
-"Detecting broken derivatives, saving item %d of %d (%d derivatives complete, %d remaining)"
-msgstr "升级权限 （%d 项目完成，%d 保留）"
-
 msgid "Clearing fast-download cache"
 msgstr "清除快速下载缓存"
 
 msgid "Deleting old fast-download cache"
 msgstr "正在删除旧的快速下载缓存"
-
-#, c-format
-msgid "Deleting old session files (iteration %d)"
-msgstr "正在删除旧的会话文件（重复 %d）"
 
 msgid "Updating panorama items"
 msgstr ""
@@ -232,13 +221,11 @@ msgstr ""
 msgid "Optimizing AccessSubscriberMap table"
 msgstr ""
 
-#, fuzzy
-msgid "Upgrading Plugin Translations"
-msgstr "翻译已经更新"
+msgid "Converting Schema Table"
+msgstr ""
 
-#, fuzzy
-msgid "Creating Package Map"
-msgstr "建立日期"
+msgid "Loading Table Descriptions"
+msgstr ""
 
 msgid "Site Admins"
 msgstr "网站管理"
@@ -258,16 +245,30 @@ msgstr "这是Gallery的首页"
 msgid "Converting MySQL data to UTF8"
 msgstr "将 MySQL 数据转换到 UTF8"
 
-#, fuzzy
-msgid "Adding items"
-msgstr "添加项目"
+#, c-format
+msgid "Upgrading permissions (%d items complete, %d remaining)"
+msgstr "升级权限 （%d 项目完成，%d 保留）"
 
-#, fuzzy
-msgid "Processing items"
-msgstr "正在处理 %d个项目，共%d个项目。"
+#, fuzzy, c-format
+msgid "Detecting broken derivatives, loading (%d derivatives checked, %d remaining)"
+msgstr "检查受损衍生对象，加载......"
 
-msgid "Extracting archive"
-msgstr ""
+#, fuzzy, c-format
+msgid "Detecting broken derivatives (%d derivatives checked, %d remaining)"
+msgstr "检查受损衍生对象，保存....."
+
+#, fuzzy, c-format
+msgid "Detecting broken derivatives, saving (%d derivatives checked, %d remaining)"
+msgstr "检查受损衍生对象，保存....."
+
+#, fuzzy, c-format
+msgid ""
+"Detecting broken derivatives, saving item %d of %d (%d derivatives complete, %d remaining)"
+msgstr "升级权限 （%d 项目完成，%d 保留）"
+
+#, c-format
+msgid "Deleting old session files (iteration %d)"
+msgstr "正在删除旧的会话文件（重复 %d）"
 
 msgid "add items"
 msgstr "添加项目"
@@ -280,6 +281,30 @@ msgstr "添加子相册"
 
 msgid "add items confirmation"
 msgstr "添加项目确认"
+
+msgid "Base filename"
+msgstr "文件名"
+
+msgid "Caption"
+msgstr "标题"
+
+msgid "Blank"
+msgstr "空白"
+
+msgid "From Web Browser"
+msgstr "从浏览器"
+
+#, c-format
+msgid "%d megabyte"
+msgid_plural "%d megabytes"
+msgstr[0] "%d MB"
+msgstr[1] "%d MB"
+
+#, c-format
+msgid "%d kilobytes"
+msgid_plural "%d kilobytes"
+msgstr[0] "%d KB"
+msgstr[1] "%d KB"
 
 #, c-format
 msgid "Input file %s exceeds maximum permitted file size"
@@ -297,35 +322,18 @@ msgstr ""
 msgid "Input file %s was not uploaded. Error %d"
 msgstr ""
 
-#, c-format
-msgid "%d megabyte"
-msgid_plural "%d megabytes"
-msgstr[0] "%d MB"
-msgstr[1] "%d MB"
-
-#, c-format
-msgid "%d kilobytes"
-msgid_plural "%d kilobytes"
-msgstr[0] "%d KB"
-msgstr[1] "%d KB"
-
-msgid "Base filename"
-msgstr "文件名"
-
-msgid "Caption"
-msgstr "标题"
-
-msgid "Blank"
-msgstr "空白"
-
-msgid "From Web Browser"
-msgstr "从浏览器"
-
 msgid "Gallery Item Administration"
 msgstr "图库项目管理"
 
 msgid "delete an item"
 msgstr "删除项目"
+
+msgid "delete confirmation"
+msgstr "删除确认"
+
+#, c-format
+msgid "delete %s"
+msgstr "删除 %s"
 
 #, c-format
 msgid "edit %s"
@@ -342,10 +350,6 @@ msgstr "恢复主题设置"
 msgid "Preparing..."
 msgstr "处理中..."
 
-#, c-format
-msgid "Processing image %d of %d"
-msgstr "正在处理图像 %d，共 %d "
-
 msgid "Apply thumbnail settings"
 msgstr ""
 
@@ -354,6 +358,10 @@ msgstr "正在重建缩略图......"
 
 msgid "Album"
 msgstr "相册"
+
+#, c-format
+msgid "Processing image %d of %d"
+msgstr "正在处理图像 %d，共 %d "
 
 msgid "Changes saved successfully"
 msgstr "变更已保存成功"
@@ -493,10 +501,6 @@ msgstr "编辑照片"
 msgid "Edit Movie"
 msgstr "编辑电影"
 
-#, c-format
-msgid "Edit %s"
-msgstr "编辑 %s"
-
 msgid "Add Album"
 msgstr "添加相册"
 
@@ -515,10 +519,6 @@ msgstr "删除照片"
 msgid "Delete Movie"
 msgstr "删除电影"
 
-#, c-format
-msgid "Delete %s"
-msgstr "删除 %s"
-
 msgid "Move Album"
 msgstr "移动相册"
 
@@ -528,10 +528,6 @@ msgstr "移动照片"
 msgid "Move Movie"
 msgstr "移动电影"
 
-#, c-format
-msgid "Move %s"
-msgstr "移动 %s"
-
 msgid "Edit Captions"
 msgstr "编辑标题"
 
@@ -540,9 +536,6 @@ msgstr "标记为精华"
 
 msgid "Reorder Items"
 msgstr "重新排序项目"
-
-msgid "Delete Items"
-msgstr "删除项目"
 
 msgid "Site Admin"
 msgstr "网站管理"
@@ -568,12 +561,6 @@ msgstr "成员组"
 msgid "Performance"
 msgstr "性能"
 
-msgid "Event Logs"
-msgstr ""
-
-msgid "Language Settings"
-msgstr "语言设置"
-
 msgid "Toolkit Priority"
 msgstr "工具优先级"
 
@@ -586,30 +573,17 @@ msgstr "帐户设置"
 msgid "Change Password"
 msgstr "变更密码"
 
-msgid "Updating Packages"
-msgstr ""
+#, c-format
+msgid "Edit %s"
+msgstr "编辑 %s"
 
 #, c-format
-msgid "Cleaning up obsolete files %s"
-msgstr ""
+msgid "Delete %s"
+msgstr "删除 %s"
 
-#, fuzzy, c-format
-msgid "Activating %s"
-msgstr "操作"
-
-#, fuzzy
-msgid "Updating Repository Index"
-msgstr "更新索引"
-
-msgid "Scanning plugins"
-msgstr ""
-
-#, fuzzy
-msgid "Update Plugin List"
-msgstr "升级所有插件"
-
-msgid "Done."
-msgstr "完成"
+#, c-format
+msgid "Move %s"
+msgstr "移动 %s"
 
 msgid "Build all thumbnails/resizes"
 msgstr "创建所有缩略图和变更尺寸的图片"
@@ -622,6 +596,9 @@ msgstr "确保所有衍生对象（缩略图等...）的数据已经建立并重
 msgid "Build All Thumbnails/Resizes"
 msgstr "创建所有缩略图和/或更改尺寸的图像"
 
+msgid "Debug output for failed items:"
+msgstr "为错误项目输出调试信息："
+
 #, c-format
 msgid "Checked %d items"
 msgstr "检查 %d 个项目"
@@ -633,9 +610,6 @@ msgstr "%d个项目创建"
 #, c-format
 msgid "%d items failed"
 msgstr "%d 个项目错误"
-
-msgid "Debug output for failed items:"
-msgstr "为错误项目输出调试信息："
 
 #, fuzzy
 msgid "Convert MySQL database to UTF8"
@@ -654,33 +628,6 @@ msgid "Database successfully converted to UTF8"
 msgstr "项目已删除成功"
 
 msgid "No conversion required"
-msgstr ""
-
-#, fuzzy
-msgid "Backup the database"
-msgstr "优化数据库"
-
-msgid ""
-"Backup all your Gallery data (item data, users, comments, etc.) to a single file in your "
-"storage folder.  The backup does not include the image files.  Before running the backup, "
-"your Gallery installation needs to be set into maintenance mode, as this is not done "
-"automatically."
-msgstr ""
-
-msgid "Backing up Gallery Database"
-msgstr ""
-
-#, fuzzy
-msgid "Exporting..."
-msgstr "处理中..."
-
-#, c-format
-msgid "Database backup completed and the backup file is located at: %s"
-msgstr ""
-
-msgid ""
-"Please note that your backup contains sensitive data (like passwords) and should not be "
-"stored online! We recommend that you download it from your server and keep it safely offline."
 msgstr ""
 
 msgid "Delete user sessions"
@@ -716,12 +663,11 @@ msgstr "不能删除目录：%s"
 msgid "Delete template cache"
 msgstr "删除模版缓存"
 
-#, fuzzy
 msgid ""
 "Gallery compiles template files and saves them for increased performance.  If you're "
 "experiencing problems that say <i>Smarty error</i> then you might try running this task.  "
-"Also run this if you add or remove any local/*.tpl or theme override so Smarty will find the "
-"right file."
+"Also run this if you remove a local/*.tpl file so Smarty will switch back to the default tpl "
+"file."
 msgstr ""
 "Gallery 会编译并保存模版文件以增进性能。如果你发现以下问题<i>Smarty error</i>，应该运行此任"
 "务。同样的，如果删除了本地目录下的 *.tpl 文件，Smarty 系统会使用默认的模版文件。"
@@ -804,14 +750,6 @@ msgid ""
 "Couldn't create cache subdirectory. Make sure the web server has write permissions in it."
 msgstr "不能创建缓存子目录，确保Web服务器有写权限。"
 
-#, fuzzy, c-format
-msgid "Preparing %s"
-msgstr "处理中..."
-
-#, c-format
-msgid "Downloading %s"
-msgstr "正在下载 %s"
-
 msgid "Official Release Repository"
 msgstr ""
 
@@ -873,10 +811,6 @@ msgstr "升序"
 msgid "Descending"
 msgstr "降序"
 
-#, c-format
-msgid "Powered by Gallery v%s"
-msgstr ""
-
 msgid "Validation disabled until you set allowSessionAccess in config.php"
 msgstr "校验功能被关闭，除非在 config.php 中设置 allowSessionAccess "
 
@@ -885,6 +819,13 @@ msgstr "此页面符合XHTML 1.0标准"
 
 msgid "Donate to the Gallery project"
 msgstr "赞助图库项目"
+
+msgid "G2.2: Double Double"
+msgstr ""
+
+#, c-format
+msgid "Powered by Gallery v%s"
+msgstr ""
 
 #, c-format
 msgid "Estimated time remaining: %d:%02d"
@@ -994,6 +935,13 @@ msgstr "数据表"
 msgid "file"
 msgstr "文件"
 
+msgid "Back"
+msgstr "返回"
+
+#, c-format
+msgid "Back to %s"
+msgstr "返回 %s"
+
 msgid "User"
 msgstr "用户"
 
@@ -1059,14 +1007,6 @@ msgstr "核心"
 msgid "unknown"
 msgstr "未知"
 
-#, c-format
-msgid "API = Core %s, Module %s, Theme %s, Embed %s"
-msgstr ""
-
-#, fuzzy
-msgid "Gallery URL"
-msgstr "Gallery"
-
 msgid "Gallery version"
 msgstr "图库版本"
 
@@ -1110,65 +1050,6 @@ msgstr "浏览"
 msgid "Rows in %s table = %d"
 msgstr ""
 
-#, c-format
-msgid "The %s \"%s\" is not installed and will not be backed up."
-msgstr ""
-
-#, c-format
-msgid "\"%s\" has no creation sql and will not be backed up."
-msgstr ""
-
-#, c-format
-msgid "Unable to load table description for \"%s\", no data will be exported."
-msgstr ""
-
-msgid ""
-"Unable to find the XML parser.  The PHP XML parsing extension must be loaded.  Terminating "
-"database import."
-msgstr ""
-
-#, c-format
-msgid "The exported file is not the correct version. Expecting %s received %s."
-msgstr ""
-
-#, fuzzy, c-format
-msgid "Unable to close import file: %s"
-msgstr "不能删除目录：%s"
-
-#, fuzzy, c-format
-msgid "Unable to open import file: %s"
-msgstr "不能删除目录：%s"
-
-#, c-format
-msgid "Import file doesn't exist: %s"
-msgstr ""
-
-#, c-format
-msgid "Plugin %s is not currently available."
-msgstr ""
-
-#, c-format
-msgid "The available version of plugin \"%s\" may not be compatible with the imported version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The currently installed core API version required by \"%s\" may not be compatible with the "
-"imported version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The installed module API version required by \"%s\" may not be compatible with the imported "
-"version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The installed theme API version required by \"%s\" is not compatible with the imported "
-"version."
-msgstr ""
-
 msgid "Successfully saved theme settings"
 msgstr "主题设置保存成功"
 
@@ -1192,6 +1073,30 @@ msgstr "处理您的请求时发生问题，请参考下面的详情。"
 
 msgid "Error sending test email, see below for details."
 msgstr "测试邮件发送错误，请查看详细信息。"
+
+msgid "Language Settings"
+msgstr "语言设置"
+
+msgid ""
+"Select language defaults for Gallery. Individual users can override this setting in their "
+"personal preferences or via the language selector block if available. Gallery will try to "
+"automatically detect the language preference of each user if the browser preference check is "
+"enabled."
+msgstr ""
+"选择图库的默认语言。各用户在其个人偏好设定中的语言设定将优先于此设定。如果启用了浏览器偏好设"
+"定功能，图库会自动检测用户浏览器的语言偏好。"
+
+msgid "Default language"
+msgstr "默认语言"
+
+msgid "Check Browser Preference"
+msgstr "检查浏览器偏好选项"
+
+#, c-format
+msgid ""
+"Your webserver does not support localization.  Please instruct your system administrator to "
+"reconfigure PHP with the %s option enabled."
+msgstr "您的服务器不支持本地化。请联络您的系统管理员重新设定PHP以开启 %s 选项。"
 
 msgid "Date Formats"
 msgstr "日期格式:"
@@ -1245,10 +1150,6 @@ msgstr "Session存活时间"
 
 msgid "Inactivity Timeout"
 msgstr "闲置时间超时"
-
-#, fuzzy
-msgid "Site Administration Session Timeout"
-msgstr "图库网站管理"
 
 msgid "Embedded Markup"
 msgstr "内嵌标签"
@@ -1639,49 +1540,6 @@ msgid_plural "%d failed login attempts since the last successful login."
 msgstr[0] ""
 msgstr[1] ""
 
-#, fuzzy
-msgid "Recent Events"
-msgstr "重置人气计数器"
-
-msgid "Type"
-msgstr ""
-
-#, fuzzy
-msgid "Location"
-msgstr "操作"
-
-#, fuzzy
-msgid "Client"
-msgstr "列表"
-
-#, fuzzy
-msgid "No events have been reported yet."
-msgstr "没有包被选择。"
-
-#, fuzzy
-msgid "Event Details"
-msgstr "错误细节"
-
-#, fuzzy
-msgid "User Id"
-msgstr "用户"
-
-#, fuzzy
-msgid "Referer"
-msgstr "重新排序"
-
-#, fuzzy
-msgid "Details"
-msgstr "默认值"
-
-#, fuzzy
-msgid "no summary"
-msgstr "摘要"
-
-#, fuzzy
-msgid "An error occurred while retrieving the event log entry details."
-msgstr "与数据库交换时发生一个错误。"
-
 msgid "Group Management"
 msgstr "成员组管理"
 
@@ -1743,141 +1601,8 @@ msgid_plural "%d groups match your filter"
 msgstr[0] "%d 个成员组符合您的过滤设定"
 msgstr[1] "%d 个成员组符合您的过滤设定"
 
-msgid "Please make sure that your internet connection is set up properly or try again later."
-msgstr "确保互联网连接正确然后再试验一次。"
-
-#, c-format
-msgid "Failed to scan status from plugin: %s."
-msgstr ""
-
-msgid ""
-"Your local copy of the repository was broken and has been fixed.  Please download the plugin "
-"list again."
-msgstr ""
-
-#, fuzzy, c-format
-msgid "Failed to delete the locale directory for %s."
-msgstr "不能删除目录：%s"
-
-#, c-format
-msgid "Failed to download the following language packages for the %s plugin:"
-msgstr ""
-
-#, c-format
-msgid ""
-"Failed to install language packages for %s plugin because the following files/directories "
-"could not be modified:"
-msgstr ""
-
-#, fuzzy
-msgid "The repository index has been successfully refreshed."
-msgstr "仓库索引已经成功更新。"
-
-#, fuzzy
-msgid "The language settings have been saved."
-msgstr "没有包被选择。"
-
-#, c-format
-msgid "%d language pack upgraded or downloaded."
-msgid_plural "%d language packs upgraded or downloaded."
-msgstr[0] ""
-msgstr[1] ""
-
-#, c-format
-msgid "%d language pack deleted."
-msgid_plural "%d language packs deleted."
-msgstr[0] ""
-msgstr[1] ""
-
-msgid "All the language packages for the selected languages are current"
-msgstr ""
-
-msgid ""
-"Select language defaults for Gallery. Individual users can override this setting in their "
-"personal preferences or via the language selector block if available. Gallery will try to "
-"automatically detect the language preference of each user if the browser preference check is "
-"enabled."
-msgstr ""
-"选择图库的默认语言。各用户在其个人偏好设定中的语言设定将优先于此设定。如果启用了浏览器偏好设"
-"定功能，图库会自动检测用户浏览器的语言偏好。"
-
-msgid "Default language"
-msgstr "默认语言"
-
-msgid "Check Browser Preference"
-msgstr "检查浏览器偏好选项"
-
-#, c-format
-msgid ""
-"Your webserver does not support localization.  Please instruct your system administrator to "
-"reconfigure PHP with the %s option enabled."
-msgstr "您的服务器不支持本地化。请联络您的系统管理员重新设定PHP以开启 %s 选项。"
-
-msgid "Configure your Gallery"
-msgstr ""
-
-msgid ""
-"Before you can proceed, you have to change some permissions so that Gallery can install "
-"plugins for you.  It's easy.  Just execute the following in a shell or via your ftp client:"
-msgstr ""
-
-msgid ""
-"Before you can proceed, please insure the following directories and sub-directories are "
-"writable, so that Gallery can install plugins for you:"
-msgstr ""
-
-msgid ""
-"If you have trouble changing permissions, ask your system administrator for assistance.  "
-"When you've fixed the permissions, click the Check Again button to proceed."
-msgstr ""
-
-#, fuzzy
-msgid "Check Again"
-msgstr "选择全部"
-
-#, fuzzy
-msgid "Add or Remove Languages"
-msgstr "添加/删除用户"
-
-msgid ""
-"Please click on the link below to go to 'Download Plugin List' and choose 'Update Plugin "
-"List' to get the latest language package information."
-msgstr ""
-
-#, fuzzy
-msgid "Administer Repositories"
-msgstr "仓库"
-
-#, fuzzy
-msgid "Upgrade"
-msgstr "升级"
-
-msgid "Remove"
-msgstr "删除"
-
-#, fuzzy
-msgid "Download"
-msgstr "下载"
-
-#, fuzzy
-msgid "No Change"
-msgstr "变更"
-
-#, fuzzy
-msgid "Select All"
-msgstr "已选择"
-
-msgid ""
-"There are no local repository indices from which to determine language packages. Please "
-"click on the link below to go to \"Download Plugin List\" and choose \"Update Plugin List\" "
-"to get the latest language package information."
-msgstr ""
-
 msgid "System Maintenance"
 msgstr "系统维护"
-
-msgid "Gallery must be in maintenance mode before the task can be run."
-msgstr ""
 
 #, c-format
 msgid "Completed %s task successfully."
@@ -1886,41 +1611,6 @@ msgstr "%s 任务成功完成。"
 #, c-format
 msgid "The %s task failed to complete successfully."
 msgstr "%s任务未能成功完成。"
-
-msgid "Maintenance Mode has been turned on."
-msgstr ""
-
-msgid "Maintenance Mode has been turned off."
-msgstr ""
-
-#, fuzzy
-msgid "Maintenance Mode"
-msgstr "维护"
-
-msgid "Restrict user access to the system while maintenance is being performed."
-msgstr ""
-
-#, fuzzy
-msgid "Maintenance Mode Url"
-msgstr "维护"
-
-msgid ""
-"The Maintenance Mode Url specifies where requests will be redirected when access to the site "
-"has been restricted by the administrator."
-msgstr ""
-
-msgid ""
-"If left blank Gallery will display a default page with an administrator login link. This "
-"page will be themed when the code base is up to date, otherwise it will display a plain "
-"unstyled page."
-msgstr ""
-
-msgid "For example: /maintenance.html"
-msgstr ""
-
-#, fuzzy
-msgid "Set"
-msgstr "设置"
 
 msgid "Task name"
 msgstr "任务名"
@@ -2010,21 +1700,6 @@ msgstr "访客"
 
 msgid "Expires after:"
 msgstr "在多久后过期："
-
-#, fuzzy
-msgid "Template Cache"
-msgstr "删除模版缓存"
-
-#, c-format
-msgid ""
-"For optimal performance, Gallery caches all templates.  If you would like to %scustomize "
-"your template files%s, you should disable template caching temporarily so that changes take "
-"effect immediately without clearing the template cache."
-msgstr ""
-
-#, fuzzy
-msgid "Enable template caching"
-msgstr "删除模版缓存"
 
 msgid "Clear Saved Pages"
 msgstr "清除存储页面"
@@ -2196,20 +1871,22 @@ msgstr "模块不兼容"
 msgid "Repository"
 msgstr "仓库"
 
+msgid "Please make sure that your internet connection is set up properly or try again later."
+msgstr "确保互联网连接正确然后再试验一次。"
+
 #, c-format
-msgid "Failed to download the following packages for the %s plugin:"
+msgid "Failed to scan status from plugin: %s."
+msgstr ""
+
+msgid ""
+"Your local copy of the repository was broken and has been fixed.  Please download the plugin "
+"list again."
 msgstr ""
 
 #, c-format
 msgid ""
-"Failed to install the %s plugin because the following files/directories could not be "
+"Failed to download the %s plugin because the following files/directories could not be "
 "modified:"
-msgstr ""
-
-#, c-format
-msgid ""
-"Some plugins could not be automatically upgraded because they are in use.  Please return to "
-"the %sPlugins%s page and click the upgrade link for each of the following plugins:"
 msgstr ""
 
 msgid "The repository index has been successfully updated."
@@ -2221,6 +1898,12 @@ msgstr "所有插件都是最新的。"
 #, c-format
 msgid "%s plugin updated."
 msgstr ""
+
+#, c-format
+msgid "%d language pack deleted."
+msgid_plural "%d language packs deleted."
+msgstr[0] ""
+msgstr[1] ""
 
 msgid ""
 "No personal information about you or your Gallery installation is sent to the Gallery server "
@@ -2261,6 +1944,14 @@ msgid "You must select at least one repository."
 msgstr "您必须选择一个用户来删除。"
 
 msgid "Ok"
+msgstr ""
+
+msgid "Configure your Gallery"
+msgstr ""
+
+msgid ""
+"Before you can proceed, you have to change some permissions so that Gallery can install "
+"plugins for you.  It's easy.  Just execute the following in a shell or via your ftp client:"
 msgstr ""
 
 msgid ""
@@ -2364,7 +2055,8 @@ msgstr "没有包被选择。"
 
 msgid ""
 "Download a package in order to use this plugin.  You can upgrade by choosing a newer version "
-"of the package to download."
+"of the package to download.  Language packages are optional, You only need to download the "
+"ones that you want to use on your site."
 msgstr ""
 
 #, fuzzy
@@ -2383,7 +2075,12 @@ msgstr ""
 msgid "%sCurrently Installed%s: version %s (build %s)"
 msgstr ""
 
-msgid "The following language packages are available for this plugin"
+#, fuzzy
+msgid "Language Packages"
+msgstr "语言设置"
+
+#, c-format
+msgid "(%sselect all%s%sselect none%s)"
 msgstr ""
 
 #, c-format
@@ -2403,6 +2100,9 @@ msgid "%s version %s (currently installed)"
 msgstr ""
 
 msgid "No compatible language packages available"
+msgstr ""
+
+msgid "You must select a base package before choosing language packs."
 msgstr ""
 
 msgid "Update"
@@ -2460,10 +2160,6 @@ msgstr ""
 msgid "New albums"
 msgstr "新相册"
 
-#, c-format
-msgid "To activate more themes visit the %sPlugins%s page."
-msgstr ""
-
 #, fuzzy
 msgid "Save Defaults"
 msgstr "默认值"
@@ -2484,6 +2180,9 @@ msgstr "选择功能块"
 
 msgid "Selected"
 msgstr "已选择"
+
+msgid "Remove"
+msgstr "删除"
 
 msgid "Move Up"
 msgstr "上移"
@@ -2667,17 +2366,14 @@ msgstr "错误细节"
 msgid "System Information"
 msgstr "系统信息"
 
-msgid "Not all of the specified items have been added successfully."
-msgstr ""
-
 msgid ""
 "You don't have any Graphics Toolkit activated that can handle JPEG images.  If you add "
 "images, you will probably not have any thumbnails."
 msgstr "您没有任何开启的可处理JPEG图片的图形工具。若添加图片，您可能无法生成缩略图。"
 
 #, c-format
-msgid "Visit the %sModules%s page to activate a Graphics Toolkit."
-msgstr "访问 %s模块%s 页面开启图形工具。"
+msgid "Visit the <a href=\"%s\">Modules</a> page to activate a Graphics Toolkit."
+msgstr "访问 <a href=\"%s\">模块</a>页面开启图形工具。"
 
 msgid "Add Sub-Album"
 msgstr "添加子相册"
@@ -2777,6 +2473,9 @@ msgstr "指定标题到:"
 msgid "No Thumbnail"
 msgstr "无缩略图"
 
+msgid "Delete Items"
+msgstr "删除项目"
+
 msgid "No items were selected for deletion"
 msgstr "未选择删除项目"
 
@@ -2832,13 +2531,24 @@ msgstr "上一页"
 msgid "Next Page"
 msgstr "下一页"
 
-#, fuzzy, c-format
-msgid "Do you really want to delete %s?"
-msgstr "您确定要卸载 __PLUGIN__ 模块吗？"
+msgid "Deletion Complete"
+msgstr "删除完成"
 
-#, fuzzy
-msgid "Delete more items..."
-msgstr "删除项目"
+msgid "Item successfully deleted"
+msgstr "项目已删除成功"
+
+#, c-format
+msgid "Are you sure you want to delete this %s?"
+msgstr "您确定要删除这个 %s 吗？"
+
+#, c-format
+msgid "It contains %d item."
+msgid_plural "It contains %d items."
+msgstr[0] "包含 %d 个项目。"
+msgstr[1] "包含 %d 个项目。"
+
+msgid "There is no undo!"
+msgstr "无法取消操作！"
 
 msgid "There was a problem processing your request."
 msgstr "处理您的请求时出现问题。"
@@ -2996,10 +2706,6 @@ msgstr "这是此项目的详细描述。"
 msgid "%s Date and Time"
 msgstr "%s 日期和时间"
 
-#, fuzzy
-msgid "Link Date and Time"
-msgstr "%s 日期和时间"
-
 msgid "Set the date and time when this image was captured."
 msgstr "在此图片被获取时设定日期和时间"
 
@@ -3009,10 +2715,6 @@ msgstr "为此项目设定显示的日期和时间。"
 #, c-format
 msgid "Set the date and time to be displayed for this %s."
 msgstr "为此 %s 设定显示的日期和时间。"
-
-#, fuzzy
-msgid "Set the date and time to be displayed for this link."
-msgstr "为此项目设定显示的日期和时间。"
 
 msgid "Date:"
 msgstr "日期:"
@@ -3235,16 +2937,9 @@ msgstr "来源"
 msgid "Choose the items you want to move"
 msgstr "选择您要移动的项目"
 
-msgid "OK"
-msgstr ""
-
 msgid ""
 "The destination you chose does not accept sub-albums, so all sub-albums have been deselected."
 msgstr "您选择的目标位置不接受子相册，因此所有子相册已被取消选择。"
-
-#, fuzzy
-msgid "Warning"
-msgstr "警告："
 
 msgid ""
 "The destination you chose only accepts sub-albums, so all non-albums have been deselected."
@@ -3442,12 +3137,10 @@ msgstr "输入网址的一些文字描述"
 msgid "Enter an image URL"
 msgstr "输入图片网址"
 
-#. HINT: Button label for Bold
-msgid "B"
+msgid "B <!-- Button label for Bold -->"
 msgstr "粗体"
 
-#. HINT: Button label for italic
-msgid "i"
+msgid "i <!-- Button label for italic -->"
 msgstr "斜体"
 
 msgid "list"
@@ -3467,7 +3160,7 @@ msgid "color"
 msgstr "核心"
 
 #, c-format
-msgid "You can also use the %scolor name%s for example: %sYour Text%s"
+msgid "You can also use the <a href=\"%s\" target=\"_new\">color name</a> for example: %s"
 msgstr ""
 
 msgid "Configuration Error: Missing Theme"
@@ -3572,23 +3265,21 @@ msgstr "登录到您的帐户"
 msgid "Your password has been recovered, please login."
 msgstr "您的密码已经恢复，请登录。"
 
-msgid ""
-"The administration session has expired, please re-authenticate to access the administration "
-"area."
-msgstr ""
-
 #, c-format
 msgid ""
 "Logins to this account are temporarily disabled due to multiple failed login attempts.  Wait "
-"for access to be restored, or use the %srecover password%s page to re-enable this account."
+"for access to be restored, or use the <a href=\"%s\">recover password</a> page to re-enable "
+"this account."
 msgstr ""
 
 msgid "Your login information is incorrect.  Please try again."
 msgstr "您的登录信息不正确，请再试。"
 
 #, c-format
-msgid "Lost or forgotten passwords can be retrieved using the %srecover password%s page"
-msgstr "丢失或者遗忘密码可以通过%s恢复密码%s 页找回。"
+msgid ""
+"Lost or forgotten passwords can be retrieved using the <a href=\"%s\">recover password</a> "
+"page"
+msgstr "丢失或者遗忘密码可以通过<a href=\"%s\">恢复密码</a> 页找回。"
 
 #, c-format
 msgid "Welcome, %s!"
@@ -3719,14 +3410,14 @@ msgstr "该页允许您为您的帐户重置密码。"
 #, c-format
 msgid ""
 "There is no request which matches the username and authorization provided. Request a new "
-"authorization from the %slost password page%s."
-msgstr "没有请求匹配您的帐户。请从%s丢失密码页%s 重新申请。"
+"authorization from the <a href=\"%s\">lost password page</a>"
+msgstr "没有请求匹配您的帐户。请从<a href=\"%s\">丢失密码页</a>重新申请。"
 
 #, c-format
 msgid ""
-"The request you are trying to access has expired.  Request a new authorization from the %"
-"slost password page%s."
-msgstr "您访问的申请已经过期。请从%s丢失密码页%s 重新申请。"
+"The request you are trying to access has expired.  Request a new authorization from the <a "
+"href=\"%s\">lost password page</a>."
+msgstr "您访问的申请已经过期。请从<a href=\"%s\">丢失密码页</a>重新申请。"
 
 msgid "Authorization missing"
 msgstr "认证丢失"
@@ -3800,14 +3491,18 @@ msgstr "&laquo; 项目操作 &raquo;"
 msgid "Go"
 msgstr "开始"
 
-msgid "WARNING: block $type doesn't exist."
-msgstr ""
+msgid "Navigation"
+msgstr "导航"
 
 msgid "next"
 msgstr "下一个"
 
 msgid "last"
 msgstr "最后"
+
+#, c-format
+msgid "Page %d of %d"
+msgstr "第 %d 页，共 %d 页"
 
 #, c-format
 msgid "%d of %d"
@@ -3855,42 +3550,3 @@ msgstr "登录"
 
 msgid "Links to album/photo peers"
 msgstr "链接到同级相册/相片"
-
-#, fuzzy
-#~ msgid "Language Packages"
-#~ msgstr "语言设置"
-
-#~ msgid "Back to %s"
-#~ msgstr "返回 %s"
-
-#~ msgid "Back"
-#~ msgstr "返回"
-
-#~ msgid "Navigation"
-#~ msgstr "导航"
-
-#~ msgid "delete confirmation"
-#~ msgstr "删除确认"
-
-#~ msgid "delete %s"
-#~ msgstr "删除 %s"
-
-#~ msgid "Deletion Complete"
-#~ msgstr "删除完成"
-
-#~ msgid "Item successfully deleted"
-#~ msgstr "项目已删除成功"
-
-#~ msgid "Are you sure you want to delete this %s?"
-#~ msgstr "您确定要删除这个 %s 吗？"
-
-#~ msgid "It contains %d item."
-#~ msgid_plural "It contains %d items."
-#~ msgstr[0] "包含 %d 个项目。"
-#~ msgstr[1] "包含 %d 个项目。"
-
-#~ msgid "There is no undo!"
-#~ msgstr "无法取消操作！"
-
-#~ msgid "key"
-#~ msgstr "主键"

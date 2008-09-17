@@ -2,15 +2,13 @@
 <html>
   <head>
     <title>Gallery Unit Tests</title>
-    <!--base_href-->
-    <script type="text/javascript" src="../../../lib/yui/utilities.js"></script>
-    <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
-
-    <script type="text/javascript">
-      function toggle(id) {
-        var display = YAHOO.util.Dom.getStyle(id, 'display');
-        YAHOO.util.Dom.setStyle(id, 'display', display == 'block' ? 'none' : 'block');
-      }
+    <STYLE TYPE="text/css">
+      <?php include ("stylesheet.css"); ?>
+    </STYLE>
+  </head>
+  <body>
+  <?php if (!isset($compactView)): ?>
+    <script type="text/javascript" language="javascript">
       function setFilter(value) {
         document.forms[0].filter.value=value;
       }
@@ -18,38 +16,13 @@
         setFilter(failedTestFilter);
         document.forms[0].submit();
       }
-      function skip(i) {
-      }
-      function updateProgressBar(title, description, percentComplete, timeRemaining, memoryInfo) {
-	/* Dummy updateProgressBar method in case some unit tests actually writes the script to call (ItemAddFromServerTest) */
-      }
     </script>
-  </head>
-  <body>
-  <?php if (!isset($compactView)): ?>
-    <div id="status" style="position: absolute; right: 0; top: 0; background: white; display: none">
-      <div class="header">
-	Run Status
-	<div style="position: absolute; right: 0px; display: inline">
-	  <img class="toggle" onclick="hideStatus()" src="cancel.png">
-	</div>
-      </div>
+    <div id="status" style="display: none;">
+      <div class="header">Run Status</div>
       <div class="body">
 	Pass: <span id="pass_count">&nbsp;</span>, Fail <span id="fail_count">&nbsp;</span>, Skip: <span id="skip_count">&nbsp;</span>, Total: <span id="total_count">&nbsp;</span> <br/>
-        Elapsed time: <span id="elapsed_time">&nbsp;</span> <br/>
 	Estimated time remaining: <span id="estimated_time_remaining">&nbsp;</span> <br/>
-	Memory Usage: <span id="used_memory">&nbsp;</span> (<?php print (0 < ini_get('memory_limit')) ? ini_get('memory_limit') + "allowed": "Unlimited"; ?>)
-      </div>
-      <div id="show_more" class="header toggle">
-	<img src="add.png" onclick="showMoreStatus()">
-      </div>
-      <div id="more" class="body" style="display: none">
-	Test running: <span id="test_running">none</span> <br/>
-        Last update: <span id="last_update_interval">not running</span> <br/>
-      </div>
-      <div id="show_less" class="header toggle" style="display: none">
-	<img src="../../../modules/icons/iconpacks/silk/delete.png" onclick="showLessStatus()">
-      </div>
+	Memory Usage: <span id="used_memory">&nbsp;</span> (<?php print (0 < ini_get('memory_limit')) ? ini_get('memory_limit') : 0; ?> allowed)
       </div>
     </div>
 
@@ -66,10 +39,53 @@
     <h2> <span class="error">ERROR!</span> </h2>
     <div class="section">
       You are not logged in as a Gallery site administrator so you are
-      not allowed to run the unit tests.
-      [<a href="../../../main.php?g2_view=core.UserAdmin&g2_subView=core.UserLogin&g2_return=<?php echo $_SERVER['REQUEST_URI']?>">login</a>]
+      not allowed to run the unit tests.  If you have cookies disabled, then you
+      must go back to the page where you logged in and copy the part of your URL
+      that looks like this:
+      <p>
+	<code>g2_GALLERYSID=51c0ca5a9ce1296ccfd5307fa77fd998</code>
+      </p>
+      get rid of the <i>g2_GALLERYSID</i> part and paste it into this text box then
+      click the Reload Page button.  That will transfer your session from
+      the page where you logged in over to this page.
+
+      <a href="../../../main.php?g2_view=core.UserAdmin&g2_subView=core.UserLogin&g2_return=<?php echo $_SERVER['REQUEST_URI']?>">[ login ]</a>
+      <form>
+	<input type="text" size=33 name="<?php echo isset($sessionKey) ? $sessionKey : '' ?>">
+	  <input type="submit" value="Reload page">
+      </form>
     </div>
     <?php endif; ?>
+
+    <script type="text/javascript">
+      examplesVisible = false;
+      function toggleFilterExamples() {
+        myList = document.getElementById('help_and_examples');
+        myIndicator = document.getElementById('filter_examples_toggle_indicator');
+        if (examplesVisible) {
+	  myList.style.display = 'none';
+	  myIndicator.innerHTML = '+';
+	} else {
+	  myList.style.display = 'inline';
+	  myIndicator.innerHTML = '-';
+	}
+	examplesVisible = !examplesVisible;
+      }
+
+      modulesListingVisible = false;
+      function toggleModulesListing() {
+        myList = document.getElementById('modules_listing');
+        myIndicator = document.getElementById('modules_listing_toggle_indicator');
+        if (modulesListingVisible) {
+          myList.style.display = 'none';
+          myIndicator.innerHTML = '+';
+        } else {
+          myList.style.display = 'inline';
+          myIndicator.innerHTML = '-';
+        }
+        modulesListingVisible = !modulesListingVisible;
+      }
+    </script>
 
     <?php if (sizeof($incorrectDevEnv) > 0): ?>
     <div style="float: right; width: 500px; border: 2px solid red; padding: 3px">
@@ -87,7 +103,7 @@
         <?php foreach (array_keys($incorrectDevEnv) as $key): ?>
         <tr>
           <td> <?php print $key ?> </td>
-          <td> <?php print wordwrap($incorrectDevEnv[$key][1], 45, "<br>", true) ?> </td>
+          <td> <?php print $incorrectDevEnv[$key][1] ?> </td>
           <td> <?php print join(' <b>or</b> ', $incorrectDevEnv[$key][0]) ?> </td>
         </tr>
         <?php endforeach; ?>
@@ -95,7 +111,7 @@
     </div>
     <?php endif; ?>
 
-    <h2>Filter (<span onclick="toggle('help_and_examples')" class="fakelink">Help/Examples</span>) </h2>
+    <h2>Filter</h2>
     <div class="section">
       <form>
 	<?php if (isset($sessionKey)): ?>
@@ -109,9 +125,16 @@
 	<?php endif; ?>
 
 	<br/>
-	<h2>
-        </h2>
+        <span id="filter_examples_toggle"
+          href="#"
+          onclick="toggleFilterExamples()">
+          Help/Examples
+          <span id="filter_examples_toggle_indicator"
+            style="padding-left: .3em; padding-right: 0.3em; border: solid #a6caf0; border-width: 1px; background: #eee">+</span>
+        </span>
+
         <div id="help_and_examples" style="display: none">
+         <br/>
 	  Enter a regular expression string to restrict testing to classes containing
           that text in their class name or test method.  If you use an exclamation before a
           module/class/test name(s) encapsulated in parenthesis and separated with bars, this will
@@ -161,20 +184,25 @@
       </form>
     </div>
 
-    <?php
+    <h2>Modules</h2>
+
+    <div class="section" style="width: 100%">
+      <?php
       $activeCount = 0;
       foreach ($moduleStatusList as $moduleId => $moduleStatus) {
         if (!empty($moduleStatus['active'])) {
           $activeCount++;
         }
       }
-    ?>
-    <h2>
-      <span onclick="toggle('modules_listing')" class="fakelink">Modules (<?php printf("%d active, %d total", $activeCount, sizeof($moduleStatusList)); ?>)</span>
-    </h2>
-    <div class="section" style="width: 100%">
+      ?>
+      <?php printf("%d active, %d total", $activeCount, sizeof($moduleStatusList)); ?>
+      <span onclick="toggleModulesListing()" id="modules_listing_toggle_indicator"
+            style="padding-left: .3em; padding-right: 0.3em; border: solid #a6caf0; border-width: 1px; background: #eee">+</span>
+      <br/>
       <table cellspacing="1" cellpadding="1" border="0"
-	width="800" class="details" id="modules_listing" style="display: none">
+        width="800" align="center" class="details"
+        id="modules_listing"
+        style="display: none">
         <tr>
           <th> Module Id </th>
           <th> Active </th>
@@ -197,41 +225,6 @@
     </div>
   <?php endif; /* compactView */ ?>
 
-  <?php if ($priorRuns): ?>
-    <h2>
-      <span onclick="toggle('prior_runs')" class="fakelink">Prior Runs (<?php print count($priorRuns)?>)</span>
-    </h2>
-    <div id="prior_runs" style="display: none">
-      <table cellspacing="1" cellpadding="1" border="0"	width="800" class="details">
-	<tr>
-	  <th> Date </th>
-	  <th> File Size </th>
-	  <th> Action </th>
-	</tr>
-	<?php foreach ($priorRuns as $run): ?>
-	<tr>
-	  <td style="width: 100px">
-	    <a href="index.php?run=frame:<?php print $run['key']?>"><?php print $run['date'] ?></a>
-	  </td>
-	  <td style="width: 100px">
-	    <?php print $run['size'] ?> bytes
-	  </td>
-	  <td style="width: 100px">
-	    <a href="index.php?run=delete:<?php print $run['key']?>">delete</a>
-	  </td>
-	</tr>
-	<?php endforeach; ?>
-	<tr>
-	  <td colspan="3">
-	    <center>
-	      <h3> <a href="?run=deleteall:">Delete All</a></h3>
-	    </center>
-	  </td>
-	</tr>
-      </table>
-    </div>
-  <?php endif; /* $priorRuns */ ?>
-
   <h2>Test Results</h2>
 
   <table cellspacing="1" cellpadding="1" border="0" width="90%" align="CENTER" class="details">
@@ -253,7 +246,7 @@
     <h2>Summary</h2>
 
     <p><span id="testTime">&nbsp;</span> seconds elapsed</p>
-    <p><span id="testCount">&nbsp;</span> run<span id="runThenSkip">&nbsp;</span></p>
+    <p><span id="testCount">&nbsp;</span> run</p>
     <p><span id="testFailCount">&nbsp;</span> failed
        with <span id="testErrorCount">&nbsp;</span></p>
     <p><a href="http://codex.gallery2.org/Gallery2:Test_Matrix#Unit_Tests">Test Matrix Entry</a>:
@@ -289,24 +282,10 @@
 
       function showStatus() {
 	document.getElementById("status").style.display = 'block';
-	window.onscroll = function() {
-	new YAHOO.util.Anim(
-	  'status',
-	  { top: { to: YAHOO.util.Dom.getDocumentScrollTop() } },
-	  .5, YAHOO.util.Easing.easeIn).animate();
-	};
-	running = true;
-	setTimeout('updateMoreBox()', 0);
       }
 
-      function completeStatus() {
-	if (failCount > 0) {
-	  YAHOO.util.Dom.addClass('status', 'fail');
-        } else {
-	  YAHOO.util.Dom.addClass('status', 'pass');
-        }
-	running = false;
-	runningTest('none');
+      function hideStatus() {
+	document.getElementById("status").style.display = 'none';
       }
 
       function updateStats(pass, fail, skip, usedMemory, force) {
@@ -331,47 +310,6 @@
 	var estimatedRemainingTime = (1 - completionPercent) * estimatedTotalTime;
 	estimatedRemainingTime = Math.round(estimatedRemainingTime);
 	estimatedTimeRemainingEl.innerHTML = estimatedRemainingTime + " seconds";
-        elapsedEl.innerHTML = Math.round(elapsed) + " seconds";
-	lastUpdateTime = new Date().getTime() / 1000;
-      }
-
-      function updateMoreBox() {
-	var lastUpdateEl = document.getElementById('last_update_interval');
-	var testRunningEl = document.getElementById('test_running');
-
-	var lastText = 'not running';
-	var runningText = 'none';
-	if (running) {
-          var now = new Date().getTime() / 1000;
-	  lastText = Math.round(100 * (now - lastUpdateTime)) / 100 + ' seconds ago';
-	}
-
-	lastUpdateEl.innerHTML = lastText;
-	testRunningEl.innerHtml = runningText;
-
-	if (running) {
-	  setTimeout('updateMoreBox()', 500 + Math.random() * 500);
-	}
-      }
-
-      function hideStatus() {
-	YAHOO.util.Dom.setStyle('status', 'display', 'none');
-      }
-
-      function showMoreStatus() {
-	YAHOO.util.Dom.setStyle('show_more', 'display', 'none');
-	YAHOO.util.Dom.setStyle('more', 'display', 'block');
-	YAHOO.util.Dom.setStyle('show_less', 'display', 'block');
-      }
-
-      function showLessStatus() {
-	YAHOO.util.Dom.setStyle('show_more', 'display', 'block');
-	YAHOO.util.Dom.setStyle('more', 'display', 'none');
-	YAHOO.util.Dom.setStyle('show_less', 'display', 'none');
-      }
-
-      function runningTest(testName) {
-	document.getElementById('test_running').innerHTML = testName;
       }
 
       var startTime = new Date().getTime() / 1000;
@@ -381,11 +319,8 @@
       var failCountEl = document.getElementById('fail_count');
       var skipCountEl = document.getElementById('skip_count');
       var estimatedTimeRemainingEl = document.getElementById('estimated_time_remaining');
-      var elapsedEl = document.getElementById('elapsed_time');
       var usedMemoryEl = document.getElementById('used_memory');
-      var running = false;
       document.getElementById('total_count').innerHTML = totalCount;
-      updateMoreBox();
       updateStats(0, 0, 0, 0, 1);
     </script>
 

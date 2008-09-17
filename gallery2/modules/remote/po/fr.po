@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,10 +19,10 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Remote 1.0.16\n"
+"Project-Id-Version: Gallery: Remote 1.0.9\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-11-25 00:05+0100\n"
-"PO-Revision-Date: 2007-06-17 00:00+0100\n"
+"PO-Revision-Date: 2007-01-01 00:00+0100\n"
 "Last-Translator: Arnaud MOURONVAL <ArnaudMouronval@yahoo.com>\n"
 "Language-Team: French <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -34,7 +34,7 @@ msgid "Gallery Remote"
 msgstr "Gallery Remote"
 
 msgid "Remote"
-msgstr "Gallery Remote"
+msgstr "Distant"
 
 msgid "Implementation for the remote control protocol"
 msgstr "Implémentation du protocole de contrôle à distance"
@@ -46,22 +46,18 @@ msgid ""
 "Gallery Remote is a Java application that runs on your desktop computer and provides a rich "
 "interface to Gallery.  With Gallery Remote you can drag and drop to photos to upload them to "
 "Gallery, rotate and resize your images before uploading, and even view the photos in your "
-"Gallery in a slideshow on your desktop computer."
+"Gallery in a slideshow on your desktop computer.  You must install Gallery Remote 1.4 or "
+"newer to use it with this version of Gallery."
 msgstr ""
 "Gallery Remote est une application Java qui est exécuté sur votre ordinateur de bureau et "
 "qui fournit une interface riche pour Gallery. Avec Gallery Remote, vous pouvez ajouter "
 "simplement des images à télécharger dans Gallery, tourner ou redimensionner vos images avant "
 "l'envoi, et même visualiser les photos de votre Gallery dans un diaporama sur votre "
-"ordinateur."
+"ordinateur. Vous devez installer Gallery Remote 1.4 ou plus récent pour pouvoir accéder à "
+"cette Gallery."
 
-msgid "You can either:"
-msgstr "Vous pouvez au choix&nbsp;:"
-
-msgid "Install Gallery Remote permanently on your computer"
-msgstr "Installer Gallery Remote de manière permanente sur votre ordinateur"
-
-msgid "Run Gallery Remote immediately using Java Webstart"
-msgstr "Utiliser Gallery Remote immédiatement grâce à Java Webstart"
+msgid "Download Gallery Remote"
+msgstr "Télécharger Gallery Remote"
 
 msgid "Remote Settings"
 msgstr "Paramètres pour Distant"

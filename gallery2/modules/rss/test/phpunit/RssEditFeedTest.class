@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -39,23 +39,21 @@ class RssEditFeedTest extends GalleryControllerTestCase {
     }
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'rss');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'rss', 'allowConfigurableFeed', 1);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$ret = GalleryCoreApi::setPluginParameter('module', 'rss', 'allowAlbums', 1);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
     }
 
@@ -64,15 +62,12 @@ class RssEditFeedTest extends GalleryControllerTestCase {
 	    foreach ($this->_feedsToDelete as $name) {
 		$ret = RssMapHelper::deleteFeed($name);
 		if ($ret) {
-		    return $ret;
+		    return $this->failWithStatus($ret);
 		}
 	    }
 	}
 
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
+	parent::tearDown();
     }
 
     function testRssEditFeedCancel() {
@@ -105,8 +100,8 @@ class RssEditFeedTest extends GalleryControllerTestCase {
 	$values = array(
 	    'itemId' => (string) $this->_getRootId(),
 	    'mode' => 'edit',
-	    'feedType' => 'photosRecursive',
-	    'photosRecursiveLimit'=> '0',
+	    'feedType' => 'photosRecurse',
+	    'photosRecurseLimit'=> '0',
 	    'feedName' => $name,
 	    'version' => '2.0',
 	    'count' => '10',
@@ -155,7 +150,7 @@ class RssEditFeedTest extends GalleryControllerTestCase {
 	/* check the feed values */
 	list ($ret, $feed) = RssMapHelper::fetchFeed($name);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
     }
 
@@ -166,7 +161,7 @@ class RssEditFeedTest extends GalleryControllerTestCase {
 	$params = array('itemId' => $this->_getRootId());
 	$ret = RssMapHelper::createFeed($name, $params);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* remember to delete this new feed */
@@ -179,8 +174,8 @@ class RssEditFeedTest extends GalleryControllerTestCase {
 	$values = array(
 	    'itemId' => (string) $this->_getRootId(),
 	    'mode' => 'edit',
-	    'feedType' => 'photosRecursive',
-	    'photosRecursiveLimit'=> '0',
+	    'feedType' => 'photosRecurse',
+	    'photosRecurseLimit'=> '0',
 	    'feedName' => $name,
 	    'version' => '2.0',
 	    'count' => '10',
@@ -226,7 +221,7 @@ class RssEditFeedTest extends GalleryControllerTestCase {
 	/* check the feed values */
 	list ($ret, $feed) = RssMapHelper::fetchFeed($name);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
     }
 
@@ -240,8 +235,8 @@ class RssEditFeedTest extends GalleryControllerTestCase {
 	$values = array(
 	    'itemId' => (string) $this->_getRootId(),
 	    'mode' => 'edit',
-	    'feedType' => 'photosRecursive',
-	    'photosRecursiveLimit'=> '0',
+	    'feedType' => 'photosRecurse',
+	    'photosRecurseLimit'=> '0',
 	    'feedName' => $name,
 	    'version' => '2.0',
 	    'count' => '10',
@@ -292,7 +287,7 @@ class RssEditFeedTest extends GalleryControllerTestCase {
 	$params = array('itemId' => $this->_getRootId());
 	$ret = RssMapHelper::createFeed($name, $params);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	/* Cleanup if things go wrong */
 	$this->_feedsToDelete[] = $name;

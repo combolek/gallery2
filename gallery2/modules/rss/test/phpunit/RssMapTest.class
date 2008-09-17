@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,22 +38,21 @@ class RssMapTest extends GalleryTestCase {
 
     function setUp() {
 	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	$this->_feedsToDelete = array();
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'rss');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	/* create an album */
 	list ($ret, $this->_root) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($this->_root);
 
@@ -62,7 +61,7 @@ class RssMapTest extends GalleryTestCase {
 	$params = array('itemId' => $this->_root->getId());
 	$ret = RssMapHelper::createFeed($this->_name, $params);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->_feedsToDelete[] = $this->_name;
@@ -73,15 +72,12 @@ class RssMapTest extends GalleryTestCase {
 	    foreach ($this->_feedsToDelete as $name) {
 		$ret = RssMapHelper::deleteFeed($name);
 		if ($ret) {
-		    return $ret;
+		    return $this->failWithStatus($ret);
 		}
 	    }
 	}
 
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
+	parent::tearDown();
     }
 
     function testCollision() {
@@ -98,7 +94,7 @@ class RssMapTest extends GalleryTestCase {
     function testDelete() {
 	$ret = RssMapHelper::deleteFeed($this->_name);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $feed) = RssMapHelper::fetchFeed($this->_name);
@@ -115,7 +111,7 @@ class RssMapTest extends GalleryTestCase {
 
 	list ($ret, $feeds) = RssMapHelper::fetchFeedsForItem($this->_root->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals($feeds, array(array(
@@ -131,7 +127,7 @@ class RssMapTest extends GalleryTestCase {
 
 	list ($ret, $names) = RssMapHelper::fetchFeedNames();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assert(in_array($this->_name, $names));

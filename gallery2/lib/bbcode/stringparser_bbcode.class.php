@@ -2,33 +2,35 @@
 /**
  * BB code string parsing class
  *
- * Version: 0.3.2b
+ * Version: 0.3.1
  *
  * @author Christian Seiler <spam@christian-seiler.de>
  * @copyright Christian Seiler 2006
  * @package stringparser
  *
- * The MIT License
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of either:
  *
- * Copyright (c) 2004-2007 Christian Seiler
+ *  a) the GNU General Public License as published by the Free
+ *  Software Foundation; either version 1, or (at your option) any
+ *  later version, or
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
+ *  b) the Artistic License as published by Larry Wall, either version 2.0,
+ *     or (at your option) any later version.
  *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See either
+ *  the GNU General Public License or the Artistic License for more details.
  *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ *  You should have received a copy of the Artistic License with this Kit,
+ *  in the file named "Artistic.clarified".  If not, I'll be glad to provide
+ *  one.
+ *
+ *  You should also have received a copy of the GNU General Public License
+ *  along with this program in the file named "COPYING"; if not, write to
+ *  the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+ *  MA 02111-1307, USA.
  */
  
 require_once dirname(__FILE__).'/stringparser.class.php';
@@ -770,9 +772,13 @@ class StringParser_BBCode extends StringParser {
 	 * @return bool
 	 */
 	function _openElement ($type = 0) {
-		$name = $this->_getCanonicalName ($this->_topNode ('name'));
-		if ($name === false) {
-			return $this->_reparseAfterCurrentBlock ();
+		$name = $this->_topNode ('name');
+		if (!isset ($this->_codes[$name])) {
+			if (isset ($this->_codes[strtolower ($name)]) && (!$this->getCodeFlag (strtolower ($name), 'case_sensitive', 'boolean', true) || !$this->_caseSensitive)) {
+				$name = strtolower ($name);
+			} else {
+				return $this->_reparseAfterCurrentBlock ();
+			}
 		}
 		$occ_type = $this->getCodeFlag ($name, 'occurrence_type', 'string');
 		if ($occ_type !== null && isset ($this->_maxOccurrences[$occ_type])) {
@@ -919,7 +925,10 @@ class StringParser_BBCode extends StringParser {
 	 * @return bool
 	 */
 	function _isOpenableWithClose ($name, &$closecount) {
-		$tnname = $this->_getCanonicalName ($this->_topNode ('name'));
+		$tnname = $this->_topNode ('name');
+		if (isset ($this->_codes[strtolower($tnname)]) && (!$this->getCodeFlag (strtolower($tnname), 'case_sensitive', 'boolean', true) || !$this->_caseSensitive)) {
+			$tnname = strtolower($tnname);
+		}
 		if (!in_array ($this->getCodeFlag ($tnname, 'closetag', 'integer', BBCODE_CLOSETAG_IMPLICIT), array (BBCODE_CLOSETAG_FORBIDDEN, BBCODE_CLOSETAG_OPTIONAL))) {
 			return false;
 		}
@@ -981,10 +990,12 @@ class StringParser_BBCode extends StringParser {
 	 * @return mixed
 	 */
 	function &_findNamedNode ($name, $searchdeeper = false) {
-		$lname = $this->_getCanonicalName ($name);
-		$case_sensitive = $this->_caseSensitive && $this->getCodeFlag ($lname, 'case_sensitive', 'boolean', true);
-		if ($case_sensitive) {
-			$name = strtolower ($name);
+		$lname = strtolower ($name);
+		if (isset ($this->_codes[$lname]) && (!$this->getCodeFlag ($lname, 'case_sensitive', 'boolean', true) || !$this->_caseSensitive)) {
+			$name = $lname;
+			$case_sensitive = false;
+		} else {
+			$case_sensitive = true;
 		}
 		$scount = count ($this->_stack);
 		if ($searchdeeper) {
@@ -1331,11 +1342,7 @@ class StringParser_BBCode extends StringParser {
 	 * @return bool
 	 */
 	function _isUseContent (&$node, $check_attrs = false) {
-		$name = $this->_getCanonicalName ($node->name ());
-		// this should NOT happen
-		if ($name === false) {
-			return false;
-		}
+		$name = strtolower($node->name ());
 		if ($this->_codes[$name]['callback_type'] == 'usecontent') {
 			return true;
 		}
@@ -1362,32 +1369,6 @@ class StringParser_BBCode extends StringParser {
 			}
 		}
 		return !$result;
-	}
-
-	/**
-	* Get canonical name of a code
-	*
-	* @access protected
-	* @param string $name
-	* @return string
-	*/
-	function _getCanonicalName ($name) {
-		if (isset ($this->_codes[$name])) {
-			return $name;
-		}
-		$found = false;
-		// try to find the code in the code list
-		foreach (array_keys ($this->_codes) as $rname) {
-			// match
-			if (strtolower ($rname) == strtolower ($name)) {
-				$found = $rname;
-				break;
-			}
-		}
-		if ($found === false || ($this->_caseSensitive && $this->getCodeFlag ($found, 'case_sensitive', 'boolean', true))) {
-			return false;
-		}
-		return $rname;
 	}
 }
 
@@ -1831,7 +1812,7 @@ class StringParser_BBCode_Node_Element extends StringParser_Node {
 	 */
 	function &_findPrevAdjentTextNodeHelper () {
 		$lastnode =& $this->lastChild ();
-		if ($lastnode === null || $lastnode->_type == STRINGPARSER_NODE_TEXT) {
+		if ($lastnode->_type == STRINGPARSER_NODE_TEXT) {
 			return $lastnode;
 		}
 		if (!$lastnode->hadCloseTag ()) {

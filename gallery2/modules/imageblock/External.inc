@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,15 +35,8 @@ class ExternalView extends GalleryView {
     }
 
     /**
-     * @see GalleryView::isAllowedInEmbedOnly
-     */
-    function isAllowedInEmbedOnly() {
-	return true;
-    }
-
-    /**
      * Specify the template instance to use for our immediate view.  Used by our test code.
-     * @param GalleryTemplate $template
+     * @param object GalleryTemplate $template
      */
     function setTemplate(&$template) {
 	$this->_template =& $template;
@@ -102,37 +95,17 @@ class ExternalView extends GalleryView {
 	    }
 	}
 
-	$phpVm = $gallery->getPhpVm();
 	if ($template->hasVariable('ImageBlockData')) {
 	    $ImageBlockData =& $template->getVariableByReference('ImageBlockData');
 	    $ImageBlockData['forceFullUrl'] = 1;
 
-	    /* Check for rawImage - if requested, send binary image (only one image) */
-	    if (isset($params['show']) && $params['show'] === 'rawImage') {
-		if (isset($ImageBlockData['blocks'][0]['deriv']['id'])) {
-		    GalleryUtilities::putRequestVariable('itemId',
-			    $ImageBlockData['blocks'][0]['deriv']['id']);
+	    $template->setVariable('l10Domain', 'modules_imageblock');
 
-		    list ($ret, $view) = GalleryView::loadView('core.DownloadItem');
-		    if ($ret) {
-			return $ret;
-		    }
-		    return $view->renderImmediate(null, null);
-		} else if (!$phpVm->headers_sent()) {
-		    $phpVm->header('HTTP/1.0 404 Not Found');
-		}
-	    } else {
-		if (!$phpVm->headers_sent()) {
-		    $phpVm->header("Content-type: text/html; charset=UTF-8");
-		    $expires = $gallery->getHttpDate($phpVm->time() - 7*24*3600);
-		    $phpVm->header('Cache-Control: no-cache');
-		    $phpVm->header('Pragma: no-cache');
-		    $phpVm->header('Expires: ' . $expires);	    
-		}
-
-		$template->setVariable('l10Domain', 'modules_imageblock');
-		$template->display('gallery:modules/imageblock/templates/ImageBlock.tpl');
+	    if (!headers_sent()) {
+		header("Content-type: text/html; charset=UTF-8");
 	    }
+
+	    $template->display('gallery:modules/imageblock/templates/ImageBlock.tpl');
 	}
 
 	return null;

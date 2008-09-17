@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,11 +22,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Link Items 1.1.6\n"
+"Project-Id-Version: Gallery: Link Items 1.1.2\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2006-09-12 11:30-0700\n"
-"PO-Revision-Date: 2008-04-09 21:15+0300\n"
-"Last-Translator: Ser Moro <webber@morozov-sm.ru>\n"
+"PO-Revision-Date: 2006-03-17 17:50+0300\n"
+"Last-Translator: Konstantin Ivanov <Continental@vollen.ru>\n"
 "Language-Team: Russian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -37,34 +37,34 @@ msgstr ""
 "|| n%100>=20) ? 1 : 2);\n"
 
 msgid "Link"
-msgstr "Ссылку"
+msgstr "Ссылка"
 
 msgid "Link Items"
 msgstr "Ссылки на элементы"
 
 msgid "Create links to other albums or external urls"
-msgstr "Создает ссылки на другие альбомы или внешние адреса URL"
+msgstr "Создает ссылки на другие альбомы или внешние адреса url"
 
 msgid "Display"
 msgstr "Отображение"
 
 msgid "Get image for linkitem thumbnail"
-msgstr "Получить изображение для  linkitem миниатюры"
+msgstr ""
 
 msgid "link"
 msgstr "ссылка"
 
 msgid "Link to Album:"
-msgstr "Ссылка на альбом:"
+msgstr "Ссылка на Альбом:"
 
 msgid "You must enter an album id"
 msgstr "Вы должны ввести id альбома"
 
 msgid "Invalid album id"
-msgstr "Недопустимый id альбома"
+msgstr "Неверный id альбома"
 
 msgid "Link to External URL:"
-msgstr "Ссылка на внешний адрес URL:"
+msgstr "Ссылка на Внешний адрес URL:"
 
 msgid "You must enter an URL"
 msgstr "Вы должны ввести адрес URL"
@@ -78,20 +78,21 @@ msgstr "URL:"
 msgid "Missing URL"
 msgstr "Неправильный адрес URL"
 
+#, fuzzy
 msgid "Link Item Settings"
-msgstr "Настройки Link Item"
+msgstr "Ссылки на элементы"
 
 msgid "Settings saved successfully"
 msgstr "Настройки успешно сохранены"
 
 msgid "Add small arrow watermark on thumbnails"
-msgstr "Добавить на миниатюры маленькие стрелки ввиде водяных знаков"
+msgstr ""
 
 msgid "Generate webpage snapshot for thumbnails of URL links"
-msgstr "Создать снимок веб страницы для миниатюр ссылок"
+msgstr ""
 
 msgid "Command to capture webpage snapshot:"
-msgstr "Команда - сделать снимок веб страницы"
+msgstr ""
 
 #, c-format
 msgid ""
@@ -102,29 +103,19 @@ msgid ""
 "problems. If Gallery produces broken thumbnails then try the Build Thumbnails %sMaintenance "
 "task%s to see debug output."
 msgstr ""
-"Снимки веб страниц могут быть получены с помощью %skhtml2png%s. Эта программа не проста для "
-"установки, требует ImageMagick и работающий Х сервер, имеющий доступ к вашему веб серверу/ "
-"PHP пользователю. Установите и протестируйте вне Галереи, убедитесь, что команды приведённые "
-"ниже выполняются чётко. Протестируйте работу с  веб сервером/ PHP пользователем для "
-"выяснения проблем с доступом. Если Галерея производит битые миниатюры, попробуйте  Build "
-"Thumbnails %sслужебное задание%s, чтобы увидеть отладочный выход. "
 
 msgid ""
 "The command line parameters default to those for khtml2png. To specify alternate parameters, "
 "place them in a text file here:"
 msgstr ""
-"Параметры командной строки по умолчанию относятся к khtml 2 png. Для задания других "
-"параметров, поместите их в текстовый файл сюда:"
 
 msgid "Use %URL% %WIDTH% %HEIGHT% %OUTFILE% tokens."
-msgstr "Использовать %URL% %WIDTH% %HEIGHT% %OUTFILE% обозначения."
+msgstr ""
 
 msgid ""
 "If you don't use webpage snapshots then URL links are given a default thumbnail. Use the "
 "Thumbnail Manager module to upload a custom thumbnail for these items."
 msgstr ""
-"Если вы не используете снимки веб страниц, ссылки получают миниатюры по умолчанию. Примените "
-"модуль ''Управление миниатюрами'', чтобы загрузить свои миниатюры для этих элементов."
 
 msgid "Save"
 msgstr "Сохранить"

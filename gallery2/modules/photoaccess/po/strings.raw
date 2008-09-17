@@ -1,17 +1,17 @@
 # $Id$
 
 /* FulfillmentError.inc */
-gettext("PhotoWorks Fulfillment Error") /* also in: templates/FulfillmentError.tpl */
+gettext("PhotoAccess Fulfillment Error") /* also in: templates/FulfillmentError.tpl */
 
 /* module.inc */
 gettext("PhotoWorks")
 gettext("PhotoWorks Photo Printing Module")
 gettext("Commerce")
-gettext("[photoworks] Print")
+gettext("[photoaccess] Print")
 gettext("Print on PhotoWorks.com")
 
 /* classes/PhotoAccessCartPlugin.class */
-gettext("Print with PhotoWorks")
+gettext("Print with PhotoAccess")
 
 /* templates/FulfillmentError.tpl */
 gettext("An error occurred while sending your photos over to PhotoWorks.com for printing.  If this failure occurs more than once, please contact your system administrator for assistance.")

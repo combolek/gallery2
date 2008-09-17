@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,14 +16,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
-#
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Carbon Theme 1.2.6\n"
+"Project-Id-Version: Gallery: Carbon Theme 1.2.3\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2007-03-16 11:42-0700\n"
-"PO-Revision-Date: 2007-03-25 00:12+0200\n"
-"Last-Translator: Anthi Andreou <tp_s@hotmail.com>\n"
+"POT-Creation-Date: 2007-06-01 11:03-0700\n"
+"PO-Revision-Date: 2003-03-06 16:30+0200\n"
+"Last-Translator: Nikos Batsis <nickthegreek@yahoo.com>\n"
 "Language-Team: Greek <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -84,14 +84,16 @@ msgstr "Μορφή: [module.BlockName param=value] ..."
 msgid "Show Sidebar"
 msgstr "Εμφάνιση Πλευρικής γραμμής εργαλείων"
 
+#, fuzzy
 msgid "This album is empty."
-msgstr "Αυτό το άλμπουμ είναι κενό"
+msgstr "Αυτός ο κατάλογος περιέχει %d φωτογραφία"
 
 msgid "Add a photo!"
 msgstr "Προσθέστε Φωτογραφία!"
 
+#, fuzzy
 msgid "no thumbnail"
-msgstr "Δεν υπάρχει μικρογραφία"
+msgstr "Δεν υπάρχει εικονίδιο"
 
 msgid "Error!"
 msgstr "Σφάλμα!"
@@ -120,15 +122,15 @@ msgstr "Exif"
 msgid "Close"
 msgstr "Κλείσιμο"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Download %s"
-msgstr "Κατέβασμα %s"
+msgstr "Αποθήκευση Προορισμού"
 
 msgid "There is nothing to view for this item."
 msgstr "Δεν υπάρχει τίποτα για προβολή γι' αυτό το αρχείο"
 
 msgid "View in original album"
-msgstr "Προβολή στο αρχικό άλμπουμ"
+msgstr "Προβολή στο αρχικό άλπουμ"
 
 #, c-format
 msgid "Download %s in original format"

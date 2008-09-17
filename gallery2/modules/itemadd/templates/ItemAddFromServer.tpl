@@ -1,6 +1,8 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
 <script type="text/javascript">
   // <![CDATA[
@@ -57,29 +59,16 @@
   {/literal}
 {/if}
 
-  function findFiles(path) {ldelim}
-    var url = '{g->url arg1="view=core.ItemAdmin" arg2="subView=core.ItemAdd"
-	arg3="addPlugin=ItemAddFromServer" arg4="form[localServerPath]=__PATH__"
-	arg5="itemId=`$ItemAdmin.item.id`" arg6="form[action][findFilesFromLocalServer]=1"
-	arg7="form[formName]=ItemAddFromServer" forceFullUrl=true htmlEntities=false}';
-    document.location.href = url.replace('__PATH__', escape(path));
-  {rdelim}
-
-  function getSelectedPath() {ldelim}
-    return document.getElementById('itemAdminForm').elements['{g->formVar
-      var="form[localServerPath]"}'].value;
-  {rdelim}
-
   function selectPath(path) {ldelim}
-    document.getElementById('itemAdminForm').elements['{g->formVar
-      var="form[localServerPath]"}'].value = path;
+  document.getElementById('itemAdminForm').elements['{g->formVar
+    var="form[localServerPath]"}'].value = path;
   {rdelim}
   // ]]>
 </script>
 
 <div class="gbBlock">
   <p class="giDescription">
-    {g->text text="Transfer files that are already on your server into your Gallery.  The files must already have been uploaded to your server some other way (like FTP) and must be placed in an accessible directory.  If you're on Unix this means that the files and the directory the files are in should have modes of at least 755."}
+    {g->text text="Transfer files that are already on your server into your Gallery.  The files must already have been uploaded to your server some other way (like FTP) and must be placed in a directory where they are accessibly by any element on the server.  If you're on Unix this means that the files and the directory the files are in should have modes of at least 755."}
   </p>
 
   {if empty($ItemAddFromServer.localServerDirList)}
@@ -154,8 +143,7 @@
     {capture name="submitLinks"}
       <input type="submit" class="inputTypeSubmit"
        name="{g->formVar var="form[action][findFilesFromLocalServer]"}"
-       value="{g->text text="Find Files"}"
-       onclick="findFiles(getSelectedPath()); return false;"/>
+       value="{g->text text="Find Files"}"/>
     {/capture}
   {else} {* {if empty($form.localServerFiles)} *}
 
@@ -163,7 +151,10 @@
       {foreach name="pathElements" from=$ItemAddFromServer.pathElements key=idx item=element}
 	{if $idx>1}{$ItemAddFromServer.pathSeparator}{/if}
 	{if ($element.legal && !$smarty.foreach.pathElements.last)}
-	  <a href="javascript:findFiles('{$element.path|escape:"javascript":"UTF-8"}')">{$element.name|escape}</a>
+	  <a href="{g->url arg1="controller=core.ItemAdd" arg2="addPlugin=ItemAddFromServer"
+	   arg3="form[localServerPath]=`$element.path`" arg4="itemId=`$ItemAdmin.item.id`"
+	   arg5="form[action][findFilesFromLocalServer]=1"
+	   arg6="form[formName]=ItemAddFromServer"}">{$element.name|escape}</a>
 	{else}
 	  {$element.name|escape}
 	{/if}
@@ -225,7 +216,10 @@
 	   />
 	</td><td>
 	  {if $file.legal}{strip}
-	    <a href="javascript:findFiles('{$file.filePath|escape:"javascript":"UTF-8"}')">
+	    <a href="{g->url arg1="controller=core.ItemAdd" arg2="addPlugin=ItemAddFromServer"
+	     arg3="form[localServerPath]=`$file.filePath`" arg4="itemId=`$ItemAdmin.item.id`"
+	     arg5="form[action][findFilesFromLocalServer]=1"
+	     arg6="form[formName]=ItemAddFromServer"}">
 	      {if $file.fileName == ".."}
 		&laquo; {g->text text="Parent Directory"} &raquo;
 	      {else}
@@ -276,17 +270,17 @@
     <p class="giDescription">
       {g->text text="Copy base filenames to:"}
       <br/>
-      <input type="checkbox" id="cbTitle" {if $form.set.title} checked="checked" {/if}
+      <input type="checkbox" id="cbTitle"{if $form.set.title} checked="checked"{/if}
        name="{g->formVar var="form[set][title]"}"/>
       <label for="cbTitle"> {g->text text="Title"} </label>
       &nbsp;
 
-      <input type="checkbox" id="cbSummary" {if $form.set.summary} checked="checked" {/if}
+      <input type="checkbox" id="cbSummary"{if $form.set.summary} checked="checked"{/if}
        name="{g->formVar var="form[set][summary]"}"/>
       <label for="cbSummary"> {g->text text="Summary"} </label>
       &nbsp;
 
-      <input type="checkbox" id="cbDescription" {if $form.set.description} checked="checked" {/if}
+      <input type="checkbox" id="cbDescription"{if $form.set.description} checked="checked"{/if}
        name="{g->formVar var="form[set][description]"}"/>
       <label for="cbDescription"> {g->text text="Description"} </label>
     </p>
@@ -296,11 +290,7 @@
        name="{g->formVar var="form[action][addFromLocalServer]"}"
        value="{g->text text="Add Files"}"/>
       <input type="submit" class="inputTypeSubmit"
-       name="{g->formVar var="form[action][startOver]"}" value="{g->text text="Start Over"}"
-       onclick="document.location.href = '{g->url arg1="view=core.ItemAdmin"
-	 arg2="subView=core.ItemAdd" arg3="addPlugin=ItemAddFromServer"
-	 arg4="itemId=`$ItemAdmin.item.id`" arg5="form[formName]=ItemAddFromServer"
-	 arg5="form[action][startOver]=1" htmlEntities=false}'; return false;"/>
+       name="{g->formVar var="form[action][startOver]"}" value="{g->text text="Start Over"}"/>
     {/capture}
     {assign var="showOptions" value="true"}
   {/if} {* {if !empty($form.localServerFiles)} *}

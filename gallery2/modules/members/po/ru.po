@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,10 +22,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Members 1.0.7\n"
+"Project-Id-Version: Gallery: Members 1.0.5\n"
 "POT-Creation-Date: 2003-02-11 03:09-0800\n"
-"PO-Revision-Date: 2008-03-03 21:26+0300\n"
-"Last-Translator: Ser Moro <webber@morozov-sm.ru>\n"
+"PO-Revision-Date: 2005-11-27 14:50+0300\n"
+"Last-Translator: Konstantin Ivanov <Continental@vollen.ru>\n"
 "Language-Team: Russian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,7 +39,7 @@ msgid "Everybody"
 msgstr "Все"
 
 msgid "Registered Users"
-msgstr "Зарегистрированные пользователи"
+msgstr "Зарегистрированные Пользователи"
 
 msgid "Site Admins"
 msgstr "Администраторы сайта"
@@ -51,38 +51,39 @@ msgid "Don't Show Email Addresses"
 msgstr "Не отображать E-mail адрес"
 
 msgid "Member Items"
-msgstr "Элементы участника"
+msgstr "Элементы пользователя"
 
 msgid "Members List"
-msgstr "Список участников"
+msgstr "Список пользователей"
 
 msgid "Members Profile"
 msgstr "Профили пользователей"
 
 msgid "Members"
-msgstr "Список участников"
+msgstr "Список пользователей"
 
 msgid "Members List and Profiles"
-msgstr "Список участников и их профили"
+msgstr "Список пользователей и их Профили"
 
 msgid "Gallery"
 msgstr "Галерея"
 
 msgid "Members Settings"
-msgstr "Настройки участников"
+msgstr "Настройки Пользователей"
 
 msgid "Settings saved successfully"
 msgstr "Настройки успешно сохранены "
 
 msgid "This will select who can see the members list and member profiles."
-msgstr "Позволяет выбрать тех, кто может просматривать списки участников и их профили."
+msgstr ""
+"Позволяет выбрать тех, кто может просматривать списки пользователей и профили пользователей."
 
 msgid ""
 "This will select if email addresses are displayed in the member profiles.  Administrators "
 "will always be able to see email addresses."
 msgstr ""
-"Позволяет выбрать будут ли отображаться E-mail адреса в списке участников. Администраторы "
-"всегда могут просматривать E-mail адреса."
+"Позволяет выбрать будут ли отображаться e-mail адреса в списке пользователей. Администраторы "
+"всегда могут просматривать e-mail адреса."
 
 msgid "Save"
 msgstr "Сохранить"
@@ -92,7 +93,7 @@ msgstr "Сбросить"
 
 #, c-format
 msgid "Member Items for %s"
-msgstr "Элементы участника для %s"
+msgstr "Элементы пользователя для %s"
 
 #, c-format
 msgid "%d item total"
@@ -181,7 +182,7 @@ msgid "(today)"
 msgstr "(сегодня)"
 
 msgid "Last Items:"
-msgstr "Последние элементы:"
+msgstr "Последние Элементы:"
 
 msgid "List All &raquo;"
 msgstr "Просмотреть все &raquo;"
@@ -194,4 +195,7 @@ msgstr[1] "%s пользователя"
 msgstr[2] "%s пользователей"
 
 msgid "Members Block"
-msgstr "Блок участники"
+msgstr "Блок Пользователи"
+
+#~ msgid "Member Profile"
+#~ msgstr "Профиль Члена"

@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,8 +18,9 @@
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Core 1.2.36\n"
-"POT-Creation-Date: 2003-06-25 11:44+0100\n"
+"Project-Id-Version: Gallery: Core 1.2.0.3\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-06-07 09:29-0700\n"
 "PO-Revision-Date: 2007-03-14 15:39+0100\n"
 "Last-Translator: poromaan <poromaan@gmail.com>\n"
 "Language-Team: Eesti <gallery-devel@lists.sourceforge.net>\n"
@@ -30,30 +31,6 @@ msgstr ""
 
 msgid "Gallery Email Test"
 msgstr "Galerii Emaili Test"
-
-#, c-format
-msgid "%d minute"
-msgid_plural "%d minutes"
-msgstr[0] "%d minut"
-msgstr[1] "%d minutit"
-
-#, c-format
-msgid "%d hour"
-msgid_plural "%d hours"
-msgstr[0] "%d tund"
-msgstr[1] "%d tundi"
-
-#, c-format
-msgid "%d day"
-msgid_plural "%d days"
-msgstr[0] "%d päev"
-msgstr[1] "%d päeva"
-
-#, c-format
-msgid "%d week"
-msgid_plural "%d weeks"
-msgstr[0] "%d nädal"
-msgstr[1] "%d nädalat"
 
 msgid "forever"
 msgstr "igavesti"
@@ -79,36 +56,32 @@ msgstr "Andmebaas"
 msgid "File"
 msgstr "Fail"
 
-msgid "&lt;none&gt;"
-msgstr "&lt;mitte ühtki&gt;"
-
-#, fuzzy
-msgid "Link"
-msgstr "Logi sisse"
+#, c-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] "%d minut"
+msgstr[1] "%d minutit"
 
 #, c-format
-msgid "Page %d of %d"
-msgstr ""
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] "%d tund"
+msgstr[1] "%d tundi"
 
-#, fuzzy
-msgid "Updating Language Settings"
-msgstr "Keeleseaded"
+#, c-format
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] "%d päev"
+msgstr[1] "%d päeva"
 
-#, fuzzy
-msgid "Update completed with errors."
-msgstr "ÜLeslaadimine Valmis"
+#, c-format
+msgid "%d week"
+msgid_plural "%d weeks"
+msgstr[0] "%d nädal"
+msgstr[1] "%d nädalat"
 
-#, fuzzy
-msgid "Update complete."
-msgstr "ÜLeslaadimine Valmis"
-
-#, fuzzy
-msgid "Deleting Language Packs"
-msgstr "Üldine keel"
-
-#, fuzzy
-msgid "Synchronizing Language Packs"
-msgstr "Üldine keel"
+msgid "<none>"
+msgstr "<mitte ühtki>"
 
 msgid "No acceleration"
 msgstr "Ei kiirenda"
@@ -121,6 +94,46 @@ msgstr "Täiskiirendus"
 
 msgid "Themes"
 msgstr "Teemad"
+
+msgid "Updating Repository Index"
+msgstr ""
+
+msgid "Scanning plugins"
+msgstr ""
+
+#, fuzzy
+msgid "Update Plugin List"
+msgstr "Galerii Moodulid"
+
+msgid "Done."
+msgstr "Valmis."
+
+msgid "Updating Packages"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "Preparing %s"
+msgstr "Tegelen..."
+
+#, c-format
+msgid "Downloading %s"
+msgstr "Tõmba alla %s"
+
+#, fuzzy, c-format
+msgid "Activating %s"
+msgstr "Tegevused"
+
+#, fuzzy
+msgid "Deleting Language Packs"
+msgstr "Üldine keel"
+
+#, fuzzy
+msgid "Update completed with errors."
+msgstr "ÜLeslaadimine Valmis"
+
+#, fuzzy
+msgid "Update complete."
+msgstr "ÜLeslaadimine Valmis"
 
 msgid "install"
 msgstr "install"
@@ -143,11 +156,11 @@ msgstr "Päri seaded üla-albumist"
 msgid "Use these settings"
 msgstr "Kasuta neid seadeid"
 
-msgid "Converting Schema Table"
-msgstr ""
-
 msgid "Installing the core module"
 msgstr "Tuum-mooduli installimine"
+
+msgid "key"
+msgstr "võti"
 
 msgid "All access"
 msgstr "Kõik õigused"
@@ -182,10 +195,6 @@ msgstr "[tuum] Kustuta pilt"
 msgid "Upgrading permissions"
 msgstr "Õiguste uuendamine"
 
-#, c-format
-msgid "Upgrading permissions (%d items complete, %d remaining)"
-msgstr "Õiguste uuendamine (%d pilti/albumit valmis, %d veel)"
-
 msgid "Deleting old permission tables"
 msgstr "Vanade õiguste-tabelite kustutamine"
 
@@ -198,32 +207,11 @@ msgstr "Kõik Kasutajad"
 msgid "Detecting broken derivatives"
 msgstr "Katkiste tuletiste avastamine"
 
-#, fuzzy, c-format
-msgid "Detecting broken derivatives, loading (%d derivatives checked, %d remaining)"
-msgstr "Katkiste tuletiste avastamine, sisse lugemine"
-
-#, fuzzy, c-format
-msgid "Detecting broken derivatives (%d derivatives checked, %d remaining)"
-msgstr "Katkiste tuletiste avastamine, salvestamine"
-
-#, fuzzy, c-format
-msgid "Detecting broken derivatives, saving (%d derivatives checked, %d remaining)"
-msgstr "Katkiste tuletiste avastamine, salvestamine"
-
-#, fuzzy, c-format
-msgid ""
-"Detecting broken derivatives, saving item %d of %d (%d derivatives complete, %d remaining)"
-msgstr "Õiguste uuendamine (%d pilti/albumit valmis, %d veel)"
-
 msgid "Clearing fast-download cache"
 msgstr "Kiire-allatõmbamise vahemälu tühjendamine"
 
 msgid "Deleting old fast-download cache"
 msgstr "Vana kiire-allatõmbamise vahemälu tühjendamine"
-
-#, c-format
-msgid "Deleting old session files (iteration %d)"
-msgstr "Vanade sessioonifailide kustutamine (iteratsioon %d)"
 
 msgid "Updating panorama items"
 msgstr ""
@@ -231,13 +219,11 @@ msgstr ""
 msgid "Optimizing AccessSubscriberMap table"
 msgstr ""
 
-#, fuzzy
-msgid "Upgrading Plugin Translations"
-msgstr "Õiguste uuendamine"
+msgid "Converting Schema Table"
+msgstr ""
 
-#, fuzzy
-msgid "Creating Package Map"
-msgstr "Loomiskuupäev"
+msgid "Loading Table Descriptions"
+msgstr ""
 
 msgid "Site Admins"
 msgstr "Saidi Adminnid"
@@ -257,16 +243,30 @@ msgstr "See on Galerii avaleht"
 msgid "Converting MySQL data to UTF8"
 msgstr "MySQL andmete UTF8 andmeteks muutmine"
 
-#, fuzzy
-msgid "Adding items"
-msgstr "Lisa pilt"
+#, c-format
+msgid "Upgrading permissions (%d items complete, %d remaining)"
+msgstr "Õiguste uuendamine (%d pilti/albumit valmis, %d veel)"
 
-#, fuzzy
-msgid "Processing items"
-msgstr "Tegelen esemega %d / %d 'st"
+#, fuzzy, c-format
+msgid "Detecting broken derivatives, loading (%d derivatives checked, %d remaining)"
+msgstr "Katkiste tuletiste avastamine, sisse lugemine"
 
-msgid "Extracting archive"
-msgstr ""
+#, fuzzy, c-format
+msgid "Detecting broken derivatives (%d derivatives checked, %d remaining)"
+msgstr "Katkiste tuletiste avastamine, salvestamine"
+
+#, fuzzy, c-format
+msgid "Detecting broken derivatives, saving (%d derivatives checked, %d remaining)"
+msgstr "Katkiste tuletiste avastamine, salvestamine"
+
+#, fuzzy, c-format
+msgid ""
+"Detecting broken derivatives, saving item %d of %d (%d derivatives complete, %d remaining)"
+msgstr "Õiguste uuendamine (%d pilti/albumit valmis, %d veel)"
+
+#, c-format
+msgid "Deleting old session files (iteration %d)"
+msgstr "Vanade sessioonifailide kustutamine (iteratsioon %d)"
 
 msgid "add items"
 msgstr "Lisa pilt"
@@ -279,6 +279,30 @@ msgstr "Lisa alam-album"
 
 msgid "add items confirmation"
 msgstr "Pildi/albumi lisamiskinnitus"
+
+msgid "Base filename"
+msgstr "Baas-failinimi"
+
+msgid "Caption"
+msgstr "Pildi allkiri"
+
+msgid "Blank"
+msgstr "Tühi"
+
+msgid "From Web Browser"
+msgstr "Veebilehitsejast"
+
+#, c-format
+msgid "%d megabyte"
+msgid_plural "%d megabytes"
+msgstr[0] "%d megabait"
+msgstr[1] "%d megabaiti"
+
+#, c-format
+msgid "%d kilobytes"
+msgid_plural "%d kilobytes"
+msgstr[0] "%d kilobait"
+msgstr[1] "%d kilobaiti"
 
 #, c-format
 msgid "Input file %s exceeds maximum permitted file size"
@@ -296,35 +320,18 @@ msgstr ""
 msgid "Input file %s was not uploaded. Error %d"
 msgstr ""
 
-#, c-format
-msgid "%d megabyte"
-msgid_plural "%d megabytes"
-msgstr[0] "%d megabait"
-msgstr[1] "%d megabaiti"
-
-#, c-format
-msgid "%d kilobytes"
-msgid_plural "%d kilobytes"
-msgstr[0] "%d kilobait"
-msgstr[1] "%d kilobaiti"
-
-msgid "Base filename"
-msgstr "Baas-failinimi"
-
-msgid "Caption"
-msgstr "Pildi allkiri"
-
-msgid "Blank"
-msgstr "Tühi"
-
-msgid "From Web Browser"
-msgstr "Veebilehitsejast"
-
 msgid "Gallery Item Administration"
 msgstr "Galerii-eseme Administreerimine"
 
 msgid "delete an item"
 msgstr "Kustuta ese"
+
+msgid "delete confirmation"
+msgstr "Kustutamise kinnitus"
+
+#, c-format
+msgid "delete %s"
+msgstr "kustuta %s"
 
 #, c-format
 msgid "edit %s"
@@ -340,10 +347,6 @@ msgstr ""
 msgid "Preparing..."
 msgstr "Tegelen..."
 
-#, c-format
-msgid "Processing image %d of %d"
-msgstr "Pildiga %d / %d 'st tegelemine"
-
 msgid "Apply thumbnail settings"
 msgstr ""
 
@@ -352,6 +355,10 @@ msgstr "Ikoonide uuestiehitamine"
 
 msgid "Album"
 msgstr "Album"
+
+#, c-format
+msgid "Processing image %d of %d"
+msgstr "Pildiga %d / %d 'st tegelemine"
 
 msgid "Changes saved successfully"
 msgstr "Muudatused edukalt salvestatud"
@@ -491,10 +498,6 @@ msgstr "Muuda Foto"
 msgid "Edit Movie"
 msgstr "Muuda Film"
 
-#, c-format
-msgid "Edit %s"
-msgstr "Muuda %s"
-
 msgid "Add Album"
 msgstr "Lisa Album"
 
@@ -513,10 +516,6 @@ msgstr "Kustuta Foto"
 msgid "Delete Movie"
 msgstr "Kustuta Film"
 
-#, c-format
-msgid "Delete %s"
-msgstr "Kustuta %s"
-
 msgid "Move Album"
 msgstr "Liiguta Albumit"
 
@@ -526,10 +525,6 @@ msgstr "Liiguta Foto"
 msgid "Move Movie"
 msgstr "Liiguta Film"
 
-#, c-format
-msgid "Move %s"
-msgstr "Liiguta %s"
-
 msgid "Edit Captions"
 msgstr "Muuda Kirjeldusi"
 
@@ -538,9 +533,6 @@ msgstr "Sea Albumi Ikooniks"
 
 msgid "Reorder Items"
 msgstr "Muuda Piltide Järjestust"
-
-msgid "Delete Items"
-msgstr ""
 
 msgid "Site Admin"
 msgstr "Saidi Admin"
@@ -566,12 +558,6 @@ msgstr "Grupid"
 msgid "Performance"
 msgstr "Sooritusskaala"
 
-msgid "Event Logs"
-msgstr ""
-
-msgid "Language Settings"
-msgstr "Keeleseaded"
-
 msgid "Toolkit Priority"
 msgstr "Tõõrista Prioriteet"
 
@@ -584,29 +570,17 @@ msgstr "Konto Seaded"
 msgid "Change Password"
 msgstr "Vaheta Parool"
 
-msgid "Updating Packages"
-msgstr ""
+#, c-format
+msgid "Edit %s"
+msgstr "Muuda %s"
 
 #, c-format
-msgid "Cleaning up obsolete files %s"
-msgstr ""
+msgid "Delete %s"
+msgstr "Kustuta %s"
 
-#, fuzzy, c-format
-msgid "Activating %s"
-msgstr "Tegevused"
-
-msgid "Updating Repository Index"
-msgstr ""
-
-msgid "Scanning plugins"
-msgstr ""
-
-#, fuzzy
-msgid "Update Plugin List"
-msgstr "Galerii Moodulid"
-
-msgid "Done."
-msgstr "Valmis."
+#, c-format
+msgid "Move %s"
+msgstr "Liiguta %s"
 
 msgid "Build all thumbnails/resizes"
 msgstr "Ehita kõik ikoonid/suurusemuudatused"
@@ -621,6 +595,9 @@ msgstr ""
 msgid "Build All Thumbnails/Resizes"
 msgstr "Valmista Kõik Ikoonid/Suurusemuudatused"
 
+msgid "Debug output for failed items:"
+msgstr "Silumisväljund läbikukkunud esemetele:"
+
 #, c-format
 msgid "Checked %d items"
 msgstr "Kontrollitud %d eset"
@@ -632,9 +609,6 @@ msgstr "%d eset valmistatud"
 #, c-format
 msgid "%d items failed"
 msgstr "%d eset ebaõnnestus"
-
-msgid "Debug output for failed items:"
-msgstr "Silumisväljund läbikukkunud esemetele:"
 
 #, fuzzy
 msgid "Convert MySQL database to UTF8"
@@ -653,33 +627,6 @@ msgid "Database successfully converted to UTF8"
 msgstr "Andmebaas edukalt optimiseeritud"
 
 msgid "No conversion required"
-msgstr ""
-
-#, fuzzy
-msgid "Backup the database"
-msgstr "Optimiseeri andmebaasi"
-
-msgid ""
-"Backup all your Gallery data (item data, users, comments, etc.) to a single file in your "
-"storage folder.  The backup does not include the image files.  Before running the backup, "
-"your Gallery installation needs to be set into maintenance mode, as this is not done "
-"automatically."
-msgstr ""
-
-msgid "Backing up Gallery Database"
-msgstr ""
-
-#, fuzzy
-msgid "Exporting..."
-msgstr "Tegelen..."
-
-#, c-format
-msgid "Database backup completed and the backup file is located at: %s"
-msgstr ""
-
-msgid ""
-"Please note that your backup contains sensitive data (like passwords) and should not be "
-"stored online! We recommend that you download it from your server and keep it safely offline."
 msgstr ""
 
 msgid "Delete user sessions"
@@ -716,12 +663,11 @@ msgstr "Ei saa kataloogi %s kustutada"
 msgid "Delete template cache"
 msgstr "Kustuta šablooni vahemälu"
 
-#, fuzzy
 msgid ""
 "Gallery compiles template files and saves them for increased performance.  If you're "
 "experiencing problems that say <i>Smarty error</i> then you might try running this task.  "
-"Also run this if you add or remove any local/*.tpl or theme override so Smarty will find the "
-"right file."
+"Also run this if you remove a local/*.tpl file so Smarty will switch back to the default tpl "
+"file."
 msgstr ""
 "Galerii koostab šabloonfaile ja salvestab need suurema kiiruse saavutamiseks. Kui tulevad "
 "ette probleemid, mis ütlevad <i>Smarty error</i>, siis võid proovida selle käsu käivitamist. "
@@ -805,14 +751,6 @@ msgid ""
 msgstr ""
 "Ei saanud vahemälu alamkataloogi luua. Kontrolli kas veebiserveril on õigus sinna kirjutada."
 
-#, fuzzy, c-format
-msgid "Preparing %s"
-msgstr "Tegelen..."
-
-#, c-format
-msgid "Downloading %s"
-msgstr "Tõmba alla %s"
-
 msgid "Official Release Repository"
 msgstr ""
 
@@ -874,10 +812,6 @@ msgstr "Tähestikujärjekorras"
 msgid "Descending"
 msgstr "Tagurpidijärjekorras"
 
-#, c-format
-msgid "Powered by Gallery v%s"
-msgstr ""
-
 msgid "Validation disabled until you set allowSessionAccess in config.php"
 msgstr "Kinnitamine keelatud, kuni sa sead allowSessionAccess'i config.php's"
 
@@ -886,6 +820,13 @@ msgstr "See leht on kinnitatud XHTML 1.0"
 
 msgid "Donate to the Gallery project"
 msgstr "Anneta Galerii projektile"
+
+msgid "G2.2: Double Double"
+msgstr ""
+
+#, c-format
+msgid "Powered by Gallery v%s"
+msgstr ""
 
 #, c-format
 msgid "Estimated time remaining: %d:%02d"
@@ -994,6 +935,13 @@ msgstr "tabel"
 msgid "file"
 msgstr "Fail"
 
+msgid "Back"
+msgstr "Tagasi"
+
+#, c-format
+msgid "Back to %s"
+msgstr "Tagasi %s juurde"
+
 msgid "User"
 msgstr "Kasutaja"
 
@@ -1063,14 +1011,6 @@ msgstr "tuum"
 msgid "unknown"
 msgstr "tundmatu"
 
-#, c-format
-msgid "API = Core %s, Module %s, Theme %s, Embed %s"
-msgstr ""
-
-#, fuzzy
-msgid "Gallery URL"
-msgstr "Galerii"
-
 msgid "Gallery version"
 msgstr "Galerii versioon"
 
@@ -1113,65 +1053,6 @@ msgstr "Lehitseja"
 msgid "Rows in %s table = %d"
 msgstr ""
 
-#, c-format
-msgid "The %s \"%s\" is not installed and will not be backed up."
-msgstr ""
-
-#, c-format
-msgid "\"%s\" has no creation sql and will not be backed up."
-msgstr ""
-
-#, c-format
-msgid "Unable to load table description for \"%s\", no data will be exported."
-msgstr ""
-
-msgid ""
-"Unable to find the XML parser.  The PHP XML parsing extension must be loaded.  Terminating "
-"database import."
-msgstr ""
-
-#, c-format
-msgid "The exported file is not the correct version. Expecting %s received %s."
-msgstr ""
-
-#, fuzzy, c-format
-msgid "Unable to close import file: %s"
-msgstr "Ei saa kataloogi %s kustutada"
-
-#, fuzzy, c-format
-msgid "Unable to open import file: %s"
-msgstr "Ei saa kataloogi %s kustutada"
-
-#, c-format
-msgid "Import file doesn't exist: %s"
-msgstr ""
-
-#, c-format
-msgid "Plugin %s is not currently available."
-msgstr ""
-
-#, c-format
-msgid "The available version of plugin \"%s\" may not be compatible with the imported version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The currently installed core API version required by \"%s\" may not be compatible with the "
-"imported version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The installed module API version required by \"%s\" may not be compatible with the imported "
-"version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The installed theme API version required by \"%s\" is not compatible with the imported "
-"version."
-msgstr ""
-
 msgid "Successfully saved theme settings"
 msgstr "Teema seaded edukalt muudetud"
 
@@ -1195,6 +1076,33 @@ msgstr "Sinu päringu käivitamisel ilmnes viga, vaata allapoole detailsema info
 
 msgid "Error sending test email, see below for details."
 msgstr "Viga test emaili saatmisel, vaata allapoole detailsema info nägemiseks."
+
+msgid "Language Settings"
+msgstr "Keeleseaded"
+
+msgid ""
+"Select language defaults for Gallery. Individual users can override this setting in their "
+"personal preferences or via the language selector block if available. Gallery will try to "
+"automatically detect the language preference of each user if the browser preference check is "
+"enabled."
+msgstr ""
+"Vali üldine keel Galerii jaoks. Individuaalsed kasutajad saavad seda seadet nende "
+"personaalsetes seadetes muuta või läbi keelevalija bloki, kui see on võimaldatud. Galerii "
+"proovib ise iga kasutaja keele-eelistust avastada, kui veebilehitseja kontroll on lubatud."
+
+msgid "Default language"
+msgstr "Üldine keel"
+
+msgid "Check Browser Preference"
+msgstr "Kontrolli Veebilehitseja Eelistust"
+
+#, c-format
+msgid ""
+"Your webserver does not support localization.  Please instruct your system administrator to "
+"reconfigure PHP with the %s option enabled."
+msgstr ""
+"Sinu veebiserver ei toeta lokaliseerimist. Palun palu oma administraatoril PHP %s "
+"sisselülitatud valikuga ümber konfigureerida."
 
 msgid "Date Formats"
 msgstr "Kuupäevaformaadid"
@@ -1251,10 +1159,6 @@ msgstr "Sessiooni Eluaeg"
 
 msgid "Inactivity Timeout"
 msgstr "Mitteaktiivsuse Taimaut"
-
-#, fuzzy
-msgid "Site Administration Session Timeout"
-msgstr "Galerii Teema Administreerimine"
 
 msgid "Embedded Markup"
 msgstr "Sisestatud Markup"
@@ -1647,45 +1551,6 @@ msgid_plural "%d failed login attempts since the last successful login."
 msgstr[0] ""
 msgstr[1] ""
 
-#, fuzzy
-msgid "Recent Events"
-msgstr "Nulli vaatamisloendur"
-
-msgid "Type"
-msgstr ""
-
-#, fuzzy
-msgid "Location"
-msgstr "Tegevus"
-
-msgid "Client"
-msgstr ""
-
-msgid "No events have been reported yet."
-msgstr ""
-
-#, fuzzy
-msgid "Event Details"
-msgstr "Viimase Kasutamise Detailid:"
-
-#, fuzzy
-msgid "User Id"
-msgstr "Kasutaja"
-
-#, fuzzy
-msgid "Referer"
-msgstr "Muuda Järjestust"
-
-msgid "Details"
-msgstr ""
-
-#, fuzzy
-msgid "no summary"
-msgstr "Kokkuvõte"
-
-msgid "An error occurred while retrieving the event log entry details."
-msgstr ""
-
 msgid "Group Management"
 msgstr "Grupi käitlemine"
 
@@ -1747,141 +1612,8 @@ msgid_plural "%d groups match your filter"
 msgstr[0] "%d grupp vastab su filtrile"
 msgstr[1] "%d gruppi vastab su filtrile"
 
-msgid "Please make sure that your internet connection is set up properly or try again later."
-msgstr ""
-
-#, c-format
-msgid "Failed to scan status from plugin: %s."
-msgstr ""
-
-msgid ""
-"Your local copy of the repository was broken and has been fixed.  Please download the plugin "
-"list again."
-msgstr ""
-
-#, fuzzy, c-format
-msgid "Failed to delete the locale directory for %s."
-msgstr "Ei saa kataloogi %s kustutada"
-
-#, c-format
-msgid "Failed to download the following language packages for the %s plugin:"
-msgstr ""
-
-#, c-format
-msgid ""
-"Failed to install language packages for %s plugin because the following files/directories "
-"could not be modified:"
-msgstr ""
-
-msgid "The repository index has been successfully refreshed."
-msgstr ""
-
-msgid "The language settings have been saved."
-msgstr ""
-
-#, c-format
-msgid "%d language pack upgraded or downloaded."
-msgid_plural "%d language packs upgraded or downloaded."
-msgstr[0] ""
-msgstr[1] ""
-
-#, c-format
-msgid "%d language pack deleted."
-msgid_plural "%d language packs deleted."
-msgstr[0] ""
-msgstr[1] ""
-
-msgid "All the language packages for the selected languages are current"
-msgstr ""
-
-msgid ""
-"Select language defaults for Gallery. Individual users can override this setting in their "
-"personal preferences or via the language selector block if available. Gallery will try to "
-"automatically detect the language preference of each user if the browser preference check is "
-"enabled."
-msgstr ""
-"Vali üldine keel Galerii jaoks. Individuaalsed kasutajad saavad seda seadet nende "
-"personaalsetes seadetes muuta või läbi keelevalija bloki, kui see on võimaldatud. Galerii "
-"proovib ise iga kasutaja keele-eelistust avastada, kui veebilehitseja kontroll on lubatud."
-
-msgid "Default language"
-msgstr "Üldine keel"
-
-msgid "Check Browser Preference"
-msgstr "Kontrolli Veebilehitseja Eelistust"
-
-#, c-format
-msgid ""
-"Your webserver does not support localization.  Please instruct your system administrator to "
-"reconfigure PHP with the %s option enabled."
-msgstr ""
-"Sinu veebiserver ei toeta lokaliseerimist. Palun palu oma administraatoril PHP %s "
-"sisselülitatud valikuga ümber konfigureerida."
-
-msgid "Configure your Gallery"
-msgstr ""
-
-msgid ""
-"Before you can proceed, you have to change some permissions so that Gallery can install "
-"plugins for you.  It's easy.  Just execute the following in a shell or via your ftp client:"
-msgstr ""
-
-msgid ""
-"Before you can proceed, please insure the following directories and sub-directories are "
-"writable, so that Gallery can install plugins for you:"
-msgstr ""
-
-msgid ""
-"If you have trouble changing permissions, ask your system administrator for assistance.  "
-"When you've fixed the permissions, click the Check Again button to proceed."
-msgstr ""
-
-msgid "Check Again"
-msgstr ""
-
-#, fuzzy
-msgid "Add or Remove Languages"
-msgstr "Lisa/Eemalda Kasutajaid"
-
-msgid ""
-"Please click on the link below to go to 'Download Plugin List' and choose 'Update Plugin "
-"List' to get the latest language package information."
-msgstr ""
-
-#, fuzzy
-msgid "Administer Repositories"
-msgstr "Hoidla"
-
-#, fuzzy
-msgid "Upgrade"
-msgstr "uuenda"
-
-msgid "Remove"
-msgstr "Eemalda"
-
-#, fuzzy
-msgid "Download"
-msgstr "tõmba alla"
-
-#, fuzzy
-msgid "No Change"
-msgstr "Vaheta"
-
-#, fuzzy
-msgid "Select All"
-msgstr "Kustuta Album"
-
-msgid ""
-"There are no local repository indices from which to determine language packages. Please "
-"click on the link below to go to \"Download Plugin List\" and choose \"Update Plugin List\" "
-"to get the latest language package information."
-msgstr ""
-
 msgid "System Maintenance"
 msgstr "Systeemi Hooldus"
-
-msgid "Gallery must be in maintenance mode before the task can be run."
-msgstr ""
 
 #, c-format
 msgid "Completed %s task successfully."
@@ -1890,40 +1622,6 @@ msgstr "Ülesanne %s õnnestunult lõpetatud."
 #, c-format
 msgid "The %s task failed to complete successfully."
 msgstr "Ülesanne %s ei lõpetatud õnnestunult."
-
-msgid "Maintenance Mode has been turned on."
-msgstr ""
-
-msgid "Maintenance Mode has been turned off."
-msgstr ""
-
-#, fuzzy
-msgid "Maintenance Mode"
-msgstr "Hooldus"
-
-msgid "Restrict user access to the system while maintenance is being performed."
-msgstr ""
-
-#, fuzzy
-msgid "Maintenance Mode Url"
-msgstr "Hooldus"
-
-msgid ""
-"The Maintenance Mode Url specifies where requests will be redirected when access to the site "
-"has been restricted by the administrator."
-msgstr ""
-
-msgid ""
-"If left blank Gallery will display a default page with an administrator login link. This "
-"page will be themed when the code base is up to date, otherwise it will display a plain "
-"unstyled page."
-msgstr ""
-
-msgid "For example: /maintenance.html"
-msgstr ""
-
-msgid "Set"
-msgstr ""
 
 msgid "Task name"
 msgstr "Ülesande nimi"
@@ -2007,21 +1705,6 @@ msgstr ""
 
 msgid "Expires after:"
 msgstr ""
-
-#, fuzzy
-msgid "Template Cache"
-msgstr "Kustuta šablooni vahemälu"
-
-#, c-format
-msgid ""
-"For optimal performance, Gallery caches all templates.  If you would like to %scustomize "
-"your template files%s, you should disable template caching temporarily so that changes take "
-"effect immediately without clearing the template cache."
-msgstr ""
-
-#, fuzzy
-msgid "Enable template caching"
-msgstr "Kustuta šablooni vahemälu"
 
 msgid "Clear Saved Pages"
 msgstr ""
@@ -2185,20 +1868,22 @@ msgstr "Mitteühilduv moodul!"
 msgid "Repository"
 msgstr "Hoidla"
 
+msgid "Please make sure that your internet connection is set up properly or try again later."
+msgstr ""
+
 #, c-format
-msgid "Failed to download the following packages for the %s plugin:"
+msgid "Failed to scan status from plugin: %s."
+msgstr ""
+
+msgid ""
+"Your local copy of the repository was broken and has been fixed.  Please download the plugin "
+"list again."
 msgstr ""
 
 #, c-format
 msgid ""
-"Failed to install the %s plugin because the following files/directories could not be "
+"Failed to download the %s plugin because the following files/directories could not be "
 "modified:"
-msgstr ""
-
-#, c-format
-msgid ""
-"Some plugins could not be automatically upgraded because they are in use.  Please return to "
-"the %sPlugins%s page and click the upgrade link for each of the following plugins:"
 msgstr ""
 
 msgid "The repository index has been successfully updated."
@@ -2210,6 +1895,12 @@ msgstr "Kõik pluginid on uusimad."
 #, c-format
 msgid "%s plugin updated."
 msgstr ""
+
+#, c-format
+msgid "%d language pack deleted."
+msgid_plural "%d language packs deleted."
+msgstr[0] ""
+msgstr[1] ""
 
 msgid ""
 "No personal information about you or your Gallery installation is sent to the Gallery server "
@@ -2250,6 +1941,14 @@ msgid "You must select at least one repository."
 msgstr "Sa pead valima eemaldamiseks kasutaja."
 
 msgid "Ok"
+msgstr ""
+
+msgid "Configure your Gallery"
+msgstr ""
+
+msgid ""
+"Before you can proceed, you have to change some permissions so that Gallery can install "
+"plugins for you.  It's easy.  Just execute the following in a shell or via your ftp client:"
 msgstr ""
 
 msgid ""
@@ -2349,7 +2048,8 @@ msgstr ""
 
 msgid ""
 "Download a package in order to use this plugin.  You can upgrade by choosing a newer version "
-"of the package to download."
+"of the package to download.  Language packages are optional, You only need to download the "
+"ones that you want to use on your site."
 msgstr ""
 
 msgid "Base Packages"
@@ -2367,7 +2067,12 @@ msgstr ""
 msgid "%sCurrently Installed%s: version %s (build %s)"
 msgstr ""
 
-msgid "The following language packages are available for this plugin"
+#, fuzzy
+msgid "Language Packages"
+msgstr "Keeleseaded"
+
+#, c-format
+msgid "(%sselect all%s%sselect none%s)"
 msgstr ""
 
 #, c-format
@@ -2387,6 +2092,9 @@ msgid "%s version %s (currently installed)"
 msgstr ""
 
 msgid "No compatible language packages available"
+msgstr ""
+
+msgid "You must select a base package before choosing language packs."
 msgstr ""
 
 msgid "Update"
@@ -2444,10 +2152,6 @@ msgstr ""
 msgid "New albums"
 msgstr ""
 
-#, c-format
-msgid "To activate more themes visit the %sPlugins%s page."
-msgstr ""
-
 msgid "Save Defaults"
 msgstr ""
 
@@ -2467,6 +2171,9 @@ msgstr ""
 
 msgid "Selected"
 msgstr ""
+
+msgid "Remove"
+msgstr "Eemalda"
 
 msgid "Move Up"
 msgstr ""
@@ -2646,16 +2353,13 @@ msgstr ""
 msgid "System Information"
 msgstr ""
 
-msgid "Not all of the specified items have been added successfully."
-msgstr ""
-
 msgid ""
 "You don't have any Graphics Toolkit activated that can handle JPEG images.  If you add "
 "images, you will probably not have any thumbnails."
 msgstr ""
 
 #, c-format
-msgid "Visit the %sModules%s page to activate a Graphics Toolkit."
+msgid "Visit the <a href=\"%s\">Modules</a> page to activate a Graphics Toolkit."
 msgstr ""
 
 msgid "Add Sub-Album"
@@ -2758,6 +2462,9 @@ msgstr "Sea kirjeldus:"
 msgid "No Thumbnail"
 msgstr "Ikoon Puudub"
 
+msgid "Delete Items"
+msgstr ""
+
 msgid "No items were selected for deletion"
 msgstr ""
 
@@ -2813,13 +2520,24 @@ msgstr "Eelmine Lehekülg"
 msgid "Next Page"
 msgstr "Järgmine Lehekülg"
 
-#, c-format
-msgid "Do you really want to delete %s?"
+msgid "Deletion Complete"
 msgstr ""
 
-#, fuzzy
-msgid "Delete more items..."
-msgstr "Kustuta ese"
+msgid "Item successfully deleted"
+msgstr ""
+
+#, c-format
+msgid "Are you sure you want to delete this %s?"
+msgstr ""
+
+#, c-format
+msgid "It contains %d item."
+msgid_plural "It contains %d items."
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "There is no undo!"
+msgstr ""
 
 msgid "There was a problem processing your request."
 msgstr ""
@@ -2971,10 +2689,6 @@ msgstr ""
 msgid "%s Date and Time"
 msgstr "%s Kuupäev ja Kellaaeg"
 
-#, fuzzy
-msgid "Link Date and Time"
-msgstr "%s Kuupäev ja Kellaaeg"
-
 msgid "Set the date and time when this image was captured."
 msgstr ""
 
@@ -2983,9 +2697,6 @@ msgstr ""
 
 #, c-format
 msgid "Set the date and time to be displayed for this %s."
-msgstr ""
-
-msgid "Set the date and time to be displayed for this link."
 msgstr ""
 
 msgid "Date:"
@@ -3196,14 +2907,8 @@ msgstr ""
 msgid "Choose the items you want to move"
 msgstr ""
 
-msgid "OK"
-msgstr ""
-
 msgid ""
 "The destination you chose does not accept sub-albums, so all sub-albums have been deselected."
-msgstr ""
-
-msgid "Warning"
 msgstr ""
 
 msgid ""
@@ -3402,12 +3107,10 @@ msgstr ""
 msgid "Enter an image URL"
 msgstr ""
 
-#. HINT: Button label for Bold
-msgid "B"
+msgid "B <!-- Button label for Bold -->"
 msgstr "B"
 
-#. HINT: Button label for italic
-msgid "i"
+msgid "i <!-- Button label for italic -->"
 msgstr "i"
 
 msgid "list"
@@ -3427,7 +3130,7 @@ msgid "color"
 msgstr "tuum"
 
 #, c-format
-msgid "You can also use the %scolor name%s for example: %sYour Text%s"
+msgid "You can also use the <a href=\"%s\" target=\"_new\">color name</a> for example: %s"
 msgstr ""
 
 msgid "Configuration Error: Missing Theme"
@@ -3529,22 +3232,20 @@ msgstr ""
 msgid "Your password has been recovered, please login."
 msgstr ""
 
-msgid ""
-"The administration session has expired, please re-authenticate to access the administration "
-"area."
-msgstr ""
-
 #, c-format
 msgid ""
 "Logins to this account are temporarily disabled due to multiple failed login attempts.  Wait "
-"for access to be restored, or use the %srecover password%s page to re-enable this account."
+"for access to be restored, or use the <a href=\"%s\">recover password</a> page to re-enable "
+"this account."
 msgstr ""
 
 msgid "Your login information is incorrect.  Please try again."
 msgstr ""
 
 #, c-format
-msgid "Lost or forgotten passwords can be retrieved using the %srecover password%s page"
+msgid ""
+"Lost or forgotten passwords can be retrieved using the <a href=\"%s\">recover password</a> "
+"page"
 msgstr ""
 
 #, c-format
@@ -3668,13 +3369,13 @@ msgstr ""
 #, c-format
 msgid ""
 "There is no request which matches the username and authorization provided. Request a new "
-"authorization from the %slost password page%s."
+"authorization from the <a href=\"%s\">lost password page</a>"
 msgstr ""
 
 #, c-format
 msgid ""
-"The request you are trying to access has expired.  Request a new authorization from the %"
-"slost password page%s."
+"The request you are trying to access has expired.  Request a new authorization from the <a "
+"href=\"%s\">lost password page</a>."
 msgstr ""
 
 msgid "Authorization missing"
@@ -3749,14 +3450,18 @@ msgstr "&laquo; pildi tegevused &raquo;"
 msgid "Go"
 msgstr "Läks"
 
-msgid "WARNING: block $type doesn't exist."
-msgstr ""
+msgid "Navigation"
+msgstr "Navigatsioon"
 
 msgid "next"
 msgstr "järgmine"
 
 msgid "last"
 msgstr "viimane"
+
+#, c-format
+msgid "Page %d of %d"
+msgstr ""
 
 #, c-format
 msgid "%d of %d"
@@ -3804,25 +3509,3 @@ msgstr ""
 
 msgid "Links to album/photo peers"
 msgstr ""
-
-#, fuzzy
-#~ msgid "Language Packages"
-#~ msgstr "Keeleseaded"
-
-#~ msgid "Back to %s"
-#~ msgstr "Tagasi %s juurde"
-
-#~ msgid "Back"
-#~ msgstr "Tagasi"
-
-#~ msgid "Navigation"
-#~ msgstr "Navigatsioon"
-
-#~ msgid "delete confirmation"
-#~ msgstr "Kustutamise kinnitus"
-
-#~ msgid "delete %s"
-#~ msgstr "kustuta %s"
-
-#~ msgid "key"
-#~ msgstr "võti"

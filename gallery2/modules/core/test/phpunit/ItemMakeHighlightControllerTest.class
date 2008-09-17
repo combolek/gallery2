@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,6 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
-
 /**
  * ItemMakeHighlight controller tests
  * @package GalleryCore
@@ -35,10 +33,7 @@ class ItemMakeHighlightControllerTest extends GalleryControllerTestCase {
     }
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	/* Register a dummy toolkit */
 	$ret = GalleryCoreApi::registerFactoryImplementation('GalleryToolkit',
@@ -46,7 +41,8 @@ class ItemMakeHighlightControllerTest extends GalleryControllerTestCase {
 	    'modules/core/test/phpunit/ItemMakeHighlightControllerTest.class',
 	    'coreTest', null);
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markToolkitForCleanup('ItemMakeHighlightTestToolkit');
 
@@ -57,37 +53,41 @@ class ItemMakeHighlightControllerTest extends GalleryControllerTestCase {
 		  array('type' => 'int', 'description' => 'foo')),
 	    'test-description');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($this->_album);
 
 	list ($ret, $this->_subalbum) = $this->_createRandomAlbum($this->_album->getId());
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $this->_item) =
 	    $this->_createRandomDataItem($this->_subalbum->getId(), 'test/file');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $this->_derivative) =
 	    $this->_createDerivative($this->_item, $this->_item->getId(),
 				     DERIVATIVE_TYPE_IMAGE_THUMBNAIL, 'thumbnail|200');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
     }
 
     function testCancel() {
 	GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
-	GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
 
 	$results = $this->handleRequest();
 	$this->assertEquals(array('return' => true, 'status' => array(), 'error' => array()),
@@ -107,7 +107,7 @@ class ItemMakeHighlightControllerTest extends GalleryControllerTestCase {
 	list ($ret, $thumbnail) =
 	    GalleryCoreApi::fetchThumbnailsByItemIds(array($this->_subalbum->getId()));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	if (!empty($thumbnail)) {
 	    $thumbnail = array_shift($thumbnail);
@@ -129,7 +129,7 @@ class ItemMakeHighlightControllerTest extends GalleryControllerTestCase {
 	list ($ret, $thumbnail) =
 	    GalleryCoreApi::fetchThumbnailsByItemIds(array($this->_album->getId()));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	if (!empty($thumbnail)) {
 	    $thumbnail = array_shift($thumbnail);

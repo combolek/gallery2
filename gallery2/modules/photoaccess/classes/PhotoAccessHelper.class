@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,7 +31,7 @@ class PhotoAccessHelper {
     /**
      * Print the items on photoworks.com and provide them with the given return url
      *
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *               string the url to the photoworks.com cart
      */
     function printPhotos($cartItemIds, $returnUrl) {
@@ -40,20 +40,9 @@ class PhotoAccessHelper {
 	$itemIds = array_keys($cartItemIds);
 
 	/* Load the necessary item data */
-	list ($ret, $items) = GalleryCoreApi::loadEntitiesById($itemIds, 'GalleryPhotoItem');
+	list ($ret, $items) = GalleryCoreApi::loadEntitiesById($itemIds);
 	if ($ret) {
 	    return array($ret, null);
-	}
-
-	list ($ret, $permissions) = GalleryCoreApi::fetchPermissionsForItems($itemIds);
-	if ($ret) {
-	    return array($ret, null);
-	}
-	foreach ($itemIds as $id) {
-	    if (empty($permissions[$id]['core.view'])) {
-		/* Avoid information disclosure, act as if the item didn't exist. */
-		return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
-	    }
 	}
 
 	list ($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds($itemIds);
@@ -71,14 +60,18 @@ class PhotoAccessHelper {
 	    return array($ret, null);
 	}
 
+	$ret = GalleryCoreApi::studyPermissions($itemIds);
+	if ($ret) {
+	    return array($ret, null);
+	}
+
 	/* We want to know which are viewable to guests */
 	list ($ret, $anonymousUserId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
 	if ($ret) {
 	    return array($ret, null);
 	}
-	list ($ret, $publicPermissions) =
-	    GalleryCoreApi::fetchPermissionsForItems($itemIds, $anonymousUserId, false);
+	$ret = GalleryCoreApi::studyPermissions($itemIds, $anonymousUserId);
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -98,13 +91,23 @@ class PhotoAccessHelper {
 	    $itemId = $item->getId();
 	    $entry = array();
 
-	    if (!isset($permissions[$itemId]['photoaccess.print'])) {
-		/* Skip any cart items for which we don't have print permission */
+	    list ($ret, $permissions) = GalleryCoreApi::getPermissions($itemId);
+	    if ($ret) {
+		return array($ret, null);
+	    }
+	    list ($ret, $publicPermissions) =
+		GalleryCoreApi::getPermissions($itemId, $anonymousUserId);
+	    if ($ret) {
+		return array($ret, null);
+	    }
+
+	    if (!isset($permissions['photoaccess.print']) || !isset($permissions['core.view'])) {
+		/* Skip any cart items for which we don't have permission */
 		continue;
 	    }
 
 	    $source = isset($preferreds[$itemId]) ? $preferreds[$itemId] : $item;
-	    $needSession = !isset($publicPermissions[$itemId]['core.viewSource']);
+	    $needSession = !isset($publicPermissions['core.viewSource']);
 
 	    if ($needSession && !isset($pwSession)) {
 		/*

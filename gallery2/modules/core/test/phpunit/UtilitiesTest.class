@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,10 +33,7 @@ class UtilitiesTest extends GalleryTestCase {
 
     function setUp() {
 	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	$this->_saveCookie = isset($_COOKIE) ? $_COOKIE : null;
 	$this->_saveServerHttpCookie =
@@ -49,20 +46,13 @@ class UtilitiesTest extends GalleryTestCase {
 	foreach (array('HTTP_X_FORWARDED_FOR', 'HTTP_CLIENT_IP', 'REMOTE_ADDR') as $key) {
 	    unset($_SERVER[$key]);
 	}
-
-	/* Reset response headers */
-	$this->_responseHeaders =& GalleryUtilities::_getResponseHeaders();
-	$this->_responseHeaders = null;
     }
 
     function tearDown() {
 	$_COOKIE = $this->_saveCookie;
 	$_SERVER['HTTP_COOKIE'] = $this->_saveServerHttpCookie;
 
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
+	parent::tearDown();
     }
 
     function testGetFileNameComponents() {
@@ -219,138 +209,31 @@ class UtilitiesTest extends GalleryTestCase {
     function testSetResponseHeader() {
 	global $gallery;
 
-	/* Use UtilitiesTestSetResponseHeaderPhpVm */
+	/* Use the PHP VM to record the headers */
 	$gallery->_phpVm = new UtilitiesTestSetResponseHeaderPhpVm();
-	$phpVm = $gallery->getPhpVm();
+	$_GET['phpVmHeaders'] = array();
+
+	$headers =& GalleryUtilities::_getResponseHeaders();
+	$headers = array();
 
 	GalleryUtilities::setResponseHeader('HTTP/1.0 123 Foo');
+	GalleryUtilities::setResponseHeader('HTTP/1.0 123 Bar', false);
 
-	$expectedHeaders = array();
-	$expectedHeaders['status'] = 'HTTP/1.0 123 Foo';
-	$this->assertEquals($expectedHeaders, $this->_responseHeaders, 'Response headers');
+	/* Verify the result */
+	$this->assertEquals(array('status' => 'HTTP/1.0 123 Foo'), $_GET['phpVmHeaders'],
+	    'Wrong response header');
 
-	$expectedCalls = array();
-	$expectedCalls[] = array('HTTP/1.0 123 Foo', null);
-	$this->assertEquals($expectedCalls, $phpVm->getHeaderCalls(), 'Header calls');
-    }
+	$this->assertEquals(array('status' => 'HTTP/1.0 123 Foo'), $headers,
+	    'Wrong response header');
 
-    function testSetResponseHeaderWithReplace() {
-	global $gallery;
+	GalleryUtilities::setResponseHeader('HTTP/1.0 123 Bar');
 
-	/* Use UtilitiesTestSetResponseHeaderPhpVm */
-	$gallery->_phpVm = new UtilitiesTestSetResponseHeaderPhpVm();
-	$phpVm = $gallery->getPhpVm();
+	/* Verify the result */
+	$this->assertEquals(array('status' => 'HTTP/1.0 123 Bar'), $_GET['phpVmHeaders'],
+	    'Wrong response header');
 
-	GalleryUtilities::setResponseHeader('HTTP/1.0 123 Foo');
-	GalleryUtilities::setResponseHeader('HTTP/1.0 321 Bar');
-
-	$expectedHeaders = array();
-	$expectedHeaders['status'] = 'HTTP/1.0 321 Bar';
-	$this->assertEquals($expectedHeaders, $this->_responseHeaders, 'Response headers');
-
-	$expectedCalls = array();
-	$expectedCalls[] = array('HTTP/1.0 123 Foo', null);
-	$expectedCalls[] = array('HTTP/1.0 321 Bar', null);
-	$this->assertEquals($expectedCalls, $phpVm->getHeaderCalls(), 'Header calls');
-    }
-
-    function testSetResponseHeaderNoReplace() {
-	global $gallery;
-
-	/* Use UtilitiesTestSetResponseHeaderPhpVm */
-	$gallery->_phpVm = new UtilitiesTestSetResponseHeaderPhpVm();
-	$phpVm = $gallery->getPhpVm();
-
-	GalleryUtilities::setResponseHeader('HTTP/1.0 123 Foo', false);
-	GalleryUtilities::setResponseHeader('HTTP/1.0 321 Bar', false);
-
-	$expectedHeaders = array();
-	$expectedHeaders['status'] = 'HTTP/1.0 123 Foo';
-	$this->assertEquals($expectedHeaders, $this->_responseHeaders, 'Response headers');
-
-	$expectedCalls = array();
-	$expectedCalls[] = array('HTTP/1.0 123 Foo', null);
-	$this->assertEquals($expectedCalls, $phpVm->getHeaderCalls(), 'Header calls');
-    }
-
-    function testSetLocationResponseHeader() {
-	global $gallery;
-
-	/* Use UtilitiesTestSetResponseHeaderPhpVm */
-	$gallery->_phpVm = new UtilitiesTestSetResponseHeaderPhpVm();
-	$phpVm = $gallery->getPhpVm();
-
-	GalleryUtilities::setResponseHeader('Location: http://example.com/', false);
-
-	$expectedHeaders = array();
-	$expectedHeaders['status'] = 'HTTP/1.0 302 Found';
-	$expectedHeaders['location'] = 'Location: http://example.com/';
-	$this->assertEquals($expectedHeaders, $this->_responseHeaders, 'Response headers');
-
-	$expectedCalls = array();
-	$expectedCalls[] = array('Location: http://example.com/', null);
-	$this->assertEquals($expectedCalls, $phpVm->getHeaderCalls(), 'Header calls');
-    }
-
-    function testSetLocationResponseHeaderWithReplace() {
-	global $gallery;
-
-	/* Use UtilitiesTestSetResponseHeaderPhpVm */
-	$gallery->_phpVm = new UtilitiesTestSetResponseHeaderPhpVm();
-	$phpVm = $gallery->getPhpVm();
-
-	GalleryUtilities::setResponseHeader('HTTP/1.0 123 Foo');
-	GalleryUtilities::setResponseHeader('Location: http://example.com/');
-
-	$expectedHeaders = array();
-	$expectedHeaders['status'] = 'HTTP/1.0 302 Found';
-	$expectedHeaders['location'] = 'Location: http://example.com/';
-	$this->assertEquals($expectedHeaders, $this->_responseHeaders, 'Response headers');
-
-	$expectedCalls = array();
-	$expectedCalls[] = array('HTTP/1.0 123 Foo', null);
-	$expectedCalls[] = array('Location: http://example.com/', null);
-	$this->assertEquals($expectedCalls, $phpVm->getHeaderCalls(), 'Header calls');
-    }
-
-    function testSetLocationResponseHeaderNoReplace() {
-	global $gallery;
-
-	/* Use UtilitiesTestSetResponseHeaderPhpVm */
-	$gallery->_phpVm = new UtilitiesTestSetResponseHeaderPhpVm();
-	$phpVm = $gallery->getPhpVm();
-
-	GalleryUtilities::setResponseHeader('HTTP/1.0 123 Foo', false);
-	GalleryUtilities::setResponseHeader('Location: http://example.com/', false);
-
-	$expectedHeaders = array();
-	$expectedHeaders['status'] = 'HTTP/1.0 123 Foo';
-	$this->assertEquals($expectedHeaders, $this->_responseHeaders, 'Response headers');
-
-	$expectedCalls = array();
-	$expectedCalls[] = array('HTTP/1.0 123 Foo', null);
-	$this->assertEquals($expectedCalls, $phpVm->getHeaderCalls(), 'Header calls');
-    }
-
-    function testSetLocationResponseHeaderNoReplace3xx() {
-	global $gallery;
-
-	/* Use UtilitiesTestSetResponseHeaderPhpVm */
-	$gallery->_phpVm = new UtilitiesTestSetResponseHeaderPhpVm();
-	$phpVm = $gallery->getPhpVm();
-
-	GalleryUtilities::setResponseHeader('HTTP/1.0 321 Bar', false);
-	GalleryUtilities::setResponseHeader('Location: http://example.com/', false);
-
-	$expectedHeaders = array();
-	$expectedHeaders['status'] = 'HTTP/1.0 321 Bar';
-	$expectedHeaders['location'] = 'Location: http://example.com/';
-	$this->assertEquals($expectedHeaders, $this->_responseHeaders, 'Response headers');
-
-	$expectedCalls = array();
-	$expectedCalls[] = array('HTTP/1.0 321 Bar', null);
-	$expectedCalls[] = array('Location: http://example.com/', null);
-	$this->assertEquals($expectedCalls, $phpVm->getHeaderCalls(), 'Header calls');
+	$this->assertEquals(array('status' => 'HTTP/1.0 123 Bar'), $headers,
+	    'Wrong response header');
     }
 
     function testSanitizeInputValue1() {
@@ -423,7 +306,7 @@ class UtilitiesTest extends GalleryTestCase {
 	$urlGenerator = new GalleryUrlGenerator();
 	$ret = $urlGenerator->init('phpunit_test.php');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$gallery->setUrlGenerator($urlGenerator);
 
@@ -440,7 +323,7 @@ class UtilitiesTest extends GalleryTestCase {
 	$urlGenerator = new GalleryUrlGenerator();
 	$ret = $urlGenerator->init('phpunit_test.php?test=on', '/gallery2/');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$gallery->setUrlGenerator($urlGenerator);
 	$_SERVER['REQUEST_URI'] = '/testcms/phpunit_test.php?test=on&foo=bar';
@@ -455,7 +338,7 @@ class UtilitiesTest extends GalleryTestCase {
 	$urlGenerator = new GalleryUrlGenerator();
 	$ret = $urlGenerator->init('phpunit_test.php');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$gallery->setUrlGenerator($urlGenerator);
 
@@ -505,7 +388,7 @@ class UtilitiesTest extends GalleryTestCase {
 	list ($ret, $album) =
 	    GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryAlbumItem');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(GalleryUtilities::isExactlyA($album, 'GalleryAlbumItem'), 'album');
 	$this->assert(!GalleryUtilities::isExactlyA($album, 'GalleryItem'), 'item');
@@ -762,7 +645,7 @@ class UtilitiesTest extends GalleryTestCase {
 	    list ($ret, $albums[$i]) =
 		GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryAlbumItem');
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $albums[$i]->setId($i);
 	}
@@ -1397,7 +1280,7 @@ class UtilitiesTest extends GalleryTestCase {
 			    'mkdir for cache, but without specific perms');
     }
 
-    /*
+    /* 
      * For a given path /a/b/c/d, file_exists() returns false for /a/b/c/d and /a/b/c and true for
      * /a/b if we don't have read+execute permission on /a/b.
      * In case we don't have r+w for the root directory /, we are in an infinite loop unless we
@@ -1462,33 +1345,33 @@ class UtilitiesTest extends GalleryTestCase {
 
 	list ($ret, $album) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($album);
 
 	$ret = GalleryCoreApi::addMimeType('phpunit_movie', 'test/movie', false);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $item) = $this->_createRandomDataItem($album->getId(), 'test/movie',
 	    array('pathComponent' => 'testitem.phpunit_movie'));
 	if ($ret) {
 	    GalleryCoreApi::removeMimeType(array('extension' => 'phpunit_movie'));
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $clip) = $this->_createDerivative($item, $item->getId(),
 	    DERIVATIVE_TYPE_IMAGE_PREFERRED, 'movieclip|5,10', 'test/movie');
 	if ($ret) {
 	    GalleryCoreApi::removeMimeType(array('extension' => 'phpunit_movie'));
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = GalleryCoreApi::addMimeType('phpunit_image', 'test/image', true);
 	if ($ret) {
 	    GalleryCoreApi::removeMimeType(array('extension' => 'phpunit_movie'));
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $thumb) = $this->_createDerivative($item, $item->getId(),
@@ -1496,7 +1379,7 @@ class UtilitiesTest extends GalleryTestCase {
 	if ($ret) {
 	    GalleryCoreApi::removeMimeType(
 		array('extension' => array('phpunit_movie', 'phpunit_image')));
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $highlight) = $this->_createDerivative($album, $thumb->getId(),
@@ -1504,41 +1387,41 @@ class UtilitiesTest extends GalleryTestCase {
 	if ($ret) {
 	    GalleryCoreApi::removeMimeType(
 		array('extension' => array('phpunit_movie', 'phpunit_image')));
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Item gives its own name */
 	list ($ret, $result) = GalleryUtilities::getPseudoFileName($item);
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 	$this->assertEquals('testitem.phpunit_movie', $result);
 
 	/* Derivative with same mime type as parent */
 	list ($ret, $result) = GalleryUtilities::getPseudoFileName($clip);
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 	$this->assertEquals('testitem.phpunit_movie', $result);
 
 	/* Derivative with different mime type from parent */
 	list ($ret, $result) = GalleryUtilities::getPseudoFileName($thumb);
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 	$this->assertEquals('testitem.phpunit_image', $result);
 
 	/* Derivative with non-item parent */
 	list ($ret, $result) = GalleryUtilities::getPseudoFileName($highlight);
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 	$this->assertEquals($album->getPathComponent() . '.phpunit_image', $result);
 
 	/* Entity that is not a FileSystemEntity or Derivative */
 	list ($ret, $result) = GalleryUtilities::getPseudoFileName($gallery->getActiveUser());
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 	$this->assertEquals('unknown', $result);
 
@@ -1546,7 +1429,7 @@ class UtilitiesTest extends GalleryTestCase {
 	$ret = GalleryCoreApi::removeMimeType(
 	    array('extension' => array('phpunit_movie', 'phpunit_image')));
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
     }
 
@@ -1575,8 +1458,6 @@ class UtilitiesTest extends GalleryTestCase {
 		'<a href="test" onmouseover="alert(1)">12</a>8 <br />'));
 	$this->assertEquals('<a>12</a>b<br />', GalleryUtilities::htmlSafe(
 		'<a href="javascript:alert(1)">12</a>b<br/>'));
-	$this->assertEquals('test ', GalleryUtilities::htmlSafe(
-	        'test <body onload=alert("xss")>'));
 
 	/* HTML_Safe does some normalizing of other tags */
 	$this->assertEquals('br<br />is<br />ok', GalleryUtilities::htmlSafe('br<br>is<br/>ok'));
@@ -1587,16 +1468,6 @@ class UtilitiesTest extends GalleryTestCase {
 	$this->assertEquals('<tt><b>closed</b>  <i>open</i></tt>', GalleryUtilities::htmlSafe(
 		'<tt><b>closed</b> </td> <i>open'));
 
-    }
-
-    function testHtmlSafeWithDecode() {
-	/*
-	 * I don't fully understand why htmlSafe does this particular transform, so I'm
-	 * documenting it here in case it changes.
-	 */
-	$this->assertEquals(
-	    'December &amp;lt;#952&gt;',
-	    GalleryUtilities::htmlSafe('December <#952>', true));
     }
 
     function testHtmlSafeUtf7() {
@@ -1663,18 +1534,6 @@ class UtilitiesTest extends GalleryTestCase {
 	$this->assertEquals(serialize($expected), serialize($actual));
     }
     */
-
-    function testIsValidEmailString() {
-	foreach (array('blah@blah.com', 'aqy-BMZ+09_test@ary_BNZ-059.test-2B.Test',
-		       'user@mydomain.travel', 'curator@my.museum', 'short@a.bc') as $valid) {
-	    $this->assert(GalleryUtilities::isValidEmailString($valid), $valid);
-	}
-	foreach (array('no-at.com', 'no-dot@com', 'bad-&-char@test.com', 'sp ace@fun.com',
-		       'test@sp ace.com', 'test@bad+char.com', 'test@tld-is.tooLong',
-		       'two@ats@fun.com') as $invalid) {
-	    $this->assert(!GalleryUtilities::isValidEmailString($invalid), $invalid);
-	}
-    }
 }
 
 class UtilitiesTestPlatform {
@@ -1772,6 +1631,7 @@ class UtilitiesTestPlatform {
 }
 
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryPlatform/WinNtPlatform.class');
+
 class UtilitiesTestWinPlatform extends WinNtPlatform {
 
     function realpath($file) {
@@ -1808,21 +1668,14 @@ class UtilitiesTestDoNotAddSlashesPhpVm extends GalleryPhpVm {
 }
 
 class UtilitiesTestSetResponseHeaderPhpVm extends GalleryPhpVm {
-    function UtilitiesTestSetResponseHeaderPhpVm() {
-	$this->getHeaderCalls(true);
-    }
-
-    function &getHeaderCalls($reset=false) {
-	static $headerCalls = array();
-	if ($reset) {
-	    $headerCalls = array();
-	}
-	return $headerCalls;
-    }
 
     function header($header, $replace=null) {
-	$headerCalls =& $this->getHeaderCalls();
-    	$headerCalls[] = array($header, $replace);
+	$key = 'status';
+	if (strncasecmp($header, 'HTTP/', 5)) {
+	    $key = strtolower(substr($header, 0, strpos($header, ':')));
+	}
+
+	$_GET['phpVmHeaders'][$key] = $header;
     }
 }
 ?>

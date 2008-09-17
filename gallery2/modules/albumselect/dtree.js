@@ -1,7 +1,7 @@
 /*--------------------------------------------------|
 | dTree 2.05 | www.destroydrop.com/javascript/tree/ |
 |---------------------------------------------------|
-| Copyright (c) 2002-2003 Geir LandrÃ¶               |
+| Copyright (c) 2002-2003 Geir Landrö               |
 |                                                   |
 | This script can be used freely as long as all     |
 | copyright messages are intact.                    |
@@ -38,9 +38,7 @@ function dTree(objName) {
 		useIcons		: false,
 		useStatusText		: false,
 		closeSameLevel		: false,
-		inOrder			: false,
-		cookiePath		: null,
-		cookieDomain		: null
+		inOrder			: false
 	}
 	this.obj = objName;
 	this.aNodes = [];
@@ -275,8 +273,6 @@ dTree.prototype.clearCookie = function() {
 
 // [Cookie] Sets value in a cookie
 dTree.prototype.setCookie = function(cookieName, cookieValue, expires, path, domain, secure) {
-	path = path || this.config.cookiePath;
-	domain = domain || this.config.cookieDomain;
 	document.cookie =
 		escape(cookieName) + '=' + escape(cookieValue)
 		+ (expires ? '; expires=' + expires.toGMTString() : '')

@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -130,11 +130,9 @@ class SelectAlbumView extends GalleryView {
 	    $albumIds['allIds'] = $filteredIds;
 	}
 
-	$albums = array();
 	if (!empty($albumIds['allIds'])) {
 	    /* Load all the album entities */
-	    list ($ret, $albums) =
-		GalleryCoreApi::loadEntitiesById($albumIds['allIds'], 'GalleryAlbumItem');
+	    list ($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds['allIds']);
 	    if ($ret) {
 		return array($ret, null);
 	    }
@@ -143,12 +141,6 @@ class SelectAlbumView extends GalleryView {
 	$SelectAlbum = array();
 	$SelectAlbum['albumTree'] = GalleryUtilities::createAlbumTree($albums);
 
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'publishxp');
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	$template->title($module->translate('Windows Publishing Wizard'));
 	$template->setVariable('SelectAlbum', $SelectAlbum);
 	$template->setVariable('controller', 'publishxp.SelectAlbum');
 	$template->head('modules/publishxp/templates/Head.tpl');

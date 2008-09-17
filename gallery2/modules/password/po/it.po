@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,34 +16,30 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
-# Ermanno Baschiera <ebaschiera@gmail.com>, 2008.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Password Protected Albums 1.0.8\n"
+"Project-Id-Version: Gallery: Password Items 1.0.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-03-15 18:51+0100\n"
-"PO-Revision-Date: 2008-08-04 09:56+0200\n"
+"PO-Revision-Date: 2007-01-09 12:27+0100\n"
 "Last-Translator: Ermanno Baschiera <ebaschiera@gmail.com>\n"
-"Language-Team: Italian\n"
+"Language-Team: Italian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
 
 msgid "Password Entry"
 msgstr "Inserimento Password"
 
-msgid "Password Protected Albums"
-msgstr "Album Protetti da Password"
+msgid "Password Items"
+msgstr "Oggetti Password"
 
-msgid "Assign passwords for viewing particular albums"
-msgstr "Assegna delle password per visualizzare determinati album"
+msgid "Assign passwords for viewing particular albums or items"
+msgstr "Assegna una password per visualizzare determinati album od oggetti"
 
 msgid "Display"
 msgstr "Visualizzazione"
-
-msgid "Password Items"
-msgstr "Oggetti con Password"
 
 msgid "Set Password"
 msgstr "Imposta Password"
@@ -54,11 +50,11 @@ msgstr "Aggiorna autorizzazioni"
 msgid "Remove Password"
 msgstr "Rimuovi Password"
 
-msgid "Password Protected Album"
-msgstr "Album Protetto da Password"
+msgid "Password Protected Item"
+msgstr "Oggetto Protetto da Password"
 
 msgid "Enter the password!"
-msgstr "Inserire la password!"
+msgstr "Inserisci la password!"
 
 msgid "Submit"
 msgstr "Invia"
@@ -71,7 +67,7 @@ msgid ""
 "guests have permission to view resizes and/or original items before assigning a password."
 msgstr ""
 "Assegna una password necessaria ai visitatori o ad altri utenti privi dei permessi di "
-"visualizzazione. Assicurarsi che i visitatori abbiano le autorizzazioni a visualizzare le "
+"visualizzazione. Assicurati che i visitatori abbiano le autorizzazioni a visualizzare le "
 "immagini ridimensionate e/o originali prima di assegnare una password."
 
 msgid "This item is already password protected."
@@ -87,4 +83,4 @@ msgid "Confirm Password:"
 msgstr "Conferma Password:"
 
 msgid "The passwords you entered did not match"
-msgstr "Le password inserite non coincidono"
+msgstr "Le password che hai inserito non coincidono"

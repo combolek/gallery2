@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@
 # Gidie <gidie at users.sourceforge REMOVE THIS dot net>, 2005
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: MultiLanguage 1.0.11\n"
+"Project-Id-Version: Gallery: MultiLanguage 1.0.7\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-04 20:48+0100\n"
 "PO-Revision-Date: 2005-03-04 20:50+0100\n"
@@ -46,6 +46,15 @@ msgstr "Extra Data"
 msgid "MultiLanguage Captions"
 msgstr "Meertalige Beschrijvingen"
 
+msgid "Title"
+msgstr "Titel"
+
+msgid "Summary"
+msgstr "Samenvatting"
+
+msgid "Description"
+msgstr "Omschrijving"
+
 #, c-format
 msgid "Search titles (%s)"
 msgstr "Doorzoek titels (%s)"
@@ -57,15 +66,6 @@ msgstr "Doorzoek samenvattingen (%s)"
 #, c-format
 msgid "Search descriptions (%s)"
 msgstr "Doorzoek omschrijvingen (%s)"
-
-msgid "Title"
-msgstr "Titel"
-
-msgid "Summary"
-msgstr "Samenvatting"
-
-msgid "Description"
-msgstr "Omschrijving"
 
 msgid "MultiLanguage Settings"
 msgstr "Meertalige Instellingen"

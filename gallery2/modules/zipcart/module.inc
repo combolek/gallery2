@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,12 +33,11 @@ class ZipCartModule extends GalleryModule {
 	$this->setId('zipcart');
 	$this->setName($gallery->i18n('Zip Download'));
 	$this->setDescription($gallery->i18n('Download cart items in a zip file'));
-	$this->setVersion('1.0.12');
-	$this->_templateVersion = 1;
+	$this->setVersion('1.0.8');
 	$this->setGroup('commerce', $gallery->i18n('Commerce'));
 	$this->setCallbacks('getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 30));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setRequiredCoreApi(array(7, 4));
+	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
@@ -46,13 +45,11 @@ class ZipCartModule extends GalleryModule {
      */
     function performFactoryRegistrations() {
 	/* Register our cart plugin */
-	foreach (array('1_0', '1_1') as $version) {
-	    $ret = GalleryCoreApi::registerFactoryImplementation(
-		'CartPluginInterface_' . $version, 'ZipCartPlugin', 'zipcart',
-		'modules/zipcart/classes/ZipCartPlugin.class', 'zipcart', null);
-	    if ($ret) {
-		return $ret;
-	    }
+	$ret = GalleryCoreApi::registerFactoryImplementation(
+	    'CartPluginInterface_1_0', 'ZipCartPlugin', 'zipcart',
+	    'modules/zipcart/classes/ZipCartPlugin.class', 'zipcart', null);
+	if ($ret) {
+	    return $ret;
 	}
 
 	return null;
@@ -62,15 +59,11 @@ class ZipCartModule extends GalleryModule {
      * @see GalleryModule::needsConfiguration
      */
     function needsConfiguration() {
-	/* This module requires exec() */
-	if (in_array('exec', split(',\s*', ini_get('disable_functions')))) {
-	    return array(null, true);
-	}
-
 	list ($ret, $value) = $this->getParameter('path');
 	if ($ret) {
 	    return array($ret, null);
 	}
+
 	return array(null, empty($value));
     }
 
@@ -79,11 +72,6 @@ class ZipCartModule extends GalleryModule {
      */
     function autoConfigure() {
 	global $gallery;
-
-	/* This module requires exec() */
-	if (in_array('exec', split(',\s*', ini_get('disable_functions')))) {
-	    return array(null, false);
-	}
 
 	list ($ret, $needsConfiguration) = $this->needsConfiguration();
 	if ($ret) {

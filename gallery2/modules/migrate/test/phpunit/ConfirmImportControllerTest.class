@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -50,31 +50,29 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
     function setUp() {
 	global $gallery;
 
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	list ($ret, $this->_temporaryAlbum) = $this->_createRandomAlbum($this->_getRootId(),
 							    array('orderBy' => 'orderWeight'));
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	/* Assign our test theme */
 	list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($this->_temporaryAlbum->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->_temporaryAlbum->setTheme('matrix');
 	$ret = $this->_temporaryAlbum->save();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = GalleryCoreApi::releaseLocks($lockId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->_temporaryAlbumId = $this->_temporaryAlbum->getId();
@@ -82,7 +80,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	list ($ret, $this->guestUserId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->guestUserId = (int)$this->guestUserId;
 
@@ -90,12 +88,13 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	/* Go ahead and create the user instance */
 	list ($ret, $user) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryUser');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Verify that the user was created successfully */
 	if (!isset($user)) {
-	    return GalleryCoreApi::error(ERROR_MISSING_OBJECT);
+	    return $this->failWithStatus(
+		GalleryCoreApi::error(ERROR_MISSING_OBJECT));
 	}
 
 	$ret = $user->create($userName);
@@ -105,21 +104,21 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	     * already exists.  If this test user already exists, we're happy.
 	     */
 	    if (!($ret->getErrorCode() & ERROR_COLLISION)) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	}
 	$ret = $user->save();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $this->_mapCount) = G1MigrateHelper::fetchMapCount();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	list ($ret, $moduleStatusList) = GalleryCoreApi::fetchPluginStatus('module');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->testHidden = !empty($moduleStatusList['hidden']['active']);
 	$this->testComments = !empty($moduleStatusList['comment']['active']);
@@ -130,7 +129,8 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	list ($ret, $this->_origMarkup) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'misc.markup');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	/* These tests expect a user with username 'admin' to exist */
@@ -140,19 +140,23 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 		list ($ret, $adminUser) =
 		    GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryUser');
 		if ($ret) {
-		    return $ret;
+		    print $ret->getAsHtml();
+		    return $this->failWithStatus($ret);
 		}
 		$ret = $adminUser->create('admin');
 		if ($ret) {
-		    return $ret;
+		    print $ret->getAsHtml();
+		    return $this->failWithStatus($ret);
 		}
 		$ret = $adminUser->save();
 		if ($ret) {
-		    return $ret;
+		    print $ret->getAsHtml();
+		    return $this->failWithStatus($ret);
 		}
 		$this->_markForCleanup($adminUser);
 	    } else {
-		return $ret;
+		print $ret->getAsHtml();
+		return $this->failWithStatus($ret);
 	    }
 	}
 	$this->_adminUser = $adminUser;
@@ -160,14 +164,16 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	list ($ret, $this->_everybodyGroupId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.everybodyGroup');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_everybodyGroupId = (int)$this->_everybodyGroupId;
 
 	list ($ret, $this->_adminGroupId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.adminGroup');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_adminGroupId = (int)$this->_adminGroupId;
 
@@ -187,42 +193,39 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	/* Clean up our test users */
 	list ($ret, $user) = GalleryCoreApi::fetchUserByUsername('phpunit_foobar');
 	if (!$ret) {
-	    $ret = GalleryCoreApi::deleteEntityById($user->getId(), 'GalleryUser');
+	    $ret = GalleryCoreApi::deleteEntityById($user->getId());
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	}
 	list ($ret, $user) = GalleryCoreApi::fetchUserByUsername('phpunitfoo001');
 	if (!$ret) {
-	    $ret = GalleryCoreApi::deleteEntityById($user->getId(), 'GalleryUser');
+	    $ret = GalleryCoreApi::deleteEntityById($user->getId());
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	}
 	list ($ret, $user) = GalleryCoreApi::fetchUserByUsername('phpunitfoo002');
 	if (!$ret) {
-	    $ret = GalleryCoreApi::deleteEntityById($user->getId(), 'GalleryUser');
+	    $ret = GalleryCoreApi::deleteEntityById($user->getId());
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	}
 
 	/* Clean up our test album */
-	$ret = GalleryCoreApi::deleteEntityById($this->_temporaryAlbumId, 'GalleryAlbumItem');
+	$ret = GalleryCoreApi::deleteEntityById($this->_temporaryAlbumId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $mapCount) = G1MigrateHelper::fetchMapCount();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals($this->_mapCount, $mapCount, 'Test altered number of map entries!');
 
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
+	parent::tearDown();
     }
 
     function _runBackgroundTask($expectedProgressBarDump) {
@@ -257,7 +260,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	}
 
 	$session =& $gallery->getSession();
-	$status = $session->getStatus();
+	$status = $session->getStatus($mockGenerator->getStatusId());
 
 	return array(null, $status);
     }
@@ -275,9 +278,9 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	/* We still have 2 progressbar resets, even though we don't import albums and make thumbs */
 	list ($ret, $status) = $this->_runBackgroundTask(
 	    array(0, 1, 'reset', 'reset',
-		  'complete:view=core.SiteAdmin,subView=migrate.ImportResults'));
+		  'complete:view=core.SiteAdmin,subView=migrate.ImportResults,statusId=STATUSID'));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(array('userImportSuccess' => array('phpunit_foobar' => 1),
@@ -290,7 +293,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	/* Verify the user exists */
 	list ($ret, $user) = GalleryCoreApi::fetchUserByUsername('phpunit_foobar');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
     }
     function testImportMissingUserFullname() {
@@ -306,9 +309,9 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	/* We still have 2 progressbar resets, even though we don't import albums and make thumbs */
 	list ($ret, $status) = $this->_runBackgroundTask(
 	    array(0, 1, 'reset', 'reset',
-		  'complete:view=core.SiteAdmin,subView=migrate.ImportResults'));
+		  'complete:view=core.SiteAdmin,subView=migrate.ImportResults,statusId=STATUSID'));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(array('userImportSuccess' => array('phpunitfoo002' => 1),
@@ -322,7 +325,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	/* Verify the user exists */
 	list ($ret, $user) = GalleryCoreApi::fetchUserByUsername('phpunitfoo002');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals('phpunitfoo002', $user->getFullName());
     }
@@ -341,9 +344,9 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	/* We still have 2 progressbar resets, even though we don't import albums and make thumbs */
 	list ($ret, $status) = $this->_runBackgroundTask(
 	    array(0, 1, 'reset', 'reset',
-		  'complete:view=core.SiteAdmin,subView=migrate.ImportResults'));
+		  'complete:view=core.SiteAdmin,subView=migrate.ImportResults,statusId=STATUSID'));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(array('userImportFailure' => array('admin' => 1),
@@ -385,7 +388,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $test) = GalleryCoreApi::newFactoryInstance('CustomFieldInterface_1_0');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$importCustomFields = isset($test);
 	if ($importCustomFields) {
@@ -394,14 +397,14 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'misc.markup', 'bbcode');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $status) = $this->_runBackgroundTask(
 	    '0 1 reset [\d \.]* reset ' .
-	    'complete:view=core.SiteAdmin,subView=migrate.ImportResults');
+	    'complete:view=core.SiteAdmin,subView=migrate.ImportResults,statusId=STATUSID');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$results = $this->handleRequest();
@@ -413,39 +416,38 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	$testAlbumId = $status['albumImportSuccess']['album03'];
 
 	/* Get the allegedly successfully imported album */
-	list ($ret, $testAlbum) =
-	    GalleryCoreApi::loadEntitiesById($testAlbumId, 'GalleryAlbumItem');
+	list ($ret, $testAlbum) = GalleryCoreApi::loadEntitiesById($testAlbumId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Get the theme associated with this album */
 	list ($ret, $themeId) = GalleryCoreApi::fetchThemeId($testAlbum);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	list ($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	list ($ret, $settings) = $theme->getSettings($testAlbumId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	/* Get specific values from the theme */
 	list ($ret, $rows) = $theme->getParameter('rows', $testAlbumId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	list ($ret, $cols) = $theme->getParameter('columns', $testAlbumId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Count the clicks for this item */
 	list ($ret, $viewCount) = GalleryCoreApi::fetchItemViewCount($testAlbumId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/*
@@ -460,14 +462,14 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	list ($ret, $derivativePreferences) =
 	    GalleryCoreApi::fetchDerivativePreferencesForItem($testAlbumId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	if ($importCustomFields) {
 	    list ($ret, $fieldList) =
 		GalleryCoreApi::getPluginParameter('module', 'customfield', 'common', $testAlbumId);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $this->assertEquals('Description`0`1', $fieldList, 'list of custom fields');
 	}
@@ -591,7 +593,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	/* Verify item attributes (like order weight) */
 	list ($ret, $ids) = GalleryCoreApi::fetchChildItemIds($testAlbum);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(4, count($ids), 'number of children');
 
@@ -599,12 +601,12 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	foreach ($ids as $id) {
 	    list ($ret, $itemViewCount[$id]) = GalleryCoreApi::fetchItemViewCount($id);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 
 	    list ($ret, $orderWeight) = GalleryCoreApi::fetchItemOrderWeight($id);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $this->assert(!isset($seenWeights[$orderWeight]),
 			  'Seen this weight before: ' . $orderWeight);
@@ -612,9 +614,9 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	}
 
 	/* Get the allegedly successfully imported items */
-	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[0], 'GalleryItem');
+	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[0]);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(array("\xc2\xa1" . 'Time to migrate!', // title
 				  NULL,                                  // summary
@@ -641,7 +643,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 		'modules/customfield/classes/CustomFieldHelper.class');
 	    list ($ret, $fields) = CustomFieldHelper::fetchFieldValues(array($testItem), 'detail');
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $this->assertEquals(array($testItem->getId() =>
 		array('Description' => 'This is actually not a chipper, but a stump grinder.')),
@@ -651,7 +653,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	list ($ret, $chipperThumb) =
 	    GalleryCoreApi::fetchThumbnailsByItemIds(array($testItem->getId()));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(1, count($chipperThumb), 'thumbnail exists');
 	if (count($chipperThumb) == 1) {
@@ -661,9 +663,9 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 				$chipperThumb->getDerivativeOperations(), 'derivative operations');
 	}
 
-	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[1], 'GalleryItem');
+	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[1]);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(array('Test Album Two',                      // title
 				  'No description',                      // summary
@@ -685,9 +687,9 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 				  ),
 			    'item 1');
 
-	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[2], 'GalleryItem');
+	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[2]);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(array(
 	   'I Love It Victoria Is the Only One Ready for the Shot this time',  // title
@@ -710,9 +712,9 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 				  ),
 			    'item 2');
 
-	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[3], 'GalleryItem');
+	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[3]);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(array('This image is hidden',                // title
 				  '',                                    // summary
@@ -738,7 +740,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	    list ($ret, $comments) =
 		    GalleryCommentHelper::fetchComments($ids[2], 2, ORDER_ASCENDING);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $this->assertEquals(2, count($comments), 'number of comments');
 	    if (!empty($comments)) {
@@ -755,9 +757,9 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 				    );
 		/* Get the username of the commenter */
 		list ($ret, $commenterUser) =
-		    GalleryCoreApi::loadEntitiesById($comments[0]->getCommenterId(), 'GalleryUser');
+		    GalleryCoreApi::loadEntitiesById($comments[0]->getCommenterId());
 		if ($ret) {
-		    return $ret;
+		    return $this->failWithStatus($ret);
 		}
 		$this->assertEquals('phpunit_foobar', $commenterUser->getUserName(),
 			'commenter name');
@@ -796,7 +798,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	/* verify permissions on hidden item */
 	list ($ret, $permissions) = GalleryCoreApi::fetchAllPermissionsForItem($ids[3], true);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$expectedPermissions = $this->testComments
 	    ? array(array('groupId' => $this->_everybodyGroupId,
@@ -821,19 +823,18 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	$this->assertEquals($expectedPermissions, $permissions, 'permissions on hidden item');
 
 	$testAlbumId = $status['albumImportSuccess']['album02'];
-	list ($ret, $testAlbum) =
-	    GalleryCoreApi::loadEntitiesById($testAlbumId, 'GalleryAlbumItem');
+	list ($ret, $testAlbum) = GalleryCoreApi::loadEntitiesById($testAlbumId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	list ($ret, $ids) = GalleryCoreApi::fetchChildItemIds($testAlbum);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(5, count($ids), 'number of album02 children');
-	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[3], 'GalleryItem');
+	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[3]);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals('chile [b]negro[/b]', $testItem->getTitle(),
 			    'bbcode in title, other html stripped out');
@@ -854,14 +855,14 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'misc.markup', 'none');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $status) = $this->_runBackgroundTask(
 	    '1 reset [\d \.]* reset [\d \.]* ' .
-	    'complete:view=core.SiteAdmin,subView=migrate.ImportResults');
+	    'complete:view=core.SiteAdmin,subView=migrate.ImportResults,statusId=STATUSID');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(array('album04'),
@@ -870,20 +871,19 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	$this->assertEquals(array(), $status['userImportSuccess']);
 	$this->assertEquals(array(), $status['albumImportFailure']);
 	$testAlbumId = $status['albumImportSuccess']['album04'];
-	list ($ret, $testAlbum) =
-	    GalleryCoreApi::loadEntitiesById($testAlbumId, 'GalleryAlbumItem');
+	list ($ret, $testAlbum) = GalleryCoreApi::loadEntitiesById($testAlbumId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	list ($ret, $ids) = GalleryCoreApi::fetchChildItemIds($testAlbum);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(1, count($ids), 'number of children');
 
 	list ($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds($ids);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(1, count($thumbTable), 'thumbnail table');
@@ -893,15 +893,15 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	if (isset($thumbnail)) {
 	    list ($ret, $isCurrent) = $thumbnail->isCacheCurrent();
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $this->assert($isCurrent, 'Cache is not current!');
 	}
 
 	/* verify filename was assigned to title, caption to summary, blank description */
-	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($ids[0], 'GalleryItem');
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($ids[0]);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals('head_left', $item->getTitle(), 'title');
 	$this->assertEquals('head left', $item->getSummary(), 'summary, html stripped out');
@@ -931,7 +931,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $permissions) = GalleryCoreApi::fetchAllPermissionsForItem($testAlbumId, true);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	usort($expectedPermissions, array($this, '_sortByPermission'));
 	usort($permissions, array($this, '_sortByPermission'));
@@ -939,7 +939,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $permissions) = GalleryCoreApi::fetchAllPermissionsForItem($ids[0], true);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	usort($expectedPermissions, array($this, '_sortByPermission'));
 	usort($permissions, array($this, '_sortByPermission'));
@@ -967,7 +967,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $test) = GalleryCoreApi::newFactoryInstance('CustomFieldInterface_1_0');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$importCustomFields = isset($test);
 	if ($importCustomFields) {
@@ -977,9 +977,9 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $status) = $this->_runBackgroundTask(
 	    '1 reset [\d \.]* reset ' .
-	    'complete:view=core.SiteAdmin,subView=migrate.ImportResults');
+	    'complete:view=core.SiteAdmin,subView=migrate.ImportResults,statusId=STATUSID');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(array('album03'),
@@ -987,39 +987,38 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	$this->assertEquals(true, $status['urlRedirect']);
 
 	$testAlbumId = $status['albumImportSuccess']['album03'];
-	list ($ret, $testAlbum) =
-	    GalleryCoreApi::loadEntitiesById($testAlbumId, 'GalleryAlbumItem');
+	list ($ret, $testAlbum) = GalleryCoreApi::loadEntitiesById($testAlbumId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	list ($ret, $ids) = GalleryCoreApi::fetchChildItemIds($testAlbum);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(3, count($ids), 'number of children');
 
 	/* Verify G1->G2 mappings, then delete the data */
 	list ($ret, $itemId) = G1MigrateHelper::fetchMapping('album03');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals($testAlbumId, $itemId, 'G1->G2 mapping for testAlbum');
 	list ($ret, $itemId) = G1MigrateHelper::fetchMapping('album03', 'chipper');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals($ids[0], $itemId, 'G1->G2 mapping for testItem');
 
 	$ids[] = $testAlbumId;
 	$ret = GalleryCoreApi::removeMapEntry('G1MigrateMap', array('itemId' => $ids));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* verify summary/description set from custom field */
-	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($ids[0], 'GalleryItem');
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($ids[0]);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals("\xc2\xa1" . 'Time to migrate!', $item->getTitle(), 'title');
 	$this->assertEquals('This is actually not a chipper, but a stump grinder.',
@@ -1032,7 +1031,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	    list ($ret, $fieldList) =
 		GalleryCoreApi::getPluginParameter('module', 'customfield', 'common', $testAlbumId);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $this->assertEquals(null, $fieldList, 'should be no custom fields');
 	}
@@ -1114,14 +1113,14 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'misc.markup', 'html');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $status) = $this->_runBackgroundTask(
 	    '1 reset [\d \.]* reset ' .
-	    'complete:view=core.SiteAdmin,subView=migrate.ImportResults');
+	    'complete:view=core.SiteAdmin,subView=migrate.ImportResults,statusId=STATUSID');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(array('album05'),
@@ -1131,10 +1130,9 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	$this->assertEquals(array(), $status['albumImportFailure']);
 	$testAlbumId = $status['albumImportSuccess']['album05'];
 	/* Get the allegedly successfully imported album */
-	list ($ret, $testAlbum) =
-	    GalleryCoreApi::loadEntitiesById($testAlbumId, 'GalleryAlbumItem');
+	list ($ret, $testAlbum) = GalleryCoreApi::loadEntitiesById($testAlbumId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	/*
 	 * This is the user that we expect to be associated with this album.
@@ -1164,12 +1162,12 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	foreach ($testPerms as $testUserName => $permsToTest) {
 	    list ($ret, $testUserInstance) = GalleryCoreApi::fetchUserByUsername($testUserName);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    list ($ret, $permissions) =
 		GalleryCoreApi::fetchAllPermissionsForItem($testAlbum->getId(), false);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $userPerms = $groupPerms = array();
 	    foreach ($permissions as $permission) {
@@ -1195,7 +1193,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	/* Verify item attributes (like order weight) */
 	list ($ret, $ids) = GalleryCoreApi::fetchChildItemIds($testAlbum);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(7, count($ids), 'number of children');
 
@@ -1203,12 +1201,12 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	foreach ($ids as $id) {
 	    list ($ret, $itemViewCount[$id]) = GalleryCoreApi::fetchItemViewCount($id);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 
 	    list ($ret, $orderWeight) = GalleryCoreApi::fetchItemOrderWeight($id);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $this->assert(!isset($seenWeights[$orderWeight]),
 			  'Seen this weight before: ' . $orderWeight);
@@ -1216,17 +1214,17 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	}
 
 	/* Get the allegedly successfully imported items */
-	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[0], 'GalleryItem');
+	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[0]);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals($testOwner->getId(),
 			    $testItem->getownerId(),
 			    'item 0');
 
-	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[1], 'GalleryItem');
+	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[1]);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	/* we expect no 'phpunit_foobar' user in G2, so defaults to current user as owner */
 	$this->assertEquals($gallery->getActiveUserId(),
@@ -1234,9 +1232,9 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 			    'item 1');
 
 
-	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[2], 'GalleryItem');
+	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[2]);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals($testUserInstance->getId(),
 			    $testItem->getownerId(),
@@ -1244,30 +1242,30 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	$this->assertEquals('&lt;hr&gt;head &lt;u&gt;left&lt;/u&gt;', $testItem->getTitle(),
 			    'title with html');
 
-	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[3], 'GalleryItem');
+	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[3]);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals($this->guestUserId,
 			    $testItem->getownerId(),
 			    'item 3');
-	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[4], 'GalleryItem');
+	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[4]);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals($testOwner->getId(),
 			    $testItem->getownerId(),
 			    'item 4');
-	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[5], 'GalleryItem');
+	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[5]);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals($this->guestUserId,
 			    $testItem->getownerId(),
 			    'item 5');
-	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[6], 'GalleryItem');
+	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[6]);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	/* we expect no 'monkey' user in G2, so defaults to current user as owner */
 	$this->assertEquals($gallery->getActiveUserId(),
@@ -1289,9 +1287,9 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $status) = $this->_runBackgroundTask(
 	    '1 reset [\d \.]* reset ' .
-	    'complete:view=core.SiteAdmin,subView=migrate.ImportResults');
+	    'complete:view=core.SiteAdmin,subView=migrate.ImportResults,statusId=STATUSID');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(array('album01'), array_keys($status['albumImportSuccess']));
@@ -1300,10 +1298,9 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	$this->assertEquals(array(), $status['albumImportFailure']);
 	$testAlbumId = $status['albumImportSuccess']['album01'];
 	/* Get the allegedly successfully imported album */
-	list ($ret, $testAlbum) =
-	    GalleryCoreApi::loadEntitiesById($testAlbumId, 'GalleryAlbumItem');
+	list ($ret, $testAlbum) = GalleryCoreApi::loadEntitiesById($testAlbumId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	/*
 	 * This is the user that we expect to be associated with this album.
@@ -1333,7 +1330,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	foreach ($testPerms as $testUserName => $permsToTest){
 	    list ($ret, $testUserInstance) = GalleryCoreApi::fetchUserByUsername($testUserName);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    list ($ret, $permissions) =
 		    GalleryCoreApi::fetchAllPermissionsForItem($testAlbum->getId(), false);
@@ -1377,11 +1374,11 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	ob_start();
 	list ($ret, $status) = $this->_runBackgroundTask(
 	    '1 reset [\d \.]* reset ' .
-	    'complete:view=core.SiteAdmin,subView=migrate.ImportResults');
+	    'complete:view=core.SiteAdmin,subView=migrate.ImportResults,statusId=STATUSID');
 	$buflen = ob_get_length();
 	ob_end_clean();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(array('no_NO'), array_keys($status['albumImportSuccess']));
@@ -1391,10 +1388,9 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	$this->assert($buflen > 0, 'Should have gotten truncate message');
 	$testAlbumId = $status['albumImportSuccess']['no_NO'];
 	/* Get the allegedly successfully imported album */
-	list ($ret, $testAlbum) =
-	    GalleryCoreApi::loadEntitiesById($testAlbumId, 'GalleryAlbumItem');
+	list ($ret, $testAlbum) = GalleryCoreApi::loadEntitiesById($testAlbumId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(array('Help with the migration module',      // title
@@ -1440,7 +1436,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	foreach ($testPerms as $testUserName => $permsToTest){
 	    list ($ret, $testUserInstance) = GalleryCoreApi::fetchUserByUsername($testUserName);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    list ($ret, $permissions) =
 		GalleryCoreApi::fetchAllPermissionsForItem($testAlbum->getId(), false);
@@ -1465,13 +1461,13 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $ids) = GalleryCoreApi::fetchChildItemIds($testAlbum);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Get the allegedly successfully imported albumItem */
-	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[0], 'GalleryItem');
+	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[0]);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$expectedTitle =
 		"Western European (ISO)\r\nHello World \r\nNorwegian Norsk\r\nHallo Verden\r\n" .
@@ -1515,11 +1511,11 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	ob_start();
 	list ($ret, $status) = $this->_runBackgroundTask(
 	    '1 reset [\d \.]* reset ' .
-	    'complete:view=core.SiteAdmin,subView=migrate.ImportResults');
+	    'complete:view=core.SiteAdmin,subView=migrate.ImportResults,statusId=STATUSID');
 	$buflen = ob_get_length();
 	ob_end_clean();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(array('fr_FR'), array_keys($status['albumImportSuccess']));
@@ -1529,10 +1525,9 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	$this->assert($buflen > 0, 'Should have gotten truncate message');
 	$testAlbumId = $status['albumImportSuccess']['fr_FR'];
 	/* Get the allegedly successfully imported album */
-	list ($ret, $testAlbum) =
-	    GalleryCoreApi::loadEntitiesById($testAlbumId, 'GalleryAlbumItem');
+	list ($ret, $testAlbum) = GalleryCoreApi::loadEntitiesById($testAlbumId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(array('G1 to G2 Callery',                    // title
 				  NULL,                                  // summary
@@ -1578,7 +1573,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	foreach ($testPerms as $testUserName => $permsToTest){
 	    list ($ret, $testUserInstance) = GalleryCoreApi::fetchUserByUsername($testUserName);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    list ($ret, $permissions) =
 		GalleryCoreApi::fetchAllPermissionsForItem($testAlbum->getId(), false);
@@ -1603,13 +1598,13 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $ids) = GalleryCoreApi::fetchChildItemIds($testAlbum);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Get the allegedly successfully imported albumItem */
-	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[0], 'GalleryItem');
+	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[0]);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$expectedTitle =
 		"CHARSET=8859-1, fr-Fr, Hello World, french, fran\xc3\xa7ais, Bonjour Monde\r\n" .
@@ -1650,7 +1645,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $test) = GalleryCoreApi::newFactoryInstance('CustomFieldInterface_1_0');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$importCustomFields = isset($test);
 	if ($importCustomFields) {
@@ -1659,9 +1654,9 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $status) = $this->_runBackgroundTask(
 	    '1 reset [\d \.]* reset ' .
-	    'complete:view=core.SiteAdmin,subView=migrate.ImportResults');
+	    'complete:view=core.SiteAdmin,subView=migrate.ImportResults,statusId=STATUSID');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(array('KOI-8'), array_keys($status['albumImportSuccess']));
@@ -1670,10 +1665,9 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	$this->assertEquals(array(), $status['albumImportFailure']);
 	$testAlbumId = $status['albumImportSuccess']['KOI-8'];
 	/* Get the allegedly successfully imported album */
-	list ($ret, $testAlbum) =
-	    GalleryCoreApi::loadEntitiesById($testAlbumId, 'GalleryAlbumItem');
+	list ($ret, $testAlbum) = GalleryCoreApi::loadEntitiesById($testAlbumId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(array("\xd0\x9d\xd0\xb5\xd0\xbd\xd0\xb0\xd0" .
@@ -1720,7 +1714,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	foreach ($testPerms as $testUserName => $permsToTest) {
 	    list ($ret, $testUserInstance) = GalleryCoreApi::fetchUserByUsername($testUserName);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    list ($ret, $permissions) =
 		GalleryCoreApi::fetchAllPermissionsForItem($testAlbum->getId(), false);
@@ -1747,20 +1741,20 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	    list ($ret, $fieldList) =
 		GalleryCoreApi::getPluginParameter('module', 'customfield', 'common', $testAlbumId);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $this->assertEquals('Description`0`1', $fieldList, 'list of custom fields');
 	}
 
 	list ($ret, $ids) = GalleryCoreApi::fetchChildItemIds($testAlbum);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Get the allegedly successfully imported albumItem */
-	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[0], 'GalleryItem');
+	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[0]);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(array("Russian - KOI-8\r\n" .
 				  "Hello World\r\n" .
@@ -1790,7 +1784,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 		'modules/customfield/classes/CustomFieldHelper.class');
 	    list ($ret, $fields) = CustomFieldHelper::fetchFieldValues(array($testItem), 'detail');
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $expected =
 		"\xd0\x95\xd1\x81\xd0\xbb\xd0\xb8 \xd0\xb7\xd0\xb2\xd0\xb5\xd0\xb7\xd0\xb4\xd1" .
@@ -1837,7 +1831,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $test) = GalleryCoreApi::newFactoryInstance('CustomFieldInterface_1_0');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$importCustomFields = isset($test);
 	if ($importCustomFields) {
@@ -1846,26 +1840,25 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $status) = $this->_runBackgroundTask(
 	    '1 reset [\d \.]* reset ' .
-	    'complete:view=core.SiteAdmin,subView=migrate.ImportResults');
+	    'complete:view=core.SiteAdmin,subView=migrate.ImportResults,statusId=STATUSID');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$testAlbumId = $status['albumImportSuccess']['KOI-8'];
-	list ($ret, $testAlbum) =
-	    GalleryCoreApi::loadEntitiesById($testAlbumId, 'GalleryAlbumItem');
+	list ($ret, $testAlbum) = GalleryCoreApi::loadEntitiesById($testAlbumId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $ids) = GalleryCoreApi::fetchChildItemIds($testAlbum);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
-	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[0], 'GalleryItem');
+	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[0]);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals('value', $testItem->getDescription(),
 			    'Custom field value not placed into the description field');
@@ -1982,19 +1975,19 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
        	/* Assign our test theme */
 	list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($this->_temporaryAlbum->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Use a dummy theme with perPage setting instead of rows and cols. */
 	$this->_temporaryAlbum->setTheme('confirmimportcontrollertest');
 	$ret = $this->_temporaryAlbum->save();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = GalleryCoreApi::releaseLocks($lockId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Test stimuli. */
@@ -2011,9 +2004,9 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $status) = $this->_runBackgroundTask(
 	    '1 reset [\d \.]* reset ' .
-	    'complete:view=core.SiteAdmin,subView=migrate.ImportResults');
+	    'complete:view=core.SiteAdmin,subView=migrate.ImportResults,statusId=STATUSID');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(array('album03'),
@@ -2026,29 +2019,28 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	/* Verify the results. */
 
 	/* Get the allegedly successfully imported album */
-	list ($ret, $testAlbum) =
-	    GalleryCoreApi::loadEntitiesById($testAlbumId, 'GalleryAlbumItem');
+	list ($ret, $testAlbum) = GalleryCoreApi::loadEntitiesById($testAlbumId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/* Get the theme associated with this album */
 	list ($ret, $themeId) = GalleryCoreApi::fetchThemeId($testAlbum);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	list ($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	list ($ret, $settings, $params) = $theme->getSettings($testAlbumId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($ret, $perPage) = $theme->getParameter('perPage', $testAlbumId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$pageSize = $theme->getPageSize($params);
 
@@ -2063,9 +2055,17 @@ class ConfirmImportControllerTestUrlGenerator {
     function generateUrl($params=array(), $options=array()) {
 	$buf = array();
 	foreach ($params as $key => $value) {
+	    if ($key == 'statusId') {
+		$this->_statusId = $value;
+		$value = 'STATUSID';
+	    }
 	    $buf[] = "$key=$value";
 	}
 	return implode(',', $buf);
+    }
+
+    function getStatusId() {
+	return $this->_statusId;
     }
 }
 

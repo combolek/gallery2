@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,10 +22,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Dcraw 1.0.10\n"
+"Project-Id-Version: Gallery: Dcraw 1.0.8\n"
 "POT-Creation-Date: 2003-02-11 03:09-0800\n"
-"PO-Revision-Date: 2008-03-14 00:35+0300\n"
-"Last-Translator: Ser Moro <webber@morozov-sm.ru>\n"
+"PO-Revision-Date: 2005-11-20 18:40+0300\n"
+"Last-Translator: Konstantin Ivanov <Continental@vollen.ru>\n"
 "Language-Team: Russian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,10 +39,10 @@ msgid "Dcraw"
 msgstr "Dcraw"
 
 msgid "Graphics toolkit for processing images in raw format"
-msgstr "Графический инструмент для работы с изображениями в формате RAW"
+msgstr "Графический инструмент, позволяющий работать с изображениями в формате RAW"
 
 msgid "Graphics Toolkits"
-msgstr "Графические инструменты"
+msgstr "Графические Инструменты"
 
 msgid "Convert to PPM"
 msgstr "Преобразовать в PPM"
@@ -68,39 +68,32 @@ msgid ""
 "it in the text box below.  If you're on a Unix machine, don't forget to make the binary "
 "executable (<i>chmod 755 dcraw</i> should do it)."
 msgstr ""
-"Dcraw – графический инструмент для работы с изображениями в формате RAW современных цифровых "
-"камер. Вам необходимо установить бинарный код Dcraw на ваш сервер, затем ввести пусть к нему "
-"в текстовом поле ниже.  Если вы используете Unix, не забудьте сделать код исполняемым "
-"(используйте команду <i>chmod 755 dcraw</i>)"
+"Dcraw – графический инструмен, который может быть использован для работы с изображениями в "
+"формате RAW современных цифровых камер. Вам необходимо установить Dcraw в бинарном виде на "
+"Ваш сервер, затем ввести пусть к нему в текстовом поле ниже.  Если Вы используете Unix, не "
+"забудьте сделать код исполняемым (используйте команду <i>chmod 755 dcraw</i>)"
 
 msgid "<b>Note</b>: Gallery supports Dcraw v5.40 and more recent."
-msgstr "<b>Примечание</b>: Галерея поддерживает Dcraw v5.40 и выше."
-
-msgid ""
-"The exec() function is disabled in your PHP by the <b>disabled_functions</b> parameter in "
-"php.ini.  This module cannot be used until that setting is changed."
-msgstr ""
-"Функция exec() отключена в вашем PHP в разделе <b>disabled_functions</b> файла  'php.ini'.  "
-"Модуль не будет работать, если функция exec() отключена."
+msgstr "<b>Применичание</b>: Галерея поддерживается Dcraw v5.40 и выше."
 
 msgid "Path to dcraw binary:"
-msgstr "Путь к бинарному коду Dcraw:"
+msgstr "Путь к бинарному dcraw:"
 
 msgid "You must enter the path to your Dcraw binary."
-msgstr "Вы должны ввести путь к бинарному коду Dcraw."
+msgstr "Вы должны ввести путь к Dcraw в бинарное виде."
 
 msgid "The path you entered is not a valid Dcraw binary or is not accessible."
-msgstr "Введенный путь содержит неверный бинарный код Dcraw или он не доступен."
+msgstr "Введенным Вами путь содержит неверный бинарный  Dcraw или не доступен."
 
 msgid ""
 "The path you entered isn't a valid Dcraw binary.  Use the 'test' button to check where the "
 "error is."
 msgstr ""
-"Введенный путь содержит неверный бинарный код  Dcraw. Нажмите кнопку ''Тестировать "
-"настройки'', чтобы проверить, в чём ошибка."
+"Введенным Вами путь содержит неверный бинарный  Dcraw. Нажмите кнопку \"Тестировать настройки"
+"\", чтобы проверить, в чем ошибка."
 
 msgid "The path you entered isn't valid."
-msgstr "Введенным путь неверен."
+msgstr "Введенным Вами путь неверен."
 
 msgid "Save Settings"
 msgstr "Сохранить настройки"
@@ -115,7 +108,7 @@ msgid "Reset"
 msgstr "Сбросить"
 
 msgid "Dcraw binary test results"
-msgstr "Результаты теста бинарного кода Dcraw"
+msgstr "Результаты теста бинарного Dcraw"
 
 msgid "Binary Name"
 msgstr "Двоичное имя "
@@ -143,5 +136,8 @@ msgid ""
 "We gathered this debug output while testing your Dcraw binaries.  If you read through this "
 "carefully you may discover the reason why your Dcraw binaries failed the tests."
 msgstr ""
-"При тестировании бинарного кода Dcraw  были получены отладочные данные. Если вы внимательно "
-"просмотрите их, сможете найти причину, по которой  Dcraw не прошёл тесты."
+"Результаты отладки были получены в результате теста бинарного Dcraw. Если Вы внимательно "
+"просмотрите их, Вы сможете найти причину, по которой Ваш бинарный код Dcraw не прошел тесты."
+
+#~ msgid "Dcraw Graphics Toolkit"
+#~ msgstr "Dcraw Графические Инструменты"

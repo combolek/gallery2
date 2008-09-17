@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,11 +22,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: MIME Maintenance 1.1.4\n"
+"Project-Id-Version: Gallery: MIME Maintenance 1.1.2\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2006-09-12 11:46-0700\n"
-"PO-Revision-Date: 2008-03-03 21:28+0300\n"
-"Last-Translator: Ser Moro <webber@morozov-sm.ru>\n"
+"PO-Revision-Date: 2006-03-17 13:11+0300\n"
+"Last-Translator: Konstantin Ivanov <Continental@vollen.ru>\n"
 "Language-Team: Russian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -36,7 +36,7 @@ msgstr ""
 "X-Poedit-Country: RUSSIAN FEDERATION\n"
 
 msgid "This type of file not allowed; item will not be added."
-msgstr "Этот файл не может быть элементом альбома и не будет добавлен."
+msgstr ""
 
 msgid "MIME Maintenance"
 msgstr "Поддержка MIME "
@@ -45,13 +45,14 @@ msgid "Maintain MIME types and file extensions"
 msgstr "Поддержка MIME типов и файловых расширений"
 
 msgid "Extra Data"
-msgstr "Дополнительные данные"
+msgstr "Дополнительные Данные"
 
 msgid "MIME Types"
-msgstr "MIME типы"
+msgstr "MIME Типы"
 
+#, fuzzy
 msgid "Settings saved successfully"
-msgstr "Настройки успешно сохранены"
+msgstr "Записи MIME успешно сохранены"
 
 msgid "MIME entry saved successfully"
 msgstr "Записи MIME успешно сохранены"
@@ -60,13 +61,13 @@ msgid "MIME entry deleted"
 msgstr "Записи MIME удалены"
 
 msgid "Allow all uploads"
-msgstr "Разрешть все загрузки"
+msgstr ""
 
 msgid "Block upload of types selected below"
-msgstr "Блокировать загрузку для типов файлов, выбранных ниже"
+msgstr ""
 
 msgid "Only allow uploads of types selected below"
-msgstr "Разрешить загрузку только тех типов файлов, которые выбраны ниже"
+msgstr ""
 
 msgid "Save"
 msgstr "Сохранить"
@@ -81,7 +82,7 @@ msgid "Extensions"
 msgstr "Расширения"
 
 msgid "Viewable"
-msgstr "Возможность просмотра"
+msgstr "Видимый"
 
 msgid "Actions"
 msgstr "Действия"
@@ -93,10 +94,10 @@ msgid "delete"
 msgstr "удалить"
 
 msgid "Allow Upload"
-msgstr "Разрешить загрузку"
+msgstr ""
 
 msgid "Block Upload"
-msgstr "Запретить загрузку"
+msgstr ""
 
 #, c-format
 msgid "Edit MIME type: %s"
@@ -112,7 +113,7 @@ msgid "MIME type: "
 msgstr "MIME тип:"
 
 msgid "Viewable?"
-msgstr "Возможен просмотр?"
+msgstr "Видимый?"
 
 msgid "MIME type must be specified."
 msgstr "Должен быть указан MIME тип."
@@ -129,10 +130,11 @@ msgstr "Применить"
 msgid "Cancel"
 msgstr "Отменить"
 
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Warning: Adding and allowing upload of any of the following mime types could leave you open "
 "to %sCross Site Scripting%s security vulnerabilities."
 msgstr ""
-"Предупреждение: Добавление любого из следующих MIME типов может привести к открытию доступа %"
-"sМежсайтового исполнения сценариев%s, что не безопасно."
+"Предупреждение: Добавление любого из следующих mime-типов может привести к открытию доступа %"
+"sМежсайтового исполнения сценариев%s, что является одной из уязвимостей, уменьшающей степень "
+"защиты."

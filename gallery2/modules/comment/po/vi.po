@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,40 +19,21 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Comments 1.1.12\n"
+"Project-Id-Version: Gallery: Comments 1.1.3\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2007-06-14 17:14-0700\n"
-"PO-Revision-Date: 2007-08-20 11:01-0000\n"
+"POT-Creation-Date: 2006-12-19 11:56-0800\n"
+"PO-Revision-Date: 2005-08-02 12:31+0100\n"
 "Last-Translator: Trung Dong Huynh <trungdong@donggiang.com>\n"
 "Language-Team: Vietnamese <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Add Comment"
 msgstr "Thêm bình luận"
 
 msgid "add comment"
 msgstr "thêm bình luận"
-
-msgid "moderate spam"
-msgstr "quản trị spam"
-
-msgid "Checking all comments with Akismet"
-msgstr "Kiểm tra tất cả bình luận vói Askimet"
-
-msgid "Done checking comments"
-msgstr "Kiểm tra các bình luận hoàn tất"
-
-msgid "Published"
-msgstr "Được đăng"
-
-msgid "Unpublished"
-msgstr "Chưa được đăng"
-
-msgid "Spam"
-msgstr "Spam"
 
 msgid "show comments"
 msgstr "hiển thị bình luận"
@@ -81,36 +62,20 @@ msgstr "[bình luận] Xem bình luận"
 msgid "[comment] All access"
 msgstr "[bình luận] Toàn quyền"
 
+#, fuzzy
 msgid "View Latest Comments"
-msgstr "Xem các bình luận mới nhất"
+msgstr "Xem bình luận"
+
+msgid "View Comments"
+msgstr "Xem bình luận"
 
 #, c-format
 msgid "Comments: %d"
 msgstr "Bình luận: %d"
 
-msgid "View Comments"
-msgstr "Xem bình luận"
-
 #, fuzzy
-msgid "Moderate Comments"
-msgstr "Bình luận mới nhất"
-
-#, fuzzy
-msgid "Comment Added"
-msgstr "Module Bình luận"
-
-#, c-format
-msgid ""
-"A new comment has been posted on %s. The full comment is provided below. \n"
-"\n"
-"%s\n"
-"\n"
-"To view the new comment at the site click here:\n"
-"%s"
-msgstr ""
-
 msgid "Guest Comments"
-msgstr "Bình luận của khách"
+msgstr "Xem bình luận"
 
 msgid "Comment Module"
 msgstr "Module Bình luận"
@@ -149,9 +114,6 @@ msgstr "(cần có)"
 msgid "You must enter a comment!"
 msgstr "Bạn phải nhập vào bình luận của bạn!"
 
-msgid "Please wait a little longer before posting another comment"
-msgstr ""
-
 msgid "Preview"
 msgstr "Xem thử"
 
@@ -161,66 +123,11 @@ msgstr "Lưu"
 msgid "Cancel"
 msgstr "Hủy bỏ"
 
-#, fuzzy
-msgid "Comments Awaiting Moderation"
-msgstr "Xác nhận thay đổi bình luận"
-
-msgid "All spam comments deleted."
-msgstr "Tất cả các bình luận spam đã bị xóa."
-
-#, fuzzy
-msgid "There are no comments awaiting moderation."
-msgstr "Đối tượng này không có bình luận nào"
-
-#, c-format
-msgid "There is %d spam comment in the queue."
-msgid_plural "There are %d spam comments in the queue."
-msgstr[0] "Có %d bình luận spam trong hàng đợ."
-msgstr[1] "Có %d bình luận spam trong hàng đợ."
-
-msgid ""
-"You can delete all spam comments at once, but check them carefully because you can't restore "
-"deleted comments."
-msgstr ""
-"Bạn có thể xóa tất cả các bình luận spam cùng một luác, nhưng bạn hãy kiểm tra chúng cẩn "
-"thận vì bạn không thể phục hồi các bình luận đã bị xóa sau này."
-
-msgid "Delete All Spam"
-msgstr "Xóa tất cả spam"
-
-msgid "Delete this comment?"
-msgstr "Xóa bình luận này?"
-
-msgid "Are you sure you want to delete this comment?"
-msgstr "Bạn có chắc bạn muốn xóa bình luận này?"
-
-#, fuzzy
-msgid "This comment has been deleted."
-msgstr "Tất cả các bình luận spam đã bị xóa."
-
-msgid "This comment has been marked as not spam. __UNDO__"
-msgstr ""
-
-msgid "This comment has been marked as spam. __UNDO__"
-msgstr ""
-
-msgid "Yes"
-msgstr "Có"
-
-msgid "Undo"
-msgstr ""
-
 msgid "edit"
 msgstr "chỉnh sửa"
 
 msgid "delete"
 msgstr "xóa"
-
-msgid "mark as not spam"
-msgstr "đánh dấu không phải spam"
-
-msgid "mark as spam"
-msgstr "đánh dấu spam"
 
 msgid "show full"
 msgstr "hiện đầy đủ"
@@ -236,13 +143,13 @@ msgstr "Gửi bởi %s vào %s (%s)"
 msgid "Posted by %s on %s"
 msgstr "Gửi bởi %s vào %s"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Posted by %s (guest) on %s (%s)"
-msgstr "Gửi bởi %s (khách) vào %s (%s)"
+msgstr "Gửi bởi %s vào %s (%s)"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Posted by %s (guest) on %s"
-msgstr "Gửi bởi %s (khách) vào %s"
+msgstr "Gửi bởi %s vào %s"
 
 msgid "Comment change confirmation"
 msgstr "Xác nhận thay đổi bình luận"
@@ -260,74 +167,28 @@ msgstr "Bình luận đã được hiệu chỉnh"
 msgid "Back to %s"
 msgstr "Quay lại %s"
 
+#, fuzzy
+msgid "Comments Settings"
+msgstr "Bình luận"
+
+#, fuzzy
 msgid "Settings saved successfully"
-msgstr "Các cài đặt đã được lưu lại"
-
-#, c-format
-msgid "Checked %d comment."
-msgid_plural "Checked %d comments."
-msgstr[0] "Đã kiểm tra %d bình luận."
-msgstr[1] "Đã kiểm tra %d bình luận."
-
-#, c-format
-msgid "Found %d spam comment."
-msgid_plural "Found %d spam comments."
-msgstr[0] "Tìm thấy %d bình luận spam."
-msgstr[1] "Tìm thấy %d bình luận spam."
-
-msgid "General Settings"
-msgstr "Cài đặt Tổng quát"
+msgstr "Đã thêm bình luận"
 
 msgid "Show link for Latest Comments:"
-msgstr "Hiển thị liên kết đến trang Bình luận mới nhất"
+msgstr ""
 
 msgid "Number of comments on Latest Comments page:"
-msgstr "Số bình luận trong trang Bình luận mới nhất"
+msgstr ""
 
 msgid "Invalid value"
-msgstr "Giá trị không hợp lệ"
-
-#, fuzzy
-msgid "Moderation Settings"
-msgstr "Cài đặt Tổng quát"
-
-msgid "Require administrator approval prior to publishing comments."
 msgstr ""
-
-#, fuzzy
-msgid "Moderate all comments:"
-msgstr "Xóa tất cả các bình luận spam?"
-
-msgid "Anti-Spam Settings"
-msgstr "Cài đặt Chống Spam"
-
-#, c-format
-msgid ""
-"You can reduce the amount of spam comments that you receive by using a service called %"
-"sAkismet%s.  This service is free for personal use.  In order to use it, you will need to %"
-"sregister for an API key%s and enter that key in the box below."
-msgstr ""
-"Bạn có thể giảm lượng bình luận spam bằng cách sử dụng dịch vụ %sAkismet%s. Dịch vụ này miễn "
-"phí cho mục đích sử dụng cá nhân. Để dùng dịch vụ này, bạn cần phải %sđăng ký xin khóa API%s "
-"và nhập khóa này vào hộp dưới đây."
-
-msgid "Akismet is active."
-msgstr "Askimet đang hoạt động."
-
-msgid "Akismet is not active."
-msgstr "Askimet không hoạt động."
-
-msgid "API key:"
-msgstr "Khóa API:"
-
-msgid "Invalid API key."
-msgstr "Khóa API không hợp lệ."
-
-msgid "Check all comments now"
-msgstr "Kiểm tra tất cả bình luận bây giờ"
 
 msgid "Reset"
-msgstr "Làm lại từ đầu"
+msgstr ""
+
+msgid "Delete this comment?"
+msgstr "Xóa bình luận này?"
 
 msgid "Are you sure?"
 msgstr "Bạn có chắc chưa?"
@@ -353,11 +214,9 @@ msgstr "Máy"
 msgid "You must enter a comment"
 msgstr "Bạn phải nhập vào bình luận của bạn"
 
-msgid "Publish Status"
-msgstr "Tình trạng đăng"
-
+#, fuzzy
 msgid "Latest Comments"
-msgstr "Bình luận mới nhất"
+msgstr "Xem bình luận"
 
 msgid "Comment changed successfully"
 msgstr "Bình luận đã được thay đổi"
@@ -412,28 +271,22 @@ msgid "999"
 msgstr "999"
 
 msgid "Show a text box that expands into the full form"
-msgstr "Hiển thị một hộp chữ có bung ra thành dạng đầy đủ"
+msgstr ""
 
-#~ msgid "Moderate Spam"
-#~ msgstr "Quản trị Spam"
+#~ msgid "Date"
+#~ msgstr "Ngày"
 
-#~ msgid "Spam Comments"
-#~ msgstr "Bình luận Spam"
+#~ msgid "The date you entered is invalid."
+#~ msgstr "Ngày bạn vừa nhập vào không hợp lệ."
 
-#~ msgid "There are no spam comments in the queue."
-#~ msgstr "Không có bình luận spam nào trong hàng đợi này."
+#~ msgid "You must enter a date"
+#~ msgstr "Bạn phải nhập một ngày hợp lệ"
 
-#~ msgid "Are you sure you want to delete all comments marked as spam?"
-#~ msgstr "Bạn có chắc bạn muốn xóa tất cả bình luận được đánh dấu spam?"
+#~ msgid "You must enter a subject!"
+#~ msgstr "Bạn phải điền một chủ đề vào!"
 
-#~ msgid "Mark this comment as not spam?"
-#~ msgstr "Đánh dấu bình luận này không phải là spam?"
+#~ msgid "You must enter a subject"
+#~ msgstr "Bạn phải điền một chủ đề vào"
 
-#~ msgid "Are you sure you want to mark this comment as not spam?"
-#~ msgstr "Bạn có chắc bạn muốn đánh dấu bình luận này không phải là spam?"
-
-#~ msgid "Mark this comment as spam?"
-#~ msgstr "Đánh dấu bình luận này là spam?"
-
-#~ msgid "Are you sure you want to mark this comment as spam?"
-#~ msgstr "Bạn có chắc bạn muốn đánh dấu bình luận này là spam?"
+#~ msgid "[comment] Search comments"
+#~ msgstr "[bình luận] Tìm kiếm bình luận"

@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@
 # - Sverre M. Vikan <sverre AT urven DOT net>
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Picasa 1.0.9\n"
+"Project-Id-Version: Gallery: Picasa 1.0.5\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-15 10:41+0100\n"
 "PO-Revision-Date: 2006-03-10 10:40+0100\n"
@@ -38,18 +38,6 @@ msgstr "Importerer album"
 msgid "Importing photos"
 msgstr "Importerer fotografier"
 
-#, c-format
-msgid "%d megabyte"
-msgid_plural "%d megabytes"
-msgstr[0] "%d megabyte"
-msgstr[1] "%d megabyte"
-
-#, c-format
-msgid "%d kilobytes"
-msgid_plural "%d kilobytes"
-msgstr[0] "%d kilobyte"
-msgstr[1] "%d kilobyte"
-
 msgid "Base filename"
 msgstr "Basisfilnavn"
 
@@ -61,6 +49,18 @@ msgstr "Tom"
 
 msgid "From Picasa 2"
 msgstr "Fra Picasa 2"
+
+#, c-format
+msgid "%d megabyte"
+msgid_plural "%d megabytes"
+msgstr[0] "%d megabyte"
+msgstr[1] "%d megabyte"
+
+#, c-format
+msgid "%d kilobytes"
+msgid_plural "%d kilobytes"
+msgstr[0] "%d kilobyte"
+msgstr[1] "%d kilobyte"
 
 msgid "Picasa"
 msgstr "Picasa"
@@ -237,10 +237,12 @@ msgstr ""
 #, c-format
 msgid ""
 "You don't have any Graphics Toolkit activated to handle JPEG images.  If you import now, you "
-"will not have any thumbnails.  Visit the %sModules%s page to activate a Graphics Toolkit."
+"will not have any thumbnails.  Visit the <a href=\"%s\">Modules</a> page to activate a "
+"Graphics Toolkit."
 msgstr ""
 "Du har ikke aktivert noen grafikkverktøy som kan behandle JPEG-bilder.  Du vil ikke få noen "
-"miniatyrbilder om du importerer nå.  Besøk %sModuler%s for å aktivere et grafikkverktøy."
+"miniatyrbilder om du importerer nå.  Besøk <a href=\"%s\">Moduler</a> for å aktivere et "
+"grafikkverktøy."
 
 msgid "Destination Album"
 msgstr "Målalbum"

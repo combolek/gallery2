@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@
 # - Kennichi Uehara <ken.w3m+nospam@gmail.com>
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: EXIF/IPTC 1.2.4\n"
+"Project-Id-Version: Gallery: EXIF/IPTC 1.1.0\n"
 "POT-Creation-Date: 2005-03-26 09:01+0900\n"
 "PO-Revision-Date: 2007-03-12 23:01+0900\n"
 "Last-Translator: Yosuke Suzuki\n"
@@ -59,7 +59,7 @@ msgid "Flash"
 msgstr "スピードライト"
 
 msgid "ACD Comment"
-msgstr "ACDコメント"
+msgstr ""
 
 msgid "AE Warning"
 msgstr "AE 警告"
@@ -134,7 +134,7 @@ msgid "Custom Functions"
 msgstr "カスタム機能"
 
 msgid "Customer Render"
-msgstr "カスタム描画"
+msgstr ""
 
 msgid "Date/Time"
 msgstr "最終変更日時"
@@ -242,7 +242,7 @@ msgid "Image Width"
 msgstr "画像の幅"
 
 msgid "Inter Color Profile"
-msgstr "インターカラープロファイル"
+msgstr ""
 
 msgid "Interlace"
 msgstr "インターレース"
@@ -263,7 +263,7 @@ msgid "Related Image Width"
 msgstr "画像の幅"
 
 msgid "JPEG Tables"
-msgstr "JPEGテーブル"
+msgstr ""
 
 msgid "Jpeg IF Byte Count"
 msgstr "画像サイズの開始点"
@@ -289,6 +289,7 @@ msgstr "メーカー"
 msgid "Manual Focus Distance"
 msgstr "マニュアルフォーカスの焦点距離"
 
+#, fuzzy
 msgid "Max Aperture Value"
 msgstr "最大F値"
 
@@ -326,7 +327,7 @@ msgid "Planar Configuration"
 msgstr "非圧縮の場合の色の並び(Y/Cb/Cr)"
 
 msgid "Predictor"
-msgstr "予報(?)"
+msgstr ""
 
 msgid "Primary Chromaticities"
 msgstr "原色の色度"
@@ -353,13 +354,13 @@ msgid "Saturation"
 msgstr "飽和設定"
 
 msgid "Scene Capture Mode"
-msgstr "シーンキャプチャモード"
+msgstr ""
 
 msgid "Scene Type"
 msgstr "画像のシーン"
 
 msgid "Security Classification"
-msgstr "セキュリティ種別"
+msgstr ""
 
 msgid "Self Timer"
 msgstr "セルフタイマー"
@@ -371,7 +372,7 @@ msgid "Sensing Method"
 msgstr "イメージセンサーの形式"
 
 msgid "Sequence Number"
-msgstr "シーケンス番号"
+msgstr ""
 
 msgid "Sharpness"
 msgstr "シャープネス"
@@ -389,7 +390,7 @@ msgid "Software Release"
 msgstr "ファームウェアのバージョン"
 
 msgid "Spatial Frequency Response"
-msgstr "空間周波数レスポンス(?)"
+msgstr ""
 
 msgid "Special Mode"
 msgstr "特別モード"
@@ -457,8 +458,9 @@ msgstr "バージョン"
 msgid "White Balance"
 msgstr "ホワイトバランス"
 
+#, fuzzy
 msgid "White Point"
-msgstr "ホワイトポイント"
+msgstr "白色色度"
 
 msgid "Y/Cb/Cr Coefficients"
 msgstr "Y/Cb/CrからRGBへの変換定数"
@@ -485,94 +487,94 @@ msgid "GPS: Version"
 msgstr "GPS: バージョン"
 
 msgid "GPS: Latitude Reference"
-msgstr "GPS: 緯度参照"
+msgstr ""
 
 msgid "GPS: Latitude"
-msgstr "GPS: 緯度"
+msgstr ""
 
 msgid "GPS: Longitude Reference"
-msgstr "GPS: 経度参照"
+msgstr ""
 
 msgid "GPS: Longitude"
-msgstr "GPS: 経度"
+msgstr ""
 
 msgid "GPS: Altitude Reference"
-msgstr "GPS: 高度参照"
+msgstr ""
 
 msgid "GPS: Altitude"
-msgstr "GPS: 高度"
+msgstr ""
 
 msgid "GPS: Time"
-msgstr "GPS: 時間"
+msgstr ""
 
 msgid "GPS: Satellite"
-msgstr "GPS: 衛星"
+msgstr ""
 
 msgid "GPS: Receive Status"
-msgstr "GPS: 状態受理"
+msgstr ""
 
 msgid "GPS: Measurement Mode"
-msgstr "GPS: 測量モード"
+msgstr ""
 
 msgid "GPS: Measurement Precision"
-msgstr "GPS: 高精度測量"
+msgstr ""
 
 msgid "GPS: Speed Unit"
-msgstr "GPS: スピードユニット"
+msgstr ""
 
 msgid "GPS: Receiver Speed"
-msgstr "GPS: レシーバスピード"
+msgstr ""
 
 msgid "GPS: Movement Direction Reference"
-msgstr "GPS: 移動方向参照"
+msgstr ""
 
 msgid "GPS: Movement Direction"
-msgstr "GPS: 移動方向"
+msgstr ""
 
 msgid "GPS: Image Direction Reference"
-msgstr "GPS: 画像方向参照"
+msgstr ""
 
 msgid "GPS: Movement Image Direction"
-msgstr "GPS: 移動画像方向"
+msgstr ""
 
 msgid "GPS: Geodetic Survey Data"
-msgstr "GPS: 測地測量データ"
+msgstr ""
 
 msgid "GPS: Destination Latitude Reference"
-msgstr "GPS: 目的地緯度参照"
+msgstr ""
 
 msgid "GPS: Destination Latitude"
-msgstr "GPS: 目的地緯度"
+msgstr ""
 
 msgid "GPS: Destination Longitude Reference"
-msgstr "GPS: 目的地経度参照"
+msgstr ""
 
 msgid "GPS: Destination Longitude"
-msgstr "GPS: 目的地経度"
+msgstr ""
 
 msgid "GPS: Destination Bearing Reference"
-msgstr "GPS: 目的地関係参照"
+msgstr ""
 
 msgid "GPS: Destination Bearing"
-msgstr "GPS: 目的地関係"
+msgstr ""
 
 msgid "GPS: Destination Distance Reference"
-msgstr "GPS: 目的地距離参照"
+msgstr ""
 
 msgid "GPS: Destination Distance"
-msgstr "GPS: 目的地距離"
+msgstr ""
 
 msgid "GPS: Processing Method"
-msgstr "GPS: 処理方法"
+msgstr ""
 
 msgid "GPS: Area Information"
-msgstr "GPS: エリア情報"
+msgstr ""
 
 msgid "GPS: Datestamp"
-msgstr "GPS: 日付スタンプ"
+msgstr ""
 
 msgid "GPS: Differential Correction"
-msgstr "GPS: 差異修正"
+msgstr ""
 
 msgid "IPTC: Supplemental Categories"
 msgstr "IPTC: 補足情報　カテゴリー"
@@ -633,12 +635,6 @@ msgstr "IPTC: 著作権の印"
 
 msgid "IPTC: Time Created"
 msgstr "IPTC: 撮影時間"
-
-msgid "IPTC: Content Location Name"
-msgstr "IPTC: 撮影場所"
-
-msgid "IPTC: Sub Location"
-msgstr "IPTC: サブロケーション"
 
 msgid "EXIF/IPTC Settings"
 msgstr "EXIF/IPTC 設定"
@@ -776,35 +772,25 @@ msgstr "ギャラリーに画像が追加された時に、IPTCのキーワー�
 msgid "Item Keywords"
 msgstr "アイテムのキーワード"
 
+#, fuzzy
 msgid "When photos are added to Gallery check for IPTC Object Name and apply to:"
-msgstr "ギャラリーに画像が追加された時に、IPTCのオブジェクト名を確認し、適用する"
+msgstr "ギャラリーに画像が追加された時に、IPTCのキーワードを確認し、適用する"
 
 msgid "Item Title"
-msgstr "アイテムのタイトル"
-
-msgid "When photos are added should we rotate them based on EXIF orientation data?"
 msgstr ""
-"画像が追加された時に、EXIFのオリエンテーションデータに基づいて、それらを回転させるべきです"
-"か？"
+
+#, fuzzy
+msgid "When photos are added should we rotate them based on EXIF orientation data?"
+msgstr "ギャラリーに画像が追加された時に、EXIFの画像の説明を確認し、適用する"
 
 msgid "Rotate pictures automatically"
-msgstr "画像を自動的に回転する"
-
-msgid ""
-"Warning: No toolkit support for rotation of JPEG images.  Make sure to activate a toolkit "
-"module if using this option."
 msgstr ""
-"警告: JPEG画像の回転をサポートするツールキットがありません。このオプションを使用するならツー"
-"ルキットモジュールを有効化してください。"
 
 msgid "Preserve Original on Rotating"
-msgstr "回転の際にオリジナルを保護する"
+msgstr ""
 
 msgid "Save"
 msgstr "保存"
-
-msgid "Loading.."
-msgstr "読み込み中..."
 
 msgid "Photo Properties"
 msgstr "画像のプロパティ"

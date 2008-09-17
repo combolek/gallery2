@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,9 +21,9 @@
 # Branislav Hanacek <brango@brango.sk>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: RSS 1.1.5\n"
-"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2008-08-25 08:55-0700\n"
+"Project-Id-Version: Gallery: RSS 1.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-09-03 10:22+0200\n"
 "PO-Revision-Date: 2006-09-10 21:10+0200\n"
 "Last-Translator: Branislav Hanacek <brango@brango.sk>\n"
 "Language-Team: Slovak <gallery-devel@lists.sourceforge.net>\n"
@@ -40,6 +40,9 @@ msgid "This feed no longer exists!"
 msgstr ""
 
 msgid "Feeds of that type are not allowed!"
+msgstr ""
+
+msgid "Not permitted to view this item"
 msgstr ""
 
 msgid "Incorrect feed type!"
@@ -66,10 +69,6 @@ msgstr ""
 msgid "RSS Feed for this Movie"
 msgstr ""
 
-#, c-format
-msgid "RSS Feed for this %s"
-msgstr ""
-
 msgid "Configure RSS Feeds"
 msgstr ""
 
@@ -89,7 +88,7 @@ msgid "Short URL for Configurable RSS Feeds"
 msgstr ""
 
 #, c-format
-msgid "In album %s"
+msgid "RSS Feed for this %s"
 msgstr ""
 
 msgid "Items in an album"
@@ -110,10 +109,8 @@ msgstr ""
 msgid "Comments for an album and its subalbums"
 msgstr ""
 
-msgid "Random items in an album"
-msgstr ""
-
-msgid "Random items in an album and its subalbums"
+#, c-format
+msgid "In album <a href=\"%s\">%s</a>"
 msgstr ""
 
 msgid "RSS Feeds"
@@ -197,12 +194,6 @@ msgstr ""
 msgid "Comments for this album and its subalbums"
 msgstr ""
 
-msgid "Random pictures inside this album"
-msgstr ""
-
-msgid "Random pictures inside this album and its subalbums"
-msgstr ""
-
 msgid "Comments for this item"
 msgstr ""
 
@@ -225,10 +216,10 @@ msgid "Invalid version"
 msgstr ""
 
 msgid "Number of items"
-msgstr "Počet položiek"
+msgstr ""
 
 msgid "Invalid number"
-msgstr "Nesprávne číslo"
+msgstr ""
 
 msgid "language tag"
 msgstr ""
@@ -257,7 +248,7 @@ msgid ""
 msgstr ""
 
 msgid "Copyright"
-msgstr "Copyright"
+msgstr ""
 
 msgid "Invalid copyright"
 msgstr ""
@@ -272,7 +263,7 @@ msgid "This adds a main image to the feed, corresponding to the thumbnail for th
 msgstr ""
 
 msgid "Invalid value"
-msgstr "Neplatná hodnota"
+msgstr ""
 
 msgid "Use enclosures"
 msgstr ""
@@ -282,20 +273,6 @@ msgstr ""
 
 msgid ""
 "This adds an enclosure to each image in the feed, that contains the full resolution image"
-msgstr ""
-
-msgid "Use Media RSS"
-msgstr ""
-
-msgid "Include Media RSS tags"
-msgstr ""
-
-msgid ""
-"This adds Media RSS tags to the feed, which allows media-oriented clients to display the "
-"feed in a more useful fashion"
-msgstr ""
-
-msgid "about Media RSS"
 msgstr ""
 
 msgid "Cloud tag (RSS 2.0)"
@@ -394,12 +371,6 @@ msgstr ""
 msgid "Invalid maximum number"
 msgstr ""
 
-msgid "Maximum age for items in feeds"
-msgstr ""
-
-msgid "Invalid maximum age number"
-msgstr ""
-
 msgid "Default ttl"
 msgstr ""
 
@@ -455,26 +426,17 @@ msgstr ""
 msgid "Slower"
 msgstr ""
 
-msgid "Allow RSS feeds of comments of a photo"
+msgid "Allow RSS feeds comments of a photo"
 msgstr ""
 
-msgid "Allow RSS feeds of comments of an album"
+msgid "Allow RSS feeds comments of an album"
 msgstr ""
 
-msgid "Allow RSS feeds of comments for an album and its subalbums"
-msgstr ""
-
-msgid "Allow RSS feeds of random photos inside an album"
-msgstr ""
-
-msgid "Allow RSS feeds of random photos inside an album and its subalbums"
-msgstr ""
-
-msgid "Slowest"
+msgid "Allow RSS feeds comments for an album and its subalbums"
 msgstr ""
 
 msgid "Save Settings"
-msgstr "Nastavenia Ukladania"
+msgstr ""
 
 msgid "Reset"
 msgstr "Východzie hodnoty"
@@ -533,13 +495,13 @@ msgid "Number of feeds to display"
 msgstr ""
 
 msgid "1"
-msgstr "1"
+msgstr ""
 
 msgid "5"
-msgstr "5"
+msgstr ""
 
 msgid "10"
-msgstr "10"
+msgstr ""
 
 msgid "all"
 msgstr ""

@@ -1,6 +1,8 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
 <div class="gbBlock gcBackground1">
   <h2> {g->text text="RSS Feeds"} </h2>
@@ -125,11 +127,11 @@
 
 {if $EditFeed.type == 'album'}
   <tr valign="top">
-    <td rowspan="7">{g->text text="Type of feed"}</td>
+    <td rowspan="5">{g->text text="Type of feed"}</td>
     <td>
       <input type="radio" name="{g->formVar var="form[feedType]"}"
-        value="photos" {if $EditFeed.feedType=='photos'}checked="checked" {/if}
-        id="EditFeed_typePhotos" />
+        value="photos" {if $EditFeed.feedType=='photos'}checked="checked"{/if}
+	id="EditFeed_typePhotos" />
     </td><td>
       <label for="EditFeed_typePhotos">
         {g->text text="Items in this album"}
@@ -141,8 +143,8 @@
   </tr><tr valign="top">
     <td>
       <input type="radio" name="{g->formVar var="form[feedType]"}"
-        value="album" {if $EditFeed.feedType=='album'}checked="checked" {/if}
-        id="EditFeed_typeAlbum" />
+        value="album" {if $EditFeed.feedType=='album'}checked="checked"{/if}
+	id="EditFeed_typeAlbum" />
     </td><td>
       <label for="EditFeed_typeAlbum">
         {g->text text="Sub-albums of this album"}
@@ -154,23 +156,23 @@
   </tr><tr valign="top">
     <td>
       <input type="radio" name="{g->formVar var="form[feedType]"}"
-        value="photosRecursive" {if $EditFeed.feedType=='photosRecursive'}checked="checked" {/if}
-        id="EditFeed_typePhotosRecursive" />
+        value="photosRecurse" {if $EditFeed.feedType=='photosRecurse'}checked="checked"{/if}
+	id="EditFeed_typePhotosRecurse" />
     </td><td>
-      <label for="EditFeed_typePhotosRecursive">
+      <label for="EditFeed_typePhotosRecurse">
         {g->text text="Items in this album and its subalbums"}
       </label>
-    {if !$param.allowPhotosRecursive}
+    {if !$param.allowPhotosRecurse}
       <br/>{g->text text="Feeds of this type are disallowed by the administrator. Users won't be able to view them."}
     {/if}
       <br/>
-      <label for="EditFeed_typePhotosRecursiveLimit">
+      <label for="EditFeed_typePhotosRecurseLimit">
         {g->text text="Limit the number of items per album"}
       </label>
-      <input type="text" size="5" name="{g->formVar var="form[photosRecursiveLimit]"}"
-        {if isset($EditFeed.photosRecursiveLimit)}value="{$EditFeed.photosRecursiveLimit}"{/if}
-        id="EditFeed_typePhotosRecursiveLimit" />
-      {if isset($form.error.photosRecursiveLimit)}
+      <input type="text" size="5" name="{g->formVar var="form[photosRecurseLimit]"}"
+        {if isset($EditFeed.photosRecurseLimit)}value="{$EditFeed.photosRecurseLimit}"{/if}
+	id="EditFeed_typePhotosRecurseLimit" />
+      {if isset($form.error.photosRecurseLimit)}
       <div class="giError">
       {g->text text="Invalid limit (must be a positive number, 0 to disable the limit)"}
       </div>
@@ -182,7 +184,7 @@
     <td>
       <input type="radio" name="{g->formVar var="form[feedType]"}"
         value="commentsAlbum" {if $EditFeed.feedType=='commentsAlbum'}checked="checked"{/if}
-        id="EditFeed_typeCommentsAlbum" />
+	id="EditFeed_typeCommentsAlbum" />
     </td><td>
       <label for="EditFeed_typeCommentsAlbum">
         {g->text text="Comments for this album"}
@@ -195,38 +197,12 @@
     <td>
       <input type="radio" name="{g->formVar var="form[feedType]"}"
         value="commentsRecursive" {if $EditFeed.feedType=='commentsRecursive'}checked="checked"{/if}
-        id="EditFeed_typeCommentsRecursive" />
+	id="EditFeed_typeCommentsRecursive" />
     </td><td>
       <label for="EditFeed_typeCommentsRecursive">
         {g->text text="Comments for this album and its subalbums"}
       </label>
     {if !$param.allowCommentsRecursive}
-      <br/>{g->text text="Feeds of this type are disallowed by the administrator. Users won't be able to view them."}
-    {/if}
-    </td>
-  </tr><tr valign="top">
-    <td>
-      <input type="radio" name="{g->formVar var="form[feedType]"}"
-        value="photosRandom" {if $EditFeed.feedType=='photosRandom'}checked="checked"{/if}
-        id="EditFeed_typePhotosRandom" />
-    </td><td>
-      <label for="EditFeed_typePhotosRandom">
-        {g->text text="Random pictures inside this album"}
-      </label>
-    {if !$param.allowPhotosRandom}
-      <br/>{g->text text="Feeds of this type are disallowed by the administrator. Users won't be able to view them."}
-    {/if}
-    </td>
-  </tr><tr valign="top">
-    <td>
-      <input type="radio" name="{g->formVar var="form[feedType]"}"
-        value="photosRandomRecursive" {if $EditFeed.feedType=='photosRandomRecursive'}checked="checked"{/if}
-        id="EditFeed_typePhotosRandomRecursive" />
-    </td><td>
-      <label for="EditFeed_typePhotosRandomRecursive">
-        {g->text text="Random pictures inside this album and its subalbums"}
-      </label>
-    {if !$param.allowPhotosRandomRecursive}
       <br/>{g->text text="Feeds of this type are disallowed by the administrator. Users won't be able to view them."}
     {/if}
     </td>
@@ -362,7 +338,7 @@
     <td>{g->text text="Use image tag"}</td>
     <td>
       <input type="checkbox"
-        {if isset($EditFeed.useImage) && $EditFeed.useImage} checked="checked" {/if}
+        {if isset($EditFeed.useImage) && $EditFeed.useImage} checked="checked"{/if}
         name="{g->formVar var="form[useImage]"}"/> {g->text text="Include image tag"}
     </td>
     <td>
@@ -379,30 +355,12 @@
     <td>{g->text text="Use enclosures"}</td>
     <td>
       <input type="checkbox"
-        {if isset($EditFeed.useEnclosure) && $EditFeed.useEnclosure} checked="checked" {/if}
+        {if isset($EditFeed.useEnclosure) && $EditFeed.useEnclosure} checked="checked"{/if}
         name="{g->formVar var="form[useEnclosure]"}"/> {g->text text="Include enclosure tags"}
     </td>
     <td>
       {g->text text="This adds an enclosure to each image in the feed, that contains the full resolution image"}
       {if isset($form.error.useEnclosure)}
-      <div class="giError">
-        {g->text text="Invalid value"}
-      </div>
-      {/if}
-    </td>
-  </tr>
-
-  <tr>
-    <td>{g->text text="Use Media RSS"}</td>
-    <td>
-      <input type="checkbox"
-        {if isset($EditFeed.useMedia) && $EditFeed.useMedia} checked="checked" {/if}
-        name="{g->formVar var="form[useMedia]"}"/> {g->text text="Include Media RSS tags"}
-    </td>
-    <td>
-      {g->text text="This adds Media RSS tags to the feed, which allows media-oriented clients to display the feed in a more useful fashion"}
-        (<a href="http://search.yahoo.com/mrss">{g->text text="about Media RSS"}</a>)
-      {if isset($form.error.useMedia)}
       <div class="giError">
         {g->text text="Invalid value"}
       </div>
@@ -426,7 +384,7 @@
     <td>{g->text text="Cloud tag"}</td>
     <td>
       <input type="checkbox"
-        {if isset($EditFeed.useCloud) && $EditFeed.useCloud} checked="checked" {/if}
+        {if isset($EditFeed.useCloud) && $EditFeed.useCloud} checked="checked"{/if}
         name="{g->formVar var="form[useCloud]"}"/> {g->text text="Include the cloud tag"}
     </td>
     <td>

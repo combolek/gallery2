@@ -1,6 +1,8 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
 <div class="gbBlock gcBackground1">
   <h2> {g->text text="Upload Applet Settings"} </h2>
@@ -106,7 +108,7 @@
 </td><td>
 <div class="gbBlock">
   <h3>{g->text text="Help"}</h3>
-  <p>{g->text text="Here is a selection of variables that affect uploads."}</p>
+  <p>{g->text text="Here are a selection of variables that affect uploads."}</p>
   <table class="gbDataTable">
     <tr><th>{g->text text="variable"}</th><th>{g->text text="values"}</th><th>{g->text text="help"}</th></tr>
     <tr class="gbEven"><td>resizeBeforeUpload</td><td>true/false</td>
@@ -132,7 +134,7 @@
     <tr class="gbOdd"><td>im.jpegQuality</td><td>0-99</td>
       <td>{g->text text="quality of JPEG compression when resizing with ImageMagick"}</td></tr>
   </table>
-  <p><a href="https://gallery.svn.sourceforge.net/svnroot/gallery/trunk/gallery_remote/defaults.properties" target="other">
+  <p><a href="http://svn.sourceforge.net/viewvc/*checkout*/gallery/trunk/gallery_remote/defaults.properties" target="other">
   	{g->text text="Complete list of variables"}</a></p>
 </div>
 </td></tr></table>

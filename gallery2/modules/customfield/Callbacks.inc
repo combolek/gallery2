@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,20 +31,10 @@ class CustomFieldCallbacks {
 
 	switch ($callback) {
 	case 'LoadCustomFields':
-	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($params['itemId'], 'GalleryItem');
+	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($params['itemId']);
 	    if ($ret) {
 		return $ret;
 	    }
-	    list ($ret, $hasPermission) =
-		GalleryCoreApi::hasItemPermission($item->getId(), 'core.view');
-	    if ($ret) {
-		return $ret;
-	    }
-	    if (!$hasPermission) {
-		/* Avoid information disclosure, act as if the item didn't exist. */
-		return GalleryCoreApi::error(ERROR_MISSING_OBJECT);
-	    }
-
 	    list ($ret, $fields) = CustomFieldHelper::fetchFieldValues(array($item), 'detail');
 	    if ($ret) {
 		return $ret;

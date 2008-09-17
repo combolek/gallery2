@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -70,7 +70,7 @@ class ConfirmPicasaImportController extends GalleryController {
      * Actually performs the import from Picasa into G2
      *
      * @param array $form the form variables
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function performImport($form) {
 	global $gallery;
@@ -175,8 +175,7 @@ class ConfirmPicasaImportController extends GalleryController {
 	}
 
 	/* Try to load targeted parent */
-	list ($ret, $targetAlbumObject) =
-	    GalleryCoreApi::loadEntitiesById($destinationAlbumId, 'GalleryAlbumItem');
+	list ($ret, $targetAlbumObject) = GalleryCoreApi::loadEntitiesById($destinationAlbumId);
 	if ($ret) {
 	    return $ret;
 	}
@@ -290,10 +289,10 @@ class ConfirmPicasaImportController extends GalleryController {
 	}
 
 	$session =& $gallery->getSession();
-	$session->putStatus($status);
 
 	$redirect['view'] = 'core.SiteAdmin';
 	$redirect['subView'] = 'picasa.ImportResults';
+	$redirect['statusId'] = $session->putStatus($status);
 
 	$urlGenerator =& $gallery->getUrlGenerator();
 	$templateAdapter->completeProgressBar($urlGenerator->generateUrl($redirect));
@@ -333,8 +332,7 @@ class ConfirmPicasaImportView extends GalleryView {
 	if ($ret) {
 	    return array($ret, null);
 	}
-	list ($ret, $targetAlbum) =
-	    GalleryCoreApi::loadEntitiesById($destinationAlbumId, 'GalleryAlbumItem');
+	list ($ret, $targetAlbum) = GalleryCoreApi::loadEntitiesById($destinationAlbumId);
 	if ($ret) {
 	    return array($ret, null);
 	}

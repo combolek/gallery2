@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -53,10 +53,16 @@ class ItemAddWebDav extends ItemAddPlugin {
 	    return array($ret, null, null);
 	}
 
-	/* Get the mime type. */
-	list ($ret, $mimeType) = GalleryCoreApi::getMimeType(basename($path), $mimeType);
-	if ($ret) {
-	    return array($ret, null, null);
+	/* If the mime type is unknown try to get a mime type from the file name */
+	list ($ret, $mimeExtensions) = GalleryCoreApi::convertMimeToExtensions($mimeType);
+	if ($mimeType == 'application/octet-stream'
+		|| $mimeType == 'application/unknown'
+		|| empty($mimeExtensions)) {
+	    $extension = GalleryUtilities::getFileExtension(basename($path));
+	    list ($ret, $mimeType) = GalleryCoreApi::convertExtensionToMime($extension);
+	    if ($ret) {
+		$mimeType = 'application/unknown';
+	    }
 	}
 
 	list ($ret, $itemId) = GalleryCoreApi::fetchItemIdByPath($path);
@@ -91,7 +97,7 @@ class ItemAddWebDav extends ItemAddPlugin {
 
     /**
      * Add new item.
-     * @param GalleryItem $parentItem The parent item of the item to be added
+     * @param object GalleryItem $parentItem The parent item of the item to be added
      * @param array $webDavOptions WebDAV library options
      * @param resource $stream request body file handle
      * @param string $mimeType request content type
@@ -137,7 +143,7 @@ class ItemAddWebDav extends ItemAddPlugin {
 
     /**
      * Replace existing item.
-     * @param GalleryItem $parentItem The parent item of the item to be added
+     * @param object GalleryItem $parentItem The parent item of the item to be added
      * @param array $webDavOptions WebDAV library options
      * @param resource $stream request body file handle
      * @param string $mimeType request content type
@@ -166,7 +172,7 @@ class ItemAddWebDav extends ItemAddPlugin {
 	    return array($ret, null, null);
 	}
 
-	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryDataItem');
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	if ($ret) {
 	    GalleryCoreApi::releaseLocks($lockIds);
 	    return array($ret, null, null);
@@ -246,7 +252,7 @@ class ItemAddWebDav extends ItemAddPlugin {
 	    }
 
 	    $ret = $newItem->create($parentItem->getId(), $filePath, $mimeType);
-		if ($ret) {
+	    if ($ret) {
 		GalleryCoreApi::releaseLocks($lockIds);
 		return array($ret, null, null);
 	    }

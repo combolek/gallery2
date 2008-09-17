@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,12 +35,11 @@ class RssModule extends GalleryModule /* and GalleryEventListener */ {
 	$this->setId('rss');
 	$this->setName($gallery->i18n('RSS'));
 	$this->setDescription($gallery->i18n('RSS'));
-	$this->setVersion('1.1.5');
-	$this->_templateVersion = 1;
+	$this->setVersion('1.1.0');
 	$this->setGroup('export', $gallery->i18n('Export'));
-	$this->setCallbacks('getSiteAdminViews|getItemLinks');
-	$this->setRequiredCoreApi(array(7, 34));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setCallbacks('getSiteAdminViews|getItemLinks|registerEventListeners');
+	$this->setRequiredCoreApi(array(7, 10));
+	$this->setRequiredModuleApi(array(3, 1));
     }
 
     /**
@@ -64,11 +63,6 @@ class RssModule extends GalleryModule /* and GalleryEventListener */ {
 	    return array($ret, null);
 	}
 
-	list ($ret, $modulestatus) = GalleryCoreApi::fetchPluginStatus('module');
-	if ($ret) {
-	    return array($ret, null);
-	}
-	
 	foreach ($items as $item) {
 	    $itemId = $item->getId();
 	    if (!isset($wantsDetailedLinks[$itemId])) {
@@ -76,31 +70,21 @@ class RssModule extends GalleryModule /* and GalleryEventListener */ {
 	    }
 
 	    if ($param['allowSimpleFeed'] == 1) {
-		$disableLink = GalleryUtilities::isA($item, 'GalleryDataItem')
-			&& $modulestatus['comment']['active'] != '1';
-		
 		$itemTypeNames = array_merge($item->itemTypeName(), $item->itemTypeName(false));
 
-		if (false) {
-		    /* Specific translations: */
-		    _('RSS Feed for this Album');
-		    _('RSS Feed for this Photo');
-		    _('RSS Feed for this Movie');
-		}
 		/*
-		 * Because SimpleFeeds for DataItems can only be comments, don't add
-		 * the link if the Comments module is disabled.
+		 * Specific translations:
+		 * _('RSS Feed for this Album')
+		 * _('RSS Feed for this Photo')
+		 * _('RSS Feed for this Movie')
 		 */
-		if (!GalleryUtilities::isA($item, 'GalleryDataItem')
-			|| !empty($modulestatus['comment']['active'])) {
-		    $links[$itemId][] = array(
-			    'text' => $this->_translate(array(
-				'text' => 'RSS Feed for this %s',
-				'arg1' => $itemTypeNames[0]), $itemTypeNames[2]),
-			    'params' => array(
-				'view' => 'rss.SimpleRender',
-				'itemId' => $itemId));
-		}
+		$links[$itemId][] = array(
+			'text' => $this->_translate(array(
+			    'text' => 'RSS Feed for this %s',
+			    'arg1' => $itemTypeNames[0]), $itemTypeNames[2]),
+			'params' => array(
+			    'view' => 'rss.SimpleRender',
+			    'itemId' => $itemId));
 	    }
 
 	    list ($ret, $canConfigure) = RssMapHelper::canConfigureFeed($item, $param, $userId);
@@ -147,17 +131,10 @@ class RssModule extends GalleryModule /* and GalleryEventListener */ {
     }
 
     /**
-     * @see GalleryModule::performFactoryRegistrations
+     * @see GalleryModule::registerEventListeners
      */
-    function performFactoryRegistrations() {
-	$ret = GalleryCoreApi::registerFactoryImplementation(
-	    'GalleryEventListener', 'RssModule', 'RssModule', 
-	    'modules/rss/module.inc', 'rss', array('GalleryEntity::delete'));
-	if ($ret) {
-	    return $ret;
-	}
-
-	return null;
+    function registerEventListeners() {
+	GalleryCoreApi::registerEventListener('GalleryEntity::delete', new RssModule());
     }
 
     /**
@@ -193,11 +170,6 @@ class RssModule extends GalleryModule /* and GalleryEventListener */ {
      * @see GalleryModule::upgrade
      */
     function upgrade($currentVersion) {
-
-	/**
-	 * @todo add a default to this switch statement and include all historical versions, like
-	 * we do in other modules.
-	 */
 	switch($currentVersion) {
 	    case null:
 		/* Initial install */
@@ -209,7 +181,7 @@ class RssModule extends GalleryModule /* and GalleryEventListener */ {
 			       'allowConfigurableFeed' => 0,
 			       'allowAlbums' => 0,
 			       'allowPhotos' => 0,
-			       'allowPhotosRecursive' => 0,
+			       'allowPhotosRecurse' => 0,
 			       'allowCommentsAlbum' => 0,
 			       'allowCommentsPhoto' => 0,
 			       'defaultCopyright' => '',
@@ -225,7 +197,7 @@ class RssModule extends GalleryModule /* and GalleryEventListener */ {
 	    case '1.0.0':
 		foreach (array('sfAlbumType' => 'photos',
 			       'sfDate' => 'new',
-			       'sfPhotosRecursiveLimit' => 10,
+			       'sfPhotosRecurseLimit' => '10',
 			       'allowCommentsRecursive' => 0,
 			    ) as $key => $value) {
 		    $ret = $this->setParameter($key, $value);
@@ -233,101 +205,6 @@ class RssModule extends GalleryModule /* and GalleryEventListener */ {
 			return $ret;
 		    }
 		}
-
-	    case '1.1.1':
-		foreach (array('maxAge' => 21,
-			       'allowPhotosRandom' => 0,
-			       'allowPhotosRandomRecursive' => 0,
-			    ) as $key => $value) {
-		    $ret = $this->setParameter($key, $value);
-		    if ($ret) {
-			return $ret;
-		    }
-		}
-
-	    case '1.1.2':
-		GalleryCoreApi::requireOnce('modules/rss/classes/RssMapHelper.class');
-		
-		/* consistent naming */
-		
-		/* allowPhotosRecurse -> allowPhotosRecursive */
-		list ($ret, $allowPhotosRecursive) = $this->getParameter('allowPhotosRecurse');
-		if ($ret) {
-		    return $ret;
-		}
-		
-		if (isset($allowPhotosRecursive)) {
-		    $ret = $this->setParameter('allowPhotosRecursive', $allowPhotosRecursive);
-		    if ($ret) {
-			return $ret;
-		    }
-		
-		    $ret = $this->removeParameter('allowPhotosRecurse');
-		    if ($ret) {
-			return $ret;
-		    }
-		}
-		
-		/* sfPhotosRecurseLimit -> sfPhotosRecursiveLimit */
-		list ($ret, $sfPhotosRecursiveLimit) = $this->getParameter('sfPhotosRecurseLimit');
-		if ($ret) {
-		    return $ret;
-		}
-		
-		if (isset($sfPhotosRecursiveLimit)) {
-		    $ret = $this->setParameter('sfPhotosRecursiveLimit', $sfPhotosRecursiveLimit);
-		    if ($ret) {
-			return $ret;
-		    }
-		
-		    $ret = $this->removeParameter('sfPhotosRecurseLimit');
-		    if ($ret) {
-			return $ret;
-		    }
-		}
-		
-		/* sfAlbumType: photosRecurse -> photosRecursive */
-		list ($ret, $sfAlbumType) = $this->getParameter('sfAlbumType');
-		if ($ret) {
-		    return $ret;
-		}
-		
-		if ($sfAlbumType == 'photosRecurse') {
-		    $ret = $this->setParameter('sfAlbumType', 'photosRecursive');
-		    if ($ret) {
-			return $ret;
-		    }
-		}
-		
-		/* feed parameters */
-		list ($ret, $names) = RssMapHelper::fetchFeedNames();
-		if ($ret) {
-		    return $ret;
-		}
-		
-		foreach ($names as $name) {
-		    list ($ret, $feed) = RssMapHelper::fetchFeed($name);
-		    if ($ret) {
-			return $ret;
-		    }
-		    
-		    if ($feed['feedType'] == 'photosRecurse') {
-			$feed['feedType'] = 'photosRecursive';
-		    }
-		    
-		    if (isset($feed['photosRecurseLimit'])) {
-			$feed['photosRecursiveLimit'] = $feed['photosRecurseLimit'];
-			unset($feed['photosRecurseLimit']);
-		    }
-		    
-		    $ret = RssMapHelper::updateFeed($name, $feed);
-		    if ($ret) {
-			return $ret;
-		    }
-		}
-	    case '1.1.3':
-	    case '1.1.4':
-		/* Refactored to new event registration from core API 7.34 */
 	}
 
 	return null;

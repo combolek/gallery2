@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Registration 1.0.12\n"
+"Project-Id-Version: Gallery: Registration 1.0.8\n"
 "POT-Creation-Date: 2004-09-16 17:49+0900\n"
 "PO-Revision-Date: 2007-03-14 23:33+0900\n"
 "Last-Translator: Kennichi Uehara <ken.w3m+nospam@gmail.com>\n"
@@ -57,9 +57,6 @@ msgstr "アカウントを有効化"
 
 msgid "New user registration"
 msgstr "新しいユーザの登録"
-
-msgid "Welcome to Gallery"
-msgstr "Galleryへようこそ"
 
 msgid "Register"
 msgstr "登録"
@@ -119,17 +116,11 @@ msgstr "Sender(From) メールアドレス:"
 msgid "Confirmation Email Subject:"
 msgstr "確認メールサブジェクト:"
 
+msgid "Admin Email Subject:"
+msgstr "管理者メールサブジェクト:"
+
 msgid "Email Site Administrators for all new registrations"
 msgstr "全ての新規登録にたいしてサイト管理者にメールを送る"
-
-msgid "Admin Email Subject:"
-msgstr "管理者宛てメールの件名:"
-
-msgid "Email new users upon account activation"
-msgstr "アカウント有効化した新規ユーザにメールを送る"
-
-msgid "Welcome Email Subject:"
-msgstr "ようこそメールの件名:"
 
 msgid "Save"
 msgstr "保存"
@@ -287,8 +278,3 @@ msgstr "入力されたパスワードが一致しません"
 
 msgid "Cancel"
 msgstr "キャンセル"
-
-msgid "Your account is now active. Visit the site listed above to login."
-msgstr ""
-"あなたのアカウントは現在有効です。ログインするために上にリストされたサイトを訪問してくださ"
-"い。"

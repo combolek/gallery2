@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -23,9 +23,9 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Floatrix Theme 1.0.7\n"
-"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2007-06-14 17:53-0700\n"
+"Project-Id-Version: Gallery: Floatrix Theme 1.0.6\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-11-09 00:49+0100\n"
 "PO-Revision-Date: 2006-01-06 17:26+0100\n"
 "Last-Translator: Jozsef R.Nagy <joe7@site.hu>\n"
 "Language-Team: Hungarian <gallery-devel@lists.sourceforge.net>\n"
@@ -41,7 +41,7 @@ msgid "Variable column theme based on Matrix"
 msgstr ""
 
 msgid "You must enter a number"
-msgstr "Meg kell adnod egy számot"
+msgstr ""
 
 msgid "This album is empty."
 msgstr "Ez az album üres."
@@ -66,12 +66,15 @@ msgstr "%s letöltése"
 msgid "There is nothing to view for this item."
 msgstr "Ebben az elemben nincs mit nézni."
 
-msgid "View in original album"
-msgstr ""
-
 #, c-format
 msgid "Download %s in original format"
 msgstr "%s letöltése eredeti formában"
 
 msgid "Continue..."
 msgstr "Tovább..."
+
+#~ msgid "Standard Gallery2 look and feel"
+#~ msgstr "Általános Gallery2 kinézet"
+
+#~ msgid "width=%d,height=%d"
+#~ msgstr "szélesség=%d,magasság=%d"

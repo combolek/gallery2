@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -85,7 +85,7 @@ class MultiLangItemEdit extends ItemEditPlugin {
     function loadTemplate(&$template, &$form, $item, $thumbnail) {
 	global $gallery;
 	$session =& $gallery->getSession();
-
+	$translator =& $gallery->getTranslator();
 	GalleryCoreApi::requireOnce('modules/multilang/classes/MultiLangHelper.class');
 
 	if ($form['formName'] != 'MultiLangItemEdit') {
@@ -108,7 +108,7 @@ class MultiLangItemEdit extends ItemEditPlugin {
 	    $form['languageData'][$form['language']]['description'] = $form['description'];
 	}
 
-	$supportedLanguages = GalleryCoreApi::getSupportedLanguages();
+	$supportedLanguages = $translator->getSupportedLanguages();
 	$languageList = array();
 	foreach ($supportedLanguages as $language => $countryList) {
 	    foreach ($countryList as $country => $languageData) {

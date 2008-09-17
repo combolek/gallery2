@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,33 +32,29 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
     }
 
     function setUp() {
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	list ($ret, $this->_rootAlbum) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($this->_rootAlbum);
 
 	list ($ret, $this->_lockIds) = GalleryCoreApi::acquireReadLock($this->_rootAlbum->getId());
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
     }
 
     function tearDown() {
 	$ret = GalleryCoreApi::releaseLocks($this->_lockIds);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
+	parent::tearDown();
     }
 
     function testAddChildrenFromBrowser() {
@@ -82,7 +78,7 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
 	    GalleryUtilities::putRequestVariable('form[name][' . $i . ']', $file);
 	    list ($ret, $mimeType) = GalleryCoreApi::getMimeType($fullPath);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    GalleryUtilities::putRequestVariable('form[type][' . $i . ']', $mimeType);
 	    GalleryUtilities::putRequestVariable('form[tmp_name][' . $i . ']', $fullPath);
@@ -113,7 +109,7 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
 	/* Verify item attributes (like order weight) */
 	list ($ret, $itemIds) = GalleryCoreApi::fetchChildItemIds($this->_rootAlbum);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(4, count($itemIds), 'child count');
 
@@ -121,21 +117,21 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
 	foreach ($ids as $id) {
 	    list ($ret, $viewCount) = GalleryCoreApi::fetchItemViewCount($id);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $this->assertEquals(0, $viewCount);
 
 	    list ($ret, $orderWeight) = GalleryCoreApi::fetchItemOrderWeight($id);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $this->assert(!isset($seenWeights[$orderWeight]), 'Seen this weight before');
 	    $seenWeights[$orderWeight] = 1;
 	}
 
-	list ($ret, $items) = GalleryCoreApi::loadEntitiesById($ids, 'GalleryDataItem');
+	list ($ret, $items) = GalleryCoreApi::loadEntitiesById($ids);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$i = 0;
@@ -177,19 +173,19 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
 	/* Verify item attributes */
 	list ($ret, $ids) = GalleryCoreApi::fetchChildItemIds($this->_rootAlbum);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(1, count($ids), 'child count');
 
 	list ($ret, $viewCount) = GalleryCoreApi::fetchItemViewCount($ids[0]);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(0, $viewCount);
 
-	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($ids[0], 'GalleryUnknownItem');
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($ids[0]);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals('a caption', $item->getTitle(), 'title');
 	$this->assertEquals('', $item->getSummary(), 'summary');
@@ -223,13 +219,13 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
 	/* Verify item attributes */
 	list ($ret, $ids) = GalleryCoreApi::fetchChildItemIds($this->_rootAlbum);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(1, count($ids), 'child count');
 
-	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($ids[0], 'GalleryDataItem');
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($ids[0]);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals('', $item->getTitle(), 'title');
 	$this->assertEquals('a caption', $item->getSummary(), 'summary');
@@ -260,19 +256,19 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
 
 	list ($ret, $ids) = GalleryCoreApi::fetchChildItemIds($this->_rootAlbum);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(1, count($ids), 'child count');
 
-	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($ids[0], 'GalleryDataItem');
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($ids[0]);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals($name, $item->getPathComponent(), 'path component');
 
 	list ($ret, $path) = $item->fetchPath();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert($platform->is_file($path), "file '$path'");
 	$this->assertEquals(trim($name), basename($path),
@@ -354,7 +350,7 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
 	$platform =& $gallery->getPlatform();
 	$ret = $this->_setMarkupType('html', true);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	GalleryUtilities::putRequestVariable('form[action][addFromBrowser]', 1);
@@ -376,10 +372,10 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
 	if (!isset($results[1]['addedFiles'][0]['id'])) {
 	    $this->assert(false, 'Id is not set');
 	} else {
-	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById(
-		$results[1]['addedFiles'][0]['id'], 'GalleryDataItem');
+	    list ($ret, $item) =
+		GalleryCoreApi::loadEntitiesById($results[1]['addedFiles'][0]['id']);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    $this->assertEquals('a  caption', $item->getTitle(), 'title');
 	    $this->assertEquals('a  caption', $item->getSummary(), 'summary');

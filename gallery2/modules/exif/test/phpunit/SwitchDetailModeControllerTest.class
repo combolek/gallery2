@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -102,7 +102,7 @@ class SwitchDetailModeControllerTest extends GalleryControllerTestCase {
 	/* Create a test photo with exif data */
 	list ($ret, $lockId) = GalleryCoreApi::acquireReadLock($this->_rootAlbumId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$title = '_test_exif_' . rand();
 	$path = dirname(__FILE__) . '/../data/CanonS30.small.jpg';
@@ -110,15 +110,15 @@ class SwitchDetailModeControllerTest extends GalleryControllerTestCase {
 	    GalleryCoreApi::addItemToAlbum($path, $title, $title, '', '', 'image/jpeg',
 					   $this->_rootAlbumId, false);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($item);
 	$ret = GalleryCoreApi::releaseLocks($lockId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
-	foreach (array(1 => 'detailed', 2 => 'summary') as $i => $mode) {
+	foreach (array('detailed', 'summary') as $mode) {
 	    /* Set the mode */
 	    $session->put('exif.module.LoadExifInfo.mode', $mode);
 	    $this->assertEquals($mode, $session->get('exif.module.LoadExifInfo.mode'),
@@ -133,7 +133,7 @@ class SwitchDetailModeControllerTest extends GalleryControllerTestCase {
 	    $expModeSet = $expDataSet = true;
 	    list ($ret, $exifData) = ExifHelper::getExifData($path, $filter);
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 	    if (empty($exifData)) {
 		if ($filter == EXIF_SUMMARY) {
@@ -142,7 +142,7 @@ class SwitchDetailModeControllerTest extends GalleryControllerTestCase {
 		    list ($ret, $exifData) = ExifHelper::getExifData($path, EXIF_SUMMARY);
 		}
 		if ($ret) {
-		    return $ret;
+		    return $this->failWithStatus($ret);
 		}
 		$mode = null;
 	    }
@@ -156,7 +156,7 @@ class SwitchDetailModeControllerTest extends GalleryControllerTestCase {
 	    $callback = new ExifCallbacks;
 	    $ret = $callback->callback(array('itemId' => $item->getId()), $smarty, 'LoadExifInfo');
 	    if ($ret) {
-		return $ret;
+		return $this->failWithStatus($ret);
 	    }
 
 	    /* Verify the results */
@@ -171,7 +171,6 @@ class SwitchDetailModeControllerTest extends GalleryControllerTestCase {
 	    if (isset($data['exifData'])) {
 		$this->assertEquals($exifData, $data['exifData'], "data for mode $mode");
 	    }
-	    $this->assertEquals($i, $data['blockNum'], "blockNum for $mode");
 	}
     }
 }

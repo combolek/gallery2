@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,9 +18,9 @@
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Square Thumbnails 1.0.8\n"
+"Project-Id-Version: Gallery: Square Thumbnails 1.0.5\n"
 "POT-Creation-Date: 2006-02-23 10:15+0100\n"
-"PO-Revision-Date: 2007-07-23 22:44+0100\n"
+"PO-Revision-Date: 2006-12-27 16:36+0100\n"
 "Last-Translator: Kappana <kappana@gnoms.net>\n"
 "Language-Team: Polish <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -55,23 +55,18 @@ msgstr "Moduł kwadratowych miniaturek"
 #, c-format
 msgid ""
 "This module requires you to have at least one graphics toolkit active in order for it to "
-"operate properly.  Please return to the %sModules%s page and activate a graphics toolkit."
+"operate properly.  Please return to the <a href=\"%s\">Modules</a> page and activate a "
+"graphics toolkit."
 msgstr ""
 "Aby działać poprawnie, moduł ten wymaga przynajmniej jednego aktywnego narzędzia "
-"graficznego. Proszę wróć do strony %sModułów%s i aktywuj dowolne narzędzie graficzne."
+"graficznego. Proszę wróć do strony <a href=\"%s\">Modułów</a> i aktywuj dowolne narzędzie "
+"graficzne."
 
 msgid "Settings saved successfully"
 msgstr "Ustawienia zostały zapisane"
 
 msgid "Crop images to square"
 msgstr "Wytnij kwadratową miniaturkę z obrazu"
-
-msgid ""
-"You need to enable a graphics toolkit module with PPM support to use the \"fit images to "
-"square\" mode."
-msgstr ""
-"Aby było możliwe użycie trybu \"Dopasuj obraz do kwadaratu\" konieczne jest włączenie "
-"narzędzia graficznego z obsługą PPM."
 
 msgid "Fit images to square, padding with background color:"
 msgstr "Dopasuj obraz do kwadaratu, uzupełniając widoczne tło kolorem:"

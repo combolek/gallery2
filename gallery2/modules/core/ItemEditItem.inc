@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -163,8 +163,7 @@ class ItemEditItem extends ItemEditPlugin {
 		    }
 		} else if (isset($thumbnail) && empty($form['thumbnail']['size'])) {
 		    /* Delete the thumbnail */
-		    $ret = GalleryCoreApi::deleteEntityById($thumbnail->getId(),
-							    'GalleryDerivative');
+		    $ret = GalleryCoreApi::deleteEntityById($thumbnail->getId());
 		    if ($ret) {
 			return array($ret, null, null, null);
 		    }
@@ -337,9 +336,8 @@ class ItemEditItem extends ItemEditPlugin {
 		}
 	    }
 	} else if (isset($thumbnail) && $thumbnail->getDerivativeSourceId() != $item->getId()) {
-	    list ($ret, $source) = GalleryCoreApi::loadEntitiesById(
-		$thumbnail->getDerivativeSourceId(),
-		array('GalleryFileSystemEntity', 'GalleryDerivative'));
+	    list ($ret, $source) =
+		GalleryCoreApi::loadEntitiesById($thumbnail->getDerivativeSourceId());
 	    if ($ret) {
 		return array($ret, null, null);
 	    }
@@ -358,7 +356,7 @@ class ItemEditItem extends ItemEditPlugin {
 	}
 
 	$ItemEditItem = array('can' => $can,
-		'typeName' => array_merge($item->itemTypeName(), $item->itemTypeName(false)));
+			      'typeName' => $item->itemTypeName());
 
 	/* The originateTimestamp that we can get from our toolkits */
 	list ($ret, $originationTimestamp) = GalleryCoreApi::fetchOriginationTimestamp($item);

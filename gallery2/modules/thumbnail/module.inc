@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,12 +35,11 @@ class ThumbnailModule extends GalleryModule {
 	$this->setId('thumbnail');
 	$this->setName($gallery->i18n('Thumbnail Manager'));
 	$this->setDescription($gallery->i18n('Set default thumbnails for non-image items'));
-	$this->setVersion('1.0.13'); /* Update ThumbnailModuleExtras::upgrade also! */
-	$this->_templateVersion = 1;
+	$this->setVersion('1.0.9.1'); /* Update ThumbnailModuleExtras::upgrade also! */
 	$this->setGroup('display', $gallery->i18n('Display'));
-	$this->setCallbacks('getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 45));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setCallbacks('getSiteAdminViews|registerEventListeners');
+	$this->setRequiredCoreApi(array(7, 4));
+	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
@@ -81,12 +80,6 @@ class ThumbnailModule extends GalleryModule {
 	    return $ret;
 	}
 
-	$ret = GalleryCoreApi::registerFactoryImplementation(
-	    'GalleryEventListener', 'ThumbnailModule', 'ThumbnailModule', 
-	    'modules/thumbnail/module.inc', 'thumbnail', array('GalleryEntity::delete'));
-	if ($ret) {
-	    return $ret;
-	}
 	return null;
     }
 
@@ -95,6 +88,13 @@ class ThumbnailModule extends GalleryModule {
      */
     function getModuleEntityTypes() {
 	return array('ThumbnailImage');
+    }
+
+    /**
+     * @see GalleryModule::registerEventListeners
+     */
+    function registerEventListeners() {
+	GalleryCoreApi::registerEventListener('GalleryEntity::delete', new ThumbnailModule());
     }
 
     /**
@@ -135,7 +135,7 @@ class ThumbnailModule extends GalleryModule {
 	}
 
 	/* Remove the thumbnail container. */
-	$ret = GalleryCoreApi::deleteEntityById($containerId, 'GalleryChildEntity');
+	$ret = GalleryCoreApi::deleteEntityById($containerId);
 	if ($ret) {
 	    return $ret;
 	}
@@ -163,9 +163,8 @@ class ThumbnailModule extends GalleryModule {
 	if (GalleryUtilities::isA($entity, 'GalleryDerivativeImage') &&
 		$entity->getDerivativeType() == DERIVATIVE_TYPE_IMAGE_THUMBNAIL &&
 		$entity->getDerivativeSourceId() != $entity->getParentId()) {
-	    list ($ret, $source) = GalleryCoreApi::loadEntitiesById(
-		$entity->getDerivativeSourceId(),
-		array('GalleryFileSystemEntity', 'GalleryDerivative'));
+	    list ($ret, $source) =
+		GalleryCoreApi::loadEntitiesById($entity->getDerivativeSourceId());
 	    if ($ret) {
 		if ($ret->getErrorCode() & ERROR_MISSING_OBJECT) {
 		    /* Already gone.. ok! */
@@ -177,7 +176,7 @@ class ThumbnailModule extends GalleryModule {
 		/* Prevent that we try to restore the thumbnail during the deletion. */
 		$key = 'ThumbnailImage::delete';
 		GalleryDataCache::put($key, $entity->getId());
-		$ret = GalleryCoreApi::deleteEntityById($source->getId(), 'ThumbnailImage');
+		$ret = GalleryCoreApi::deleteEntityById($source->getId());
 		GalleryDataCache::remove($key);
 		if ($ret) {
 		    return array($ret, null);

@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Watermark 1.1.5\n"
+"Project-Id-Version: Gallery: Watermark 1.1.0\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2007-03-16 11:40-0700\n"
 "PO-Revision-Date: 2006-06-15 17:42+0100\n"
@@ -53,9 +53,6 @@ msgstr "Marca d'aigua"
 
 msgid "user watermarks"
 msgstr "utilitzar les marques d'aigua"
-
-msgid "Error: Missing watermark. Please see the Event Logs page in the Site Admin."
-msgstr ""
 
 msgid "Watermark your images"
 msgstr "Aplicar les marques d'aigua a les imatges"
@@ -315,3 +312,6 @@ msgstr ""
 "Gallery pot automaticament aplicar una marca d'aigua a les imatges cridades desde altres "
 "Webs. Selecciona una marca d'aigua aqui avall i activa 'Aplicar una Marca d'Aigua a les "
 "imatges linkades desde Gallery' en el mòdul d'actualització."
+
+#~ msgid "No watermark selected"
+#~ msgstr "No hi ha Marca d'aigua seleccionada"

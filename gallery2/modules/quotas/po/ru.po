@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,10 +24,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Quotas 1.1.3\n"
+"Project-Id-Version: Gallery: Quotas 1.1.0\n"
 "POT-Creation-Date: 2003-02-11 03:09-0800\n"
-"PO-Revision-Date: 2008-03-02 01:47+0300\n"
-"Last-Translator: Ser Moro <webber@morozov-sm.ru>\n"
+"PO-Revision-Date: 2006-01-21 19:50+0300\n"
+"Last-Translator: Konstantin Ivanov <Continental@vollen.ru>\n"
 "Language-Team: Russian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -37,39 +37,45 @@ msgstr ""
 "X-Poedit-Language: Russian\n"
 "X-Poedit-Country: RUSSIAN FEDERATION\n"
 
+# Килобайт
 msgid "KB"
-msgstr "КБ"
+msgstr "Кб"
 
+# Мегабайт
 msgid "MB"
-msgstr "МБ"
+msgstr "Мб"
 
+# Гигабайт
 msgid "GB"
-msgstr "ГБ"
+msgstr "Гб"
 
+# arg1 = численный состав, arg2 = единица
 #, c-format
 msgid "Warning: You have reached your disk quota (%s %s), this item will not be added."
 msgstr ""
-"Предупреждение: Вы достигли лимита выделенного дискового пространства (%s %s), и этот "
+"Предупреждение: Вы достигли лимита выделенного Вам диского пространства (%s %s), этот "
 "элемент не будет добавлен."
 
+# arg1 = используемый численный состав, arg2 = используемая единица, arg3 = квота численного состава, arg4 = квота единицы
 #, c-format
 msgid "You are using %s %s of your allotted %s %s."
-msgstr "Вы использовали %s %s из выделенного вам %s %s дискового пространства."
+msgstr "Вы используете %s %s из выделенного вам %s %s дискового пространства."
 
 msgid "Quotas"
 msgstr "Квоты"
 
 msgid "User/Group Disk Quotas"
-msgstr "Дисковые квоты для пользователей/групп"
+msgstr "Дисковые квоты для Пользователей/Групп"
 
+# название группы
 msgid "Gallery"
 msgstr "Галерея"
 
 msgid "Create A New Group Quota"
-msgstr "Создать новую групповую квоту"
+msgstr "Создать Новую Групповую Квоту"
 
 msgid "Group Name"
-msgstr "Название группы"
+msgstr "Название Группы"
 
 msgid "(required)"
 msgstr "(обязательно)"
@@ -79,7 +85,7 @@ msgid "Group quota for '%s' already exists"
 msgstr "Групповая квота для '%s' уже существует"
 
 msgid "Quota Size"
-msgstr "Размер квоты"
+msgstr "Размер Квоты"
 
 msgid "You must enter a quota size."
 msgstr "Вы должны ввести размер квоты."
@@ -91,30 +97,31 @@ msgid "Invalid quota size, positive numbers and decimals only."
 msgstr "Неверный размер квоты, только положительные десятичные числа."
 
 msgid "Create Group Quota"
-msgstr "Создать групповую квоту"
+msgstr "Создать Групповую Квоту"
 
 msgid "Cancel"
 msgstr "Отменить"
 
 msgid "Create A New User Quota"
-msgstr "Создать новую квоту пользователя"
+msgstr "Создать Новую Квоту Пользователя"
 
 msgid "User Name"
-msgstr "Имя пользователя"
+msgstr "Имя Пользователя"
 
 #, c-format
 msgid "User quota for '%s' already exists"
 msgstr "Квота для пользователя '%s' уже существует"
 
 msgid "Create User Quota"
-msgstr "Создать квоту пользователя"
+msgstr "Создать Квоту Пользователя"
 
 msgid "Delete A Group Quota"
-msgstr "Удалить квоту пользователя"
+msgstr "Удалить Квоту Пользователя"
 
 msgid "Are you sure?"
 msgstr "Вы уверены?"
 
+# arg1 = название группы, arg2 = численный состав, arg3 = модуль
 #, c-format
 msgid "This will completely remove the %s (%s %s) group quota from Gallery.  There is no undo!"
 msgstr "Это полностью удалит %s (%s %s) групповую квоту из Галереи. Возврат будет невозможен."
@@ -123,15 +130,16 @@ msgid "Delete"
 msgstr "Удалить"
 
 msgid "Delete A User Quota"
-msgstr "Удалите квоту пользователя"
+msgstr "Удалите Квоту Пользователя"
 
+# arg1 = имя пользователя, arg2 = численный состав, arg3 = модуль
 #, c-format
 msgid "This will completely remove the %s (%s %s) user quota from Gallery. There is no undo!"
 msgstr ""
 "Это полностью удалит %s (%s %s) квоту пользователя из Галереи. Возврат будет невозможен."
 
 msgid "Edit A Group Quota"
-msgstr "Редактировать групповую квоту"
+msgstr "Редактировать Групповую Квоту"
 
 msgid "Save"
 msgstr "Сохранить"
@@ -140,10 +148,10 @@ msgid "Undo"
 msgstr "Вернуть"
 
 msgid "Edit A User Quota"
-msgstr "Редактировать квоту пользователя"
+msgstr "Редактировать Квоту Пользователя"
 
 msgid "Quotas Administration"
-msgstr "Администрирование квот"
+msgstr "Администрирование Квот"
 
 #, c-format
 msgid "Removed group quota for '%s'"
@@ -175,10 +183,10 @@ msgid ""
 "the highest quota of all the groups will be assigned. Although, if you create a user quota "
 "that will override any group quotas."
 msgstr ""
-"Эта система позволит назначить дисковые квоты пользователям. При создании групповой квоты "
+"Это система позволит назначить дисковые квоты пользователям. При создании групповой квоты "
 "каждому пользователю в этой группе будет назначена квота. Если пользователь относится более, "
 "чем к одной группе, ему будет присвоена наибольшая квота из всех групп. Несмотря на это, "
-"если вы создадите квоту пользователя, то она перекроет любую групповую квоту."
+"если Вы создадите квоту пользователя, то она перекроет любую групповую квоту."
 
 #, c-format
 msgid "There is %d group quota in the system."
@@ -188,20 +196,20 @@ msgstr[1] "Всего %d групповые квоты в системе."
 msgstr[2] "Всего %d групповых квот  в системе."
 
 msgid "Group Quotas"
-msgstr "Групповые квоты"
+msgstr "Групповые Квоты"
 
 msgid "Create Quota"
-msgstr "Создать квоту"
+msgstr "Создать Квоту"
 
 msgid "Edit Quota"
-msgstr "Редактировать квоту"
+msgstr "Редактировать Квоту"
 
 msgid "Delete Quota"
-msgstr "Удалить квоту"
+msgstr "Стереть Квоту"
 
 #, c-format
 msgid "Group quota for '%s' does not exist. You must create one first."
-msgstr "Групповая квота для '%s' не существует. Вы сначала должны создать хотя бы одну."
+msgstr "Групповая квота для '%s' не существует. Вы должны создать хотя бы одну сначала."
 
 #, c-format
 msgid "Group quota for '%s' already exists."
@@ -215,7 +223,7 @@ msgid "You must enter a group name"
 msgstr "Вы должны введите название группы"
 
 msgid "Edit Group Quotas (by list)"
-msgstr "Редактирование групповых квот (по списку)"
+msgstr "Редактирование Групповых Квот (по списку)"
 
 msgid "&laquo; first"
 msgstr "&laquo; первая"
@@ -253,7 +261,7 @@ msgstr[1] "Всего %d квоты пользователей в системе
 msgstr[2] "Всего %d квот пользователей в системе."
 
 msgid "User Quotas"
-msgstr "Квоты пользователей"
+msgstr "Квоты Пользователей"
 
 #, c-format
 msgid "User quota for '%s' does not exist. You must create one first."
@@ -271,25 +279,31 @@ msgid "You must enter a username"
 msgstr "Вы должны ввести имя пользователя"
 
 msgid "Edit User Quotas (by list)"
-msgstr "Редактирование квот пользователей (по списку)"
+msgstr "Редактирование Квот Пользователей (по списку)"
 
 msgid "Username"
 msgstr "Имя пользователя"
 
 #, c-format
 msgid "Used: %0.2f %s (%s%%)"
-msgstr "Использовано: %0.2f %s (%s%%)"
+msgstr ""
 
 #, c-format
 msgid "Quota: %0.2f %s"
-msgstr "Квота: %0.2f %s"
+msgstr ""
 
 #, c-format
 msgid "Used: %0.2f %s"
-msgstr "Использовано: %0.2f %s"
+msgstr ""
 
+#, fuzzy
 msgid "Quota: Unlimited"
-msgstr "Квота: Неограничено"
+msgstr "Размер Квоты"
 
+#, fuzzy
 msgid "User Quota Block"
-msgstr "Квоты пользователей"
+msgstr "Квоты Пользователей"
+
+# arg1 = численный состав, arg2 = единица
+#~ msgid "Warning: You have reached your disk quota (%s %s), "
+#~ msgstr "Предупреждение: Вы достигли лимита выделенного Вам диского пространства (%s %s)"

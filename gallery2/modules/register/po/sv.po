@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,25 +19,24 @@
 #
 # Swedish translation
 # Hampus Nygren <hampus@friendlyfire.net>, 2005.
-#
+# 
 # Changed the translation from html to UTF-8
 # Anders Lindquist <andersl@saaf.se>, 2005
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Registration 1.0.12\n"
+"Project-Id-Version: Gallery: Registration 1.0.8\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2003-02-11 03:09-0800\n"
-"PO-Revision-Date: 2008-03-17 15:00+0100\n"
-"Last-Translator: kalle\n"
-"Language-Team: svenska <sv@li.org>\n"
+"PO-Revision-Date: 2006-03-13 21:50+0100\n"
+"Last-Translator: Anders Lindquist <andersl@saaf.se>\n"
+"Language-Team: Swedish <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Language: Swedish\n"
 "X-Poedit-Country: SWEDEN\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: KBabel 1.11.4\n"
 
 msgid "Activation by administrator"
 msgstr "Aktivering av administratören"
@@ -68,9 +67,6 @@ msgstr "Kontoaktivering"
 
 msgid "New user registration"
 msgstr "Nyregistrering"
-
-msgid "Welcome to Gallery"
-msgstr "Välkommen till Gallery"
 
 msgid "Register"
 msgstr "Registrera"
@@ -131,17 +127,11 @@ msgstr "Sändare(Från) E-postadress:"
 msgid "Confirmation Email Subject:"
 msgstr "Rubrik för E-post-bekräftlse:"
 
-msgid "Email Site Administrators for all new registrations"
-msgstr "Skicka E-post till Siteadministratörer vid nyregistreringar"
-
 msgid "Admin Email Subject:"
 msgstr "Rubrik föe E-post till admin:"
 
-msgid "Email new users upon account activation"
-msgstr "Eposta nya användare då kontot aktiveras"
-
-msgid "Welcome Email Subject:"
-msgstr "Rubrik för E-post till admin:"
+msgid "Email Site Administrators for all new registrations"
+msgstr "Skicka E-post till Siteadministratörer vid nyregistreringar"
 
 msgid "Save"
 msgstr "Spara"
@@ -301,6 +291,3 @@ msgstr "Lösenorden du skrev i överensstämmde inte"
 
 msgid "Cancel"
 msgstr "Ångra"
-
-msgid "Your account is now active. Visit the site listed above to login."
-msgstr "Ditt konto är nu aktivt. Besök siten enligt ovan för att logga in."

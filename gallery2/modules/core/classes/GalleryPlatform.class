@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -131,18 +131,7 @@ class GalleryPlatform {
 	    $gallery->debug("tempnam($dir, $prefix)");
 	}
 
-	$slash = $this->getDirectorySeparator();
-	$dir = $dir{strlen($dir) - 1} == $slash ? substr($dir, 0, strlen($dir) - 1) : $dir;
-
-	$tempfile = tempnam($dir, $prefix);
-	if ($tempfile !== false) {
-	    $dirname = dirname($tempfile);
-	    if ($dirname !== $dir) {
-		$tempfile = $dir . $slash . basename($tempfile);
-	    }
-	}
-
-	return $tempfile;
+	return tempnam($dir, $prefix);
     }
 
     /**
@@ -156,7 +145,7 @@ class GalleryPlatform {
 	    $gallery->debug("file_exists($filename)");
 	}
 
-	return is_uploaded_file($filename) || file_exists($filename);
+	return is_uploaded_file($filename) || @file_exists($filename);
     }
 
     /**
@@ -198,7 +187,7 @@ class GalleryPlatform {
 	    $gallery->debug("is_file($filename)");
 	}
 
-	return is_file($filename);
+	return @file_exists($filename) && @is_file($filename);
     }
 
     /**
@@ -580,12 +569,10 @@ class GalleryPlatform {
     /**
      * Return true if the path component specified is composed of legal characters.
      * @param string $component the path component (must not contain path separators)
-     * @param boolean $forDirectory (optional) Whether the path component is for a directory.
-     *        Defaults to false. Periods are allowed anywhere in directories.
      * @return true if yes
      */
-    function isLegalPathComponent($component, $forDirectory=false) {
-	return !strcmp($this->legalizePathComponent($component, $forDirectory), $component);
+    function isLegalPathComponent($component) {
+	return !strcmp($this->legalizePathComponent($component), $component);
     }
 
     /**
@@ -605,64 +592,56 @@ class GalleryPlatform {
 
     /**
      * Remove any illegal characters from the path component.
-     * @param string $component the path component (must not contain path separators)
-     * @param boolean $forDirectory (optional) Whether the path component is for a directory.
-     *        Defaults to false. Periods are allowed anywhere in directories.
-     * @return string the legalized path component
      */
-    function legalizePathComponent($component, $forDirectory=false) {
+    function legalizePathComponent($component) {
 	global $gallery;
 	$legalChars = $this->getLegalPathCharacters();
 
 	/* Scrub out all the illegal characters */
 	$component = ereg_replace("[^$legalChars]", '_', $component);
 
-	if (!$forDirectory) {
-	    /* Break it into filebase and extension */
-	    list ($fileBase, $extension) = GalleryUtilities::getFileNameComponents($component);
+	/* Break it into filebase and extension */
+	list ($fileBase, $extension) = GalleryUtilities::getFileNameComponents($component);
 
-	    /*
-	     * Convert all dots to underscores in the fileBase.  This prevents malicious users from
-	     * uploading files like 'foo.php.jpg' which will be treated like a JPEG by Gallery, but
-	     * could be treated like a .php file by Apache opening a security hole.
-	     */
-	    $fileBase = str_replace('.', '_', $fileBase);
+	/*
+	 * Convert all dots to underscores in the fileBase.  This prevents malicious users from
+	 * uploading files like 'foo.php.jpg' which will be treated like a JPEG by Gallery, but
+	 * could be treated like a .php file by Apache opening a security hole.
+	 */
+	$fileBase = str_replace('.', '_', $fileBase);
 
-	    $blacklistKey = 'GalleryPlatform::blacklistedFileExtensions';
-	    if (GalleryDataCache::containsKey($blacklistKey)) {
-		$blacklistedExtensions = GalleryDataCache::get($blacklistKey);
-	    } else {
-		$blacklistedExtensions = array_flip($this->_blacklistedFileExtensions);
-		GalleryDataCache::put($blacklistKey, $blacklistedExtensions);
-	    }
-
-	    /*
-	     * If we don't know exactly what type this file is, we have to assume that it's
-	     * something malicious.  In that case, it might be a server side script of some kind and
-	     * we don't want that to wind up in the albums directory in a pure state because it may
-	     * open up a security hole on systems that have placed the gallery data directory inside
-	     * the document root.  So mangle the extension to make sure that the webserver doesn't
-	     * execute it.
-	     */
-	    list ($ret, $tmp) = GalleryCoreApi::convertExtensionToMime($extension);
-	    if ($ret && $gallery->getDebug()) {
-		$gallery->debug('Error: convertExtensionToMime in ' .
-				'GalleryPlatform::legalizePathComponent');
-	    }
-	    if (!empty($extension) && ($ret || $tmp == 'application/unknown'
-		    || isset($blacklistedExtensions[GalleryUtilities::strToLower($extension)]))) {
-		$fileBase = $fileBase . '_' . $extension;
-		$extension = null;
-	    }
-
-	    /* Rebuild the baseName according to our transforms above */
-	    if (!empty($extension)) {
-		$fileBase .= '.' . $extension;
-	    }
-	    $component = $fileBase;
+	$blacklistKey = 'GalleryPlatform::blacklistedFileExtensions';
+	if (GalleryDataCache::containsKey($blacklistKey)) {
+	    $blacklistedExtensions = GalleryDataCache::get($blacklistKey);
+	} else {
+	    $blacklistedExtensions = array_flip($this->_blacklistedFileExtensions);
+	    GalleryDataCache::put($blacklistKey, $blacklistedExtensions);
 	}
 
-	return $component;
+	/*
+	 * If we don't know exactly what type this file is, we have to assume that it's something
+	 * malicious.  In that case, it might be a server side script of some kind and we don't want
+	 * that to wind up in the albums directory in a pure state because it may open up a security
+	 * hole on systems that have placed the gallery data directory inside the document root.  So
+	 * mangle the extension to make sure that the webserver doesn't execute it.
+	 */
+	list ($ret, $tmp) = GalleryCoreApi::convertExtensionToMime($extension);
+	if ($ret && $gallery->getDebug()) {
+	    $gallery->debug('Error: convertExtensionToMime in ' .
+		'GalleryPlatform::legalizePathComponent');
+	}
+	if (!empty($extension) && ($ret || $tmp == 'application/unknown'
+		|| isset($blacklistedExtensions[GalleryUtilities::strToLower($extension)]))) {
+	    $fileBase = $fileBase . '_' . $extension;
+	    $extension = null;
+	}
+
+	/* Rebuild the baseName according to our transforms above */
+	if (!empty($extension)) {
+	    $fileBase .= '.' . $extension;
+	}
+
+	return $fileBase;
     }
 
     /**
@@ -711,7 +690,7 @@ class GalleryPlatform {
 	    return false;
 	}
 
-	if (($realpath = @$this->realpath($path)) === false) {
+	if (($realpath = $this->realpath($path)) === false) {
 	    /*
 	     * PHP's open_basedir will actually take an invalid path, resolve relative paths, parse
 	     * out .. and . and then check against the dir list.  Here we do an ok job of doing the

@@ -1,6 +1,8 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
 <div class="gbBlock gcBackground1">
   <h2> {g->text text="Image Block Settings"} </h2>
@@ -100,7 +102,7 @@
     <td> {g->text text="Pipe(|) separate list chosen from: randomImage, recentImage, viewedImage, randomAlbum, recentAlbum, viewedAlbum, dailyImage, weeklyImage, monthlyImage, dailyAlbum, weeklyAlbum, monthlyAlbum, specificItem; default is randomImage"} </td>
   </tr><tr>
     <td> {$ImageBlockSiteAdmin.prefix}show&nbsp;*</td>
-    <td> {g->text text="Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize, rawImage; the value can also be: none"} </td>
+    <td> {g->text text="Pipe(|) separated list chosen from: title, date, views, owner, heading, fullSize; the value can also be: none"} </td>
   </tr><tr>
     <td> {$ImageBlockSiteAdmin.prefix}itemId </td>
     <td> {g->text text="Limit the item selection to the subtree of the gallery under the album with the given id; or the id of the item to display when used with specificItem block type"} </td>

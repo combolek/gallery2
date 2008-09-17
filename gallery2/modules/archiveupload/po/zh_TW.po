@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Archive Upload 1.0.7\n"
+"Project-Id-Version: Gallery: Archive Upload 1.0.6\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-28 14:00+0800\n"
 "PO-Revision-Date: 2005-03-28 14:00+0800\n"
@@ -57,11 +57,6 @@ msgstr ""
 "此模組可用來從一個 ZIP 壓縮檔案解出個別檔案並加入 Gallery 中。你必須在你的伺服器中指定或安裝 "
 "unzip 程式，然後在下面輸入它的路徑。如果你使用的是UNIX系統，不要忘了將程式設定為可執行。（在"
 "正確的目錄下設定<i>chmod 755 unzip</i>即可）"
-
-msgid ""
-"The exec() function is disabled in your PHP by the <b>disabled_functions</b> parameter in "
-"php.ini.  This module cannot be used until that setting is changed."
-msgstr ""
 
 msgid "Path to unzip:"
 msgstr "unzip 路徑："

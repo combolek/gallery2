@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Slideshow 1.0.11\n"
+"Project-Id-Version: Gallery: Slideshow 1.0.5\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-10-01 21:30+0300\n"
 "PO-Revision-Date: 2006-10-01 21:52+0200\n"
@@ -32,12 +32,12 @@ msgstr ""
 "X-Poedit-Country: LATVIA\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
+msgid "Slideshow"
+msgstr "Slīdrāde"
+
 #, c-format
 msgid "Slideshow for %s"
 msgstr "%s slīdrāde"
-
-msgid "Slideshow"
-msgstr "Slīdrāde"
 
 msgid "Display"
 msgstr "Attēlot"
@@ -48,182 +48,141 @@ msgstr "Skatīt slīdrādi"
 msgid "Path to an item (eg, /album/image.jpg.html)"
 msgstr "Ceļš uz vienumu (piem., /album/attels.jpg.html)"
 
-#, fuzzy
-msgid "Slideshow Settings"
-msgstr "Slīdrāde"
+msgid "Blend"
+msgstr "Pāreja"
+
+msgid "Blinds"
+msgstr "Žilbināt"
+
+msgid "Checkerboard"
+msgstr "Dambretes galds"
+
+msgid "Diagonal"
+msgstr "Diagonāle"
+
+msgid "Doors"
+msgstr "Durvis"
+
+msgid "Gradient"
+msgstr "Slīpums"
+
+msgid "Iris"
+msgstr "Varavīksne"
+
+msgid "Pinwheel"
+msgstr "Vējdzirnavas"
+
+msgid "Pixelate"
+msgstr "Pa pikseļiem"
+
+msgid "Radial"
+msgstr "Radiāls"
+
+msgid "Rain"
+msgstr "Lietus"
+
+msgid "Slide"
+msgstr "Slīds"
+
+msgid "Snow"
+msgstr "Sniegs"
+
+msgid "Spiral"
+msgstr "Spirāle"
+
+msgid "Stretch"
+msgstr "Izstiepts"
+
+msgid "RANDOM"
+msgstr "NEJAUŠS"
+
+msgid "This album has no photos to show in a slideshow."
+msgstr "Šajā albumā nav attēlu, kurus rādīt slīdrādē"
+
+msgid "Back to Album View"
+msgstr "Atpakaļ uz Albumu skatu"
 
 #, c-format
-msgid "Installed PicLens version %s"
-msgstr ""
+msgid "Date: %s"
+msgstr "Datums: %s"
 
-msgid "An error occurred while downloading PicLens!"
-msgstr ""
+msgid "Hide More Info"
+msgstr "Slēpt Vairāk informācijas"
 
-msgid "Uninstalled PicLens"
-msgstr ""
+msgid "Show More Info"
+msgstr "Rādīt Vairāk informācijas"
 
-#, c-format
-msgid ""
-"Gallery can optionally use a Flash and JavaScript based slideshow from %s to provide users "
-"with the best possible viewing experience.  Gallery can install %s for you automatically, or "
-"you can choose to use an HTML slideshow."
-msgstr ""
+msgid "Resume"
+msgstr "Atsākt"
 
-#, c-format
-msgid "Version %s installed."
-msgstr ""
+msgid "Pause"
+msgstr "Pauzēt"
 
-msgid "There's a newer version of PicLens available."
-msgstr ""
+msgid "[-]"
+msgstr "[-]"
 
-msgid "PicLens downloads are currently unavailable.  Please try again later."
-msgstr ""
+msgid "[+]"
+msgstr "[+]"
 
-#, c-format
-msgid "Install PicLens version %s"
-msgstr ""
+msgid "Stop"
+msgstr "Apturēt"
 
-#, c-format
-msgid "Update to PicLens version %s"
-msgstr ""
+msgid "Back One Image"
+msgstr "Vienu attēlu atpakaļ"
 
-msgid "Uninstall PicLens"
-msgstr ""
+msgid "delay: "
+msgstr "aizture:"
 
-#~ msgid "Blend"
-#~ msgstr "Pāreja"
+msgid "1 second"
+msgstr "1 sekunde"
 
-#~ msgid "Blinds"
-#~ msgstr "Žilbināt"
+msgid "3 seconds"
+msgstr "3 sekundes"
 
-#~ msgid "Checkerboard"
-#~ msgstr "Dambretes galds"
+msgid "5 seconds"
+msgstr "5 sekundes"
 
-#~ msgid "Diagonal"
-#~ msgstr "Diagonāle"
+msgid "10 seconds"
+msgstr "10 sekundes"
 
-#~ msgid "Doors"
-#~ msgstr "Durvis"
+msgid "15 seconds"
+msgstr "15 sekundes"
 
-#~ msgid "Gradient"
-#~ msgstr "Slīpums"
+msgid "20 seconds"
+msgstr "20 sekundes"
 
-#~ msgid "Iris"
-#~ msgstr "Varavīksne"
+msgid "direction: "
+msgstr "virziens:"
 
-#~ msgid "Pinwheel"
-#~ msgstr "Vējdzirnavas"
+msgid "forward"
+msgstr "uz priekšu"
 
-#~ msgid "Pixelate"
-#~ msgstr "Pa pikseļiem"
+msgid "reverse"
+msgstr "atpakaļ"
 
-#~ msgid "Radial"
-#~ msgstr "Radiāls"
+msgid "random"
+msgstr "nejaušs"
 
-#~ msgid "Rain"
-#~ msgstr "Lietus"
+msgid "max size: "
+msgstr "maksimālais izmērs:"
 
-#~ msgid "Slide"
-#~ msgstr "Slīds"
+msgid "320x320"
+msgstr "320x320"
 
-#~ msgid "Snow"
-#~ msgstr "Sniegs"
+msgid "640x640"
+msgstr "640x640"
 
-#~ msgid "Spiral"
-#~ msgstr "Spirāle"
+msgid "800x800"
+msgstr "800x800"
 
-#~ msgid "Stretch"
-#~ msgstr "Izstiepts"
+msgid "1024x1024"
+msgstr "1024x1024"
 
-#~ msgid "RANDOM"
-#~ msgstr "NEJAUŠS"
+msgid "1280x1280"
+msgstr "1280x1280"
 
-#~ msgid "This album has no photos to show in a slideshow."
-#~ msgstr "Šajā albumā nav attēlu, kurus rādīt slīdrādē"
+msgid "no limit"
+msgstr "nav limita"
 
-#~ msgid "Back to Album View"
-#~ msgstr "Atpakaļ uz Albumu skatu"
-
-#~ msgid "Date: %s"
-#~ msgstr "Datums: %s"
-
-#~ msgid "Hide More Info"
-#~ msgstr "Slēpt Vairāk informācijas"
-
-#~ msgid "Show More Info"
-#~ msgstr "Rādīt Vairāk informācijas"
-
-#~ msgid "Resume"
-#~ msgstr "Atsākt"
-
-#~ msgid "Pause"
-#~ msgstr "Pauzēt"
-
-#~ msgid "[-]"
-#~ msgstr "[-]"
-
-#~ msgid "[+]"
-#~ msgstr "[+]"
-
-#~ msgid "Stop"
-#~ msgstr "Apturēt"
-
-#~ msgid "Back One Image"
-#~ msgstr "Vienu attēlu atpakaļ"
-
-#~ msgid "delay: "
-#~ msgstr "aizture:"
-
-#~ msgid "1 second"
-#~ msgstr "1 sekunde"
-
-#~ msgid "3 seconds"
-#~ msgstr "3 sekundes"
-
-#~ msgid "5 seconds"
-#~ msgstr "5 sekundes"
-
-#~ msgid "10 seconds"
-#~ msgstr "10 sekundes"
-
-#~ msgid "15 seconds"
-#~ msgstr "15 sekundes"
-
-#~ msgid "20 seconds"
-#~ msgstr "20 sekundes"
-
-#~ msgid "direction: "
-#~ msgstr "virziens:"
-
-#~ msgid "forward"
-#~ msgstr "uz priekšu"
-
-#~ msgid "reverse"
-#~ msgstr "atpakaļ"
-
-#~ msgid "random"
-#~ msgstr "nejaušs"
-
-#~ msgid "max size: "
-#~ msgstr "maksimālais izmērs:"
-
-#~ msgid "320x320"
-#~ msgstr "320x320"
-
-#~ msgid "640x640"
-#~ msgstr "640x640"
-
-#~ msgid "800x800"
-#~ msgstr "800x800"
-
-#~ msgid "1024x1024"
-#~ msgstr "1024x1024"
-
-#~ msgid "1280x1280"
-#~ msgstr "1280x1280"
-
-#~ msgid "no limit"
-#~ msgstr "nav limita"
-
-#~ msgid "fade: "
-#~ msgstr "izbalēt:"
+msgid "fade: "
+msgstr "izbalēt:"

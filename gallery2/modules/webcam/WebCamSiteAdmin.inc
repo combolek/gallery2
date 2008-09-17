@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,11 +38,6 @@ class WebCamSiteAdminController extends GalleryController {
 
 	$status = $error = array();
 	if (isset($form['action']['save'])) {
-	    if (!isset($form['fromweb'])
-		    || !in_array($form['fromweb'], array('on', 'off', 'admin'))) {
-		return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
-	    }
-
 	    if (isset($form['duration'])) {
 		/* Accept input for locales that use comma as fraction separator */
 		$form['duration'] = str_replace(',', '.', $form['duration']);
@@ -52,11 +47,6 @@ class WebCamSiteAdminController extends GalleryController {
 	    } else {
 		$ret = GalleryCoreApi::setPluginParameter(
 		    'module', 'webcam', 'duration', round($form['duration'] * 60));
-		if ($ret) {
-		    return array($ret, null);
-		}
-		$ret = GalleryCoreApi::setPluginParameter(
-		    'module', 'webcam', 'fromweb', $form['fromweb']);
 		if ($ret) {
 		    return array($ret, null);
 		}
@@ -88,30 +78,17 @@ class WebCamSiteAdminView extends GalleryView {
 	    return array($ret, null);
 	}
 
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'webcam');
-	if ($ret) {
-	    return array($ret, null);
-	}
-
 	if ($form['formName'] != 'WebCamSiteAdmin') {
 	    $form['formName'] = 'WebCamSiteAdmin';
-	    foreach (array('fromweb', 'duration') as $key) {
-		list ($ret, $form[$key]) = $module->getParameter($key);
-		if ($ret) {
-		    return array($ret, null);
-		}
+	    list ($ret, $duration) =
+		GalleryCoreApi::getPluginParameter('module', 'webcam', 'duration');
+	    if ($ret) {
+		return array($ret, null);
 	    }
 	    /* String conversion here may use comma as fraction separator, based on locale */
-	    $form['duration'] = (string)round($form['duration'] / 60, 2);
+	    $form['duration'] = (string)round($duration / 60, 2);
 	}
 
-	$WebCamSiteAdmin = array(
-	    'optionList' => array(
-		'on' => $module->translate('Available to all users with permission to add items'),
-		'admin' => $module->translate('Site Admins only'),
-		'off' => $module->translate('Disabled')));
-
-	$template->setVariable('WebCamSiteAdmin', $WebCamSiteAdmin);
 	$template->setVariable('controller', 'webcam.WebCamSiteAdmin');
 	return array(null, array('body' => 'modules/webcam/templates/WebCamSiteAdmin.tpl'));
     }

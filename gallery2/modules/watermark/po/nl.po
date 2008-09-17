@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,34 +16,37 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
-#
+# 
 # Previous translators:
 # Gidie <gidie at xs4all REMOVE THIS dot net>, 2005
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Watermark 1.1.5\n"
+"Project-Id-Version: Gallery: Watermark 1.1.0\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2007-03-16 11:40-0700\n"
-"PO-Revision-Date: 2008-01-03 12:14+0100\n"
-"Last-Translator: Marijke <marijke@primosite.nl>\n"
+"PO-Revision-Date: 2005=02-12 16:00+0100\n"
+"Last-Translator: Gidie <gidie at users.sourceforge REMOVE THIS dot net>\n"
 "Language-Team: Dutch <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n !=1);\n"
 
+#, fuzzy
 msgid "Apply watermark"
-msgstr "Watermerk toepassen"
+msgstr "Watermerk Toepassen"
 
 msgid "Watermark applied successfully"
 msgstr "Watermerk succesvol toegepast"
 
+#, fuzzy
 msgid "Remove watermarks"
-msgstr "Verwijder Watermerken"
+msgstr "Verwijder Watermerk"
 
 msgid "Watermark removed successfully"
 msgstr "Watermerk succesvol verwijderd"
 
+#, fuzzy
 msgid "Preparing..."
 msgstr "Verwerken..."
 
@@ -52,9 +55,6 @@ msgstr "Watermerk"
 
 msgid "user watermarks"
 msgstr "gebruikers watermerken"
-
-msgid "Error: Missing watermark. Please see the Event Logs page in the Site Admin."
-msgstr ""
 
 msgid "Watermark your images"
 msgstr "Watermerk uw afbeeldingen"
@@ -98,25 +98,26 @@ msgid ""
 "You can choose a watermark to apply to all images in this album.  Settings here will replace "
 "any existing watermarks."
 msgstr ""
-"U kunt een watermerk kiezen om toe te passen op alle afbeeldingen in dit album. Instelling "
-"hier zal alle bestaande watermerken vervangen."
 
+#, fuzzy
 msgid "You can choose a watermark to apply to this image."
-msgstr "Kies een watermerk om deze toe te passen op de afbeeldingen."
+msgstr "Kies een watermerk om deze toe te passen op de afbeeldingen die u toevoegd."
 
+#, fuzzy
 msgid ""
 "Watermarks do not modify the original images, so they can be applied to full size, resizes "
 "or thumbnail without affecting the original, and can be removed later."
 msgstr ""
-"Watermerken passen de orginele afbeelding niet aan, dus ze kunnen worden toegepast op "
-"geschaalde afbeeldingen en miniaturen zonder het origineel te beschadigen."
+"U kunt een watermerk uitkiezen om op deze afbeelding toe te passen. Watermerken tasten de "
+"orginele afbeelding niet aan, aangezien deze kunnen worden toegepast op geschaalde "
+"afbeeldingen en miniaturen zonder het origineel te beschadigen."
 
 msgid "You have no watermarks"
 msgstr "U heeft geen watermerken"
 
 msgid "You must first upload some watermark images so that you can apply them to your image."
 msgstr ""
-"U moet eerst een watermerk afbeelding uploaden om deze op uw afbeelding toe te kunnen passen."
+"U moet eerst een watermerk afbeelding uploaden om deze op uw afbeelding toete kunnen passen."
 
 msgid "Upload some watermarks now."
 msgstr "Upload nu wat watermerken."
@@ -124,14 +125,16 @@ msgstr "Upload nu wat watermerken."
 msgid "Step 1.  Choose which watermark you want to use"
 msgstr "Stap 1.  Kies welk watermerk u wilt gebruiken"
 
+#, fuzzy
 msgid "Step 2.  Placement for the watermark"
-msgstr "Stap 2.  Plaatsing voor het watermerk"
+msgstr "Stap 2.  Plaats het watermerk op uw afbeelding."
 
 msgid "watermark"
 msgstr "watermerk"
 
+#, fuzzy
 msgid "Step 3.  Choose which images to watermark"
-msgstr "Stap 3.  Kies welke afbeelding u wilt watermerken"
+msgstr "Stap 3.  Kies welke versies van de afbeelding u wilt watermerken"
 
 msgid "You must choose something to watermark!"
 msgstr "U moet iets kiezen om te watermerken!"
@@ -146,10 +149,10 @@ msgid "Thumbnail"
 msgstr "Miniatuur"
 
 msgid "Step 4.  Subalbums"
-msgstr "Stap 4. Subalbums"
+msgstr ""
 
 msgid "Also apply watermark change to all subalbums"
-msgstr "Pas watermerkverandering ook toe bij alle subalbums"
+msgstr ""
 
 msgid "Apply Watermark"
 msgstr "Watermerk Toepassen"
@@ -235,18 +238,15 @@ msgid "Choose which versions of the image you'd like to watermark"
 msgstr "Kies welke versies van de afbeelding die u wilt watermerken"
 
 msgid "Replace image"
-msgstr "Vervang afbeelding"
+msgstr ""
 
 msgid ""
 "Uploading a new image file will reapply this watermark everywhere it is used in the "
 "Gallery.  The new image must match the mime type of the existing file."
 msgstr ""
-"Als een nieuwe afbeelding geupload wordt zal deze overal toegepast worden waar watermerk "
-"wordt gebruikt in de Gallery. De nieuwe afbeelding moet het gelijke mime type als het "
-"bestaande bestand."
 
 msgid "Mime type does not match existing file"
-msgstr "Mime type komt niet overeen met bestaande bestand"
+msgstr ""
 
 msgid "Save"
 msgstr "Opslaan"
@@ -276,17 +276,15 @@ msgid "Settings saved successfully"
 msgstr "Instellingen succesvol opgeslagen"
 
 msgid "Make sure to select a default watermark"
-msgstr "Vergeet niet een standaard watermerk te selecteren"
+msgstr ""
 
 msgid "Allow users to upload their own watermark images"
-msgstr "Laat gebruikers toe hun eigen watermerk afbeeldingen te uploaden."
+msgstr ""
 
 msgid ""
 "Use only the default watermark selected below.  Only Site Administrators may change or "
 "remove watermarks."
 msgstr ""
-"Gebruik alleen het standaard watermerk die hieronder geselecteerd is. Alleen Site "
-"beheerders  mogen watermerken veranderen of verwijderen."
 
 msgid "File"
 msgstr "Bestand"
@@ -297,11 +295,13 @@ msgstr "Eigenaar"
 msgid "Hotlink"
 msgstr "Hotlink"
 
+#, fuzzy
 msgid "Default"
-msgstr "Standaard"
+msgstr "Verwijderen"
 
+#, fuzzy
 msgid "Reset"
-msgstr "Reset"
+msgstr "Geschaalde afbeeldingen"
 
 msgid "Watermark Hotlinked Images"
 msgstr "Watermerk Hotlink Afbeeldingen"

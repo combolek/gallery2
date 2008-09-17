@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,9 +19,9 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Comments 1.1.12\n"
+"Project-Id-Version: Gallery: Comments 1.1.3\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2007-06-14 17:14-0700\n"
+"POT-Creation-Date: 2007-05-31 10:31-0700\n"
 "PO-Revision-Date: 2003-10-01 15:46+0900\n"
 "Last-Translator: Hugo Cruz <hugo.cruz@netcabo.pt>\n"
 "Language-Team: Portuguese Portugal<gallery-devel@lists.sourceforge.net>\n"
@@ -35,25 +35,6 @@ msgstr "Adicionar Comentário"
 
 msgid "add comment"
 msgstr "adicionar comentário"
-
-msgid "moderate spam"
-msgstr ""
-
-msgid "Checking all comments with Akismet"
-msgstr ""
-
-#, fuzzy
-msgid "Done checking comments"
-msgstr "Comentários recentes"
-
-msgid "Published"
-msgstr ""
-
-msgid "Unpublished"
-msgstr ""
-
-msgid "Spam"
-msgstr ""
 
 #, fuzzy
 msgid "show comments"
@@ -88,30 +69,12 @@ msgstr "[comment] Acesso a todos"
 msgid "View Latest Comments"
 msgstr "Ver Comentários"
 
-#, fuzzy, c-format
-msgid "Comments: %d"
-msgstr "Comentário: "
-
 msgid "View Comments"
 msgstr "Ver Comentários"
 
-#, fuzzy
-msgid "Moderate Comments"
-msgstr "Ver Comentários"
-
-#, fuzzy
-msgid "Comment Added"
-msgstr "Módulo Commentário"
-
-#, c-format
-msgid ""
-"A new comment has been posted on %s. The full comment is provided below. \n"
-"\n"
-"%s\n"
-"\n"
-"To view the new comment at the site click here:\n"
-"%s"
-msgstr ""
+#, fuzzy, c-format
+msgid "Comments: %d"
+msgstr "Comentário: "
 
 #, fuzzy
 msgid "Guest Comments"
@@ -155,9 +118,6 @@ msgstr "obrigatório"
 msgid "You must enter a comment!"
 msgstr "Deve introduzir um comentário!"
 
-msgid "Please wait a little longer before posting another comment"
-msgstr ""
-
 #, fuzzy
 msgid "Preview"
 msgstr "pré-visualizar"
@@ -168,63 +128,11 @@ msgstr "Gravar"
 msgid "Cancel"
 msgstr "Cancelar"
 
-#, fuzzy
-msgid "Comments Awaiting Moderation"
-msgstr "Confirmação da alteração do Comentário"
-
-msgid "All spam comments deleted."
-msgstr ""
-
-#, fuzzy
-msgid "There are no comments awaiting moderation."
-msgstr "Não existem comentários para este item"
-
-#, c-format
-msgid "There is %d spam comment in the queue."
-msgid_plural "There are %d spam comments in the queue."
-msgstr[0] ""
-msgstr[1] ""
-
-msgid ""
-"You can delete all spam comments at once, but check them carefully because you can't restore "
-"deleted comments."
-msgstr ""
-
-msgid "Delete All Spam"
-msgstr ""
-
-msgid "Delete this comment?"
-msgstr "Apagar este comentário?"
-
-msgid "Are you sure you want to delete this comment?"
-msgstr ""
-
-msgid "This comment has been deleted."
-msgstr ""
-
-msgid "This comment has been marked as not spam. __UNDO__"
-msgstr ""
-
-msgid "This comment has been marked as spam. __UNDO__"
-msgstr ""
-
-msgid "Yes"
-msgstr ""
-
-msgid "Undo"
-msgstr ""
-
 msgid "edit"
 msgstr "editar"
 
 msgid "delete"
 msgstr "apagar"
-
-msgid "mark as not spam"
-msgstr ""
-
-msgid "mark as spam"
-msgstr ""
 
 msgid "show full"
 msgstr ""
@@ -268,24 +176,12 @@ msgid "Back to %s"
 msgstr "Voltar para %s"
 
 #, fuzzy
-msgid "Settings saved successfully"
-msgstr "Comentário adicionado com sucesso"
-
-#, fuzzy, c-format
-msgid "Checked %d comment."
-msgid_plural "Checked %d comments."
-msgstr[0] "adicionar comentário"
-msgstr[1] "adicionar comentário"
-
-#, fuzzy, c-format
-msgid "Found %d spam comment."
-msgid_plural "Found %d spam comments."
-msgstr[0] "adicionar comentário"
-msgstr[1] "adicionar comentário"
+msgid "Comments Settings"
+msgstr "Comentários"
 
 #, fuzzy
-msgid "General Settings"
-msgstr "Comentários"
+msgid "Settings saved successfully"
+msgstr "Comentário adicionado com sucesso"
 
 msgid "Show link for Latest Comments:"
 msgstr ""
@@ -297,46 +193,11 @@ msgid "Invalid value"
 msgstr ""
 
 #, fuzzy
-msgid "Moderation Settings"
-msgstr "Comentários"
-
-msgid "Require administrator approval prior to publishing comments."
-msgstr ""
-
-#, fuzzy
-msgid "Moderate all comments:"
-msgstr "Apagar este comentário?"
-
-#, fuzzy
-msgid "Anti-Spam Settings"
-msgstr "Comentários"
-
-#, c-format
-msgid ""
-"You can reduce the amount of spam comments that you receive by using a service called %"
-"sAkismet%s.  This service is free for personal use.  In order to use it, you will need to %"
-"sregister for an API key%s and enter that key in the box below."
-msgstr ""
-
-msgid "Akismet is active."
-msgstr ""
-
-msgid "Akismet is not active."
-msgstr ""
-
-msgid "API key:"
-msgstr ""
-
-msgid "Invalid API key."
-msgstr ""
-
-#, fuzzy
-msgid "Check all comments now"
-msgstr "(ver todos os %d comentários)"
-
-#, fuzzy
 msgid "Reset"
 msgstr "reset"
+
+msgid "Delete this comment?"
+msgstr "Apagar este comentário?"
 
 msgid "Are you sure?"
 msgstr "Tem a certeza?"
@@ -362,9 +223,6 @@ msgstr "Servidor: "
 
 msgid "You must enter a comment"
 msgstr "Deve introduzir um comentário"
-
-msgid "Publish Status"
-msgstr ""
 
 #, fuzzy
 msgid "Latest Comments"
@@ -428,13 +286,20 @@ msgid "Show a text box that expands into the full form"
 msgstr ""
 
 #, fuzzy
-#~ msgid "Spam Comments"
-#~ msgstr "Comentários"
+#~ msgid "Date"
+#~ msgstr "Data: "
 
-#, fuzzy
-#~ msgid "There are no spam comments in the queue."
-#~ msgstr "Não existem comentários para este item"
+#~ msgid "The date you entered is invalid."
+#~ msgstr "A data introduzida é inválida."
 
-#, fuzzy
-#~ msgid "Mark this comment as spam?"
-#~ msgstr "Apagar este comentário?"
+#~ msgid "You must enter a date"
+#~ msgstr "Deve introduzir a data"
+
+#~ msgid "You must enter a subject!"
+#~ msgstr "Deve introduzir o tema!"
+
+#~ msgid "You must enter a subject"
+#~ msgstr "Deve introduzir o tema"
+
+#~ msgid "[comment] Search comments"
+#~ msgstr "[comment] Pesquisar comentários"

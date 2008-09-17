@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,8 +32,8 @@ class EcardHelper {
     /**
      * Returns the smallest size of an item
      * @param int $itemId
-     * @return array GalleryStatus a status code
-     *               GalleryItem an item
+     * @return array object GalleryStatus a status code
+     *               object GalleryItem an item
      */
     function getSmallestSize($itemId) {
 	list ($ret, $permissions) = GalleryCoreApi::getPermissions($itemId);
@@ -68,7 +68,7 @@ class EcardHelper {
 	    }
 	}
 	if (isset($permissions['core.viewSource'])) {
-	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
+	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	    if ($ret) {
 		return array($ret, null);
 	    }
@@ -111,7 +111,7 @@ class EcardHelper {
     /**
      * Determine if we should use validation plugins.
      *
-     * @return array GalleryStatus a status code
+     * @return array object GalleryStatus a status code
      *               boolean true to use validation plugins
      */
     function useValidationPlugins() {

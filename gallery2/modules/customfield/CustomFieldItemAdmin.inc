@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,15 +40,9 @@ class CustomFieldItemAdminController extends GalleryController {
 	global $gallery;
 	$session =& $gallery->getSession();
 
-	$adminMode = GalleryUtilities::getRequestVariables('cfAdmin');
-
-	list ($ret, $item) = $this->getItem();
-	if ($ret) {
-	    return array($ret, null);
-	}
-	$itemId = $item->getId();
-
-	if (!empty($adminMode)) {
+	list ($adminMode, $itemId) = GalleryUtilities::getRequestVariables('cfAdmin', 'itemId');
+	if (!empty($adminMode) && !empty($itemId)) {
+	    $itemId = (int)$itemId;
 	    $ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.edit');
 	    if ($ret) {
 		return array($ret, null);

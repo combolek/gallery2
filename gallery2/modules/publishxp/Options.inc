@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -112,7 +112,7 @@ class OptionsView extends GalleryView {
 	}
 
 	/* Now let all options load their template data */
-	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($form['albumId'], 'GalleryAlbumItem');
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($form['albumId']);
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -129,12 +129,6 @@ class OptionsView extends GalleryView {
 	    }
 	}
 
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'publishxp');
-	if ($ret) {
-	    return array($ret, null);
-	}
-
-	$template->title($module->translate('Windows Publishing Wizard'));
 	$template->setVariable('Options', $Options);
 	$template->head('modules/publishxp/templates/Head.tpl');
 

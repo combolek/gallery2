@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -49,20 +49,22 @@ class ConfirmPicasaImportControllerTest extends GalleryControllerTestCase {
 
     function setUp() {
 	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	/* Make sure translate calls during test won't generate any platform calls */
 	list ($ret) = GalleryCoreApi::getPermissionIds();
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
-	list ($ret, $this->_temporaryAlbum) = $this->_createRandomAlbum($this->_getRootId());
+	list ($ret, $this->_temporaryAlbum) = GalleryCoreApi::createAlbum(
+		$this->_getRootId(), 'albumtest',
+		'This is my title', 'This is my summary',
+		'This is my description', null);
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($this->_temporaryAlbum);
 	$this->_temporaryAlbumId = $this->_temporaryAlbum->getId();
@@ -76,10 +78,7 @@ class ConfirmPicasaImportControllerTest extends GalleryControllerTestCase {
 	global $gallery;
 
 	$this->assert($this->_platform->isComplete(), $this->_platform->getRemaining());
-	$ret = parent::tearDown();
-	if ($ret) {
-	   $this->failWithStatus($ret);
-	}
+	parent::tearDown();
     }
 
     function _runBackgroundTask($expectedProgressBarDump) {
@@ -110,7 +109,7 @@ class ConfirmPicasaImportControllerTest extends GalleryControllerTestCase {
 	}
 
 	$session =& $gallery->getSession();
-	$status = $session->getStatus();
+	$status = $session->getStatus($mockGenerator->getStatusId());
 
 	return array(null, $status);
     }
@@ -137,7 +136,7 @@ class ConfirmPicasaImportControllerTest extends GalleryControllerTestCase {
 	/* Test with the loosest markup type */
 	$ret = $this->_setMarkupType('html', true);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	/*
@@ -186,19 +185,18 @@ class ConfirmPicasaImportControllerTest extends GalleryControllerTestCase {
 	$this->_platform->setReply('file_exists', array('/index.xml'), true);
 	$this->_platform->setReply('is_readable', array('/index.xml'), true);
 	$this->_platform->setReply('file', array('/index.xml', ''), $testXmlData);
-	$this->_platform->setReply(
-	    'legalizePathComponent',
-	    array('GalleryTest 2<script>evil', false), 'GalleryTest 2_script_evil');
-	$this->_platform->setReply(
-	    'isLegalPathComponent',
-	    array('GalleryTest 2_script_evil', false), true);
-	$this->_platform->setReply(
-	    'legalizePathComponent',
-	    array('GalleryTest 2_script_evil', true), 'GalleryTest 2_script_evil');
+ 	$this->_platform->setReply(
+ 	    'legalizePathComponent',
+ 	    array('GalleryTest 2<script>evil'), 'GalleryTest 2_script_evil');
+ 	$this->_platform->setReply(
+ 	    'isLegalPathComponent',
+ 	    array('GalleryTest 2_script_evil'), true);
+ 	$this->_platform->setReply(
+ 	    'legalizePathComponent',
+ 	    array('GalleryTest 2_script_evil'), 'GalleryTest 2_script_evil');
 	$this->_platform->setReply('getDirectorySeparator', array(), '/');
 	$this->_platform->setReply('file_exists', array('fuzzy' => '{.*GalleryTest 2}'), false);
-	$this->_platform->setReply('mkdir', array('fuzzy' => '{.*GalleryTest 2}',
-						  'fuzzy2' => '{\d+}'), true);
+	$this->_platform->setReply('mkdir', array('fuzzy' => '{.*GalleryTest 2}', '0755'), true);
 
 	/* Image creation */
 	$testImages = array('ajipankachile5.jpg0', 'californiadriedchile5.jpg0', 'a<script>b.jpg0');
@@ -207,8 +205,7 @@ class ConfirmPicasaImportControllerTest extends GalleryControllerTestCase {
 
 	    $this->_platform->setReply('is_uploaded_file', array('/images/' . $testImage . ''),
 		true);
-	    $this->_platform->setReply('legalizePathComponent', array($testImage, false),
-		$testImage);
+	    $this->_platform->setReply('legalizePathComponent', array($testImage), $testImage);
 	    $this->_platform->setReply('getDirectorySeparator', array(), '/');
 	    $this->_platform->setReply('copy',
 		array('/images/' . $testImage . '', 'fuzzy'=>'{.*/' . $testImage . '}'),
@@ -226,9 +223,9 @@ class ConfirmPicasaImportControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $status) = $this->_runBackgroundTask(
 	    '0 [\d\.\d\d].* ' .
-	    'complete:view=core.SiteAdmin,subView=picasa.ImportResults');
+	    'complete:view=core.SiteAdmin,subView=picasa.ImportResults,statusId=STATUSID');
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$results = $this->handleRequest();
@@ -241,10 +238,9 @@ class ConfirmPicasaImportControllerTest extends GalleryControllerTestCase {
 	$testAlbumId = $status['albumImportSuccess']['GalleryTest 2&lt;script&gt;evil'];
 
 	/* Get the allegedly successfully imported album */
-	list ($ret, $testAlbum) =
-	    GalleryCoreApi::loadEntitiesById($testAlbumId, 'GalleryAlbumItem');
+	list ($ret, $testAlbum) = GalleryCoreApi::loadEntitiesById($testAlbumId);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(array('GalleryTest 2&lt;script&gt;evil',  /* title */
@@ -260,14 +256,14 @@ class ConfirmPicasaImportControllerTest extends GalleryControllerTestCase {
 	/* Verify item attributes (like order weight) */
 	list ($ret, $ids) = GalleryCoreApi::fetchChildItemIds($testAlbum);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(3, count($ids), 'number of children');
 
 	/* Get the allegedly successfully imported items */
-	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[0], 'GalleryItem');
+	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[0]);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(array ('ajipankachile5',    // title
 		'Testpicture',                          // summary
@@ -279,9 +275,9 @@ class ConfirmPicasaImportControllerTest extends GalleryControllerTestCase {
 	    ),
 	    'item 0');
 
-	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[1], 'GalleryItem');
+	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[1]);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(array('californiadriedchile5',      // title
 		'californiadriedchile5.jpg0',                   // summary
@@ -293,9 +289,9 @@ class ConfirmPicasaImportControllerTest extends GalleryControllerTestCase {
 	    ),
 	    'item 1');
 
-	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[2], 'GalleryItem');
+	list ($ret, $testItem) = GalleryCoreApi::loadEntitiesById($ids[2]);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(array('a&lt;script&gt;b',       /* title */
@@ -314,9 +310,17 @@ class ConfirmPicasaImportControllerTestUrlGenerator {
     function generateUrl($args) {
 	$buf = array();
 	foreach ($args as $key => $value) {
+	    if ($key == 'statusId') {
+		$this->_statusId = $value;
+		$value = 'STATUSID';
+	    }
 	    $buf[] = "$key=$value";
 	}
 	return join(',', $buf);
+    }
+
+    function getStatusId() {
+	return $this->_statusId;
     }
 }
 ?>

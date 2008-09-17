@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Archive Upload 1.0.7\n"
+"Project-Id-Version: Gallery: Archive Upload 1.0.6\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-07 00:01+0100\n"
 "PO-Revision-Date: 2005-05-31 17:59+0100\n"
@@ -59,11 +59,6 @@ msgstr ""
 "servidor , especifique o caminho para o mesmo na caixa de texto abaixo. Se você estiver em "
 "uma máquina UNIX, não se esqueça de tornar o binário executável (chmod 755  unzip no "
 "diretório correspondente."
-
-msgid ""
-"The exec() function is disabled in your PHP by the <b>disabled_functions</b> parameter in "
-"php.ini.  This module cannot be used until that setting is changed."
-msgstr ""
 
 msgid "Path to unzip:"
 msgstr "Caminho para o unzip:"

@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,30 +35,35 @@ class WatermarkSiteAdminEditControllerTest extends GalleryControllerTestCase {
 
     function setUp() {
 	global $gallery;
-	$ret = parent::setUp();
+	parent::setUp();
+
+	list ($ret, $this->_user) = $this->_createUser();
 	if ($ret) {
-	   return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
-	$this->_registerTestEventListener('GalleryEntity::delete', new WatermarkModule());
+	$this->_markForCleanup($this->_user);
+	$gallery->setActiveUser($this->_user);
 
 	/* Create a watermark */
 	$watermark = new WatermarkImage();
 	$ret = $watermark->create(__FILE__, 'test/file', 'phpunit_' . rand() . '.gif');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$ret = $watermark->save();
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
-	$this->_markForCleanup($watermark);
 
 	$ret = GalleryCoreApi::addUserPermission(
-	    $watermark->getId(), $gallery->getActiveUserId(), 'core.all');
+	    $watermark->getId(), $this->_user->getId(), 'core.all');
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->_watermark = $watermark;
@@ -84,7 +89,7 @@ class WatermarkSiteAdminEditControllerTest extends GalleryControllerTestCase {
 	/* Verify the watermark */
 	list ($ret, $this->_watermark) = $this->_watermark->refresh();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals('foo bar', $this->_watermark->getName());
@@ -113,7 +118,7 @@ class WatermarkSiteAdminEditControllerTest extends GalleryControllerTestCase {
 	/* Verify the watermark */
 	list ($ret, $this->_watermark) = $this->_watermark->refresh();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals('foo bar', $this->_watermark->getName());
@@ -140,7 +145,7 @@ class WatermarkSiteAdminEditControllerTest extends GalleryControllerTestCase {
 	/* Verify the watermark */
 	list ($ret, $this->_watermark) = $this->_watermark->refresh();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(1, $this->_watermark->getSerialNumber());
@@ -160,7 +165,7 @@ class WatermarkSiteAdminEditControllerTest extends GalleryControllerTestCase {
 	/* Verify the watermark */
 	list ($ret, $this->_watermark) = $this->_watermark->refresh();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals(1, $this->_watermark->getSerialNumber());
@@ -184,7 +189,7 @@ class WatermarkSiteAdminEditControllerTest extends GalleryControllerTestCase {
 	/* Verify the watermark */
 	list ($ret, $this->_watermark) = $this->_watermark->refresh();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$this->assertEquals('100', $this->_watermark->getXPercentage());
@@ -196,16 +201,16 @@ class WatermarkSiteAdminEditControllerTest extends GalleryControllerTestCase {
     }
 
     function testReplaceImageWrongType() {
-	$this->_replaceImageTest('test/blah', 'zzz');
+	$this->_replaceImageTest('test/blah');
     }
 
-    function _replaceImageTest($postMimeType, $ext='yyy') {
+    function _replaceImageTest($postMimeType) {
 	global $gallery;
 	$platform =& $gallery->getPlatform();
 
 	list ($ret, $item) = $this->_createRandomDataItem($this->_getRootId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($item);
 	list ($ret, $derivative) = $this->_createDerivative($item, $item->getId(),
@@ -213,31 +218,31 @@ class WatermarkSiteAdminEditControllerTest extends GalleryControllerTestCase {
 		array('postFilterOperations' => 'composite|plugins_data/modules/watermark/'
 		    . $this->_watermark->getFileName() . ',params'));
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	list ($ret, $derivativeFile) = $derivative->fetchPath();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	if (!GalleryUtilities::guaranteeDirExists(dirname($derivativeFile))) {
-	    return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE);
+	    return $this->failWithStatus(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE));
 	}
 	if (!$platform->copy(__FILE__, $derivativeFile)) {
-	    return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE);
+	    return $this->failWithStatus(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE));
 	}
-	$ret = GalleryCoreApi::addMimeType('yyy', 'test/file', false);
+	$ret = GalleryCoreApi::addMimeType($ext = 'ut' . rand(100, 999), 'test/file', false);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
-	$sourceFile = dirname(dirname(__FILE__)) . '/data/UserWatermarkControllerTestFile.' . $ext;
 	GalleryUtilities::putRequestVariable('watermarkId', $this->_watermark->getId());
 	GalleryUtilities::putRequestVariable('form[action][save]', 1);
 	GalleryUtilities::putRequestVariable('form[watermarkName]', $this->_watermark->getName());
 	GalleryUtilities::putRequestVariable('form[xPercentage]', '50.00');
 	GalleryUtilities::putRequestVariable('form[yPercentage]', '80.00');
 	GalleryUtilities::putRequestVariable('form[whichDerivative][thumbnail]', 'on');
-	GalleryUtilities::putRequestVariable('form[tmp_name][1]', $sourceFile);
+	GalleryUtilities::putRequestVariable('form[tmp_name][1]',
+		$sourceFile = dirname(__FILE__) . '/UserWatermarkEditControllerTest.class');
 	GalleryUtilities::putRequestVariable('form[type][1]', $postMimeType);
 	GalleryUtilities::putRequestVariable('form[name][1]', 'file.class');
 
@@ -253,15 +258,15 @@ class WatermarkSiteAdminEditControllerTest extends GalleryControllerTestCase {
 		    'error' => array('form[error][mimeType][mismatch]'));
 	$this->assertEquals($expected, $results);
 
-	$ret = GalleryCoreApi::removeMimeType(array('extension' => 'yyy'));
+	$ret = GalleryCoreApi::removeMimeType(array('extension' => $ext));
 	if ($ret) {
-	    return ($ret);
+	    $this->failWithStatus($ret);
 	}
 
 	/* Verify the watermark */
 	list ($ret, $this->_watermark) = $this->_watermark->refresh();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	$expected = ($postMimeType == 'test/file')

@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,8 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
-GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
 
 /**
  * SizeLimitOption tests
@@ -36,17 +34,15 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 
     function setUp() {
 	global $gallery;
-	$ret = parent::setUp();
-	if ($ret) {
-	   return $ret;
-	}
+	parent::setUp();
 
 	/* create custom platform to return dummy filesize, imagesize, etc. */
 	$gallery->setPlatform(new SizeLimitOptionTestPlatform($gallery->getPlatform()));
 
 	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
-	    return $ret;
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
 	}
 	$this->_markForCleanup($this->_album);
     }
@@ -54,7 +50,7 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
     function testAppropriate() {
 	list ($ret, $appropriate) = $this->_option->isAppropriate($this->_album, null);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert($appropriate, 'appropriate');
     }
@@ -68,7 +64,7 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(
 	    'module', 'sizelimit', $this->_album->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(empty($params), 'Params not empty:');
     }
@@ -84,7 +80,7 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(
 	    'module', 'sizelimit', $this->_album->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(array('height' => 1024, 'width' => 1024, 'keepOriginal' => 0), $params);
     }
@@ -101,7 +97,7 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(
 	    'module', 'sizelimit', $this->_album->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(array('height' => 768, 'width' => 768, 'keepOriginal' => 1), $params);
     }
@@ -117,7 +113,7 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(
 	    'module', 'sizelimit', $this->_album->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(array('keepOriginal' => '0',
 	    'width' => '1024', 'height' => '768'), $params);
@@ -133,7 +129,7 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(
 	    'module', 'sizelimit', $this->_album->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(array('keepOriginal' => 0, 'size' => 2000), $params);
     }
@@ -148,7 +144,7 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(
 	    'module', 'sizelimit', $this->_album->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(empty($params));
     }
@@ -164,7 +160,7 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(
 	    'module', 'sizelimit', $this->_album->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assert(empty($params));
     }
@@ -176,7 +172,7 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 
 	$ret = $this->_registerToolkit();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$platform =& $gallery->getPlatform();
 	$form['SizeLimitOption']['dimensionChoice'] = 'unlimited';
@@ -188,14 +184,14 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(
 	    'module', 'sizelimit', $this->_album->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(array('keepOriginal' => 0, 'size' => 2000), $params);
 
 	$platform->clearstatcache();
 	list ($ret, $this->_item) = $this->_item->refresh();
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(1000, $this->_item->getSize(), 'Size');
     }
@@ -208,7 +204,7 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 
 	list ($ret, $this->_childAlbum) = $this->_createRandomAlbum($this->_album->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
 	list ($error, $warning) = $this->_handleRequestAfterEdit($form, $this->_album);
@@ -218,14 +214,14 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(
 	    'module', 'sizelimit', $this->_album->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(array('keepOriginal' => 0, 'size' => 2000), $params);
 
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(
 	    'module', 'sizelimit', $this->_childAlbum->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	$this->assertEquals(array('keepOriginal' => 0, 'size' => 2000), $params);
     }
@@ -238,7 +234,7 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 	    'GalleryToolkit', 'SizeLimitOptionTestToolkit', 'SizeLimitOptionTestToolkit',
 	    'modules/sizelimit/test/phpunit/SizeLimitOptionTest.class', 'sizelimitTest', null);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 	if ($ret) {
 	    return $ret;

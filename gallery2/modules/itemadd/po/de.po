@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,22 +22,16 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Add Items 1.0.6\n"
+"Project-Id-Version: Gallery: Add Items 1.0.0\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2006-10-11 18:55+0200\n"
-"PO-Revision-Date: 2008-07-25 23:06+0100\n"
-"Last-Translator: Jens Tkotz <jens@peino.de>\n"
+"PO-Revision-Date: 2006-11-07 04:43+0100\n"
+"Last-Translator: Andy Staudacher <ast@gmx.ch>\n"
 "Language-Team: German <gallery-translations@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-msgid "Adding items"
-msgstr "Füge Elemente hinzu"
-
-msgid "Scanning directory"
-msgstr "Durchsuche Ordner"
 
 msgid "From Local Server"
 msgstr "Lokal vom Server"
@@ -71,9 +65,9 @@ msgstr "Web/Server"
 
 msgid ""
 "Transfer files that are already on your server into your Gallery.  The files must already "
-"have been uploaded to your server some other way (like FTP) and must be placed in an "
-"accessible directory.  If you're on Unix this means that the files and the directory the "
-"files are in should have modes of at least 755."
+"have been uploaded to your server some other way (like FTP) and must be placed in a "
+"directory where they are accessibly by any element on the server.  If you're on Unix this "
+"means that the files and the directory the files are in should have modes of at least 755."
 msgstr ""
 "Übertragen Sie Dateien, die schon auf dem Server liegen, in die Gallery. Die Dateien müssen "
 "bereits auf den Server hochgeladen sein (z.B. mit FTP) und in einem Verzeichnis liegen, das "

@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -134,8 +134,7 @@ class ThumbnailImage extends GalleryFileSystemEntity {
      * @param string $inputFileName the path to a data file to be contained
      * @param string $mimeType the mime type of the new item
      * @param string $targetName (optional) the desired name of the new item.
-     * @param int $parentId (optional) Id of the parent entity or null. Defaults to null.
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function create($inputFileName, $mimeType, $targetName=null, $parentId=null) {
 	GalleryCoreApi::requireOnce('modules/thumbnail/classes/ThumbnailHelper.class');
@@ -307,7 +306,7 @@ class ThumbnailImage extends GalleryFileSystemEntity {
      * a thumbnail after the removal. Restore the sourceId to the original item (if there is
      * toolkit support for that source mimeType). And pick a new highlight for AlbumItems.
      *
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function _restoreItemThumbnails() {
 	list ($ret, $derivativesTable) =
@@ -335,7 +334,7 @@ class ThumbnailImage extends GalleryFileSystemEntity {
 		continue;
 	    }
 
-	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
+	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	    if ($ret) {
 		return $ret;
 	    }
@@ -366,7 +365,7 @@ class ThumbnailImage extends GalleryFileSystemEntity {
 
 	    if (empty($operations)) {
 		/* Operations not supported.. remove the thumbnail */
-		$ret = GalleryCoreApi::deleteEntityById($derivative->getId(), 'GalleryDerivative');
+		$ret = GalleryCoreApi::deleteEntityById($derivative->getId());
 		if ($ret) {
 		    return $ret;
 		}
@@ -399,8 +398,7 @@ class ThumbnailImage extends GalleryFileSystemEntity {
     /**
      * Full path to image file
      *
-     * @return array GalleryStatus a status code,
-     *               string path
+     * @return array(object GalleryStatus a status code, string path)
      */
     function fetchPath() {
 	global $gallery;

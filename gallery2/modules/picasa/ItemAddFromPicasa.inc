@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -55,12 +55,23 @@ class ItemAddFromPicasa extends ItemAddPlugin {
 		      'tmp_name' => $form['tmp_name']['picasaZipPath'],
 		      'size' => $form['size']['picasaZipPath']);
 
-		/* Get the mime type. */
-		list ($ret, $mimeType) = GalleryCoreApi::getMimeType($file['name'], $file['type']);
-		if ($ret) {
-		    return array($ret, null, null);
-		}
+		/* Get the mime type from the upload info. */
+		$mimeType = $file['type'];
 
+		/*
+		 * If we don't get useful data from that or its a type we don't
+		 * recognize, take a swing at it using the file name.
+		 */
+		list ($ret, $mimeExtensions) =
+		    GalleryCoreApi::convertMimeToExtensions($mimeType);
+		if ($mimeType == 'application/octet-stream' ||
+			$mimeType == 'application/unknown' || empty($mimeExtensions)) {
+		    $extension = GalleryUtilities::getFileExtension($file['name']);
+		    list ($ret, $mimeType) = GalleryCoreApi::convertExtensionToMime($extension);
+		    if ($ret) {
+			$mimeType = 'application/unknown';
+		    }
+		}
 		list ($ret, $toolkit) = GalleryCoreApi::getToolkitByOperation($mimeType, 'extract');
 		if ($ret) {
 		    return array($ret, null, null);
@@ -120,7 +131,7 @@ class ItemAddFromPicasa extends ItemAddPlugin {
      *
      * @param string $picasaXmlPath the export path, integer the ID of the destination album,
      *        array the form variables
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function performImport($picasaXmlPath, $destinationAlbumId, $form) {
 	global $gallery;
@@ -209,8 +220,7 @@ class ItemAddFromPicasa extends ItemAddPlugin {
 	}
 
 	/* Try to load targeted parent */
-	list ($ret, $targetAlbumObject) =
-	    GalleryCoreApi::loadEntitiesById($destinationAlbumId, 'GalleryAlbumItem');
+	list ($ret, $targetAlbumObject) = GalleryCoreApi::loadEntitiesById($destinationAlbumId);
 	if ($ret) {
 	    return array($ret, null);
 	}

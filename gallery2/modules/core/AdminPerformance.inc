@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -78,12 +78,6 @@ class AdminPerformanceController extends GalleryController {
 		return array($ret, null);
 	    }
 
-	    $ret = GalleryCoreApi::setPluginParameter(
-		'module', 'core', 'smarty.compile_check', (int)empty($form['disableCompileCheck']));
-	    if ($ret) {
-		return array($ret, null);
-	    }
-
 	    $status['saved'] = 1;
 	    $redirect = array('view' => 'core.SiteAdmin',
 			      'subView' => 'core.AdminPerformance');
@@ -125,16 +119,12 @@ class AdminPerformanceView extends GalleryView {
 	    return array($ret, null);
 	}
 
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret) {
-	    return array($ret, null);
-	}
-
 	/* Load some standard form parameters */
 	if ($form['formName'] != 'AdminPerformance') {
 	    $form['formName'] = 'AdminPerformance';
 
-	    list ($ret, $acceleration) = $module->getParameter('acceleration');
+	    list ($ret, $acceleration) =
+		GalleryCoreApi::getPluginParameter('module', 'core', 'acceleration');
 	    if ($ret) {
 		return array($ret, null);
 	    }
@@ -149,15 +139,12 @@ class AdminPerformanceView extends GalleryView {
 		    $form['acceleration'][$class]['expiration'] = '0';
 		}
 	    }
-
-	    list ($ret, $compileCheck) = $module->getParameter('smarty.compile_check');
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	    $form['disableCompileCheck'] = !$compileCheck;
 	}
 
-	$form['disableCompileCheck'] = !empty($form['disableCompileCheck']);
+	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
+	if ($ret) {
+	    return array($ret, null);
+	}
 
 	/* Set up our type lists */
 	$typeList = array('none' => $module->translate('No acceleration'),

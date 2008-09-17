@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,7 +22,6 @@ define('G2_SUPPORT_MAX_SESSION_LIFETIME', 2 * 60 * 60);
 define('G2_SETUP_SESSION_NAME', 'G2SETUPSID');
 
 require_once(dirname(dirname(dirname(__FILE__))) . '/modules/core/classes/GalleryUtilities.class');
-require_once(dirname(dirname(dirname(__FILE__))) . '/modules/core/classes/GalleryDataCache.class');
 require_once(dirname(dirname(dirname(__FILE__))) . '/modules/core/classes/GallerySession.class');
 
 /**
@@ -197,7 +196,7 @@ class GallerySetupUtilities {
      * @static
      */
     function isSessionAuthenticated() {
-	return !empty($_SESSION['authenticated']);
+	return (!empty($_SESSION['authenticated']));
     }
 
     /**
@@ -208,13 +207,7 @@ class GallerySetupUtilities {
     function redirectBackToSelf() {
 	require_once(dirname(__FILE__) . '/../../modules/core/classes/GalleryUrlGenerator.class');
 	$urlGenerator = new GalleryUrlGenerator();
-	$url = $urlGenerator->getCurrentUrl();
-	if (GallerySetupUtilities::isSessionAuthenticated()
-		&& !GallerySetupUtilities::areCookiesSupported()) {
-	    $url = GalleryUrlGenerator::appendParamsToUrl(
-		    $url, array(session_name() => session_id()), false);
-	}
-	header('Location: ' . $url);
+	header('Location: ' . $urlGenerator->getCurrentUrl());
     }
 
     /**
@@ -284,18 +277,16 @@ class GallerySetupUtilities {
     }
 
     /**
-     * Create a downloadable text file of a specified name and contents.
-     * Sets headers appropriately.
+     * Create a downloadable file that contains the contents of the login.txt
+     * file (the authentication key).  Sets headers appropriately.
      *
-     * @param string $name the file's name
-     * @param string $contents the file's contents
      */
-    function generateTextFileForDownload($name, $contents) {
+    function generateLoginTxtFile($key) {
 	header('Content-Type: text/plain');
-	header('Content-Length: ' . strlen($contents));
-	header("Content-Description: Download $name to your computer.");
-	header("Content-Disposition: attachment; filename=$name");
-	print $contents;
+	header('Content-Length: ' . strlen($key));
+	header('Content-Description: Download login.txt to your computer.');
+	header('Content-Disposition: attachment; filename=login.txt');
+	print $key;
     }
 
     /**
@@ -365,21 +356,17 @@ class GallerySetupUtilities {
 	$remoteId = GallerySession::getRemoteIdentifier();
 	$cutoff = time() - G2_SUPPORT_MAX_SESSION_LIFETIME;
 	$configDir = GallerySetupUtilities::getConfigDir();
-	if (!empty($sessionId) && (
-		    !isset($_SESSION['_remoteId'])
-		    || GallerySession::compareIdentifiers($_SESSION['_remoteId'], $remoteId) == 0
-		    || !isset($_SESSION['_startTime']) || $_SESSION['_startTime'] < $cutoff
-		    || !isset($_SESSION['_path']) || $_SESSION['_path'] != $configDir)) {
+	if ((!isset($_SESSION['_remoteId']) ||
+	     GallerySession::compareIdentifiers($_SESSION['_remoteId'], $remoteId) == 0) ||
+	    (!isset($_SESSION['_startTime']) || $_SESSION['_startTime'] < $cutoff) ||
+	    (!isset($_SESSION['_path']) || $_SESSION['_path'] != $configDir)) {
+
 	    /*
 	     * Empty or invalid session (possibly a session fixation attack).  Get a new session
 	     * id, delete all data from this session and bless the new session.
 	     */
 	    GallerySetupUtilities::regenerateSession();
 	    session_unset();
-	    $sessionId = null;
-	}
-	if (empty($sessionId)) {
-	    /* Add session details for brand new or just-regenerated session */
 	    $_SESSION['_path'] = $configDir;
 	    $_SESSION['_remoteId'] = $remoteId;
 	    $_SESSION['_startTime'] = time();
@@ -390,7 +377,7 @@ class GallerySetupUtilities {
      * Notify the site administrator by email that there have been too many failed attempts
      * to log in with a password.
      *
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function notifySiteAdministrator() {
 	global $gallery;

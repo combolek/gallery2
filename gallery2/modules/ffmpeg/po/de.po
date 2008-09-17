@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,10 +24,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Ffmpeg 1.0.12\n"
+"Project-Id-Version: Gallery: Ffmpeg 1.0.7\n"
 "POT-Creation-Date: 2003-10-19 05:25+0200\n"
-"PO-Revision-Date: 2008-07-24 16:32+0100\n"
-"Last-Translator: Jens A. Tkotz <jens@peino.de>\n"
+"PO-Revision-Date: 2006-02-05 03:57+0000\n"
+"Last-Translator: Frederik Kunz <frederik.kunz@web.de>\n"
 "Language-Team: German <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -56,53 +56,11 @@ msgstr "Zeitversatz in Sekunden"
 msgid "Select time offset in movie file"
 msgstr "Geben Sie den Time-Offset des Filmes an."
 
-msgid "Convert to Flash Video"
-msgstr "In Flash Video konvertieren"
-
-msgid "video width in pixels"
-msgstr "Video-Breite in Pixels."
-
-msgid "video height in pixels"
-msgstr "Video-Höhe in Pixels."
-
-msgid "Set video dimensions"
-msgstr "Video-Dimensionen"
-
-msgid "frames per second"
-msgstr "Bilder pro Sekunde"
-
-msgid "Set video frames per second property"
-msgstr "Setzen Sie die Bildwiederholrate"
-
-msgid "Set same video quality"
-msgstr "Setzen Sie die gleiche Video Qualität."
-
-msgid "number of channels"
-msgstr "Anzahl der Kanäle"
-
-msgid "Set audio channels property"
-msgstr "Setzen Sie den Wert für die Audiokanäle"
-
-msgid "audio sample rate (Hz / cycles per second"
-msgstr " Audio Abtastrate (Hz / Durchlauf pro Sekunde)"
-
-msgid "Set audio rate property"
-msgstr "Setzen Sie die Audio- Abtastrate"
-
 msgid "Get the width and height of the movie"
 msgstr "Erfasse die Höhe und Breite des Filmes"
 
 msgid "Get the width, height and duration of the movie"
 msgstr "Erfasse die Höhe, Breite und Dauer des Filmes"
-
-msgid "Get video frames per seconds of the movie"
-msgstr "Ermittle Bilder pro Sekunde im Film."
-
-msgid "Get audio samples per seconds of the movie"
-msgstr "Ermittle Audiosamples pro Sekunde im Film."
-
-msgid "Get number of audio channels in movie"
-msgstr "Ermittle Anzahl der Audiokanäle im Film."
 
 msgid "FFMPEG Settings"
 msgstr "FFMPEG-Einstellungen"
@@ -126,13 +84,6 @@ msgstr ""
 "Gallery bearbeiten können. Sie müssen FFMPEG auf Ihrem Server installiert haben und den Pfad "
 "zur Installation unten angeben. Falls Sie unter Unix/Linux arbeiten, vergessen Sie nicht, "
 "die Binärdatei ausführbar zu machen (<i>chmod 755</i> im entsprechenden Ordner)"
-
-msgid ""
-"The exec() function is disabled in your PHP by the <b>disabled_functions</b> parameter in "
-"php.ini.  This module cannot be used until that setting is changed."
-msgstr ""
-"Die exec() Funktion Ihres PHPs wurde durch die Einstellung <b>disabled_function</b> in Ihrer "
-"php.ini.  Dieses Modul benötigt diese Funktion und wird ohne sie nicht funktionieren."
 
 msgid "Path to FFMPEG:"
 msgstr "Pfad zu FFMPEG:"
@@ -215,17 +166,8 @@ msgstr "Fehlermeldung:"
 msgid "Supported MIME Types"
 msgstr "Unterstützte MIME-Typen"
 
-msgid "The FFMPEG module can decode files of the following MIME types"
-msgstr "Das FFMPEG-Modul kann Dateien mit folgenden MIME-Typen dekodieren"
-
-msgid "The FFMPEG module can encode files to the following MIME types"
-msgstr "Das FFMPEG-Modul kann Dateien mit folgenden MIME-Typen kodieren"
-
-msgid "Missing required audio codec, encoded videos will not contain sound."
-msgstr "Es fehlt ein benötigter Audio-Codec fehlt. Das erzeugte Video wird keinen Ton haben."
-
-msgid "Version Information"
-msgstr "Versionsinformationen"
+msgid "The FFMPEG module can support files with the following MIME types"
+msgstr "Das FFMPEG-Modul kann Dateien mit folgenden MIME-Typen verarbeiten"
 
 #, c-format
 msgid "Debug output (%d failed test)"

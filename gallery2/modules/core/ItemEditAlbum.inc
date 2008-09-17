@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -180,8 +180,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 			return array($ret, null, null, null);
 		    }
 
-		    list ($ret, $subAlbums) =
-			GalleryCoreApi::loadEntitiesById($subAlbumIds, 'GalleryAlbumItem');
+		    list ($ret, $subAlbums) = GalleryCoreApi::loadEntitiesById($subAlbumIds);
 		    if ($ret) {
 			return array($ret, null, null, null);
 		    }
@@ -352,8 +351,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 	while (!empty($childIds)) {
 	    $currentChildIds = array_splice($childIds, 0, $batchSize);
 	    /* Load the children */
-	    list ($ret, $childItems) =
-		GalleryCoreApi::loadEntitiesById($currentChildIds, 'GalleryItem');
+	    list ($ret, $childItems) = GalleryCoreApi::loadEntitiesById($currentChildIds);
 	    if ($ret) {
 		return $ret;
 	    }
@@ -510,8 +508,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 		/* Remove any leftover resizes */
 		if  (isset($resizesTable[$childId])) {
 		    foreach ($resizesTable[$childId] as $resize) {
-			$ret = GalleryCoreApi::deleteEntityById($resize->getId(),
-								'GalleryDerivative');
+			$ret = GalleryCoreApi::deleteEntityById($resize->getId());
 			if ($ret) {
 			    return $ret;
 			}
@@ -568,8 +565,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 	while (!empty($childIds)) {
 	    $currentChildIds = array_splice($childIds, 0, $batchSize);
 	    /* Load the children */
-	    list ($ret, $childItems) =
-		GalleryCoreApi::loadEntitiesById($currentChildIds, 'GalleryItem');
+	    list ($ret, $childItems) = GalleryCoreApi::loadEntitiesById($currentChildIds);
 	    if ($ret) {
 		return $ret;
 	    }
@@ -616,8 +612,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 		    $sourceId = $thumbnail->getDerivativeSourceId();
 
 		    /* Load the source of the thumbnail */
-		    list ($ret, $source) = GalleryCoreApi::loadEntitiesById(
-			$sourceId, array('GalleryFileSystemEntity', 'GalleryDerivative'));
+		    list ($ret, $source) = GalleryCoreApi::loadEntitiesById($sourceId);
 		    if ($ret && $ret->getErrorCode() & ERROR_MISSING_OBJECT) {
 			/* Someone deleted the source image, we can only delete the thumbnail */
 			list ($ret, $lockIds[]) =

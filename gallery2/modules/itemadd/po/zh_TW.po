@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Add Items 1.0.6\n"
+"Project-Id-Version: Gallery: Add Items 1.0.0\n"
 "POT-Creation-Date: 2005-07-27 23:11-0400\n"
 "PO-Revision-Date: 2005-08-24 14:00-0400\n"
 "Last-Translator: Stephen Chu <stephen@ju-ju.com>\n"
@@ -28,15 +28,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-
-#, fuzzy
-msgid "Adding items"
-msgstr "增加項目"
-
-# msgstr[1] ""
-#, fuzzy
-msgid "Scanning directory"
-msgstr "上層目錄"
 
 msgid "From Local Server"
 msgstr "從本地伺服器"
@@ -68,12 +59,11 @@ msgstr "引進"
 msgid "Web/Server"
 msgstr "網頁或伺服器"
 
-#, fuzzy
 msgid ""
 "Transfer files that are already on your server into your Gallery.  The files must already "
-"have been uploaded to your server some other way (like FTP) and must be placed in an "
-"accessible directory.  If you're on Unix this means that the files and the directory the "
-"files are in should have modes of at least 755."
+"have been uploaded to your server some other way (like FTP) and must be placed in a "
+"directory where they are accessibly by any element on the server.  If you're on Unix this "
+"means that the files and the directory the files are in should have modes of at least 755."
 msgstr ""
 "將已儲存在你伺服器上的檔案傳輸到 Gallery 中。檔案必須已經通過其他方式（如FTP）上傳到伺服器，"
 "並放置在可由任何伺服器程式處理的目錄中。如果你使用的是UNIX系統則目錄權限至少要是755。"
@@ -209,8 +199,7 @@ msgstr "網址：%s"
 msgid "change"
 msgstr "變更"
 
-# too many plural forms
-#, fuzzy, c-format
+#, c-format
 msgid "%d url found"
 msgid_plural "%d urls found"
 msgstr[0] "找到 %d 個網址"

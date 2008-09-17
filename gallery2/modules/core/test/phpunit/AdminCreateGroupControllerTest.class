@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -101,12 +101,12 @@ class AdminCreateGroupControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $group) = GalleryCoreApi::fetchGroupByGroupName($groupName);
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
 
-	$ret = GalleryCoreApi::deleteEntityById($group->getId(), 'GalleryGroup');
+	$ret = GalleryCoreApi::deleteEntityById($group->getId());
 	if ($ret) {
-	    return $ret;
+	    return $this->failWithStatus($ret);
 	}
     }
 }

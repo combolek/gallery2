@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,9 +43,7 @@ class WebDavController extends GalleryController {
 	 * registered for this request.  Since this is the WebDAV controller, we know it is a WebDAV
 	 * request.
 	 */
-	$ret = GalleryCoreApi::registerFactoryImplementationForRequest('GalleryEventListener',
-	    'WebDavModule', 'WebDavModule', 'modules/webdav/module.inc', 'webdav', 
-	    array('Gallery::Error'));
+	$ret = GalleryCoreApi::registerEventListener('Gallery::Error', new WebDavModule(), true);
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -89,8 +87,8 @@ class WebDavController extends GalleryController {
  	GalleryUtilities::putRequestVariable('originalPath', $path);
 	$pathComponent = basename($path);
 
-	/* Special case to suppress Mac '._' and '.DS_Store files.  Ignore but return success. */
-	if (!strncmp($pathComponent, '._', 2) || $pathComponent == '.DS_Store') {
+	/* Special case to suppress Mac '._' files.  Ignore request but return success. */
+	if (!strncmp($pathComponent, '._', 2)) {
 	    WebDavServer::setResponseStatus('200 OK');
 	    $handle = WebDavServer::openRequestBody();
 	    while (!feof($handle)) {
@@ -99,14 +97,13 @@ class WebDavController extends GalleryController {
 	    return array(GalleryCoreApi::error(ERROR_BAD_PATH), null);
 	}
 
-	/* Silently legalize path component */
-	$pathComponents = preg_split('/\//', $path, -1, PREG_SPLIT_NO_EMPTY);
-	foreach ($pathComponents as $key => $pathComponent) {
-	    GalleryUtilities::unsanitizeInputValues($pathComponent);
-	    $pathComponents[$key] = $platform->legalizePathComponent($pathComponent);
-	}
-	$path = implode('/', $pathComponents);
-	GalleryUtilities::putRequestVariable('path', $path);
+ 	/* Silently legalize path component */
+ 	$pathComponents = preg_split('/\//', $path, -1, PREG_SPLIT_NO_EMPTY);
+ 	foreach ($pathComponents as $key => $pathComponent) {
+ 	    $pathComponents[$key] = $platform->legalizePathComponent($pathComponent);
+ 	}
+ 	$path = implode('/', $pathComponents);
+ 	GalleryUtilities::putRequestVariable('path', $path);
 
 	$requestMethod = GalleryUtilities::strToLower(
 	    GalleryUtilities::getServerVar('REQUEST_METHOD'));
@@ -123,7 +120,7 @@ class WebDavController extends GalleryController {
 		}
 	    }
 
-	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
+	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	    if ($ret) {
 		return array($ret, null);
 	    }
@@ -179,24 +176,6 @@ class WebDavController extends GalleryController {
      */
     function omitAuthTokenCheck() {
 	return true;
-    }
-
-    /**
-     * Overriding permissionCheck() since the WebDAV protocol needs to handle authentication
-     * differently (redirects to a HTML based login view don't work here).
-     * @see GalleryController::permissionCheck()
-     */
-    function permissionCheck($ret) {
-	if ($ret) {
-	    list ($ret2, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
-	    if ($ret2) {
-		return array($ret, null);
-	    }
-	    if (!$isAdmin && ($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
-		$ret->addErrorCode(ERROR_PERMISSION_DENIED);
-	    }
-	}
-	return array($ret, null);
     }
 }
 

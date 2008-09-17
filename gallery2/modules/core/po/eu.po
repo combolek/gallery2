@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,47 +16,24 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
-# Piarres Beobide <pi@beobide.net>, 2005, 2007.
+# Piarres Beobide <pi@beobide.net>, 2005.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Core 1.2.36\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-10-31 14:44+0100\n"
-"PO-Revision-Date: 2007-06-26 12:36+0200\n"
+"Project-Id-Version: Gallery: Core 1.2.0.3\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-06-07 09:29-0700\n"
+"PO-Revision-Date: 2007-03-14 14:45+0100\n"
 "Last-Translator: Piarres Beobide <pi@beobide.net>\n"
-"Language-Team: Euskara <Librezale@librezale.org>\n"
+"Language-Team: librezale.org <librezale@librezale.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Pootle 0.6.3.20060126\n"
 
 msgid "Gallery Email Test"
 msgstr "Gallery ePosta Proba"
-
-#, c-format
-msgid "%d minute"
-msgid_plural "%d minutes"
-msgstr[0] "minutu %d"
-msgstr[1] "%d minutu"
-
-#, c-format
-msgid "%d hour"
-msgid_plural "%d hours"
-msgstr[0] "ordu %d"
-msgstr[1] "%d ordu"
-
-#, c-format
-msgid "%d day"
-msgid_plural "%d days"
-msgstr[0] "egun %d"
-msgstr[1] "%d egun"
-
-#, c-format
-msgid "%d week"
-msgid_plural "%d weeks"
-msgstr[0] "aste %d"
-msgstr[1] "%d aste"
 
 msgid "forever"
 msgstr "betiko"
@@ -82,31 +59,32 @@ msgstr "Datu-basea"
 msgid "File"
 msgstr "Fitxategia"
 
-msgid "&lt;none&gt;"
-msgstr "&lt;bat ere ez&gt;"
-
-msgid "Link"
-msgstr "Lotu"
+#, c-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] "minutu %d"
+msgstr[1] "%d minutu"
 
 #, c-format
-msgid "Page %d of %d"
-msgstr "%d orrialde %d-tik"
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] "ordu %d"
+msgstr[1] "%d ordu"
 
-#, fuzzy
-msgid "Updating Language Settings"
-msgstr "Hizkuntza Ezarpenak"
+#, c-format
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] "egun %d"
+msgstr[1] "%d egun"
 
-msgid "Update completed with errors."
-msgstr "Eguneraketa erroreekin burutu da."
+#, c-format
+msgid "%d week"
+msgid_plural "%d weeks"
+msgstr[0] "aste %d"
+msgstr[1] "%d aste"
 
-msgid "Update complete."
-msgstr "Egunerakea burutua"
-
-msgid "Deleting Language Packs"
-msgstr "Hizkuntza Paketeak Ezabatzen"
-
-msgid "Synchronizing Language Packs"
-msgstr "Hizkuntza Paketeak Sinkronizatzen"
+msgid "<none>"
+msgstr "<bat ere ez>"
 
 msgid "No acceleration"
 msgstr "Azeleraziorik ez"
@@ -119,6 +97,47 @@ msgstr "Azelerazio osoa"
 
 msgid "Themes"
 msgstr "Gaiak"
+
+#, fuzzy
+msgid "Updating Repository Index"
+msgstr "Indizea eguneratu"
+
+msgid "Scanning plugins"
+msgstr ""
+
+#, fuzzy
+msgid "Update Plugin List"
+msgstr "Plugin Guztiak Eguneratu"
+
+msgid "Done."
+msgstr "Eginda."
+
+msgid "Updating Packages"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "Preparing %s"
+msgstr "Prozesatzen..."
+
+#, c-format
+msgid "Downloading %s"
+msgstr "%s deskargatzen"
+
+#, fuzzy, c-format
+msgid "Activating %s"
+msgstr "Ekintzak"
+
+#, fuzzy
+msgid "Deleting Language Packs"
+msgstr "Lehenetsiriko hizkuntza"
+
+#, fuzzy
+msgid "Update completed with errors."
+msgstr "Igoera burutua"
+
+#, fuzzy
+msgid "Update complete."
+msgstr "Igoera burutua"
 
 msgid "install"
 msgstr "instalatu"
@@ -141,11 +160,11 @@ msgstr "Erabili direktorio gurasoaren ezarpenak"
 msgid "Use these settings"
 msgstr "Ezarpen hauek erabili"
 
-msgid "Converting Schema Table"
-msgstr ""
-
 msgid "Installing the core module"
 msgstr "Muin modulua instalatzen"
+
+msgid "key"
+msgstr "gakoa"
 
 msgid "All access"
 msgstr "Sarrera denak"
@@ -180,10 +199,6 @@ msgstr "[muina] Elementua ezabatu"
 msgid "Upgrading permissions"
 msgstr "Baimenak eguneratzen"
 
-#, c-format
-msgid "Upgrading permissions (%d items complete, %d remaining)"
-msgstr "Baimenak eguneratzen (%d elementu buruturik, %d falta dira)"
-
 msgid "Deleting old permission tables"
 msgstr "Baimen taula zaharrak ezabatzen"
 
@@ -196,49 +211,23 @@ msgstr "Erabiltzaile guztiak"
 msgid "Detecting broken derivatives"
 msgstr "Hautsitako eratorriak atzematen"
 
-#, c-format
-msgid "Detecting broken derivatives, loading (%d derivatives checked, %d remaining)"
-msgstr ""
-"Apurturiko eraldaketak aurkitu dira, kargatzen (%d eraldaketa egiaztaturik, %d falta dira)"
-
-#, c-format
-msgid "Detecting broken derivatives (%d derivatives checked, %d remaining)"
-msgstr "Apurturiko eraldaketak aurkitu dira (%d eraldaketa egiaztaturik, %d falta dira)"
-
-#, c-format
-msgid "Detecting broken derivatives, saving (%d derivatives checked, %d remaining)"
-msgstr ""
-"Apurturiko eraldaketak aurkitu dira, gordetzen (%d eraldaketa egiaztaturik, %d falta dira)"
-
-#, c-format
-msgid ""
-"Detecting broken derivatives, saving item %d of %d (%d derivatives complete, %d remaining)"
-msgstr ""
-"Apurturiko eraldaketak aurkitu dira, %d elementua gordetzen %d-tik (%d eraldaketa "
-"egiaztaturik, %d falta dira)"
-
 msgid "Clearing fast-download cache"
 msgstr "Deskarga-azkar katxea garbitzen"
 
 msgid "Deleting old fast-download cache"
 msgstr "Deskarga-azkar katxea garbitzen"
 
-#, c-format
-msgid "Deleting old session files (iteration %d)"
-msgstr "Saio fitxategi zaharrak ezabatzen (%d iterazioa)"
-
 msgid "Updating panorama items"
-msgstr "Panorama elementuak eguneratzen"
+msgstr ""
 
 msgid "Optimizing AccessSubscriberMap table"
-msgstr "AccessSubscriberMap taula optimizatzen"
+msgstr ""
 
-msgid "Upgrading Plugin Translations"
-msgstr "Plugin Itzulpenak Eguneratzen"
+msgid "Converting Schema Table"
+msgstr ""
 
-#, fuzzy
-msgid "Creating Package Map"
-msgstr "Paketeak Eguneratzen"
+msgid "Loading Table Descriptions"
+msgstr ""
 
 msgid "Site Admins"
 msgstr "Gune Kudeatzaileak"
@@ -258,16 +247,30 @@ msgstr "Hau zure galeriaren orrialde nagusia da"
 msgid "Converting MySQL data to UTF8"
 msgstr "MySQL datuak UTF-8 bihurtzen"
 
-#, fuzzy
-msgid "Adding items"
-msgstr "elementuak gehitu"
+#, c-format
+msgid "Upgrading permissions (%d items complete, %d remaining)"
+msgstr "Baimenak eguneratzen (%d elementu buruturik, %d falta dira)"
 
-#, fuzzy
-msgid "Processing items"
-msgstr "%d elementua prozesatzen %d-tik"
+#, fuzzy, c-format
+msgid "Detecting broken derivatives, loading (%d derivatives checked, %d remaining)"
+msgstr "Hautsitako eratorriak atzematen, kargatzen "
 
-msgid "Extracting archive"
-msgstr ""
+#, fuzzy, c-format
+msgid "Detecting broken derivatives (%d derivatives checked, %d remaining)"
+msgstr "Hautsitako eratorriak atzematen, gordetzen "
+
+#, fuzzy, c-format
+msgid "Detecting broken derivatives, saving (%d derivatives checked, %d remaining)"
+msgstr "Hautsitako eratorriak atzematen, gordetzen "
+
+#, fuzzy, c-format
+msgid ""
+"Detecting broken derivatives, saving item %d of %d (%d derivatives complete, %d remaining)"
+msgstr "Baimenak eguneratzen (%d elementu buruturik, %d falta dira)"
+
+#, c-format
+msgid "Deleting old session files (iteration %d)"
+msgstr "Saio fitxategi zaharrak ezabatzen (%d iterazioa)"
 
 msgid "add items"
 msgstr "elementuak gehitu"
@@ -281,21 +284,17 @@ msgstr "azpi-albuma gehitu"
 msgid "add items confirmation"
 msgstr "elementu berrespena gehitu"
 
-#, c-format
-msgid "Input file %s exceeds maximum permitted file size"
-msgstr "%s sarrera fitxategiak baimenduriko fitxategi tamaina muga gainditzen du"
+msgid "Base filename"
+msgstr "Oinarri fitxategi-izena"
 
-#, c-format
-msgid "Input file %s exceeds file size specified in the form"
-msgstr "%s sarrera fitxategiak inprimakiaren fitxategi tamaina muga gainditzen du"
+msgid "Caption"
+msgstr "Epigrafea"
 
-#, c-format
-msgid "Input file %s was only partially uploaded"
-msgstr "%s sarrera fitxategiak erdizka igoa izan da"
+msgid "Blank"
+msgstr "Hutsa"
 
-#, c-format
-msgid "Input file %s was not uploaded. Error %d"
-msgstr "%s sarrera fitxategiak ez da igo. %d errorea"
+msgid "From Web Browser"
+msgstr "Web Nabigatzailetik"
 
 #, c-format
 msgid "%d megabyte"
@@ -309,23 +308,34 @@ msgid_plural "%d kilobytes"
 msgstr[0] "kilobyte %d"
 msgstr[1] "%d kilobyte"
 
-msgid "Base filename"
-msgstr "Oinarri fitxategi izena"
+#, c-format
+msgid "Input file %s exceeds maximum permitted file size"
+msgstr ""
 
-msgid "Caption"
-msgstr "Epigrafea"
+#, c-format
+msgid "Input file %s exceeds file size specified in the form"
+msgstr ""
 
-msgid "Blank"
-msgstr "Hutsa"
+#, c-format
+msgid "Input file %s was only partially uploaded"
+msgstr ""
 
-msgid "From Web Browser"
-msgstr "Web Nabigatzailetik"
+#, c-format
+msgid "Input file %s was not uploaded. Error %d"
+msgstr ""
 
 msgid "Gallery Item Administration"
 msgstr "Galeria elementu kudeaketa"
 
 msgid "delete an item"
 msgstr "elementua ezabatu"
+
+msgid "delete confirmation"
+msgstr "ezabatze berrespena"
+
+#, c-format
+msgid "delete %s"
+msgstr "%s ezabatu"
 
 #, c-format
 msgid "edit %s"
@@ -334,24 +344,26 @@ msgstr "%s editatu"
 msgid "Settings saved successfully."
 msgstr "Ezarpenak behar bezala gorde dira."
 
+#, fuzzy
 msgid "Apply resized image settings"
-msgstr "Tamainaz aldaturiko irudi ezarpenak ezarri"
+msgstr "Gai ezarpenak berreskuraturik"
 
+#, fuzzy
 msgid "Preparing..."
-msgstr "Prestatzen..."
-
-#, c-format
-msgid "Processing image %d of %d"
-msgstr "%d irudia prozesatzen %d iruditik"
+msgstr "Prozesatzen..."
 
 msgid "Apply thumbnail settings"
-msgstr "Argazkitxo ezarpenak ezarri"
+msgstr ""
 
 msgid "Rebuilding thumbnails..."
 msgstr "Argazkitxoak birsortzen..."
 
 msgid "Album"
 msgstr "Albuma"
+
+#, c-format
+msgid "Processing image %d of %d"
+msgstr "%d irudia prozesatzen %d iruditik"
 
 msgid "Changes saved successfully"
 msgstr "Aldaketak behar bezala gorde dira"
@@ -425,8 +437,9 @@ msgstr "Argazkia behar bezala eskalatu da"
 msgid "Modify Photo"
 msgstr "Argazkia Eraldatu"
 
+#, fuzzy
 msgid "Successfully changed theme"
-msgstr "Gaia behar bezala aldatu da"
+msgstr "%s gaia behar bezala gaitu da"
 
 msgid "&laquo; default theme &raquo;"
 msgstr "&laquo; lehenetsitako gaia &raquo;"
@@ -490,10 +503,6 @@ msgstr "Argazkia Editatu"
 msgid "Edit Movie"
 msgstr "Pelikula Editatu"
 
-#, c-format
-msgid "Edit %s"
-msgstr "%s editatu"
-
 msgid "Add Album"
 msgstr "Albuma Gehitu"
 
@@ -512,10 +521,6 @@ msgstr "Argazkia Ezabatu"
 msgid "Delete Movie"
 msgstr "Pelikula Ezabatu"
 
-#, c-format
-msgid "Delete %s"
-msgstr "%s ezabatu"
-
 msgid "Move Album"
 msgstr "Albuma lekuz aldatu"
 
@@ -525,10 +530,6 @@ msgstr "Argazkia lekuz aldatu"
 msgid "Move Movie"
 msgstr "Pelikula Lekuz aldatu"
 
-#, c-format
-msgid "Move %s"
-msgstr "%s lekuz aldatu"
-
 msgid "Edit Captions"
 msgstr "Epigrafeak Editatu"
 
@@ -537,9 +538,6 @@ msgstr "Nabarmendu"
 
 msgid "Reorder Items"
 msgstr "Elementuak berriz ordenatu"
-
-msgid "Delete Items"
-msgstr "Elementuak Ezabatu"
 
 msgid "Site Admin"
 msgstr "Gune Kudeaketa"
@@ -554,7 +552,7 @@ msgid "Logout"
 msgstr "Saioa amaitu"
 
 msgid "Plugins"
-msgstr "Pluginak"
+msgstr "Plugin-ak"
 
 msgid "Users"
 msgstr "Erabiltzaileak"
@@ -565,17 +563,11 @@ msgstr "Taldeak"
 msgid "Performance"
 msgstr "Performantzia"
 
-msgid "Event Logs"
-msgstr "Gertaera erregistroak"
-
-msgid "Language Settings"
-msgstr "Hizkuntza Ezarpenak"
-
 msgid "Toolkit Priority"
-msgstr "Tresnajoko lehentasuna"
+msgstr "Tresna-joko lehentasuna"
 
 msgid "Graphics Toolkits"
-msgstr "Tresnajoko Grafikoak"
+msgstr "Tresna-joko Grafikoak"
 
 msgid "Account Settings"
 msgstr "Kontu ezarpenak"
@@ -583,28 +575,17 @@ msgstr "Kontu ezarpenak"
 msgid "Change Password"
 msgstr "Aldatu pasahitza"
 
-msgid "Updating Packages"
-msgstr "Paketeak Eguneratzen"
+#, c-format
+msgid "Edit %s"
+msgstr "%s editatu"
 
 #, c-format
-msgid "Cleaning up obsolete files %s"
-msgstr ""
+msgid "Delete %s"
+msgstr "%s ezabatu"
 
 #, c-format
-msgid "Activating %s"
-msgstr "%s Aktibatzen"
-
-msgid "Updating Repository Index"
-msgstr "Errepositorio Indizea Eguneratu"
-
-msgid "Scanning plugins"
-msgstr "Pluginak Arakatzen"
-
-msgid "Update Plugin List"
-msgstr "Plugin Zerrenda Eguneratu"
-
-msgid "Done."
-msgstr "Eginda."
+msgid "Move %s"
+msgstr "%s lekuz aldatu"
 
 msgid "Build all thumbnails/resizes"
 msgstr "Argazkitxo/tamaina ezberdin guztiak sortu"
@@ -619,6 +600,9 @@ msgstr ""
 msgid "Build All Thumbnails/Resizes"
 msgstr "Argazkitxo/Tamaina aldaketa guztiak sortu"
 
+msgid "Debug output for failed items:"
+msgstr "Huts egin duten elementuen arazpen irteera:"
+
 #, c-format
 msgid "Checked %d items"
 msgstr "%d elementu egiazturik"
@@ -631,11 +615,9 @@ msgstr "%d elementu eginak"
 msgid "%d items failed"
 msgstr "%d elementuk huts egin dute"
 
-msgid "Debug output for failed items:"
-msgstr "Huts egin duten elementuen arazpen irteera:"
-
+#, fuzzy
 msgid "Convert MySQL database to UTF8"
-msgstr "MySQL datuak UTF-8 bihurtu"
+msgstr "MySQL datuak UTF-8 bihurtzen"
 
 msgid ""
 "If you created your database with MySQL 3.x and you upgrade to MySQL 4.x, you will "
@@ -644,43 +626,12 @@ msgid ""
 "After using this, you should run the 'Delete database cache' task to get rid of any "
 "corruption in your cache."
 msgstr ""
-"Zure Datubasea MySQL 3.x erabiliaz sortu bazenuen eta MySQL 4.x-ra bertsio berritzen baduzu, "
-"datubasea UTF-8 erabiltzeko moldatu arte hondaturiko karaktereak ikusi ditzakezu. Ekintza "
-"hau arrisku gabea da dagoeneko datubasea moldatu baduzu, beraz ziurra da berau egitea ziur "
-"ez bazaude. Hau erabili ostean, 'Datubase katxea ezabatu' zeregina abiarazi beharko zenuke "
-"katxean egon litezken hondaturiko gauzak ezabatzeko."
 
+#, fuzzy
 msgid "Database successfully converted to UTF8"
-msgstr "Datubasea behar bezala UTF-8 bihurtu da"
+msgstr "Elementua behar bezala ezabatu da"
 
 msgid "No conversion required"
-msgstr "Ez da moldatzerik behar"
-
-#, fuzzy
-msgid "Backup the database"
-msgstr "Datu-basea optimizatu"
-
-msgid ""
-"Backup all your Gallery data (item data, users, comments, etc.) to a single file in your "
-"storage folder.  The backup does not include the image files.  Before running the backup, "
-"your Gallery installation needs to be set into maintenance mode, as this is not done "
-"automatically."
-msgstr ""
-
-msgid "Backing up Gallery Database"
-msgstr ""
-
-#, fuzzy
-msgid "Exporting..."
-msgstr "Prestatzen..."
-
-#, c-format
-msgid "Database backup completed and the backup file is located at: %s"
-msgstr ""
-
-msgid ""
-"Please note that your backup contains sensitive data (like passwords) and should not be "
-"stored online! We recommend that you download it from your server and keep it safely offline."
 msgstr ""
 
 msgid "Delete user sessions"
@@ -690,9 +641,9 @@ msgid ""
 "Delete all persistent user sessions according to your current session expiration settings."
 msgstr "Zure saio iraungitze ezarpenen arabera erabiltzaile saioa iraunkor guztiak ezabatu."
 
-#, c-format
+#, fuzzy, c-format
 msgid "Deleted %d sessions."
-msgstr "%d saio ezabaturik"
+msgstr "Erabiltzaile saioak ezabatu"
 
 msgid "Delete database cache"
 msgstr "Datu-base katxea ezabatu"
@@ -702,13 +653,13 @@ msgid ""
 "modify the database directly, you should run this task to clean out the cache and force "
 "Gallery to reload the information from the database."
 msgstr ""
-"Gallery-k performantzia hobetzeko gehien erabilitako datu-base informazioa diskoan gordetzen "
+"Gallery-k performatzia hobetzeko gehien erabilitako datu-base informazioa diskan gordetzen "
 "du. Zuk datu-basea zuzenean eraldatu ezkero ataza hau abiarazi behar duzu katxea garbitu eta "
 "Gallery informazioa datu-basetik irakurtzea behartzeko."
 
 #, c-format
 msgid "Successfully deleted directory: %s"
-msgstr "Direktorioa behar bezala ezabatu da: %s"
+msgstr "Direktorioa behar bezala ezabtu da: %s"
 
 #, c-format
 msgid "Unable to delete directory: %s"
@@ -720,12 +671,12 @@ msgstr "Ezabatu txantiloi katxea"
 msgid ""
 "Gallery compiles template files and saves them for increased performance.  If you're "
 "experiencing problems that say <i>Smarty error</i> then you might try running this task.  "
-"Also run this if you add or remove any local/*.tpl or theme override so Smarty will find the "
-"right file."
+"Also run this if you remove a local/*.tpl file so Smarty will switch back to the default tpl "
+"file."
 msgstr ""
 "Galleryk txantiloi fitxategiak konpilatu eta gorde egiten ditu performantzia hobetzeko. Zuk "
-"<i>Abiadura erroreak</i> ematen duten arazoak izan ezkero zeregin hau abiarazi beharko "
-"zenuke. Hau abiaraziaz ere local/*..tpl fitxategia ezabatu baduzu, honek lehenetsiriko tpl "
+"<i>Abiadura erroreak</i> ematen duten arazoak izan ezkero ataza hau abiarazi beharko zenuke. "
+"Hau abiarazi ere zuk local/*..tpl fitxategia ezabatu baduzu, honek lehenetsiriko tpl "
 "fitxategia berrezarriko bait du."
 
 msgid "Template cache deleted successfully"
@@ -773,11 +724,13 @@ msgstr "Titulua"
 msgid "Owner"
 msgstr "Jabea"
 
+#, fuzzy
 msgid "Dynamic Album"
-msgstr "Album Dinamikoa"
+msgstr "Albuma Editatu"
 
+#, fuzzy
 msgid "dynamic album"
-msgstr "album dinamikoa"
+msgstr "Albuma Editatu"
 
 msgid "Group"
 msgstr "Taldea"
@@ -806,22 +759,16 @@ msgstr ""
 "Ezinda katxe azpidirektorioa sortu. Ziurtatu zaitez web zerbitzariak bertan idazteko baimena "
 "duela."
 
-#, c-format
-msgid "Preparing %s"
-msgstr "%s Prestatzen"
-
-#, c-format
-msgid "Downloading %s"
-msgstr "%s deskargatzen"
-
 msgid "Official Release Repository"
-msgstr "Bertsio Errepositorio Ofiziala"
+msgstr ""
 
+#, fuzzy
 msgid "Experimental Repository"
-msgstr "Errepositorio Esperimentala"
+msgstr "Errepositorioa"
 
+#, fuzzy
 msgid "Community Repository"
-msgstr "Komunitate Errepositorioa"
+msgstr "Errepositorioa"
 
 #, c-format
 msgid "Error downloading index from '%s'."
@@ -829,7 +776,7 @@ msgstr "Errorea indizea '%s'-tik deskargatzerakoan."
 
 #, c-format
 msgid "Error downloading index hash from '%s'."
-msgstr "Errorea '%s'-tik indize egiaztapen deskargatzerakoan."
+msgstr "Erroea '%s'-tik indize egiaztapen deskargatzerakoan."
 
 msgid "Index integrity check failed."
 msgstr "Indize osotasun egiaztapenak huts egin du."
@@ -859,7 +806,7 @@ msgid "Random"
 msgstr "Ausazkoa"
 
 msgid "&laquo; no presort &raquo;"
-msgstr "&laquo; aurre-sailkapenik ez&raquo;"
+msgstr "&laquo; aurres-sailkapenik ez&raquo;"
 
 msgid "Albums First"
 msgstr "Albumak Lehenik"
@@ -873,10 +820,6 @@ msgstr "Gorantz"
 msgid "Descending"
 msgstr "Beherantz"
 
-#, c-format
-msgid "Powered by Gallery v%s"
-msgstr "Gallery %s v erabiliaz"
-
 msgid "Validation disabled until you set allowSessionAccess in config.php"
 msgstr "Egiaztapena ezgaiturik config.php fitxategian allowSessionAccess ezarri arte"
 
@@ -885,6 +828,13 @@ msgstr "Orrialde hau XHTML 1.0 baliozkoa da"
 
 msgid "Donate to the Gallery project"
 msgstr "Gallery proiektuari dohaintza egin"
+
+msgid "G2.2: Double Double"
+msgstr ""
+
+#, c-format
+msgid "Powered by Gallery v%s"
+msgstr ""
 
 #, c-format
 msgid "Estimated time remaining: %d:%02d"
@@ -916,7 +866,7 @@ msgid "Show album owners"
 msgstr "Erakutsi album jabeak"
 
 msgid "Show micro navigation thumbnails"
-msgstr "Mikro nabigatze argazkitxoak bistarazi"
+msgstr "Mikro-nabigatze argazkitxoak bistarazi"
 
 msgid "Blocks to show in the sidebar"
 msgstr "Alboko barran erakutsiko diren blokeak"
@@ -927,17 +877,19 @@ msgstr "Album orrialdetan erakutsiko diren blokeak"
 msgid "Blocks to show on photo pages"
 msgstr "Argazki orrialdetan erakutsiko diren blokeak"
 
+#, fuzzy
 msgid "Thumbnail links in dynamic albums"
-msgstr "Argazkitxo loturak album dinamikoetan"
+msgstr "Argazkitxo tamaina hau erabili azpi-album guztietan"
 
+#, fuzzy
 msgid "Browse dynamic album"
-msgstr "Album dinamikoa arakatu"
+msgstr "Albuma Editatu"
 
 msgid "Jump to original album"
-msgstr "Jatorrizko albumera joan"
+msgstr ""
 
 msgid "Separate link to original album"
-msgstr "Bereiziriko lotura jatorrizko albumera"
+msgstr ""
 
 msgid "View Samples"
 msgstr "AdibideakIkusi"
@@ -959,7 +911,6 @@ msgstr "0 baino zenbaki handiago bat idatzi behar duzu"
 
 msgid "Error reading block settings. Clear your browser cache and try again."
 msgstr ""
-"Errorea bloke ezarpenak irakurtzerakoan. Nabigatzaile katxea ezabatu eta berriz saiatu."
 
 #, c-format
 msgid "%dx%d"
@@ -984,13 +935,20 @@ msgid "document"
 msgstr "dokumentua"
 
 msgid "Spreadsheet"
-msgstr "Kalkulu orria"
+msgstr "Kalkulu-orria"
 
 msgid "spreadsheet"
-msgstr "kalkulu orria"
+msgstr "kalkulu-orria"
 
 msgid "file"
 msgstr "fitxategia"
+
+msgid "Back"
+msgstr "Atzera"
+
+#, c-format
+msgid "Back to %s"
+msgstr "%s-(e)ra Atzera"
 
 msgid "User"
 msgstr "Erabiltzailea"
@@ -1006,9 +964,9 @@ msgid ""
 "you're using, but this routine maintenance will make your Gallery run faster.  Especially "
 "useful after adding or deleting many items."
 msgstr ""
-"Zure datu-basearen performantzia hobetu.  Emaitzak erabiltzen ari zaren datu-basearen "
-"arabera alda daitezke, baina mantenu zeregin honek zure Galeria azkarrago ibiltzea egin "
-"dezake.  Elementu asko ezabatu edo gehitzerakoan batezere erabilgarria."
+"Zure datu-basearen performantzia hobetu.  Emaitzak erabiltzen ari datu-basearen arabera alda "
+"daitezke, baina mantenu oihutar honek zure Galeria azkarrago ibiltzea egin dezake.  Elementu "
+"asko ezabatu edo gehitzerakoan batezere erabilgarria."
 
 msgid "Database optimized successfully"
 msgstr "Datu-basea behar bezala optimizatu da"
@@ -1021,7 +979,7 @@ msgid ""
 "cache as well."
 msgstr ""
 "Album eta elementu guztien ikuspen kontua zerora berezarri.  Ataza honek datu-base katxea "
-"ere garbitzen du."
+"ere garboitzen du."
 
 msgid "View counts reset successfully"
 msgstr "Ikuste kopuruak behar bezala ezabatu dira"
@@ -1034,7 +992,7 @@ msgid ""
 "data file (usually from EXIF data)."
 msgstr ""
 "Eguneratu eskuratze Galerian gorderiko data jatorrizko datu fitxategian data duten elementu "
-"guztientzat (normalean EXIF datuetatik)."
+"guztientzat (normalean EXIF datuetik)."
 
 msgid "Processing..."
 msgstr "Prozesatzen..."
@@ -1054,21 +1012,13 @@ msgid "System information"
 msgstr "Sistema informazioa"
 
 msgid "Get system details; useful for copy/paste into G2 support forum."
-msgstr "Sistema xehetasunak eskuratu; G2 laguntza foroan kopiatu/itsatsi egiteko erabilgarria."
+msgstr "Sistema xehetasunak eskuratu; G2 laguntza foroan kopiatu/itsasi egiteko erabilgarria."
 
 msgid "core"
 msgstr "muina"
 
 msgid "unknown"
 msgstr "ezezaguna"
-
-#, c-format
-msgid "API = Core %s, Module %s, Theme %s, Embed %s"
-msgstr "API = %s Muina, %s Modulua, %s Gaia, %s Txeraturik"
-
-#, fuzzy
-msgid "Gallery URL"
-msgstr "Galeria"
 
 msgid "Gallery version"
 msgstr "Gallery bertsioa"
@@ -1080,7 +1030,7 @@ msgid "Webserver"
 msgstr "Web zerbitzaria"
 
 msgid "Toolkits"
-msgstr "Tresnajokoak"
+msgstr "Tresna-jokoak"
 
 msgid "Acceleration"
 msgstr "Azelerazioa"
@@ -1094,8 +1044,9 @@ msgstr "Gai lehenetsia"
 msgid "gettext"
 msgstr "gettext"
 
+#, fuzzy
 msgid "enabled"
-msgstr "gaiturik"
+msgstr "ezgaitua"
 
 msgid "disabled"
 msgstr "ezgaitua"
@@ -1108,65 +1059,6 @@ msgstr "Nabigatzailea"
 
 #, c-format
 msgid "Rows in %s table = %d"
-msgstr "Lerri %s taulan = %d"
-
-#, c-format
-msgid "The %s \"%s\" is not installed and will not be backed up."
-msgstr ""
-
-#, c-format
-msgid "\"%s\" has no creation sql and will not be backed up."
-msgstr ""
-
-#, c-format
-msgid "Unable to load table description for \"%s\", no data will be exported."
-msgstr ""
-
-msgid ""
-"Unable to find the XML parser.  The PHP XML parsing extension must be loaded.  Terminating "
-"database import."
-msgstr ""
-
-#, c-format
-msgid "The exported file is not the correct version. Expecting %s received %s."
-msgstr ""
-
-#, fuzzy, c-format
-msgid "Unable to close import file: %s"
-msgstr "Ezin da direktorioa ezabatu: %s"
-
-#, fuzzy, c-format
-msgid "Unable to open import file: %s"
-msgstr "Ezin da direktorioa ezabatu: %s"
-
-#, c-format
-msgid "Import file doesn't exist: %s"
-msgstr ""
-
-#, c-format
-msgid "Plugin %s is not currently available."
-msgstr ""
-
-#, c-format
-msgid "The available version of plugin \"%s\" may not be compatible with the imported version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The currently installed core API version required by \"%s\" may not be compatible with the "
-"imported version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The installed module API version required by \"%s\" may not be compatible with the imported "
-"version."
-msgstr ""
-
-#, c-format
-msgid ""
-"The installed theme API version required by \"%s\" is not compatible with the imported "
-"version."
 msgstr ""
 
 msgid "Successfully saved theme settings"
@@ -1192,6 +1084,34 @@ msgstr "Errore bat gertatu da zure eskakizuna prozesatzerakoan, xehetasun gehiag
 
 msgid "Error sending test email, see below for details."
 msgstr "Huts proba eposta bidaltzerakoan, ikusi xehetasunak behean."
+
+msgid "Language Settings"
+msgstr "Hizkuntza Ezarpenak"
+
+msgid ""
+"Select language defaults for Gallery. Individual users can override this setting in their "
+"personal preferences or via the language selector block if available. Gallery will try to "
+"automatically detect the language preference of each user if the browser preference check is "
+"enabled."
+msgstr ""
+"Galeriaren lehenetsiriko hizkuntza ezarri. Banakako erabiltzaileek ezarpen hau gainidatzi "
+"ditzakete ezarpen pertsonaletan erabilgarri egon ezkero hizkuntza aukeratzailearen bidez. "
+"Nabigatzailean hizkuntza hobespenak ezarririk badaude Gallery hauek automatikoki atzematen "
+"saiatuko da."
+
+msgid "Default language"
+msgstr "Lehenetsiriko hizkuntza"
+
+msgid "Check Browser Preference"
+msgstr "Nabigatzaile Hobespenak Arakatu"
+
+#, c-format
+msgid ""
+"Your webserver does not support localization.  Please instruct your system administrator to "
+"reconfigure PHP with the %s option enabled."
+msgstr ""
+"Zure web zerbitzariak ez du lokalizazio hau onartzen. Mesedez eskatu sistema kudeatzaileari %"
+"s aukera gaituaz PHP berkonfiguratzeko."
 
 msgid "Date Formats"
 msgstr "Data Formatuak"
@@ -1225,7 +1145,7 @@ msgid "Date/Time"
 msgstr "Data/Ordua"
 
 msgid "Filesystem Permissions"
-msgstr "Fitxategi Sistema Baimenak"
+msgstr "Fitxategi-sistema Baimenak"
 
 msgid ""
 "Specify the default permissions for files and directories that Gallery creates. This doesn't "
@@ -1247,11 +1167,7 @@ msgid "Session Lifetime"
 msgstr "Saio iraungitzea"
 
 msgid "Inactivity Timeout"
-msgstr "Denbora muga"
-
-#, fuzzy
-msgid "Site Administration Session Timeout"
-msgstr "Gallery Gune Kudeaketa"
+msgstr "Denbora-muga"
 
 msgid "Embedded Markup"
 msgstr "Barneratutako markatzea"
@@ -1287,7 +1203,7 @@ msgid "Server"
 msgstr "Zerbitzaria"
 
 msgid "Username"
-msgstr "Erabiltzaile izena"
+msgstr "Erabiltzaile-izena"
 
 msgid "Password"
 msgstr "Pasahitza"
@@ -1319,7 +1235,7 @@ msgid ""
 "the choice between two options. Everyone else does not have to care about the cookie "
 "settings. Read on for more details."
 msgstr ""
-"Gallery beste aplikazio batetan barneratzena (portala, CMS, foroa, etab) bi aukeren artean "
+"Gallery beste aplikazio batetan barneratzena (protala, CMS, foroa, etab) bi aukeren artean "
 "hautatu behar duzu. Besteak cookie ezarpenetaz ez dira arduratu behar. Hemen irakurri "
 "argibide gehiagorako."
 
@@ -1343,7 +1259,7 @@ msgstr ""
 "barneratutako aplikazioaren ElementuDeskargetara</b>. Adib. Gallery http://www.adibide.com/"
 "aplikazioa/gallery2 bidez eskura badaiteke eta barneratze aplikazioa http://www.adibide.com/"
 "aplikazioa/ denean, /aplikazioa/gallery2 eta /aplikazioa/ parekatu behar dituzu. Cookie "
-"bidea berdina den bide zatia da, kasu honetan '/aplikazioa/'. Beste batzuetan '/' izan "
+"bidea berdina den bide zatia da, kasu honetan '/aplikazioa/'. BEste batzuetan '/' oizan "
 "daiteke."
 
 msgid ""
@@ -1357,7 +1273,7 @@ msgid ""
 msgstr ""
 "<b>Cookie domeinua</b> beste aplikazio batetan barneratutako Gallery instalazioetan behar da "
 "eta bakarrik barneratutako ElementuDeskarga loturetan GALLERYSID agertzea ez baduzu nahi."
-"<b>kasu gehienetan, cookie domeinua hutsik utz dezakezu.</b> Ezarri bakarrik gallery eta "
+"<b>kasu gehienetan, cookie domeinua hutsik utz dezakzu.</b> Ezarri bakarrik gallery eta "
 "berau barneratutako aplikazioa <b>azpidomeinu ezberdinen</b> bidez eskuratu badaitezke. "
 "Adib. galeria http:/argazkiak.adibide.com-en badago eta barneratutako aplikazioa http://www."
 "adibide.com/ bidean badago cookie domeinua adibide.com bezala ezarri behar duzu (Gallery eta "
@@ -1368,7 +1284,7 @@ msgid ""
 "<b>have to clear their browser cookie cache</b>. If they do not, they will experience "
 "login / logout / lost session problems."
 msgstr ""
-"Cookie ezarpenak aldatu dituzunean, Galeriako <b>harpidedun guztiek</b> bere "
+"Cookie ezarpenak aldatu dituzunean, Galeriako <b>hapidedun guztiek</b> bere "
 "<b>nabigatzaileko cookie katxea ezabatu</b> behar dute. Ez ezabatu ezkero saio hasiera / "
 "amaiera/ galera arazoak izan ditzakete."
 
@@ -1396,11 +1312,11 @@ msgid ""
 "timeouts, you can try switching to database locking instead.  It's ok to switch back and "
 "forth."
 msgstr ""
-"Gallery elkarren artean jotzen duten aldaketak ezintzeko blokeo sistema bat erabiltzen du. "
+"Gallery elkarren artean jotzen duten aldaketak ekiditzeko blokeo sistema bat erabiltzen du. "
 "Bi blokeo mota daude, bakoitza bere abantaia eta arazoekin.  <b>Fitxategian</b> "
-"oinarritutako blokeoa azkar eta egokia da baina ez du NFS fitxategi sistemetan funtzionatzen "
+"oinarritutako blokeoa azkar eta egokia da baina ez du NFS fitxategi sistemetan futzionatzen "
 "eta ezinda Windowspean erabili.  <b>Datu-base</b> geldoago baina fidagarriagoa da.  Zein "
-"aukeratu ez badakizu, fitxategi blokeoa erabiltzea gomendatzen da.  Denboraz kanpo ugari "
+"aukeratu ez badakizu, fitxategi blokeoa erabiltzea gomendatzen da.  Denboraz-kanpo ugari "
 "jaso ezkero, datu-base blokeoa erabiltzen saia zaitezke. Batetik bestera arazo gabe alda "
 "daiteke."
 
@@ -1408,7 +1324,7 @@ msgid "Lock system"
 msgstr "Blokeo sistema"
 
 msgid "Helper Processes"
-msgstr "Laguntza Prozesua"
+msgstr "LAguntza Prozesua"
 
 msgid ""
 "Some Gallery modules will use programs on your server to do image processing, archiving and "
@@ -1462,7 +1378,7 @@ msgstr "Erabiltzaile izen bat idatzi behar duzu"
 
 #, c-format
 msgid "Username '%s' already exists"
-msgstr "%s Erabiltzaile izena badago dagoeneko"
+msgstr "%s Erabiltzaile-izena badago dagoeneko"
 
 msgid "Full Name"
 msgstr "Izen osoa"
@@ -1471,7 +1387,7 @@ msgid "Email Address"
 msgstr "ePosta Helbidea"
 
 msgid "You must enter an email address"
-msgstr "Baliozko eposta helbide bat idatzi behar duzu"
+msgstr "Baliozo eposta helbide bat idatzi behar duzu"
 
 msgid "Language"
 msgstr "Hizkuntza"
@@ -1524,7 +1440,7 @@ msgid ""
 "Delete all items of %s and assign a new owner for all remaining non empty albums. Items that "
 "%s doesn't have permission to delete will also be reassigned to a new owner."
 msgstr ""
-"%s-ren elementu guztiak ezabatu eta geratzen diren hutsak ez dauden albumei jabe berria "
+"%s-ren elementu guztiak ezabatu eta geratzen diren hutsak ez dauden album-ei jabe berria "
 "ezarri. %s-ek ezabatzeko baimenik ez duen elementuak jabe berriari ezarriko zaizkio."
 
 msgid "New owner (leaving blank means one of the Site Admins):"
@@ -1545,7 +1461,7 @@ msgid "This will completely remove <strong>%s</strong> from Gallery.  There is n
 msgstr "Honek <strong>%s</strong> galeriatik guztiz ezabatuko du.  Hau ezin da desegin!"
 
 msgid "Edit a group"
-msgstr "Talde bat editatu"
+msgstr "Talde bat ediatatu"
 
 #, c-format
 msgid "Edit Members of Group '%s'"
@@ -1614,7 +1530,7 @@ msgid "Add"
 msgstr "Gehitu"
 
 msgid "You must enter a username."
-msgstr "Erabiltzaile izena idatzi behar duzu."
+msgstr "Erabiltzaile-izena idatzi behar duzu."
 
 #, c-format
 msgid "User '%s' does not exist."
@@ -1630,10 +1546,10 @@ msgid "Edit a user"
 msgstr "Erabiltzailea editatu"
 
 msgid "That username is already in use"
-msgstr "Erabiltzaile izena dagoeneko erabilia dago"
+msgstr "Erabiltzaile-izena dagoeneko erabilia dago"
 
 msgid "You must enter a new username"
-msgstr "Erabiltzaile izen berri bat idatzi behar duzu"
+msgstr "Erabiltzaile-izen berri bat idatzi behar duzu"
 
 msgid "E-mail Address"
 msgstr "eposta Helbidea"
@@ -1644,56 +1560,23 @@ msgstr "(gomendaturik)"
 msgid "Options"
 msgstr "Aukerak"
 
+#, fuzzy
 msgid "Lock user."
-msgstr "Erabiltzailea blokeatu."
+msgstr "Blokeo sistema"
 
 msgid ""
 "Locked users are unable to edit their own account information. (Password, Name, Email, etc.)"
 msgstr ""
-"Blokeaturiko erabiltzaileak ez dira beren kontu argibideak aldatzeko gai (Pasahitza, Izena, "
-"ePosta, etab.="
 
+#, fuzzy
 msgid "Reset failed login count."
-msgstr "Hutsegindako saio saiakera kontua garbitu."
+msgstr "Ikustaldi kontuak berrezarri"
 
 #, c-format
 msgid "%d failed login attempt since the last successful login."
 msgid_plural "%d failed login attempts since the last successful login."
-msgstr[0] "Huts egindako saio hasiera saiakera %d azkenez saioa hasi zenetik"
-msgstr[1] "Huts egindako %d saio hasiera saiakera azkenez saioa hasi zenetik"
-
-msgid "Recent Events"
-msgstr "Azkenengo Gertaerak"
-
-msgid "Type"
-msgstr "Mota"
-
-msgid "Location"
-msgstr "Kokapena"
-
-msgid "Client"
-msgstr "Bezeroa"
-
-msgid "No events have been reported yet."
-msgstr "Ez da gertaerarik erreportatu oraindik."
-
-msgid "Event Details"
-msgstr "Gertaera Xehetasunak"
-
-msgid "User Id"
-msgstr "Erabiltzaile ID-a"
-
-msgid "Referer"
-msgstr "Aipamena"
-
-msgid "Details"
-msgstr "Xehetasunak"
-
-msgid "no summary"
-msgstr "laburpenik ez"
-
-msgid "An error occurred while retrieving the event log entry details."
-msgstr "Errore bat gertatu da gertaera erregistroko sarrera xehetasunak eskuratzerakoan."
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Group Management"
 msgstr "Talde Kudeaketa"
@@ -1717,7 +1600,7 @@ msgstr[0] "Sisteman talde %d dago."
 msgstr[1] "Sisteman %d talde daude."
 
 msgid "Edit Group"
-msgstr "Taldea Editatu"
+msgstr "Taldea Ediatatu"
 
 msgid "Edit"
 msgstr "Editatu"
@@ -1756,155 +1639,8 @@ msgid_plural "%d groups match your filter"
 msgstr[0] "talde %d zure iragazkiaren pareko da"
 msgstr[1] "%d  talde zure iragazkiaren pareko dira"
 
-msgid "Please make sure that your internet connection is set up properly or try again later."
-msgstr ""
-"Ziurtatu zaitez zure interneteriko konexioa martxan dagoela edo saiatu zaitez beranduago."
-
-#, c-format
-msgid "Failed to scan status from plugin: %s."
-msgstr "Huts pluginaren egoera arakatzean: %s."
-
-msgid ""
-"Your local copy of the repository was broken and has been fixed.  Please download the plugin "
-"list again."
-msgstr ""
-"Errepositorioaren zure kopia lokala hondaturik zegoen eta konpondua izan da. Mesedez plugin "
-"zerrenda berriz deskargatu."
-
-#, fuzzy, c-format
-msgid "Failed to delete the locale directory for %s."
-msgstr "Ezin da direktorioa ezabatu: %s"
-
-#, fuzzy, c-format
-msgid "Failed to download the following language packages for the %s plugin:"
-msgstr "Huts %s pluginarentzat hurrengo paketeak deskargatzerakoan:"
-
-#, fuzzy, c-format
-msgid ""
-"Failed to install language packages for %s plugin because the following files/directories "
-"could not be modified:"
-msgstr ""
-"Huts %s plugina instalatzerakoan hurrengo fitxategi/direktorioak ezin bait dira aldatu:"
-
-#, fuzzy
-msgid "The repository index has been successfully refreshed."
-msgstr "Errepositorio indizea behar bezala eguneratu da."
-
-#, fuzzy
-msgid "The language settings have been saved."
-msgstr "Ez duzu paketerik aukeratu."
-
-#, fuzzy, c-format
-msgid "%d language pack upgraded or downloaded."
-msgid_plural "%d language packs upgraded or downloaded."
-msgstr[0] "Hizkuntza pakete %d ezabaturik."
-msgstr[1] "%d hizkuntza pakete ezabaturik."
-
-#, c-format
-msgid "%d language pack deleted."
-msgid_plural "%d language packs deleted."
-msgstr[0] "Hizkuntza pakete %d ezabaturik."
-msgstr[1] "%d hizkuntza pakete ezabaturik."
-
-msgid "All the language packages for the selected languages are current"
-msgstr ""
-
-msgid ""
-"Select language defaults for Gallery. Individual users can override this setting in their "
-"personal preferences or via the language selector block if available. Gallery will try to "
-"automatically detect the language preference of each user if the browser preference check is "
-"enabled."
-msgstr ""
-"Galeriaren lehenetsiriko hizkuntza ezarri. Banakako erabiltzaileek ezarpen hau gainidatzi "
-"ditzakete ezarpen pertsonaletan erabilgarri egon ezkero hizkuntza aukeratzailearen bidez. "
-"Nabigatzailean hizkuntza hobespenak ezarririk badaude Gallery hauek automatikoki atzematen "
-"saiatuko da."
-
-msgid "Default language"
-msgstr "Lehenetsiriko hizkuntza"
-
-msgid "Check Browser Preference"
-msgstr "Nabigatzaile Hobespenak Arakatu"
-
-#, c-format
-msgid ""
-"Your webserver does not support localization.  Please instruct your system administrator to "
-"reconfigure PHP with the %s option enabled."
-msgstr ""
-"Zure web zerbitzariak ez du lokalizazio hau onartzen. Mesedez eskatu sistema kudeatzaileari %"
-"s aukera gaituaz PHP berkonfiguratzeko."
-
-msgid "Configure your Gallery"
-msgstr "Zure Galeria Konfiguratu"
-
-msgid ""
-"Before you can proceed, you have to change some permissions so that Gallery can install "
-"plugins for you.  It's easy.  Just execute the following in a shell or via your ftp client:"
-msgstr ""
-"Aurrera jarraitu ahal izateko zenbait baimen aldatu behar dituzu Gallery pluginak "
-"instalatzeko gai izan dadin. Erraza da.  Aski da hurrengo hau shell batetan edo ftp "
-"bezeroaren bidez exekutatzearekin:"
-
-msgid ""
-"Before you can proceed, please insure the following directories and sub-directories are "
-"writable, so that Gallery can install plugins for you:"
-msgstr ""
-
-#, fuzzy
-msgid ""
-"If you have trouble changing permissions, ask your system administrator for assistance.  "
-"When you've fixed the permissions, click the Check Again button to proceed."
-msgstr ""
-"Baimenak aldatzen arazorik izanez gero, eskatu laguntza sistema kudeatzaileari.  Behin "
-"baimenak konpondu dituzunean, Jarraitu botoia zanpatu aurrera jotzeko."
-
-#, fuzzy
-msgid "Check Again"
-msgstr "Markatu Denak"
-
-#, fuzzy
-msgid "Add or Remove Languages"
-msgstr "Erabiltzaileak Gehitu/Kendu"
-
-msgid ""
-"Please click on the link below to go to 'Download Plugin List' and choose 'Update Plugin "
-"List' to get the latest language package information."
-msgstr ""
-
-#, fuzzy
-msgid "Administer Repositories"
-msgstr "Komunitate Errepositorioa"
-
-#, fuzzy
-msgid "Upgrade"
-msgstr "bertsio-berritu"
-
-msgid "Remove"
-msgstr "Kendu"
-
-#, fuzzy
-msgid "Download"
-msgstr "deskargatu"
-
-#, fuzzy
-msgid "No Change"
-msgstr "Aldatu"
-
-#, fuzzy
-msgid "Select All"
-msgstr "Hautatuta"
-
-msgid ""
-"There are no local repository indices from which to determine language packages. Please "
-"click on the link below to go to \"Download Plugin List\" and choose \"Update Plugin List\" "
-"to get the latest language package information."
-msgstr ""
-
 msgid "System Maintenance"
 msgstr "Sistema Mantenua"
-
-msgid "Gallery must be in maintenance mode before the task can be run."
-msgstr ""
 
 #, c-format
 msgid "Completed %s task successfully."
@@ -1913,43 +1649,6 @@ msgstr "%s ataza behar bezala amaitu da."
 #, c-format
 msgid "The %s task failed to complete successfully."
 msgstr "%s atazak huts egin du."
-
-msgid "Maintenance Mode has been turned on."
-msgstr "Mantenu modua gaitua izan da."
-
-msgid "Maintenance Mode has been turned off."
-msgstr "Mantenu modua ezgaitua izan da."
-
-msgid "Maintenance Mode"
-msgstr "Mantenu Modua"
-
-msgid "Restrict user access to the system while maintenance is being performed."
-msgstr "Erabiltzaileen sarrera mugatu mantenua aurrera eramaten ari den bitartean"
-
-msgid "Maintenance Mode Url"
-msgstr "Mantenu Modu URL-a"
-
-msgid ""
-"The Maintenance Mode Url specifies where requests will be redirected when access to the site "
-"has been restricted by the administrator."
-msgstr ""
-"Mantenu Modu Url-ak kudeatzaileak gunera sarrera mugatzen duenean esakaerak nora birbidaliko "
-"diren ezartzen du."
-
-msgid ""
-"If left blank Gallery will display a default page with an administrator login link. This "
-"page will be themed when the code base is up to date, otherwise it will display a plain "
-"unstyled page."
-msgstr ""
-"Hutsik utziaz gero Gallery-k kudeaketa lotura bat duen lehenetsiriko orria bistaraziko du. "
-"Orrialde hau gaira moldaturik ageriko da oinarria eguneraturik badago bestela estilo gabeko "
-"orrialde zuri bat bistaraziko da."
-
-msgid "For example: /maintenance.html"
-msgstr "adibidez: /maintenance.html"
-
-msgid "Set"
-msgstr "Ezarri"
 
 msgid "Task name"
 msgstr "Ataza izena"
@@ -1976,13 +1675,13 @@ msgid "Last Run Details:"
 msgstr "Azken Abiarazte Xehetasunak:"
 
 msgid "Performance Tuning"
-msgstr "Performantzia Fintzea"
+msgstr "Performatzia Fintzea"
 
 msgid "Updated performance settings successfully"
 msgstr "Performantzia ezarpenak behar bezala eguneratu dira"
 
 msgid "Deleted all saved pages"
-msgstr "Gorderiko orrialde guztiak ezabatuak"
+msgstr "Orderiko orrialde guztiak ezabatuak"
 
 msgid ""
 "Improve your Gallery performance by storing entire web pages in the database.  This can "
@@ -1992,8 +1691,8 @@ msgid ""
 "(typically by holding down the shift key and clicking the reload button)."
 msgstr ""
 "Zure Galeria performantzia hobetu web orrialde osoak datu-basean gordeaz. Honek web orrialde "
-"bat bistaratzeko erabiliko diren web zerbitzari eta datu-base errekurtsoak asko gutxiagotu "
-"ditzake.  Alde txarra bistaratzen den orrialdea zaharkiturik egon daitekeela da, hala ere "
+"bat bistaratzeko erabiliko diran web zerbitzari eta datu-base errekurtsoak asko gutxiagotu "
+"ditzake.  Alde txarra bistartzen den orrialdea zaharkiturik egon daitekeela da, hala ere "
 "orrialdearen azken bertsioa eskura dezakezu beti nabigatzailearen freskatzea indartuaz "
 "(normalean shift tekla zanpatua mantendu eta berritu botoia klikatzen)."
 
@@ -2006,8 +1705,8 @@ msgid ""
 "dynamic data (like view counts) will not get updated right away.  All content that appears "
 "in blocks (like the random image block, any sidebar blocks, etc) will always be updated."
 msgstr ""
-"Azelerazio ertainak %10-25 arteko performantzia hobe bat lor dezake, baina zenbait datu "
-"dinamiko (ikustaldi kontua kasu) ez dira behar bezala eguneratuko.  Blokeetan agertzen den "
+"Azlerazio ertainak %10-25 arteko performantzia hobe bat lor dezake, baina zenbait datu "
+"dinamiko (ikustaldi kontua kasu) ez dira behar ebzala eguneratuko.  Blokeetan agertzen den "
 "eduki guztia (ausazko irudi blokea edo alboko barra blokeak adibidez) beti eguneraturik "
 "egongo da."
 
@@ -2021,7 +1720,7 @@ msgid ""
 "will get updated until the saved page expires."
 msgstr ""
 "Azelerazio osoak performantzia %90-ean hobe dezake, baina ez datu dinamikorik (ausazko irudi "
-"blokea, alboko barra blokea, saskiko elementu kopurua, ikustaldi kontua, etab) ez dira "
+"blokea, alboko-barra blokea, saskiko elementu kopurua, ikustaldi kontua, etab) ez dira "
 "eguneraturik egongo orrialdea iraungitu arte."
 
 msgid ""
@@ -2045,26 +1744,10 @@ msgid "High acceleration"
 msgstr "Azelerazio altua"
 
 msgid "Guest Users"
-msgstr "Erabiltzaile Gonbidatuak"
+msgstr "Erabiltzaile Gobidatuak"
 
 msgid "Expires after:"
 msgstr "Iraungitze epea:"
-
-msgid "Template Cache"
-msgstr "Txantiloi Katxea"
-
-#, c-format
-msgid ""
-"For optimal performance, Gallery caches all templates.  If you would like to %scustomize "
-"your template files%s, you should disable template caching temporarily so that changes take "
-"effect immediately without clearing the template cache."
-msgstr ""
-"Performantzia hobetzeko, Gallery-k txantiloi guztiak katxeatzen ditu.  %sTxantiloi orriak "
-"pertsonalizatu%s nahi izanez gero, txantiloi katxea aldi batetarako ezgaitu beharko zenuke "
-"aldaketak egin bezain laster funtziona dezaten katxe garbiketara itxoin beharrik gabe."
-
-msgid "Enable template caching"
-msgstr "Txantiloi katxeatzea gaitu"
 
 msgid "Clear Saved Pages"
 msgstr "Gordetako Orrialdeak Garbitu"
@@ -2082,10 +1765,10 @@ msgid "__PLUGIN__ activated"
 msgstr "__PLUGIN__ gaitua"
 
 msgid "Status: Not Installed"
-msgstr "Egoera: Ez instalaturik"
+msgstr "Egoera: Ez indatalatua"
 
 msgid "__PLUGIN__ uninstalled"
-msgstr "__PLUGIN__ desinstalaturik"
+msgstr "__PLUGIN__ ezinstalaturik"
 
 msgid "Status: Upgrade Required (Inactive)"
 msgstr "Egoera: Bertsio-berritzea Beharrezkoa (ezgaiturik)"
@@ -2099,14 +1782,17 @@ msgstr "Egoera: Ezgaitua (Konfigurazioa beharrezkoa)"
 msgid "__PLUGIN__ needs configuration"
 msgstr "__PLUGIN__ konfigurazioa behar du"
 
+#, fuzzy
 msgid "__PLUGIN__ deleted"
-msgstr "__PLUGIN__ ezabaturik"
+msgstr "__PLUGIN__ ezgaitua"
 
+#, fuzzy
 msgid "Warning!"
-msgstr "Kontuz!"
+msgstr "Abisua:"
 
+#, fuzzy
 msgid "Do you really want to uninstall __PLUGIN__?"
-msgstr "Benetan __PLUGIN__ desinstalatu nahi duzula ?"
+msgstr "Benetan __PLUGIN__ desinstalatu nahi duzula?"
 
 msgid "This will also remove any permissions and clean up any data created by this module."
 msgstr "Honek modulu honek sortutako edozein datu garbitu eta baimenak ezabatuko ditu."
@@ -2114,54 +1800,57 @@ msgstr "Honek modulu honek sortutako edozein datu garbitu eta baimenak ezabatuko
 msgid ""
 "This plugin will be uninstalled, but its files will be kept so that you can reinstall it."
 msgstr ""
-"Plugin hau desinstalatu izango da baina bere fitxategiak utzi egingo dira berriz instalatu "
-"ahal izateko."
 
 msgid "Yes"
-msgstr "Bai"
+msgstr ""
 
 msgid "No"
-msgstr "Ez"
+msgstr ""
 
+#, fuzzy
 msgid "Do you really want to delete __PLUGIN__?"
-msgstr "Benetan __PLUGIN__ ezabatu nahi duzula?"
+msgstr "Benetan __PLUGIN__ desinstalatu nahi duzula?"
 
 msgid "This plugin will be uninstalled and its files will be deleted permanently."
-msgstr "Plugina desinstalatua izango da eta bere fitxategiak betirako ezabatuko dira,"
+msgstr ""
 
 msgid "The files of this plugin will be deleted permanently."
-msgstr "Plugin honen fitxategiak betirako ezabatuak izango dira."
+msgstr ""
 
 msgid "disabled(__COUNT__)"
-msgstr "ezgaiturik(__COUNT__)"
+msgstr ""
 
+#, fuzzy
 msgid "up to date(__COUNT__)"
-msgstr "eguneratua(__COUNT__)"
+msgstr "Eguneratua (__COUNT__)"
 
+#, fuzzy
 msgid "not installed(__COUNT__)"
-msgstr "ez instalatua(__COUNT__)"
+msgstr "desinstalatua (__COUNT__)"
 
+#, fuzzy
 msgid "upgrade required(__COUNT__)"
-msgstr "bertsio-eguneraketa beharrezkoa(__COUNT__)"
+msgstr "bertsio-eguneraketa beharrezkoa (__COUNT__)"
 
+#, fuzzy
 msgid "incompatible(__COUNT__)"
-msgstr "baterezina(__COUNT__)"
+msgstr "baterezina (__COUNT__)"
 
 msgid "Failed to completely delete __PLUGIN__"
-msgstr "Huts __PLUGIN__ guztiz ezabatzean"
+msgstr ""
 
 msgid "Gallery Plugins"
-msgstr "Gallery Pluginak"
+msgstr "Gallery Plugin-ak"
 
+#, fuzzy
 msgid "Get More Plugins"
-msgstr "Plugin Gehiago Eskuratu"
+msgstr "Gallery Plugin-ak"
 
 #, c-format
 msgid ""
 "Want more features?  New plugins are just a click away.  Just click the %s link to get "
 "started."
 msgstr ""
-"Ezaugarri gehiago nahi? Plugin berriak klik batetara daude.  %s lotura zanpatu hasteko."
 
 msgid ""
 "Gallery features come as separate plugins.  You can download and install plugins to add more "
@@ -2170,8 +1859,8 @@ msgid ""
 "don't wish to use a feature, you can deactivate it."
 msgstr ""
 "Gallery ezaugarriak modulu ezberdinak bezala banatzen dira.  Zuk zure galeriari ezaugarriak "
-"gehitzeko moduluak deskargatu eta instalatu ditzakezu, edo ezaugarriak ezgaitu ditzakezu "
-"erabili nahi ez izan ezkero.  Ezaugarri bat behar bezala erabiltzeko berau instalatu, "
+"gehitzeko moduluak deskargatu eta instaltu ditzakezu, edo ezaugarriak ezgaitu ditzakezu "
+"erabili nahi ez izan ezkero.  Ezaugarri bat behar bezala erabilzteko berau instalatu, "
 "konfiguratu (beharrezkoa bada) eta gaitu egin behar duzu.  Ezaugarri bat ez erabili nahi "
 "izan ezkero berau ezgaitu egin dezakezu."
 
@@ -2188,18 +1877,18 @@ msgid "Actions"
 msgstr "Ekintzak"
 
 msgid "help"
-msgstr "laguntza"
+msgstr ""
 
 #, c-format
 msgid "Screenshot for %s"
-msgstr "%s-ren pantaila argazkia"
+msgstr ""
 
 msgid "Incompatible plugin!"
 msgstr "Plugin baterezina!"
 
 #, c-format
 msgid "Core API Required: %s (available: %s)"
-msgstr "Muin API-a beharrezkoa: %s (%s eskuragarri)"
+msgstr "Miun API-a beharrezkoa: %s (%s eskuragarri)"
 
 #, c-format
 msgid "Plugin API Required: %s (available: %s)"
@@ -2223,24 +1912,24 @@ msgstr "baterezina"
 msgid "Repository"
 msgstr "Errepositorioa"
 
+msgid "Please make sure that your internet connection is set up properly or try again later."
+msgstr ""
+"Ziurtatu zaitez zure interneteriko konexioa martxan dagoela edo saiatu zaitez beranduago."
+
 #, c-format
-msgid "Failed to download the following packages for the %s plugin:"
-msgstr "Huts %s pluginarentzat hurrengo paketeak deskargatzerakoan:"
+msgid "Failed to scan status from plugin: %s."
+msgstr ""
+
+msgid ""
+"Your local copy of the repository was broken and has been fixed.  Please download the plugin "
+"list again."
+msgstr ""
 
 #, c-format
 msgid ""
-"Failed to install the %s plugin because the following files/directories could not be "
+"Failed to download the %s plugin because the following files/directories could not be "
 "modified:"
 msgstr ""
-"Huts %s plugina instalatzerakoan hurrengo fitxategi/direktorioak ezin bait dira aldatu:"
-
-#, c-format
-msgid ""
-"Some plugins could not be automatically upgraded because they are in use.  Please return to "
-"the %sPlugins%s page and click the upgrade link for each of the following plugins:"
-msgstr ""
-"Zenbait plugin ezin dira automatikoki eguneratu erabiliak bait daude.  Mesedez itzuli %"
-"sPlugin%s orrialdera eta zanpatu bertsio berritze lotura hurrengo pluginetan:"
 
 msgid "The repository index has been successfully updated."
 msgstr "Errepositorio indizea behar bezala eguneratu da."
@@ -2250,14 +1939,18 @@ msgstr "Dagoeneko plugin guztiak eguneraturik daude."
 
 #, c-format
 msgid "%s plugin updated."
-msgstr "%s plugin eguneraturik"
+msgstr ""
+
+#, c-format
+msgid "%d language pack deleted."
+msgid_plural "%d language packs deleted."
+msgstr[0] ""
+msgstr[1] ""
 
 msgid ""
 "No personal information about you or your Gallery installation is sent to the Gallery server "
 "at any time."
 msgstr ""
-"Ez da zure edo zure Galleryinstalazioari buruzko datu pribaturik bidaliko momentu batetan "
-"ere ez."
 
 #, c-format
 msgid ""
@@ -2267,54 +1960,58 @@ msgid ""
 "chosen, you must periodically download the latest plugin list to find out about available "
 "updates. %s On slower connections the process might take a minute or two."
 msgstr ""
-"Plugin berriak erraz eta bizkor deskargatu eta instalatu.  Plugin bat gustoko ez duzula "
-"erabakiiaz gero, berau Gallery-tik ezabatu dezakezu.  Plugin errepositorio ezberdinak daude, "
-"zein erabili nahi dituzun hautatu dezakezu (denak batera erabili daitezke).  Behin hautatu "
-"duzunean aldiro azken plugin zerrenda deskargatu ebharko zenuke eguneraketak eskuragarri "
-"dauden begiratzeko. %s Konexio geldoetan minutu bat edo bi luzatu daiteke."
 
 #, c-format
 msgid "Officially Released Gallery Project plugins (%srecommended%s)"
-msgstr "Ofizialki Argitaratutako Gallery Proiektuko pluginak (%sgomendaturik%s)"
+msgstr ""
 
 #, c-format
 msgid "last updated on %s"
-msgstr "%s-ean azkenez eguneratua"
+msgstr ""
 
 #, c-format
 msgid "Experimental Gallery Project plugins (%scool new features, might be buggy%s)"
 msgstr ""
-"Gallery Proiektu Plugin Esperimentalak (%sezaugarri berri erabilgarriak, baina agian "
-"akatsdunak%s)"
 
 #, c-format
 msgid "Community plugins (%suse at your own risk!%s)"
-msgstr "Komunitate Pluginak (%szure arriskupean erabili%s)"
+msgstr ""
 
+#, fuzzy
 msgid "Repository Error"
-msgstr "Errepositorio Errorea"
+msgstr "Errepositorioa"
 
+#, fuzzy
 msgid "You must select at least one repository."
-msgstr "Behintzat errepositorio bat hautatu behar duzu."
+msgstr "Ezabatzeko erabiltzaile bat aukeratu behar duzu."
 
 msgid "Ok"
-msgstr "Ados"
+msgstr ""
+
+msgid "Configure your Gallery"
+msgstr ""
+
+msgid ""
+"Before you can proceed, you have to change some permissions so that Gallery can install "
+"plugins for you.  It's easy.  Just execute the following in a shell or via your ftp client:"
+msgstr ""
 
 msgid ""
 "If you have trouble changing permissions, ask your system administrator for assistance.  "
 "When you've fixed the permissions, click the Continue button to proceed."
 msgstr ""
-"Baimenak aldatzen arazorik izanez gero, eskatu laguntza sistema kudeatzaileari.  Behin "
-"baimenak konpondu dituzunean, Jarraitu botoia zanpatu aurrera jotzeko."
 
+#, fuzzy
 msgid "Continue"
-msgstr "Jarraitu"
+msgstr "Jarraitu..."
 
+#, fuzzy
 msgid "Download Plugin List"
-msgstr "Plugin Zerrenda Deskargatu"
+msgstr "Unitate proba deskargatu"
 
+#, fuzzy
 msgid "Show Repository List"
-msgstr "Errepositorio Zerrenda Ikusi"
+msgstr "Errepositorioa"
 
 msgid "Upgrade Gallery"
 msgstr "Galeria eguneratu"
@@ -2330,16 +2027,16 @@ msgstr ""
 "baina bertsio berrian datozenak eskuragarri izango dituzu. Hemen daude eguneraketarako "
 "gomendaturiko urratsak:"
 
-#, c-format
+#, fuzzy, c-format
 msgid "%sDownload%s the new Gallery package"
-msgstr "Gallery pakete berria %sDeskargatu%s"
+msgstr "Gallery muina %sDeskargatu%s"
 
 #, c-format
 msgid "Read the %supgrade instructions%s and perform the upgrade"
-msgstr "%sEguneraketa argibideak%s irakurri eta eguneraketa aurrera eraman"
+msgstr "%sEguneraketa argibideak%s irakurri eta eguneraketa eurrera eraman"
 
 msgid "Incompatible plugins are marked with an exclamation icon."
-msgstr "Plugin bateraezinak harridura ikur batez markatuko dira."
+msgstr "Plugin bateraezinak arridura ikur batez markatuko dira."
 
 #, c-format
 msgid ""
@@ -2349,13 +2046,14 @@ msgid ""
 msgstr ""
 "Muin bertsio berri bat dago eskuragarri. Instalatu behar den muin moduluarekin bateraezin "
 "diren plugin-ak egon daitezke, baina ez dira hemen bistaraziko. Plugin %szerrenda oso%s bat "
-"ikus dezakezu, ikono gorri batez markaturiko bateraezinak barne."
+"ikus dezakezu, ikono gorri batez markatuiko bateraezinak barne."
 
+#, fuzzy
 msgid "upgrade available"
-msgstr "Bertsio berria eskuragarri"
+msgstr "Galeria eguneratu"
 
 msgid "locked"
-msgstr "blokeaturik"
+msgstr ""
 
 msgid "Theme Name"
 msgstr "Gai izena"
@@ -2366,14 +2064,16 @@ msgstr "Modulu Izena"
 msgid "Latest"
 msgstr "Azkena"
 
+#, fuzzy
 msgid "Locked Plugin"
-msgstr "Plugina Blokeaturik"
+msgstr "Plugin-ak"
 
 msgid "Incompatible Plugin"
 msgstr "Plugin baterezina"
 
+#, fuzzy
 msgid "Upgrade Available"
-msgstr "Bertsio berritzea Eskuragarri"
+msgstr "Dana eguneratu"
 
 msgid "download"
 msgstr "deskargatu"
@@ -2392,61 +2092,66 @@ msgstr ""
 "berririk deskargatuko."
 
 msgid "Upgrade All"
-msgstr "Dena eguneratu"
+msgstr "Dana eguneratu"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Download %s"
-msgstr "%s deskargatu"
+msgstr "%s deskargatzen"
 
 msgid "No packages have been selected."
 msgstr "Ez duzu paketerik aukeratu."
 
-#, fuzzy
 msgid ""
 "Download a package in order to use this plugin.  You can upgrade by choosing a newer version "
-"of the package to download."
+"of the package to download.  Language packages are optional, You only need to download the "
+"ones that you want to use on your site."
 msgstr ""
-"Plugin hau erabiltzeko beharrezko pakete bat deskargatu.  Paketearen bertsio berriago bat "
-"deskargatzea hautatuaz bertsio berritu dezakezu.  Hizkuntza paketeak aukerakoak dira,  Zure "
-"gunean erabili nahi dituzunak bakarrik deskargatu behar dituzu."
 
+#, fuzzy
 msgid "Base Packages"
-msgstr "Oinarri Paketeak"
+msgstr "Oinarri fitxategiak"
 
 #, c-format
 msgid "%s: version %s (build %s)"
-msgstr "%s: %s bertsioa (%s eraikina)"
+msgstr ""
 
 #, c-format
 msgid "%s: version %s (build %s) %sdowngrading is not supported!%s"
-msgstr "%s: %s bertsioa (%s eraikina) %sezin da atzera egin!%s"
+msgstr ""
 
 #, c-format
 msgid "%sCurrently Installed%s: version %s (build %s)"
-msgstr "%sInstalaturik Dagoena%s: %s bertsioa (%s eraikina)"
+msgstr ""
 
 #, fuzzy
-msgid "The following language packages are available for this plugin"
-msgstr "Ez da hizkuntza pakete bateragarririk aurkitu"
+msgid "Language Packages"
+msgstr "Hizkuntza Ezarpenak"
+
+#, c-format
+msgid "(%sselect all%s%sselect none%s)"
+msgstr ""
 
 #, c-format
 msgid "%s version %s (upgrading from %s)"
-msgstr "%s %s bertsioa (%s-tik bertsio berritzen)"
+msgstr ""
 
-#, c-format
+#, fuzzy, c-format
 msgid "%s version %s"
-msgstr "%s %s bertsioa"
+msgstr "PHP bertsioa"
 
 #, c-format
 msgid "%s version %s (%snewer version %s is installed%s)"
-msgstr "%s %s bertsioa (%s%s bertsio berriagoa instalaturik dago%s)"
+msgstr ""
 
 #, c-format
 msgid "%s version %s (currently installed)"
-msgstr "%s %s bertsioa (instalaturik dago)"
+msgstr ""
 
 msgid "No compatible language packages available"
-msgstr "Ez da hizkuntza pakete bateragarririk aurkitu"
+msgstr ""
+
+msgid "You must select a base package before choosing language packs."
+msgstr ""
 
 msgid "Update"
 msgstr "Eguneratu"
@@ -2487,7 +2192,7 @@ msgid ""
 "These are default display settings for albums in your gallery.  They can be overridden in "
 "each album."
 msgstr ""
-"Hauek zure galeriako albumen lehenetsiriko bistaratze ezarpenak dira.  Album bakoitzean "
+"Hauek zure galeriako album-en lehenetsiriko bistaraze ezarpenak dira.  Album bakoitzean "
 "gainidatzi daitezke."
 
 msgid "Default sort order"
@@ -2501,18 +2206,13 @@ msgid ""
 "The %s theme is incompatible with your Gallery version or no longer available.  Please "
 "upgrade the %s theme or pick another default theme."
 msgstr ""
-"%s gaia beteraezina da Gallery bertsio honekin edo ez dago eskuragarri.  Mesedez %s gaia "
-"eguneratu edo lehenetsiriko beste gai bat hautatu."
 
 msgid "New albums"
 msgstr "Album berriak"
 
-#, c-format
-msgid "To activate more themes visit the %sPlugins%s page."
-msgstr "Gai gehiago gaitzeko joan %sPlugin%s orrialdera."
-
+#, fuzzy
 msgid "Save Defaults"
-msgstr "Lehenespenak Gorde"
+msgstr "Lehenetsiak"
 
 #, c-format
 msgid "%s Theme Settings"
@@ -2520,7 +2220,7 @@ msgstr "%s Gai Ezarpenak"
 
 msgid ""
 "These are the global settings for the theme.  They can be overridden at the album level."
-msgstr "Hauek gaiaren ezarpen orokorrak dira. Ezarpen hauek album mailara gainidatzi daitezke."
+msgstr "Hauek gaiaren ezarpen orkorrak dira. Ezarpen hauek album mailara gainidatzi daitezke."
 
 msgid "Available"
 msgstr "Erabilgarri"
@@ -2530,6 +2230,9 @@ msgstr "Bloke bat hautatu"
 
 msgid "Selected"
 msgstr "Hautatuta"
+
+msgid "Remove"
+msgstr "Kendu"
 
 msgid "Move Up"
 msgstr "Eraman gora"
@@ -2546,18 +2249,19 @@ msgstr "Balioa"
 msgid "There are no settings for this theme"
 msgstr "Ez dago ezarpenik gai honentzat"
 
+#, fuzzy
 msgid "Save Theme Settings"
-msgstr "Gai Ezarpenak Gorde"
+msgstr "%s Gai Ezarpenak"
 
 msgid ""
 "The toolkits shown below have some overlap in supported operations and mime types.  Rank the "
 "toolkits here to determine which will perform these operations."
 msgstr ""
-"Beheko tresnajokoek batek baino gehiago kudea ditzaketen mime mota eta ekintzak daude.  "
-"Tresnajokoak sailkatu lehenengo zein erabili nahi duzun ezartzeko."
+"Beheko tresna-jokoek batek baino gehiago kudea ditzaketen mime mota eta ekintzak daude.  "
+"Tresna-jokoak sailkatu lehenengo zein erabili nahi duzn ezartzeko."
 
 msgid "Toolkit"
-msgstr "Tresnajokoa"
+msgstr "Tresna-jokoa"
 
 msgid "Order"
 msgstr "Ordena"
@@ -2593,19 +2297,21 @@ msgid "Edit User"
 msgstr "Erabiltzailea editatu"
 
 msgid "You cannot delete yourself!"
-msgstr "Ezin duzu zure burua ezabatu!"
+msgstr "Ezin duzu zured burua ezabatu!"
 
 msgid "You cannot delete the special guest user."
-msgstr "Ezin duzu gonbidatu erabiltzaile berezia ezabatu."
+msgstr "Ezin duzu gonbidatu erabiltzaile ebrezia ezabatu."
 
 msgid "Edit User (by list)"
 msgstr "Editatu Erabiltzailea (zerrendatik)"
 
+#, fuzzy
 msgid "Locked"
-msgstr "Blokeaturik"
+msgstr "Lokalea"
 
+#, fuzzy
 msgid "Failed Logins"
-msgstr "Hutsegindako saio saiakera"
+msgstr "Huts egin du"
 
 msgid "Thumbnails"
 msgstr "Argazkitxoak"
@@ -2616,8 +2322,8 @@ msgid ""
 "create them at upload time it makes viewing albums for the first time go faster at the "
 "expense of a longer upload time."
 msgstr ""
-"Gallery-k argazkitxoak argazkiak igotzekoan edo argazkitxoa bistarazi behar duen lehen "
-"aldian sor ditzake.  Bi moduetara argazkitxoa behin sortu eta gorde egingo da, baina "
+"Galllery-k argazkitxoak argazkiak igotzekoan edo argazkitxoa bistarazi behar duen lehen "
+"aldian sor ditzake.  Bi moduetara argazkitxoa bein sortu eta gorde egingo da, baina "
 "argazkitxoak ikusten diren lehenengo aldian sortzea erabaki ezkero geldotasuna nabari "
 "dezakezu albuma bistaratzeko lehen aldian igotze abiadura handiago baten truke."
 
@@ -2639,8 +2345,9 @@ msgstr "Datu-basearen errorea"
 msgid "Platform Error"
 msgstr "Plataforma Errorea"
 
+#, fuzzy
 msgid "Authentication Failure"
-msgstr "Autentifikazio hutsa"
+msgstr "Baimena Berretsirik"
 
 msgid "Error"
 msgstr "Errorea"
@@ -2652,7 +2359,7 @@ msgid ""
 msgstr ""
 "Zure aldaketak ezin dira burutu aldi berean beste batek zure aldaketekin elkar jotzen duten "
 "aldaketak egin bait ditu,  Nabigatzailearen atzera botoiari jo, <b>orria freskatu</b> eta "
-"saiatu zaitez berriro."
+"saiatu zaite berriro."
 
 msgid "Go back and try again"
 msgstr "Joan atzera eta berriz saiatu"
@@ -2661,11 +2368,10 @@ msgid ""
 "If this problem happens repeatedly, it may be because of corruption in your cache.  Site "
 "Administrators can clear out this cache."
 msgstr ""
-"Arazo hau askotan errepilatuaz gero, katxea hondaturik dagoelako izan daiteke.  Gune "
-"kudeatzaileak katxea hau garbitu dezake."
 
+#, fuzzy
 msgid "Clear the cache"
-msgstr "Katxea garbitu"
+msgstr "Gordetako Orrialdeak Garbitu"
 
 msgid "Alternatively, you can return to the main Gallery page and resume browsing."
 msgstr "Bestela. galeria orrialdera itzuli eta nabegatzen jarraitu dezakezu."
@@ -2677,8 +2383,6 @@ msgid ""
 "Your change cannot be completed due to a loss of session data. Please try again. If it still "
 "doesn't work, try logging out and logging back in."
 msgstr ""
-"Zure aldeketa ezin izan da burutu saio datu galera bat dela eta. Saiatu berriro. Hala ere ez "
-"badabil, saiatu saioa itxi eta berriz irekiaz."
 
 msgid "An error has occurred while interacting with the database."
 msgstr "Errore bat gertatu da datu-basearekin erlazionatzerakoan."
@@ -2688,9 +2392,9 @@ msgid ""
 "config.php.  Before seeking support for this error please enable buffered debug output and "
 "retry the operation.  Look near the bottom of the lengthy debug output to find error details."
 msgstr ""
-"Datu-base errorea ez da gordea izan config.php fitxategian Gallery arazpen modua gaiturik ez "
+"Datu-base errorea ez da godea izan config.php fitxategian Gallery arazpen modua gaiturik ez "
 "badago.  Errore honentzat laguntza bilatu aurretik, mesedez hilaraturiko arazpen irteera "
-"gaitu eta ekintza egiten berriz saiatu. Arazpen irteeraren amaiera aldera begiratu "
+"gaitu eta ekinzta egiten berriz saiatu. Arazpen irteeraren amaiera aldera ebgiratu "
 "errorearen xehetasunak aurkitzeko."
 
 msgid "An error has occurred while interacting with the platform."
@@ -2703,10 +2407,10 @@ msgid ""
 msgstr ""
 "Plataforma errorearen arrazoi zehatza ezezaguna da. Arrazoi arruntena okerreko fitxategi "
 "baimenak dira. Zuk edo web ostalariak fitxategi sisteman zerbait aldatu ezkero, adibidez "
-"basbeskopia berrezartze batetan, hau gerta daiteke."
+"babes-kopia berrezartze batetan, hau gerta daiteke."
 
 msgid "Item not found."
-msgstr "Elementua ez da aurkitu."
+msgstr ""
 
 msgid "An error has occurred."
 msgstr "Errore bat gertatu da."
@@ -2720,22 +2424,19 @@ msgstr "Errorea Xehetasunak"
 msgid "System Information"
 msgstr "Sistema informazioa"
 
-msgid "Not all of the specified items have been added successfully."
-msgstr ""
-
 msgid ""
 "You don't have any Graphics Toolkit activated that can handle JPEG images.  If you add "
 "images, you will probably not have any thumbnails."
 msgstr ""
-"Ez duzu JPEG irudiak kudea ditzaken tresnajokorik gaiturik.  Irudiak gehitu ezkero ziurrenik "
-"ez duzu argazkitxorik ikusiko."
+"Ez duzu JPEG irudiak kudea ditzaken tresna-jokorik gaiturik.  Irudiak gehitu ezkero "
+"ziurrenik ez duzu argazkitxorik ikusiko."
 
 #, c-format
-msgid "Visit the %sModules%s page to activate a Graphics Toolkit."
-msgstr "Joan %sModuluak%s orrialdera tresna-sorta grafiko bat gaitzeko."
+msgid "Visit the <a href=\"%s\">Modules</a> page to activate a Graphics Toolkit."
+msgstr "Joan <a href=\"%s\">Moduluak</a> orrialdera tresna-sorta grafiko bat gaitzeko."
 
 msgid "Add Sub-Album"
-msgstr "Gehitu Azpi-albuma"
+msgstr "Gehitu Azpi-Albuma"
 
 msgid ""
 "The name of this album on your hard disk.  It must be unique in this album.  Only use "
@@ -2812,7 +2513,7 @@ msgid ""
 "administrator to allow larger uploads."
 msgstr ""
 "<b>Oharra:</b> Aldi batetan %s igo ditzakezu.  Hau baino gehiago igo nahi ezkero fitxategiak "
-"banaturik igo beste igoera formatu bat aukeratu edo sistema kudeatzaileari igoera handigoak "
+"banaturik igom beste igoera formatu bat aukeratu edo sistema kudeatzaileari igoera handigoak "
 "onartzea eskatu beharko duzu."
 
 #, c-format
@@ -2822,21 +2523,24 @@ msgid ""
 "upload format, or ask your system administrator to allow larger uploads."
 msgstr ""
 "<b>Oharra:</b> Aldi batetan %s igo ditzakezu.  Banakako fitxategiak ezin dira %s baino "
-"handiagoak izan.  Hau baino gehiago igo nahi ezkero fitxategiak banaturik igo beste igoera "
+"handiagoak izan.  Hau baino gehiago igo nahi ezkero fitxategiak banaturik igom beste igoera "
 "formatu bat aukeratu edo sistema kudeatzaileari igoera handigoak onartzea eskatu beharko "
 "duzu."
 
 msgid "More Upload Boxes..."
-msgstr "Igoera Kutxa Gehiago..."
+msgstr ""
 
 msgid "Set item titles from:"
 msgstr "Ezarri elementu tituluak hemendik:"
 
 msgid "Assign caption to:"
-msgstr "Ezarri epigrafeak hemen:"
+msgstr "Ezarri epigafeak hemen:"
 
 msgid "No Thumbnail"
 msgstr "Argazkitxorik Ez"
+
+msgid "Delete Items"
+msgstr "Elementuak Ezabatu"
 
 msgid "No items were selected for deletion"
 msgstr "Ez da elementurik aukeratu ezabatzeko"
@@ -2848,7 +2552,7 @@ msgstr[0] "Elementu %d behar bezala ezabatu da"
 msgstr[1] "%d elementu behar bezala ezabatu dira"
 
 msgid "This album contains no items to delete"
-msgstr "Album honek ez du elementurik ezabatzeko"
+msgstr "Album ho9nek ez du elementurik ezabatzeko"
 
 msgid "Choose the items you want to delete"
 msgstr "Aukeratu ezabatu nahi dituzun elementuak"
@@ -2860,12 +2564,11 @@ msgstr "(%d %d orrialdetatik)"
 msgid "Items selected here will remain selected when moving between pages."
 msgstr "Hemen hautaturiko elementuak hautaturik jarraituko dute orrietan zehar mugitzerakoan."
 
-# missing %d in msgstr[1]
-#, c-format
+#, fuzzy, c-format
 msgid "One item selected on other pages."
 msgid_plural "%d items selected on other pages."
-msgstr[0] "Elementu bat hautaturik beste orrietan"
-msgstr[1] "%d elementu hautaturik beste orrietan"
+msgstr[0] "Bat elementu hautatutakoa - bestelakoa."
+msgstr[1] "Bat elementu hautatutakoa - bestelakoa."
 
 msgid "(data)"
 msgstr "(data)"
@@ -2894,12 +2597,24 @@ msgstr "Aurreko Orrialdea"
 msgid "Next Page"
 msgstr "Hurrengo Orrialdea"
 
-#, fuzzy, c-format
-msgid "Do you really want to delete %s?"
-msgstr "Benetan hau ezabatu nahi duzula: "
+msgid "Deletion Complete"
+msgstr "Ezabaketa Buruturik"
 
-msgid "Delete more items..."
-msgstr "Elementu gehiagi ezabatu..."
+msgid "Item successfully deleted"
+msgstr "Elementua behar bezala ezabatu da"
+
+#, c-format
+msgid "Are you sure you want to delete this %s?"
+msgstr "Ziur zaude %s ezabatu nahi duzula?"
+
+#, c-format
+msgid "It contains %d item."
+msgid_plural "It contains %d items."
+msgstr[0] "Berauk elementu %d du."
+msgstr[1] "Berauk %d elementu ditu."
+
+msgid "There is no undo!"
+msgstr "Hau ezin da desegin!"
 
 msgid "There was a problem processing your request."
 msgstr "Zure eskaera prozesatzerakoan errore bat gertatu da."
@@ -2938,7 +2653,7 @@ msgid "Active"
 msgstr "Gaiturik"
 
 msgid "Target Size (pixels)"
-msgstr "Helburu Tamaina (pixel)"
+msgstr "Helburu Tamaiana (pixel)"
 
 msgid "You must enter a valid size"
 msgstr "Baliozko tamaina bat idatzi behar duzu"
@@ -2946,8 +2661,9 @@ msgstr "Baliozko tamaina bat idatzi behar duzu"
 msgid "Use these target sizes in all subalbums"
 msgstr "Helburu tamaina hau erabili azpi-album guztietan"
 
+#, fuzzy
 msgid "Apply settings to existing items"
-msgstr "Ezarri ezarpenak dauden elementuei"
+msgstr "Ezarri azpi-elementuei"
 
 msgid ""
 "The thumbnail and resized image settings are for all new items. To apply these settings to "
@@ -2956,26 +2672,24 @@ msgid ""
 "Building images now makes this operation take longer, but saves the time to build and cache "
 "each file when it is first viewed."
 msgstr ""
-"Argazkitxo eta tamainaz aldaturiko irudi ezarpenak elementu berri guztientzat dira. Ezarpen "
-"hau albumean dauden elementuetan ezartzeko hautatu dagokion kutxa.  Azpi-albumak batzean "
-"album bakoitzeko argazkitxo/tamaina aldaturiko elementu ezarpenak erabiliko dira agian ez "
-"direla behekoen berdinak. Irudiak orain sortzeak prozesua luza dezate, baina elementu "
-"bakoitza lehen aldiz ikusten denean eraikitze eta katxean gordetze denbora gordeko du."
 
 msgid "Apply album setting to thumbnails"
-msgstr "Album ezarpenak argazkitxoetara aplikatu"
+msgstr ""
 
+#, fuzzy
 msgid "... and for all subalbums"
-msgstr "... eta azpialbum guztiei"
+msgstr "Azpi-album guztiei ezarri"
 
+#, fuzzy
 msgid "Build thumbnails too"
-msgstr "Argazkitxoak ere sortu"
+msgstr "Argazkitxoak birsortzen..."
 
+#, fuzzy
 msgid "Apply album setting to resized images"
-msgstr "Album ezarpenak ezarri taimanaz aldaturiko irudiei"
+msgstr "Taimanaz aldaturiko irudiak berriz sortzen"
 
 msgid "Build resizes too"
-msgstr "Tamainak ere eraiki"
+msgstr ""
 
 msgid ""
 "In order for Gallery to properly display this animation, it has to know the animation's "
@@ -2986,7 +2700,7 @@ msgid ""
 "experimenting won't cause harm."
 msgstr ""
 "Galleryk animazio hau behar bezala bistaratzeko, animazioaren zabalera eta altuera ezagutu "
-"behar ditu.  Animazioak kudea ditzakeen tresnajoko grafiko bat instalaturik baduzu, balio "
+"behar ditu.  Animazioak kudea ditzakeen tresna-joko grafiko bat instalaturik baduzu, balio "
 "hauek ezarririk egongo dira.  Bestela 0 bezala ezarririk egongo dira.  Ez badituzu balio "
 "zuzenak ezartzen animazioa eraldaturik ager daiteke web nabigatzailean bistaratzean.  "
 "Kontutan izan balio hauek aldatzeak <b>ez</b> duela animazioa bera aldatzen beraz balio "
@@ -3014,7 +2728,7 @@ msgid "This album contains no items"
 msgstr "Album honek ez du elementurik"
 
 msgid "Saved successfully."
-msgstr "Behar bezala gorderik."
+msgstr "Behat bezala gorderik."
 
 msgid "This item was modified by somebody else at the same time.  Your changes were lost."
 msgstr ""
@@ -3038,14 +2752,14 @@ msgid ""
 "The name of this item on your hard disk.  It must be unique in this album.  Only use "
 "alphanumeric characters, underscores or dashes."
 msgstr ""
-"Elementuaren zure diskoko izena. Bakarra izan behar da album honetan. Alphazenbakizko "
-"karaktereak azpimarratuak eta marratxoa bakarrik erabili."
+"Elementuaren zure diskako izena. Bakrra izan behar da album honetan. Alphazenbakizko "
+"karaktereas azpimarratuak eta marratxoa bakarrik erabili."
 
 msgid "Your name contains invalid characters.  Please choose another."
 msgstr "Emandako izenak karaktere baliogabeak ditu.  Beste bat aukeratu mesedez."
 
 msgid "You must enter a name for this item."
-msgstr "Elementu honentzat izen bat idatzi behar duzu."
+msgstr "Elementu honentzt izen bat idatzi behar duzu."
 
 msgid "The name you entered is already in use.  Please choose another."
 msgstr "Emandako izena dagoeneko erabilia dago. Aukeratu beste izen bat mesedez."
@@ -3066,10 +2780,6 @@ msgstr "Elementu honen deskribapen luzea."
 msgid "%s Date and Time"
 msgstr "%s Data eta Ordua"
 
-#, fuzzy
-msgid "Link Date and Time"
-msgstr "%s Data eta Ordua"
-
 msgid "Set the date and time when this image was captured."
 msgstr "Irudia jaso zeneko data eta ordua ezarri."
 
@@ -3079,10 +2789,6 @@ msgstr "Elementu honentzat bistaraziko den data eta ordua ezarri."
 #, c-format
 msgid "Set the date and time to be displayed for this %s."
 msgstr "%s honentzat erakutsiko diren data eta ordua ezarri."
-
-#, fuzzy
-msgid "Set the date and time to be displayed for this link."
-msgstr "Elementu honentzat bistaraziko den data eta ordua ezarri."
 
 msgid "Date:"
 msgstr "Data:"
@@ -3110,7 +2816,7 @@ msgid ""
 "There are no graphics toolkits enabled that support this type of item, so we cannot create "
 "or modify a thumbnail."
 msgstr ""
-"Ez dago elementu mota hau onartzen duen tresnajoko grafikorik instalaturik, beraz ezingo da "
+"Ez dago elemntu mota hau onartzen duen trsna-sprta grafikorik instalaturik, beraz ezingo da "
 "argazkitxoa sortu edo eraldatu."
 
 msgid "Unable to create a thumbnail for this item"
@@ -3125,7 +2831,7 @@ msgid ""
 "harm."
 msgstr ""
 "Galleryk filma hau behar bezala bistaratzeko, filmaaren zabalera eta altuera ezagutu behar "
-"ditu.  Filmak kudea ditzakeen tresnajoko grafiko bat instalaturik baduzu, balio hauek "
+"ditu.  Filmak kudea ditzakeen tresna-joko grafiko bat instalaturik baduzu, balio hauek "
 "ezarririk egongo dira.  Bestela 0 bezala ezarririk egongo dira.  Ez badituzu balio zuzenak "
 "ezartzen filma eraldaturik ager daiteke web nabigatzailean bistaratzean.  Kontutan izan "
 "balio hauek aldatzeak <b>ez</b> duela filma bera aldatzen beraz balio ezberdinak probatzea "
@@ -3144,15 +2850,15 @@ msgid ""
 "There are no graphics toolkits enabled that support this type of photo, so we cannot create "
 "or modify resized versions."
 msgstr ""
-"Ez dago argazki mota hau onartzen duen tresnajoko grafikorik instalaturik, beraz ezin dira "
-"tamaina aldatuko bertsioak sortu ez eraldatu."
+"Ez dago argazki mota hau onartzen duen tresna-joko grafikorik instalaturik, beraz ezin dira "
+"rmaina aldatuko bertsioak sortu ez eraldatu."
 
 msgid ""
 "You can select which part of the photo will be used for the thumbnail.  This will have no "
 "effect on the resized or original versions of the image."
 msgstr ""
 "Argazkitxoan jatorrizko argazkiaren zein zati ikusiko den hautatu dezakezu.  Honek ez die "
-"jatorrizko irudiaren tamaina aldaketei eragingo."
+"jatorrizk-irudiaren tamaina aldaketei eragingo."
 
 msgid "Aspect Ratio: "
 msgstr "Itxura Erlazioa: "
@@ -3160,8 +2866,9 @@ msgstr "Itxura Erlazioa: "
 msgid "Crop"
 msgstr "Ebaki"
 
+#, fuzzy
 msgid "Undo Changes"
-msgstr "Aldaketak Desegin"
+msgstr "Aldatu"
 
 msgid "Reset to default"
 msgstr "Berrezarri lehenetsia"
@@ -3170,7 +2877,7 @@ msgid ""
 "There are no graphics toolkits enabled that support this type of photo, so we cannot crop "
 "the thumbnail."
 msgstr ""
-"Ez dago argazki mota hau onartzen duen tresnajoko grafikorik instalaturik, beraz ezin "
+"Ez dago argazki mota hau onartzen duen tresna-joko grafikorik instalaturik, beraz ezin "
 "argazkitxoa ebaki."
 
 msgid "Rotate"
@@ -3192,7 +2899,7 @@ msgid ""
 "There are no graphics toolkits enabled that support this type of photo, so we cannot rotate "
 "it."
 msgstr ""
-"Ez dago argazki mota hau onartzen duen tresnajoko grafikorik instalaturik, beraz ezin da "
+"Ez dago argazki mota hau onartzen duen tresna-joko grafikorik instalaturik, beraz ezin da "
 "berau biratu."
 
 msgid "Scale"
@@ -3204,14 +2911,14 @@ msgid ""
 "be scaled until it fits inside a bounding box with the size you enter here."
 msgstr ""
 "Jatorrizko irudia txikitu edo handitu.  Gallery-k argazki bat eskalatzerakoan itxura "
-"erlazioa (altuera eta zabalera) mantenduz egiten du distortsioak ekiditeko.  Argazkia hemen "
+"erlazioa (altuera eta zabalera) mantenduz egiten du distortsioak ekiditzeko.  Argazkia hemen "
 "idatzitako tamainako kutxa batetan sartzeko eskaltu egingo da."
 
 msgid ""
 "There are no graphics toolkits enabled that support this type of photo, so we cannot scale "
 "it."
 msgstr ""
-"Ez dago argazki mota hau onartzen duen tresnajoko grafikorik instalaturik, beraz ezin da "
+"Ez dago argazki mota hau onartzen duen tresna-joko grafikorik instalaturik, beraz ezin da "
 "berau tamainaz aldatu."
 
 msgid "You must enter a size"
@@ -3241,8 +2948,6 @@ msgid ""
 "There is no toolkit support to modify the original so operations may only be applied to the "
 "copies"
 msgstr ""
-"Ez dago jatorrizkoa eraldatzeko tresna jokorik instalaturik beraz ekintzak kopietan bakarrik "
-"ezarriko dira"
 
 msgid "Preserve Original Photo"
 msgstr "Jatorrizko Argazkia Mantendu"
@@ -3257,13 +2962,14 @@ msgid ""
 msgstr ""
 "Biratua edo eskalatua izan den jatorrizko argazkiaren kopia bat erabiltzen ari zara.  "
 "Jatorrizko argazkia eskuragarria da baina ez da luzaroago erabiliko.  Horren ordez egiten "
-"duzun edozein aldaketa kopia batetan egingo da."
+"duzun edozein aldaekta kopia batetan egingo da."
 
 msgid "Restore original"
 msgstr "Jatorrizkoa berreskuratu"
 
+#, fuzzy
 msgid "Choose a theme"
-msgstr "Gai bat hautatu"
+msgstr "Bloke bat hautatu"
 
 #, c-format
 msgid ""
@@ -3271,40 +2977,38 @@ msgid ""
 "version or no longer available.  Please upgrade the %s theme or use another theme for this "
 "album."
 msgstr ""
-"Album hau Gallery bertsio honekin bateragarri ez den edo aurkitzen ez den %s gaia "
-"erabiltzeko konfiguraturik dago.  Mesedez edo %s gai bertsio berritu edo beste gai bat "
-"erabili album honentzat."
 
 #, c-format
 msgid ""
 "Themes control the look and feel of the album.  You can choose a different theme for each "
 "album.  If you don't choose a theme, we'll use the %s theme by default."
 msgstr ""
-"Gaiek album baten itxura eta portamoldea kontrolatzen dute.  Album bakoitzerako gai ezberdin "
-"bat hautatu dezakezu. Ez baduzu gairik hautatzen lehenetsiriko %s gaia erabiliko da."
 
 msgid "Use this theme in all subalbums"
 msgstr "Gai hau erabili azpi-albumetan"
 
 msgid "Choose Theme"
-msgstr "Gaia Hautatu"
+msgstr ""
 
-#, c-format
+#, fuzzy, c-format
 msgid "Configure the %s theme"
-msgstr "%s gaia konfiguratu"
+msgstr "Unitate proba gaia"
 
+#, fuzzy
 msgid "These settings only apply to the theme for this album."
-msgstr "Ezarpen hauek album honetako gaiean bakarrik ezarriko dira."
+msgstr ""
+"Album hau <b>%s</b> gaia erabiltzeko konfiguraturik dago. Ezarpen hauek album honetako "
+"gaiera bakarrik ezarriko dira."
 
-#, c-format
+#, fuzzy, c-format
 msgid "Use these settings in all subalbums that use the %s theme"
-msgstr "Ezarpen hauek %s gaia erabiltzen duten azpialbum guztietan erabili"
+msgstr "Ezarpen hauek %s gaia erabiltzen duten azpi-album guztietan erabili"
 
 msgid "Album Highlight"
 msgstr "Albuma Nabarmendu"
 
 msgid "You can make this item the thumbnail for its parent or any ancestor album."
-msgstr "Elementu hau bere guraso edo edozein aurreko albumen argazkitxoa egin dezakezu."
+msgstr "Elementu hau bere guraso edo edozein aurreko album-en argazkitxoa egin dezakezu."
 
 msgid "Highlight for:"
 msgstr "Nabarmendu hau:"
@@ -3325,23 +3029,16 @@ msgid "This album contains no items to move."
 msgstr "Album honek ez du mugitzeko elementurik."
 
 msgid "Source"
-msgstr "Jatorria"
+msgstr "Jaotorria"
 
 msgid "Choose the items you want to move"
 msgstr "Aukeratu mugitu nahi dituzun elementuak"
-
-msgid "OK"
-msgstr "Ados"
 
 msgid ""
 "The destination you chose does not accept sub-albums, so all sub-albums have been deselected."
 msgstr ""
 "Zuk aukeratutako kokalekuak ez ditu azpi-albumak onartzen, beraz azpi-album guztiak "
 "hautaketatik kanpora gelditu dira."
-
-#, fuzzy
-msgid "Warning"
-msgstr "Kontuz!"
 
 msgid ""
 "The destination you chose only accepts sub-albums, so all non-albums have been deselected."
@@ -3408,11 +3105,11 @@ msgid ""
 "if you want to grant permissions to a specific user, you can add (or remove) the user from "
 "the appropriate group."
 msgstr ""
-"Elementu bakoitzak bere baimenak ditu. Gurasoaren baimenak aldatzeak ez du bere azpiko "
+"Elementu bakoitzak bere baimenak ditu. Gurasoaren baimeank aldatzeak ez du bere azpiko "
 "elementuetan eragingo.  Honek elementu honen gurasora sarrera iragazi baina elementu honen "
 "sarrera irekia uzteko aukera, edo alderantzizkoa,  ematen dizu.  Baimenak erabiltzeko era "
 "egokiena taldeak sortu eta baimenak taldeei ezartzea da.  Orduan erabiltzaile bati baimen "
-"berezi bat emateko aski duzu berau talde egokian gehitu edo ezabatzearekin."
+"berezi bat emateko aski duzu berau talde egokian gehitu edo ezabatzerarekin."
 
 #, c-format
 msgid "This item is owned by user: %s"
@@ -3448,10 +3145,10 @@ msgid ""
 "remove users from groups whenever possible. Changes are applied to sub-items by default."
 msgstr ""
 "Elementu honek azpi-elementuak ditu.  Hemen egiten dituzun aldaketak soilik elementu honi "
-"edo bere azpi-elementuei ere eragin diezaiekete.  Kontutan izan azpi-elementuei aldaketak "
-"ezartzean hauen baimentan eragin dezakeela eta honek denbora luzea tardatu dezakeela azpi-"
+"edo bere azpi-elementuei ere eragin diezakete.  Kontutan izan azpi-elemtuei aldaketak "
+"ezartzean hauen baimentan eragin dezaleela eta honek denbora luzea tardatu dezakela azpi-"
 "elementu ugari izan ezkero.  Praktikoagoa da baimenak taldeei egoztea eta gero "
-"erabiltzaileak taldeei gehitu edo hauetatik ezabatzea behar denean. Aldaketak lehenespen "
+"erabiltzaileak taldeei geitu edo hauetatik ezabatzea behar denean. Aldaketak lehenespen "
 "bezala azpi-elemetuei ere ezarriko zaizkie."
 
 msgid "Apply to sub-items"
@@ -3473,7 +3170,7 @@ msgid "Add Permission"
 msgstr "Baimena Gehitu"
 
 msgid "The permission you chose is invalid"
-msgstr "Zuk hautatutako baimena baliogabea da"
+msgstr "Huk hautatutako baimena baliogabea da"
 
 msgid "The group name you entered is invalid"
 msgstr "Emandako talde izena baliogabea da"
@@ -3485,7 +3182,7 @@ msgid "User Permissions"
 msgstr "Erabiltzaile Baimenak"
 
 msgid "User name"
-msgstr "Erabiltzaile izena"
+msgstr "Erabiltzaile-izena"
 
 msgid "New User Permission"
 msgstr "Erabiltzaile Berri Baimenak"
@@ -3529,9 +3226,6 @@ msgid ""
 "is either disabled or not supported by your browser. Please enable JavaScript by changing "
 "your browser options, then try again."
 msgstr ""
-"JavaScript gaiturik egon behar da orri honek behar bezala funtzionatzeko, dirudienez "
-"JavaSciprt ezgaituri duzu nabigatzailean edo ez du onartzen. JavaSript gaitu ezazu zure "
-"nabigatzaile hobespenetan eta saiatu berriro."
 
 msgid "Site is temporarily down for maintenance."
 msgstr "Gunea mantenu lanagatik ez dago martxan une honetan."
@@ -3548,12 +3242,10 @@ msgstr "URL-a deskribatzen duen testu bat idatzi"
 msgid "Enter an image URL"
 msgstr "Sartu irudi URL bat"
 
-#. HINT: Button label for Bold
-msgid "B"
+msgid "B <!-- Button label for Bold -->"
 msgstr "B"
 
-#. HINT: Button label for italic
-msgid "i"
+msgid "i <!-- Button label for italic -->"
 msgstr "i"
 
 msgid "list"
@@ -3568,12 +3260,13 @@ msgstr "url-a"
 msgid "image"
 msgstr "irudia"
 
+#, fuzzy
 msgid "color"
-msgstr "kolorea"
+msgstr "muina"
 
 #, c-format
-msgid "You can also use the %scolor name%s for example: %sYour Text%s"
-msgstr "%sKolore izena%s ere erabili dezakezu, adibidez: %sZure Testua%s"
+msgid "You can also use the <a href=\"%s\" target=\"_new\">color name</a> for example: %s"
+msgstr ""
 
 msgid "Configuration Error: Missing Theme"
 msgstr "Konfigurazioa Errorea: Gaia falta da"
@@ -3617,7 +3310,7 @@ msgid ""
 "To fix this problem you can either %schoose a new theme for this album%s or %sinstall or "
 "activate this theme%s."
 msgstr ""
-"Arazo hau konpontzeko %salbum honentzat gai berri bat hautatu%s edo %sgai hau instalatu edo "
+"Arazo hau konpontzeko %salbum honetzat gai berri bat hautatu%s edo %sgai hau instalatu edo "
 "gaitu%s dezakezu."
 
 #, c-format
@@ -3625,7 +3318,7 @@ msgid ""
 "To fix this problem you can either %schoose a new theme for this album%s or %slogin as a "
 "site administrator%s and then %sinstall or activate this theme%s."
 msgstr ""
-"Arazo hau konpontzeko %salbum honentzat gai berri bat hautatu%s edo %sgune kudeatzaile%s "
+"Arazo hau konpontzeko %salbum honetzat gai berri bat hautatu%s edo %sgune kudeatzaile%s "
 "bezala saioa hasi eta %sgai hau instalatu edo gaitu%s egin behar duzu."
 
 #, c-format
@@ -3633,7 +3326,7 @@ msgid ""
 "To fix this problem you can either %slogin%s and then %schoose a new theme for this album%s "
 "or %slogin as a site administrator%s and then %sinstall or activate this theme%s."
 msgstr ""
-"Arazo hau konpontzeko %sgune kudeatzaile%s bezala saioa hasi eta %salbum honentzat gai berri "
+"Arazo hau konpontzeko %sgune kudeatzaile%s bezala saioa hasi eta %salbum honetzat gai berri "
 "bat hautatu%s edo %sgune kudeatzaile%s bezala saioa hasi eta %sgai hau instalatu edo gaitu%s "
 "egin behar duzu."
 
@@ -3657,7 +3350,7 @@ msgid "Current Password"
 msgstr "Unekoa Pasahitza"
 
 msgid "You must enter your current password"
-msgstr "Zure pasahitza idatzi behar duzu"
+msgstr "Zure pasahitza idatzu behar duzu"
 
 msgid "Incorrect password"
 msgstr "Okerreko pasahitza"
@@ -3678,14 +3371,11 @@ msgid ""
 "This account is not allowed to modify account settings.  Please contact your Gallery "
 "administrator"
 msgstr ""
-"Kontu honek ez du kontu ezarpenak aldatzeko baimenik.  Harremanetan ipini Gallery "
-"kudeatzailearekin"
 
 msgid ""
 "Your administrator has locked this account, preventing changes from being made to the "
 "account information."
 msgstr ""
-"Kudeatzaileak kontu hau blokeatu du, inork kontu informazioan aldaketak egitea eragotziz."
 
 msgid "Login to your account"
 msgstr "Zure kontuaz saioa hasi"
@@ -3693,28 +3383,23 @@ msgstr "Zure kontuaz saioa hasi"
 msgid "Your password has been recovered, please login."
 msgstr "Zure pasahitza berreskuratua izan da, mesedez saioa hasi."
 
-msgid ""
-"The administration session has expired, please re-authenticate to access the administration "
-"area."
-msgstr ""
-
 #, c-format
 msgid ""
 "Logins to this account are temporarily disabled due to multiple failed login attempts.  Wait "
-"for access to be restored, or use the %srecover password%s page to re-enable this account."
+"for access to be restored, or use the <a href=\"%s\">recover password</a> page to re-enable "
+"this account."
 msgstr ""
-"Hutsegindako saio hasiera saiaketa gehiegi egon direla eta kontu hau aldi batetan "
-"blokeaturik dago.  Saio hastea berriz gaitzea itxoin edo %spasahitz berreskuratze%s "
-"orrialdea erabili kontu hau birgaitzeko."
 
 msgid "Your login information is incorrect.  Please try again."
 msgstr "Zure saio datuak okerrak dira.  Saiatu berriro."
 
 #, c-format
-msgid "Lost or forgotten passwords can be retrieved using the %srecover password%s page"
+msgid ""
+"Lost or forgotten passwords can be retrieved using the <a href=\"%s\">recover password</a> "
+"page"
 msgstr ""
-"Galdu edo ahaztutako pasahitzak %spasahitz berreskuraketa%s orriaren bidez berreskuratu "
-"daitezke"
+"Galdu edo ahaztutako pasahitzak<a href=\"%s\">pasahitz berreskurketa</a> orriaren bidez "
+"berreskuratu daitezke"
 
 #, c-format
 msgid "Welcome, %s!"
@@ -3748,7 +3433,7 @@ msgid ""
 msgstr ""
 "Pasahitza berreskuratzeak zure kontuak posta helbide bat ezarririk izatea eta zuk posta hori "
 "eskuaratzeko aukera izatea behar du.  Berrespena bat bidaliko zaizu zure konturako pasahitz "
-"berri bat ezartzeko ireki beharko duzun URL helbide batekin.  Gehikeriak ekiditeko pasahitz "
+"berri bat ezartzeko ireki beharko duzun URL helbide batekin.  Gehikeriak ekiditzeko pashitz "
 "berreskuraketa bat baino gehiago ez da onartuko 20 minuko aldiro.  Pasahitz berreskuratze "
 "berrespenak zazpi egunetarako baliozkoa izango da. Denbora honetan erabiltzen ez bada, berau "
 "sistematik ezabatua izango da eta eskaera berri bat egin beharko da berreskuratzea lortzeko."
@@ -3802,7 +3487,7 @@ msgstr ""
 "ezazu instalazio direktorioan."
 
 msgid "Once you've uploaded the file, click refresh to continue."
-msgstr "Behin fitxategia igo duzula, freskatu klikatu aurrera jarraitzeko."
+msgstr "Bein fitxategia igo duzula, freskatu klikatu aurrera jarraitzeko."
 
 msgid "Emergency Administrator Password Reset"
 msgstr "Larrialditarako Kudeatzaile Pasahitz Berezarketa"
@@ -3845,7 +3530,8 @@ msgstr "Egiaztapen Fitxategia ezin da irakurri"
 
 #, c-format
 msgid "Your %s file is not readable. Please give Gallery read permissions on the file."
-msgstr "Zure %s fitxategia ezin da irakurri. Mesedez eman Galley-ei berau irakurtzeko baimena."
+msgstr ""
+"Zure %s fitxategia ezin da irakurri. Mesedez eman Galley-ei berau irakurtzerko baimena."
 
 msgid "Refresh"
 msgstr "Freskatu"
@@ -3856,24 +3542,24 @@ msgstr "Orrialde honek zure pasahitza berezartzeko aukera ematen dizu."
 #, c-format
 msgid ""
 "There is no request which matches the username and authorization provided. Request a new "
-"authorization from the %slost password page%s."
+"authorization from the <a href=\"%s\">lost password page</a>"
 msgstr ""
-"Ez dago emandako erabiltzaile eta pasahitzarekin bat datorren eskaerarik. Eskaera berri bat "
-"egin ezazu %sgaldutako pasahitz orrialdean%s"
+"Ez dago emandako erabiltzaile eta pashitzarekin abt datorren eskaerarik. Eskaera berri bat "
+"egin ezazu <a href=\"%s\">galdutako pasahitz orrialdean</a>"
 
 #, c-format
 msgid ""
-"The request you are trying to access has expired.  Request a new authorization from the %"
-"slost password page%s."
+"The request you are trying to access has expired.  Request a new authorization from the <a "
+"href=\"%s\">lost password page</a>."
 msgstr ""
-"Zuk egindako eskakizuna iraungita dago. Autorizazio berri bat eskatu %spasahitz galdu "
-"orrialdean%s."
+"Zuk egindako eskakizuna iraungita dago. Autorizazio berri bat eskatu  <a href=\"%s"
+"\">pasahitz galdu orrialdean</a>."
 
 msgid "Authorization missing"
 msgstr "Baimena falta da"
 
 msgid "Username missing"
-msgstr "Erabiltzaile izena falta da"
+msgstr "Erabiltzaile-izena falta da"
 
 msgid "Submit"
 msgstr "Bidali"
@@ -3885,7 +3571,7 @@ msgstr "Kaixo %s,"
 #, c-format
 msgid "You receive this email because a password recovery for %s was requested by %s at %s"
 msgstr ""
-"Eposta hau %s-ren pasahitz berreskuraketa bat eskatu delako jasotzen duzu. %s-ek %s-an egin "
+"Eposta hau %s-ren pasahitz berreskuraketa bat eskatu delako jaostzen duzu. %s-ek %s-an egin "
 "du eskaera"
 
 #, c-format
@@ -3897,7 +3583,7 @@ msgid ""
 "required information:"
 msgstr ""
 "Pasahitz berreskuraketa prozesua amaitzeko mesedez, klikatu hurrengo lotura eta eskatzen den "
-"informazioa eman:"
+"infomazioa eman:"
 
 msgid "If you did not request this recovery email, you may safely ignore it."
 msgstr "Ez baduzu berreskuraketa eposta hau eskatu, berau alde batetara utzi dezakezu."
@@ -3945,14 +3631,18 @@ msgstr "&laquo; elementu ekintzak &raquo;"
 msgid "Go"
 msgstr "Joan"
 
-msgid "WARNING: block $type doesn't exist."
-msgstr ""
+msgid "Navigation"
+msgstr "Nabigazioa"
 
 msgid "next"
 msgstr "hurrengoa"
 
 msgid "last"
 msgstr "azkena"
+
+#, c-format
+msgid "Page %d of %d"
+msgstr "%d orrialde %d-tik"
 
 #, c-format
 msgid "%d of %d"
@@ -4000,24 +3690,3 @@ msgstr "Saio-hasiera blokea"
 
 msgid "Links to album/photo peers"
 msgstr "Ondoko album/argazkietara loturak"
-
-#~ msgid "Language Packages"
-#~ msgstr "Hizkuntza Paketeak"
-
-#~ msgid "(%sselect all%s%sselect none%s)"
-#~ msgstr "(%sdenak hautatu%s%sbatez hautatu%s)"
-
-#~ msgid "You must select a base package before choosing language packs."
-#~ msgstr "Oinarri pakete bat hautatu behar duzu hizkuntza paketeak hautatu aurretik."
-
-#~ msgid "Back to %s"
-#~ msgstr "%s-(e)ra Atzera"
-
-#~ msgid "Back"
-#~ msgstr "Atzera"
-
-#~ msgid "Navigation"
-#~ msgstr "Nabigazioa"
-
-#~ msgid "Deleting... Please wait"
-#~ msgstr "Ezabatzen... Itxoin mesedez"

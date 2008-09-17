@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,10 +19,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: RSS 1.1.5\n"
+"Project-Id-Version: Gallery: RSS 1.1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-19 16:14+0100\n"
-"PO-Revision-Date: 2008-01-05 00:00+0100\n"
+"PO-Revision-Date: 2007-01-01 00:00+0100\n"
 "Last-Translator: Arnaud MOURONVAL <Arnaud.Mouronval@yahoo.com>\n"
 "Language-Team: French <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -35,6 +35,9 @@ msgstr "Ce fil RSS n'existe plus&nbsp;!"
 
 msgid "Feeds of that type are not allowed!"
 msgstr "Les fils RSS de ce type ne sont pas autorisés&nbsp;!"
+
+msgid "Not permitted to view this item"
+msgstr "Il n'est pas permis de visualiser cet élément"
 
 msgid "Incorrect feed type!"
 msgstr "Type de fil RSS incorrect&nbsp;!"
@@ -62,10 +65,6 @@ msgstr "Fil RSS pour cette photo"
 msgid "RSS Feed for this Movie"
 msgstr "Fil RSS pour ce film"
 
-#, c-format
-msgid "RSS Feed for this %s"
-msgstr "Fils RSS pour ce(t)(te) %s"
-
 msgid "Configure RSS Feeds"
 msgstr "Configurer les fils RSS"
 
@@ -85,8 +84,8 @@ msgid "Short URL for Configurable RSS Feeds"
 msgstr "URL courtes des fils RSS configurables"
 
 #, c-format
-msgid "In album %s"
-msgstr "Dans l'album %s"
+msgid "RSS Feed for this %s"
+msgstr "Fils RSS pour ce(t)(te) %s"
 
 msgid "Items in an album"
 msgstr "Éléments dans un album"
@@ -106,11 +105,9 @@ msgstr "Commentaires pour un élément"
 msgid "Comments for an album and its subalbums"
 msgstr "Commentaires d'un un album et de ses sous-albums"
 
-msgid "Random items in an album"
-msgstr "Éléments aléatoires dans un album"
-
-msgid "Random items in an album and its subalbums"
-msgstr "Éléments aléatoires dans un album et ses sous-albums"
+#, c-format
+msgid "In album <a href=\"%s\">%s</a>"
+msgstr "Dans l'album <a href=\"%s\">%s</a>"
 
 msgid "RSS Feeds"
 msgstr "Fils RSS"
@@ -197,12 +194,6 @@ msgstr "Commentaires pour cet album"
 msgid "Comments for this album and its subalbums"
 msgstr "Commentaires pour cet album et ses sous-albums"
 
-msgid "Random pictures inside this album"
-msgstr "Images aléatoires dans cet album"
-
-msgid "Random pictures inside this album and its subalbums"
-msgstr "Images aléatoires de cet album et des sous-albums"
-
 msgid "Comments for this item"
 msgstr "Commentaires pour cet élément"
 
@@ -287,22 +278,6 @@ msgid ""
 msgstr ""
 "Ceci ajoute pour chaque image du fil RSS, une pièce jointe qui contient l'image en pleine "
 "résolution"
-
-msgid "Use Media RSS"
-msgstr "Utiliser Media RSS"
-
-msgid "Include Media RSS tags"
-msgstr "Inclure les étiquettes Media RSS"
-
-msgid ""
-"This adds Media RSS tags to the feed, which allows media-oriented clients to display the "
-"feed in a more useful fashion"
-msgstr ""
-"Ceci ajoute les étiquettes Media RSS au flux ce qui permet aux clients RSS orientés médias "
-"de les afficher de manière plus agréable"
-
-msgid "about Media RSS"
-msgstr "au sujet de Media RSS"
 
 msgid "Cloud tag (RSS 2.0)"
 msgstr "Étiquette Cloud (RSS 2.0)"
@@ -404,12 +379,6 @@ msgstr "Nombre maximum d'éléments dans les fils RSS"
 msgid "Invalid maximum number"
 msgstr "Nombre invalide"
 
-msgid "Maximum age for items in feeds"
-msgstr "Âge maximum des éléments dans les fils RSS"
-
-msgid "Invalid maximum age number"
-msgstr "Âge maximum invalide"
-
 msgid "Default ttl"
 msgstr "TTL par défaut"
 
@@ -473,23 +442,14 @@ msgstr "Autoriser les fils RSS pour les photos d'un album et de ses sous-albums"
 msgid "Slower"
 msgstr "Plus lent"
 
-msgid "Allow RSS feeds of comments of a photo"
-msgstr "Autoriser les fils RSS des commentaires d'une photo"
+msgid "Allow RSS feeds comments of a photo"
+msgstr "Autoriser les fils RSS pour les commentaires d'une photo"
 
-msgid "Allow RSS feeds of comments of an album"
-msgstr "Autoriser les fils RSS des commentaires d'un album"
+msgid "Allow RSS feeds comments of an album"
+msgstr "Autoriser les fils RSS pour les commentaires d'un album"
 
-msgid "Allow RSS feeds of comments for an album and its subalbums"
-msgstr "Autoriser les fils RSS des commentaires d'un album et de ses sous-albums"
-
-msgid "Allow RSS feeds of random photos inside an album"
-msgstr "Autoriser les fils RSS des photos d'un album"
-
-msgid "Allow RSS feeds of random photos inside an album and its subalbums"
-msgstr "Autoriser les fils RSS des photos d'un album et de ses sous-albums"
-
-msgid "Slowest"
-msgstr "Le plus lent"
+msgid "Allow RSS feeds comments for an album and its subalbums"
+msgstr "Autoriser les fils RSS pour les commentaires d'un album et de ses sous-albums"
 
 msgid "Save Settings"
 msgstr "Sauver les paramètres"

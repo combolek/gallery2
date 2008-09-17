@@ -1,206 +1,163 @@
 # $Revision$
 # File crc32 crc32(crlf) size size(crlf)  or  R File
 modules/search/HighlightResults.js	4006435078	4091272109	950	976
-modules/search/Preloads.inc	3948442435	3221691792	1228	1267
-modules/search/SearchBlock.js	913187673	951060791	1250	1288
-modules/search/SearchScan.inc	2024959915	3191231219	7042	7287
-modules/search/SearchShowAll.inc	323583068	374648506	5683	5882
-modules/search/classes/GallerySearchInterface_1_0.class	4145141368	2437082884	3518	3596
-modules/search/classes/SearchUtilities.class	3351174632	364589243	1365	1409
-modules/search/module.inc	1901334094	2238660994	1485	1531
+modules/search/Preloads.inc	1801427834	3570266475	1228	1267
+modules/search/SearchBlock.js	2696111513	95994316	992	1026
+modules/search/SearchScan.inc	1459433845	3241357237	7027	7272
+modules/search/SearchShowAll.inc	2539776189	1618982564	5665	5863
+modules/search/classes/GallerySearchInterface_1_0.class	883170570	1225911159	3534	3612
+modules/search/classes/SearchUtilities.class	682914593	315882110	1365	1409
+modules/search/locale/af/LC_MESSAGES/modules_search.mo	3169480771	3169480771	1766	1766
+modules/search/locale/ar/LC_MESSAGES/modules_search.mo	3638387757	3638387757	1824	1824
+modules/search/locale/bg/LC_MESSAGES/modules_search.mo	628342353	628342353	2205	2205
+modules/search/locale/ca/LC_MESSAGES/modules_search.mo	141248969	141248969	1899	1899
+modules/search/locale/cs/LC_MESSAGES/modules_search.mo	995568878	995568878	1955	1955
+modules/search/locale/da/LC_MESSAGES/modules_search.mo	3054051231	3054051231	1828	1828
+modules/search/locale/de/LC_MESSAGES/modules_search.mo	1402221212	1402221212	1825	1825
+modules/search/locale/en_GB/LC_MESSAGES/modules_search.mo	4142776627	4142776627	424	424
+modules/search/locale/es/LC_MESSAGES/modules_search.mo	3016242344	3016242344	1896	1896
+modules/search/locale/es_AR/LC_MESSAGES/modules_search.mo	438328945	438328945	904	904
+modules/search/locale/et/LC_MESSAGES/modules_search.mo	1939507182	1939507182	1782	1782
+modules/search/locale/eu/LC_MESSAGES/modules_search.mo	459383117	459383117	1756	1756
+modules/search/locale/fi/LC_MESSAGES/modules_search.mo	3034464206	3034464206	1809	1809
+modules/search/locale/fr/LC_MESSAGES/modules_search.mo	2167424332	2167424332	1839	1839
+modules/search/locale/ga/LC_MESSAGES/modules_search.mo	614248774	614248774	968	968
+modules/search/locale/hu/LC_MESSAGES/modules_search.mo	794703792	794703792	1969	1969
+modules/search/locale/is/LC_MESSAGES/modules_search.mo	1307559750	1307559750	417	417
+modules/search/locale/it/LC_MESSAGES/modules_search.mo	3624849771	3624849771	1829	1829
+modules/search/locale/ja/LC_MESSAGES/modules_search.mo	4060855868	4060855868	1793	1793
+modules/search/locale/ko/LC_MESSAGES/modules_search.mo	1262622096	1262622096	1892	1892
+modules/search/locale/lt/LC_MESSAGES/modules_search.mo	3142545201	3142545201	2029	2029
+modules/search/locale/lv/LC_MESSAGES/modules_search.mo	2737008991	2737008991	1930	1930
+modules/search/locale/nl/LC_MESSAGES/modules_search.mo	4279498665	4279498665	1763	1763
+modules/search/locale/no/LC_MESSAGES/modules_search.mo	1871273620	1871273620	1765	1765
+modules/search/locale/pl/LC_MESSAGES/modules_search.mo	1811570112	1811570112	1980	1980
+modules/search/locale/pt/LC_MESSAGES/modules_search.mo	3772659359	3772659359	844	844
+modules/search/locale/pt_BR/LC_MESSAGES/modules_search.mo	3522967629	3522967629	1734	1734
+modules/search/locale/ro/LC_MESSAGES/modules_search.mo	1135513832	1135513832	633	633
+modules/search/locale/ru/LC_MESSAGES/modules_search.mo	1043199578	1043199578	2301	2301
+modules/search/locale/sk/LC_MESSAGES/modules_search.mo	3791632498	3791632498	665	665
+modules/search/locale/sr/LC_MESSAGES/modules_search.mo	634732742	634732742	1774	1774
+modules/search/locale/sv/LC_MESSAGES/modules_search.mo	2617418051	2617418051	1878	1878
+modules/search/locale/tr/LC_MESSAGES/modules_search.mo	1179709513	1179709513	1834	1834
+modules/search/locale/uk/LC_MESSAGES/modules_search.mo	3242074702	3242074702	2219	2219
+modules/search/locale/vi/LC_MESSAGES/modules_search.mo	282893975	282893975	1874	1874
+modules/search/locale/zh_CN/LC_MESSAGES/modules_search.mo	4289459964	4289459964	1611	1611
+modules/search/locale/zh_TW/LC_MESSAGES/modules_search.mo	3203617979	3203617979	1779	1779
+modules/search/module.inc	522642680	1759915132	1454	1499
 modules/search/po/GNUmakefile	1866879166	2808215985	98	103
-modules/search/po/af.mo	3373051451	3373051451	1766	1766
-modules/search/po/af.po	258941904	2587492752	2753	2862
-modules/search/po/ar.mo	3708104656	3708104656	1824	1824
-modules/search/po/ar.po	2205667292	363116994	2876	2983
-modules/search/po/bg.mo	427035712	427035712	2205	2205
-modules/search/po/bg.po	938928581	1591535251	3367	3481
-modules/search/po/ca.mo	561099370	561099370	1899	1899
-modules/search/po/ca.po	3420826443	2088798909	2944	3053
-modules/search/po/cs.mo	393268778	393268778	1955	1955
-modules/search/po/cs.po	3076248766	3253072219	2842	2952
-modules/search/po/da.mo	3078004042	3078004042	1881	1881
-modules/search/po/da.po	1963244542	629267256	2776	2885
-modules/search/po/de.mo	122888956	122888956	1941	1941
-modules/search/po/de.po	1678400628	706815631	3019	3132
-modules/search/po/el.mo	1753225762	1753225762	2342	2342
-modules/search/po/el.po	481463786	2630533371	3221	3329
-modules/search/po/en_GB.mo	3898864529	3898864529	424	424
-modules/search/po/en_GB.po	3765203474	879124547	2661	2766
-modules/search/po/es.mo	1210065420	1210065420	2012	2012
-modules/search/po/es.po	2528443327	601645740	2982	3091
-modules/search/po/es_AR.mo	3299418212	3299418212	904	904
-modules/search/po/es_AR.po	171421358	1856859973	2930	3043
-modules/search/po/et.mo	1541213594	1541213594	1782	1782
-modules/search/po/et.po	3717199438	4223792856	2653	2759
-modules/search/po/eu.mo	2767860148	2767860148	1756	1756
-modules/search/po/eu.po	2688749535	440460598	2733	2842
-modules/search/po/fa.mo	1213482717	1213482717	2098	2098
-modules/search/po/fa.po	1679904513	465114911	2969	3075
-modules/search/po/fi.mo	2803519875	2803519875	1898	1898
-modules/search/po/fi.po	2282094997	6167722	2842	2952
-modules/search/po/fr.mo	2113493776	2113493776	1961	1961
-modules/search/po/fr.po	762385983	1853712326	2812	2918
-modules/search/po/ga.mo	3900175227	3900175227	1031	1031
-modules/search/po/ga.po	2238984609	372452982	3415	3546
-modules/search/po/hu.mo	753542797	753542797	2051	2051
-modules/search/po/hu.po	3528456936	3101343898	3100	3214
-modules/search/po/is.mo	1356360926	1356360926	417	417
-modules/search/po/is.po	1394716999	1676142464	2229	2335
-modules/search/po/it.mo	519340244	519340244	1943	1943
-modules/search/po/it.po	3761385747	3480167264	2801	2909
-modules/search/po/ja.mo	370718954	370718954	1990	1990
-modules/search/po/ja.po	469060176	3084854783	2840	2946
-modules/search/po/ko.mo	1226755725	1226755725	1892	1892
-modules/search/po/ko.po	2626514837	3522652987	2828	2938
-modules/search/po/lt.mo	2472395290	2472395290	2029	2029
-modules/search/po/lt.po	2950774195	891206052	3032	3144
-modules/search/po/lv.mo	443555422	443555422	1930	1930
-modules/search/po/lv.po	79744541	3438934068	2813	2922
-modules/search/po/nl.mo	4032091693	4032091693	1763	1763
-modules/search/po/nl.po	4206491697	3814676422	2778	2886
-modules/search/po/no.mo	2081365186	2081365186	1765	1765
-modules/search/po/no.po	3840907904	3831883123	2812	2921
-modules/search/po/pl.mo	2004415335	2004415335	2070	2070
-modules/search/po/pl.po	223955929	944976719	2897	3005
-modules/search/po/pt.mo	834635725	834635725	844	844
-modules/search/po/pt.po	1735793537	1710441677	2642	2754
-modules/search/po/pt_BR.mo	569539656	569539656	1734	1734
-modules/search/po/pt_BR.po	3262057482	722057286	2794	2901
-modules/search/po/ro.mo	1440289168	1440289168	633	633
-modules/search/po/ro.po	3927261485	2165648869	2456	2567
-modules/search/po/ru.mo	2134914776	2134914776	2394	2394
-modules/search/po/ru.po	1499323544	309272683	3412	3526
-modules/search/po/sk.mo	4233809996	4233809996	2079	2079
-modules/search/po/sk.po	3785505078	3434025236	3061	3174
-modules/search/po/sl.mo	3896291006	3896291006	1820	1820
-modules/search/po/sl.po	3040246804	1450798672	2695	2802
-modules/search/po/sr.mo	681994238	681994238	1892	1892
-modules/search/po/sr.po	2747203618	4274405613	2767	2874
-modules/search/po/strings.raw	3742074047	1914519857	1359	1396
-modules/search/po/sv.mo	691210121	691210121	1878	1878
-modules/search/po/sv.po	738074169	2785493501	3151	3269
-modules/search/po/tr.mo	425643368	425643368	1935	1935
-modules/search/po/tr.po	1279164750	886893708	2920	3032
-modules/search/po/uk.mo	1290973485	1290973485	2219	2219
-modules/search/po/uk.po	1160343591	2907042337	3088	3193
-modules/search/po/vi.mo	4030013916	4030013916	2084	2084
-modules/search/po/vi.po	3155696937	510377618	2930	3035
-modules/search/po/zh_CN.mo	3130596548	3130596548	1611	1611
-modules/search/po/zh_CN.po	407733237	1292757357	2735	2845
-modules/search/po/zh_TW.mo	67475642	67475642	1779	1779
-modules/search/po/zh_TW.po	290954949	4290428137	2713	2820
-modules/search/templates/SearchScan.tpl	1656210885	1147441560	4780	4922
-modules/search/templates/SearchShowAll.tpl	2371239017	1741635904	5249	5400
-modules/search/templates/blocks/SearchBlock.tpl	54064070	1066649265	1543	1581
+modules/search/po/af.po	2174087515	2077962335	2698	2804
+modules/search/po/ar.po	337247219	3473920825	2821	2925
+modules/search/po/bg.po	778312963	2339118626	3312	3423
+modules/search/po/ca.po	283645350	2804703532	2889	2995
+modules/search/po/cs.po	2180020422	3282878066	2787	2894
+modules/search/po/da.po	3753833975	271499341	2689	2795
+modules/search/po/de.po	294530183	201311658	2928	3038
+modules/search/po/en_GB.po	4200400868	1855200048	2571	2673
+modules/search/po/es.po	691825268	1119012610	2886	2992
+modules/search/po/es_AR.po	2939134573	980590460	2838	2948
+modules/search/po/et.po	2725021498	4165209664	2598	2701
+modules/search/po/eu.po	2864829951	3677065089	2678	2784
+modules/search/po/fi.po	827095341	1484241398	2751	2858
+modules/search/po/fr.po	1727589928	3893386982	2712	2815
+modules/search/po/ga.po	54002954	7371030	3335	3463
+modules/search/po/hu.po	4153155784	682330568	2941	3051
+modules/search/po/is.po	280138494	1795039956	2174	2277
+modules/search/po/it.po	603898019	1955735130	2709	2814
+modules/search/po/ja.po	1118904777	2542163906	2738	2841
+modules/search/po/ko.po	1295976941	178614536	2773	2880
+modules/search/po/lt.po	2635439156	3064635489	2977	3086
+modules/search/po/lv.po	2613778116	3568974015	2758	2864
+modules/search/po/nl.po	839273382	3748302088	2723	2828
+modules/search/po/no.po	2535569590	324020430	2757	2863
+modules/search/po/pl.po	3322206279	944762436	2805	2910
+modules/search/po/pt.po	2110877184	2733370460	2587	2696
+modules/search/po/pt_BR.po	3091122129	3458922335	2739	2843
+modules/search/po/ro.po	3558733574	2247232384	2401	2509
+modules/search/po/ru.po	1632573128	3348519687	3317	3428
+modules/search/po/sk.po	3011435298	1497416302	2475	2585
+modules/search/po/sr.po	1967945417	3008409821	2721	2826
+modules/search/po/strings.raw	322255802	3786338551	1311	1347
+modules/search/po/sv.po	3371957180	3516247562	3096	3211
+modules/search/po/tr.po	882058920	1437534895	2885	2996
+modules/search/po/uk.po	3459171710	465016619	3033	3135
+modules/search/po/vi.po	2469988442	4711041	2854	2957
+modules/search/po/zh_CN.po	2504050591	1009662523	2680	2787
+modules/search/po/zh_TW.po	3322290600	939849144	2658	2762
+modules/search/templates/SearchScan.tpl	982210324	310837340	4935	5079
+modules/search/templates/SearchShowAll.tpl	1292036004	1761832580	5405	5558
+modules/search/templates/blocks/SearchBlock.tpl	1221528526	3297658273	1587	1627
 modules/search/templates/blocks/blocks.inc	2299246961	3622768294	258	267
-modules/search/test/phpunit/SearchUtilitiesTest.class	3849608854	2687076810	1400	1445
-R	modules/search/locale/af/LC_MESSAGES/modules_search.mo
-R	modules/search/locale/ar/LC_MESSAGES/modules_search.mo
+modules/search/test/phpunit/SearchUtilitiesTest.class	3325746568	2138669413	1400	1445
 R	modules/search/locale/ar_SA/LC_MESSAGES/modules_search.mo
 R	modules/search/locale/ar_SA/LC_MESSAGES
 R	modules/search/locale/ar_SA
-R	modules/search/locale/bg/LC_MESSAGES/modules_search.mo
 R	modules/search/locale/bg_BG/LC_MESSAGES/modules_search.mo
 R	modules/search/locale/bg_BG/LC_MESSAGES
 R	modules/search/locale/bg_BG
-R	modules/search/locale/ca/LC_MESSAGES/modules_search.mo
-R	modules/search/locale/cs/LC_MESSAGES/modules_search.mo
 R	modules/search/locale/cs_CZ/LC_MESSAGES/modules_search.mo
 R	modules/search/locale/cs_CZ/LC_MESSAGES
 R	modules/search/locale/cs_CZ
-R	modules/search/locale/da/LC_MESSAGES/modules_search.mo
 R	modules/search/locale/da_DK/LC_MESSAGES/modules_search.mo
 R	modules/search/locale/da_DK/LC_MESSAGES
 R	modules/search/locale/da_DK
-R	modules/search/locale/de/LC_MESSAGES/modules_search.mo
 R	modules/search/locale/de_DE/LC_MESSAGES/modules_search.mo
 R	modules/search/locale/de_DE/LC_MESSAGES
 R	modules/search/locale/de_DE
-R	modules/search/locale/en_GB/LC_MESSAGES/modules_search.mo
-R	modules/search/locale/es/LC_MESSAGES/modules_search.mo
-R	modules/search/locale/es_AR/LC_MESSAGES/modules_search.mo
 R	modules/search/locale/es_ES/LC_MESSAGES/modules_search.mo
 R	modules/search/locale/es_ES/LC_MESSAGES
 R	modules/search/locale/es_ES
-R	modules/search/locale/et/LC_MESSAGES/modules_search.mo
-R	modules/search/locale/eu/LC_MESSAGES/modules_search.mo
 R	modules/search/locale/eu_ES/LC_MESSAGES/modules_search.mo
 R	modules/search/locale/eu_ES/LC_MESSAGES
 R	modules/search/locale/eu_ES
-R	modules/search/locale/fi/LC_MESSAGES/modules_search.mo
 R	modules/search/locale/fi_FI/LC_MESSAGES/modules_search.mo
 R	modules/search/locale/fi_FI/LC_MESSAGES
 R	modules/search/locale/fi_FI
-R	modules/search/locale/fr/LC_MESSAGES/modules_search.mo
 R	modules/search/locale/fr_FR/LC_MESSAGES/modules_search.mo
 R	modules/search/locale/fr_FR/LC_MESSAGES
 R	modules/search/locale/fr_FR
-R	modules/search/locale/ga/LC_MESSAGES/modules_search.mo
 R	modules/search/locale/ga_IE/LC_MESSAGES/modules_search.mo
 R	modules/search/locale/ga_IE/LC_MESSAGES
 R	modules/search/locale/ga_IE
-R	modules/search/locale/hu/LC_MESSAGES/modules_search.mo
 R	modules/search/locale/hu_HU/LC_MESSAGES/modules_search.mo
 R	modules/search/locale/hu_HU/LC_MESSAGES
 R	modules/search/locale/hu_HU
-R	modules/search/locale/is/LC_MESSAGES/modules_search.mo
 R	modules/search/locale/is_IS/LC_MESSAGES/modules_search.mo
 R	modules/search/locale/is_IS/LC_MESSAGES
 R	modules/search/locale/is_IS
-R	modules/search/locale/it/LC_MESSAGES/modules_search.mo
 R	modules/search/locale/it_IT/LC_MESSAGES/modules_search.mo
 R	modules/search/locale/it_IT/LC_MESSAGES
 R	modules/search/locale/it_IT
-R	modules/search/locale/ja/LC_MESSAGES/modules_search.mo
 R	modules/search/locale/ja_JP/LC_MESSAGES/modules_search.mo
 R	modules/search/locale/ja_JP/LC_MESSAGES
 R	modules/search/locale/ja_JP
-R	modules/search/locale/ko/LC_MESSAGES/modules_search.mo
-R	modules/search/locale/lt/LC_MESSAGES/modules_search.mo
-R	modules/search/locale/lv/LC_MESSAGES/modules_search.mo
-R	modules/search/locale/nl/LC_MESSAGES/modules_search.mo
 R	modules/search/locale/nl_NL/LC_MESSAGES/modules_search.mo
 R	modules/search/locale/nl_NL/LC_MESSAGES
 R	modules/search/locale/nl_NL
-R	modules/search/locale/no/LC_MESSAGES/modules_search.mo
 R	modules/search/locale/no_NO/LC_MESSAGES/modules_search.mo
 R	modules/search/locale/no_NO/LC_MESSAGES
 R	modules/search/locale/no_NO
-R	modules/search/locale/pl/LC_MESSAGES/modules_search.mo
 R	modules/search/locale/pl_PL/LC_MESSAGES/modules_search.mo
 R	modules/search/locale/pl_PL/LC_MESSAGES
 R	modules/search/locale/pl_PL
-R	modules/search/locale/pt/LC_MESSAGES/modules_search.mo
-R	modules/search/locale/pt_BR/LC_MESSAGES/modules_search.mo
 R	modules/search/locale/pt_PT/LC_MESSAGES/modules_search.mo
 R	modules/search/locale/pt_PT/LC_MESSAGES
 R	modules/search/locale/pt_PT
-R	modules/search/locale/ro/LC_MESSAGES/modules_search.mo
-R	modules/search/locale/ru/LC_MESSAGES/modules_search.mo
 R	modules/search/locale/ru_RU/LC_MESSAGES/modules_search.mo
 R	modules/search/locale/ru_RU/LC_MESSAGES
 R	modules/search/locale/ru_RU
-R	modules/search/locale/sk/LC_MESSAGES/modules_search.mo
-R	modules/search/locale/sr/LC_MESSAGES/modules_search.mo
 R	modules/search/locale/sr_YU/LC_MESSAGES/modules_search.mo
 R	modules/search/locale/sr_YU/LC_MESSAGES
 R	modules/search/locale/sr_YU
-R	modules/search/locale/sv/LC_MESSAGES/modules_search.mo
 R	modules/search/locale/sv_SE/LC_MESSAGES/modules_search.mo
 R	modules/search/locale/sv_SE/LC_MESSAGES
 R	modules/search/locale/sv_SE
-R	modules/search/locale/tr/LC_MESSAGES/modules_search.mo
 R	modules/search/locale/tr_TR/LC_MESSAGES/modules_search.mo
 R	modules/search/locale/tr_TR/LC_MESSAGES
 R	modules/search/locale/tr_TR
-R	modules/search/locale/uk/LC_MESSAGES/modules_search.mo
-R	modules/search/locale/vi/LC_MESSAGES/modules_search.mo
 R	modules/search/locale/vi_VN/LC_MESSAGES/modules_search.mo
 R	modules/search/locale/vi_VN/LC_MESSAGES
 R	modules/search/locale/vi_VN
-R	modules/search/locale/zh_CN/LC_MESSAGES/modules_search.mo
-R	modules/search/locale/zh_TW/LC_MESSAGES/modules_search.mo
 R	modules/search/po/ar_SA.po
 R	modules/search/po/bg_BG.po
 R	modules/search/po/cs_CZ.po

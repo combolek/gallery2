@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,11 +24,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Registration 1.0.12\n"
+"Project-Id-Version: Gallery: Registration 1.0.8\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2006-12-20 10:02-0800\n"
-"PO-Revision-Date: 2008-03-14 15:13+0300\n"
-"Last-Translator: Ser Moro <webber@morozov-sm.ru>\n"
+"PO-Revision-Date: 2006-03-17 13:00+0300\n"
+"Last-Translator: Konstantin Ivanov <Continental@vollen.ru>\n"
 "Language-Team: Russian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -42,7 +42,7 @@ msgid "Activation by administrator"
 msgstr "Активация администратором"
 
 msgid "Use confirmation emails"
-msgstr "Отправлять E-mail сообщения для подтверждения"
+msgstr "Отправлять e-mail сообщения для подтверждения"
 
 msgid "Accept without confirmation"
 msgstr "Активировать без подтверждения"
@@ -57,19 +57,16 @@ msgid "Registration"
 msgstr "Регистрация"
 
 msgid "New User Registration"
-msgstr "Регистрация нового пользователя"
+msgstr "Регистрация Нового Пользователя"
 
 msgid "Gallery"
 msgstr "Галерея"
 
 msgid "Account activation"
-msgstr "Активация учётной записи"
+msgstr "Активация учетной записи"
 
 msgid "New user registration"
 msgstr "Регистрация нового пользователя"
-
-msgid "Welcome to Gallery"
-msgstr "Добро пожаловать в Галерею"
 
 msgid "Register"
 msgstr "Зарегистрироваться"
@@ -87,10 +84,10 @@ msgstr "   Полное имя: %s"
 
 #, c-format
 msgid "       Email: %s"
-msgstr "       E-mail: %s"
+msgstr "       Email: %s"
 
 msgid "Activate or delete this user here"
-msgstr "Активируйте или удалите пользователя здесь"
+msgstr "Активизируйте или удалите пользователя здесь"
 
 msgid "Registration Settings"
 msgstr "Настройки регистрации"
@@ -100,11 +97,11 @@ msgstr "Настройки успешно сохранены"
 
 #, c-format
 msgid "Activated user %s"
-msgstr "Пользователь %s активен"
+msgstr "Пользователь %s активизирован"
 
 #, c-format
 msgid "Deleted user %s"
-msgstr "Пользователь %s удалён"
+msgstr "Пользователь %s удален"
 
 msgid "Confirmation Policy"
 msgstr "Политика подтверждений"
@@ -115,32 +112,26 @@ msgid ""
 "activation by a site administrator."
 msgstr ""
 "Модуль Регистрация может принимать новых пользователей немедленно, требуя от пользователя "
-"перехода по ссылке для подтверждения, которую он получает в E-mail сообщении, отправляемом "
-"модулем, либо же требовать активацию учётной записи администратором сайта. "
+"перехода по ссылке для подтверждения, которую он получает в e-mail сообщение, отправляемом "
+"модулем, либо же требовать активацию учетной записи администратором сайта. "
 
 msgid "Choose policy:"
 msgstr "Выберете политику:"
 
 msgid "Email details"
-msgstr "Подробности E-mail"
+msgstr "Подробности Email"
 
 msgid "Sender(From) Email Address:"
 msgstr "E-mail адрес отправителя (From):"
 
 msgid "Confirmation Email Subject:"
-msgstr "Тема подтверждающего E-mail сообщения:"
-
-msgid "Email Site Administrators for all new registrations"
-msgstr "Отправлять E-mail сообщения администраторам сайта обо всех новых регистрациях"
+msgstr "Тема требующего подтверждения e-mail сообщения:"
 
 msgid "Admin Email Subject:"
-msgstr "Тема E-mail сообщения администратору:"
+msgstr "Тема e-mail сообщения администратору:"
 
-msgid "Email new users upon account activation"
-msgstr "Отправлять пользователям E-mail об активации учётной записи"
-
-msgid "Welcome Email Subject:"
-msgstr "Тема E-mail приглашения:"
+msgid "Email Site Administrators for all new registrations"
+msgstr "Отправлять e-mail сообщения Администраторам Сайта обо всех новых регистрациях"
 
 msgid "Save"
 msgstr "Сохранить"
@@ -171,10 +162,10 @@ msgid "Username"
 msgstr "Имя пользователя"
 
 msgid "Full Name"
-msgstr "Полное имя"
+msgstr "Полное Имя"
 
 msgid "Email"
-msgstr "E-mail"
+msgstr "Email"
 
 msgid "Date"
 msgstr "Дата"
@@ -189,7 +180,7 @@ msgid "delete"
 msgstr "удалить"
 
 msgid "Account Activation"
-msgstr "Активация учётной записи"
+msgstr "Активация Учетной Записи"
 
 msgid "This user cannot be activated."
 msgstr "Этот пользователь не может быть активирован."
@@ -199,15 +190,15 @@ msgid ""
 "Please check if your mail client broke the link into several lines and append them without "
 "spaces."
 msgstr ""
-"Это могло произойти, если введённый адрес URL неверен, или вы уже активировали эту учётную "
-"запись. Пожалуйста, проверьте, не разбита ли ссылка на несколько строк почтовым клиентом, "
-"если да - соедините строки без пробелов."
+"Это могло произойти, если введенный Вами адрес URL неверен или Вы уже активировали эту "
+"учетную запись. Пожалуйста, проверьте, не разбита ли ссылка Вашей почтовой программой на "
+"несколько строк и соедините их без пробелов."
 
 msgid "Your account has been activated."
-msgstr "Ваша учётная запись была активирована."
+msgstr "Ваша учетная запись была активирована."
 
 msgid "You can now login to your account with your username and password."
-msgstr "Теперь вы можете войти в Галерею, используя имя пользователя и пароль."
+msgstr "Теперь Вы можете войти в Вашу учетную запись, используя имя пользователя и пароль."
 
 #, c-format
 msgid "Hello %s,"
@@ -215,7 +206,7 @@ msgstr "Здравствуйте  %s,"
 
 #, c-format
 msgid "You receive this email because you have registered at %s"
-msgstr "Вы получили это E-mail сообщение, поскольку зарегистрировались на %s"
+msgstr "Вы получили данной e-mail сообщение, поскольку зарегистрировались на %s"
 
 #, c-format
 msgid "Your username is: %s"
@@ -229,9 +220,9 @@ msgid ""
 "If you did not register at this site then please ignore this email.  The registration will "
 "not become valid and you will not receive any further emails.  Sorry for the inconvenience."
 msgstr ""
-"Если вы не регистрировались на данном сайте, пожалуйста, проигнорируйте данное сообщение. "
-"Регистрация не будет действительна, и вы не получите дальнейших сообщений. Приносим свои "
-"извинения за беспокойство."
+"Если Вы не регистрировались на данном сайте, пожалуйста, проигнорируйте данное сообщение. "
+"Регистрация не будет действительна и Вы не получите дальнейших сообщений. Приносим свои "
+"извенения за беспокойство."
 
 msgid "Thank you!"
 msgstr "Спасибо!"
@@ -246,23 +237,23 @@ msgid ""
 "You will shortly receive an email containing a link. You have to click this link to confirm "
 "and activate your account.  This procedure is necessary to prevent account abuse."
 msgstr ""
-"В ближайшее время вы получите E-mail сообщение, содержащее ссылку. Нужно перейти по этой "
-"ссылке для подтверждения и активации вашей учётной записи. Данная процедура необходима для "
-"предотвращения злоупотреблений с учётными записями."
+"В ближайшее время Вы получите email сообщение, содержащее ссылку. Вы будете должны перейти "
+"по этой ссылке для подтверждения и активации Вашей учетной записи. Данная процедура необхима "
+"для предотвращения злоупотреблений с учетными записями."
 
 msgid "Your registration will be processed and your account activated soon."
 msgstr ""
-"Ваши регистрационые данные будут обработаны, и учётная запись будет скоро активирована."
+"Ваши регистрационые данные будут обработаны, и ваша учетная запись будет скоро активирована."
 
 msgid "Your registration was successful and your account has been activated."
-msgstr "Ваша регистрация была успешно завершена и учётная запись активирована."
+msgstr "Ваша регистрация был успешно завершена и учетная запись активирована."
 
 #, c-format
 msgid "You can now %slogin%s to your account with your username and password."
-msgstr "Теперь вы можете %sвойти%s, используя имя пользователя и пароль."
+msgstr "Теперь Вы можете %sвойти%s в Вашу учетную запись, используя имя пользователя и пароль."
 
 msgid "Register As New User"
-msgstr "Зарегистрироваться как новый пользователь"
+msgstr "Зарегистрироваться как Новый Пользователь"
 
 msgid "(required)"
 msgstr "(обязательно)"
@@ -275,16 +266,16 @@ msgid "Username '%s' already exists"
 msgstr "Имя пользователя '%s' уже существует"
 
 msgid "You must enter your full name"
-msgstr "Вы должны ввести ваше полное имя"
+msgstr "Вы должны ввести Ваше полное имя"
 
 msgid "Email Address"
-msgstr "Адрес E-mail "
+msgstr "Адрес Email "
 
 msgid "You must enter an email address"
 msgstr "Вы должны ввести адрес E-mail "
 
 msgid "Invalid email address"
-msgstr "Неверный адрес E-mail "
+msgstr "Неверный адрес email "
 
 msgid "Password"
 msgstr "Пароль"
@@ -293,16 +284,25 @@ msgid "You must enter a password"
 msgstr "Вы должны ввести пароль"
 
 msgid "Verify Password"
-msgstr "Проверка пароля"
+msgstr "Проверка Пароля"
 
 msgid "You must enter the password a second time"
 msgstr "Вы должны ввести пароль дважды"
 
 msgid "The passwords you entered did not match"
-msgstr "Введённые пароли не совпадают"
+msgstr "Введенные Вами пароли не сопадают"
 
 msgid "Cancel"
 msgstr "Отменить"
 
-msgid "Your account is now active. Visit the site listed above to login."
-msgstr "Ваша учётная запись теперь активна. Заходите на сайт для авторизации."
+#~ msgid "login"
+#~ msgstr "войти"
+
+#~ msgid "You can now %s to your account with your username and password."
+#~ msgstr "Теперь Вы можете %s в Вашу учетную запись, используя имя пользователя и пароль."
+
+#~ msgid "This procedure is necessary to prevent account abuse."
+#~ msgstr "Данная процедура необходима для предотвращения злоупотреблений."
+
+#~ msgid "You can now"
+#~ msgstr "Теперь Вы можете"

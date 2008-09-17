@@ -1,13 +1,15 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
 <div class="gbBlock">
   <h3> {g->text text="Image Block"} </h3>
 
   <input type="checkbox" id="ImageBlockOption_setDisabled"
    name="{g->formVar var="form[ImageBlockOption][setDisabled]"}"
-   {if $form.ImageBlockOption.setDisabled} checked="checked"{/if}/>
+   {if $form.ImageBlockOption.setDisabled}checked="checked"{/if}/>
   <label for="ImageBlockOption_setDisabled">
     {g->text text="Prevent this album from being displayed in the Image Block"}
   </label>

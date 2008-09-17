@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,12 +36,11 @@ class FotokastenModule extends GalleryModule {
 	$this->setId('fotokasten');
 	$this->setName($gallery->i18n('Fotokasten'));
 	$this->setDescription($gallery->i18n('Fotokasten Photo Printing Module'));
-	$this->setVersion('1.0.10');
-	$this->_templateVersion = 1;
+	$this->setVersion('1.0.6.1');
 	$this->setGroup('commerce', $this->translate('Commerce'));
 	$this->setCallbacks('getSiteAdminViews|getItemLinks');
-	$this->setRequiredCoreApi(array(7, 30));
-	$this->setRequiredModuleApi(array(3, 6));
+	$this->setRequiredCoreApi(array(7, 4));
+	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
@@ -79,7 +78,6 @@ class FotokastenModule extends GalleryModule {
 		return $ret;
 	    }
 	    /* Give everybody print permission by default */
-	    $gallery->guaranteeTimeLimit(300);
 	    $ret = GalleryCoreApi::addGroupPermission(
 		$coreParams['id.rootAlbum'], $coreParams['id.everybodyGroup'],
 		'fotokasten.print', true);
@@ -95,13 +93,11 @@ class FotokastenModule extends GalleryModule {
      * @see GalleryModule::performFactoryRegistrations
      */
     function performFactoryRegistrations() {
-	foreach (array('1_0', '1_1') as $version) {
-	    $ret = GalleryCoreApi::registerFactoryImplementation(
-		'CartPluginInterface_' . $version, 'FotokastenCartPlugin', 'fotokasten',
-		'modules/fotokasten/classes/FotokastenCartPlugin.class', 'fotokasten', null);
-	    if ($ret) {
-		return $ret;
-	    }
+	$ret = GalleryCoreApi::registerFactoryImplementation(
+	    'CartPluginInterface_1_0', 'FotokastenCartPlugin', 'fotokasten',
+	    'modules/fotokasten/classes/FotokastenCartPlugin.class', 'fotokasten', null);
+	if ($ret) {
+	    return $ret;
 	}
 
 	return null;

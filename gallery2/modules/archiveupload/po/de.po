@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,11 +24,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Archive Upload 1.0.7\n"
+"Project-Id-Version: Gallery: Archive Upload 1.0.6\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-02-01 08:11+0100\n"
-"PO-Revision-Date: 2008-07-25 23:04+0100\n"
-"Last-Translator: Jens Tkotz <jens@peino.de>\n"
+"PO-Revision-Date: 2006-11-29 00:24+0100\n"
+"Last-Translator: Jens A. Tkotz\n"
 "Language-Team: German <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -67,13 +67,6 @@ msgstr ""
 "Binärdatei auf Ihrem Server ausfindig machen und in das Feld unten eintragen. Falls Sie mit "
 "einer Unix-Maschine arbeiten, vergessen Sie bitte nicht, die Binärdatei ausführbar zu machen "
 "(ein <i>chmod 755 unzip</i> im richtigen Ordner sollte reichen)"
-
-msgid ""
-"The exec() function is disabled in your PHP by the <b>disabled_functions</b> parameter in "
-"php.ini.  This module cannot be used until that setting is changed."
-msgstr ""
-"Die exec() Funktion Ihres PHPs wurde durch die Einstellung <b>disabled_functions></b> in "
-"Ihrer php.ini deaktiviert. Dieses Module benötigt jedoch zwingend dies Funktionalität."
 
 msgid "Path to unzip:"
 msgstr "Pfad zu unzip:"

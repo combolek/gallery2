@@ -1,6 +1,8 @@
 {*
  * $Revision$
- * Read this before changing templates!  http://codex.gallery2.org/Gallery2:Editing_Templates
+ * If you want to customize this file, do not edit it directly since future upgrades
+ * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
+ * version.  Gallery will look for that file first and use it if it exists.
  *}
 <div class="gbBlock gcBackground1">
   <h2> {g->text text="Delete Items"} </h2>
@@ -63,9 +65,8 @@
   <table>
     <colgroup width="60"/>
     {foreach from=$ItemDelete.peers item=peer}
-    {cycle values="1,2" assign="alternate"}
-    {if $alternate==1}<tr><td style="text-align: center">{else}<td style="padding-left:50px; text-align: center">{/if}
-      
+    <tr>
+      <td align="center">
 	{if isset($peer.thumbnail)}
 	  <a id="thumb_{$peer.id}" href="{g->url arg1="view=core.ShowItem" arg2="itemId=`$peer.id`"}">
 	    {g->image item=$peer image=$peer.thumbnail maxSize=50 class="giThumbnail"}
@@ -74,11 +75,11 @@
 	  &nbsp;
 	{/if}
       </td><td>
-	<input type="checkbox" id="cb_{$peer.id}" {if $peer.selected}checked="checked" {/if}
+	<input type="checkbox" id="cb_{$peer.id}"{if $peer.selected} checked="checked"{/if}
 	 name="{g->formVar var="form[selectedIds][`$peer.id`]"}"/>
       </td><td>
 	<label for="cb_{$peer.id}">
-	  {$peer.title|markup:strip|default:$peer.pathComponent}
+	  {$peer.title|default:$peer.pathComponent}
 	</label>
 	<i>
 	  {if isset($ItemDelete.peerTypes.data[$peer.id])}
@@ -95,10 +96,8 @@
 	  {/if}
 	</i>
       </td>
-    {if $alternate==2}</tr>{/if}
+    </tr>
     {/foreach}
-    {if $alternate==1}<td colspan="3">&nbsp;</td></tr>{/if}
-  </table>
     <script type="text/javascript">
       //<![CDATA[
       {foreach from=$ItemDelete.peers item=peer}
@@ -115,6 +114,7 @@
       {/foreach}
       //]]>
   </script>
+  </table>
 
   {foreach from=$ItemDelete.selectedIds item=selectedId}
     <input type="hidden" name="{g->formVar var="form[selectedIds][$selectedId]"}" value="on"/>

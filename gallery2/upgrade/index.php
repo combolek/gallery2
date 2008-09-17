@@ -13,7 +13,7 @@
  * $Id$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -68,7 +68,6 @@ $stepOrder = array();
 $stepOrder[] = 'Welcome';
 $stepOrder[] = 'Authenticate';
 $stepOrder[] = 'SystemChecks';
-$stepOrder[] = 'DatabaseBackup';
 $stepOrder[] = 'UpgradeCoreModule';
 $stepOrder[] = 'UpgradeOtherModules';
 $stepOrder[] = 'CleanCache';
@@ -103,7 +102,7 @@ if (!empty($storageConfig)) {
 	}
 	$translator->init($_SESSION['language'], true);
 	/* Select domain for translation */
-	bindtextdomain('gallery2_upgrade', dirname(dirname(__FILE__)) . '/locale');
+	bindtextdomain('gallery2_upgrade', dirname(__FILE__) . '/locale');
 	textdomain('gallery2_upgrade');
 	if (function_exists('bind_textdomain_codeset')) {
 	    bind_textdomain_codeset('gallery2_upgrade', 'UTF-8');
@@ -200,7 +199,7 @@ if ($currentStep->processRequest()) {
  * Find admin user and set as active user
  * @param bool $fallback (optional) whether we should try to fall back if the
  *             API to load the admin user object fails
- * @return GalleryStatus a status code
+ * @return object GalleryStatus a status code
  */
 function selectAdminUser($fallback=false) {
     global $gallery;
@@ -219,7 +218,7 @@ function selectAdminUser($fallback=false) {
     }
     /* Fetch the first admin from list */
     list ($userId, $userName) = each($adminUserInfo);
-    list ($ret, $adminUser) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
+    list ($ret, $adminUser) = GalleryCoreApi::loadEntitiesById($userId);
     if ($ret) {
 	if ($fallback) {
 	    /* Initialize a GalleryUser with the id of a real admin */

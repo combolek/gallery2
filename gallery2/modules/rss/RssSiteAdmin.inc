@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -58,8 +58,6 @@ class RssSiteAdminController extends GalleryController {
 		    $error[] = 'form[error][defaultCount]';
 	       } else if (!isset($form['maxCount']) || ((int)$form['maxCount']) <= 0) {
 		    $error[] = 'form[error][maxCount]';
-	       } else if (!isset($form['maxAge']) || ((int)$form['maxAge']) <= 0) {
-		    $error[] = 'form[error][maxAge]';
 	       } else if (!isset($form['defaultTtl']) || ((int)$form['defaultTtl']) < 0) {
 		    $error[] = 'form[error][defaultTtl]';
 	       } else if (!isset($form['defaultCopyright'])) {
@@ -69,7 +67,6 @@ class RssSiteAdminController extends GalleryController {
 		    foreach (array('defaultVersion',
 				   'defaultCount',
 				   'maxCount',
-				   'maxAge',
 				   'defaultCopyright',
 				   'defaultTtl') as $setting) {
 			$ret = GalleryCoreApi::setPluginParameter('module', 'rss',
@@ -83,12 +80,10 @@ class RssSiteAdminController extends GalleryController {
 				   'allowConfigurableFeed',
 				   'allowAlbums',
 				   'allowPhotos',
-				   'allowPhotosRecursive',
+				   'allowPhotosRecurse',
 				   'allowCommentsPhoto',
 				   'allowCommentsAlbum',
-				   'allowCommentsRecursive',
-				   'allowPhotosRandom',
-				   'allowPhotosRandomRecursive') as $setting) {
+				   'allowCommentsRecursive') as $setting) {
 			$ret = GalleryCoreApi::setPluginParameter('module', 'rss', $setting,
 			    (isset($form[$setting]) && $form[$setting]) ? 1 : 0);
 			if ($ret) {
@@ -100,13 +95,13 @@ class RssSiteAdminController extends GalleryController {
 		}
 	    } else if ($mode == 'simplefeedsettings') {
 		/* error checking */
-		if (!isset($form['sfPhotosRecursiveLimit'])
-			|| ((int)$form['sfPhotosRecursiveLimit']) < 0) {
-		    $error[] = 'form[error][sfPhotosRecursiveLimit]';
+		if (!isset($form['sfPhotosRecurseLimit'])
+			|| ((int)$form['sfPhotosRecurseLimit']) < 0) {
+		    $error[] = 'form[error][sfPhotosRecurseLimit]';
 		} else {
 		    /* save parameters */
 		    foreach (array('sfAlbumType',
-				   'sfPhotosRecursiveLimit',
+				   'sfPhotosRecurseLimit',
 				   'sfDate') as $setting) {
 			$ret = GalleryCoreApi::setPluginParameter('module', 'rss',
 								  $setting, $form[$setting]);
@@ -194,7 +189,7 @@ class RssSiteAdminView extends GalleryView {
 		    $itemIds[] = $feed['itemId'];
 		}
 
-		list ($ret, $items) = GalleryCoreApi::loadEntitiesById($itemIds, 'GalleryItem');
+		list ($ret, $items) = GalleryCoreApi::loadEntitiesById($itemIds);
 		if ($ret) {
 		    return array($ret, null);
 		}

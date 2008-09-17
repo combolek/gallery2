@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,9 +21,9 @@
 # Branislav Hanacek <brango@brango.sk>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: eCard 1.0.3\n"
-"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2008-08-25 08:54-0700\n"
+"Project-Id-Version: Gallery: eCard 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-09-03 10:22+0200\n"
 "PO-Revision-Date: 2006-09-10 21:10+0200\n"
 "Last-Translator: Branislav Hanacek <brango@brango.sk>\n"
 "Language-Team: Slovak <gallery-devel@lists.sourceforge.net>\n"
@@ -60,10 +60,6 @@ msgstr ""
 msgid "You have been sent an eCard"
 msgstr ""
 
-#, c-format
-msgid "Hi %s!%s%s (%s) has sent you an eCard:"
-msgstr ""
-
 msgid "This eCard was sent with Gallery 2 - Your photos on your website"
 msgstr ""
 
@@ -71,6 +67,10 @@ msgid "[ecard] Send eCards"
 msgstr ""
 
 msgid "Send as eCard"
+msgstr ""
+
+#, c-format
+msgid "Hi %s!%s%s (%s) has sent you an eCard:"
 msgstr ""
 
 msgid "eCard Settings"
@@ -133,7 +133,7 @@ msgid "To"
 msgstr ""
 
 msgid "Subject"
-msgstr "Predmet"
+msgstr ""
 
 msgid "Your name"
 msgstr ""
@@ -163,7 +163,7 @@ msgid "You must enter text!"
 msgstr ""
 
 msgid "Preview"
-msgstr "Náhľad"
+msgstr ""
 
 msgid "Send"
 msgstr ""

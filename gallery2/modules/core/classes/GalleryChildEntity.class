@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2008 Bharat Mediratta
+ * Copyright (C) 2000-2007 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -57,7 +57,7 @@ class GalleryChildEntity extends GalleryEntity {
      * Create this item in our persistent store
      *
      * @param int $parentId the id of the GalleryItem parent
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function create($parentId) {
 	global $gallery;
@@ -98,7 +98,7 @@ class GalleryChildEntity extends GalleryEntity {
      * Move this item to a new parent
      *
      * @param int $newParentId the id of the GalleryItem parent
-     * @return GalleryStatus a status code
+     * @return object GalleryStatus a status code
      */
     function move($newParentId) {
 	global $gallery;
@@ -133,16 +133,15 @@ class GalleryChildEntity extends GalleryEntity {
     /**
      * Get the parent instance
      *
-     * @return array GalleryStatus a status code
-     *               GalleryItem the parent item
+     * @return array object GalleryStatus a status code
+     *               object GalleryItem the parent item
      */
     function fetchParent() {
 	global $gallery;
 
 	$parentId = $this->getParentId();
 	if (isset($parentId)) {
-	    list ($ret, $parent) =
-		GalleryCoreApi::loadEntitiesById($this->getParentId(), 'GalleryEntity');
+	    list ($ret, $parent) = GalleryCoreApi::loadEntitiesById($this->getParentId());
 	    if ($ret) {
 		return array($ret, null);
 	    }

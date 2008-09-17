@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,9 +21,9 @@
 # - Kennichi Uehara <ken.w3m+nospam@gmail.com>
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Picasa 1.0.9\n"
+"Project-Id-Version: Gallery: Picasa 1.0.5\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2007-06-14 17:36-0700\n"
+"POT-Creation-Date: 2006-12-20 09:56-0800\n"
 "PO-Revision-Date: 2007-03-11 14:56+0900\n"
 "Last-Translator: Yosuke Suzuki <yosuke.suzuki@gmail.com>\n"
 "Language-Team: Japanese <gallery-devel@lists.sourceforge.net>\n"
@@ -38,16 +38,6 @@ msgstr "アルバムをインポート"
 msgid "Importing photos"
 msgstr "画像をインポート"
 
-#, c-format
-msgid "%d megabyte"
-msgid_plural "%d megabytes"
-msgstr[0] "%d MB"
-
-#, c-format
-msgid "%d kilobytes"
-msgid_plural "%d kilobytes"
-msgstr[0] "%d kB"
-
 msgid "Base filename"
 msgstr "ベースファイル名"
 
@@ -60,11 +50,21 @@ msgstr "ブランク"
 msgid "From Picasa 2"
 msgstr "Picasa 2 から"
 
+#, c-format
+msgid "%d megabyte"
+msgid_plural "%d megabytes"
+msgstr[0] "%d MB"
+
+#, c-format
+msgid "%d kilobytes"
+msgid_plural "%d kilobytes"
+msgstr[0] "%d kB"
+
 msgid "Picasa"
 msgstr "Picasa"
 
 msgid "Import for Picasa 2 XML-Exports"
-msgstr "Picasa 2のXMLエクスポートへインポートする"
+msgstr ""
 
 msgid "Import"
 msgstr "インポート"
@@ -85,17 +85,17 @@ msgid "Album Caption"
 msgstr "アルバムのキャプション"
 
 msgid "Album Notes"
-msgstr "アルバムメモ"
+msgstr ""
 
 msgid "An album already exists with this name.  This album will be renamed."
-msgstr "この名前で既にアルバムが存在します。このアルバムはリネームされます。"
+msgstr ""
 
 #, c-format
 msgid "This album has an illegal name and will be renamed to <i>%s</i>"
-msgstr "このアルバム名は違法なので <i>%s</i> に変更されます。"
+msgstr ""
 
 msgid "The album will be imported into this album:"
-msgstr "アルバムはこのアルバム内にインポートされます："
+msgstr ""
 
 #, c-format
 msgid "Title: %s"
@@ -114,12 +114,12 @@ msgstr "インポート完了"
 #, c-format
 msgid "Successfully imported %d album."
 msgid_plural "Successfully imported %d albums."
-msgstr[0] "%d アルバムのインポートに成功しました。"
+msgstr[0] ""
 
 msgid "No albums imported."
 msgstr "アルバムはインポートされませんでした。"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Imported %s"
 msgstr "%s がインポートされました"
 
@@ -159,7 +159,7 @@ msgstr ""
 "ています。システム管理者に連絡して、解決方法を相談してください"
 
 msgid "Upload archived Picasa export files directly from your computer."
-msgstr "アップロードは直接あなたのコンピュータからPicasaエクスポートファイルへ格納されました。"
+msgstr ""
 
 msgid "Enter the full path to the file and an optional caption in the boxes below."
 msgstr "ファイルのフルパスと下のボックスにオプションとしてタイトルを入力してください。"
@@ -198,11 +198,9 @@ msgid ""
 "The filetype you entered is not supported. Maybe you did not activate the corresponding "
 "toolkit. (E.g. Archive Upload for ZIP files)"
 msgstr ""
-"あなたの入力したファイルタイプはサポートされていません。おそらくあなたは対応するツールキット"
-"を有効化していません。(たとえばZipファイルのアーカイブアップロード)"
 
 msgid "The archive you uploaded is not a valid Picasa export."
-msgstr "あなたのアップロードしたアーカイブは有効なPicasaエクスポートではありません。"
+msgstr ""
 
 msgid "Set item titles from:"
 msgstr "アイテムのタイトル設定:"
@@ -226,23 +224,19 @@ msgid ""
 "This operation takes data (images, descriptions, orderings etc.) from <strong>Picasa 2</"
 "strong> and brings it into <strong>Gallery 2</strong>."
 msgstr ""
-"この操作は、<strong>Picasa 2</strong>からデータ(イメージ・説明・注文等)を取得して、それを"
-"<strong>Gallery 2</strong>へ取り込みます。"
 
 #, c-format
 msgid ""
 "You don't have any Graphics Toolkit activated to handle JPEG images.  If you import now, you "
-"will not have any thumbnails.  Visit the %sModules%s page to activate a Graphics Toolkit."
+"will not have any thumbnails.  Visit the <a href=\"%s\">Modules</a> page to activate a "
+"Graphics Toolkit."
 msgstr ""
-"あなたはJpeg画像を扱うためのどんなグラフィックツールキットも有効化していません。今インポート"
-"をするとどんなサムネイルも生成されません。%sモジュール%sページを訪れてグラフィックツールキッ"
-"トを有効化してください。"
 
 msgid "Destination Album"
-msgstr "アルバムのあて先"
+msgstr ""
 
 msgid "Please select the gallery Album you want to import your picasa album into."
-msgstr "あなたがpicasaのアルバムの中へインポートしたいGalleryのアルバムを選択してください。"
+msgstr ""
 
 msgid "Path or File"
 msgstr "パスかファイル"
@@ -251,11 +245,9 @@ msgid ""
 "This process will import Data from a Picasa 2 XML-Export. You must enter the path to the "
 "directory with the Picasa 2 files.  Example: <i>/path/to/picasa2xml</i>"
 msgstr ""
-"このプロセスはPicasa 2のXMLエクスポートからデータをインポートするでしょう。あなたはPicasa 2の"
-"ファイルのディレクトリへのパスを入力しなければなりません。例：<i>/path/to/picasa2xml</i>"
 
 msgid "The path that you entered does not contain valid Picasa export data."
-msgstr "あなたの入力したパスは有効なPicasaのエクスポートデータを含んでいません。"
+msgstr ""
 
 msgid "Recently Used Paths"
 msgstr "最近使ったパス"

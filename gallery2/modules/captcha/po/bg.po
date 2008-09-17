@@ -1,7 +1,7 @@
 # $Id$
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2008 Bharat Mediratta
+# Copyright (C) 2000-2007 Bharat Mediratta
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Captcha 1.1.6\n"
+"Project-Id-Version: Gallery: Captcha 1.1.4\n"
 "POT-Creation-Date: 2003-02-11 03:09-0800\n"
 "PO-Revision-Date: 2005-08-12 10:01-0500\n"
 "Last-Translator: Bisser Dobrev <bdobrev@comcast.net>\n"
@@ -148,14 +148,27 @@ msgstr "Запишете"
 msgid "Reset"
 msgstr "Анулирайте"
 
-#, fuzzy
-msgid "Type the letters appearing in the picture."
+msgid "Type the word appearing in the picture."
 msgstr "Въведете числото показано на картинката."
 
-#, fuzzy
-msgid "You must enter the letters appearing in the picture."
+msgid "You must enter the number appearing in the picture."
 msgstr "Трябва да въведете числото което е показано на картинката."
 
-#, fuzzy
-msgid "Incorrect letters."
+msgid "Incorrect number."
 msgstr "Грешно число."
+
+#~ msgid "Low Security - Always Off"
+#~ msgstr "Понижена Сигурност - Системата е винаги изключена"
+
+#~ msgid ""
+#~ "Most modules rely solely on the user being authenticated by Gallery and require no "
+#~ "special Captcha interaction."
+#~ msgstr ""
+#~ "Повечето модули ще разчитат на това, че Галерията ще се погрижи за сигурността и няма да "
+#~ "изискват взаимодействие със 'Системата за Разпознаване'"
+
+#~ msgid "Save Settings"
+#~ msgstr "Запишете настройките"
+
+#~ msgid "Cancel"
+#~ msgstr "Отказ"
