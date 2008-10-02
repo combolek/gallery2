@@ -14,13 +14,16 @@
 	  <?php endif; ?>
 	  <td>
 	    <?php $path = $item->Path . '/' . $child->Path; ?>
-	    <a href="show/item/<?php echo $item->Id; ?>/<?php echo $child->Id; ?>" >
-	      <?php echo html::image(array('src' => $path, 'class' => 'photo', 'alt' => $child->Name)); ?>
+	    <?php
+	      echo html::anchor(
+		     "show/item/$item->Id/$child->Id",
+                     html::image(array('src' => $path, 'class' => 'photo', 'alt' => $child->Name)));
+            ?>
 	    </a>
 	  </td>
 	  <?php $currentColumn++; ?>
 	<?php endforeach; ?>
-	
+
 	<!-- Fill the rest of the page with empty image holders -->
 	<?php for (; $currentRow < $maxRows; $currentRow++ ): ?>
 	  <?php for (; $currentColumn < $maxColumns; $currentColumn++ ): ?>
