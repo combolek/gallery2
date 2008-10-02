@@ -1,11 +1,11 @@
 <?php
-class Show_Controller extends Template_Controller {
+class Show_Controller extends Gallery_Controller {
     // Set the name of the template to use
     public $template = 'templates/jacob';
 
     public function Album($id=1) {
 	// In Kohana, all views are loaded and treated as objects.
-	$this->template->title = 'John Doe\'s Gallery';
+	$this->template->header->active = "Browse Photos";
 	$this->template->content = new View('show_album');
 
 	$item = new Item_Model($id);
@@ -20,7 +20,7 @@ class Show_Controller extends Template_Controller {
 
     public function Item($parentId, $id) {
 	// In Kohana, all views are loaded and treated as objects.
-	$this->template->title = 'John Doe\'s Gallery';
+	$this->template->header->active = "Browse Photos";
 	$this->template->content = new View('show_item');
 
 	$item = new Item_Model($id);
