@@ -35,7 +35,7 @@ $config['default'] = array
 		'host'     => '',
 		'port'     => FALSE,
 		'socket'   => FALSE,
-		'database' => 'gx'
+		'database' => 'gx_eval_kohana'
 	),
 	'character_set' => 'utf8',
 	'table_prefix'  => 'g2_',
