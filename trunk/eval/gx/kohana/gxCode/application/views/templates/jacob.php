@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-	<title><?php echo $title; ?></title>
+	<title><?php echo $header->title; ?></title>
 	
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	
@@ -12,31 +12,7 @@
 <body>
 <div id="doc2" class="yui-t5">
 	<div id="hd">
-		<img id="Logo" alt="Logo" />
-		
-		<h1><?php echo $title; ?></h1>
-		
-		<a id="register-link" href="#">Register</a>
-		
-		<a id="login-link" href="#">Login</a>
-		
-		<ul id="global-navigation">
-			<li><a href="#">Home/Dashboard</a></li>
-			<li><a class="active" href="#">Browse Photos</a></li>
-
-			<li><a href="#">Upload New Photos</a></li>
-			<li><a href="#">Admin</a></li>
-			<li><a href="#">Help?</a></li>
-		</ul>
-		
-		<ul id="breadcrumbs">
-			<li class="root"><a href="#">Home</a></li>
-			<li><a href="#">Friends &amp; Family</a></li>
-
-			<li><a href="#">Christmas 2007</a></li>
-			<!-- later on the ">>" should be a background image -->
-		</ul>
-		
+	    <?php echo $header; ?>
 	</div><!-- end hd -->
 	
 	<div id="bd">
@@ -56,7 +32,7 @@
 
 	
 	<div id="ft">
-		Powered by <a href="#">GalleryX</a> | <a href="#">About this Gallery</a> | ...
+	    <?php echo $footer; ?>
 	</div>
 </div>
 </body>
