@@ -106,3 +106,95 @@
 2008-10-01 16:52:37 -07:00 --- debug: Global GET, POST and COOKIE data sanitized
 2008-10-01 16:52:37 -07:00 --- debug: MySQLi Database Driver Initialized
 2008-10-01 16:52:37 -07:00 --- debug: Database Library initialized
+2008-10-01 18:19:02 -07:00 --- debug: Disable magic_quotes_gpc! It is evil and deprecated: http://php.net/magic_quotes
+2008-10-01 18:19:02 -07:00 --- debug: Global GET, POST and COOKIE data sanitized
+2008-10-01 18:19:03 -07:00 --- debug: MySQLi Database Driver Initialized
+2008-10-01 18:19:03 -07:00 --- debug: Database Library initialized
+2008-10-01 18:34:13 -07:00 --- debug: Disable magic_quotes_gpc! It is evil and deprecated: http://php.net/magic_quotes
+2008-10-01 18:34:13 -07:00 --- debug: Global GET, POST and COOKIE data sanitized
+2008-10-01 18:34:14 -07:00 --- debug: MySQLi Database Driver Initialized
+2008-10-01 18:34:14 -07:00 --- debug: Database Library initialized
+2008-10-01 18:34:42 -07:00 --- debug: Disable magic_quotes_gpc! It is evil and deprecated: http://php.net/magic_quotes
+2008-10-01 18:34:42 -07:00 --- debug: Global GET, POST and COOKIE data sanitized
+2008-10-01 18:34:43 -07:00 --- debug: MySQLi Database Driver Initialized
+2008-10-01 18:34:43 -07:00 --- debug: Database Library initialized
+2008-10-01 18:36:46 -07:00 --- debug: Disable magic_quotes_gpc! It is evil and deprecated: http://php.net/magic_quotes
+2008-10-01 18:36:46 -07:00 --- debug: Global GET, POST and COOKIE data sanitized
+2008-10-01 18:36:46 -07:00 --- debug: MySQLi Database Driver Initialized
+2008-10-01 18:36:46 -07:00 --- debug: Database Library initialized
+2008-10-01 18:36:46 -07:00 --- debug: Disable magic_quotes_gpc! It is evil and deprecated: http://php.net/magic_quotes
+2008-10-01 18:36:46 -07:00 --- debug: Global GET, POST and COOKIE data sanitized
+2008-10-01 18:36:46 -07:00 --- debug: MySQLi Database Driver Initialized
+2008-10-01 18:36:46 -07:00 --- debug: Database Library initialized
+2008-10-01 18:36:46 -07:00 --- debug: Disable magic_quotes_gpc! It is evil and deprecated: http://php.net/magic_quotes
+2008-10-01 18:36:46 -07:00 --- debug: Global GET, POST and COOKIE data sanitized
+2008-10-01 18:36:46 -07:00 --- debug: MySQLi Database Driver Initialized
+2008-10-01 18:36:46 -07:00 --- debug: Database Library initialized
+2008-10-01 18:37:41 -07:00 --- debug: Disable magic_quotes_gpc! It is evil and deprecated: http://php.net/magic_quotes
+2008-10-01 18:37:41 -07:00 --- debug: Global GET, POST and COOKIE data sanitized
+2008-10-01 18:37:41 -07:00 --- debug: MySQLi Database Driver Initialized
+2008-10-01 18:37:41 -07:00 --- debug: Database Library initialized
+2008-10-01 18:37:41 -07:00 --- debug: Disable magic_quotes_gpc! It is evil and deprecated: http://php.net/magic_quotes
+2008-10-01 18:37:41 -07:00 --- debug: Global GET, POST and COOKIE data sanitized
+2008-10-01 18:37:41 -07:00 --- debug: MySQLi Database Driver Initialized
+2008-10-01 18:37:41 -07:00 --- debug: Database Library initialized
+2008-10-01 18:38:24 -07:00 --- debug: Disable magic_quotes_gpc! It is evil and deprecated: http://php.net/magic_quotes
+2008-10-01 18:38:24 -07:00 --- debug: Global GET, POST and COOKIE data sanitized
+2008-10-01 18:38:24 -07:00 --- debug: MySQLi Database Driver Initialized
+2008-10-01 18:38:24 -07:00 --- debug: Database Library initialized
+2008-10-01 18:38:24 -07:00 --- debug: Disable magic_quotes_gpc! It is evil and deprecated: http://php.net/magic_quotes
+2008-10-01 18:38:24 -07:00 --- debug: Global GET, POST and COOKIE data sanitized
+2008-10-01 18:38:24 -07:00 --- debug: MySQLi Database Driver Initialized
+2008-10-01 18:38:24 -07:00 --- debug: Database Library initialized
+2008-10-01 18:38:24 -07:00 --- debug: Disable magic_quotes_gpc! It is evil and deprecated: http://php.net/magic_quotes
+2008-10-01 18:38:24 -07:00 --- debug: Global GET, POST and COOKIE data sanitized
+2008-10-01 18:38:24 -07:00 --- debug: MySQLi Database Driver Initialized
+2008-10-01 18:38:24 -07:00 --- debug: Database Library initialized
+2008-10-01 18:39:40 -07:00 --- debug: Disable magic_quotes_gpc! It is evil and deprecated: http://php.net/magic_quotes
+2008-10-01 18:39:40 -07:00 --- debug: Global GET, POST and COOKIE data sanitized
+2008-10-01 18:39:40 -07:00 --- debug: MySQLi Database Driver Initialized
+2008-10-01 18:39:40 -07:00 --- debug: Database Library initialized
+2008-10-01 18:40:24 -07:00 --- debug: Disable magic_quotes_gpc! It is evil and deprecated: http://php.net/magic_quotes
+2008-10-01 18:40:24 -07:00 --- debug: Global GET, POST and COOKIE data sanitized
+2008-10-01 18:40:24 -07:00 --- debug: MySQLi Database Driver Initialized
+2008-10-01 18:40:24 -07:00 --- debug: Database Library initialized
+2008-10-01 18:40:24 -07:00 --- debug: Disable magic_quotes_gpc! It is evil and deprecated: http://php.net/magic_quotes
+2008-10-01 18:40:24 -07:00 --- debug: Global GET, POST and COOKIE data sanitized
+2008-10-01 18:40:24 -07:00 --- debug: MySQLi Database Driver Initialized
+2008-10-01 18:40:24 -07:00 --- debug: Database Library initialized
+2008-10-01 18:40:24 -07:00 --- debug: Disable magic_quotes_gpc! It is evil and deprecated: http://php.net/magic_quotes
+2008-10-01 18:40:24 -07:00 --- debug: Global GET, POST and COOKIE data sanitized
+2008-10-01 18:40:24 -07:00 --- debug: MySQLi Database Driver Initialized
+2008-10-01 18:40:24 -07:00 --- debug: Database Library initialized
+2008-10-01 18:44:37 -07:00 --- debug: Disable magic_quotes_gpc! It is evil and deprecated: http://php.net/magic_quotes
+2008-10-01 18:44:37 -07:00 --- debug: Global GET, POST and COOKIE data sanitized
+2008-10-01 18:44:37 -07:00 --- debug: MySQLi Database Driver Initialized
+2008-10-01 18:44:37 -07:00 --- debug: Database Library initialized
+2008-10-01 18:48:45 -07:00 --- debug: Disable magic_quotes_gpc! It is evil and deprecated: http://php.net/magic_quotes
+2008-10-01 18:48:45 -07:00 --- debug: Global GET, POST and COOKIE data sanitized
+2008-10-01 18:48:45 -07:00 --- debug: MySQLi Database Driver Initialized
+2008-10-01 18:48:45 -07:00 --- debug: Database Library initialized
+2008-10-01 18:48:48 -07:00 --- debug: Disable magic_quotes_gpc! It is evil and deprecated: http://php.net/magic_quotes
+2008-10-01 18:48:48 -07:00 --- debug: Global GET, POST and COOKIE data sanitized
+2008-10-01 18:48:48 -07:00 --- debug: MySQLi Database Driver Initialized
+2008-10-01 18:48:48 -07:00 --- debug: Database Library initialized
+2008-10-01 18:48:48 -07:00 --- debug: Disable magic_quotes_gpc! It is evil and deprecated: http://php.net/magic_quotes
+2008-10-01 18:48:48 -07:00 --- debug: Global GET, POST and COOKIE data sanitized
+2008-10-01 18:48:48 -07:00 --- debug: MySQLi Database Driver Initialized
+2008-10-01 18:48:48 -07:00 --- debug: Database Library initialized
+2008-10-01 18:51:48 -07:00 --- debug: Disable magic_quotes_gpc! It is evil and deprecated: http://php.net/magic_quotes
+2008-10-01 18:51:48 -07:00 --- debug: Global GET, POST and COOKIE data sanitized
+2008-10-01 18:51:48 -07:00 --- debug: MySQLi Database Driver Initialized
+2008-10-01 18:51:48 -07:00 --- debug: Database Library initialized
+2008-10-01 18:51:58 -07:00 --- debug: Disable magic_quotes_gpc! It is evil and deprecated: http://php.net/magic_quotes
+2008-10-01 18:51:58 -07:00 --- debug: Global GET, POST and COOKIE data sanitized
+2008-10-01 18:51:58 -07:00 --- debug: MySQLi Database Driver Initialized
+2008-10-01 18:51:58 -07:00 --- debug: Database Library initialized
+2008-10-01 18:53:06 -07:00 --- debug: Disable magic_quotes_gpc! It is evil and deprecated: http://php.net/magic_quotes
+2008-10-01 18:53:06 -07:00 --- debug: Global GET, POST and COOKIE data sanitized
+2008-10-01 18:53:06 -07:00 --- debug: MySQLi Database Driver Initialized
+2008-10-01 18:53:06 -07:00 --- debug: Database Library initialized
+2008-10-01 18:53:10 -07:00 --- debug: Disable magic_quotes_gpc! It is evil and deprecated: http://php.net/magic_quotes
+2008-10-01 18:53:10 -07:00 --- debug: Global GET, POST and COOKIE data sanitized
+2008-10-01 18:53:10 -07:00 --- debug: MySQLi Database Driver Initialized
+2008-10-01 18:53:10 -07:00 --- debug: Database Library initialized

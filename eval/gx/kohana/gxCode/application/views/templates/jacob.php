@@ -7,7 +7,7 @@
 	
 	<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.5.2/build/reset-fonts-grids/reset-fonts-grids.css"> 
 	<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.5.2/build/base/base-min.css">
-	<link rel="stylesheet" type="text/css" href="css/styles.css" media="screen,projection" />
+	<?php echo html::stylesheet(array('css/styles.css'), array('screen', 'projection')) ?>
 </head>
 <body>
 <div id="doc2" class="yui-t5">
