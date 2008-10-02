@@ -11,7 +11,7 @@ $config['domain'] = '';
 /**
  * Restrict cookies to a specific path, typically the installation directory.
  */
-$config['path'] = '/gx/';
+$config['path'] = dirname($_SERVER['REQUEST_URI']);
 
 /**
  * Lifetime of the cookie. A setting of 0 makes the cookie active until the
