@@ -6,7 +6,7 @@ class Show_Controller extends Template_Controller {
     public function Album($id=1) {
 	// In Kohana, all views are loaded and treated as objects.
 	$this->template->title = 'John Doe\'s Gallery';
-	$this->template->content = new View('show_item');
+	$this->template->content = new View('show_album');
 
 	$item = new Item_Model($id);
 	$children = new Item_Model();
@@ -16,6 +16,25 @@ class Show_Controller extends Template_Controller {
 	$this->template->content->maxRows = 3;
 	$this->template->content->maxColumns = 3;
 	$this->template->content->children = $children;
+    }
+
+    public function Item($parentId, $id) {
+	// In Kohana, all views are loaded and treated as objects.
+	$this->template->title = 'John Doe\'s Gallery';
+	$this->template->content = new View('show_item');
+
+	$item = new Item_Model($id);
+	
+	$path = '';
+	while (!empty($parentId)) {
+	    $parent = new Item_Model($parentId);
+	    $path = $parent->Path . '/' . $path;
+	    $parentId = $parent->Parent;
+	}
+
+	$this->template->content->path = $path;
+	$this->template->content->item = $item;
+	$this->template->content->parentId = $parent;
     }
 
     public function __call($method, $arguments) {
