@@ -22,7 +22,7 @@ define('IN_PRODUCTION', FALSE);
  *
  * This path can be absolute or relative to this file.
  */
-$kohana_application = 'c:\pdt\gxCode\application';
+$kohana_application = '../gxCode/application';
 
 /**
  * Kohana modules directory. This directory should contain all the modules used
@@ -31,7 +31,7 @@ $kohana_application = 'c:\pdt\gxCode\application';
  *
  * This path can be absolute or relative to this file.
  */
-$kohana_modules = 'c:\pdt\gxCode\modules';
+$kohana_modules = '../gxCode/modules';
 
 /**
  * Kohana system directory. This directory should contain the core/ directory,
@@ -39,7 +39,7 @@ $kohana_modules = 'c:\pdt\gxCode\modules';
  *
  * This path can be absolute or relative to this file.
  */
-$kohana_system = 'c:\pdt\Kohana\system';
+$kohana_system = '../framework/system';
 
 /**
  * Test to make sure that Kohana is running on PHP 5.2 or newer. Once you are
