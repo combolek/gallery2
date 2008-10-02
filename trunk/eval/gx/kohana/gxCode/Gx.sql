@@ -18,8 +18,8 @@
 -- Create schema gx
 --
 
-CREATE DATABASE IF NOT EXISTS gx;
-USE gx;
+CREATE DATABASE IF NOT EXISTS gx_eval_kohana;
+USE gx_eval_kohana;
 
 --
 -- Definition of table `g2_items`
