@@ -4,7 +4,7 @@
  * then a full URL will be used, eg: http://localhost/kohana/. If it only includes
  * the path, and a site_protocol is specified, the domain will be auto-detected.
  */
-$config['site_domain'] = dirname(preg_replace('/\?.*/', '', $_SERVER['REQUEST_URI'])) . '/';
+$config['site_domain'] = preg_replace('/(index.php)?\?.*/', '', $_SERVER['REQUEST_URI']);
 
 /**
  * Force a default protocol to be used by the site. If no site_protocol is
