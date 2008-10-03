@@ -24,7 +24,7 @@ class Show_Controller extends Gallery_Controller {
 	$this->template->content = new View('show_item');
 
 	$item = new Item_Model($id);
-	
+
 	$path = '';
 	while (!empty($parentId)) {
 	    $parent = new Item_Model($parentId);
