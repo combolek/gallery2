@@ -22,23 +22,24 @@ class Upload_Controller extends Gallery_Controller {
 	$fileValid = $_FILES->validate();
 	$nameValid = $_POST->validate();
 	if ($fileValid && $nameValid) {
-	    echo "It validated<br/>";
-	    // Temporary file name
-	    $filename = upload::save('image', $_FILES['image']['name']);
+	    try {
+		// Temporary file name
+		$filename = upload::save('image', $_FILES['image']['name']);
 
-	    // Resize, sharpen, and save the image
-	    Image::factory($filename)
-		->resize(200, 140, Image::WIDTH)
-		->save(DOCROOT.'images/'.basename($filename));
-	    $item = ORM::factory('item');
-	    $item->Name = $_POST['name'];
-	    $item->Path = basename($filename);
-	    $item->Parent = 1;
-	    $item->save();
-
-	    // Remove the temporary file
+		// Resize, sharpen, and save the image
+		Image::factory($filename)
+		    ->resize(200, 140, Image::WIDTH)
+		    ->save(DOCROOT.'images/'.basename($filename));
+		$item = ORM::factory('item');
+		$item->Name = $_POST['name'];
+		$item->Path = basename($filename);
+		$item->Parent = 1;
+		$item->save();
+		$this->template->content->success = basename($filename) . " was added.";
+	    } catch (Exception $e) {
+		$this->template->content->error = $e;
+	    }
 	    unlink($filename);
-	    $this->template->content->success = basename($filename) . " was added.";
 	} else {
 	    if (empty($fileValid)) {
 		$this->template->content->error = 'Invalid File format';
