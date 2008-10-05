@@ -15,7 +15,7 @@
 
 
 --
--- Create schema gx
+-- Create schema gx_eval_kohana
 --
 
 CREATE DATABASE IF NOT EXISTS gx_eval_kohana;
@@ -27,21 +27,21 @@ USE gx_eval_kohana;
 
 DROP TABLE IF EXISTS `g2_items`;
 CREATE TABLE `g2_items` (
-  `Id` int(10) unsigned NOT NULL auto_increment,
+  `id` int(10) unsigned NOT NULL auto_increment,
   `Name` varchar(45) NOT NULL,
   `Path` varchar(45) NOT NULL,
   `HasChildren` tinyint(1) NOT NULL default '0',
-  `Parent` int(10) unsigned default NULL,
+  `parent_id` int(10) unsigned default NULL,
   `isAlbum` tinyint(1) unsigned NOT NULL default '0',
-  PRIMARY KEY  (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `g2_items`
 --
 
 /*!40000 ALTER TABLE `g2_items` DISABLE KEYS */;
-INSERT INTO `g2_items` (`Id`,`Name`,`Path`,`HasChildren`,`Parent`,`isAlbum`) VALUES 
+INSERT INTO `g2_items` (`id`,`Name`,`Path`,`HasChildren`,`parent_id`,`isAlbum`) VALUES 
  (1,'Christmas 2007','images',1,NULL,1),
  (2,'A009494','A009494.jpg',0,1,0),
  (3,'A009732','A009732.jpg',0,1,0),
