@@ -8,14 +8,12 @@ class Show_Controller extends Gallery_Controller {
 	$this->template->header->active = "Browse Photos";
 	$this->template->content = new View('show_album');
 
-	$item = new Item_Model($id);
-	$children = new Item_Model();
-	$children = $children->where('Parent', $item->Id)->limit(9)->find_all();
+	$item = ORM::factory('Item', $id);
 
 	$this->template->content->item = $item;
 	$this->template->content->maxRows = 3;
 	$this->template->content->maxColumns = 3;
-	$this->template->content->children = $children;
+	$this->template->content->children = $item->children;
     }
 
     public function Item($parentId, $id) {
@@ -23,18 +21,10 @@ class Show_Controller extends Gallery_Controller {
 	$this->template->header->active = "Browse Photos";
 	$this->template->content = new View('show_item');
 
-	$item = new Item_Model($id);
+	$item = ORM::factory('Item', $id);
 
-	$path = '';
-	while (!empty($parentId)) {
-	    $parent = new Item_Model($parentId);
-	    $path = $parent->Path . '/' . $path;
-	    $parentId = $parent->Parent;
-	}
-
-	$this->template->content->path = $path;
+	$this->template->content->path = $item->parent->Path . '/' . $item->Path;
 	$this->template->content->item = $item;
-	$this->template->content->parentId = $parent;
     }
 
     public function __call($method, $arguments) {

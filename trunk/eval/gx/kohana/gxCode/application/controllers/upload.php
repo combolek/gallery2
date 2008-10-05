@@ -33,7 +33,7 @@ class Upload_Controller extends Gallery_Controller {
 		$item = ORM::factory('item');
 		$item->Name = $_POST['name'];
 		$item->Path = basename($filename);
-		$item->Parent = 1;
+		$item->parent_id = 1;
 		$item->save();
 		$this->template->content->success = basename($filename) . " was added.";
 	    } catch (Exception $e) {

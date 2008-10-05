@@ -16,7 +16,7 @@
 	    <?php $path = $item->Path . '/' . $child->Path; ?>
 	    <?php
 	      echo html::anchor(
-		     "show/item/$item->Id/$child->Id",
+		     "show/item/$item->id/$child->id",
                      html::image(array('src' => $path, 'class' => 'photo', 'alt' => $child->Name)));
             ?>
 	    </a>

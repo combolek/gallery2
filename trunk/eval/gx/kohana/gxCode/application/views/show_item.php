@@ -10,12 +10,12 @@
   <tbody>
     <tr>
       <td>
-	<?php echo html::image(array('src' => $path . $item->Path, 'class' => 'photo', 'alt' => $item->Name)); ?>
+	<?php echo html::image(array('src' => $path, 'class' => 'photo', 'alt' => $item->Name)); ?>
       </td>
     </tr>
     <tr>
       <td>
-	<?php echo html::anchor('show/album/' . $item->Parent, 'Return to Album'); ?>
+	<?php echo html::anchor('show/album/' . $item->parent_id, 'Return to Album'); ?>
       </td>
     </tr>
   </tbody>
