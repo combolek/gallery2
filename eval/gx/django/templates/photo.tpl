@@ -10,7 +10,8 @@
     </tr>
     <tr>
       <td>
-	<a href="/">Return to Album</a>
+	<a href="/">Return to Album</a> or
+	<a href="/delete/{{photo.key.id}}">Delete this Photo </a>
       </td>
     </tr>
   </tbody>
