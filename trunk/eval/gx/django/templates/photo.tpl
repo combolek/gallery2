@@ -10,11 +10,6 @@
     </tr>
     <tr>
       <td>
-	<h1> {{photo.name}} </h1>
-      </td>
-    </tr>
-    <tr>
-      <td>
 	<a href="/">Return to Album</a>
       </td>
     </tr>
