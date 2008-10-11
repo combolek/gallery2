@@ -23,6 +23,7 @@ class AlbumHandler(TemplatedHandler):
     photos = Photo.all().fetch(9)
     while len(photos) < 9:
       photos.append(None)
+    page = {'title': "John Doe's Gallery"}
     self.render('album.tpl', locals())
 
 
@@ -30,6 +31,7 @@ class PhotoHandler(TemplatedHandler):
   def get(self, id):
     photo = Photo.get_by_id(int(id))
     if photo:
+      page = {'title': photo.name}
       self.render('photo.tpl', locals())
     else:
       self.error(404)
