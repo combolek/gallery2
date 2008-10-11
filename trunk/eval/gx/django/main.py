@@ -67,12 +67,21 @@ class UploadHandler(webapp.RequestHandler):
     self.redirect('/')
 
 
+class DeleteHandler(webapp.RequestHandler):
+  def get(self, id):
+    photo = Photo.get_by_id(int(id))
+    if photo:
+      photo.delete()
+    self.redirect('/')
+
+
 def main():
   application = webapp.WSGIApplication([
       ('/', AlbumHandler),
       ('/view/(\d+)', PhotoHandler),
       ('/add', AddHandler),
       ('/upload', UploadHandler),
+      ('/delete/(\d)', DeleteHandler),
       ('/(image)/(\d)', ImageHandler),
       ('/(thumb)/(\d)', ImageHandler),
       ], debug=True)
