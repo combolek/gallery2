@@ -25,7 +25,7 @@ class PhotosController extends AppController {
 	    $title = $this->data['photos']['title'];
 	    $name = $this->data['photos']['image']['name'];
 	    rename($this->data['photos']['image']['tmp_name'], FILES . '/' . $name);
-	    if ($this->Photo->save(array('title' => $title, 'path' => $name))) {
+	    if ($this->Photo->save(array('title' => empty($title) ? $name : $title, 'path' => $name))) {
 		$this->flash('The Photo has been saved', '/photos');
 	    } else {
 		$this->flash('The Photo could not be saved. Please, try again.', '/photos/add');
