@@ -44,6 +44,6 @@ class Controller_Gallery extends Controller_Template {
 	    return $this->$key;
 	}
     }
-    
+
 }
 ?>

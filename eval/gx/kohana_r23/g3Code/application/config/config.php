@@ -9,8 +9,7 @@
  * a path, generated URLs will not contain a domain name. (See exception in
  * [site_protocol][ref-sip] below.)
  */
-//$config['site_domain'] = preg_replace('/(index.php)?\?.*/', '', $_SERVER['REQUEST_URI']);
-$config['site_domain'] = '/g3/';
+$config['site_domain'] = preg_replace('/(index.php)?(\?.*)?/', '', $_SERVER['REQUEST_URI']);
 
 /**
  * Set a default protocol protocol for this application.
@@ -34,7 +33,7 @@ $config['site_protocol'] = '';
  *
  * [ref-url]: http://doc.kohanaphp.com/routing
  */
-$config['index_page'] = '';
+$config['index_page'] = 'index.php?';
 
 /**
  * Length of internal configuration, language, and include path caching.
