@@ -15,11 +15,11 @@
 
 
 --
--- Create schema gx_eval_kohana
+-- Create schema gx_eval_kohana_r23
 --
 
-CREATE DATABASE IF NOT EXISTS g3;
-USE g3;
+CREATE DATABASE IF NOT EXISTS gx_eval_kohana_r23;
+USE gx_eval_kohana_r23;
 
 --
 -- Definition of table `g2_items`
