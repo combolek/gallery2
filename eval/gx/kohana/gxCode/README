@@ -1,8 +1,0 @@
-Setup Instructions
-The only project that needs to go in the htdocs directory is the gx project.
-
-Then edit the gx\index.php and change the following config parameters
-    $kohana_application = '<where the gxCode ended up>\application';
-    $kohana_modules = '<where the gxCode ended up>\gxCode\modules';
-    $kohana_system = '<where the Kohanaended up>\system';
-as well don't forget to change the directory separators appropriately
