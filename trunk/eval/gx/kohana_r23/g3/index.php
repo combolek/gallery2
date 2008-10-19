@@ -22,9 +22,9 @@ define('IN_PRODUCTION', FALSE);
  *
  * This path can be absolute or relative to this file.
  */
-$kohana_application = '../g3Code/application';
-$kohana_application_modules = '../g3Code/modules';
-$kohana_application_themes = '../g3Code/themes';
+$kohana_application = 'application';
+$kohana_application_modules = 'modules';
+$kohana_application_themes = 'themes';
 
 /**
  * Kohana modules directory. This directory should contain all the modules used
