@@ -11,7 +11,7 @@
 |	http://example.com/
 |
 */
-$config['base_url']     = preg_replace('/(index.php)?\?.*/', '', $_SERVER['REQUEST_URI']);
+$config['base_url']     = preg_replace('/(index.php)?(\?.*)?/', '', $_SERVER['REQUEST_URI']);
 
 /*
 |--------------------------------------------------------------------------
