@@ -35,7 +35,12 @@ class Router_Core {
 	{
 		// Set the complete URI
 		self::$complete_uri = self::$current_uri.self::$query_string;
-
+		if (empty(self::$current_uri) && self::$query_string[0] == '?'){
+		    self::$current_uri = substr(self::$query_string, 2);
+		    $getKey = substr(self::$query_string, 1);
+		    unset($_GET[$getKey]);
+		    self::$query_string = '';
+		}
 		// Load routes
 		$routes = Kohana::config('routes');
 
@@ -235,7 +240,7 @@ class Router_Core {
 				$values
 			);
 		}
-		
+
 		if ( ! ($route = Kohana::config('routes.'.$route)))
 		{
 			// @todo: This should be an exception
