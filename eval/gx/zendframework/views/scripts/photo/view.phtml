@@ -1,0 +1,16 @@
+<table id="photo-grid">
+  <tbody>
+    <tr>
+      <td>
+        <img class="photo" alt="photo" src="<?php printf("%s/data/%s", APP_URL, $this->photo['path']);?>" />
+      </td>
+    </tr>
+    <tr>
+      <td>
+	<a href="<?php print $this->url(array('controller' => 'album', 'action' => 'index', 'id' => null))?>">Return to Album</a> or
+	<a href="<?php print $this->url(array('controller' => 'photo', 'action' => 'delete', 'id' => $this->photo['id'])) ?>">Delete this Photo </a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
