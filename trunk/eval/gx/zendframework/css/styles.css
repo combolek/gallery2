@@ -1,0 +1,121 @@
+body, html {
+	background-color: silver;
+}
+
+#doc2 {
+	background-color: white;
+	border: 1px solid gray;
+	border-width: 0px 1px 1px 1px;
+}
+
+#hd {
+	position: relative;
+}
+#register-link {
+	position: absolute;
+	top: 20px;
+	right: 50px;
+}
+#login-link {
+	position: absolute;
+	top: 20px;
+	right: 10px;
+}
+
+#global-navigation {
+	margin: 0px;
+	padding: 0px;
+	height: 32px;
+	border-top: 1px solid gray;
+	border-bottom: 1px solid gray;
+	list-style-type: none;
+}
+#global-navigation li {
+	list-style-type: none;
+	float: left;
+	display: block;
+	width: 20%;
+}
+#global-navigation li a {
+	height: 20px;
+	padding: 5px;
+	display: block;
+	text-align: center;
+	border: 1px outset black;
+	background-color: lightgray;
+}
+#global-navigation li a:hover, #global-navigation li a:active, #global-navigation li a.active {
+	border: 1px inset black;
+	background-color: silver;
+}
+
+#breadcrumbs {
+	margin: 0px;
+	padding: 0px;
+	height: 26px;
+	border-bottom: 1px solid gray;
+	list-style-type: none;
+}
+#breadcrumbs li {
+	list-style-type: none;
+	background: transparent url(images/icon_breadcrumb_separator.gif) no-repeat scroll left center;
+	padding: 0 0 0 10px;
+	float: left;
+}
+#breadcrumbs li.root {
+	background: transparent;
+	padding: 0px;
+}
+#breadcrumbs li a {
+	padding: 5px;
+	display: block;
+}
+
+#photo-grid {
+	width: 100%;
+}
+#photo-grid td {
+	text-align: center;
+	border: 0px;
+}
+
+img.thumb {
+	display: block;
+	width: 200px;
+	height: 140px;
+	border: 1px solid silver;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: lightgray;
+}
+
+img.photo {
+	display: block;
+	width: 600px;
+	height: 420px;
+	border: 1px solid silver;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: lightgray;
+}
+
+#sidebar {
+	border-left: 2px solid gray;
+}
+#sidebar h2, #sidebar p {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+#ft {
+	border-top: 1px solid gray;
+	padding: 6px;
+}
+
+.success {
+	color: green;
+}
+
+.error {
+	color: red;
+}

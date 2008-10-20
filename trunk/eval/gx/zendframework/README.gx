@@ -1,0 +1,11 @@
+To install:
+  - chmod 777 data
+  - mysqladmin -uroot create gx_eval_zendframework
+  - mysql -uroot gx_eval_zendframework < gx_eval_zendframework.sql
+
+To use:
+  - browse to /gx/zendframework/index.php
+  - click upload
+  - choose a photo
+
+

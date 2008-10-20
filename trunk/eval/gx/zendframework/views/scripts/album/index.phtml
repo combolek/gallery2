@@ -1,0 +1,20 @@
+<h1>Album: Christmas 2007</h1>
+<table id="photo-grid">
+  <tbody>
+	<?php for ($row = 0, $i = 0; $row < 3; $row++): ?>
+	<tr>
+	  <?php for ($col = 0; $col < 3; $col++): ?>
+	  <td>
+	    <?php if ($i < count($this->photos)): ?>
+	    <a href="<?php echo $this->url(array('controller' => 'photo', 'action' => 'view', 'id' => $this->photos[$i]['id'])); ?>">
+	      <img class="thumb" alt="photo" src="<?php printf("%s/data/%s", APP_URL, $this->photos[$i++]['path']);?>" />
+	    </a>
+	    <?php else: ?>
+	    <img class="thumb" alt="photo"/>
+	    <?php endif; ?>
+	  </td>
+	  <?php endfor; ?>
+	</tr>
+	<?php endfor; ?>
+  </tbody>
+</table>
