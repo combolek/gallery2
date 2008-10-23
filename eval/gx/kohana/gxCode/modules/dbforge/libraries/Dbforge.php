@@ -32,11 +32,10 @@ class Dbforge_Core extends Database_Core {
 
 		// Set driver name
 		$dbforge_driver = 'Dbforge_'.ucfirst($this->config['connection']['type']).'_Driver';
-		printf("<pre> [%s:%s] driver: %s</pre>",__FILE__,__LINE__,print_r($dbforge_driver, 1)); flush();
 
 		// Load the driver
-//		if ( ! Kohana::auto_load($dbforge_driver))
-//			throw new Kohana_Database_Exception('database.driver_not_supported', $this->config['connection']['type']);
+		if ( ! Kohana::auto_load($dbforge_driver))
+			throw new Kohana_Database_Exception('database.driver_not_supported', $this->config['connection']['type']);
 
 		// Initialize the driver
 		$this->dbforge_driver = new $dbforge_driver($this->config);
