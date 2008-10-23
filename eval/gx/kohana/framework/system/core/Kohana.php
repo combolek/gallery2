@@ -129,7 +129,8 @@ final class Kohana {
 		spl_autoload_register(array('Kohana', 'auto_load'));
 
 		// Set error handler
-		set_error_handler(array('Kohana', 'exception_handler'));
+//		set_error_handler(array('Kohana', 'exception_handler'));
+		set_error_handler(create_function('$x, $y', 'throw new Kohana_Exception($y, $x);'));
 
 		// Set exception handler
 		set_exception_handler(array('Kohana', 'exception_handler'));
@@ -828,6 +829,8 @@ final class Kohana {
 	 */
 	public static function exception_handler($exception, $message = NULL, $file = NULL, $line = NULL)
 	{
+		print 'exception_handler <br/>';
+		printf("<pre> [%s:%s] Exception: %s</pre>",__FILE__,__LINE__,print_r($exception, 1)); flush();
 		// PHP errors have 5 args, always
 		$PHP_ERROR = (func_num_args() === 5);
 
