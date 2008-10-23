@@ -84,7 +84,6 @@ define('EXT', '.php');
 
 // Define the front controller name and docroot
 define('DOCROOT', getcwd().DIRECTORY_SEPARATOR);
-define('VARROOT', DOCROOT.DIRECTORY_SEPARATOR.'var'.DIRECTORY_SEPARATOR);
 define('KOHANA',  basename(__FILE__));
 
 // If the front controller is a symlink, change to the real docroot

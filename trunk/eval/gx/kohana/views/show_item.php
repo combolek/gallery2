@@ -10,7 +10,7 @@
   <tbody>
     <tr>
       <td>
-	<?php echo html::image(array('src' => 'images/' . $path, 'class' => 'photo', 'alt' => $item->title)); ?>
+	<?php echo html::image(array('src' => 'var/images/' . $path, 'class' => 'photo', 'alt' => $item->title)); ?>
       </td>
     </tr>
     <tr>

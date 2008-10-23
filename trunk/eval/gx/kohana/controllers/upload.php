@@ -29,7 +29,7 @@ class Upload_Controller extends Gallery_Controller {
 	// Resize, sharpen, and save the image
 	Image::factory($filename)
 	    ->resize(200, 140, Image::WIDTH)
-	    ->save(DOCROOT.'images/'.basename($filename));
+	    ->save(DOCROOT .'var/images/'.basename($filename));
 	$item = ORM::factory('item');
 	$item->type = 'photo';
 	$item->title = $_POST['name'];
