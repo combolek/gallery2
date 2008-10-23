@@ -6,7 +6,7 @@ class DATABASE_CONFIG {
 		'persistent' => false,
 		'host' => 'localhost',
 		'login' => 'root',
-		'password' => '',
+		'password' => 'dyna2Mo',
 		'database' => 'gx_eval_cakephp',
 	);
 }
