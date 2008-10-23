@@ -829,8 +829,6 @@ final class Kohana {
 	 */
 	public static function exception_handler($exception, $message = NULL, $file = NULL, $line = NULL)
 	{
-		print 'exception_handler <br/>';
-		printf("<pre> [%s:%s] Exception: %s</pre>",__FILE__,__LINE__,print_r($exception, 1)); flush();
 		// PHP errors have 5 args, always
 		$PHP_ERROR = (func_num_args() === 5);
 
