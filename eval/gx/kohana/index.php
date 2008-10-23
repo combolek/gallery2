@@ -39,7 +39,7 @@ $kohana_modules = 'modules';
  *
  * This path can be absolute or relative to this file.
  */
-$kohana_system = 'framework/system';
+$kohana_system = 'kohana';
 
 /**
  * Test to make sure that Kohana is running on PHP 5.2 or newer. Once you are
