@@ -1,9 +1,8 @@
 Setup Instructions
 
-create table gx_eval_kohana
+1. In mysql, create a database to use and give it a user/password
+2. kohana/config/database.php and specify the db/user/password
+3. open kohana/index.php/data/reset in the browser. Click populate.
+4. kohana/ in the browser
+5. rejoice!
 
-edit kohana/config/database.php and specify user and password
-
-open kohana/index.php/data/reset in the browser. Click populate.
-
-open kohana/ in the browser
