@@ -22,7 +22,7 @@ define('IN_PRODUCTION', FALSE);
  *
  * This path can be absolute or relative to this file.
  */
-$kohana_application = 'core';
+$kohana_application = '';
 
 /**
  * Website writeable directory. This directory should contain your application
