@@ -35,7 +35,7 @@ class Data_Controller {
     $forge->add_field(array('parent_id' => array('type' => 'INT', 'constraint' => 9)));
     $forge->create_table('items');
 
-    $this->_delete_files(VARROOT . 'images/', true);
+    $this->_delete_files(DOCROOT . 'var/images/', true);
     print html::anchor("data/populate", "populate");
   }
 
