@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title>Upload New Photos :: John Doe's Gallery</title>
+	
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	
+	<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.5.2/build/reset-fonts-grids/reset-fonts-grids.css"> 
+	<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.5.2/build/base/base-min.css">
+	<link rel="stylesheet" type="text/css" href="styles.css" media="screen,projection" />
+</head>
+<body>
+<div id="doc2" class="yui-t5">
+	<div id="hd">
+		<img id="logo" alt="Logo" src="images/logo.png" />
+		
+		<h1>John Doe's Gallery</h1>
+		
+		<a id="register-link" href="#">Register</a>
+		
+		<a id="login-link" href="#">Login</a>
+		
+		<ul id="global-navigation">
+			<li><a href="index.html">Home/Dashboard</a></li>
+			<li><a href="browse.html">Browse Photos</a></li>
+			<li><a class="active" href="upload.html">Upload New Photos</a></li>
+			<li><a href="#">Admin</a></li>
+			<li><a href="#">Help?</a></li>
+		</ul>
+		
+		<ul class="breadcrumbs">
+			<li class="root"><a href="#">Home</a></li>
+			<li><a href="#">Friends &amp; Family</a></li>
+			<li><a href="#">Christmas 2007</a></li>
+			<!-- later on the ">>" should be a background image -->
+		</ul>
+		
+	</div><!-- END hd -->
+	
+	<div id="bd">
+		<div id="yui-main">
+		
+			<div id="content" class="yui-b">
+				
+				<h1>Upload New Photos</h1>
+				
+				<form id="upload">
+				
+					
+					
+					<fieldset id="upload-location">
+						<legend><h3>1. Where do you want to upload your photos?</h3></legend>
+						
+						<input type="radio" name="upload-location-type" id="existing-album" />
+						<label for="existing-album">Into an existing album</label>
+						
+						<ul class="breadcrumbs">
+							<li class="root"><a href="#">Home</a></li>
+							<li><a href="#">Friends &amp; Family</a></li>
+							<li>
+								<select name="upload-album" id="upload-existing-album">
+									<option value="album-id">Christmas 2007</option>
+									<option value="album-id">Christmas 2006</option>
+									<option value="album-id">Family Reunion</option>
+								</select>
+							</li>
+						</ul>
+						
+						<input type="radio" name="upload-location-type" id="new-album" />
+						<label for="new-album">Into a new album</label>
+						
+						<ul class="breadcrumbs">
+							<li class="root"><a href="#">Home</a></li>
+							<li><a href="#">Friends &amp; Family</a></li>
+							<li>
+								<input type="text" name="upload-new-album" id="upload-new-album" />
+							</li>
+						</ul>
+					</fieldset>
+					
+					<h3>2. Which photos do you want to upload?</h3>
+					
+					<fieldset id="upload-file-selection">
+						<input type="button" name="upload-select-photos" value="Select Photos ..." class="button" />
+					</fieldset>
+					
+					<table id="upload-queue">
+						<caption>Photo upload queue</caption>
+						<thead>
+							<tr>
+								<th>Photo filename</th>
+								<th class="filesize">Filesize</th>
+								<th class="action">&nbsp;</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th>123456789.jpg</th>
+								<td class="filesize">400 KB</td>
+								<td class="action"><a href="#">remove</a></td>
+							</tr>
+							<tr>
+								<th>DCIM_12345.jpg</th>
+								<td class="filesize">2.1 MB</td>
+								<td class="action"><a href="#">remove</a></td>
+							</tr>
+						</tbody>
+						<tfoot>
+							<tr>
+								<td>Total: 2 Photos in queue</td>
+								<td class="filesize">2.5 MB</td>
+								<td class="action">&nbsp;</td>
+							</tr>
+						</tfoot>
+					</table>
+					
+					<input type="button" name="upload-button" id="upload-button" value="Upload Photos =>" class="button" />
+				
+				</form>
+				
+			</div><!-- END content -->
+			
+		</div><!-- END yui-main -->
+		
+		<div id="sidebar" class="yui-b">
+			<h2>Alternative Upload Methods</h2>
+			
+			<p>This web interface is not the only method to upload new photos to your Gallery!  Other methods include:</p>
+			
+			<ul>
+				<li>Upload photos in zip archives</li>
+				<li>Upload photos per FTP to the webserver</li>
+				<li>Upload photos through WebDAV</li>
+				<li>Upload photos with a Java browser applet</li>
+				<li>...</li>
+			</ul>
+			
+			<h2>Advanced Upload Settings</h2>
+			
+			<p>...</p>
+		</div>
+			
+	</div><!-- END bd -->
+	
+	<div id="ft">
+		Powered by <a href="#">GalleryX</a> | <a href="#">About this Gallery</a> | ...
+	</div>
+</div>
+</body>
+</html>
