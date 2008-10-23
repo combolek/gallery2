@@ -22,7 +22,15 @@ define('IN_PRODUCTION', FALSE);
  *
  * This path can be absolute or relative to this file.
  */
-$kohana_application = '';
+$kohana_application = 'core';
+
+/**
+ * Website writeable directory. This directory should contain your application
+ * writeable resources resources.
+ *
+ * This path can be absolute or relative to this file.
+ */
+$kohana_writeable = 'var';
 
 /**
  * Kohana modules directory. This directory should contain all the modules used
@@ -83,6 +91,7 @@ is_link(KOHANA) and chdir(dirname(realpath(__FILE__)));
 
 // Define application and system paths
 define('APPPATH', str_replace('\\', '/', realpath($kohana_application)).'/');
+define('VARPATH', str_replace('\\', '/', realpath($kohana_writeable)).'/');
 define('MODPATH', str_replace('\\', '/', realpath($kohana_modules)).'/');
 define('SYSPATH', str_replace('\\', '/', realpath($kohana_system)).'/');
 
