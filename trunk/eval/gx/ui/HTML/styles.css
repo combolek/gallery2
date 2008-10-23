@@ -204,10 +204,20 @@ img.photo {
 	color: silver;
 }
 #gComments ul li div {
-	background-color: #FCF1D2;
 	padding: 8px;
 }
 
+#gCommentAdd fieldset { 
+	border: 1px solid #ccc;
+	padding: .3em 1em; 
+}
 #gCommentAdd label {
 	display: block;
+	margin: .5em 0 0 0;
+}
+#gCommentAdd input.text {
+	width: 15em;
+}
+#gCommentAdd textarea {
+	width: 20em;
 }

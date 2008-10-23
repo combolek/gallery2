@@ -19,31 +19,49 @@
 	<script type="text/javascript" src="http://yui.yahooapis.com/2.6.0/build/container/container-min.js"></script>
 	<!-- CSS -->
 	<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.6.0/build/container/assets/container.css" />
+	<!-- Element -->
+	<script src="http://yui.yahooapis.com/2.6.0/build/element/element-beta-min.js"></script>
+	
 	<script type="text/javascript">
 		//var oElement = document.getElementById("gCommentAdd");
-		function fnCallback(e) {
-			e.preventDefault();
-			YAHOO.util.Dom.setStyle("gComment-2", 'display', 'block');
+		function addComment(e) {
+			var author, email, text, comment, li; 
+
+			e.preventDefault(); // Prevent form submission
 			
+			// Write comment to the database...
+			
+			// Show the block
+			YAHOO.util.Dom.setStyle("gComment-3", 'display', 'block');
+			
+			// Get form input
+			//oCommentForm = document.getElementById('gCommentAdd');
+			author = document.getElementById('gCommentAuthor').value;
+			email = document.getElementById('gCommentEmail').value;
+			text = document.getElementById('gCommentText').value;
+			//alert(author + email + text);
+			
+			// Create a new list element
+			var li = document.createElement('li');
+			li.id = 'gComment-3';
+			li.innerHTML = '<p><a href="' + email + '" class="gAuthor">' + author + '</a> ' + 
+				' said 30 minutes ago <span class="gDate understate">(October 23, 2008 4:00pm)</span></p>' + 
+				'<div class="gText">' + text + '</div>';
+						
+			// Append new list item with comment form input						
+			var elCommentThread = new YAHOO.util.Element('gCommentThread');
+							
+   			// Append a list item to contain the new comment
+   			elCommentThread.appendChild(li);
+   			    			
+			// Highlight the new comment
 			var alertColor = {
-        color: { to: '#06e' },
-        backgroundColor: { to: '#e06' }
+       			backgroundColor: { to: '#FCF1D2' }
 			};
-			/* var normalColor = {
-        color: { to: 'black' },
-        backgroundColor: { to: 'white' }
-			}; */
-			var anim = new YAHOO.util.ColorAnim('gComment-2', alertColor);
-			
-/* 			anim.onComplete.subscribe(function() {
-				changeColor.animate();
-			}); */
-
+			var anim = new YAHOO.util.ColorAnim('gComment-3', alertColor)
 			anim.animate();
-
 		}
-		YAHOO.util.Event.addListener("gCommentAdd", "submit", fnCallback); 
-		//debugger;
+		YAHOO.util.Event.addListener("gCommentAdd", "submit", addComment); 
 	</script>
 </head>
 <body class="yui-skin-sam">
@@ -81,50 +99,47 @@
 				
 				<img id="photo-id-1" alt="photo" src="images/thumbnail.jpg" />
 				
-				
-				
 				<div id="gComments">
 					<h2>Comments</h2>
 					
-					<ul>
+					<ul id="gCommentThread">
 						<li id="gComment-1">
-							<p><a href="#">Andy</a> said 2 hours ago <span class="understate">(October 23, 2008 11:30am)</span></p>
+							<p><a href="#" class="gAuthor">Andy</a> said 2 hours ago <span class="gDate understate">(October 23, 2008 11:30am)</span></p>
 							<div>
 								Lorem ipsum dolor sit amet. 
 							</div>
 						</li>
-						<li id="gComment-3">
-							<p><a href="#">Other user</a> said 30 minutes ago <span class="understate">(October 23, 2008 1:00pm)</span></p>
+						<li id="gComment-2">
+							<p><a href="#" class="gAuthor">Other user</a> said 30 minutes ago <span class="gDate understate">(October 23, 2008 1:00pm)</span></p>
 							<div>
 								Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-							</div>
-						</li>
-						<li id="gComment-2" style="display: none;">
-							<p><a href="#">Jakob</a> date</p>
-							<div>
-								text
 							</div>
 						</li>
 					</ul>
 					
 					<form id="gCommentAdd">
-						<label for="gCommentAuthor">Author
-						<input type="text" id="gCommentAuthor" /></label>
-						
-						<label for="gCommentEmail">Email
-						<input type="text" id="gCommentEmail" /></label>
-						
-						<label for="gCommentAuthor">Text
-						<textarea id="gCommentText"></textarea></label>
-						
-						<input type="submit" id="gCommentSubmit" value="comment" />
+						<fieldset>
+							<legend>Add comment</legend>
+							<div>
+								<label for="gCommentAuthor">Your Name</label>
+								<input type="text" id="gCommentAuthor" class="text" />
+							</div>
+							<div>
+								<label for="gCommentEmail">Your Email (not displayed)</label>
+								<input type="text" id="gCommentEmail" class="text" />
+							</div>
+							<div>
+								<label for="gCommentText">Comment</label>
+								<textarea id="gCommentText"></textarea>
+							</div>
+							
+							<input type="submit" id="gCommentSubmit" value="Add" />
+							
+						</fieldset>
 					</form>
 					
 				</div><!-- END gComments -->
 						
-						
-						
-				
 			</div><!-- END content -->
 			
 		</div><!-- END yui-main -->
