@@ -31,10 +31,8 @@ class Data_Controller {
     $forge->drop_table('photo');
 
     $forge->add_field('id');
-    $forge->add_field(
-		      array('title' => array('type' => 'VARCHAR', 'constraint' => 128)));
-    $forge->add_field(
-		      array('path' => array('type' => 'VARCHAR', 'constraint' => 128)));
+    $forge->add_field(array('title' => array('type' => 'VARCHAR', 'constraint' => 128)));
+    $forge->add_field(array('path' => array('type' => 'VARCHAR', 'constraint' => 128)));
     $forge->create_table('photo');
 
     $this->_delete_files(DOCROOT . 'images/', true);
