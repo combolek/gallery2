@@ -4,4 +4,5 @@
  *
  * Sets the default route to "welcome"
  */
-$config['_default'] = 'show/(\d+)';
+$config['_default'] = 'show/1';
+
