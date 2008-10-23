@@ -38,7 +38,7 @@ $config['default'] = array
 		'database' => 'gx_eval_kohana'
 	),
 	'character_set' => 'utf8',
-	'table_prefix'  => 'g2_',
+	'table_prefix'  => '',
 	'object'        => TRUE,
 	'cache'         => FALSE,
 	'escape'        => TRUE

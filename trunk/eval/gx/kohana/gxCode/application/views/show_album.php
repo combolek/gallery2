@@ -2,7 +2,7 @@
   $currentRow = 0;
   $currentColumn =  0;
 ?>
-<h1>Album: <?php echo $item->Name; ?></h1>
+<h1>Album: <?php echo $item->title; ?></h1>
 
 <table id="photo-grid">
   <tbody>
@@ -13,11 +13,11 @@
 	    </tr><tr>
 	  <?php endif; ?>
 	  <td>
-	    <?php $path = $item->Path . '/' . $child->Path; ?>
+	    <?php $path = 'images/' . $item->path . '/' . $child->path; ?>
 	    <?php
 	      echo html::anchor(
-		     "show/item/$item->id/$child->id",
-                     html::image(array('src' => $path, 'class' => 'photo', 'alt' => $child->Name)));
+		     "show/$child->id",
+                     html::image(array('src' => $path, 'class' => 'photo', 'alt' => $child->title)));
             ?>
 	    </a>
 	  </td>
