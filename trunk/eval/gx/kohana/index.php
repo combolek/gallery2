@@ -22,7 +22,7 @@ define('IN_PRODUCTION', FALSE);
  *
  * This path can be absolute or relative to this file.
  */
-$kohana_application = '';
+$kohana_application = 'core';
 
 /**
  * Website writeable directory. This directory should contain your application
@@ -39,7 +39,7 @@ $kohana_writeable = 'var';
  *
  * This path can be absolute or relative to this file.
  */
-$kohana_modules = 'modules';
+$kohana_modules = 'core/modules';
 
 /**
  * Kohana system directory. This directory should contain the core/ directory,
