@@ -9,7 +9,7 @@
 
 <ul id="global-navigation">
     <?php foreach (array('Home/Dashboard' => '#',
-			 'Browse Photos' => 'show/album',
+			 'Browse Photos' => 'show/1',
 			 'Upload New Photos' => 'upload',
 			 'Admin' =>  '#',
 			 'Help?' => '#') as $text => $view):?>

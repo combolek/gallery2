@@ -27,13 +27,26 @@
 class Data_Controller {
   function reset() {
     $forge = new Dbforge();
-    $forge->drop_table('photo');
+    $forge->drop_table('items');
     $forge->add_field('id');
-    $forge->add_field(array('title' => array('type' => 'VARCHAR', 'constraint' => 128)));
-    $forge->add_field(array('path' => array('type' => 'VARCHAR', 'constraint' => 128)));
-    $forge->create_table('photo');
+    $forge->add_field(array('type' => array('type' => 'CHAR', 'constraint' => 32)));
+    $forge->add_field(array('title' => array('type' => 'CHAR', 'constraint' => 255)));
+    $forge->add_field(array('path' => array('type' => 'CHAR', 'constraint' => 255)));
+    $forge->add_field(array('parent_id' => array('type' => 'INT', 'constraint' => 9)));
+    $forge->create_table('items');
 
     $this->_delete_files(DOCROOT . 'images/', true);
+    print html::anchor("data/populate", "populate");
+  }
+
+  function populate() {
+    $item = ORM::factory('item');
+    $item->type = "album";
+    $item->title = "John Doe's Gallery";
+    $item->path = "";
+    $item->parent_id = 0;
+    $item->save();
+    print html::anchor("data/reset", "reset");
   }
 
   function _delete_files($path, $del_dir = FALSE, $level = 0) {

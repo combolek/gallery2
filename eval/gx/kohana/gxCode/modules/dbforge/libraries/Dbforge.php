@@ -133,13 +133,13 @@ class Dbforge_Core extends Database_Core {
 		if (is_string($field))
 		{
 			if ($field == 'id')
-			{
-				$this->fields[] = array('id' => array(
+			    {
+				$this->fields = array_merge($this->fields, array('id' => array(
 										'type' => 'INT',
 										'constraint' => 9,
 										'auto_increment' => TRUE
 										)
-									);
+										   ));
 				$this->add_key('id', TRUE);
 			}
 			else
