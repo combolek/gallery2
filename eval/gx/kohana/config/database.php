@@ -30,8 +30,8 @@ $config['default'] = array
 	'connection'    => array
 	(
 		'type'     => 'mysqli',
-		'user'     => 'gx',
-		'pass'     => 'gx',
+		'user'     => 'root',
+		'pass'     => '',
 		'host'     => '',
 		'port'     => FALSE,
 		'socket'   => FALSE,
