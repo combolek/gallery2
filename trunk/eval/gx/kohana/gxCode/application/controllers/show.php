@@ -8,8 +8,13 @@ class Show_Controller extends Gallery_Controller {
 	$this->template->header->active = "Browse Photos";
 	$this->template->content = new View('show_album');
 
-	$item = ORM::factory('Item', $id);
+	try {
+	    $item = ORM::factory('Item', $id);
+	} catch (Kohana_Exception $e) {
+	    url::redirect('data/reset');
+	}
 
+	print '4---------';
 	$this->template->content->item = $item;
 	$this->template->content->maxRows = 3;
 	$this->template->content->maxColumns = 3;
