@@ -27,11 +27,7 @@
 class Data_Controller {
   function reset() {
     $forge = new Dbforge();
-    $config = Kohana::config('database.default');
-    printf("<pre> [%s:%s] database: %s</pre>",__FILE__,__LINE__,print_r($config['connection']['database'], 1)); flush();
-    $forge->create_database($config['connection']['database']);
     $forge->drop_table('photo');
-
     $forge->add_field('id');
     $forge->add_field(array('title' => array('type' => 'VARCHAR', 'constraint' => 128)));
     $forge->add_field(array('path' => array('type' => 'VARCHAR', 'constraint' => 128)));
