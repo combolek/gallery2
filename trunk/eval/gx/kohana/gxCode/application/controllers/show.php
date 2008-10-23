@@ -14,7 +14,6 @@ class Show_Controller extends Gallery_Controller {
 	    url::redirect('data/reset');
 	}
 
-	print '4---------';
 	$this->template->content->item = $item;
 	$this->template->content->maxRows = 3;
 	$this->template->content->maxColumns = 3;

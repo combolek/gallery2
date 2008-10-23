@@ -23,7 +23,7 @@ class Dbforge_Mysqli_Driver extends Dbforge_Driver {
 	{
 		$this->db_config = $config;
 
-		Log::add('debug', 'MySQLi Dbforge Driver Initialized');
+		Kohana::log('debug', 'MySQLi Dbforge Driver Initialized');
 	}
 
 	/**
@@ -61,12 +61,12 @@ class Dbforge_Mysqli_Driver extends Dbforge_Driver {
 	public function create_table($table, $fields, $primary_keys, $keys, $if_not_exists)
 	{
 		$sql = 'CREATE TABLE ';
-			
+
 		if ($if_not_exists === TRUE)
 		{
 			$sql .= 'IF NOT EXISTS ';
 		}
-		
+
 		$sql .= $this->escape_table($table)." (";
 
 		$sql .= $this->process_fields($fields);
@@ -139,7 +139,7 @@ class Dbforge_Mysqli_Driver extends Dbforge_Driver {
 			// Kohana doesn't appear to handle aliases the same way CI does.
 			$sql .= ' AFTER ' . $this->escape_column($after_field);
 		}
-		
+
 		return $sql;
 	}
 
@@ -166,7 +166,7 @@ class Dbforge_Mysqli_Driver extends Dbforge_Driver {
 			else
 			{
 				$attributes = array_change_key_case($attributes, CASE_UPPER);
-				
+
 				// The function protect_identifiers() is removed from this line
 				// because Kohana doesn't handle aliases the same way CI does.
 				$sql .= "\n\t".$this->escape_column($field);
@@ -177,45 +177,45 @@ class Dbforge_Mysqli_Driver extends Dbforge_Driver {
 					// because Kohana doesn't handle aliases the same way CI does.
 					$sql .= ' '.$this->escape_column($attributes['NAME']).' ';
 				}
-				
+
 				if (array_key_exists('TYPE', $attributes))
 				{
 					$sql .=  ' '.$attributes['TYPE'];
 				}
-	
+
 				if (array_key_exists('CONSTRAINT', $attributes))
 				{
 					$sql .= '('.$attributes['CONSTRAINT'].')';
 				}
-	
+
 				if (array_key_exists('UNSIGNED', $attributes) && $attributes['UNSIGNED'] === TRUE)
 				{
 					$sql .= ' UNSIGNED';
 				}
-	
+
 				if (array_key_exists('DEFAULT', $attributes))
 				{
 					$sql .= ' DEFAULT \''.$attributes['DEFAULT'].'\'';
 				}
-	
+
 				if (array_key_exists('NULL', $attributes))
 				{
 					$sql .= ($attributes['NULL'] === TRUE) ? ' NULL' : ' NOT NULL';
 				}
-	
+
 				if (array_key_exists('AUTO_INCREMENT', $attributes) && $attributes['AUTO_INCREMENT'] === TRUE)
 				{
 					$sql .= ' AUTO_INCREMENT';
 				}
 			}
-			
+
 			// don't add a comma on the end of the last field
 			if (++$current_field_count < count($fields))
 			{
 				$sql .= ',';
 			}
 		}
-		
+
 		return $sql;
 	}
 
@@ -242,7 +242,7 @@ class Dbforge_Mysqli_Driver extends Dbforge_Driver {
 			}
 
 			return $escaped_array;
-		}	
+		}
 
 		// This function may get "item1 item2" as a string, and so
 		// we may need "`item1` `item2`" and not "`item1 item2`"
@@ -267,10 +267,10 @@ class Dbforge_Mysqli_Driver extends Dbforge_Driver {
 		}
 
 		$exceptions = array('AS', '/', '-', '%', '+', '*');
-		
+
 		foreach ($exceptions as $exception)
 		{
-		
+
 			if (stristr($item, " `{$exception}` ") !== FALSE)
 			{
 				$item = preg_replace('/ `('.preg_quote($exception).')` /i', ' $1 ', $item);
@@ -278,7 +278,7 @@ class Dbforge_Mysqli_Driver extends Dbforge_Driver {
 		}
 		return $item;
 	}
-	
+
 	public function escape_table($table)
 	{
 		if (!$this->db_config['escape'])

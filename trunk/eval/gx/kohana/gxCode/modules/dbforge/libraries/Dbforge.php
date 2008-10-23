@@ -11,11 +11,11 @@ class Dbforge_Core extends Database_Core {
 
 	// Dataparent::__construct();base instance
 	protected $database;
-	
+
 	// Configuration
 	protected $collate = array('collate' => 'utf8_general_ci');
 	protected $dbforge_driver;
-	
+
 	protected $fields       = array();
 	protected $keys         = array();
 	protected $primary_keys = array();
@@ -27,15 +27,16 @@ class Dbforge_Core extends Database_Core {
 	public function __construct()
 	{
 		parent::__construct();
-		
+
 		$this->config = array_merge($this->config, $this->collate);
-			
+
 		// Set driver name
 		$dbforge_driver = 'Dbforge_'.ucfirst($this->config['connection']['type']).'_Driver';
+		printf("<pre> [%s:%s] driver: %s</pre>",__FILE__,__LINE__,print_r($dbforge_driver, 1)); flush();
 
 		// Load the driver
-		if ( ! Kohana::auto_load($dbforge_driver))
-			throw new Kohana_Database_Exception('database.driver_not_supported', $this->config['connection']['type']);
+//		if ( ! Kohana::auto_load($dbforge_driver))
+//			throw new Kohana_Database_Exception('database.driver_not_supported', $this->config['connection']['type']);
 
 		// Initialize the driver
 		$this->dbforge_driver = new $dbforge_driver($this->config);
@@ -44,7 +45,7 @@ class Dbforge_Core extends Database_Core {
 		if ( ! ($this->dbforge_driver instanceof Dbforge_Driver))
 			throw new Kohana_Database_Exception('database.driver_not_supported', 'Dbforge drivers must use the Dbforge_Driver interface.');
 
-		Log::add('debug', 'Dbforge Library initialized');
+		Kohana::log('debug', 'Dbforge Library initialized');
 	}
 
 	/**
@@ -59,14 +60,14 @@ class Dbforge_Core extends Database_Core {
 		{
 			throw new Kohana_Database_Exception('dbforge.database_required');
 		}
-		
+
 		$sql = $this->dbforge_driver->create_database($db_name);
-		
+
 		if (is_bool($sql))
 		{
 			return $sql;
 		}
-	
+
 		return $this->query($sql);
 	}
 
@@ -82,14 +83,14 @@ class Dbforge_Core extends Database_Core {
 		{
 			throw new Kohana_Database_Exception('dbforge.database_required');
 		}
-	
+
 		$sql = $this->dbforge_driver->drop_database($db_name);
-		
+
 		if (is_bool($sql))
 		{
 			return $sql;
 		}
-	
+
 		return $this->query($sql);
 	}
 
@@ -106,7 +107,7 @@ class Dbforge_Core extends Database_Core {
 		{
 			throw new Kohana_Database_Exception('dbforge.key_required');
 		}
-		
+
 		if ($primary === TRUE)
 		{
 			$this->primary_keys[] = $key;
@@ -129,7 +130,7 @@ class Dbforge_Core extends Database_Core {
 		{
 			throw new Kohana_Database_Exception('dbforge.field_required');
 		}
-		
+
 		if (is_string($field))
 		{
 			if ($field == 'id')
@@ -139,7 +140,7 @@ class Dbforge_Core extends Database_Core {
 										'constraint' => 9,
 										'auto_increment' => TRUE
 										)
-									);									
+									);
 				$this->add_key('id', TRUE);
 			}
 			else
@@ -148,16 +149,16 @@ class Dbforge_Core extends Database_Core {
 				{
 					throw new Kohana_Database_Exception('dbforge.field_required');
 				}
-				
+
 				$this->fields[] = $field;
 			}
 		}
-		
+
 		if (is_array($field))
 		{
 			$this->fields = array_merge($this->fields, $field);
 		}
-		
+
 	}
 
 	/**
@@ -167,14 +168,14 @@ class Dbforge_Core extends Database_Core {
 	 * @return	bool
 	 */
 	public function create_table($table = '', $if_not_exists = FALSE)
-	{	
+	{
 		if ($table == '')
 		{
 			throw new Kohana_Database_Exception('dbforge.table_required');
 		}
-			
+
 		//if (count($this->fields) == 0)
-		//{	
+		//{
 		//	throw new Kohana_Database_Exception('database.field_required');
 		//}
 
@@ -193,12 +194,12 @@ class Dbforge_Core extends Database_Core {
 	public function drop_table($table_name)
 	{
 		$sql = $this->dbforge_driver->drop_table($this->config['table_prefix'].$table_name);
-		
+
 		if (is_bool($sql))
 		{
 			return $sql;
 		}
-	
+
 		return $this->query($sql);
 	}
 
@@ -241,7 +242,7 @@ class Dbforge_Core extends Database_Core {
 	 */
 	public function drop_column($table = '', $column_name = '')
 	{
-	
+
 		if ($table == '')
 		{
 			throw new Kohana_Database_Exception('dbforge.table_required');
@@ -253,7 +254,7 @@ class Dbforge_Core extends Database_Core {
 		}
 
 		$sql = $this->dbforge_driver->alter_table('DROP', $this->config['table_prefix'].$table, $column_name);
-	
+
 		return $this->query($sql);
 	}
 
@@ -267,7 +268,7 @@ class Dbforge_Core extends Database_Core {
 	 */
 	public function modify_column($table = '', $field = array())
 	{
-	
+
 		if ($table == '')
 		{
 			throw new Kohana_Database_Exception('dbforge.table_required');

@@ -27,7 +27,9 @@
 class Data_Controller {
   function reset() {
     $forge = new Dbforge();
-    $forge->create_database('gx_eval_kohana');
+    $config = Kohana::config('database.default');
+    printf("<pre> [%s:%s] database: %s</pre>",__FILE__,__LINE__,print_r($config['connection']['database'], 1)); flush();
+    $forge->create_database($config['connection']['database']);
     $forge->drop_table('photo');
 
     $forge->add_field('id');
@@ -48,15 +50,14 @@ class Data_Controller {
 
     while (FALSE !== ($filename = @readdir($current_dir))) {
       if ($filename != "." and $filename != "..") {
-	if (is_dir($path.'/'.$filename)) {
-	  // Ignore empty folders
-	  if (substr($filename, 0, 1) != '.') {
-	    delete_files($path.'/'.$filename, $del_dir, $level + 1);
-	  }
-	}
-	else {
-	  unlink($path.'/'.$filename);
-	}
+        if (is_dir($path.'/'.$filename)) {
+          // Ignore empty folders
+          if (substr($filename, 0, 1) != '.') {
+            delete_files($path.'/'.$filename, $del_dir, $level + 1);
+          }
+        } else {
+          unlink($path.'/'.$filename);
+        }
       }
     }
     @closedir($current_dir);
