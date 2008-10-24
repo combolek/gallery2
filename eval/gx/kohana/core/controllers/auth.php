@@ -44,7 +44,7 @@ class Auth_Controller extends Gallery_Controller {
 
         if (Auth::instance()->login($user, $form->password->value, true)) {
           // Login successful, redirect
-          $redirect = Session::instance()->get('redirect');
+          $redirect = Session::instance()->get('redirectPath');
           url::redirect($redirect);
         } else {
           $form->password->add_error('login_failed', 'Invalid username or password.');
@@ -61,7 +61,7 @@ class Auth_Controller extends Gallery_Controller {
     Auth::instance()->logout(TRUE);
 
     // Redirect back to the login page
-    url::redirect('auth/login');
+    url::redirect('show/1');
   }
 
 } // End Auth Controller
