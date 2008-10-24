@@ -4,7 +4,7 @@
 
 <a id="register-link" href="#">Register</a>
 
-<a id="login-link" href="#">Login</a>
+<?php echo html::anchor('auth/login', 'Login'); ?>
 
 <ul id="global-navigation">
   <?php foreach (array('Home/Dashboard' => '#',
