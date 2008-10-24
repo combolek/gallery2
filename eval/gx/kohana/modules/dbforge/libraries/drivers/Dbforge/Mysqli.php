@@ -84,9 +84,10 @@ class Dbforge_Mysqli_Driver extends Dbforge_Driver {
 			// The function protect_identifiers() is removed from this line
 			// because Kohana doesn't handle aliases the same way CI does.
 			//$keys = $this->escape_column($keys);
-			foreach ($keys as $key)
-			{
-				$sql .= ",\n\tKEY ($key)";
+			foreach ($keys as $keyName => $key) {
+        $unique = (!empty($key['unique'])) ? 'UNIQUE ' : '';
+			  $key = implode(', ', $key['fields']);
+			  $sql .= ",\n\t{$unique}KEY $keyName ($key)";
 			}
 		}
 
