@@ -49,6 +49,15 @@ class Data_Controller {
             ENGINE=InnoDB DEFAULT CHARSET=utf8;');
 
       $this->_createAuthTables();
+
+      $db->query('DROP TABLE IF EXISTS `gx_eval_kohana`.`sessions`;');
+      $db->query('CREATE TABLE sessions (
+                  session_id VARCHAR(127) NOT NULL,
+                  last_activity INT(10) UNSIGNED NOT NULL,
+                  data TEXT NOT NULL,
+                  PRIMARY KEY (session_id))
+            ENGINE=InnoDB DEFAULT CHARSET=utf8;');
+
       $this->_delete_files(DOCROOT . 'var/images/', true);
     } else {
       call_user_func(array($module, "Reset"));
@@ -72,6 +81,15 @@ class Data_Controller {
       $item->parent_id = 1;
       $item->save();
 
+      $item = ORM::factory('user');
+      $item->id = 1;
+      $item->email = "admin@gx.com";
+      $item->username = "admin";
+      $item->password = '0a9ba25c04b856936778ba25b32010016d1bc866e21ad04489';
+      $item->logins = 2;
+      $item->last_login = 1224873607;
+      $item->save();
+
       $roles = ORM::factory('role');
       $roles->name = 'login';
       $roles->description = 'Login privileges, granted after account confirmation';
@@ -81,6 +99,10 @@ class Data_Controller {
       $roles->name = 'admin';
       $roles->description = 'Administrative user, has access to everything.';
       $roles->save();
+
+      Database::instance('default')->query(
+         'INSERT INTO `roles_users` (`user_id`,`role_id`) VALUES (1,1);');
+
     } else {
       call_user_func(array($module, "Populate"));
     }
@@ -116,15 +138,6 @@ class Data_Controller {
 
   function _createAuthTables() {
     $db = Database::instance('default');
-    $db->query('DROP TABLE IF EXISTS `gx_eval_kohana`.`roles`;');
-
-    $db->query('CREATE TABLE  `gx_eval_kohana`.`roles` (
-              `id` int(11) unsigned NOT NULL auto_increment,
-              `name` varchar(32) NOT NULL,
-              `description` varchar(255) NOT NULL,
-              PRIMARY KEY  (`id`),
-              UNIQUE KEY `uniq_name` (`name`))
-            ENGINE=InnoDB DEFAULT CHARSET=utf8;');
 
     $db->query('DROP TABLE IF EXISTS `gx_eval_kohana`.`roles_users`;');
     $db->query('CREATE TABLE IF NOT EXISTS `roles_users` (
@@ -133,19 +146,6 @@ class Data_Controller {
                 PRIMARY KEY  (`user_id`,`role_id`),
                 KEY `fk_role_id` (`role_id`)
               ) ENGINE=InnoDB DEFAULT CHARSET=utf8;');
-
-    $db->query('DROP TABLE IF EXISTS `gx_eval_kohana`.`users`;');
-    $db->query('CREATE TABLE IF NOT EXISTS `users` (
-                `id` int(11) unsigned NOT NULL auto_increment,
-                `email` varchar(127) NOT NULL,
-                `username` varchar(32) NOT NULL default \'\',
-                `password` char(50) NOT NULL,
-                `logins` int(10) unsigned NOT NULL default \'0\',
-                `last_login` int(10) unsigned,
-                PRIMARY KEY  (`id`),
-                UNIQUE KEY `uniq_username` (`username`),
-                UNIQUE KEY `uniq_email` (`email`)
-              ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;');
 
     $db->query('DROP TABLE IF EXISTS `gx_eval_kohana`.`user_tokens`;');
     $db->query('CREATE TABLE IF NOT EXISTS `user_tokens` (
@@ -159,6 +159,28 @@ class Data_Controller {
                   UNIQUE KEY `uniq_token` (`token`),
                   KEY `fk_user_id` (`user_id`)
                 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;');
+
+    $db->query('DROP TABLE IF EXISTS `gx_eval_kohana`.`roles`;');
+    $db->query('CREATE TABLE  `gx_eval_kohana`.`roles` (
+              `id` int(11) unsigned NOT NULL auto_increment,
+              `name` varchar(32) NOT NULL,
+              `description` varchar(255) NOT NULL,
+              PRIMARY KEY  (`id`),
+              UNIQUE KEY `uniq_name` (`name`))
+            ENGINE=InnoDB DEFAULT CHARSET=utf8;');
+
+    $db->query('DROP TABLE IF EXISTS `gx_eval_kohana`.`users`;');
+    $db->query('CREATE TABLE IF NOT EXISTS `users` (
+                `id` int(11) unsigned NOT NULL auto_increment,
+                `email` varchar(127) NOT NULL,
+                `username` varchar(32) NOT NULL default \'\',
+                `password` char(50) NOT NULL,
+                `logins` int(10) unsigned NOT NULL default \'0\',
+                `last_login` int(10) unsigned,
+                PRIMARY KEY  (`id`),
+                UNIQUE KEY `uniq_username` (`username`),
+                UNIQUE KEY `uniq_email` (`email`)
+              ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;');
 
     $db->query('ALTER TABLE `roles_users`
                     ADD CONSTRAINT `roles_users_ibfk_1` FOREIGN KEY (`user_id`)
