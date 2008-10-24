@@ -104,7 +104,25 @@
     </div><!-- END yui-main -->
     
   	<div id="gSidebar" class="yui-b">
-      <table class="gMeta">
+  		
+			<div id="gCarousel">
+				<h2>Carousel</h2>
+				<img src="images/carousel.png" />
+				<!-- for reference see http://developer.yahoo.com/yui/examples/carousel/csl_dynload2.html and http://developer.yahoo.com/ypatterns/pattern.php?pattern=carousel -->
+			</div>
+			
+			<div id="gTagCloud">
+				<h2>Tag cloud</h2>
+				
+				<p>tag1, tag2, tag3, ...</p>
+				
+				<form>
+					<input type="text" value="add new tags ..." />
+					<input type="submit" value="add" />
+				</form>
+			</div>
+			
+      <table class="gMetadata">
         <caption>Item Info</caption>
         <tbody>
           <tr>
@@ -121,6 +139,9 @@
           </tr>
         </tbody>
       </table>
+			
+			
+			
     </div><!-- END #gSideBar -->
       
   </div><!-- END YUI #bd -->
