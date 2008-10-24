@@ -35,6 +35,13 @@ class Data_Controller {
     $forge->add_field(array('parent_id' => array('type' => 'INT', 'constraint' => 9)));
     $forge->create_table('items');
 
+    $forge->drop_table('comments');
+    $forge->add_field('id');
+    $forge->add_field(array('name' => array('type' => 'CHAR', 'constraint' => 255)));
+    $forge->add_field(array('email' => array('type' => 'CHAR', 'constraint' => 255)));
+    $forge->add_field(array('parent_id' => array('type' => 'INT', 'constraint' => 9)));
+    $forge->create_table('comments');
+
     $this->_delete_files(DOCROOT . 'var/images/', true);
     print html::anchor("data/populate", "populate");
   }
@@ -46,6 +53,25 @@ class Data_Controller {
     $item->path = "";
     $item->parent_id = 0;
     $item->save();
+
+    $item = ORM::factory('item');
+    $item->type = "photo";
+    $item->title = "GX Sprint!";
+    $item->path = "sample.jpg";
+    $item->parent_id = 1;
+    $item->save();
+
+    $comment = ORM::factory('comment');
+    $comment->name = "Andy";
+    $comment->email = "andy@foo.com";
+    $comment->parent_id = 2;
+    $comment->save();
+
+    $comment = ORM::factory('comment');
+    $comment->name = "Tim";
+    $comment->email = "tim@foo.com";
+    $comment->parent_id = 2;
+    $comment->save();
     print html::anchor("data/reset", "reset");
   }
 
@@ -58,7 +84,7 @@ class Data_Controller {
     }
 
     while (FALSE !== ($filename = @readdir($current_dir))) {
-      if ($filename != "." and $filename != "..") {
+      if ($filename != "." and $filename != ".." and $filename != "sample.jpg") {
         if (is_dir($path.'/'.$filename)) {
           // Ignore empty folders
           if (substr($filename, 0, 1) != '.') {
