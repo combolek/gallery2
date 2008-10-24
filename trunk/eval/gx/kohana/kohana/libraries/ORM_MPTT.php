@@ -11,14 +11,6 @@
  * @copyright Eduard Baun, 2007-2008
  * @version $Id$
  */
-
-/**
- * Enter Description Here
- * @package
- * @subpackage
- * @author Tim
- */
-
 class ORM_MPTT_Core extends ORM_Tree_Core {
 
   // Left number column name
