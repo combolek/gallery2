@@ -24,8 +24,7 @@ class Dbforge_Core extends Database_Core {
 	/**
 	 * Loads Database and configuration options.
 	 */
-	public function __construct()
-	{
+	public function __construct()	{
 		parent::__construct();
 
 		$this->config = array_merge($this->config, $this->collate);
@@ -53,17 +52,14 @@ class Dbforge_Core extends Database_Core {
 	 * @param	string	the database name
 	 * @return	bool
 	 */
-	public function create_database($db_name = '')
-	{
-		if ($db_name == '')
-		{
+	public function create_database($db_name = '') {
+		if ($db_name == '') {
 			throw new Kohana_Database_Exception('dbforge.database_required');
 		}
 
 		$sql = $this->dbforge_driver->create_database($db_name);
 
-		if (is_bool($sql))
-		{
+		if (is_bool($sql)) {
 			return $sql;
 		}
 
@@ -76,45 +72,52 @@ class Dbforge_Core extends Database_Core {
 	 * @param	string	the database name	'database_required'		=> 'Database information is required for that operation.',
 	 * @return	bool
 	 */
-	public function drop_database($db_name = '')
-	{
-		if ($db_name == '')
-		{
+	public function drop_database($db_name = '') {
+		if ($db_name == '') {
 			throw new Kohana_Database_Exception('dbforge.database_required');
 		}
 
 		$sql = $this->dbforge_driver->drop_database($db_name);
 
-		if (is_bool($sql))
-		{
+		if (is_bool($sql)) {
 			return $sql;
 		}
 
 		return $this->query($sql);
 	}
 
+  /**
+   * Add Key
+   *
+   * @param mixed  key either a single string or an array of field names
+   * @return  void
+   */
+  public function add_primaryKey($key = '') {
+    if ($key == '') {
+      throw new Kohana_Database_Exception('dbforge.key_required');
+    }
+
+    if (!is_array($key)) {
+      $this->primary_keys[] = $key;
+    } else {
+      $this->primary_keys = array_merge($this->primary_keys, $key);
+    }
+  }
 	/**
 	 * Add Key
 	 *
+   * @param string  keyName
 	 * @param	string	key
 	 * @param	string	type
 	 * @return	void
 	 */
-	public function add_key($key = '', $primary = FALSE)
-	{
-		if ($key == '')
-		{
+	public function add_key($keyName, $key = '', $unique = FALSE) {
+		if ($key == '') {
 			throw new Kohana_Database_Exception('dbforge.key_required');
 		}
 
-		if ($primary === TRUE)
-		{
-			$this->primary_keys[] = $key;
-		}
-		else
-		{
-			$this->keys[] = $key;
-		}
+		$key = (is_array($key)) ? $key : array($key);
+		$this->keys[$keyName] = array('fields' => $key, 'unique' => $unique);
 	}
 
 	/**
@@ -123,29 +126,21 @@ class Dbforge_Core extends Database_Core {
 	 * @param	string	collation
 	 * @return	void
 	 */
-	public function add_field($field = '')
-	{
-		if ($field == '')
-		{
+	public function add_field($field = '') {
+		if ($field == '') {
 			throw new Kohana_Database_Exception('dbforge.field_required');
 		}
 
-		if (is_string($field))
-		{
-			if ($field == 'id')
-			    {
+		if (is_string($field)) {
+			if ($field == 'id') {
 				$this->fields = array_merge($this->fields, array('id' => array(
 										'type' => 'INT',
 										'constraint' => 9,
 										'auto_increment' => TRUE
-										)
-										   ));
-				$this->add_key('id', TRUE);
-			}
-			else
-			{
-				if (strpos($field, ' ') === FALSE)
-				{
+										)));
+				$this->add_primaryKey('id', TRUE);
+			} else {
+				if (strpos($field, ' ') === FALSE) {
 					throw new Kohana_Database_Exception('dbforge.field_required');
 				}
 
@@ -153,11 +148,9 @@ class Dbforge_Core extends Database_Core {
 			}
 		}
 
-		if (is_array($field))
-		{
+		if (is_array($field)) {
 			$this->fields = array_merge($this->fields, $field);
 		}
-
 	}
 
 	/**
@@ -166,10 +159,8 @@ class Dbforge_Core extends Database_Core {
 	 * @param	string	the table name
 	 * @return	bool
 	 */
-	public function create_table($table = '', $if_not_exists = FALSE)
-	{
-		if ($table == '')
-		{
+	public function create_table($table = '', $if_not_exists = FALSE) {
+		if ($table == '') {
 			throw new Kohana_Database_Exception('dbforge.table_required');
 		}
 
@@ -178,7 +169,8 @@ class Dbforge_Core extends Database_Core {
 		//	throw new Kohana_Database_Exception('database.field_required');
 		//}
 
-		$sql = $this->dbforge_driver->create_table($this->config['table_prefix'].$table, $this->fields, $this->primary_keys, $this->keys, $if_not_exists);
+		$sql = $this->dbforge_driver->create_table($this->config['table_prefix'].$table, $this->fields,
+		  $this->primary_keys, $this->keys, $if_not_exists);
 
 		$this->reset();
 		return $this->query($sql);
@@ -190,12 +182,10 @@ class Dbforge_Core extends Database_Core {
 	 * @param	string	the table name
 	 * @return	bool
 	 */
-	public function drop_table($table_name)
-	{
+	public function drop_table($table_name) {
 		$sql = $this->dbforge_driver->drop_table($this->config['table_prefix'].$table_name);
 
-		if (is_bool($sql))
-		{
+		if (is_bool($sql)) {
 			return $sql;
 		}
 
@@ -210,10 +200,8 @@ class Dbforge_Core extends Database_Core {
 	 * @param	string	the column definition
 	 * @return	bool
 	 */
-	public function add_column($table = '', $field = array(), $after_field = '')
-	{
-		if ($table == '')
-		{
+	public function add_column($table = '', $field = array(), $after_field = '') {
+		if ($table == '') {
 			throw new Kohana_Database_Exception('dbforge.table_required');
 		}
 
@@ -221,8 +209,7 @@ class Dbforge_Core extends Database_Core {
 		// so only grab the first field in the event there are more then one
 		$this->add_field(array_slice($field, 0, 1));
 
-		if (count($this->fields) == 0)
-		{
+		if (count($this->fields) == 0) {
 			throw new Kohana_Database_Exception('dbforge.field_required');
 		}
 
@@ -239,16 +226,13 @@ class Dbforge_Core extends Database_Core {
 	 * @param	string	the column name
 	 * @return	bool
 	 */
-	public function drop_column($table = '', $column_name = '')
-	{
+	public function drop_column($table = '', $column_name = '') {
 
-		if ($table == '')
-		{
+		if ($table == '') {
 			throw new Kohana_Database_Exception('dbforge.table_required');
 		}
 
-		if ($column_name == '')
-		{
+		if ($column_name == '') {
 			throw new Kohana_Database_Exception('dbforge.column_required');
 		}
 
@@ -265,11 +249,9 @@ class Dbforge_Core extends Database_Core {
 	 * @param	string	the column definition
 	 * @return	bool
 	 */
-	public function modify_column($table = '', $field = array())
-	{
+	public function modify_column($table = '', $field = array()) {
 
-		if ($table == '')
-		{
+		if ($table == '') {
 			throw new Kohana_Database_Exception('dbforge.table_required');
 		}
 
@@ -277,8 +259,7 @@ class Dbforge_Core extends Database_Core {
 		// so only grab the first field in the event there are more then one
 		$this->add_field(array_slice($field, 0, 1));
 
-		if (count($this->fields) == 0)
-		{
+		if (count($this->fields) == 0) {
 			throw new Kohana_Database_Exception('dbforge.field_required');
 		}
 
@@ -295,8 +276,7 @@ class Dbforge_Core extends Database_Core {
 	 *
 	 * @return	void
 	 */
-	private function reset()
-	{
+	private function reset() {
 		$this->fields 		= array();
 		$this->keys			= array();
 		$this->primary_keys 	= array();

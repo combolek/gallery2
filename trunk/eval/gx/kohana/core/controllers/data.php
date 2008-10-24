@@ -43,6 +43,8 @@ class Data_Controller {
     $forge->add_field(array('item_id' => array('type' => 'INT', 'constraint' => 9)));
     $forge->create_table('comments');
 
+    $this->_createAuthTables($forge);
+
     $this->_delete_files(DOCROOT . 'var/images/', true);
     print html::anchor("data/populate", "populate");
   }
@@ -75,6 +77,17 @@ class Data_Controller {
     $comment->text = "Woot!";
     $comment->item_id = 2;
     $comment->save();
+
+    $roles = ORM::factory('role');
+    $roles->name = 'login';
+    $roles->description = 'Login privileges, granted after account confirmation';
+    $roles->save();
+
+    $roles = ORM::factory('role');
+    $roles->name = 'admin';
+    $roles->description = 'Administrative user, has access to everything.';
+    $roles->save();
+
     print html::anchor("data/reset", "reset");
   }
 
@@ -103,5 +116,54 @@ class Data_Controller {
     if ($del_dir == TRUE AND $level > 0) {
       @rmdir($path);
     }
+  }
+
+  function _createAuthTables($forge) {
+    $forge->drop_table('roles');
+    $forge->add_field('id');
+    $forge->add_field(array('name' => array('type' => 'VARCHAR', 'constraint' => 32, 'null' => false)));
+    $forge->add_field(array('description' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => false)));
+    $forge->create_table('roles');
+
+    $forge->drop_table('roles_users');
+    $forge->add_field(array('user_id' => array('type' => 'INT', 'constraint' => 10, 'null' => false)));
+    $forge->add_field(array('role_id' => array('type' => 'INT', 'constraint' => 10, 'null' => false)));
+    $forge->add_primaryKey(array('user_id', 'role_id'));
+    $forge->add_key('fk_role_id', 'role_id');
+    $forge->create_table('roles_users');
+
+    $forge->drop_table('users');
+    $forge->add_field('id');
+    $forge->add_field(array('email' => array('type' => 'VARCHAR', 'constraint' => 127, 'null' => false)));
+    $forge->add_field(array('username' => array('type' => 'VARCHAR', 'constraint' => 32, 'null' => false, 'default' => '')));
+    $forge->add_field(array('password' => array('type' => 'CHAR', 'constraint' => 50, 'null' => false)));
+    $forge->add_field(array('logins' => array('type' => 'INT', 'constraint' => 10, 'null' => false, 'default' => 0)));
+    $forge->add_field(array('last_login' => array('type' => 'INT', 'constraint' => 10)));
+    $forge->add_key('uniq_username', 'username', true);
+    $forge->add_key('uniq_email', 'email', true);
+    $forge->create_table('users');
+
+    $forge->drop_table('user_tokens');
+    $forge->add_field('id');
+    $forge->add_field(array('user_id' => array('type' => 'INT', 'constraint' => 11, 'null' => false)));
+    $forge->add_field(array('user_agent' => array('type' => 'VARCHAR', 'constraint' => 40, 'null' => false)));
+    $forge->add_field(array('token' => array('type' => 'VARCHAR', 'constraint' => 32, 'null' => false)));
+    $forge->add_field(array('created' => array('type' => 'INT', 'constraint' => 10, 'null' => false)));
+    $forge->add_field(array('expires' => array('type' => 'INT', 'constraint' => 10, 'null' => false)));
+    $forge->add_key('uniq_token', 'token', true);
+    $forge->add_key('fk_user_id', 'user_id');
+    $forge->create_table('user_tokens');
+
+    //$forge->add_foreignKey(`user_id, array('user', 'id'), 'CASCADE');
+    //$forge->add_foreignKey(`role_id, array('role', 'id'), 'CASCADE');
+
+    //$forge->add_foreignKey(`user_id, array('user', 'id'), 'CASCADE');
+
+//ALTER TABLE `roles_users`
+//  ADD CONSTRAINT `roles_users_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+//  ADD CONSTRAINT `roles_users_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
+//
+//ALTER TABLE `user_tokens`
+//  ADD CONSTRAINT `user_tokens_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
   }
 }
