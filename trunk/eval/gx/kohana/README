@@ -1,3 +1,10 @@
+Requirements
+* Linux
+* PHP 5.2+ (with extensions filter, mysqli, session, and more!)
+* MySQL 4.1+ or 5+
+* Apache 1/2 
+* ImageMagick or GD2
+
 Setup Instructions
 
 1. In mysql, create a database (e.g. gx_eval_kohana) to use and give it a user/password
