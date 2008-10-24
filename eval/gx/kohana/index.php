@@ -39,7 +39,7 @@ $kohana_writeable = 'var';
  *
  * This path can be absolute or relative to this file.
  */
-$kohana_modules = 'core/modules';
+$kohana_modules = 'modules';
 
 /**
  * Kohana system directory. This directory should contain the core/ directory,
