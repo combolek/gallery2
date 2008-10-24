@@ -36,16 +36,19 @@ class Data_Controller {
 
   function Reset($module) {
     if ($module == 'core') {
-      $forge = new Dbforge();
-      $forge->drop_table('items');
-      $forge->add_field('id');
-      $forge->add_field(array('type' => array('type' => 'CHAR', 'constraint' => 32)));
-      $forge->add_field(array('title' => array('type' => 'CHAR', 'constraint' => 255)));
-      $forge->add_field(array('path' => array('type' => 'CHAR', 'constraint' => 255)));
-      $forge->add_field(array('parent_id' => array('type' => 'INT', 'constraint' => 9)));
-      $forge->create_table('items');
+      $db = Database::instance('default');
+      $db->query('DROP TABLE IF EXISTS `gx_eval_kohana`.`items`;');
 
-      $this->_createAuthTables($forge);
+      $db->query('CREATE TABLE  `gx_eval_kohana`.`items` (
+              `id` int(9) NOT NULL auto_increment,
+              `type` char(32) default NULL,
+              `title` char(255) default NULL,
+              `path` char(255) default NULL,
+              `parent_id` int(9) default NULL,
+              PRIMARY KEY  (`id`))
+            ENGINE=InnoDB DEFAULT CHARSET=utf8;');
+
+      $this->_createAuthTables();
       $this->_delete_files(DOCROOT . 'var/images/', true);
     } else {
       call_user_func(array($module, "Reset"));
@@ -111,52 +114,60 @@ class Data_Controller {
     }
   }
 
-  function _createAuthTables($forge) {
-    $forge->drop_table('roles');
-    $forge->add_field('id');
-    $forge->add_field(array('name' => array('type' => 'VARCHAR', 'constraint' => 32, 'null' => false)));
-    $forge->add_field(array('description' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => false)));
-    $forge->create_table('roles');
+  function _createAuthTables() {
+    $db = Database::instance('default');
+    $db->query('DROP TABLE IF EXISTS `gx_eval_kohana`.`roles`;');
 
-    $forge->drop_table('roles_users');
-    $forge->add_field(array('user_id' => array('type' => 'INT', 'constraint' => 10, 'null' => false)));
-    $forge->add_field(array('role_id' => array('type' => 'INT', 'constraint' => 10, 'null' => false)));
-    $forge->add_primaryKey(array('user_id', 'role_id'));
-    $forge->add_key('fk_role_id', 'role_id');
-    $forge->create_table('roles_users');
+    $db->query('CREATE TABLE  `gx_eval_kohana`.`roles` (
+              `id` int(11) unsigned NOT NULL auto_increment,
+              `name` varchar(32) NOT NULL,
+              `description` varchar(255) NOT NULL,
+              PRIMARY KEY  (`id`),
+              UNIQUE KEY `uniq_name` (`name`))
+            ENGINE=InnoDB DEFAULT CHARSET=utf8;');
 
-    $forge->drop_table('users');
-    $forge->add_field('id');
-    $forge->add_field(array('email' => array('type' => 'VARCHAR', 'constraint' => 127, 'null' => false)));
-    $forge->add_field(array('username' => array('type' => 'VARCHAR', 'constraint' => 32, 'null' => false, 'default' => '')));
-    $forge->add_field(array('password' => array('type' => 'CHAR', 'constraint' => 50, 'null' => false)));
-    $forge->add_field(array('logins' => array('type' => 'INT', 'constraint' => 10, 'null' => false, 'default' => 0)));
-    $forge->add_field(array('last_login' => array('type' => 'INT', 'constraint' => 10)));
-    $forge->add_key('uniq_username', 'username', true);
-    $forge->add_key('uniq_email', 'email', true);
-    $forge->create_table('users');
+    $db->query('DROP TABLE IF EXISTS `gx_eval_kohana`.`roles_users`;');
+    $db->query('CREATE TABLE IF NOT EXISTS `roles_users` (
+                `user_id` int(10) unsigned NOT NULL,
+                `role_id` int(10) unsigned NOT NULL,
+                PRIMARY KEY  (`user_id`,`role_id`),
+                KEY `fk_role_id` (`role_id`)
+              ) ENGINE=InnoDB DEFAULT CHARSET=utf8;');
 
-    $forge->drop_table('user_tokens');
-    $forge->add_field('id');
-    $forge->add_field(array('user_id' => array('type' => 'INT', 'constraint' => 11, 'null' => false)));
-    $forge->add_field(array('user_agent' => array('type' => 'VARCHAR', 'constraint' => 40, 'null' => false)));
-    $forge->add_field(array('token' => array('type' => 'VARCHAR', 'constraint' => 32, 'null' => false)));
-    $forge->add_field(array('created' => array('type' => 'INT', 'constraint' => 10, 'null' => false)));
-    $forge->add_field(array('expires' => array('type' => 'INT', 'constraint' => 10, 'null' => false)));
-    $forge->add_key('uniq_token', 'token', true);
-    $forge->add_key('fk_user_id', 'user_id');
-    $forge->create_table('user_tokens');
+    $db->query('DROP TABLE IF EXISTS `gx_eval_kohana`.`users`;');
+    $db->query('CREATE TABLE IF NOT EXISTS `users` (
+                `id` int(11) unsigned NOT NULL auto_increment,
+                `email` varchar(127) NOT NULL,
+                `username` varchar(32) NOT NULL default \'\',
+                `password` char(50) NOT NULL,
+                `logins` int(10) unsigned NOT NULL default \'0\',
+                `last_login` int(10) unsigned,
+                PRIMARY KEY  (`id`),
+                UNIQUE KEY `uniq_username` (`username`),
+                UNIQUE KEY `uniq_email` (`email`)
+              ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;');
 
-    //$forge->add_foreignKey(`user_id, array('user', 'id'), 'CASCADE');
-    //$forge->add_foreignKey(`role_id, array('role', 'id'), 'CASCADE');
+    $db->query('DROP TABLE IF EXISTS `gx_eval_kohana`.`user_tokens`;');
+    $db->query('CREATE TABLE IF NOT EXISTS `user_tokens` (
+                  `id` int(11) unsigned NOT NULL auto_increment,
+                  `user_id` int(11) unsigned NOT NULL,
+                  `user_agent` varchar(40) NOT NULL,
+                  `token` varchar(32) NOT NULL,
+                  `created` int(10) unsigned NOT NULL,
+                  `expires` int(10) unsigned NOT NULL,
+                  PRIMARY KEY  (`id`),
+                  UNIQUE KEY `uniq_token` (`token`),
+                  KEY `fk_user_id` (`user_id`)
+                ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;');
 
-    //$forge->add_foreignKey(`user_id, array('user', 'id'), 'CASCADE');
+    $db->query('ALTER TABLE `roles_users`
+                    ADD CONSTRAINT `roles_users_ibfk_1` FOREIGN KEY (`user_id`)
+                        REFERENCES `users` (`id`) ON DELETE CASCADE,
+                    ADD CONSTRAINT `roles_users_ibfk_2` FOREIGN KEY (`role_id`)
+                        REFERENCES `roles` (`id`) ON DELETE CASCADE;');
 
-//ALTER TABLE `roles_users`
-//  ADD CONSTRAINT `roles_users_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
-//  ADD CONSTRAINT `roles_users_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
-//
-//ALTER TABLE `user_tokens`
-//  ADD CONSTRAINT `user_tokens_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+    $db->query('ALTER TABLE `user_tokens`
+                    ADD CONSTRAINT `user_tokens_ibfk_1` FOREIGN KEY (`user_id`)
+                        REFERENCES `users` (`id`) ON DELETE CASCADE;');
   }
 }
