@@ -20,15 +20,10 @@ class Show_Controller extends Gallery_Controller {
       break;
 
     case 'photo':
-//      printf("<pre> [%s:%s] Session: %s</pre>",__FILE__,__LINE__,print_r(Auth::instance(), 1)); flush();
-//      if (Auth::instance()->logged_in('login')) {
         $this->template->header->active = "Browse Photos";
         $this->template->content = new View('show_item');
         $this->template->content->path = $item->parent->path . '/' . $item->path;
         $this->template->content->item = $item;
-//      } else {
-//        url::redirect('auth/login');
-//      }
       break;
 
     default:
