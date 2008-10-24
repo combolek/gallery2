@@ -5,8 +5,8 @@
 	
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	
-	<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.5.2/build/reset-fonts-grids/reset-fonts-grids.css"> 
-	<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.5.2/build/base/base-min.css">
+	<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.6.0/build/reset-fonts-grids/reset-fonts-grids.css" /> 
+	<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.6.0/build/base/base-min.css" />
 	<link rel="stylesheet" type="text/css" href="styles.css" media="screen,projection" />
 </head>
 <body>
@@ -44,12 +44,9 @@
 				
 				<h1>Upload New Photos</h1>
 				
-				<form id="upload">
-				
-					
-					
+				<form id="gUploadForm">
 					<fieldset id="upload-location">
-						<legend><h3>1. Where do you want to upload your photos?</h3></legend>
+						<legend>1. Where do you want to upload your photos?</legend>
 						
 						<input type="radio" name="upload-location-type" id="existing-album" />
 						<label for="existing-album">Into an existing album</label>
@@ -78,9 +75,9 @@
 						</ul>
 					</fieldset>
 					
-					<h3>2. Which photos do you want to upload?</h3>
-					
 					<fieldset id="upload-file-selection">
+					<legend>2. Which photos do you want to upload?</legend>
+					
 						<input type="button" name="upload-select-photos" value="Select Photos ..." class="button" />
 					</fieldset>
 					
