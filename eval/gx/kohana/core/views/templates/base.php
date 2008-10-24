@@ -21,7 +21,7 @@
     <!-- Element -->
     <script src="http://yui.yahooapis.com/2.6.0/build/element/element-beta-min.js"></script>
 
-    <?php echo html::stylesheet('css/styles.css', 'screen'); ?>
+    <?php echo html::stylesheet('core/css/styles.css', 'screen'); ?>
   </head>
   <body>
     <div id="doc2" class="yui-t5">
