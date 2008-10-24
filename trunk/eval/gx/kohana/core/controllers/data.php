@@ -25,70 +25,63 @@
  * @author Tim
  */
 class Data_Controller {
-  function reset() {
-    $forge = new Dbforge();
-    $forge->drop_table('items');
-    $forge->add_field('id');
-    $forge->add_field(array('type' => array('type' => 'CHAR', 'constraint' => 32)));
-    $forge->add_field(array('title' => array('type' => 'CHAR', 'constraint' => 255)));
-    $forge->add_field(array('path' => array('type' => 'CHAR', 'constraint' => 255)));
-    $forge->add_field(array('parent_id' => array('type' => 'INT', 'constraint' => 9)));
-    $forge->create_table('items');
-
-    $forge->drop_table('comments');
-    $forge->add_field('id');
-    $forge->add_field(array('author' => array('type' => 'CHAR', 'constraint' => 255)));
-    $forge->add_field(array('email' => array('type' => 'CHAR', 'constraint' => 255)));
-    $forge->add_field(array('text' => array('type' => 'TEXT')));
-    $forge->add_field(array('item_id' => array('type' => 'INT', 'constraint' => 9)));
-    $forge->create_table('comments');
-
-    $this->_createAuthTables($forge);
-
-    $this->_delete_files(DOCROOT . 'var/images/', true);
-    print html::anchor("data/populate", "populate");
+  function Index() {
+    foreach (array('core', 'Comment') as $module) {
+      print html::anchor("data/reset/$module", "reset $module");
+      print " | ";
+      print html::anchor("data/populate/$module", "populate $module");
+      print "<br/>";
+    }
   }
 
-  function populate() {
-    $item = ORM::factory('item');
-    $item->type = "album";
-    $item->title = "John Doe's Gallery";
-    $item->path = "";
-    $item->parent_id = 0;
-    $item->save();
+  function Reset($module) {
+    if ($module == 'core') {
+      $forge = new Dbforge();
+      $forge->drop_table('items');
+      $forge->add_field('id');
+      $forge->add_field(array('type' => array('type' => 'CHAR', 'constraint' => 32)));
+      $forge->add_field(array('title' => array('type' => 'CHAR', 'constraint' => 255)));
+      $forge->add_field(array('path' => array('type' => 'CHAR', 'constraint' => 255)));
+      $forge->add_field(array('parent_id' => array('type' => 'INT', 'constraint' => 9)));
+      $forge->create_table('items');
 
-    $item = ORM::factory('item');
-    $item->type = "photo";
-    $item->title = "GX Sprint!";
-    $item->path = "sample.jpg";
-    $item->parent_id = 1;
-    $item->save();
+      $this->_createAuthTables($forge);
+      $this->_delete_files(DOCROOT . 'var/images/', true);
+    } else {
+      call_user_func(array($module, "Reset"));
+    }
+    url::redirect('data/index');
+  }
 
-    $comment = ORM::factory('comment');
-    $comment->author = "Andy";
-    $comment->email = "andy@foo.com";
-    $comment->text = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.';
-    $comment->item_id = 2;
-    $comment->save();
+  function Populate($module) {
+    if ($module == 'core') {
+      $item = ORM::factory('item');
+      $item->type = "album";
+      $item->title = "John Doe's Gallery";
+      $item->path = "";
+      $item->parent_id = 0;
+      $item->save();
 
-    $comment = ORM::factory('comment');
-    $comment->author = "Tim";
-    $comment->email = "tim@foo.com";
-    $comment->text = "Woot!";
-    $comment->item_id = 2;
-    $comment->save();
+      $item = ORM::factory('item');
+      $item->type = "photo";
+      $item->title = "GX Sprint!";
+      $item->path = "sample.jpg";
+      $item->parent_id = 1;
+      $item->save();
 
-    $roles = ORM::factory('role');
-    $roles->name = 'login';
-    $roles->description = 'Login privileges, granted after account confirmation';
-    $roles->save();
+      $roles = ORM::factory('role');
+      $roles->name = 'login';
+      $roles->description = 'Login privileges, granted after account confirmation';
+      $roles->save();
 
-    $roles = ORM::factory('role');
-    $roles->name = 'admin';
-    $roles->description = 'Administrative user, has access to everything.';
-    $roles->save();
-
-    print html::anchor("data/reset", "reset");
+      $roles = ORM::factory('role');
+      $roles->name = 'admin';
+      $roles->description = 'Administrative user, has access to everything.';
+      $roles->save();
+    } else {
+      call_user_func(array($module, "Populate"));
+    }
+    url::redirect('data/index');
   }
 
   function _delete_files($path, $del_dir = FALSE, $level = 0) {
