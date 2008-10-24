@@ -1,6 +1,6 @@
 //var oElement = document.getElementById("gCommentAdd");
 function addComment(e) {
-  var author, email, text, comment, li; 
+  var author, email, text, comment, li, i; 
 
   // Prevent form submission
   e.preventDefault(); 
@@ -12,9 +12,12 @@ function addComment(e) {
   email = document.getElementById('gCommentEmail').value;
   text = document.getElementById('gCommentText').value;
   
+  // How many comments exist?
+  i = YAHOO.util.Dom.getElementsByClassName('gComment').length + 1;
+  
   // Put the comment in a new list element
   var li = document.createElement('li');
-  li.id = 'gComment-3';
+  li.id = 'gComment-' + i;
   li.innerHTML = '<p><a href="' + email + '" class="gAuthor">' + author + '</a> ' + 
   	' said 30 minutes ago <span class="gDate understate">(October 23, 2008 4:00pm)</span></p>' + 
   	'<div class="gText">' + text + '</div>';

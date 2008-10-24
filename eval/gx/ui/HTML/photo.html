@@ -19,14 +19,14 @@
 
 <body class="yui-skin-sam">
 
-<div id="doc2" class="yui-t5">
+<div id="doc2" class="gItemView yui-t5">
   <div id="hd">
   	<div id="gHeader">
-      <img id="gLogo" alt="Logo" src="images/logo.png" />
+      <img id="gLogo" alt=" Gallery Logo" src="images/logo.png" />
     
       <h1>John Doe's Gallery</h1>
     
-      <div id="gUserMenu">
+      <div id="gLoginMenu">
         <a href="#">Register</a>
         <a href="#">Login</a>
       </div>
@@ -50,7 +50,7 @@
   
   <div id="bd">
     <div id="yui-main">
-      <div id="gContent" class="gPhotoView yui-b">
+      <div id="gContent" class="yui-b">
       
         <div id="gItem">
           <img id="photo-id-1" alt="photo" src="images/thumbnail.jpg" />
@@ -60,13 +60,13 @@
           <h2>Comments</h2>
           
           <ul id="gCommentThread">
-            <li id="gComment-1">
+            <li id="gComment-1" class="gComment odd">
               <p><a href="#" class="gAuthor">Andy</a> said 2 hours ago <span class="understate">(October 23, 2008 11:30am)</span></p>
               <div>
                 Lorem ipsum dolor sit amet. 
               </div>
             </li>
-            <li id="gComment-2">
+            <li id="gComment-2" class="gComment even">
               <p>
               	<a href="#" class="gAuthor">Other user</a> said 30 minutes ago <span class="understate">(October 23, 2008 1:00pm)</span>
               </p>
@@ -80,22 +80,22 @@
             </li>
           </ul>
           
-          <form id="gCommentAdd">
+          <form id="gCommentAdd" class="gExpandedForm">
             <fieldset>
               <legend>Add comment</legend>
-              <div>
-                <label for="gCommentAddAuthor">Your Name</label>
-                <input type="text" id="gCommentAddAuthor" class="text" />
+              <div class="row">
+                <label for="gCommentAuthor">Your Name</label>
+                <input type="text" id="gCommentAuthor" class="text" />
               </div>
               <div>
-                <label for="gCommentAddEmail">Your Email (not displayed)</label>
-                <input type="text" id="gCommentAddEmail" class="text" />
+                <label for="gCommentEmail">Your Email (not displayed)</label>
+                <input type="text" id="gCommentEmail" class="text" />
               </div>
-              <div>
-                <label for="gCommentAddText">Comment</label>
-                <textarea id="gCommentAddText"></textarea>
+              <div class="row">
+                <label for="gCommentText">Comment</label>
+                <textarea id="gCommentText"></textarea>
               </div>
-              <input type="submit" id="gCommentAddBtn" value="Add" />
+              <input type="submit" class="button" value="Add" />
             </fieldset>
           </form>
           
@@ -104,8 +104,8 @@
     </div><!-- END yui-main -->
     
   	<div id="gSidebar" class="yui-b">
-      <h2>Album Info</h2>
       <table class="gMeta">
+        <caption>Item Info</caption>
         <tbody>
           <tr>
             <th>Name:</th>
