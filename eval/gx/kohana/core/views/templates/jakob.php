@@ -5,23 +5,78 @@
 
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 
-    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.5.2/build/reset-fonts-grids/reset-fonts-grids.css" />
-    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.5.2/build/base/base-min.css" />
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.6.0/build/reset-fonts-grids/reset-fonts-grids.css" />
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.6.0/build/base/base-min.css" />
+
+    <!-- Dependencies -->
+    <script type="text/javascript" src="http://yui.yahooapis.com/2.6.0/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+    <!-- OPTIONAL: Animation (only required if using ContainerEffect) -->
+    <script type="text/javascript" src="http://yui.yahooapis.com/2.6.0/build/animation/animation-min.js"></script>
+    <!-- OPTIONAL: Connection (only required if using Dialog/SimpleDialog) -->
+    <script type="text/javascript" src="http://yui.yahooapis.com/2.6.0/build/connection/connection-min.js"></script>
+    <!-- Source file -->
+    <script type="text/javascript" src="http://yui.yahooapis.com/2.6.0/build/container/container-min.js"></script>
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.6.0/build/container/assets/container.css" />
+    <!-- Element -->
+    <script src="http://yui.yahooapis.com/2.6.0/build/element/element-beta-min.js"></script>
+
     <?php echo html::stylesheet('css/styles.css', 'screen'); ?>
+
+	<script type="text/javascript">
+		//var oElement = document.getElementById("gCommentAdd");
+		function addComment(e) {
+			var author, email, text, comment, li;
+
+			e.preventDefault(); // Prevent form submission
+
+			// Write comment to the database...
+
+			// Show the block
+			YAHOO.util.Dom.setStyle("gComment-3", 'display', 'block');
+
+			// Get form input
+			//oCommentForm = document.getElementById('gCommentAdd');
+			author = document.getElementById('gCommentAuthor').value;
+			email = document.getElementById('gCommentEmail').value;
+			text = document.getElementById('gCommentText').value;
+			//alert(author + email + text);
+
+			// Create a new list element
+			var li = document.createElement('li');
+			li.id = 'gComment-3';
+			li.innerHTML = '<p><a href="' + email + '" class="gAuthor">' + author + '</a> ' +
+				' said 30 minutes ago <span class="gDate understate">(October 23, 2008 4:00pm)</span></p>' +
+				'<div class="gText">' + text + '</div>';
+
+			// Append new list item with comment form input
+			var elCommentThread = new YAHOO.util.Element('gCommentThread');
+
+   			// Append a list item to contain the new comment
+   			elCommentThread.appendChild(li);
+
+			// Highlight the new comment
+			var alertColor = {
+       			backgroundColor: { to: '#FCF1D2' }
+			};
+			var anim = new YAHOO.util.ColorAnim('gComment-3', alertColor)
+			anim.animate();
+		}
+		YAHOO.util.Event.addListener("gCommentAdd", "submit", addComment);
+	</script>
   </head>
   <body>
     <div id="doc2" class="yui-t5">
       <div id="hd">
 	<?php echo $header; ?>
-      </div><!-- end hd -->
+      </div>
 
       <div id="bd">
 	<div id="yui-main">
-	  <div class="yui-b">
+	  <div id="content">
 	    <?php echo $content; ?>
 	  </div>
-
-	</div><!-- end yui-main -->
+	</div>
 
 	<div id="sidebar" class="yui-b">
 	  <h2>Sidebar</h2>

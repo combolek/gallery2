@@ -2,6 +2,16 @@ body, html {
 	background-color: silver;
 }
 
+input.button {
+	background-color: #EEEEEE;
+	border-color: #E7E7E7 #666666 #666666 #E7E7E7;
+	border-style: solid;
+	border-width: 2px;
+	color: #333333;
+	padding: 3px;
+	font-weight: bold;
+}
+
 #doc2 {
 	background-color: white;
 	border: 1px solid gray;
@@ -10,6 +20,12 @@ body, html {
 
 #hd {
 	position: relative;
+}
+#hd #logo, #hd h1 {
+	float: left;
+}
+#hd #logo {
+	margin: 10px;
 }
 #register-link {
 	position: absolute;
@@ -29,6 +45,7 @@ body, html {
 	border-top: 1px solid gray;
 	border-bottom: 1px solid gray;
 	list-style-type: none;
+	clear: both;
 }
 #global-navigation li {
 	list-style-type: none;
@@ -49,26 +66,33 @@ body, html {
 	background-color: silver;
 }
 
-#breadcrumbs {
+.breadcrumbs {
 	margin: 0px;
 	padding: 0px;
 	height: 26px;
-	border-bottom: 1px solid gray;
 	list-style-type: none;
 }
-#breadcrumbs li {
+.breadcrumbs li {
 	list-style-type: none;
 	background: transparent url(images/icon_breadcrumb_separator.gif) no-repeat scroll left center;
 	padding: 0 0 0 10px;
 	float: left;
 }
-#breadcrumbs li.root {
+.breadcrumbs li.root {
 	background: transparent;
 	padding: 0px;
 }
-#breadcrumbs li a {
+.breadcrumbs li a {
 	padding: 5px;
 	display: block;
+}
+
+#hd .breadcrumbs {
+	border-bottom: 1px solid gray;
+}
+
+#content {
+	padding: 20px;
 }
 
 #photo-grid {
@@ -89,12 +113,57 @@ img.photo {
 	background-color: lightgray;
 }
 
-#sidebar {
-	border-left: 2px solid gray;
+/* ------------------ upload --------------------- */
+
+#upload .breadcrumbs li input, #upload .breadcrumbs li select {
+	width: 140px;
+	margin-left: 5px;
 }
-#sidebar h2, #sidebar p {
-	margin-left: 10px;
-	margin-right: 10px;
+
+#upload-queue {
+	width: 500px;
+}
+#upload-queue td, #upload-queue th {
+	text-align: left;
+	border-color: lightgray;
+}
+#upload-queue caption {
+	display: none;
+}
+#upload-queue thead th {
+	text-align: center;
+	border-bottom: 2px solid black;
+}
+#upload-queue thead th, #upload-queue thead td {
+	background-color: lightgray;
+}
+#upload-queue tfoot td {
+	border-top: 2px solid black;
+}
+#upload-queue .filesize {
+	width: 60px;
+}
+#upload-queue td.filesize {
+	text-align: right;
+}
+#upload-queue tfoot td.filesize {
+	color: gray;
+}
+#upload-queue .action {
+	width: 40px;
+}
+
+#upload-button {
+	width: 130px;
+	margin-left: 370px;
+}
+
+/* ~~~~~~~~~ sidebar ~~~~~~~~~~ */
+
+#sidebar {
+	border-left: 1px solid gray;
+	width: 16.4615em;
+	padding: 0 1em 0 1em;
 }
 
 #ft {
@@ -102,10 +171,53 @@ img.photo {
 	padding: 6px;
 }
 
-.success {
-	color: green;
+
+/* ~~~~~~~~~ photo view ~~~~~~~~~~ */
+
+.gPhotoView img {
+	width: 400px;
+	height: 300px;
+	margin-right: auto;
+	margin-left: auto;
+	margin-bottom: 20px;
+}
+#gComments {
+	border: 1px solid silver;
+	padding: 10px;
+}
+#gComments h2 {
+	margin-top: 0px;
+}
+#gComments ul {
+	margin: 0px;
+}
+#gComments ul li {
+	list-style-type: none;
+	margin-bottom: 15px;
+}
+#gComments ul li p {
+	background-color: #E8E8E8;
+	margin-bottom: 2px;
+	padding: 4px;
+}
+#gComments ul li p .understate {
+	color: silver;
+}
+#gComments ul li div {
+	padding: 8px;
 }
 
-.error {
-	color: red;
+#gCommentAdd fieldset { 
+	border: 1px solid #ccc;
+	padding: .3em 1em; 
+}
+#gCommentAdd label {
+	display: block;
+	margin: .5em 0 0 0;
+}
+#gCommentAdd input.text {
+	width: 15em;
+}
+#gCommentAdd textarea {
+	width: 20em;
 }
