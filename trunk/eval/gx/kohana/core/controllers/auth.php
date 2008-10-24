@@ -28,7 +28,7 @@ class Auth_Controller extends Gallery_Controller {
     if (Auth::instance()->logged_in()) {
       $this->template->title = 'User Logout';
 
-      $form = new Forge('auth_demo/logout');
+      $form = new Forge('auth/logout');
       $form->submit('Logout Now');
     } else {
       $this->template->title = 'User Login';
@@ -44,7 +44,8 @@ class Auth_Controller extends Gallery_Controller {
 
         if (Auth::instance()->login($user, $form->password->value, true)) {
           // Login successful, redirect
-          url::redirect('show/1');
+          $redirect = Session::instance()->get('redirect');
+          url::redirect($redirect);
         } else {
           $form->password->add_error('login_failed', 'Invalid username or password.');
         }
@@ -60,7 +61,7 @@ class Auth_Controller extends Gallery_Controller {
     Auth::instance()->logout(TRUE);
 
     // Redirect back to the login page
-    url::redirect('auth_demo/login');
+    url::redirect('auth/login');
   }
 
 } // End Auth Controller
