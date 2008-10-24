@@ -201,30 +201,86 @@ img.photo {
 .gBreadcrumbs {
   border-bottom: 1px solid gray;
 }
-
 .gBreadcrumbs {
   margin: 0px;
   padding: 0px;
   height: 26px;
   list-style-type: none;
 }
-
 .gBreadcrumbs li {
   list-style-type: none;
   background: transparent url(images/icon_breadcrumb_separator.gif) no-repeat scroll left center;
   padding: 0 0 0 10px;
   float: left;
 }
-
 .gBreadcrumbs li.root {
   background: transparent;
   padding: 0px;
 }
-
-.gBreadcrumbs li a {
+.gBreadcrumbs li a,
+.gBreadcrumbs li span {
   padding: 5px;
   display: block;
 }
+.gBreadcrumbs li.active span {
+  font-weight: bold;
+}
+
+#gPagination {
+	clear: both;
+	padding: 10px 0px 0px 0px;
+	text-align: center;
+}
+#gPagination a,
+#gPagination span {
+	border: 1px solid lightgray;
+	padding: 5px;
+	background-repeat: no-repeat;
+}
+#gPagination a:hover {
+	background-color: #F3F3F3;
+}
+#gPagination .first {
+	background-image: url('images/first.png');
+	background-position: left;
+	padding-left: 20px;
+}
+#gPagination .first_inactive {
+	background-image: url('images/first_inactive.png');
+	background-position: left;
+	padding-left: 20px;
+}
+#gPagination .previous {
+	background-image: url('images/previous.png');
+	background-position: left;
+	padding-left: 17px;
+}
+#gPagination .previous_inactive {
+	background-image: url('images/previous_inactive.png');
+	background-position: left;
+	padding-left: 17px;
+}
+#gPagination .next {
+	background-image: url('images/next.png');
+	background-position: right;
+	padding-right: 17px;
+}
+#gPagination .next_inactive {
+	background-image: url('images/next_inactive.png');
+	background-position: right;
+	padding-right: 17px;
+}
+#gPagination .last {
+	background-image: url('images/last.png');
+	background-position: right;
+	padding-right: 20px;
+}
+#gPagination .last_inactive {
+	background-image: url('images/last_inactive.png');
+	background-position: right;
+	padding-right: 20px;
+}
+
 
 /**
  ** **************************************************
