@@ -22,7 +22,7 @@
   <?php endforeach; ?>
 </ul>
 
-<ul id="breadcrumbs">
+<ul class="breadcrumbs">
   <li class="root"><a href="#">Home</a></li>
   <li><a href="#">Friends &amp; Family</a></li>
 

@@ -1,4 +1,4 @@
-<div class="yui-b gPhotoView">
+<div class="gPhotoView">
   <?php echo html::image(array('src' => 'var/images/' . $path, 'class' => 'photo', 'alt' => $item->title)); ?>
 
   <div id="gComments">
