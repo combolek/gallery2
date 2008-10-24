@@ -73,7 +73,7 @@
 
       <div id="bd">
 	<div id="yui-main">
-	  <div id="content">
+	  <div id="content" class="yui-b">
 	    <?php echo $content; ?>
 	  </div>
 	</div>

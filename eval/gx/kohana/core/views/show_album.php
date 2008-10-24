@@ -1,7 +1,6 @@
-<?php
-   $currentRow = 0;
-   $currentColumn =  0;
-   ?>
+<?php $currentRow = 0; ?>
+<?php $currentColumn = 0; ?>
+
 <h1>Album: <?php echo $item->title; ?></h1>
 
 <table id="photo-grid">
