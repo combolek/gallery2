@@ -6,12 +6,12 @@
  * you are encouraged to set this option. An empty setting allows the cookie
  * to be read by any website domain.
  */
-$config['domain'] = $_SERVER['HTTP_HOST'];
+$config['domain'] = '';
 
 /**
  * Restrict cookies to a specific path, typically the installation directory.
  */
-$config['path'] = dirname($_SERVER['SCRIPT_NAME']);
+$config['path'] = '/';
 
 /**
  * Lifetime of the cookie. A setting of 0 makes the cookie active until the
