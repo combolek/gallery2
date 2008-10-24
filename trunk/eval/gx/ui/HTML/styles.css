@@ -31,18 +31,6 @@ body, html {
  ** **************************************************
  */
 
-#register-link {
-	position: absolute;
-	top: 20px;
-	right: 50px;
-}
-
-#login-link {
-	position: absolute;
-	top: 20px;
-	right: 10px;
-}
-
 /**
  ** **************************************************
  * 3) Layout containers
@@ -50,40 +38,40 @@ body, html {
  */
 
 #gContent {
-	padding: 20px;
+  padding: 20px;
 }
 
 /* Need to YUI references, replace with Gallery id or class */
 
 #doc2 {
-	background-color: white;
-	border: 1px solid gray;
-	border-width: 0px 1px 1px 1px;
+  background-color: white;
+  border: 1px solid gray;
+  border-width: 0px 1px 1px 1px;
 }
 
-#hd {
-	position: relative;
+#gHeader {
+  position: relative;
 }
 
-#hd #logo, #hd h1 {
-	float: left;
+#gHeader #gLogo, #gHeader h1 {
+  float: left;
 }
 
-#hd #logo {
-	margin: 10px;
+#gHeader #gLogo {
+  margin: 10px;
 }
 
 /* ~~~~~~~~~ sidebar ~~~~~~~~~~ */
 
 #gSidebar {
-	border-left: 1px solid gray;
-	width: 16.4615em;
-	padding: 0 1em 0 1em;
+  border-left: 1px solid gray;
+  width: 16.4615em;
+  padding: 0 1em 0 1em;
 }
 
 #gFooter {
-	border-top: 1px solid gray;
-	padding: 6px;
+  border-top: 1px solid gray;
+  padding: 6px;
 }
 
 
@@ -101,72 +89,72 @@ body, html {
  */
 
 #photo-grid {
-	width: 100%;
+  width: 100%;
 }
 #photo-grid td {
-	text-align: center;
-	border: 0px;
+  text-align: center;
+  border: 0px;
 }
 
 img.photo {
-	display: block;
-	width: 200px;
-	height: 140px;
-	border: 1px solid silver;
-	margin-left: auto;
-	margin-right: auto;
-	background-color: lightgray;
+  display: block;
+  width: 200px;
+  height: 140px;
+  border: 1px solid silver;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: lightgray;
 }
 
 /* ----------- upload ----------------- */
 
 #gUploadForm .gBreadcrumbs li input, #gUploadForm .gBreadcrumbs li select {
-	width: 140px;
-	margin-left: 5px;
+  width: 140px;
+  margin-left: 5px;
 }
 
 /* ~~~~~~~~~ individual photo ~~~~~~~~~~ */
 
 .gPhotoView img {
-	width: 400px;
-	height: 300px;
-	margin-right: auto;
-	margin-left: auto;
-	margin-bottom: 20px;
+  width: 400px;
+  height: 300px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 20px;
 }
 
 /* ~~~~~~~~~ comments ~~~~~~~~~~ */
 
 #gComments {
-	border: 1px solid silver;
-	padding: 10px;
+  border: 1px solid silver;
+  padding: 10px;
 }
 
 #gComments h2 {
-	margin-top: 0px;
+  margin-top: 0px;
 }
 
 #gComments ul {
-	margin: 0px;
+  margin: 0px;
 }
 
 #gComments ul li {
-	list-style-type: none;
-	margin-bottom: 15px;
+  list-style-type: none;
+  margin-bottom: 15px;
 }
 
 #gComments ul li p {
-	background-color: #E8E8E8;
-	margin-bottom: 2px;
-	padding: 4px;
+  background-color: #E8E8E8;
+  margin-bottom: 2px;
+  padding: 4px;
 }
 
 #gComments ul li p .understate {
-	color: silver;
+  color: silver;
 }
 
 #gComments ul li div {
-	padding: 8px;
+  padding: 8px;
 }
 
 /**
@@ -176,66 +164,66 @@ img.photo {
  */
 
 #gSiteMenu {
-	margin: 0px;
-	padding: 0px;
-	height: 32px;
-	border-top: 1px solid gray;
-	border-bottom: 1px solid gray;
-	list-style-type: none;
-	clear: both;
+  margin: 0px;
+  padding: 0px;
+  height: 32px;
+  border-top: 1px solid gray;
+  border-bottom: 1px solid gray;
+  list-style-type: none;
+  clear: both;
 }
 
 #gSiteMenu li {
-	list-style-type: none;
-	float: left;
-	display: block;
-	width: 20%;
+  list-style-type: none;
+  float: left;
+  display: block;
+  width: 20%;
 }
 
 #gSiteMenu li a {
-	height: 20px;
-	padding: 5px;
-	display: block;
-	text-align: center;
-	border: 1px outset black;
-	background-color: lightgray;
+  height: 20px;
+  padding: 5px;
+  display: block;
+  text-align: center;
+  border: 1px outset black;
+  background-color: lightgray;
 }
 
 #gSiteMenu li a:hover, #gSiteMenu li a:active, #gSiteMenu li a.active {
-	border: 1px inset black;
-	background-color: silver;
+  border: 1px inset black;
+  background-color: silver;
 }
 
-#gUserMenu {
+#gLoginMenu {
 
-}
-
-.gBreadcrumbs {
-	border-bottom: 1px solid gray;
 }
 
 .gBreadcrumbs {
-	margin: 0px;
-	padding: 0px;
-	height: 26px;
-	list-style-type: none;
+  border-bottom: 1px solid gray;
+}
+
+.gBreadcrumbs {
+  margin: 0px;
+  padding: 0px;
+  height: 26px;
+  list-style-type: none;
 }
 
 .gBreadcrumbs li {
-	list-style-type: none;
-	background: transparent url(images/icon_breadcrumb_separator.gif) no-repeat scroll left center;
-	padding: 0 0 0 10px;
-	float: left;
+  list-style-type: none;
+  background: transparent url(images/icon_breadcrumb_separator.gif) no-repeat scroll left center;
+  padding: 0 0 0 10px;
+  float: left;
 }
 
 .gBreadcrumbs li.root {
-	background: transparent;
-	padding: 0px;
+  background: transparent;
+  padding: 0px;
 }
 
 .gBreadcrumbs li a {
-	padding: 5px;
-	display: block;
+  padding: 5px;
+  display: block;
 }
 
 /**
@@ -252,78 +240,78 @@ img.photo {
  */
 
 #gCommentAdd fieldset { 
-	border: 1px solid #ccc;
-	padding: .3em 1em; 
+  border: 1px solid #ccc;
+  padding: .3em 1em; 
 }
 
 #gCommentAdd label {
-	display: block;
-	margin: .5em 0 0 0;
+  display: block;
+  margin: .5em 0 0 0;
 }
 
 #gCommentAdd input.text {
-	width: 15em;
+  width: 15em;
 }
 
 #gCommentAdd textarea {
-	width: 20em;
+  width: 20em;
 }
 
 input.button {
-	background-color: #EEEEEE;
-	border-color: #E7E7E7 #666666 #666666 #E7E7E7;
-	border-style: solid;
-	border-width: 2px;
-	color: #333333;
-	padding: 3px;
-	font-weight: bold;
+  background-color: #EEEEEE;
+  border-color: #E7E7E7 #666666 #666666 #E7E7E7;
+  border-style: solid;
+  border-width: 2px;
+  color: #333333;
+  padding: 3px;
+  font-weight: bold;
 }
 
 /* ----------- upload ----------------- */
 
 #gUploadForm-queue {
-	width: 500px;
+  width: 500px;
 }
 
 #gUploadForm-queue td, #gUploadForm-queue th {
-	text-align: left;
-	border-color: lightgray;
+  text-align: left;
+  border-color: lightgray;
 }
 
 #gUploadForm-queue caption {
-	display: none;
+  display: none;
 }
 
 #gUploadForm-queue thead th {
-	text-align: center;
-	border-bottom: 2px solid black;
+  text-align: center;
+  border-bottom: 2px solid black;
 }
 
 #gUploadForm-queue thead th, #gUploadForm-queue thead td {
-	background-color: lightgray;
+  background-color: lightgray;
 }
 
 #gUploadForm-queue tfoot td {
-	border-top: 2px solid black;
+  border-top: 2px solid black;
 }
 
 #gUploadForm-queue .filesize {
-	width: 60px;
+  width: 60px;
 }
 
 #gUploadForm-queue td.filesize {
-	text-align: right;
+  text-align: right;
 }
 
 #gUploadForm-queue tfoot td.filesize {
-	color: gray;
+  color: gray;
 }
 
 #gUploadForm-queue .action {
-	width: 40px;
+  width: 40px;
 }
 
 #gUploadForm-button {
-	width: 130px;
-	margin-left: 370px;
+  width: 130px;
+  margin-left: 370px;
 }
