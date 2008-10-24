@@ -37,7 +37,7 @@ class Data_Controller {
   function Reset($module) {
     if ($module == 'core') {
       $db = Database::instance('default');
-      $db->query('DROP TABLE IF EXISTS `gx_eval_kohana`.`items`;');
+      $db->query('DROP TABLE IF EXISTS `items`;');
 
       $db->query('CREATE TABLE  `gx_eval_kohana`.`items` (
               `id` int(9) NOT NULL auto_increment,
@@ -53,7 +53,7 @@ class Data_Controller {
 
       $this->_createAuthTables();
 
-      $db->query('DROP TABLE IF EXISTS `gx_eval_kohana`.`sessions`;');
+      $db->query('DROP TABLE IF EXISTS `sessions`;');
       $db->query('CREATE TABLE sessions (
                   session_id VARCHAR(127) NOT NULL,
                   last_activity INT(10) UNSIGNED NOT NULL,
@@ -146,7 +146,7 @@ class Data_Controller {
   function _createAuthTables() {
     $db = Database::instance('default');
 
-    $db->query('DROP TABLE IF EXISTS `gx_eval_kohana`.`roles_users`;');
+    $db->query('DROP TABLE IF EXISTS `roles_users`;');
     $db->query('CREATE TABLE IF NOT EXISTS `roles_users` (
                 `user_id` int(10) unsigned NOT NULL,
                 `role_id` int(10) unsigned NOT NULL,
@@ -154,7 +154,7 @@ class Data_Controller {
                 KEY `fk_role_id` (`role_id`)
               ) ENGINE=InnoDB DEFAULT CHARSET=utf8;');
 
-    $db->query('DROP TABLE IF EXISTS `gx_eval_kohana`.`user_tokens`;');
+    $db->query('DROP TABLE IF EXISTS `user_tokens`;');
     $db->query('CREATE TABLE IF NOT EXISTS `user_tokens` (
                   `id` int(11) unsigned NOT NULL auto_increment,
                   `user_id` int(11) unsigned NOT NULL,
@@ -167,8 +167,8 @@ class Data_Controller {
                   KEY `fk_user_id` (`user_id`)
                 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;');
 
-    $db->query('DROP TABLE IF EXISTS `gx_eval_kohana`.`roles`;');
-    $db->query('CREATE TABLE  `gx_eval_kohana`.`roles` (
+    $db->query('DROP TABLE IF EXISTS `roles`;');
+    $db->query('CREATE TABLE  `roles` (
               `id` int(11) unsigned NOT NULL auto_increment,
               `name` varchar(32) NOT NULL,
               `description` varchar(255) NOT NULL,
@@ -176,7 +176,7 @@ class Data_Controller {
               UNIQUE KEY `uniq_name` (`name`))
             ENGINE=InnoDB DEFAULT CHARSET=utf8;');
 
-    $db->query('DROP TABLE IF EXISTS `gx_eval_kohana`.`users`;');
+    $db->query('DROP TABLE IF EXISTS `users`;');
     $db->query('CREATE TABLE IF NOT EXISTS `users` (
                 `id` int(11) unsigned NOT NULL auto_increment,
                 `email` varchar(127) NOT NULL,
