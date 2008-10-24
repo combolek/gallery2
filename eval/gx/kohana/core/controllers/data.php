@@ -85,8 +85,8 @@ class Data_Controller {
       $item->id = 1;
       $item->email = "admin@gx.com";
       $item->username = "admin";
-      $item->password = '0a9ba25c04b856936778ba25b32010016d1bc866e21ad04489';
-      $item->logins = 2;
+      $item->password = 'admin';
+      $item->logins = 0;
       $item->last_login = 1224873607;
       $item->save();
 
