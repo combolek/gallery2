@@ -96,6 +96,7 @@ $config['extension_prefix'] = 'MY_';
  */
 $config['modules'] = array
 (
+  THEMEPATH.'jakob',
   MODPATH.'dbforge',      // Dbforge module
   MODPATH.'comment',
   MODPATH.'auth',      // Authentication

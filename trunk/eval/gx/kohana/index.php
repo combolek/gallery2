@@ -40,6 +40,7 @@ $kohana_writeable = 'var';
  * This path can be absolute or relative to this file.
  */
 $kohana_modules = 'modules';
+$kohana_themes = 'themes';
 
 /**
  * Kohana system directory. This directory should contain the core/ directory,
@@ -93,6 +94,7 @@ is_link(KOHANA) and chdir(dirname(realpath(__FILE__)));
 define('APPPATH', str_replace('\\', '/', realpath($kohana_application)).'/');
 define('VARPATH', str_replace('\\', '/', realpath($kohana_writeable)).'/');
 define('MODPATH', str_replace('\\', '/', realpath($kohana_modules)).'/');
+define('THEMEPATH', str_replace('\\', '/', realpath($kohana_themes)).'/');
 define('SYSPATH', str_replace('\\', '/', realpath($kohana_system)).'/');
 
 // Clean up
