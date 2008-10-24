@@ -35,7 +35,7 @@ class Upload_Controller extends Gallery_Controller {
 	$item->title = $_POST['name'];
 	$item->path = basename($filename);
 	$item->parent_id = 1;
-	$item->save();
+	$item->parent->add_child($item);
 	$this->template->content->success = basename($filename) . " was added.";
       } catch (Exception $e) {
 	$this->template->content->error = $e;
