@@ -26,7 +26,8 @@ class Show_Controller extends Gallery_Controller {
         $this->template->content->path = $item->parent->path . '/' . $item->path;
         $this->template->content->item = $item;
       } else {
-	url::redirect('auth/login');
+        Session::instance()->set('redirectPath', Router::$current_uri);
+        url::redirect('auth/login');
       }
       break;
 
