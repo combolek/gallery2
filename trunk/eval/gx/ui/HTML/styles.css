@@ -1,16 +1,59 @@
+/**
+ * Gx Styles 
+ * 
+ * @requires YUI reset, font, grids, and base CSS
+ * 
+ * Sheet organization: 
+ * 1) HTML, body
+ * 2) Text (fonts, headings, links)
+ * 3) Layout containers
+ * 4) Generic blocks
+ * 5) Primary content blocks
+ * 6) Navigation and menus
+ * 7) Tables
+ * 8) Forms
+ */
+
+/**
+ ** **************************************************
+ * 1) HTML, body
+ ** **************************************************
+ */
+
 body, html {
 	background-color: silver;
 }
 
-input.button {
-	background-color: #EEEEEE;
-	border-color: #E7E7E7 #666666 #666666 #E7E7E7;
-	border-style: solid;
-	border-width: 2px;
-	color: #333333;
-	padding: 3px;
-	font-weight: bold;
+
+/**
+ ** **************************************************
+ * 2) Text
+ ** **************************************************
+ */
+
+#register-link {
+	position: absolute;
+	top: 20px;
+	right: 50px;
 }
+
+#login-link {
+	position: absolute;
+	top: 20px;
+	right: 10px;
+}
+
+/**
+ ** **************************************************
+ * 3) Layout containers
+ ** **************************************************
+ */
+
+#gContent {
+	padding: 20px;
+}
+
+/* Need to YUI references, replace with Gallery id or class */
 
 #doc2 {
 	background-color: white;
@@ -21,79 +64,41 @@ input.button {
 #hd {
 	position: relative;
 }
+
 #hd #logo, #hd h1 {
 	float: left;
 }
+
 #hd #logo {
 	margin: 10px;
 }
-#register-link {
-	position: absolute;
-	top: 20px;
-	right: 50px;
-}
-#login-link {
-	position: absolute;
-	top: 20px;
-	right: 10px;
+
+/* ~~~~~~~~~ sidebar ~~~~~~~~~~ */
+
+#gSidebar {
+	border-left: 1px solid gray;
+	width: 16.4615em;
+	padding: 0 1em 0 1em;
 }
 
-#global-navigation {
-	margin: 0px;
-	padding: 0px;
-	height: 32px;
+#gFooter {
 	border-top: 1px solid gray;
-	border-bottom: 1px solid gray;
-	list-style-type: none;
-	clear: both;
-}
-#global-navigation li {
-	list-style-type: none;
-	float: left;
-	display: block;
-	width: 20%;
-}
-#global-navigation li a {
-	height: 20px;
-	padding: 5px;
-	display: block;
-	text-align: center;
-	border: 1px outset black;
-	background-color: lightgray;
-}
-#global-navigation li a:hover, #global-navigation li a:active, #global-navigation li a.active {
-	border: 1px inset black;
-	background-color: silver;
+	padding: 6px;
 }
 
-.breadcrumbs {
-	margin: 0px;
-	padding: 0px;
-	height: 26px;
-	list-style-type: none;
-}
-.breadcrumbs li {
-	list-style-type: none;
-	background: transparent url(images/icon_breadcrumb_separator.gif) no-repeat scroll left center;
-	padding: 0 0 0 10px;
-	float: left;
-}
-.breadcrumbs li.root {
-	background: transparent;
-	padding: 0px;
-}
-.breadcrumbs li a {
-	padding: 5px;
-	display: block;
-}
 
-#hd .breadcrumbs {
-	border-bottom: 1px solid gray;
-}
+/**
+ ** **************************************************
+ * 4) Generic blocks
+ ** **************************************************
+ */
 
-#content {
-	padding: 20px;
-}
+
+/**
+ ** **************************************************
+ * 5) Content blocks - inherits from Generic blocks
+ ** **************************************************
+ */
 
 #photo-grid {
 	width: 100%;
@@ -113,66 +118,14 @@ img.photo {
 	background-color: lightgray;
 }
 
-/* ------------------ upload --------------------- */
+/* ----------- upload ----------------- */
 
-#upload .breadcrumbs li input, #upload .breadcrumbs li select {
+#gUploadForm .gBreadcrumbs li input, #gUploadForm .gBreadcrumbs li select {
 	width: 140px;
 	margin-left: 5px;
 }
 
-#upload-queue {
-	width: 500px;
-}
-#upload-queue td, #upload-queue th {
-	text-align: left;
-	border-color: lightgray;
-}
-#upload-queue caption {
-	display: none;
-}
-#upload-queue thead th {
-	text-align: center;
-	border-bottom: 2px solid black;
-}
-#upload-queue thead th, #upload-queue thead td {
-	background-color: lightgray;
-}
-#upload-queue tfoot td {
-	border-top: 2px solid black;
-}
-#upload-queue .filesize {
-	width: 60px;
-}
-#upload-queue td.filesize {
-	text-align: right;
-}
-#upload-queue tfoot td.filesize {
-	color: gray;
-}
-#upload-queue .action {
-	width: 40px;
-}
-
-#upload-button {
-	width: 130px;
-	margin-left: 370px;
-}
-
-/* ~~~~~~~~~ sidebar ~~~~~~~~~~ */
-
-#sidebar {
-	border-left: 1px solid gray;
-	width: 16.4615em;
-	padding: 0 1em 0 1em;
-}
-
-#ft {
-	border-top: 1px solid gray;
-	padding: 6px;
-}
-
-
-/* ~~~~~~~~~ photo view ~~~~~~~~~~ */
+/* ~~~~~~~~~ individual photo ~~~~~~~~~~ */
 
 .gPhotoView img {
 	width: 400px;
@@ -181,43 +134,196 @@ img.photo {
 	margin-left: auto;
 	margin-bottom: 20px;
 }
+
+/* ~~~~~~~~~ comments ~~~~~~~~~~ */
+
 #gComments {
 	border: 1px solid silver;
 	padding: 10px;
 }
+
 #gComments h2 {
 	margin-top: 0px;
 }
+
 #gComments ul {
 	margin: 0px;
 }
+
 #gComments ul li {
 	list-style-type: none;
 	margin-bottom: 15px;
 }
+
 #gComments ul li p {
 	background-color: #E8E8E8;
 	margin-bottom: 2px;
 	padding: 4px;
 }
+
 #gComments ul li p .understate {
 	color: silver;
 }
+
 #gComments ul li div {
 	padding: 8px;
 }
+
+/**
+ ** **************************************************
+ * 6) Navigation and menus
+ ** **************************************************
+ */
+
+#gSiteMenu {
+	margin: 0px;
+	padding: 0px;
+	height: 32px;
+	border-top: 1px solid gray;
+	border-bottom: 1px solid gray;
+	list-style-type: none;
+	clear: both;
+}
+
+#gSiteMenu li {
+	list-style-type: none;
+	float: left;
+	display: block;
+	width: 20%;
+}
+
+#gSiteMenu li a {
+	height: 20px;
+	padding: 5px;
+	display: block;
+	text-align: center;
+	border: 1px outset black;
+	background-color: lightgray;
+}
+
+#gSiteMenu li a:hover, #gSiteMenu li a:active, #gSiteMenu li a.active {
+	border: 1px inset black;
+	background-color: silver;
+}
+
+#gUserMenu {
+
+}
+
+.gBreadcrumbs {
+	border-bottom: 1px solid gray;
+}
+
+.gBreadcrumbs {
+	margin: 0px;
+	padding: 0px;
+	height: 26px;
+	list-style-type: none;
+}
+
+.gBreadcrumbs li {
+	list-style-type: none;
+	background: transparent url(images/icon_breadcrumb_separator.gif) no-repeat scroll left center;
+	padding: 0 0 0 10px;
+	float: left;
+}
+
+.gBreadcrumbs li.root {
+	background: transparent;
+	padding: 0px;
+}
+
+.gBreadcrumbs li a {
+	padding: 5px;
+	display: block;
+}
+
+/**
+ ** **************************************************
+ * 7) Tables
+ ** **************************************************
+ */
+
+
+/**
+ ** **************************************************
+ * 8) Forms
+ ** **************************************************
+ */
 
 #gCommentAdd fieldset { 
 	border: 1px solid #ccc;
 	padding: .3em 1em; 
 }
+
 #gCommentAdd label {
 	display: block;
 	margin: .5em 0 0 0;
 }
+
 #gCommentAdd input.text {
 	width: 15em;
 }
+
 #gCommentAdd textarea {
 	width: 20em;
+}
+
+input.button {
+	background-color: #EEEEEE;
+	border-color: #E7E7E7 #666666 #666666 #E7E7E7;
+	border-style: solid;
+	border-width: 2px;
+	color: #333333;
+	padding: 3px;
+	font-weight: bold;
+}
+
+/* ----------- upload ----------------- */
+
+#gUploadForm-queue {
+	width: 500px;
+}
+
+#gUploadForm-queue td, #gUploadForm-queue th {
+	text-align: left;
+	border-color: lightgray;
+}
+
+#gUploadForm-queue caption {
+	display: none;
+}
+
+#gUploadForm-queue thead th {
+	text-align: center;
+	border-bottom: 2px solid black;
+}
+
+#gUploadForm-queue thead th, #gUploadForm-queue thead td {
+	background-color: lightgray;
+}
+
+#gUploadForm-queue tfoot td {
+	border-top: 2px solid black;
+}
+
+#gUploadForm-queue .filesize {
+	width: 60px;
+}
+
+#gUploadForm-queue td.filesize {
+	text-align: right;
+}
+
+#gUploadForm-queue tfoot td.filesize {
+	color: gray;
+}
+
+#gUploadForm-queue .action {
+	width: 40px;
+}
+
+#gUploadForm-button {
+	width: 130px;
+	margin-left: 370px;
 }
