@@ -31,7 +31,7 @@ $config['default'] = array
   (
     'type'     => 'mysqli',
     'user'     => 'root',
-    'pass'     => 'iemx3j0q8',
+    'pass'     => '',
     'host'     => '',
     'port'     => FALSE,
     'socket'   => FALSE,
