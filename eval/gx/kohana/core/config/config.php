@@ -100,7 +100,7 @@ $config['modules'] = array
   MODPATH.'dbforge',      // Dbforge module
   MODPATH.'comment',
   MODPATH.'auth',      // Authentication
-	// MODPATH.'forge',     // Form generation
+  MODPATH.'forge',     // Form generation
 	// MODPATH.'kodoc',     // Self-generating documentation
 	// MODPATH.'media',     // Media caching and compression
 	// MODPATH.'gmaps',     // Google Maps integration
