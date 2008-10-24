@@ -14,7 +14,7 @@
   'Help?' => '#') as $text => $view):?>
   <li>
     <?php if ($active == $text): ?>
-    <?php echo html::anchor($view, $text, array('class' => 'active')1); ?>
+    <?php echo html::anchor($view, $text, array('class' => 'active')); ?>
     <?php else: ?>
     <?php echo html::anchor($view, $text, $active); ?>
     <?php endif; ?>
