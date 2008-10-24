@@ -101,13 +101,11 @@ class ORM_MPTT_Core extends ORM_Tree_Core {
       .$this->right_column."+2 WHERE ".$this->right_column." >= "
       .$this->object[$this->right_column]);
 
-    $this->__set($this->parent_key, $this->object[$this->id]);
-    $this->__set($this->level_column, $this->object[$this->level_column] + 1);
-    $this->__set($this->left_column, $this->object[$this->right_column]);
-    $this->__set($this->right_column, $this->object[$this->right_column] + 1);
-    $model->save();
-
-    return $this;
+    $model->__set($this->parent_key, $this->id);
+    $model->__set($this->level_column, $this->object[$this->level_column] + 1);
+    $model->__set($this->left_column, $this->object[$this->right_column]);
+    $model->__set($this->right_column, $this->object[$this->right_column] + 1);
+    return $model->save();
   }
 
   /**

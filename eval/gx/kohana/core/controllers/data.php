@@ -45,6 +45,9 @@ class Data_Controller {
               `title` char(255) default NULL,
               `path` char(255) default NULL,
               `parent_id` int(9) default NULL,
+              `level` int(9) default NULL,
+              `lft` int(9) default NULL,
+              `rgt` int(9) default NULL,
               PRIMARY KEY  (`id`))
             ENGINE=InnoDB DEFAULT CHARSET=utf8;');
 
@@ -67,12 +70,15 @@ class Data_Controller {
 
   function Populate($module) {
     if ($module == 'core') {
-      $item = ORM::factory('item');
-      $item->type = "album";
-      $item->title = "John Doe's Gallery";
-      $item->path = "";
-      $item->parent_id = 0;
-      $item->save();
+      $album = ORM::factory('item');
+      $album->type = "album";
+      $album->title = "John Doe's Gallery";
+      $album->path = "";
+      $album->parent_id = 0;
+      $album->lft = 1;
+      $album->rgt = 2;
+      $album->level = 0;
+      $album->save();
 
       $item = ORM::factory('item');
       $item->type = "photo";
@@ -80,6 +86,7 @@ class Data_Controller {
       $item->path = "sample.jpg";
       $item->parent_id = 1;
       $item->save();
+      $album->add_child($item);
 
       $item = ORM::factory('user');
       $item->id = 1;
