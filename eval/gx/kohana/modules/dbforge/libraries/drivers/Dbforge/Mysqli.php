@@ -91,7 +91,9 @@ class Dbforge_Mysqli_Driver extends Dbforge_Driver {
 			}
 		}
 
-		$sql .= "\n) DEFAULT CHARACTER SET {$this->db_config['character_set']} COLLATE {$this->db_config['collate']};";
+		$sql .= "\n) ENGINE=InnoDB "
+		  . "DEFAULT CHARACTER SET {$this->db_config['character_set']} "
+		  . "COLLATE {$this->db_config['collate']};";
 
 		return $sql;
 	}

@@ -103,6 +103,7 @@ class Dbforge_Core extends Database_Core {
       $this->primary_keys = array_merge($this->primary_keys, $key);
     }
   }
+
 	/**
 	 * Add Key
 	 *
