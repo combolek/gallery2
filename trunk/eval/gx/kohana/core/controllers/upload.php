@@ -1,7 +1,7 @@
 <?php
 class Upload_Controller extends Gallery_Controller {
   // Set the name of the template to use
-  public $template = 'templates/jacob';
+  public $template = 'templates/jakob';
 
   public function Index() {
     // In Kohana, all views are loaded and treated as objects.
