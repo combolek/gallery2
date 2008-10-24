@@ -1,14 +1,16 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 class Comment_Core {
   static function Reset() {
-    $forge = new Dbforge();
-    $forge->drop_table('comments');
-    $forge->add_field('id');
-    $forge->add_field(array('author' => array('type' => 'CHAR', 'constraint' => 255)));
-    $forge->add_field(array('email' => array('type' => 'CHAR', 'constraint' => 255)));
-    $forge->add_field(array('text' => array('type' => 'TEXT')));
-    $forge->add_field(array('item_id' => array('type' => 'INT', 'constraint' => 9)));
-    $forge->create_table('comments');
+    $db = Database::instance('default');
+    $db->query('DROP TABLE IF EXISTS `gx_eval_kohana`.`comments`;');
+    $db->query('CREATE TABLE  `gx_eval_kohana`.`comments` (
+                  `id` int(9) NOT NULL auto_increment,
+                  `author` char(255) default NULL,
+                  `email` char(255) default NULL,
+                  `text` text,
+                  `item_id` int(9) default NULL,
+                  PRIMARY KEY  (`id`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;');
   }
 
   static function Populate() {
