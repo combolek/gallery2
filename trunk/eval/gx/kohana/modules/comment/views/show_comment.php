@@ -1,6 +1,5 @@
 <?php if ($comments): ?>
 <script type="text/javascript">
-	alert('test');
 	//var oElement = document.getElementById("gCommentAdd");
 	function addComment(e) {
 		var author, email, text, comment, li;
