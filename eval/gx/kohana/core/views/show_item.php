@@ -1,12 +1,6 @@
-<?php
-  $currentRow = 0;
-  $currentColumn =  0;
-?>
 <h1>Photo: <?php echo $item->title; ?></h1>
 
-
 <table id="photo-grid">
-
   <tbody>
     <tr>
       <td>
@@ -19,5 +13,4 @@
       </td>
     </tr>
   </tbody>
-
 </table>
