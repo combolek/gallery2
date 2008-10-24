@@ -4,7 +4,7 @@
  * then a full URL will be used, eg: http://localhost/kohana/. If it only includes
  * the path, and a site_protocol is specified, the domain will be auto-detected.
  */
-$config['site_domain'] = preg_replace('{^(.*?/)(index.php.*)?$}', '\\1', $_SERVER['REQUEST_URI']);
+$config['site_domain'] = dirname($_SERVER['SCRIPT_NAME']);
 
 /**
  * Force a default protocol to be used by the site. If no site_protocol is
@@ -97,6 +97,7 @@ $config['extension_prefix'] = 'MY_';
 $config['modules'] = array
 (
   THEMEPATH.'jakob',
+  THEMEPATH.'default',
   MODPATH.'dbforge',      // Dbforge module
   MODPATH.'comment',
   MODPATH.'sizelimit',	// Testing hooks
