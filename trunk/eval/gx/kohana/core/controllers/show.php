@@ -1,7 +1,7 @@
 <?php
 class Show_Controller extends Gallery_Controller {
   // Set the name of the template to use
-  public $template = 'templates/jakob';
+  public $template = 'templates/base';
 
   public function __call($id, $arguments) {
     $item = ORM::factory('Item', $id);
