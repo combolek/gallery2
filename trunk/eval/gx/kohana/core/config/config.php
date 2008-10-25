@@ -97,12 +97,12 @@ $config['extension_prefix'] = 'MY_';
 $config['modules'] = array
 (
   //THEMEPATH.'jakob',
-  THEMEPATH.'default',
-  MODPATH.'dbforge',      // Dbforge module
-  MODPATH.'comment',
-  MODPATH.'sizelimit',	// Testing hooks
-  MODPATH.'auth',      // Authentication
-  MODPATH.'forge',     // Form generation
+//  THEMEPATH.'default',
+//  MODPATH.'dbforge',      // Dbforge module
+//  MODPATH.'comment',
+//  MODPATH.'sizelimit',	// Testing hooks
+//  MODPATH.'auth',      // Authentication
+//  MODPATH.'forge',     // Form generation
 	// MODPATH.'kodoc',     // Self-generating documentation
 	// MODPATH.'media',     // Media caching and compression
 	// MODPATH.'gmaps',     // Google Maps integration
