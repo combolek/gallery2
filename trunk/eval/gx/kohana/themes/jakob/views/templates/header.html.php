@@ -2,7 +2,7 @@
 
 <h1><?php echo $title; ?></h1>
 
-<?php echo html::anchor('register', 'Register'); ?>
+<?php echo html::anchor('user/register', 'Register'); ?>
 
 <?php echo html::anchor('auth/login', 'Login'); ?>
 
