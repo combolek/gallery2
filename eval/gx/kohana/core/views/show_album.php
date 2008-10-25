@@ -12,7 +12,7 @@
     </tr><tr>
       <?php endif; ?>
       <td>
-	<?php $path = 'var/images/' . $item->path . '/' . $child->path; ?>
+	<?php $path = 'var/thumbnails/' . $child->id . '.jpg'; ?>
 	<?php
 	   echo html::anchor(
 	   "show/$child->id",
