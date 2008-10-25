@@ -1,16 +1,15 @@
 <img id="Logo" alt="Logo" />
 
-<h1><?php echo $title; ?></h1>
+<h1><?php echo $title ?></h1>
 
-<?php echo html::anchor('user/register', 'Register'); ?>
-
+<?php echo html::anchor('register', 'Register'); ?>
 <?php echo html::anchor('auth/login', 'Login'); ?>
 
 <ul id="global-navigation">
   <?php foreach (array('Home/Dashboard' => '#',
-  'Browse Photos' => 'show/1',
-  'Upload New Photos' => 'upload',
-  'Admin' =>  '#',
+  'Browse Photos' => "album/{$item->id}",
+  'Upload New Photos' => "album/{$item->id}/add",
+  'Create Album' =>  "album/{$item->id}/add",
   'Help?' => '#') as $text => $view):?>
   <li>
     <?php if ($active == $text): ?>
