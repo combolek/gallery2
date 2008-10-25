@@ -1,9 +1,10 @@
-      <img id="gLogo" alt=" Gallery Logo" src="images/logo.png" />
+      <img id="gLogo" alt=" Gallery Logo" src="themes/default/images/logo.png" />
 
       <h1><?= $title ?></h1>
 
       <div id="gLoginMenu">
         <?= html::anchor('register', 'Register'); ?>
+        <?= html::anchor('register/Register', 'Login') ?>
         <?= html::anchor('auth/login', 'Login') ?>
       </div>
 
@@ -32,3 +33,4 @@
         <li><a href="#">Christmas 2007</a></li>
         <!-- later on the ">>" should be a background image -->
       </ul>
+            
