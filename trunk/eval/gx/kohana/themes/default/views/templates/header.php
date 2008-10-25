@@ -1,12 +1,12 @@
       <img id="gLogo" alt=" Gallery Logo" src="images/logo.png" />
-    
+
       <h1><?= $title ?></h1>
-    
+
       <div id="gLoginMenu">
-        <a href="#">Register</a>
+        <?= html::anchor('register', 'Register'); ?>
         <?= html::anchor('auth/login', 'Login') ?>
       </div>
-    
+
       <ul id="gSiteMenu">
         <? foreach (
              array(
@@ -25,7 +25,7 @@
         </li>
         <? endforeach; ?>
       </ul>
-    
+
       <ul class="gBreadcrumbs">
         <li class="root"><a href="#">Home</a></li>
         <li><a href="#">Friends &amp; Family</a></li>
