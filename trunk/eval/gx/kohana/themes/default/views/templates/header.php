@@ -4,7 +4,6 @@
 
       <div id="gLoginMenu">
         <?= html::anchor('register', 'Register'); ?>
-        <?= html::anchor('register/Register', 'Login') ?>
         <?= html::anchor('auth/login', 'Login') ?>
       </div>
 
