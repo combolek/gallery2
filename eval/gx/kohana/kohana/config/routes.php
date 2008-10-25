@@ -1,6 +1,9 @@
 <?php defined('SYSPATH') or die('No direct access allowed.');
 
 $config['admin/([a-z]+)/(.*)'] = '$1/admin/$2';
+$config['(\w+)/(\d+)/(add|delete|update|view)'] = '$1/$3/$2';
+$config['(\w+)/(\d+)'] = '$1/view/$2';
+
 /**
  * @package  Core
  *

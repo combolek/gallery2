@@ -1,5 +1,5 @@
 <form method="post" enctype="multipart/form-data"
-      action="<?php echo url::site('upload/store'); ?>">
+   action="<?php echo url::site("album/{$item->id}/add"); ?>">
   <?php if (!empty($success)): ?>
   <p class="success"><?php echo $success; ?></p>
   <?php endif; ?>
