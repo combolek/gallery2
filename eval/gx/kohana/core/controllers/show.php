@@ -12,7 +12,7 @@ class Show_Controller extends Gallery_Controller {
     switch($item->type) {
     case 'album':
       $this->template->header->active = "Browse Photos";
-      $this->template->content = new View('show_album');
+      $this->template->content = new View('show_album.html');
       $this->template->content->item = $item;
       $this->template->content->maxRows = 3;
       $this->template->content->maxColumns = 3;
@@ -22,7 +22,7 @@ class Show_Controller extends Gallery_Controller {
     case 'photo':
       if (Auth::instance()->logged_in('login')) {
         $this->template->header->active = "Browse Photos";
-        $this->template->content = new View('show_item');
+        $this->template->content = new View('show_item.html');
         $this->template->content->path = $item->parent->path . '/' . $item->path;
         $this->template->content->item = $item;
       } else {

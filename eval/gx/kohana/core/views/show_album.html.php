@@ -9,7 +9,8 @@
       <?php foreach ($children as $child): ?>
       <?php if ($currentColumn >= $maxColumns): ?>
       <?php $currentRow++; $currentColumn =  0;?>
-    </tr><tr>
+    </tr>
+    <tr>
       <?php endif; ?>
       <td>
 	<?php $path = 'var/thumbnails/' . $child->id . '.jpg'; ?>
@@ -24,12 +25,12 @@
 
       <!-- Fill the rest of the page with empty image holders -->
       <?php for (; $currentRow < $maxRows; $currentRow++ ): ?>
-      <?php for (; $currentColumn < $maxColumns; $currentColumn++ ): ?>
-      <td>
-	<img class="photo" alt="photo" />
-      </td>
-      <?php endfor; ?>
-      <?php $currentColumn =  0 ?>
+	    <?php for (; $currentColumn < $maxColumns; $currentColumn++ ): ?>
+		  <td>
+		    <img class="photo" alt="photo" />
+		  </td>
+		  <?php endfor; ?>
+		  <?php $currentColumn =  0 ?>
     </tr>
     <?php endfor; ?>
   </tbody>
