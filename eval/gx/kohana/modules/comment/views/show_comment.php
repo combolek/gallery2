@@ -94,7 +94,7 @@
     <?php endforeach; ?>
   </ul>
 
-  <form id="gCommentAdd" class="gExpandedForm">
+  <form id="gCommentAdd" class="gCompactForm">
     <fieldset>
       <legend>Add comment</legend>
       <div class="row">
