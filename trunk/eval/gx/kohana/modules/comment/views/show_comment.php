@@ -17,9 +17,9 @@
     li.id = 'gComment-' + commentId;
     li.className = 'gComment';
     li.innerHTML = '<p><a href="' + email + '" class="gAuthor">' + author + '</a> ' +
-      ' said 30 minutes ago <span class="gDate understate">(October 23, 2008 4:00pm)</span></p>' +
+      ' has just said <span class="gDate understate"></span></p>' +
       '<div class="gText">' + text + '</div>';
-  
+
     // Append new list item with comment form input
     var elCommentThread = new YAHOO.util.Element('gCommentThread');
 
@@ -60,11 +60,11 @@
     var cObj = YAHOO.util.Connect.asyncRequest(
       'POST', 'index.php?/comment/Add', callback, postData);
     }
-    
+
     YAHOO.util.Event.addListener("gCommentAdd", "submit", addComment);
 
     var responseSuccess = function(o){
-    
+
     // we can show some nice message here
   };
 
@@ -85,7 +85,8 @@
     <li class="gComment" id="gComment-<?php print $index; ?>">
       <p>
         <a href="#" class="gAuthor"> <?php print $comment->author ?></a>
-        said 2 hours ago <span class="gDate understate">(October 23, 2008 11:30am)</span>
+        said <?php print round((time() - $comment->datetime)/60) ?> minutes ago
+        <span class="gDate understate"><?php print strftime('%c', $comment->datetime) ?></span>
       </p>
       <div>
         <?php print $comment->text ?>

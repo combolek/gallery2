@@ -8,6 +8,7 @@ class Comment_Core {
                   `author` char(255) default NULL,
                   `email` char(255) default NULL,
                   `text` text,
+                  `datetime` int(9) default 0,
                   `item_id` int(9) default NULL,
                   PRIMARY KEY  (`id`)
                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;');
@@ -19,12 +20,14 @@ class Comment_Core {
     $comment->email = "andy@foo.com";
     $comment->text = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.';
     $comment->item_id = 2;
+    $comment->datetime = time();
     $comment->save();
 
     $comment = ORM::factory('comment');
     $comment->author = "Tim";
     $comment->email = "tim@foo.com";
     $comment->text = "Woot!";
+    $comment->datetime = time();
     $comment->item_id = 2;
     $comment->save();
     print html::anchor("data/reset", "reset");
