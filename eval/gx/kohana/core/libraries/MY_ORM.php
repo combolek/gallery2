@@ -2,6 +2,6 @@
 class ORM extends ORM_Core {
   public function save() {
     Event::run('item.pre_save', $this);
-    parent::save();
+    return parent::save();
   }
 }
