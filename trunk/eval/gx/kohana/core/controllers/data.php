@@ -80,13 +80,7 @@ class Data_Controller {
       $album->level = 0;
       $album->save();
 
-      $item = ORM::factory('item');
-      $item->type = "photo";
-      $item->title = "GX Sprint!";
-      $item->path = "sample.jpg";
-      $item->parent_id = 1;
-      $item->save();
-      $album->add_child($item);
+      photo::store(DOCROOT.'core/test/sample.jpg', "GX Sprint!", 1);
 
       $item = ORM::factory('user');
       $item->id = 1;
