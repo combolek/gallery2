@@ -280,6 +280,52 @@ img.photo {
 	padding-right: 20px;
 }
 
+/* ~~~~~~~~~ tag cloud ~~~~~~~~~~ */
+
+.gTagCloud ul {
+	text-align: justify;
+	margin: 0px;
+	padding: 0px;
+}
+.gTagCloud ul li {
+	text-align: justify;
+	display: inline;
+}
+.gTagCloud ul li a {
+	text-decoration: none;
+}
+.gTagCloud ul li a.size0 {
+	font-size: 100%;
+	font-weight: 100;
+	color: #99CCFF;
+}
+.gTagCloud ul li a.size1 {
+	font-size: 110%;
+	font-weight: 300;
+	color: #6699FF;
+}
+.gTagCloud ul li a.size2 {
+	font-size: 120%;
+	font-weight: 500;
+	color: #6699CC;
+}
+.gTagCloud ul li a.size3 {
+	font-size: 130%;
+	font-weight: 700;
+	color: #336699;
+}
+.gTagCloud ul li a.size4 {
+	font-size: 140%;
+	font-weight: 900;
+	color: #0E2B52;
+}
+
+/* ~~~~~~~~~ album tree ~~~~~~~~~~ */
+
+#gAlbumTree {
+	border: 1px solid blue;
+	margin: 20px 0 20px 0;
+}
 
 /**
  ** **************************************************
@@ -293,6 +339,10 @@ img.photo {
  * 8) Forms
  ** **************************************************
  */
+
+#gSearch {
+
+}
 
 #gCommentAdd { 
   width: 500px;
