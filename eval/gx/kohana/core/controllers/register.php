@@ -52,7 +52,7 @@ class Register_Controller extends Gallery_Controller {
           }
         }
 
-        if ($user->save() /*AND $user->add(ORM::factory('role', 'login'))*/) {
+        if ($user->save() AND $user->add(ORM::factory('role', 'login'))) {
           Auth::instance()->login($user, $form->password->value);
 
           // Redirect to the login page
