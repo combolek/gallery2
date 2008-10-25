@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 class Photo_Core {
-  static function store($filename, $title, $parentId) {
+  static function create($filename, $title, $parentId) {
     $image = Image::factory($filename);
     $image->save(DOCROOT .'var/images/'.basename($filename));
     $item = ORM::factory('item');

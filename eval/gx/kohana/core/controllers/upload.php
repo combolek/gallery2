@@ -1,7 +1,7 @@
 <?php
 class Upload_Controller extends Gallery_Controller {
   // Set the name of the template to use
-  public $template = 'templates/base';
+  public $template = 'templates/base.html';
 
   public function Index() {
     // In Kohana, all views are loaded and treated as objects.
@@ -25,7 +25,7 @@ class Upload_Controller extends Gallery_Controller {
       try {
 	// Temporary file name
 	$filename = upload::save('image', $_FILES['image']['name']);
-	photo::store($filename, $_POST['name'], 1);
+	photo::create($filename, $_POST['name'], 1);
 	$this->template->content->success = basename($filename) . " was added.";
       } catch (Exception $e) {
 	$this->template->content->error = $e;

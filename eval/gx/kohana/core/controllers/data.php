@@ -70,17 +70,8 @@ class Data_Controller {
 
   function Populate($module) {
     if ($module == 'core') {
-      $album = ORM::factory('item');
-      $album->type = "album";
-      $album->title = "John Doe's Gallery";
-      $album->path = "";
-      $album->parent_id = 0;
-      $album->lft = 1;
-      $album->rgt = 2;
-      $album->level = 0;
-      $album->save();
-
-      photo::store(DOCROOT.'core/test/sample.jpg', "GX Sprint!", 1);
+      album::create("John Doe's Gallery", "", 0);
+      photo::create(DOCROOT.'core/test/sample.jpg', "GX Sprint!", 1);
 
       $item = ORM::factory('user');
       $item->id = 1;
