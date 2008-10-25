@@ -3,7 +3,7 @@
       <h1><?= $title ?></h1>
 
       <div id="gLoginMenu">
-        <?= html::anchor('register', 'Register'); ?>
+        <?= html::anchor('user/register', 'Register'); ?>
         <?= html::anchor('auth/login', 'Login') ?>
       </div>
 
@@ -32,4 +32,3 @@
         <li><a href="#">Christmas 2007</a></li>
         <!-- later on the ">>" should be a background image -->
       </ul>
-            
