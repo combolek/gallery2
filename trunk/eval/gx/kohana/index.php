@@ -100,34 +100,31 @@ define('SYSPATH', str_replace('\\', '/', realpath($kohana_system)).'/');
 // Clean up
 unset($kohana_application, $kohana_modules, $kohana_system);
 
-if ( ! IN_PRODUCTION)
-{
-	// Check APPPATH
-	if ( ! (is_dir(APPPATH) AND is_file(APPPATH.'config/config'.EXT)))
-	{
-		die
-		(
-			'<div style="width:80%;margin:50px auto;text-align:center;">'.
-				'<h3>Application Directory Not Found</h3>'.
-				'<p>The <code>$kohana_application</code> directory does not exist.</p>'.
-				'<p>Set <code>$kohana_application</code> in <tt>'.KOHANA.'</tt> to a valid directory and refresh the page.</p>'.
-			'</div>'
-		);
-	}
+if (!IN_PRODUCTION) {
+  // Check APPPATH
+  if (!(is_dir(APPPATH) AND is_file(APPPATH . 'config/config' . EXT))) {
+      die(
+	'<div style="width:80%;margin:50px auto;text-align:center;">'.
+	'<h3>Application Directory Not Found</h3>'.
+	'<p>The <code>$kohana_application</code> directory does not exist.</p>'.
+	'<p>Set <code>$kohana_application</code> in <tt>' . KOHANA .
+	'</tt> to a valid directory and refresh the page.</p>'.
+	'</div>'
+	  );
+  }
 
-	// Check SYSPATH
-	if ( ! (is_dir(SYSPATH) AND is_file(SYSPATH.'core/Bootstrap'.EXT)))
-	{
-		die
-		(
-			'<div style="width:80%;margin:50px auto;text-align:center;">'.
-				'<h3>System Directory Not Found</h3>'.
-				'<p>The <code>$kohana_system</code> directory does not exist.</p>'.
-				'<p>Set <code>$kohana_system</code> in <tt>'.KOHANA.'</tt> to a valid directory and refresh the page.</p>'.
-			'</div>'
-		);
-	}
+  // Check SYSPATH
+  if (!(is_dir(SYSPATH) AND is_file(SYSPATH . 'core/Bootstrap' . EXT))) {
+    die(
+      '<div style="width:80%;margin:50px auto;text-align:center;">'.
+      '<h3>System Directory Not Found</h3>'.
+      '<p>The <code>$kohana_system</code> directory does not exist.</p>'.
+      '<p>Set <code>$kohana_system</code> in <tt>' . KOHANA .
+      '</tt> to a valid directory and refresh the page.</p>'.
+      '</div>'
+	);
+  }
 }
 
 // Initialize.
-require SYSPATH.'core/Bootstrap'.EXT;
+require SYSPATH . 'core/Bootstrap' . EXT;
