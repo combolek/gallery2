@@ -26,10 +26,9 @@ class Upload_Controller extends Gallery_Controller {
 	// Temporary file name
 	$filename = upload::save('image', $_FILES['image']['name']);
 
-	// Resize, sharpen, and save the image
-	Image::factory($filename)
-	    ->resize(200, 140, Image::WIDTH)
-	    ->save(DOCROOT .'var/images/'.basename($filename));
+	$image = Image::factory($filename);
+        // Resize, sharpen, and save the image
+	$image->save(DOCROOT .'var/images/'.basename($filename));
 	$item = ORM::factory('item');
 	$item->type = 'photo';
 	$item->title = $_POST['name'];
@@ -37,6 +36,9 @@ class Upload_Controller extends Gallery_Controller {
 	$item->parent_id = 1;
 	$item->parent->add_child($item);
 	$this->template->content->success = basename($filename) . " was added.";
+        $id = $item->id;
+	$image->resize(200, 140, Image::WIDTH)
+	    ->save(DOCROOT .'var/thumbnails/'.$id.'.jpg');
       } catch (Exception $e) {
 	$this->template->content->error = $e;
       }
