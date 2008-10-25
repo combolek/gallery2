@@ -34,10 +34,10 @@
 
           <!-- div id="gCarousel">
             <h2>Carousel</h2>
-            <img src="themes/default/images/carousel.png" />
+            <img src="themes/default/images/carousel.png" / -->
             <!-- for reference see http://developer.yahoo.com/yui/examples/carousel/csl_dynload2.html and 
               http://developer.yahoo.com/ypatterns/pattern.php?pattern=carousel -->
-          </div-->
+          <!-- /div-->
           
           <div class="gTagCloud">
             <h2>Tag cloud</h2>
