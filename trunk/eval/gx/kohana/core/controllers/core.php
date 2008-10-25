@@ -27,7 +27,7 @@
 
 class Core_Controller extends Gallery_Controller {
   // Set the name of the template to use
-  public $template = 'templates/base';
+  public $template = 'templates/base.html';
 
   public function __call($method, $arguments) {
     $dump = print_r(array($method, $arguments), true);
