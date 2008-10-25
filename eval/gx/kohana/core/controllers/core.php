@@ -27,12 +27,12 @@
 
 class Core_Controller extends Gallery_Controller {
   // Set the name of the template to use
-  public $template = 'templates/jacob';
+  public $template = 'templates/base';
 
   public function __call($method, $arguments) {
     $dump = print_r(array($method, $arguments), true);
     $this->template->header->active = "Admin";
-    $this->template->content = new View ('core_admin');
+    $this->template->content = new View('core_admin.html');
     $this->template->content->data = "<pre> [__FILE__:__LINE__] Core_Controller: $dump </pre>";
   }
 }

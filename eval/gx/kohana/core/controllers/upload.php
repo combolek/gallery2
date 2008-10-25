@@ -6,12 +6,12 @@ class Upload_Controller extends Gallery_Controller {
   public function Index() {
     // In Kohana, all views are loaded and treated as objects.
     $this->template->header->active = "Upload New Photos";
-    $this->template->content = new View('upload_index');
+    $this->template->content = new View('upload_index.html');
   }
 
   public function Store() {
     $this->template->header->active = "Upload New Photos";
-    $this->template->content = new View('upload_index');
+    $this->template->content = new View('upload_index.html');
 
     $_FILES = Validation::factory($_FILES)
 	->add_rules('image', 'upload::valid', 'upload::type[gif,jpg,png]', 'upload::size[1M]');
