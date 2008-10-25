@@ -32,6 +32,7 @@ class Data_Controller {
       print html::anchor("data/populate/$module", "populate $module");
       print "<br/>";
     }
+    print html::anchor("", "browse gx");
   }
 
   function Reset($module) {
@@ -71,7 +72,7 @@ class Data_Controller {
   function Populate($module) {
     if ($module == 'core') {
       $album = album::create("John Doe's Gallery", "", 0);
-      $photo = photo::create(DOCROOT.'core/test/sample.jpg', "GX Sprint!", $album->id);
+      $photo = photo::create(DOCROOT . 'core/test/sample.jpg', "GX Sprint!", $album->id);
 
       $item = ORM::factory('user');
       $item->id = 1;
