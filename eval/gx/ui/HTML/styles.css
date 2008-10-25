@@ -33,6 +33,43 @@ body, html {
  ** **************************************************
  */
 
+h1 {
+	margin-top: 0px;
+}
+
+.understate {
+  color: silver;
+}
+
+a {
+	color: #6B8CB7;
+	text-decoration: none;
+}
+a:hover {
+	color: #FF3300;
+	text-decoration: underline;
+}
+
+/* ~~~~~~~~~ global table ~~~~~~~~~~ */
+
+caption {
+	text-align: left;
+}
+caption h2 {
+	margin: 0;
+}
+th {
+	text-align: left;
+}
+
+input.submit {
+	background-color: #EEEEEE;
+	border-color: #E7E7E7 #666666 #666666 #E7E7E7;
+	border-style: solid;
+	border-width: 2px;
+	color: #333333;
+}
+
 /**
  ** **************************************************
  * 3) Layout containers
@@ -55,6 +92,12 @@ body, html {
   border-right: 1px solid #ccc;
   padding: 20px;
 }
+#gSearch {
+	position: absolute;
+	right: 13px;
+	top: 103px;
+}
+
 
 /* ~~~~~~~~~ Sidebar ~~~~~~~~~~ */
 
@@ -84,6 +127,13 @@ body, html {
  ** **************************************************
  */
 
+.buttonlink {
+	border: 1px solid lightgray;
+	padding: 5px;
+}
+.buttonlink:hover {
+	background-color: #F3F3F3;
+}
 
 /**
  ** **************************************************
@@ -91,6 +141,8 @@ body, html {
  ** **************************************************
  */
 
+<<<<<<< .mine
+=======
 #photo-grid {
   width: 100%;
 }
@@ -99,6 +151,7 @@ body, html {
   border: 0;
 }
 
+>>>>>>> .r18307
 img.photo {
   display: block;
   width: 200px;
@@ -109,8 +162,29 @@ img.photo {
   background-color: #e7e7e7;
 }
 
+<<<<<<< .mine
+/* ~~~~~~~~~ metadata ~~~~~~~~~~ */
+=======
+>>>>>>> .r18307
 
+<<<<<<< .mine
+table.gMetadata {
+	width: 100%;
+}
+table.gMetadata td,
+table.gMetadata th {
+	border-color: lightgray;
+}
+
+/* ~~~~~~~~~ upload ~~~~~~~~~~ */
+
+#gUploadForm .gBreadcrumbs li input, #gUploadForm .gBreadcrumbs li select {
+  width: 140px;
+  margin-left: 5px;
+}
+=======
 /* ~~~~ individual photo ~~~~~~~ */
+>>>>>>> .r18307
 
 .gPhotoView img {
   width: 400px;
@@ -126,32 +200,115 @@ img.photo {
   border: 1px solid #ccc;
   padding: 10px;
 }
-
 #gComments h2 {
   margin-top: 0;
 }
-
 #gComments ul {
   margin: 0;
 }
-
 #gComments ul li {
   list-style-type: none;
   margin-bottom: 15px;
 }
-
 #gComments ul li p {
   background-color: #E8E8E8;
   margin-bottom: 2px;
   padding: 4px;
 }
-
-#gComments ul li p .understate {
-  color: silver;
-}
-
 #gComments ul li div {
   padding: 8px;
+}
+
+/* ~~~~~~~~~ album ~~~~~~~~~~ */
+
+#gAlbumGridHeader {
+	height: 40px;
+	position: relative;
+}
+#gAlbumGridHeader h1 {
+	display: inline;
+}
+#gAlbumGridHeader span {
+	padding-left: 10px;
+}
+#gSlideshowLink {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+}
+
+#gAlbumGrid .gItemContainer,
+#gAlbumGrid .gAlbumContainer {
+	width: 32%;
+	height: 220px;
+	float: left;
+	text-align: center;
+	border: 1px lightgray solid;
+	margin: 0px 0px 10px 1.49%;
+	padding: 5px 0px 5px 0px;
+}
+#gAlbumGrid .first {
+	margin: 0px 0px 10px 0px;
+}
+
+.gAlbum {
+	background-color: #D4DAFF;
+}
+.gAlbum h2 {
+	color: #000066;
+}
+
+.gItemContainer h2,
+.gAlbumContainer h2 {
+	margin: 5px 0px 5px 0px;
+}
+
+
+/* ~~~~~~~~~ tag cloud ~~~~~~~~~~ */
+
+.gTagCloud ul {
+	text-align: justify;
+	margin: 0px;
+	padding: 0px;
+}
+.gTagCloud ul li {
+	text-align: justify;
+	display: inline;
+}
+.gTagCloud ul li a {
+	text-decoration: none;
+}
+.gTagCloud ul li a.size0 {
+	font-size: 100%;
+	font-weight: 100;
+	color: #99CCFF;
+}
+.gTagCloud ul li a.size1 {
+	font-size: 110%;
+	font-weight: 300;
+	color: #6699FF;
+}
+.gTagCloud ul li a.size2 {
+	font-size: 120%;
+	font-weight: 500;
+	color: #6699CC;
+}
+.gTagCloud ul li a.size3 {
+	font-size: 130%;
+	font-weight: 700;
+	color: #336699;
+}
+.gTagCloud ul li a.size4 {
+	font-size: 140%;
+	font-weight: 900;
+	color: #0E2B52;
+}
+
+/* ~~~~~~~~~ album tree ~~~~~~~~~~ */
+
+#gAlbumTree {
+	border: 1px solid blue;
+	margin: 20px 0 20px 0;
 }
 
 /**
@@ -161,47 +318,87 @@ img.photo {
  */
 
 #gSiteMenu {
+<<<<<<< .mine
+	height: 31px;
+  margin: 0px;
+  padding: 0px;
+=======
   margin: 0;
   padding: 0;
+>>>>>>> .r18307
+<<<<<<< .mine
+=======
   height: 32px;
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
+>>>>>>> .r18307
   list-style-type: none;
   clear: both;
 }
-
 #gSiteMenu li {
   list-style-type: none;
   float: left;
   display: block;
   width: 20%;
+	background: #E6EBF0;
 }
-
 #gSiteMenu li a {
+	color: #003366;
+	font-weight: bold;
   height: 20px;
-  padding: 5px;
   display: block;
   text-align: center;
+<<<<<<< .mine
+	padding: 7px 7px 3px 7px;
+	background: url('images/bg_sitemenu.png') repeat-x;
+	margin-left: 1px;
+	border: 1px solid #336699;
+	border-width: 0 1px 1px 0;
+	text-decoration: none;
+	letter-spacing: .1em;
+=======
   border: 1px outset #000;
   background-color: #e7e7e7;
+>>>>>>> .r18307
 }
+<<<<<<< .mine
+#gSiteMenu li a:hover {
+	color: #FF3300;
+	background: url('images/bg_sitemenu_hover.png');
+=======
 
 #gSiteMenu li a:hover, #gSiteMenu li a:active, #gSiteMenu li a.active {
   border: 1px inset #000;
   background-color: silver;
+>>>>>>> .r18307
+}
+#gSiteMenu li a.active {
+	background: #DCE6EF;
+	border-color: #DCE6EF;
+	color: #FF3300;
 }
 
 #gLoginMenu {
   float: right;
 }
 
+/* ~~~~~~~~~ breadcrumbs ~~~~~~~~~~ */
+
 .gBreadcrumbs {
+<<<<<<< .mine
+  border: 1px solid gray;
+	border-width: 1px 0 1px 0;
+  margin: 0;
+  padding: 0 0 0 14px;
+  height: 28px;
+=======
   border-bottom: 1px solid #ccc;
 }
 .gBreadcrumbs {
   margin: 0;
   padding: 0;
   height: 26px;
+>>>>>>> .r18307
   list-style-type: none;
 }
 .gBreadcrumbs li {
@@ -216,12 +413,14 @@ img.photo {
 }
 .gBreadcrumbs li a,
 .gBreadcrumbs li span {
-  padding: 5px;
+  padding: 6px;
   display: block;
 }
 .gBreadcrumbs li.active span {
   font-weight: bold;
 }
+
+/* ~~~~~~~~~ pagination ~~~~~~~~~~ */
 
 #gPagination {
 	clear: both;
