@@ -44,11 +44,14 @@ class LoadConfig {
     if ($dh = opendir($path)) {
       while (($file = readdir($dh)) !== false) {
         if ($file[0] != '.') {
-          $modules[] = $path . $file;
+	  if ($file != 'jakob') {  // only have 1 theme active to avoid confusion
+	    $modules[] = $path . $file;
+	  }
         }
       }
       closedir($dh);
     }
+
     return $modules;
   }
 }
