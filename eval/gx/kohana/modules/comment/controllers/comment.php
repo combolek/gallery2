@@ -25,6 +25,7 @@ class Comment_Controller extends Gallery_Controller {
     $comment->author = $author;
     $comment->email = $email;
     $comment->text = $text;
+    $comment->datetime = time();
     $comment->item_id = $item_id;
     $comment->save();
   }
