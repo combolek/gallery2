@@ -34,7 +34,7 @@ class Comment_Core {
   }
 
   static function ShowComments($item_id) {
-    $v = new View('show_comment');
+    $v = new View('show_comment.html');
     $v->item_id = $item_id;
     $v->set('comments', ORM::factory('Comment')->where('item_id', $item_id)->find_all());
     $v->render(true);
