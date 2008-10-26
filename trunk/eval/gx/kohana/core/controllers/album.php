@@ -42,7 +42,7 @@ class Album_Controller extends Gallery_Controller {
 	$this->template->content->success = basename($temp) . " was added.";
       } catch (Exception $e) {
 	$this->template->content->error = $e;
-      Kohana::log('error', $e->getTraceAsString());
+	Kohana::log('error', $e->getTraceAsString());
       }
       if (isset($temp) && file_exists($temp)) {
 	unlink($temp);
@@ -71,6 +71,7 @@ class Album_Controller extends Gallery_Controller {
 	$this->template->content->success = "$_POST[title] was added.";
       } catch (Exception $e) {
 	$this->template->content->error = $e;
+	Kohana::log('error', $e->getTraceAsString());
       }
     }
   }
