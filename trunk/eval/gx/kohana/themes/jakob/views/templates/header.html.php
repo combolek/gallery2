@@ -1,24 +1,24 @@
 <img id="Logo" alt="Logo" />
 
-<h1><?php echo $title ?></h1>
+<h1><?= $title ?></h1>
 
 <?= html::anchor('auth/login', (empty($authenticated)) ? 'Login' : 'Logout') ?>
 
 <ul id="global-navigation">
   <? if (isset($item)): ?>
-  <?php foreach (array('Home/Dashboard' => '#',
+  <? foreach (array('Home/Dashboard' => '#',
   'Browse Photos' => "album/{$item->id}",
   'Upload New Photos' => "album/{$item->id}/add",
   'Create Album' =>  "album/{$item->id}/add",
   'Help?' => '#') as $text => $view):?>
   <li>
-    <?php if ($active == $text): ?>
-    <?php echo html::anchor($view, $text, array('class' => 'active')); ?>
-    <?php else: ?>
-    <?php echo html::anchor($view, $text, $active); ?>
-    <?php endif; ?>
+    <? if ($active == $text): ?>
+    <?= html::anchor($view, $text, array('class' => 'active')); ?>
+    <? else: ?>
+    <?= html::anchor($view, $text, $active); ?>
+    <? endif; ?>
   </li>
-  <?php endforeach; ?>
+  <? endforeach; ?>
   <? endif; ?>
 </ul>
 

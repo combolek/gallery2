@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
-    <title><?php echo $header->title; ?></title>
+    <title><?= $header->title; ?></title>
 
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 
@@ -21,18 +21,18 @@
     <!-- Element -->
     <script src="http://yui.yahooapis.com/2.6.0/build/element/element-beta-min.js"></script>
 
-    <?php echo html::stylesheet('themes/jakob/css/styles.css', 'screen'); ?>
+    <?= html::stylesheet('themes/jakob/css/styles.css', 'screen'); ?>
   </head>
   <body>
     <div id="doc2" class="yui-t5">
       <div id="hd">
-	<?php echo $header; ?>
+	<?= $header; ?>
       </div>
 
       <div id="bd">
 	<div id="yui-main">
 	  <div id="content" class="yui-b">
-	    <?php echo $content; ?>
+	    <?= $content; ?>
 	  </div>
 	</div>
 
@@ -43,9 +43,8 @@
 
       </div><!-- end bd -->
 
-
       <div id="ft">
-	<?php echo $footer; ?>
+	<?= $footer; ?>
       </div>
     </div>
   </body>

@@ -1,4 +1,4 @@
-<?php
+<?
 print($open);
 if ($class) {
   print "<!-- unused class in form_template.html.php: $class -->";
