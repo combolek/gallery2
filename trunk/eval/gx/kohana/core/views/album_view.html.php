@@ -16,7 +16,7 @@
 	<?php $path = 'var/thumbnails/' . $child->id . '.jpg'; ?>
 	<?php
 	   echo html::anchor(
-	   "photo/$child->id",
+	   "$child->type/$child->id",
            html::image(array('src' => $path, 'class' => 'photo', 'alt' => $child->title)));
         ?>
       </td>

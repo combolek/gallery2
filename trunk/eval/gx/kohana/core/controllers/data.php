@@ -63,6 +63,7 @@ class Data_Controller {
             ENGINE=InnoDB DEFAULT CHARSET=utf8;');
 
       $this->_delete_files(DOCROOT . 'var/images/', true);
+      $this->_delete_files(DOCROOT . 'var/thumbnails/', true);
     } else {
       call_user_func(array($module, "Reset"));
     }
@@ -115,7 +116,7 @@ class Data_Controller {
         if (is_dir($path.'/'.$filename)) {
           // Ignore empty folders
           if (substr($filename, 0, 1) != '.') {
-            delete_files($path.'/'.$filename, $del_dir, $level + 1);
+            $this->_delete_files($path.'/'.$filename, $del_dir, $level + 1);
           }
         } else {
           unlink($path.'/'.$filename);

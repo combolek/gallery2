@@ -1,9 +1,9 @@
 /**
- * Gx Styles 
- * 
+ * Gx Styles
+ *
  * @requires YUI reset, font, grids, and base CSS
- * 
- * Sheet organization: 
+ *
+ * Sheet organization:
  * 1) HTML, body
  * 2) Text (fonts, headings, links)
  * 3) Layout containers
@@ -14,7 +14,7 @@
  * 8) Forms, additional form CSS stored in css/forms.css (temporarily)
  * 9) General browser hacks
  */
- 
+
 @import url('http://yui.yahooapis.com/2.6.0/build/reset-fonts-grids/reset-fonts-grids.css');
 @import url('http://yui.yahooapis.com/2.6.0/build/base/base-min.css');
 @import url('forms.css');
@@ -43,7 +43,7 @@ body, html {
 
 /* ~~~~~ View Container ~~~~~~ */
 
-.gAlbumView, 
+.gAlbumView,
 .gItemView {
   background-color: #fff;
   border: 1px solid #ccc;
@@ -208,7 +208,7 @@ img.photo {
 }
 .gBreadcrumbs li {
   list-style-type: none;
-  background: transparent url(images/icon_breadcrumb_separator.gif) no-repeat scroll left center;
+  background: transparent url(../images/icon_breadcrumb_separator.gif) no-repeat scroll left center;
   padding: 0 0 0 10px;
   float: left;
 }
@@ -344,7 +344,7 @@ img.photo {
 
 }
 
-#gCommentAdd { 
+#gCommentAdd {
   width: 500px;
 }
 
