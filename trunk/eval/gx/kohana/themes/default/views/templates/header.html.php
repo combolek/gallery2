@@ -3,8 +3,8 @@
 <h1><?php echo $title ?></h1>
 
 <div id="gLoginMenu">
-  <?= html::anchor('register', 'Register'); ?>
-  <?= html::anchor('auth/login', 'Login') ?>
+  <?= html::anchor('user/register', 'Register'); ?>
+  <?= html::anchor('auth/login', (empty($authenticated)) ? 'Login' : 'Logout') ?>
 </div>
 
 <ul id="gSiteMenu">
