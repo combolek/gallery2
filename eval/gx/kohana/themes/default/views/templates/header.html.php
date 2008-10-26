@@ -12,8 +12,8 @@
      array(
      'Home/Dashboard' => '#',
   'Browse Photos' => "album/{$item->id}",
-  'Upload New Photos' => "album/{$item->id}/add",
-  'Create Album' =>  "album/{$item->id}/add",
+  'Upload New Photos' => "album/{$item->id}/addphoto",
+  'Create Album' =>  "album/{$item->id}/addalbum",
   'Help?' => '#'
   ) as $text => $view): ?>
   <li>
@@ -27,8 +27,9 @@
 </ul>
 
 <ul class="gBreadcrumbs">
-  <li class="root"><a href="#">Home</a></li>
-  <li><a href="#">Friends &amp; Family</a></li>
-  <li><a href="#">Christmas 2007</a></li>
-  <!-- later on the ">>" should be a background image -->
+   <?php foreach ($path as $i => $p): ?>
+   <li <?php if ($i == 0): ?>class="root"<?php endif ?>>
+     <?php print html::anchor("album/$p->id", $p->title); ?>
+   </li>
+   <?php endforeach; ?>
 </ul>

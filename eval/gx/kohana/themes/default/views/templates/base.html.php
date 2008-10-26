@@ -1,14 +1,28 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
     <title><?php echo $header->title; ?></title>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <?php echo html::stylesheet('themes/default/css/styles.css', 'screen'); ?>
+
+    <!-- Dependencies -->
+    <script type="text/javascript" src="http://yui.yahooapis.com/2.6.0/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+    <!-- OPTIONAL: Animation (only required if using ContainerEffect) -->
+    <script type="text/javascript" src="http://yui.yahooapis.com/2.6.0/build/animation/animation-min.js"></script>
+    <!-- OPTIONAL: Connection (only required if using Dialog/SimpleDialog) -->
+    <script type="text/javascript" src="http://yui.yahooapis.com/2.6.0/build/connection/connection-min.js"></script>
+    <!-- Source file -->
+    <script type="text/javascript" src="http://yui.yahooapis.com/2.6.0/build/container/container-min.js"></script>
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.6.0/build/container/assets/container.css" />
+    <!-- Element -->
+    <script src="http://yui.yahooapis.com/2.6.0/build/element/element-beta-min.js"></script>
+
   </head>
   <body class="yui-skin-sam">
     <div id="doc2" class="gItemView yui-t5">
-    
+
       <div id="hd">
         <div id="gHeader">
         <?php echo $header; ?>
@@ -16,7 +30,7 @@
       </div>
 
       <div id="bd">
-      
+
         <div id="yui-main">
           <div id="gContent" class="yui-b">
             <?php echo $content; ?>
@@ -24,7 +38,7 @@
         </div>
 
         <div id="gSidebar" class="yui-b">
-        
+
           <form id="gSearch">
             <fieldset>
               <input type="text" class="text" value="Search Gallery ..." />
@@ -35,10 +49,10 @@
           <!-- div id="gCarousel">
             <h2>Carousel</h2>
             <img src="themes/default/images/carousel.png" / -->
-            <!-- for reference see http://developer.yahoo.com/yui/examples/carousel/csl_dynload2.html and 
+            <!-- for reference see http://developer.yahoo.com/yui/examples/carousel/csl_dynload2.html and
               http://developer.yahoo.com/ypatterns/pattern.php?pattern=carousel -->
           <!-- /div-->
-          
+
           <div class="gTagCloud">
             <h2>Tag cloud</h2>
             <ul>
@@ -79,7 +93,7 @@
               <li><a href="#" class="m size0">writing</a></li>
             </ul>
           </div>
-          
+
           <table class="gMetadata">
             <caption>Item Info</caption>
             <tbody>
@@ -97,9 +111,9 @@
               </tr>
             </tbody>
           </table>
-          
+
         </div><!-- end gSidebar yui-b -->
-        
+
       </div><!-- end YUI bd -->
 
       <div id="ft">
@@ -107,7 +121,7 @@
           <?php echo $footer; ?>
         </div>
       </div>
-      
+
     </div>
   </body>
 </html>

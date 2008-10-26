@@ -15,6 +15,7 @@ class Photo_Controller extends Gallery_Controller {
 
     $this->template->header->item = $item->parent;
     $this->template->header->active = "Browse Photos";
+    $this->template->header->path = $item->parent->path();
     $this->template->content = new View('photo_view.html');
     $this->template->content->item = $item;
   }
