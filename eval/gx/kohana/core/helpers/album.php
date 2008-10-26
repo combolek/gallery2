@@ -9,7 +9,7 @@ class Album_Core {
     }
 
     $album = ORM::factory('item');
-    $album->type = "album";
+    $album->type = ItemType::Album;
     $album->title = $title;
     $album->path = $path;
     $album->parent_id = $parent_id;

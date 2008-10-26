@@ -2,7 +2,7 @@
 class Photo_Core {
   static function create($filename, $title, $parent_id) {
     $item = ORM::factory('item');
-    $item->type = 'photo';
+    $item->type = ItemType::Photo;
     $item->title = $title;
     $item->path = basename($filename);
     $item->parent_id = $parent_id;
@@ -18,4 +18,3 @@ class Photo_Core {
     return $item;
   }
 }
-?>
