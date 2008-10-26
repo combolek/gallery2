@@ -8,14 +8,14 @@
 </div>
 
 <ul id="gSiteMenu">
-  <? foreach (
-     array(
-     'Home/Dashboard' => '#',
-  'Browse Photos' => "album/{$item->id}",
-  'Upload New Photos' => "album/{$item->id}/addphoto",
-  'Create Album' =>  "album/{$item->id}/addalbum",
-  'Help?' => '#'
-  ) as $text => $view): ?>
+  <? $itemId = empty($item) ? 1 : $item->id;
+   foreach (
+     array('Home/Dashboard' => '#',
+	   'Browse Photos' => "album/{$itemId}",
+	   'Upload New Photos' => "album/{$itemId}/addphoto",
+	   'Create Album' =>  "album/{$itemId}/addalbum",
+	   'Help?' => '#'
+    ) as $text => $view): ?>
   <li>
     <? if ($active == $text): ?>
     <?= html::anchor($view, $text, array('class' => 'active')); ?>
