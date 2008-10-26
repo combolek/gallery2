@@ -8,12 +8,12 @@
 </div>
 
 <ul id="gSiteMenu">
-  <? $itemId = empty($item) ? 1 : $item->id;
-   foreach (
+  <? if (isset($item)): ?>
+  <? foreach (
      array('Home/Dashboard' => '#',
-	   'Browse Photos' => "album/{$itemId}",
-	   'Upload New Photos' => "album/{$itemId}/addphoto",
-	   'Create Album' =>  "album/{$itemId}/addalbum",
+           'Browse Photos' => "album/{$item->id}",
+           'Upload New Photos' => "album/{$item->id}/addphoto",
+           'Create Album' =>  "album/{$item->id}/addalbum",
 	   'Help?' => '#'
     ) as $text => $view): ?>
   <li>
@@ -24,6 +24,7 @@
     <? endif; ?>
   </li>
   <? endforeach; ?>
+  <? endif; ?>
 </ul>
 
 <ul class="gBreadcrumbs">
