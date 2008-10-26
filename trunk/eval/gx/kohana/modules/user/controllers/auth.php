@@ -16,27 +16,27 @@ class Auth_Controller extends Gallery_Controller {
   const ALLOW_PRODUCTION = FALSE;
 
   // Use the default Kohana template
-  public $template = 'kohana/template';
-
-  public function index() {
-    // Display the install page
-    $this->template->title   = 'Auth Module Installation';
-    $this->template->content = View::factory('auth/install');
-  }
+  public $template = 'templates/base.html';
 
   public function login() {
+    $this->template->header->active = "";
+    $this->template->header->item = null;
+    $this->template->header->path = array();
+
     if (Auth::instance()->logged_in()) {
       $this->template->title = 'User Logout';
+      $this->template->content = new View("user_logout.html");
 
       $form = new Forge('auth/logout');
       $form->submit('Logout Now');
     } else {
       $this->template->title = 'User Login';
+      $this->template->content = new View("user_login.html");
 
-      $form = new Forge;
+      $form = new Forge('auth/login');
       $form->input('username')->label(TRUE)->rules('required|length[4,32]');
       $form->password('password')->label(TRUE)->rules('required|length[5,40]');
-      $form->submit('Attempt Login');
+      $form->submit('Login');
 
       if ($form->validate()) {
         // Load the user
@@ -51,17 +51,17 @@ class Auth_Controller extends Gallery_Controller {
         }
       }
     }
-
     // Display the form
-    $this->template->content = $form->render();
+    $this->template->content->form = $form->set_attr('class', 'gExpandedForm');
+
   }
 
   public function logout() {
     // Force a complete logout
-    Auth::instance()->logout(TRUE);
+    Auth::instance()->logout(true);
 
     // Redirect back to the login page
-    url::redirect('show/1');
+    url::redirect('album/view/1');
   }
 
 } // End Auth Controller

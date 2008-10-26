@@ -32,6 +32,8 @@ class User_Controller extends Gallery_Controller {
   public function register() {
     $this->template->title = 'Create User';
     $this->template->header->active = "";
+    $this->template->header->item = null;
+    $this->template->header->path = array();
 
     $form = new Forge;
     $form->input('email')->label(TRUE)->rules('required|length[4,32]|valid_email')->value('');
@@ -57,7 +59,7 @@ class User_Controller extends Gallery_Controller {
           Auth::instance()->login($user, $form->password->value);
 
           // Redirect to the login page
-          url::redirect('show/1');
+          url::redirect('album/view/1');
         }
       } else {
         $form->username->add_error('logon_failed', "User Name already exists");

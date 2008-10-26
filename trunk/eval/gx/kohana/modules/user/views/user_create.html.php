@@ -16,7 +16,7 @@
     <?= $password->render() ?>
     <br />
     <?= $password_errors ?>
-    <br /><br />
+    <br />
     <?= $password2->label() ?>
     <br />
     <?= $password2->render() ?>
