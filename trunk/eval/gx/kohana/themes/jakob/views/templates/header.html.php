@@ -5,14 +5,12 @@
 <?= html::anchor('auth/login', (empty($authenticated)) ? 'Login' : 'Logout') ?>
 
 <ul id="global-navigation">
-  <?php $itemId = empty($item) ? 1 : $item->id;
-    foreach (
-      array('Home/Dashboard' => '#',
-	    'Browse Photos' => "album/{$itemId}",
-	    'Upload New Photos' => "album/{$itemId}/addphoto",
-	    'Create Album' =>  "album/{$itemId}/addalbum",
-	    'Help?' => '#'
-    ) as $text => $view): ?>
+  <? if (isset($item)): ?>
+  <?php foreach (array('Home/Dashboard' => '#',
+  'Browse Photos' => "album/{$item->id}",
+  'Upload New Photos' => "album/{$item->id}/add",
+  'Create Album' =>  "album/{$item->id}/add",
+  'Help?' => '#') as $text => $view):?>
   <li>
     <?php if ($active == $text): ?>
     <?php echo html::anchor($view, $text, array('class' => 'active')); ?>
@@ -21,6 +19,7 @@
     <?php endif; ?>
   </li>
   <?php endforeach; ?>
+  <? endif; ?>
 </ul>
 
 <ul class="breadcrumbs">
