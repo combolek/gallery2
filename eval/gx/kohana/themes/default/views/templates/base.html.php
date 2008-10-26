@@ -2,9 +2,9 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
-    <title><?php echo $header->title; ?></title>
+    <title><?= $header->title; ?></title>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-    <?php echo html::stylesheet('themes/default/css/styles.css', 'screen'); ?>
+    <?= html::stylesheet('themes/default/css/styles.css', 'screen'); ?>
 
     <!-- Dependencies -->
     <script type="text/javascript" src="http://yui.yahooapis.com/2.6.0/build/yahoo-dom-event/yahoo-dom-event.js"></script>
@@ -25,7 +25,7 @@
 
       <div id="hd">
         <div id="gHeader">
-        <?php echo $header; ?>
+        <?= $header; ?>
         </div>
       </div>
 
@@ -33,7 +33,7 @@
 
         <div id="yui-main">
           <div id="gContent" class="yui-b">
-            <?php echo $content; ?>
+            <?= $content; ?>
           </div>
         </div>
 
@@ -118,7 +118,7 @@
 
       <div id="ft">
         <div id="gFooter">
-          <?php echo $footer; ?>
+          <?= $footer; ?>
         </div>
       </div>
 

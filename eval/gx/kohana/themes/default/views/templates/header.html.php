@@ -1,6 +1,6 @@
 <img id="gLogo" alt=" Gallery Logo" src="themes/default/images/logo.png" />
 
-<h1><?php echo $title ?></h1>
+<h1><?= $title ?></h1>
 
 <div id="gLoginMenu">
   <?= html::anchor('user/register', 'Register'); ?>
@@ -28,9 +28,9 @@
 </ul>
 
 <ul class="gBreadcrumbs">
-   <?php foreach ($path as $i => $p): ?>
-   <li <?php if ($i == 0): ?>class="root"<?php endif ?>>
-     <?php print html::anchor("album/$p->id", $p->title); ?>
+   <? foreach ($path as $i => $p): ?>
+   <li <? if ($i == 0): ?>class="root"<? endif ?>>
+     <?= html::anchor("album/$p->id", $p->title); ?>
    </li>
-   <?php endforeach; ?>
+   <? endforeach; ?>
 </ul>

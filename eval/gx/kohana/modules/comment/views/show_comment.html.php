@@ -1,4 +1,4 @@
-<?php if ($comments): ?>
+<? if ($comments): ?>
 <script type="text/javascript">
   function addComment(e) {
     var author, email, text, comment, li;
@@ -81,18 +81,18 @@
 <div id="gComments">
   <h2>Comments</h2>
   <ul id="gCommentThread">
-    <?php foreach ($comments as $index=>$comment): ?>
-    <li class="gComment" id="gComment-<?php print $index; ?>">
+    <? foreach ($comments as $index=>$comment): ?>
+    <li class="gComment" id="gComment-<?= $index; ?>">
       <p>
-        <a href="#" class="gAuthor"> <?php print $comment->author ?></a>
-        said <?php print round((time() - $comment->datetime)/60) ?> minutes ago
-        <span class="gDate understate"><?php print strftime('%c', $comment->datetime) ?></span>
+        <a href="#" class="gAuthor"> <?= $comment->author ?></a>
+        said <?= round((time() - $comment->datetime)/60) ?> minutes ago
+        <span class="gDate understate"><?= strftime('%c', $comment->datetime) ?></span>
       </p>
       <div>
-        <?php print $comment->text ?>
+        <?= $comment->text ?>
       </div>
     </li>
-    <?php endforeach; ?>
+    <? endforeach; ?>
   </ul>
 
   <form id="gCommentAdd" class="gCompactForm">
@@ -110,10 +110,10 @@
         <label for="gCommentText">Comment</label>
         <textarea id="gCommentText"></textarea>
       </div>
-      <input type="hidden" id="gItemId" value="<?php print($item_id); ?>" />
+      <input type="hidden" id="gItemId" value="<?=($item_id); ?>" />
       <input type="submit" id="gCommentSubmit" value="Add" />
     </fieldset>
   </form>
 
 </div>
-<?php endif; ?>
+<? endif; ?>
