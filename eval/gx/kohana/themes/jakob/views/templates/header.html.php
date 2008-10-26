@@ -2,8 +2,7 @@
 
 <h1><?php echo $title ?></h1>
 
-<?php echo html::anchor('register', 'Register'); ?>
-<?php echo html::anchor('auth/login', 'Login'); ?>
+<?= html::anchor('auth/login', (empty($authenticated)) ? 'Login' : 'Logout') ?>
 
 <ul id="global-navigation">
   <?php foreach (array('Home/Dashboard' => '#',
