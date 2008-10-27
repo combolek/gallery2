@@ -2,8 +2,8 @@
 class Comment_Core {
   static function Reset() {
     $db = Database::instance('default');
-    $db->query('DROP TABLE IF EXISTS `gx_eval_kohana`.`comments`;');
-    $db->query('CREATE TABLE  `gx_eval_kohana`.`comments` (
+    $db->query('DROP TABLE IF EXISTS `comments`;');
+    $db->query('CREATE TABLE  `comments` (
                   `id` int(9) NOT NULL auto_increment,
                   `author` char(255) default NULL,
                   `email` char(255) default NULL,
