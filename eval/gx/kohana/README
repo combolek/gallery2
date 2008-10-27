@@ -9,6 +9,7 @@ Setup Instructions
 
 1. In mysql, create a database (e.g. gx_eval_kohana) to use and give it a user/password
 2. kohana/config/database.php and specify the db/user/password
+3. Make sure that all subdirectories under kohana/var/ (logs, images, thumbnails,upload) are writable
 3. open kohana/index.php/data in the browser. Click reset, then populate.
 4. kohana/ in the browser
 5. rejoice!
