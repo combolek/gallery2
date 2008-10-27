@@ -29,6 +29,8 @@ class Data_Controller extends Controller {
     print "<title>Gx Scaffolding</title>";
     print "<h1>Scaffolding</h1>";
     print "<h2>Reset/Populate</h2>";
+
+
     foreach (array('core', 'Comment', 'User') as $module) {
       print html::anchor("data/reset/$module", "reset $module");
       print " | ";
@@ -39,10 +41,17 @@ class Data_Controller extends Controller {
     print "<h2>Useful Links and Tools</h2>";
     print html::anchor("", "browse gx", array("target" => "_new"));
     print "<br/>";
-    print "gx tree: ";
-    print html::anchor("data/graph&type=text", "(text)", array("target" => "_blank"));
+    print "Add ";
+    foreach (array(1, 10, 50, 100, 500, 1000) as $count) {
+      print html::anchor("data/overpopulate/$count", "$count");
+      print ", ";
+    }
+    print " photos and albums";
+    print "<br/>";
+    print "Show tree: ";
+    print html::anchor("data/graph&type=text", "(text)");
     print " ";
-    print html::anchor("data/graph", "(graph)", array("target" => "_blank"));
+    print html::anchor("data/graph", "(graph)");
     print " <i>(requires /usr/bin/dot from the graphviz package)</i>";
   }
 
@@ -114,6 +123,28 @@ class Data_Controller extends Controller {
       call_user_func(array($module, "Populate"));
     }
     url::redirect('data/index');
+  }
+
+  function OverPopulate($count) {
+    srand(time());
+    $parents = ORM::factory('item')->where('type', 'album')->find_all()->as_array();
+    for ($i = 0; $i < $count; $i++) {
+      $parent = $parents[array_rand($parents)];
+      switch(rand(0, 1)) {
+      case 0:
+	$album = album::create("Rnd $i", "rnd_" . rand(), $parent->id);
+	$parents[] = $album;
+	break;
+
+      case 1:
+	photo::create(DOCROOT . "core/test/sample.jpg", "rnd_" . rand(), $parent->id);
+	break;
+      }
+
+      print "$i "; flush();
+    }
+    print "<br/>";
+    print html::anchor("data", "return to scaffold");
   }
 
   function _delete_files($path, $del_dir = FALSE, $level = 0) {
