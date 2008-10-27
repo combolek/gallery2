@@ -72,29 +72,6 @@ class Data_Controller {
     if ($module == 'core') {
       $album = album::create("John Doe's Gallery", "", 0);
       $photo = photo::create(DOCROOT . 'core/test/sample.jpg', "GX Sprint!", $album->id);
-
-      $item = ORM::factory('user');
-      $item->id = 1;
-      $item->email = "admin@gx.com";
-      $item->username = "admin";
-      $item->password = 'admin';
-      $item->logins = 0;
-      $item->last_login = 1224873607;
-      $item->save();
-
-      $roles = ORM::factory('role');
-      $roles->name = 'login';
-      $roles->description = 'Login privileges, granted after account confirmation';
-      $roles->save();
-
-      $roles = ORM::factory('role');
-      $roles->name = 'admin';
-      $roles->description = 'Administrative user, has access to everything.';
-      $roles->save();
-
-      Database::instance('default')->query(
-         'INSERT INTO `roles_users` (`user_id`,`role_id`) VALUES (1,1);');
-
     } else {
       call_user_func(array($module, "Populate"));
     }
