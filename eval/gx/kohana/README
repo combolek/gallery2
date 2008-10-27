@@ -2,14 +2,14 @@ Requirements
 * Linux
 * PHP 5.2+ (with extensions filter, mysqli, session, and more!)
 * MySQL 4.1+ or 5+
-* Apache 1/2 
+* Apache 1/2
 * ImageMagick or GD2
 
 Setup Instructions
 
 1. In mysql, create a database (e.g. gx_eval_kohana) to use and give it a user/password
 2. kohana/config/database.php and specify the db/user/password
-3. Make sure that all subdirectories under kohana/var/ (logs, images, thumbnails,upload) are writable
+3. chmod -R 777 kohana/var
 3. open kohana/index.php/data in the browser. Click reset, then populate.
 4. kohana/ in the browser
 5. rejoice!
