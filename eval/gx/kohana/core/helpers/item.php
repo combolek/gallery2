@@ -7,6 +7,9 @@ class Item_Core {
 	$path .=  "/{$i->path}";
       }
     }
+    if (!$item->saved) {
+      $path .= "/$item->path";
+    }
     return $path;
   }
 }
