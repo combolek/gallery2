@@ -9,9 +9,9 @@ class Sizelimit {
     if (!($item instanceof Item_Model)) {
       return;
     }
-    $title = $item->title;
-    $title .= ' modified';
-    $item->title = $title;
+    $item->title .= "[m]";
+    $item->title = preg_replace("/\[m\]\[m\]$/", "[m:2]", $item->title);
+    $item->title = preg_replace("/\[m:(\d+)\]\[m\]/e", "'[m:'.\\1+1,']'", $item->title);
   }
 }
 
