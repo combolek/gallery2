@@ -26,6 +26,7 @@
  */
 class Data_Controller extends Controller {
   function Index() {
+    print "<title>Gx Scaffolding</title>";
     print "<h1>Scaffolding</h1>";
     print "<h2>Reset/Populate</h2>";
     foreach (array('core', 'Comment', 'User') as $module) {
@@ -38,9 +39,11 @@ class Data_Controller extends Controller {
     print "<h2>Useful Links and Tools</h2>";
     print html::anchor("", "browse gx", array("target" => "_new"));
     print "<br/>";
-    print html::anchor("data/graph", "view gx tree graph", array("target" => "_new"));
+    print "gx tree: ";
+    print html::anchor("data/graph&type=text", "(text)", array("target" => "_blank"));
     print " ";
-    print html::anchor("data/graph&type=text", "(text)", array("target" => "_new"));
+    print html::anchor("data/graph", "(graph)", array("target" => "_blank"));
+    print " <i>(requires /usr/bin/dot from the graphviz package)</i>";
   }
 
   function Graph() {
