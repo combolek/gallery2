@@ -58,29 +58,28 @@ class User_Core {
   }
 
   static function Populate() {
-      $item = ORM::factory('user');
-      $item->id = 1;
-      $item->email = "admin@gx.com";
-      $item->username = "admin";
-      $item->password = 'admin';
-      $item->logins = 0;
-      $item->last_login = 1224873607;
-      $item->save();
+      $user = ORM::factory('user');
+      $user->email = "admin@gx.com";
+      $user->username = "admin";
+      $user->password = 'admin';
+      $user->logins = 0;
+      $user->last_login = 1224873607;
+      $user->save();
 
-      $roles = ORM::factory('role');
-      $roles->name = 'login';
-      $roles->description = 'Login privileges, granted after account confirmation';
-      $roles->save();
+      $login = ORM::factory('role');
+      $login->name = 'login';
+      $login->description = 'Login privileges, granted after account confirmation';
+      $login->save();
 
-      $roles = ORM::factory('role');
-      $roles->name = 'admin';
-      $roles->description = 'Administrative user, has access to everything.';
-      $roles->save();
+      $admin = ORM::factory('role');
+      $admin->name = 'admin';
+      $admin->description = 'Administrative user, has access to everything.';
+      $admin->save();
 
       Database::instance('default')->query(
-	 'INSERT INTO `roles_users` (`user_id`,`role_id`) VALUES (1,1);');
+	"INSERT INTO `roles_users` (`user_id`,`role_id`) VALUES ({$user->id},{$login->id});");
       Database::instance('default')->query(
-	 'INSERT INTO `roles_users` (`user_id`,`role_id`) VALUES (1,2);');
+	"INSERT INTO `roles_users` (`user_id`,`role_id`) VALUES ({$user->id},{$admin->id});");
       print html::anchor("data/reset", "reset");
   }
 }
