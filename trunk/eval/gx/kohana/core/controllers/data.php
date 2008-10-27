@@ -39,7 +39,7 @@ class Data_Controller extends Controller {
     }
 
     print "<h2>Useful Links and Tools</h2>";
-    print html::anchor("", "browse gx", array("target" => "_new"));
+    print html::anchor("", "browse gx");
     print "<br/>";
     print "Add ";
     foreach (array(1, 10, 50, 100, 500, 1000) as $count) {
@@ -141,7 +141,10 @@ class Data_Controller extends Controller {
 	break;
       }
 
-      print "$i "; flush();
+      print "$i ";
+      if (!($i % 100)) {
+	set_time_limit(30);
+      }
     }
     print "<br/>";
     print html::anchor("data", "return to scaffold");
