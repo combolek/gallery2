@@ -24,15 +24,50 @@
  * @subpackage
  * @author Tim
  */
-class Data_Controller {
+class Data_Controller extends Controller {
   function Index() {
+    print "<h1>Scaffolding</h1>";
+    print "<h2>Reset/Populate</h2>";
     foreach (array('core', 'Comment', 'User') as $module) {
       print html::anchor("data/reset/$module", "reset $module");
       print " | ";
       print html::anchor("data/populate/$module", "populate $module");
       print "<br/>";
     }
-    print html::anchor("", "browse gx");
+
+    print "<h2>Useful Links and Tools</h2>";
+    print html::anchor("", "browse gx", array("target" => "_new"));
+    print "<br/>";
+    print html::anchor("data/graph", "view gx tree graph", array("target" => "_new"));
+    print " ";
+    print html::anchor("data/graph&type=text", "(text)", array("target" => "_new"));
+  }
+
+  function Graph() {
+    $items = ORM::factory('item')->orderby('id')->find_all();
+    $data = "digraph G {\n";
+    foreach ($items as $item) {
+      $data .= "  $item->parent_id -> $item->id\n";
+      $data .= "  $item->id [label=\"$item->id <$item->lft, $item->rgt>\"]\n";
+    }
+    $data .= "}\n";
+
+    if ($this->input->get('type') == 'text') {
+      print "<pre>$data";
+    } else {
+      $proc = proc_open("/usr/bin/dot -Tsvg",
+			array(array("pipe", "r"),
+			      array("pipe", "w")),
+			$pipes,
+			VARPATH . "tmp");
+      fwrite($pipes[0], $data);
+      fclose($pipes[0]);
+
+      header("Content-Type: image/svg+xml");
+      print(stream_get_contents($pipes[1]));
+      fclose($pipes[1]);
+      proc_close($proc);
+    }
   }
 
   function Reset($module) {
