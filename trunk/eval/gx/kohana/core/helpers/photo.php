@@ -19,11 +19,10 @@ class Photo_Core {
 	throw new Exception("CONFLICT");
       }
     }
+    $item->parent->add_child($item);
 
     copy($filename, DOCROOT . item::url($item));
-
     $image = Image::factory($filename);
-    $item->parent->add_child($item);
     $image->resize(200, 140, Image::WIDTH)
       ->save(DOCROOT . "var/thumbnails/{$item->id}.jpg");
 
