@@ -7,10 +7,12 @@ Requirements
 
 Setup Instructions
 
-1. In mysql, create a database (e.g. gx_eval_kohana) to use and give it a user/password
-2. kohana/config/database.php and specify the db/user/password
-3. chmod -R 777 kohana/var
-3. open kohana/index.php/data in the browser. Click reset, then populate.
+1. mysql -uroot create gx_eval_kohana
+   If you want to use a different db or use/pass, copy
+   kohana/config/database.php to core/config/database.php and edit it
+2. chmod -R 777 kohana/var
+3. open kohana/index.php/data in the browser.  Click all the reset links from top to bottom,
+   then click all the populate links from top to bottom.
 4. kohana/ in the browser
 5. Log in with admin/admin
 6. rejoice!
