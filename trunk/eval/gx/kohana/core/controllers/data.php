@@ -113,7 +113,7 @@ class Data_Controller extends Controller {
       $db = Database::instance('default');
       $db->query('DROP TABLE IF EXISTS `items`;');
 
-      $db->query('CREATE TABLE  `gx_eval_kohana`.`items` (
+      $db->query('CREATE TABLE  `items` (
               `id` int(9) NOT NULL auto_increment,
               `type` char(32) default NULL,
               `title` char(255) default NULL,
