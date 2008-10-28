@@ -122,7 +122,10 @@ class Data_Controller extends Controller {
               `level` int(9) default NULL,
               `lft` int(9) default NULL,
               `rgt` int(9) default NULL,
-              PRIMARY KEY  (`id`))
+              PRIMARY KEY  (`id`),
+              KEY `parent_id` (`parent_id`),
+              KEY `type` (`type`),
+              KEY `mptt` (`lft`,`rgt`))
             ENGINE=InnoDB DEFAULT CHARSET=utf8;');
 
       $db->query('DROP TABLE IF EXISTS `sessions`;');
