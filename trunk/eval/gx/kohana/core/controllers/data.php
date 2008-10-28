@@ -72,8 +72,12 @@ class Data_Controller extends Controller {
 	->where('type', $type)
 	->orderby('level', 'desc')
 	->find();
-      print html::anchor("$type/{$deepest->id}", "deepest $type");
-      print " ({$deepest->level} levels) ";
+      if ($deepest->loaded) {
+	print html::anchor("$type/{$deepest->id}", "deepest $type");
+	print " ({$deepest->level} levels) ";
+      } else {
+	print "<i>(no ${type}s)</i> ";
+      }
     }
   }
 
