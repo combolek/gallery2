@@ -30,7 +30,7 @@
 <ul class="gBreadcrumbs">
    <? foreach ($path as $i => $p): ?>
    <li <? if ($i == 0): ?>class="root"<? endif ?>>
-     <?= html::anchor("album/$p->id", $p->title); ?>
+     <?= html::anchor("album/$p->id", "{$p->title} ({$p->count_children()})"); ?>
    </li>
    <? endforeach; ?>
 </ul>
