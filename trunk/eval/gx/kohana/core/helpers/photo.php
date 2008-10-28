@@ -5,6 +5,7 @@ class Photo_Core {
     $item->type = ItemType::Photo;
     $item->title = $title;
     $item->path = basename($filename);
+    $item->parent_id = $parent_id;
 
     // Conflict?  Rename the file to a random number
     $retries = 100;
@@ -19,10 +20,9 @@ class Photo_Core {
       }
     }
 
-    $item->parent_id = $parent_id;
-    $image = Image::factory($filename);
-    $image->save(DOCROOT . item::url($item));
+    copy($filename, DOCROOT . item::url($item));
 
+    $image = Image::factory($filename);
     $item->parent->add_child($item);
     $image->resize(200, 140, Image::WIDTH)
       ->save(DOCROOT . "var/thumbnails/{$item->id}.jpg");
