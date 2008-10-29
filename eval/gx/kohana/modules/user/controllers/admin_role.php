@@ -38,7 +38,7 @@ class Admin_Role_Controller extends Gallery_Controller {
     $this->template->header->item = null;
     $this->template->header->path = array();
 
-    $this->template->content = new View('role_admin.html');
+    $this->template->content = new View('admin_role.html');
     $this->template->content->data = "<pre> Admin_Role_Controller </pre>";
   }
 }

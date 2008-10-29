@@ -1,3 +1,5 @@
+<?=html::anchor('album/1', 'John Doe\'s Gallery')?>
+
 <h1>Admin: Core</h1>
 
 <? foreach($data as $category => $descriptors): ?> </p>
