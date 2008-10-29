@@ -9,6 +9,13 @@ class Gallery_Controller extends Template_Controller {
 
 	$this->template->header->authenticated = Auth::instance()->logged_in();
 	$this->template->footer = new View('templates/footer.html');
+
+	Event::add('system.display', array('Gallery_Controller', '_show_profile'));
+    }
+
+    static function _show_profile() {
+      $profiler = new Profiler();
+      $profiler->render();
     }
 }
 ?>

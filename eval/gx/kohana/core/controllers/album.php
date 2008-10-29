@@ -9,9 +9,6 @@ class Album_Controller extends Gallery_Controller {
       return Kohana::show_404();
     }
 
-    if (Session::instance()->get('use_profiler', false)) {
-      $profiler = new Profiler();
-    }
     $this->template->header->item = $item;
     $this->template->header->active = "Browse Photos";
     $this->template->header->path = $item->parent->path();
@@ -20,9 +17,6 @@ class Album_Controller extends Gallery_Controller {
     $this->template->content->maxColumns = 3;
     $this->template->content->children = $item->children;
     $this->template->content->item = $item;
-    if (isset($profiler)) {
-      $profiler->render();
-    }
   }
 
   public function AddPhoto($id) {
