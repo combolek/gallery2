@@ -2,6 +2,8 @@
 
 <h1><?= $title ?></h1>
 
+<?= (!empty($is_admin)) ? html::anchor('admin/core', 'Administration') : "" ?>
+<?= (empty($authenticated)) ? html::anchor('user/register', 'Register') : "" ?>
 <?= html::anchor('auth/login', (empty($authenticated)) ? 'Login' : 'Logout') ?>
 
 <ul id="global-navigation">

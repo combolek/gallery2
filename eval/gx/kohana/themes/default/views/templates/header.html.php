@@ -3,7 +3,8 @@
 <h1><?= $title ?></h1>
 
 <div id="gLoginMenu">
-  <?= html::anchor('user/register', 'Register'); ?>
+  <?= (!empty($is_admin)) ? html::anchor('admin/core', 'Administration') : "" ?>
+  <?= (empty($authenticated)) ? html::anchor('user/register', 'Register') : "" ?>
   <?= html::anchor('auth/login', (empty($authenticated)) ? 'Login' : 'Logout') ?>
 </div>
 
@@ -11,9 +12,9 @@
   <? if (isset($item)): ?>
   <? foreach (
      array('Home/Dashboard' => '#',
-           'Browse Photos' => "album/{$item->id}",
-           'Upload New Photos' => "album/{$item->id}/addphoto",
-           'Create Album' =>  "album/{$item->id}/addalbum",
+	   'Browse Photos' => "album/{$item->id}",
+       'Upload New Photos' => "album/{$item->id}/addphoto",
+       'Create Album' =>  "album/{$item->id}/addalbum",
 	   'Help?' => '#'
     ) as $text => $view): ?>
   <li>
