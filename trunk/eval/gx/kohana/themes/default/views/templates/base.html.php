@@ -39,21 +39,21 @@
 
         <div id="gSidebar" class="yui-b">
 
-          <form id="gSearch">
+          <form id="gSearch gBlock">
             <fieldset>
               <input type="text" class="text" value="Search Gallery ..." />
               <input type="submit" class="submit" value="go" />
             </fieldset>
           </form>
 
-          <!-- div id="gCarousel">
+          <!-- div id="gCarousel gBlock">
             <h2>Carousel</h2>
             <img src="themes/default/images/carousel.png" / -->
             <!-- for reference see http://developer.yahoo.com/yui/examples/carousel/csl_dynload2.html and
               http://developer.yahoo.com/ypatterns/pattern.php?pattern=carousel -->
           <!-- /div-->
 
-          <div class="gTagCloud">
+          <div class="gTagCloud gBlock">
             <h2>Tag cloud</h2>
             <ul>
               <li><a href="#" class="m size0">animation</a></li>
@@ -94,7 +94,7 @@
             </ul>
           </div>
 
-          <table class="gMetadata">
+          <table class="gMetadata gBlock">
             <caption>Item Info</caption>
             <tbody>
               <tr>
