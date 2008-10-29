@@ -38,7 +38,7 @@ class Admin_User_Controller extends Gallery_Controller {
     $this->template->header->item = null;
     $this->template->header->path = array();
 
-    $this->template->content = new View('user_admin.html');
+    $this->template->content = new View('admin_user.html');
     $this->template->content->data = "<pre> Admin_User_Controller </pre>";
   }
 }
