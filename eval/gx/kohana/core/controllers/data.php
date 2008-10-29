@@ -55,30 +55,36 @@ class Data_Controller extends Controller {
     print " <i>(requires /usr/bin/dot from the graphviz package)</i>";
 
     print "<br/>";
-    print "profiler: ";
-    Session::instance()->set('use_profiler', $this->input->get('use_profiler', false));
-    if (Session::instance()->get('use_profiler', false)) {
-      print "on ";
-      print html::anchor("data&use_profiler=0", "(turn off)");
-    } else {
-      print "off ";
-      print html::anchor("data&use_profiler=1", "(turn on)");
+    try {
+      // If the datanase hasn't been initialized then this should fail and we won't carry on
+      $useProfiler = Session::instance()->get('use_profiler');
+
+      print "profiler: ";
+      Session::instance()->set('use_profiler', $this->input->get('use_profiler', false));
+      if (Session::instance()->get('use_profiler', false)) {
+        print "on ";
+        print html::anchor("data&use_profiler=0", "(turn off)");
+      } else {
+        print "off ";
+        print html::anchor("data&use_profiler=1", "(turn on)");
+      }
+      print "<br/>";
+      print "Interesting: ";
+      foreach (array('album', 'photo') as $type) {
+        $deepest = ORM::factory('item')
+          ->where('type', $type)
+          ->orderby('level', 'desc')
+          ->find();
+        if ($deepest->loaded) {
+          print html::anchor("$type/{$deepest->id}", "deepest $type");
+          print " ({$deepest->level} levels) ";
+        } else {
+          print "<i>(no ${type}s)</i> ";
+        }
+      }
+    } catch (Exception $e) {
     }
 
-    print "<br/>";
-    print "Interesting: ";
-    foreach (array('album', 'photo') as $type) {
-      $deepest = ORM::factory('item')
-	->where('type', $type)
-	->orderby('level', 'desc')
-	->find();
-      if ($deepest->loaded) {
-	print html::anchor("$type/{$deepest->id}", "deepest $type");
-	print " ({$deepest->level} levels) ";
-      } else {
-	print "<i>(no ${type}s)</i> ";
-      }
-    }
   }
 
   function Graph() {
