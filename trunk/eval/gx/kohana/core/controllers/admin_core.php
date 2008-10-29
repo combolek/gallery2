@@ -41,7 +41,7 @@ class Admin_Core_Controller extends Gallery_Controller {
         array('route' => $route, 'description' => $descriptor['description']);
     }
 
-    $this->template->content = new View('core_admin.html');
+    $this->template->content = new View('admin_core.html');
     $this->template->content->data = $data;
   }
 
