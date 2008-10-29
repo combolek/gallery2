@@ -86,6 +86,9 @@ body, html {
  ** **************************************************
  */
 
+.gBlock {
+  margin-bottom: 2em;
+}
 
 /**
  ** **************************************************
@@ -93,22 +96,48 @@ body, html {
  ** **************************************************
  */
 
-#photo-grid {
-  width: 100%;
+/* ~~~~~~~~~ album ~~~~~~~~~~ */
+
+#gAlbumGridHeader {
+  height: 40px;
+  position: relative;
 }
-#photo-grid td {
-  text-align: center;
-  border: 0;
+#gAlbumGridHeader h1 {
+  display: inline;
+}
+#gAlbumGridHeader span {
+  padding-left: 10px;
+}
+#gSlideshowLink {
+  position: absolute;
+  top: 0px;
+  right: 0px;
 }
 
-img.photo {
-  display: block;
-  width: 200px;
-  height: 140px;
-  border: 1px solid silver;
-  margin-left: auto;
-  margin-right: auto;
-  background-color: #e7e7e7;
+#gAlbumGrid .gItemContainer,
+#gAlbumGrid .gAlbumContainer {
+  width: 32%;
+  height: 220px;
+  float: left;
+  text-align: center;
+  border: 1px lightgray solid;
+  margin: 0px 0px 10px 1.49%;
+  padding: 5px 0px 5px 0px;
+}
+#gAlbumGrid .first {
+  margin: 0px 0px 10px 0px;
+}
+
+.gAlbum {
+  background-color: #D4DAFF;
+}
+.gAlbum h2 {
+  color: #000066;
+}
+
+.gItemContainer h2,
+.gAlbumContainer h2 {
+  margin: 5px 0px 5px 0px;
 }
 
 
@@ -120,6 +149,22 @@ img.photo {
   margin-right: auto;
   margin-left: auto;
   margin-bottom: 20px;
+}
+
+/* ~~~~~~~~~ metadata ~~~~~~~~~~ */
+table.gMetadata {
+  width: 100%;
+}
+table.gMetadata caption {
+  font-weight: bold;
+  text-align: left;
+}
+table.gMetadata td,
+table.gMetadata th {
+  border-color: lightgray;
+}
+table.gMetadata th {
+  text-align: left;
 }
 
 /* ~~~~~~~~~ comments ~~~~~~~~~~ */
@@ -225,106 +270,108 @@ img.photo {
   font-weight: bold;
 }
 
+/* ~~~~~~~~~ pagination ~~~~~~~~~~ */
+
 #gPagination {
-	clear: both;
-	padding: 10px 0px 0px 0px;
-	text-align: center;
+  clear: both;
+  padding: 10px 0px 0px 0px;
+  text-align: center;
 }
 #gPagination a,
 #gPagination span {
-	border: 1px solid lightgray;
-	padding: 5px;
-	background-repeat: no-repeat;
+  border: 1px solid lightgray;
+  padding: 5px;
+  background-repeat: no-repeat;
 }
 #gPagination a:hover {
-	background-color: #F3F3F3;
+  background-color: #F3F3F3;
 }
 #gPagination .first {
-	background-image: url('images/first.png');
-	background-position: left;
-	padding-left: 20px;
+  background-image: url('images/first.png');
+  background-position: left;
+  padding-left: 20px;
 }
 #gPagination .first_inactive {
-	background-image: url('images/first_inactive.png');
-	background-position: left;
-	padding-left: 20px;
+  background-image: url('images/first_inactive.png');
+  background-position: left;
+  padding-left: 20px;
 }
 #gPagination .previous {
-	background-image: url('images/previous.png');
-	background-position: left;
-	padding-left: 17px;
+  background-image: url('images/previous.png');
+  background-position: left;
+  padding-left: 17px;
 }
 #gPagination .previous_inactive {
-	background-image: url('images/previous_inactive.png');
-	background-position: left;
-	padding-left: 17px;
+  background-image: url('images/previous_inactive.png');
+  background-position: left;
+  padding-left: 17px;
 }
 #gPagination .next {
-	background-image: url('images/next.png');
-	background-position: right;
-	padding-right: 17px;
+  background-image: url('images/next.png');
+  background-position: right;
+  padding-right: 17px;
 }
 #gPagination .next_inactive {
-	background-image: url('images/next_inactive.png');
-	background-position: right;
-	padding-right: 17px;
+  background-image: url('images/next_inactive.png');
+  background-position: right;
+  padding-right: 17px;
 }
 #gPagination .last {
-	background-image: url('images/last.png');
-	background-position: right;
-	padding-right: 20px;
+  background-image: url('images/last.png');
+  background-position: right;
+  padding-right: 20px;
 }
 #gPagination .last_inactive {
-	background-image: url('images/last_inactive.png');
-	background-position: right;
-	padding-right: 20px;
+  background-image: url('images/last_inactive.png');
+  background-position: right;
+  padding-right: 20px;
 }
 
 /* ~~~~~~~~~ tag cloud ~~~~~~~~~~ */
 
 .gTagCloud ul {
-	text-align: justify;
-	margin: 0px;
-	padding: 0px;
+  text-align: justify;
+  margin: 0px;
+  padding: 0px;
 }
 .gTagCloud ul li {
-	text-align: justify;
-	display: inline;
+  text-align: justify;
+  display: inline;
 }
 .gTagCloud ul li a {
-	text-decoration: none;
+  text-decoration: none;
 }
 .gTagCloud ul li a.size0 {
-	font-size: 100%;
-	font-weight: 100;
-	color: #99CCFF;
+  font-size: 100%;
+  font-weight: 100;
+  color: #99CCFF;
 }
 .gTagCloud ul li a.size1 {
-	font-size: 110%;
-	font-weight: 300;
-	color: #6699FF;
+  font-size: 110%;
+  font-weight: 300;
+  color: #6699FF;
 }
 .gTagCloud ul li a.size2 {
-	font-size: 120%;
-	font-weight: 500;
-	color: #6699CC;
+  font-size: 120%;
+  font-weight: 500;
+  color: #6699CC;
 }
 .gTagCloud ul li a.size3 {
-	font-size: 130%;
-	font-weight: 700;
-	color: #336699;
+  font-size: 130%;
+  font-weight: 700;
+  color: #336699;
 }
 .gTagCloud ul li a.size4 {
-	font-size: 140%;
-	font-weight: 900;
-	color: #0E2B52;
+  font-size: 140%;
+  font-weight: 900;
+  color: #0E2B52;
 }
 
 /* ~~~~~~~~~ album tree ~~~~~~~~~~ */
 
 #gAlbumTree {
-	border: 1px solid blue;
-	margin: 20px 0 20px 0;
+  border: 1px solid blue;
+  margin: 20px 0 20px 0;
 }
 
 /**
