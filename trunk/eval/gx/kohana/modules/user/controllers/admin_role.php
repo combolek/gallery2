@@ -33,12 +33,14 @@ class Admin_Role_Controller extends Gallery_Controller {
     return array('category' => 'user', 'description' => "Manage Roles");
   }
 
-  public function __call($method, $arguments) {
+  public function Index() {
+    $roles = ORM::factory("role")->find_all();
+
     $this->template->header->active = "Admin";
     $this->template->header->item = null;
     $this->template->header->path = array();
-
+    
     $this->template->content = new View('admin_role.html');
-    $this->template->content->data = "<pre> Admin_Role_Controller </pre>";
+    $this->template->content->roles = $roles;
   }
 }

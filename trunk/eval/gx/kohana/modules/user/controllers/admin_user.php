@@ -33,12 +33,14 @@ class Admin_User_Controller extends Gallery_Controller {
     return array('category' => 'user', 'description' => "Manage Users");
   }
 
-  public function __call($method, $arguments) {
+  public function Index() {
+    $users = ORM::factory("user")->find_all();
+
     $this->template->header->active = "Admin";
     $this->template->header->item = null;
     $this->template->header->path = array();
-
+    
     $this->template->content = new View('admin_user.html');
-    $this->template->content->data = "<pre> Admin_User_Controller </pre>";
+    $this->template->content->users = $users;
   }
 }
