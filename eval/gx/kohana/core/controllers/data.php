@@ -169,8 +169,7 @@ class Data_Controller extends Controller {
               `rgt` int(9) default NULL,
               PRIMARY KEY  (`id`),
               KEY `parent_id` (`parent_id`),
-              KEY `type` (`type`),
-              KEY `mptt` (`lft`,`rgt`))
+              KEY `type` (`type`))
             ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 
       $db->query("DROP TABLE IF EXISTS `sessions`;");
@@ -230,7 +229,7 @@ class Data_Controller extends Controller {
     case "reset":
       $db->query("DROP TABLE IF EXISTS `concurrency`");
       switch ($arg) {
-      case "with-mptt-index":
+      case "with-mptt-indices":
 	$db->query("CREATE TABLE `concurrency` (
 		   `id` int(11) NOT NULL,
 		   `parent_id` int(11) NOT NULL,
@@ -243,7 +242,7 @@ class Data_Controller extends Controller {
 	break;
 
       default:
-      case "without-mptt-index":
+      case "without-mptt-indices":
 	$db->query("CREATE TABLE `concurrency` (
 		   `id` int(11) NOT NULL,
 		   `parent_id` int(11) NOT NULL,
@@ -253,7 +252,6 @@ class Data_Controller extends Controller {
 		   PRIMARY KEY  (`id`)
 		   ) ENGINE=InnoDB DEFAULT CHARSET=utf8");
       }
-      url::redirect("data/index");
       break;
 
     case "populate":
@@ -263,11 +261,10 @@ class Data_Controller extends Controller {
       $this->_set_mptt_pointers($tree);
 
       $this->_walk_tree($tree, $values);
-      if (count($values) > 1024) {
+      if (count($values)) {
 	$db->query("INSERT INTO `concurrency` (id, parent_id, level, lft, rgt) VALUES " .
 		   join(",", $values));
       }
-      url::redirect("data/index");
       break;
 
     case "shift":
@@ -277,16 +274,13 @@ class Data_Controller extends Controller {
 	$db->query("UPDATE `concurrency` SET lft=lft-$i WHERE lft>1");
 	$db->query("UPDATE `concurrency` SET rgt=rgt-$i WHERE lft>1");
       }
-      $profiler = new Profiler();
-      print $profiler->render();
+      break;
 
     case "view":
       $count = $db->query("SELECT COUNT(*) AS C FROM `concurrency`")->current()->C;
       for ($i = 1; $i <= $arg; $i++) {
 	$db->query("SELECT * FROM `concurrency` WHERE id=" . rand(1, $count));
       }
-      $profiler = new Profiler();
-      print $profiler->render();
       break;
 
     case "scan":
@@ -295,9 +289,11 @@ class Data_Controller extends Controller {
 	$db->query("SELECT * FROM `concurrency` WHERE lft >= " . rand(1, $count));
       }
       $profiler = new Profiler();
-      print $profiler->render();
       break;
     }
+
+    $profiler = new Profiler();
+    print $profiler->render();
   }
 
   function _walk_tree($node, &$values) {
