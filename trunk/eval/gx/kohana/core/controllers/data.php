@@ -53,6 +53,7 @@ class Data_Controller extends Controller {
     print " ";
     print html::anchor("data/graph", "(graph)");
     print " <i>(requires /usr/bin/dot from the graphviz package)</i>";
+    print "<br/>";
 
     try {
       // If the database hasn't been initialized then this should fail and we won't print
@@ -62,7 +63,6 @@ class Data_Controller extends Controller {
 	return url::redirect("data/index");
       }
 
-      print "<br/>";
       print "profiler: ";
 
       if (Session::instance()->get("use_profiler", false)) {
@@ -74,8 +74,8 @@ class Data_Controller extends Controller {
       }
     } catch (Exception $e) {
     }
-
     print "<br/>";
+
     print "interesting: ";
     foreach (array("album", "photo") as $type) {
       $deepest = ORM::factory("item")
@@ -106,15 +106,22 @@ class Data_Controller extends Controller {
     print "<br/>";
 
     print "shifts: ";
-    foreach (array(1, 10, 100, 1000) as $count) {
+    foreach (array(4, 16, 128, 1024) as $count) {
       print html::anchor("data/concurrency/shift/$count", "$count");
       print ", ";
     }
     print "<br/>";
 
     print "views: ";
-    foreach (array(4, 16, 128, 1024) as $count) {
+    foreach (array(1, 10, 100, 1000) as $count) {
       print html::anchor("data/concurrency/view/$count", "$count");
+      print ", ";
+    }
+    print "<br/>";
+
+    print "scans: ";
+    foreach (array(1, 10, 100, 1000) as $count) {
+      print html::anchor("data/concurrency/scan/$count", "$count");
       print ", ";
     }
   }
@@ -255,9 +262,11 @@ class Data_Controller extends Controller {
       $tree = $this->_create_tree(null, $arg);
       $this->_set_mptt_pointers($tree);
 
-      $values = rtrim($this->_walk_tree($tree), ",");
-      $db->query("INSERT INTO `concurrency` " .
-		 "(id, parent_id, level, lft, rgt) VALUES $values;");
+      $this->_walk_tree($tree, $values);
+      if (count($values) > 1024) {
+	$db->query("INSERT INTO `concurrency` (id, parent_id, level, lft, rgt) VALUES " .
+		   join(",", $values));
+      }
       url::redirect("data/index");
       break;
 
@@ -270,17 +279,41 @@ class Data_Controller extends Controller {
       }
       $profiler = new Profiler();
       print $profiler->render();
+
+    case "view":
+      $count = $db->query("SELECT COUNT(*) AS C FROM `concurrency`")->current()->C;
+      for ($i = 1; $i <= $arg; $i++) {
+	$db->query("SELECT * FROM `concurrency` WHERE id=" . rand(1, $count));
+      }
+      $profiler = new Profiler();
+      print $profiler->render();
+      break;
+
+    case "scan":
+      $count = $db->query("SELECT COUNT(*) AS C FROM `concurrency`")->current()->C;
+      for ($i = 1; $i <= $arg; $i++) {
+	$db->query("SELECT * FROM `concurrency` WHERE lft >= " . rand(1, $count));
+      }
+      $profiler = new Profiler();
+      print $profiler->render();
+      break;
     }
   }
 
-  function _walk_tree($node) {
+  function _walk_tree($node, &$values) {
     if (!$node) {
       return;
     }
-    $buf = "($node->id, $node->parent_id, $node->level, $node->left_ptr, $node->right_ptr),";
-    $buf .= $this->_walk_tree($node->left);
-    $buf .= $this->_walk_tree($node->right);
-    return $buf;
+    $values[] = "($node->id, $node->parent_id, $node->level, $node->left_ptr, $node->right_ptr)";
+    $this->_walk_tree($node->left, $values);
+    $this->_walk_tree($node->right, $values);
+
+    if (count($values) > 1024) {
+      Database::instance()->query(
+	"INSERT INTO `concurrency` (id, parent_id, level, lft, rgt) VALUES " .
+	join(",", $values));
+      $values = array();
+    }
   }
 
   function _set_mptt_pointers($node) {
