@@ -1,8 +1,5 @@
 <?php
-class Comment_Controller extends Gallery_Controller {
-  // Set the name of the template to use
-  public $template = 'templates/base';
-
+class Comment_Controller extends Controller {
   public function Delete($commentId) {
     $comment = ORM::factory('comment', $commentId);
     $comment->delete();
@@ -10,8 +7,6 @@ class Comment_Controller extends Gallery_Controller {
   }
 
   public function Add() {
-    Kohana::log('info', 'Adding new comment');
-
     $author = $this->input->post('author');
     $email = $this->input->post('email');
     $text = $this->input->post('text');
@@ -24,6 +19,8 @@ class Comment_Controller extends Gallery_Controller {
     $comment->datetime = time();
     $comment->item_id = $item_id;
     $comment->save();
+
+    print Comment::ShowComments($item_id);
   }
 }
 ?>
