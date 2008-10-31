@@ -17,7 +17,7 @@ legend {
 	margin: 0 2% .5em 0;
 	padding: .2em .5em;
 }
-input.text, textarea, select { 
+input.text, textarea, select, input.password { 
 	border: 1px solid #666; 
 	border-right: 1px solid #ccc; 
 	border-bottom: 1px solid #ccc;
@@ -31,7 +31,7 @@ input.radio, input.checkbox {
 	margin-right: .5em;
 }
 /* Create a bit of padding for text inputs and selects */
-input.text, input.button, textarea, select {
+input.text, input.password, input.button, textarea, select {
 	padding: .2em;
 }
 input.button { 

@@ -9,33 +9,40 @@
 	<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.6.0/build/base/base-min.css" />
 	<link rel="stylesheet" type="text/css" href="styles.css" media="screen,projection" />
 </head>
-<body>
-<div id="doc2" class="yui-t5">
-	<div id="hd">
-		<img id="logo" alt="Logo" src="images/logo.png" />
+
+<body class="yui-skin-sam">
+<div id="doc2" class="yui-t5 gAlbumView">
+	<div id="gHeader">
+    <img id="gLogo" alt="Logo" src="images/logo.png" />
+  
+    <h1>John Doe's Gallery</h1>
+  
+    <div id="gLoginMenu">
+      <a href="#">Register</a>
+      <a href="#">Login</a>
+    </div>
 		
-		<h1>John Doe's Gallery</h1>
-		
-		<a id="register-link" href="#">Register</a>
-		
-		<a id="login-link" href="#">Login</a>
-		
-		<ul id="global-navigation">
-			<li><a href="index.html">Home/Dashboard</a></li>
-			<li><a href="browse.html">Browse Photos</a></li>
-			<li><a class="active" href="upload.html">Upload New Photos</a></li>
-			<li><a href="#">Admin</a></li>
-			<li><a href="#">Help?</a></li>
+		<ul id="gSiteMenu">
+			<li><a href="index.html">HOME</a></li>
+			<li><a class="active" href="browse.html">BROWSE</a></li>
+			<li><a href="upload.html">UPLOAD</a></li>
+			<li><a href="upload.html">MY GALLERY</a></li>
+			<li><a href="#">ADMIN</a></li>
 		</ul>
 		
-		<ul class="breadcrumbs">
+		<ul class="gBreadcrumbs">
 			<li class="root"><a href="#">Home</a></li>
 			<li><a href="#">Friends &amp; Family</a></li>
-			<li><a href="#">Christmas 2007</a></li>
+			<li class="active"><span>Christmas 2007</span></li>
 			<!-- later on the ">>" should be a background image -->
 		</ul>
 		
-	</div><!-- END hd -->
+		<form id="gSearch">
+			<input type="text" class="text" value="Search Gallery ..." />
+			<input type="submit" class="submit" value="search" />
+		</form
+		
+	</div><!-- END:gHeader -->
 	
 	<div id="bd">
 		<div id="yui-main">
