@@ -1,81 +1,61 @@
 <? if ($comments): ?>
 <script type="text/javascript">
-  function addComment(e) {
-    var author, email, text, comment, li;
-
-    e.preventDefault(); // Prevent form submission
-
-    // Get form input
-    //oCommentForm = document.getElementById('gCommentAdd');
-    author = document.getElementById('gCommentAuthor').value;
-    email = document.getElementById('gCommentEmail').value;
-    text = document.getElementById('gCommentText').value;
-
-    // Create a new list element
-    var commentId = YAHOO.util.Dom.getElementsByClassName('gComment').length;
-    var li = document.createElement('li');
-    li.id = 'gComment-' + commentId;
-    li.className = 'gComment';
-    li.innerHTML = '<p><a href="' + email + '" class="gAuthor">' + author + '</a> ' +
-      ' has just said <span class="gDate understate"></span></p>' +
-      '<div class="gText">' + text + '</div>';
-
-    // Append new list item with comment form input
-    var elCommentThread = new YAHOO.util.Element('gCommentThread');
-
-    // Append a list item to contain the new comment
-    elCommentThread.appendChild(li);
-
-    // Highlight the new comment
-    var alertColor = new YAHOO.util.ColorAnim('gComment-' + commentId, {
-      backgroundColor: { to: '#FCF1D2' }
-    }, 1);
-
-    var origColor = new YAHOO.util.ColorAnim('gComment-' + commentId, {
-      backgroundColor: { to: '#fff' }
-    }, 1);
-
-    // Chain the alert animation to reset to the original bg color
-    alertColor.onComplete.subscribe(function() {
-      origColor.animate();
-    });
-
-    alertColor.animate();
-
-    // Send comment data to server
-    //var formObject = document.getElementById('gCommentAdd');
-    //YAHOO.util.Connect.setForm(formObject);
-
-    // setForm is supposed to do this work for us, but.
-    var commentAuthor = document.getElementById('gCommentAuthor').value;
-    var commentEmail= document.getElementById('gCommentEmail').value;
-    var commentText = document.getElementById('gCommentText').value;
-    var itemId = document.getElementById('gItemId').value;
-
-    var postData = 'author=' + commentAuthor;
-    postData += '&email=' + commentEmail;
-    postData += '&text=' + commentText;
-    postData += '&item_id=' + itemId;
-
-    var cObj = YAHOO.util.Connect.asyncRequest(
-      'POST', 'index.php?/comment/Add', callback, postData);
-    }
-
-    YAHOO.util.Event.addListener("gCommentAdd", "submit", addComment);
-
-    var responseSuccess = function(o){
-
-    // we can show some nice message here
-  };
-
-  var responseFailure = function(o){
-    // handle error
-  }
-
-  var callback = {
-    success:responseSuccess,
-    failure:responseFailure,
-  };
+// <![CDATA[
+  
+  // http://docs.jquery.com
+  // https://www.ibm.com/developerworks/web/library/wa-jquery1/
+  // http://plugins.jquery.com
+  
+  // Avoid conflicts w/ other JS frameworks that use $, like prototype
+  // This allows the use of other JS frameworks
+  j$ = jQuery.noConflict();
+  
+  // Wait for the DOM to load
+  j$(document).ready(function(){
+    // Get comment form values
+    var commentAuthor = j$('#gCommentAuthor').val();
+    var commentEmail = j$('#gCommentEmail').val();
+    var commentText = j$('#gCommentText').val();
+    var itemId = j$('#gItemId').val();
+      
+    alert(commentAuthor + commentEmail);
+    
+    // Run client-side validation
+    
+    // Send add comment request SHOULD BE SET UP WITH CALLBACKS FOR SUCCESS/ERROR
+    // Display "processing" modal display
+    j$("#gCommentAdd").ajaxForm(function() {
+      // Show comment addition confirmation message
+      alert("Your comment has been added");
+      
+      // Success callback - Add the comment
+        // Get ready to add the new comment to the thread
+        var newCommentID = 'gComment-' + j$("#gCommentThread").children("li").length + 1;
+        
+        // Markup the new comment
+        var li = '<li id="' + newCommentID + '" class="gComment"></li>';
+        
+        // Add the comment 
+        j$("#gCommentThread").append(li);
+        j$("#" + newCommentID).html('<p><a href="mailto:' + commentEmail + 
+          '" class="gAuthor">' + commentAuthor + '</a>  just said at ' + 
+          '<span class="gDate understate">HH:MM DD-MM-YY</span></p>' +
+          '<div class="gText">' + commentText + '</div>');
+        
+        // Hide the new comment and then fadeIn() or slideDown()
+        j$("#" + newCommentID)
+         .hide()
+         .slideDown("slow")
+		  .animate({ backgroundColor: "#ff9" }, 1000)
+		  .animate({ backgroundColor: "#fff" }, 1000);
+        
+        // Clear form values on success
+      });
+      
+      // Failure callback - display error status message
+   });
+  
+// ]]>
 </script>
 
 <div id="gComments">
@@ -95,20 +75,20 @@
     <? endforeach; ?>
   </ul>
 
-  <form id="gCommentAdd" class="gCompactForm">
+  <form method="post" action="index.php?/comment/Add" id="gCommentAdd" class="gCompactForm">
     <fieldset>
       <legend>Add comment</legend>
       <div class="row">
         <label for="gCommentAuthor">Your Name</label>
-        <input type="text" id="gCommentAuthor" class="text" />
+        <input type="text" name="author" id="gCommentAuthor" class="text" />
       </div>
       <div class="row">
         <label for="gCommentEmail">Your Email (not displayed)</label>
-        <input type="text" id="gCommentEmail" class="text" />
+        <input type="text" name="email" id="gCommentEmail" class="text" />
       </div>
       <div class="row">
         <label for="gCommentText">Comment</label>
-        <textarea id="gCommentText"></textarea>
+        <textarea name="text" id="gCommentText"></textarea>
       </div>
       <input type="hidden" id="gItemId" value="<?=($item_id); ?>" />
       <input type="submit" id="gCommentSubmit" value="Add" />

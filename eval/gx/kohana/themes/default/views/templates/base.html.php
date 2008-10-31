@@ -5,22 +5,11 @@
     <title><?= $header->title; ?></title>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <?= html::stylesheet('themes/default/css/styles.css', 'screen'); ?>
-
-    <!-- Dependencies -->
-    <script type="text/javascript" src="http://yui.yahooapis.com/2.6.0/build/yahoo-dom-event/yahoo-dom-event.js"></script>
-    <!-- OPTIONAL: Animation (only required if using ContainerEffect) -->
-    <script type="text/javascript" src="http://yui.yahooapis.com/2.6.0/build/animation/animation-min.js"></script>
-    <!-- OPTIONAL: Connection (only required if using Dialog/SimpleDialog) -->
-    <script type="text/javascript" src="http://yui.yahooapis.com/2.6.0/build/connection/connection-min.js"></script>
-    <!-- Source file -->
-    <script type="text/javascript" src="http://yui.yahooapis.com/2.6.0/build/container/container-min.js"></script>
-    <!-- CSS -->
-    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.6.0/build/container/assets/container.css" />
-    <!-- Element -->
-    <script src="http://yui.yahooapis.com/2.6.0/build/element/element-beta-min.js"></script>
-
+    <?= html::script('themes/default/js/jquery.min.js'); ?>
+    <?= html::script('themes/default/js/jquery.form.js'); ?>
+    <?= html::script('themes/default/js/jquery.color.js'); ?>
   </head>
-  <body class="yui-skin-sam">
+  <body>
     <div id="doc2" class="gItemView yui-t5">
 
       <div id="hd">
@@ -45,13 +34,6 @@
               <input type="submit" class="submit" value="go" />
             </fieldset>
           </form>
-
-          <!-- div id="gCarousel gBlock">
-            <h2>Carousel</h2>
-            <img src="themes/default/images/carousel.png" / -->
-            <!-- for reference see http://developer.yahoo.com/yui/examples/carousel/csl_dynload2.html and
-              http://developer.yahoo.com/ypatterns/pattern.php?pattern=carousel -->
-          <!-- /div-->
 
           <div class="gTagCloud gBlock">
             <h2>Tag cloud</h2>
