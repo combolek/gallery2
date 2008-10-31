@@ -20,7 +20,7 @@ class Comment_Controller extends Controller {
     $comment->item_id = $item_id;
     $comment->save();
 
-    print Comment::ShowComments($item_id);
+    print Comment::ShowCommentList($item_id);
   }
 }
 ?>

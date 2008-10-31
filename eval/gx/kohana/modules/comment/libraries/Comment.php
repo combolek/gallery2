@@ -35,9 +35,25 @@ class Comment_Core {
 
   static function ShowComments($item_id) {
     $v = new View('show_comment.html');
-    $v->item_id = $item_id;
-    $v->set('comments', ORM::factory('Comment')->where('item_id', $item_id)->find_all());
+
+    $v->comment_list = Comment::ShowCommentList($item_id);
+    $v->comment_form = Comment::ShowCommentForm($item_id);
     $v->render(true);
+  }
+
+  static function ShowCommentList($item_id) {
+    $v = new View('comment_list.html');
+    $v->item_id = $item_id;
+    $v->comments = ORM::factory('Comment')->where('item_id', $item_id)
+      ->orderby('datetime', 'desc')
+      ->limit(3)->find_all()->as_array();
+    return $v;
+  }
+
+  static function ShowCommentForm($item_id) {
+    $v = new View('comment_form.html');
+    $v->item_id = $item_id;
+    return $v;
   }
 }
 ?>
