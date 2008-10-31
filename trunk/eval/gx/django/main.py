@@ -81,9 +81,9 @@ def main():
       ('/view/(\d+)', PhotoHandler),
       ('/add', AddHandler),
       ('/upload', UploadHandler),
-      ('/delete/(\d)', DeleteHandler),
-      ('/(image)/(\d)', ImageHandler),
-      ('/(thumb)/(\d)', ImageHandler),
+      ('/delete/(\d+)', DeleteHandler),
+      ('/(image)/(\d+)', ImageHandler),
+      ('/(thumb)/(\d+)', ImageHandler),
       ], debug=True)
   wsgiref.handlers.CGIHandler().run(application)
 
