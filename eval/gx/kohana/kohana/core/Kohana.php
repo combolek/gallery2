@@ -444,8 +444,12 @@ final class Kohana {
 	{
 		if ($name === 'core')
 		{
-			// Load the application configuration file
-			require APPPATH.'config/config'.EXT;
+		  // Allow the application to override the standard settings
+      require SYSPATH.'config/config'.EXT;
+		  if (file_exists(APPPATH.'config/config'.EXT)) {
+			  // Load the application configuration file
+			  require APPPATH.'config/config'.EXT;
+		  }
 
 			if ( ! isset($config['site_domain']))
 			{
