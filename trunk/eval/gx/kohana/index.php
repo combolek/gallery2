@@ -102,7 +102,8 @@ unset($kohana_application, $kohana_modules, $kohana_system);
 
 if (!IN_PRODUCTION) {
   // Check APPPATH
-  if (!(is_dir(APPPATH) AND is_file(APPPATH . 'config/config' . EXT))) {
+  if (!(is_dir(APPPATH) AND is_file(APPPATH . 'config/config' . EXT)) && 
+      !(is_dir(SYSPATH) AND is_file(SYSPATH . 'config/config' . EXT))) {
       die(
 	'<div style="width:80%;margin:50px auto;text-align:center;">'.
 	'<h3>Application Directory Not Found</h3>'.
