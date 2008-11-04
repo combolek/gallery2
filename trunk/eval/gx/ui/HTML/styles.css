@@ -100,7 +100,7 @@ textarea {
 
 #gSidebar {
   width: 18.4615em;
-  padding: 1em 0 0 0;
+  padding: 1.5em 0 0 0;
 }
 
 #gFooter {
@@ -280,28 +280,38 @@ textarea {
 */
 
 .gBlock {
-	margin: 0 1em 2em 0;
+	margin: 0 1em 2.5em 0;
 	padding: 0;
 }
 .gBlockHeader {
 	background-color: #E8E8E8;
-	padding: .3em;
+	padding: .3em .4em .3em .4em;
 	height: 1.5em;
 	margin: 0 !important;
+	position: relative;
+	cursor: move;
 }
 .gBlockHeader h2 {
 	margin: 0;
 	float: left;
 	font-size: 1.1em;
+	background-image: url('images/ico_dragable.png');
+	background-repeat: no-repeat;
+	padding-left: 12px;
 }
 .gBlockHeader .minimize {
-	float: right;
+	position: absolute;
+	top: .45em;
+	right: .3em;
+	width: 16px;
+	height: 16px;
+	background-image: url('images/minimize.png');
+}
+.gBlockHeader .minimize:hover {
+	background-image: url('images/minimize_active.png');
 }
 .gBlockContent {
-	margin: .2em .5em 0 .5em;
-}
-.gBlockContent {
-	margin: .2em .5em 0 .5em;
+	margin: .5em .5em 0 .5em;
 }
 table.gBlockContent {
 	width: 214px;
@@ -484,6 +494,16 @@ table.gMetadata td.toggle {
 }
 .gTagCloud form {
 	margin-top: 10px;
+}
+
+/* ~~~~~~~~~ tags ~~~~~~~~~~ */
+
+.gTags ul {
+	margin-left: 2em;
+}
+.gTags li {
+	list-style-image: url('images/bullet_tag.png');
+	margin-bottom: .3em;
 }
 
 /* ~~~~~~~~~ album tree ~~~~~~~~~~ */
