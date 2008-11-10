@@ -1,0 +1,1876 @@
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2007 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# $Id$
+#
+#
+# @version      1.5.2
+# @package	Languagepack
+# @subpackage	Slovenian
+# @author	Marjan Laznik <marjan AT slo-foto DOT com>, 2003
+# @author	Anže Jesenko <jeso AT users DOT sourceforge DOTnet>, 2004
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery 1.5.2-cvs\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2008-11-04 17:39+0100\n"
+"PO-Revision-Date: 2004-08-06 08:02+0100\n"
+"Last-Translator: Marjan Laznik <marjan AT slo-foto DOT com>\n"
+"Language-Team: Slovenian <mesni AT burek DOT uni DOT cc>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-2\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3;\n"
+"X-Poedit-Language: Slovenian\n"
+"X-Poedit-Country: SLOVENIA\n"
+
+#: ../includes/definitions/albumProperties.php:39
+msgid "Texts"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:43
+msgid "Album Title"
+msgstr "Naslov albuma"
+
+#: ../includes/definitions/albumProperties.php:50
+#, fuzzy
+msgid "Album summary"
+msgstr "Povzetek albuma"
+
+#: ../includes/definitions/albumProperties.php:63
+msgid "Layout"
+msgstr "Ureditev"
+
+#: ../includes/definitions/albumProperties.php:67
+#, fuzzy
+msgid "Background Image (URL)"
+msgstr "Slika za ozadje"
+
+#: ../includes/definitions/albumProperties.php:73
+msgid "Font"
+msgstr "Pisava"
+
+#: ../includes/definitions/albumProperties.php:79
+msgid "Columns"
+msgstr "Stolpci"
+
+#: ../includes/definitions/albumProperties.php:85
+msgid "Rows"
+msgstr "Vrstice"
+
+#: ../includes/definitions/albumProperties.php:91
+msgid "Borders"
+msgstr "Okvirji"
+
+#: ../includes/definitions/albumProperties.php:98
+#, fuzzy
+msgid "Colors"
+msgstr "Zapri"
+
+#: ../includes/definitions/albumProperties.php:101
+msgid "Background Color"
+msgstr "Barva ozadja"
+
+#: ../includes/definitions/albumProperties.php:107
+msgid "Text Color"
+msgstr "Barva pisave"
+
+#: ../includes/definitions/albumProperties.php:113
+msgid "Link Color"
+msgstr "Barva povezav"
+
+#: ../includes/definitions/albumProperties.php:119
+#, fuzzy
+msgid "Border Color"
+msgstr "Barva okvirja"
+
+#: ../includes/definitions/albumProperties.php:126
+msgid "Frames"
+msgstr "Okvirji"
+
+#: ../includes/definitions/albumProperties.php:129
+msgid "Album Frame"
+msgstr "Okvir albumov"
+
+#: ../includes/definitions/albumProperties.php:136
+msgid "Thumb Frame"
+msgstr "Okvir slièic"
+
+#: ../includes/definitions/albumProperties.php:143
+#, fuzzy
+msgid "Item Frame"
+msgstr "Okvir slik"
+
+#: ../includes/definitions/albumProperties.php:156
+#, fuzzy
+msgid "Slideshow"
+msgstr "predvajanje"
+
+#: ../includes/definitions/albumProperties.php:160
+#, fuzzy
+msgid "Slideshow Type?"
+msgstr "Naèin predvajanja"
+
+#: ../includes/definitions/albumProperties.php:162
+#: ../includes/definitions/albumProperties.php:213
+#: ../includes/definitions/albumProperties.php:232
+msgid "Off"
+msgstr "Izklop"
+
+#: ../includes/definitions/albumProperties.php:163
+msgid "Ordered"
+msgstr "Po vrsti"
+
+#: ../includes/definitions/albumProperties.php:164
+msgid "Random"
+msgstr "Poljubno"
+
+#: ../includes/definitions/albumProperties.php:168
+#, fuzzy
+msgid "Include sub-albums in slideshow?"
+msgstr "vkljuèi pod-albume v projekcijo"
+
+#: ../includes/definitions/albumProperties.php:170
+#: ../includes/definitions/albumProperties.php:176
+#: ../includes/definitions/albumProperties.php:263
+#: ../includes/definitions/albumProperties.php:269
+#: ../includes/definitions/albumProperties.php:275
+#: ../includes/definitions/albumProperties.php:281
+#: ../includes/definitions/albumProperties.php:309
+#: ../includes/definitions/albumProperties.php:347
+#: ../includes/definitions/albumProperties.php:393
+#: ../includes/definitions/albumProperties.php:399
+#: ../includes/definitions/albumProperties.php:405
+#: ../includes/definitions/albumProperties.php:421
+#: ../includes/definitions/albumProperties.php:427
+#: ../includes/definitions/albumProperties.php:442
+#: ../includes/definitions/albumProperties.php:485
+#: ../includes/definitions/albumProperties.php:499
+msgid "Yes"
+msgstr "Da"
+
+#: ../includes/definitions/albumProperties.php:170
+#: ../includes/definitions/albumProperties.php:176
+#: ../includes/definitions/albumProperties.php:263
+#: ../includes/definitions/albumProperties.php:269
+#: ../includes/definitions/albumProperties.php:275
+#: ../includes/definitions/albumProperties.php:281
+#: ../includes/definitions/albumProperties.php:309
+#: ../includes/definitions/albumProperties.php:347
+#: ../includes/definitions/albumProperties.php:393
+#: ../includes/definitions/albumProperties.php:399
+#: ../includes/definitions/albumProperties.php:405
+#: ../includes/definitions/albumProperties.php:421
+#: ../includes/definitions/albumProperties.php:427
+#: ../includes/definitions/albumProperties.php:442
+#: ../includes/definitions/albumProperties.php:499
+msgid "No"
+msgstr "Ne"
+
+#: ../includes/definitions/albumProperties.php:174
+#, fuzzy
+msgid "Allow slideshow to loop?"
+msgstr "Dovoli ponavljanje"
+
+#: ../includes/definitions/albumProperties.php:180
+msgid "Slideshow Length"
+msgstr "Dol¾ina projekcije"
+
+#: ../includes/definitions/albumProperties.php:193
+msgid "Sizes"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:197
+#, fuzzy
+msgid "Thumbnail size (in px)?"
+msgstr "Velikost slièice"
+
+#: ../includes/definitions/albumProperties.php:204
+msgid "The ratio in which the thumbnails are made.<br>This affects only new thumbs. For existing use 'rebuild thumbs'."
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:206
+msgid "As the original image"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:207
+msgid "Square thumbs"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:211
+#, fuzzy
+msgid "Maximum size of intermediate sized images (in px)?"
+msgstr "Velikost najveèje mo¾ne srednje slike"
+
+#: ../includes/definitions/albumProperties.php:223
+#, fuzzy
+msgid "Maximum file size of intermediate sized JPEG/PNG images in kilobytes (0 or blank for no size restriction)?"
+msgstr "Velikost najveèje mo¾ne srednje slike v KB (0 ali prazno za brez omejitve velikosti)"
+
+#: ../includes/definitions/albumProperties.php:230
+#, fuzzy
+msgid "Maximum size of full sized images (in px)?"
+msgstr "Velikost najveèje mo¾ne srednje slike"
+
+#: ../includes/definitions/albumProperties.php:237
+#: ../includes/definitions/albumProperties.php:238
+#: ../includes/definitions/albumProperties.php:239
+#, php-format
+msgid "%d (%d MPix)"
+msgstr "%d (%d megapikslov)"
+
+#: ../includes/definitions/albumProperties.php:244
+#, fuzzy
+msgid "Maximum file size of full sized JPEG/PNG images in kb (0 or blank for no size restriction)?"
+msgstr "Velikost najveèje mo¾ne slike v KB (0 ali prazno za brez omejitve velikosti)"
+
+#: ../includes/definitions/albumProperties.php:257
+#, fuzzy
+msgid "Display"
+msgstr "igraj"
+
+#: ../includes/definitions/albumProperties.php:261
+msgid "Display click counter for this album?"
+msgstr "Prika¾em ¹tevec klikov za ta album?"
+
+#: ../includes/definitions/albumProperties.php:267
+#, fuzzy
+msgid "Display owner's name with caption?"
+msgstr "Prika¾em urednika albuma z naslovom"
+
+#: ../includes/definitions/albumProperties.php:273
+#, fuzzy
+msgid "Display clickable image dimensions?"
+msgstr "Prika¾i povezave z velikostmi"
+
+#: ../includes/definitions/albumProperties.php:279
+msgid "Display EXIF data?"
+msgstr "Prika¾em EXIF podatke?"
+
+#: ../includes/definitions/albumProperties.php:292
+msgid "Services"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:296
+msgid "Which photo printing services<br>do you want to let visitors use?"
+msgstr "Katere foto-servise ¾eli¹<br>dati na razpolago obiskovalcem?"
+
+#: ../includes/definitions/albumProperties.php:307
+msgid "Enable Ecards?"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:320
+msgid "Poll Properties"
+msgstr "Nastavitve ocenjevanja"
+
+#: ../includes/definitions/albumProperties.php:324
+#, fuzzy
+msgid "Who can vote?"
+msgstr "Kdo lahko ocenjuje"
+
+#: ../includes/definitions/albumProperties.php:325
+msgid "This enables/disable voting and if enabled it controls who can vote."
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:326
+msgid "Logged in"
+msgstr "Prijavjeni"
+
+#: ../includes/definitions/albumProperties.php:327
+msgid "Everybody"
+msgstr "Vsi"
+
+#: ../includes/definitions/albumProperties.php:328
+msgid "Nobody"
+msgstr "Nihèe"
+
+#: ../includes/definitions/albumProperties.php:332
+msgid "Type of poll for this album"
+msgstr "Tipi ocen za ta album"
+
+#: ../includes/definitions/albumProperties.php:334
+msgid "Rank"
+msgstr "Razred"
+
+#: ../includes/definitions/albumProperties.php:334
+msgid "Critique"
+msgstr "Ocena"
+
+#: ../includes/definitions/albumProperties.php:338
+msgid "Number of voting options"
+msgstr "©tevilo mo¾nih ocen"
+
+#: ../includes/definitions/albumProperties.php:345
+msgid "Show results of voting to all visitors?"
+msgstr "Prika¾em rezultate ocenjevanja vsem uporabnikom?"
+
+#: ../includes/definitions/albumProperties.php:351
+msgid "Number of lines of results graph to display on the album page"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:358
+msgid "Orientation of vote choices?"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:360
+msgid "Horizontal"
+msgstr "Vodoravno"
+
+#: ../includes/definitions/albumProperties.php:361
+msgid "Vertical"
+msgstr "Navpièno"
+
+#: ../includes/definitions/albumProperties.php:366
+msgid "Vote hint"
+msgstr "Namig za ocenjevanje"
+
+#: ../includes/definitions/albumProperties.php:373
+#, fuzzy
+msgid "Voting Options"
+msgstr "Mo¾nosti urednika"
+
+#: ../includes/definitions/albumProperties.php:377
+#, fuzzy
+msgid "Displayed Value"
+msgstr "igraj"
+
+#: ../includes/definitions/albumProperties.php:377
+msgid "Points"
+msgstr "Toèk"
+
+#: ../includes/definitions/albumProperties.php:387
+msgid "Misc"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:391
+#, fuzzy
+msgid "Add new items at beginning of album?"
+msgstr "Dodaj nove stvari na zaèetek albuma"
+
+#: ../includes/definitions/albumProperties.php:397
+#, fuzzy
+msgid "Show <i>Return to</i> link?"
+msgstr "Prika¾i povezavo  <i>Nazaj v</i>"
+
+#: ../includes/definitions/albumProperties.php:403
+#, fuzzy
+msgid "Offer visitors ability to specify<br>preference for full-size or resized images?"
+msgstr "Ponudi obiskovalcem mo¾nost da<br>izberejo med najveèjo ali zmanj¹ano sliko"
+
+#: ../includes/definitions/albumProperties.php:415
+#, fuzzy
+msgid "Owner Permissions"
+msgstr "Pravice"
+
+#: ../includes/definitions/albumProperties.php:416
+msgid "For historical reasons permissions for owners are handled as property, not as permission. <br>G1-Style ;-)"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:419
+#, fuzzy
+msgid "Allow users to modify their own items?"
+msgstr "Dovoli uporabnikom urejanje njihovih fotografij"
+
+#: ../includes/definitions/albumProperties.php:425
+#, fuzzy
+msgid "Allow users to delete their own items?"
+msgstr "Dovoli uporabnikom brisanje njihovih slik"
+
+#: ../includes/definitions/albumProperties.php:437
+msgid "Effects"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:440
+#, fuzzy
+msgid "Auto fit-to-window for<br>images without a resized copy?"
+msgstr "Avtomatièno prilagodi<br>nezmanj¹ane slike oknu"
+
+#: ../includes/definitions/albumProperties.php:452
+msgid "Custom Fields"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:461
+msgid "Number of user defined custom fields"
+msgstr "©tevilo uporabnikovih posebnih polj"
+
+#: ../includes/definitions/albumProperties.php:479
+msgid "Microthumbs"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:482
+msgid "Use microthumb photo navigation?"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:486
+msgid "No, just the normal navigation"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:487
+msgid "Both kinds of Navigation"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:491
+msgid "Microthumb style?"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:493
+#, fuzzy
+msgid "Fixed"
+msgstr "Neuspe¹no"
+
+#: ../includes/definitions/albumProperties.php:493
+msgid "Dynamic"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:497
+msgid "Show first &amp; last microthumb?"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:503
+#, fuzzy
+msgid "Number of previous thumbs?"
+msgstr "©tevilo mo¾nih ocen"
+
+#: ../includes/definitions/albumProperties.php:509
+#, fuzzy
+msgid "Number of next thumbs?"
+msgstr "©tevilo mo¾nih ocen"
+
+#: ../includes/definitions/albumProperties.php:515
+msgid "Position of microthumb navigation bar?"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:517
+msgid "Top"
+msgstr "Vrh"
+
+#: ../includes/definitions/albumProperties.php:518
+msgid "Both"
+msgstr "Oboje"
+
+#: ../includes/definitions/albumProperties.php:519
+msgid "Bottom"
+msgstr "Spodaj"
+
+#: ../includes/definitions/albumProperties.php:523
+msgid "Height of microthumbs in navigation bar (in px)?"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:530
+msgid "Bonus to height of current microthumb (in px)?"
+msgstr ""
+
+#: ../includes/definitions/services.php:49
+msgid "mPUSH is a photo service that adds the ability to send thumbnail images to your, or a friend's, cellphone for a small fee."
+msgstr ""
+
+#: ../lib/album.php:228
+msgid "navigate up"
+msgstr ""
+
+#: ../lib/album.php:265
+#, fuzzy, php-format
+msgid "Gallery: %s"
+msgstr "URL naslov galerije"
+
+#: ../lib/album.php:434 ../lib/album.php:435
+msgid "Add photos"
+msgstr ""
+
+#: ../lib/album.php:444 ../lib/album.php:449
+msgid "New nested album"
+msgstr ""
+
+#: ../lib/album.php:462 ../lib/album.php:470
+#, fuzzy
+msgid "Edit captions"
+msgstr "Ni naslova"
+
+#: ../lib/album.php:480 ../lib/album.php:481
+msgid "Change foldername"
+msgstr ""
+
+#: ../lib/album.php:488 ../lib/album.php:489
+msgid "Permissions"
+msgstr "Pravice"
+
+#: ../lib/album.php:498 ../lib/album.php:499
+#, fuzzy
+msgid "Properties"
+msgstr "Nastavitve ocenjevanja"
+
+#: ../lib/album.php:510 ../lib/album.php:511
+msgid "Watermark&nbsp;album"
+msgstr ""
+
+#: ../lib/album.php:524 ../lib/album.php:525
+#, fuzzy
+msgid "Delete album"
+msgstr "Izberi album"
+
+#: ../lib/album.php:534 ../lib/album.php:535
+#, fuzzy
+msgid "Move album"
+msgstr "Izberi album"
+
+#: ../lib/album.php:541 ../lib/album.php:542
+#, fuzzy
+msgid "Reorder album"
+msgstr "Izberi album"
+
+#: ../lib/album.php:553 ../lib/album.php:555
+msgid "Delete this (sub)album"
+msgstr ""
+
+#: ../lib/album.php:578 ../lib/album.php:579
+msgid "Sort items"
+msgstr ""
+
+#: ../lib/album.php:585 ../lib/album.php:586
+msgid "Resize all"
+msgstr ""
+
+#: ../lib/album.php:592 ../lib/album.php:593
+msgid "Rebuild thumbs"
+msgstr ""
+
+#: ../lib/album.php:599 ../lib/album.php:600
+msgid "Rearrange items"
+msgstr ""
+
+#: ../lib/album.php:607 ../lib/album.php:608
+#, fuzzy
+msgid "Rebuild capture dates"
+msgstr "Datum/èas posnetka"
+
+#: ../lib/album.php:619 ../lib/album.php:623
+#, fuzzy
+msgid "Poll results"
+msgstr "Rezultati ocenjevanja:"
+
+#: ../lib/album.php:629 ../lib/album.php:630
+#, fuzzy
+msgid "Poll reset"
+msgstr "Rezultati ocenjevanja:"
+
+#: ../lib/album.php:642 ../lib/album.php:645
+msgid "View&nbsp;comments"
+msgstr ""
+
+#: ../lib/album.php:656
+msgid "&lt;&lt; Album actions &gt;&gt;"
+msgstr ""
+
+#: ../lib/content.php:47
+msgid "Empty"
+msgstr "Prazno"
+
+#: ../lib/content.php:52
+#, php-format
+msgid "edit %s"
+msgstr "spremeni %s"
+
+#: ../lib/content.php:75
+msgid "No Caption"
+msgstr "Ni naslova"
+
+#: ../lib/content.php:78
+msgid "edit"
+msgstr "uredi"
+
+#: ../lib/content.php:110 ../lib/stats.php:249
+msgid "add comment"
+msgstr "dodaj komentar"
+
+#: ../lib/content.php:128
+msgid "Add your comment"
+msgstr "Dodaj komentar"
+
+#: ../lib/content.php:131
+msgid "Commenter:"
+msgstr "Zapisal:"
+
+#: ../lib/content.php:150
+msgid "Message:"
+msgstr "Sporoèilo:"
+
+#: ../lib/content.php:154
+#, fuzzy
+msgid "Post comment"
+msgstr " - Najnovej¹ih komentarjev"
+
+#: ../lib/content.php:166
+#, fuzzy
+msgid "Security violation!"
+msgstr "trenutna lokacija"
+
+#: ../lib/content.php:332
+#, fuzzy, php-format
+msgid "1 view"
+msgid_plural "%d views"
+msgstr[0] "%d krat"
+msgstr[1] "%d krat"
+msgstr[2] "%d krat"
+msgstr[3] "%d krat"
+
+#: ../lib/content.php:365 ../lib/content.php:392
+#, fuzzy
+msgid "Sub-albums:"
+msgstr "%d pod-album"
+
+#: ../lib/content.php:481
+msgid "EXIF Data"
+msgstr "EXIF podatki"
+
+#: ../lib/content.php:485
+msgid "Display of EXIF data enabled, but no data found."
+msgstr ""
+
+#: ../lib/content.php:654
+#, fuzzy
+msgid "Search:"
+msgstr "I¹èi po galeriji"
+
+#: ../lib/content.php:699 ../lib/content.php:734
+msgid "Operation done, closing window."
+msgstr ""
+
+#: ../lib/content.php:706 ../lib/content.php:746
+#, fuzzy
+msgid "Not closing this window because debug mode is on."
+msgstr "Ne zapiram okna ker je vklopljen debug mode"
+
+#: ../lib/content.php:742
+#, php-format
+msgid "Loading URL: %s"
+msgstr ""
+
+#: ../lib/content.php:783
+#, fuzzy, php-format
+msgid "Problem including file %s."
+msgstr "Ne morem dodati %s:"
+
+#: ../lib/content.php:944
+msgid "Select Album"
+msgstr "Izberi album"
+
+#: ../lib/content.php:954
+msgid "Move to top level"
+msgstr ""
+
+#: ../lib/content.php:981 ../lib/content.php:1053 ../lib/content.php:1061
+#, fuzzy
+msgid "Current location"
+msgstr "trenutna lokacija"
+
+#: ../lib/content.php:1069
+#, fuzzy
+msgid "This album itself"
+msgstr "Ta album je prazen."
+
+#: ../lib/content.php:1113
+#, php-format
+msgid "Last comment %s."
+msgstr "Zadnji komentar: %s."
+
+#: ../lib/content.php:1139 ../lib/content.php:1142
+msgid "No Skin"
+msgstr "Ni lupine(skin)"
+
+#: ../lib/content.php:1146
+#, fuzzy
+msgid "The original look and feel."
+msgstr "<dt>%s</dt><dd>Prednastavljen izgled.</dd>"
+
+#: ../lib/content.php:1195 ../lib/content.php:1199
+msgid "unknown"
+msgstr "neznano"
+
+#: ../lib/content.php:1203
+#, fuzzy, php-format
+msgid "Version: %s"
+msgstr "OK!  Verzija: %s"
+
+#: ../lib/content.php:1205
+#, fuzzy, php-format
+msgid "Last Update: %s"
+msgstr "Zadnja sprememba"
+
+#: ../lib/content.php:1224 ../lib/content.php:1230
+msgid "None"
+msgstr "Nobeden"
+
+#: ../lib/content.php:1225 ../lib/content.php:1231
+msgid "Dots"
+msgstr "Pike"
+
+#: ../lib/content.php:1226 ../lib/content.php:1232
+msgid "Solid"
+msgstr "Èrta"
+
+#: ../lib/content.php:1230
+msgid "No frames"
+msgstr "Brez okvirjev"
+
+#: ../lib/content.php:1231
+msgid "Just a simple dashed border around the thumb."
+msgstr "Le preprosta èrtkana èrta okolu slièice."
+
+#: ../lib/content.php:1232
+msgid "Just a simple solid border around the thumb."
+msgstr "Le preprosta èrta okoli slièice."
+
+#: ../lib/content.php:1255
+#, php-format
+msgid "Skipping %s."
+msgstr "Izkljuèujem %s."
+
+#: ../lib/content.php:1262
+#, fuzzy, php-format
+msgid "Can't open %s."
+msgstr "Ne morem brati %s"
+
+#: ../lib/content.php:1339 ../lib/content.php:1362
+#, fuzzy
+msgid "Not valid yet."
+msgstr "©e ni v veljavi"
+
+#: ../lib/content.php:1448
+#, fuzzy
+msgid "Logout"
+msgstr "Ureditev"
+
+#: ../lib/content.php:1453
+msgid "Login to see or add more items."
+msgstr ""
+
+#: ../lib/content.php:1456
+#, fuzzy
+msgid "Login"
+msgstr "Prijavjeni"
+
+#: ../lib/content.php:1491
+msgid "Show/Hide more information"
+msgstr ""
+
+#: ../lib/filesystem.php:109
+#, php-format
+msgid "extension of file %s is %s"
+msgstr ""
+
+#: ../lib/filesystem.php:152
+msgid "The path you try to use does not exist! Exiting Gallery"
+msgstr ""
+
+#: ../lib/filesystem.php:170
+#, php-format
+msgid "Parsing for csv data in file: %s"
+msgstr ""
+
+#: ../lib/filesystem.php:188
+#, fuzzy
+msgid "csv result:"
+msgstr "Rezultati ocenjevanja:"
+
+#: ../lib/filesystem.php:209
+#, php-format
+msgid "Extracting: %s failed. Not able create the folder to extract the archive in."
+msgstr ""
+
+#: ../lib/filesystem.php:217
+#, php-format
+msgid "Extracting: %s with %s"
+msgstr ""
+
+#: ../lib/filesystem.php:234
+#, php-format
+msgid "%s with extension %s is not an supported archive."
+msgstr ""
+
+#: ../lib/filesystem.php:278
+#, php-format
+msgid "Getting Exif from: %s"
+msgstr ""
+
+#: ../lib/filesystem.php:355
+msgid "You are not allowed to upload from local directories."
+msgstr ""
+
+#: ../lib/filesystem.php:371
+#, php-format
+msgid "%s is not in the list of allowed uploadpathes. Skipping."
+msgstr ""
+
+#: ../lib/filesystem.php:387
+#, php-format
+msgid "Could not open lock file (%s) for writing!"
+msgstr ""
+
+#: ../lib/filesystem.php:392
+#, php-format
+msgid "Could not acquire lock (%s)!"
+msgstr ""
+
+#: ../lib/form.php:73
+msgid "Check All"
+msgstr "Oznaèi vse"
+
+#: ../lib/form.php:75
+msgid "Clear All"
+msgstr "Odznaèi vse"
+
+#: ../lib/form.php:77
+msgid "Invert Selection"
+msgstr "Preobrni izbor"
+
+#: ../lib/form.php:312
+msgid "colorpicker"
+msgstr ""
+
+#: ../lib/form.php:532
+msgid "Add field"
+msgstr ""
+
+#: ../lib/imageManipulation.php:37
+#, fuzzy, php-format
+msgid "Resizing Image: %s."
+msgstr "Zmanj¹ujem %s"
+
+#: ../lib/imageManipulation.php:73
+#, fuzzy
+msgid "No resizing required."
+msgstr "Pomanj¹ava ni potrebna"
+
+#: ../lib/imageManipulation.php:102
+#, fuzzy, php-format
+msgid "Target file size: %d kbytes."
+msgstr "velikost izbrane datoteke je %d kbajtov"
+
+#: ../lib/imageManipulation.php:111 ../lib/imageManipulation.php:144
+#, fuzzy, php-format
+msgid "-> File size: %d kbytes"
+msgstr "-> velikost datoteke je %d kbajtov"
+
+#: ../lib/imageManipulation.php:112
+#, fuzzy, php-format
+msgid "Trying quality: %d%%."
+msgstr "pregledujem kakovost %d%%"
+
+#: ../lib/imageManipulation.php:145
+msgid "Done."
+msgstr "Zakljuèeno."
+
+#: ../lib/imageManipulation.php:251 ../lib/imageManipulation.php:540
+#: ../lib/imageManipulation.php:609 ../lib/imageManipulation.php:909
+msgid "You have no graphics package configured for use!"
+msgstr "Nimate name¹èenega paketa za manipulacijo grafik!"
+
+#: ../lib/imageManipulation.php:256
+msgid "No watermark name specified!"
+msgstr "Vodni ¾ig ni izbran!"
+
+#: ../lib/imageManipulation.php:432
+msgid "Using jpegtran for rotation"
+msgstr ""
+
+#: ../lib/imageManipulation.php:466
+msgid "Using Netpbm for rotation"
+msgstr ""
+
+#: ../lib/imageManipulation.php:508
+msgid "Using ImageMagick for rotation"
+msgstr ""
+
+#: ../lib/imageManipulation.php:573
+#, fuzzy
+msgid "Cropping Image"
+msgstr "®ig slike"
+
+#: ../lib/imageManipulation.php:640
+#, php-format
+msgid "Generating squared version to %d pixels."
+msgstr ""
+
+#: ../lib/imageManipulation.php:662
+#, fuzzy
+msgid "No Cropping Done."
+msgstr "Ni naslova"
+
+#: ../lib/imageManipulation.php:672
+#, php-format
+msgid "Call to %s failed in %s for file %s!"
+msgstr "Klic %s datoteke %s v %s ni uspel!"
+
+#: ../lib/imageManipulation.php:676
+#, php-format
+msgid "File %s type %d."
+msgstr "Datoteka %s, tip %d."
+
+#: ../lib/imageManipulation.php:716 ../lib/imageManipulation.php:745
+#, php-format
+msgid "Files with type %s are not supported by Gallery with Netpbm."
+msgstr ""
+
+#: ../lib/imageManipulation.php:797
+#, fuzzy, php-format
+msgid "Compressing image: %s"
+msgstr "Zmanj¹ujem %s"
+
+#: ../lib/imageManipulation.php:803
+msgid "Not all necessary params for resizing given."
+msgstr ""
+
+#: ../lib/imageManipulation.php:804
+#, php-format
+msgid "Resizing params: src: %s, dest : %s, targetSize: %s"
+msgstr ""
+
+#: ../lib/imageManipulation.php:848
+#, fuzzy
+msgid "Unable to preserve EXIF data (jhead not installed)."
+msgstr "Ni bilo mo¾no ohraniti EXIF podatkov (jhead ni name¹èen)"
+
+#: ../lib/imageManipulation.php:893
+msgid "Using IM high quality."
+msgstr ""
+
+#: ../lib/imageManipulation.php:897
+msgid "Not using IM high quality."
+msgstr ""
+
+#: ../lib/lang.php:739
+#, fuzzy
+msgid "Upload date"
+msgstr "Datum nalaganja"
+
+#: ../lib/lang.php:740
+#, fuzzy
+msgid "Capture date"
+msgstr "Datum/èas posnetka"
+
+#: ../lib/lang.php:741
+#, fuzzy
+msgid "Image size"
+msgstr "Velikost datoteke"
+
+#: ../lib/lang.php:742
+#, fuzzy
+msgid "Additional EXIF data"
+msgstr "Dodatni EXIF podatki"
+
+#: ../lib/lang.php:750
+msgid "title"
+msgstr "naslov"
+
+#: ../lib/lang.php:751
+msgid "Title"
+msgstr "Naslov"
+
+#: ../lib/lang.php:752
+msgid "Description"
+msgstr "Zaznamek"
+
+#: ../lib/lang.php:753
+msgid "description"
+msgstr "zaznamek"
+
+#: ../lib/lang.php:754
+#, fuzzy
+msgid "Alt text / Tooltip"
+msgstr "Alt Text / prehod z mi¹ko"
+
+#: ../lib/mail.php:42
+#, php-format
+msgid "Note: This is an automatically generated email message sent from the %s website.  If you have received this in error, please ignore this message."
+msgstr "To je samodejno generirano sporoèilo poslano s strani %s.  Èe ste ga dobili po pomoti, ga prosim ignorirajte."
+
+#: ../lib/mail.php:45
+#, php-format
+msgid "Report abuse to %s"
+msgstr "Zlorabe prijavite na %s."
+
+#: ../lib/mail.php:86
+#, fuzzy
+msgid "Email not sent as it is disabled for this gallery."
+msgstr "E-po¹ta ni poslana, ker je za to galerijo onemogoèena."
+
+#: ../lib/mail.php:92
+#, fuzzy, php-format
+msgid "Email not sent to %s as it is not a valid address."
+msgstr "E-po¹ta ni poslana, ker %s ni pravilen e-naslov."
+
+#: ../lib/mail.php:99
+#, fuzzy
+msgid "Email not sent as no recipient address provided."
+msgstr "E-po¹ta ni poslana, ni e-po¹tnega naslova."
+
+#: ../lib/mail.php:111
+#, php-format
+msgid "Sender address %s is invalid, using %s."
+msgstr "E-naslov po¹iljatelja %s je neveljaven, uporabil bom %s."
+
+#: ../lib/mail.php:143
+msgid "This is a HTML mail, please have a look at the Attachment."
+msgstr ""
+
+#: ../lib/mail.php:198
+#, fuzzy, php-format
+msgid ""
+"Hi !!FULLNAME!!,\n"
+"\n"
+"Congratulations.  You have just been subscribed to %s at %s.  Your account name is !!USERNAME!!.  Please visit the gallery soon, and create a password by clicking this link:\n"
+"\n"
+"!!NEWPASSWORDLINK!!\n"
+"\n"
+"Your %s Administrator."
+msgstr ""
+"®ivjo !!FULLNAME!!,  \n"
+"\n"
+"Èestitam.  Ravnokar si bil(a) vpisan(a) k %s na %s.  Tvoje uporabni¹ko ime je !!USERNAME!!.  Kmalu obi¹èi galerijo in si ustvari geslo s klikom na to povezavo:\n"
+"\n"
+"!!NEWPASSWORDLINK!!\n"
+"\n"
+"Urednik galerije na %s."
+
+#: ../lib/mail.php:207 ../lib/mail.php:209
+msgid "gallery title"
+msgstr "naslov galerije"
+
+#: ../lib/mail.php:208
+msgid "gallery URL"
+msgstr "URL naslov galerije"
+
+#: ../lib/mail.php:225
+msgid "The URL to your Gallery."
+msgstr ""
+
+#: ../lib/mail.php:226
+msgid "Title of your Gallery."
+msgstr ""
+
+#: ../lib/mail.php:227
+#, fuzzy
+msgid "Admin email(s)"
+msgstr "Administratorska pomoè"
+
+#: ../lib/mail.php:228
+msgid "Password for the newly created user."
+msgstr ""
+
+#: ../lib/mail.php:229 ../lib/setup.php:1644 ../lib/setup.php:1645
+#: ../lib/setup.php:1647 ../lib/setup.php:1651
+msgid "Username"
+msgstr "Uporabni¹ko ime"
+
+#: ../lib/mail.php:230
+#, fuzzy
+msgid "Fullname"
+msgstr "Ime in priimek"
+
+#: ../lib/mail.php:231
+msgid "Will be replaced by a link the new user can click on to create a new password."
+msgstr ""
+
+#: ../lib/mail.php:269 ../lib/mail.php:290
+#, fuzzy, php-format
+msgid "New comment for %s."
+msgstr "poglej komentarje"
+
+#: ../lib/mail.php:278
+#, php-format
+msgid "A new comment has been added to Gallery: %s"
+msgstr ""
+
+#: ../lib/mail.php:280
+#, php-format
+msgid "The comment was added by %s to this %s in this %s."
+msgstr ""
+
+#: ../lib/mail.php:282
+#, fuzzy
+msgid "Item"
+msgstr "predmetov"
+
+#: ../lib/mail.php:283
+msgid "Album"
+msgstr "Album"
+
+#: ../lib/mail.php:284
+#, fuzzy
+msgid "*** Begin comment ***"
+msgstr "i¹èi spam komentarje"
+
+#: ../lib/mail.php:286
+#, fuzzy
+msgid "*** End comment ***"
+msgstr "i¹èi spam komentarje"
+
+#: ../lib/mail.php:287
+msgid "If you no longer wish to receive emails about this item, follow the links above and ensure that 'Email me when comments are added' is unchecked in both the item and album page (you'll need to login first)."
+msgstr ""
+
+#: ../lib/mail.php:300
+msgid "Sending email failed. Additional info:"
+msgstr ""
+
+#: ../lib/mail.php:314
+msgid "Email activity"
+msgstr "Uporaba e-po¹te"
+
+#: ../lib/messages.php:178
+#, php-format
+msgid "Generated by %s v%s"
+msgstr "Generiral %s v%s"
+
+#: ../lib/messages.php:181
+#, php-format
+msgid "Powered by %s v%s"
+msgstr "Uporablja %s v%s"
+
+#: ../lib/messages.php:202
+#, fuzzy
+msgid "Invalid Request."
+msgstr "©e ni v veljavi"
+
+#: ../lib/messages.php:209
+#, php-format
+msgid "Please go back to %s."
+msgstr ""
+
+#: ../lib/setup.php:139
+msgid "Please retype your password here"
+msgstr ""
+
+#: ../lib/setup.php:152 ../lib/setup.php:1243
+msgid "Name"
+msgstr "Ime"
+
+#: ../lib/setup.php:153 ../lib/setup.php:1243
+msgid "Value"
+msgstr "Vrednost"
+
+#: ../lib/setup.php:187 ../lib/setup.php:239
+msgid "No content"
+msgstr ""
+
+#: ../lib/setup.php:408
+#, fuzzy, php-format
+msgid "Missing value: %s"
+msgstr "Manjkajoèi podatki"
+
+#: ../lib/setup.php:427
+msgid "exec() is enabled on this server."
+msgstr ""
+
+#: ../lib/setup.php:448
+#, fuzzy
+msgid "Gallery is able to read your .htaccess file."
+msgstr "Lahko berem <b>.htaccess</b> datoteko."
+
+#: ../lib/setup.php:470
+#, php-format
+msgid "PHP v%s is OK."
+msgstr "PHP v%s je OK."
+
+#: ../lib/setup.php:488
+#, fuzzy
+msgid "mod_rewrite is enabled."
+msgstr "<b>mod_rewrite</b> je vkljuèen."
+
+#: ../lib/setup.php:520
+msgid "Can't find <i>jhead</i>."
+msgstr ""
+
+#: ../lib/setup.php:524 ../lib/setup.php:528
+#, fuzzy, php-format
+msgid "<b>jhead</b> binary version %s located."
+msgstr "<b>jhead</b> lociran."
+
+#: ../lib/setup.php:525
+msgid "You are using an older version of jhead. There are at least known problems with version 2.0. We recommend version 2.7 and higher."
+msgstr ""
+
+#: ../lib/setup.php:566
+msgid "Without pnmcomp and pamcomp, gallery will not be able to watermark images, unless you use ImageMagick and have the composite binary installed."
+msgstr ""
+
+#: ../lib/setup.php:574
+msgid "Netpbm not being used in this installation."
+msgstr ""
+
+#: ../lib/setup.php:579 ../lib/setup.php:675
+msgid "Cannot verify this path (it's not in your open_basedir list)."
+msgstr ""
+
+#: ../lib/setup.php:613 ../lib/setup.php:692
+#, php-format
+msgid "Missing optional binary %s. %s"
+msgstr ""
+
+#: ../lib/setup.php:616 ../lib/setup.php:695
+#, php-format
+msgid "Can't find %s!"
+msgstr "Ne najdem %s!"
+
+#: ../lib/setup.php:622 ../lib/setup.php:701
+#, php-format
+msgid "%s is not executable!"
+msgstr ""
+
+#: ../lib/setup.php:632 ../lib/setup.php:640
+#, php-format
+msgid "%d of %d Netpbm binaries located."
+msgstr ""
+
+#: ../lib/setup.php:664
+msgid "Without composite gallery will not be able to watermark images, except you use Netpbm and have the pnmcomp binary installed."
+msgstr ""
+
+#: ../lib/setup.php:670
+msgid "ImageMagick not being used in this installation."
+msgstr ""
+
+#: ../lib/setup.php:711 ../lib/setup.php:719
+#, php-format
+msgid "%d of %d ImageMagick binaries located."
+msgstr ""
+
+#: ../lib/setup.php:743
+msgid "jpegtran was not found."
+msgstr ""
+
+#: ../lib/setup.php:746
+#, fuzzy
+msgid "jpegtran binary located."
+msgstr "<b>jhead</b> lociran."
+
+#: ../lib/setup.php:758
+msgid "PHP has GNU gettext support."
+msgstr ""
+
+#: ../lib/setup.php:760
+msgid "PHP does not have GNU gettext support."
+msgstr ""
+
+#: ../lib/setup.php:775
+msgid "No languages found."
+msgstr ""
+
+#: ../lib/setup.php:778
+msgid "It seems you didn't download any additional languages. This is not a problem! Gallery will appear just in English. Note: If this is not true, check that all files in locale folder are readable for the webserver, or contact the Gallery Team."
+msgstr ""
+
+#: ../lib/setup.php:781
+#, php-format
+msgid "%d languages are available.  If you are missing a language please visit the %sGallery download page%s."
+msgstr ""
+
+#: ../lib/setup.php:808
+#, php-format
+msgid "You can check for more recent versions by visiting %s."
+msgstr ""
+
+#: ../lib/setup.php:810
+#, php-format
+msgid "This version of %s was released on %s."
+msgstr ""
+
+#: ../lib/setup.php:813
+#, php-format
+msgid "This is a development build of %s that was released on %s."
+msgstr ""
+
+#: ../lib/setup.php:819
+#, php-format
+msgid "That's more than %d days ago. Which is way too old for a pre Release version."
+msgstr ""
+
+#: ../lib/setup.php:824
+#, php-format
+msgid "That's more than %d days ago."
+msgstr ""
+
+#: ../lib/setup.php:832
+msgid "Please check regularly for updates."
+msgstr ""
+
+#: ../lib/setup.php:855
+msgid "All gallery locales are available on this host."
+msgstr ""
+
+#: ../lib/setup.php:859
+#, php-format
+msgid "There are %d locales that Gallery was unable to locate. You may need to select manually date formats. "
+msgstr ""
+
+#: ../lib/setup.php:867
+#, php-format
+msgid "Dates in %d languages may not be formatted properly, because the corresponding locales are missing. You may need to select manually the date formats for these."
+msgstr ""
+
+#: ../lib/setup.php:873
+#, php-format
+msgid "We were unable to detect any locales.  However, your PHP installation is configured with the %s restriction so this may be interfering with the way that we detect locales.  Unfortunately this means the date format will not change for different languages.  However, it is OK to continue."
+msgstr ""
+
+#: ../lib/setup.php:878
+#, php-format
+msgid "We were unable to detect any system locales. Multi-language functions will be disabled. Please install the corresponding locales or ask your administrator to do this. This problem is known on %s systems. In this case please have a look at this %sDebian locale HowTo%s."
+msgstr ""
+
+#: ../lib/setup.php:883
+msgid "Only the default locale for this machine is available, so date format will not change for different languages."
+msgstr ""
+
+#: ../lib/setup.php:1055 ../lib/setup.php:1156
+msgid "Advanced"
+msgstr "Napredno"
+
+#: ../lib/setup.php:1056
+msgid "<b>System</b> locale selection required"
+msgstr ""
+
+#: ../lib/setup.php:1057
+msgid "There is more than one suitable <b>system</b> locale installed on your machine for the following languages.  Please chose the one you think is most suitable."
+msgstr ""
+
+#: ../lib/setup.php:1059 ../lib/setup.php:1160
+msgid "This is <b>only</b> for date &amp; time format. You only need to edit the languages you enabled above."
+msgstr ""
+
+#: ../lib/setup.php:1073 ../lib/setup.php:1109
+msgid "System locale"
+msgstr ""
+
+#: ../lib/setup.php:1157
+msgid "<b>System</b> locale problems"
+msgstr ""
+
+#: ../lib/setup.php:1158
+msgid "There are no apparently suitable <b>system</b> locales installed on your machine for the following languages.  Please choose the one you think is most suitable."
+msgstr ""
+
+#: ../lib/setup.php:1209
+msgid "safe_mode is off."
+msgstr ""
+
+#: ../lib/setup.php:1223
+msgid "magic_quotes are off."
+msgstr ""
+
+#: ../lib/setup.php:1241
+#, php-format
+msgid "In %s, missing %s in row %d with %s %s."
+msgstr ""
+
+#: ../lib/setup.php:1242 ../lib/setup.php:1252 ../lib/setup.php:1258
+msgid "Vote words and values"
+msgstr ""
+
+#: ../lib/setup.php:1251
+#, php-format
+msgid "In %s, blank in row %d."
+msgstr ""
+
+#: ../lib/setup.php:1257
+#, php-format
+msgid "In %s, for name %s (row %d) value %s should be a positive whole number"
+msgstr ""
+
+#: ../lib/setup.php:1279
+msgid "register_globals is off."
+msgstr ""
+
+#: ../lib/setup.php:1466
+msgid "Your passwords do not match!"
+msgstr ""
+
+#: ../lib/setup.php:1478
+msgid "OK"
+msgstr ""
+
+#: ../lib/setup.php:1483
+#, fuzzy
+msgid "Valid admin email address given."
+msgstr "Email administratorja"
+
+#: ../lib/setup.php:1491
+#, fuzzy
+msgid "You must specify valid admin email addresses."
+msgstr "Vpisati mora¹ veljaven administratorski email naslov"
+
+#: ../lib/setup.php:1500
+#, php-format
+msgid "%s is not a valid email address."
+msgstr "%s ni veljaven e-po¹tni naslov."
+
+#: ../lib/setup.php:1511
+#, fuzzy
+msgid "Valid sender email address given."
+msgstr "Po¹iljatelj"
+
+#: ../lib/setup.php:1514
+#, fuzzy
+msgid "You must specify a valid sender email address."
+msgstr "Vpisati mora¹ veljaven email naslov"
+
+#: ../lib/setup.php:1518
+#, php-format
+msgid "You must include %s in your welcome email."
+msgstr ""
+
+#: ../lib/setup.php:1525
+#, php-format
+msgid "You must include %s or %s in your welcome email."
+msgstr ""
+
+#: ../lib/setup.php:1547
+#, fuzzy, php-format
+msgid "this is new in version %s."
+msgstr "tole je novo v verziji %s"
+
+#: ../lib/setup.php:1552
+#, php-format
+msgid "Return to %s."
+msgstr "Nazaj v %s."
+
+#: ../lib/setup.php:1553
+msgid "Configuration Wizard"
+msgstr "Nastavitveni èarovnik"
+
+#: ../lib/setup.php:1603
+#, php-format
+msgid "You must enter a password for the %s account."
+msgstr "Vpi¹i geslo za %s ."
+
+#: ../lib/setup.php:1608
+#, php-format
+msgid "It seems you've already configured Gallery, because there is one admin account, but it is not called %s."
+msgstr ""
+
+#: ../lib/setup.php:1611
+#, php-format
+msgid "It seems you've already configured Gallery, because there are %d admin accounts, but no user called %s."
+msgstr ""
+
+#: ../lib/setup.php:1614
+#, php-format
+msgid "You don't have to enter a password.  But if you do, Gallery will create an administrator account called %s with that password."
+msgstr ""
+
+#: ../lib/setup.php:1623
+#, php-format
+msgid "It seems you've already configured Gallery, because the %s user exists.  You don't have to enter a password.  But if you do, Gallery will change the password for the %s user."
+msgstr ""
+
+#: ../lib/setup.php:1629
+msgid "Admin password"
+msgstr "Administratorsko geslo"
+
+#: ../lib/setup.php:1644 ../lib/setup.php:1645 ../lib/setup.php:1646
+#: ../lib/setup.php:1650
+msgid "Full Name"
+msgstr "Ime in priimek"
+
+#: ../lib/setup.php:1648
+msgid "Full name that you can click on to send email (mailto:)"
+msgstr ""
+
+#: ../lib/setup.php:1649
+msgid "Username that you can click on to send email (mailto:)"
+msgstr ""
+
+#: ../lib/setup.php:1650 ../lib/setup.php:1651
+msgid "email address"
+msgstr "e-po¹tni naslov"
+
+#: ../lib/setup.php:1670
+msgid "This should be fixed before proceeding."
+msgstr ""
+
+#: ../lib/setup.php:1671
+#, php-format
+msgid "Look at %sCheck Versions%s for more details."
+msgstr ""
+
+#: ../lib/setup.php:1676
+#, php-format
+msgid "One file is newer then expected."
+msgid_plural "%d files are newer then expected."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: ../lib/setup.php:1684
+#, php-format
+msgid "One file is out of date, corrupted or missing."
+msgid_plural "%d files are out of date, corrupted or missing."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: ../lib/setup.php:1691
+#, php-format
+msgid "All %d tested files up-to-date."
+msgstr ""
+
+#: ../lib/setup.php:1712
+msgid "The manifest file is missing or unreadable.  Gallery is not able to perform a file version integrity check.  Please install this file and reload this page."
+msgstr ""
+
+#: ../lib/setup.php:1717
+#, php-format
+msgid "Please ensure that %s is the latest version. Gallery is not able to perform a file version integrity check.  Please install the correct version and reload this page."
+msgstr ""
+
+#: ../lib/setup.php:1724
+#, php-format
+msgid "Testing status of %d files."
+msgstr "Preverjam stanje %d datotek."
+
+#: ../lib/setup.php:1732
+#, php-format
+msgid "Cannot read file %s."
+msgstr "Ne morem brati %s."
+
+#: ../lib/setup.php:1734
+msgid "File missing or unreadable."
+msgstr "Datoteka ne obstaja ali pa ni berljiva."
+
+#: ../lib/setup.php:1750
+#, php-format
+msgid "Version information not found in %s.  File must be old version or corrupted."
+msgstr "Nisem na¹el podatkov o razlièici v %s. Datoteka je prestara ali pokvarjena. "
+
+#: ../lib/setup.php:1752
+msgid "Missing version"
+msgstr "Ne najdem razlièice"
+
+#: ../lib/setup.php:1758
+#, fuzzy, php-format
+msgid "Found Version: %s"
+msgstr "OK!  Verzija: %s"
+
+#: ../lib/setup.php:1767
+#, php-format
+msgid "Problem with %s.  Expected version %s (or greater) but found %s."
+msgstr "Te¾ava z %s.  Prièakoval razlièico %s (ali novej¹o) ampak na¹el %s."
+
+#: ../lib/setup.php:1770
+#, php-format
+msgid "Expected version %s (or greater) but found %s."
+msgstr "Prièakoval razlièico %s (ali novej¹o) ampak na¹el %s."
+
+#: ../lib/setup.php:1775
+#, fuzzy, php-format
+msgid "%s OK.  Actual version (%s) more recent than expected version (%s)."
+msgstr "%s je v redu. Dejanska razlièica (%s) je novej¹a kakor prièakovana (%s)."
+
+#: ../lib/setup.php:1778
+#, php-format
+msgid "Expected version %s but found %s."
+msgstr "Prièakovana je bila %s, najdena pa %s."
+
+#: ../lib/setup.php:1783
+#, fuzzy, php-format
+msgid "%s OK."
+msgstr "%s OK"
+
+#: ../lib/setup.php:1785
+#, php-format
+msgid "Found expected version %s."
+msgstr "Najdena  verzija je %s."
+
+#: ../lib/setup.php:1921
+msgid "This email will be sent when new accounts are created."
+msgstr ""
+
+#: ../lib/setup.php:1922
+msgid "Leaving this field empty sets Gallery to use the default message (see below) which can be translated, or use your own welcome message."
+msgstr ""
+
+#: ../lib/setup.php:1923
+msgid "The following placeholder can be used:"
+msgstr ""
+
+#: ../lib/setup.php:1935
+msgid "Current used welcome mail text"
+msgstr ""
+
+#: ../lib/setup.php:2003
+#, php-format
+msgid "File %s does not exist."
+msgstr ""
+
+#: ../lib/setup.php:2012
+#, php-format
+msgid "Expected status: %s, but actually received status %s."
+msgstr ""
+
+#: ../lib/setup.php:2025
+msgid "can't detect version on Windows."
+msgstr ""
+
+#: ../lib/setup.php:2036
+#, php-format
+msgid "OK!  Version: %s"
+msgstr "OK!  Verzija: %s"
+
+#: ../lib/stats.php:31
+#, fuzzy, php-format
+msgid "Recursing album: %s"
+msgstr "Manjkajoèi podatki"
+
+#: ../lib/stats.php:67
+msgid "Read cache num photos lock failed."
+msgstr ""
+
+#: ../lib/stats.php:91
+#, php-format
+msgid "Album name : %s ; index: %s"
+msgstr ""
+
+#: ../lib/stats.php:103 ../lib/stats.php:142
+msgid "Read cache lock failed."
+msgstr ""
+
+#: ../lib/stats.php:261
+#, fuzzy
+msgid "add vote"
+msgstr "%d  ocenjevalec"
+
+#: ../lib/stats.php:360
+#, fuzzy, php-format
+msgid "From album: %s"
+msgstr "Album: %s"
+
+#: ../lib/stats.php:365
+#, fuzzy, php-format
+msgid "Owned by: %s"
+msgstr "Uporablja %s v%s"
+
+#: ../lib/stats.php:397
+#, fuzzy
+msgid "Capture date:"
+msgstr "Datum/èas posnetka"
+
+#: ../lib/stats.php:413
+#, fuzzy
+msgid "Upload date:"
+msgstr "Datum nalaganja"
+
+#: ../lib/stats.php:430
+msgid "Viewed:"
+msgstr ""
+
+#: ../lib/stats.php:440
+msgid "Never viewed"
+msgstr ""
+
+#: ../lib/stats.php:437
+#, php-format
+msgid "Once"
+msgid_plural "%d times"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: ../lib/stats.php:448
+#, fuzzy
+msgid "Votes:"
+msgstr "Oceni"
+
+#: ../lib/stats.php:462
+msgid "not rated"
+msgstr ""
+
+#: ../lib/stats.php:476
+msgid "Rating:"
+msgstr ""
+
+#: ../lib/valchecks.php:57
+msgid "The given frame is not valid."
+msgstr ""
+
+#: ../lib/valchecks.php:66
+msgid "Value was set to given default, because the original value is not in the allowed list of choices."
+msgstr ""
+
+#: ../lib/valchecks.php:69
+msgid "The given value is not in the allowed list of choices."
+msgstr ""
+
+#: ../lib/valchecks.php:80
+msgid "The given value is not an allowed filename."
+msgstr ""
+
+#: ../lib/valchecks.php:86
+msgid "Empty string is not allowed."
+msgstr ""
+
+#: ../lib/valchecks.php:103
+msgid "The value is not a valid Gallery integer."
+msgstr ""
+
+#: ../lib/valchecks.php:106
+msgid "The value is not a valid Gallery integer and was set to a given default."
+msgstr ""
+
+#: ../lib/valchecks.php:120
+msgid "The value is not an allowed string."
+msgstr ""
+
+#: ../lib/valchecks.php:123
+msgid "The value is not an allowed string and was set to a given default."
+msgstr ""
+
+#: ../lib/valchecks.php:586
+#, fuzzy
+msgid "No valid watermark image chosen."
+msgstr "Vodni ¾ig ni izbran!"
+
+#: ../lib/valchecks.php:593
+msgid "Please select a correct alignment."
+msgstr ""
+
+#: ../lib/valchecks.php:600
+msgid "Please select on which photos you want the watermark."
+msgstr ""
+
+#: ../lib/valchecks.php:607
+msgid "Do you want a preview or not?"
+msgstr ""
+
+#: ../lib/valchecks.php:616
+msgid "Field X and Y need to be filled correctly."
+msgstr ""
+
+#: ../lib/voting.php:219
+msgid "Vote"
+msgstr "Oceni"
+
+#: ../lib/voting.php:261
+#, fuzzy
+msgid "(Total points in brackets)"
+msgstr "Vse toèke v oklepajih"
+
+#: ../lib/voting.php:265
+#, fuzzy
+msgid "(Average points in brackets)"
+msgstr "Povpreène toèke v oklepajih"
+
+#: ../lib/voting.php:285
+#, php-format
+msgid "Album: %s"
+msgstr "Album: %s"
+
+#: ../lib/voting.php:316
+#, php-format
+msgid "1 voter"
+msgid_plural "%d voters"
+msgstr[0] "%d  ocenjevalec"
+msgstr[1] "%d ocenjevalca"
+msgstr[2] "%d  ocenjevalci"
+msgstr[3] "%d  ocenjevalcev"
+
+#: ../lib/voting.php:329
+#, php-format
+msgid "Result from one voter"
+msgid_plural "Result of %d voters"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: ../lib/voting.php:340
+#, fuzzy, php-format
+msgid "%s: %s points; "
+msgstr "%s, %s na %s"
+
+#: ../lib/voting.php:345
+#, php-format
+msgid "Key - %s"
+msgstr "Kljuè - %s"
+
+#: ../lib/voting.php:373
+msgid "No votes"
+msgstr "Ni ocen"
+
+#: ../lib/voting.php:386
+#, php-format
+msgid "Position %d overall, due to these votes:"
+msgstr ""
+
+#: ../lib/voting.php:395
+#, fuzzy, php-format
+msgid "One vote"
+msgid_plural "%d votes"
+msgstr[0] "%d ocena"
+msgstr[1] "%d  oceni"
+msgstr[2] "%d ocene"
+msgstr[3] "%d  ocen"
+
+#: ../js/moorainbow/mooRainbow.js.php:511
+#, fuzzy
+msgid "Select"
+msgstr "Izberi album"
+
+#: ../js/moorainbow/mooRainbow.js.php:518
+#, fuzzy
+msgid "Close"
+msgstr "Zapri"
+
+#: ../platform/fs_unix.php:133 ../platform/fs_win32.php:118
+#, php-format
+msgid "Gallery was not able to open dir: %s. <br>Please check permissions and existence"
+msgstr ""
+
+#~ msgid "Number %d overall."
+#~ msgstr "Od vseh %d."
+
+#~ msgid "%s: %s"
+#~ msgstr "%s: %s"
+
+#~ msgid "Error:"
+#~ msgstr "Napaka:"
+
+#~ msgid "File missing or unreadable.  Please install then re-run this test."
+#~ msgstr "Datoteka ne obstaja ali pa ni berljiva.  Prosim nalo¾ite in spet za¾enite ta test."
+
+#~ msgid "Please ensure that %s is the latest version."
+#~ msgstr "Prepriæajte se da je %s najnovej¹a razlièica."
+
+#~ msgid "Maximum dimensions of full sized images"
+#~ msgstr "Velikost najveèje mo¾ne slike"
+
+#, fuzzy
+#~ msgid "New comment for %s"
+#~ msgstr "poglej komentarje"
+
+#, fuzzy
+#~ msgid "both"
+#~ msgstr "Oboje"
+
+#~ msgid "FAILED"
+#~ msgstr "NEUSPE©NO"
+
+#~ msgid "No votes so far."
+#~ msgstr "Ni ocen."
