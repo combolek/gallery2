@@ -1,0 +1,6291 @@
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2007 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# $Id$
+#
+# @version	1.6-svn
+# @package	Languagepack
+# @subpackage	German
+# @author	Jens Tkotz <jens AT peino DOT de>, 2003-2007
+# @author	Michael Köhler <mkoehler AT psr DOT de>, 2003
+# @author	Kerstin Strasser <kerstin AT peino DOT de>, 2005-2006
+# @author	Kai <kai DOT tomalik AT gmail DOT com>, 2006-2007
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery 1.6\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2008-09-23 14:00+0200\n"
+"PO-Revision-Date: 2008-08-27 22:50+0100\n"
+"Last-Translator: Jens Tkotz <jens@peino.de>\n"
+"Language-Team: German <jens AT peino DOT de>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../admin-page.php:35
+msgid "_Statistics"
+msgstr "_Statistiken"
+
+#: ../admin-page.php:37
+msgid "View some statistics about your Gallery. Such as most viewed pictures, or best rated photos etc."
+msgstr "Schauen Sie sich die Statistiken Ihrer Gallery an. Z.B.: Meist betrachteste Bilder, oder die Bilder mit den besten Bewertungen, etc."
+
+#: ../admin-page.php:40
+msgid "Configuration _wizard"
+msgstr "Konfigurations-_Assistent"
+
+#: ../admin-page.php:42
+msgid "Use the config wizard to reconfigure or tweak your Gallery."
+msgstr "Benutzen Sie den Konfigurationsassistenten um die Grundeinstellungen Ihrer Gallery zu verbessern, oder anzupassen."
+
+#: ../admin-page.php:45
+msgid "Find _orphans"
+msgstr "Ver_waiste Elemente"
+
+#: ../admin-page.php:47
+msgid "Find, remove or re-attach orphaned elements."
+msgstr "Finden Sie verwaiste Elemente. Sie können sie löschen, oder wieder korrekt hinzufügen."
+
+#: ../admin-page.php:50
+msgid "Find _comment spam"
+msgstr "_Kommentarspam finden"
+
+#: ../admin-page.php:52
+msgid "Find and remove comments that contain spam."
+msgstr "Kommentare finden und löschen, die Spam enthalten"
+
+#: ../admin-page.php:55
+msgid "_Validate albums"
+msgstr "Alben über_prüfen"
+
+#: ../admin-page.php:57
+msgid "Identify invalid albums, missing files, and other errors that may prevent you from migrating to Gallery 2"
+msgstr "Suche nach ung&uuml;ltigen Alben fehlenden Dateien, oder anderen Fehlern, die eine Migration nach Gallery2 verhindern k&ouml;nnten."
+
+#: ../admin-page.php:68
+msgid "Manage _users"
+msgstr "_Benutzer verwalten"
+
+#: ../admin-page.php:70
+msgid "Manage your users."
+msgstr "Verwalten Sie hier Ihre Benutzer"
+
+#: ../admin-page.php:75
+msgid "Manage user_groups"
+msgstr "_Gruppen verwalten"
+
+#: ../admin-page.php:77
+msgid "Manage your user groups."
+msgstr "Verwalten Sie hier Ihre Benutzergruppen."
+
+#: ../admin-page.php:81
+msgid "_Filesystem usage"
+msgstr "_Festplattenplatz"
+
+#: ../admin-page.php:83
+msgid "See how much space your Gallery consumes. Viewable by usage per user and per album."
+msgstr "Lassen Sie sich anzeigen wieviel Festplattenplatz Ihre Gallery verbraucht. Sie können dies per Benutzer, oder per Album anzeigen lassen."
+
+#: ../admin-page.php:90 ../search.php:40 ../stats.php:621
+#: ../stats-wizard.php:46 ../tools/despam-comments.php:50
+#: ../tools/find_orphans.php:55 ../tools/validate_albums.php:63
+#: ../tools/validate_albums.php:109 ../tools/validate_albums.php:141
+#: ../usage.php:58
+msgid "Return to _gallery"
+msgstr "Zur&uuml;ck zur _Gallery"
+
+#: ../admin-page.php:94 ../admin-page.php:104
+msgid "Admin options"
+msgstr "Admin Optionen"
+
+#: ../albums.php:105 ../view_album.php:147
+msgid "No albums"
+msgstr "Keine Alben"
+
+#: ../albums.php:103 ../rss.php:273
+#, php-format
+msgid "1 album"
+msgid_plural "%d albums"
+msgstr[0] "Ein Album"
+msgstr[1] "%d Alben"
+
+#: ../albums.php:114
+msgid "No top-level albums"
+msgstr "Kein Hauptalbum"
+
+#: ../albums.php:111
+#, php-format
+msgid "1 top-level album"
+msgid_plural "%d top-level albums"
+msgstr[0] "Ein Hauptalbum"
+msgstr[1] "%d Hauptalben"
+
+#: ../albums.php:118
+#, php-format
+msgid "%d total"
+msgstr "%d insgesamt"
+
+#: ../albums.php:119
+msgid "no images"
+msgstr "keine Bilder"
+
+#: ../albums.php:119 ../view_album.php:148
+#, php-format
+msgid "1 image"
+msgid_plural "%d images"
+msgstr[0] "Ein Bild"
+msgstr[1] "%d Bilder"
+
+#: ../albums.php:120
+msgid "no pages"
+msgstr "0 Seiten"
+
+#: ../albums.php:120 ../view_album.php:149
+#, php-format
+msgid "1 page"
+msgid_plural "%d pages"
+msgstr[0] "Eine Seite"
+msgstr[1] "%d Seiten"
+
+#: ../albums.php:123
+#, php-format
+msgid "%s (%s), %s on %s"
+msgstr "%s (%s), %s auf %s"
+
+#: ../albums.php:130
+#, php-format
+msgid "%s (%s), %s"
+msgstr "%s (%s), %s"
+
+#: ../albums.php:133
+#, php-format
+msgid "%s, %s on %s"
+msgstr "%s, %s auf %s"
+
+#: ../albums.php:136
+#, php-format
+msgid "%s, %s"
+msgstr "%s, %s"
+
+#: ../albums.php:153
+#, php-format
+msgid "Welcome, %s"
+msgstr "Willkommen, %s"
+
+#: ../albums.php:162 ../view_album.php:198
+msgid "Slidesho_w"
+msgstr "Diasho_w"
+
+#: ../albums.php:169
+msgid "New _album"
+msgstr "Neues _Album"
+
+#: ../albums.php:179
+msgid "Administer fron_tpage"
+msgstr "Star_tseite administrieren"
+
+#: ../albums.php:185
+msgid "Ad_min page"
+msgstr "Ad_ministration"
+
+#: ../albums.php:192
+msgid "Pr_eferences"
+msgstr "Meine _Einstellungen"
+
+#: ../albums.php:202
+msgid "_Register"
+msgstr "_Registrieren"
+
+#: ../albums.php:240
+msgid "Attention Gallery Administrator!"
+msgstr "Achtung Gallery-Administrator!"
+
+#: ../albums.php:245
+#, php-format
+msgid "%s has detected one invalid folders in your albums directory<br>(%s):"
+msgid_plural "%s has detected the following invalid folders in your albums directory<br>(%s):"
+msgstr[0] "%s hat einen ung&uuml;ltigen Ordner in ihrem Album Ordner <br>(%s) erkannt:"
+msgstr[1] "%s hat die folgenden ung&uuml;ltigen Ordner in ihrem Album Ordner <br>(%s) erkannt:"
+
+#: ../albums.php:258
+msgid "Please move it out of the albums directory."
+msgid_plural "Please move them out of the albums directory."
+msgstr[0] "Bitte entfernen Sie diesen aus Ihrem Album Ordner."
+msgstr[1] "Bitte entfernen Sie diese aus Ihrem Album Ordner."
+
+#: ../albums.php:271
+#, php-format
+msgid "Gallery has detected that one of your albums is out of date."
+msgid_plural "Gallery has detected that %d of your albums are out of date."
+msgstr[0] "Gallery hat ein veraltetes Alben gefunden."
+msgstr[1] "Gallery hat %d Alben gefunden, die veraltet sind."
+
+#: ../albums.php:277
+#, php-format
+msgid "Please %s."
+msgstr "Bitte %s."
+
+#: ../albums.php:279
+msgid "perform an upgrade"
+msgstr "f&uuml;hren Sie ein Aktualisierung durch"
+
+#: ../albums.php:291
+#, php-format
+msgid "The album or photo that you were attempting to view either does not exist, or requires user privileges that you do not possess. %s"
+msgstr "Das Album oder Photo, welches Sie zu erreichen versuchten, gibt es entweder nicht, oder benötigt, daß Sie sich anmelden. %s"
+
+#: ../albums.php:292
+#, php-format
+msgid "Login at the %s and try again."
+msgstr "Melden Sie sich auf der %s an und versuchen es erneut."
+
+#: ../albums.php:293
+msgid "Login page"
+msgstr "Anmeldeseite"
+
+#: ../albums.php:313
+#, php-format
+msgid "The requested album with index %s is not valid."
+msgstr "Das angeforderte Album mit dem Index %s ist nicht gültig."
+
+#: ../albums.php:354 ../view_album.php:469
+msgid "Download entire album as archive"
+msgstr "Ganzes Album als Archiv herunterladen"
+
+#: ../albums.php:374 ../popups/album_permissions.php:138
+#, php-format
+msgid "Owner: %s"
+msgstr "Besitzer/in : %s"
+
+#: ../albums.php:381
+msgid "URL:"
+msgstr "URL:"
+
+#: ../albums.php:396
+msgid "Hey!"
+msgstr "Hey!"
+
+#: ../albums.php:397
+#, php-format
+msgid "%s so that the URL is not so generic and easy guessable!"
+msgstr "%s, so dass Die URL nicht so leicht zu erraten ist!"
+
+#: ../albums.php:399
+msgid "Change the foldername of this album"
+msgstr "&Auml;ndern Sie den Ordnernamen dieses Albums"
+
+#: ../albums.php:415
+#, php-format
+msgid "Created on %s, last changed on %s."
+msgstr "Angelegt am %s, letzte &Auml;nderung am %s."
+
+#: ../albums.php:422
+#, php-format
+msgid "Last changed on %s."
+msgstr "Letzte &Auml;nderung am %s."
+
+#: ../albums.php:433 ../view_album.php:760 ../view_album.php:784
+msgid "This album is empty."
+msgstr "Dieses Album ist leer."
+
+#: ../albums.php:430
+#, php-format
+msgid "This album contains 1 item."
+msgid_plural "This album contains %d items."
+msgstr[0] "Dieses Album enthält ein Element"
+msgstr[1] "Dieses Album enthält %d Elemente"
+
+#: ../albums.php:447
+#, php-format
+msgid "This album has never been viewed since %s."
+msgstr "Dieses Album wurde noch nie angeschaut seit dem %s."
+
+#: ../albums.php:444
+#, php-format
+msgid "This album has been viewed %d time since %s."
+msgid_plural "This album has been viewed %d times since %s."
+msgstr[0] "Dieses Album wurde %d mal angeschaut seit dem %s."
+msgstr[1] "Dieses Album wurde %d mal angeschaut seit dem %s."
+
+#: ../albums.php:456
+msgid "reset counter"
+msgstr "Klick-Z&auml;hler zur&uuml;cksetzen"
+
+#: ../block-feature-item.php:59
+msgid "It seems the album where the featured used to be, was deleted."
+msgstr "Es scheint als wäre das Album zu dem das Element gehörte, gelöscht worden."
+
+#: ../block-feature-item.php:69
+msgid "It seems the featured item was deleted."
+msgstr "Es scheint als wäre das Element gelöscht worden."
+
+#: ../block-feature-item.php:131
+#, php-format
+msgid "This is a featured subalbum from album: %s"
+msgstr "Dies ist ein featured Unteralbum aus dem Album: %s"
+
+#: ../block-feature-item.php:134
+#, php-format
+msgid "This featured photo is from album: %s"
+msgstr "Dies ist ein featured Photo aus dem Album: %s"
+
+#: ../block-feature-item.php:142
+#, fuzzy
+msgid "Currently no item is featured by this Gallery, or invalid parameters were given."
+msgstr "Derzeit keine featured Photos in dieser Gallery"
+
+#: ../block-random.php:75 ../imagemap.php:41
+msgid "No photo chosen."
+msgstr "Kein Bild gewählt."
+
+#: ../block-random.php:131 ../lib/stats.php:360
+#, php-format
+msgid "From album: %s"
+msgstr "Aus dem Album: %s"
+
+#: ../captionator.php:56
+msgid "Captioned album does not match current album - aborting changes!"
+msgstr "Sie haben w&auml;hrend der Bearbeitung das Album gewechselt.  Ihre &Auml;nderungen werden verworfen."
+
+#: ../captionator.php:100
+msgid "Debugging: Click here to return to the album"
+msgstr "Klicken Sier hier um zum Album zurückzukehren."
+
+#: ../captionator.php:138
+msgid "Captionator"
+msgstr "Beschriftungsseditor"
+
+#: ../captionator.php:185
+msgid "Multiple Caption Editor."
+msgstr "Beschriftungseditor"
+
+#: ../captionator.php:187
+msgid "1 item in this album."
+msgstr "Ein Element in diesem Album."
+
+#: ../captionator.php:191
+#, php-format
+msgid "%d items in this album on %s."
+msgstr "%d Elemente in diesem Album auf %s."
+
+#: ../captionator.php:193
+#, php-format
+msgid "one page"
+msgid_plural "%d pages"
+msgstr[0] "Eine Seite"
+msgstr[1] "%d Seiten"
+
+#: ../captionator.php:197
+#, php-format
+msgid "One item in this album."
+msgid_plural "%d items in this album."
+msgstr[0] "Ein Element in diesem Album."
+msgstr[1] "%d Elemente in diesem Album"
+
+#: ../captionator.php:226 ../captionator.php:347
+msgid "Save and Exit"
+msgstr "Speichern und Beenden"
+
+#: ../captionator.php:229 ../captionator.php:350
+#, php-format
+msgid "Save and Edit Next %d"
+msgstr "Speichern und bearbeite n&auml;chste %d"
+
+#: ../captionator.php:233 ../captionator.php:354
+#, php-format
+msgid "Save and Edit Previous %d"
+msgstr "Speichern und bearbeite vorherige %d"
+
+#: ../captionator.php:236 ../captionator.php:357
+msgid "Exit"
+msgstr "Ende"
+
+#: ../captionator.php:258
+msgid "(click to enter album)"
+msgstr "(Anklicken um in das Album zu gehen)"
+
+#: ../captionator.php:273
+msgid "(click to enlarge)"
+msgstr "(Für Vergrößerung anklicken)"
+
+#: ../captionator.php:280 ../templates/commentbox.tpl.default:27
+#: ../templates/commentbox.tpl.default:54 ../view_album.php:676
+msgid "hidden"
+msgstr "versteckt"
+
+#: ../captionator.php:293
+msgid "Album Caption: "
+msgstr "Albumbeschreibung: "
+
+#: ../captionator.php:302
+msgid "Movie Caption: "
+msgstr "Filmbeschriftung: "
+
+#: ../captionator.php:305
+msgid "Photo Caption: "
+msgstr "Bildbeschriftung: "
+
+#: ../captionator.php:317
+msgid "Title: "
+msgstr "Titel: "
+
+#: ../captionator.php:327 ../popups/view_photo_properties.php:103
+#: ../popups/view_photo_properties.php:121
+msgid "Keywords: "
+msgstr "Schlüsselwörter: "
+
+#: ../captionator.php:333
+#, php-format
+msgid "Capture Date: %s"
+msgstr "Aufnahmedatum: %s"
+
+#: ../captionator.php:365
+msgid "There are not elements to set a caption for."
+msgstr "Es gibt keine Elemente f&uuml;r die Sie eine Beschriftung erfassen k&ouml;nnten."
+
+#: ../classes/AlbumItem.php:128
+#, php-format
+msgid "Getting Exif of file '%s'"
+msgstr "Hole EXIF-Daten von Datei: %s"
+
+#: ../classes/AlbumItem.php:245 ../classes/Album.php:586
+msgid "description"
+msgstr "Beschreibung"
+
+#: ../classes/AlbumItem.php:246 ../classes/Album.php:587 ../imagemap.php:243
+#: ../popups/edit_caption.php:160 ../templates/classic/photo.tpl.default:172
+#: ../templates/classic_sidebar/photo.tpl.default:171
+msgid "Description"
+msgstr "Beschreibung"
+
+#: ../classes/AlbumItem.php:703
+#, php-format
+msgid "Invalid image: %s"
+msgstr "Ungültiges Bild: %s"
+
+#: ../classes/AlbumItem.php:731
+msgid "Generating thumbnail."
+msgstr "Erzeuge Thumbnail."
+
+#: ../classes/AlbumItem.php:742
+#, php-format
+msgid "Defined thumbnail does not exist. %s"
+msgstr "Das definierte Vorschaubild existiert nicht. %s"
+
+#: ../classes/AlbumItem.php:755
+#, php-format
+msgid "Saved Dimensions: x:%d y: %d"
+msgstr "Gespeicherte Dimension: x: %d y: %d"
+
+#: ../classes/AlbumItem.php:817
+msgid "Generating normal thumbs."
+msgstr "Erzeuge normalen Thumbnail."
+
+#: ../classes/AlbumItem.php:844
+msgid "Unable to make thumbnail."
+msgstr "Erstellung des Thumbnails nicht möglich."
+
+#: ../classes/AlbumItem.php:860
+msgid "No preview"
+msgstr "Keine Vorschau"
+
+#: ../classes/AlbumItem.php:893
+msgid "No thumbnail"
+msgstr "Kein Thumbnail"
+
+#: ../classes/AlbumItem.php:921
+msgid "Requested item has no highlight!"
+msgstr "Angefordertes Element hat kein Vorschaubild!"
+
+#: ../classes/Album.php:42
+msgid "Untitled"
+msgstr "Ohne Titel"
+
+#: ../classes/Album.php:268 ../classes/Album.php:280 ../lib/albumItem.php:51
+#: ../lib/albumItem.php:483 ../lib/usage.php:82
+#: ../templates/commentbox.tpl.default:24
+msgid "Album"
+msgstr "Album"
+
+#: ../classes/Album.php:293
+msgid "Gallery"
+msgstr "Galerie"
+
+#: ../classes/Album.php:340
+msgid "Album up to date."
+msgstr "Das Album ist auf dem neuesten Stand."
+
+#: ../classes/Album.php:344
+msgid "Upgrading album properties..."
+msgstr "Aktualisiere Albumeigenschaften ..."
+
+#: ../classes/Album.php:494
+#, php-format
+msgid "Renaming album from %s to %s..."
+msgstr "Benenne Album um von %s in %s ..."
+
+#: ../classes/Album.php:638
+#, php-format
+msgid "Upgrading item %d of %d..."
+msgstr "Aktualisiere Element %d von %d..."
+
+#: ../classes/Album.php:898
+#, php-format
+msgid "Getting highlight of album with name: %s"
+msgstr "Hole das Titelbild des Albums: %s"
+
+#: ../classes/Album.php:916
+msgid "No Highlight was found !"
+msgstr "Es wurde kein Titelbild gefunden!"
+
+#: ../classes/Album.php:934
+msgid "Setting highlight"
+msgstr "Setze Titelbild"
+
+#: ../classes/Album.php:1170
+#, fuzzy
+msgid "Album data was saved successfully."
+msgstr "Die Benutzer wurden erfolgreich aktualisiert."
+
+#: ../classes/Album.php:1175
+msgid "Album data was NOT saved successfully."
+msgstr ""
+
+#: ../classes/Album.php:1182
+msgid "msg should be an array!"
+msgstr "Die Meldung sollte ein Array sein!"
+
+#: ../classes/Album.php:1191
+#, php-format
+msgid "Changes to album: %s"
+msgstr "Änderungen an Album: %s"
+
+#: ../classes/Album.php:1199
+#, php-format
+msgid "A change has been made to album: %s by %s (IP %s).  The change is: %s"
+msgstr "Es wurde eine Änderungen am Album: %s von %s (IP %s) vorgenommen. Die Änderung ist: %s"
+
+#: ../classes/Album.php:1206
+msgid "If you no longer wish to receive emails about this item, follow the links above and ensure that the 'other' checkbox in the 'Email me' box is unchecked. (You'll need to login first.)"
+msgstr "Falls Sie nicht wünschen weitere Emails über Änderungen an diesem Element zu bekommen, folgen Sie dem Link und setzen Sie die Checkboxen entsprechend."
+
+#: ../classes/Album.php:1216
+#, fuzzy
+msgid "Emailing is on, but no email was sent as no valid email address was found."
+msgstr "Die Aktion wurde erfolgreich ausgeführt.  Emailing wurde aktiviert, es wurde jedoch keine Mail versandt, da keine gültige Emailadresse gefunden wurde."
+
+#: ../classes/Album.php:1285 ../classes/Album.php:1367
+msgid "Skipping Movie"
+msgstr "Überspringe Film"
+
+#: ../classes/Album.php:1302 ../classes/Album.php:2500
+msgid " -- Skipping"
+msgstr " -- Wird ausgelassen"
+
+#: ../classes/Album.php:1312
+#, fuzzy, php-format
+msgid "Resizing items in album: '<i>%s</i>' (%s)' with %d items"
+msgstr "Verändere Größen der Elemente vom Album: '<i>%s</i>' (%s)' mit %d Elementen"
+
+#: ../classes/Album.php:1321 ../classes/Album.php:2535
+#, php-format
+msgid "Processing item %d..."
+msgstr "Verarbeite Bild %d ..."
+
+#: ../classes/Album.php:1336
+#, php-format
+msgid "Resizing item %d..."
+msgstr "Verarbeite Bild %d ..."
+
+#: ../classes/Album.php:1370
+msgid "Skipping Subalbum"
+msgstr "&Uuml;berspringe Album"
+
+#: ../classes/Album.php:1414
+msgid "Doing the naming of the physical file."
+msgstr "Benamung der physikalischen Datei."
+
+#: ../classes/Album.php:1452
+msgid "Image preprocessing"
+msgstr "Bild Vorbearbeitung"
+
+#: ../classes/Album.php:1457
+msgid "Resizing/compressing original file"
+msgstr "Größenänderung, bzw. Kompression der Originaldatei."
+
+#: ../classes/Album.php:1463
+msgid "File is a movie, no resizing done."
+msgstr "Datei wurde als Film erkannt. Es wird keine Zwischengröße erstellt."
+
+#: ../classes/Album.php:1466
+#, php-format
+msgid "Invalid filetype: %s. Skipping."
+msgstr "Ungültiger Dateityp: %s. Wird übersprungen."
+
+#: ../classes/Album.php:1471 ../classes/Album.php:1472
+msgid "Item looks like an image, but has no dimension? Please verify its not a broken image."
+msgstr ""
+
+#: ../classes/Album.php:1487 ../classes/Album.php:1488
+msgid "Item not added."
+msgstr "Element nicht hinzugefügt."
+
+#: ../classes/Album.php:1540
+#, php-format
+msgid "Creating resized intermediate Version of %s"
+msgstr "Erzeuge verkleinerte Zwischenversion von %s"
+
+#: ../classes/Album.php:1551
+msgid "Check if image needs to be rotated"
+msgstr "Prüfe ob Bild gedreht werden muss."
+
+#: ../classes/Album.php:1569
+#, php-format
+msgid "Orientation: %s "
+msgstr "Orientierung: %s"
+
+#: ../classes/Album.php:1613
+msgid "Photo auto-rotated/transformed"
+msgstr "Bild automatisch gedreht/ ver&auml;ndert"
+
+#: ../classes/Album.php:1616
+msgid "Photo NOT auto-rotated/transformed"
+msgstr "Bild wurde NICHT automatisch gedreht/ verändert"
+
+#: ../classes/Album.php:1626
+#, fuzzy
+msgid "Watermarking image"
+msgstr "Wasserzeichen setzen"
+
+#: ../classes/Album.php:1633 ../classes/Album.php:1638
+msgid "Item successfully added."
+msgstr "Element wurde erfolgreich hinzugefügt."
+
+#: ../classes/Album.php:1856 ../classes/Album.php:1897
+msgid "No highlight!"
+msgstr "Kein Titelbild!"
+
+#: ../classes/Album.php:1865 ../classes/Album.php:1868
+#, php-format
+msgid "Highlight for album: %s"
+msgstr "Titelbild des Albums: %s"
+
+#: ../classes/Album.php:2141
+#, php-format
+msgid "Requested index [%d] out of bounds [%d]. Gallery could not load the requested album item."
+msgstr "Angeforderter index [%d] ist ausserhalb der erlaubten Menge [%d]. Gallery konnte das angeforderte Albumelement nicht laden."
+
+#: ../classes/Album.php:2194
+#, php-format
+msgid "Recreating %d captions..."
+msgstr "Erzeuge %d Beschriftungen"
+
+#: ../classes/Album.php:2196
+#, php-format
+msgid "Processing image %d..."
+msgstr "Verarbeite Bild %d ..."
+
+#: ../classes/Album.php:2203
+#, php-format
+msgid "Entering album %s, processing %d photos"
+msgstr "Verarbeite Album %s mit %d Photos"
+
+#: ../classes/Album.php:2316
+#, fuzzy, php-format
+msgid "Updating album: '<i>%s</i>'."
+msgstr "Aktualisiere Album: '<i>%s</i>' (%s)' mit %d Elementen"
+
+#: ../classes/Album.php:2320
+#, fuzzy, php-format
+msgid "Updating subalbum '<i>%s</i>'."
+msgstr "Aktualisiere Album: '<i>%s</i>' (%s)' mit %d Elementen"
+
+#: ../classes/Album.php:2325
+msgid "-- Skipped, because it is empty."
+msgstr ""
+
+#: ../classes/Album.php:2338
+#, fuzzy, php-format
+msgid "Processing item %d of %d."
+msgstr "Verarbeite Bild %d ..."
+
+#: ../classes/Album.php:2353
+#, fuzzy, php-format
+msgid "Problem with item #%d (subalbum)."
+msgstr "Es gab ein Problem beim Versenden der Email an %s"
+
+#: ../classes/Album.php:2367
+#, fuzzy, php-format
+msgid "Problem with item #%d."
+msgstr "Es gab ein Problem beim Versenden der Email an %s"
+
+#: ../classes/Album.php:2510
+#, fuzzy, php-format
+msgid "Updating album: '<i>%s</i>' (%s) with %d items."
+msgstr "Aktualisiere Album: '<i>%s</i>' (%s)' mit %d Elementen"
+
+#: ../classes/Album.php:2523
+#, php-format
+msgid "Entering subalbum '<i>%s</i>', processing %d items."
+msgstr "Verarbeite Unteralbum '<i>%s</i>' mit %d Elementen."
+
+#: ../classes/Album.php:2611 ../classes/Album.php:2618
+#, php-format
+msgid "Userid %s is owner of '%s'"
+msgstr ""
+
+#: ../classes/Album.php:2622
+#, php-format
+msgid "Userid %s is NOT owner of '%s'"
+msgstr ""
+
+#: ../classes/Album.php:2761
+#, php-format
+msgid "Error getting EXIF data. Expected status 0, got %s."
+msgstr "Fehler beim Holen der EXIF Daten. Erwarteter Status 0, erhalten: %s."
+
+#: ../classes/Album.php:3032
+msgid "(Group)"
+msgstr "(Gruppe)"
+
+#: ../classes/Album.php:3425
+msgid "Owner can modify his/her own items."
+msgstr ""
+
+#: ../classes/Album.php:3428
+msgid "Owner can NOT modify his/her own items."
+msgstr ""
+
+#: ../classes/Album.php:3452
+msgid "Owner can delete his/her own items."
+msgstr ""
+
+#: ../classes/Album.php:3455
+msgid "Owner can NOT delete his/her own items."
+msgstr ""
+
+#: ../classes/Album.php:3559
+#, php-format
+msgid "#%d"
+msgstr "#%d"
+
+#: ../classes/Album.php:3733
+#, php-format
+msgid "Problem: Skipping %s (UID %s) because no email address was set."
+msgstr "Problem: Es wurde %s (UID %s) übersprungen, da keine Emailadresse angegeben wurde."
+
+#: ../classes/Album.php:3737
+#, php-format
+msgid "Problem: Skipping %s (UID %s) because email address: '%s' is not valid."
+msgstr "Problem: Es wurde %s (UID %s) übersprungen, da die Emailadresse '%s' nicht gültig zu sein scheint."
+
+#: ../classes/Album.php:3747
+msgid "Email problems"
+msgstr "Email Problem"
+
+#: ../classes/EverybodyUser.php:30 ../classes/LoggedInUser.php:30
+msgid "Anonymous User"
+msgstr "Anonymer Benutzer"
+
+#: ../classes/gallery/UserDB.php:75
+#, php-format
+msgid "%s exists, but is not a directory!"
+msgstr "%s existiert, ist aber kein Ordner !"
+
+#: ../classes/gallery/UserDB.php:88
+#, php-format
+msgid "The folder which contains your user information (%s) is not writable for the webserver."
+msgstr "Der Ordner in dem sich die Benutzerdaten befinden (%s) ist nicht beschreibbar durch den Webserver."
+
+#: ../classes/gallery/UserDB.php:110
+msgid "Your userfile is not writeable."
+msgstr "Die Datei für die Benutzerdaten ist nicht beschreibbar."
+
+#: ../classes/gallery/UserDB.php:348
+#, php-format
+msgid "Checking username '%s' for validity"
+msgstr "Prüfe Benutzername '%s' auf Gültigkeit."
+
+#: ../classes/gallery/UserDB.php:352
+msgid "Please enter a username."
+msgstr "Bitte geben Sie den Benutzernamen."
+
+#: ../classes/gallery/UserDB.php:356
+#, php-format
+msgid "Username '%s' is to short. Must be at least 2 characters."
+msgstr "Der Benutzername '%s' ist zu kurz, bitte verwenden Sie mindestens zwei Zeichen."
+
+#: ../classes/gallery/UserDB.php:361
+#, php-format
+msgid "Username '%s' too long. Must be at most 15 characters."
+msgstr "Der Benutzername '%s' ist zu lang, bitte verwenden Sie maximal 15 Zeichen."
+
+#: ../classes/gallery/UserDB.php:367
+#, php-format
+msgid "Illegal username '%s'. Only letters and digits allowed."
+msgstr "Der Benutzername %s ist nicht gültig. Es dürfen nur Buchstaben und Zahlen enthalten sein."
+
+#: ../classes/gallery/UserDB.php:375
+#, php-format
+msgid "'%s' is reserved and cannot be used."
+msgstr "'%s' ist reserviert und darf nicht benutzt werden."
+
+#: ../classes/gallery/UserDB.php:381
+#, php-format
+msgid "A user with the username of '%s' already exists"
+msgstr "Ein Benutzer mit dem Namen '%s' existiert bereits."
+
+#: ../classes/gallery/UserDB.php:394
+#, fuzzy, php-format
+msgid "Password must have at least %d characters."
+msgstr "Das Passwort muss mindestens 3 Zeichen lang sein."
+
+#: ../classes/gallery/UserDB.php:400
+#, fuzzy
+msgid "Password can not be the username."
+msgstr "Bitte geben Sie den Benutzernamen."
+
+#: ../classes/gallery/UserDB.php:407
+msgid "Password is too weak. Use a more complex password."
+msgstr ""
+
+#: ../classes/gallery/UserDB.php:413
+msgid "Your password is good, but not strong."
+msgstr ""
+
+#: ../classes/gallery/UserDB.php:453
+#, php-format
+msgid "Checking user %d of %d ... "
+msgstr "Prüfe Benutzer %d von %d..."
+
+#: ../classes/gallery/UserDB.php:459
+#, php-format
+msgid "Skipped %s (Reserved username from Gallery)"
+msgstr "Überspringe '%s' (Reservierter Benutzername der Gallery)"
+
+#: ../classes/gallery/UserDB.php:510
+#, php-format
+msgid "Problem adding %s:"
+msgstr "Es gab ein Problem beim hinzuf&uuml;gen von %s:"
+
+#: ../classes/gallery/User.php:99
+#, fuzzy
+msgid "up to date"
+msgstr "Das Album ist auf dem neuesten Stand."
+
+#: ../classes/gallery/User.php:149
+#, fuzzy
+msgid "Upgraded"
+msgstr "aktualisieren"
+
+#: ../classes/gallery/User.php:153
+#, fuzzy
+msgid "Saving failed"
+msgstr "Fehlende Dateien"
+
+#: ../classes/gallery/User.php:212
+#, fuzzy, php-format
+msgid "Not a valid action: %s"
+msgstr "Ung&uuml;ltige Aktion!"
+
+#: ../classes/hn_captcha/hn_captcha.class.php:356
+#, php-format
+msgid "The specified folder '%s' (Fullpath: '%s') does not exist inside the albums folder and Gallery is not able to create it."
+msgstr "Der angegebene Order '%s' (Voller Pfad: '%s') existier nicht im Albumsordner und Gallery war es nicht möglich diesen anzulegen."
+
+#: ../classes/hn_captcha/hn_captcha.class.php:364
+#, php-format
+msgid "The specified folder '%s' (Fullpath: '%s') for captcha images is not writable for the webserver."
+msgstr "Der angegebene Order '%s' (Voller Pfad: '%s') für die Captcha Bilder ist nicht beschreibbar für den Webserver."
+
+#: ../classes/hn_captcha/hn_captcha.class.php:484
+#, php-format
+msgid "You must read and type the <b>%d chars</b> within <b>0..9</b> and <b>A..F</b>."
+msgstr "Sie müssen die <b>%d</b> Zeichen eingeben. Es ist eine Mischung aus Zahlen <b>0..9</b> und Buchstaben <b>A...F</b>."
+
+#: ../classes/Mail/htmlMimeMail.php:760
+msgid "Sending mail via smtp method failed with these errors:"
+msgstr ""
+
+#: ../classes/NobodyUser.php:30
+msgid "Nobody"
+msgstr "Niemand"
+
+#: ../classes/User.php:213
+#, fuzzy, php-format
+msgid "User %s can write to album '%s'"
+msgstr "Benutzer kann Alben anlegen"
+
+#: ../classes/User.php:216
+#, fuzzy, php-format
+msgid "User %s can NOT write to album '%s'"
+msgstr "Benutzer kann Alben anlegen"
+
+#: ../classes/User.php:371
+#, php-format
+msgid "User %s is owner of album '%s'"
+msgstr ""
+
+#: ../classes/User.php:374
+#, php-format
+msgid "User %s  is NOT owner of album '%s'"
+msgstr ""
+
+#: ../crop_photo.php:66 ../imagemap.php:173
+msgid "Original photo"
+msgstr "Original Photo"
+
+#: ../crop_photo.php:99
+msgid "You do not have the permission to edit the fullsize Version of this image."
+msgstr "Sie haben nicht die n&ouml;tigen Rechte, um in %s Ver&auml;nderungen vorzunehmen!"
+
+#: ../crop_photo.php:111
+msgid "Here you can crop the fullsize Version of your Image. Optionally you can let the intermediate version be created automatically."
+msgstr "Hier können Sie die Vollgröße Ihres Bildes zuschneiden. Optional kann passend dazu die Zwischengröße erstellen lassen."
+
+#: ../crop_photo.php:135
+msgid "Current Dimension:"
+msgstr "Derzeitige Ausmasse:"
+
+#: ../crop_photo.php:136 ../crop_photo.php:144
+msgid "Width"
+msgstr "Breite"
+
+#: ../crop_photo.php:137 ../crop_photo.php:145
+msgid "Height"
+msgstr "H&ouml;he"
+
+#: ../crop_photo.php:143
+msgid "New Dimension:"
+msgstr "Neue Ausmasse:"
+
+#: ../crop_photo.php:149 ../popups/edit_thumb.php:194
+msgid "Select a ratio for the crop frame:"
+msgstr "Wählen Sie das Seitenverhältniss für den Zuschneiderahmen:"
+
+#: ../crop_photo.php:155
+msgid "Recreate re_sized"
+msgstr "Erzeuge _Zwischengröße"
+
+#: ../crop_photo.php:159 ../popups/ecard_form.php:288
+#: ../popups/edit_watermark.php:126
+msgid "_Preview"
+msgstr "_Vorschau"
+
+#: ../crop_photo.php:160 ../popups/ecard_form.php:289
+#: ../popups/edit_caption.php:222
+msgid "_Reset"
+msgstr "_Zurücksetzen"
+
+#: ../crop_photo.php:161 ../popups/edit_thumb.php:201
+msgid "_Crop"
+msgstr "_Zuschneiden"
+
+#: ../gallery_remote2.php:868 ../gallery_remote.php:165
+#: ../lib/albumItem.php:523
+#, php-format
+msgid "Processing file '%s' as archive"
+msgstr "Verarbeite '%s' als Archiv"
+
+#: ../gallery_remote2.php:871 ../gallery_remote.php:168
+#: ../lib/albumItem.php:526
+#, fuzzy, php-format
+msgid "Skipping '%s' (%s support not enabled)"
+msgstr "%s wird &uuml;bersprungen (%s wird von Ihrer Installation nicht unterst&uuml;tzt)"
+
+#: ../gallery_remote2.php:879 ../gallery_remote.php:176
+msgid "Error occured before extracting the archive. Temporary destination exists."
+msgstr ""
+
+#: ../gallery_remote2.php:884 ../gallery_remote.php:181
+msgid "Error occured before extracting the archive. Temporary destination could not be created."
+msgstr ""
+
+#: ../gallery_remote2.php:889 ../gallery_remote.php:186
+#: ../lib/albumItem.php:545
+msgid "Extracting archive failed."
+msgstr ""
+
+#: ../gallery_remote2.php:893 ../gallery_remote.php:190
+#: ../lib/albumItem.php:549
+#, fuzzy
+msgid "Processing archive content."
+msgstr "Hole Dateinames des Archivinhaltes."
+
+#: ../gallery_remote2.php:935 ../gallery_remote.php:232
+#: ../lib/albumItem.php:605 ../lib/albumItem.php:613
+msgid "The archive contains no valid files!"
+msgstr ""
+
+#: ../gallery_remote2.php:932 ../gallery_remote.php:229
+#, fuzzy, php-format
+msgid "Processing %d valid file from archive."
+msgid_plural "Processing %d valid files from archive."
+msgstr[0] "Verarbeite Dateien des Archives"
+msgstr[1] "Verarbeite Dateien des Archives"
+
+#: ../gallery_remote2.php:1039
+#, fuzzy, php-format
+msgid "Skipping %s (can't handle '%s' format)"
+msgstr "%s wird &uuml;bersprungen (%s Format kann nicht verarbeitet werden)"
+
+#: ../gallery_remote.php:116 ../publish_xp.php:378
+msgid "User cannot add to album"
+msgstr "Benutzer darf keine Alben anlegen"
+
+#: ../gallery_remote.php:119 ../publish_xp.php:382
+msgid "No file specified"
+msgstr "Keine Datei ausgew&auml;hlt"
+
+#: ../help/imagemap.php:25
+msgid "ImageMap Help"
+msgstr "ImageMap Hilfe"
+
+#: ../help/imagemap.php:28
+#, fuzzy
+msgid "This is a help for working with Gallerys so called 'ImageMaps'"
+msgstr "Dies ist die Hilfeseite um mit Gallerys sogenannte 'ImageMaps' zu erstellen."
+
+#: ../help/imagemap.php:32
+msgid "An ImageMap is a predefined area of a picture, or a hotspot if you will."
+msgstr "Eine ImageMap ist ein definierter Bereich in Ihrem Bild."
+
+#: ../help/imagemap.php:33
+msgid "A sample usage scenario is a family photo, where you can apply an ImageMap for each of the family members featured in the photo."
+msgstr "Sie können zum Beispiel in Familien- oder Gruppenfotos jeder Person eine ImageMap zuweisen."
+
+#: ../help/imagemap.php:34
+msgid "The defined area can contain information you want displayed when a user places his mouse pointer on top of that area."
+msgstr "Dem Bereich kann dann ein Text zugewiesen werden, der dem Betrachter angezeigt wird, sobald er mit der Maus über den Bereich fährt."
+
+#: ../help/imagemap.php:35
+msgid "You can add basic text, or even define an URL that gets activated when a user clicks the area you have defined as an ImageMap."
+msgstr "Es kann sogar eine Linkadresse angegeben werden, die aufgerufen wird, wenn der Benutzer auf den Bildteil klickt, den Sie als ImageMap definiert haben."
+
+#: ../help/imagemap.php:40
+msgid "How to create an ImageMap in Gallery?"
+msgstr "Wie erzeuge ich eine ImageMap in Gallery?"
+
+#: ../help/imagemap.php:43
+msgid "It's as easy as it is fun. First, you need to create your ImageMap, this is done by clicking on the image, in the position where you want the first corner of the ImageMap to be."
+msgstr "Es ist recht einfach. Zuerst müssen Sie Ihre ImageMap anlegen. Dies tun Sie, indem Sie auf Ihr Bild klicken. Der erste Klick stellt den Startpunkt dar."
+
+#: ../help/imagemap.php:44
+msgid "Click again on a new spot, and you'll see that Gallery creates a polygon shape based on the two spots you have created."
+msgstr "Wenn Sie weiter klicken, sehen Sie, daß Gallery ein Vieleck (Polygon) aus Verbindungslinien Ihrer Punkte erzeugt."
+
+#: ../help/imagemap.php:45
+msgid "Click again to create another spot. Add spots until your polygon shape surrounds the entire area you want to use as an ImageMap."
+msgstr "So fahren Sie nun fort, bis das Vieleck den Bereich umrandet, der Ihre ImageMap darstellen soll."
+
+#: ../help/imagemap.php:49
+#, fuzzy
+msgid "When you are satisifed with your selection (e.g. a person or object), enter the describing text for your ImageMap in the 'Description' field on the left hand side."
+msgstr "Wenn Sie zufrieden sind mit Ihrer Umrandung (einer Person, oder eines Objektes), geben Sie einen beschreibenden Text für Ihre ImageMap im 'Beschreibung' Feld auf der linken Seite ein."
+
+#: ../help/imagemap.php:50
+msgid "The text entered in the description field, will be displayed when your users point their mouse cursor over the ImageMap"
+msgstr "Der von Ihnen eingegebene Text im Feld 'Beschreibung' erscheint, wenn der Benutzer mit der Maus über den von Ihnen markierten Bereich fährt."
+
+#: ../help/imagemap.php:54
+msgid "Optionally you can enter a Link-URL for your ImageMap, which is activated when a user clicks your ImageMap selection."
+msgstr "Optional können Sie auch eine Linkadresse angeben, die angesprungen wird, wenn der Benuter auf Ihre ImageMap klickt."
+
+#: ../help/imagemap.php:55
+msgid "When you are satisfied, click the 'Save ImageMap' button at the left side."
+msgstr "Wenn Sie zufrieden sind drücken Sie auf den 'ImageMap speichern' Button auf der linken Seite."
+
+#: ../help/imagemap.php:62
+msgid "How to update an ImageMap in Gallery?"
+msgstr "Wie aktualiere ich meine ImageMap?"
+
+#: ../help/imagemap.php:65
+msgid "Currently you can only modify the text and the URL for an ImageMap. The polygon for the ImageMap is currently not changeable."
+msgstr "Zur Zeit können Sie nur den Beschreibungstext und die Linkadresse Ihrer ImageMap aktualisieren. Das Polygon für den Rand ist noch nicht änderbar."
+
+#: ../help/imagemap.php:66
+msgid "If you do need to change the actual shape of the selection, you need to delete it and create a new selection in the shape you want."
+msgstr "Falls Sie die Abgrenzungen Ihres Bereiches ändern möchten, müssen Sie die ImageMap löschen und eine neue anlegen."
+
+#: ../help/imagemap.php:69
+msgid "Select the ImageMap you want to edit in the box on the left hand side."
+msgstr "Markieren Sie die ImageMap(s), welche Sie bearbeiten möchten, in der linken Spalte. Ihre ImageMap(s) werden nun im Bild angezeigt."
+
+#: ../help/imagemap.php:70
+msgid "The image preview on the right hand side, will show which area is covered by the ImageMap currently selected."
+msgstr "Die Bildvorschau auf der rechten Seite zeigt Ihnen die Bereiche, die von der/den ausgewälten ImageMap/s abgedeckt wird."
+
+#: ../help/imagemap.php:71
+msgid "You can then modify your 'Description', or edit the 'Link-URL'."
+msgstr "Sie können die Beschreibung und die Link-Adresse ändern."
+
+#: ../help/imagemap.php:72
+msgid "When finished, click the 'Update ImageMap' button."
+msgstr "Wenn Sie fertig sind drücken Sie auf den 'ImageMap speichern' Button."
+
+#: ../help/imagemap.php:79
+msgid "How to delete an ImageMap in Gallery?"
+msgstr "Wie lösche ich eine ImageMap?"
+
+#: ../help/imagemap.php:82
+msgid "Just select the ImageMap(s) you want to delete in the box. Then click the 'Delete selected ImageMap(s)' button."
+msgstr "Markieren Sie die ImageMap(s), die Sie löschen möchten, in der Auswahl. Danach klicken Sie einfach den 'Markierte ImageMap(s) löschen' Button."
+
+#: ../help/imagemap.php:88 ../popups/administer_startpage.php:99
+#: ../popups/administer_startpage.php:110 ../popups/download.php:104
+#: ../popups/edit_thumb.php:210 ../popups/featured-item.php:85
+#: ../popups/register.php:42 ../popups/register.php:126
+#: ../popups/upgrade_album.php:182 ../popups/user_preferences.php:161
+#: ../popups/view_photo_properties.php:139
+msgid "_Close Window"
+msgstr "Fenster _schließen"
+
+#: ../help/metadataOnUpload.php:25
+msgid "Metadata on Upload Help"
+msgstr "Hilfe zu den Metadaten beim Upload"
+
+#: ../help/metadataOnUpload.php:29
+#, fuzzy
+msgid "What is meant with metadata in this context?"
+msgstr "Was ist mit Metadaten in diesem Umfeld gemeint?"
+
+#: ../help/metadataOnUpload.php:32
+msgid "Photos in Gallery have descriptive fields, like caption, title and other data fields. You can also define your own custom fields."
+msgstr "In der Gallery haben die Photos beschreibende Felder wie z.B. Beschriftung, Titel oder sonstige Datenfelder. Zudem können Sie Ihre eigenen Felder definieren."
+
+#: ../help/metadataOnUpload.php:33
+msgid "This information is called Metadata."
+msgstr "Diese Infos werden Metadaten genannt."
+
+#: ../help/metadataOnUpload.php:37
+msgid "Normally this info is added manually inside the Gallery for each photo."
+msgstr "Normalerweise werden diese Infos händisch in der Gallery für jedes Photo eingetragen."
+
+#: ../help/metadataOnUpload.php:38
+msgid "You can also do this automatically during your uploads."
+msgstr "Sie haben aber auch die Möglichkeit dies direkt während des Uploads zu tun."
+
+#: ../help/metadataOnUpload.php:43
+msgid "How can I add the metadata?"
+msgstr "Wie werden die Metadaten hinzugefügt?"
+
+#: ../help/metadataOnUpload.php:46
+#, php-format
+msgid "Create a %s'csv-file (Comma Separated Values)'%s which contains the data you want associated with the files you are uploading."
+msgstr "Erzeugen Sie eine %s'CSV-Datei (Comma Separated Values)'%s welche die Infos enthält die zu den Photos die Sie hochladen hinzufügen möchten."
+
+#: ../help/metadataOnUpload.php:47
+msgid "Upload this file at the same time as you upload your files, you cannot upload it later and expect Gallery to import the metadata from it."
+msgstr "Laden Sie diese Datei gleichzeitig mit Ihren Photos in die Gallery. Sie können dies nicht später tun und erwarten, daß die Gallery dies Metadaten dann importiert."
+
+#: ../help/metadataOnUpload.php:53
+#, fuzzy
+msgid "In which format does the data have to be?"
+msgstr "In welchem Format müssen die Daten vorliegen?"
+
+#: ../help/metadataOnUpload.php:56
+msgid "The first row must be the fieldnames, there is one mandatory field, some predefined fields and you can use your own custom fields."
+msgstr "Die erste Zeile enthält die Feldnamen, es gibt ein Pflichtfeld, einige vordefinierte Felder, aber Sie können natürlich auch Ihre eigenen Felder benutzen."
+
+#: ../help/metadataOnUpload.php:57
+#, fuzzy
+msgid "Order does not matter, but you have to use a <b>;</b> (Semicolon) as separator as your texts might have commas."
+msgstr "Die Reihenfolge spielt keine Rolle, jedoch müssen Sie das <b>;</b> (Semikolon) als Separator verwenden."
+
+#: ../help/metadataOnUpload.php:58
+#, php-format
+msgid "Mandatory: %s"
+msgstr "Pflichtfeld: %s"
+
+#: ../help/metadataOnUpload.php:59
+#, php-format
+msgid "Predefined: %s, %s, %s"
+msgstr "Vordefinierte Felder: %s, %s, %s"
+
+#: ../help/metadataOnUpload.php:62
+msgid "Then follow the lines containing the info itself."
+msgstr "Anschließend folgen die Zeilen mit den Infos ansich."
+
+#: ../help/metadataOnUpload.php:66
+msgid "Example:"
+msgstr "Beispiel:"
+
+#: ../help/metadataOnUpload.php:75
+msgid "_Back to upload"
+msgstr "_Zur&uuml;ck zum Upload"
+
+#: ../imagemap.php:40
+msgid "Imagemaps"
+msgstr "ImageMaps"
+
+#: ../imagemap.php:89 ../imagemap.php:93
+msgid "An imagemap should at least have three points."
+msgstr "Eine Imagemap muß mindestens aus drei Punkten bestehen."
+
+#: ../imagemap.php:212
+msgid "Here you can create, edit or delete imagemaps for the selected photo."
+msgstr "Hier können Sie sogenannte ImageMaps für das ausgewählte Photo anlegen, bearbeiten oder auch wieder löschen."
+
+#: ../imagemap.php:214
+#, fuzzy
+msgid "Click the questionmark icon for helpful instructions."
+msgstr "Klicken Sie auf das Fragezeichen um einige hilfreiche Tips zu bekommen."
+
+#: ../imagemap.php:215 ../includes/add_photos/add_form.inc:74
+msgid "Help"
+msgstr "Hilfe"
+
+#: ../imagemap.php:238
+msgid "Brush color:"
+msgstr "Malfarbe:"
+
+#: ../imagemap.php:240
+msgid "Optional link-url"
+msgstr "Optionale Link-URL"
+
+#: ../imagemap.php:252
+msgid "Clear and reset canvas"
+msgstr "Zeichenfläche löschen."
+
+#: ../imagemap.php:253
+msgid "Save new Imagemap"
+msgstr "Als neue ImageMap speichern"
+
+#: ../imagemap.php:260
+msgid "Edit existing ImageMaps"
+msgstr "Vorhanden Imagemaps bearbeiten"
+
+#: ../imagemap.php:262
+msgid "Select entries to show ImageMap areas in your photo."
+msgstr "Markieren Sie hier die Einträge um die ImageMaps im Bild anzuzeigen."
+
+#: ../imagemap.php:271
+msgid "Selected ImageMap(s):"
+msgstr "Ausgewähle Imagemap(s):"
+
+#: ../imagemap.php:273 ../lib/albumItem.php:264 ../lib/albumItem.php:272
+#: ../popups/delete_album.php:66 ../popups/delete_group.php:114
+#: ../popups/delete_item.php:113 ../popups/manage_groups.php:107
+#: ../popups/manage_users.php:184
+msgid "_Delete"
+msgstr "_Löschen"
+
+#: ../imagemap.php:274
+msgid "_Update"
+msgstr "_Aktualisieren"
+
+#: ../imagemap.php:278
+msgid "Be aware, that the text of ALL selected entries will be updated!"
+msgstr "Vorsicht, bei einer Aktualisierung werden alle markierten Einträge verwendet."
+
+#: ../imagemap.php:283
+msgid "No ImageMaps"
+msgstr "Keine ImageMap bisher angelegt."
+
+#: ../includes/add_photos/add_applet.inc:31
+msgid "Use the Gallery Remote Applet to upload pictures. It will take a short while to download."
+msgstr "Das <b>Gallery Remote Applet</b> ist ein Programm, &uuml;ber das Sie Bilder und Filme komfortabel in unterschiedliche Alben Ihrer Galerie hochladen k&ouml;nnen. Im Gegensatz zum Upload per Formular und Gallery Remote Mini k&ouml;nnen Sie mit diesem Programm beliebig viele Dateien f&uuml;r den Upload ausgew&auml;hlen und auch unterschiedliche Alben zeitgleich aktualisieren. Es kann allerdings einen kurzen Augenblick dauern, bis das Programm vollst&auml;ndig geladen wurde. "
+
+#: ../includes/add_photos/add_applet.inc:32
+#: ../includes/add_photos/add_applet_mini.inc:32
+msgid "If you don't have the Java Plugin 1.4 or later, you can use one of the other methods."
+msgstr "Falls Sie das Java Plugin 1.4 oder neuer nicht installiert haben, k&ouml;nnen Sie problemlos eine der anderen oben genannten Methoden nutzen. "
+
+#: ../includes/add_photos/add_applet.inc:50
+#: ../includes/add_photos/add_applet_mini.inc:48
+msgid "Your browser doesn't support applets; you should use one of the other upload methods."
+msgstr "Ihr Browser unterst&uuml;tzt keine Appletts"
+
+#: ../includes/add_photos/add_applet_mini.inc:31
+msgid "Use the Gallery Remote Mini Applet to upload pictures. It will take a short while to download."
+msgstr "Das Gallery Remote Mini Applet ist eine Alternative f&uuml;r den Bilderupload. Es dauert eine kleine Weile um es herunterzuladen."
+
+#: ../includes/add_photos/add_form.inc:34
+msgid "Click the <b>Browse</b> button to locate a photo to upload."
+msgstr "Klicken Sie den <b>Durchsuchen</b>-Button, um jeweils eine Datei f&uuml;r den Upload auszuwählen."
+
+#: ../includes/add_photos/add_form.inc:35
+msgid "After you added a file, you can add more files on the sane way, just use the browse button as often as you want."
+msgstr "Nachdem Sie eine Datei hinzugefügt haben, können Sie auf gleichem Wege weitere hinzufügen. Benutzen Sie hierzu einfach wieder den Durchsuchen Button."
+
+#: ../includes/add_photos/add_form.inc:36
+msgid "It's possible to enter a manual caption for each item you upload, or you can let gallery set the captions."
+msgstr "Es ist möglich für jedes Bild eine Überschrift manuell einzugeben, Sie können dies aber auch von Gallery erledigen lassen."
+
+#: ../includes/add_photos/add_form.inc:37
+#, php-format
+msgid "Supported file types: %s"
+msgstr "Unterst&uuml;tzte Dateitypen: %s"
+
+#: ../includes/add_photos/add_form.inc:47 ../view_album.php:301
+msgid " or "
+msgstr " oder "
+
+#: ../includes/add_photos/add_form.inc:51
+#, php-format
+msgid "You can also upload compressed archive files (%s) full of photos and movies!"
+msgstr "Sie können ausserdem Archivdateien (%s) mit Bildern und Filmen hochladen!"
+
+#: ../includes/add_photos/add_form.inc:62
+msgid "Use the Browse button to find the photos on your computer"
+msgstr "Klicken Sie den <b>Durchsuchen</b>-Button, um eine (weitere) Datei auf Ihrem Computer f&uuml;r den Upload auszuwählen."
+
+#: ../includes/add_photos/add_form.inc:63
+msgid "Files:"
+msgstr "Dateien:"
+
+#: ../includes/add_photos/add_form.inc:73
+msgid "Do the same for optional metafiles."
+msgstr "Das Selbe gilt für die optionalen Meta-Dateien."
+
+#: ../includes/add_photos/add_form.inc:80
+msgid "MetaFiles:"
+msgstr "Metadateien:"
+
+#: ../includes/add_photos/add_form.inc:89
+msgid "If no caption is set, what would you like the captions to default to?"
+msgstr "Falls keine Überschrift angegeben ist, worauf möchten Sie diese setzen ?"
+
+#: ../includes/add_photos/add_form.inc:108
+msgid "_Upload Now"
+msgstr "Lade _hoch"
+
+#: ../includes/add_photos/add_form.inc:109
+#: ../includes/add_photos/add_local.inc:97
+#: ../includes/add_photos/add_url.inc:66 ../login.php:210
+#: ../popups/add_comment.php:66 ../popups/delete_album.php:67
+#: ../popups/delete_item.php:114 ../popups/download.php:97
+#: ../popups/ecard_form.php:291 ../popups/edit_field.php:63
+#: ../popups/edit_watermark.php:129 ../popups/modify_group.php:188
+#: ../popups/move_albumitem.php:323 ../popups/move_albumitem.php:387
+#: ../popups/move_rootalbum.php:134 ../popups/move_rootalbum.php:156
+#: ../popups/rearrange.php:150 ../popups/rearrange.php:205
+#: ../popups/register.php:149 ../popups/rename_album.php:133
+#: ../popups/reset_votes.php:66 ../popups/resize_photo.php:211
+#: ../popups/sort_album.php:111
+msgid "_Cancel"
+msgstr "A_bbrechen"
+
+#: ../includes/add_photos/add_local.inc:43
+msgid "Upload any images found at this location on your server."
+msgstr "Laden Sie Bilder hoch die Gallery an diesem Ort auf Ihrem Server finden kann."
+
+#: ../includes/add_photos/add_local.inc:45
+msgid "Hint:"
+msgstr "Tip:"
+
+#: ../includes/add_photos/add_local.inc:46
+msgid "FTP images to a directory on your server then provide that path here!"
+msgstr "Laden Sie die Dateien per FTP in einen Ordner auf Ihren Server. Danach geben Sie hier den Pfad ein!"
+
+#: ../includes/add_photos/add_local.inc:53
+msgid "Choose one of these legal paths:"
+msgstr "W&auml;hlen Sie einen der erlaubten Pfade:"
+
+#: ../includes/add_photos/add_local.inc:56
+msgid "<< Choose path >>"
+msgstr "<< Pfadauswahl >>"
+
+#: ../includes/add_photos/add_local.inc:68
+msgid "Path to your image(s):"
+msgstr "Pfad zu Ihren Bildern:"
+
+#: ../includes/add_photos/add_local.inc:76
+#: ../includes/add_photos/add_url.inc:43
+msgid "What would you like the captions to default to?"
+msgstr "Wie soll die Überschrift standardmässig sein?"
+
+#: ../includes/add_photos/add_local.inc:96
+msgid "Submit directory"
+msgstr "Pfad &uuml;bergeben"
+
+#: ../includes/add_photos/add_local.inc:127
+msgid "No legal upload pathes defined. Autocomplete is switched off."
+msgstr "Kein gültiger Pfad für den lokale Upload definiert. Autocomplete wurde ausgeschaltet."
+
+#: ../includes/add_photos/add_other.inc:31
+msgid "You can use one of these desktop agents to drag and drop photos from your desktop"
+msgstr "Sie k&ouml;nnen eine dieser Methoden verwenden, um Bilder von Ihrem Computer per Drag and Drop hinzuzuf&uuml;gen. "
+
+#: ../includes/add_photos/add_other.inc:38
+msgid "A Java application that runs on Mac, Windows and Unix"
+msgstr "Eine Java-Anwendung, welche unter Mac, Windows und Linux l&auml;uft."
+
+#: ../includes/add_photos/add_other.inc:43
+msgid "Other methods"
+msgstr "Alternative Methoden"
+
+#: ../includes/add_photos/add_other.inc:45
+msgid "See a couple of other Methods for adding pictures to your Gallery on Gallerys Website."
+msgstr "Eine Auswahl von weiteren Methoden, um Bilder zu Ihrer Gallery hinzuzuf&uuml;gen finden Sie auf den Webseiten der Gallery."
+
+#: ../includes/add_photos/add_other.inc:51
+msgid "Windows XP Publishing Agent"
+msgstr "Windows XP Ver&ouml;ffentlichungs Agent"
+
+#: ../includes/add_photos/add_url.inc:39
+#, fuzzy
+msgid "Upload any images found at this location:"
+msgstr "Diese Methode zum Hinzuf&uuml;gen von Bildern und Filmen sollten Sie dann nutzen, wenn die Dateien nicht lokal bei Ihnen auf den Computer gespeichert sind, sondern bereits in einem Ordner auf dem Server der Gallery bzw. auf einem anderen - &uuml;ber Internet erreichbaren - Computer gespeichert sind. "
+
+#: ../includes/add_photos/add_url.inc:65
+msgid "_Submit URL"
+msgstr "URL über_geben"
+
+#: ../includes/add_photos/captionOptions.inc.php:36
+msgid "Leave blank."
+msgstr "Leer lassen."
+
+#: ../includes/add_photos/captionOptions.inc.php:40
+msgid "Use filename as caption."
+msgstr "Dateiname als Beschriftung nutzen"
+
+#: ../includes/add_photos/captionOptions.inc.php:44
+msgid "Use file creation date/time stamp."
+msgstr "Datum/Zeit der Erstellung benutzen."
+
+#: ../includes/add_photos/captionOptions.inc.php:49
+msgid "Set photo captions with file capture times."
+msgstr "Aufnahmedatum."
+
+#: ../includes/add_photos/captionOptions.inc.php:54
+msgid "For the date/time related options Gallery will use the format you specified in the config for date/time strings."
+msgstr "Für die Datum/Zeit abhängigen Optionen wird das Format verwendet, welches Sie für Datum/Zeit im Setup angegeben haben."
+
+#: ../includes/comments/commentHandling.inc.php:63
+msgid "Name and comment are both required to save a new comment!"
+msgstr ""
+
+#: ../includes/comments/commentHandling.inc.php:70
+#, php-format
+msgid "Your comment is too long, the admin set maximum length to %d chars"
+msgstr ""
+
+#: ../includes/comments/commentHandling.inc.php:79
+msgid "Your comment contains forbidden words. It will not be added."
+msgstr ""
+
+#: ../includes/comments/commentHandling.inc.php:86
+msgid "You didn't enter the correct chars/numbers."
+msgstr ""
+
+#: ../includes/definitions/albumPermissions.php:76
+msgid "_View album"
+msgstr "Album _anschauen"
+
+#: ../includes/definitions/albumPermissions.php:77
+msgid "Users / Groups that can see the album."
+msgstr "Benutzer / Gruppen, die dieses Album sehen können."
+
+#: ../includes/definitions/albumPermissions.php:82
+msgid "_Add items"
+msgstr "Dateien _hinzufügen"
+
+#: ../includes/definitions/albumPermissions.php:83
+msgid "Users / Groups that can add items."
+msgstr "Benutzer / Gruppen, die Elemente hinzufügen können."
+
+#: ../includes/definitions/albumPermissions.php:88
+msgid "_Delete items"
+msgstr "Element _löschen"
+
+#: ../includes/definitions/albumPermissions.php:89
+msgid "Users / Groups that can delete items."
+msgstr "Benutzer / Gruppen, die Elemente löschen können."
+
+#: ../includes/definitions/albumPermissions.php:94
+msgid "_Modify items"
+msgstr "Element _Ver&auml;ndere"
+
+#: ../includes/definitions/albumPermissions.php:95
+msgid "Users / Groups that can modify items."
+msgstr "Benutzer / Gruppen, die Elemente verändern können."
+
+#: ../includes/definitions/albumPermissions.php:100
+msgid "Create _Subalbums"
+msgstr "_Unteralbum erzeugen"
+
+#: ../includes/definitions/albumPermissions.php:101
+msgid "Users / Groups that can create sub albums."
+msgstr "Benutzer / Gruppen, die dieses Album sehen können."
+
+#: ../includes/definitions/albumPermissions.php:106
+msgid "Zip_download"
+msgstr "_Zip herrunterladen"
+
+#: ../includes/definitions/albumPermissions.php:107
+msgid "Users / Groups that can to download album (with subalbums) as archive."
+msgstr "Benutzer / Gruppen, die Alben (samt Unteralben) herunterladen können als Zipdatei."
+
+#: ../includes/definitions/albumPermissions.php:113
+msgid "View _comments"
+msgstr "Kommentare _betrachten"
+
+#: ../includes/definitions/albumPermissions.php:114
+msgid "Users / Groups that can view comments."
+msgstr "Benutzer / Gruppen, die Bilder hinzuf&uuml;gen k&ouml;nnen."
+
+#: ../includes/definitions/albumPermissions.php:119
+msgid "Add c_omments"
+msgstr "_Kommentar hinzufügen"
+
+#: ../includes/definitions/albumPermissions.php:120
+msgid "Users / Groups that can add comments."
+msgstr "Benutzer / Gruppen, die Bilder hinzuf&uuml;gen k&ouml;nnen."
+
+#: ../includes/definitions/albumPermissions.php:125
+msgid "View _full images"
+msgstr "_Originalbild anschauen"
+
+#: ../includes/definitions/albumPermissions.php:126
+msgid "Users / Groups that can view _full (original) images."
+msgstr "Benutzer / Gruppen, die die Bilder in voller (Original-) Gr&ouml;sse betrachten d&uuml;rfen."
+
+#: ../includes/definitions/albumPermissions.php:131
+msgid "_Edit texts"
+msgstr "Beschrif_tung bearbeiten"
+
+#: ../includes/definitions/albumPermissions.php:132
+msgid "Users / Groups that can change album text."
+msgstr "Benutzer / Gruppen, die dieses Album sehen können."
+
+#: ../includes/definitions/cropOptions.php:32
+msgid "No Ratio"
+msgstr "Kein Verhältnis"
+
+#: ../includes/definitions/cropOptions.php:33
+msgid "1:1 (Square)"
+msgstr "1:1 (Quadrat)"
+
+#: ../includes/definitions/cropOptions.php:34
+msgid "1:3 (Letterbox)"
+msgstr "1:3 (Letterbox)"
+
+#: ../includes/definitions/cropOptions.php:35
+msgid "9:16 (HDTV)"
+msgstr "9:16 (HDTV)"
+
+#: ../includes/definitions/cropOptions.php:36
+msgid "3:5 (Photo)"
+msgstr "3:5 (Photo)"
+
+#: ../includes/definitions/cropOptions.php:37
+msgid "4:6 = 10:15 (Photo)"
+msgstr "4:6 = 10:15 (Photo)"
+
+#: ../includes/definitions/cropOptions.php:38
+msgid "9:13 (Photo)"
+msgstr "9:13 (Photo)"
+
+#: ../includes/definitions/cropOptions.php:39
+msgid "5:7 (Photo)"
+msgstr "5:7 (Photo)"
+
+#: ../includes/definitions/cropOptions.php:40
+msgid "3:4 (Screen)"
+msgstr "3:4 (Bildschirm)"
+
+#: ../includes/definitions/cropOptions.php:41
+msgid "8:10 (Photo)"
+msgstr "8:10 (Photo)"
+
+#: ../includes/definitions/cropOptions.php:42
+msgid "Like the Image"
+msgstr "Wie das Bild"
+
+#: ../includes/definitions/cropOptions.php:46
+msgid "Portrait"
+msgstr "Hochformat"
+
+#: ../includes/definitions/cropOptions.php:47
+msgid "Landscape"
+msgstr "Querformat"
+
+#: ../includes/slideshow/applet.inc:40 ../includes/slideshow/high.inc:86
+#, php-format
+msgid "Slideshow for Gallery :: %s"
+msgstr "Diashow für die Gallery :: %s"
+
+#: ../includes/slideshow/applet.inc:44 ../includes/slideshow/high.inc:95
+#, php-format
+msgid "Slideshow for album :: %s"
+msgstr "Diashow für das Album  :: %s"
+
+#: ../includes/slideshow/applet.inc:52
+msgid "If you don't have the Java Plugin 1.4 or later, or you don't want to wait for the applet to download, you can use one of the non-fullscreen versions."
+msgstr "Falls Sie das Java Plugin 1.4 oder neuer nicht installiert haben, oder Sie nicht auf das Applet warten wollen, k&ouml;nnen Sie problemlos eine der anderen M&ouml;glichkeiten nutzen."
+
+#: ../includes/slideshow/applet.inc:78
+msgid "Your browser doesn't support applets; you should use one of the other slideshow methods."
+msgstr "Ihr Browser unterst&uuml;tzt keine Applets. Verwenden Sie eine der anderen Diashow Varianten."
+
+#: ../includes/slideshow/high.inc:82
+#, php-format
+msgid "%s Random Images from %s"
+msgstr "%s zuf&auml;llige Bilder aus %s"
+
+#: ../includes/slideshow/high.inc:91
+#, php-format
+msgid "%d Random Images from album :: %s"
+msgstr "%d zuf&auml;llige Bilder aus Album :: %s"
+
+#: ../includes/slideshow/high.inc:245
+msgid "Blend"
+msgstr "&Uuml;berblenden"
+
+#: ../includes/slideshow/high.inc:247
+msgid "Blinds"
+msgstr "Schalusie"
+
+#: ../includes/slideshow/high.inc:249
+msgid "Checkerboard"
+msgstr "Schachbrett"
+
+#: ../includes/slideshow/high.inc:251
+msgid "Diagonal"
+msgstr "Diagonal"
+
+#: ../includes/slideshow/high.inc:253
+msgid "Doors"
+msgstr "T&uuml;ren"
+
+#: ../includes/slideshow/high.inc:255
+msgid "Gradient"
+msgstr "Verlauf"
+
+#: ../includes/slideshow/high.inc:257
+msgid "Iris"
+msgstr "Iris"
+
+#: ../includes/slideshow/high.inc:259
+msgid "Pinwheel"
+msgstr "Windrad"
+
+#: ../includes/slideshow/high.inc:261
+msgid "Pixelate"
+msgstr "Pixelate"
+
+#: ../includes/slideshow/high.inc:263
+msgid "Radial"
+msgstr "Radial"
+
+#: ../includes/slideshow/high.inc:265
+msgid "Rain"
+msgstr "Regen"
+
+#: ../includes/slideshow/high.inc:267
+msgid "Slide"
+msgstr "Dia"
+
+#: ../includes/slideshow/high.inc:269
+msgid "Snow"
+msgstr "Schnee"
+
+#: ../includes/slideshow/high.inc:271
+msgid "Spiral"
+msgstr "Spirale"
+
+#: ../includes/slideshow/high.inc:273
+msgid "Stretch"
+msgstr "Streckung"
+
+#: ../includes/slideshow/high.inc:276
+msgid "RANDOM!"
+msgstr "Zuf&auml;lig"
+
+#: ../includes/slideshow/high.inc:332 ../includes/slideshow/low.inc:190
+msgid "The slideshow is stopped, click [play] to resume."
+msgstr "Die Diashow wurde angehalten. Klicken Sie [Play] um fortzufahren."
+
+#: ../includes/slideshow/high.inc:340 ../includes/slideshow/high.inc:397
+#: ../includes/slideshow/low.inc:196
+msgid "Slideshow is running..."
+msgstr "Die Diashow läuft..."
+
+#: ../includes/slideshow/high.inc:347
+msgid "The slide is showing full sized images, click [normal size] to view resized images."
+msgstr "Die Diashow wird die Bilder in voller Gr&ouml;sse anzeigen. Klicken Sie auf [Normale Größe] um die verkleinerte Version zu sehen."
+
+#: ../includes/slideshow/high.inc:354
+msgid "The slide is showing normal sized images, click [full size] to view full sized images."
+msgstr "Die Bilder werden in der angepassten Größe gezeigt. Klicken Sie auf [Volle Größe], um sie in Originalgr&ouml;&szlig;e zu betrachten."
+
+#: ../includes/slideshow/high.inc:392 ../includes/slideshow/low.inc:225
+msgid "Picture is loading..."
+msgstr "Bild wird geladen ..."
+
+#: ../includes/slideshow/high.inc:392 ../includes/slideshow/high.inc:487
+#: ../includes/slideshow/low.inc:225 ../includes/slideshow/low.inc:384
+msgid "of"
+msgstr "von"
+
+#: ../includes/slideshow/high.inc:392 ../includes/slideshow/low.inc:226
+#: ../upgrade_users.php:42
+msgid "Please Wait..."
+msgstr "Bitte warten ..."
+
+#: ../includes/slideshow/high.inc:516 ../includes/slideshow/low.inc:337
+msgid "1 second"
+msgstr "1 Sekunde"
+
+#: ../includes/slideshow/high.inc:517 ../includes/slideshow/low.inc:338
+msgid "2 seconds"
+msgstr "2 Sekunden"
+
+#: ../includes/slideshow/high.inc:518 ../includes/slideshow/low.inc:339
+msgid "3 seconds"
+msgstr "3 Sekunden"
+
+#: ../includes/slideshow/high.inc:519 ../includes/slideshow/low.inc:340
+msgid "5 seconds"
+msgstr "5 Sekunden"
+
+#: ../includes/slideshow/high.inc:520 ../includes/slideshow/low.inc:341
+msgid "10 seconds"
+msgstr "10 Sekunden"
+
+#: ../includes/slideshow/high.inc:521 ../includes/slideshow/low.inc:342
+msgid "15 seconds"
+msgstr "15 Sekunden"
+
+#: ../includes/slideshow/high.inc:522 ../includes/slideshow/low.inc:343
+msgid "30 seconds"
+msgstr "30 Sekunden"
+
+#: ../includes/slideshow/high.inc:523 ../includes/slideshow/low.inc:344
+msgid "45 seconds"
+msgstr "45 Sekunden"
+
+#: ../includes/slideshow/high.inc:524 ../includes/slideshow/low.inc:345
+msgid "1 Minute"
+msgstr "1 Minute"
+
+#: ../includes/slideshow/high.inc:541
+msgid "Transition:"
+msgstr "&Uuml;bergang: "
+
+#: ../includes/slideshow/high.inc:595 ../includes/slideshow/low.inc:393
+msgid "This album has no photos to show in a slide show."
+msgstr "Dieses Album enth&auml;t keine Bilder f&uuml;r eine Diashow."
+
+#: ../includes/slideshow/low.inc:88
+msgid "Slideshow for album"
+msgstr "Diashow für Album"
+
+#: ../includes/stats/stats.inc.php:54
+msgid "Sort by most viewed image first"
+msgstr "Sortieren nach der Anzahl der Betrachtungen"
+
+#: ../includes/stats/stats.inc.php:55
+msgid "most viewed"
+msgstr "Meist gesehene"
+
+#: ../includes/stats/stats.inc.php:61
+msgid "Sort by the latest added image first"
+msgstr "Sortieren nach Datum des Hinzufügens"
+
+#: ../includes/stats/stats.inc.php:62
+msgid "latest added"
+msgstr "Zuletzt hinzugefügt"
+
+#: ../includes/stats/stats.inc.php:68
+msgid "Sort by image capture date"
+msgstr "Sortieren nach Aufnahmedatum"
+
+#: ../includes/stats/stats.inc.php:69
+msgid "latest shots"
+msgstr "Neueste Bilder"
+
+#: ../includes/stats/stats.inc.php:75
+msgid "Show images with comments - latest are shown first"
+msgstr "Bilder mit Kommentaren anzeigen, neueste zuerst"
+
+#: ../includes/stats/stats.inc.php:76
+msgid "latest comments"
+msgstr "Neueste Kommentare"
+
+#: ../includes/stats/stats.inc.php:91
+msgid "Show random images"
+msgstr "Zeige Zufallsbilder"
+
+#: ../includes/stats/stats.inc.php:92
+msgid "random images"
+msgstr "Zufallsbilder"
+
+#: ../includes/stats/stats.inc.php:100
+msgid "Show caption"
+msgstr "&Uuml;berschrift anzeigen"
+
+#: ../includes/stats/stats.inc.php:105
+msgid "Show album link"
+msgstr "Zeige Album Link"
+
+#: ../includes/stats/stats.inc.php:110
+msgid "Show description"
+msgstr "Beschreibung anzeigen"
+
+#: ../includes/stats/stats.inc.php:115
+msgid "Show comments"
+msgstr "Kommentare anzeigen"
+
+#: ../includes/stats/stats.inc.php:120
+msgid "Show capture date"
+msgstr "Aufnahmedatum anzeigen"
+
+#: ../includes/stats/stats.inc.php:125
+msgid "Show upload date"
+msgstr "Upload-Datum anzeigen"
+
+#: ../includes/stats/stats.inc.php:130
+msgid "Show number of views"
+msgstr "Anzahl der Klicks anzeigen"
+
+#: ../includes/stats/stats.inc.php:135
+msgid "Show the add comment link"
+msgstr "Kommentar hinzuf&uuml;gen Link?"
+
+#: ../includes/stats/stats.inc.php:149
+msgid "Show the album owners"
+msgstr "Album Besitzer/in anzeigen"
+
+#: ../includes/stats/stats.inc.php:154
+msgid "Show timing basic information"
+msgstr "Zeige Timing Infos"
+
+#: ../includes/stats/stats.inc.php:162
+msgid "Reverses sort order - see above"
+msgstr "Umgekehrte Reihenfolge"
+
+#: ../includes/stats/stats.inc.php:167
+msgid "Thumb size in pixels"
+msgstr "Seitenl&auml;nge der Bilder (in Pixel)"
+
+#: ../includes/stats/stats.inc.php:172
+msgid "Controls the number of photos displayed on one page"
+msgstr "Bilder pro Seite"
+
+#: ../includes/stats/stats.inc.php:177
+msgid "Controls the maximum number of photos listed, -1 for all"
+msgstr "Beschränkt die maximale Bilderanzahl. -1 zeigt alle an"
+
+#: ../includes/stats/stats.inc.php:182
+msgid "Use Grid Layout"
+msgstr "Benutze Tabellen-Layout"
+
+#: ../includes/stats/stats.inc.php:187
+msgid "Controls the number of rows to display in grid mode"
+msgstr "Anzahl der Reihen in der Zellenanzeige"
+
+#: ../includes/stats/stats.inc.php:192
+msgid "Controls the number of columns to display in grid mode"
+msgstr "Anzahl der Spalten in der Zellenanzeige"
+
+#: ../includes/stats/stats.inc.php:197
+msgid "Above the comments"
+msgstr "Über den Kommentaren"
+
+#: ../includes/stats/stats.inc.php:198
+msgid "In the caption line"
+msgstr "Zusammen mit der Überschrift"
+
+#: ../includes/stats/stats.inc.php:199
+msgid "Above the stats"
+msgstr "Über der Statistik"
+
+#: ../includes/stats/stats.inc.php:200
+msgid "Below the comments"
+msgstr "Unter den Kommentaren"
+
+#: ../includes/stats/stats.inc.php:202
+msgid "Position of the add vote and add comment links"
+msgstr "Position der \"Neuer Kommantar\" und \"Vote\" Links"
+
+#: ../includes/stats/stats.inc.php:210
+msgid "Filter by year"
+msgstr "Nach Jahr filtern"
+
+#: ../includes/stats/stats.inc.php:215
+msgid "Filter by month"
+msgstr "Nach Monat filtern"
+
+#: ../includes/stats/stats.inc.php:220
+msgid "Filter by day"
+msgstr "Nach Tag filtern"
+
+#: ../init.php:118
+msgid "Security violation. Geeklog Dir is invalid."
+msgstr "Schutzverletzung. Geeklog Ordner ist ungültig."
+
+#: ../init.php:436
+msgid "Gallery seems to be inside Mambo, but we couldn't get the necessary info."
+msgstr "Gallery scheint innerhalb von Mambo oder Joomla zu sein, aber es fehlen notwendige Infos."
+
+#: ../init.php:582
+msgid "Fatal error: UserDB failed to initialize!"
+msgstr "Schwerwiegender Fehler: Die Userdatenbank konnte nicht inititalisiert werden!"
+
+#: ../js/jscalendar/calendar-translation.js.php:55
+#, fuzzy
+msgid "About the calendar"
+msgstr "Über den Kommentaren"
+
+#: ../js/jscalendar/calendar-translation.js.php:73
+msgid "Prev. year (hold for menu)"
+msgstr ""
+
+#: ../js/jscalendar/calendar-translation.js.php:74
+msgid "Prev. month (hold for menu)"
+msgstr ""
+
+#: ../js/jscalendar/calendar-translation.js.php:75
+msgid "Go Today"
+msgstr ""
+
+#: ../js/jscalendar/calendar-translation.js.php:76
+msgid "Next month (hold for menu)"
+msgstr ""
+
+#: ../js/jscalendar/calendar-translation.js.php:77
+msgid "Next year (hold for menu)"
+msgstr ""
+
+#: ../js/jscalendar/calendar-translation.js.php:78
+#, fuzzy
+msgid "Select date"
+msgstr "Ausgewählt"
+
+#: ../js/jscalendar/calendar-translation.js.php:79
+msgid "Drag to move"
+msgstr ""
+
+#: ../js/jscalendar/calendar-translation.js.php:80
+msgid " (today)"
+msgstr ""
+
+#: ../js/jscalendar/calendar-translation.js.php:84
+#, php-format
+msgid "Display %s first"
+msgstr ""
+
+#: ../js/jscalendar/calendar-translation.js.php:91
+#: ../js/lightbox2/lightbox.js.php:165
+msgid "Close"
+msgstr "Schließen"
+
+#: ../js/jscalendar/calendar-translation.js.php:92
+msgid "Today"
+msgstr ""
+
+#: ../js/jscalendar/calendar-translation.js.php:93
+msgid "(Shift-)Click or drag to change value"
+msgstr ""
+
+#: ../js/jscalendar/calendar-translation.js.php:96
+msgid "%Y-%m-%d"
+msgstr ""
+
+#: ../js/jscalendar/calendar-translation.js.php:97
+msgid "%a, %b %e"
+msgstr ""
+
+#: ../js/jscalendar/calendar-translation.js.php:99
+msgid "wk"
+msgstr ""
+
+#: ../js/jscalendar/calendar-translation.js.php:100
+#, fuzzy
+msgid "Time:"
+msgstr "Titel: "
+
+#: ../js/lightbox2/lightbox.js.php:180
+msgid "Close <br> (or press ESC)"
+msgstr ""
+
+#: ../js/multifile.js.php:118 ../popups/delete_user.php:73
+#: ../templates/commentbox.tpl.default:75
+#: ../tools/lib/lib-despam_comments.php:119
+#: ../tools/lib/lib-despam_comments.php:276
+msgid "Delete"
+msgstr "Löschen"
+
+#: ../js/multifile.js.php:155
+msgid "Caption:"
+msgstr "Beschriftung:"
+
+#: ../layout/breadcrumb.inc:27
+#, php-format
+msgid "Logged in as: %s"
+msgstr "Angemeldet als: %s"
+
+#: ../layout/commentdraw.inc:23 ../lib/albumItem.php:354
+msgid "From:"
+msgstr "Von:"
+
+#: ../layout/commentdraw.inc:48
+#, fuzzy
+msgid "delete comment"
+msgstr "Kommentar löschen"
+
+#: ../layout/navigator.inc:59
+msgid "_First Page "
+msgstr "_Erste Seite "
+
+#: ../layout/navigator.inc:60
+msgid "_Previous Page"
+msgstr "_Vorherige Seite"
+
+#: ../layout/navigator.inc:61
+msgid "_Next Page"
+msgstr "_Nächste Seite"
+
+#: ../layout/navigator.inc:62
+msgid "_Last Page"
+msgstr "_Letzte Seite"
+
+#: ../layout/navigator.inc:103
+#, php-format
+msgid "Jump to page %d (Accesskey '_r')"
+msgstr "Springe zu Seite %d (Zugriffstaste '_r')"
+
+#: ../layout/navigator.inc:136
+#, php-format
+msgid "Jump to page %d (Accesskey '_j')"
+msgstr "Springe zu Seite %d (Zugriffstaste '_j')"
+
+#: ../layout/navphoto.inc:26
+msgid "_First Photo"
+msgstr "Er_stes Bild"
+
+#: ../layout/navphoto.inc:27
+msgid "_Previous Photo"
+msgstr "_Vorheriges Bild"
+
+#: ../layout/navphoto.inc:28
+msgid "_Next Photo"
+msgstr "_Nächstes Bild"
+
+#: ../layout/navphoto.inc:29
+msgid "_Last Photo"
+msgstr "_Letztes Bild"
+
+#: ../layout/navphoto.inc:62
+#, php-format
+msgid "%d of %d"
+msgstr "%d von %d"
+
+#: ../layout/navphoto.inc:101
+msgid "Jump to:"
+msgstr "Springe zu:"
+
+#: ../layout/userData.inc:15 ../popups/multi_create_user.php:186
+#: ../popups/rebuild_capture_dates.php:70 ../popups/rebuild_thumbs.php:67
+#: ../popups/recreate_captions.php:67
+msgid "Yes"
+msgstr "Ja"
+
+#: ../layout/userData.inc:15 ../popups/multi_create_user.php:186
+#: ../popups/rebuild_capture_dates.php:71 ../popups/rebuild_thumbs.php:68
+#: ../popups/recreate_captions.php:68
+msgid "No"
+msgstr "Nein"
+
+#: ../layout/userData.inc:44
+msgid "Member file"
+msgstr "Mitglieder Datei"
+
+#: ../layout/userData.inc:52 ../layout/userData.inc:55 ../login.php:202
+#: ../publish_xp.php:114
+msgid "_Username"
+msgstr "Ben_utzername"
+
+#: ../layout/userData.inc:63
+#, fuzzy
+msgid "_Old Password"
+msgstr "Altes Passwort"
+
+#: ../layout/userData.inc:67
+msgid "New _Password"
+msgstr "Neues _Passwort"
+
+#: ../layout/userData.inc:70
+msgid "New Password (again)"
+msgstr "Neues Passwort (Wiederholung)"
+
+#: ../layout/userData.inc:76
+msgid "_Full Name"
+msgstr "Vollständiger _Name"
+
+#: ../layout/userData.inc:81
+msgid "_Email Address"
+msgstr "_Email-Adresse"
+
+#: ../layout/userData.inc:88
+msgid "Gallery language"
+msgstr "Gallery Sprache"
+
+#: ../layout/userData.inc:96
+msgid "User can change its own password?"
+msgstr "Benutzer kann sein eigenes Passwort ändern?"
+
+#: ../layout/userData.inc:104
+msgid "User can create albums"
+msgstr "Benutzer kann Alben anlegen"
+
+#: ../layout/userData.inc:112
+msgid "User is an admin"
+msgstr "Benutzer ist ein Administrator"
+
+#: ../layout/userData.inc:117
+msgid "You can't un-admin yourself."
+msgstr "Sie können sich nicht selbst den Admin-Status nehmen."
+
+#: ../layout/userData.inc:122
+msgid "Note: Admins can always create albums and are allowed to change their password."
+msgstr "Hinweis: Administratoren k&ouml;nnen immer Alben anlegen und ihr eigenes Passwort verändern."
+
+#: ../layout/userData.inc:131
+msgid "Send email to user when account is created"
+msgstr "Email zum Benutzer senden, wenn der Zugang erzeugt wurde"
+
+#: ../layout/watermarkform.inc:90
+msgid "Watermark:"
+msgstr "Wasserzeichen:"
+
+#: ../layout/watermarkform.inc:94
+msgid "* No Watermark *"
+msgstr "* Kein Wasserzeichen *"
+
+#: ../layout/watermarkform.inc:102
+#, php-format
+msgid "No files matching %s found in %s"
+msgstr "Erlaubt f&uuml;r das Setzen von Wasserzeichen sind Dateien der Typen: %s, es wurden keine gefunden in %s."
+
+#: ../layout/watermarkform.inc:111
+#, php-format
+msgid "Could not open directory %s"
+msgstr "Konnte das Verzeichnis %s nicht &ouml;ffnen."
+
+#: ../layout/watermarkform.inc:126
+msgid "Alignment:"
+msgstr "Ausrichtung:"
+
+#: ../layout/watermarkform.inc:130
+msgid "Upper&nbsp;Left"
+msgstr "Oben links"
+
+#: ../layout/watermarkform.inc:132
+msgid "Top"
+msgstr "Oben mitte"
+
+#: ../layout/watermarkform.inc:134
+msgid "Upper&nbsp;Right"
+msgstr "Oben rechts"
+
+#: ../layout/watermarkform.inc:138
+msgid "Left"
+msgstr "Links mitte"
+
+#: ../layout/watermarkform.inc:140
+msgid "Center"
+msgstr "Mitte"
+
+#: ../layout/watermarkform.inc:142
+msgid "Right"
+msgstr "Rechts mitte"
+
+#: ../layout/watermarkform.inc:146
+msgid "Lower&nbsp;Left"
+msgstr "Unten links"
+
+#: ../layout/watermarkform.inc:148
+msgid "Bottom"
+msgstr "Unten mitte"
+
+#: ../layout/watermarkform.inc:150
+msgid "Lower&nbsp;Right"
+msgstr "Unten rechts"
+
+#: ../layout/watermarkform.inc:155 ../popups/add_photos.php:87
+msgid "Other"
+msgstr "Andere"
+
+#: ../layout/watermarkform.inc:165
+msgid "Apply watermark to"
+msgstr "Wasserzeichen setzen auf:"
+
+#: ../layout/watermarkform.inc:166
+msgid "All photos"
+msgstr "Alle Bilder"
+
+#: ../layout/watermarkform.inc:167
+msgid "Only sized photos"
+msgstr "Nur die Zwischenbilder"
+
+#: ../layout/watermarkform.inc:168
+msgid "Only full photos"
+msgstr "Nur Vollbilder"
+
+#: ../layout/watermarkform.inc:176
+#, fuzzy
+msgid "Watermark subalbums?"
+msgstr "Unterlalben mit Wasserzeichen versehen."
+
+#: ../layout/watermarkform.inc:180
+msgid "Preview ?"
+msgstr "Vorschau?"
+
+#: ../layout/watermarkform.inc:183
+msgid "Resized"
+msgstr "Zwischengr&ouml;&szlig;e"
+
+#: ../layout/watermarkform.inc:184
+msgid "Full"
+msgstr "Voll"
+
+#: ../layout/watermarkform.inc:186
+msgid "Show _Preview"
+msgstr "_Vorschau zeigen"
+
+#: ../lib/albumItem.php:59 ../lib/albumItem.php:486
+#: ../popups/rearrange.php:123
+msgid "Movie"
+msgstr "Film"
+
+#: ../lib/albumItem.php:63 ../lib/albumItem.php:489
+msgid "Photo"
+msgstr "Photo"
+
+#: ../lib/albumItem.php:88
+msgid "Edit _Text"
+msgstr "Beschrif_tung bearbeiten"
+
+#: ../lib/albumItem.php:94
+msgid "Edit Th_umbnail"
+msgstr "Th_umbnail bearbeiten"
+
+#: ../lib/albumItem.php:100
+msgid "Rotate/_Flip"
+msgstr "D_rehen/ spiegeln"
+
+#: ../lib/albumItem.php:106
+msgid "Re_size"
+msgstr "_Größe ändern"
+
+#: ../lib/albumItem.php:113
+msgid "_Watermark"
+msgstr "_Wasserzeichen"
+
+#: ../lib/albumItem.php:121
+msgid "Image_Map"
+msgstr "_ImageMap"
+
+#: ../lib/albumItem.php:127
+msgid "Crop image"
+msgstr "Bild zuschneiden"
+
+#: ../lib/albumItem.php:137
+msgid "Edit Title"
+msgstr "Titel bearbeiten"
+
+#: ../lib/albumItem.php:143
+msgid "Edit Description"
+msgstr "Beschreibung bearbeiten"
+
+#: ../lib/albumItem.php:150 ../popups/rename_album.php:33
+msgid "Rename Album"
+msgstr "Albumnamen &auml;ndern"
+
+#: ../lib/albumItem.php:156
+msgid "Reset Counter"
+msgstr "Klick-Zähler zurücksetzen"
+
+#: ../lib/albumItem.php:167
+msgid "Permissions"
+msgstr "Berechtigungen"
+
+#: ../lib/albumItem.php:175 ../popups/watermark_album.php:43
+msgid "Watermark Album"
+msgstr "Wasserzeichen setzen"
+
+#: ../lib/albumItem.php:184 ../view_comments.php:30 ../view_comments.php:39
+msgid "View Comments"
+msgstr "Kommentare betrachten"
+
+#: ../lib/albumItem.php:194
+msgid "Cop_y"
+msgstr "Ko_pieren"
+
+#: ../lib/albumItem.php:203
+msgid "_Reorder"
+msgstr "Um_ordnen"
+
+#: ../lib/albumItem.php:209
+msgid "Mo_ve"
+msgstr "_Verschieben"
+
+#: ../lib/albumItem.php:217
+msgid "Set as high_light"
+msgstr "Setze als Titelbil_d"
+
+#: ../lib/albumItem.php:226
+msgid "Change Ow_ner"
+msgstr "Besitzer/in"
+
+#: ../lib/albumItem.php:232
+#, php-format
+msgid "Feature %s"
+msgstr "%s 'featuren'"
+
+#: ../lib/albumItem.php:244
+msgid "_Unhide"
+msgstr "auf_decken"
+
+#: ../lib/albumItem.php:251
+msgid "_Hide"
+msgstr "Verste_cken"
+
+#: ../lib/albumItem.php:286
+msgid "Photo _properties"
+msgstr "Bild_eigenschaften"
+
+#: ../lib/albumItem.php:299
+msgid "Send photo as e_Card"
+msgstr "Photo als e_Card senden"
+
+#: ../lib/albumItem.php:311
+#, php-format
+msgid "%s actions"
+msgstr "%s Aktionen"
+
+#: ../lib/albumItem.php:332
+msgid "Delete comment"
+msgstr "Kommentar löschen"
+
+#: ../lib/albumItem.php:467
+#, php-format
+msgid "Generated caption. Type: %s"
+msgstr "Erzeuge Beschriftung. Typ: %s"
+
+#: ../lib/albumItem.php:517
+#, php-format
+msgid "Entering function: '%s'"
+msgstr "Steige in Funktio: '%s'"
+
+#: ../lib/albumItem.php:519
+#, php-format
+msgid "Processing file: %s"
+msgstr "Verarbeite Bild %s"
+
+#: ../lib/albumItem.php:534
+msgid "An Error occurred before extracting the archive. Temporary destination exists."
+msgstr ""
+
+#: ../lib/albumItem.php:539
+msgid "An Error occurred before extracting the archive. Temporary destination could not be created."
+msgstr ""
+
+#: ../lib/albumItem.php:543
+#, fuzzy
+msgid "Extracting archive"
+msgstr "Extrahiere: %s mit %s"
+
+#: ../lib/albumItem.php:590
+msgid "No Metadata"
+msgstr "Keine Metadaten"
+
+#: ../lib/albumItem.php:596
+#, php-format
+msgid "%d file inside the archive was invalid."
+msgid_plural "%d files inside the archive were invalid."
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../lib/albumItem.php:610
+#, fuzzy, php-format
+msgid "Processing %d valid file from the archive."
+msgid_plural "Processing %d valid files from the archive."
+msgstr[0] "Verarbeite Dateien des Archives"
+msgstr[1] "Verarbeite Dateien des Archives"
+
+#: ../lib/albumItem.php:659
+#, php-format
+msgid "Processing file #%d from archive. (Calling processNewImage)"
+msgstr ""
+
+#: ../lib/albumItem.php:677
+#, fuzzy
+msgid "Start processing single file (image/movie not archive)."
+msgstr "Verarbeite eine Datei. (Bild, kein Archiv)"
+
+#: ../lib/albumItem.php:680
+#, fuzzy
+msgid "Extension is accepted."
+msgstr "Dateiendung akzeptiert."
+
+#: ../lib/albumItem.php:682
+msgid "Filename processing."
+msgstr "Bearbeitung Dateiname."
+
+#: ../lib/albumItem.php:731
+msgid "No caption given, generating it."
+msgstr "Keine Überschrift angegeben, erzeuge diese."
+
+#: ../lib/albumItem.php:737
+#, php-format
+msgid "Adding %s"
+msgstr "F&uuml;ge hinzu: %s"
+
+#: ../lib/albumItem.php:762
+msgid "Adding item failed. Please enable debug mode and redo the procedure to get more information."
+msgstr ""
+
+#: ../lib/albumItem.php:765
+#, fuzzy, php-format
+msgid "Need more help?  Look in the  %s%s FAQ%s."
+msgstr "Brauchen Sie Hilfe? Schauen Sie in die %s%s F.A.Q.%s."
+
+#: ../lib/albumItem.php:774
+#, fuzzy, php-format
+msgid "Skipping '%s' (can't handle '%s' format)"
+msgstr "%s wird &uuml;bersprungen (%s Format kann nicht verarbeitet werden)"
+
+#: ../lib/filesystem.php:109
+#, php-format
+msgid "extension of file %s is %s"
+msgstr "Erweiterung der Datei %s is %s"
+
+#: ../lib/filesystem.php:152
+msgid "The path you try to use does not exist! Exiting Gallery"
+msgstr "Den Pfad den Sie versuchen zu erreichen existiert nicht! Gallery beendet sich."
+
+#: ../lib/filesystem.php:170
+#, php-format
+msgid "Parsing for csv data in file: %s"
+msgstr "Parse nach CSV Daten in: %s"
+
+#: ../lib/filesystem.php:188
+msgid "csv result:"
+msgstr "CSV Ergebnis:"
+
+#: ../lib/filesystem.php:209
+#, php-format
+msgid "Extracting: %s failed. Not able create the folder to extract the archive in."
+msgstr ""
+
+#: ../lib/filesystem.php:217
+#, php-format
+msgid "Extracting: %s with %s"
+msgstr "Extrahiere: %s mit %s"
+
+#: ../lib/filesystem.php:234
+#, php-format
+msgid "%s with extension %s is not an supported archive."
+msgstr "%s mit der Dateiendung %s ist kein unterstützes Archivformat."
+
+#: ../lib/filesystem.php:278
+#, php-format
+msgid "Getting Exif from: %s"
+msgstr "Hole EXIF-Daten von Datei: %s"
+
+#: ../lib/filesystem.php:355
+#, fuzzy
+msgid "You are not allowed to upload from local directories."
+msgstr "Es ist Ihnen nicht gestattet, diese Aktion durchzuführen!"
+
+#: ../lib/filesystem.php:371
+#, php-format
+msgid "%s is not in the list of allowed uploadpathes. Skipping."
+msgstr ""
+
+#: ../lib/filesystem.php:387
+#, php-format
+msgid "Could not open lock file (%s) for writing!"
+msgstr "Konnte die lock Datei (%s) nicht &ouml;ffnen!"
+
+#: ../lib/filesystem.php:392
+#, php-format
+msgid "Could not acquire lock (%s)!"
+msgstr "Konnte die Datei nicht entsperren (%s)!"
+
+#: ../lib/stats.php:31
+#, php-format
+msgid "Recursing album: %s"
+msgstr "Verarbeite Album: %s"
+
+#: ../lib/stats.php:67
+msgid "Read cache num photos lock failed."
+msgstr "Read cache num photos lock failed."
+
+#: ../lib/stats.php:91
+#, php-format
+msgid "Album name : %s ; index: %s"
+msgstr "Album Name: %s ; Index: %s"
+
+#: ../lib/stats.php:103 ../lib/stats.php:142
+msgid "Read cache lock failed."
+msgstr "Read cache lock failed."
+
+#: ../lib/stats.php:249
+msgid "add comment"
+msgstr "_Kommentar hinzufügen"
+
+#: ../lib/stats.php:261
+msgid "add vote"
+msgstr "Bewertung abgeben"
+
+#: ../lib/stats.php:365
+#, php-format
+msgid "Owned by: %s"
+msgstr "Besitzer/in : %s"
+
+#: ../lib/stats.php:397 ../popups/edit_caption.php:216
+#, fuzzy
+msgid "Capture date:"
+msgstr "Aufnahmedatum:"
+
+#: ../lib/stats.php:413
+msgid "Upload date:"
+msgstr "Upload-Datum:"
+
+#: ../lib/stats.php:430
+msgid "Viewed:"
+msgstr "Betrachtet:"
+
+#: ../lib/stats.php:440
+msgid "Never viewed"
+msgstr "Noch nie"
+
+#: ../lib/stats.php:437
+#, php-format
+msgid "Once"
+msgid_plural "%d times"
+msgstr[0] "1 Mal"
+msgstr[1] "%d Mal"
+
+#: ../lib/stats.php:448
+msgid "Votes:"
+msgstr "Bewertungen:"
+
+#: ../lib/stats.php:462
+#, fuzzy
+msgid "not rated"
+msgstr "Drehen"
+
+#: ../lib/stats.php:476
+msgid "Rating:"
+msgstr "Bewertung:"
+
+#: ../lib/usage.php:79
+#, php-format
+msgid "Space used per album :: Sorted by %s"
+msgstr "Verbrauch per Album :: Sortiert nach %s"
+
+#: ../lib/usage.php:83 ../lib/usage.php:132
+msgid "User"
+msgstr "Benutzer"
+
+#: ../lib/usage.php:84
+msgid "Disk usage main album"
+msgstr "Verbrauchter Platz im Hauptalbum"
+
+#: ../lib/usage.php:85
+msgid "Subalbums"
+msgstr "Unteralben"
+
+#: ../lib/usage.php:129
+#, php-format
+msgid "Space used by users :: Sorted by %s"
+msgstr "Verbrauch per Benutzer :: Sortiert nach %s"
+
+#: ../lib/usage.php:133
+msgid "Disk usage"
+msgstr "Festplattenplatz"
+
+#: ../login.php:64
+msgid "This account is locked due too much wrong login attempts. Wait for automatic unlock, or contact an administrator."
+msgstr ""
+
+#: ../login.php:90
+msgid "SUCCEEDED"
+msgstr "Erfolgreich angemeldet"
+
+#: ../login.php:97 ../login.php:109
+msgid "Invalid username or password."
+msgstr "Falscher Benutzer oder falsches Passwort."
+
+#: ../login.php:121
+msgid "Please enter username and password!"
+msgstr "Bitte geben Sie Benutzernamen und Passwort ein!"
+
+#: ../login.php:127
+msgid "Please enter <i>your</i> username."
+msgstr "Bitte geben Sie <i><Ihren</i> Benutzernamen."
+
+#: ../login.php:136
+msgid "New password request"
+msgstr "Neue Passwort Anfrage"
+
+#: ../login.php:137
+#, php-format
+msgid "Someone requested a new password for user %s from Gallery '%s' on %s. You can create a password by visiting the link below. If you didn't request a password, please ignore this mail. "
+msgstr "Jemand hat ein neues Passwort f&uuml;r den Benutzer %s der Galerie '%s' auf %s angefordert.  Sie k&ouml;nnen ein neues Passwort generieren, indem Sie auf den Link weiter unten klicken.  Falls Sie keine Passwort-Anfrage gestellt haben, ignorieren Sie bitte diese Mail."
+
+#: ../login.php:138
+#, php-format
+msgid "Click to reset your password: %s"
+msgstr "Dieser Link f&uuml;hrt Sie zur Seite mit dem neuen Passwort: %s"
+
+#: ../login.php:140
+#, php-format
+msgid "New password request %s"
+msgstr "Neue Passwort Anfrage %s"
+
+#: ../login.php:148
+msgid "Email could not be sent."
+msgstr "Email konnte nicht gesendet werden."
+
+#: ../login.php:150
+#, php-format
+msgid "Please contact %s administrators for a new password."
+msgstr "Bitte wenden Sie sich an den %s Admin f&uuml;r ein neues Passwort."
+
+#: ../login.php:159
+#, fuzzy, php-format
+msgid "If there is a valid email-address for this user, then an email has been sent to the address stored for %s.  Follow the instructions to change your password.  If you do not receive this email, please contact the Gallery administrators."
+msgstr "Es wurde eine Email an die Adresse des Benutzers %s gesendet.  Folgen Sie den Anweisungen in der Mail, um Ihr Passwort zu &auml;ndern.  Falls Sie keine Mail erhalten, melden Sie sich bitte beim Gallery Administrator."
+
+#: ../login.php:169 ../login.php:179 ../login.php:196
+msgid "Login"
+msgstr "Anmeldung"
+
+#: ../login.php:189
+msgid "Logging in gives you greater permission to view, create, modify and delete albums."
+msgstr "Als angemeldeter Benutzer haben Sie erweiterte Berechtigungen, um Alben anzuschauen, zu erzeugen, zu ver&auml;ndern, oder zu l&ouml;schen."
+
+#: ../login.php:204 ../publish_xp.php:116
+msgid "_Password"
+msgstr "_Passwort"
+
+#: ../login.php:209
+msgid "_Login"
+msgstr "A_nmelden"
+
+#: ../login.php:222
+msgid "Forgotten your password?"
+msgstr "Passwort vergessen?"
+
+#: ../login.php:227 ../popups/manage_users.php:106
+msgid "Username"
+msgstr "Benutzername"
+
+#: ../login.php:229
+msgid "_Send me my password"
+msgstr "_Sende mir mein Passwort"
+
+#: ../login.php:241
+msgid "No account at all?"
+msgstr "Sie haben noch keinen Account?"
+
+#: ../login.php:243
+msgid "_Register a new account."
+msgstr "_Registrieren Sie einen neuen Account."
+
+#: ../new_password.php:32
+msgid "Make New Password"
+msgstr "Neues Passwort erzeugen"
+
+#: ../new_password.php:49
+#, fuzzy
+msgid "The recovery password is not the expected value, please try again."
+msgstr "Das neue Passwort ist fehlerhaft, bitte versuchen Sie es erneut."
+
+#: ../new_password.php:60
+msgid "You must provide your new password."
+msgstr "Sie m&uuml;ssen Ihr neues Passwort eingeben."
+
+#: ../new_password.php:63 ../popups/user_preferences.php:74
+#, fuzzy
+msgid "Passwords did not match!"
+msgstr "Die Passw&ouml;rter stimmen nicht &uuml;berein!"
+
+#: ../new_password.php:75 ../popups/user_preferences.php:44
+#, fuzzy, php-format
+msgid "%s contained invalid data, sanitizing input."
+msgstr "%s enthält ungültige Daten, Eingabe zurückgesetzt."
+
+#: ../new_password.php:80 ../popups/register.php:88
+#: ../popups/user_preferences.php:86
+msgid "You must specify a valid email address."
+msgstr "Sie m&uuml;ssen eine g&uuml;ltige Emailadresse eingeben."
+
+#: ../new_password.php:107
+#, fuzzy
+msgid "The password was successfully saved."
+msgstr "Erfolgreich gespeichert."
+
+#: ../new_password.php:109
+#, fuzzy
+msgid "Go to Gallery"
+msgstr "Zur&uuml;ck zur Gallery"
+
+#: ../new_password.php:128 ../popups/user_preferences.php:140
+msgid "You can change your user information here."
+msgstr "Hier k&ouml;nnen Sie Ihre Angaben &auml;ndern."
+
+#: ../new_password.php:129
+msgid "You must enter the new password twice."
+msgstr "Sie m&uuml;ssen Ihr neues Passwort zweimal eingeben."
+
+#: ../new_password.php:140 ../popups/album_permissions.php:157
+#: ../popups/edit_caption.php:219 ../popups/edit_field.php:62
+#: ../popups/edit_watermark.php:125 ../popups/item_owner.php:90
+#: ../popups/modify_group.php:185 ../popups/modify_user.php:165
+#: ../popups/rearrange.php:149 ../popups/rearrange.php:204
+#: ../popups/user_preferences.php:160 ../popups/watermark_album.php:134
+msgid "_Save"
+msgstr "_Speichern"
+
+#: ../new_password.php:141
+msgid "C_ancel"
+msgstr "Ab_brechen"
+
+#: ../poll_results.php:35 ../poll_results.php:54 ../poll_results.php:75
+msgid "Poll Results"
+msgstr "Abstimmungsergebnis"
+
+#: ../poll_results.php:36 ../popups/add_comment.php:39
+#: ../popups/add_photos_frame.php:34 ../popups/add_photos.php:34
+#: ../popups/administer_startpage.php:30 ../popups/album_permissions.php:55
+#: ../popups/copy_photo.php:47 ../popups/create_group.php:35
+#: ../popups/create_user.php:33 ../popups/delete_album.php:36
+#: ../popups/delete_group.php:33 ../popups/delete_item.php:54
+#: ../popups/delete_user.php:29 ../popups/download.php:34
+#: ../popups/edit_appearance.php:34 ../popups/edit_caption.php:42
+#: ../popups/edit_field.php:40 ../popups/edit_thumb.php:53
+#: ../popups/edit_watermark.php:56 ../popups/featured-item.php:39
+#: ../popups/item_owner.php:43 ../popups/manage_groups.php:30
+#: ../popups/manage_users.php:30 ../popups/modify_group.php:35
+#: ../popups/modify_user.php:36 ../popups/move_albumitem.php:53
+#: ../popups/move_rootalbum.php:40 ../popups/rearrange.php:27
+#: ../popups/rebuild_capture_dates.php:38 ../popups/rebuild_thumbs.php:38
+#: ../popups/recreate_captions.php:37 ../popups/rename_album.php:29
+#: ../popups/reset_votes.php:43 ../popups/resize_photo.php:53
+#: ../popups/rotate_photo.php:47 ../popups/save_photos.php:53
+#: ../popups/sort_album.php:37 ../popups/upgrade_album.php:58
+#: ../popups/user_preferences.php:35 ../popups/view_photo_properties.php:37
+#: ../popups/watermark_album.php:51
+msgid "You are not allowed to perform this action!"
+msgstr "Es ist Ihnen nicht gestattet, diese Aktion durchzuführen!"
+
+#: ../poll_results.php:59
+msgid "_Return to album"
+msgstr "Zurück zum _Album"
+
+#: ../poll_results.php:125 ../popups/upgrade_album.php:73
+#: ../popups/upgrade_album.php:98 ../view_album.php:259 ../view_album.php:478
+#: ../view_album.php:485
+#, php-format
+msgid "Album: %s"
+msgstr "Album: %s"
+
+#: ../poll_results.php:147
+msgid "Results Breakdown"
+msgstr "Zusammenfassung der Abstimmungsergebnisse: "
+
+#: ../poll_results.php:153
+#, fuzzy
+msgid "No votes so far."
+msgstr "Ihre Stimmen:"
+
+#: ../popups/add_comment.php:32 ../popups/add_comment.php:38
+#: ../popups/add_comment.php:52
+msgid "Add comment"
+msgstr "Kommentar hinzufügen"
+
+#: ../popups/add_comment.php:54
+msgid "Enter your comment in the text box below."
+msgstr "Geben Sie einen Kommentar zu diesem Bild in das Eingabefeld ein."
+
+#: ../popups/add_photos_frame.php:33 ../popups/add_photos.php:33
+#: ../popups/add_photos.php:60 ../popups/save_photos.php:41
+#: ../popups/save_photos.php:52
+msgid "Add items"
+msgstr "Elemente hinzufügen"
+
+#: ../popups/add_photos_frame.php:42
+msgid "Add Photos"
+msgstr "Bilder hinzufügen"
+
+#: ../popups/add_photos.php:77
+msgid "Applet"
+msgstr "Gallery Remote (Mini)"
+
+#: ../popups/add_photos.php:80
+msgid "Applet (big)"
+msgstr "Gallery Remote"
+
+#: ../popups/add_photos.php:84
+msgid "Form"
+msgstr "Formular"
+
+#: ../popups/add_photos.php:85
+msgid "URL"
+msgstr "URL"
+
+#: ../popups/add_photos.php:86
+msgid "From Local Server"
+msgstr "Vom Server"
+
+#: ../popups/administer_startpage.php:29 ../popups/administer_startpage.php:56
+msgid "Administer startpage"
+msgstr "Startseite administrieren"
+
+#: ../popups/administer_startpage.php:37
+msgid "Rebuild highlights"
+msgstr "Erneuere Vorschaubilder"
+
+#: ../popups/administer_startpage.php:39
+msgid "Recreate all highlights according to the setting in Config Wizard.<br>(Starts immediately)"
+msgstr "Alle Vorschaubilder erneuern gemäß den Einstellungen im Konfigurationsassistenten.<br>(Startet sofort nach Anklicken)"
+
+#: ../popups/administer_startpage.php:43
+msgid "Album Order"
+msgstr "Albumordnung"
+
+#: ../popups/administer_startpage.php:45
+msgid "Sort the albums on the startpage(s).<br>(Opens an option dialog)"
+msgstr "Sortiert die Alben der Startseite(n).<br>(&Ouml;ffnet einen Optionsdialog)"
+
+#: ../popups/administer_startpage.php:51
+msgid "By (physical) name."
+msgstr "Nach Dateiname."
+
+#: ../popups/administer_startpage.php:52
+msgid "By last reset date."
+msgstr "Nach Datum des letzten Resets."
+
+#: ../popups/administer_startpage.php:53
+msgid "By creation date (works only with albums created with 1.5.2 or newer)."
+msgstr "Nach Datum des Anlegens (funktioniert nur mit Alben die mit Version 1.5.2 oder neuer angelegt wurden)."
+
+#: ../popups/administer_startpage.php:78
+msgid "Sort albums on startpage"
+msgstr "Alben der Startseite sortieren"
+
+#: ../popups/administer_startpage.php:89 ../popups/sort_album.php:95
+msgid "Sort Order:"
+msgstr "Sortierreihenfolge:"
+
+#: ../popups/administer_startpage.php:91 ../popups/sort_album.php:102
+msgid "Ascending"
+msgstr "Aufsteigend"
+
+#: ../popups/administer_startpage.php:92 ../popups/sort_album.php:103
+msgid "Descending"
+msgstr "Absteigend"
+
+#: ../popups/administer_startpage.php:98 ../popups/sort_album.php:110
+msgid "_Sort"
+msgstr "_Sortieren"
+
+#: ../popups/album_permissions.php:46 ../popups/album_permissions.php:54
+msgid "Album Permissions"
+msgstr "Albumberechtigungen"
+
+#: ../popups/album_permissions.php:47
+msgid "Invalid Request."
+msgstr "Ungültige Anfrage."
+
+#: ../popups/album_permissions.php:92
+msgid "Owner has been changed."
+msgstr ""
+
+#: ../popups/album_permissions.php:97
+msgid "Owner was not changed, due to invalid User ID."
+msgstr ""
+
+#: ../popups/album_permissions.php:119
+msgid "-- Special user --"
+msgstr "-- Spezial Benutzer --"
+
+#: ../popups/album_permissions.php:120
+msgid "-- User --"
+msgstr "-- Normaler Benutzer"
+
+#: ../popups/album_permissions.php:121
+msgid "-- Groups --"
+msgstr "-- Gruppen --"
+
+#: ../popups/album_permissions.php:128
+#, php-format
+msgid "Album Permissions :: '%s'"
+msgstr "Albumberechtigungen :: '%s'"
+
+#: ../popups/album_permissions.php:154
+msgid "Apply permissions to all sub-albums"
+msgstr "Berechtigungen auf die Unteralben &uuml;bertragen"
+
+#: ../popups/album_permissions.php:158 ../popups/manage_groups.php:109
+#: ../popups/manage_users.php:189 ../upgrade_users.php:56
+msgid "_Done"
+msgstr "_Fertig"
+
+#: ../popups/copy_photo.php:28
+msgid "Copy Photo"
+msgstr "Element kopieren"
+
+#: ../popups/copy_photo.php:57
+#, fuzzy
+msgid "Invalid album selected."
+msgstr "Ung&uuml;ltiges Album: %s"
+
+#: ../popups/copy_photo.php:63
+msgid "Copying of subalbums not supported, sorry."
+msgstr ""
+
+#: ../popups/copy_photo.php:68
+msgid "Please select the album where you want to copy the photo(s) to."
+msgstr "Bitte wählen Sie das Album aus in das Sie kopieren möchten."
+
+#: ../popups/copy_photo.php:90 ../popups/move_albumitem.php:197
+msgid "Creating Thumbnail"
+msgstr "Thumbnails erzeugen"
+
+#: ../popups/copy_photo.php:132
+msgid "The copy process was done with success."
+msgstr "Der Kopiervorgang war erfolgreich."
+
+#: ../popups/copy_photo.php:144
+msgid "Skipping subalbum. Copying currently not supported."
+msgstr ""
+
+#: ../popups/copy_photo.php:150
+msgid "Copy Again?"
+msgstr ""
+
+#: ../popups/copy_photo.php:158
+msgid "Copy a range of photos to a new album:"
+msgstr "Kopiere mehrere Elemente in ein neues Album: "
+
+#: ../popups/copy_photo.php:159
+msgid "To copy just one photo, make First and Last the same."
+msgstr "Um nur ein Element zu kopieren, setzen Sie Erstes und Letztes gleich."
+
+#: ../popups/copy_photo.php:160 ../popups/move_albumitem.php:345
+msgid "Nested albums in this range will be ignored."
+msgstr "Unteralben werden in diesem Bereich ignoriert. "
+
+#: ../popups/copy_photo.php:175 ../popups/move_albumitem.php:356
+msgid "First"
+msgstr "Erstes"
+
+#: ../popups/copy_photo.php:176 ../popups/move_albumitem.php:357
+msgid "Last"
+msgstr "Letztes"
+
+#: ../popups/copy_photo.php:177 ../popups/move_albumitem.php:358
+msgid "New Album"
+msgstr "Neues Album"
+
+#: ../popups/copy_photo.php:187
+msgid "Cop_y to Album"
+msgstr "Ko_pieren"
+
+#: ../popups/copy_photo.php:188 ../popups/edit_appearance.php:327
+#: ../popups/edit_caption.php:221 ../popups/item_owner.php:91
+#: ../popups/rebuild_capture_dates.php:54
+#: ../popups/rebuild_capture_dates.php:77 ../popups/rebuild_thumbs.php:56
+#: ../popups/rebuild_thumbs.php:74 ../popups/recreate_captions.php:74
+#: ../popups/rotate_photo.php:148 ../popups/watermark_album.php:57
+#: ../popups/watermark_album.php:136
+msgid "_Close"
+msgstr "_Schlie&szlig;en"
+
+#: ../popups/copy_photo.php:195 ../popups/move_albumitem.php:380
+#, php-format
+msgid "WARNING: Some of the albums need to be upgraded to the current version of %s."
+msgstr "WARNUNG: Einige Ihrer Alben ben&ouml;tigen eine Aktualisierung auf die aktuelle Version der %s."
+
+#: ../popups/copy_photo.php:196 ../popups/move_albumitem.php:382
+msgid "Upgrade now"
+msgstr "Aktualisieren Sie jetzt"
+
+#: ../popups/create_group.php:49
+#, fuzzy
+msgid "Create Gallery Group"
+msgstr "_Neue Gruppe"
+
+#: ../popups/create_group.php:65
+#, php-format
+msgid "Group '%s' created.<br>You can now create another group if you want."
+msgstr ""
+
+#: ../popups/create_group.php:70
+#, fuzzy
+msgid "Create a new Gallery usergroup here."
+msgstr "Hier k&ouml;nnen Sie neue Benutzer anlegen."
+
+#: ../popups/create_group.php:81
+#, fuzzy
+msgid "Name of the group"
+msgstr "_Name der Gruppe"
+
+#: ../popups/create_group.php:85
+#, fuzzy
+msgid "Some descriptive text (optional)"
+msgstr "Ein _beschreibender Text (optional)"
+
+#: ../popups/create_group.php:94
+#, fuzzy
+msgid "_Create group"
+msgstr "_Neue Gruppe"
+
+#: ../popups/create_group.php:95
+#, fuzzy
+msgid "Back to groupmanagement"
+msgstr "Zurück zur_Gruppenrverwaltung"
+
+#: ../popups/create_group.php:97 ../popups/delete_group.php:124
+msgid "Go to _usermanagement"
+msgstr "Zurück zur Ben_utzerverwaltung"
+
+#: ../popups/create_user.php:32 ../popups/create_user.php:57
+#: ../popups/create_user.php:119
+msgid "Create User"
+msgstr "Benutzer anlegen"
+
+#: ../popups/create_user.php:46 ../popups/modify_user.php:60
+msgid "Passwords do not match!"
+msgstr "Die Passw&ouml;rter stimmen nicht &uuml;berein!"
+
+#: ../popups/create_user.php:75
+#, php-format
+msgid "User %s created"
+msgstr "Benutzer %s angelegt"
+
+#: ../popups/create_user.php:88 ../popups/multi_create_user.php:118
+#, php-format
+msgid "New user '%s' has been registered by %s.  Gallery has sent a notification email to %s."
+msgstr "Ein neuer Benutzer '%s' wurde von %s registriert.  Es wurde eine Email an %s gesendet."
+
+#: ../popups/create_user.php:96 ../popups/multi_create_user.php:128
+msgid "Gallery Registration"
+msgstr "Gallery Registrierung"
+
+#: ../popups/create_user.php:99
+#, php-format
+msgid "Email sent to %s."
+msgstr "Es wurde eine Email an %s gesendet."
+
+#: ../popups/create_user.php:106
+msgid "Create a_nother user"
+msgstr "_Weiteren Benutzer anlegen"
+
+#: ../popups/create_user.php:107 ../popups/modify_user.php:166
+#: ../popups/multi_create_user.php:149 ../popups/multi_create_user.php:196
+msgid "_Back to usermanagement"
+msgstr "_Zurück zur Benutzerverwaltung"
+
+#: ../popups/create_user.php:135
+msgid "Create a new user here."
+msgstr "Hier k&ouml;nnen Sie neue Benutzer anlegen."
+
+#: ../popups/create_user.php:149
+msgid "Create user"
+msgstr "Benutzer anlegen"
+
+#: ../popups/create_user.php:150 ../popups/delete_user.php:81
+msgid "Back to usermanagement"
+msgstr "Zurück zur Benutzerverwaltung"
+
+#: ../popups/delete_album.php:27 ../tools/validate_albums.php:45
+msgid "Delete Album"
+msgstr "Album löschen"
+
+#: ../popups/delete_album.php:49 ../popups/delete_item.php:88
+msgid "Do you really want to delete this album?"
+msgstr "Möchten Sie dieses Album wirklich löschen?"
+
+#: ../popups/delete_group.php:32 ../popups/delete_group.php:83
+msgid "Delete Gallery usergroup"
+msgstr ""
+
+#: ../popups/delete_group.php:65
+#, fuzzy, php-format
+msgid "Successfully deleted %d group."
+msgid_plural "Successfully deleted %d groups."
+msgstr[0] "Erfolgreich gespeichert."
+msgstr[1] "Erfolgreich gespeichert."
+
+#: ../popups/delete_group.php:72
+#, fuzzy, php-format
+msgid "%d not successfully deleted."
+msgstr "Die Beschriftungen wurden NICHT erfolgreich erzeugt."
+
+#: ../popups/delete_group.php:79
+#, fuzzy
+msgid "No groups deleted."
+msgstr "Keine Gruppe ausgewählt!"
+
+#: ../popups/delete_group.php:86
+#, fuzzy
+msgid "Groups can have special permissions in each album."
+msgstr "Die Benutzer k&ouml;nnen separate Berechtigungen f&uuml;r jedes Album haben."
+
+#: ../popups/delete_group.php:87
+#, fuzzy
+msgid "If you delete this group, any such permissions go away."
+msgid_plural "If you delete these groups, any permissions will go away."
+msgstr[0] "Wenn Sie den Benutzer l&ouml;schen, gehen dessen Berechtigungen verloren."
+msgstr[1] "Wenn Sie diese Benutzer l&ouml;schen, gehen deren Berechtigungen verloren."
+
+#: ../popups/delete_group.php:88
+#, fuzzy
+msgid "Deleted groups cannot be recovered."
+msgstr "Benutzer k&ouml;nnen nicht wieder hergestellt werden."
+
+#: ../popups/delete_group.php:89
+#, fuzzy
+msgid "Even if this group is recreated, those permissions are gone."
+msgid_plural "Even if you recreate one of those groups, the permissions are gone."
+msgstr[0] "Selbst wenn Sie den Benutzer neu anlegen, sind dessen Berechtigungen verloren."
+msgstr[1] "Selbst wenn Sie die Benutzer neu anlegen, sind deren Berechtigungen verloren."
+
+#: ../popups/delete_group.php:102
+#, fuzzy
+msgid "Do you really want to delete group:"
+msgid_plural "Do you really want to delete these groups:"
+msgstr[0] "M&ouml;chten Sie wirklich diesen Benutzer l&ouml;schen:"
+msgstr[1] "M&ouml;chten Sie wirklich diese Benutzer l&ouml;schen:"
+
+#: ../popups/delete_group.php:117
+#, fuzzy
+msgid "No groups selected for deletion."
+msgstr "Keine Gruppe ausgewählt!"
+
+#: ../popups/delete_group.php:122
+msgid "Back to _group management"
+msgstr "Zurück zur_Gruppenrverwaltung"
+
+#: ../popups/delete_item.php:28
+#, fuzzy
+msgid "Delete album item"
+msgstr "Album löschen"
+
+#: ../popups/delete_item.php:78
+msgid "It seems you double clicked the delete button, or refreshed this dialog in an other way. If you really want to delete THIS item, press delete again."
+msgstr ""
+
+#: ../popups/delete_item.php:94
+msgid "Do you really want to delete this item?"
+msgstr "Möchten Sie dieses Album wirklich löschen?"
+
+#: ../popups/delete_user.php:28 ../popups/delete_user.php:43
+msgid "Delete User"
+msgstr "Benutzer l&ouml;schen"
+
+#: ../popups/delete_user.php:47
+msgid "You can't delete your own account! It was removed from the list."
+msgstr "Sie k&ouml;nnen Ihren eigenen Account nicht l&ouml;schen! Er wurde von der Liste entfernt."
+
+#: ../popups/delete_user.php:53
+msgid "Users can have special permissions in each album."
+msgstr "Die Benutzer k&ouml;nnen separate Berechtigungen f&uuml;r jedes Album haben."
+
+#: ../popups/delete_user.php:54
+msgid "If you delete this user, any such permissions go away."
+msgid_plural "If you delete these users, any permissions will go away."
+msgstr[0] "Wenn Sie den Benutzer l&ouml;schen, gehen dessen Berechtigungen verloren."
+msgstr[1] "Wenn Sie diese Benutzer l&ouml;schen, gehen deren Berechtigungen verloren."
+
+#: ../popups/delete_user.php:55
+msgid "Deleted users cannot be recovered."
+msgstr "Benutzer k&ouml;nnen nicht wieder hergestellt werden."
+
+#: ../popups/delete_user.php:56
+msgid "Even if this user is recreated, those permissions are gone."
+msgid_plural "Even if you recreate one of those users, the permissions are gone."
+msgstr[0] "Selbst wenn Sie den Benutzer neu anlegen, sind dessen Berechtigungen verloren."
+msgstr[1] "Selbst wenn Sie die Benutzer neu anlegen, sind deren Berechtigungen verloren."
+
+#: ../popups/delete_user.php:67
+msgid "Do you really want to delete user:"
+msgid_plural "Do you really want to delete these users:"
+msgstr[0] "M&ouml;chten Sie wirklich diesen Benutzer l&ouml;schen:"
+msgstr[1] "M&ouml;chten Sie wirklich diese Benutzer l&ouml;schen:"
+
+#: ../popups/delete_user.php:77
+msgid "No user available for deletion."
+msgstr "Es sind keine Benutzer zum Löschen vorgemerkt."
+
+#: ../popups/do_command.php:45 ../popups/do_command.php:50
+msgid "Attempted security breach."
+msgstr "Verletzung der Sicherheitsregeln entdeckt."
+
+#: ../popups/do_command.php:60
+msgid "Rebuilding thumbnails"
+msgstr "Erneuere Thumbnails"
+
+#: ../popups/do_command.php:63
+msgid "Performing operation..."
+msgstr "Führe Aktion aus..."
+
+#: ../popups/do_command.php:76
+#, php-format
+msgid "Rebuilding highlight %s"
+msgstr "Erneuere Vorschaubild %s"
+
+#: ../popups/do_command.php:203
+msgid "Close window"
+msgstr "Fenster schließen"
+
+#: ../popups/do_command.php:205
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: ../popups/download.php:27 ../popups/download.php:33
+#: ../popups/download.php:60
+msgid "Download album as archive"
+msgstr "Als Archiv herunterladen"
+
+#: ../popups/download.php:53
+msgid "Zipdownload would work, but is disabled when debugging."
+msgstr "Der Zipdownload w&uuml;rde funktionieren, ist aber im Debug-Modus deaktiviert."
+
+#: ../popups/download.php:77
+#, php-format
+msgid "This album contains just one item in total."
+msgid_plural "This album contains %d items in total."
+msgstr[0] "Dieses Album enthält insgesamt nur ein Element."
+msgstr[1] "Dieses Album enthält insgesamt %d Elemente."
+
+#: ../popups/download.php:78
+msgid "No subalbums"
+msgstr "Keine Unteralben"
+
+#: ../popups/download.php:78
+#, php-format
+msgid "One subalbum"
+msgid_plural "%d subalbums"
+msgstr[0] "Ein Unteralbum"
+msgstr[1] "%d Unteralben"
+
+#: ../popups/download.php:79
+msgid "no photo/movie"
+msgstr "Kein Bild/Film"
+
+#: ../popups/download.php:79
+#, php-format
+msgid "One photo/movie"
+msgid_plural "%d photos/movies"
+msgstr[0] "Ein Bild/Film"
+msgstr[1] "%d Bilder/Filme"
+
+#: ../popups/download.php:81
+#, php-format
+msgid "%s and %s."
+msgstr "%s und %s."
+
+#: ../popups/download.php:84
+#, php-format
+msgid "Approximate size of zipfile: %s"
+msgstr "Geschätzte Größe der Zipdatei: %s"
+
+#: ../popups/download.php:89
+msgid "Full Version"
+msgstr "Originalgröße"
+
+#: ../popups/download.php:92
+msgid "Resized Version"
+msgstr "Zwischengröße"
+
+#: ../popups/download.php:96
+msgid "_Download"
+msgstr "Herunter_laden"
+
+#: ../popups/download.php:102
+msgid "This album is not empty, but contains no photo or movie! Download wouldn't make sense."
+msgstr "Dieses Album ist zwar nicht leer, enthält aber weder Photos noch Filme. Ein Download macht daher keinen Sinn."
+
+#: ../popups/ecard_form.php:36
+msgid "Send this photo as eCard"
+msgstr "Photo als eCard senden"
+
+#: ../popups/ecard_form.php:41
+#, fuzzy
+msgid "Invalid element chosen."
+msgstr "Ungültiges Bild: %s"
+
+#: ../popups/ecard_form.php:43 ../popups/ecard_form.php:51
+msgid "_Close Window."
+msgstr "Fenster _schließen."
+
+#: ../popups/ecard_form.php:60
+msgid "You have an e-card as attachment. Click to see."
+msgstr "Ihre Email enthält eine E-Card als Anlage."
+
+#: ../popups/ecard_form.php:63
+msgid "_Send eCard"
+msgstr "eCard _senden"
+
+#: ../popups/ecard_form.php:66
+msgid "Element index"
+msgstr ""
+
+#: ../popups/ecard_form.php:67
+#, fuzzy
+msgid "Name of sender"
+msgstr "_Name der Gruppe"
+
+#: ../popups/ecard_form.php:68
+msgid "Email of sender"
+msgstr ""
+
+#: ../popups/ecard_form.php:69
+msgid "Name of recipient"
+msgstr ""
+
+#: ../popups/ecard_form.php:70
+msgid "Email of recipient"
+msgstr ""
+
+#: ../popups/ecard_form.php:71
+#, fuzzy
+msgid "Message"
+msgstr "Ihre Nachricht:"
+
+#: ../popups/ecard_form.php:77
+#, fuzzy, php-format
+msgid "%s is not valid."
+msgstr "%s in diesem Album."
+
+#: ../popups/ecard_form.php:83
+msgid "The sender or recipient email adress is not valid."
+msgstr "Die Empfänger oder Senderemailadresse ist nicht gültig."
+
+#: ../popups/ecard_form.php:94
+msgid "Couldn't load the ecard template. Please contact the Gallery admin!"
+msgstr "Die eCard-Vorlage konnte nicht geladen werden, bitte kontaktieren Sie den Gallery Administrator!"
+
+#: ../popups/ecard_form.php:106
+msgid "Problem with sending the eCard. Please contact the Gallery admin!"
+msgstr "Es gab ein Problem beim Versenden der eCard, bitte kontaktieren Sie den Gallery Administrator!"
+
+#: ../popups/ecard_form.php:140
+msgid "Error: to send an eCard you need to fill out all fields."
+msgstr "Fehler: Um die E-Card abzuschicken müssen alle Felder gefüllt sein."
+
+#: ../popups/ecard_form.php:141
+msgid "Please fill these fields:"
+msgstr "Bitte füllen Sie diese Felder aus:"
+
+#: ../popups/ecard_form.php:145
+msgid "- Your Name"
+msgstr "- Ihren Namen"
+
+#: ../popups/ecard_form.php:152
+msgid "- Your Email"
+msgstr "- Ihre Emailadresse"
+
+#: ../popups/ecard_form.php:157
+msgid "- Recipient's Name"
+msgstr "- Empfängername"
+
+#: ../popups/ecard_form.php:163
+msgid "- Recipient's Email"
+msgstr "- Empfängeremail"
+
+#: ../popups/ecard_form.php:168
+msgid "- Your Message"
+msgstr "- Ihre Nachricht"
+
+#: ../popups/ecard_form.php:172
+#, php-format
+msgid "Please fill all fields. Then click '%s' again."
+msgstr "Nachdem Sie alle Felder gefüllt haben, drücken Sie '%s'."
+
+#: ../popups/ecard_form.php:186
+#, php-format
+msgid "You have entered more than %d characters!"
+msgstr "Sie haben mehr als %d Zeichen eingegeben!"
+
+#: ../popups/ecard_form.php:230
+#, php-format
+msgid "%s sent you an E-C@rd"
+msgstr "%s hat dir eine eC@rd geschickt."
+
+#: ../popups/ecard_form.php:234
+msgid "Your info"
+msgstr "Ihre Angaben"
+
+#: ../popups/ecard_form.php:236
+msgid "Recipient's info"
+msgstr "Empfängerdaten"
+
+#: ../popups/ecard_form.php:239 ../popups/ecard_form.php:241
+msgid "Name"
+msgstr "Name"
+
+#: ../popups/ecard_form.php:245 ../popups/ecard_form.php:247
+msgid "E-Mail"
+msgstr "E-Mail"
+
+#: ../popups/ecard_form.php:253
+msgid "Choose a Stamp"
+msgstr "Wählen Sie eine Briefmarke"
+
+#: ../popups/ecard_form.php:258
+#, php-format
+msgid "Stamp #%d"
+msgstr "Briefmarke #%d"
+
+#: ../popups/ecard_form.php:268
+msgid "Subject:"
+msgstr "Betreff:"
+
+#: ../popups/ecard_form.php:272
+msgid "Your Message:"
+msgstr "Ihre Nachricht:"
+
+#: ../popups/ecard_form.php:301
+#, php-format
+msgid "Your E-C@rd with the picture below has been sent to %s &lt;%s&gt;."
+msgstr "Ihre E-C@rd mit dem von Ihnen ausgewählten Bild wurde an  %s &lt;%s&gt; gesendet."
+
+#: ../popups/ecard_form.php:305
+msgid "Close this window"
+msgstr "Fenster schließen"
+
+#: ../popups/ecard_preview.php:50
+#, fuzzy
+msgid "Gallery eCard"
+msgstr "Galerie"
+
+#: ../popups/ecard_preview.php:51
+msgid "Gallery could not process your ecard! Please close this window and try again later, thanks!"
+msgstr ""
+
+#: ../popups/edit_appearance.php:27 ../popups/edit_appearance.php:33
+#: ../popups/edit_appearance.php:254 ../popups/edit_appearance.php:261
+msgid "Album Properties"
+msgstr "Albumeigenschaften"
+
+#: ../popups/edit_appearance.php:67 ../popups/resize_photo.php:73
+#, php-format
+msgid "Problem with input of field '%s'. %s"
+msgstr "Es gibt ein Problem mit deim Inhalt von Feld '%s'. %s"
+
+#: ../popups/edit_appearance.php:136
+#, php-format
+msgid "Warning: you have changed voters from %s to %s. It is advisable to reset the poll to remove all previous votes."
+msgstr "Warnung: Sie haben Abstimmungseigenschaften von %s nach %s ver&auml;ndert. Sie sollten die Abstimmung zur&uuml;cksetzen."
+
+#: ../popups/edit_appearance.php:137
+msgid "Everybody"
+msgstr "Jeder"
+
+#: ../popups/edit_appearance.php:138
+msgid "Logged in"
+msgstr "Eingeloggter Benutzer"
+
+#: ../popups/edit_appearance.php:167
+msgid "untitled field"
+msgstr "Ohne Titel"
+
+#: ../popups/edit_appearance.php:204
+msgid "Title"
+msgstr "Titel"
+
+#: ../popups/edit_appearance.php:205
+msgid "Alt text / Tooltip"
+msgstr "Alternativer Text/ Tooltip"
+
+#: ../popups/edit_appearance.php:238
+#, php-format
+msgid "Field %s:"
+msgstr "Feld %s:"
+
+#: ../popups/edit_appearance.php:322
+msgid "Apply values to nested albums (except album title and summary)."
+msgstr "Einstellungen auch auf Unteralben anwenden.<br> (Au&szlig;er Albumtitel und -zusammenfassung)"
+
+#: ../popups/edit_appearance.php:325
+msgid "_Apply"
+msgstr "_Anwenden"
+
+#: ../popups/edit_appearance.php:326
+msgid "_Undo"
+msgstr "_R&uuml;ckg&auml;ngig"
+
+#: ../popups/edit_caption.php:31 ../popups/edit_caption.php:41
+#: ../popups/edit_caption.php:133 ../popups/edit_field.php:32
+#: ../popups/edit_field.php:39
+msgid "Edit texts"
+msgstr "Beschrif_tung bearbeiten"
+
+#: ../popups/edit_caption.php:60
+#, fuzzy
+msgid "Given capture date is not valid."
+msgstr "Albumname: '%s' ist nicht gültig!"
+
+#: ../popups/edit_caption.php:70
+msgid "Given caption not valid."
+msgstr ""
+
+#: ../popups/edit_caption.php:80
+msgid "Given description is not valid."
+msgstr ""
+
+#: ../popups/edit_caption.php:90
+msgid "Given keyword(s) is/are not valid."
+msgstr ""
+
+#: ../popups/edit_caption.php:117
+msgid "Successfully saved."
+msgstr "Erfolgreich gespeichert."
+
+#: ../popups/edit_caption.php:123
+msgid "Gallery was not able to save the data."
+msgstr "Gallery konnte die Daten nicht speichern!"
+
+#: ../popups/edit_caption.php:134
+#, php-format
+msgid "Edit texts for '<i>%s</i>'"
+msgstr "Texte für '<i>'%s</i>'  bearbeiten"
+
+#: ../popups/edit_caption.php:152
+msgid "Fixed fields"
+msgstr "Feste Felder"
+
+#: ../popups/edit_caption.php:156
+msgid "Caption"
+msgstr "Beschriftung"
+
+#: ../popups/edit_caption.php:164
+msgid "Keywords"
+msgstr "Schl&uuml;sselw&ouml;rter"
+
+#: ../popups/edit_caption.php:179
+msgid "Custom fields"
+msgstr "Eigene Felder"
+
+#: ../popups/edit_caption.php:220
+msgid "Sav_e and Close"
+msgstr "Speichern und Be_enden"
+
+#: ../popups/edit_field.php:52
+#, php-format
+msgid "Edit %s"
+msgstr "%s bearbeiten"
+
+#: ../popups/edit_field.php:54
+#, fuzzy, php-format
+msgid "Edit the %s and click %s when you're done."
+msgstr "Bearbeiten Sie %s und klicken Sie %s, wenn Sie fertig sind."
+
+#: ../popups/edit_field.php:56
+msgid "Save"
+msgstr "Speichern"
+
+#: ../popups/edit_thumb.php:42 ../popups/edit_thumb.php:52
+#: ../popups/edit_thumb.php:150
+msgid "Custom Thumbnail"
+msgstr "Thumbnail bearbeiten"
+
+#: ../popups/edit_thumb.php:62
+#, fuzzy
+msgid "Recreating the Thumbnail..."
+msgstr "Erstelle neuen Thumbnail ..."
+
+#: ../popups/edit_thumb.php:103
+#, php-format
+msgid "You see a downscaled preview. Its scalled from '%dx%d' to '%dx%d'"
+msgstr "Sie sehen eine verkleinerte Vorschau. Sie wurde von '%d x %d' auf '%d x %d' verkleinert."
+
+#: ../popups/edit_thumb.php:118
+#, php-format
+msgid "Cropping this image does not seem to make sense. Both sides should be at least %spx"
+msgstr "Ein zuschneiden dieses Bildes scheint wenig Sinn zu machen. Beide Seiten sollten mindestens %spx haben."
+
+#: ../popups/edit_thumb.php:144
+#, php-format
+msgid "Your fullsize image is over 500k (%s) and will slow down the cropper. To fix this you need a PHP with GD support."
+msgstr "Die Originalversion Ihres Bildes ist größer als  500Kb (%s) and wird das Zuschneidewerkzeug verlangsamen. Um dies zu beheben benötigt Ihr PHP die GD Erweiterung."
+
+#: ../popups/edit_thumb.php:168
+msgid "Choose which part of the image will compose your thumbnail:"
+msgstr "Markieren Sie den Teil des Bildes, der als Thumbnail angezeigt werden soll: "
+
+#: ../popups/edit_thumb.php:200 ../popups/save_photos.php:497
+msgid "_Dismiss"
+msgstr "_Beenden"
+
+#: ../popups/edit_watermark.php:41
+msgid "Edit Watermark"
+msgstr "Wasserzeichen bearbeiten"
+
+#: ../popups/edit_watermark.php:109
+#, fuzzy
+msgid "Your image is a gif. Watermarking on animated gifs is currently not supported. It will 'deface' and 'unanimate' your picture."
+msgstr "Ihr Bild ist ein gif. Wasserzeichen auf animierten gif werden derzeit noch nicht unterstützt und werden daher ihr Bild verunstalten und 'unanimieren'."
+
+#: ../popups/featured-item.php:38 ../popups/featured-item.php:73
+#, fuzzy
+msgid "Featured item"
+msgstr "%s 'featuren'"
+
+#: ../popups/featured-item.php:49
+#, fuzzy, php-format
+msgid "Featured %s"
+msgstr "%s 'featuren'"
+
+#: ../popups/featured-item.php:59
+#, php-format
+msgid "New featured %s saved."
+msgstr ""
+
+#: ../popups/featured-item.php:65
+msgid "Could not write the cache file!"
+msgstr ""
+
+#: ../popups/featured-item.php:67
+#, fuzzy, php-format
+msgid "Make sure that the file %s in your albums folder is writeable for the webserver."
+msgstr "Der Ordner in dem sich die Benutzerdaten befinden (%s) ist nicht beschreibbar durch den Webserver."
+
+#: ../popups/featured-item.php:77
+#, fuzzy
+msgid "Invalid Parameters."
+msgstr "Ung&uuml;ltiger Benutzer."
+
+#: ../popups/item_owner.php:34 ../popups/item_owner.php:42
+#: ../popups/item_owner.php:72
+#, fuzzy
+msgid "Item Owner"
+msgstr "Besitzer/in"
+
+#: ../popups/item_owner.php:85
+msgid "Owner: "
+msgstr "Besitzer/in : "
+
+#: ../popups/manage_groups.php:29 ../popups/manage_groups.php:71
+#, fuzzy
+msgid "Manage Groups"
+msgstr "_Gruppen verwalten"
+
+#: ../popups/manage_groups.php:41
+#, fuzzy
+msgid "Please select a group"
+msgstr "Bitten w&auml;hlen Sie einen Benutzer"
+
+#: ../popups/manage_groups.php:76
+#, fuzzy
+msgid "Manage Gallery usergroups"
+msgstr "_Gruppen verwalten"
+
+#: ../popups/manage_groups.php:83
+#, fuzzy
+msgid "You can create, modify and delete Gallery usergroups here."
+msgstr "Hier k&ouml;nnen Sie Benutzer anlegen,ver&auml;ndern oder l&ouml;schen."
+
+#: ../popups/manage_groups.php:88
+msgid "No groups found."
+msgstr ""
+
+#: ../popups/manage_groups.php:98
+#, fuzzy
+msgid "To select multiple groups for deletion, hold down the Control (PC) or Command (Mac) key while clicking."
+msgstr "Um mehrere Benutzer zu markieren, halten Sie die STRG (PC), bzw. Command Taste während der Auswahl gedrückt. (Hat nur eine Auswirkung beim Löschen von Benutzern)"
+
+#: ../popups/manage_groups.php:103
+msgid "Create _new group"
+msgstr "_Neue Gruppe"
+
+#: ../popups/manage_groups.php:106 ../popups/manage_users.php:183
+msgid "_Modify"
+msgstr "_Ver&auml;ndere"
+
+#: ../popups/manage_users.php:29 ../popups/manage_users.php:140
+#: ../popups/manage_users.php:150
+msgid "Manage Users"
+msgstr "Benutzerverwaltung"
+
+#: ../popups/manage_users.php:52
+msgid "Please select a user"
+msgstr "Bitten w&auml;hlen Sie einen Benutzer"
+
+#: ../popups/manage_users.php:94
+msgid "&lt;no group&gt;"
+msgstr "&lt;Keine Gruppe&gt;"
+
+#: ../popups/manage_users.php:100
+#, fuzzy
+msgid "&lt;No email set&gt;"
+msgstr "<Keine Email>"
+
+#: ../popups/manage_users.php:103
+msgid "yes"
+msgstr "Ja"
+
+#: ../popups/manage_users.php:103
+msgid "no"
+msgstr "nein"
+
+#: ../popups/manage_users.php:108
+msgid "Full name"
+msgstr "Vollständiger Name"
+
+#: ../popups/manage_users.php:110
+msgid "Email"
+msgstr "E-Mail"
+
+#: ../popups/manage_users.php:112
+msgid "Admin"
+msgstr "Admin"
+
+#: ../popups/manage_users.php:114
+msgid "Member of"
+msgstr "Mitglied in"
+
+#: ../popups/manage_users.php:118
+msgid "Account is locked!"
+msgstr ""
+
+#: ../popups/manage_users.php:157
+msgid "You can create, modify and delete users here."
+msgstr "Hier k&ouml;nnen Sie Benutzer anlegen,ver&auml;ndern oder l&ouml;schen."
+
+#: ../popups/manage_users.php:162
+msgid "There are no users!  Create one."
+msgstr "Es existieren keine Benutzer. Erstellen Sie einen."
+
+#: ../popups/manage_users.php:174
+msgid "To select multiple users (only recognized for deletion), hold down the Control (PC) or Command (Mac) key while clicking."
+msgstr "Um mehrere Benutzer zu markieren, halten Sie die STRG (PC), bzw. Command Taste während der Auswahl gedrückt. (Hat nur eine Auswirkung beim Löschen von Benutzern)"
+
+#: ../popups/manage_users.php:178
+msgid "Create _new user"
+msgstr "_Neuer Benutzer"
+
+#: ../popups/manage_users.php:180
+msgid "_Bulk Create"
+msgstr "_Massenverarbeitung"
+
+#: ../popups/manage_users.php:186
+#, fuzzy
+msgid "_Unlock"
+msgstr "_R&uuml;ckg&auml;ngig"
+
+#: ../popups/modify_group.php:34 ../popups/modify_group.php:112
+msgid "Modify Group"
+msgstr "Gruppe bearbeiten"
+
+#: ../popups/modify_group.php:52
+#, fuzzy
+msgid "No valid group selected !"
+msgstr "Keine Gruppe ausgewählt!"
+
+#: ../popups/modify_group.php:63
+#, fuzzy
+msgid "Gallery was not able to successfully read the group data."
+msgstr "Gallery konnte die Daten nicht speichern!"
+
+#: ../popups/modify_group.php:77
+msgid "Groupname not valid."
+msgstr ""
+
+#: ../popups/modify_group.php:85
+#, fuzzy
+msgid "Description not valid."
+msgstr "Beschreibung für"
+
+#: ../popups/modify_group.php:99
+msgid "Group information succesfully updated."
+msgstr "Die Gruppeninformationen wurden erfolgreich aktualisiert."
+
+#: ../popups/modify_group.php:105
+msgid "Group information was not succesfully updated!"
+msgstr "Die Gruppenrinformationen wurden nicht erfolgreich aktualisiert!"
+
+#: ../popups/modify_group.php:143
+msgid "You can change any information about the group using this form."
+msgstr "Hier können Sie alle Angaben zur Gruppe ändern."
+
+#: ../popups/modify_group.php:149
+msgid "_Name of the group"
+msgstr "_Name der Gruppe"
+
+#: ../popups/modify_group.php:150
+msgid "Some _descriptive text (optional)"
+msgstr "Ein _beschreibender Text (optional)"
+
+#: ../popups/modify_group.php:157
+msgid "Available user"
+msgstr "Verfügbare Benutzer"
+
+#: ../popups/modify_group.php:159
+#, fuzzy
+msgid "Current members"
+msgstr "Aktueller Benutzer"
+
+#: ../popups/modify_group.php:164
+msgid "Add -->"
+msgstr ""
+
+#: ../popups/modify_group.php:166
+msgid "<-- Remove"
+msgstr "<-- Entfernen"
+
+#: ../popups/modify_group.php:191
+msgid "_Group management"
+msgstr "_Gruppenrverwaltung"
+
+#: ../popups/modify_group.php:193
+msgid "_User management"
+msgstr "Ben_utzerverwaltung"
+
+#: ../popups/modify_user.php:35 ../popups/modify_user.php:146
+msgid "Modify User"
+msgstr "Benutzer bearbeiten"
+
+#: ../popups/modify_user.php:94
+msgid "User information succesfully updated."
+msgstr "Die Benutzerinformationen wurden erfolgreich aktualisiert."
+
+#: ../popups/modify_user.php:100
+msgid "User information was not succesfully updated!"
+msgstr "Die Benutzerinformationen wurden nicht erfolgreich aktualisiert!"
+
+#: ../popups/modify_user.php:111
+msgid "Invalid user"
+msgstr "Ung&uuml;ltiger Benutzer"
+
+#: ../popups/modify_user.php:150
+msgid "You can change any information about the user using this form."
+msgstr "Hier k&ouml;nnen Sie alle Angaben zum Benutzer &auml;ndern."
+
+#: ../popups/move_albumitem.php:30 ../popups/move_albumitem.php:46
+#: ../popups/move_albumitem.php:52 ../popups/move_albumitem.php:64
+#, fuzzy
+msgid "Move item"
+msgstr "_Verschieben"
+
+#: ../popups/move_albumitem.php:72
+#, fuzzy
+msgid "Reorder Album"
+msgstr "Reihenfolge der Elemente &auml;ndern"
+
+#: ../popups/move_albumitem.php:72
+#, fuzzy
+msgid "Move Album"
+msgstr "Album verschieben"
+
+#: ../popups/move_albumitem.php:75
+msgid "Reorder Photo"
+msgstr "Reihenfolge der Elemente &auml;ndern"
+
+#: ../popups/move_albumitem.php:75
+msgid "Move Photo"
+msgstr "Elemente verschieben"
+
+#: ../popups/move_albumitem.php:90
+#, fuzzy
+msgid "You can't move items into the album they already exist in."
+msgstr "Bilder k&ouml;nnen nicht in ihr eigenes Album verschoben werden."
+
+#: ../popups/move_albumitem.php:93
+#, fuzzy
+msgid "Invalid destination chosen."
+msgstr "Ungültiges Bild: %s"
+
+#: ../popups/move_albumitem.php:96
+#, php-format
+msgid "You do not have the required permissions to write to %s!"
+msgstr "Sie haben nicht die ben&ouml;tigten Rechte, um in %s Ver&auml;nderungen vorzunehmen!"
+
+#: ../popups/move_albumitem.php:167 ../popups/move_albumitem.php:287
+#, fuzzy
+msgid "You can't move an album into itself."
+msgstr "Sie können sich nicht selbst den Admin-Status nehmen."
+
+#: ../popups/move_albumitem.php:179
+#, fuzzy, php-format
+msgid "Moving item #%d"
+msgstr "Bilder verschieben"
+
+#: ../popups/move_albumitem.php:241
+msgid "- Creating New Album Highlight"
+msgstr "- Erzeuge neues Albumtitelbild"
+
+#: ../popups/move_albumitem.php:264
+#, php-format
+msgid "Skipping Album #%d"
+msgstr "&Uuml;berspringe Album #%d"
+
+#: ../popups/move_albumitem.php:304
+#, fuzzy
+msgid "Reorder this item within the album:"
+msgstr "Sie k&ouml;nnen die Reihenfolge der Elemente in diesem Album ver&auml;ndern. Die Positionen sind von oben links nach unten rechts durchnummeriert."
+
+#: ../popups/move_albumitem.php:306
+#, php-format
+msgid "Current Location is %s"
+msgstr "Die derzeitige Position ist %s"
+
+#: ../popups/move_albumitem.php:314
+msgid "Select the new location:"
+msgstr "W&auml;hlen Sie die neue Position aus: "
+
+#: ../popups/move_albumitem.php:322
+msgid "Re_order it!"
+msgstr "Um_ordnen!"
+
+#: ../popups/move_albumitem.php:322 ../popups/move_rootalbum.php:155
+msgid "_Move it!"
+msgstr "_Verschieben"
+
+#: ../popups/move_albumitem.php:328
+msgid "Move the album to different position in your gallery:"
+msgstr "Album an einem anderen Ort verschieben:"
+
+#: ../popups/move_albumitem.php:342
+msgid "Move a range of photos to a new album:"
+msgstr "Ein oder mehrere Elemente in ein neues Album verschieben. Geben Sie dazu die Positionen des ersten und letzten Elementes an: "
+
+#: ../popups/move_albumitem.php:344
+msgid "To move just one photo, make First and Last the same."
+msgstr "Um nur ein Element zu verschieben, setzen Sie Erstes und Letztes gleich."
+
+#: ../popups/move_albumitem.php:371
+msgid "Note: items that have votes will lose these votes when moved to another album"
+msgstr "Hinweis: Wenn Stimmen f&uuml;r ein Element abgegeben wurden, gehen diese beim Verschieben in ein anderes Album verloren."
+
+#: ../popups/move_albumitem.php:374
+#, php-format
+msgid "Note: items that have votes will lose these votes if moved to an album without compatible polling.  Compatible albums are marked with an &quot;%s&quot;."
+msgstr "Hinweis: Wenn Stimmen f&uuml;r dieses Element abgegeben wurden, gehen diese beim Verschieben in ein Album mit unterschiedlichen Abstimmungseinstellungen verloren. Kompatibele Alben sind mit &quot;%s&quot; markiert."
+
+#: ../popups/move_rootalbum.php:32 ../popups/move_rootalbum.php:39
+#: ../popups/move_rootalbum.php:45
+#, fuzzy
+msgid "Move Top Album"
+msgstr "Album verschieben"
+
+#: ../popups/move_rootalbum.php:48
+#, fuzzy
+msgid "Reorder Top Album"
+msgstr "Reihenfolge der Elemente &auml;ndern"
+
+#: ../popups/move_rootalbum.php:60
+msgid "You chose an invalid new parent album?"
+msgstr ""
+
+#: ../popups/move_rootalbum.php:101
+msgid "Given start and end index are wrong?"
+msgstr ""
+
+#: ../popups/move_rootalbum.php:113
+#, fuzzy, php-format
+msgid "Select the new location of album: '%s%s%s'"
+msgstr "W&auml;hlen Sie die neue Position des Albums: %s"
+
+#: ../popups/move_rootalbum.php:121
+#, fuzzy
+msgid "Your album will be moved into the album you choose below."
+msgstr "Ihr Album wird zu der unten angegebenen Position verschoben."
+
+#: ../popups/move_rootalbum.php:133
+msgid "_Move to Album!"
+msgstr "_Verschieben"
+
+#: ../popups/move_rootalbum.php:140
+#, fuzzy
+msgid "Your album will be moved to the position you choose below."
+msgstr "Ihr Album wird zu der unten angegebenen Position verschoben."
+
+#: ../popups/multi_create_user.php:35 ../popups/multi_create_user.php:42
+#: ../popups/multi_create_user.php:163
+msgid "Create Multiple Users"
+msgstr "Mehrere Benutzer anlegen"
+
+#: ../popups/multi_create_user.php:45
+msgid "No file selected."
+msgstr "Keine Datei ausgew&auml;hlt."
+
+#: ../popups/multi_create_user.php:51
+#, php-format
+msgid "Upload failed: %s."
+msgstr "Upload fehlgeschlagen: %s."
+
+#: ../popups/multi_create_user.php:66
+#, php-format
+msgid "Upload went fine, but the file is not readable, please make sure %s is accessable for your webserver. (Also check openbasedir restrictions.)"
+msgstr "Der Upload hat funktioniert, jedoch ist die Datei für Gallery nicht erreichbar. Bitte prüfen Sie, ob %s für den Webserver erreichar ist. (Prüfen Sie auch openbasedir Restriktionen)"
+
+#: ../popups/multi_create_user.php:96
+#, php-format
+msgid "Adding %s (%s) with email: %s"
+msgstr "Füge %s (%s) mit Email: %s hinzu"
+
+#: ../popups/multi_create_user.php:97 ../popups/multi_create_user.php:101
+msgid "No fullname given"
+msgstr "Kein vollst&auml;ndiger Name angegeben."
+
+#: ../popups/multi_create_user.php:100
+#, php-format
+msgid "Adding %s (%s)"
+msgstr "Füge %s (%s) hinzu"
+
+#: ../popups/multi_create_user.php:110
+#, php-format
+msgid "Send email to %s"
+msgstr "Email an %s senden"
+
+#: ../popups/multi_create_user.php:129
+#, php-format
+msgid "Problem with email to %s"
+msgstr "Es gab ein Problem beim Versenden der Email an %s"
+
+#: ../popups/multi_create_user.php:142
+#, php-format
+msgid "%s added, %s skipped"
+msgstr "%s hinzugef&uuml;gt, %s &uuml;bersprungen"
+
+#: ../popups/multi_create_user.php:143 ../popups/multi_create_user.php:144
+#, php-format
+msgid "1 user"
+msgid_plural "%d users"
+msgstr[0] "Ein Benutzer"
+msgstr[1] "%d Benutzer"
+
+#: ../popups/multi_create_user.php:165
+msgid "Create multiple new users from a file."
+msgstr "Mehrere Benutzer auf einmal erzeugen via einer Datei."
+
+#: ../popups/multi_create_user.php:195
+msgid "_Create"
+msgstr "_Erzeuge"
+
+#: ../popups/multi_create_user.php:202
+msgid "Notes:"
+msgstr "Hinweise:"
+
+#: ../popups/multi_create_user.php:205
+msgid "The members file should be one user per line, and the fields should be space separated."
+msgstr "Die Benutzerdatei darf nur einen Benutzer pro Zeile enthalten, die Felder müßen kommasepariert sein."
+
+#: ../popups/multi_create_user.php:206
+msgid "Each line must be in one of these formats:"
+msgstr "Jede Zeile muss mindestens einem dieser Formate entsprechen:"
+
+#: ../popups/multi_create_user.php:208
+msgid "<i>username emailaddress fullname</i>"
+msgstr "<i>&lt;Benutzername&gt; &lt;Emailadresse&gt; &lt;Vollständiger Name&gt;</i>"
+
+#: ../popups/multi_create_user.php:209
+msgid "<i>username fullname</i>"
+msgstr "<i>&lt;Benutzername&gt; &lt;Vollständiger Name&gt;</i>"
+
+#: ../popups/multi_create_user.php:210
+msgid "<i>username emailaddress</i>"
+msgstr "<i>&lt;Benutzername&gt; &lt;Emailadresse&gt;</i>"
+
+#: ../popups/multi_create_user.php:212
+msgid "Only username is required. Everything after the email address is the full name, so there can be spaces in it."
+msgstr "Nur der Benutzername ist Pflicht. Alles nach der Email wird als vollst&auml;ndiger Name interpretiert und kann daher Leerzeichen enthalten."
+
+#: ../popups/multi_create_user.php:216
+msgid "The strings !!USERNAME!!, !!FULLNAME!! and !!PASSWORD!! will be substituted in the email with the values from the membership file.  An individual email will be sent to each member with a valid email address in the members file (if &quot;send emails&quot; checkbox is ticked)."
+msgstr "Die Symbole !!USERNAME!!, !!FULLNAME!! und !!PASSWORD!! werden in den Email an die Benutzer ersezt durch die Werte in der Datei.  Es wird an jeden neuen Benutzer eine Email geschickt, wenn Sie &quot;Email senden&quot; aktiviert haben."
+
+#: ../popups/progress_uploading.php:25
+msgid "Uploading Photos"
+msgstr "Bilder Upload"
+
+#: ../popups/progress_uploading.php:27
+msgid "This page will go away automatically when the upload is complete.  Please be patient!"
+msgstr "Diese Seite wird automatisch verschwinden, wenn der Upload fertig ist. Bitte haben Sie etwas Geduld."
+
+#: ../popups/rearrange.php:26
+#, fuzzy
+msgid "Rearrange Items"
+msgstr "Albumordnung für: %s"
+
+#: ../popups/rearrange.php:49
+#, php-format
+msgid "Rearrange items in album: %s"
+msgstr "Albumordnung ändern im Album: %s"
+
+#: ../popups/rearrange.php:112
+#, php-format
+msgid "Rearrange Album: %s"
+msgstr "Albumordnung für: %s"
+
+#: ../popups/rearrange.php:116
+msgid "Here you can rearrange your pictures easily. Just click on the item you want to reorder. Then click on the item at which position you want it to be."
+msgstr "Hier können Sie aug einfache Weise die Reihenfolge der Bilder ändern. Klicken Sie zuerst auf das Bild das sie verschieben wollen, danach auf das Bild an dessen Stelle Sie es setzen möchten."
+
+#: ../popups/rearrange.php:120
+msgid "Meaning of the borderstyle"
+msgstr "Bedeutung der verschiedenen Rahmenarten"
+
+#: ../popups/rearrange.php:122
+msgid "Picture"
+msgstr "Bild"
+
+#: ../popups/rearrange.php:124
+msgid "Subalbum"
+msgstr "Unteralben"
+
+#: ../popups/rearrange.php:125
+msgid "Selected"
+msgstr "Ausgewählt"
+
+#: ../popups/rearrange.php:129
+msgid "Visible"
+msgstr "Sichtbar"
+
+#: ../popups/rearrange.php:130
+msgid "Hidden"
+msgstr "Versteckt"
+
+#: ../popups/rearrange.php:160
+#, php-format
+msgid "******* Page %s *******"
+msgstr "********** Seite %s **********"
+
+#: ../popups/rebuild_capture_dates.php:30
+#: ../popups/rebuild_capture_dates.php:37
+#, fuzzy
+msgid "Rebuilding capture dates"
+msgstr "Frische Aufnahmedaten auf: %s"
+
+#: ../popups/rebuild_capture_dates.php:42
+#, php-format
+msgid "Rebuilding capture dates: %s"
+msgstr "Frische Aufnahmedaten auf: %s"
+
+#: ../popups/rebuild_capture_dates.php:63
+msgid "Here you can rebuild all capture dates of your photos."
+msgstr "Hier können Sie die Aufnahmedaten Ihrer Bilder auffrischen."
+
+#: ../popups/rebuild_capture_dates.php:65
+msgid "This is usefull when something went wrong, of you enabled jhead/exiftags after you upload items."
+msgstr "Dies ist sinnvoll, wenn beim Upload Fehler aufgetreten sind, oder Sie jhead/exiftags nachträglich installiert haben."
+
+#: ../popups/rebuild_capture_dates.php:69
+msgid "Do you also want to rebuild the capture dates of items in subalbums?"
+msgstr "Möchten Sie auch die Aufnahmedaten der Unteralben auffrischen ?"
+
+#: ../popups/rebuild_capture_dates.php:76 ../popups/rebuild_thumbs.php:73
+#: ../popups/recreate_captions.php:73
+msgid "_Start"
+msgstr "_Start"
+
+#: ../popups/rebuild_thumbs.php:30 ../popups/rebuild_thumbs.php:37
+#, fuzzy
+msgid "Rebuilding Thumbnails"
+msgstr "Erneuere Thumbnails"
+
+#: ../popups/rebuild_thumbs.php:42
+#, php-format
+msgid "Rebuilding Thumbnails: %s"
+msgstr "Erneuere Thumbnails: %s"
+
+#: ../popups/rebuild_thumbs.php:59
+msgid "Here you can rebuild all thumbnails of your album. This is useful when thumbnails got broken, or you changed the thumnbail size / quality."
+msgstr "Hier können Sie alle Vorschaubilder Ihres Albums auffrischen. Dies kann sinnvoll sein wenn Vorschaubilder defekt sind, oder Sie die Größe bzw. Qualität der Vorschaubilder verändert haben."
+
+#: ../popups/rebuild_thumbs.php:61
+msgid "Custom thumbnails will not be reset to default. (Just resized, or rebuild)"
+msgstr "Individuell erstellte Vorschaubilder werden nicht auf den Standard zurück gesetzt."
+
+#: ../popups/rebuild_thumbs.php:66
+msgid "Do you also want to rebuild the thumbnails in subalbums?"
+msgstr "Möchten Sie auch die Vorschaubilder der Unteralben erneuern ?"
+
+#: ../popups/recreate_captions.php:29 ../popups/recreate_captions.php:36
+#, fuzzy
+msgid "Recreate captions"
+msgstr "Erzeuge %d Beschriftungen"
+
+#: ../popups/recreate_captions.php:41
+#, php-format
+msgid "Recreate captions for album: %s"
+msgstr "Beschriftungen erzeugen f&uuml;r Album: %s"
+
+#: ../popups/recreate_captions.php:48
+msgid "Captions successfully recreated."
+msgstr "Die Beschriftungen wurden erfolgreich erzeugt."
+
+#: ../popups/recreate_captions.php:52
+msgid "Captions not successfully recreated."
+msgstr "Die Beschriftungen wurden NICHT erfolgreich erzeugt."
+
+#: ../popups/recreate_captions.php:59
+msgid "Choose the type you want to recreate the captions."
+msgstr "W&auml;hlen Sie aus wie Gallery Iher Beschriftungen erzeugen soll."
+
+#: ../popups/recreate_captions.php:64
+msgid "Do you also want to recreate the captions in subalbums?"
+msgstr "Möchten Sie auch die Beschriftungen in den Unteralben erzeugen ?"
+
+#: ../popups/recreate_captions.php:73
+msgid "_Start over"
+msgstr "_Erneut starten"
+
+#: ../popups/register.php:36
+msgid "Register new user"
+msgstr "Neuen Benutzer registrieren"
+
+#: ../popups/register.php:40
+msgid "This Gallery does not support self-registration by visitors."
+msgstr "Diese Gallery unterst&uuml;tzt keine Selbstregistrierung."
+
+#: ../popups/register.php:64
+#, fuzzy
+msgid "Your username contains invalid data!"
+msgstr "Ihr vollständiger Name enthält ungültige Daten!"
+
+#: ../popups/register.php:68
+#, fuzzy
+msgid "You must specify a username."
+msgstr "Sie m&uuml;ssen einen Namen angeben"
+
+#: ../popups/register.php:73
+#, fuzzy
+msgid "Your fullname contains invalid data!"
+msgstr "Ihr vollständiger Name enthält ungültige Daten!"
+
+#: ../popups/register.php:77
+msgid "You must specify a name."
+msgstr "Sie m&uuml;ssen einen Namen angeben"
+
+#: ../popups/register.php:109
+#, php-format
+msgid "%s has registered.  Email has been sent to %s."
+msgstr "%s hat sich registriert.  Es wurde eine Email an %s gesendet."
+
+#: ../popups/register.php:115
+msgid "Gallery Self Registration"
+msgstr "Gallery Registrierung"
+
+#: ../popups/register.php:117
+#, php-format
+msgid "An email has been sent to %s."
+msgstr "Es wurde eine Email an %s gesendet."
+
+#: ../popups/register.php:119
+msgid "Your account information is contained within the email."
+msgstr "Ihre Zugangsdaten sind in der Mail enthalten."
+
+#: ../popups/register.php:122
+msgid "Email could not be sent.  Please contact gallery administrator to register on this site"
+msgstr "Die Email konnte nicht gesendet werden.  Bitte wenden Sie sich an den Gallery Admin, um einen Zugang zu bekommen."
+
+#: ../popups/register.php:143
+msgid "Your account information will be sent to the email address you provide."
+msgstr "Ihre Zugangsdaten werden Ihnen per Mail an die angegebene Adresse geschickt."
+
+#: ../popups/register.php:148
+msgid "_Send request"
+msgstr "Anfrage ab_schicken"
+
+#: ../popups/rename_album.php:59
+msgid "Your new foldername contained unallowed chars. They were removed. Please try again."
+msgstr ""
+
+#: ../popups/rename_album.php:97
+msgid "There is already an album with that name!"
+msgstr "Es existiert bereits ein Album mit diesem Namen!"
+
+#: ../popups/rename_album.php:115
+msgid "What do you want to name this album?"
+msgstr "Wie m&ouml;chten Sie dieses Album nennen?"
+
+#: ../popups/rename_album.php:117
+msgid "The name cannot contain any of the following characters"
+msgstr "Der Name darf keines der folgenden Zeichen enthalten"
+
+#: ../popups/rename_album.php:118
+msgid "or"
+msgstr "oder"
+
+#: ../popups/rename_album.php:118
+msgid "spaces"
+msgstr "Leerzeichen"
+
+#: ../popups/rename_album.php:120
+#, fuzzy
+msgid "Those characters are not allowed in your new album name."
+msgstr "Diese Zeichen werden ignoriert."
+
+#: ../popups/rename_album.php:125
+msgid "New name for album folder:"
+msgstr ""
+
+#: ../popups/rename_album.php:132
+msgid "_Rename"
+msgstr "_Umbenennen"
+
+#: ../popups/rename_album.php:140
+msgid "This it not the title of the album, its the filename of the directory on your webserver. The name is also used in the url."
+msgstr "Dies ist nicht der Titel ihres Albums, es handelt sich vielmehr um den Namen des Ordners dieses Album auf Ihrem Webserver. Der Name wird auch für die URL verwendet."
+
+#: ../popups/reset_votes.php:32
+msgid "Reset Voting"
+msgstr "Abstimmung zur&uuml;cksetzen"
+
+#: ../popups/reset_votes.php:60
+#, fuzzy, php-format
+msgid "Do you really want to remove all votes from album '%s'?"
+msgstr "M&ouml;chten Sie wirklich alle Wertungen aus dem Album <b>%s</b> entfernen?"
+
+#: ../popups/reset_votes.php:65
+msgid "_Remove Votes"
+msgstr "Stimmen _entfernen"
+
+#: ../popups/resize_photo.php:30
+msgid "Resize Photo"
+msgstr "Bildgr&ouml;&szlig;e ver&auml;ndern"
+
+#: ../popups/resize_photo.php:33
+#, fuzzy
+msgid "Resize all Photos"
+msgstr "Bildgr&ouml;&szlig;e ver&auml;ndern"
+
+#: ../popups/resize_photo.php:93
+msgid "Resizing 1 photo..."
+msgstr "Ver&auml;ndere Gr&ouml;&szlig;e von einem Bild"
+
+#: ../popups/resize_photo.php:110
+msgid "This will resize your original, or intermediate photos so that the longest side of the photo is equal to the target size below and the filesize will be close to the chosen size."
+msgstr "Dies wird Ihr Originalbild oder die Zwischengröße so verändern, daß die längste Seite Ihres Photos dem unten angegeben Wert entspricht. Zusätzlich können Sie auch noch die maximale Dateigröße angeben. (Qualität wird herabgestuft.)"
+
+#: ../popups/resize_photo.php:127
+msgid "Resizing"
+msgstr "Größe ändern"
+
+#: ../popups/resize_photo.php:129
+msgid "Which version of your image do you want to resize?"
+msgstr "Welche Version Ihres Bildes wollen Sie verändern?"
+
+#: ../popups/resize_photo.php:133
+msgid "intermediate"
+msgstr "Zwischenversion"
+
+#: ../popups/resize_photo.php:133 ../view_photo.php:357
+msgid "full"
+msgstr "Voll"
+
+#: ../popups/resize_photo.php:141
+msgid "Unlikely to the change of the intermediate version, this can NOT BE UNDONE."
+msgstr "Anders als bei der Zwischenversion kann dies NICHT RÜCKGÄNGIG gemacht werden."
+
+#: ../popups/resize_photo.php:146
+msgid "What target size do you want?"
+msgstr "Welche Zielgröße möchten Sie?"
+
+#: ../popups/resize_photo.php:151
+msgid "Target filesize"
+msgstr "Gr&ouml;&szlig;e der Zieldatei"
+
+#: ../popups/resize_photo.php:156
+msgid "Maximum side length in pixels"
+msgstr "Maximale Seitenl&auml;nge der Bilder (in Pixel)"
+
+#: ../popups/resize_photo.php:171
+msgid "(manual value)"
+msgstr "(Manuelle Eingabe)"
+
+#: ../popups/resize_photo.php:184
+msgid "Apply to nested albums ?"
+msgstr "Einstellungen auch auf Unteralben anwenden?"
+
+#: ../popups/resize_photo.php:189
+msgid "Change _Size"
+msgstr "Bild_größe verändern"
+
+#: ../popups/resize_photo.php:199
+msgid "Removing"
+msgstr "Löschen"
+
+#: ../popups/resize_photo.php:202
+msgid "Use only the original picture? Click button to remove all resized."
+msgstr "Nur das Originalbild verwenden? Klicken Sie auf den Button um alle Zwischengrößen zu entfernen."
+
+#: ../popups/resize_photo.php:203
+msgid "Get _rid of resized"
+msgstr "Zwischengröße _entfernen"
+
+#: ../popups/rotate_photo.php:29 ../popups/rotate_photo.php:37
+#: ../popups/rotate_photo.php:46 ../popups/rotate_photo.php:107
+#: ../popups/rotate_photo.php:114
+msgid "Rotate/Flip Photo"
+msgstr "Bild drehen/ spiegeln"
+
+#: ../popups/rotate_photo.php:56
+msgid "Clockwise 90&deg;"
+msgstr "Uhrzeigersinn 90&deg;"
+
+#: ../popups/rotate_photo.php:62
+msgid "180&deg;"
+msgstr "180&deg;"
+
+#: ../popups/rotate_photo.php:68
+msgid "Counter-Clockwise 90&deg;"
+msgstr "gegen den Uhrzeigersinn 90&deg;"
+
+#: ../popups/rotate_photo.php:74
+msgid "Horizontal"
+msgstr "Horizontal"
+
+#: ../popups/rotate_photo.php:80
+msgid "Vertical"
+msgstr "Vertikal"
+
+#: ../popups/rotate_photo.php:88
+msgid "Rotate"
+msgstr "Drehen"
+
+#: ../popups/rotate_photo.php:93
+msgid "Flip"
+msgstr "Spiegeln"
+
+#: ../popups/rotate_photo.php:119
+msgid "Rotating/Flipping photo."
+msgstr "Bild drehen/ spiegeln."
+
+#: ../popups/rotate_photo.php:121
+msgid "(this may take a while)"
+msgstr "(Dies k&ouml;nnte eine Weile dauern)"
+
+#: ../popups/rotate_photo.php:134
+msgid "Manipulate again?"
+msgstr "M&ouml;chten Sie den Vorgang wiederholen?"
+
+#: ../popups/rotate_photo.php:140
+msgid "How do you want to manipulate this photo?"
+msgstr "Wie m&ouml;chten Sie dieses Bild ver&auml;ndern?"
+
+#: ../popups/save_photos.php:43
+#, php-format
+msgid "Invalid Request. Please go back to %s."
+msgstr ""
+
+#: ../popups/save_photos.php:80
+msgid "Processing and Saving Photos"
+msgstr "Verarbeite und speichere Bilder"
+
+#: ../popups/save_photos.php:85
+msgid "Fetching Urls..."
+msgstr "Rufe URLs ab ..."
+
+#: ../popups/save_photos.php:121
+#, fuzzy, php-format
+msgid "Processing '%s' as a local directory."
+msgstr "Verarbeite %s als lokales Verzeichnis."
+
+#: ../popups/save_photos.php:163
+#, fuzzy, php-format
+msgid "Processing '%s' as file or URL."
+msgstr "Verarbeite '%s'."
+
+#: ../popups/save_photos.php:188
+msgid "local file"
+msgstr "lokale Datei"
+
+#: ../popups/save_photos.php:222
+#, fuzzy
+msgid "Could not open as URL, file or directory."
+msgstr "Konnte das Verzeichnis %s nicht &ouml;ffnen."
+
+#: ../popups/save_photos.php:228
+#, fuzzy, php-format
+msgid "Opened '%s' successfully"
+msgstr "%s wurde erfolgreich geöffnet"
+
+#: ../popups/save_photos.php:255
+msgid "Copy file locally"
+msgstr "Kopiere Datei lokal"
+
+#: ../popups/save_photos.php:259
+#, php-format
+msgid "Parsing %s for images..."
+msgstr "Durchsuche %s nach Bildern ..."
+
+#: ../popups/save_photos.php:321
+#, php-format
+msgid "Found %d images"
+msgstr "Es wurden %d Bilder gefunden"
+
+#: ../popups/save_photos.php:332
+#, fuzzy
+msgid "Metainfo found."
+msgstr "Metainfo gefunden"
+
+#: ../popups/save_photos.php:344
+msgid "Metainfo found"
+msgstr "Metainfo gefunden"
+
+#: ../popups/save_photos.php:409
+#, php-format
+msgid "Processing %d element."
+msgid_plural "Processing %d elements."
+msgstr[0] "Verarbeite %d Element."
+msgstr[1] "Verarbeite %d Elemete."
+
+#: ../popups/save_photos.php:451
+msgid "Extra fields:"
+msgstr "Extrafelder:"
+
+#: ../popups/save_photos.php:489
+msgid "No images uploaded!"
+msgstr "Es wurden keine Bilder hochgeladen!"
+
+#: ../popups/save_photos.php:493
+#, fuzzy
+msgid "No images found at that place."
+msgstr "Diese Methode zum Hinzuf&uuml;gen von Bildern und Filmen sollten Sie dann nutzen, wenn die Dateien nicht lokal bei Ihnen auf den Computer gespeichert sind, sondern bereits in einem Ordner auf dem Server der Gallery bzw. auf einem anderen - &uuml;ber Internet erreichbaren - Computer gespeichert sind. "
+
+#: ../popups/save_photos.php:509
+#, fuzzy
+msgid "Select the items you want to upload. To select multiple hold 'ctrl' (PC) or 'Command' (Mac)."
+msgstr "Wählen Sie die Elemente, die sie hochladen möchten. Halten Sie die 'strg' (PC) oder 'Command' (Mac) Taste um mehrere zu markieren."
+
+#: ../popups/save_photos.php:536
+msgid "Some files with malicious characters are not listed. "
+msgstr ""
+
+#: ../popups/save_photos.php:543
+#, php-format
+msgid "%d meta file(s) found.  These files contain information about the images, such as titles and descriptions."
+msgstr "%d Metadateien gefunden.  Diese Dateien beinhalten Information &uuml;ber Ihre Bilder, etwa Titel und Beschreibung."
+
+#: ../popups/save_photos.php:568
+msgid "_Add Files"
+msgstr "Dateien _hinzufügen"
+
+#: ../popups/sort_album.php:28
+msgid "Sort Album"
+msgstr "Elemente sortieren"
+
+#: ../popups/sort_album.php:65
+msgid "Select your sorting criteria for this album below"
+msgstr "W&auml;hlen Sie das Sortierkriterium f&uuml;r dieses Album"
+
+#: ../popups/sort_album.php:67
+msgid "Warning:  This operation can't be undone."
+msgstr "Warnung : Diese Operation kann nicht r&uuml;ckg&auml;ngig gemacht werden."
+
+#: ../popups/sort_album.php:85
+msgid "By Upload Date"
+msgstr "Nach Upload-Datum"
+
+#: ../popups/sort_album.php:86
+msgid "By Picture-Taken Date"
+msgstr "Nach Aufnahmedatum"
+
+#: ../popups/sort_album.php:87
+msgid "By Filename"
+msgstr "Nach Dateiname"
+
+#: ../popups/sort_album.php:88
+msgid "By Number of Clicks"
+msgstr "Nach Anzahl der Klicks"
+
+#: ../popups/sort_album.php:89
+msgid "By Caption"
+msgstr "Nach Beschriftung"
+
+#: ../popups/sort_album.php:90
+msgid "By Number of Comments"
+msgstr "Nach Anzahl der Kommentare"
+
+#: ../popups/sort_album.php:91
+msgid "Randomly"
+msgstr " Zuf&auml;llig"
+
+#: ../popups/sort_album.php:97
+msgid "Just sort"
+msgstr "Einfach sortieren"
+
+#: ../popups/sort_album.php:98
+msgid "Albums first"
+msgstr "Alben zuerst"
+
+#: ../popups/sort_album.php:99
+msgid "Photos/Movies first"
+msgstr "Bilder/Filme zuerst"
+
+#: ../popups/stamp_preview.php:39
+msgid "Poststamp preview"
+msgstr "Briefmarken Vorschau"
+
+#: ../popups/stamp_preview.php:43
+msgid "Choose a stamp:"
+msgstr "Wählen Sie eine Briefmarke:"
+
+#: ../popups/upgrade_album.php:57 ../popups/upgrade_album.php:114
+msgid "Upgrade Albums"
+msgstr "Aktualisiere Alben"
+
+#: ../popups/upgrade_album.php:67
+msgid "Total Progress:"
+msgstr "Gesamtfortschritt:"
+
+#: ../popups/upgrade_album.php:69
+msgid "Album Progress:"
+msgstr "Albumfortschritt:"
+
+#: ../popups/upgrade_album.php:89
+msgid "Statusbox"
+msgstr "Statusbox"
+
+#: ../popups/upgrade_album.php:90
+msgid "Please ensure there are no errors."
+msgstr "Stellen Sie sicher, daß keine Fehler aufgetaucht sind."
+
+#: ../popups/upgrade_album.php:133
+msgid "All albums are up to date."
+msgstr "Ihre Alben sind auf aktuellem Stand."
+
+#: ../popups/upgrade_album.php:136
+msgid "Some albums in your gallery were created with an older version of the software and are out of date."
+msgstr "Einige Alben in Ihrer Gallery-Installation wurden mit einer älteren Version erstellt und sind daher veraltet."
+
+#: ../popups/upgrade_album.php:138 ../upgrade_users.php:33
+msgid "This is not a problem!"
+msgstr "Die ist kein Problem!"
+
+#: ../popups/upgrade_album.php:140
+msgid "We can upgrade them.  This may take some time for large albums but we'll try to keep you informed as we proceed."
+msgstr "Es ist eine Aktualisierung m&ouml;glich. Dies k&ouml;nnte bei gro&szlig;en Alben eine Weile dauern, aber es werden Statusinformationen angezeigt."
+
+#: ../popups/upgrade_album.php:142
+msgid "None of your photos will be harmed in any way by this process."
+msgstr "Keines Ihrer Bilder wird durch diesen Prozess ver&auml;ndert."
+
+#: ../popups/upgrade_album.php:144 ../upgrade_users.php:38
+msgid "Rest assured, that if this process takes a long time now, it's going to make your gallery run more efficiently in the future."
+msgstr "Daf&uuml;r, dass dies solange dauert, wird Ihre Installation danach effizienter sein als zuvor."
+
+#: ../popups/upgrade_album.php:147
+#, php-format
+msgid "The following albums need to be upgraded.  You can process them individually by clicking the upgrade link next to the album that you desire, or you can just %s."
+msgstr "Die folgenden Alben brauchen eine Aktualisierung.  Sie k&ouml;nnen sie einzeln verarbeiten, indem Sie auf den Link neben dem jeweiligen Album klicken, oder sie k&ouml;nnen einfach %s"
+
+#: ../popups/upgrade_album.php:148
+msgid "upgrade them all at once"
+msgstr "alle auf einmal aktualisieren"
+
+#: ../popups/upgrade_album.php:165
+msgid "Empty"
+msgstr "Leer"
+
+#: ../popups/upgrade_album.php:165
+#, fuzzy, php-format
+msgid "One item"
+msgid_plural "%d items"
+msgstr[0] "Ein Element"
+msgstr[1] "%s Elemente"
+
+#: ../popups/upgrade_album.php:173
+msgid "upgrade"
+msgstr "aktualisieren"
+
+#: ../popups/upgrade_album.php:181
+msgid "_Reload"
+msgstr "Erneut _laden"
+
+#: ../popups/user_preferences.php:34 ../popups/user_preferences.php:131
+msgid "Change User Preferences"
+msgstr "Benutzereinstellungen bearbeiten"
+
+#: ../popups/user_preferences.php:57
+msgid "You are not allowed to change your username."
+msgstr "Es ist Ihnen nicht gestattet, Ihren Benutzernamen zu ändern."
+
+#: ../popups/user_preferences.php:63
+#, fuzzy
+msgid "Incorrect password."
+msgstr "Falsches Passwort"
+
+#: ../popups/user_preferences.php:69
+msgid "You must provide your old password to change it."
+msgstr "Sie m&uuml;ssen Ihr altes Passwort eingeben um es zu &auml;ndern."
+
+#: ../popups/user_preferences.php:134
+msgid "User successfully updated."
+msgstr "Die Benutzerinformationen wurden erfolgreich aktualisiert."
+
+#: ../popups/user_preferences.php:142
+msgid "If you want to change your password, you must provide your old password and then enter the new one twice."
+msgstr "Wenn Sie Ihr Passwort &auml;ndern m&ouml;chten, m&uuml;ssen Sie zuerst Ihr altes und dann zweimal Ihr neues Passwort eingeben."
+
+#: ../popups/user_preferences.php:145
+msgid "You can change your username to any combination of letters and digits."
+msgstr "Sie k&ouml;nnen Ihren Benutzernamen in jede Kombination aus Buchstaben und Zahlen &auml;ndern."
+
+#: ../popups/view_photo_properties.php:27
+msgid "Photo Properties"
+msgstr "Bildeigenschaften"
+
+#: ../popups/view_photo_properties.php:114
+#: ../popups/view_photo_properties.php:132
+msgid "Reload EXIF Data From File"
+msgstr "Lade EXIF-Daten erneut "
+
+#: ../popups/view_photo_properties.php:117
+#: ../popups/view_photo_properties.php:135
+msgid "(if the data is current, this will not appear to do anything)"
+msgstr "(Wenn die Daten aktuell sind, wird nichts passieren)"
+
+#: ../popups/watermark_album.php:48
+#, fuzzy, php-format
+msgid "Watermarking album :: %s"
+msgstr "Lege Wasserzeichen auf alle Bilder des Albums..."
+
+#: ../popups/watermark_album.php:56
+msgid "No items to watermark."
+msgstr "Keine Elemente f&uuml;r Wasserzeichen vorhanden."
+
+#: ../popups/watermark_album.php:72
+#, fuzzy
+msgid "Watermarking album ... (this may take a while)"
+msgstr "(Dies k&ouml;nnte eine Weile dauern)"
+
+#: ../popups/watermark_album.php:86
+#, fuzzy
+msgid "Watermarking done."
+msgstr "Wasserzeichen setzen"
+
+#: ../popups/watermark_album.php:107
+#, fuzzy
+msgid "Preview"
+msgstr "_Vorschau"
+
+#: ../popups/watermark_album.php:115
+msgid "No preview possible, as this album has no highlight set."
+msgstr ""
+
+#: ../popups/watermark_album.php:119
+#, fuzzy
+msgid "Keep in mind that watermarking on animated gifs is currently not supported and will 'deface &amp; unanimate' your pictures."
+msgstr "Wasserzeichen auf animierten gif werden derzeit noch nicht unterstützt und werden daher ihr Bild verunstalten und 'unanimieren'"
+
+#: ../publish_xp_docs.php:25
+msgid "Publishing with Windows XP"
+msgstr "Ver&ouml;ffentlichen mit Windows XP"
+
+#: ../publish_xp_docs.php:28
+msgid "Windows XP comes with a nice feature that allows you to publish content from your desktop directly to a web service."
+msgstr "Windows XP ist mit dem netten Feature ausgestattet, dass es erlaubt, Inhalte direkt vom Desktop einem Internetdienst hinzuzuf&uuml;gen. "
+
+#: ../publish_xp_docs.php:29
+msgid "It's relatively easy to configure."
+msgstr "Es ist relativ leicht zu konfigurieren."
+
+#: ../publish_xp_docs.php:35
+msgid "Step 1"
+msgstr "Schritt 1"
+
+#: ../publish_xp_docs.php:39
+#, php-format
+msgid "Download the %sXP Configuration File%s"
+msgstr "Laden Sie die %sXP Konfigurationsdatei%s herunter. "
+
+#: ../publish_xp_docs.php:41
+#, php-format
+msgid "Save this file on your PC and rename it %s."
+msgstr "Speichern Sie diese Datei auf Ihrem Computer und benennen Sie sie ggf. in %s um. "
+
+#: ../publish_xp_docs.php:43
+msgid "If it asks you for confirmation about changing the file type, answer &quot;yes&quot;."
+msgstr "Wenn Sie gefragt werden, ob Sie den Dateityp &auml;ndern m&ouml;chten, antworten Sie mit &quot;ja&quot;. "
+
+#: ../publish_xp_docs.php:45
+msgid "Right click on this file and you should see a menu appear."
+msgstr "Ein Rechts-Klick auf diese Datei sollte ein Kontextmen&uuml; &ouml;ffnen. "
+
+#: ../publish_xp_docs.php:47
+msgid "Select the <b>Merge</b> option (this should be at the top of the menu)."
+msgstr "W&auml;hlen Sie die Option <b>Zusammenf&uuml;gen</b> (sollte an erster Stelle stehen). "
+
+#: ../publish_xp_docs.php:49
+msgid "It will ask you if you want to import these values into your registry. Click &quot;ok&quot;."
+msgstr "Sie werden gefragt werden, ob Sie diese Datei der Registry hinzuf&uuml;gen m&ouml;chten. Klicken Sie &quot;ok&quot;."
+
+#: ../publish_xp_docs.php:51
+msgid "It will tell you that the files were imported successfully."
+msgstr "Die Datei sollte danach erfolgreich importiert sein. "
+
+#: ../publish_xp_docs.php:52
+msgid "Click &quot;ok&quot; again."
+msgstr "Klicken Sie abschlie&szlig;end &quot;ok&quot;. "
+
+#: ../publish_xp_docs.php:57
+msgid "Step 2"
+msgstr "Schritt 2"
+
+#: ../publish_xp_docs.php:60
+msgid "Open your Windows explorer and browse to a folder containing supported images."
+msgstr "&Ouml;ffnen Sie Ihren Windows-Explorer und gehen Sie zu einem Ordner, der von Gallery unterst&uuml;tze Dateien (Bilder, Filme, ...) enth&auml;lt."
+
+#: ../publish_xp_docs.php:62
+msgid "Select the image(s) or a folder and there should be a link on the left that says &quot;Publish this file to the web...&quot;"
+msgstr "W&auml;hlen Sie eine oder mehrere Dateien oder einen ganzen Ordner aus, um diese Datei der Gallery hinzuzuf&uuml;gen. Es sollte nun an der linken Seite (oder im Kontextmen&uuml;) ein Link &quot;Diese Datei/Ordner im Web ver&ouml;ffentlichen&quot; sichtbar sein. "
+
+#: ../publish_xp_docs.php:64
+msgid "Click this link and then follow the instructions to log into your Gallery, select an album and publish the image."
+msgstr "Klicken Sie diesen Link und folgen Sie den Beschreibungen, um sich in ihrer Gallery einzuloggen, ein Album auszuw&auml;hlen und das Bild oder den Film zu ver&ouml;ffentlichen. "
+
+#: ../publish_xp_docs.php:70
+msgid "Return to Add Photos"
+msgstr "R&uuml;ckkehr zum Hinzuf&uuml;gen von Bildern"
+
+#: ../publish_xp.php:29
+#, fuzzy
+msgid "Windows publishing wizard"
+msgstr "Windows XP Ver&ouml;ffentlichungs Agent"
+
+#: ../publish_xp.php:51
+#, php-format
+msgid "Publish Your Photos and Movies to %s."
+msgstr "Ver&ouml;ffentlichen Sie Ihre Bilder und Filme auf %s."
+
+#: ../publish_xp.php:88
+msgid "Username and Password are not correct."
+msgstr "Benutzername und Passwort sind nicht korrekt."
+
+#: ../publish_xp.php:97
+msgid "Please enter username and password."
+msgstr "Bitte geben Sie Benutzernamen und Passwort ein."
+
+#: ../publish_xp.php:107
+#, php-format
+msgid "Login to %s"
+msgstr "Anmelden :: %s"
+
+#: ../publish_xp.php:134 ../publish_xp.php:206
+msgid "Select Album"
+msgstr "Album auswählen"
+
+#: ../publish_xp.php:135
+msgid "Select the Album to which to Publish"
+msgstr "W&auml;hlen Sie das Album, in dem Sie ver&ouml;ffentlichen wollen."
+
+#: ../publish_xp.php:160
+msgid "Use filenames as captions"
+msgstr "Dateiname als Beschriftung nutzen"
+
+#: ../publish_xp.php:163
+msgid "Create New Album"
+msgstr "Neues Album erzeugen"
+
+#: ../publish_xp.php:211 ../publish_xp.php:260
+msgid "Not Logged In!"
+msgstr "Sie sind nicht angemeldet!"
+
+#: ../publish_xp.php:218
+msgid "No album specified!"
+msgstr "Kein Album ausgew&auml;hlt!"
+
+#: ../publish_xp.php:224
+#, php-format
+msgid "This user cannot add photos in %s."
+msgstr "Dieser Benutzer darf keine Bilder zu %s hinzuf&uuml;gen."
+
+#: ../publish_xp.php:232 ../publish_xp.php:348
+msgid "Press the 'Back' button and try again!"
+msgstr "Dr&uuml;cken Sie den 'Zur&uuml;ck' Button und versuchen Sie es erneut!"
+
+#: ../publish_xp.php:254
+msgid "Create new album"
+msgstr "Neues Album erzeugen"
+
+#: ../publish_xp.php:268
+msgid "User cannot create ROOT level album."
+msgstr "Dieser Benutzer darf keine eigenst&auml;ndigen Alben anlegen."
+
+#: ../publish_xp.php:279
+#, php-format
+msgid "User cannot create nested album in %s."
+msgstr "Dieser Benutzer darf in %s keine Unteralben anlegen."
+
+#: ../publish_xp.php:285
+msgid "No Parent Album Specified!"
+msgstr "Kein Stammalbum angegeben!"
+
+#: ../publish_xp.php:309
+msgid "Enter New Album Title"
+msgstr "Geben Sie den Albumtitel ein"
+
+#: ../publish_xp.php:312
+msgid "Select Parent Album"
+msgstr "W&auml;hlen Sie das Stammalbum"
+
+#: ../publish_xp.php:319
+msgid "NEW TOP LEVEL ALBUM"
+msgstr "Neues Hauptalbum"
+
+#: ../publish_xp.php:398
+msgid "Skipping file, as it contains malicious characters."
+msgstr ""
+
+#: ../publish_xp.php:483
+msgid "Photo Upload"
+msgstr "Bilder Upload"
+
+#: ../publish_xp.php:483
+msgid "Upload Photos to"
+msgstr "Laden Sie Bilder auf den Server zu"
+
+#: ../rss.php:122
+#, fuzzy
+msgid "Gallery RSS feed"
+msgstr "Galerie Stammverzeichnis"
+
+#: ../rss.php:273
+msgid "no albums"
+msgstr "Keine Alben"
+
+#: ../rss.php:274
+msgid "no photos"
+msgstr "Keine Bilder"
+
+#: ../rss.php:274
+#, php-format
+msgid "1 photo"
+msgid_plural "%d photos"
+msgstr[0] "Ein Photo"
+msgstr[1] "%d Photos"
+
+#: ../rss.php:276
+#, php-format
+msgid "%s in %s"
+msgstr "%s in %s"
+
+#: ../search.php:55
+msgid "Search"
+msgstr "Suche"
+
+#: ../search.php:153
+msgid "Caption: "
+msgstr "Beschriftung: "
+
+#: ../search.php:178
+msgid "Matching Comments"
+msgstr "&Uuml;bereinstimmende Kommentare"
+
+#: ../search.php:212
+msgid "From Album"
+msgstr "Aus dem Album"
+
+#: ../search.php:219
+msgid "KEYWORDS"
+msgstr "SCHL&Uuml;SSELW&Ouml;RTER"
+
+#: ../search.php:237
+#, php-format
+msgid "Albums containing %s"
+msgstr "Alben, die den Suchstring %s enthalten"
+
+#: ../search.php:238
+msgid "No Album Matches"
+msgstr "Keine &uuml;bereinstimmenden Alben"
+
+#: ../search.php:241
+#, php-format
+msgid "Photos containing %s in caption, comment or name."
+msgstr "Bilder, die den Suchstring %s in Beschriftung, Name oder Kommentar enthalten"
+
+#: ../search.php:242
+msgid "No Photo Matches"
+msgstr "Keine &uuml;bereinstimmenden Bilder"
+
+#: ../search.php:263
+#, php-format
+msgid "Some albums not searched as they require upgrading to the latest version of %s first."
+msgstr "Einige Ihrer Alben wurden nicht durchsucht, da sie zuerst eine Aktualisierung auf die aktuelle Version der %s ben&ouml;tigen."
+
+#: ../search.php:265
+#, fuzzy
+msgid "Upgrade albums."
+msgstr "Aktualisiere Alben"
+
+#: ../search.php:271
+#, fuzzy
+msgid "Search the Gallery's Album and Photo titles, descriptions and comments. Enter your search string in the text field above."
+msgstr "Titel, Beschriftungen, Beschreibungen, Namen und Kommentare der Alben und Bilder durchsuchen nach"
+
+#: ../slideshow.php:94
+msgid "Play"
+msgstr "Play"
+
+#: ../slideshow.php:95
+msgid "Stop"
+msgstr "Stop"
+
+#: ../slideshow.php:96
+msgid "Normal size"
+msgstr "Normale Größe"
+
+#: ../slideshow.php:97
+msgid "Full size"
+msgstr "Volle Größe"
+
+#: ../slideshow.php:98
+msgid "Forward direction"
+msgstr "Vorwärts abspielen"
+
+#: ../slideshow.php:99
+msgid "Reverse direction"
+msgstr "Rückwärts abspielen"
+
+#: ../slideshow.php:100
+msgid "Delay"
+msgstr "Pause"
+
+#: ../slideshow.php:101
+msgid "Loop:"
+msgstr "Wiederholung:"
+
+#: ../slideshow.php:109
+msgid "Fullscreen applet"
+msgstr "Vollbild Applet"
+
+#: ../slideshow.php:112
+msgid "Modern browsers"
+msgstr "Moderne Browser"
+
+#: ../slideshow.php:115
+msgid "Compatible but limited"
+msgstr "Eingeschr&auml;nkt"
+
+#: ../stats.php:80
+msgid " - Images with the least votes"
+msgstr "- Bilder mit den wenigsten Bewertungen"
+
+#: ../stats.php:83
+msgid " - Images with the most votes"
+msgstr "- Bilder mit den meisten Bewertungen"
+
+#: ../stats.php:89
+msgid " - Bottom rated images"
+msgstr "- Schlechtest bewertete Bilder"
+
+#: ../stats.php:92
+msgid " - Top rated images"
+msgstr "- Best bewerteste Bilder"
+
+#: ../stats.php:98
+msgid " - Oldest images first"
+msgstr "- &Auml;lteste Bilder"
+
+#: ../stats.php:102
+msgid " - Latest added images"
+msgstr "- Neueste Bilder"
+
+#: ../stats.php:108
+msgid " - Oldest Capture Date"
+msgstr "- &Auml;ltestes Aufnahmedatum"
+
+#: ../stats.php:111
+msgid " - Latest Capture Date"
+msgstr "- Neuestes Aufnahmedatum"
+
+#: ../stats.php:117
+msgid " - Oldest Comments"
+msgstr "- &Auml;lteste Kommentare"
+
+#: ../stats.php:120
+msgid " - Latest Comments"
+msgstr "- Neueste Kommentare"
+
+#: ../stats.php:125
+msgid " - Random Images"
+msgstr "- zuf&auml;llige Bilder"
+
+#: ../stats.php:132
+msgid " - Images with the least views"
+msgstr "- Seltenst betrachtete Bilder"
+
+#: ../stats.php:135
+msgid " - Images with the most views"
+msgstr "- Meist gesehenen Bilder"
+
+#: ../stats.php:307
+#, php-format
+msgid "Number Albums = %s"
+msgstr "Anzahl Alben: %s"
+
+#: ../stats.php:318
+#, php-format
+msgid "Cache filename = %s ; enabled = %s ; expires = %s"
+msgstr "Cache filename = %s ; enabled = %s ; expires = %s"
+
+#: ../stats.php:330
+#, php-format
+msgid "Time now = %s ; Cache time = %s"
+msgstr "Zeit jetzt: %s ; Cache Zeit: %s"
+
+#: ../stats.php:345
+msgid "Logged In - Disabling Cache"
+msgstr "Eingeloggter Benutzer - Cache deaktiviert"
+
+#: ../stats.php:351
+msgid "Using cache"
+msgstr "Benutze Cache"
+
+#: ../stats.php:351
+msgid "Not using cache"
+msgstr "Cache wird nicht benutzt"
+
+#: ../stats.php:352
+msgid "Cache to be rebuilt"
+msgstr "Cache wird erneuert."
+
+#: ../stats.php:352
+msgid "Cache will not rebuild."
+msgstr "Cache wird nicht erneuert."
+
+#: ../stats.php:375
+msgid "Version out of date."
+msgstr "Veraltete Version"
+
+#: ../stats.php:407
+#, php-format
+msgid "Checking album: %s"
+msgstr "Verarbeite Album: %s"
+
+#: ../stats.php:417
+#, php-format
+msgid "Reading info for photo index = %d , id = %d"
+msgstr "Lese Information für Element mit Index: %d, id: %d"
+
+#: ../stats.php:428
+msgid "Getting SVotes"
+msgstr "Hole SVotes"
+
+#: ../stats.php:434
+msgid "Getting Item Clicks"
+msgstr "Hole Klickanzahl der Elemente"
+
+#: ../stats.php:437
+msgid "Getting Item Capture Date"
+msgstr "Hole Aufnahmedatum"
+
+#: ../stats.php:456
+msgid "Getting Number of Comments"
+msgstr "Hole Anzahl der Kommentare"
+
+#: ../stats.php:458
+msgid "Getting Comments"
+msgstr "Hole Kommentare"
+
+#: ../stats.php:501
+#, php-format
+msgid "Album: %s ; Index: %d ; Votes: %d ; Views: %d; Date: %s; Capture: %s; Comment Date: %s; Rating: %s; Rating count: %d; Random: %d"
+msgstr "Album: %s ; Index: %d ; Votes: %d ; Views: %d; Date: %s; Capture: %s; Comment Date: %s; Rating: %s; Rating count: %d; Random: %d"
+
+#: ../stats.php:570
+#, php-format
+msgid "Total: %s ; Start: %s ; Last Page: %s"
+msgstr "Insgesamt: %s ; Start: %s; Letzte Seite: %s"
+
+#: ../stats.php:587
+#, php-format
+msgid "%d items with comments in album: %s."
+msgstr "%d Elemente mit Kommentaren im Album : %s."
+
+#: ../stats.php:590
+#, php-format
+msgid "%d items in album: %s"
+msgstr "%d Elemente im Album: %s"
+
+#: ../stats.php:594
+#, php-format
+msgid "Given albumname: '%s' is invalid !"
+msgstr "Albumname: '%s' ist nicht gültig!"
+
+#: ../stats.php:599
+#, php-format
+msgid "%d items with comments in this Gallery."
+msgstr "%d Bilder mit Kommentaren in dieser Gallery."
+
+#: ../stats.php:602
+#, php-format
+msgid "%d items this Gallery."
+msgstr "%d Elemente in dieser Gallery."
+
+#: ../stats.php:610 ../stats-wizard.php:41 ../tools/despam-comments.php:45
+#: ../tools/find_orphans.php:50 ../tools/validate_albums.php:58
+#: ../tools/validate_albums.php:108 ../tools/validate_albums.php:140
+#: ../usage.php:52
+msgid "Return to _admin page"
+msgstr "Zurück zur _Adminseite"
+
+#: ../stats.php:615
+msgid "Back to stats-_wizard"
+msgstr "Zur&uuml;ck zum Statistik-_Wizard"
+
+#: ../stats.php:657
+#, php-format
+msgid "Data load time %d seconds."
+msgstr "Daten wurden in %d Sekunden geladen."
+
+#: ../stats.php:729
+#, php-format
+msgid "Finished in %d seconds"
+msgstr "Erledigt in %d Sekunden"
+
+#: ../stats.php:736
+msgid "Update"
+msgstr "Aktualisieren"
+
+#: ../stats.php:737
+msgid "Cache update required. "
+msgstr "Eine Aktualisierung des Caches ist nötig"
+
+#: ../stats.php:741
+#, php-format
+msgid "Some albums not searched as they require upgrading to the latest version of %s first"
+msgstr "Einige Ihrer Alben wurden nicht durchsucht, da sie zuerst eine Aktualisierung auf die aktuelle Version der %s ben&ouml;tigen."
+
+#: ../stats.php:744
+msgid "upgrade all albums"
+msgstr "erneuere alle Alben"
+
+#: ../stats-wizard.php:50
+#, fuzzy
+msgid "Assemble your Gallery statistic"
+msgstr "Gallery Statistiken"
+
+#: ../stats-wizard.php:60
+#, fuzzy
+msgid "Statistic Wizard"
+msgstr "Gallery statistcs - Wizard"
+
+#: ../stats-wizard.php:140
+msgid "Type"
+msgstr "Typ"
+
+#: ../stats-wizard.php:144 ../tools/lib/lib-despam_comments.php:331
+msgid "Options"
+msgstr "M&ouml;glichkeiten"
+
+#: ../stats-wizard.php:149
+msgid "Layout"
+msgstr "Layout"
+
+#: ../stats-wizard.php:153
+msgid "Filter by Capture Date"
+msgstr "Filtern nach Aufnahmedatum"
+
+#: ../stats-wizard.php:159
+msgid "_Show statistics"
+msgstr "_Statistiken zeigen"
+
+#: ../stats-wizard.php:164
+msgid "Maybe your want to use your OWN statistics somewhere .. Just copy and paste the url from this textbox."
+msgstr "Vielleicht möchten Sie Ihre eigenen Statistiken irgendwo verwenden... Benutzen Sie einfach die URL aus der Textbox."
+
+#: ../templates/classic/album.tpl.default:120
+#: ../templates/classic/album.tpl.default:185
+#: ../templates/classic_sidebar/album.tpl.default:174
+#: ../templates/classic_sidebar/album.tpl.default:239 ../view_album.php:309
+msgid "Vote"
+msgstr "Abstimmen"
+
+#: ../templates/classic/album.tpl.default:195
+#: ../templates/classic/gallery.tpl.default:209
+#: ../templates/classic_sidebar/album.tpl.default:249
+#: ../templates/classic_sidebar/gallery.tpl.default:239
+#: ../templates/matrix/gallery.tpl.default:181
+msgid "Comments available for this item."
+msgstr "Es sind Kommentare vorhanden."
+
+#: ../templates/classic/album.tpl.default:212
+#: ../templates/classic_sidebar/album.tpl.default:266
+msgid "Comments are added"
+msgstr "Kommentare abgegeben wurden"
+
+#: ../templates/classic/album.tpl.default:216
+#: ../templates/classic_sidebar/album.tpl.default:270
+#, fuzzy
+msgid "Other changes are maded"
+msgstr "Sonstige Änderungen gemacht wurden"
+
+#: ../templates/classic/album.tpl.default:220
+#: ../templates/classic_sidebar/album.tpl.default:274
+msgid "Apply settings (both) recursive for subalbums."
+msgstr "Einstellungen (beide) auf alle Unteralben anwenden."
+
+#: ../templates/classic/album.tpl.default:225
+#: ../templates/classic_sidebar/album.tpl.default:279
+msgid "Email me when one of the following actions are done to this album:"
+msgstr "Email an mich senden, wenn eine der folgenden Aktionen in diesem Album stattfinden:"
+
+#: ../templates/classic/gallery.tpl.default:150
+#: ../templates/classic_sidebar/gallery.tpl.default:180
+#: ../templates/matrix/gallery.tpl.default:145
+msgid "No admin commands available."
+msgstr "Keine Adminaktionen verf&uuml;gbar."
+
+#: ../templates/classic_sidebar/album.tpl.default:111
+#: ../templates/classic_sidebar/gallery.tpl.default:98
+#: ../templates/classic_sidebar/photo.tpl.default:101
+msgid "Open sidebar"
+msgstr ""
+
+#: ../templates/classic_sidebar/album.tpl.default:112
+#: ../templates/classic_sidebar/gallery.tpl.default:99
+#: ../templates/classic_sidebar/photo.tpl.default:102
+#, fuzzy
+msgid "Close sidebar"
+msgstr "Fenster schließen"
+
+#: ../templates/classic_sidebar/album.tpl.default:116
+msgid "Album Actions"
+msgstr "Album Aktionen"
+
+#: ../templates/classic_sidebar/gallery.tpl.default:103
+#, fuzzy
+msgid "Actions"
+msgstr "Aktion"
+
+#: ../templates/classic_sidebar/photo.tpl.default:106
+msgid "Item Actions"
+msgstr "Elemet Aktionen"
+
+#: ../templates/commentbox.tpl.default:35
+msgid "view comments for this nested album"
+msgstr "Kommentare f&uuml;r dieses Unteralbum anschauen"
+
+#: ../templates/commentbox.tpl.default:39
+msgid "Album contains no comments"
+msgstr "Dieses Album enth&auml;lt keinen Kommentar."
+
+#: ../templates/commentbox.tpl.default:71
+#, php-format
+msgid "From: %s"
+msgstr "Von: %s"
+
+#: ../templates/commentbox.tpl.default:88
+msgid "_Add comment"
+msgstr "_Kommentar hinzufügen"
+
+#: ../templates/commentbox.tpl.default:91
+msgid "_Delete marked comments"
+msgstr "Markierte Kommentare _löschen"
+
+#: ../templates/overall.header.tpl.default:79
+msgid "Security violation"
+msgstr "Schutz Verletzung"
+
+#: ../templates/stats.header.tpl.default:33
+msgid "Gallery statistics"
+msgstr "Gallery Statistiken"
+
+#: ../tools/despam-comments.php:54
+msgid "Find and remove comment spam"
+msgstr "Kommentarspam finden und l&ouml;schen"
+
+#: ../tools/despam-comments.php:65
+#, fuzzy
+msgid "Comment Spam"
+msgstr "Kommentar"
+
+#: ../tools/find_orphans.php:59 ../tools/find_orphans.php:70
+msgid "Find Orphans"
+msgstr "Verwaiste Elemente"
+
+#: ../tools/find_orphans.php:86
+#, php-format
+msgid "Orphaned Albums: %d"
+msgstr "Verwaiste Alben: %d"
+
+#: ../tools/find_orphans.php:88
+msgid "Orphaned Albums will be re-attached to their parent albums, if at all possible.  If the parent album is missing, the orphan will be attached to the Gallery Root, and it can be moved to a new location from there."
+msgstr "Verwaiste Alben werden Ihren urspr&uuml;nglichen Stammalben zugeordnet, falls m&ouml;glich. Falls nicht, werden sie zu Hauptalben."
+
+#: ../tools/find_orphans.php:92
+msgid "Parent Album"
+msgstr "&Uuml;bergeordnetes Album"
+
+#: ../tools/find_orphans.php:94
+msgid "Orphaned Album"
+msgstr "Verwaistes Album"
+
+#: ../tools/find_orphans.php:101
+msgid "Gallery Root"
+msgstr "Galerie Stammverzeichnis"
+
+#: ../tools/find_orphans.php:115
+msgid "_Re-Attach Orphaned Albums!"
+msgstr "_Verwaiste Alben wieder korrekt eingehängen"
+
+#: ../tools/find_orphans.php:121
+#, php-format
+msgid "Orphaned Files: %d"
+msgstr "Verwaiste Dateien: %d"
+
+#: ../tools/find_orphans.php:123
+msgid "Orphaned files will be deleted from the disk.  Orphaned files should never exist - if they do, they are the result of a failed upload attempt, or other more serious issue such as the photos database being overwritten with bad information."
+msgstr "Verwaiste können nur entfernt werden. Theoretisch sollten sie nicht existieren. Falls doch, dann durch einen fehlgeschlagenen Upload, einem direkten Upload in das albums Verzeichnis, oder durch einen Vorgang, der die 'Photodatenbank' (es ist keine echte) verändert hat."
+
+#: ../tools/find_orphans.php:127
+msgid "Album directory"
+msgstr "Album Ordner"
+
+#: ../tools/find_orphans.php:129
+msgid "Orphaned file"
+msgstr "Verwaiste Datei"
+
+#: ../tools/find_orphans.php:153
+msgid "_Delete Orphaned Files!"
+msgstr "Verwaiste Dateien _löschen!"
+
+#: ../tools/find_orphans.php:162
+msgid "There are no orphaned elements in this Gallery."
+msgstr "Es gibt keine verwaisten Elemente in dieser Galerie."
+
+#: ../tools/find_orphans.php:166
+msgid "Orphaned albums repaired."
+msgstr "Verwaiste Alben repariert."
+
+#: ../tools/find_orphans.php:166
+msgid "Orphaned files repaired."
+msgstr "Verwaiste Dateien repariert."
+
+#: ../tools/find_orphans.php:177
+msgid "The Webserver has not enough permission to delete the following files:"
+msgstr "Dem Webserver fehlen die nötigen Rechte um folgende Dateien zu löschen:"
+
+#: ../tools/find_orphans.php:183
+msgid "Please check the permission of these files and the folder above. chmod them, or ask your admin to do this."
+msgstr "Bitte überprüfen Sie die Rechte der Datei und der übergeordneten Ordner. Setzen Sie oder ihr Administrator die Rechte entsprechend per chmod."
+
+#: ../tools/find_orphans.php:187
+msgid "Reload"
+msgstr "Erneut laden"
+
+#: ../tools/lib/lib-despam_comments.php:24
+msgid "Delete Comments"
+msgstr "Kommentare löschen"
+
+#: ../tools/lib/lib-despam_comments.php:26
+#: ../tools/lib/lib-despam_comments.php:170
+#: ../tools/lib/lib-despam_comments.php:182
+#: ../tools/lib/lib-despam_comments.php:260
+msgid "No action taken!"
+msgstr ""
+
+#: ../tools/lib/lib-despam_comments.php:52
+#, php-format
+msgid "Deleted %d spam comments"
+msgstr "Es wurden %d Spamkommentare gelöscht."
+
+#: ../tools/lib/lib-despam_comments.php:60
+msgid "No comment deleted."
+msgstr "Kein Kommentar gelöscht."
+
+#: ../tools/lib/lib-despam_comments.php:57
+#, php-format
+msgid "Deleted %d spam comment."
+msgid_plural "Deleted %d spam comments."
+msgstr[0] "Ein Kommentar mit Spam gel&ouml;scht"
+msgstr[1] "%d Kommentare mit Spam  gel&ouml;scht"
+
+#: ../tools/lib/lib-despam_comments.php:106
+#, php-format
+msgid "Scanned %d albums, %d photos, %d comments in %2.2f seconds"
+msgstr ""
+
+#: ../tools/lib/lib-despam_comments.php:114
+msgid "No spam comments."
+msgstr "Keine Spamkommentare."
+
+#: ../tools/lib/lib-despam_comments.php:119
+#: ../tools/lib/lib-despam_comments.php:276
+msgid "Entry"
+msgstr "Eintrag"
+
+#: ../tools/lib/lib-despam_comments.php:123
+msgid "Location"
+msgstr "Ort"
+
+#: ../tools/lib/lib-despam_comments.php:129
+msgid "Commenter"
+msgstr "Kommentiere"
+
+#: ../tools/lib/lib-despam_comments.php:135
+msgid "Comment"
+msgstr "Kommentar"
+
+#: ../tools/lib/lib-despam_comments.php:152
+msgid "_Delete checked comments"
+msgstr "Markierte Kommentare _löschen"
+
+#: ../tools/lib/lib-despam_comments.php:168
+msgid "Delete from blacklist"
+msgstr "Von Blacklist entfernen"
+
+#: ../tools/lib/lib-despam_comments.php:187
+#: ../tools/lib/lib-despam_comments.php:239
+msgid "Error saving blacklist!"
+msgstr "Fehler beim Speichern der Blacklist!"
+
+#: ../tools/lib/lib-despam_comments.php:193
+#, php-format
+msgid "Deleted %d entry from blacklist."
+msgid_plural "Deleted %d entries from blacklist."
+msgstr[0] "Einen Eintrag von der Blacklist entfernt"
+msgstr[1] "%d Einträge aus der Blacklist entfernt"
+
+#: ../tools/lib/lib-despam_comments.php:242
+msgid "Added to blacklist:"
+msgstr "Zur Blacklist hinzugefügt:"
+
+#: ../tools/lib/lib-despam_comments.php:251
+msgid "Following duplicates were not added:"
+msgstr "Folgende Duplicate wurden nicht hinzugefügt:"
+
+#: ../tools/lib/lib-despam_comments.php:267
+msgid "Current blacklist"
+msgstr "Aktuelle Blacklist"
+
+#: ../tools/lib/lib-despam_comments.php:269
+msgid "Your blacklist is empty.  You must add new entries to your blacklist for it to be useful."
+msgstr ""
+
+#: ../tools/lib/lib-despam_comments.php:293
+#: ../tools/lib/lib-despam_comments.php:320
+msgid "_Update Blacklist"
+msgstr "Akt_ualisiere Blacklist"
+
+#: ../tools/lib/lib-despam_comments.php:300
+msgid "Enter new blacklist entries"
+msgstr "Tragen Sie neue Blackliste-Einträge ein."
+
+#: ../tools/lib/lib-despam_comments.php:303
+#, php-format
+msgid "%s made a tool called %s, which is outdated in the meanwhile, but the blacklist entries are still great."
+msgstr ""
+
+#: ../tools/lib/lib-despam_comments.php:310
+#, php-format
+msgid "Click this link to see his %sgreat blacklist%s taken from MT-Blacklist 1.6.2"
+msgstr ""
+
+#: ../tools/lib/lib-despam_comments.php:316
+msgid "You can just cut and paste these blacklist entries into the text box, or add new entries of your own."
+msgstr ""
+
+#: ../tools/lib/lib-despam_comments.php:326
+msgid "Find blacklisted comments"
+msgstr "Finde Spam-Kommetare"
+
+#: ../tools/lib/lib-despam_comments.php:327
+msgid "View/Edit blacklist"
+msgstr "Anzeigen/Bearbeiten Blacklist"
+
+#: ../tools/lib/lib-despam_comments.php:328
+msgid "Add blacklist entries"
+msgstr "Neue Blacklisteinträge"
+
+#: ../tools/validate_albums.php:48
+msgid "Delete Photo"
+msgstr "Element löschen"
+
+#: ../tools/validate_albums.php:52
+msgid "Validate Albums"
+msgstr "Alben überprüfen"
+
+#: ../tools/validate_albums.php:101
+msgid "Album deleted."
+msgstr "Album gelöscht."
+
+#: ../tools/validate_albums.php:104
+#, fuzzy
+msgid "Album not deleted!"
+msgstr "Album gelöscht."
+
+#: ../tools/validate_albums.php:107 ../tools/validate_albums.php:139
+msgid "_Validate again"
+msgstr "Validierung _wiederholen"
+
+#: ../tools/validate_albums.php:113
+msgid "Are you sure you want to delete the folder below and all of its content?"
+msgstr ""
+
+#: ../tools/validate_albums.php:115 ../tools/validate_albums.php:156
+msgid "Yes, _Delete"
+msgstr "Ja, _Löschen"
+
+#: ../tools/validate_albums.php:116 ../tools/validate_albums.php:157
+msgid "No, _Cancel"
+msgstr "Nein, A_bbrechen"
+
+#: ../tools/validate_albums.php:133
+#, fuzzy
+msgid "Item deleted."
+msgstr "Album gelöscht."
+
+#: ../tools/validate_albums.php:136
+#, fuzzy
+msgid "Item not deleted!"
+msgstr "Element nicht hinzugefügt."
+
+#: ../tools/validate_albums.php:159
+msgid "Please Note: Even if the thumbnail image is properly displayed above, the actual full-sized image has been verified to be missing."
+msgstr "Hinweis: Auch wenn das Vorschaubild korrekt angezeigt wird, das passende Vollbild wurde nicht gefunden !"
+
+#: ../tools/validate_albums.php:165
+#, fuzzy
+msgid "Invalid action!"
+msgstr "Ung&uuml;ltige Aktion!"
+
+#: ../tools/validate_albums.php:183
+msgid "Missing files"
+msgstr "Fehlende Dateien"
+
+#: ../tools/validate_albums.php:187
+msgid "The following files are missing from the albums directory.  Information is still stored about the photo in the album data, but the file itself is no longer present for some reason.  These files will cause failures when attempting to migrate to Gallery 2.x."
+msgstr "Die folgenden Dateien fehlen in Ihrem 'albums' Ordner.  Es wurden allerdings Informationen zu dieser Datei in den MetaDaten gefunden. Warum diese Datei fehlt kann Gallery nicht feststellen. Das Fehlen der Datei erzeugt jedoch Probleme bei der Migration nach Gallery2."
+
+#: ../tools/validate_albums.php:189
+msgid "This can be fixed in one of two ways:"
+msgstr "Dies kann auf zwei Wegen behoben werden:"
+
+#: ../tools/validate_albums.php:191
+msgid "The first is to simply delete the photo entry from the album."
+msgstr "Der Erste ist den Photoeintrag aus dem Album zu löschen."
+
+#: ../tools/validate_albums.php:192
+msgid "The second is to manually re-add the file to the albums directory using the filename you see in the left side of the table."
+msgstr "Der Zweite ist, daß Sie die Datei händisch selber in den Albumordner kopieren. Sie müssen hierbei den links aufgeführten Dateinamen verwenden."
+
+#: ../tools/validate_albums.php:197
+#, fuzzy, php-format
+msgid "Missing files: %s"
+msgstr "Fehlende Dateien: %s"
+
+#: ../tools/validate_albums.php:201
+#, fuzzy
+msgid "Missing file"
+msgstr "Fehlende Dateien"
+
+#: ../tools/validate_albums.php:203 ../tools/validate_albums.php:249
+msgid "Action"
+msgstr "Aktion"
+
+#: ../tools/validate_albums.php:217
+msgid "Delete item"
+msgstr "Element _löschen"
+
+#: ../tools/validate_albums.php:231
+msgid "There are no missing files in this Gallery."
+msgstr "Es gibt keine fehlenden Elemente in dieser Galerie."
+
+#: ../tools/validate_albums.php:236
+msgid "Invalid albums"
+msgstr "Ungültige Alben"
+
+#: ../tools/validate_albums.php:239
+#, fuzzy
+msgid "Invalid albums are directories which have been created in the albums directory that don't actually contain album data.  The presence of these directories can cause problems for Gallery as well as when trying to migrate to Gallery 2.x."
+msgstr "Ungültige Alben sind Ordner, welche in Gallerys 'albums' Ordner angelegt wurden, aber keine Albumdaten enthalten. Diese Ordern können aber Problem sowohl in Gallery 1, also auch bei der Migration nach Gallery 2 erzeugen."
+
+#: ../tools/validate_albums.php:243
+#, fuzzy, php-format
+msgid "Invalid albums: %d"
+msgstr "Anzahl ungültige Alben: %d"
+
+#: ../tools/validate_albums.php:247
+#, fuzzy
+msgid "Invalid album"
+msgstr "Ungültige Alben"
+
+#: ../tools/validate_albums.php:259
+#, fuzzy
+msgid "Delete directory"
+msgstr "Ordner löschen"
+
+#: ../tools/validate_albums.php:272
+msgid "There are no invalid albums in this Gallery."
+msgstr "Es gibt keine ungültigen Alben in dieser Galerie."
+
+#: ../upgrade_users.php:29
+msgid "Upgrading Users"
+msgstr "Benutzeraktualisierung"
+
+#: ../upgrade_users.php:31
+msgid "The user database in your gallery was created with an older version of the software and is out of date."
+msgstr "Die Benutzerdatenbank Ihrer Installation wurden mit einer &auml;lteren Version erstellt und ist daher veraltet."
+
+#: ../upgrade_users.php:34
+msgid "We will upgrade it.  This may take some time."
+msgstr "Gallery wird nun eine Aktualisierung vornehmen.   Dies kann etwas dauern."
+
+#: ../upgrade_users.php:36
+msgid "Your data will not be harmed in any way by this process."
+msgstr "Ihre Daten durch diesen Prozess nicht ver&auml;ndert."
+
+#: ../upgrade_users.php:40
+msgid "If you get an error, and only some users are upgraded, try refreshing the page to upgrade remaining users."
+msgstr "Falls Probleme auftraten oder nicht alle Benutzer aktualisiert wurden, laden Sie diese Seite erneut und versuchen Sie, die restlichen Benutzer zu aktualisieren."
+
+#: ../upgrade_users.php:47
+msgid "There was a problem upgrading users.  Please check messages above, and try again."
+msgstr "Es gab ein Problem bei der Aktualisierung der Benutzerdaten. Bitte &uuml;berpr&uuml;fen Sie die Meldungen und probieren Sie es erneut."
+
+#: ../upgrade_users.php:49
+msgid "_Retry"
+msgstr "_Neustart"
+
+#: ../upgrade_users.php:54
+msgid "Users upgraded successfully."
+msgstr "Die Benutzer wurden erfolgreich aktualisiert."
+
+#: ../usage.php:32
+msgid "Filesystem usage"
+msgstr "Festplattenplatz"
+
+#: ../usage.php:38
+#, php-format
+msgid "You are currently logged in as %s."
+msgstr "Sie sind momentan angemeldet als: %s."
+
+#: ../usage.php:45
+msgid "You must be logged in as an administrator to see the usage."
+msgstr "Sie müssen als Administrator angemeldet sein um diese Seite zu betrachten."
+
+#: ../usage.php:67
+msgid "Show usage per each user"
+msgstr "Verbrauch pro Benutzer"
+
+#: ../usage.php:68
+msgid "Show usage per album"
+msgstr "Zeige Verbrauch pro Album"
+
+#: ../usage.php:72
+msgid "used space"
+msgstr "verbrauchter Festplattenplatz"
+
+#: ../usage.php:73
+msgid "username"
+msgstr "Benutzername"
+
+#: ../usage.php:77
+msgid "descending"
+msgstr "absteigend"
+
+#: ../usage.php:78
+msgid "ascending"
+msgstr "aufsteigend"
+
+#: ../usage.php:88
+msgid "User / album Usage"
+msgstr "Benutzer / Album Platzverbrauch"
+
+#: ../usage.php:108
+msgid "Getting the filesystem usage may take a long time! Choose which usage you want to see."
+msgstr "Den Festplattenverbrauch zu ermitteln kann unter Umständen etwas dauern. Wählen Sie nun aus, was sie sehen möchten."
+
+#: ../usage.php:111
+msgid "sorted by:"
+msgstr "sortiert nach:"
+
+#: ../usage.php:113
+msgid "ordered:"
+msgstr "ordnen:"
+
+#: ../usage.php:115
+msgid "Do it !"
+msgstr "Anzeigen"
+
+#: ../util.php:65
+#, php-format
+msgid "'%s' was sanitized"
+msgstr ""
+
+#: ../util.php:180
+#, php-format
+msgid "Executing: %s"
+msgstr "Führe aus: %s"
+
+#: ../util.php:187
+msgid "Results:"
+msgstr "Ergebnis:"
+
+#: ../util.php:192
+msgid "none"
+msgstr "kein"
+
+#: ../util.php:197
+msgid "Debug messages:"
+msgstr "Debug-Meldungen:"
+
+#: ../util.php:208
+#, php-format
+msgid "Status: %s (expected %s)"
+msgstr "Status: %s (erwartet: %s)"
+
+#: ../util.php:234
+#, php-format
+msgid "Getting Dimension of file: %s"
+msgstr "Hole Dimension von Datei: %s"
+
+#: ../util.php:237
+msgid "The file does not exist?!"
+msgstr "Die Datei existiert nicht?!"
+
+#: ../util.php:244
+#, php-format
+msgid "Dimensions: x: %d y: %d"
+msgstr "Dimension: x: %d y: %d"
+
+#: ../util.php:249
+#, php-format
+msgid "PHP's %s function is unable to determine dimensions."
+msgstr "PHP's %s Funktion war es nicht m&ouml;glich, die Dimensionen zu erkennen."
+
+#: ../util.php:264
+msgid "You have no graphics package configured for use!"
+msgstr "Sie haben kein Bearbeitungsprogramm f&uuml;r Graphiken angegeben"
+
+#: ../util.php:287
+msgid "Unable to determine image dimensions!"
+msgstr "Es nicht m&ouml;glich, die Dimensionen zu erkennen."
+
+#: ../util.php:370
+msgid "Gallery seems to be configured, but the path to the albums dir is wrong. Maybe you did a host change?"
+msgstr "Gallery scheint bereits konfiguriert zu sein, jedoch scheint der Pfad zum 'albums' Ordner fehlerhaft. Haben Sie evtl. den Hoster gewechselt?"
+
+#: ../util.php:372
+msgid "Check all pathes and URLS in your config.php ; Unfortunately this can't be done via the config wizard."
+msgstr "Bitte überprüfen Sie alle Pfade und URLs in Ihrer config.php ; Leider kann dies nicht durch den Konfigurationsassistenten vorgenommen werden."
+
+#: ../util.php:431
+#, php-format
+msgid "Can't write to %s."
+msgstr "Fehler beim Schreiben nach %s"
+
+#: ../util.php:438
+#, php-format
+msgid "Can't read %s."
+msgstr "Fehler beim Lesen von %s"
+
+#: ../util.php:616
+msgid "Got no capture date. Using file modification time."
+msgstr "Kein Aufnahmedatum gefunden. Das Datum der letzen Änderung wird benutzt."
+
+#: ../util.php:621
+#, fuzzy
+msgid "Got no capture date and an error on getting the file modification time."
+msgstr "Kein Aufnahmedatum gefunden. Das Datum der letzen Änderung wird benutzt."
+
+#: ../util.php:626
+#, php-format
+msgid "Item Capture Date: %s"
+msgstr "Aufnahmedatum: %s"
+
+#: ../util.php:740
+msgid "No Support for creating Zips"
+msgstr "Keine Unterstützung zur Erstellung von Zip Archiven."
+
+#: ../util.php:743
+#, php-format
+msgid "Creating Zipfile with %s"
+msgstr "Erzeuge Zipdatei mit %s"
+
+#: ../util.php:757
+#, php-format
+msgid "Your tempfolder is not writeable! Please check permissions of this dir: %s"
+msgstr "Ihr 'temp' Ordner ist nicht beschreibbar! Bitte prüfen Sie die Berechtigungen für dieses Verzeichnus: %s"
+
+#: ../util.php:914
+#, php-format
+msgid "Cannot open logfile: %s"
+msgstr "Konnte die Logdatei: %s nicht &ouml;ffnen"
+
+#: ../util.php:1173
+#, php-format
+msgid "MIMEtype of file %s is %s"
+msgstr "MIMEtype der Datei %s ist %s"
+
+#: ../util.php:1265
+#, php-format
+msgid "%s sent you an E-C@rd."
+msgstr "%s hat dir eine eC@rd geschickt."
+
+#: ../util.php:1367
+#, php-format
+msgid "Gallery was unable to create a temporary subfolder in your tempdir. Please check permissions of this dir: %s"
+msgstr "Gallery ist nicht in der Lage einen Unterodner in ihrem 'temp' Verzeichnis anzulegen! Bitte prüfen Sie die Berechtigungen für dieses Verzeichnis: %s"
+
+#: ../util.php:1394
+#, php-format
+msgid "'%s' seems not to be a valid file. Download aborted."
+msgstr "'%s' ist keine gültige Datei. Herunterladen abgebrochen."
+
+#: ../util.php:1402
+#, php-format
+msgid "The file '%s' seems not inside Gallery tempdir %s, download aborted."
+msgstr "Die Datei '%s' scheint sich nicht innerhalb Gallery tempdir %s zu befinden, Herunterladen abgebrochen."
+
+#: ../util.php:1407
+msgid "We are trying to download the tempdir itself?! Download aborted."
+msgstr "Es wird versucht das Tempverzeichnis selber herunterzuladen ?! Herunterladen abgebrochen."
+
+#: ../view_album.php:147
+#, php-format
+msgid "1 sub-album"
+msgid_plural "%d sub-albums"
+msgstr[0] "Ein Unteralbum"
+msgstr[1] "%d Unteralben"
+
+#: ../view_album.php:148
+msgid "No images"
+msgstr "Keine Bilder"
+
+#: ../view_album.php:149
+msgid "0 pages"
+msgstr "0 Seiten"
+
+#: ../view_album.php:152
+#, php-format
+msgid "%s and %s in this album on %s."
+msgstr "%s und %s in diesem Album auf %s."
+
+#: ../view_album.php:156
+#, php-format
+msgid "%s and %s in this album."
+msgstr "%s und %s in diesem Album."
+
+#: ../view_album.php:160
+#, php-format
+msgid "%s in this album on %s."
+msgstr "%s in diesem Album auf %s."
+
+#: ../view_album.php:164
+#, php-format
+msgid "%s in this album."
+msgstr "%s in diesem Album."
+
+#: ../view_album.php:171
+#, php-format
+msgid "%s element is hidden."
+msgid_plural "%s elements are hidden."
+msgstr[0] "%s Element ist versteckt."
+msgstr[1] "%s Elemente sind versteckt."
+
+#: ../view_album.php:209
+msgid "View&nbsp;_comments"
+msgstr "_Kommentare betrachten"
+
+#: ../view_album.php:243
+msgid "Your votes are:"
+msgstr "Ihre Stimmen:"
+
+#: ../view_album.php:299
+msgid ", "
+msgstr ", "
+
+#: ../view_album.php:305
+#, php-format
+msgid "To vote for an image, click on %s."
+msgstr "Sie haben die M&ouml;glichkeit, die einzelnen Element zu bewerten. Um f&uuml;r ein Element abzustimmen, klicken Sie auf <i>%s</i>."
+
+#: ../view_album.php:308
+#, php-format
+msgid "You MUST click on %s for your vote to be recorded."
+msgstr "Damit ihr Stimme gewertet wird, klicken Sie anschließend bitte auf %s."
+
+#: ../view_album.php:315
+#, php-format
+msgid "You have a total of %d vote and can change it later if you wish."
+msgid_plural "You have a total of %d votes and can change them later if you wish."
+msgstr[0] "Sie haben insgesamt %d Stimme und k&ouml;nnen diese auch nachtr&auml;glich wieder &auml;ndern."
+msgstr[1] "Sie haben insgesamt %d Stimmen und k&ouml;nnen diese auch nachtr&auml;glich wieder &auml;ndern."
+
+#: ../view_album.php:320
+msgid "You can change your votes later, if you wish."
+msgstr "Wenn Sie m&ouml;chten, k&ouml;nnen Sie ihre Angabe jederzeit wieder ver&auml;ndern."
+
+#: ../view_album.php:437
+msgid "Description for"
+msgstr "Beschreibung für"
+
+#: ../view_album.php:438
+msgid "... show full description"
+msgstr "...Beschreibung anzeigen"
+
+#: ../view_album.php:449
+#, php-format
+msgid "Viewed: 1 time."
+msgid_plural "Viewed: %d times."
+msgstr[0] "Betrachtet: 1 Mal"
+msgstr[1] "Betrachtet: %d Mal"
+
+#: ../view_album.php:490
+msgid "No description"
+msgstr "Keine Beschreibung"
+
+#: ../view_album.php:529
+#, php-format
+msgid "Last change: %s"
+msgstr "Letzte &Auml;nderung am %s."
+
+#: ../view_album.php:532
+#, php-format
+msgid "Contains: One Item"
+msgid_plural "Contains %d items"
+msgstr[0] "Enth&auml;lt: Ein Element"
+msgstr[1] "Enth&auml;lt: %d Elemente"
+
+#: ../view_album.php:551
+#, php-format
+msgid "Viewed: Once."
+msgid_plural "Viewed: %d times."
+msgstr[0] "Betrachtet: 1 Mal"
+msgstr[1] "Betrachtet: %d Mal"
+
+#: ../view_album.php:604 ../view_album.php:605
+#, php-format
+msgid "%dkB"
+msgstr "%d Kb"
+
+#: ../view_album.php:617 ../view_album.php:640
+#, php-format
+msgid "Opens picture in %s x %s in a popup."
+msgstr "Öffnet das Bild in %s x %s in einem Popupfenster"
+
+#: ../view_album.php:682
+msgid "highlight"
+msgstr "Titelbild"
+
+#: ../view_album.php:781
+msgid "Hey! Add some photos."
+msgstr "F&uuml;gen Sie Bilder/Filme hinzu!"
+
+#: ../view_comments.php:59
+#, fuzzy
+msgid "Return to _album"
+msgstr "Zur&uuml;ck zum _Album"
+
+#: ../view_comments.php:63
+msgid "Comments for this Album"
+msgstr "Kommentare zu diesem Album"
+
+#: ../view_comments.php:127
+#, php-format
+msgid "Deleting comment %d from item with index: %d"
+msgstr "L&ouml;sche Kommentar %d mit Index: %d"
+
+#: ../view_comments.php:149
+#, fuzzy
+msgid "Sorry.  You are not allowed to see comments of this album."
+msgstr "Es ist Ihnen nicht gestattet, diese Aktion durchzuführen!"
+
+#: ../view_photo.php:300
+msgid "Send photo to..."
+msgstr "Sende Photo an..."
+
+#: ../view_photo.php:303
+msgid "Print photo with..."
+msgstr "Lasse Photo drucken von..."
+
+#: ../view_photo.php:340
+#, php-format
+msgid "process this photo with %s"
+msgstr "Ein Abzug des Bildes via %s bestellen."
+
+#: ../view_photo.php:355
+msgid "View Images:"
+msgstr "Bildanzeige:"
+
+#: ../view_photo.php:356
+msgid "normal"
+msgstr "Normal"
+
+#: ../view_photo.php:529
+msgid "Email me when comments are added"
+msgstr "Eine Email an mich schicken, wenn Kommentare abgegeben wurden."
+
+#~ msgid "OK"
+#~ msgstr "OK"
+
+#~ msgid "Checking:"
+#~ msgstr "Prüfe:"
+
+#~ msgid "RSS"
+#~ msgstr "RSS"
+
+#~ msgid "Donate to Gallery now!!"
+#~ msgstr "Spenden Sie der Gallery jetzt!!"
+
+#~ msgid "Update selected ImageMap(s)"
+#~ msgstr "Markierte ImageMaps aktualisieren."
+
+#, fuzzy
+#~ msgid "Perform action"
+#~ msgstr "Führe Aktion aus..."
+
+#~ msgid "<-- Add"
+#~ msgstr "<-- Hinzufügen"
+
+#~ msgid "Entering subalbum '<i>%s</i>', processing %d items"
+#~ msgstr "Verarbeite Unteralbum '<i>%s</i>' mit %d Elementen"
+
+#~ msgid "log_out"
+#~ msgstr "A_bmelden"
+
+#~ msgid "_login"
+#~ msgstr "An_melden"
+
+#~ msgid "return to _gallery"
+#~ msgstr "Zur&uuml;ck zur _Gallery"
+
+#~ msgid "_Documentation"
+#~ msgstr "_Dokumentation"
+
+#~ msgid "Preview Size"
+#~ msgstr "Vorschau Gr&ouml;&szlig;e"
+
+#~ msgid "Rename album"
+#~ msgstr "Albumnamen ändern"
+
+#~ msgid "Change ow_ner"
+#~ msgstr "Be_sitzer/in"
+
+#~ msgid "%d. %s"
+#~ msgstr "%d. %s"
+
+#~ msgid "Could not extract %s"
+#~ msgstr "Konnte %s nicht entpacken"
+
+#~ msgid "The last request for a password was less than %d minutes ago.  Please check for previous email, or wait before trying again."
+#~ msgstr "Die letzte Anfrage nach Ihrem Passwort ist weniger %d Minuten her.  Bitte schauen Sie in Ihr Email-Postfach, oder warten Sie, bevor Sie es erneut versuchen."
+
+#~ msgid "There is no valid email for this account."
+#~ msgstr "Es wurde keine g&uuml;ltige Email f&uuml;r diesen Account angegeben."
+
+#~ msgid "missing hash parameter"
+#~ msgstr "Der Hash Parameter fehlt."
+
+#~ msgid "Not a valid username"
+#~ msgstr "Ung&uuml;ltiger Benutzername"
+
+#~ msgid "Enter the Gallery"
+#~ msgstr "Betreten Sie die Gallery"
+
+#~ msgid "_Return to  %s"
+#~ msgstr "_Zurück zu %s"
+
+#~ msgid "Changing permissions for: %s"
+#~ msgstr "Berechtigungen für: %s"
+
+#~ msgid "Can't copy album #%d"
+#~ msgstr "Album #%d konnte nicht kopiert werden"
+
+#~ msgid "Copying photo #%d"
+#~ msgstr "Kopiere Element #%d"
+
+#~ msgid "no album / index specified"
+#~ msgstr "Kein Album/ Index gew&auml;hlt"
+
+#~ msgid "no album specified"
+#~ msgstr "Kein Album gew&auml;hlt"
+
+#~ msgid "Rebuilding 1 thumbnail..."
+#~ msgstr "Erneuere ein Thumbnail ..."
+
+#~ msgid "Some input fields are not correctly filled out. Please fill out."
+#~ msgstr "Einige Felder wurden nicht korrekt gefüllt. Überprüfen Sie Ihre Eingaben."
+
+#~ msgid "Year must be between 1969 and 2070."
+#~ msgstr "Das Jahr muss zwischen 1969 und 2070 liegen."
+
+#~ msgid "Photo Capture Date"
+#~ msgstr "Aufnahmedatum des Bildes"
+
+#~ msgid "Month"
+#~ msgstr "Monat"
+
+#~ msgid "Day"
+#~ msgstr "Tag"
+
+#~ msgid "Year"
+#~ msgstr "Jahr"
+
+#~ msgid "Hours"
+#~ msgstr "Stunde"
+
+#~ msgid "Minutes"
+#~ msgstr "Minute"
+
+#~ msgid "Seconds"
+#~ msgstr "Sekunde"
+
+#~ msgid "Please select a watermark."
+#~ msgstr "Bitten w&auml;hlen Sie ein Wasserzeichen."
+
+#~ msgid "Please select an alignment."
+#~ msgstr "Bitten w&auml;hlen Sie die Ausrichtung."
+
+#~ msgid "Nest within another Album:"
+#~ msgstr "Ordnen Sie es einem anderen Album unter:"
+
+#~ msgid "Reorder this photo within the album:"
+#~ msgstr "Die Bildreihenfolge in diesem Album &auml;ndern: "
+
+#~ msgid "Unable to find %s locally - trying %s."
+#~ msgstr "%s konnte nicht als lokales Verzeichnis gefunden werden. - Probiere %s stattdessen."
+
+#~ msgid "Could not open url: %s"
+#~ msgstr "Konnte die URL %s nicht &ouml;ffnen."
+
+#~ msgid "Upgrade all albums."
+#~ msgstr "erneuere alle Alben."
+
+#~ msgid "return to _admin page"
+#~ msgstr "Zur&uuml;ck zur _Adminseite"
+
+#~ msgid "Photo deleted."
+#~ msgstr "Photo gelöscht."
+
+#~ msgid "Missing File"
+#~ msgstr "Fehlende Datei"
+
+#~ msgid "delete photo"
+#~ msgstr "Bild l&ouml;schen"
+
+#~ msgid "Invalid Album"
+#~ msgstr "Ung&uuml;ltiges Album"
+
+#~ msgid "Debug ON ! Level %s"
+#~ msgstr "Debug AN ! Level %s"
+
+#~ msgid "See full poll results"
+#~ msgstr "Vollst&auml;ndiges Abstimmungsergebnis anzeigen"
+
+#~ msgid "Sorry.  This album does not allow comments."
+#~ msgstr "Sorry, dieses Album erlaubt keine Kommentare."
