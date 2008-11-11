@@ -1,0 +1,1884 @@
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2007 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# $Id$
+#
+#
+# @version      1.5.2
+# @package	Languagepack
+# @subpackage	Korean
+# @author	CheolMin Lee <cmlee AT users DOT sourceforge DOT net>, 2003-2004
+# @author	The Darkness <xgate32 AT hotmail DOT com>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery 1.5.2-cvs\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2008-11-04 17:39+0100\n"
+"PO-Revision-Date: 2005-03-18 17:58+0900\n"
+"Last-Translator: The Darkness <xgate32 AT hotmail DOT com>\n"
+"Language-Team: Gallery Korean Translation <xgate32 AT hotmail DOT com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=EUC-KR\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-Language: Korean\n"
+"X-Poedit-Country: KOREA, REPUBLIC OF\n"
+
+#: ../includes/definitions/albumProperties.php:39
+msgid "Texts"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:43
+msgid "Album Title"
+msgstr "앨범 제목"
+
+#: ../includes/definitions/albumProperties.php:50
+#, fuzzy
+msgid "Album summary"
+msgstr "앨범 요약"
+
+#: ../includes/definitions/albumProperties.php:63
+msgid "Layout"
+msgstr "레이아웃"
+
+#: ../includes/definitions/albumProperties.php:67
+#, fuzzy
+msgid "Background Image (URL)"
+msgstr "배경 이미지"
+
+#: ../includes/definitions/albumProperties.php:73
+msgid "Font"
+msgstr "글꼴"
+
+#: ../includes/definitions/albumProperties.php:79
+msgid "Columns"
+msgstr "열"
+
+#: ../includes/definitions/albumProperties.php:85
+msgid "Rows"
+msgstr "행"
+
+#: ../includes/definitions/albumProperties.php:91
+msgid "Borders"
+msgstr "경계"
+
+#: ../includes/definitions/albumProperties.php:98
+#, fuzzy
+msgid "Colors"
+msgstr "닫기"
+
+#: ../includes/definitions/albumProperties.php:101
+msgid "Background Color"
+msgstr "배경색"
+
+#: ../includes/definitions/albumProperties.php:107
+msgid "Text Color"
+msgstr "글자색"
+
+#: ../includes/definitions/albumProperties.php:113
+msgid "Link Color"
+msgstr "링크색"
+
+#: ../includes/definitions/albumProperties.php:119
+#, fuzzy
+msgid "Border Color"
+msgstr "경계선 색상"
+
+#: ../includes/definitions/albumProperties.php:126
+msgid "Frames"
+msgstr "테두리"
+
+#: ../includes/definitions/albumProperties.php:129
+msgid "Album Frame"
+msgstr "앨범 틀"
+
+#: ../includes/definitions/albumProperties.php:136
+msgid "Thumb Frame"
+msgstr "미리보기 틀"
+
+#: ../includes/definitions/albumProperties.php:143
+#, fuzzy
+msgid "Item Frame"
+msgstr "이미지 틀"
+
+#: ../includes/definitions/albumProperties.php:156
+#, fuzzy
+msgid "Slideshow"
+msgstr "슬라이드쇼"
+
+#: ../includes/definitions/albumProperties.php:160
+#, fuzzy
+msgid "Slideshow Type?"
+msgstr "슬라이드쇼 형태"
+
+#: ../includes/definitions/albumProperties.php:162
+#: ../includes/definitions/albumProperties.php:213
+#: ../includes/definitions/albumProperties.php:232
+msgid "Off"
+msgstr "끄기"
+
+#: ../includes/definitions/albumProperties.php:163
+msgid "Ordered"
+msgstr "정렬됨"
+
+#: ../includes/definitions/albumProperties.php:164
+msgid "Random"
+msgstr "무작위"
+
+#: ../includes/definitions/albumProperties.php:168
+#, fuzzy
+msgid "Include sub-albums in slideshow?"
+msgstr "슬라이드쇼에 하위 앨범 포함"
+
+#: ../includes/definitions/albumProperties.php:170
+#: ../includes/definitions/albumProperties.php:176
+#: ../includes/definitions/albumProperties.php:263
+#: ../includes/definitions/albumProperties.php:269
+#: ../includes/definitions/albumProperties.php:275
+#: ../includes/definitions/albumProperties.php:281
+#: ../includes/definitions/albumProperties.php:309
+#: ../includes/definitions/albumProperties.php:347
+#: ../includes/definitions/albumProperties.php:393
+#: ../includes/definitions/albumProperties.php:399
+#: ../includes/definitions/albumProperties.php:405
+#: ../includes/definitions/albumProperties.php:421
+#: ../includes/definitions/albumProperties.php:427
+#: ../includes/definitions/albumProperties.php:442
+#: ../includes/definitions/albumProperties.php:485
+#: ../includes/definitions/albumProperties.php:499
+msgid "Yes"
+msgstr "예"
+
+#: ../includes/definitions/albumProperties.php:170
+#: ../includes/definitions/albumProperties.php:176
+#: ../includes/definitions/albumProperties.php:263
+#: ../includes/definitions/albumProperties.php:269
+#: ../includes/definitions/albumProperties.php:275
+#: ../includes/definitions/albumProperties.php:281
+#: ../includes/definitions/albumProperties.php:309
+#: ../includes/definitions/albumProperties.php:347
+#: ../includes/definitions/albumProperties.php:393
+#: ../includes/definitions/albumProperties.php:399
+#: ../includes/definitions/albumProperties.php:405
+#: ../includes/definitions/albumProperties.php:421
+#: ../includes/definitions/albumProperties.php:427
+#: ../includes/definitions/albumProperties.php:442
+#: ../includes/definitions/albumProperties.php:499
+msgid "No"
+msgstr "아니요"
+
+#: ../includes/definitions/albumProperties.php:174
+#, fuzzy
+msgid "Allow slideshow to loop?"
+msgstr "슬라이드쇼 반복 허용"
+
+#: ../includes/definitions/albumProperties.php:180
+msgid "Slideshow Length"
+msgstr "슬라이드쇼 시간"
+
+#: ../includes/definitions/albumProperties.php:193
+msgid "Sizes"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:197
+#, fuzzy
+msgid "Thumbnail size (in px)?"
+msgstr "썸네일 크기"
+
+#: ../includes/definitions/albumProperties.php:204
+msgid "The ratio in which the thumbnails are made.<br>This affects only new thumbs. For existing use 'rebuild thumbs'."
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:206
+msgid "As the original image"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:207
+msgid "Square thumbs"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:211
+#, fuzzy
+msgid "Maximum size of intermediate sized images (in px)?"
+msgstr "중간 크기 이미지의 최대 크기"
+
+#: ../includes/definitions/albumProperties.php:223
+#, fuzzy
+msgid "Maximum file size of intermediate sized JPEG/PNG images in kilobytes (0 or blank for no size restriction)?"
+msgstr "최대 JPEG/PNG 파일 크기(kbytes)<br>(크기 제한 없음은 0 또는 공백)"
+
+#: ../includes/definitions/albumProperties.php:230
+#, fuzzy
+msgid "Maximum size of full sized images (in px)?"
+msgstr "중간 크기 이미지의 최대 크기"
+
+#: ../includes/definitions/albumProperties.php:237
+#: ../includes/definitions/albumProperties.php:238
+#: ../includes/definitions/albumProperties.php:239
+#, php-format
+msgid "%d (%d MPix)"
+msgstr "%d (%d MPix)"
+
+#: ../includes/definitions/albumProperties.php:244
+#, fuzzy
+msgid "Maximum file size of full sized JPEG/PNG images in kb (0 or blank for no size restriction)?"
+msgstr "최대 JPEG/PNG 파일 크기(kbytes)<br>(크기 제한 없음은 0 또는 공백)"
+
+#: ../includes/definitions/albumProperties.php:257
+#, fuzzy
+msgid "Display"
+msgstr "시작"
+
+#: ../includes/definitions/albumProperties.php:261
+msgid "Display click counter for this album?"
+msgstr "이 앨범에 클릭 카운터 표시?"
+
+#: ../includes/definitions/albumProperties.php:267
+#, fuzzy
+msgid "Display owner's name with caption?"
+msgstr "제목과 소유자 표시"
+
+#: ../includes/definitions/albumProperties.php:273
+#, fuzzy
+msgid "Display clickable image dimensions?"
+msgstr "클릭가능한 이미지 크기 표시"
+
+#: ../includes/definitions/albumProperties.php:279
+msgid "Display EXIF data?"
+msgstr "EXIF날짜 표시?"
+
+#: ../includes/definitions/albumProperties.php:292
+#, fuzzy
+msgid "Services"
+msgstr "출력 서비스"
+
+#: ../includes/definitions/albumProperties.php:296
+msgid "Which photo printing services<br>do you want to let visitors use?"
+msgstr "방문자에게 사용하게 할<br>사진 출력서비스는 무엇입니까?"
+
+#: ../includes/definitions/albumProperties.php:307
+msgid "Enable Ecards?"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:320
+msgid "Poll Properties"
+msgstr "설문 등록정보"
+
+#: ../includes/definitions/albumProperties.php:324
+#, fuzzy
+msgid "Who can vote?"
+msgstr "유권자"
+
+#: ../includes/definitions/albumProperties.php:325
+msgid "This enables/disable voting and if enabled it controls who can vote."
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:326
+msgid "Logged in"
+msgstr "Logged in"
+
+#: ../includes/definitions/albumProperties.php:327
+msgid "Everybody"
+msgstr "Everybody"
+
+#: ../includes/definitions/albumProperties.php:328
+msgid "Nobody"
+msgstr "Nobody"
+
+#: ../includes/definitions/albumProperties.php:332
+msgid "Type of poll for this album"
+msgstr "이 앨범에 대한 설문 형식"
+
+#: ../includes/definitions/albumProperties.php:334
+msgid "Rank"
+msgstr "순위"
+
+#: ../includes/definitions/albumProperties.php:334
+msgid "Critique"
+msgstr "평론"
+
+#: ../includes/definitions/albumProperties.php:338
+msgid "Number of voting options"
+msgstr "투표 항목수"
+
+#: ../includes/definitions/albumProperties.php:345
+msgid "Show results of voting to all visitors?"
+msgstr "모든 방문객에게 투표결과 보이기?"
+
+#: ../includes/definitions/albumProperties.php:351
+msgid "Number of lines of results graph to display on the album page"
+msgstr "앨범 페이지에 표시되는 결과 그래프의 줄수"
+
+#: ../includes/definitions/albumProperties.php:358
+#, fuzzy
+msgid "Orientation of vote choices?"
+msgstr "투표 선택 방향"
+
+#: ../includes/definitions/albumProperties.php:360
+msgid "Horizontal"
+msgstr "수평"
+
+#: ../includes/definitions/albumProperties.php:361
+msgid "Vertical"
+msgstr "수직"
+
+#: ../includes/definitions/albumProperties.php:366
+msgid "Vote hint"
+msgstr "투표 힌트"
+
+#: ../includes/definitions/albumProperties.php:373
+#, fuzzy
+msgid "Voting Options"
+msgstr "관리자 옵션"
+
+#: ../includes/definitions/albumProperties.php:377
+msgid "Displayed Value"
+msgstr "표시되는 값"
+
+#: ../includes/definitions/albumProperties.php:377
+msgid "Points"
+msgstr "점수"
+
+#: ../includes/definitions/albumProperties.php:387
+msgid "Misc"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:391
+#, fuzzy
+msgid "Add new items at beginning of album?"
+msgstr "앨범 시작에 새로운 아이템 추가"
+
+#: ../includes/definitions/albumProperties.php:397
+#, fuzzy
+msgid "Show <i>Return to</i> link?"
+msgstr "<i>돌아가기</i> 링크 보이기"
+
+#: ../includes/definitions/albumProperties.php:403
+#, fuzzy
+msgid "Offer visitors ability to specify<br>preference for full-size or resized images?"
+msgstr "방문자에게 이미지의 실제크기나<br>크기조정할 능력을 제공하시겠습니까"
+
+#: ../includes/definitions/albumProperties.php:415
+#, fuzzy
+msgid "Owner Permissions"
+msgstr "권한"
+
+#: ../includes/definitions/albumProperties.php:416
+msgid "For historical reasons permissions for owners are handled as property, not as permission. <br>G1-Style ;-)"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:419
+#, fuzzy
+msgid "Allow users to modify their own items?"
+msgstr "소유자가 이미지 변경을 허용"
+
+#: ../includes/definitions/albumProperties.php:425
+#, fuzzy
+msgid "Allow users to delete their own items?"
+msgstr "소유자가 이미지 삭제를 허용"
+
+#: ../includes/definitions/albumProperties.php:437
+msgid "Effects"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:440
+#, fuzzy
+msgid "Auto fit-to-window for<br>images without a resized copy?"
+msgstr "크기조정된 사본없이<br>자동 이미지 창에 채우기"
+
+#: ../includes/definitions/albumProperties.php:452
+msgid "Custom Fields"
+msgstr "사용자정의 필드"
+
+#: ../includes/definitions/albumProperties.php:461
+msgid "Number of user defined custom fields"
+msgstr "회원이 정의한 사용자 필드 수"
+
+#: ../includes/definitions/albumProperties.php:479
+msgid "Microthumbs"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:482
+msgid "Use microthumb photo navigation?"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:486
+msgid "No, just the normal navigation"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:487
+msgid "Both kinds of Navigation"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:491
+msgid "Microthumb style?"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:493
+#, fuzzy
+msgid "Fixed"
+msgstr "실패함"
+
+#: ../includes/definitions/albumProperties.php:493
+msgid "Dynamic"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:497
+msgid "Show first &amp; last microthumb?"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:503
+#, fuzzy
+msgid "Number of previous thumbs?"
+msgstr "투표 항목수"
+
+#: ../includes/definitions/albumProperties.php:509
+#, fuzzy
+msgid "Number of next thumbs?"
+msgstr "투표 항목수"
+
+#: ../includes/definitions/albumProperties.php:515
+msgid "Position of microthumb navigation bar?"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:517
+msgid "Top"
+msgstr "상단"
+
+#: ../includes/definitions/albumProperties.php:518
+msgid "Both"
+msgstr "둘다"
+
+#: ../includes/definitions/albumProperties.php:519
+msgid "Bottom"
+msgstr "바닥"
+
+#: ../includes/definitions/albumProperties.php:523
+msgid "Height of microthumbs in navigation bar (in px)?"
+msgstr ""
+
+#: ../includes/definitions/albumProperties.php:530
+msgid "Bonus to height of current microthumb (in px)?"
+msgstr ""
+
+#: ../includes/definitions/services.php:49
+msgid "mPUSH is a photo service that adds the ability to send thumbnail images to your, or a friend's, cellphone for a small fee."
+msgstr "mPUSH는 적은 요금으로 당신 또는 친구의 셀룰러폰으로 미리보기 이미지를 전송할 수 있는 능력을 가진 사진 서비스입니다."
+
+#: ../lib/album.php:228
+msgid "navigate up"
+msgstr ""
+
+#: ../lib/album.php:265
+#, fuzzy, php-format
+msgid "Gallery: %s"
+msgstr "갤러리 URL"
+
+#: ../lib/album.php:434 ../lib/album.php:435
+msgid "Add photos"
+msgstr ""
+
+#: ../lib/album.php:444 ../lib/album.php:449
+msgid "New nested album"
+msgstr ""
+
+#: ../lib/album.php:462 ../lib/album.php:470
+#, fuzzy
+msgid "Edit captions"
+msgstr "캡션 없음"
+
+#: ../lib/album.php:480 ../lib/album.php:481
+msgid "Change foldername"
+msgstr ""
+
+#: ../lib/album.php:488 ../lib/album.php:489
+msgid "Permissions"
+msgstr "권한"
+
+#: ../lib/album.php:498 ../lib/album.php:499
+#, fuzzy
+msgid "Properties"
+msgstr "설문 등록정보"
+
+#: ../lib/album.php:510 ../lib/album.php:511
+msgid "Watermark&nbsp;album"
+msgstr ""
+
+#: ../lib/album.php:524 ../lib/album.php:525
+#, fuzzy
+msgid "Delete album"
+msgstr "앨범 선택"
+
+#: ../lib/album.php:534 ../lib/album.php:535
+#, fuzzy
+msgid "Move album"
+msgstr "앨범 선택"
+
+#: ../lib/album.php:541 ../lib/album.php:542
+#, fuzzy
+msgid "Reorder album"
+msgstr "앨범 선택"
+
+#: ../lib/album.php:553 ../lib/album.php:555
+msgid "Delete this (sub)album"
+msgstr ""
+
+#: ../lib/album.php:578 ../lib/album.php:579
+msgid "Sort items"
+msgstr ""
+
+#: ../lib/album.php:585 ../lib/album.php:586
+msgid "Resize all"
+msgstr ""
+
+#: ../lib/album.php:592 ../lib/album.php:593
+msgid "Rebuild thumbs"
+msgstr ""
+
+#: ../lib/album.php:599 ../lib/album.php:600
+msgid "Rearrange items"
+msgstr ""
+
+#: ../lib/album.php:607 ../lib/album.php:608
+#, fuzzy
+msgid "Rebuild capture dates"
+msgstr "캡쳐일자"
+
+#: ../lib/album.php:619 ../lib/album.php:623
+#, fuzzy
+msgid "Poll results"
+msgstr "설문 결과:"
+
+#: ../lib/album.php:629 ../lib/album.php:630
+#, fuzzy
+msgid "Poll reset"
+msgstr "설문 결과:"
+
+#: ../lib/album.php:642 ../lib/album.php:645
+msgid "View&nbsp;comments"
+msgstr ""
+
+#: ../lib/album.php:656
+msgid "&lt;&lt; Album actions &gt;&gt;"
+msgstr ""
+
+#: ../lib/content.php:47
+msgid "Empty"
+msgstr "비어있음"
+
+#: ../lib/content.php:52
+#, php-format
+msgid "edit %s"
+msgstr "수정 %s"
+
+#: ../lib/content.php:75
+msgid "No Caption"
+msgstr "캡션 없음"
+
+#: ../lib/content.php:78
+msgid "edit"
+msgstr "수정"
+
+#: ../lib/content.php:110 ../lib/stats.php:249
+msgid "add comment"
+msgstr "코멘트 추가"
+
+#: ../lib/content.php:128
+msgid "Add your comment"
+msgstr "코멘트 쓰기"
+
+#: ../lib/content.php:131
+msgid "Commenter:"
+msgstr "글쓴이:"
+
+#: ../lib/content.php:150
+msgid "Message:"
+msgstr "메세지:"
+
+#: ../lib/content.php:154
+#, fuzzy
+msgid "Post comment"
+msgstr "최근 코멘트"
+
+#: ../lib/content.php:166
+#, fuzzy
+msgid "Security violation!"
+msgstr "현 위치"
+
+#: ../lib/content.php:332
+#, fuzzy, php-format
+msgid "1 view"
+msgid_plural "%d views"
+msgstr[0] "%d번"
+
+#: ../lib/content.php:365 ../lib/content.php:392
+#, fuzzy
+msgid "Sub-albums:"
+msgstr "하위-앨범"
+
+#: ../lib/content.php:481
+msgid "EXIF Data"
+msgstr "EXIF 자료 "
+
+#: ../lib/content.php:485
+msgid "Display of EXIF data enabled, but no data found."
+msgstr ""
+
+#: ../lib/content.php:654
+#, fuzzy
+msgid "Search:"
+msgstr "검색"
+
+#: ../lib/content.php:699 ../lib/content.php:734
+msgid "Operation done, closing window."
+msgstr ""
+
+#: ../lib/content.php:706 ../lib/content.php:746
+#, fuzzy
+msgid "Not closing this window because debug mode is on."
+msgstr "디버그모드가 켜져 있어서 이 창을 닫을 수 업습니다."
+
+#: ../lib/content.php:742
+#, php-format
+msgid "Loading URL: %s"
+msgstr ""
+
+#: ../lib/content.php:783
+#, fuzzy, php-format
+msgid "Problem including file %s."
+msgstr "%s 추가시 문제:"
+
+#: ../lib/content.php:944
+msgid "Select Album"
+msgstr "앨범 선택"
+
+#: ../lib/content.php:954
+msgid "Move to top level"
+msgstr ""
+
+#: ../lib/content.php:981 ../lib/content.php:1053 ../lib/content.php:1061
+#, fuzzy
+msgid "Current location"
+msgstr "현 위치"
+
+#: ../lib/content.php:1069
+#, fuzzy
+msgid "This album itself"
+msgstr "이 앨범은 비었습니다."
+
+#: ../lib/content.php:1113
+#, php-format
+msgid "Last comment %s."
+msgstr "최근 코멘트 %s."
+
+#: ../lib/content.php:1139 ../lib/content.php:1142
+msgid "No Skin"
+msgstr "스킨 없음"
+
+#: ../lib/content.php:1146
+#, fuzzy
+msgid "The original look and feel."
+msgstr "<dt>%s</dt><dd>The original look and feel.</dd>"
+
+#: ../lib/content.php:1195 ../lib/content.php:1199
+msgid "unknown"
+msgstr "모름"
+
+#: ../lib/content.php:1203
+#, fuzzy, php-format
+msgid "Version: %s"
+msgstr "OK!  버젼: %s"
+
+#: ../lib/content.php:1205
+#, fuzzy, php-format
+msgid "Last Update: %s"
+msgstr "최근 업데이트"
+
+#: ../lib/content.php:1224 ../lib/content.php:1230
+msgid "None"
+msgstr "None"
+
+#: ../lib/content.php:1225 ../lib/content.php:1231
+msgid "Dots"
+msgstr "Dots"
+
+#: ../lib/content.php:1226 ../lib/content.php:1232
+msgid "Solid"
+msgstr "Solid"
+
+#: ../lib/content.php:1230
+msgid "No frames"
+msgstr "프레임 없음"
+
+#: ../lib/content.php:1231
+msgid "Just a simple dashed border around the thumb."
+msgstr "미리보기 테두리에 간단한 점선 경계."
+
+#: ../lib/content.php:1232
+msgid "Just a simple solid border around the thumb."
+msgstr "미리보기 테두리에 간단한 실선 경계"
+
+#: ../lib/content.php:1255
+#, php-format
+msgid "Skipping %s."
+msgstr "%s 지나침."
+
+#: ../lib/content.php:1262
+#, fuzzy, php-format
+msgid "Can't open %s."
+msgstr "%s를 열 수 없습니다"
+
+#: ../lib/content.php:1339 ../lib/content.php:1362
+#, fuzzy
+msgid "Not valid yet."
+msgstr "아직 올바르지 않습니다"
+
+#: ../lib/content.php:1448
+#, fuzzy
+msgid "Logout"
+msgstr "레이아웃"
+
+#: ../lib/content.php:1453
+msgid "Login to see or add more items."
+msgstr ""
+
+#: ../lib/content.php:1456
+#, fuzzy
+msgid "Login"
+msgstr "Logged in"
+
+#: ../lib/content.php:1491
+msgid "Show/Hide more information"
+msgstr ""
+
+#: ../lib/filesystem.php:109
+#, php-format
+msgid "extension of file %s is %s"
+msgstr ""
+
+#: ../lib/filesystem.php:152
+msgid "The path you try to use does not exist! Exiting Gallery"
+msgstr ""
+
+#: ../lib/filesystem.php:170
+#, php-format
+msgid "Parsing for csv data in file: %s"
+msgstr ""
+
+#: ../lib/filesystem.php:188
+#, fuzzy
+msgid "csv result:"
+msgstr "설문 결과:"
+
+#: ../lib/filesystem.php:209
+#, php-format
+msgid "Extracting: %s failed. Not able create the folder to extract the archive in."
+msgstr ""
+
+#: ../lib/filesystem.php:217
+#, php-format
+msgid "Extracting: %s with %s"
+msgstr ""
+
+#: ../lib/filesystem.php:234
+#, php-format
+msgid "%s with extension %s is not an supported archive."
+msgstr ""
+
+#: ../lib/filesystem.php:278
+#, php-format
+msgid "Getting Exif from: %s"
+msgstr ""
+
+#: ../lib/filesystem.php:355
+msgid "You are not allowed to upload from local directories."
+msgstr ""
+
+#: ../lib/filesystem.php:371
+#, php-format
+msgid "%s is not in the list of allowed uploadpathes. Skipping."
+msgstr ""
+
+#: ../lib/filesystem.php:387
+#, php-format
+msgid "Could not open lock file (%s) for writing!"
+msgstr ""
+
+#: ../lib/filesystem.php:392
+#, php-format
+msgid "Could not acquire lock (%s)!"
+msgstr ""
+
+#: ../lib/form.php:73
+msgid "Check All"
+msgstr "모두 확인"
+
+#: ../lib/form.php:75
+msgid "Clear All"
+msgstr "모두 지우기"
+
+#: ../lib/form.php:77
+msgid "Invert Selection"
+msgstr "선택 반전"
+
+#: ../lib/form.php:312
+msgid "colorpicker"
+msgstr ""
+
+#: ../lib/form.php:532
+msgid "Add field"
+msgstr ""
+
+#: ../lib/imageManipulation.php:37
+#, fuzzy, php-format
+msgid "Resizing Image: %s."
+msgstr "이미지 크기조정중: %s"
+
+#: ../lib/imageManipulation.php:73
+#, fuzzy
+msgid "No resizing required."
+msgstr "리사이징 필수 아님"
+
+#: ../lib/imageManipulation.php:102
+#, fuzzy, php-format
+msgid "Target file size: %d kbytes."
+msgstr "목표 파일크기는 %d kbytes 입니다."
+
+#: ../lib/imageManipulation.php:111 ../lib/imageManipulation.php:144
+#, fuzzy, php-format
+msgid "-> File size: %d kbytes"
+msgstr "-> 파일크기 %d kbytes"
+
+#: ../lib/imageManipulation.php:112
+#, fuzzy, php-format
+msgid "Trying quality: %d%%."
+msgstr "품질 %d%%로 시도중"
+
+#: ../lib/imageManipulation.php:145
+msgid "Done."
+msgstr "완료."
+
+#: ../lib/imageManipulation.php:251 ../lib/imageManipulation.php:540
+#: ../lib/imageManipulation.php:609 ../lib/imageManipulation.php:909
+msgid "You have no graphics package configured for use!"
+msgstr "사용할 수 있는 그래픽 패키지가 없습니다!"
+
+#: ../lib/imageManipulation.php:256
+msgid "No watermark name specified!"
+msgstr "워터마크명 정의 안됨!"
+
+#: ../lib/imageManipulation.php:432
+msgid "Using jpegtran for rotation"
+msgstr ""
+
+#: ../lib/imageManipulation.php:466
+msgid "Using Netpbm for rotation"
+msgstr ""
+
+#: ../lib/imageManipulation.php:508
+msgid "Using ImageMagick for rotation"
+msgstr ""
+
+#: ../lib/imageManipulation.php:573
+#, fuzzy
+msgid "Cropping Image"
+msgstr "워터마킹 이미지"
+
+#: ../lib/imageManipulation.php:640
+#, php-format
+msgid "Generating squared version to %d pixels."
+msgstr ""
+
+#: ../lib/imageManipulation.php:662
+#, fuzzy
+msgid "No Cropping Done."
+msgstr "캡션 없음"
+
+#: ../lib/imageManipulation.php:672
+#, php-format
+msgid "Call to %s failed in %s for file %s!"
+msgstr "파일 %3$s를 위한 %2$s에서 %1$s 호출 실패함!"
+
+#: ../lib/imageManipulation.php:676
+#, php-format
+msgid "File %s type %d."
+msgstr "파일 %s 형식 %d."
+
+#: ../lib/imageManipulation.php:716 ../lib/imageManipulation.php:745
+#, php-format
+msgid "Files with type %s are not supported by Gallery with Netpbm."
+msgstr ""
+
+#: ../lib/imageManipulation.php:797
+#, fuzzy, php-format
+msgid "Compressing image: %s"
+msgstr "이미지 크기조정중: %s"
+
+#: ../lib/imageManipulation.php:803
+msgid "Not all necessary params for resizing given."
+msgstr ""
+
+#: ../lib/imageManipulation.php:804
+#, php-format
+msgid "Resizing params: src: %s, dest : %s, targetSize: %s"
+msgstr ""
+
+#: ../lib/imageManipulation.php:848
+#, fuzzy
+msgid "Unable to preserve EXIF data (jhead not installed)."
+msgstr "EXIF 자료를 보존할 수 없습니다.(jhead 설치 안됨)"
+
+#: ../lib/imageManipulation.php:893
+#, fuzzy
+msgid "Using IM high quality."
+msgstr "%d of %d 개의 ImageMagick 바이너리가 있습니다."
+
+#: ../lib/imageManipulation.php:897
+#, fuzzy
+msgid "Not using IM high quality."
+msgstr "%d of %d 개의 ImageMagick 바이너리가 있습니다."
+
+#: ../lib/lang.php:739
+#, fuzzy
+msgid "Upload date"
+msgstr "업로드 날짜"
+
+#: ../lib/lang.php:740
+#, fuzzy
+msgid "Capture date"
+msgstr "캡쳐일자"
+
+#: ../lib/lang.php:741
+#, fuzzy
+msgid "Image size"
+msgstr "이미지 크기"
+
+#: ../lib/lang.php:742
+#, fuzzy
+msgid "Additional EXIF data"
+msgstr "추가할 EXIF자료 "
+
+#: ../lib/lang.php:750
+msgid "title"
+msgstr "제목"
+
+#: ../lib/lang.php:751
+msgid "Title"
+msgstr "제목"
+
+#: ../lib/lang.php:752
+msgid "Description"
+msgstr "설명"
+
+#: ../lib/lang.php:753
+msgid "description"
+msgstr "설명"
+
+#: ../lib/lang.php:754
+#, fuzzy
+msgid "Alt text / Tooltip"
+msgstr "풍선도움말"
+
+#: ../lib/mail.php:42
+#, php-format
+msgid "Note: This is an automatically generated email message sent from the %s website.  If you have received this in error, please ignore this message."
+msgstr "주의: 웹사이트 %s에서 자동 생성된 이메일 메세지가 전송된 것입니다. 받으시는데 에러가 있다면, 이 메세지를 무시하세요."
+
+#: ../lib/mail.php:45
+#, php-format
+msgid "Report abuse to %s"
+msgstr "%s 에게 남용 보고"
+
+#: ../lib/mail.php:86
+#, fuzzy
+msgid "Email not sent as it is disabled for this gallery."
+msgstr "이메일이 갤러리에서 사용불가능하므로 전송되지 않았습니다"
+
+#: ../lib/mail.php:92
+#, fuzzy, php-format
+msgid "Email not sent to %s as it is not a valid address."
+msgstr "올바른 주소가 아니므로 %s에게 이메일을 전송할 수 없습니다."
+
+#: ../lib/mail.php:99
+#, fuzzy
+msgid "Email not sent as no recipient address provided."
+msgstr "주소가 없어 이메일을 전송할 수 없습니다."
+
+#: ../lib/mail.php:111
+#, php-format
+msgid "Sender address %s is invalid, using %s."
+msgstr "전송자 주소 %s  가 올바르지 않습니다. %s  사용하세요."
+
+#: ../lib/mail.php:143
+msgid "This is a HTML mail, please have a look at the Attachment."
+msgstr ""
+
+#: ../lib/mail.php:198
+#, fuzzy, php-format
+msgid ""
+"Hi !!FULLNAME!!,\n"
+"\n"
+"Congratulations.  You have just been subscribed to %s at %s.  Your account name is !!USERNAME!!.  Please visit the gallery soon, and create a password by clicking this link:\n"
+"\n"
+"!!NEWPASSWORDLINK!!\n"
+"\n"
+"Your %s Administrator."
+msgstr ""
+"안녕하세요! !!FULLNAME!!,  \n"
+"\n"
+"축하합니다. 당신은 %s at %s에 가입하셨습니다..  당신의 계정명은 !!USERNAME!!입니다. 곧 갤러리를 방문하시여, 이 링크를 클릭해 비밀번호를 생성하세요:\n"
+"\n"
+"!!NEWPASSWORDLINK!!\n"
+"\n"
+"Gallery @ %s 관리자."
+
+#: ../lib/mail.php:207 ../lib/mail.php:209
+msgid "gallery title"
+msgstr "갤러리 제목"
+
+#: ../lib/mail.php:208
+msgid "gallery URL"
+msgstr "갤러리 URL"
+
+#: ../lib/mail.php:225
+msgid "The URL to your Gallery."
+msgstr ""
+
+#: ../lib/mail.php:226
+msgid "Title of your Gallery."
+msgstr ""
+
+#: ../lib/mail.php:227
+#, fuzzy
+msgid "Admin email(s)"
+msgstr "관리자 도움말"
+
+#: ../lib/mail.php:228
+msgid "Password for the newly created user."
+msgstr ""
+
+#: ../lib/mail.php:229 ../lib/setup.php:1644 ../lib/setup.php:1645
+#: ../lib/setup.php:1647 ../lib/setup.php:1651
+msgid "Username"
+msgstr "회원명"
+
+#: ../lib/mail.php:230
+#, fuzzy
+msgid "Fullname"
+msgstr "전체 이름"
+
+#: ../lib/mail.php:231
+#, fuzzy
+msgid "Will be replaced by a link the new user can click on to create a new password."
+msgstr "%s 는 신규회원이 새 비밀번호를 생성하기 위해 클릭할 수 있는 링크로 대체되어 집니다"
+
+#: ../lib/mail.php:269 ../lib/mail.php:290
+#, fuzzy, php-format
+msgid "New comment for %s."
+msgstr "코멘트 보기"
+
+#: ../lib/mail.php:278
+#, php-format
+msgid "A new comment has been added to Gallery: %s"
+msgstr ""
+
+#: ../lib/mail.php:280
+#, php-format
+msgid "The comment was added by %s to this %s in this %s."
+msgstr ""
+
+#: ../lib/mail.php:282
+#, fuzzy
+msgid "Item"
+msgstr "아이템"
+
+#: ../lib/mail.php:283
+msgid "Album"
+msgstr "앨범"
+
+#: ../lib/mail.php:284
+#, fuzzy
+msgid "*** Begin comment ***"
+msgstr "스팸 코멘트 검색"
+
+#: ../lib/mail.php:286
+#, fuzzy
+msgid "*** End comment ***"
+msgstr "스팸 코멘트 검색"
+
+#: ../lib/mail.php:287
+msgid "If you no longer wish to receive emails about this item, follow the links above and ensure that 'Email me when comments are added' is unchecked in both the item and album page (you'll need to login first)."
+msgstr ""
+
+#: ../lib/mail.php:300
+msgid "Sending email failed. Additional info:"
+msgstr ""
+
+#: ../lib/mail.php:314
+msgid "Email activity"
+msgstr "이메일 활동성"
+
+#: ../lib/messages.php:178
+#, php-format
+msgid "Generated by %s v%s"
+msgstr "Generated by %s v%s"
+
+#: ../lib/messages.php:181
+#, php-format
+msgid "Powered by %s v%s"
+msgstr "Powered by %s v%s"
+
+#: ../lib/messages.php:202
+#, fuzzy
+msgid "Invalid Request."
+msgstr "아직 올바르지 않습니다"
+
+#: ../lib/messages.php:209
+#, php-format
+msgid "Please go back to %s."
+msgstr ""
+
+#: ../lib/setup.php:139
+msgid "Please retype your password here"
+msgstr "여기에 당신의 비밀번호를 재입력하세요"
+
+#: ../lib/setup.php:152 ../lib/setup.php:1243
+msgid "Name"
+msgstr "이름"
+
+#: ../lib/setup.php:153 ../lib/setup.php:1243
+msgid "Value"
+msgstr "값"
+
+#: ../lib/setup.php:187 ../lib/setup.php:239
+#, fuzzy
+msgid "No content"
+msgstr "RSS 내용"
+
+#: ../lib/setup.php:408
+#, fuzzy, php-format
+msgid "Missing value: %s"
+msgstr "잘못된 값"
+
+#: ../lib/setup.php:427
+#, fuzzy
+msgid "exec() is enabled on this server."
+msgstr "<b>exec()</b>는 이 서버에서 사용가능합니다."
+
+#: ../lib/setup.php:448
+#, fuzzy
+msgid "Gallery is able to read your .htaccess file."
+msgstr "<b>.htaccess</b> 파일을 읽을 수 있습니다."
+
+#: ../lib/setup.php:470
+#, php-format
+msgid "PHP v%s is OK."
+msgstr "PHP v%s is OK."
+
+#: ../lib/setup.php:488
+#, fuzzy
+msgid "mod_rewrite is enabled."
+msgstr "<b>mod_rewrite</b> 사용가능."
+
+#: ../lib/setup.php:520
+#, fuzzy
+msgid "Can't find <i>jhead</i>."
+msgstr "<i>jhead</i>를 찾을 수 없습니다"
+
+#: ../lib/setup.php:524 ../lib/setup.php:528
+#, fuzzy, php-format
+msgid "<b>jhead</b> binary version %s located."
+msgstr "<b>jhead</b> 바이너리 찾음."
+
+#: ../lib/setup.php:525
+msgid "You are using an older version of jhead. There are at least known problems with version 2.0. We recommend version 2.7 and higher."
+msgstr ""
+
+#: ../lib/setup.php:566
+#, fuzzy
+msgid "Without pnmcomp and pamcomp, gallery will not be able to watermark images, unless you use ImageMagick and have the composite binary installed."
+msgstr "ImageMagick과 composite 바이너리를 설치하는 것을 제외하고는, pnmcomp와 pamcomp없는 갤러리는 이미지를 워터마크 할 수 없습니다."
+
+#: ../lib/setup.php:574
+#, fuzzy
+msgid "Netpbm not being used in this installation."
+msgstr "NetPBM은 이 설치과정에서 사용되지 않았습니다."
+
+#: ../lib/setup.php:579 ../lib/setup.php:675
+msgid "Cannot verify this path (it's not in your open_basedir list)."
+msgstr "이 경로를 확인할 수 없습니다 (open_basedir 목록에 없습니다)"
+
+#: ../lib/setup.php:613 ../lib/setup.php:692
+#, php-format
+msgid "Missing optional binary %s. %s"
+msgstr "선택적 바이너리 %s. %s 없음."
+
+#: ../lib/setup.php:616 ../lib/setup.php:695
+#, php-format
+msgid "Can't find %s!"
+msgstr "%s를 찾을 수 없습니다!"
+
+#: ../lib/setup.php:622 ../lib/setup.php:701
+#, php-format
+msgid "%s is not executable!"
+msgstr "%s는 실행가능하지 않습니다!"
+
+#: ../lib/setup.php:632 ../lib/setup.php:640
+#, fuzzy, php-format
+msgid "%d of %d Netpbm binaries located."
+msgstr "%d of %d 개의 NetPBM 바이너리가 있습니다."
+
+#: ../lib/setup.php:664
+#, fuzzy
+msgid "Without composite gallery will not be able to watermark images, except you use Netpbm and have the pnmcomp binary installed."
+msgstr "NetPBM과 pnmcomp 바이너리를 설치하는 것을 제외하고는, composite없는 갤러리는 이미지를 워터마크 할 수 없습니다."
+
+#: ../lib/setup.php:670
+msgid "ImageMagick not being used in this installation."
+msgstr "ImageMagick은 이 설치과정에서 사용되지 않았습니다."
+
+#: ../lib/setup.php:711 ../lib/setup.php:719
+#, php-format
+msgid "%d of %d ImageMagick binaries located."
+msgstr "%d of %d 개의 ImageMagick 바이너리가 있습니다."
+
+#: ../lib/setup.php:743
+msgid "jpegtran was not found."
+msgstr ""
+
+#: ../lib/setup.php:746
+#, fuzzy
+msgid "jpegtran binary located."
+msgstr "<b>jpegtran</b>을 찾았습니다."
+
+#: ../lib/setup.php:758
+#, fuzzy
+msgid "PHP has GNU gettext support."
+msgstr "PHP가 <b>GNU gettext</b>를 지원합니다."
+
+#: ../lib/setup.php:760
+#, fuzzy
+msgid "PHP does not have GNU gettext support."
+msgstr "PHP가 <b>GNU gettext</b>를 지원하지 않습니다."
+
+#: ../lib/setup.php:775
+msgid "No languages found."
+msgstr "언어가 발견되지 않았습니다."
+
+#: ../lib/setup.php:778
+msgid "It seems you didn't download any additional languages. This is not a problem! Gallery will appear just in English. Note: If this is not true, check that all files in locale folder are readable for the webserver, or contact the Gallery Team."
+msgstr "다른 추가적인 언어를 다운로드 하지 않은 것처럼 보입니다. 이것은 문제가 아닙니다! 갤러리는 영문으로 표시되어 질 겁니다. 주의: 이것이 사실이 아니라면, locale 폴더내의 모든 파일들이 웹서버에서 읽기가능한지 또는 갤러리팀에 접촉할 수 있는지 확인하세요."
+
+#: ../lib/setup.php:781
+#, php-format
+msgid "%d languages are available.  If you are missing a language please visit the %sGallery download page%s."
+msgstr "%d개의 언어가  가능합니다. 빠진 언어가 있다면 %s갤러리 다운로드 페이지%s를 방문하세요."
+
+#: ../lib/setup.php:808
+#, php-format
+msgid "You can check for more recent versions by visiting %s."
+msgstr "%s를 방문하여 최신 버전을 확인할 수 있습니다."
+
+#: ../lib/setup.php:810
+#, php-format
+msgid "This version of %s was released on %s."
+msgstr "이 %s 버전은 %s에 발표되었습니다."
+
+#: ../lib/setup.php:813
+#, php-format
+msgid "This is a development build of %s that was released on %s."
+msgstr "이 %s 베타 버전은 %s에 발표되었습니다."
+
+#: ../lib/setup.php:819
+#, php-format
+msgid "That's more than %d days ago. Which is way too old for a pre Release version."
+msgstr ""
+
+#: ../lib/setup.php:824
+#, php-format
+msgid "That's more than %d days ago."
+msgstr ""
+
+#: ../lib/setup.php:832
+msgid "Please check regularly for updates."
+msgstr "주기적으로 업데이트 되는 것을 확인하세요."
+
+#: ../lib/setup.php:855
+msgid "All gallery locales are available on this host."
+msgstr "이 호스트에서 모든 갤러리 로케일이 가능합니다"
+
+#: ../lib/setup.php:859
+#, php-format
+msgid "There are %d locales that Gallery was unable to locate. You may need to select manually date formats. "
+msgstr "갤러리가 정하기 어려운 %d개의 로케일이 있습니다. 수동으로 날짜 형식을 선택하셔야 합니다."
+
+#: ../lib/setup.php:867
+#, php-format
+msgid "Dates in %d languages may not be formatted properly, because the corresponding locales are missing. You may need to select manually the date formats for these."
+msgstr ""
+
+#: ../lib/setup.php:873
+#, php-format
+msgid "We were unable to detect any locales.  However, your PHP installation is configured with the %s restriction so this may be interfering with the way that we detect locales.  Unfortunately this means the date format will not change for different languages.  However, it is OK to continue."
+msgstr "어떤 로케일도 발견되지 않았습니다. 어쨌거나 당신의 PHP설치는 %s 제한이 설정되어 있어 로케일을 찾는데 방해할 수도 있습니다. 불행하게도 이는 다른 언어에 따라 날짜 형식을 변경할 수 없음을 뜻합니다. 그러나, 진행하는데는 괜찮습니다."
+
+#: ../lib/setup.php:878
+#, php-format
+msgid "We were unable to detect any system locales. Multi-language functions will be disabled. Please install the corresponding locales or ask your administrator to do this. This problem is known on %s systems. In this case please have a look at this %sDebian locale HowTo%s."
+msgstr "어떤 시스템 로케일도 발견되지 않았습니다. 다국어 기능이 지원되지 않습니다. 해당 로케일을 설치하거나 시스템 제공자에게 설치를 요구하세요. 이것은 %s 시스템에서 알려진 문제입니다. 이 경우 %sDebian locale HowTo%s를 참고하세요. "
+
+#: ../lib/setup.php:883
+msgid "Only the default locale for this machine is available, so date format will not change for different languages."
+msgstr "이 시스템의 기본 로케일만 가능합니다. 따라서, 날짜 포맷이 각 언어에 따라 변경되지 않습니다."
+
+#: ../lib/setup.php:1055 ../lib/setup.php:1156
+msgid "Advanced"
+msgstr "자세히"
+
+#: ../lib/setup.php:1056
+#, fuzzy
+msgid "<b>System</b> locale selection required"
+msgstr "<b>시스템</b> 로케일 선택 필수"
+
+#: ../lib/setup.php:1057
+msgid "There is more than one suitable <b>system</b> locale installed on your machine for the following languages.  Please chose the one you think is most suitable."
+msgstr "다음 언어에 대한 <b>시스템</b> 로케일이 하나 이상 존재합니다. 가장 적당하다고 생각되는 것을 골라주세요."
+
+#: ../lib/setup.php:1059 ../lib/setup.php:1160
+#, fuzzy
+msgid "This is <b>only</b> for date &amp; time format. You only need to edit the languages you enabled above."
+msgstr "이것은 <b>오직</b> 날짜와 시간 형식을 위한 것입니다. 위에서 사용가능한 언어를 수정하시기만 하면 됩니다"
+
+#: ../lib/setup.php:1073 ../lib/setup.php:1109
+msgid "System locale"
+msgstr "시스템 로케일"
+
+#: ../lib/setup.php:1157
+msgid "<b>System</b> locale problems"
+msgstr "<b>시스템</b> 로케일 문제"
+
+#: ../lib/setup.php:1158
+msgid "There are no apparently suitable <b>system</b> locales installed on your machine for the following languages.  Please choose the one you think is most suitable."
+msgstr "다음 언어에 대한 적절한 <b>시스템</b> 로케일이 당신의 컴에 설치되지 않았습니다. 가장 적당하다고 생각되는 것을 골라주세요."
+
+#: ../lib/setup.php:1209
+#, fuzzy
+msgid "safe_mode is off."
+msgstr "<b>safe_mode</b> 끄기"
+
+#: ../lib/setup.php:1223
+#, fuzzy
+msgid "magic_quotes are off."
+msgstr "<b>magic quotes</b>가 꺼져 있음"
+
+#: ../lib/setup.php:1241
+#, php-format
+msgid "In %s, missing %s in row %d with %s %s."
+msgstr ""
+
+#: ../lib/setup.php:1242 ../lib/setup.php:1252 ../lib/setup.php:1258
+msgid "Vote words and values"
+msgstr "투표 항목이름과 값"
+
+#: ../lib/setup.php:1251
+#, php-format
+msgid "In %s, blank in row %d."
+msgstr ""
+
+#: ../lib/setup.php:1257
+#, fuzzy, php-format
+msgid "In %s, for name %s (row %d) value %s should be a positive whole number"
+msgstr "%s에서, 이름 %s를 위한(%d 열) 값 %s는 양수이어야 합니다."
+
+#: ../lib/setup.php:1279
+#, fuzzy
+msgid "register_globals is off."
+msgstr "<b>register_globals</b> 꺼짐."
+
+#: ../lib/setup.php:1466
+msgid "Your passwords do not match!"
+msgstr "당신의 비밀번호가 일치하지 않습니다!"
+
+#: ../lib/setup.php:1478
+msgid "OK"
+msgstr "정상"
+
+#: ../lib/setup.php:1483
+msgid "Valid admin email address given."
+msgstr "올바른 관리자 이메일 주소 주어짐."
+
+#: ../lib/setup.php:1491
+#, fuzzy
+msgid "You must specify valid admin email addresses."
+msgstr "올바른 관리자 이메일 주소를 지정하셔야 합니다."
+
+#: ../lib/setup.php:1500
+#, php-format
+msgid "%s is not a valid email address."
+msgstr "%s 는 올바른 이메일 주소가 아닙니다."
+
+#: ../lib/setup.php:1511
+msgid "Valid sender email address given."
+msgstr "올바른 전송자 이메일 주소 주어짐."
+
+#: ../lib/setup.php:1514
+#, fuzzy
+msgid "You must specify a valid sender email address."
+msgstr "올바른 이메일 주소를 지정하셔야 합니다."
+
+#: ../lib/setup.php:1518
+#, fuzzy, php-format
+msgid "You must include %s in your welcome email."
+msgstr "환영 이메일에 %s 를 포함시켜야 합니다."
+
+#: ../lib/setup.php:1525
+#, fuzzy, php-format
+msgid "You must include %s or %s in your welcome email."
+msgstr "환영 이메일에 %s 또는 %s 를 포함시켜야 합니다."
+
+#: ../lib/setup.php:1547
+#, fuzzy, php-format
+msgid "this is new in version %s."
+msgstr "이것은 %s 버전의 새 기능입니다."
+
+#: ../lib/setup.php:1552
+#, php-format
+msgid "Return to %s."
+msgstr "%s로 돌아가기."
+
+#: ../lib/setup.php:1553
+msgid "Configuration Wizard"
+msgstr "설정 마법사"
+
+#: ../lib/setup.php:1603
+#, php-format
+msgid "You must enter a password for the %s account."
+msgstr "%s 계정을 위한 비밀번호를 입력하셔야 합니다."
+
+#: ../lib/setup.php:1608
+#, fuzzy, php-format
+msgid "It seems you've already configured Gallery, because there is one admin account, but it is not called %s."
+msgstr "한 개의 관리자 계정이 있는 것으로 보아, 이미 갤러리를 설정한 것으로 보여지지만, %s 라 할 수는 없습니다."
+
+#: ../lib/setup.php:1611
+#, php-format
+msgid "It seems you've already configured Gallery, because there are %d admin accounts, but no user called %s."
+msgstr "%d 개의 관리자 계정이 있는 것으로 보아, 이미 갤러리를 설정한 것으로 보여지지만, %s 라 할 회원은 없습니다."
+
+#: ../lib/setup.php:1614
+#, php-format
+msgid "You don't have to enter a password.  But if you do, Gallery will create an administrator account called %s with that password."
+msgstr "비밀번호를 입력하지 않았습니다. 그래도 하시려면, 갤러리는 %s 의 비밀번호를 가진 관리자 계정을 생성하게 됩니다."
+
+#: ../lib/setup.php:1623
+#, php-format
+msgid "It seems you've already configured Gallery, because the %s user exists.  You don't have to enter a password.  But if you do, Gallery will change the password for the %s user."
+msgstr "%s 회원이 존재하는 것으로 보아 당신은 이미 갤러리를 설정한 것 같습니다. 비밀번호를 입력하실 필요가 없습니다. 그러나 입력하신다면, 갤러리는 %s 회원의 비밀번호를 변경할 겁니다."
+
+#: ../lib/setup.php:1629
+msgid "Admin password"
+msgstr "최고관리자 비밀번호"
+
+#: ../lib/setup.php:1644 ../lib/setup.php:1645 ../lib/setup.php:1646
+#: ../lib/setup.php:1650
+msgid "Full Name"
+msgstr "이름"
+
+#: ../lib/setup.php:1648
+msgid "Full name that you can click on to send email (mailto:)"
+msgstr "이메일 전송가능한 클릭 할 수 있는 이름 (mailto:)"
+
+#: ../lib/setup.php:1649
+msgid "Username that you can click on to send email (mailto:)"
+msgstr "이메일 전송 가능한 회원명 (mailto:)"
+
+#: ../lib/setup.php:1650 ../lib/setup.php:1651
+msgid "email address"
+msgstr "이메일 주소"
+
+#: ../lib/setup.php:1670
+#, fuzzy
+msgid "This should be fixed before proceeding."
+msgstr "진행하기 전에 고쳐져야 합니다"
+
+#: ../lib/setup.php:1671
+#, php-format
+msgid "Look at %sCheck Versions%s for more details."
+msgstr "상세한 설명을 숨기기 위해 %s여기를 클릭%s."
+
+#: ../lib/setup.php:1676
+#, php-format
+msgid "One file is newer then expected."
+msgid_plural "%d files are newer then expected."
+msgstr[0] ""
+
+#: ../lib/setup.php:1684
+#, fuzzy, php-format
+msgid "One file is out of date, corrupted or missing."
+msgid_plural "%d files are out of date, corrupted or missing."
+msgstr[0] "다음의 파일은 오래되었거나, 훼손되었거나, 분실되었습니다:<br>&nbsp;&nbsp;&nbsp;&nbsp;%s."
+
+#: ../lib/setup.php:1691
+#, php-format
+msgid "All %d tested files up-to-date."
+msgstr "모든 %d 테스트된 파일들 갱신됨."
+
+#: ../lib/setup.php:1712
+msgid "The manifest file is missing or unreadable.  Gallery is not able to perform a file version integrity check.  Please install this file and reload this page."
+msgstr ""
+
+#: ../lib/setup.php:1717
+#, php-format
+msgid "Please ensure that %s is the latest version. Gallery is not able to perform a file version integrity check.  Please install the correct version and reload this page."
+msgstr ""
+
+#: ../lib/setup.php:1724
+#, php-format
+msgid "Testing status of %d files."
+msgstr "%d 파일의 상태 확인중."
+
+#: ../lib/setup.php:1732
+#, php-format
+msgid "Cannot read file %s."
+msgstr "파일 %s 를 읽을 수 없습니다."
+
+#: ../lib/setup.php:1734
+msgid "File missing or unreadable."
+msgstr "파일이 없거나 읽기불가능."
+
+#: ../lib/setup.php:1750
+#, php-format
+msgid "Version information not found in %s.  File must be old version or corrupted."
+msgstr "버젼 정보가 %s 에서 발견되지 않았습니다. 파일이 오래되었거나 잘못되었습니다."
+
+#: ../lib/setup.php:1752
+msgid "Missing version"
+msgstr "잘못된 버젼"
+
+#: ../lib/setup.php:1758
+#, fuzzy, php-format
+msgid "Found Version: %s"
+msgstr "OK!  버젼: %s"
+
+#: ../lib/setup.php:1767
+#, php-format
+msgid "Problem with %s.  Expected version %s (or greater) but found %s."
+msgstr "%s 에 문제. 기대한 버젼은 %s (또는 이상)이지만 %s 발견됨."
+
+#: ../lib/setup.php:1770
+#, php-format
+msgid "Expected version %s (or greater) but found %s."
+msgstr "기대한 버젼은 %s (또는 이상)이지만 %s 가 검색되었습니다."
+
+#: ../lib/setup.php:1775
+#, fuzzy, php-format
+msgid "%s OK.  Actual version (%s) more recent than expected version (%s)."
+msgstr "%s OK. 실행되는 버젼(%s)은 기대한 버젼(%s)보다 최신입니다."
+
+#: ../lib/setup.php:1778
+#, php-format
+msgid "Expected version %s but found %s."
+msgstr "기대된 버젼은 %s 이지만 %s 가 발견되었습니다."
+
+#: ../lib/setup.php:1783
+#, fuzzy, php-format
+msgid "%s OK."
+msgstr "%s OK"
+
+#: ../lib/setup.php:1785
+#, php-format
+msgid "Found expected version %s."
+msgstr "기대한 버젼 %s 발견."
+
+#: ../lib/setup.php:1921
+msgid "This email will be sent when new accounts are created."
+msgstr "이 이메일은 새로운 계정이 생성될 때 전송됩니다."
+
+#: ../lib/setup.php:1922
+#, fuzzy
+msgid "Leaving this field empty sets Gallery to use the default message (see below) which can be translated, or use your own welcome message."
+msgstr "다른 언어로 번역될수 있는 기본 메세지를 얻으려면 이 필드를 공백으로 나두세요. 기본 메세지는:"
+
+#: ../lib/setup.php:1923
+#, fuzzy
+msgid "The following placeholder can be used:"
+msgstr "다음의 파일들이 갱신되었습니다."
+
+#: ../lib/setup.php:1935
+msgid "Current used welcome mail text"
+msgstr ""
+
+#: ../lib/setup.php:2003
+#, php-format
+msgid "File %s does not exist."
+msgstr "%s 파일은 존재하지 않습니다."
+
+#: ../lib/setup.php:2012
+#, php-format
+msgid "Expected status: %s, but actually received status %s."
+msgstr "기대된 상태: %s, 그러나 실제 받은 상태 %s."
+
+#: ../lib/setup.php:2025
+#, fuzzy
+msgid "can't detect version on Windows."
+msgstr "WIndows에서 버젼을 찾지 못했습니다."
+
+#: ../lib/setup.php:2036
+#, php-format
+msgid "OK!  Version: %s"
+msgstr "OK!  버젼: %s"
+
+#: ../lib/stats.php:31
+#, fuzzy, php-format
+msgid "Recursing album: %s"
+msgstr "잘못된 값"
+
+#: ../lib/stats.php:67
+msgid "Read cache num photos lock failed."
+msgstr ""
+
+#: ../lib/stats.php:91
+#, php-format
+msgid "Album name : %s ; index: %s"
+msgstr ""
+
+#: ../lib/stats.php:103 ../lib/stats.php:142
+msgid "Read cache lock failed."
+msgstr ""
+
+#: ../lib/stats.php:261
+#, fuzzy
+msgid "add vote"
+msgstr "%d 투표자"
+
+#: ../lib/stats.php:360
+#, fuzzy, php-format
+msgid "From album: %s"
+msgstr "앨범: %s"
+
+#: ../lib/stats.php:365
+#, fuzzy, php-format
+msgid "Owned by: %s"
+msgstr "Powered by %s v%s"
+
+#: ../lib/stats.php:397
+#, fuzzy
+msgid "Capture date:"
+msgstr "캡쳐일자"
+
+#: ../lib/stats.php:413
+#, fuzzy
+msgid "Upload date:"
+msgstr "업로드 날짜"
+
+#: ../lib/stats.php:430
+msgid "Viewed:"
+msgstr ""
+
+#: ../lib/stats.php:440
+msgid "Never viewed"
+msgstr ""
+
+#: ../lib/stats.php:437
+#, php-format
+msgid "Once"
+msgid_plural "%d times"
+msgstr[0] ""
+
+#: ../lib/stats.php:448
+#, fuzzy
+msgid "Votes:"
+msgstr "투표"
+
+#: ../lib/stats.php:462
+msgid "not rated"
+msgstr ""
+
+#: ../lib/stats.php:476
+msgid "Rating:"
+msgstr ""
+
+#: ../lib/valchecks.php:57
+msgid "The given frame is not valid."
+msgstr ""
+
+#: ../lib/valchecks.php:66
+msgid "Value was set to given default, because the original value is not in the allowed list of choices."
+msgstr ""
+
+#: ../lib/valchecks.php:69
+msgid "The given value is not in the allowed list of choices."
+msgstr ""
+
+#: ../lib/valchecks.php:80
+msgid "The given value is not an allowed filename."
+msgstr ""
+
+#: ../lib/valchecks.php:86
+msgid "Empty string is not allowed."
+msgstr ""
+
+#: ../lib/valchecks.php:103
+msgid "The value is not a valid Gallery integer."
+msgstr ""
+
+#: ../lib/valchecks.php:106
+msgid "The value is not a valid Gallery integer and was set to a given default."
+msgstr ""
+
+#: ../lib/valchecks.php:120
+msgid "The value is not an allowed string."
+msgstr ""
+
+#: ../lib/valchecks.php:123
+msgid "The value is not an allowed string and was set to a given default."
+msgstr ""
+
+#: ../lib/valchecks.php:586
+#, fuzzy
+msgid "No valid watermark image chosen."
+msgstr "워터마크명 정의 안됨!"
+
+#: ../lib/valchecks.php:593
+msgid "Please select a correct alignment."
+msgstr ""
+
+#: ../lib/valchecks.php:600
+msgid "Please select on which photos you want the watermark."
+msgstr ""
+
+#: ../lib/valchecks.php:607
+msgid "Do you want a preview or not?"
+msgstr ""
+
+#: ../lib/valchecks.php:616
+msgid "Field X and Y need to be filled correctly."
+msgstr ""
+
+#: ../lib/voting.php:219
+msgid "Vote"
+msgstr "투표"
+
+#: ../lib/voting.php:261
+#, fuzzy
+msgid "(Total points in brackets)"
+msgstr "괄호안은 총점수"
+
+#: ../lib/voting.php:265
+#, fuzzy
+msgid "(Average points in brackets)"
+msgstr "괄호안은 평균점수"
+
+#: ../lib/voting.php:285
+#, php-format
+msgid "Album: %s"
+msgstr "앨범: %s"
+
+#: ../lib/voting.php:316
+#, php-format
+msgid "1 voter"
+msgid_plural "%d voters"
+msgstr[0] "%d 투표자"
+
+#: ../lib/voting.php:329
+#, php-format
+msgid "Result from one voter"
+msgid_plural "Result of %d voters"
+msgstr[0] "%d 투표자의 결과"
+
+#: ../lib/voting.php:340
+#, php-format
+msgid "%s: %s points; "
+msgstr "%s: %s 점; "
+
+#: ../lib/voting.php:345
+#, php-format
+msgid "Key - %s"
+msgstr "키 - %s"
+
+#: ../lib/voting.php:373
+msgid "No votes"
+msgstr "투표 없음"
+
+#: ../lib/voting.php:386
+#, php-format
+msgid "Position %d overall, due to these votes:"
+msgstr ""
+
+#: ../lib/voting.php:395
+#, fuzzy, php-format
+msgid "One vote"
+msgid_plural "%d votes"
+msgstr[0] "%d 투표"
+
+#: ../js/moorainbow/mooRainbow.js.php:511
+#, fuzzy
+msgid "Select"
+msgstr "앨범 선택"
+
+#: ../js/moorainbow/mooRainbow.js.php:518
+#, fuzzy
+msgid "Close"
+msgstr "닫기"
+
+#: ../platform/fs_unix.php:133 ../platform/fs_win32.php:118
+#, php-format
+msgid "Gallery was not able to open dir: %s. <br>Please check permissions and existence"
+msgstr ""
+
+#~ msgid "Number %d overall."
+#~ msgstr "총 %d 번."
+
+#~ msgid "%s: %s"
+#~ msgstr "%s: %s"
+
+#~ msgid "Error:"
+#~ msgstr "에러:"
+
+#, fuzzy
+#~ msgid "%d files are more recent than expected.  This is OK if you are using pre-release, beta, SVN or modified code."
+#~ msgstr "%d개 파일은 기대한 것보다 최신입니다. 당신이 pre-release, 베타, CVS 또는 수정된 코드를 사용하신다면 관계없습니다."
+
+#~ msgid "All tested files up-to-date."
+#~ msgstr "모든 테스트된 파일들이 갱신됨."
+
+#~ msgid "Can't find <i>jpegtran</i>!"
+#~ msgstr "<i>jpegtran</i>를 찾을 수 없습니다!"
+
+#~ msgid "File missing or unreadable.  Please install then re-run this test."
+#~ msgstr "파일이 없거나 읽기 불가능. 설치하시고 이 테스트를 다시 실행하세요."
+
+#~ msgid "Please ensure that %s is the latest version."
+#~ msgstr "%s가 최신 버젼이어야 합니다."
+
+#~ msgid "Maximum dimensions of full sized images"
+#~ msgstr "전체 크기 이미지의 최대 크기"
+
+#, fuzzy
+#~ msgid "New comment for %s"
+#~ msgstr "코멘트 보기"
+
+#, fuzzy
+#~ msgid "both"
+#~ msgstr "둘다"
+
+#~ msgid "FAILED"
+#~ msgstr "실패함"
+
+#~ msgid "No votes so far."
+#~ msgstr "투표 없음."
