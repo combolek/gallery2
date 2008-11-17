@@ -87,7 +87,7 @@ if (!empty($username) && !empty($gallerypassword) && !empty($login)) {
 			header("Location: $g1_return");
 		}
 		else {
-			echo '<span class="g-attention">'. gTranslate('core', "SUCCEEDED") . '</span><p>';
+			echo '<span class="error">'. gTranslate('core', "SUCCEEDED") . '</span><p>';
 			return;
 		}
 	}
@@ -113,7 +113,7 @@ if (!empty($username) && !empty($gallerypassword) && !empty($login)) {
 
 		$userLogins->addLoginTry($username);
 		$userLogins->save();
-	}
+}
 }
 elseif (!empty($login) && empty($forgot)) {
 	$loginFailure[] = array(
@@ -132,12 +132,13 @@ elseif (!empty($forgot) && !empty($reset_username)) {
 
 	if ($tmpUser) {
 		if (check_email($tmpUser->getEmail())) {
-			if (gallery_mail($tmpUser->email,
-				  gTranslate('core', "New password request"),
-				  sprintf(gTranslate('core', "Someone requested a new password for user %s from Gallery '%s' on %s. You can create a password by visiting the link below. If you didn't request a password, please ignore this mail. "), $reset_username, $gallery->app->galleryTitle, $gallery->app->photoAlbumURL) . "\n\n" .
-				  sprintf(gTranslate('core', "Click to reset your password: %s"),
-				  $tmpUser->genRecoverPasswordHash()) . "\n",
-				  sprintf(gTranslate('core', "New password request %s"), $reset_username)))
+			if (gallery_mail(
+				$tmpUser->email,
+				gTranslate('core', "New password request"),
+				sprintf(gTranslate('core', "Someone requested a new password for user %s from Gallery '%s' on %s. You can create a password by visiting the link below. If you didn't request a password, please ignore this mail. "), $reset_username, $gallery->app->galleryTitle, $gallery->app->photoAlbumURL) . "\n\n" .
+				sprintf(gTranslate('core', "Click to reset your password: %s"),
+				$tmpUser->genRecoverPasswordHash()) . "\n",
+				sprintf(gTranslate('core', "New password request %s"), $reset_username)))
 			{
 				$tmpUser->log("new_password_request");
 				$tmpUser->save();
@@ -146,8 +147,8 @@ elseif (!empty($forgot) && !empty($reset_username)) {
 				$resetInfo[] = array(
 					'type' => 'error',
 					'text' => gTranslate('core', "Email could not be sent.") .
-							  "<br>"  .
-							  sprintf(gTranslate('core', "Please contact %s administrators for a new password."), $gallery->app->galleryTitle)
+						"<br>"  .
+						sprintf(gTranslate('core', "Please contact %s administrators for a new password."), $gallery->app->galleryTitle)
 				);
 			}
 		}
@@ -161,12 +162,14 @@ elseif (!empty($forgot) && !empty($reset_username)) {
 	}
 }
 
+$title = sprintf(gTranslate('core', "Login to %s"), $gallery->app->galleryTitle);
+
 if (!$GALLERY_EMBEDDED_INSIDE) {
-	doctype();
+doctype();
 ?>
 <html>
 <head>
-  <title><?php echo clearGalleryTitle(gTranslate('core', "Login")); ?></title>
+  <title><?php echo sprintf(gTranslate('core', "Login to %s"), $gallery->app->galleryTitle) ?></title>
   <?php
 	common_header();
 ?>
@@ -174,24 +177,29 @@ if (!$GALLERY_EMBEDDED_INSIDE) {
 <body>
 <?php
 }
-includeTemplate("gallery.header", '', 'classic');
 
-$adminbox['text']	= '<span class="g-title">'. gTranslate('common', "Login") .'</span>';
-$adminbox['commands']	= languageSelector();
+includeHtmlWrap("gallery.header");
 
-includeLayout('adminbox.inc');
+$breadcrumb['text'][]	= languageSelector();
+?>
 
-includeTemplate("headerbox.footer");
+<div class="popuphead"><?php echo sprintf(gTranslate('core', "Login to %s"), $gallery->app->galleryTitle) ?></div>
+<div class="popup" align="center">
+	<?php echo gTranslate('core', "Logging in gives you greater permission to view, create, modify and delete albums.") ?>
+</div>
+
+<?php
+
+includeLayout('breadcrumb.inc');
+
+echo "\n<br>";
+
+echo infoBox($loginFailure);
+echo "\n<br>";
 
 ?>
 
-<div class="g-sitedesc">
-	<?php echo gTranslate('core', "Logging in gives you greater permission to view, create, modify and delete albums."); ?>
-</div>
-<div class="g-album-vertical-spacer"></div>
-
-<?php echo infoBox($loginFailure); ?>
-<div class="g-loginpage">
+<div class="g-loginpage popup" align="center">
 <fieldset>
 <legend class="g-emphasis"><?php echo gTranslate('common', "Login") ?></legend>
 <?php
@@ -199,64 +207,67 @@ echo makeFormIntro('login.php', array('name' => 'loginForm'));
 ?>
  	<table>
 <?php
-	echo gInput('text', 'username', gTranslate('core', "_Username"), true, $username,array('class' => 'g-form-text g-usernameInput'));
+	echo gInput('text', 'username', gTranslate('core', "Username"), true, $username,array('class' => 'g-form-text g-usernameInput'));
 
-	echo gInput('password', 'gallerypassword', gTranslate('core', "_Password"), true, null, array('class' => 'g-form-text g-passwordInput'));
+	echo gInput('password', 'gallerypassword', gTranslate('core', "Password"), true, null, array('class' => 'g-form-text g-passwordInput'));
 ?>
 	</table>
 
- 	<p align="center">
-	<?php echo gSubmit('login', gTranslate('core', "Log_in")); ?>
-	<?php echo gButton('cancel', gTranslate('core', "_Cancel"), "location.href='$g1_return'"); ?>
+	<p align="center">
+	<?php echo gSubmit('login', gTranslate('core', "Login")); ?>
+	<?php echo gButton('cancel', gTranslate('core', "Cancel"), "location.href='$g1_return'"); ?>
 	</p>
 
 	<?php echo gInput('hidden', 'g1_return', '', false, urlencode($g1_return)); ?>
 	</form>
 </fieldset>
 
-<?php
-if (isset($gallery->app->emailOn) && $gallery->app->emailOn == 'yes') {
-?>
+	<?php
+	if (isset($gallery->app->emailOn) && $gallery->app->emailOn == 'yes') {
+	?>
 
 <fieldset>
     <legend class="g-sectioncaption g-emphasis"><?php echo gTranslate('core', "Forgotten your password?") ?></legend>
-<?php
+					<?php
   echo makeFormIntro('login.php', array('name' => 'resetForm'));
 	echo infoBox($resetInfo);
 
 	echo gInput('text', 'reset_username', gTranslate('core', "Username"), false, $username, array('class' => 'g-form-text g-usernameInput'));
 	echo "\n<p align=\"center\">";
-	echo gSubmit('forgot', gTranslate('core', "_Send me my password"));
+	echo gSubmit('forgot', gTranslate('core', "Send me my password"));
 	echo "\n</p>";
 ?>
 
-  </form>
+	</form>
 </fieldset>
 
-<?php } /* End if-email-on */
+	<?php } /* End if-email-on */
 
-if ($gallery->app->selfReg == 'yes') {
-?>
+	if ($gallery->app->selfReg == 'yes') {
+	?>
 <fieldset>
     <legend class="g-sectioncaption g-emphasis"><?php echo gTranslate('core', "No account at all?"); ?></legend>
     <div class="center">
-	<?php echo gButton('register', gTranslate('core', "_Register a new account."), popup('register.php')); ?>
+	<?php echo gButton('register', gTranslate('core', "Register a new account."), popup('register.php')); ?>
 	</div>
 </fieldset>
-<?php
-}
-?>
+	<?php
+	}
+	?>
 
-<script language="javascript1.2" type="text/JavaScript">
-<!--
-// position cursor in top form field
-document.loginForm.username.focus();
-//-->
-</script>
+	<script language="javascript1.2" type="text/JavaScript">
+	<!--
+	// position cursor in top form field
+	document.loginForm.username.focus();
+	//-->
+	</script>
+
 
 </div>
-<?php require_once(GALLERY_BASE .'/templates/info_donation-block.tpl.default'); ?>
-<?php includeTemplate("overall.footer"); ?>
+<?php
+	includeHtmlWrap("gallery.footer");
+?>
+
 </body>
 </html>
 

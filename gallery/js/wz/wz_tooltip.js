@@ -51,7 +51,7 @@ var config = new Object();
 //===================  GLOBAL TOOLTIP CONFIGURATION  =========================//
 var tt_Debug	= false		// false or true - recommended: false once you release your page to the public
 var tt_Enabled	= true		// Allows to (temporarily) suppress tooltips, e.g. by providing the user with a button that sets this global variable to false
-var TagsToTip	= false		// false or true - if true, HTML elements to be converted to tooltips via TagToTip() are automatically hidden;
+var TagsToTip	= true		// false or true - if true, HTML elements to be converted to tooltips via TagToTip() are automatically hidden;
 				// if false, you should hide those HTML elements yourself
 
 // For each of the following config variables there exists a command, which is
@@ -101,7 +101,7 @@ config. TextAlign		= 'left'	// 'left', 'right' or 'justify'
 config. Title			= ''		// Default title text applied to all tips (no default title: empty string '')
 config. TitleAlign		= 'left'	// 'left' or 'right' - text alignment inside the title bar
 config. TitleBgColor		= ''		// If empty string '', BorderColor will be used
-config. TitleFontColor		= ''		// Color of title text - if '', BgColor (of tooltip body) will be used
+config. TitleFontColor		= ''	// Color of title text - if '', BgColor (of tooltip body) will be used
 config. TitleFontFace		= ''		// If '' use FontFace (boldified)
 config. TitleFontSize		= ''		// If '' use FontSize
 config. TitlePadding		= 0
@@ -110,6 +110,7 @@ config. Width			= 0		// Tooltip width; 0 for automatic adaption to tooltip conte
 //=======  END OF TOOLTIP CONFIG, DO NOT CHANGE ANYTHING BELOW  ==============//
 
 config. ToolTipCss		= '';
+
 
 //=====================  PUBLIC  =============================================//
 function Tip()

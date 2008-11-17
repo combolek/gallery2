@@ -17,7 +17,7 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
 *
-* $Id$
+* $Id: filetypes.php 16662 2007-06-19 16:24:02Z jenst $
 */
 
 /**

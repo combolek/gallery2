@@ -65,7 +65,10 @@ else {
 /* Set Language etc. */
 	initLanguage();
 
-/*
+/* We do this to get the config stylesheet */
+    $GALLERY_OK = false;
+
+/* 
  * Turn off magic quotes runtime as they interfere with saving and
  * restoring data from our file-based database files
  */

@@ -162,7 +162,7 @@ foreach ($rssAlbumList as $album) {
 		method_exists($album, "canViewComments") && $album->canViewComments($gallery->user->uid))
 	{
 		$albumInfo["comments"] = makeGalleryUrl("view_comments.php",
-						array("set_albumName" => $album->fields["name"]));
+		array("set_albumName" => $album->fields["name"]));
 	}
 
 	// PHEED AND PHOTO TAGS

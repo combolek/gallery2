@@ -23,10 +23,10 @@ if(!includeTemplate('navphoto.tpl')) {
 		$width=' width="'. $navigator["fullWidth"] . $navigator["widthUnits"] .'"';
 	}
 
-	$fpAltText = gTranslate('core', "_First Photo");
-	$ppAltText = gTranslate('core', "_Previous Photo");
-	$npAltText = gTranslate('core', "_Next Photo");
-	$lpAltText = gTranslate('core', "_Last Photo");
+	$fpAltText = gTranslate('core', "First Photo");
+	$ppAltText = gTranslate('core', "Previous Photo");
+	$npAltText = gTranslate('core', "Next Photo");
+	$lpAltText = gTranslate('core', "Last Photo");
 
 	include(dirname(dirname(__FILE__)) .'/includes/definitions/navIcons.php');
 
@@ -112,14 +112,14 @@ if(!includeTemplate('navphoto.tpl')) {
 	}
 ?>
 <!-- 'Classic' Photo Navigator -->
-<table cellspacing="0" cellpadding="0" id="<?php echo $id; ?>" dir="<?php echo $gallery->direction; ?>">
+<table <?php echo $width ?> cellspacing="0" cellpadding="0" id="<?php echo $id; ?>" dir="<?php echo $gallery->direction; ?>">
 <tr>
 	<td class="arrows <?php echo $pClass ?>" width="25" height="18"><?php echo $fpContent ?></td>
 	<td class="arrows <?php echo $pClass ?>" width="25" height="18"><?php echo $ppContent ?></td>
 	<td height="18"><?php echo $mpContent; ?></td>
 	<td class="arrows <?php echo $nClass ?>" width="25" height="18"><?php echo $npContent ?></td>
 	<td class="arrows <?php echo $nClass ?>" width="25" height="18"><?php echo $lpContent ?></td>
-	<td class="right <?php echo $nClass ?>" width="100" height="18"><?php echo $goto ?></td>
+	<td style="text-align: right" class="<?php echo $nClass ?>" width="100" height="18"><?php echo $goto ?></td>
 </tr>
 </table>
 <?php

@@ -1,7 +1,7 @@
 <?php
 /**
  * Gallery SVN info
- * $Id: Browser.php 14237 2006-08-09 05:00:16Z jenst $
+ * $Id$
  */
 
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
@@ -26,9 +26,9 @@
  */
 
 if (! class_exists('xml_htmlsax3_stateparser')) {
-	require_once(dirname(dirname(__FILE__)) .'/XML_HTMLSax3/HTMLSax3.php');
+    require_once(dirname(dirname(__FILE__)) .'/XML_HTMLSax3/HTMLSax3.php');
 }
- 
+
 /**
  *
  * HTML_Safe Parser
@@ -37,15 +37,15 @@ if (! class_exists('xml_htmlsax3_stateparser')) {
  * <ul>
  * <li>opening tag without its closing tag</li>
  * <li>closing tag without its opening tag</li>
- * <li>any of these tags: "base", "basefont", "head", "html", "body", "applet", 
- * "object", "iframe", "frame", "frameset", "script", "layer", "ilayer", "embed", 
+ * <li>any of these tags: "base", "basefont", "head", "html", "body", "applet",
+ * "object", "iframe", "frame", "frameset", "script", "layer", "ilayer", "embed",
  * "bgsound", "link", "meta", "style", "title", "blink", "xml" etc.</li>
  * <li>any of these attributes: on*, data*, dynsrc</li>
  * <li>javascript:/vbscript:/about: etc. protocols</li>
  * <li>expression/behavior etc. in styles</li>
  * <li>any other active content</li>
  * </ul>
- * It also tries to convert code to XHTML valid, but htmltidy is far better 
+ * It also tries to convert code to XHTML valid, but htmltidy is far better
  * solution for this task.
  *
  * <b>Example:</b>
@@ -62,7 +62,7 @@ if (! class_exists('xml_htmlsax3_stateparser')) {
  * @version    Release: @package_version@
  * @link       http://pear.php.net/package/HTML_Safe
  */
-class HTML_Safe 
+class HTML_Safe
 {
     /**
      * Storage for resulting HTML output
@@ -71,7 +71,7 @@ class HTML_Safe
      * @access private
      */
     var $_xhtml = '';
-    
+
     /**
      * Array of counters for each tag
      *

@@ -71,8 +71,7 @@ echo "\n<br><br>". gTranslate('core', "Files:");
 
 <p><?php
     echo gTranslate('core', "Do the same for optional metafiles.");
-    echo popup_link(gImage('icons/help.gif', gTranslate('common', "Help")), 'help/metadataOnUpload.php',
-	 false, false, 550, 600, '', '', '', false, false);
+    echo popup_link(gImage('icons/help.gif', gTranslate('core', "Help")), 'help/metadataOnUpload.php', 0, true, 550, 600, '', '', '', false);
 ?>
 </p>
 <input id="trash_metafile" type="file">
@@ -104,9 +103,9 @@ if (isset($gallery->app->watermarkDir)) {
 	includeLayout('watermarkform.inc');
 }
 ?>
-<p align="center">
-	<?php echo gButton('upload', gTranslate('core', "_Upload Now"), 'parent.opener.showProgress(); document.upload_form.submit()'); ?>
-	<?php echo gButton('cancel', gTranslate('core', "_Cancel"), 'parent.close()'); ?>
-</p>
+	<p align="center">
+	<?php echo gButton('upload', gTranslate('core', "Upload Now"), 'parent.opener.showProgress(); document.upload_form.submit()'); ?>
+	<?php echo gButton('cancel', gTranslate('core', "Cancel"), 'parent.close()'); ?>
+	</p>
 
-</form>
+	</form>

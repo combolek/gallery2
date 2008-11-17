@@ -353,7 +353,7 @@ class Gallery_UserDB extends Abstract_UserDB {
 		}
 
 		if (strlen($username) < 2) {
-			return sprintf(gTranslate('core', "Username '%s' is to short. Must be at least 2 characters."),
+			return sprintf(gTranslate('core', "Username '%s' is too short. Must be at least 2 characters."),
 				$saveToDisplayUserName);
 		}
 

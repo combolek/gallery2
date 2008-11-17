@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * $Id$
-*/
+ */
 
 /*
  * DEVELOPERS.  PLEASE READ!!!
@@ -32,9 +32,7 @@
  *    change the JS to fix bugs.
  *
  *       Thanks
-*/
-?>
-<?php
+ */
 
 /**
  * Functions for the 'low' slideshow for older browsers.
@@ -111,17 +109,17 @@ function slideshow_body() {
         $photoURL, $caption, $imageDir, $pixelImage, $number;
 ?>
 <script type="text/javascript">
-	var timer;
-	var current_location = <?php echo $slide_index ?>;
-	var next_location = <?php echo $slide_index ?>;
-	var pics_loaded = 0;
-	var onoff = 0;
-	var timeout_value;
-	var images = new Array;
-	var photo_urls = new Array;
-	var photo_captions = new Array;
-	var loop = <?php echo $slide_loop ?>;
-	var full = <?php echo $slide_full ?>;
+var timer;
+var current_location = <?php echo $slide_index ?>;
+var next_location = <?php echo $slide_index ?>;
+var pics_loaded = 0;
+var onoff = 0;
+var timeout_value;
+var images = new Array;
+var photo_urls = new Array;
+var photo_captions = new Array;
+var loop = <?php echo $slide_loop ?>;
+var full = <?php echo $slide_full ?>;
 var direction = <?php echo $slide_dir ?>;
 <?php
 
@@ -311,7 +309,7 @@ function slideshow_controlPanel() {
         $backwardIconText, $normalSizeIconText, $fullSizeIconText,
         $loopIconText;
 ?>
-<form name="TopForm" action="#">
+<form name="TopForm" style="margin:0px" action="#">
 <?php
 $iconElements[] = '<a href="#" onClick="stop(); return false;">'. $stopIconText .'</a>';
 $iconElements[] = '<a href="#" onClick="play(); return false;">'. $playIconText .'</a>';
@@ -345,7 +343,7 @@ $iconElements[] = drawSelect("time", array(
     60 => gTranslate('core', "1 Minute")),
     $defaultPause, // default value
     1, // select size
-    array('onchange' => 'reset_timer()', 'class' => 'g-admin')
+    array('onchange' => 'reset_timer()', 'class' => 'adminform')
 );
 
 if ($loop) {
@@ -373,24 +371,39 @@ function slideshow_image() {
 <?php
 if ($photo_count > 0) {
 ?>
+
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+	<td>
 	<script type="text/javascript">
-	document.write('<img border="<?php echo $borderwidth ?>" bgcolor="<?php echo $borderColor ?>" src="' + photo_urls[<?php echo $slide_index ?>] + '" name="slide">');
+	    document.write("<img border==<?php echo $borderwidth ?> bgcolor=<?php echo $borderColor ?> src="+photo_urls[<?php echo $slide_index ?>]+" name=slide>");
 	</script>
+</tr>
+</table>
 
-	<br>
+<br>
 
-    <script type="text/javascript">
-    /* show the caption either in a nice div or an ugly form textarea */
-    document.write('<div class="g-photo-caption">[' + current_location + ' <?php echo gTranslate('core', "of") ?> ' + photo_count + '] ' + photo_captions[<?php echo $slide_index ?>] + '<\/div>');
+<script type="text/javascript">
+/* show the caption either in a nice div or an ugly form textarea */
+document.write("<div class='pcaption'>" + "[" + current_location + " <?php echo gTranslate('core', "of") ?> " + photo_count + "] " + photo_captions[<?php echo $slide_index ?>] + "</div>");
 
-    /* Start the show. */
-    play();
+/* Start the show. */
+play();
 
-    </script>
+</script>
+
 <?php
-}
-else {
-    echo "<p><b>". gTranslate('core', "This album has no photos to show in a slide show.") ."</b></p>";
+} else {
+?>
+
+<br><b><?php echo gTranslate('core', "This album has no photos to show in a slide show.") ?></b>
+<br><br>
+<span class="admin">
+<a href="<?php echo makeGalleryUrl("view_album.php",
+array("set_albumName" => $gallery->session->albumName)) ?>">[<?php echo gTranslate('core', "back to album") ?>]</a>
+</span>
+
+<?php
 }
 ?>
 </div>

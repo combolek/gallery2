@@ -33,8 +33,11 @@ if (empty ($gallery->album) || !$gallery->album->isLoaded()) {
 }
 
 // Further hack check
-if (!$gallery->user->canViewComments($gallery->album) &&
-	(! isset($gallery->app->comments_overview_for_all) || $gallery->app->comments_overview_for_all != "yes"))
+if (! ($gallery->app->comments_enabled == 'yes' ||
+       $gallery->user->isAdmin() ||
+       $gallery->user->isOwnerOfAlbum($gallery->album) ||
+       ( $gallery->user->canViewComments($gallery->album) && isset($gallery->app->comments_overview_for_all) && $gallery->app->comments_overview_for_all == "yes")
+      ))
 {
 	printPopupStart(gTranslate('core', "View Comments"));
 	showInvalidReqMesg();
@@ -53,16 +56,22 @@ $bordercolor = $gallery->album->fields["bordercolor"];
 $breadcrumb["text"] = returnToPathArray($gallery->album, true);
 $breadcrumb["bordercolor"] = $bordercolor;
 
+$breadcrumb["top"] = true;
+$breadcrumb["bottom"] = true;
+
 $adminCommandIcons   = array();
 $adminCommandIcons[] = galleryIconLink(makeAlbumUrl($gallery->session->albumName),
 						'navigation/return_to.gif',
-						gTranslate('core', "Return to _album"));
+						gTranslate('core', "Return to album"));
 
 $adminCommandIcons[] = LoginLogoutButton();
 
 $adminbox['text']	 = gTranslate('core', "Comments for this Album");
 $adminbox['commands']	 = makeIconMenu($adminCommandIcons, 'right');
 $adminbox['bordercolor'] = $bordercolor;
+
+$navigator['fullWidth'] = '100';
+$navigator['widthUnits'] ='%';
 
 if (!$GALLERY_EMBEDDED_INSIDE) {
 	doctype();
@@ -71,47 +80,43 @@ if (!$GALLERY_EMBEDDED_INSIDE) {
 <head>
   <title><?php echo $gallery->app->galleryTitle ?> :: <?php echo $gallery->album->fields["title"] ?></title>
   <?php echo getStyleSheetLink() ?>
-  <?php
-  if( !empty($gallery->album->fields["linkcolor"]) ||
-  	  !empty($gallery->album->fields["bgcolor"]) ||
-  	  !empty($gallery->album->fields["textcolor"]))
-  {
-  	echo "\n<style type=\"text/css\">";
-  	// the link colors have to be done here to override the style sheet
-  	if ($gallery->album->fields["linkcolor"]) {
-  		echo "\n  a:link, a:visited, a:active {";
-  		echo "\n		color: ".$gallery->album->fields['linkcolor'] ."; }";
-  		echo "\n  a:hover { color: #ff6600; }";
+  <style type="text/css">
+<?php
+// the link colors have to be done here to override the style sheet
+if ($gallery->album->fields["linkcolor"]) {
+	?>
+    A:link, A:visited, A:active
+      { color: <?php echo $gallery->album->fields[linkcolor] ?>; }
+    A:hover
+      { color: #ff6600; }
+<?php
+}
+if ($gallery->album->fields["bgcolor"]) {
+	echo "BODY { background-color:".$gallery->album->fields[bgcolor]."; }";
+}
 
-  	}
-  	if ($gallery->album->fields["bgcolor"]) {
-  		echo "body { background-color:".$gallery->album->fields['bgcolor']."; }";
-  	}
+if ($gallery->album->fields["background"]) {
+	echo "BODY { background-image:url(".$gallery->album->fields[background]."); } ";
+}
 
-  	if (isset($gallery->album->fields['background']) && $gallery->album->fields['background']) {
-  		echo "body { background-image:url(".$gallery->album->fields['background']."); } ";
-  	}
-
-  	if ($gallery->album->fields["textcolor"]) {
-  		echo "body, tf {color:".$gallery->album->fields['textcolor']."; }";
-  		echo ".head {color:".$gallery->album->fields['textcolor']."; }";
-  		echo ".headbox {background-color:".$gallery->album->fields['bgcolor']."; }";
-  	}
-
-  	echo "\n  </style>";
-  }
-  ?>
+if ($gallery->album->fields["textcolor"]) {
+	echo "BODY, TD {color:".$gallery->album->fields[textcolor]."; }";
+	echo ".head {color:".$gallery->album->fields[textcolor]."; }";
+	echo ".headbox {background-color:".$gallery->album->fields[bgcolor]."; }";
+}
+?>
+  </style>
 </head>
 
-<body>
+<body dir="<?php echo $gallery->direction ?>">
 <?php }
 
 /* User maybe wants to delete comments */
-list($index, $comment_index, $delete_comments) = getRequestVar(array('index', 'comment_index', 'delete_comments'));
+list($index, $comment_index, $submit) = getRequestVar(array('index', 'comment_index', 'submit'));
 
-if (!empty($delete_comments) && $gallery->user->canWriteToAlbum($gallery->album) &&
+if (!empty($submit) && $gallery->user->canWriteToAlbum($gallery->album) &&
     !empty($comment_index) &&
-	!empty($index) && $comment_index[$index])
+    !empty($index) && $comment_index[$index])
 {
 	$saveMsg = '';
 	/* First we reverse the index array, as we want to delete backwards */
@@ -139,14 +144,16 @@ if (!empty($delete_comments) && $gallery->user->canWriteToAlbum($gallery->album)
 	}
 }
 
-includeTemplate('album.header');
+includeHtmlWrap("album.header");
 
+includeLayout('navtablebegin.inc');
 includeLayout('adminbox.inc');
-
+includeLayout('navtablemiddle.inc');
 includeLayout('breadcrumb.inc');
+includeLayout('navtableend.inc');
 
 if (!$gallery->user->canViewComments($gallery->album)) {
-	echo "<p>". gallery_error(gTranslate('core', "Sorry.  You are not allowed to see comments of this album.")) ."</p>";
+	echo "<p>". gallery_error(_("Sorry.  You are not allowed to see comments of this album.")) ."</p>";
 }
 else {
 	$numPhotos = $gallery->album->numPhotos(1);
@@ -163,13 +170,16 @@ else {
 
 			if ( $myAlbum->lastCommentDate("no") != -1 &&
 				((!$gallery->album->isHidden($i) && $gallery->user->canReadAlbum($myAlbum)) ||
-				$gallery->user->isAdmin() ||
-				$gallery->user->isOwnerOfAlbum($gallery->album) ||
-				$gallery->user->isOwnerOfAlbum($myAlbum)))
+				 $gallery->user->isAdmin() ||
+				 $gallery->user->isOwnerOfAlbum($gallery->album) ||
+				 $gallery->user->isOwnerOfAlbum($myAlbum)
+				)
+			   )
 			{
-				$subAlbum = true;
+				$embeddedAlbum = 1;
 				$myHighlightTag = $myAlbum->getHighlightTag();
-				require(dirname(__FILE__) .'/templates/commentbox.tpl.default');
+				includeLayout('commentboxtop.inc');
+				includeLayout('commentboxbottom.inc');
 			}
 		}
 		elseif (!$gallery->album->isHidden($i) ||
@@ -179,23 +189,30 @@ else {
 		{
 			$comments = $gallery->album->numComments($i);
 			if($comments > 0) {
-				require(dirname(__FILE__) .'/templates/commentbox.tpl.default');
+				includeLayout('commentboxtop.inc');
+
+				for($j = 1; $j <= $comments; $j++) {
+					$comment = $gallery->album->getComment($index, $j);
+					includeLayout('commentbox.inc');
+				}
+
+				includeLayout('commentboxbottom.inc');
 			}
 		}
-
-		$subAlbum = false;
+		$embeddedAlbum = 0;
 		$i = getNextPhoto($i);
 	}
 }
-
+$breadcrumb["top"] = true;
+$breadcrumb["bottom"] = true;
+includeLayout('navtablebegin.inc');
 includeLayout('breadcrumb.inc');
+includeLayout('navtableend.inc');
 
 echo languageSelector();
-
-// Its better not to touch anything below this.
-includeTemplate('info_donation-block');
-
-includeTemplate("overall.footer");
+$validation_file = 'view_comments.php';
+$validation_args = array('set_albumName' => $gallery->session->albumName);
+includeHtmlWrap("general.footer");
 
 if (!$GALLERY_EMBEDDED_INSIDE) { ?>
 

@@ -29,10 +29,10 @@ configLogin(basename(__FILE__));
 ?>
 <script type="text/javascript" src="../js/toggle.js.php"></script>
 
-<div class="g-sitedesc left"><?php
+<div class="sitedesc"><?php
 	printf(gTranslate('config', "This page gives you information about the version of each necessary %s file. "),Gallery());
 	echo "\n<br>";
-	echo gTranslate('config', "If you see any errors, we highly suggest to get the actual version of those files.");
+	echo gTranslate('config', "If you see any error(s), we highly suggest to get the actual version of those files.");
 ?></div>
 <br>
 <?php
@@ -124,7 +124,7 @@ if(!empty($versionStatus['fail'])) {
 </div>
 
 <div class="center">
-	<?php echo returnToDiag(); ?><?php echo returnToConfig(); ?>
+	<?php echo returnToConfig(); ?>
 </div>
 
 </body>

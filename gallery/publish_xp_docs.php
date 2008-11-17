@@ -24,7 +24,7 @@ require_once(dirname(__FILE__) . '/init.php');
 
 printPopupStart(gTranslate('core', "Publishing with Windows XP"), '', 'left');
 
-echo '<p class="g-sitedesc">';
+echo '<p class="desc">';
 echo gTranslate('core', "Windows XP comes with a nice feature that allows you to publish content from your desktop directly to a web service.");
 echo gTranslate('core', "It's relatively easy to configure.");
 
@@ -34,11 +34,12 @@ echo gTranslate('core', "It's relatively easy to configure.");
 
   <div class="center g-emphasis"><?php echo gTranslate('core', "Step 1") ?></div>
 
-  <div class="g-albumdesc-cell">
+  <div class="albumdesc">
 <?php
-	echo sprintf(gTranslate('core', "Download the %sXP Configuration File%s"),
-		'<a href="'.makeGalleryUrl('publish_xp.php').'">', '</a>');
-	echo sprintf(gTranslate('core', "Save this file on your PC and rename it %s."), '"install_registry.reg"');
+	printf(gTranslate('core', "Download the %sXP Configuration File%s."),
+		'<a class="g-emphasis" href="'.makeGalleryUrl('publish_xp.php').'">', '</a>');
+	echo '  ';
+	printf(gTranslate('core', "Save this file on your PC and rename it %s."), '"install_registry.reg"');
 	echo "\n<br>";
 	echo gTranslate('core', "If it asks you for confirmation about changing the file type, answer &quot;yes&quot;.");
 	echo "\n<br>";
@@ -53,7 +54,7 @@ echo gTranslate('core', "It's relatively easy to configure.");
 ?>
   </div>
 
-  <br>
+<br>
   <div class="center g-emphasis"><?php echo gTranslate('core', "Step 2") ?></div>
 
   <div class="g-albumdesc-cell">

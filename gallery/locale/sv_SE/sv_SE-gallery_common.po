@@ -18,8 +18,7 @@
 # $Id$
 #
 #
-# @version      1.5.2
-# @version      1.5.3-cvs
+# @version      1.5.6
 # @package	Languagepack
 # @subpackage	Swedish
 # @author	Christian Wallin <crille AT swipnet DOT se>, 2002-2003.
@@ -28,9 +27,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery 1.5.2-cvs\n"
+"Project-Id-Version: Gallery 1.5_LEGACY\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2008-09-23 14:00+0200\n"
+"POT-Creation-Date: 2008-11-18 00:02+0100\n"
 "PO-Revision-Date: 2005-09-14 10:00+0100\n"
 "Last-Translator: Peter Liversten <skansberget AT telia DOT com>\n"
 "Language-Team: Swedish <gallery-devel@lists.sourceforge.net>\n"
@@ -41,266 +40,240 @@ msgstr ""
 "X-Poedit-Language: Swedish\n"
 "X-Poedit-Country: SWEDEN\n"
 
-#: ../includes/definitions/albumProperties.php:38
-#, fuzzy
-msgid "_Texts"
+#: ../includes/definitions/albumProperties.php:39
+msgid "Texts"
 msgstr "Texter"
 
-#: ../includes/definitions/albumProperties.php:42
-#, fuzzy
+#: ../includes/definitions/albumProperties.php:43
 msgid "Album Title"
 msgstr "Albumtitel:"
 
-#: ../includes/definitions/albumProperties.php:49
+#: ../includes/definitions/albumProperties.php:50
 #, fuzzy
 msgid "Album summary"
 msgstr "Albumsammanfattning:"
 
-#: ../includes/definitions/albumProperties.php:61
-#, fuzzy
-msgid "_Layout"
+#: ../includes/definitions/albumProperties.php:63
+msgid "Layout"
 msgstr "Utseende"
 
-#: ../includes/definitions/albumProperties.php:65
-#, fuzzy
+#: ../includes/definitions/albumProperties.php:67
 msgid "Background Image (URL)"
 msgstr "Bakgrundsbild (URL)"
 
-#: ../includes/definitions/albumProperties.php:71
+#: ../includes/definitions/albumProperties.php:73
 msgid "Font"
 msgstr "Teckensnitt:"
 
-#: ../includes/definitions/albumProperties.php:77
+#: ../includes/definitions/albumProperties.php:79
 msgid "Columns"
 msgstr "Kolumner?"
 
-#: ../includes/definitions/albumProperties.php:83
+#: ../includes/definitions/albumProperties.php:85
 msgid "Rows"
 msgstr "Rader?"
 
-#: ../includes/definitions/albumProperties.php:89
+#: ../includes/definitions/albumProperties.php:91
 msgid "Borders"
 msgstr "Kanter?"
 
-#: ../includes/definitions/albumProperties.php:96
+#: ../includes/definitions/albumProperties.php:98
 msgid "Colors"
 msgstr "Färger"
 
-#: ../includes/definitions/albumProperties.php:99
-#, fuzzy
+#: ../includes/definitions/albumProperties.php:101
 msgid "Background Color"
 msgstr "Bakgrundsfärg:"
 
-#: ../includes/definitions/albumProperties.php:105
-#, fuzzy
+#: ../includes/definitions/albumProperties.php:107
 msgid "Text Color"
 msgstr "Textfärg:"
 
-#: ../includes/definitions/albumProperties.php:111
-#, fuzzy
+#: ../includes/definitions/albumProperties.php:113
 msgid "Link Color"
 msgstr "Länkfärg:"
 
-#: ../includes/definitions/albumProperties.php:117
+#: ../includes/definitions/albumProperties.php:119
 #, fuzzy
 msgid "Border Color"
 msgstr "Färg på kant?"
 
-#: ../includes/definitions/albumProperties.php:124
+#: ../includes/definitions/albumProperties.php:126
 msgid "Frames"
 msgstr "Ramar"
 
-#: ../includes/definitions/albumProperties.php:127
-#, fuzzy
+#: ../includes/definitions/albumProperties.php:129
 msgid "Album Frame"
 msgstr "Ram rumt album?"
 
-#: ../includes/definitions/albumProperties.php:134
-#, fuzzy
+#: ../includes/definitions/albumProperties.php:136
 msgid "Thumb Frame"
 msgstr "Ram runt miniatyrbild?"
 
-#: ../includes/definitions/albumProperties.php:141
+#: ../includes/definitions/albumProperties.php:143
 #, fuzzy
 msgid "Item Frame"
 msgstr "Ram runt bild?"
 
-#: ../includes/definitions/albumProperties.php:153
-#, fuzzy
-msgid "_Slideshow"
+#: ../includes/definitions/albumProperties.php:156
+msgid "Slideshow"
 msgstr "Bildspel"
 
-#: ../includes/definitions/albumProperties.php:157
+#: ../includes/definitions/albumProperties.php:160
 #, fuzzy
 msgid "Slideshow Type?"
 msgstr "Bildspelstyp?"
 
-#: ../includes/definitions/albumProperties.php:159
-#: ../includes/definitions/albumProperties.php:210
-#: ../includes/definitions/albumProperties.php:229
+#: ../includes/definitions/albumProperties.php:162
+#: ../includes/definitions/albumProperties.php:213
+#: ../includes/definitions/albumProperties.php:232
 msgid "Off"
 msgstr "Av"
 
-#: ../includes/definitions/albumProperties.php:160
+#: ../includes/definitions/albumProperties.php:163
 msgid "Ordered"
 msgstr "Ordnat"
 
-#: ../includes/definitions/albumProperties.php:161
+#: ../includes/definitions/albumProperties.php:164
 msgid "Random"
 msgstr "Slumpmässigt"
 
-#: ../includes/definitions/albumProperties.php:165
+#: ../includes/definitions/albumProperties.php:168
 #, fuzzy
 msgid "Include sub-albums in slideshow?"
 msgstr "Inkludera underliggande album i bildspel"
 
-#: ../includes/definitions/albumProperties.php:167
-#: ../includes/definitions/albumProperties.php:173
-#: ../includes/definitions/albumProperties.php:259
-#: ../includes/definitions/albumProperties.php:265
-#: ../includes/definitions/albumProperties.php:271
-#: ../includes/definitions/albumProperties.php:277
-#: ../includes/definitions/albumProperties.php:283
-#: ../includes/definitions/albumProperties.php:310
+#: ../includes/definitions/albumProperties.php:170
+#: ../includes/definitions/albumProperties.php:176
+#: ../includes/definitions/albumProperties.php:263
+#: ../includes/definitions/albumProperties.php:269
+#: ../includes/definitions/albumProperties.php:275
+#: ../includes/definitions/albumProperties.php:281
+#: ../includes/definitions/albumProperties.php:309
 #: ../includes/definitions/albumProperties.php:347
-#: ../includes/definitions/albumProperties.php:391
-#: ../includes/definitions/albumProperties.php:397
-#: ../includes/definitions/albumProperties.php:403
-#: ../includes/definitions/albumProperties.php:418
-#: ../includes/definitions/albumProperties.php:424
-#: ../includes/definitions/albumProperties.php:438
-#: ../includes/definitions/albumProperties.php:444
+#: ../includes/definitions/albumProperties.php:393
+#: ../includes/definitions/albumProperties.php:399
+#: ../includes/definitions/albumProperties.php:405
+#: ../includes/definitions/albumProperties.php:421
+#: ../includes/definitions/albumProperties.php:427
+#: ../includes/definitions/albumProperties.php:442
 #: ../includes/definitions/albumProperties.php:485
 #: ../includes/definitions/albumProperties.php:499
 msgid "Yes"
 msgstr "Ja"
 
-#: ../includes/definitions/albumProperties.php:167
-#: ../includes/definitions/albumProperties.php:173
-#: ../includes/definitions/albumProperties.php:259
-#: ../includes/definitions/albumProperties.php:265
-#: ../includes/definitions/albumProperties.php:271
-#: ../includes/definitions/albumProperties.php:277
-#: ../includes/definitions/albumProperties.php:283
-#: ../includes/definitions/albumProperties.php:310
+#: ../includes/definitions/albumProperties.php:170
+#: ../includes/definitions/albumProperties.php:176
+#: ../includes/definitions/albumProperties.php:263
+#: ../includes/definitions/albumProperties.php:269
+#: ../includes/definitions/albumProperties.php:275
+#: ../includes/definitions/albumProperties.php:281
+#: ../includes/definitions/albumProperties.php:309
 #: ../includes/definitions/albumProperties.php:347
-#: ../includes/definitions/albumProperties.php:391
-#: ../includes/definitions/albumProperties.php:397
-#: ../includes/definitions/albumProperties.php:403
-#: ../includes/definitions/albumProperties.php:418
-#: ../includes/definitions/albumProperties.php:424
-#: ../includes/definitions/albumProperties.php:438
-#: ../includes/definitions/albumProperties.php:444
+#: ../includes/definitions/albumProperties.php:393
+#: ../includes/definitions/albumProperties.php:399
+#: ../includes/definitions/albumProperties.php:405
+#: ../includes/definitions/albumProperties.php:421
+#: ../includes/definitions/albumProperties.php:427
+#: ../includes/definitions/albumProperties.php:442
 #: ../includes/definitions/albumProperties.php:499
 msgid "No"
 msgstr "Nej"
 
-#: ../includes/definitions/albumProperties.php:171
+#: ../includes/definitions/albumProperties.php:174
 #, fuzzy
 msgid "Allow slideshow to loop?"
 msgstr "Tillåt bildspel att gå i slinga?"
 
-#: ../includes/definitions/albumProperties.php:177
+#: ../includes/definitions/albumProperties.php:180
 msgid "Slideshow Length"
 msgstr "Längd på bildspel?"
 
-#: ../includes/definitions/albumProperties.php:189
-#, fuzzy
-msgid "Si_zes"
+#: ../includes/definitions/albumProperties.php:193
+msgid "Sizes"
 msgstr "Storlekar"
 
-#: ../includes/definitions/albumProperties.php:193
+#: ../includes/definitions/albumProperties.php:197
 #, fuzzy
 msgid "Thumbnail size (in px)?"
 msgstr "Miniatyrbildstorlek?"
 
-#: ../includes/definitions/albumProperties.php:200
+#: ../includes/definitions/albumProperties.php:204
 msgid "The ratio in which the thumbnails are made.<br>This affects only new thumbs. For existing use 'rebuild thumbs'."
 msgstr ""
 
-#: ../includes/definitions/albumProperties.php:202
+#: ../includes/definitions/albumProperties.php:206
 msgid "As the original image"
 msgstr ""
 
-#: ../includes/definitions/albumProperties.php:203
+#: ../includes/definitions/albumProperties.php:207
 msgid "Square thumbs"
 msgstr ""
 
-#: ../includes/definitions/albumProperties.php:207
+#: ../includes/definitions/albumProperties.php:211
 #, fuzzy
 msgid "Maximum size of intermediate sized images (in px)?"
 msgstr "Maximala dimensioner på mellanliggande storleksändrade bilder"
 
-#: ../includes/definitions/albumProperties.php:220
+#: ../includes/definitions/albumProperties.php:223
 #, fuzzy
 msgid "Maximum file size of intermediate sized JPEG/PNG images in kilobytes (0 or blank for no size restriction)?"
 msgstr "Maximal filstorlek på mellanliggande storleksändrade<br>JPEG/PNG bilder i kilobyte?<br>(0 eller tomt för ingen storleksbegränsning)"
 
-#: ../includes/definitions/albumProperties.php:227
+#: ../includes/definitions/albumProperties.php:230
 #, fuzzy
 msgid "Maximum size of full sized images (in px)?"
-msgstr "Maximala dimensioner på fullskaliga bilder"
+msgstr "Maximala dimensioner på mellanliggande storleksändrade bilder"
 
-#: ../includes/definitions/albumProperties.php:234
-#: ../includes/definitions/albumProperties.php:235
-#: ../includes/definitions/albumProperties.php:236
+#: ../includes/definitions/albumProperties.php:237
+#: ../includes/definitions/albumProperties.php:238
+#: ../includes/definitions/albumProperties.php:239
 #, php-format
 msgid "%d (%d MPix)"
 msgstr "%d (%d MPix)"
 
-#: ../includes/definitions/albumProperties.php:241
+#: ../includes/definitions/albumProperties.php:244
 #, fuzzy
 msgid "Maximum file size of full sized JPEG/PNG images in kb (0 or blank for no size restriction)?"
 msgstr "Maximal filstorlek på fullskaliga<br>JPEG/PNG bilder i kilobyte?<br>(0 eller tomt för ingen storleksbegränsning)"
 
-#: ../includes/definitions/albumProperties.php:253
-#, fuzzy
-msgid "_Display"
+#: ../includes/definitions/albumProperties.php:257
+msgid "Display"
 msgstr "Visa"
 
-#: ../includes/definitions/albumProperties.php:257
+#: ../includes/definitions/albumProperties.php:261
 msgid "Display click counter for this album?"
 msgstr "Visa klickräknare för detta album?"
 
-#: ../includes/definitions/albumProperties.php:263
+#: ../includes/definitions/albumProperties.php:267
 #, fuzzy
 msgid "Display owner's name with caption?"
 msgstr "Visa ägarnamn tillsammans med objektrubrik?"
 
-#: ../includes/definitions/albumProperties.php:269
+#: ../includes/definitions/albumProperties.php:273
 #, fuzzy
 msgid "Display clickable image dimensions?"
 msgstr "Visa klickbara bilddimensioner?"
 
-#: ../includes/definitions/albumProperties.php:275
-msgid "Open dimensions-link as popup?"
-msgstr ""
-
-#: ../includes/definitions/albumProperties.php:276
-msgid "If you show the dimensions-links, you can choose whether you just want the images shown in a popup, or open the complete photoview."
-msgstr ""
-
-#: ../includes/definitions/albumProperties.php:281
+#: ../includes/definitions/albumProperties.php:279
 msgid "Display EXIF data?"
 msgstr "Visa EXIF-information?"
 
-#: ../includes/definitions/albumProperties.php:293
-#, fuzzy
-msgid "Ser_vices"
+#: ../includes/definitions/albumProperties.php:292
+msgid "Services"
 msgstr "Tjänster"
 
-#: ../includes/definitions/albumProperties.php:297
+#: ../includes/definitions/albumProperties.php:296
 msgid "Which photo printing services<br>do you want to let visitors use?"
 msgstr "Vilken fotoutskrift-tjänst<br>vill du låta besökare använda?"
 
-#: ../includes/definitions/albumProperties.php:308
+#: ../includes/definitions/albumProperties.php:307
 #, fuzzy
 msgid "Enable Ecards?"
 msgstr "Aktivera Ecards ?"
 
 #: ../includes/definitions/albumProperties.php:320
-#, fuzzy
-msgid "_Poll Properties"
+msgid "Poll Properties"
 msgstr "Omröstningsegenskaper"
 
 #: ../includes/definitions/albumProperties.php:324
@@ -365,7 +338,6 @@ msgid "Vote hint"
 msgstr "Röstningspåminnelse:"
 
 #: ../includes/definitions/albumProperties.php:373
-#, fuzzy
 msgid "Voting Options"
 msgstr "Röstningsalternativ"
 
@@ -377,70 +349,63 @@ msgstr "Visat värde"
 msgid "Points"
 msgstr "Poäng"
 
-#: ../includes/definitions/albumProperties.php:386
-#, fuzzy
-msgid "_Misc"
+#: ../includes/definitions/albumProperties.php:387
+msgid "Misc"
 msgstr "Diverse"
 
-#: ../includes/definitions/albumProperties.php:389
+#: ../includes/definitions/albumProperties.php:391
 #, fuzzy
 msgid "Add new items at beginning of album?"
 msgstr "Lägg till nya objekt i början av album?"
 
-#: ../includes/definitions/albumProperties.php:395
+#: ../includes/definitions/albumProperties.php:397
 #, fuzzy
 msgid "Show <i>Return to</i> link?"
 msgstr "Visa <i>Tillbaka till</i> länk?"
 
-#: ../includes/definitions/albumProperties.php:401
+#: ../includes/definitions/albumProperties.php:403
 #, fuzzy
 msgid "Offer visitors ability to specify<br>preference for full-size or resized images?"
 msgstr "Erbjud besökare möjligheten att skriva in<br>egenskaper för fullskaliga eller storleksändrade bilder?"
 
-#: ../includes/definitions/albumProperties.php:412
+#: ../includes/definitions/albumProperties.php:415
 #, fuzzy
-msgid "Owner _Permissions"
+msgid "Owner Permissions"
 msgstr "Rättigheter"
 
-#: ../includes/definitions/albumProperties.php:413
-msgid "For historical reasons permissions for owners are handled as property, not as permission. ;-) G1-Style ;-)"
+#: ../includes/definitions/albumProperties.php:416
+msgid "For historical reasons permissions for owners are handled as property, not as permission. <br>G1-Style ;-)"
 msgstr ""
 
-#: ../includes/definitions/albumProperties.php:416
+#: ../includes/definitions/albumProperties.php:419
 #, fuzzy
 msgid "Allow users to modify their own items?"
 msgstr "Tillåt objektägare att redigera sina egna bilder?"
 
-#: ../includes/definitions/albumProperties.php:422
+#: ../includes/definitions/albumProperties.php:425
 #, fuzzy
 msgid "Allow users to delete their own items?"
 msgstr "Tillåt objektägare att ta bort sina egna bilder?"
 
-#: ../includes/definitions/albumProperties.php:433
-msgid "_Effects"
+#: ../includes/definitions/albumProperties.php:437
+msgid "Effects"
 msgstr ""
 
-#: ../includes/definitions/albumProperties.php:436
+#: ../includes/definitions/albumProperties.php:440
 #, fuzzy
 msgid "Auto fit-to-window for<br>images without a resized copy?"
 msgstr "Automatisk fönsteranpassning av<br>bilder som inte har en storleksändrad kopia?"
 
-#: ../includes/definitions/albumProperties.php:442
-msgid "Turn on the lightbox effect view in thumbs?"
-msgstr ""
-
-#: ../includes/definitions/albumProperties.php:453
-#, fuzzy
-msgid "Custom _Fields"
+#: ../includes/definitions/albumProperties.php:452
+msgid "Custom Fields"
 msgstr "Anpassade fält?"
 
-#: ../includes/definitions/albumProperties.php:462
+#: ../includes/definitions/albumProperties.php:461
 msgid "Number of user defined custom fields"
 msgstr "Antal användarbestämda anpassade fält"
 
 #: ../includes/definitions/albumProperties.php:479
-#, fuzzy
-msgid "M_icrothumbs"
+msgid "Microthumbs"
 msgstr "Microbilder"
 
 #: ../includes/definitions/albumProperties.php:482
@@ -453,14 +418,13 @@ msgid "No, just the normal navigation"
 msgstr ""
 
 #: ../includes/definitions/albumProperties.php:487
-#, fuzzy
 msgid "Both kinds of Navigation"
-msgstr "Placering av microbilds-navigering"
+msgstr ""
 
 #: ../includes/definitions/albumProperties.php:491
 #, fuzzy
 msgid "Microthumb style?"
-msgstr "Stil på microbilder"
+msgstr "Microbilder"
 
 #: ../includes/definitions/albumProperties.php:493
 msgid "Fixed"
@@ -516,237 +480,100 @@ msgstr "Extra höjd på aktuell microbild (bildpunkter)"
 msgid "mPUSH is a photo service that adds the ability to send thumbnail images to your, or a friend's, cellphone for a small fee."
 msgstr "mPUSH är en fototjänst som möjliggör att man kan skicka miniatyrbilder till sin eller en väns mobiltelefon mot en avgift."
 
-#: ../js/moorainbow/mooRainbow.js.php:511
-#, fuzzy
-msgid "Select"
-msgstr "Välj album"
-
-#: ../js/moorainbow/mooRainbow.js.php:518
-#, fuzzy
-msgid "Close"
-msgstr "Stäng"
-
-#: ../layout/frames/deryk/frame.def:3
-msgid "Deryks Frame"
+#: ../lib/album.php:228
+msgid "navigate up"
 msgstr ""
 
-#: ../layout/frames/deryk/frame.def:4
-msgid "A frame by Deryk. ;-)"
-msgstr ""
-
-#: ../layout/frames/golden/frame.def:4
-msgid "Gold Frame"
-msgstr "Guldram"
-
-#: ../layout/frames/golden/frame.def:5
-msgid "A fancy golden frame"
-msgstr "En fantasirik guldgul ram"
-
-#: ../layout/frames/notebook/frame.def:5
-msgid "Spiral Notebook"
-msgstr "Spiralbunden anteckningsbok"
-
-#: ../layout/frames/notebook/frame.def:6
-msgid "A white shadowed frame with spiral notebook binding on the left side"
-msgstr "En vit skuggad ram med spiralbunden anteckningsbok på vänster sida"
-
-#: ../layout/frames/polaroid/frame.def:3
-msgid "Polaroid"
-msgstr "Polaroid"
-
-#: ../layout/frames/polaroid/frame.def:4
-msgid "A photo with a large white frame, extra wide at the bottom edge"
-msgstr "Ett foto med en bred vit ram, extra stor i botten"
-
-#: ../layout/frames/polaroids/frame.def:3
-msgid "Polaroids"
-msgstr "Polaroider"
-
-#: ../layout/frames/polaroids/frame.def:4
-msgid "A stack of photos with a large white frame, extra wide at the bottom edge"
-msgstr "En uppsättning av foton med en bred vit ram, extra stor i botten"
-
-#: ../layout/frames/postage_stamp/frame.def:5
-msgid "Postage Stamp"
-msgstr "Frimärke"
-
-#: ../layout/frames/postage_stamp/frame.def:6
-msgid "A simple postage stamp effect."
-msgstr "En enkel frimärkseffekt."
-
-#: ../layout/frames/scrapbook/frame.def:3
-msgid "Scrapbook"
-msgstr ""
-
-#: ../layout/frames/scrapbook/frame.def:4
-msgid "'Olde Tyme' photo corners."
-msgstr ""
-
-#: ../layout/frames/scrapbookshadow/frame.def:3
-msgid "Scrapbook-shadow"
-msgstr ""
-
-#: ../layout/frames/scrapbookshadow/frame.def:4
-msgid "'Olde Tyme' photo corners, with shadow."
-msgstr ""
-
-#: ../layout/frames/scrapbookshadowsmall/frame.def:4
-msgid "Scrapbook Small Shadow"
-msgstr ""
-
-#: ../layout/frames/scrapbookshadowsmall/frame.def:5
-msgid "Smaller 'Olde Tyme' photo corners, good for Thumbnails, with shadow for light pages."
-msgstr ""
-
-#: ../layout/frames/scrapbook_small/frame.def:3
-msgid "Scrapbook Small"
-msgstr ""
-
-#: ../layout/frames/scrapbook_small/frame.def:4
-msgid "Smaller 'Olde Tyme' photo corners, good for Thumbnails."
-msgstr ""
-
-#: ../layout/frames/shadows/frame.def:3
-msgid "Shadows"
-msgstr "Skuggor"
-
-#: ../layout/frames/shadows/frame.def:4
-msgid "PNG transparent shadows falling to the right and below. Proper transparency, so should work against most backgrounds, except black."
-msgstr "PNG transparenta skuggor fallande åt höger och nedåt.  Riktig genomskinlighet så den bör fungera mot de flesta bakgrunderna förutom svart."
-
-#: ../layout/frames/simple_book/frame.def:3
-msgid "Original Style"
-msgstr "Originalstil"
-
-#: ../layout/frames/simple_book/frame.def:4
-#, php-format
-msgid "The original %s album frame style."
-msgstr "Original %s albumets ramstil."
-
-#: ../layout/frames/wooden/frame.def:4
-msgid "Wood Frame"
-msgstr "Träram"
-
-#: ../layout/frames/wooden/frame.def:5
-msgid "A textured wooden frame"
-msgstr "En ram med trästruktur"
-
-#: ../lib/album.php:216 ../lib/album.php:267
-#, php-format
-msgid "%s RSS"
-msgstr "%s RSS"
-
-#: ../lib/album.php:319
-#, fuzzy
-msgid "navigate _UP"
-msgstr "navigera UPP"
-
-#: ../lib/album.php:324
-#, php-format
-msgid "(accesskey '%s')"
-msgstr ""
-
-#: ../lib/album.php:366
+#: ../lib/album.php:265
 #, fuzzy, php-format
 msgid "Gallery: %s"
-msgstr "Gallery"
+msgstr "Gallery URL"
 
-#: ../lib/album.php:419
-#, fuzzy, php-format
-msgid "1 view"
-msgid_plural "%d views"
-msgstr[0] "1 gång"
-msgstr[1] "%d gånger"
-
-#: ../lib/album.php:609 ../lib/album.php:610
+#: ../lib/album.php:434 ../lib/album.php:435
 msgid "Add photos"
 msgstr ""
 
-#: ../lib/album.php:621 ../lib/album.php:626
+#: ../lib/album.php:444 ../lib/album.php:449
 msgid "New nested album"
 msgstr ""
 
-#: ../lib/album.php:639 ../lib/album.php:647
+#: ../lib/album.php:462 ../lib/album.php:470
 #, fuzzy
 msgid "Edit captions"
 msgstr "Ingen objektrubrik"
 
-#: ../lib/album.php:657 ../lib/album.php:658
+#: ../lib/album.php:480 ../lib/album.php:481
 msgid "Change foldername"
 msgstr ""
 
-#: ../lib/album.php:667 ../lib/album.php:668
+#: ../lib/album.php:488 ../lib/album.php:489
 msgid "Permissions"
 msgstr "Rättigheter"
 
-#: ../lib/album.php:677 ../lib/album.php:678
+#: ../lib/album.php:498 ../lib/album.php:499
 #, fuzzy
 msgid "Properties"
 msgstr "Omröstningsegenskaper"
 
-#: ../lib/album.php:689 ../lib/album.php:690
+#: ../lib/album.php:510 ../lib/album.php:511
 msgid "Watermark&nbsp;album"
 msgstr ""
 
-#: ../lib/album.php:705 ../lib/album.php:706
+#: ../lib/album.php:524 ../lib/album.php:525
 #, fuzzy
 msgid "Delete album"
 msgstr "Välj album"
 
-#: ../lib/album.php:717 ../lib/album.php:718
+#: ../lib/album.php:534 ../lib/album.php:535
+#, fuzzy
 msgid "Move album"
-msgstr ""
+msgstr "Välj album"
 
-#: ../lib/album.php:726 ../lib/album.php:727
+#: ../lib/album.php:541 ../lib/album.php:542
+#, fuzzy
 msgid "Reorder album"
-msgstr ""
+msgstr "Välj album"
 
-#: ../lib/album.php:740 ../lib/album.php:742
+#: ../lib/album.php:553 ../lib/album.php:555
 msgid "Delete this (sub)album"
 msgstr ""
 
-#: ../lib/album.php:765 ../lib/album.php:766
+#: ../lib/album.php:578 ../lib/album.php:579
 msgid "Sort items"
 msgstr ""
 
-#: ../lib/album.php:774 ../lib/album.php:775
+#: ../lib/album.php:585 ../lib/album.php:586
 msgid "Resize all"
 msgstr ""
 
-#: ../lib/album.php:783 ../lib/album.php:784
-#, fuzzy
-msgid "Recreate captions"
-msgstr "Nuvarande placering"
-
-#: ../lib/album.php:792 ../lib/album.php:793
-#, fuzzy
+#: ../lib/album.php:592 ../lib/album.php:593
 msgid "Rebuild thumbs"
-msgstr "Återskapa miniatyrbilder"
+msgstr ""
 
-#: ../lib/album.php:801 ../lib/album.php:802
+#: ../lib/album.php:599 ../lib/album.php:600
 msgid "Rearrange items"
 msgstr ""
 
-#: ../lib/album.php:811 ../lib/album.php:812
+#: ../lib/album.php:607 ../lib/album.php:608
 #, fuzzy
 msgid "Rebuild capture dates"
 msgstr "Fotodatum"
 
-#: ../lib/album.php:825 ../lib/album.php:829
+#: ../lib/album.php:619 ../lib/album.php:623
 #, fuzzy
 msgid "Poll results"
 msgstr "Omröstningsresultat:"
 
-#: ../lib/album.php:835 ../lib/album.php:836
+#: ../lib/album.php:629 ../lib/album.php:630
 #, fuzzy
 msgid "Poll reset"
 msgstr "Omröstningsresultat:"
 
-#: ../lib/album.php:850 ../lib/album.php:853
+#: ../lib/album.php:642 ../lib/album.php:645
 msgid "View&nbsp;comments"
 msgstr ""
 
-#: ../lib/album.php:864
+#: ../lib/album.php:656
 msgid "&lt;&lt; Album actions &gt;&gt;"
 msgstr ""
 
@@ -767,107 +594,103 @@ msgstr "Ingen objektrubrik"
 msgid "edit"
 msgstr "Redigera"
 
-#: ../lib/content.php:110
-#, fuzzy
-msgid "_Add comment"
+#: ../lib/content.php:110 ../lib/stats.php:249
+msgid "add comment"
 msgstr "Lämna kommentar"
 
-#: ../lib/content.php:131
+#: ../lib/content.php:128
 msgid "Add your comment"
 msgstr "Lägg till din kommentar"
 
-#: ../lib/content.php:134
+#: ../lib/content.php:131
 msgid "Commenter:"
 msgstr "Kommentar av:"
 
-#: ../lib/content.php:154
+#: ../lib/content.php:150
 msgid "Message:"
 msgstr "Meddelande:"
 
-#: ../lib/content.php:161
-msgid "Captcha Protection:"
-msgstr ""
-
-#: ../lib/content.php:169
-#, fuzzy
-msgid "Refresh Captcha"
-msgstr "Uppdatera"
-
-#: ../lib/content.php:171
+#: ../lib/content.php:154
 #, fuzzy
 msgid "Post comment"
 msgstr "Senaste kommentarer"
 
-#: ../lib/content.php:186
+#: ../lib/content.php:166
 #, fuzzy
 msgid "Security violation!"
 msgstr "Nuvarande placering"
 
-#: ../lib/content.php:341 ../lib/content.php:355 ../lib/content.php:400
+#: ../lib/content.php:332
+#, fuzzy, php-format
+msgid "1 view"
+msgid_plural "%d views"
+msgstr[0] "1 gång"
+msgstr[1] "%d gånger"
+
+#: ../lib/content.php:365 ../lib/content.php:392
 #, fuzzy
 msgid "Sub-albums:"
 msgstr "Underliggande album"
 
-#: ../lib/content.php:467
+#: ../lib/content.php:481
 msgid "EXIF Data"
 msgstr "EXIF-information"
 
-#: ../lib/content.php:471
+#: ../lib/content.php:485
 msgid "Display of EXIF data enabled, but no data found."
 msgstr "Visning av EXIF-information aktiverad men ingen information hittades."
 
-#: ../lib/content.php:623
-#, fuzzy
-msgid "_Search:"
+#: ../lib/content.php:654
+msgid "Search:"
 msgstr "Sök:"
 
-#: ../lib/content.php:668 ../lib/content.php:703
+#: ../lib/content.php:699 ../lib/content.php:734
 msgid "Operation done, closing window."
 msgstr ""
 
-#: ../lib/content.php:675 ../lib/content.php:715
+#: ../lib/content.php:706 ../lib/content.php:746
 #, fuzzy
 msgid "Not closing this window because debug mode is on."
 msgstr "Stänger inte detta fönster eftersom felsökningsläge är på"
 
-#: ../lib/content.php:711
-#, fuzzy, php-format
+#: ../lib/content.php:742
+#, php-format
 msgid "Loading URL: %s"
-msgstr "Logga in på %s"
+msgstr ""
 
-#: ../lib/content.php:748
+#: ../lib/content.php:783
 #, fuzzy, php-format
 msgid "Problem including file %s."
 msgstr "Problem med att inkludera fil %s"
 
-#: ../lib/content.php:941
+#: ../lib/content.php:944
 msgid "Select Album"
 msgstr "Välj album"
 
-#: ../lib/content.php:951
+#: ../lib/content.php:954
 msgid "Move to top level"
 msgstr ""
 
-#: ../lib/content.php:978 ../lib/content.php:1050 ../lib/content.php:1058
+#: ../lib/content.php:981 ../lib/content.php:1053 ../lib/content.php:1061
 #, fuzzy
 msgid "Current location"
 msgstr "Nuvarande placering"
 
-#: ../lib/content.php:1066
+#: ../lib/content.php:1069
 #, fuzzy
 msgid "This album itself"
 msgstr "Detta album är tomt."
 
-#: ../lib/content.php:1110
+#: ../lib/content.php:1113
 #, php-format
 msgid "Last comment %s."
 msgstr "Senaste kommentar %s."
 
-#: ../lib/content.php:1136 ../lib/content.php:1139
+#: ../lib/content.php:1139 ../lib/content.php:1142
 msgid "No Skin"
 msgstr "Inget skal"
 
-#: ../lib/content.php:1143
+#: ../lib/content.php:1146
 #, fuzzy
 msgid "The original look and feel."
 msgstr "<dt>%s</dt><dd>Original \"look and feel\".</dd>"
@@ -886,101 +709,119 @@ msgstr "Ok!  Version: %s"
 msgid "Last Update: %s"
 msgstr "Senast uppdaterad"
 
-#: ../lib/content.php:1222
-#, php-format
-msgid "In Addition to the %s, you also use the following opportunities:"
-msgstr ""
-
-#: ../lib/content.php:1223
-#, fuzzy
-msgid "usual thumbs"
-msgstr "Återskapa miniatyrbilder"
-
-#: ../lib/content.php:1228 ../lib/content.php:1245
-#, fuzzy
-msgid "Album image frames"
-msgstr "Ram rumt album?"
-
-#: ../lib/content.php:1229
-msgid "Frame defined for images in the corresponding album"
-msgstr ""
-
-#: ../lib/content.php:1230 ../lib/content.php:1246
-#, fuzzy
-msgid "Album thumb frames"
-msgstr "Ram rumt album?"
-
-#: ../lib/content.php:1231
-msgid "Frame defined for thumbs in the corresponding album"
-msgstr ""
-
-#: ../lib/content.php:1232 ../lib/content.php:1247
-msgid "Mainpage thumb frames"
-msgstr ""
-
-#: ../lib/content.php:1233
-msgid "Frame defined for thumbs on mainpage"
-msgstr ""
-
-#: ../lib/content.php:1252 ../lib/content.php:1260
+#: ../lib/content.php:1224 ../lib/content.php:1230
 msgid "None"
 msgstr "Inga"
 
-#: ../lib/content.php:1253 ../lib/content.php:1262
+#: ../lib/content.php:1225 ../lib/content.php:1231
 msgid "Dots"
 msgstr "Punkter"
 
-#: ../lib/content.php:1254 ../lib/content.php:1264
+#: ../lib/content.php:1226 ../lib/content.php:1232
 msgid "Solid"
 msgstr "Enfärgad"
 
-#: ../lib/content.php:1261
+#: ../lib/content.php:1230
 msgid "No frames"
 msgstr "Inga ramar"
 
-#: ../lib/content.php:1263
+#: ../lib/content.php:1231
 msgid "Just a simple dashed border around the thumb."
 msgstr "Endast en enkel streckad kant runt miniatyrbilden."
 
-#: ../lib/content.php:1265
+#: ../lib/content.php:1232
 msgid "Just a simple solid border around the thumb."
 msgstr "Endast en enkel enfärgad kant runt miniatyrbilden."
 
-#: ../lib/content.php:1267
-msgid "The frame from Nico Kaisers Siriux theme."
-msgstr ""
-
-#: ../lib/content.php:1290
+#: ../lib/content.php:1255
 #, php-format
 msgid "Skipping %s."
 msgstr "Utesluter %s."
 
-#: ../lib/content.php:1297
+#: ../lib/content.php:1262
 #, fuzzy, php-format
 msgid "Can't open %s."
 msgstr "Kan inte öppna %s"
 
-#: ../lib/content.php:1425
+#: ../lib/content.php:1339 ../lib/content.php:1362
 #, fuzzy
-msgid "Log_out"
-msgstr "Logga ut"
+msgid "Not valid yet."
+msgstr "Inte giltigt ännu"
 
-#: ../lib/content.php:1430
-msgid "Log_in to see or add more items."
+#: ../lib/content.php:1448
+#, fuzzy
+msgid "Logout"
+msgstr "Utseende"
+
+#: ../lib/content.php:1453
+msgid "Login to see or add more items."
 msgstr ""
 
-#: ../lib/content.php:1433
+#: ../lib/content.php:1456
 #, fuzzy
-msgid "Log_in"
-msgstr "Logga in"
+msgid "Login"
+msgstr "Inloggad"
 
-#: ../lib/content.php:1629
-#, fuzzy
+#: ../lib/content.php:1491
 msgid "Show/Hide more information"
-msgstr "Visa grundläggande tidinformation"
+msgstr ""
 
-#: ../lib/content.php:1683
-msgid "... read more"
+#: ../lib/filesystem.php:109
+#, php-format
+msgid "extension of file %s is %s"
+msgstr ""
+
+#: ../lib/filesystem.php:152
+msgid "The path you try to use does not exist! Exiting Gallery"
+msgstr ""
+
+#: ../lib/filesystem.php:170
+#, php-format
+msgid "Parsing for csv data in file: %s"
+msgstr ""
+
+#: ../lib/filesystem.php:188
+#, fuzzy
+msgid "csv result:"
+msgstr "Omröstningsresultat:"
+
+#: ../lib/filesystem.php:209
+#, php-format
+msgid "Extracting: %s failed. Not able create the folder to extract the archive in."
+msgstr ""
+
+#: ../lib/filesystem.php:217
+#, php-format
+msgid "Extracting: %s with %s"
+msgstr ""
+
+#: ../lib/filesystem.php:234
+#, php-format
+msgid "%s with extension %s is not an supported archive."
+msgstr ""
+
+#: ../lib/filesystem.php:278
+#, php-format
+msgid "Getting Exif from: %s"
+msgstr ""
+
+#: ../lib/filesystem.php:355
+msgid "You are not allowed to upload from local directories."
+msgstr ""
+
+#: ../lib/filesystem.php:371
+#, php-format
+msgid "%s is not in the list of allowed uploadpathes. Skipping."
+msgstr ""
+
+#: ../lib/filesystem.php:387
+#, php-format
+msgid "Could not open lock file (%s) for writing!"
+msgstr ""
+
+#: ../lib/filesystem.php:392
+#, php-format
+msgid "Could not acquire lock (%s)!"
 msgstr ""
 
 #: ../lib/form.php:73
@@ -995,68 +836,13 @@ msgstr "Avmarkera alla"
 msgid "Invert Selection"
 msgstr "Invertera markering"
 
-#: ../lib/form.php:321
+#: ../lib/form.php:313
 #, fuzzy
 msgid "colorpicker"
 msgstr "Färgväljare"
 
-#: ../lib/form.php:382
-msgid "Byte"
-msgstr ""
-
-#: ../lib/form.php:383
-msgid "KB"
-msgstr ""
-
-#: ../lib/form.php:384
-msgid "MB"
-msgstr ""
-
-#: ../lib/form.php:385
-msgid "GB"
-msgstr ""
-
-#: ../lib/form.php:390
-msgid "Byte calculator"
-msgstr ""
-
-#: ../lib/form.php:396
-#, fuzzy
-msgid "_Close"
-msgstr "Stäng"
-
-#: ../lib/form.php:625
-#, fuzzy
+#: ../lib/form.php:533
 msgid "Add field"
-msgstr "Ladda upp filer"
-
-#: ../lib/groups.php:71
-#, php-format
-msgid "Checking groupname '%s' for validity"
-msgstr ""
-
-#: ../lib/groups.php:75
-msgid "Please enter a groupname."
-msgstr ""
-
-#: ../lib/groups.php:79
-#, php-format
-msgid "Groupname '%s' is to short. Must be at least 2 characters."
-msgstr ""
-
-#: ../lib/groups.php:84
-#, php-format
-msgid "Groupname '%s' too long. Must be at most 25 characters."
-msgstr ""
-
-#: ../lib/groups.php:90
-#, php-format
-msgid "Illegal groupname '%s'. Only letters and digits allowed."
-msgstr ""
-
-#: ../lib/groups.php:98
-#, php-format
-msgid "A group with the groupname of '%s' already exists"
 msgstr ""
 
 #: ../lib/imageManipulation.php:37
@@ -1211,41 +997,41 @@ msgstr "beskrivning"
 msgid "Alt text / Tooltip"
 msgstr "Alternativ text / onMouseOver"
 
-#: ../lib/mail.php:41
+#: ../lib/mail.php:42
 #, php-format
 msgid "Note: This is an automatically generated email message sent from the %s website.  If you have received this in error, please ignore this message."
 msgstr "Observera: Detta är ett automatiskt skapat e-postmeddelande som har skickats från webbsidan %s.  Om du mottagit detta av misstag, vänligen ignorera detta meddelande."
 
-#: ../lib/mail.php:44
+#: ../lib/mail.php:45
 #, php-format
 msgid "Report abuse to %s"
 msgstr "Rapportera missbruk (abuse) till %s"
 
-#: ../lib/mail.php:85
+#: ../lib/mail.php:86
 #, fuzzy
 msgid "Email not sent as it is disabled for this gallery."
 msgstr "E-post skickades inte eftersom det är inte aktiverat för detta Gallery"
 
-#: ../lib/mail.php:91
+#: ../lib/mail.php:92
 #, fuzzy, php-format
 msgid "Email not sent to %s as it is not a valid address."
 msgstr "E-post skickades inte till %s eftersom det inte är en giltig e-postadress"
 
-#: ../lib/mail.php:98
+#: ../lib/mail.php:99
 #, fuzzy
 msgid "Email not sent as no recipient address provided."
 msgstr "E-post skickades inte eftersom ingen e-postadress för mottagare tillhandahölls"
 
-#: ../lib/mail.php:110
+#: ../lib/mail.php:111
 #, php-format
 msgid "Sender address %s is invalid, using %s."
 msgstr "Avsändarens e-postadress %s är ogiltig, använder %s."
 
-#: ../lib/mail.php:142
+#: ../lib/mail.php:143
 msgid "This is a HTML mail, please have a look at the Attachment."
 msgstr "Detta är ett e-postmeddelande med HTML, vänligen titta på bilagan."
 
-#: ../lib/mail.php:197
+#: ../lib/mail.php:198
 #, fuzzy, php-format
 msgid ""
 "Hi !!FULLNAME!!,\n"
@@ -1264,603 +1050,667 @@ msgstr ""
 "\n"
 "Gallery @ %s Administratör."
 
-#: ../lib/mail.php:206 ../lib/mail.php:208
+#: ../lib/mail.php:207 ../lib/mail.php:209
 msgid "gallery title"
 msgstr "Gallerytitel"
 
-#: ../lib/mail.php:207
+#: ../lib/mail.php:208
 msgid "gallery URL"
 msgstr "Gallery URL"
 
-#: ../lib/mail.php:224
+#: ../lib/mail.php:225
 #, fuzzy
 msgid "The URL to your Gallery."
 msgstr "Webbadressen till ditt Gallery."
 
-#: ../lib/mail.php:225
+#: ../lib/mail.php:226
 msgid "Title of your Gallery."
 msgstr "Titel på ditt Gallery"
 
-#: ../lib/mail.php:226
+#: ../lib/mail.php:227
 msgid "Admin email(s)"
 msgstr "E-post till administratör(er)"
 
-#: ../lib/mail.php:227
+#: ../lib/mail.php:228
 msgid "Password for the newly created user."
 msgstr "Lösenord för den nyligen skapade användaren."
 
-#: ../lib/mail.php:228 ../lib/setup.php:1671 ../lib/setup.php:1672
-#: ../lib/setup.php:1674 ../lib/setup.php:1678
+#: ../lib/mail.php:229 ../lib/setup.php:1644 ../lib/setup.php:1645
+#: ../lib/setup.php:1647 ../lib/setup.php:1651
 msgid "Username"
 msgstr "Användarnamn"
 
-#: ../lib/mail.php:229
+#: ../lib/mail.php:230
 msgid "Fullname"
 msgstr "Fullständigt namn"
 
-#: ../lib/mail.php:230
+#: ../lib/mail.php:231
 msgid "Will be replaced by a link the new user can click on to create a new password."
 msgstr "Kommer att ersättas med en länk som den nya användaren kan klicka på för att skapa ett nytt lösenord."
 
-#: ../lib/mail.php:268 ../lib/mail.php:289
+#: ../lib/mail.php:269 ../lib/mail.php:290
 #, php-format
 msgid "New comment for %s."
 msgstr "Ny kommentar för %s."
 
-#: ../lib/mail.php:277
+#: ../lib/mail.php:278
 #, php-format
 msgid "A new comment has been added to Gallery: %s"
 msgstr "En ny kommentar har lagts till i galleri: %s"
 
-#: ../lib/mail.php:279
+#: ../lib/mail.php:280
 #, php-format
 msgid "The comment was added by %s to this %s in this %s."
 msgstr "Kommentaren lades in av %s till denna %s i denna %s."
 
-#: ../lib/mail.php:281
+#: ../lib/mail.php:282
 msgid "Item"
 msgstr "Objekt"
 
-#: ../lib/mail.php:282
+#: ../lib/mail.php:283
 msgid "Album"
 msgstr "Album"
 
-#: ../lib/mail.php:283
+#: ../lib/mail.php:284
 msgid "*** Begin comment ***"
 msgstr "*** Start kommentar ***"
 
-#: ../lib/mail.php:285
+#: ../lib/mail.php:286
 #, fuzzy
 msgid "*** End comment ***"
 msgstr "*** Slut kommentar ***"
 
-#: ../lib/mail.php:286
+#: ../lib/mail.php:287
 #, fuzzy
 msgid "If you no longer wish to receive emails about this item, follow the links above and ensure that 'Email me when comments are added' is unchecked in both the item and album page (you'll need to login first)."
 msgstr "Om du inte längre önskar att mottaga e-post om denna bild, följ länkarna ovan och försäkra att 'Skicka e-post till mig när andra ändringar har gjorts' är avmarkerad (Du  behöver logga in först)."
 
-#: ../lib/mail.php:299
+#: ../lib/mail.php:300
 msgid "Sending email failed. Additional info:"
 msgstr ""
 
-#: ../lib/mail.php:313
+#: ../lib/mail.php:314
 msgid "Email activity"
 msgstr "E-postaktivitet"
 
-#: ../lib/messages.php:176
+#: ../lib/messages.php:178
 #, php-format
 msgid "Generated by %s v%s"
 msgstr "Utvecklat av %s v%s"
 
-#: ../lib/messages.php:179
+#: ../lib/messages.php:181
 #, php-format
 msgid "Powered by %s v%s"
 msgstr "Med stöd av %s v%s"
 
 #: ../lib/messages.php:202
-#, php-format
-msgid "Debug ON ! Level %s"
-msgstr ""
-
-#: ../lib/messages.php:236
+#, fuzzy
 msgid "Invalid Request."
-msgstr ""
+msgstr "Inte giltigt ännu"
 
-#: ../lib/messages.php:243
+#: ../lib/messages.php:209
 #, php-format
 msgid "Please go back to %s."
 msgstr ""
 
-#: ../lib/setup.php:171
+#: ../lib/setup.php:139
 msgid "Please retype your password here"
 msgstr "Vänligen återge ditt lösenord här"
 
-#: ../lib/setup.php:184 ../lib/setup.php:1275
+#: ../lib/setup.php:152 ../lib/setup.php:1243
 msgid "Name"
 msgstr "Namn"
 
-#: ../lib/setup.php:185 ../lib/setup.php:1275
+#: ../lib/setup.php:153 ../lib/setup.php:1243
 msgid "Value"
 msgstr "Värde"
 
-#: ../lib/setup.php:219 ../lib/setup.php:271
+#: ../lib/setup.php:187 ../lib/setup.php:239
 msgid "No content"
 msgstr "Inget innehåll"
 
-#: ../lib/setup.php:440
+#: ../lib/setup.php:408
 #, fuzzy, php-format
 msgid "Missing value: %s"
 msgstr "Saknat värde"
 
-#: ../lib/setup.php:459
+#: ../lib/setup.php:427
 #, fuzzy
 msgid "exec() is enabled on this server."
 msgstr "<b>exec()</b> är aktiverat på denna server."
 
-#: ../lib/setup.php:480
+#: ../lib/setup.php:448
 #, fuzzy
 msgid "Gallery is able to read your .htaccess file."
 msgstr "Jag kan läsa din <b>.htaccess</b> fil."
 
-#: ../lib/setup.php:502
+#: ../lib/setup.php:470
 #, php-format
 msgid "PHP v%s is OK."
 msgstr "PHP v%s är OK."
 
-#: ../lib/setup.php:520
+#: ../lib/setup.php:488
 #, fuzzy
 msgid "mod_rewrite is enabled."
 msgstr "<b>mod_rewrite</b> är aktiverat."
 
-#: ../lib/setup.php:552
+#: ../lib/setup.php:520
 #, fuzzy
 msgid "Can't find <i>jhead</i>."
 msgstr "Kan inte hitta <i>jhead</i>"
 
-#: ../lib/setup.php:556 ../lib/setup.php:560
+#: ../lib/setup.php:524 ../lib/setup.php:528
 #, fuzzy, php-format
 msgid "<b>jhead</b> binary version %s located."
 msgstr "<b>jhead</b> binärkod(program) lokaliserad."
 
-#: ../lib/setup.php:557
+#: ../lib/setup.php:525
 msgid "You are using an older version of jhead. There are at least known problems with version 2.0. We recommend version 2.7 and higher."
 msgstr ""
 
-#: ../lib/setup.php:598
+#: ../lib/setup.php:566
 #, fuzzy
 msgid "Without pnmcomp and pamcomp, gallery will not be able to watermark images, unless you use ImageMagick and have the composite binary installed."
 msgstr "Utan pnmcomp och pamcomp så kommer Gallery inte att kunna vattenstämpla bilder, förutom när du använder ImageMagick och har composite binärkoden installerad."
 
-#: ../lib/setup.php:606
+#: ../lib/setup.php:574
 #, fuzzy
 msgid "Netpbm not being used in this installation."
 msgstr "NetPBM kommer inte att användas i denna installation."
 
-#: ../lib/setup.php:611 ../lib/setup.php:707
+#: ../lib/setup.php:579 ../lib/setup.php:675
 msgid "Cannot verify this path (it's not in your open_basedir list)."
 msgstr "Kan inte verifiera denna sökväg (den finns inte i din open_basedir-lista)."
 
-#: ../lib/setup.php:645 ../lib/setup.php:724
+#: ../lib/setup.php:613 ../lib/setup.php:692
 #, php-format
 msgid "Missing optional binary %s. %s"
 msgstr "Saknar valfri binärkod %s. %s"
 
-#: ../lib/setup.php:648 ../lib/setup.php:727
+#: ../lib/setup.php:616 ../lib/setup.php:695
 #, php-format
 msgid "Can't find %s!"
 msgstr "Kan inte hitta %s!"
 
-#: ../lib/setup.php:654 ../lib/setup.php:733
+#: ../lib/setup.php:622 ../lib/setup.php:701
 #, php-format
 msgid "%s is not executable!"
 msgstr "%s är inte exekverbar!"
 
-#: ../lib/setup.php:664 ../lib/setup.php:672
+#: ../lib/setup.php:632 ../lib/setup.php:640
 #, fuzzy, php-format
 msgid "%d of %d Netpbm binaries located."
 msgstr "%d av %d NetPBM binärkod(program) lokaliserad."
 
-#: ../lib/setup.php:696
+#: ../lib/setup.php:664
 #, fuzzy
 msgid "Without composite gallery will not be able to watermark images, except you use Netpbm and have the pnmcomp binary installed."
 msgstr "Utan composite så kommer Gallery inte kunna vattenstämpla bilder, förutom när du använder NetPBM och har pnmcomp binärkoden installerad."
 
-#: ../lib/setup.php:702
+#: ../lib/setup.php:670
 msgid "ImageMagick not being used in this installation."
 msgstr "ImageMagick kommer inte att användas i denna installation."
 
-#: ../lib/setup.php:743 ../lib/setup.php:751
+#: ../lib/setup.php:711 ../lib/setup.php:719
 #, php-format
 msgid "%d of %d ImageMagick binaries located."
 msgstr "%d av %d ImageMagick binärkod(program) lokaliserad."
 
-#: ../lib/setup.php:775
+#: ../lib/setup.php:743
 msgid "jpegtran was not found."
 msgstr ""
 
-#: ../lib/setup.php:778
+#: ../lib/setup.php:746
 #, fuzzy
 msgid "jpegtran binary located."
 msgstr "<b>jpegtran</b> binärkod(program) lokaliserad."
 
-#: ../lib/setup.php:790
+#: ../lib/setup.php:758
 #, fuzzy
 msgid "PHP has GNU gettext support."
 msgstr "PHP har <b>GNU gettext</b> stöd."
 
-#: ../lib/setup.php:792
+#: ../lib/setup.php:760
 #, fuzzy
 msgid "PHP does not have GNU gettext support."
 msgstr "PHP har inte <b>GNU gettext</b> stöd."
 
-#: ../lib/setup.php:807
+#: ../lib/setup.php:775
 msgid "No languages found."
 msgstr "Inga språk hittade."
 
-#: ../lib/setup.php:810
+#: ../lib/setup.php:778
 msgid "It seems you didn't download any additional languages. This is not a problem! Gallery will appear just in English. Note: If this is not true, check that all files in locale folder are readable for the webserver, or contact the Gallery Team."
 msgstr "Det verkar som att du inte har hämtat några ytterligare språk.  Detta är inget problem!  Gallery kommer att visas bara på engelska.  Notera: Om detta inte stämmer, kolla att alla filer i nationella inställningskatalogen är läsbara av webbservern, eller kontakta Gallery Teamet. "
 
-#: ../lib/setup.php:813
+#: ../lib/setup.php:781
 #, php-format
 msgid "%d languages are available.  If you are missing a language please visit the %sGallery download page%s."
 msgstr "%d språk är tillgängliga.  Om du saknar något språk vänligen besök %sGallerys Hämtningssida%s."
 
-#: ../lib/setup.php:840
+#: ../lib/setup.php:808
 #, php-format
 msgid "You can check for more recent versions by visiting %s."
 msgstr "Du kan titta efter mer aktuella versioner genom att besöka %s."
 
-#: ../lib/setup.php:842
+#: ../lib/setup.php:810
 #, php-format
 msgid "This version of %s was released on %s."
 msgstr "Denna version av %s är utgiven %s."
 
-#: ../lib/setup.php:845
+#: ../lib/setup.php:813
 #, php-format
 msgid "This is a development build of %s that was released on %s."
 msgstr "Detta är en utvecklingsversion av %s som är utgiven %s."
 
-#: ../lib/setup.php:851
+#: ../lib/setup.php:819
 #, php-format
 msgid "That's more than %d days ago. Which is way too old for a pre Release version."
 msgstr ""
 
-#: ../lib/setup.php:856
+#: ../lib/setup.php:824
 #, php-format
 msgid "That's more than %d days ago."
 msgstr ""
 
-#: ../lib/setup.php:864
+#: ../lib/setup.php:832
 msgid "Please check regularly for updates."
 msgstr "Vänligen kontrollera regelbundet om det finns nya uppdateringar."
 
-#: ../lib/setup.php:887
+#: ../lib/setup.php:855
 msgid "All gallery locales are available on this host."
 msgstr "Alla Gallerys nationella inställningar är tillgängliga på denna server."
 
-#: ../lib/setup.php:891
+#: ../lib/setup.php:859
 #, php-format
 msgid "There are %d locales that Gallery was unable to locate. You may need to select manually date formats. "
 msgstr "Det finns %d nationella inställningar som Gallery inte kunde lokalisera.  Du behöver manuellt välja datumformat."
 
-#: ../lib/setup.php:899
+#: ../lib/setup.php:867
 #, php-format
 msgid "Dates in %d languages may not be formatted properly, because the corresponding locales are missing. You may need to select manually the date formats for these."
 msgstr "Datum i %d språk kan eventuellt inte formateras ordentligt eftersom de motsvarande nationella inställningarna saknas.  Du behöver manuellt välja datumformaten för dessa."
 
-#: ../lib/setup.php:905
+#: ../lib/setup.php:873
 #, php-format
 msgid "We were unable to detect any locales.  However, your PHP installation is configured with the %s restriction so this may be interfering with the way that we detect locales.  Unfortunately this means the date format will not change for different languages.  However, it is OK to continue."
 msgstr "Vi kunde inte upptäcka några nationella inställningar.  Hursomhelst så är din PHP-installation konfigurerad med %s-begränsning så det kan störa sättet som vi upptäcker nationella inställningar.  Oturligt nog så betyder det att datumformatet inte kommer att ändras efter olika språk.  Hursomhelst så är det ok att fortsätta."
 
-#: ../lib/setup.php:910
+#: ../lib/setup.php:878
 #, php-format
 msgid "We were unable to detect any system locales. Multi-language functions will be disabled. Please install the corresponding locales or ask your administrator to do this. This problem is known on %s systems. In this case please have a look at this %sDebian locale HowTo%s."
 msgstr "Vi kunde inte upptäcka några nationella system-inställningar.  Flerspråksfunktioner kommer att vara avaktiverade.  Vänligen installera motsvarande nationella inställningar eller fråga fall din administratör(internet-/webbhotelleverantör) kan göra det.  Detta problem är känt på %s system.  I detta fall vänligen ta en titt på denna %sDebian locale HowTo%s."
 
-#: ../lib/setup.php:915
+#: ../lib/setup.php:883
 msgid "Only the default locale for this machine is available, so date format will not change for different languages."
 msgstr "Endast förvald nationell inställning för denna maskin är tillgängligt så datumformatet kommer inte ändras för olika språk."
 
-#: ../lib/setup.php:1087 ../lib/setup.php:1188
+#: ../lib/setup.php:1055 ../lib/setup.php:1156
 msgid "Advanced"
 msgstr "Avancerat"
 
-#: ../lib/setup.php:1088
+#: ../lib/setup.php:1056
+#, fuzzy
 msgid "<b>System</b> locale selection required"
 msgstr "Val av nationell <b>system</b>-inställning krävs"
 
-#: ../lib/setup.php:1089
+#: ../lib/setup.php:1057
 msgid "There is more than one suitable <b>system</b> locale installed on your machine for the following languages.  Please chose the one you think is most suitable."
 msgstr "Det finns fler än en passande nationell <b>system</b>-inställning installerad på din maskin för följande språk.  Vänligen välj den du tror passar bäst."
 
-#: ../lib/setup.php:1091 ../lib/setup.php:1192
+#: ../lib/setup.php:1059 ../lib/setup.php:1160
 #, fuzzy
 msgid "This is <b>only</b> for date &amp; time format. You only need to edit the languages you enabled above."
 msgstr "Detta är <b>endast</b> för datum- och tidsformat.  Du behöver bara redigera språken du aktiverade ovan"
 
-#: ../lib/setup.php:1105 ../lib/setup.php:1141
+#: ../lib/setup.php:1073 ../lib/setup.php:1109
 msgid "System locale"
 msgstr "Systemets teckenuppsättning"
 
-#: ../lib/setup.php:1189
+#: ../lib/setup.php:1157
 msgid "<b>System</b> locale problems"
 msgstr "Nationella <b>system</b>-inställningsproblem"
 
-#: ../lib/setup.php:1190
+#: ../lib/setup.php:1158
 msgid "There are no apparently suitable <b>system</b> locales installed on your machine for the following languages.  Please choose the one you think is most suitable."
 msgstr "Det finns inga synbara passande nationella <b>system</b>-inställningar installerade på din maskin för följande språk.  Vänligen välj den som du tror passar bäst."
 
-#: ../lib/setup.php:1241
+#: ../lib/setup.php:1209
 #, fuzzy
 msgid "safe_mode is off."
 msgstr "<b>safe_mode</b> är avaktiverat."
 
-#: ../lib/setup.php:1255
+#: ../lib/setup.php:1223
 #, fuzzy
 msgid "magic_quotes are off."
 msgstr "<b>magic_quotes</b> är avaktiverat."
 
-#: ../lib/setup.php:1273
+#: ../lib/setup.php:1241
 #, php-format
 msgid "In %s, missing %s in row %d with %s %s."
 msgstr "I %s, saknas %s på rad %d med %s %s."
 
-#: ../lib/setup.php:1274 ../lib/setup.php:1284 ../lib/setup.php:1290
+#: ../lib/setup.php:1242 ../lib/setup.php:1252 ../lib/setup.php:1258
 msgid "Vote words and values"
 msgstr "Text och värden för omröstning:"
 
-#: ../lib/setup.php:1283
+#: ../lib/setup.php:1251
 #, php-format
 msgid "In %s, blank in row %d."
 msgstr "I %s, tomt på rad %d."
 
-#: ../lib/setup.php:1289
-#, php-format
+#: ../lib/setup.php:1257
+#, fuzzy, php-format
 msgid "In %s, for name %s (row %d) value %s should be a positive whole number"
 msgstr "I %s, för namn %s (rad %d) värde %s bör vara ett positivt heltalsnummer"
 
-#: ../lib/setup.php:1311
+#: ../lib/setup.php:1279
 #, fuzzy
 msgid "register_globals is off."
 msgstr "<b>register_globals</b> är inaktiverat."
 
-#: ../lib/setup.php:1488
+#: ../lib/setup.php:1466
 msgid "Your passwords do not match!"
 msgstr "Dina lösenord matchar inte varandra!"
 
-#: ../lib/setup.php:1500
+#: ../lib/setup.php:1478
 msgid "OK"
 msgstr "OK"
 
-#: ../lib/setup.php:1505
+#: ../lib/setup.php:1483
 msgid "Valid admin email address given."
 msgstr "Giltig e-postadress för administratören är angiven."
 
-#: ../lib/setup.php:1513
+#: ../lib/setup.php:1491
 #, fuzzy
 msgid "You must specify valid admin email addresses."
 msgstr "Du måste specificera en giltig e-postadress för administratören"
 
-#: ../lib/setup.php:1522
+#: ../lib/setup.php:1500
 #, php-format
 msgid "%s is not a valid email address."
 msgstr "%s är inte en giltig e-postadress."
 
-#: ../lib/setup.php:1533
+#: ../lib/setup.php:1511
 msgid "Valid sender email address given."
 msgstr "Giltig e-postadress för avsändaren är angiven."
 
-#: ../lib/setup.php:1536
+#: ../lib/setup.php:1514
 #, fuzzy
 msgid "You must specify a valid sender email address."
 msgstr "Du måste ange en giltig e-postadress för avsändaren"
 
-#: ../lib/setup.php:1540
+#: ../lib/setup.php:1518
 #, fuzzy, php-format
 msgid "You must include %s in your welcome email."
 msgstr "Du måste inkludera %s i din välkomst e-post"
 
-#: ../lib/setup.php:1547
+#: ../lib/setup.php:1525
 #, fuzzy, php-format
 msgid "You must include %s or %s in your welcome email."
 msgstr "Du måste inkludera %s eller %s i din välkomst e-post"
 
-#: ../lib/setup.php:1570
-#, fuzzy
-msgid "_Configuration Wizard"
+#: ../lib/setup.php:1547
+#, fuzzy, php-format
+msgid "this is new in version %s."
+msgstr "detta är nytt i version %s"
+
+#: ../lib/setup.php:1552
+#, php-format
+msgid "Return to %s."
+msgstr "Tillbaka till %s."
+
+#: ../lib/setup.php:1553
+msgid "Configuration Wizard"
 msgstr "Konfigurationsguiden"
 
-#: ../lib/setup.php:1578
-#, fuzzy
-msgid "Gallery Dia_gnostics Page"
-msgstr "Gallerys Diagnostiksida"
-
-#: ../lib/setup.php:1630
+#: ../lib/setup.php:1603
 #, php-format
 msgid "You must enter a password for the %s account."
 msgstr "Du måste skriva in ett lösenord för %s kontot."
 
-#: ../lib/setup.php:1635
+#: ../lib/setup.php:1608
 #, fuzzy, php-format
 msgid "It seems you've already configured Gallery, because there is one admin account, but it is not called %s."
 msgstr "Det ser ut som om du redan har konfigurerat Gallery eftersom det finns ett administratörskonto men det heter inte %s."
 
-#: ../lib/setup.php:1638
+#: ../lib/setup.php:1611
 #, php-format
 msgid "It seems you've already configured Gallery, because there are %d admin accounts, but no user called %s."
 msgstr "Det ser ut som om du redan har konfigurerat Gallery eftersom det finns %d administratörskonton men ingen användare som heter %s."
 
-#: ../lib/setup.php:1641
+#: ../lib/setup.php:1614
 #, php-format
 msgid "You don't have to enter a password.  But if you do, Gallery will create an administrator account called %s with that password."
 msgstr "Du behöver inte skriva in något lösenord.  Om du ändå gör det så kommer Gallery att skapa ett administratöstkonto som heter %s med det lösenordet."
 
-#: ../lib/setup.php:1650
+#: ../lib/setup.php:1623
 #, php-format
 msgid "It seems you've already configured Gallery, because the %s user exists.  You don't have to enter a password.  But if you do, Gallery will change the password for the %s user."
 msgstr "Det ser ut som om du redan har konfigurerat Gallery eftersom användaren %s redan finns.  Du behöver inte skriva in ett lösenord.  Om du gör det så kommer Gallery att ändra lösenordet för användaren %s."
 
-#: ../lib/setup.php:1656
+#: ../lib/setup.php:1629
 msgid "Admin password"
 msgstr "Administratörslösenord:"
 
-#: ../lib/setup.php:1671 ../lib/setup.php:1672 ../lib/setup.php:1673
-#: ../lib/setup.php:1677
+#: ../lib/setup.php:1644 ../lib/setup.php:1645 ../lib/setup.php:1646
+#: ../lib/setup.php:1650
 msgid "Full Name"
 msgstr "Fullständigt namn"
 
-#: ../lib/setup.php:1675
+#: ../lib/setup.php:1648
 msgid "Full name that you can click on to send email (mailto:)"
 msgstr "Fullständigt namn som du kan klicka på för att skicka e-post (e-post:)"
 
-#: ../lib/setup.php:1676
+#: ../lib/setup.php:1649
 msgid "Username that you can click on to send email (mailto:)"
 msgstr "Användarnamn som du kan klicka på för att skicka e-post (e-post:)"
 
-#: ../lib/setup.php:1677 ../lib/setup.php:1678
+#: ../lib/setup.php:1650 ../lib/setup.php:1651
 msgid "email address"
 msgstr "e-postadress"
 
-#: ../lib/setup.php:1697
+#: ../lib/setup.php:1670
 #, fuzzy
 msgid "This should be fixed before proceeding."
 msgstr "Detta bör fixas innan forsättning"
 
-#: ../lib/setup.php:1698
+#: ../lib/setup.php:1671
 #, php-format
 msgid "Look at %sCheck Versions%s for more details."
 msgstr "För mer information och detaljer se %sKontrollera versioner%s."
 
-#: ../lib/setup.php:1703
-#, fuzzy, php-format
+#: ../lib/setup.php:1676
+#, php-format
 msgid "One file is newer then expected."
 msgid_plural "%d files are newer then expected."
-msgstr[0] "En fil är nyare än förväntat"
-msgstr[1] "%d filer är nyare än förväntat"
+msgstr[0] ""
+msgstr[1] ""
 
-#: ../lib/setup.php:1711
+#: ../lib/setup.php:1684
 #, fuzzy, php-format
 msgid "One file is out of date, corrupted or missing."
 msgid_plural "%d files are out of date, corrupted or missing."
 msgstr[0] "Följande filer är inte uppdaterade, korrupta eller saknas: <br>&nbsp;&nbsp;&nbsp;&nbsp;%s."
 msgstr[1] "Följande filer är inte uppdaterade, korrupta eller saknas: <br>&nbsp;&nbsp;&nbsp;&nbsp;%s."
 
-#: ../lib/setup.php:1718
+#: ../lib/setup.php:1691
 #, php-format
 msgid "All %d tested files up-to-date."
 msgstr "Alla %d testade filer uppdaterade."
 
-#: ../lib/setup.php:1739
+#: ../lib/setup.php:1712
 msgid "The manifest file is missing or unreadable.  Gallery is not able to perform a file version integrity check.  Please install this file and reload this page."
 msgstr ""
 
-#: ../lib/setup.php:1744
+#: ../lib/setup.php:1717
 #, php-format
 msgid "Please ensure that %s is the latest version. Gallery is not able to perform a file version integrity check.  Please install the correct version and reload this page."
 msgstr ""
 
-#: ../lib/setup.php:1751
+#: ../lib/setup.php:1724
 #, php-format
 msgid "Testing status of %d files."
 msgstr "Prövar status på %d filer."
 
-#: ../lib/setup.php:1759
+#: ../lib/setup.php:1732
 #, php-format
 msgid "Cannot read file %s."
 msgstr "Kan inte läsa fil %s."
 
-#: ../lib/setup.php:1761
+#: ../lib/setup.php:1734
 msgid "File missing or unreadable."
 msgstr "Fil saknas eller är oläsbar."
 
-#: ../lib/setup.php:1777
+#: ../lib/setup.php:1750
 #, php-format
 msgid "Version information not found in %s.  File must be old version or corrupted."
 msgstr "Versionsinformation hittades inte på %s.  Filen måste vara gammal eller skadad."
 
-#: ../lib/setup.php:1779
+#: ../lib/setup.php:1752
 msgid "Missing version"
 msgstr "Saknar version"
 
-#: ../lib/setup.php:1785
+#: ../lib/setup.php:1758
 #, fuzzy, php-format
 msgid "Found Version: %s"
 msgstr "Ok!  Version: %s"
 
-#: ../lib/setup.php:1794
+#: ../lib/setup.php:1767
 #, php-format
 msgid "Problem with %s.  Expected version %s (or greater) but found %s."
 msgstr "Problem med %s.  Förväntade version %s (eller högre) men hittade %s."
 
-#: ../lib/setup.php:1797
+#: ../lib/setup.php:1770
 #, php-format
 msgid "Expected version %s (or greater) but found %s."
 msgstr "Förväntade version %s (eller högre) men hittade %s."
 
-#: ../lib/setup.php:1802
+#: ../lib/setup.php:1775
 #, fuzzy, php-format
 msgid "%s OK.  Actual version (%s) more recent than expected version (%s)."
 msgstr "%s OK.  Aktuell version (%s) aktuellare än förväntad version (%s)"
 
-#: ../lib/setup.php:1805
+#: ../lib/setup.php:1778
 #, php-format
 msgid "Expected version %s but found %s."
 msgstr "Förväntade version %s men hittade version %s."
 
-#: ../lib/setup.php:1810
+#: ../lib/setup.php:1783
 #, fuzzy, php-format
 msgid "%s OK."
 msgstr "%s OK"
 
-#: ../lib/setup.php:1812
+#: ../lib/setup.php:1785
 #, php-format
 msgid "Found expected version %s."
 msgstr "Hittade förväntad version %s."
 
-#: ../lib/setup.php:1866
+#: ../lib/setup.php:1921
 msgid "This email will be sent when new accounts are created."
 msgstr "Denna e-post kommer att skickas när nya konton skapas."
 
-#: ../lib/setup.php:1867
+#: ../lib/setup.php:1922
 msgid "Leaving this field empty sets Gallery to use the default message (see below) which can be translated, or use your own welcome message."
 msgstr "Lämna detta fält tomt för att få det förvalda meddelandet (se nedan) som kan översättas till andra språk eller använd ett eget välkommstmeddelande."
 
-#: ../lib/setup.php:1868
+#: ../lib/setup.php:1923
 msgid "The following placeholder can be used:"
 msgstr "Följande platshållare kan användas:"
 
-#: ../lib/setup.php:1880
+#: ../lib/setup.php:1935
 msgid "Current used welcome mail text"
 msgstr ""
 
-#: ../lib/setup.php:1943 ../lib/setup.php:1987
+#: ../lib/setup.php:2003
 #, php-format
 msgid "File %s does not exist."
 msgstr "Filen %s finns inte."
 
-#: ../lib/setup.php:1952 ../lib/setup.php:1997
+#: ../lib/setup.php:2012
 #, php-format
 msgid "Expected status: %s, but actually received status %s."
 msgstr "Förväntad status: %s, men faktisk mottagen status är %s."
 
-#: ../lib/setup.php:1963
+#: ../lib/setup.php:2025
 #, fuzzy
 msgid "can't detect version on Windows."
 msgstr "kan inte upptäcka version av Windows"
 
-#: ../lib/setup.php:1967 ../lib/setup.php:2025
+#: ../lib/setup.php:2036
 #, php-format
 msgid "OK!  Version: %s"
 msgstr "Ok!  Version: %s"
 
-#: ../lib/setup.php:2010
-msgid "can't detect version on Windows"
-msgstr "kan inte upptäcka version av Windows"
+#: ../lib/stats.php:31
+#, fuzzy, php-format
+msgid "Recursing album: %s"
+msgstr "Saknat värde"
 
-#: ../lib/setup.php:2034
-msgid "Unknown error occured."
+#: ../lib/stats.php:67
+msgid "Read cache num photos lock failed."
+msgstr ""
+
+#: ../lib/stats.php:91
+#, php-format
+msgid "Album name : %s ; index: %s"
+msgstr ""
+
+#: ../lib/stats.php:103 ../lib/stats.php:142
+msgid "Read cache lock failed."
+msgstr ""
+
+#: ../lib/stats.php:261
+#, fuzzy
+msgid "add vote"
+msgstr "1 röstare"
+
+#: ../lib/stats.php:360
+#, fuzzy, php-format
+msgid "From album: %s"
+msgstr "Album: %s"
+
+#: ../lib/stats.php:365
+#, fuzzy, php-format
+msgid "Owned by: %s"
+msgstr "Med stöd av %s v%s"
+
+#: ../lib/stats.php:397
+#, fuzzy
+msgid "Capture date:"
+msgstr "Fotodatum"
+
+#: ../lib/stats.php:413
+#, fuzzy
+msgid "Upload date:"
+msgstr "Uppladdningsdatum"
+
+#: ../lib/stats.php:430
+msgid "Viewed:"
+msgstr ""
+
+#: ../lib/stats.php:440
+msgid "Never viewed"
+msgstr ""
+
+#: ../lib/stats.php:437
+#, php-format
+msgid "Once"
+msgid_plural "%d times"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../lib/stats.php:448
+#, fuzzy
+msgid "Votes:"
+msgstr "Rösta"
+
+#: ../lib/stats.php:462
+msgid "not rated"
+msgstr ""
+
+#: ../lib/stats.php:476
+msgid "Rating:"
 msgstr ""
 
 #: ../lib/valchecks.php:57
@@ -1906,131 +1756,106 @@ msgstr "Givet värde är inte siffertecken"
 msgid "The value is not an allowed string and was set to a given default."
 msgstr "Givet värde är inte siffertecken"
 
-#: ../lib/valchecks.php:602
+#: ../lib/valchecks.php:586
 #, fuzzy
 msgid "No valid watermark image chosen."
 msgstr "Inget vattenstämpelnamn specificerat!"
 
-#: ../lib/valchecks.php:609
+#: ../lib/valchecks.php:593
 msgid "Please select a correct alignment."
 msgstr ""
 
-#: ../lib/valchecks.php:616
+#: ../lib/valchecks.php:600
 msgid "Please select on which photos you want the watermark."
 msgstr ""
 
-#: ../lib/valchecks.php:623
+#: ../lib/valchecks.php:607
 msgid "Do you want a preview or not?"
 msgstr ""
 
-#: ../lib/valchecks.php:632
+#: ../lib/valchecks.php:616
 msgid "Field X and Y need to be filled correctly."
 msgstr ""
 
-#: ../lib/voting.php:223
-msgid "<<< Vote >>>"
-msgstr ""
+#: ../lib/voting.php:219
+msgid "Vote"
+msgstr "Rösta"
 
-#: ../lib/voting.php:266
+#: ../lib/voting.php:261
 #, fuzzy
 msgid "(Total points in brackets)"
 msgstr "Totalt antal poäng inom parantes"
 
-#: ../lib/voting.php:270
+#: ../lib/voting.php:265
 #, fuzzy
 msgid "(Average points in brackets)"
 msgstr "Överlag antal poäng inom parantes"
 
-#: ../lib/voting.php:290
+#: ../lib/voting.php:285
 #, php-format
 msgid "Album: %s"
 msgstr "Album: %s"
 
-#: ../lib/voting.php:321
+#: ../lib/voting.php:316
 #, php-format
 msgid "1 voter"
 msgid_plural "%d voters"
 msgstr[0] "1 röstare"
 msgstr[1] "%d röstare"
 
-#: ../lib/voting.php:334
+#: ../lib/voting.php:329
 #, php-format
 msgid "Result from one voter"
 msgid_plural "Result of %d voters"
 msgstr[0] "Resultat från en röstare"
 msgstr[1] "Resultat från %d röstare"
 
-#: ../lib/voting.php:345
+#: ../lib/voting.php:340
 #, php-format
 msgid "%s: %s points; "
 msgstr "%s: %s poäng;"
 
-#: ../lib/voting.php:350
+#: ../lib/voting.php:345
 #, php-format
 msgid "Key - %s"
 msgstr "Nyckel - %s"
 
-#: ../lib/voting.php:377
+#: ../lib/voting.php:373
 msgid "No votes"
 msgstr "Inga röster"
 
-#: ../lib/voting.php:390
+#: ../lib/voting.php:386
 #, php-format
 msgid "Position %d overall, due to these votes:"
 msgstr ""
 
-#: ../lib/voting.php:399
+#: ../lib/voting.php:395
 #, fuzzy, php-format
 msgid "One vote"
 msgid_plural "%d votes"
 msgstr[0] "En röst"
 msgstr[1] "%d röster"
 
+#: ../js/moorainbow/mooRainbow.js.php:519
+#, fuzzy
+msgid "Select"
+msgstr "Välj album"
+
+#: ../js/moorainbow/mooRainbow.js.php:526
+#, fuzzy
+msgid "Close"
+msgstr "Färger"
+
 #: ../platform/fs_unix.php:133 ../platform/fs_win32.php:118
 #, php-format
 msgid "Gallery was not able to open dir: %s. <br>Please check permissions and existence"
 msgstr ""
 
-#: ../templates/info_donation-block.tpl.default:18
-#, fuzzy
-msgid "RSS"
-msgstr "%s RSS"
+#~ msgid "Number %d overall."
+#~ msgstr "Antal %d överlag."
 
-#: ../templates/info_donation-block.tpl.default:33
-msgid "Donate to Gallery now!!"
-msgstr ""
-
-#, fuzzy
-#~ msgid "Recursing album: %s"
-#~ msgstr "Saknat värde"
-
-#, fuzzy
-#~ msgid "add comment"
-#~ msgstr "Lämna kommentar"
-
-#, fuzzy
-#~ msgid "add vote"
-#~ msgstr "1 röstare"
-
-#, fuzzy
-#~ msgid "From album: %s"
-#~ msgstr "Album: %s"
-
-#, fuzzy
-#~ msgid "Owned by: %s"
-#~ msgstr "Med stöd av %s v%s"
-
-#, fuzzy
-#~ msgid "Capture date:"
-#~ msgstr "Fotodatum"
-
-#, fuzzy
-#~ msgid "Upload date:"
-#~ msgstr "Uppladdningsdatum"
-
-#, fuzzy
-#~ msgid "Votes:"
-#~ msgstr "Punkter"
+#~ msgid "%s: %s"
+#~ msgstr "%s: %s"
 
 #~ msgid "Color Picker"
 #~ msgstr "Färgväljare"
@@ -2041,6 +1866,15 @@ msgstr ""
 #, fuzzy
 #~ msgid "This window must be called from an Options window."
 #~ msgstr "Detta fönster måste anropas från ett alternativfönster"
+
+#~ msgid "Error:"
+#~ msgstr "Felmeddelande:"
+
+#~ msgid "%d files are more recent than expected.  This is OK if you are using pre-release, beta, SVN or modified code."
+#~ msgstr "%d filer är mer uppdaterade än förväntat.  Detta är OK om du använder en förutgåva, beta, SVN eller anpassad kod."
+
+#~ msgid "All tested files up-to-date."
+#~ msgstr "Alla testade filer uppdaterade."
 
 #, fuzzy
 #~ msgid "Value was set to given default, because the original value is not numeric."
@@ -2062,11 +1896,24 @@ msgstr ""
 #~ msgid "Value was corrected, because the original value is not a valid text."
 #~ msgstr "Värdet ställdes in på det förvalda eftersom originalvärdet inte är ett giltigt heltal."
 
-#~ msgid "New comment for %s"
-#~ msgstr "Ny kommentar för %s"
-
 #~ msgid "Can't find <i>jpegtran</i>!"
 #~ msgstr "Kan inte hitta <i>jpegtran</i>!"
 
-#~ msgid "this is new in version %s"
-#~ msgstr "detta är nytt i version %s"
+#~ msgid "File missing or unreadable.  Please install then re-run this test."
+#~ msgstr "Fil saknas eller är oläsbar.  Vänligen installera och gör om detta test."
+
+#~ msgid "Please ensure that %s is the latest version."
+#~ msgstr "Vänligen försäkra dig om att %s är den senaste versionen."
+
+#, fuzzy
+#~ msgid "Choose a microthumb style"
+#~ msgstr "Stil på microbilder"
+
+#~ msgid "Maximum dimensions of full sized images"
+#~ msgstr "Maximala dimensioner på fullskaliga bilder"
+
+#~ msgid "New comment for %s"
+#~ msgstr "Ny kommentar för %s"
+
+#~ msgid "both"
+#~ msgstr "båda"

@@ -1,8 +1,0 @@
-propel:
-  item:
-    id: ~
-    Name: {type: varchar(45), required: true}
-    Path: {type: varchar(45), required: true}
-    hasChildren: {type: boolean, required: true, default: false}
-    parent_id: {type: integer, foreignTable: item, foreignReference: id}
-    isAlbum: {type: boolean, required: true, default: false}

@@ -20,50 +20,38 @@
  * $Id$
  */
 
-/**
- * Writes a HTML formular to upload items from an URL.
- *
- * @package Add_Items
- */
+echo "\n<p>";
+echo gTranslate('core', "Upload any images found at this location.") . ' ';
+echo gTranslate('core', "The location can either be a URL or a local directory on the server.");
+echo "\n<p>\n";
 
-echo "\n<br><br>";
+echo '<b>'. gTranslate('core', "Tip:") . '</b> ';
+echo gTranslate('core', "FTP images to a directory on your server then provide that path here!");
 
-echo makeFormIntro('save_photos.php',
-	array('name' => 'uploadurl_form'),
-	array('type' => 'popup')
-);
-
-echo gInput(
-		'text',
-		'urls[]',
-		gTranslate('core', "Upload any images found at this location:"),
-		false, false, array('size' => 50));
-
-echo "\n<div style=\"padding-top: 5px\">";
+echo makeFormIntro("save_photos.php",
+array('name' => 'uploadurl_form'),
+array('type' => 'popup'));
+?>
+<input type="text" name="urls[]" size="40">
+<p>
+<?php
 echo gTranslate('core', "What would you like the captions to default to?");
-echo "\n</div>";
-
-echo "\n<div style=\"padding-top: 5px\">";
-/**
- * Central caption options
- */
+echo "\n<br><br>";
 include(dirname(__FILE__) .'/captionOptions.inc.php');
-echo "\n</div>";
-
+?>
+</p>
+<?php
 if (isset($gallery->app->watermarkDir)) {
 	global $watermarkForm;
 
 	$watermarkForm['askRecursive']	= 0;
 	$watermarkForm['askPreview']	= 0;
-	$watermarkForm['allowNone']	= 1;
-
+	$watermarkForm['allowNone']		= 1;
 	includeLayout('watermarkform.inc');
 }
 ?>
-<div align="center" style="margin-top: 5px;">
-	<?php echo gInput('hidden', 'uploadFromUrl', '', false, '1'); ?>
-	<?php echo gButton('submitUrl', gTranslate('core', "_Submit URL"), 'parent.opener.showProgress(); document.uploadurl_form.submit()'); ?>
-	<?php echo gButton('cancel', gTranslate('core', "_Cancel"), 'parent.close()'); ?>
-</div>
-
+<p align="center">
+<input class="g-button" type="submit" value="<?php echo gTranslate('core', "Submit URL or directory") ?>" onClick='parent.opener.showProgress(); document.uploadurl_form.submit()'>
+<?php echo gButton('close', gTranslate('core', "Cancel"), 'parent.close()'); ?>
+</p>
 </form>

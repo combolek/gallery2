@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * $Id$
-*/
+ */
 
 /**
  * @package Filesystem_unix
@@ -108,7 +108,7 @@ function fs_is_dir($filename) {
 /**
  * Checks whether a file exists on the local filesystem and is a regular file
  *
- * @param  string    $filename
+ * @param  string   $filename
  * @return boolean
  */
 function fs_is_file($filename) {

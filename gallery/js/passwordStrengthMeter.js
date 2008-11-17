@@ -9,7 +9,7 @@
 // For more information : http://phiras.wordpress.com/2007/04/08/password-strength-meter-a-jquery-plugin/
 
 var shortPass	= 'Too short'
-var badPass	= 'Bad'
+var badPass		= 'Bad'
 var goodPass	= 'Good'
 var strongPass	= 'Strong'
 

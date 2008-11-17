@@ -19,7 +19,8 @@
  *
  * $Id$
  */
-
+?>
+<?php
 /**
  * Writes the Gallery Remote Applet for adding items.
  *

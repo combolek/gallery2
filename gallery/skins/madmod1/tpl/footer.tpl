@@ -1,9 +1,3 @@
-<?php
-
-/**
- * Gallery SVN ID:
- * $Id$
-*/
-?>
+<!-- $Id$ --> 
 
   <div><br><br>&copy; 1998-2004 Drazan Enterprise</div>

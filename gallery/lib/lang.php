@@ -43,7 +43,7 @@ function gTranslate($domain = null, $singular, $plural = '', $count = null, $non
 
 	$allowedDomain = array('config', 'common', 'core');
 	if(!in_array($domain, $allowedDomain)) {
-		return '<span class="g-error">'. ("-- Translation Domain wrong --") .'</span>';
+		return '<span class="error">'. ("-- Translation Domain wrong --") .'</span>';
 	}
 
 	if ($count == 0 && $nonetext != '') {
@@ -430,7 +430,7 @@ function initLanguage($sendHeader = true) {
 	}
 
 	/* Set Locale*/
-	setlocale(LC_ALL,$gallery->locale);
+	setlocale(LC_ALL, $gallery->locale);
 
 	if($gallery->language == 'tr_TR') {
 		setlocale(LC_CTYPE, 'C');
@@ -719,14 +719,14 @@ function isSupportedCharset($charset) {
 	 * Not all Gallery Charsets are supported by PHP, so only thoselisted are recognized.
 	 */
 	if (in_array($charset, $supportedCharsets) ||
-			 (version_compare(phpversion(), "4.3.2", ">=") && in_array($charset, $supportedCharsetsNewerPHP)) ) {
+	    (version_compare(phpversion(), "4.3.2", ">=") && in_array($charset, $supportedCharsetsNewerPHP)) ) {
 			return true;
-		}
-		else {
-			/* Unsupported Charset*/
-			return false;
-		}
 	}
+	else {
+		/* Unsupported Charset*/
+		return false;
+	}
+}
 
 /**
  * These are custom fields that are turned on and off at an album
@@ -751,7 +751,7 @@ function translateableFields() {
 		'Title'		=> gTranslate('common', "Title"),
 		'Description'	=> gTranslate('common', "Description"),
 		'description'	=> gTranslate('common', "description"),
-        	'AltText'	=> gTranslate('common', "Alt text / Tooltip"),
+        'AltText'		=> gTranslate('common', "Alt text / Tooltip"),
 	);
 }
 
@@ -762,29 +762,25 @@ function translateableFields() {
  */
 function languageSelector() {
 	global $gallery, $GALLERY_EMBEDDED_INSIDE, $GALLERY_EMBEDDED_INSIDE_TYPE;
-	global $specialIconMode;
-
-	static $langselectorCount = 0;
-	static $nls;
 
 	$html = '';
-	$langselectorCount++;
 
 	if ($gallery->app->ML_mode == 3 && !$gallery->session->offline && sizeof($gallery->app->available_lang) > 1) {
-
-		$html .= jsHTML('wz/wz_tooltip.js');
-
-		$selector_id = "langselector_$langselectorCount";
-		$icontext = getIconText('langiconclassic.png', gTranslate('common', "_Language"), $specialIconMode);
-		$tooltipOption = "'$selector_id', COPYCONTENT, false, STICKY, true, FADEIN, 400, FADEOUT, 300, CLOSEBTN, true, TITLE, 'Choose a Language', HEIGHT, -150, FIX, ['langSelector', 0, 2], WIDTH, 200, JUMPHORZ, true, BGCOLOR, '#fff', EXCLUSIVE, true";
-
-		$html .= "<a id=\"langSelector\" class=\"g-small\" onmouseover=\"TagToTip($tooltipOption)\" onmouseout=\"UnTip()\">$icontext</a>\n";
-
-		$html .= "<div class=\"g-tooltip g-languageSelector\" id=\"$selector_id\">\n";
-
-		if(empty($nls)) {
-			$nls = getNLS();
+		if($gallery->app->show_flags !='yes') {
+			$html .= '<script language="JavaScript" type="text/javascript">';
+			$html .= "\n". 'function ML_reload() {';
+			$html .= "\n". 'var newlang=document.MLForm.newlang[document.MLForm.newlang.selectedIndex].value ;';
+			$html .= "\n". 'window.location.href=newlang;';
+			$html .= "\n". '}';
+			$html .= "\n" . '</script>';
 		}
+
+		$html .= makeFormIntro('#', array('name' => 'MLForm', 'class' => 'MLForm'));
+		$langSelectTable = new galleryTable();
+		$langSelectTable->setColumnCount(20);
+		$langSelectTable->setAttrs(array('class' => 'languageSelector', 'align' => langRight()));
+
+		$nls = getNLS();
 
 		foreach ($gallery->app->available_lang as $value) {
 			/*
@@ -794,10 +790,8 @@ function languageSelector() {
 			if (! isset($nls['language'][$value])) continue;
 
 			if (isset($GALLERY_EMBEDDED_INSIDE) && $GALLERY_EMBEDDED_INSIDE=='nuke') {
-				if ($GALLERY_EMBEDDED_INSIDE_TYPE == 'postnuke' ||
-				    $GALLERY_EMBEDDED_INSIDE_TYPE == 'zikula')
-				{
-					/* Postnuke or Zikula*/
+				if ($GALLERY_EMBEDDED_INSIDE_TYPE == 'postnuke') {
+					/* postnuke */
 					if (! isset($nls['postnuke'][$value])) continue;
 					$new_lang = $nls['postnuke'][$value];
 				}
@@ -814,28 +808,46 @@ function languageSelector() {
 			/* now we build the URL according to the new language */
 			$request_url = $_SERVER['REQUEST_URI'];
 			$pos = strpos($request_url, "newlang");
-			if ($pos > 0) {
-				$request_url = substr($request_url, 0, $pos-1);
+			if ($pos >0) {
+				$request_url = substr($request_url,0,$pos-1);
 			}
 
 			$url = htmlspecialchars(addUrlArg($request_url, "newlang=$new_lang"));
 
-			$langText = $nls['language'][$value];
-			$flagname = $value;
-
-			if($gallery->app->show_flags == 'yes') {
-				$flagImage = "<img src=\"". $gallery->app->photoAlbumURL . "/locale/$flagname/flagimage/$flagname.gif\" alt=\"$langText\" title=\"$langText\"> ";
-			}
-
-			if ($gallery->language != $value) {
-				$html .= "<div><a href=\"$url\">$flagImage<span>$langText</span></a></div>\n";
+			/* Show pulldown or flags */
+			if($gallery->app->show_flags !='yes') {
+				$options[$url] = $nls['language'][$value];
 			}
 			else {
-				$html .= "<div><b>$flagImage$langText</b></div>\n";
+				$flagname = $value;
+				$flagImage = "<img src=\"". $gallery->app->photoAlbumURL . "/locale/$flagname/flagimage/$flagname.gif\" alt=\"" .$nls['language'][$value] . "\" title=\"" .$nls['language'][$value] . "\">";
+
+				if ($gallery->language != $value) {
+					$langSelectTable->addElement(array('content' => "<a href=\"$url\">$flagImage</a>"));
+				}
+				else {
+					$langSelectTable->addElement(array(
+						'content' => $flagImage,
+						'cellArgs' => array('style' => 'padding-bottom:10px')
+					));
+				}
 			}
 		}
 
-		$html .= "</div>";
+		if($gallery->app->show_flags !='yes') {
+			$content = drawSelect('newlang',
+					$options,
+					$nls['language'][$gallery->language],
+					1,
+					array('style' => 'font-size:8pt;', 'onChange' => 'ML_reload()'),
+					true
+			);
+
+			$langSelectTable->addElement(array('content' => $content));
+		}
+
+		$html .= $langSelectTable->render();
+		$html .= '</form><br clear="all">';
 	}
 
 	return $html;

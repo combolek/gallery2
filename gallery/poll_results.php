@@ -56,7 +56,7 @@ $adminbox['text']		= gTranslate('core', "Poll Results");
 $iconElements[] = galleryIconLink(
 				makeAlbumUrl($gallery->session->albumName),
 				'navigation/return_to.gif',
-				gTranslate('core', "_Return to album")
+				gTranslate('core', "Return to album")
 );
 
 $iconElements[] = LoginLogoutButton(makeGalleryUrl());
@@ -87,14 +87,16 @@ if (!$GALLERY_EMBEDDED_INSIDE) {
   	echo $customCSS;
   ?>
 </head>
-<body>
+<body dir="<?php echo $gallery->direction ?>">
 <?php }
 
-includeTemplate('album.header');
+includeHtmlWrap("album.header");
 
+includeLayout('navtablebegin.inc');
 includeLayout('adminbox.inc');
+includeLayout('navtablemiddle.inc');
 includeLayout('breadcrumb.inc');
-includeLayout('navigator.inc');
+includeLayout('navtableend.inc');
 
 $num_rows = $gallery->album->numPhotos($gallery->user->canWriteToAlbum($gallery->album));
 list($buf, $results) = showResultsGraph($num_rows);
@@ -107,7 +109,7 @@ $i = 0;
 $numPhotos = sizeof($ranks);
 
 $resultTable = new galleryTable();
-$resultTable->setAttrs(array('class' => 'g-vatable'));
+$resultTable->setAttrs(array('class' => 'vatable'));
 $resultTable->setColumnCount($cols);
 
 while ($i < $numPhotos) {
@@ -134,7 +136,7 @@ while ($i < $numPhotos) {
 
 	$resultTable ->addElement(array(
 		'content' => $content,
-		'cellArgs' => array('class' => 'g-vathumb-cell')
+		'cellArgs' => array('class' => 'vathumbs')
 	));
 
 	$i++;
@@ -143,7 +145,7 @@ while ($i < $numPhotos) {
 if (!empty($resultTable->elements)) {
 ?>
 <br>
-<p class="g-vote-box">
+<p class="g-emphasis title">
 <?php echo gTranslate('core', "Results Breakdown") ?>
 </p>
 <?php
@@ -153,12 +155,14 @@ else {
 	echo gallery_info(gTranslate('core', "No votes so far."));
 }
 
-includeTemplate('info_donation-block');
-
-includeTemplate('overall.footer');
+echo "\n<br><br>";
+includeLayout('navtablebegin.inc');
+includeLayout('breadcrumb.inc');
+includeLayout('navtableend.inc');
+echo languageSelector();
+includeHtmlWrap("album.footer");
 
 if (!$GALLERY_EMBEDDED_INSIDE) { ?>
 </body>
 </html>
-<?php }
-?>
+<?php } ?>

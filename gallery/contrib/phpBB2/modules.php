@@ -42,7 +42,8 @@ foreach (array('op', 'name', 'file') as $varname) {
 	}
 }
 
-switch ($_REQUEST['op']) {
+
+switch ($op) {
 	case 'modload':
 		// Added with changes in Security for PhpBB2.
 		define('IN_PHPBB', true);
@@ -65,7 +66,8 @@ switch ($_REQUEST['op']) {
 		if (ereg("\.\.",$name) || ereg("\.\.",$file)) {
 			echo 'Nice try :-)';
 			break;
-		} else {
+		}
+		else {
 			include(MODULES_PATH."$name/$file.$phpEx");
 		}
 		break;

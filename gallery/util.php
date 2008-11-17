@@ -57,16 +57,18 @@ function getRequestVar($str) {
 
 		$ret_orig = $ret;
 
-		//echo "\n<br>- Checking:". gHtmlSafe($str);
+		// echo "\n<br>- Checking:". gHtmlSafe($str) . " -- $ret";
 		$sanitized = sanitizeInput($ret);
 
 		if($sanitized != $ret_orig) {
 			$global_notice_messages[] = array(
-				'type' => 'error',
-				'text' => sprintf(gTranslate('core', "'%s' was sanitized"), $str));
+			'type' => 'error',
+			'text' => sprintf(gTranslate('core', "'%s' was sanitized"), $str));
 		}
 
 		$ret = $sanitized;
+
+		//echo "\n<br>- Result:". gHtmlSafe($str) . " -- $sanitized";
 	}
 	else {
 		foreach ($str as $reqvar) {
@@ -352,7 +354,7 @@ function gallerySanityCheck() {
 		broken_link(GALLERY_CONFDIR . '/config.php')) {
 
 		$GALLERY_OK = false;
-		return 'unconfigured';
+		return 'unconfigured.php';
 	}
 
 	include_once(GALLERY_CONFDIR . '/config.php');
@@ -363,21 +365,22 @@ function gallerySanityCheck() {
 
 	if (!isset($gallery->app)) {
 		$GALLERY_OK = false;
-		return 'unconfigured';
+		return 'unconfigured.php';
 	}
 
 	if(!realpath($gallery->app->albumDir)) {
-		echo gallery_error(
-			gTranslate('core', "Gallery seems to be configured, but the path to the albums dir is wrong. Maybe you did a host change?") .
+		echo infoBox(array(array(
+			'type' => 'error',
+			'text' => gTranslate('core', "Gallery seems to be configured, but the path to the albums dir is wrong. Maybe you did a host change?") .
 					  '<br>' .
-					  gTranslate('core', "Check all pathes and URLS in your config.php ; Unfortunately this can't be done via the config wizard.")
-		);
+					  gTranslate('core', "Check all paths and URLs in your config.php; unfortunately this can't be done via the config wizard.")
+		)));
 		exit;
 	}
 
 	if ($gallery->app->config_version != $gallery->config_version) {
 		$GALLERY_OK = false;
-		return 'reconfigure';
+		return 'reconfigure.php';
 	}
 
 	$GALLERY_OK = true;
@@ -586,14 +589,14 @@ function getItemCaptureDate($file, $exifData = array()) {
 				elseif (isset($exifData['Image Created'])) {
 					$tempDate = split(" ", $exifData['Image Created'], 2);
 				}
-				
+
 			break;
-			
+
 			case 'jhead':
 				if (isset($exifData['Date/Time'])) {
 					$tempDate = split(" ", $exifData['Date/Time'], 2);
 				}
-				
+
 			break;
 		}
 
@@ -637,8 +640,7 @@ function doCommand($command, $args = array(), $returnTarget = '', $returnArgs = 
 		$args["return"] = urlencode(makeGalleryHeaderUrl($returnTarget, $returnArgs));
 	}
 	$args["cmd"] = $command;
-
-	return makeGalleryUrl('popups/do_command.php', $args);
+	return makeGalleryUrl("do_command.php", $args);
 }
 
 function breakString($buf, $desired_len=40, $space_char=' ', $overflow=5) {
@@ -662,6 +664,18 @@ function padded_range_array($start, $end) {
 		$arr[$val] = $i;
 	}
 	return $arr;
+}
+
+/**
+ * This function left in place to support patches that use it, but please use
+ * lastCommentDate functions in classes Album and AlbumItem.
+ */
+function mostRecentComment($album, $i) {
+	$id = $album->getPhotoId($i);
+	$index = $album->getPhotoIndex($id);
+	$recentcomment = $album->getComment($index, $album->numComments($i));
+
+	return $recentcomment->getDatePosted();
 }
 
 function ordinal($num = 1) {
@@ -1109,14 +1123,9 @@ function calcVAdivDimension($frame, $iHeight, $iWidth, $borderwidth) {
 			$divCellAdd =  $borderwidth + 3;
 		break;
 
-		case "siriux":
-			$divCellWidth = $thumbsize + 15;
-			$divCellAdd =  15;
-		break;
-
 		default: // use frames directory or fallback to none.
 			if(array_key_exists($frame, available_frames())) {
-				require(dirname(__FILE__) . "/layout/frames/$frame/frame.def");
+				require(dirname(__FILE__) . "/html_wrap/frames/$frame/frame.def");
 
 				$divCellWidth = $thumbsize + $widthTL + $widthTR;
 				$divCellAdd = $heightTT + $heightBB;
@@ -1302,29 +1311,25 @@ function array_sort_by_fields(&$data, $sortby, $order = 'asc', $caseSensitive = 
 
 		if ($caseSensitive) {
 			$code = "
-		$a = removeAccessKey($a);
-		$b = removeAccessKey($b);
-		if( $a == $b ) {
-			return 0;
-		};
-		if ( $a > $b ) {
-			return $order;
-		} else {
-			return -1 * $order;
-		}";
+	    if( $a == $b ) {
+	        return 0;
+	    };
+	    if ( $a > $b ) {
+	        return $order;
+	    } else {
+	        return -1 * $order;
+	    }";
 		}
 		else {
 			$code = "
-		$a = removeAccessKey($a);
-		$b = removeAccessKey($b);
-		if(strtoupper($a) == strtoupper($b)) {
-			return 0;
-		};
-		if (strtoupper($a) > strtoupper($b)) {
-			return $order;
-		} else {
-			return -1 * $order;
-		}";
+	    if(strtoupper($a) == strtoupper($b)) {
+	        return 0;
+	    };
+	    if (strtoupper($a) > strtoupper($b)) {
+	        return $order;
+	    } else {
+	        return -1 * $order;
+	    }";
 		}
 
 		$sort_func = $sort_funcs[$sortby] = create_function('$a, $b', $code);
@@ -1365,8 +1370,8 @@ function createTempAlbum($albumItemNames = array(), $dir = '') {
 
 	if(! fs_mkdir($dir)) {
 		echo gallery_error(
-			sprintf(gTranslate('core', "Gallery was unable to create a temporary subfolder in your tempdir. Please check permissions of this dir: %s"),
-		  		$gallery->app->tmpDir)
+		  sprintf(gTranslate('core', "Gallery was unable to create a temporary subfolder in your tempdir. Please check permissions of this dir: %s"),
+		  $gallery->app->tmpDir)
 		);
 
 		return false;
@@ -1473,65 +1478,6 @@ function clearGalleryTitle($topic = '') {
 	}
 
 	return $ret;
-}
-
-/**
- * Checks whether PHP has a specific GD support
- *
- * @param string	$tag
- * @return boolean			True if support is present, otherwise false
- * @author Jens Tkotz
- */
-function gdAvailable($tag = 'jpg') {
-	if(!function_exists('imagetypes')) {
-		return false;
-	}
-
-	$gdTests = array(
-		'gif'	=> IMG_GIF,
-		'jpg'	=> IMG_JPG,
-		'jpeg'	=> IMG_JPG,
-		'png'	=> IMG_PNG,
-		'wbmp'	=> IMG_WBMP,
-		'xpm'	=> IMG_XPM
-	);
-
-	$tag = strtolower($tag);
-
-	if (imagetypes() & $gdTests[$tag]) {
-		return true;
-	}
-	else {
-		return false;
-	}
-}
-
-function enableCaptcha() {
-	global $gallery;
-
-	if(!gdAvailable() || !isset($gallery->app->enableCaptcha)) {
-		return false;
-	}
-
-	switch($gallery->app->enableCaptcha) {
-		case 'no':
-			return false;
-			break;
-
-		case 'yes':
-			return true;
-			break;
-
-		case 'anonymous':
-			if(!$gallery->user->isLoggedIn()) {
-				return true;
-			}
-			break;
-
-		default:
-			return false;
-			break;
-	}
 }
 
 require_once(dirname(__FILE__) . '/lib/form.php');

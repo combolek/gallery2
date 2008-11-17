@@ -25,7 +25,6 @@ class AlbumItem {
 	var $thumbnail;
 	var $preview;
 	var $caption;
-	var $description;
 	var $hidden;
 	var $highlight;
 	var $highlightImage;
@@ -236,39 +235,6 @@ class AlbumItem {
 		if ($this->version < 33 && !empty($this->extraFields['autoRotated'])) {
 			unset($this->extraFields['autoRotated']);
 			$changed = 1;
-		}
-
-		/* Move extrafield 'description', 'Description' or the translated Version into $description */
-		if ($this->version < 39 && !empty($this->extraFields)) {
-			$description = '';
-
-			$translation1 = gTranslate('core', "description");
-			$translation2 = gTranslate('core', "Description");
-
-			if(!empty($this->extraFields['description'])) {
-				$description .= $this->extraFields['description'];
-				unset($this->extraFields['description']);
-			}
-
-			if(!empty($this->extraFields['Description'])) {
-				$description .= $this->extraFields['Description'];
-				unset($this->extraFields['Description']);
-			}
-
-			if(!empty($this->extraFields[$translation1])) {
-				$description .= $this->extraFields[$translation1];
-				unset($this->extraFields[$translation1]);
-			}
-
-			if(!empty($this->extraFields[$translation2])) {
-				$description .= $this->extraFields[$translation2];
-				unset($this->extraFields[$translation2]);
-			}
-
-			if($description != '') {
-				$this->description = $description;
-				$changed = 1;
-			}
 		}
 
 		if ($this->image) {
@@ -730,7 +696,9 @@ class AlbumItem {
 
 		echo debugMessage(gTranslate('core', "Generating thumbnail."),__FILE__, __LINE__);
 
-		/* Use prese thumbnail for moviews */
+		debugMessage(sprintf(gTranslate('core', "Saved dimensions: width:%d ; height:%d"),
+		$this->image->raw_width, $this->image->raw_height), __FILE__, __LINE__, 3);
+
 		if ($this->isMovie()) {
 			/* Use a preset thumbnail */
 			if(realpath($gallery->app->movieThumbnail)) {
@@ -750,27 +718,41 @@ class AlbumItem {
 			list($w, $h) = getDimensions("$dir/$name.thumb.jpg");
 			$this->thumbnail->setDimensions($w, $h);
 		}
-		/* Item is a photo, various possibilities */
 		else {
-			debugMessage(sprintf(gTranslate('core', "Saved Dimensions: x:%d y: %d"),
-				$this->image->raw_width, $this->image->raw_height), __FILE__, __LINE__, 3);
-
-			#1 Use given $pathToThumb as thumbnail
+			/* Make thumbnail (first crop it spec) */
 			if ($pathToThumb) {
 				$ret = copy($pathToThumb,"$dir/$name.thumb.$tag");
 			}
-			#2 A special thumbail-area is set, extract it from the fullsize image
 			else if ($this->image->thumb_width > 0) {
 				$ret = cut_image(
-				  "$dir/$name.$tag",
-				  "$dir/$name.thumb.$tag",
-				  $this->image->thumb_x,
-				  $this->image->thumb_y,
-				  $this->image->thumb_width,
-				  $this->image->thumb_height);
+				"$dir/$name.$tag",
+				"$dir/$name.thumb.$tag",
+				$this->image->thumb_x,
+				$this->image->thumb_y,
+				$this->image->thumb_width,
+				$this->image->thumb_height);
 
 				if ($ret) {
 					$ret = resize_image(
+					"$dir/$name.thumb.$tag",
+					"$dir/$name.thumb.$tag",
+					$thumb_size,
+					0,
+					0,
+					true,
+					$gallery->app->thumbJpegImageQuality
+					);
+				}
+			} else {
+				if(!empty($ratio)) {
+					$ret = cropImageToRatio(
+					"$dir/$name.$tag",
+					"$dir/$name.thumb.$tag",
+					$thumb_size,
+					$ratio
+					);
+					if($ret) {
+						$ret = resize_image(
 						"$dir/$name.thumb.$tag",
 						"$dir/$name.thumb.$tag",
 						$thumb_size,
@@ -778,45 +760,10 @@ class AlbumItem {
 						0,
 						true,
 						$gallery->app->thumbJpegImageQuality
-					);
-				}
-			}
-			#3 Generic thumbnail
-			else {
-				if(!empty($ratio)) {
-					$ret = cropImageToRatio(
-						"$dir/$name.$tag",
-						"$dir/$name.thumb.$tag",
-						$thumb_size,
-						$ratio
-					);
-					if($ret) {
-						$ret = resize_image(
-							"$dir/$name.thumb.$tag",
-							"$dir/$name.thumb.$tag",
-							$thumb_size,
-							0,
-							0,
-							true,
-							$gallery->app->thumbJpegImageQuality
 						);
 					}
 					else {
 						$ret = resize_image(
-							"$dir/$name.$tag",
-							"$dir/$name.thumb.$tag",
-							$thumb_size,
-							0,
-							0,
-							true,
-							$gallery->app->thumbJpegImageQuality
-						);
-					}
-				}
-				else {
-                    debugMessage(gTranslate('core', "Generating normal thumbs."), __FILE__, __LINE__);
-					// no resizing, use ratio for thumb as for the image itself;
-					$ret = resize_image(
 						"$dir/$name.$tag",
 						"$dir/$name.thumb.$tag",
 						$thumb_size,
@@ -824,6 +771,20 @@ class AlbumItem {
 						0,
 						true,
 						$gallery->app->thumbJpegImageQuality
+						);
+					}
+				}
+				else {
+					debugMessage(gTranslate('core', "Generating normal thumbs."), __FILE__, __LINE__);
+					// no resizing, use ratio for thumb as for the image itself;
+					$ret = resize_image(
+					"$dir/$name.$tag",
+					"$dir/$name.thumb.$tag",
+					$thumb_size,
+					0,
+					0,
+					true,
+					$gallery->app->thumbJpegImageQuality
 					);
 				}
 			}
@@ -910,10 +871,10 @@ class AlbumItem {
 			}
 
 			if(isset($attrList['class'])) {
-				$attrList['class'] .= ' g-title';
+				$attrList['class'] .= ' title';
 			}
 			else {
-				$attrList['class'] = 'g-title';
+				$attrList['class'] = 'title';
 			}
 
 			$attrs = generateAttrs($attrList);
@@ -923,7 +884,7 @@ class AlbumItem {
 	}
 
 	function getPhotoTag($dir, $full = false, $attrs) {
-		if (empty($attrs['alt'])) {
+		if (!isset($attrs['alt'])) {
 			$attrs['alt'] = $this->getAlttext();
 		}
 
@@ -1035,14 +996,6 @@ class AlbumItem {
 		$this->setCaption($caption);
 	}
 
-	function getDescription() {
-		return $this->description;
-	}
-
-	function setDescription($description) {
-		$this->description = $description;
-	}
-
 	function isAlbum() {
 		return ($this->isAlbumName !== NULL) ? true : false;
 	}
@@ -1083,37 +1036,9 @@ class AlbumItem {
 		}
 	}
 
-	/**
-	 * Resizes one image.
-	 *
-	 * @param string	$dir			Path to the album where the image is in.
-	 * @param integer	$target			New size of the longest site in pixel.
-	 * @param integer	$filesize		New minimum filesite
-	 * @param string	$pathToResized
-	 */
-	function resize($dir, $target, $filesize, $pathToResized, $full = false) {
+	function resize($dir, $target, $filesize, $pathToResized) {
 		if (isset($this->image)) {
-			$this->image->resize($dir, $target, $filesize, $pathToResized, $full);
-		}
-	}
-
-	/**
-	 * Crops an image.
-	 * The width and height give the size of the image that remains after cropping
- 	 * The offsets specify the location of the upper left corner of the cropping region
- 	 * measured downward and rightward with respect to the upper left corner of the image.
-	 *
-	 * @param string $dir	Path to the album
-	 * @param int $offsetX
-	 * @param int $offsetY
-	 * @param int $width
-	 * @param int $height
-	 * @param boolean $cropResized	If true, then the resized version is cropped. Otherwise the full.
-	 * @author Jens Tkotz
-	 */
-	function crop($dir, $offsetX, $offsetY, $width, $height, $cropResized = false) {
-		if (isset($this->image)) {
-			$this->image->crop($dir, $offsetX, $offsetY, $width, $height, $cropResized);
+			$this->image->resize($dir, $target, $filesize, $pathToResized);
 		}
 	}
 

@@ -29,13 +29,10 @@
  * Otherwise constants are not defined.
  */
 
-require(dirname(__FILE__) . '/init.php');
+require (dirname(__FILE__) . '/init.php');
 
-gallerySanityCheck();
-
-// Require a user to be logged in before allowing them to configure the server.
-// If Gallery has not been configured before, allow to continue without logging in
-configLogin(basename(__FILE__));
+require (dirname(__FILE__) . '/config_data.inc');
+require (GALLERY_BASE . '/js/sectionTabs.js.php');
 
 list($preserve, $go_next, $go_back, $next_page, $back_page, $this_page, $go_defaults, $refresh) =
 	getRequestVar(array('preserve', 'go_next', 'go_back', 'next_page', 'back_page', 'this_page', 'go_defaults', 'refresh'));
@@ -66,8 +63,12 @@ doctype();
 
 </head>
 
-<body onload="enableButtons()">
+<body dir="<?php echo $gallery->direction ?>" onload="enableButtons()">
 <?php
+// Require a user to be logged in before allowing them to configure the server.
+// If Gallery has not been configured before, allow to continue without logging in
+configLogin(basename(__FILE__));
+
 
 if (isset($go_defaults) || isset($refresh)) {
 	$setup_page = $this_page;
@@ -84,9 +85,9 @@ if (!empty($preserve)) {
 	$tmp = explode(" ", urldecode($preserve));
 	$preserve = array();
 	foreach ($tmp as $key) {
-		$preserve[$key] = true;
+		$preserve[$key] = 1;
 		if (($gallery->session->configForm->$key = getRequestVar($key)) === NULL) {
-			$gallery->session->configForm->$key = '';
+			$gallery->session->configForm->$key = "";
 			continue;
 		}
 	}
@@ -97,41 +98,37 @@ else {
 }
 
 /* Cache passwords in order to prevent them from being erased.
- * Otherwise, we'll lose the passwords if someone revisits Step 2
- * and forgets to re-enter them. */
-if (isset($gallery->session->configForm->editPassword) && (!empty($gallery->session->configForm->editPassword[0]) || !empty($gallery->session->configForm->editPassword[1]))) {
+* Otherwise, we'll lose the passwords if someone revisits Step 2
+* and forgets to re-enter them. */
+if (isset($gallery->session->configForm->editPassword) &&
+    (!empty($gallery->session->configForm->editPassword[0]) || !empty($gallery->session->configForm->editPassword[1])))
+{
 	$gallery->session->configForm->editPassword[2] = $gallery->session->configForm->editPassword[0];
 	$gallery->session->configForm->editPassword[3] = $gallery->session->configForm->editPassword[1];
 	$_REQUEST['editPassword'] = $gallery->session->configForm->editPassword;
 }
-if (isset($gallery->session->configForm->smtpPassword) && (!empty($gallery->session->configForm->smtpPassword[0]) || !empty($gallery->session->configForm->smtpPassword[1]))) {
+if (isset($gallery->session->configForm->smtpPassword) &&
+    (!empty($gallery->session->configForm->smtpPassword[0]) || !empty($gallery->session->configForm->smtpPassword[1])))
+{
 	$gallery->session->configForm->smtpPassword[2] = $gallery->session->configForm->smtpPassword[0];
 	$gallery->session->configForm->smtpPassword[3] = $gallery->session->configForm->smtpPassword[1];
 	$_REQUEST['smtpPassword'] = $gallery->session->configForm->smtpPassword;
 }
 
-if (!isset($setup_page)) {
-	$setup_page = 'welcome';
-}
-
-$steps = array(
-	'welcome'	=> gTranslate('config', "Welcome"),
-	'check'		=> gTranslate('config', "1- Installation Check"),
-	'constants'	=> gTranslate('config', "2 - Settings"),
-	'defaults'	=> gTranslate('config', "3 - Defaults"),
-	'confirm'	=> gTranslate('config', "4 - Confirm"),
-	'write'		=> gTranslate('config', "5 - Save")
-);
-
 ?>
+
 <form method="post" action="index.php" name="config" enctype="application/x-www-form-urlencoded">
 <?php
+if (!isset($setup_page)) {
+	$setup_page = "check";
+}
 
-if (array_key_exists($setup_page, $steps)) {
+$legit = array("check", "constants", "defaults", "confirm", "write");
+if (in_array($setup_page, $legit)) {
 	include(dirname(__FILE__) ."/$setup_page.inc");
 }
 else {
-	print _("Security violation") .".\n";
+	print gTranslate('config', "Security violation") .".\n";
 	exit;
 }
 

@@ -70,7 +70,7 @@ function popup_status($url, $height=150, $width=350) {
 	return "open('" . unhtmlentities(build_popup_url($url)) . "','Status','$attrs');";
 }
 
-function popup_link($title, $url, $url_is_complete = 0, $online_only = true, $height = 550, $width = 600, $cssclass='', $extraJS = '', $icon ='', $addBrackets = true, $accesskey = true) {
+function popup_link($title, $url, $url_is_complete = 0, $online_only = true, $height = 550, $width = 600, $cssclass='', $extraJS = '', $icon ='', $addBrackets = true) {
 	global $gallery;
 	global $specialIconMode;
 
@@ -91,10 +91,10 @@ function popup_link($title, $url, $url_is_complete = 0, $online_only = true, $he
 	);
 
 	if(!empty($icon)) {
-		$html = galleryIconLink($url, $icon, $title, $iconMode, $attrList, $accesskey);
+		$html = galleryIconLink($url, $icon, $title, $iconMode, $attrList);
 	}
 	else {
-		$html = galleryLink($url, $title, $attrList, $icon, $addBrackets, $accesskey);
+		$html = galleryLink($url, $title, $attrList, $icon, $addBrackets);
 	}
 
 	return $html;
@@ -102,7 +102,6 @@ function popup_link($title, $url, $url_is_complete = 0, $online_only = true, $he
 
 function popup_link2($title, $url, $args = array()) {
 	global $gallery;
-	global $specialIconMode;
 
 	$url_is_complete	= isset($args['url_is_complete'])	? $args['url_is_complete']	: true;
 	$online_only		= isset($args['online_only'])		? $args['online_only']		: true;
@@ -111,14 +110,11 @@ function popup_link2($title, $url, $args = array()) {
 	$cssclass		= isset($args['cssclass'])		? $args['cssclass']		: '';
 	$extraJS		= isset($args['extraJS'])		? $args['extraJS']		: '';
 	$addBrackets		= isset($args['addBrackets'])		? $args['addBrackets']		: false;
-	$accesskey		= isset($args['accesskey'])		? $args['accesskey']		: true;
 	$icon			= isset($args['icon'])			? $args['icon']			: '';
 
 	if ( !empty($gallery->session->offline) && $online_only ) {
 		return null;
 	}
-
-	$iconMode = isset($specialIconMode) ? $specialIconMode : '';
 
 	$args['gallery_popup'] = true;
 
@@ -133,14 +129,7 @@ function popup_link2($title, $url, $args = array()) {
 		'onClick' => "javascript:". $extraJS .popup_js("this.href", "Edit", "height=$height,width=$width,location=no,scrollbars=yes,menubars=no,toolbars=no,resizable=yes")
 	);
 
-	//$html = galleryLink($url, $title, $attrList, $icon, $addBrackets, $accesskey);
-
-	if(!empty($icon)) {
-		$html = galleryIconLink($url, $icon, $title, $iconMode, $attrList, $accesskey);
-	}
-	else {
-		$html = galleryLink($url, $title, $attrList, $icon, $addBrackets, $accesskey);
-	}
+	$html = galleryLink($url, $title, $attrList, $icon, $addBrackets);
 
 	return $html;
 }
@@ -167,15 +156,9 @@ function printPopupStart($title = '', $header = '', $align = 'center') {
   <title><?php echo strip_tags($title); ?></title>
   <?php common_header(); ?>
 </head>
-<body class="g-popup">
-<table class="g-header-popup" cellspacing="0" cellpadding="0" width="100%">
-	<tr>
-		<td class="g-pagetitle-popup-left"></td>
-		<td class="g-pagetitle-popup g-pagetitle-popup-background"><?php echo $header ?></td>
-		<td class="g-pagetitle-popup-right"></td>
-	</tr>
-</table>
-<div class="g-content-popup <?php echo $align; ?>">
+<body dir="<?php echo $gallery->direction ?>" class="popupbody">
+<div class="popuphead"><?php echo $header; ?></div>
+<div class="popup" align="<?php echo $align; ?>">
 
 <?php
 }

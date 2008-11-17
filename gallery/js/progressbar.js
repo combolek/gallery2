@@ -1,6 +1,6 @@
 /**
  * Gallery SVN ID:
- * $Id$
+ * $Id: progressbar.js 16551 2007-06-07 21:35:26Z jenst $
 */
 
 function updateProgressBar(htmlId, status, percentDone) {

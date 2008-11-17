@@ -65,10 +65,12 @@ function gallery_warning($message) {
 }
 
 function infoLine($messages, $type = '') {
+	$class = (!empty($type)) ? "infoline_$type" : '';
+
 	$message = (is_array($messages)) ? implode("<br>\n", $messages) : $messages;
 
 	if(!empty($message)) {
-		return "<div class=\"$type\">Infoline: $message</div>\n";
+		return "<div class=\"$class\">$message</div>\n";
 	}
 	else {
 		return '';
@@ -189,43 +191,7 @@ function debugMessage($msg, $file, $line, $level = NULL) {
 	global $gallery;
 
 	if (isDebugging($level)) {
-		echo "\n<div class=\"g-debugmessage\">". basename($file) ."::$line -> $msg</div>\n";
-	}
-}
-
-function showDebugInfo() {
-	global $gallery;
-	global $GALLERY_EMBEDDED_INSIDE_TYPE;
-	global $GALLERY_POSTNUKE_VERSION;
-
-	if (isDebugging()) {
-		$infoText = sprintf(_("Debug ON ! Level %s"), $gallery->app->debuglevel) . '<br>';
-		if (empty($GALLERY_EMBEDDED_INSIDE_TYPE)) {
-			$infoText .= 'Standalone';
-			$infoText .= "; Skin: {$gallery->app->skinname}";
-		}
-		else {
-			$infoText .= 'Embedded in: '. $GALLERY_EMBEDDED_INSIDE_TYPE;
-
-			switch($GALLERY_EMBEDDED_INSIDE_TYPE) {
-				case 'phpnuke':
-					break;
-				case 'postnuke':
-					$infoText .= ' '. $GALLERY_POSTNUKE_VERSION;
-					break;
-				case 'cpgnuke':
-					break;
-				case 'phpBB2':
-					break;
-				case 'GeekLog':
-					break;
-			}
-		}
-
-		$infoText .= "; Theme: {$gallery->app->theme}";
-
-		echo infoBox(array(array('text' => $infoText, 'type' => 'information')));
-		echo "\n";
+		echo "\n<div class=\"debugmessage\">". basename($file) ."::$line -> $msg</div>\n";
 	}
 }
 
@@ -243,7 +209,5 @@ function showInvalidReqMesg($text = '') {
 		sprintf(gTranslate('core', "Please go back to %s."),
 			$gallery->app->galleryTitle)
 	);
-
-	includeTemplate('overall.footer');
 }
 ?>

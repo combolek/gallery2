@@ -62,7 +62,8 @@ $gallerySanity = gallerySanityCheck();
 
 /* Make sure that Gallery is set up properly */
 if ($gallerySanity != NULL) {
-	header("Location: " . makeGalleryHeaderUrl('setup/index.php'));
+	initLanguage();
+	include_once(dirname(__FILE__) . "/includes/errors/$gallerySanity");
 	exit;
 }
 
@@ -607,7 +608,7 @@ if (!empty($gallery->session->albumName)) {
 	}
 	else {
 		if ($gallery->album->versionOutOfDate()) {
-			include_once(dirname(__FILE__) . "/popups/upgrade_album.php");
+			include_once(dirname(__FILE__) . "/upgrade_album.php");
 			exit;
 		}
 	}

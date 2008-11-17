@@ -19,6 +19,8 @@
  *
  * $Id$
  */
+?>
+<?php
 
 /**
  * Functions for the slideshow using Gallery Remote
@@ -37,20 +39,21 @@ function slideshow_initialize() {
 	global $albumName, $gallery, $title;
 
 	if (empty($albumName)) {
-        	$title = sprintf(gTranslate('core', "Slideshow for Gallery :: %s"),
-		$gallery->app->galleryTitle);
+        $title = sprintf(gTranslate('core', "Slideshow for Gallery :: %s"),
+            $gallery->app->galleryTitle);
 	}
 	else {
-		$title = sprintf(gTranslate('core', "Slideshow for album :: %s"), $gallery->album->fields["title"]);
+        $title = sprintf(gTranslate('core', "Slideshow for album :: %s"), $gallery->album->fields["title"]);
 	}
 }
 
 function slideshow_body() {}
 
 function slideshow_controlPanel() {
-	echo gallery_info(
-		gTranslate('core', "If you don't have the Java Plugin 1.4 or later, or you don't want to wait for the applet to download, you can use one of the non-fullscreen versions.")
-	);
+	echo infobox(array(array(
+		'type' => 'information',
+		'text' => gTranslate('core', "If you don't have the Java Plugin 1.4 or later, or you don't want to wait for the applet to download, you can use one of the non-fullscreen versions.")
+	)));
 }
 
 function slideshow_image() {

@@ -12,6 +12,7 @@ if (!isset($gallery)) {
 	exit;
 }
 
+// Path is relative to the icons folder
 if ($gallery->direction == 'ltr') {
 	$fpImg = 'navigation/nav_first.gif';
 	$ppImg = 'navigation/nav_prev.gif';

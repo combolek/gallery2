@@ -82,12 +82,15 @@ if (empty($albumName)) {
 	$number		= (int)$gallery->app->gallery_slideshow_length;
 	$random		= ($gallery->app->gallery_slideshow_type == "random");
 	$loop		= ($gallery->app->gallery_slideshow_loop == "yes");
-}
-else {
+	$borderColor	= $gallery->app->default["bordercolor"];
+	$borderwidth	= $gallery->app->default["border"];
+} else {
 	$recursive	= ($album->fields["slideshow_recursive"] == "yes");
 	$loop		= ($album->fields["slideshow_loop"] == "yes");
 	$random		= ($album->fields["slideshow_type"] == "random");
 	$number		= (int)$album->fields["slideshow_length"];
+	$borderColor	= $gallery->album->fields["bordercolor"];
+	$borderwidth	= $gallery->album->fields["border"];
 	$bgcolor	= $gallery->album->fields['bgcolor'];
 }
 
@@ -164,11 +167,12 @@ if (!$GALLERY_EMBEDDED_INSIDE) {
 	}
 ?>
 </head>
-<body>
+<body dir="<?php echo $gallery->direction ?>">
+
 <?php
 }
 
-includeTemplate("slideshow.header"); ?>
+includeHtmlWrap("slideshow.header"); ?>
 
 <script src="<?php echo $gallery->app->photoAlbumURL ?>/js/client_sniff.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -193,6 +197,7 @@ $imageDir = $gallery->app->photoAlbumURL."/images";
 
 #-- breadcrumb text ---
 $breadcrumb["text"] = @returnToPathArray($gallery->album, true, true);
+$breadcrumb["bordercolor"] = $borderColor;
 
 $adminbox['commands'] = '';
 
@@ -209,19 +214,28 @@ if (!$gallery->session->offline) {
 	}
 }
 
-includeLayout('adminbox.inc');
+$adminbox["text"] = gTranslate('core', "Slide Show");
+$adminbox["bordercolor"] = $borderColor;
 
+$navigator["fullWidth"] = '100';
+$navigator["widthUnits"] = '%';
+
+includeLayout('navtablebegin.inc');
+includeLayout('adminbox.inc');
+includeLayout('navtablemiddle.inc');
 includeLayout('breadcrumb.inc');
+includeLayout('navtablemiddle.inc');
 
 slideshow_controlPanel();
 
-echo "\n<br clear=\"all\">";
+includeLayout('navtableend.inc');
+
+echo "\n<br>";
 
 slideshow_image();
 
 echo languageSelector();
-
-includeTemplate('overall.footer');
+includeHtmlWrap("slideshow.footer");
 
 if (!$GALLERY_EMBEDDED_INSIDE) { ?>
 </body>

@@ -183,7 +183,7 @@ if ($watermarkForm["askPreview"] && $gallery->user->canViewFullImages($gallery->
 	echo gInput('radio','previewFull', gTranslate('core', "Resized"), '', 0, array('id' => 'previewResized', 'checked' => $previewFull==0 ? NULL : false));
 	echo gInput('radio','previewFull', gTranslate('core', "Full"), '', 0, array('checked' => $previewFull==0 ? NULL : false));
 	echo "&nbsp;&nbsp;&nbsp;&nbsp;";
-	echo gSubmit('preview', gTranslate('core', "Show _Preview"));
+	echo gSubmit('preview', gTranslate('core', "Show Preview"));
 	echo "\n</span></p>";
 }
 
