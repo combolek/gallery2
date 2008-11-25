@@ -11,6 +11,11 @@ function subsubclass_depth() {
     return 1 + subclass_depth();
 }
 
+
+function expected() {
+  return 3;
+}
+
 function prepare() {
 }
 

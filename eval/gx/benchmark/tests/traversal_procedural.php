@@ -22,6 +22,10 @@ function prepare() {
 	'subclass3_depth');
 }
 
+function expected() {
+  return 3;
+}
+
 function go() {
     $answer = 0;
     foreach ($GLOBALS['callbacks'] as $callback) {

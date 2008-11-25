@@ -23,6 +23,10 @@ class Subclass3 extends Base {
     }
 }
 
+function expected() {
+  return 3;
+}
+
 function prepare() {
     $GLOBALS['instances'] = array(
 	new Subclass1(),
