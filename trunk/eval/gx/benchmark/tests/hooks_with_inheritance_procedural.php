@@ -1,6 +1,6 @@
 <?php
 function module1_hook() {
-    return 1;
+  return 1;
 }
 
 function prepare() {
@@ -8,6 +8,10 @@ function prepare() {
 	'module1_hook',
 	'module2_hook',
 	'module3_hook');
+}
+
+function expected() {
+  return 3;
 }
 
 function go() {

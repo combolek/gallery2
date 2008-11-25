@@ -17,6 +17,10 @@ class SubSubclass extends Subclass {
     }
 }
 
+function expected() {
+  return 3;
+}
+
 function prepare() {
     $GLOBALS['instance'] = new SubSubclass();
 }
