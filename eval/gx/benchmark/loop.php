@@ -19,7 +19,11 @@ include($type);
 
 prepare();
 start();
-$iterations = 100000;
+if (isset($_REQUEST["iterations"])) {
+  $iterations = (int)$_REQUEST["iterations"];
+} else {
+  $iterations = 100000;
+}
 $result = 0;
 for ($i = 0; $i < $iterations; $i++) {
   $result += go();
