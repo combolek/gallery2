@@ -42,4 +42,24 @@ class core_event_Core {
   public static function album_before_delete($album) {
     access::delete_item($album);
   }
+
+  public static function showMenu($menus) {
+    Kohana::log("debug", "showMenu");
+    if (empty($menus["context"])) {
+      $core_menus = array();
+      $core_menus[_("HOME")] = url::base();
+      $core_menus[_("BROWSE")] = url::site("albums/1") ;
+
+      $user = Session::instance()->get('user', null);
+      if ($user) {
+        $core_menus[_("UPLOAD")] = "#" ;
+        if ($user->admin) {
+          $core_menus[_("ADMIN")] = "#";
+        }
+      }
+
+      $menus["menus"] = array_merge($menus["menus"], $core_menus);
+    }
+    Kohana::log("debug", print_r($menus, true));
+  }
 }
