@@ -1,0 +1,745 @@
+/**
+ * Gallery 3 Default Theme Styles
+ *
+ * @requires YUI reset, font, grids CSS
+ *
+ * Sheet organization:
+ * 1)  Basic HTML elements
+ * 2)  Base text styles
+ * 3)  Page layout containers
+ * 4)  Reusable content containers
+ * 5)  Specific content blocks
+ * 6)  Navigation and menus
+ * 7)  Generic styles
+ * 8)  Browser hacks
+ * 9)  Debugging information
+ * 10) Ajax/DOM features
+ */
+
+/** *******************************************************************
+ * 1) Basic HTML elements
+ ******************************************************************/
+
+/* Basic HTML elements ~~~~~~~~~~~~~~~~ */
+
+body, html {
+  background-color: #ccc;
+  font-family: 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+p {
+  margin-bottom: 1em;
+}
+
+/* Headings ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+h1, h2, h3, h4, h5 {
+  font-weight: bold;
+}
+
+h1 {
+  font-size: 1.7em
+}
+
+h2 {
+  font-size: 1.4em
+}
+
+h3 {
+  font-size: 1.2em
+}
+
+/* Links ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+a {
+  color: #6b8cb7;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #f30;
+  text-decoration: underline;
+}
+
+/* Tables ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+caption {
+  text-align: left;
+}
+
+th {
+  font-weight: bold;
+  text-align: left;
+}
+
+/* Forms ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+fieldset {
+  border: 1px solid #ccc;
+}
+
+legend {
+  font-weight: bold;
+  margin-left: 1em;
+}
+
+label {
+  cursor: help;
+}
+
+input[type="text"],
+input[type="password"],
+textarea,
+select {
+}
+
+input[type="text"],
+input[type="password"],
+textarea,
+.gValidationRule {
+  width: 40%;
+}
+
+input[type="button"] {
+}
+
+input[type="checkbox"] {
+}
+
+input[type="file"] {
+}
+
+input[type="password"] {
+}
+
+input[type="radio"] {
+}
+
+input[type="reset"] {
+}
+
+input[type="submit"] {
+}
+
+input[type="text"] {
+}
+
+option {
+}
+
+optgroup {
+}
+
+select {
+}
+
+textarea {
+  width: 99%;
+  height: 12em;
+}
+
+button {
+}
+
+input:focus,
+textarea:focus,
+option:focus {
+  background-color: #ffc;
+}
+
+/* Form layout ~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+form li {
+  margin: 0 !important;
+  padding: .3em 1.5em .3em 1em;
+}
+
+form ul ul {
+  clear: both;
+}
+
+form ul ul li {
+  float: left;
+}
+
+input,
+textarea {
+  display: block;
+  clear: both;
+}
+
+/* Form validation ~~~~~~~~~~~~~~~~~~~~~~~ */
+
+.gRequired {
+}
+
+ul.gError,
+li.gError {
+  background-color: #ffdcdc;
+}
+
+.gError label,
+.gValidationRule {
+  color: red;
+}
+
+.gValidationRule {
+  font-size: 80%;
+  margin-top: .5em;
+}
+
+form.gError input[type="text"],
+li.gError input[type="text"],
+form.gError input[type="password"],
+li.gError input[type="password"],
+form.gError input[type="checkbox"],
+li.gError input[type="checkbox"],
+form.gError input[type="radio"],
+li.gError input[type="radio"],
+form.gError textarea,
+li.gError textarea,
+form.gError select,
+li.gError select {
+  border: 2px solid red;
+}
+
+/** *******************************************************************
+ * 2) Base text styles
+ ******************************************************************/
+
+#gContent {
+  font-size: 1em;
+}
+
+#gSidebar, #gHeader, #gFooter {
+  font-size: .8em;
+}
+
+.gItem {
+  font-size: .8em;
+}
+
+/*** ***************************************************************
+ * 3) Page layout containers
+ ******************************************************************/
+
+/* View container ~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+.gView {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-width: 0 1px 1px 1px;
+}
+
+/* Layout containers ~~~~~~~~~~~~~~~~~~~~~ */
+
+#gHeader {
+  border-bottom: 1px solid #ccc;
+}
+
+#gContent {
+  border-right: 1px solid #ccc;
+  padding: 20px;
+}
+
+#gSidebar {
+  background-color: #fff;
+  padding: 20px 20px 0 0;
+  width: 220px;
+}
+
+#gFooter {
+  border-top: 1px solid #ccc;
+  padding: .5em;
+}
+
+/** ****************************************************************
+ * 4) Reusable content containers
+ ******************************************************************/
+
+.gBlock {
+  margin-bottom: 2.5em;
+}
+
+.gBlock h3 {
+  background: #e8e8e8;
+  padding: .3em .75em;
+}
+
+.gBlockContent {
+  margin: .5em 0;
+  padding-left: .3em;
+}
+
+table.gBlockContent {
+  border: 1px solid #ccc;
+  table-layout: fixed;
+}
+
+table.gBlockContent th {
+  padding: .3em .3em .3em 0;
+}
+
+table.gBlockContent td {
+  padding: .3em 0 .3em .3em;
+}
+
+/** ****************************************************************
+ * 5) Specific content blocks
+ ******************************************************************/
+
+/* Logo  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+#gLogo {
+  float: left;
+  margin: 5px 10px 10px 20px;
+}
+
+.gThumbnail {
+}
+
+/* Album ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+#gAlbumHeader h1 {
+  display: inline;
+  margin-right: .6em;
+}
+
+#gAlbumHeader .gDescription {
+  color: #ccc;
+  display: inline;
+}
+
+#gAlbumHeaderButtons {
+  float: right;
+}
+
+#gAlbumGrid {
+	margin-top: 20px;
+}
+
+.gItem {
+  border: 1px solid #ccc;
+  float: left;
+  margin: 0 24px 10px 0;
+  padding: 0 0 5px 0;
+  text-align: center;
+}
+
+.gItem h2 {
+  margin: 5px 0;
+}
+
+.gAlbum {
+  background-color: #d4daff;
+}
+
+.gAlbum h2 {
+  color: #006;
+}
+
+/* Individual photo ~~~~~~~~~~~~~~~~~~~~~ */
+
+#gItem {
+  margin: 0;
+}
+
+#gItem a.gButtonLink {
+  float: right;
+}
+
+#gItemHeader {
+  height: 40px;
+  position: relative;
+}
+
+#gItemHeaderButtons {
+  float: right;
+}
+
+#gItem img {
+  border: 1px solid #ccc;
+}
+
+#gItem h1 {
+  margin: 10px 0;
+}
+
+/* Metadata ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+table.gMetadata {
+}
+
+table.gMetadata td,
+table.gMetadata th {
+  border: none;
+}
+
+table.gMetadata td.toggle {
+  text-align: right;
+}
+
+/* Comments ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+#gComments {
+  margin-top: 20px;
+}
+
+#gComments ul li {
+  margin-bottom: 15px;
+}
+
+#gComments ul li p {
+  background-color: #e8e8e8;
+  margin-bottom: 2px;
+  padding: 4px;
+}
+
+#gComments ul li div {
+  padding: 8px;
+}
+
+/* Status messages ~~~~~~~~~~~~~~~~~~~~~~~ */
+
+.gStatus {
+}
+
+.gError {
+  color: red;
+  padding-bottom: 0;
+}
+
+.gWarning {
+}
+
+.gSuccess {
+}
+
+.gInfo {
+}
+
+/* Inline layout (forms, lists) ~~~~~~~~~~ */
+
+#gHeader #gLoginMenu li,
+#gHeader #gSearchForm li,
+#gSidebar #gAddTagForm li {
+  float: left;
+  padding: .4em .5em;
+}
+
+#gHeader #gLoginMenu input[type="text"],
+#gHeader #gLoginMenu input[type="password"],
+#gHeader #gSearchForm input[type="text"],
+#gSidebar #gAddTagForm input[type="text"] {
+  width: 10em;
+}
+
+#gHeader #gLoginForm button {
+  margin-top: 1em;
+}
+
+#gHeader #gSearchForm {
+  float: right;
+  margin-right: 20px;
+}
+
+#gHeader #gLoginForm legend,
+#gHeader #gLoginFormContainer,
+#gHeader #gSearchForm label,
+#gSidebar #gAddTagForm legend {
+  display: none;
+}
+
+#gHeader #gLoginForm fieldset,
+#gSidebar #gAddTagForm fieldset {
+  border: none;
+}
+
+/* Credits ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+#gCredits li {
+  display: inline;
+}
+
+#gCredits li:before {
+  padding: 0 2px 0 2px;
+  content: "|"
+}
+
+#gCredits li.first:before {
+  content: ""
+}
+
+/** *******************************************************************
+ * 6) Navigation and menus
+ ******************************************************************/
+
+/* Login menu ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+#gLoginMenu {
+  border: 1px solid #ccc;
+  border-top: none;
+  float: right;
+  margin-right: 20px;
+}
+
+/* Site Menu  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+#gSiteMenu {
+  border-bottom: 1px solid #ccc;
+  clear: both;
+  font-size: 1.2em;
+  padding-left: 20px;
+  width: 100%;
+}
+
+/* Breadcrumbs ~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+#gBreadcrumbs {
+  height: 32px;
+  padding-left: 20px;
+}
+
+#gBreadcrumbs li {
+  background: transparent url('../images/icon_breadcrumb_separator.gif') no-repeat scroll left center;
+  float: left;
+  padding: 10px 0 10px 12px;
+}
+
+#gBreadcrumbs li.root {
+  background: transparent;
+}
+
+#gBreadcrumbs li a,
+#gBreadcrumbs li span {
+  display: block;
+}
+
+#gBreadcrumbs li.active span {
+  font-weight: bold;
+}
+
+/* Tags and cloud ~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+#gTagCloud ul {
+  font-size: 1.2em;
+  text-align: justify;
+}
+
+#gTagCloud ul li {
+  display: inline;
+  line-height: 1.5em;
+  text-align: justify;
+}
+
+#gTagCloud ul li a {
+  text-decoration: none;
+}
+
+#gTagCloud ul li span {
+  display: none;
+}
+
+#gTagCloud ul li.size1 a {
+  color: #9cf;
+  font-size: 80%;
+  font-weight: 100;
+}
+
+#gTagCloud ul li.size2 a {
+  color: #69f;
+  font-size: 90%;
+  font-weight: 300;
+}
+
+#gTagCloud ul li.size3 a {
+  color: #69c;
+  font-size: 100%;
+  font-weight: 500;
+}
+
+#gTagCloud ul li.size4 a {
+  color: #369;
+  font-size: 110%;
+  font-weight: 700;
+}
+
+#gTagCloud ul li.size5 a {
+  color: #0e2b52;
+  font-size: 120%;
+  font-weight: 900;
+}
+
+#gTagCloud ul li.size6 a {
+  color: #0e2b52;
+  font-size: 130%;
+  font-weight: 900;
+}
+
+#gTagCloud ul li.size7 a {
+  color: #0e2b52;
+  font-size: 140%;
+  font-weight: 900;
+}
+
+#gTagCloud ul li a:hover {
+  color: #f30;
+  text-decoration: underline;
+}
+
+/* Pagination ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+#gPager {
+  padding-top: 2em;
+}
+
+#gPager li {
+  background-repeat: no-repeat;
+  float: left;
+  padding: 5px;
+}
+
+#gPager .first {
+  background-image: url('../images/first.png');
+  background-position: left;
+  padding-left: 20px;
+}
+
+#gPager .first_inactive {
+  background-image: url('../images/first_inactive.png');
+  background-position: left;
+  color: #ccc;
+  padding-left: 20px;
+}
+
+#gPager .previous {
+  background-image: url('../images/previous.png');
+  background-position: left;
+  padding-left: 17px;
+}
+
+#gPager .previous_inactive {
+  background-image: url('../images/previous_inactive.png');
+  background-position: left;
+  color: #ccc;
+  padding-left: 17px;
+}
+
+#gPager .next {
+  background-image: url('../images/next.png');
+  background-position: right;
+  padding-right: 17px;
+}
+
+#gPager .next_inactive {
+  background-image: url('../images/next_inactive.png');
+  background-position: right;
+  color: #ccc;
+  padding-right: 17px;
+}
+
+#gPager .last {
+  background-image: url('../images/last.png');
+  background-position: right;
+  padding-right: 20px;
+}
+
+#gPager .last_inactive {
+  background-image: url('../images/last_inactive.png');
+  background-position: right;
+  color: #ccc;
+  padding-right: 20px;
+}
+
+/** *******************************************************************
+ * 7) Generic styles
+ ******************************************************************/
+
+.gButtonLink {
+  border: 1px solid #ccc;
+  padding: 5px;
+  margin-left: 5px;
+}
+
+.gButtonLink:hover {
+  background-color: #f3f3f3;
+}
+
+/** *******************************************************************
+ * 8) Browser hacks
+ *********************************************************************/
+
+.gClearFix:after {
+  clear: both;
+  content: ".";
+  display: block;
+  height: 0;
+  visibility: hidden;
+}
+
+/** *******************************************************************
+ * 9) Debugging information
+ *********************************************************************/
+
+div.gAnnotatedThemeBlock {
+  position: relative;
+  padding: 1em;
+  margin: 1em;
+  border: 1px solid #C00;
+  clear: both;
+}
+
+div.gAnnotatedThemeBlock_album_top {
+  float: right;
+}
+
+div.gAnnotatedThemeBlock_header_bottom {
+  float: right;
+}
+
+div.gAnnotatedThemeBlock div.title {
+  position: absolute;
+  top: -1em;
+  right: -1em;
+  border: 1px solid black;
+  background: #C00;
+  color: white;
+  text-align: left;
+  padding: 4px;
+  font-size: 110%;
+  -moz-border-radius: 5% 5% 5% 5%;
+}
+
+/** *******************************************************************
+ * 10) Ajax/DOM features
+ *********************************************************************/
+
+.gInPlaceEdit,
+.gInPlaceEdit form,
+.gInPlaceEdit input {
+  display: inline;
+}
+
+span.gInPlaceEdit:hover {
+  color: #6b8cb7;
+}
+
+.gClose a {
+  border: 1px solid #ccc;
+  color: #ccc;
+  display: block;
+  font-weight: bold;
+  padding: 1px 3px;
+}
+
+.gClose a:hover {
+  border: 1px solid #666;
+  color: #666;
+  text-decoration: none;
+}
+
+.gHide,
+.gClose {
+  display: none;
+}
+
