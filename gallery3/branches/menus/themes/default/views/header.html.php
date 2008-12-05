@@ -3,9 +3,7 @@
 <img id="gLogo" alt="<?= _("Logo") ?>" src="<?= $theme->url("images/logo.png") ?>" />
 
 <div id="gSiteMenu" class="gClearFix">
-  <ul class="ui-tabs-nav">
-    <?= $theme->menus() ?>
-  </ul>
+  <?= $theme->site_navigation() ?>
 </div>
 
 <?= $theme->header_bottom() ?>

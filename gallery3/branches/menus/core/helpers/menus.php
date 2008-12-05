@@ -17,15 +17,26 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-class carousel_installer {
-  public static function install() {
-    $version = module::get_version("carousel");
-    if ($version == 0) {
-      module::set_version("carousel", 1);
+class menus_Core {
+  public static function get_menu_items($theme) {
+    $menu = new Menu();
+
+    //  Call core menus first to establish the basic menu
+    self::_get_module_menu_items("core", $menu, $theme);
+    foreach (module::installed() as $module) {
+      if ($module->name == "core") {
+        continue;
+      }
+      self::_get_module_menu_items($module->name, $menu, $theme);
     }
+
+    return $menu;
   }
 
-  public static function uninstall() {
-    module::delete("carousel");
+  static function _get_module_menu_items($module_name, $menu, $theme) {
+    $class = "{$module_name}_menu";
+    if (method_exists($class, "items")) {
+        call_user_func_array(array($class, "items"), array(&$menu, $theme));
+    }
   }
 }

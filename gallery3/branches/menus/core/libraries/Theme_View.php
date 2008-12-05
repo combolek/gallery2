@@ -57,15 +57,10 @@ class Theme_View_Core extends View {
     return new $view_class($page_name);
   }
 
-  public function menus() {
-    $menus = array("context" => "", "menus" => array());
-    module::event("showMenu", $menus);
-    Kohana::log("debug", print_r($menus, true));
-    $menu_items = array();
-    foreach ($menus["menus"] as $text => $href) {
-      $menu_items[] = "<li><a href=\"$href\">$text</a></li>";
-    }
-    return implode("\n", $menu_items);
+  public function site_navigation() {
+    $menu = menus::get_menu_items($this)->__toString();
+    Kohana::log("debug", sprintf("[%s%s] site_navigation: %s", __FILE__, __LINE__, $menu));
+    return $menu;
   }
 
   public function pager() {

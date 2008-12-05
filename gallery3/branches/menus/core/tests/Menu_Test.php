@@ -17,17 +17,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+class Menu_Test extends Unit_Test_Case {
+  public function find_menu_item_test() {
+    $test_menu = new Menu();
+    $test_menu->append(new Menu("test1"));
+    $test_menu->append(new Menu("test2"));
+    $expected = new Menu("test3");
+    $test_menu->append($expected);
+    $test_menu->append(new Menu("test4"));
 
-class carousel_block_Core {
-  public static function sidebar_blocks($theme) {
-    if ($theme->item()) {
-      $block = new Block();
-      $block->id = "gCarousel";
-      $block->title = "Album: <a href=\"#\">{$theme->item()->title_edit}</a>";
-      $block->content = '<img src="' .
-        url::base() . "modules/carousel/images/carousel.png" .
-        '" width="214"/>';
-      return $block;
-    }
+    $menu_item = $test_menu->get("test3");
+    $this->assert_equal($expected, $menu_item);
   }
 }
