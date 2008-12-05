@@ -75,7 +75,8 @@ class Menu_Core {
     }
 
     if (!empty($this->_items)) {
-      $items_html[] = "<ul class=\"ui-tabs-nav\">";
+//      $items_html[] = "<ul class=\"gItemMenu\">";
+      $items_html[] = "<ul>";
 
       foreach ($this->_items as $item) {
         $items_html[] = $item->__toString();

@@ -40,7 +40,7 @@ class core_menu_Core {
 
       if ($user->admin) {
         $admin_menu->append(
-          new Menu(_("Site Admin"), url::site("admin") . $theme->item()->id));
+          new Menu(_("Site Admin"), url::site("admin")));
       }
 
       $menus->append($admin_menu);
