@@ -54,18 +54,36 @@ class Menu_Core {
     return false;
   }
 
+  private function _get_index($text) {
+    foreach ($this->_items as $idx => $item) {
+      if ($item->_text == $text) {
+        return (int)$idx;
+      }
+    }
+    return false;
+  }
+
   public function insert_before($text, $menu_item) {
-    $offset = (int)array_search($text, $this->_items);
-    $this->_items = array_merge(array_splice($this->_items, 0, $offset-1),
-                                array($menu_item),
-                                array_splice($this->_items, $offset));
+    $offset = $this->_get_index($text);
+
+    $front_part = ($offset == 0) ? array() : array_splice($this->_items, 0, $offset);
+    $back_part = ($offset == 0) ? $this->_items : array_splice($this->_items, $offset - 1);
+    $this->_items = array_merge($front_part, array($menu_item), $back_part);
   }
 
   public function insert_after($text, $menu_item) {
-    $offset = (int)array_search($text, $this->_items);
-    $this->_items = array_merge(array_splice($this->_items, 0, $offset),
-                                array($menu_item),
-                                array_splice($this->_items, $offset+1));
+    $offset = $this->_get_index($text);
+    $last_offset = count($this->_items) - 1;
+    // If not found, then append to the end
+    if ($offset == false) {
+      $offset = $last_offset;
+    }
+
+    $front_part = ($offset == $last_offset) ? $this->_items : array_splice($this->_items, 0, $offset + 1);
+    Kohana::log("debug", print_r($front_part, 1));
+    $back_part = ($offset == $last_offset) ? array() : array_splice($this->_items,  $offset - 1);
+    Kohana::log("debug", print_r($back_part, 1));
+    $this->_items = array_merge($front_part, array($menu_item), $back_part);
   }
 
   public function __toString() {
