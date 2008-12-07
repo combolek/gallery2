@@ -1,5 +1,6 @@
 /**
- * @todo preventDefault() not working in IE 6 and 7
+ * Display user login form 
+ * 
  * @todo Close link should be reusable
  */
 

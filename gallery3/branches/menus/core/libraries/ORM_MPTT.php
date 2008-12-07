@@ -52,12 +52,11 @@ class ORM_MPTT_Core extends ORM {
    * @param integer $parent_id the id of the parent node
    * @return ORM
    */
-  function add_to_parent($parent_id) {
+  function add_to_parent($parent) {
     $this->lock();
 
     try {
       // Make a hole in the parent for this new item
-      $parent = ORM::factory($this->model_name, $parent_id);
       $this->db->query(
         "UPDATE `{$this->table_name}` SET `left` = `left` + 2 WHERE `left` >= {$parent->right}");
       $this->db->query(
@@ -229,29 +228,26 @@ class ORM_MPTT_Core extends ORM {
    * Move this item to the specified target.
    *
    * @chainable
-   * @param   Item_Model $target  Target item (must be an album
-   * @param   boolean    $locked  The called is already holding the lock
+   * @param   Item_Model $target  Target item (must be an album)
    * @return  ORM_MTPP
    */
-  function moveTo($target, $locked=false) {
+  function move_to($target) {
     if ($target->type != "album") {
-      throw new Exception("@todo '{$target->type}' IS NOT A VALID MOVE TARGET");
+      throw new Exception("@todo INVALID_MOVE_TYPE $target->type");
     }
 
     if ($this->id == 1) {
-      throw new Exception("@todo '{$this->title}' IS NOT A VALID SOURCE");
+      throw new Exception("@todo INVALID_SOURCE root album");
     }
 
-    $numberToMove = (int)(($this->right - $this->left) / 2 + 1);
-    $size_of_hole = $numberToMove * 2;
+    $number_to_move = (int)(($this->right - $this->left) / 2 + 1);
+    $size_of_hole = $number_to_move * 2;
     $original_parent = $this->parent;
     $original_left = $this->left;
     $original_right = $this->right;
     $target_right = $target->right;
 
-    if (empty($locked)) {
-      $this->lock();
-    }
+    $this->lock();
     try {
       // Make a hole in the target for the move
       $target->db->query(
@@ -291,15 +287,11 @@ class ORM_MPTT_Core extends ORM {
         " WHERE `right` > $right");
 
     } catch (Exception $e) {
-      if (empty($locked)) {
-        $this->unlock();
-      }
+      $this->unlock();
       throw $e;
     }
 
-    if (empty($locked)) {
-      $this->_unlock();
-    }
+    $this->unlock();
 
     // Lets reload to get the changes.
     $this->reload();

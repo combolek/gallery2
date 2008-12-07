@@ -59,29 +59,21 @@ class Item_Model extends ORM_MPTT {
    * @param   Item_Model $target  Target item (must be an album
    * @return  ORM_MTPP
    */
-  function moveTo($target) {
-    $this->lock();
-    try {
-      $original_path = $this->file_path();
-      $original_resize_path = $this->resize_path();
-      $original_thumbnail_path = $this->thumbnail_path();
+  function move_to($target) {
+    $original_path = $this->file_path();
+    $original_resize_path = $this->resize_path();
+    $original_thumbnail_path = $this->thumbnail_path();
 
-      parent::moveTo($target, true);
+    parent::move_to($target, true);
 
-      rename($original_path, $this->file_path());
-      if (file_exists($original_resize_path)) {
-        rename($original_resize_path, $this->resize_path());
-      }
-      if (file_exists($original_thumbnail_path)) {
-        rename($original_thumbnail_path, $this->thumbnail_path());
-      }
-
-    } catch (Exception $e) {
-      $this->unlock();
-      throw $e;
+    rename($original_path, $this->file_path());
+    if (file_exists($original_resize_path)) {
+      rename($original_resize_path, $this->resize_path());
+    }
+    if (file_exists($original_thumbnail_path)) {
+      rename($original_thumbnail_path, $this->thumbnail_path());
     }
 
-    $this->unlock();
     return $this;
   }
 

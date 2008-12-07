@@ -17,31 +17,20 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-class Rearrange_Controller extends Controller {
 
-  public function show($id=null) {
-    $view = new View("rearrange_item_list.html");
+/**
+ * @package  Core
+ *
+ * This path is relative to your index file. Absolute paths are also supported.
+ */
+$config['directory'] = VARPATH.'uploads';
 
-    $isRoot = empty($id);
-    $item = ORM::factory("item", $isRoot ? 1 : $id);
+/**
+ * Enable or disable directory creation.
+ */
+$config['create_directories'] = FALSE;
 
-    $view->children = $isRoot ? array($item) : $item->children();
-
-    print $view;
-  }
-
-  public function move($source_id, $target_id) {
-    $source = ORM_MPTT::factory("item", $source_id);
-    $target = ORM_MPTT::factory("item", $target_id);
-
-    try {
-      $source->move_to($target);
-      print "success";
-    } catch (Exception $e) {
-      Kohana::log("error", $e->getMessage() . "\n" + $e->getTraceAsString());
-      header("HTTP/1.1 500");
-      print  $e->getMessage();
-    }
-  }
-
-}
+/**
+ * Remove spaces from uploaded filenames.
+ */
+$config['remove_spaces'] = TRUE;
