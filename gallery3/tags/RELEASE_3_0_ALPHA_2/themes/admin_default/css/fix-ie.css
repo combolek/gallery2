@@ -1,0 +1,18 @@
+/**
+ * Fix display in IE
+ */
+
+#gHeader,
+#gAdminMenu,
+#gGroupAdmin,
+.gAvailable .gBlock {
+  zoom: 1;
+}
+
+.gUnavailable {
+  filter: alpha(opacity=40);
+}
+
+.gUnavailable:hover {
+  filter: alpha(opacity=100);
+}
