@@ -1,0 +1,33 @@
+.gItem:hover {
+  background-color: #cfdeff;
+}
+
+.gQuick {
+  border: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+#gQuickPane {
+  background: #000;
+  border-bottom: 1px solid #ccc;
+  opacity: 0.9;
+}
+
+#gQuickPane a {
+  cursor: pointer;
+  float: left;
+  margin: 4px;
+}
+
+#gQuickPaneOptions {
+  background: #000;
+  float: left;
+  width: 100%;
+}
+
+#gQuickPaneOptions a {
+  display: block;
+  clear: both;
+  width: auto;
+}
