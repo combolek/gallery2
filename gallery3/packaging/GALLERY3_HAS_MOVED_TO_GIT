@@ -1,0 +1,25 @@
+Where did all the Gallery 3 files go?
+
+We've switched from using the Subversion revision control system to
+using Git.  You can switch too.  It's easy.
+
+1) Back up a level and delete this directory.  Yes, this means that
+you're throwing out your old Gallery 3 data in var, but since we don't
+offer an upgrade path yet you'd have to throw it out anyway.  Don't
+act surprised, we told you this in the README :-).
+
+2) Run this command:
+  $ git clone git://github.com/gallery/gallery3-packaging.git
+
+That's all.  You now have the latest code.  Any time you want a newer
+copy of the code, just run "git pull" .
+
+Visit our code on the web at:
+  http://github.com/gallery/gallery3-packaging/tree/master
+
+
+
+
+
+
+
