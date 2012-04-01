@@ -1,7 +1,0 @@
-To install, do:
-  % mysqladmin -uroot create gx_eval_cakephp
-  % cake/console/cake schema run create
-  % chmod -R 777 app/tmp
-
-Follow the prompts to create the database tables.  Then browse to
-  http://example.com/gx/cakephp/app/index.php/photos

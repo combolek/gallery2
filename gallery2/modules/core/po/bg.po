@@ -18,17 +18,17 @@
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
 #
 # Previous translators (as far as known, add yourself here, please):
-# # Vilian Atmadzhov <vilian[DOT]atmadzhov[AT]gmail[DOT]com>, 2010
+#
 # # Bisser Dobrev <bdobrev AT comcast DOT net>, 2003-2005
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Core 1.3.0.1\n"
+"Project-Id-Version: Gallery: Core 1.3.0\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2008-10-13 10:16-0700\n"
 "PO-Revision-Date: 2007-03-14 16:10+0100\n"
-"Last-Translator: Vilian Atmadzhov <vilian.atmadzhov@gmail.com>\n"
-"Language-Team: Bulgarian <vilian.atmadzhov@gmail.com>\n"
+"Last-Translator: Bisser Dobrev <bdobrev@comcast.net>\n"
+"Language-Team: Bisser Dobrev <bdobrev AT comcast DOT net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -67,10 +67,10 @@ msgid "forever"
 msgstr "завинаги"
 
 msgid "High Priority (Me first!)"
-msgstr "Висок приоритет (Първо аз!)"
+msgstr ""
 
 msgid "Low Priority (I want to share!)"
-msgstr "Нисък Приоритет (Искам да споделям)"
+msgstr ""
 
 msgid "No Markup"
 msgstr ""
@@ -746,16 +746,16 @@ msgid "Gallery Core Module"
 msgstr "Модул 'Ядро' на Галерията"
 
 msgid "Search descriptions"
-msgstr "Търси описания"
+msgstr ""
 
 msgid "Search keywords"
-msgstr "Търси ключови думи"
+msgstr ""
 
 msgid "Search summaries"
-msgstr "Търси резюмета"
+msgstr ""
 
 msgid "Search titles"
-msgstr "Търси заглавия"
+msgstr ""
 
 msgid "Description"
 msgstr "Описание"
@@ -772,11 +772,13 @@ msgstr "Заглавие"
 msgid "Owner"
 msgstr "Собственик"
 
+#, fuzzy
 msgid "Dynamic Album"
-msgstr "Динамичен Албум"
+msgstr "Редактирайте Албума"
 
+#, fuzzy
 msgid "dynamic album"
-msgstr "динамичен албум"
+msgstr "добавете албум"
 
 msgid "Group"
 msgstr "Група"
@@ -794,7 +796,7 @@ msgid "movie"
 msgstr "филм"
 
 msgid "photo"
-msgstr "снимка"
+msgstr "снимката"
 
 msgid "Couldn't create repository cache path."
 msgstr ""
@@ -805,11 +807,11 @@ msgstr ""
 
 #, c-format
 msgid "Preparing %s"
-msgstr "Подготвяне на %s"
+msgstr ""
 
 #, c-format
 msgid "Downloading %s"
-msgstr "Сваляне на %s"
+msgstr ""
 
 msgid "Official Release Repository"
 msgstr ""
@@ -853,7 +855,7 @@ msgid "View Count"
 msgstr "Брой прегледи"
 
 msgid "Random"
-msgstr "Произволни"
+msgstr ""
 
 msgid "&laquo; no presort &raquo;"
 msgstr "&laquo; без второ сортиране &raquo;"
@@ -880,8 +882,9 @@ msgstr ""
 msgid "This page is valid XHTML 1.0"
 msgstr "Тази страница е валиден  XHTML 1.0"
 
+#, fuzzy
 msgid "Donate to the Gallery project"
-msgstr "Направи дарение за проекта Gallery"
+msgstr "Назад към Галерията"
 
 #, c-format
 msgid "Estimated time remaining: %d:%02d"
@@ -901,10 +904,10 @@ msgid "Number of items to show per page"
 msgstr "Брой елементи показани на страницата"
 
 msgid "Row height (pixels)"
-msgstr "Височина на реда (пиксели)"
+msgstr ""
 
 msgid "Column width (pixels)"
-msgstr "Широчина на колоната (пиксели)"
+msgstr ""
 
 msgid "Show image owners"
 msgstr "Показване на притежателя на снимката"
@@ -927,14 +930,15 @@ msgstr "Кои блокове да са показани на страницит
 msgid "Thumbnail links in dynamic albums"
 msgstr ""
 
+#, fuzzy
 msgid "Browse dynamic album"
-msgstr "Разгледай динамичен албум"
+msgstr "добавете албум"
 
 msgid "Jump to original album"
-msgstr "Прескочи до оригинален албум"
+msgstr ""
 
 msgid "Separate link to original album"
-msgstr "Отделен линк до оригинален албум"
+msgstr ""
 
 msgid "View Samples"
 msgstr "Вижте примери"
@@ -956,7 +960,6 @@ msgstr "Трябва да въведете число по голямо от 0"
 
 msgid "Error reading block settings. Clear your browser cache and try again."
 msgstr ""
-"Грешка в четенето на настройките на блока. Изчистете кеша на вашия браузър и опитайте отново"
 
 #, c-format
 msgid "%dx%d"
@@ -975,10 +978,10 @@ msgid "archive"
 msgstr "архив"
 
 msgid "Document"
-msgstr "Документ"
+msgstr "Д"
 
 msgid "document"
-msgstr "документ"
+msgstr ""
 
 msgid "Spreadsheet"
 msgstr ""
@@ -986,6 +989,7 @@ msgstr ""
 msgid "spreadsheet"
 msgstr ""
 
+#, fuzzy
 msgid "file"
 msgstr "Файл"
 
@@ -996,7 +1000,7 @@ msgid "user"
 msgstr "потребител"
 
 msgid "Optimize database"
-msgstr "Оптимизирайте базата данни"
+msgstr ""
 
 msgid ""
 "Improve the performance of your database.  Results will vary depending on which database "
@@ -1005,7 +1009,7 @@ msgid ""
 msgstr ""
 
 msgid "Database optimized successfully"
-msgstr "Базата данни беше оптимизирана успешно"
+msgstr ""
 
 msgid "Reset view counts"
 msgstr ""
@@ -1027,7 +1031,7 @@ msgid ""
 msgstr ""
 
 msgid "Processing..."
-msgstr "Процесиране..."
+msgstr ""
 
 msgid "Refresh Capture Dates"
 msgstr ""
@@ -1049,9 +1053,8 @@ msgstr ""
 msgid "core"
 msgstr "ядро"
 
-#, fuzzy
 msgid "unknown"
-msgstr "неизвестен"
+msgstr ""
 
 #, c-format
 msgid "API = Core %s, Module %s, Theme %s, Embed %s"
@@ -1075,24 +1078,24 @@ msgstr "Помощни Програми"
 
 #, fuzzy
 msgid "Acceleration"
-msgstr "Ускоряване"
+msgstr "Действие"
 
 msgid "Operating system"
 msgstr "Операционна система"
 
 msgid "Default theme"
-msgstr "Презададена тема"
+msgstr "Презададен стил"
 
 msgid "gettext"
 msgstr ""
 
 #, fuzzy
 msgid "enabled"
-msgstr "включен"
+msgstr "Неуспешно изградени: %d"
 
 #, fuzzy
 msgid "disabled"
-msgstr "изключен"
+msgstr "Неуспешно изградени: %d"
 
 msgid "Locale"
 msgstr ""
@@ -1102,11 +1105,11 @@ msgstr "Броузер"
 
 #, c-format
 msgid "Rows in %s table = %d"
-msgstr "Редове в %s таблица = %d "
+msgstr ""
 
 #, c-format
 msgid "The %s \"%s\" is not installed and will not be backed up."
-msgstr "%s \"%s\" не е инсталиран и няма да бъде бакъпнато"
+msgstr ""
 
 #, fuzzy
 msgid "module"
@@ -1114,7 +1117,7 @@ msgstr "модул"
 
 #, fuzzy
 msgid "theme"
-msgstr "тема"
+msgstr "стил"
 
 #, c-format
 msgid "\"%s\" has no creation sql and will not be backed up."
@@ -1123,8 +1126,6 @@ msgstr ""
 #, c-format
 msgid "Unable to load table description for \"%s\", no data will be exported."
 msgstr ""
-"Неуспешно зареждане на описание на таблицата за \"%s\", никаква дата няма да бъде "
-"експортирана"
 
 msgid ""
 "Unable to find the XML parser.  The PHP XML parsing extension must be loaded.  Terminating "
@@ -1133,7 +1134,7 @@ msgstr ""
 
 #, c-format
 msgid "The exported file is not the correct version. Expecting %s received %s."
-msgstr "Експортираният файл не е правилния формат. Очакван %s получен %s."
+msgstr ""
 
 #, c-format
 msgid "Unable to close import file: %s"
@@ -1145,7 +1146,7 @@ msgstr ""
 
 #, c-format
 msgid "Import file doesn't exist: %s"
-msgstr "Импортираният файл не съществува: %s"
+msgstr ""
 
 #, c-format
 msgid "Plugin %s is not currently available."
@@ -1189,17 +1190,17 @@ msgid "Removed local upload directory successfully"
 msgstr "Локална на сървъра директории за качване е успешно премахната"
 
 msgid "Test email sent successfully"
-msgstr "Тестов e-mail изпратен успешно."
+msgstr ""
 
 msgid "There was a problem processing your request, see below for details."
 msgstr ""
 
 msgid "Error sending test email, see below for details."
-msgstr "Грешка в изпращането на  тестов e-mail, погледни долу за детайли."
+msgstr ""
 
 #, fuzzy
 msgid "Date Formats"
-msgstr "Дата формати"
+msgstr "Дата: %s"
 
 #, c-format
 msgid ""
@@ -1210,25 +1211,26 @@ msgstr ""
 
 #, fuzzy
 msgid "Style"
-msgstr "Стил"
+msgstr "Заглавие"
 
 msgid "Format"
-msgstr "Формат"
+msgstr ""
 
 #, fuzzy
 msgid "Sample"
-msgstr "Примери"
+msgstr "Вижте примери"
 
 #, fuzzy
 msgid "Date"
-msgstr "Дата"
+msgstr "Дата:"
 
 #, fuzzy
 msgid "Time"
-msgstr "Час"
+msgstr "Час:"
 
+#, fuzzy
 msgid "Date/Time"
-msgstr "Дата и час"
+msgstr "Дата и час за %s"
 
 msgid "Filesystem Permissions"
 msgstr "Права за достъп до файловата система"
@@ -1247,11 +1249,10 @@ msgid "New files"
 msgstr "Нови файлове"
 
 msgid "Session Settings"
-msgstr "Настройки на сесията"
+msgstr ""
 
-#, fuzzy
 msgid "Session Lifetime"
-msgstr "Продължителност на живот на сесията"
+msgstr ""
 
 msgid "Inactivity Timeout"
 msgstr ""
@@ -1291,7 +1292,7 @@ msgid "Password"
 msgstr "Парола"
 
 msgid "SMTP From Address"
-msgstr "SMTP от адрес"
+msgstr ""
 
 msgid "Invalid email address"
 msgstr "Невалиден e-mail адрес"
@@ -1302,13 +1303,13 @@ msgid ""
 msgstr ""
 
 msgid "Send Email"
-msgstr "Изпрати e-mail"
+msgstr ""
 
 msgid "Email Test Error"
 msgstr ""
 
 msgid "Cookies"
-msgstr "Бисквитки"
+msgstr ""
 
 msgid ""
 "When Gallery is embedded in another application (portal, CMS, forum, etc.), then you have "
@@ -1352,13 +1353,13 @@ msgid "Invalid cookie path"
 msgstr ""
 
 msgid "Domain"
-msgstr "Домейн"
+msgstr ""
 
 msgid "Invalid cookie domain"
 msgstr ""
 
 msgid "Locking System"
-msgstr "Заключваща система"
+msgstr ""
 
 msgid ""
 "Gallery uses a system of locks to prevent simultaneous changes from interfering with each "
@@ -1374,7 +1375,7 @@ msgid "Lock system"
 msgstr ""
 
 msgid "Helper Processes"
-msgstr "Помощни процеси"
+msgstr ""
 
 msgid ""
 "Some Gallery modules will use programs on your server to do image processing, archiving and "
@@ -1471,16 +1472,16 @@ msgstr "Изтриите потребител"
 
 #, c-format
 msgid "User %s is the owner of %s items."
-msgstr "Потребител %s е собственик на %s предмета"
+msgstr ""
 
 #, c-format
 msgid "Delete user <strong>%s</strong> and..."
-msgstr "Изтрийте потребител <strong>%s</strong> и... "
+msgstr ""
 
 # %s is name of old owner
 #, c-format
 msgid "Assign a new owner for all items of %s"
-msgstr "Задайте нов собственик за всички предмети на %s"
+msgstr ""
 
 #, c-format
 msgid ""
@@ -1489,7 +1490,7 @@ msgid ""
 msgstr ""
 
 msgid "New owner (leaving blank means one of the Site Admins):"
-msgstr "Нов собственик (оставяйки празно означава един от Администраторите"
+msgstr ""
 
 #, c-format
 msgid "User '%s' does not exist! Cannot assign items to a nonexistent user."
@@ -1499,7 +1500,7 @@ msgid "The new owner must be a different user than the user we are deleting!"
 msgstr ""
 
 msgid "The new owner cannot be a Guest / Anonymous user!"
-msgstr "Новият собственик не може да бъде гост / анонимен потребител!"
+msgstr ""
 
 #, c-format
 msgid "This will completely remove <strong>%s</strong> from Gallery.  There is no undo!"
@@ -1548,28 +1549,28 @@ msgid "last &raquo;"
 msgstr "последна &raquo;"
 
 msgid "Filter"
-msgstr "Филтър"
+msgstr ""
 
 msgid "Clear"
-msgstr "Изчисти"
+msgstr ""
 
 #, c-format
 msgid "%d user matches your filter"
 msgid_plural "%d users match your filter"
-msgstr[0] "%d потребител отговаря на търсенето"
-msgstr[1] "%d потребителя отговарят на търсенето"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Remove selected"
-msgstr "Премахни избраните"
+msgstr ""
 
 msgid "You must select a user to remove."
-msgstr "Трябва да изберете потребител за премахване."
+msgstr ""
 
 msgid "You can't remove yourself from this group."
-msgstr "Не може да премахнете себе си от тази група."
+msgstr ""
 
 msgid "Add Member"
-msgstr "Добавете член"
+msgstr ""
 
 msgid "Add"
 msgstr "Добавете"
@@ -1579,22 +1580,22 @@ msgstr "Трябва да въведете потребител."
 
 #, c-format
 msgid "User '%s' does not exist."
-msgstr "Потребителят '%s' не съществува."
+msgstr ""
 
 msgid "This user already is in this group."
-msgstr "Този потребител вече е в тази група."
+msgstr ""
 
 msgid "Done"
-msgstr "Готово"
+msgstr ""
 
 msgid "Edit a user"
-msgstr "Промени потребител"
+msgstr ""
 
 msgid "That username is already in use"
-msgstr "Това потребителско име вече е заето"
+msgstr ""
 
 msgid "You must enter a new username"
-msgstr "Задайте ново потребителско име"
+msgstr ""
 
 msgid "E-mail Address"
 msgstr "E-mail Адрес"
@@ -1606,13 +1607,11 @@ msgid "Options"
 msgstr "Настройки"
 
 msgid "Lock user."
-msgstr "Заключи потребител."
+msgstr ""
 
 msgid ""
 "Locked users are unable to edit their own account information. (Password, Name, Email, etc.)"
 msgstr ""
-"Заключените потребители не могат за променят тяхната собствена информация. (Парола, "
-"потребителско име, E-mail и т.н."
 
 msgid "Reset failed login count."
 msgstr ""
@@ -1634,16 +1633,18 @@ msgid "Location"
 msgstr "Действие"
 
 msgid "Client"
-msgstr "Клиент"
+msgstr ""
 
 msgid "No events have been reported yet."
 msgstr ""
 
+#, fuzzy
 msgid "Event Details"
-msgstr "Детайли на събитието"
+msgstr "Детайли на Грешката"
 
+#, fuzzy
 msgid "User Id"
-msgstr "Потребителско ID"
+msgstr "Потребител"
 
 #, fuzzy
 msgid "Referer"
@@ -1653,8 +1654,9 @@ msgstr "Web-сървър"
 msgid "Details"
 msgstr "Презададени Настройки"
 
+#, fuzzy
 msgid "no summary"
-msgstr "Няма резюме"
+msgstr "Резюме"
 
 msgid "An error occurred while retrieving the event log entry details."
 msgstr ""
@@ -1694,10 +1696,10 @@ msgid "Group '%s' does not exist."
 msgstr "Групата '%s'  не съществува."
 
 msgid "You cannot delete that group"
-msgstr "Не може да изтриете тази група"
+msgstr ""
 
 msgid "You cannot edit that group's users"
-msgstr "Не може да промените потребители на тази група"
+msgstr ""
 
 msgid "Edit Group (by list)"
 msgstr "Променете Групата (по списък)"
@@ -1712,17 +1714,16 @@ msgid "delete"
 msgstr "изтриване"
 
 msgid "members"
-msgstr "членове"
+msgstr ""
 
 #, c-format
 msgid "%d group matches your filter"
 msgid_plural "%d groups match your filter"
-msgstr[0] "%d група съвпада с търсенето"
-msgstr[1] "%d групи съвпадат с търсенето"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Please make sure that your internet connection is set up properly or try again later."
 msgstr ""
-"Моле уверете се че вашата интернер връзка е конфигурирана правилно или опитайте по-късно."
 
 #, c-format
 msgid "Failed to scan status from plugin: %s."
@@ -1751,7 +1752,7 @@ msgid "The repository index has been successfully refreshed."
 msgstr ""
 
 msgid "The language settings have been saved."
-msgstr "Езиковите настройки бяха запаметени."
+msgstr ""
 
 #, c-format
 msgid "%d language pack upgraded or downloaded."
@@ -1766,7 +1767,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 msgid "All the language packages for the selected languages are current"
-msgstr "Всички езикови пакети за избраните езици са текущи."
+msgstr ""
 
 #, fuzzy
 msgid ""
@@ -1782,7 +1783,7 @@ msgid "Default language"
 msgstr "Презададен език"
 
 msgid "Check Browser Preference"
-msgstr "Провери преференции на web-browser"
+msgstr ""
 
 #, c-format
 msgid ""
@@ -1791,7 +1792,7 @@ msgid ""
 msgstr ""
 
 msgid "Configure your Gallery"
-msgstr "Настройте вашата Галерия"
+msgstr ""
 
 msgid ""
 "Before you can proceed, you have to change some permissions so that Gallery can install "
@@ -1825,20 +1826,22 @@ msgstr ""
 
 #, fuzzy
 msgid "Upgrade"
-msgstr "Обновяване"
+msgstr "обновяване"
 
 msgid "Remove"
 msgstr "Премахнете"
 
 #, fuzzy
 msgid "Download"
-msgstr "Сваляне"
+msgstr "надолу"
 
+#, fuzzy
 msgid "No Change"
-msgstr "Без промяна"
+msgstr "Променете"
 
+#, fuzzy
 msgid "Select All"
-msgstr "Изберете Всички"
+msgstr "Изтриите Албума"
 
 msgid ""
 "There are no local repository indices from which to determine language packages. Please "
@@ -1847,24 +1850,24 @@ msgid ""
 msgstr ""
 
 msgid "System Maintenance"
-msgstr "Системна поддръжка"
+msgstr ""
 
 msgid "Gallery must be in maintenance mode before the task can be run."
-msgstr "Галерията трябва да е в режим на поддръжка преди задачата да се изпълни."
+msgstr ""
 
 #, c-format
 msgid "Completed %s task successfully."
-msgstr "Успешно завършени %s задачи."
+msgstr ""
 
 #, c-format
 msgid "The %s task failed to complete successfully."
 msgstr ""
 
 msgid "Maintenance Mode has been turned on."
-msgstr "Режим на поддръжка е включен."
+msgstr ""
 
 msgid "Maintenance Mode has been turned off."
-msgstr "Режим на поддръжка е изключен."
+msgstr ""
 
 #, fuzzy
 msgid "Maintenance Mode"
@@ -1895,33 +1898,28 @@ msgid "Set"
 msgstr ""
 
 msgid "Task name"
-msgstr "Име на задачата"
+msgstr ""
 
-#, fuzzy
 msgid "Last run"
-msgstr "Последно пускане"
+msgstr ""
 
-#, fuzzy
 msgid "Success/Fail"
-msgstr "Успех / Неуспех"
+msgstr ""
 
-#, fuzzy
 msgid "Not run yet"
-msgstr "Не е била пускана"
+msgstr ""
 
 msgid "Success"
-msgstr "Успех"
+msgstr "ОК"
 
 msgid "Failed"
 msgstr "Грешка"
 
-#, fuzzy
 msgid "run now"
-msgstr "пусни сега"
+msgstr ""
 
-#, fuzzy
 msgid "Last Run Details:"
-msgstr "Детайли на последно пускане:"
+msgstr ""
 
 msgid "Performance Tuning"
 msgstr ""
@@ -1943,7 +1941,7 @@ msgid ""
 msgstr ""
 
 msgid "Partial Acceleration"
-msgstr "Частично ускоряване"
+msgstr ""
 
 #, no-c-format
 msgid ""
@@ -1953,7 +1951,7 @@ msgid ""
 msgstr ""
 
 msgid "Full Acceleration"
-msgstr "Пълно Ускоряване"
+msgstr ""
 
 #, no-c-format
 msgid ""
@@ -1970,23 +1968,25 @@ msgid ""
 msgstr ""
 
 msgid "Here are some standard acceleration profiles:"
-msgstr "Ето това са няколко стандартни профила за ускоряване:"
+msgstr ""
 
 #, fuzzy
 msgid "Medium acceleration"
-msgstr "Средно ускоряване"
+msgstr "редактирайте надписите"
 
 msgid "High acceleration"
-msgstr "Високо ускоряване"
+msgstr ""
 
+#, fuzzy
 msgid "Guest Users"
-msgstr "Гости"
+msgstr "Регистрирани Потребители"
 
 msgid "Expires after:"
-msgstr "Изтича след:"
+msgstr ""
 
+#, fuzzy
 msgid "Template Cache"
-msgstr "Кеш на шаблона"
+msgstr "Изтриите временните файлове на базата данни"
 
 #, c-format
 msgid ""
@@ -1996,31 +1996,32 @@ msgid ""
 msgstr ""
 
 msgid "Enable template caching"
-msgstr "Включи кеширане на шаблона"
+msgstr ""
 
 msgid "Clear Saved Pages"
-msgstr "Изчисти запаметени страници"
+msgstr ""
 
 msgid "Status: Inactive"
-msgstr "Състояние: Неактивен"
+msgstr ""
 
+#, fuzzy
 msgid "__PLUGIN__ deactivated"
-msgstr "__PLUGIN__ беше деактивиран."
+msgstr "деактивиране __PLUGIN__"
 
 msgid "Status: Active"
-msgstr "Състояние: Активен"
+msgstr ""
 
 msgid "__PLUGIN__ activated"
-msgstr "__PLUGIN__ беше активиран"
+msgstr ""
 
 msgid "Status: Not Installed"
-msgstr "Състояние: Не е инсталиран"
+msgstr ""
 
 msgid "__PLUGIN__ uninstalled"
-msgstr "__PLUGIN__  беше деинсталиран"
+msgstr ""
 
 msgid "Status: Upgrade Required (Inactive)"
-msgstr "Състояние: Необходимо обновление (Неактивен)"
+msgstr ""
 
 msgid "Status: Incompatible Plugin (Inactive)"
 msgstr ""
@@ -2029,14 +2030,14 @@ msgid "Status: Inactive (Configuration Required)"
 msgstr ""
 
 msgid "__PLUGIN__ needs configuration"
-msgstr "__PLUGIN__  има нужда от настройка"
+msgstr ""
 
 #, fuzzy
 msgid "__PLUGIN__ deleted"
-msgstr "__PLUGIN__ беше изтрит"
+msgstr "деактивиране __PLUGIN__"
 
 msgid "Warning!"
-msgstr "Внимание!"
+msgstr ""
 
 #, fuzzy
 msgid "Do you really want to uninstall __PLUGIN__?"
